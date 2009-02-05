@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Topic {
@@ -16,6 +18,7 @@ public class Topic {
 	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	private String sujet;
+	@Temporal(TemporalType.DATE)
 	private Date dateSujet;
 	@ManyToOne
 	private Hub hub;
@@ -25,6 +28,10 @@ public class Topic {
 	
 	@OneToMany(mappedBy="topic")
 	private List<Message> lesMessages;
+
+	
+	public Topic() {
+	}
 
 	public Topic(String sujet, Date dateSujet, List<Message> lesMessages, Hub hub, EntiteSociale propTopic) {
 		this.sujet = sujet;

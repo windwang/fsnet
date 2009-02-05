@@ -9,6 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class EntiteSociale {
@@ -17,7 +19,9 @@ public class EntiteSociale {
 	private String nom;
 	private String prenom;
 	private String adresse;
+	@Temporal(TemporalType.DATE)
 	private Date dateEntree;
+	@Temporal(TemporalType.DATE)
 	private Date dateNaissance;
 	private String mdp;
 	private String photo;
@@ -28,7 +32,7 @@ public class EntiteSociale {
 	private List<Interaction> lesinteractions;
 	@ManyToMany(mappedBy="lesEntites")
 	private List<Interet> lesinterets;
-	@OneToMany(mappedBy="entiteSociale")
+	@OneToMany(mappedBy="entSociale")
 	private List<Decideur> lesDecideurs;
 	
 	@OneToMany(mappedBy="propMsg")
@@ -38,10 +42,15 @@ public class EntiteSociale {
 	private List<Topic> lesTopics;
 	
 	
+	
+	public EntiteSociale() {
+	}
+
 	public EntiteSociale(String nom, String prenom, String mail) {
 		this.nom = nom;
 		this.prenom = prenom;
 		this.mail = mail;
+
 	}
 
 	public EntiteSociale(String nom, String prenom, String adresse,
