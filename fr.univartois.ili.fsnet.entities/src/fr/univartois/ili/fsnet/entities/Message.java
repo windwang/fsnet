@@ -1,9 +1,12 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Message {
@@ -11,13 +14,18 @@ public class Message {
 	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	private String contenu;
-	private String dateMessage;
-	private EntiteSociale qui;
+	private Date dateMessage;
+	
+	@ManyToOne
+	private EntiteSociale propMsg;
+	@ManyToOne
+	private Topic topic;
 
-	public Message(String contenu, String dateMessage, EntiteSociale qui) {
+	public Message(String contenu, Date dateMessage, EntiteSociale propMsg, Topic topic) {
 		this.contenu = contenu;
 		this.dateMessage = dateMessage;
-		this.qui = qui;
+		this.propMsg = propMsg;
+		this.topic = topic;
 	}
 
 	public int getId() {
@@ -36,20 +44,29 @@ public class Message {
 		this.contenu = contenu;
 	}
 
-	public String getDateMessage() {
+	public Date getDateMessage() {
 		return dateMessage;
 	}
 
-	public void setDateMessage(String dateMessage) {
+	public void setDateMessage(Date dateMessage) {
 		this.dateMessage = dateMessage;
 	}
 
-	public EntiteSociale getQui() {
-		return qui;
+	public EntiteSociale getPropMsg() {
+		return propMsg;
 	}
 
-	public void setQui(EntiteSociale qui) {
-		this.qui = qui;
+	public void setPropMsg(EntiteSociale propMsg) {
+		this.propMsg = propMsg;
 	}
+
+	public Topic getTopic() {
+		return topic;
+	}
+
+	public void setTopic(Topic topic) {
+		this.topic = topic;
+	}
+
 
 }

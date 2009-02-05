@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -13,13 +14,14 @@ public class RapportActivites {
 
 	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
-	@OneToMany(mappedBy="activites")
+	@OneToMany(mappedBy="rapport")
 	private List<Interaction> lesInteractions;
 
+	private Date dateRapport;
 	
-	
-	public RapportActivites(List<Interaction> lesInteractions) {
+	public RapportActivites(List<Interaction> lesInteractions, Date dateRapport) {
 		this.lesInteractions = lesInteractions;
+		this.dateRapport = dateRapport;
 	}
 
 	public int getId() {
@@ -36,6 +38,14 @@ public class RapportActivites {
 
 	public void setLesInteractions(List<Interaction> lesInteractions) {
 		this.lesInteractions = lesInteractions;
+	}
+
+	public Date getDateRapport() {
+		return dateRapport;
+	}
+
+	public void setDateRapport(Date dateRapport) {
+		this.dateRapport = dateRapport;
 	}
 
 }

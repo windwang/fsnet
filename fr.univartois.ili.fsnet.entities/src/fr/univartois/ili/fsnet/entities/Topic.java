@@ -1,11 +1,13 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -14,15 +16,22 @@ public class Topic {
 	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	private String sujet;
-	private String dateSujet;
+	private Date dateSujet;
+	@ManyToOne
+	private Hub hub;
 	
-	@OneToMany(mappedBy="message")
+	@ManyToOne
+	private EntiteSociale propTopic;
+	
+	@OneToMany(mappedBy="topic")
 	private List<Message> lesMessages;
 
-	public Topic(String sujet, String dateSujet, List<Message> lesMessages) {
+	public Topic(String sujet, Date dateSujet, List<Message> lesMessages, Hub hub, EntiteSociale propTopic) {
 		this.sujet = sujet;
 		this.dateSujet = dateSujet;
 		this.lesMessages = lesMessages;
+		this.hub = hub;
+		this.propTopic = propTopic;
 	}
 
 	public int getId() {
@@ -41,11 +50,11 @@ public class Topic {
 		this.sujet = sujet;
 	}
 
-	public String getDateSujet() {
+	public Date getDateSujet() {
 		return dateSujet;
 	}
 
-	public void setDateSujet(String dateSujet) {
+	public void setDateSujet(Date dateSujet) {
 		this.dateSujet = dateSujet;
 	}
 
@@ -55,6 +64,22 @@ public class Topic {
 
 	public void setLesMessages(List<Message> lesMessages) {
 		this.lesMessages = lesMessages;
+	}
+
+	public Hub getHub() {
+		return hub;
+	}
+
+	public void setHub(Hub hub) {
+		this.hub = hub;
+	}
+
+	public EntiteSociale getPropTopic() {
+		return propTopic;
+	}
+
+	public void setPropTopic(EntiteSociale propTopic) {
+		this.propTopic = propTopic;
 	}
 
 }
