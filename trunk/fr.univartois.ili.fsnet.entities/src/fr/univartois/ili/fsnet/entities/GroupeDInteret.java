@@ -4,9 +4,9 @@ import javax.persistence.OneToOne;
 
 public class GroupeDInteret extends Communaute {
 
-	@OneToOne(mappedBy="info")
+	@OneToOne(mappedBy="cegroupe")
 	private Information info;
-	@OneToOne(mappedBy="interet")
+	@OneToOne(mappedBy="ungroupe")
 	private Interet interet;
 	
 	public GroupeDInteret(String nomCommunaute, Information info,

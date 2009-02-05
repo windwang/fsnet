@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -16,20 +17,27 @@ public class EntiteSociale {
 	private String nom;
 	private String prenom;
 	private String adresse;
-	private String dateEntree;
-	private String dateNaissance;
+	private Date dateEntree;
+	private Date dateNaissance;
 	private String mdp;
 	private String photo;
 	private String profession;
 	private String mail;
 	private String numTel;
-	@OneToMany(mappedBy="interations")
+	@OneToMany(mappedBy="createur")
 	private List<Interaction> lesinteractions;
-	@ManyToMany(mappedBy="interet")
+	@ManyToMany(mappedBy="lesEntites")
 	private List<Interet> lesinterets;
-	@OneToMany(mappedBy="roles")
+	@OneToMany(mappedBy="entiteSociale")
 	private List<Decideur> lesDecideurs;
+	
+	@OneToMany(mappedBy="propMsg")
+	private List<Message> lesMessages;
 
+	@OneToMany(mappedBy="propTopic")
+	private List<Topic> lesTopics;
+	
+	
 	public EntiteSociale(String nom, String prenom, String mail) {
 		this.nom = nom;
 		this.prenom = prenom;
@@ -37,7 +45,7 @@ public class EntiteSociale {
 	}
 
 	public EntiteSociale(String nom, String prenom, String adresse,
-			String dateEntree, String dateNaissance, String mdp, String photo,
+			Date dateEntree, Date dateNaissance, String mdp, String photo,
 			String profession, String mail, String numTel,
 			List<Interaction> lesinteractions, List<Interet> lesinterets,
 			List<Decideur> lesDecideurs) {
@@ -54,6 +62,31 @@ public class EntiteSociale {
 		this.lesinteractions = lesinteractions;
 		this.lesinterets = lesinterets;
 		this.lesDecideurs = lesDecideurs;
+	}
+
+	
+	
+	public EntiteSociale(String nom, String prenom, String adresse,
+			Date dateEntree, Date dateNaissance, String mdp, String photo,
+			String profession, String mail, String numTel,
+			List<Interaction> lesinteractions, List<Interet> lesinterets,
+			List<Decideur> lesDecideurs, List<Message> lesMessages,
+			List<Topic> lesTopics) {
+		this.nom = nom;
+		this.prenom = prenom;
+		this.adresse = adresse;
+		this.dateEntree = dateEntree;
+		this.dateNaissance = dateNaissance;
+		this.mdp = mdp;
+		this.photo = photo;
+		this.profession = profession;
+		this.mail = mail;
+		this.numTel = numTel;
+		this.lesinteractions = lesinteractions;
+		this.lesinterets = lesinterets;
+		this.lesDecideurs = lesDecideurs;
+		this.lesMessages = lesMessages;
+		this.lesTopics = lesTopics;
 	}
 
 	public int getId() {
@@ -88,19 +121,19 @@ public class EntiteSociale {
 		this.adresse = adresse;
 	}
 
-	public String getDateEntree() {
+	public Date getDateEntree() {
 		return dateEntree;
 	}
 
-	public void setDateEntree(String dateEntree) {
+	public void setDateEntree(Date dateEntree) {
 		this.dateEntree = dateEntree;
 	}
 
-	public String getDateNaissance() {
+	public Date getDateNaissance() {
 		return dateNaissance;
 	}
 
-	public void setDateNaissance(String dateNaissance) {
+	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
 	}
 
@@ -168,4 +201,21 @@ public class EntiteSociale {
 		this.lesDecideurs = lesDecideurs;
 	}
 
+	public List<Message> getLesMessages() {
+		return lesMessages;
+	}
+
+	public void setLesMessages(List<Message> lesMessages) {
+		this.lesMessages = lesMessages;
+	}
+
+	public List<Topic> getLesTopics() {
+		return lesTopics;
+	}
+
+	public void setLesTopics(List<Topic> lesTopics) {
+		this.lesTopics = lesTopics;
+	}
+
+	
 }

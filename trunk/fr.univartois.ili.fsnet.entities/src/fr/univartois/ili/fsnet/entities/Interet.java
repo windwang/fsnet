@@ -13,9 +13,9 @@ public class Interet {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
-	@OneToOne(mappedBy = "groupeDinteret")
+	@OneToOne(mappedBy = "interet")
 	private GroupeDInteret ungroupe;
-	@ManyToMany(mappedBy = "entite")
+	@ManyToMany(mappedBy = "lesinterets")
 	private List<EntiteSociale> lesEntites;
 	private String nomInteret;
 

@@ -13,7 +13,7 @@ public class Decideur {
 	private int id;
 	@ManyToOne
 	private EntiteSociale entSociale;
-	@OneToOne(mappedBy="interaction")
+	@OneToOne(mappedBy="decideur")
 	private Interaction interaction;
 
 	public Decideur(EntiteSociale entSociale, Interaction interaction) {

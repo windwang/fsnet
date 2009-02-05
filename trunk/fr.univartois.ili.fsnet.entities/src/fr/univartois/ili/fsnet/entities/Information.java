@@ -1,5 +1,7 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
 
@@ -7,9 +9,9 @@ import javax.persistence.OneToOne;
 public class Information extends Interaction {
 
 	private String nom;
-	private String dateInformation;
+	private Date dateInformation;
 	private String contenu;
-	@OneToOne(mappedBy="groupeDinteret")
+	@OneToOne(mappedBy="info")
 	private GroupeDInteret cegroupe;
 
 	public Information() {
@@ -17,7 +19,7 @@ public class Information extends Interaction {
 		super();
 	}
 
-	public Information(String nom, String dateInformation, String contenu,
+	public Information(String nom, Date dateInformation, String contenu,
 			GroupeDInteret cegroupe) {
 		this.nom = nom;
 		this.dateInformation = dateInformation;
@@ -41,11 +43,11 @@ public class Information extends Interaction {
 		this.contenu = contenu;
 	}
 
-	public String getDateInformation() {
+	public Date getDateInformation() {
 		return dateInformation;
 	}
 
-	public void setDateInformation(String dateInformation) {
+	public void setDateInformation(Date dateInformation) {
 		this.dateInformation = dateInformation;
 	}
 

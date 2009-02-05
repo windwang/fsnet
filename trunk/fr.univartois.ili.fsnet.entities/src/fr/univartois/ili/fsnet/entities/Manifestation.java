@@ -1,23 +1,25 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.Date;
+
 import javax.persistence.Entity;
 
 @Entity
 public class Manifestation extends Information{
 
-	private String dateManifestation;
+	private Date dateManifestation;
 
 	
-	public Manifestation(String dateDebut) {
+	public Manifestation(Date dateDebut) {
 		super();
 		this.dateManifestation = dateDebut;
 	}
 
-	public String getDateDebut() {
+	public Date getDateDebut() {
 		return dateManifestation;
 	}
 
-	public void setDateDebut(String dateDebut) {
+	public void setDateDebut(Date dateDebut) {
 		this.dateManifestation = dateDebut;
 	}
 	
