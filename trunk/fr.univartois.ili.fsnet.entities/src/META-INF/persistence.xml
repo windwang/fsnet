@@ -5,6 +5,18 @@
 	<persistence-unit name="fsnetjpa">
 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
 		<class>fr.univartois.ili.fsnet.entities.EntiteSociale</class>
+		<class>fr.univartois.ili.fsnet.entities.Annonce</class>
+		<class>fr.univartois.ili.fsnet.entities.Communaute</class>
+		<class>fr.univartois.ili.fsnet.entities.Decideur</class>
+		<class>fr.univartois.ili.fsnet.entities.GroupeDInteret</class>
+		<class>fr.univartois.ili.fsnet.entities.Hub</class>
+		<class>fr.univartois.ili.fsnet.entities.Information</class>
+		<class>fr.univartois.ili.fsnet.entities.Interaction</class>
+		<class>fr.univartois.ili.fsnet.entities.Interet</class>
+		<class>fr.univartois.ili.fsnet.entities.Manifestation</class>
+		<class>fr.univartois.ili.fsnet.entities.Message</class>
+		<class>fr.univartois.ili.fsnet.entities.RapportActivites</class>
+		<class>fr.univartois.ili.fsnet.entities.Topic</class>
 		<properties>
 			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
 			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost/fsnet" />
