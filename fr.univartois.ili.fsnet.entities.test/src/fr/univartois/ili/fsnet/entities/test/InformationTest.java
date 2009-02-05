@@ -2,6 +2,11 @@ package fr.univartois.ili.fsnet.entities.test;
 
 import static org.junit.Assert.*;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -36,9 +41,11 @@ public class InformationTest {
 	}
 
 	@Test
-	public void testPersist() {
+	public void testPersist() throws ParseException {
 		System.err.println("Le test est execute");
-		Information info = new Information("info","12-12-2008","blabla",null);
+		 DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+	     Date date = (Date)formatter.parse("29/01/02");
+		Information info = new Information("info",date,"blabla",null);
 		em.getTransaction().begin();
 		em.persist(info);
 		em.getTransaction().commit();
