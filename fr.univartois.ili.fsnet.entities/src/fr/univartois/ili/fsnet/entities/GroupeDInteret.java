@@ -1,14 +1,20 @@
 package fr.univartois.ili.fsnet.entities;
 
+import javax.persistence.Entity;
 import javax.persistence.OneToOne;
-
+@Entity
 public class GroupeDInteret extends Communaute {
 
-	@OneToOne(mappedBy="cegroupe")
+	@OneToOne
 	private Information info;
-	@OneToOne(mappedBy="ungroupe")
+	@OneToOne
 	private Interet interet;
 	
+	
+	
+	public GroupeDInteret() {
+	}
+
 	public GroupeDInteret(String nomCommunaute, Information info,
 			Interet interet) {
 		super(nomCommunaute);

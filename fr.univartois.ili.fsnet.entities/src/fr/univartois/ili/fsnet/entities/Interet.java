@@ -2,22 +2,27 @@ package fr.univartois.ili.fsnet.entities;
 
 import java.util.List;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
-
+@Entity
 public class Interet {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
-	@OneToOne(mappedBy = "interet")
+	@OneToOne
 	private GroupeDInteret ungroupe;
-	@ManyToMany(mappedBy = "lesinterets")
+	@ManyToMany
 	private List<EntiteSociale> lesEntites;
 	private String nomInteret;
+	
+	
+	public Interet() {
+	}
 
 	public Interet(GroupeDInteret ungroupe, List<EntiteSociale> lesEntites,
 			String nomInteret) {

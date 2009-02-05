@@ -7,6 +7,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Message {
@@ -14,12 +16,18 @@ public class Message {
 	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	private String contenu;
+	@Temporal(TemporalType.DATE)
 	private Date dateMessage;
 	
 	@ManyToOne
 	private EntiteSociale propMsg;
 	@ManyToOne
 	private Topic topic;
+
+	
+	
+	public Message() {
+	}
 
 	public Message(String contenu, Date dateMessage, EntiteSociale propMsg, Topic topic) {
 		this.contenu = contenu;

@@ -13,7 +13,7 @@ public class Interaction {
 	@Id @GeneratedValue(strategy=GenerationType.SEQUENCE)
 	private int id;
 	private boolean valide;
-	@OneToOne(mappedBy="interaction")
+	@OneToOne
 	private Decideur decideur;
 	@ManyToOne
 	private EntiteSociale createur;

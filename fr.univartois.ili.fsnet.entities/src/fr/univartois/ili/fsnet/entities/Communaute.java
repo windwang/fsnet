@@ -7,6 +7,10 @@ public class Communaute extends Interaction{
 
 	private String nomCommunaute;
 
+	
+	public Communaute() {
+	}
+
 	public Communaute(String nomCommunaute) {
 		super();
 		this.nomCommunaute = nomCommunaute;

@@ -4,16 +4,21 @@ import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.OneToOne;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Information extends Interaction {
 
 	private String nom;
+	@Temporal(TemporalType.DATE)
 	private Date dateInformation;
 	private String contenu;
-	@OneToOne(mappedBy="info")
+	@OneToOne
 	private GroupeDInteret cegroupe;
 
+
+	
 	public Information() {
 
 		super();

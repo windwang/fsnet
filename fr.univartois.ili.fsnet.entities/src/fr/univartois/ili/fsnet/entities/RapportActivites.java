@@ -8,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class RapportActivites {
@@ -17,8 +19,14 @@ public class RapportActivites {
 	@OneToMany(mappedBy="rapport")
 	private List<Interaction> lesInteractions;
 
+	@Temporal(TemporalType.DATE)
 	private Date dateRapport;
 	
+	
+	
+	public RapportActivites() {
+	}
+
 	public RapportActivites(List<Interaction> lesInteractions, Date dateRapport) {
 		this.lesInteractions = lesInteractions;
 		this.dateRapport = dateRapport;
