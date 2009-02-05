@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<taglib version="2.0" xmlns="http://java.sun.com/xml/ns/j2ee" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+         xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee web-jsptaglibrary_2_0.xsd">
+         
+
+<tlib-version>1.0</tlib-version>
+<jsp-version>1.2</jsp-version>
+  <short-name>hub</short-name>
+  <uri>/hub</uri>
+  
+ 
+<tag>
+	<name>hub</name>
+	<tag-class>fr.univartois.ili.fsnet.facade.jforumtags.tagLibs.HubTag</tag-class>
+	<body-content>JSP</body-content>
+	<attribute>
+       <name>var</name>
+       <required>true</required>
+       <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>dateDebut</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>dateFin</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>decideur</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+<tag>
+	<name>topic</name>
+	<tag-class>fr.univartois.ili.fsnet.facade.jforumtags.tagLibs.TopicTag</tag-class>
+	<body-content>JSP</body-content>
+	<attribute>
+       <name>var</name>
+       <required>true</required>
+       <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>dateDebut</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>dateFin</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>entiteSociale</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>hub</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+<tag>
+	<name>message</name>
+	<tag-class>fr.univartois.ili.fsnet.facade.jforumtags.tagLibs.MessageTag</tag-class>
+	<body-content>JSP</body-content>
+	<attribute>
+       <name>var</name>
+       <required>true</required>
+       <rtexprvalue>false</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>topic</name>
+       <required>non</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>dateDebut</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>dateFin</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>entiteSociale</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+    <attribute>
+       <name>hub</name>
+       <required>false</required>
+       <rtexprvalue>true</rtexprvalue>
+    </attribute>
+</tag>
+
+
+
+
+</taglib>
