@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/java-6-sun-1.6.0.10"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="var" path="FSNET_ENTITIES"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fr.univartois.ili.fsnet.entities"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

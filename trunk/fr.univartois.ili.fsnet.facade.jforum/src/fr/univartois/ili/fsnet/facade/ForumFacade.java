@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
@@ -29,7 +30,7 @@ public interface ForumFacade {
      * @param dateEnd
      * @return List of hub
      */
-    public List<Hub> getListHub(String dateBegin, String dateEnd);
+    public List<Hub> getListHub(Date dateBegin, Date dateEnd);
 
     /**
      * Get the list of hub created by the EntiteSociale "decideur".
@@ -55,7 +56,7 @@ public interface ForumFacade {
      * @param dateEnd
      * @return List of topic
      */
-    public List<Topic> getListTopic(String dateBegin, String dateEnd);
+    public List<Topic> getListTopic(Date dateBegin, Date dateEnd);
 
     /**
      * Get the list of topic created by the EntiteSociale "entiteSocial".
@@ -89,7 +90,7 @@ public interface ForumFacade {
      * @param dateEnd
      * @return List of message
      */
-    public List<Message> getListMessage(String dateBegin, String dateEnd);
+    public List<Message> getListMessage(Date dateBegin, Date dateEnd);
 
     /**
      * Get the list of message created by the EntiteSociale "entiteSocial".
