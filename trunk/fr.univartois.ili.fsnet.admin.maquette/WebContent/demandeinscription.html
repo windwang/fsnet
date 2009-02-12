@@ -9,7 +9,22 @@
 	<meta name="robots" content="index, follow" />
 	<link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 	<title>FSNet</title>
+    <style type="text/css">
+<!--
+.Style2 {color: #FFFFFF}
+-->
+    </style>
 </head>
+<script type="text/javascript">
+function affCache(idDiv) {
+var div = document.getElementById(idDiv);
+if (div.style.display == "")
+div.style.display = "none";
+else
+div.style.display = "";
+}
+
+</script>
 <body>
 	<div class="wrap background">
 		<div id="search">
@@ -21,12 +36,12 @@
 			</form>
 		</div>
 		<ul id="menu">
-			<li><a class="current" href="BureauAdmin.html">Accueil</a></li>
-			<li><a href="#">Membres</a></li>
-			<li><a href="#">Communautés</a></li>
+			<li><a class="current" href="#">Accueil</a></li>
+			<li><a href="RechAdmin.html">Membres</a></li>
+			<li><a href="RechAdmin.html">Communautés</a></li>
 			<li><a href="#">Interaction</a></li>
 			<li><a href="#">Messagerie (3)</a></li>
-			<li><a href="#">Demande Insc (3)</a></li>
+			<li><a href="GestInscription.html">Demande Insc (3)</a></li>
 			<li><a href="#">Rapport Activité</a></li>
 			
 		</ul>
@@ -51,143 +66,84 @@
 		
 		<div class="clear"></div>
 		
-		<div id="left">
+	  <div id="left">
 			<h2><a href="#">Accueil</a></h2>
 			<p class="date">Date<br />
 		  JJ-MM-AA</p>
-			<p class="subtitle"><table width="100%"><tr>
-    <td width="175" height="2"></td>
-    <td width="271"></td>
+			<p class="subtitle"><table width="479"><tr>
+    <td width="206" height="2"></td>
+    <td width="222"></td>
+    <td width="14"></td>
     <td width="17"></td>
   </tr>
   
   <tr>
-    <td rowspan="15" valign="top" bgcolor="#FFFFCC"><h2 align="center" class="Style1">Administration</h2>
+    <td rowspan="3" valign="top" bgcolor="#FFFFCC"><h2 align="center" class="Style1">Administration</h2>
       <p class="Style1"><a href="#">Bureau</a></p>
     <p class="Style1"><a href="#">Messagerie (3)</a></p>
     <p class="Style1"><a href="RechAdmin.html">Lister membres</a></p>
     <p class="Style1"><a href="RechAdmin.html">Lister communautés</a></p>
     <p class="Style1"><a href="GestInscription.html">Demandes d'inscriptions en attente (4) </a></p>
-    <p class="Style1"><a href="demandeinscription.html">Ajouter Membre</a></p>
+	    <p class="Style1"><a href="demandeinscription.html">Ajouter Membre</a></p>
+
     <p class="Style1"><a href="#">Interactions</a></p>
     <p class="Style1"><a href="#">Rapport d'activit&eacute;s </a></p>
     <p class="Style1"><a href="#">Me déconnecter</a></p>
     <p class="Style1">&nbsp;</p></td>
-    <td>&nbsp;</td>
-    <td height="33"></td>
+    <td height="33" colspan="3"><p><font color="#000088" align="center"><br />
+<i><font size="6">FSNet </font><font size="3" color="#990000">Mail</font></i> <br />
+</font>
+      <form action="SendMessage" method="get">
+      <table >
+      <td><b>To :</b></td>
+      <td><input type="text" name="to"/></td>
+      </tr>
+      <tr>
+      <td><b>Subject :</b></td>
+      <td><input type="text"name="subject"/></td>
+      </tr>
+      </table></p>
+      
+      <p><a href="#" onclick="affCache('pieceJointe');"/>Joindre ...</a>
+        <div id="pieceJointe">
+        <table>
+        <tr>
+  <td><b>pièce jointe :</b></td>
+  <td><input type="file"name="fichier"/></td>
   </tr>
+  </table>
+  </div>
+  <div>
+  <textarea cols="50" rows="10" name="contenu"></textarea>
+  <tr><br />
+  <td colspan="2" align="right"><input type="submit"name="envoyer" value="Envoyer"/></td>
+  </tr>
+  </div>
+  </form>
+      </p>    </tr>
   
   <tr>
-    <td valign="top" bgcolor="#EDF3F8"><h2 class="Style8"> Rechercher Membre(s)</h2></td>
-    <td height="38"></td>
+    <td height="2"></td>
+   
+    <td></td>
   </tr>
   <tr>
-    <td></td>
-    <td height="2"></td>
-  </tr>
+    <td colspan="3" rowspan="2"><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span></td>
+    </tr>
   
-  <tr>
-    <td valign="top"><form id="form1" method="post" action="">
-        <label>
-        <div align="right">Date d'entrée
-          <input type="text" name="textfield" />
-            <br />
-            <br />
-          Nom :
-          <input type="text" name="textfield2" />
-          <br />
-          <br />
-          Prénom :
-          <input type="text" name="textfield3" />
-          <br />
-          <br />
-          <input type="submit" name="Submit" value="Rechercher" />
-        </div>
-      </label>
-    </form></td>
-    <td height="38"></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td height="2"></td>
-  </tr>
-  <tr>
-    <td valign="top" bgcolor="#EDF3F8FFFFF"><h2 class="Style8">R&eacute;sultat de la Recherche </h2></td>
-    <td height="63"></td>
-  </tr>
-  <tr>
-    <td><div align="center"></div></td>
-    <td height="2"></td>
-  </tr>
-  <tr>
-    <td valign="top"><div align="center">
-        <table width="100%" border="2">
-          <tr bgcolor="#CCCCCC">
-            <td width="64"><h4>Nom </h4></td>
-            <td width="84"><h4>Pr&eacute;nom</h4></td>
-            <td width="106"><h4>Date d'entr&eacute;e </h4></td>
-            <td width="112"><h4>Afficher D&eacute;tails </h4></td>
-            <td width="98"><h4>Supprimer</h4></td>
-          </tr>
-          <tr>
-            <td>Caramba</td>
-            <td>Simpson</td>
-            <td>10/02/2009</td>
-            <td><a href="#">Détails</a></td>
-            <td><a href="#">Supprimer</a></td>
-          </tr>
-          <tr>
-            <td>Speedy</td>
-            <td>Gonzalez</td>
-            <td>12/01/2009</td>
-            <td><a href="#">Détails</a></td>
-            <td><a href="#">Supprimer</a></td>
-          </tr>
-        </table>
-    </div></td>
-    <td height="40"></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td height="2"></td>
-  </tr>
-  <tr>
-    <td valign="top" bgcolor="#FFFFFF" class="Style12"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td height="56"></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td height="2"></td>
-  </tr>
-  <tr>
-    <td valign="top"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td height="47"></td>
-  </tr>
-  <tr>
-    <td>&nbsp;</td>
-    <td height="2"></td>
-  </tr>
-  <tr>
-    <td valign="top" bgcolor="#FFFFFF" class="Style12"><!--DWLayoutEmptyCell-->&nbsp;</td>
-    <td height="38"></td>
-  </tr>
-  <tr>
-    <td height="2"></td>
-    <td></td>
-  </tr>
   <tr>
     <td height="50"></td>
-    <td></td>
-    <td></td>
-  </tr>
+    </tr>
   <tr>
     <td height="2"></td>
+    <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
     <td height="68"></td>
     <td></td>
+    <td valign="top">&nbsp;</td>
     <td></td>
   </tr>
 </table>
