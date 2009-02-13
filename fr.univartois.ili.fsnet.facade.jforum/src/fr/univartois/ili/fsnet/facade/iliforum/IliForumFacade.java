@@ -18,20 +18,35 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public boolean addHub(Hub hub) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(hub);
+        em.getTransaction().commit();
+        em.close();
+		return true;
 	}
 
 	@Override
 	public boolean addMessage(Message message, Topic topic) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(message);
+        em.getTransaction().commit();
+        em.close();
+		return true;
 	}
 
 	@Override
 	public boolean addTopic(Topic topic, Hub hub) {
-		// TODO Auto-generated method stub
-		return false;
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(topic);
+        em.getTransaction().commit();
+        em.close();
+		return true;
 	}
 
 	@Override
