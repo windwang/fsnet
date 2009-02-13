@@ -45,7 +45,7 @@ public class InformationTest {
 		System.err.println("Le test est execute");
 		 DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 	     Date date = (Date)formatter.parse("29/01/02");
-		Information info = new Information("info",date,"blabla",null);
+		Information info = new Information("info",date,"blabla");
 		em.getTransaction().begin();
 		em.persist(info);
 		em.getTransaction().commit();

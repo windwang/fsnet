@@ -10,7 +10,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Information;
 import fr.univartois.ili.fsnet.entities.Interet;
 
 
@@ -39,7 +38,7 @@ public class InteretTest {
 	@Test
 	public void testPersist() {
 		System.err.println("Le test est execute");
-		Interet inte = new Interet(null,null,"java");
+		Interet inte = new Interet(null,"java");
 		em.getTransaction().begin();
 		em.persist(inte);
 		em.getTransaction().commit();
