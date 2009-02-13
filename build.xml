@@ -1,0 +1,23 @@
+<project name="fsnet" default="both">
+       <property name="admin.dir" value="fr.univartois.ili.fsnet.admin.maquette"/>
+       <property name="fsnet.dir" value="fr.univartois.ili.fsnet.maquette"/>
+       <property name="tomcat.deploy" value="/opt/apache-tomcat-6.0.18/webapps"/>
+       
+
+   <target name="admin">
+	<echo>Creating WAR file for admin</echo>
+        <jar destfile="fsadmin.war" basedir="${admin.dir}/WebContent"/>
+        <echo>Deploying on Tomcat 6</echo>
+        <copy file="fsadmin.war" todir="${tomcat.deploy}"/>  
+   </target>
+
+   <target name="fsnet">
+        <echo>Creating WAR file for fsnet</echo>
+        <jar destfile="fsnet.war" basedir="${fsnet.dir}/WebContent"/>
+        <echo>Deploying on Tomcat 6</echo>
+        <copy file="fsnet.war" todir="${tomcat.deploy}"/>  
+   </target>
+
+   <target name="both" depends="admin,fsnet"/>
+
+</project>
