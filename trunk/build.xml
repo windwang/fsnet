@@ -1,23 +1,57 @@
 <project name="fsnet" default="both">
-       <property name="admin.dir" value="fr.univartois.ili.fsnet.admin.maquette"/>
-       <property name="fsnet.dir" value="fr.univartois.ili.fsnet.maquette"/>
-       <property name="tomcat.deploy" value="/opt/apache-tomcat-6.0.18/webapps"/>
-       
+	<property name="versionJava" value="1.5"/>
 
-   <target name="admin">
-	<echo>Creating WAR file for admin</echo>
-        <jar destfile="fsadmin.war" basedir="${admin.dir}/WebContent"/>
-        <echo>Deploying on Tomcat 6</echo>
-        <copy file="fsadmin.war" todir="${tomcat.deploy}"/>  
-   </target>
+	<property name="admin.dir" value="fr.univartois.ili.fsnet.admin.maquette"/>
+	<property name="fsnet.dir" value="fr.univartois.ili.fsnet.maquette"/>
+	<property name="tomcat.deploy" value="/opt/apache-tomcat-6.0.18/webapps"/>
 
-   <target name="fsnet">
-        <echo>Creating WAR file for fsnet</echo>
-        <jar destfile="fsnet.war" basedir="${fsnet.dir}/WebContent"/>
-        <echo>Deploying on Tomcat 6</echo>
-        <copy file="fsnet.war" todir="${tomcat.deploy}"/>  
-   </target>
+	<property name="jars.dir" value="./JARs/WEB-INF/lib"/>
 
-   <target name="both" depends="admin,fsnet"/>
+	<!-- Entities properties -->
+	<property name="fsnet.entities.dir" value="fr.univartois.ili.fsnet.entities"/>
+	<property name="fsnet.entities.test.dir" value="fr.univartois.ili.fsnet.entities.test"/> 
 
+	<target name="entities.compile">
+		<echo>Creating the entities bin dir</echo>
+		<mkdir dir="${fsnet.entities.dir}/bin"/>
+
+		<echo>Compiling entities</echo>
+		<javac	srcdir = "${fsnet.entities.dir}"
+			destdir = "${fsnet.entities.dir}/bin"
+			source = "${versionJava}"
+			target = "${versionJava}">
+		</javac>
+	</target>	
+		
+	<target name="entities" depends="entities.compile">
+		
+		<echo>Creating JAR file for entities</echo>
+		<jar destfile="fsnetentities.jar">
+			<fileset dir="${fsnet.entities.dir}/bin"/>
+			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>
+		</jar>
+		<move file="./fsnetentities.jar" todir="./JARs/WEB-INF/lib/"/>
+	</target>
+
+	<target name="admin">
+		<echo>Creating WAR file for admin</echo>
+		<jar destfile="fsadmin.war">
+			<fileset dir="${admin.dir}/WebContent"/>
+			<fileset dir="./JARs"/>
+		</jar>
+		<echo>Deploying on Tomcat 6</echo>
+		<copy file="fsadmin.war" todir="${tomcat.deploy}"/>  
+	</target>
+
+	<target name="fsnet">
+		<echo>Creating WAR file for fsnet</echo>
+		<jar destfile="fsnet.war">
+			<fileset dir="${fsnet.dir}/WebContent"/>
+			<fileset dir="./JARs"/>
+		</jar>
+		<echo>Deploying on Tomcat 6</echo>
+		<copy file="fsnet.war" todir="${tomcat.deploy}"/>  
+	</target>
+	
+	<target name="both" depends="entities,admin,fsnet"/>
 </project>
