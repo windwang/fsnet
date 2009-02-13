@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.entities;
 import java.util.Date;
 
 import javax.persistence.Entity;
-import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -14,22 +13,16 @@ public class Information extends Interaction {
 	@Temporal(TemporalType.DATE)
 	private Date dateInformation;
 	private String contenu;
-	@OneToOne
-	private GroupeDInteret cegroupe;
 
-
-	
 	public Information() {
 
 		super();
 	}
 
-	public Information(String nom, Date dateInformation, String contenu,
-			GroupeDInteret cegroupe) {
+	public Information(String nom, Date dateInformation, String contenu) {
 		this.nom = nom;
 		this.dateInformation = dateInformation;
 		this.contenu = contenu;
-		this.cegroupe = cegroupe;
 	}
 
 	public String getNom() {
@@ -54,14 +47,6 @@ public class Information extends Interaction {
 
 	public void setDateInformation(Date dateInformation) {
 		this.dateInformation = dateInformation;
-	}
-
-	public GroupeDInteret getCegroupe() {
-		return cegroupe;
-	}
-
-	public void setCegroupe(GroupeDInteret cegroupe) {
-		this.cegroupe = cegroupe;
 	}
 
 }

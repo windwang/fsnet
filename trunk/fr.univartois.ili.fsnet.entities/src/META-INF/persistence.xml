@@ -8,7 +8,6 @@
 		<class>fr.univartois.ili.fsnet.entities.Annonce</class>
 		<class>fr.univartois.ili.fsnet.entities.Communaute</class>
 		<class>fr.univartois.ili.fsnet.entities.Decideur</class>
-		<class>fr.univartois.ili.fsnet.entities.GroupeDInteret</class>
 		<class>fr.univartois.ili.fsnet.entities.Hub</class>
 		<class>fr.univartois.ili.fsnet.entities.Information</class>
 		<class>fr.univartois.ili.fsnet.entities.Interaction</class>
@@ -24,7 +23,7 @@
 			<property name="eclipselink.jdbc.user" value="fsnet" />
 			<property name="eclipselink.jdbc.password" value="fsnet" />
 			<!-- EclipseLink should create the database schema automatically -->
-			<property name="eclipselink.ddl-generation" value="drop-and-create-tables" />
+			<property name="eclipselink.ddl-generation" value="create-tables" />
 			<property name="eclipselink.ddl-generation.output-mode"
 				value="database" />
 			<property name="eclipselink.weaving" value="static" />
