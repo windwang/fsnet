@@ -5,5 +5,7 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/fr.univartois.ili.fsnet.entities"/>
+	<classpathentry kind="var" path="JPA"/>
+	<classpathentry kind="var" path="ECLIPSELINK"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
