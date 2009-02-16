@@ -131,19 +131,19 @@ public interface ForumFacade {
      * @param hub
      * @return
      */
-    public boolean updateHub(Hub hub, Hub nouvo);
+    public boolean updateHub(Hub hub);
 
     public boolean removeHub(Hub hub);
 
     public boolean addTopic(Topic topic);
 
-    public boolean updateTopic(Topic topic, Topic nouvo);
+    public boolean updateTopic(Topic topic);
 
     public boolean removeTopic(Topic topic);
 
     public boolean addMessage(Message message);
 
-    public boolean updateMessage(Message message, Message nouvo);
+    public boolean updateMessage(Message message);
 
     public boolean removeMessage(Message message);
 

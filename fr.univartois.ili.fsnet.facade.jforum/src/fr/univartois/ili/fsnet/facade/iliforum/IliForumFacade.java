@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.facade.iliforum;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,45 +16,49 @@ import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.facade.ForumFacade;
 
 public class IliForumFacade implements ForumFacade {
+	public static final String DATABASE_NAME = "fsnetjpa";
+
+	private EntityManager em;
+
+	public IliForumFacade() {
+		EntityManagerFactory factory = Persistence
+				.createEntityManagerFactory(DATABASE_NAME);
+		em = factory.createEntityManager();
+	}
+
+	public void close() {
+		em.close();
+	}
 
 	@Override
 	public boolean addHub(Hub hub) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(hub);
-        em.getTransaction().commit();
-        em.close();
+
+		em.getTransaction().begin();
+		em.persist(hub);
+		em.getTransaction().commit();
+
 		return true;
 	}
 
 	@Override
 	public boolean addMessage(Message message) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(message);
-        em.getTransaction().commit();
-        em.close();
+		em.getTransaction().begin();
+		em.persist(message);
+		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
 	public boolean addTopic(Topic topic) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.persist(topic);
-        em.getTransaction().commit();
-        em.close();
+		em.getTransaction().begin();
+		em.persist(topic);
+		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
 	public List<Hub> getListHub() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-		Query query=em.createQuery("SELECT h FROM Hub h ");
+		Query query = em.createQuery("SELECT h FROM Hub h ");
 		List<Hub> mesHubs;
 		mesHubs = (List<Hub>) query.getResultList();
 		return mesHubs;
@@ -61,9 +66,8 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public List<Hub> getListHub(Date dateBegin, Date dateEnd) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-		Query query=em.createQuery("SELECT h FROM Hub h WHERE h.dateCreation>?1 and h.dateCreation<?2");
+		Query query = em
+				.createQuery("SELECT h FROM Hub h WHERE h.dateCreation>?1 and h.dateCreation<?2");
 		query.setParameter(1, dateBegin);
 		query.setParameter(2, dateEnd);
 		List<Hub> mesHubs;
@@ -73,15 +77,17 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public List<Hub> getListHubByEntiteSociale(EntiteSociale decideur) {
-		// TODO Auto-generated method stub
-		return null;
+		Query query = em
+				.createQuery("SELECT h FROM Hub h WHERE h.decideur =?1");
+		query.setParameter(1, decideur);
+		List<Hub> mesHubs;
+		mesHubs = (List<Hub>) query.getResultList();
+		return mesHubs;
 	}
 
 	@Override
 	public List<Message> getListMessage() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-		Query query=em.createQuery("SELECT m FROM Message m ");
+		Query query = em.createQuery("SELECT m FROM Message m ");
 		List<Message> mesMess;
 		mesMess = (List<Message>) query.getResultList();
 		return mesMess;
@@ -89,9 +95,8 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public List<Message> getListMessage(Date dateBegin, Date dateEnd) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-		Query query=em.createQuery("SELECT m FROM Message m WHERE m.dateMessage>?1 AND m.dateMessage<?2");
+		Query query = em
+				.createQuery("SELECT m FROM Message m WHERE m.dateMessage>?1 AND m.dateMessage<?2");
 		query.setParameter(1, dateBegin);
 		query.setParameter(2, dateEnd);
 		List<Message> mesMess;
@@ -108,20 +113,21 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public List<Message> getListMessageByHub(Hub hub) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Message> lmess=new ArrayList<Message>();
+		for(Topic t:hub.getLesTopics()){
+			lmess.addAll(t.getLesMessages());
+		}
+		return lmess;
 	}
 
 	@Override
 	public List<Message> getListMessageByTopic(Topic topic) {
-		return topic.getLesMessages();		
+		return topic.getLesMessages();
 	}
 
 	@Override
 	public List<Topic> getListTopic() {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-		Query query=em.createQuery("SELECT t FROM Topic t");
+		Query query = em.createQuery("SELECT t FROM Topic t");
 		List<Topic> mesTopics;
 		mesTopics = (List<Topic>) query.getResultList();
 		return mesTopics;
@@ -129,9 +135,8 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public List<Topic> getListTopic(Date dateBegin, Date dateEnd) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-		Query query=em.createQuery("SELECT t FROM Topic t WHERE dateSujet>?1 AND dateSujet<?2");
+		Query query = em
+				.createQuery("SELECT t FROM Topic t WHERE dateSujet>?1 AND dateSujet<?2");
 		query.setParameter(1, dateBegin);
 		query.setParameter(2, dateEnd);
 		List<Topic> mesTopics;
@@ -151,67 +156,49 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public boolean removeHub(Hub hub) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.remove(hub);
-        em.getTransaction().commit();
-        em.close();
+		em.getTransaction().begin();
+		em.remove(hub);
+		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
 	public boolean removeMessage(Message message) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.remove(message);
-        em.getTransaction().commit();
-        em.close();
+		em.getTransaction().begin();
+		em.remove(message);
+		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
 	public boolean removeTopic(Topic topic) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.remove(topic);
-        em.getTransaction().commit();
-        em.close();
+		em.getTransaction().begin();
+		em.remove(topic);
+		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean updateHub(Hub hub, Hub nouvo) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.refresh(hub);
-        em.getTransaction().commit();
-        em.close();
+	public boolean updateHub(Hub hub) {
+		em.getTransaction().begin();
+		em.refresh(hub);
+		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean updateMessage(Message message, Message nouvo) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.refresh(message);
-        em.getTransaction().commit();
-        em.close();
+	public boolean updateMessage(Message message) {
+		em.getTransaction().begin();
+		em.refresh(message);
+		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean updateTopic(Topic topic, Topic nouvo) {
-		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.refresh(topic);
-        em.getTransaction().commit();
-        em.close();
+	public boolean updateTopic(Topic topic) {
+		em.getTransaction().begin();
+		em.refresh(topic);
+		em.getTransaction().commit();
 		return true;
 	}
 
