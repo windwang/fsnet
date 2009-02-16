@@ -28,7 +28,7 @@ public class IliForumFacade implements ForumFacade {
 	}
 
 	@Override
-	public boolean addMessage(Message message, Topic topic) {
+	public boolean addMessage(Message message) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -39,7 +39,7 @@ public class IliForumFacade implements ForumFacade {
 	}
 
 	@Override
-	public boolean addTopic(Topic topic, Hub hub) {
+	public boolean addTopic(Topic topic) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -183,7 +183,7 @@ public class IliForumFacade implements ForumFacade {
 	}
 
 	@Override
-	public boolean updateHub(Hub hub) {
+	public boolean updateHub(Hub hub, Hub nouvo) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -194,7 +194,7 @@ public class IliForumFacade implements ForumFacade {
 	}
 
 	@Override
-	public boolean updateMessage(Message message) {
+	public boolean updateMessage(Message message, Message nouvo) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -205,7 +205,7 @@ public class IliForumFacade implements ForumFacade {
 	}
 
 	@Override
-	public boolean updateTopic(Topic topic) {
+	public boolean updateTopic(Topic topic, Topic nouvo) {
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();

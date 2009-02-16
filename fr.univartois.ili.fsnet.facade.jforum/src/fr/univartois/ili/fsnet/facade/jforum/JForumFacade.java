@@ -76,13 +76,13 @@ public class JForumFacade implements ForumFacade {
 		return true;
 	}
 
-	@Override
+	
 	public boolean addMessage(Message message, Topic topic) {
 		topic.getLesMessages().add(message);
 		return true;
 	}
 
-	@Override
+	
 	public boolean addTopic(Topic topic, Hub hub) {
 		hub.getLesTopics().add(topic);
 		return true;
@@ -220,20 +220,47 @@ public class JForumFacade implements ForumFacade {
 		return false;
 	}
 
-	@Override
 	public boolean updateHub(Hub hub) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean updateMessage(Message message) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
-	@Override
 	public boolean updateTopic(Topic topic) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addMessage(Message message) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addTopic(Topic topic) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateHub(Hub hub, Hub nouvo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateMessage(Message message, Message nouvo) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean updateTopic(Topic topic, Topic nouvo) {
 		// TODO Auto-generated method stub
 		return false;
 	}
