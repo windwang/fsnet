@@ -19,4 +19,30 @@
     <servlet-name>SendMessage</servlet-name>
     <url-pattern>/SendMessage</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddUser</display-name>
+    <servlet-name>AddUser</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.admin.AddUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddUser</servlet-name>
+    <url-pattern>/AddUser</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddInteret</display-name>
+    <servlet-name>AddInteret</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.admin.AddInteret</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddInteret</servlet-name>
+    <url-pattern>/AddInteret</url-pattern>
+  </servlet-mapping>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://romuald.ili.fsnet.com/</taglib-uri>
+      <taglib-location>/WEB-INF/tlds/mesbalises.tld</taglib-location>
+    </taglib>
+  </jsp-config>
 </web-app>
