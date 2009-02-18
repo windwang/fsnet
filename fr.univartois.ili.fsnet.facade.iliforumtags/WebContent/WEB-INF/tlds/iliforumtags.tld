@@ -62,6 +62,11 @@
 			<required>no</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
+		<attribute>
+			<name>hub</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 
 <tag>
@@ -88,6 +93,11 @@
 
 		<attribute>
 			<name>user</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>topic</name>
 			<required>no</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

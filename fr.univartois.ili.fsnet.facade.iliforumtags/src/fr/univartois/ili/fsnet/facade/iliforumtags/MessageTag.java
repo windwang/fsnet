@@ -8,6 +8,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Message;
+import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 public class MessageTag extends TagSupport {
@@ -20,7 +21,7 @@ public class MessageTag extends TagSupport {
 	private Date dateBegin;
 	private Date dateEnd;
 	private EntiteSociale user;
-
+	private Topic topic;
 	private Iterator<Message> it;
 	private IliForumFacade iff;
 
@@ -32,6 +33,14 @@ public class MessageTag extends TagSupport {
 		this.var = var;
 	}
 
+	public Topic getTopic(){
+		return this.topic;
+	}
+	
+	public void setTopic(Topic t){
+		this.topic=t;
+	}
+	
 	public Date getDateBegin() {
 		return dateBegin;
 	}
@@ -67,6 +76,9 @@ public class MessageTag extends TagSupport {
 			it = iff.getListMessageByEntiteSocial(user).iterator();
 		}
 
+		else if(topic != null) {
+			it = iff.getListMessageByTopic(topic).iterator();
+		}
 		else
 			it = iff.getListMessage().iterator();
 		if (updateContext()) {
