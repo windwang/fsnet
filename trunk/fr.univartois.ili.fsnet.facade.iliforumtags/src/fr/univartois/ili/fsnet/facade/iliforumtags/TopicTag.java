@@ -7,6 +7,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
@@ -20,6 +21,7 @@ public class TopicTag extends TagSupport {
 	private Date dateBegin;
 	private Date dateEnd;
 	private EntiteSociale user;
+	private Hub hub;
 	
 	private Iterator<Topic> it;
 	private IliForumFacade iff;
@@ -32,6 +34,14 @@ public class TopicTag extends TagSupport {
 		this.var = var;
 	}
 
+	public void setHub(Hub myHub){
+		this.hub=myHub;
+	}
+	
+	public Hub getHub(){
+		return this.hub;
+	}
+	
 	public Date getDateBegin() {
 		return dateBegin;
 	}
@@ -67,6 +77,9 @@ public class TopicTag extends TagSupport {
 			it = iff.getListTopicByEntiteSociale(user).iterator();
 		}
 
+		else if(hub != null ){
+			it=iff.getListTopicByHub(hub).iterator();
+		}
 		else
 			it = iff.getListTopic().iterator();
 		if (updateContext()) {
