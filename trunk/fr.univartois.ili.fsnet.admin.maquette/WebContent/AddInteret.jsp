@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://romuald.ili.fsnet.com/" prefix="romuald"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -110,11 +112,24 @@ JJ-MM-AA</p>
 		<p class="Style1">&nbsp;</p>
 		</td>
 		<td>
+		<table>
+			<tr>
+				<th scope="col">
+				<div align="center">Liste des interêts</div>
+				</th>
+			</tr>
+			<romuald:interet var="interet">
+			<tr>
+				<td width="33%">${interet.nomInteret}</td> 
+			</tr>
+			</romuald:interet>
+			
+		</table>
 		<form id="AddUser" method="post" action="AddInteret">
 		<table width="100%" border="0">
 			<tr>
 				<th colspan="2" scope="col">
-				<div align="center">Ajout Interet</div>
+				<div align="center">Ajouter un interêt</div>
 				</th>
 			</tr>
 			<tr>

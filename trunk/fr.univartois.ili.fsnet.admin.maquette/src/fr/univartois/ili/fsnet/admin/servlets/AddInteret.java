@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.admin;
+package fr.univartois.ili.fsnet.admin.servlets;
 
 import java.io.IOException;
 

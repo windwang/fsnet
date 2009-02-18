@@ -67,3 +67,7 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 	.col { float: left; width: 280px; margin: 0 30px 20px 0; }
 		.last { margin: 0; }
 #footer { clear: both; padding: 15px 0; font-size: .84em; color: #808080; border-top: 1px dotted #666; }
+
+table{
+	margin-bottom:1em;
+}
