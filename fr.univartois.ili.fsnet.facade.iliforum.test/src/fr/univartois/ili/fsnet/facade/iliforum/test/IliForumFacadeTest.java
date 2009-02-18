@@ -15,7 +15,7 @@ import org.junit.Test;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
-import fr.univartois.ili.fsnet.facade.iliforum.IliForumFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 public class IliForumFacadeTest {
 

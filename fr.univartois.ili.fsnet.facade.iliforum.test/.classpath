@@ -2,10 +2,10 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/fr.univartois.ili.fsnet.facade.jforum"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/fr.univartois.ili.fsnet.entities"/>
 	<classpathentry kind="var" path="ECLIPSELINK"/>
 	<classpathentry kind="var" path="MYSQLCONNECT"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fr.univartois.ili.fsnet.facade.forum"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
