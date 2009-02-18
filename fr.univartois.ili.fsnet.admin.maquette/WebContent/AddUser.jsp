@@ -54,7 +54,7 @@ Bienvenue Mr XXXXXXXXX
 <div class="clear"></div>
 
 <div id="left">
-<h2><a href="#">Ajout utilisateur </a></h2>
+<h2><a href="#">Ajout Membre </a></h2>
 <p class="date">Date<br />
 JJ-MM-AA</p>
 <p class="subtitle">
@@ -111,32 +111,49 @@ JJ-MM-AA</p>
 		<p class="Style1">&nbsp;</p>
 		</td>
 		<td>
-		
+
+		<table>
+			<tr>
+				<th colspan="3" scope="col">
+				<div align="center">Liste des membres</div>
+				</th>
+			</tr>
+			<tr>
+				<th width="33%" scope="row">Nom</th>
+				<th width="33%" scope="row">Prénom</th>
+				<th width="33%" scope="row">Email</th>
+			</tr>
+			<romuald:entite var="entite">
+			<tr>
+				<td width="33%">${entite.nom}</td> 
+				<td width="33%">${entite.prenom}</td> 
+				<td width="33%">${entite.mail}</td>
+			</tr>
+			</romuald:entite>
+			
+		</table>
 		<form id="AddUser" method="post" action="AddUser">
 		<table width="100%" border="0">
 			<tr>
 				<th colspan="2" scope="col">
-				<div align="center">Ajout utilisateur</div>
+				<div align="center">Ajouter un membre</div>
 				</th>
 			</tr>
+			
 			<tr>
 				<th width="33%" scope="row">Nom</th>
 				<td width="67%"><label> <input type="text" name="nom"
 					accesskey="nom" /> </label></td>
 			</tr>
 			<tr>
-				<th scope="row">Prenom</th>
-				<td width="67%"><label> 
-				<input type="text" name="prenom" accesskey="prenom" />
-				</label>
-				</td>
+				<th scope="row">Prénom</th>
+				<td width="67%"><label> <input type="text"
+					name="prenom" accesskey="prenom" /> </label></td>
 			</tr>
 			<tr>
 				<th scope="row">Email</th>
-				<td width="67%"><label> 
-				<input type="text" name="email" accesskey="email" />
-				</label>
-				</td>
+				<td width="67%"><label> <input type="text" name="email"
+					accesskey="email" /> </label></td>
 			</tr>
 			<tr>
 				<th scope="row">&nbsp;</th>
@@ -147,6 +164,7 @@ JJ-MM-AA</p>
 			</tr>
 		</table>
 		</form>
+		
 		</td>
 		<td height="33" valign="top">&nbsp;</td>
 		<td></td>
