@@ -1,8 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://romuald.ili.fsnet.com/" prefix="romuald"%>
+<%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -105,7 +105,7 @@ JJ-MM-AA</p>
 		<p class="Style1"><a href="#">Demandes d'inscriptions en
 		attente (4) </a></p>
 		<!-- <p class="Style1"><a href="demandeinscription.html">Ajouter Membre</a></p> -->
-        <p class="Style1"><a href="AddUser.jsp">Ajouter Membre</a></p>
+		<p class="Style1"><a href="AddUser.jsp">Ajouter Membre</a></p>
 		<p class="Style1"><a href="#">Interactions</a></p>
 		<p class="Style1"><a href="#">Rapport d'activit&eacute;s </a></p>
 		<p class="Style1"><a href="#">Me déconnecter</a></p>
@@ -118,14 +118,15 @@ JJ-MM-AA</p>
 				<div align="center">Liste des interêts</div>
 				</th>
 			</tr>
-			<romuald:interet var="interet">
-			<tr>
-				<td width="33%">${interet.nomInteret}</td> 
-			</tr>
-			</romuald:interet>
-			
+
+			<admin:interet var="interet">
+				<tr>
+					<td width="33%">${interet.nomInteret}</td>
+				</tr>
+			</admin:interet>
+
 		</table>
-		<form id="AddUser" method="post" action="AddInteret">
+		<form id="AddInterest" method="post" action="AddInterest">
 		<table width="100%" border="0">
 			<tr>
 				<th colspan="2" scope="col">
