@@ -23,6 +23,52 @@
 		</javac>
 	</target>	
 		
+	<target name="entities.test" depends="entities.compile">
+		<echo>Creating the entities bin dir</echo>
+		<mkdir dir="${fsnet.entities.test.dir}/bin"/>
+	
+		<echo>Compiling entity tests</echo>
+		<javac	srcdir = "${fsnet.entities.test.dir}"
+			destdir = "${fsnet.entities.test.dir}/bin"
+			source = "${versionJava}"
+			target = "${versionJava}"
+			classpath="${fsnet.entities.dir}/bin">		
+		</javac>
+
+		<echo>Adding entities into the test bin dir</echo>
+		<copy todir="${fsnet.entities.test.dir}/bin">
+			<fileset dir="${fsnet.entities.dir}/bin"/>	
+		</copy>
+		<copy todir="${fsnet.entities.test.dir}/bin">
+			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>	
+		</copy>
+		<copy todir="${fsnet.entities.test.dir}/src">
+			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>	
+		</copy>
+		<copy todir="${fsnet.entities.test.dir}">
+			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>	
+		</copy>
+
+		<echo>Unjar the motherfucking javax.persistence jar file</echo>
+		<unzip src="/opt/apache-ant-1.7.1/lib/javax.persistence_1.0.0.jar" dest="${fsnet.entities.test.dir}/bin"/>
+
+		<echo>Testing entities</echo>
+		<junit printsummary="yes">
+			<classpath>		
+				<pathelement location="${fsnet.entities.test.dir}/bin"/>
+			</classpath>
+
+			<formatter type="plain"/>
+
+			<batchtest fork="yes">
+				<fileset dir="${fsnet.entities.test.dir}/bin">
+					<include name="**/*Test*.class"/>
+					<exclude name="**/AllTests.class"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
 	<target name="entities" depends="entities.compile">
 		
 		<echo>Creating JAR file for entities</echo>
@@ -53,5 +99,14 @@
 		<copy file="fsnet.war" todir="${tomcat.deploy}"/>  
 	</target>
 	
-	<target name="both" depends="entities,admin,fsnet"/>
+	<target name="clean">
+		<echo>Cleaning-up</echo>
+		<delete dir="${fsnet.entities.dir}/bin"/>
+		<delete dir="${fsnet.entities.test.dir}/bin"/>
+		<delete dir="./JARs"/>
+		<delete file="fsnet.war"/>
+		<delete file="fsadmin.war"/>
+	</target>
+
+	<target name="both" depends="entities,admin,fsnet,clean"/>
 </project>
