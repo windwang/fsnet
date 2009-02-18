@@ -6,6 +6,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/fr.univartois.ili.fsnet.entities"/>
 	<classpathentry kind="var" path="ECLIPSELINK"/>
 	<classpathentry kind="var" path="MYSQLCONNECT"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/fr.univartois.ili.fsnet.facade.forum"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/fr.univartois.ili.fsnet.facade.iliforum"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
