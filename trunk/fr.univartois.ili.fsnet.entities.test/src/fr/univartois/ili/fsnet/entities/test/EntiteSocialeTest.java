@@ -47,30 +47,30 @@ public class EntiteSocialeTest {
 		int monId = ent.getId();
 		assertNotNull("id not null", monId);
 	}
-	
+
 	@Test
-	public void testUpdate(){
+	public void testUpdate() {
 		EntiteSociale ent = new EntiteSociale("titi", "tata", "toto@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent);
 		em.getTransaction().commit();
-		assertEquals(ent.getEMail(),"toto@gmail.com");
-		ent.setEMail("tata@gmail.com");
+		assertEquals(ent.getEmail(), "toto@gmail.com");
+		ent.setEmail("tata@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent);
 		em.getTransaction().commit();
 		int monId = ent.getId();
 		assertNotNull("id not null", monId);
-		assertEquals(ent.getEMail(),"tata@gmail.com");
+		assertEquals(ent.getEmail(), "tata@gmail.com");
 	}
-	
-	@Test 
-	public void testDelete(){
+
+	@Test
+	public void testDelete() {
 		EntiteSociale ent1 = new EntiteSociale("tata", "tata", "tata@gmail.com");
 		EntiteSociale ent2 = new EntiteSociale("toto", "toto", "toto@gmail.com");
 		EntiteSociale ent3 = new EntiteSociale("titi", "titi", "titi@gmail.com");
-		
-		EntiteSociale [] lesEntites = {ent1, ent2, ent3};
+
+		EntiteSociale[] lesEntites = { ent1, ent2, ent3 };
 		em.getTransaction().begin();
 		for (EntiteSociale ent : lesEntites) {
 			em.persist(ent);
@@ -81,17 +81,16 @@ public class EntiteSocialeTest {
 		em.remove(ent2);
 		em.getTransaction().commit();
 		assertNull(em.find(EntiteSociale.class, ent2.getId()));
-		
 
 	}
-	
-//	@Test
-//	public void testFindById(){
-//		
-//		EntiteSociale ent = em.find(EntiteSociale.class, 1);
-//			
-//		assertEquals(ent.getMail(), "toto@gmail.com");
-//           
-//		
-//	}
+
+	// @Test
+	// public void testFindById(){
+	//		
+	// EntiteSociale ent = em.find(EntiteSociale.class, 1);
+	//			
+	// assertEquals(ent.getMail(), "toto@gmail.com");
+	//           
+	//		
+	// }
 }
