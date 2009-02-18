@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://romuald.ili.fsnet.com/" prefix="romuald"%>
+<%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -104,7 +104,7 @@ JJ-MM-AA</p>
 		<p class="Style1"><a href="#">Lister communautés</a></p>
 		<p class="Style1"><a href="#">Demandes d'inscriptions en
 		attente (4) </a></p>
-		<p class="Style1"><a href="AddInteret.jsp">Ajouter Interet</a></p>
+		<p class="Style1"><a href="AddInterest.jsp">Ajouter Interet</a></p>
 		<p class="Style1"><a href="#">Interactions</a></p>
 		<p class="Style1"><a href="#">Rapport d'activit&eacute;s </a></p>
 		<p class="Style1"><a href="#">Me déconnecter</a></p>
@@ -123,14 +123,14 @@ JJ-MM-AA</p>
 				<th width="33%" scope="row">Prénom</th>
 				<th width="33%" scope="row">Email</th>
 			</tr>
-			<romuald:entite var="entite">
-			<tr>
-				<td width="33%">${entite.nom}</td> 
-				<td width="33%">${entite.prenom}</td> 
-				<td width="33%">${entite.mail}</td>
-			</tr>
-			</romuald:entite>
-			
+			<admin:entite var="entite">
+				<tr>
+					<td width="33%">${entite.nom}</td>
+					<td width="33%">${entite.prenom}</td>
+					<td width="33%">${entite.email}</td>
+				</tr>
+			</admin:entite>
+
 		</table>
 		<form id="AddUser" method="post" action="AddUser">
 		<table width="100%" border="0">
@@ -139,7 +139,7 @@ JJ-MM-AA</p>
 				<div align="center">Ajouter un membre</div>
 				</th>
 			</tr>
-			
+
 			<tr>
 				<th width="33%" scope="row">Nom</th>
 				<td width="67%"><label> <input type="text" name="nom"
@@ -164,7 +164,7 @@ JJ-MM-AA</p>
 			</tr>
 		</table>
 		</form>
-		
+
 		</td>
 		<td height="33" valign="top">&nbsp;</td>
 		<td></td>

@@ -17,7 +17,7 @@ import fr.univartois.ili.fsnet.entities.Interet;
 /**
  * @author romuald druelle Servlet implementation class AddInteret
  */
-public class AddInteret extends HttpServlet {
+public class AddInterest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String DATABASE_NAME = "fsnetjpa";
@@ -29,7 +29,7 @@ public class AddInteret extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddInteret() {
+	public AddInterest() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -76,7 +76,7 @@ public class AddInteret extends HttpServlet {
 		em.getTransaction().commit();
 
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/AddInteret.jsp");
+				"/AddInterest.jsp");
 		disp.forward(request, response);
 	}
 
