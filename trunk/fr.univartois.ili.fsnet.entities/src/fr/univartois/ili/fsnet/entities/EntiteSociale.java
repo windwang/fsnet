@@ -365,7 +365,7 @@ public class EntiteSociale {
 	 * 
 	 * @return the email address of the social entity.
 	 */
-	public String getEMail() {
+	public String getEmail() {
 		return email;
 	}
 
@@ -374,7 +374,7 @@ public class EntiteSociale {
 	 * 
 	 * @param email
 	 */
-	public void setEMail(String email) {
+	public void setEmail(String email) {
 		this.email = email;
 	}
 
