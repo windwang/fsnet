@@ -54,14 +54,14 @@ public class EntiteSocialeTest {
 		em.getTransaction().begin();
 		em.persist(ent);
 		em.getTransaction().commit();
-		assertEquals(ent.getMail(),"toto@gmail.com");
-		ent.setMail("tata@gmail.com");
+		assertEquals(ent.getEMail(),"toto@gmail.com");
+		ent.setEMail("tata@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent);
 		em.getTransaction().commit();
 		int monId = ent.getId();
 		assertNotNull("id not null", monId);
-		assertEquals(ent.getMail(),"tata@gmail.com");
+		assertEquals(ent.getEMail(),"tata@gmail.com");
 	}
 	
 	@Test 
