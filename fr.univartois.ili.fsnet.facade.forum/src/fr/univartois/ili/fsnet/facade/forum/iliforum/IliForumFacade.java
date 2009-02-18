@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.iliforum;
+package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -13,7 +13,7 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
-import fr.univartois.ili.fsnet.facade.ForumFacade;
+import fr.univartois.ili.fsnet.facade.forum.ForumFacade;
 
 public class IliForumFacade implements ForumFacade {
 	public static final String DATABASE_NAME = "fsnetjpa";
