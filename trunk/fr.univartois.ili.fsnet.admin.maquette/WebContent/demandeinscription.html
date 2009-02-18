@@ -14,7 +14,6 @@
 .Style2 {color: #FFFFFF}
 -->
     </style>
-</head>
 <script type="text/javascript">
 function affCache(idDiv) {
 var div = document.getElementById(idDiv);
@@ -25,6 +24,9 @@ div.style.display = "";
 }
 
 </script>
+    
+    
+</head>
 <body>
 	<div class="wrap background">
 		<div id="search">
@@ -70,15 +72,16 @@ div.style.display = "";
 			<h2><a href="#">Accueil</a></h2>
 			<p class="date">Date<br />
 		  JJ-MM-AA</p>
-			<p class="subtitle"><table width="479"><tr>
-    <td width="206" height="2"></td>
-    <td width="222"></td>
-    <td width="14"></td>
-    <td width="17"></td>
-  </tr>
-  
+			
+			<table width="479">
+			<tr>
+               <td style="width:206;height:2"></td>
+               <td style="width:222"></td>
+               <td style="width:14"></td>
+               <td style="width:17"></td>
+           </tr>  
   <tr>
-    <td rowspan="3" valign="top" bgcolor="#FFFFCC"><h2 align="center" class="Style1">Administration</h2>
+    <td rowspan="3" valign="top" style="background-color: #FFFFCC"><h2 style="align:center" class="Style1">Administration</h2>
       <p class="Style1"><a href="#">Bureau</a></p>
     <p class="Style1"><a href="#">Messagerie (3)</a></p>
     <p class="Style1"><a href="RechAdmin.html">Lister membres</a></p>
@@ -90,11 +93,13 @@ div.style.display = "";
     <p class="Style1"><a href="#">Rapport d'activit&eacute;s </a></p>
     <p class="Style1"><a href="#">Me déconnecter</a></p>
     <p class="Style1">&nbsp;</p></td>
-    <td height="33" colspan="3"><p><font color="#000088" align="center"><br />
-<i><font size="6">FSNet </font><font size="3" color="#990000">Mail</font></i> <br />
-</font>
+    <td style="height:33" colspan="3"><p style="color:#000088;align:center"><br /></p>
+    <div style="font-size:50px;font-style:italic;">FSNet </div>
+    <div style="font-size:20px;font-style:italic;color: #990000;">Mail </div> <br />
+
       <form action="SendMessage" method="get">
-      <table >
+      <table>
+      <tr>
       <td><b>To :</b></td>
       <td><input type="text" name="to"/></td>
       </tr>
@@ -102,9 +107,9 @@ div.style.display = "";
       <td><b>Subject :</b></td>
       <td><input type="text"name="subject"/></td>
       </tr>
-      </table></p>
+      </table>
       
-      <p><a href="#" onclick="affCache('pieceJointe');"/>Joindre ...</a>
+      <p><a href="#" onclick="affCache('pieceJointe');">Joindre ...</a></p>
         <div id="pieceJointe">
         <table>
         <tr>
@@ -115,39 +120,38 @@ div.style.display = "";
   </div>
   <div>
   <textarea cols="50" rows="10" name="contenu"></textarea>
-  <tr><br />
+  
+  <tr>
   <td colspan="2" align="right"><input type="submit"name="envoyer" value="Envoyer"/></td>
   </tr>
-  </div>
-  </form>
-      </p>    </tr>
+    
   
   <tr>
-    <td height="2"></td>
-   
+    <td style="height:2"></td>
     <td></td>
   </tr>
+  
   <tr>
     <td colspan="3" rowspan="2"><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span><span class="Style2"></span></td>
-    </tr>
+    </tr>  
+  <tr>
   
-  <tr>
-    <td height="50"></td>
+    <td style="height:50"></td>
     </tr>
   <tr>
-    <td height="2"></td>
+    <td style="height:2"></td>
     <td></td>
     <td></td>
     <td></td>
   </tr>
   <tr>
-    <td height="68"></td>
+    <td style="height:68"></td>
     <td></td>
     <td valign="top">&nbsp;</td>
     <td></td>
   </tr>
 </table>
-			</p>
+			
 	  </div>
 		
 		<div id="side">
