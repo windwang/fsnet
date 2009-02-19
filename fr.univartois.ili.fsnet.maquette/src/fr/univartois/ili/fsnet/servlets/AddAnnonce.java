@@ -84,7 +84,7 @@ public class AddAnnonce extends HttpServlet {
 		em.persist(nouvelleInfo);
 		em.getTransaction().commit();
 		
-		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/annonces.html");
+		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
 		dispatch.forward(request, response);
 	}
 
