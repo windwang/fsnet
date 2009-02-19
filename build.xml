@@ -42,6 +42,42 @@
 		<copy file="${fsnet.iliforumtags.dir}/WebContent/WEB-INF/tlds/iliforumtags.tld" todir="${fsnet.dir}/WebContent/WEB-INF/"/>
 	</target>
 
+	<target name="iliforum.test" depends="iliforum.compile">
+		<echo>Creating the iliforum test bin dir</echo>
+		<mkdir dir="${fsnet.iliforum.test.dir}/bin"/>
+	
+		<echo>Compiling iliforum tests</echo>
+		<javac	srcdir = "${fsnet.iliforum.test.dir}"
+			destdir = "${fsnet.iliforum.test.dir}/bin"
+			source = "${versionJava}"
+			target = "${versionJava}">
+			<classpath>		
+				<pathelement location="${fsnet.iliforum.dir}/bin"/>
+				<pathelement location="${fsnet.entities.dir}/bin"/>
+			</classpath>
+		</javac>
+
+		<echo>Adding iliforum classes into the test bin dir</echo>
+		<copy todir="${fsnet.iliforum.test.dir}/bin">
+			<fileset dir="${fsnet.iliforum.dir}/bin"/>	
+		</copy>
+		
+		<echo>Testing iliforum</echo>
+		<junit printsummary="yes">
+			<classpath>		
+				<pathelement location="${fsnet.iliforum.test.dir}/bin"/>
+			</classpath>
+			<classpath refid="fsnetPath"/>
+
+			<batchtest fork="yes">
+				<fileset dir="${fsnet.iliforum.test.dir}/bin">
+					<include name="**/*Test*.class"/>
+					<exclude name="**/AllTests.class"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
 	<target name="iliforum.compile">
 		<echo>Creating the iliforum bin dir</echo>
 		<mkdir dir="${fsnet.iliforum.dir}/bin"/>
@@ -77,6 +113,39 @@
 		</javac>
 	</target>	
 		
+	<target name="entities.test" depends="entities.compile">
+		<echo>Creating the entity test bin dir</echo>
+		<mkdir dir="${fsnet.entities.test.dir}/bin"/>
+	
+		<echo>Compiling entity tests</echo>
+		<javac	srcdir = "${fsnet.entities.test.dir}"
+			destdir = "${fsnet.entities.test.dir}/bin"
+			source = "${versionJava}"
+			target = "${versionJava}"
+			classpath="${fsnet.entities.dir}/bin">		
+		</javac>
+
+		<echo>Adding entities into the test bin dir</echo>
+		<copy todir="${fsnet.entities.test.dir}/bin">
+			<fileset dir="${fsnet.entities.dir}/bin"/>	
+		</copy>
+		
+		<echo>Testing entities</echo>
+		<junit printsummary="yes">
+			<classpath>		
+				<pathelement location="${fsnet.entities.test.dir}/bin"/>
+			</classpath>
+			<classpath refid="fsnetPath"/>
+
+			<batchtest fork="yes">
+				<fileset dir="${fsnet.entities.test.dir}/bin">
+					<include name="**/*Test*.class"/>
+					<exclude name="**/AllTests.class"/>
+				</fileset>
+			</batchtest>
+		</junit>
+	</target>
+
 	<target name="entities" depends="entities.compile">
 		
 		<echo>Creating JAR file for entities</echo>
@@ -157,7 +226,7 @@
 		<delete dir="${fsnet.entities.dir}/bin"/>
 		<delete dir="${fsnet.entities.test.dir}/bin"/>
 		<delete dir="${fsnet.iliforum.dir}/bin"/>
-		<!--<delete dir="${fsnet.iliforum.test.dir}/bin"/>-->
+		<delete dir="${fsnet.iliforum.test.dir}/bin"/>
 		<delete file="fsnet.war"/>
 		<delete file="fsadmin.war"/>
 		<delete dir="${fsnet.dir}/WebContent/WEB-INF/classes"/>
@@ -168,5 +237,5 @@
 		<delete file="${fsnet.dir}/WebContent/WEB-INF/lib/fsnetiliforum.jar"/>
 	</target>
 
-	<target name="both" depends="entities,iliforum,iliforumtags,admin,fsnet,clean"/>
+	<target name="both" depends="entities,entities.test,iliforum,iliforum.test,iliforumtags,admin,fsnet,clean"/>
 </project>
