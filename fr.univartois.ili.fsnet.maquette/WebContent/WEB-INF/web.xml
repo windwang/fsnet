@@ -39,12 +39,6 @@
     <servlet-name>GotoMessage</servlet-name>
     <url-pattern>/GotoMessage</url-pattern>
   </servlet-mapping>
-  <jsp-config>
-    <taglib>
-      <taglib-uri>http://iliforum.ili.fsnet.com/</taglib-uri>
-      <taglib-location>/WEB-INF/iliforumtags.tld</taglib-location>
-    </taglib>
-  </jsp-config>
   <servlet>
     <description></description>
     <display-name>CreateHub</display-name>
@@ -75,4 +69,20 @@
     <servlet-name>CreateMessage</servlet-name>
     <url-pattern>/CreateMessage</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddAnnonce</display-name>
+    <servlet-name>AddAnnonce</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.servlets.AddAnnonce</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddAnnonce</servlet-name>
+    <url-pattern>/AddAnnonce</url-pattern>
+  </servlet-mapping>
+  <jsp-config>
+    <taglib>
+      <taglib-uri>http://iliforum.ili.fsnet.com/</taglib-uri>
+      <taglib-location>/WEB-INF/iliforumtags.tld</taglib-location>
+    </taglib>
+  </jsp-config>
 </web-app>

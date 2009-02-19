@@ -102,5 +102,20 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-
+<tag>
+<display-name>Display Annonce</display-name>
+		<name>annonce</name>
+		<tag-class>fr.univartois.ili.fsnet.taglib.AnnonceTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>var</name>
+			<required>yes</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>dateFin</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+</tag>
 </taglib>
