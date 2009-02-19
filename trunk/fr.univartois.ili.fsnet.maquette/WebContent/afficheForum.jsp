@@ -15,5 +15,14 @@ Forum
 	<tr><td>${monHub.id}</td><td><a href="GotoTopic?idHub=${monHub.id}">${monHub.nomCommunaute}</a></td><td>${monHub.dateCreation}</td></tr>
 </fsnet:hub>
 </table>
+<form action="CreateHub">
+	<fieldset>
+		<legend> Creer Hub </legend>
+		<label> Nom du Hub : </label>
+		<input type="text" name="nomHub" size="20" />
+		<input type="submit" name="creerHub" value="creer" />
+	</fieldset>
+
+</form>
 </body>
 </html>
