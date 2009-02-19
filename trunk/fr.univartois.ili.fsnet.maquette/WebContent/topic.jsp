@@ -15,13 +15,14 @@
 	href="css/style.css" />
 <title>FSNet</title>
 <script type="text/JavaScript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-    </script>
+	function MM_jumpMenu(targ, selObj, restore) { //v3.0
+		eval(targ + ".location='" + selObj.options[selObj.selectedIndex].value
+				+ "'");
+		if (restore)
+			selObj.selectedIndex = 0;
+	}
+	//
+</script>
 <style type="text/css">
 <!--
 .Style1 {
@@ -101,27 +102,28 @@ Bienvenue Mr XXXXXXXXX
 					</tbody>
 				</table>
 				</td>
-				<td class="alt2">
-				 </td>
+				<td class="alt2"></td>
 				<td class="alt1" />
 				<td class="alt2" />
 			</tr>
-</fsnet:topic>
 		</tbody>
-		<tfoot>
-		<tr> <td colspan="4">
-		<form action="CreateTopic">
-	<fieldset>
-		<legend> Creer Topic </legend>
-		<p><label> Nom : </label>
-		<input type="text" name="nomTopic" size="20" /></p>
-		<p><label> Message : </label>
-		<textarea name="contenuMessage" cols="60" rows="5"></textarea>
-		<input type="submit" name="creertopic" value="creer" /></p>
-	</fieldset>
-</form></td></tr>
-		</tfoot>
-	
+	</fsnet:topic>
+	<tfoot>
+		<tr>
+			<td colspan="4">
+			<form action="CreateTopic">
+			<fieldset><legend> Creer Topic </legend>
+			<p><label> Nom : </label> <input type="text" name="nomTopic"
+				size="20" /></p>
+			<p><label> Message : </label> <textarea name="contenuMessage"
+				cols="60" rows="5"></textarea> <input type="submit"
+				name="creertopic" value="creer" /></p>
+			</fieldset>
+			</form>
+			</td>
+		</tr>
+	</tfoot>
+
 
 </table>
  
