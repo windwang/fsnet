@@ -38,7 +38,7 @@
 	<li><a href="forum.html">Mon r&egrave;seau</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
-	<li><a href="annonces.html">annonces</a></li>
+	<li><a href="annonces.jsp">annonces</a></li>
 
 </ul>
 Bienvenue Mr XXXXXXXXX

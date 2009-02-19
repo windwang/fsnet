@@ -36,7 +36,7 @@
 	<li><a href="forum.html">Mon r&egrave;seau</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
-	<li><a href="annonces.html">Annonces</a></li>
+	<li><a href="annonces.jsp">Annonces</a></li>
 
 </ul>
 Bienvenue Mr XXXXXXXXX
@@ -65,7 +65,7 @@ Bienvenue Mr XXXXXXXXX
 	<tr>
 		<th style="width: 181" scope="col">listes des annonces</th>
 		<th style="width: 252" scope="col">
-		<div style="text-align: center"><a href="publierannonce.html">publier
+		<div style="text-align: center"><a href="publierannonce.jsp">publier
 		une annonce</a></div>
 		</th>
 	</tr>
@@ -75,7 +75,7 @@ Bienvenue Mr XXXXXXXXX
 	<fsnet:annonce var="monAnnonce">
 ${monAnnonce.nom}
 	</fsnet:annonce>
-	<!-- 
+	
               <tr>
                 <th style="width:193" scope="row"><a href="#">Ventes</a></th>
                 <td style="width:228"><div style="text-align: right" class="Style1">12</div></td>
@@ -84,7 +84,7 @@ ${monAnnonce.nom}
                 <th scope="row"><a href="#">Informatique</a></th>
                 <td><div style="text-align: right" class="Style1">27</div></td>
               </tr>
-             -->
+             
 </table>
 <p>&nbsp;</p>
 <hr />
