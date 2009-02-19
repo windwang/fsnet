@@ -37,7 +37,7 @@ public class GotoMessage extends HttpServlet {
 		 Topic monTopic=em.getReference(Topic.class, Integer.valueOf(request.getParameter("idTopic")));
 		 getServletContext().setAttribute("monTopic", monTopic);
 		 
-		 RequestDispatcher dispa=getServletContext().getRequestDispatcher("/afficheMessage.jsp");
+		 RequestDispatcher dispa=getServletContext().getRequestDispatcher("/message.jsp");
 		 dispa.forward(request,response);
 	}
 
