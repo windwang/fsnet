@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -67,13 +68,26 @@ public class AddInterest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		Interet interet = null;
+		String[] valuesInterests = request.getParameterValues("interets[]");
+		int length = valuesInterests.length;
 		String nom = request.getParameter("nom");
-		Interet interet = new Interet();
+		interet = new Interet();
 		interet.setNomInteret(nom);
 
 		em.getTransaction().begin();
 		em.persist(interet);
 		em.getTransaction().commit();
+
+		for (int i = 0; i < length; i++) {
+
+			interet = new Interet();
+			interet.setNomInteret(valuesInterests[i]);
+
+			em.getTransaction().begin();
+			em.persist(interet);
+			em.getTransaction().commit();
+		}
 
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
 				"/AddInterest.jsp");
