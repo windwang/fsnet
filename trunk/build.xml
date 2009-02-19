@@ -4,12 +4,41 @@
 	<property name="admin.dir" value="fr.univartois.ili.fsnet.admin.maquette"/>
 	<property name="fsnet.dir" value="fr.univartois.ili.fsnet.maquette"/>
 	<property name="tomcat.deploy" value="/opt/apache-tomcat-6.0.18/webapps"/>
+	<property name="tomcat.lib" value="/opt/apache-tomcat-6.0.18/lib"/>
 
 	<property name="jars.dir" value="./JARs/WEB-INF/lib"/>
 
 	<!-- Entities properties -->
 	<property name="fsnet.entities.dir" value="fr.univartois.ili.fsnet.entities"/>
 	<property name="fsnet.entities.test.dir" value="fr.univartois.ili.fsnet.entities.test"/> 
+
+	<!-- Iliforum properties -->
+	<property name="fsnet.iliforum.dir" value="fr.univartois.ili.fsnet.facade.iliforum"/>
+	<property name="fsnet.iliforum.test.dir" value="fr.univartois.ili.fsnet.facade.iliforum.test"/> 
+	<property name="fsnet.iliforumtags.dir" value="fr.univartois.ili.fsnet.facade.iliforumtags"/> 	
+
+	<target name="iliforum.compile">
+		<echo>Creating the iliforum bin dir</echo>
+		<mkdir dir="${fsnet.iliforum.dir}/bin"/>
+
+		<echo>Compiling iliforum</echo>
+		<javac	srcdir = "${fsnet.iliforum.dir}"
+			destdir = "${fsnet.iliforum.dir}/bin"
+			source = "${versionJava}"
+			target = "${versionJava}">
+			<classpath refid="fsnetPath"/>
+		</javac>
+	</target>
+
+	<target name="iliforum" depends="iliforum.compile">
+		
+		<echo>Creating JAR file for iliforum</echo>
+		<jar destfile="fsnetiliforum.jar">
+			<fileset dir="${fsnet.iliforum.dir}/bin"/>
+		</jar>
+		<copy file="./fsnetiliforum.jar" todir="${admin.dir}/WebContent/WEB-INF/lib/"/>
+		<move file="./fsnetiliforum.jar" todir="${fsnet.dir}/WebContent/WEB-INF/lib/"/>
+	</target>
 
 	<target name="entities.compile">
 		<echo>Creating the entities bin dir</echo>
@@ -23,52 +52,6 @@
 		</javac>
 	</target>	
 		
-	<target name="entities.test" depends="entities.compile">
-		<echo>Creating the entities bin dir</echo>
-		<mkdir dir="${fsnet.entities.test.dir}/bin"/>
-	
-		<echo>Compiling entity tests</echo>
-		<javac	srcdir = "${fsnet.entities.test.dir}"
-			destdir = "${fsnet.entities.test.dir}/bin"
-			source = "${versionJava}"
-			target = "${versionJava}"
-			classpath="${fsnet.entities.dir}/bin">		
-		</javac>
-
-		<echo>Adding entities into the test bin dir</echo>
-		<copy todir="${fsnet.entities.test.dir}/bin">
-			<fileset dir="${fsnet.entities.dir}/bin"/>	
-		</copy>
-		<copy todir="${fsnet.entities.test.dir}/bin">
-			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>	
-		</copy>
-		<copy todir="${fsnet.entities.test.dir}/src">
-			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>	
-		</copy>
-		<copy todir="${fsnet.entities.test.dir}">
-			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>	
-		</copy>
-
-		<echo>Unjar the motherfucking javax.persistence jar file</echo>
-		<unzip src="/opt/apache-ant-1.7.1/lib/javax.persistence_1.0.0.jar" dest="${fsnet.entities.test.dir}/bin"/>
-
-		<echo>Testing entities</echo>
-		<junit printsummary="yes">
-			<classpath>		
-				<pathelement location="${fsnet.entities.test.dir}/bin"/>
-			</classpath>
-
-			<formatter type="plain"/>
-
-			<batchtest fork="yes">
-				<fileset dir="${fsnet.entities.test.dir}/bin">
-					<include name="**/*Test*.class"/>
-					<exclude name="**/AllTests.class"/>
-				</fileset>
-			</batchtest>
-		</junit>
-	</target>
-
 	<target name="entities" depends="entities.compile">
 		
 		<echo>Creating JAR file for entities</echo>
@@ -76,24 +59,69 @@
 			<fileset dir="${fsnet.entities.dir}/bin"/>
 			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>
 		</jar>
-		<move file="./fsnetentities.jar" todir="./JARs/WEB-INF/lib/"/>
+		<copy file="./fsnetentities.jar" todir="${admin.dir}/WebContent/WEB-INF/lib/"/>
+		<move file="./fsnetentities.jar" todir="${fsnet.dir}/WebContent/WEB-INF/lib/"/>
 	</target>
 
-	<target name="admin">
+	<path id="adminPath">
+		<fileset dir="${admin.dir}/WebContent/WEB-INF/lib/">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${tomcat.lib}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="admin.compile">
+		<echo></echo>
+
+		<echo>Creating the admin bin dir</echo>
+		<mkdir dir="${admin.dir}/WebContent/WEB-INF/classes"/>
+
+		<echo>Compiling admin</echo>
+		<javac	srcdir = "${admin.dir}"
+			destdir = "${admin.dir}/WebContent/WEB-INF/classes"
+			source = "${versionJava}"
+			target = "${versionJava}">
+			<classpath refid="adminPath"/>
+		</javac>
+	</target>	
+
+	<target name="admin" depends="admin.compile">
 		<echo>Creating WAR file for admin</echo>
 		<jar destfile="fsadmin.war">
 			<fileset dir="${admin.dir}/WebContent"/>
-			<fileset dir="./JARs"/>
 		</jar>
 		<echo>Deploying on Tomcat 6</echo>
 		<copy file="fsadmin.war" todir="${tomcat.deploy}"/>  
 	</target>
 
-	<target name="fsnet">
+	<path id="fsnetPath">
+		<fileset dir="${fsnet.dir}/WebContent/WEB-INF/lib/">
+			<include name="*.jar"/>
+		</fileset>
+		<fileset dir="${tomcat.lib}">
+			<include name="*.jar"/>
+		</fileset>
+	</path>
+
+	<target name="fsnet.compile">
+		<echo>Creating the fsnet bin dir</echo>
+		<mkdir dir="${fsnet.dir}/WebContent/WEB-INF/classes"/>
+
+		<echo>Compiling fsnet</echo>
+		<javac	srcdir = "${fsnet.dir}"
+			destdir = "${fsnet.dir}/WebContent/WEB-INF/classes"
+			source = "${versionJava}"
+			target = "${versionJava}">
+			<classpath refid="fsnetPath"/>
+		</javac>
+	</target>	
+
+	<target name="fsnet" depends="fsnet.compile">
 		<echo>Creating WAR file for fsnet</echo>
 		<jar destfile="fsnet.war">
 			<fileset dir="${fsnet.dir}/WebContent"/>
-			<fileset dir="./JARs"/>
 		</jar>
 		<echo>Deploying on Tomcat 6</echo>
 		<copy file="fsnet.war" todir="${tomcat.deploy}"/>  
@@ -103,10 +131,17 @@
 		<echo>Cleaning-up</echo>
 		<delete dir="${fsnet.entities.dir}/bin"/>
 		<delete dir="${fsnet.entities.test.dir}/bin"/>
-		<delete dir="./JARs"/>
+		<delete dir="${fsnet.iliforum.dir}/bin"/>
+		<!--<delete dir="${fsnet.iliforum.test.dir}/bin"/>-->
 		<delete file="fsnet.war"/>
 		<delete file="fsadmin.war"/>
+		<delete dir="${fsnet.dir}/WebContent/WEB-INF/classes"/>
+		<delete dir="${admin.dir}/WebContent/WEB-INF/classes"/>
+		<delete file="${admin.dir}/WebContent/WEB-INF/lib/fsnetentities.jar"/>
+		<delete file="${fsnet.dir}/WebContent/WEB-INF/lib/fsnetentities.jar"/>
+		<delete file="${admin.dir}/WebContent/WEB-INF/lib/fsnetiliforum.jar"/>
+		<delete file="${fsnet.dir}/WebContent/WEB-INF/lib/fsnetiliforum.jar"/>
 	</target>
 
-	<target name="both" depends="entities,admin,fsnet,clean"/>
+	<target name="both" depends="entities,iliforum,admin,fsnet,clean"/>
 </project>
