@@ -64,10 +64,10 @@ public class LoginUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		String mail = request.getParameter("email");
+		String email = request.getParameter("email");
 		Query query = em
-				.createQuery("SELECT en FROM EntiteSociale en WHERE en.mail LIKE ?1");
-		query.setParameter(1, mail);
+				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
+		query.setParameter(1, email);
 
 		try {
 			EntiteSociale en = (EntiteSociale) query.getSingleResult();
