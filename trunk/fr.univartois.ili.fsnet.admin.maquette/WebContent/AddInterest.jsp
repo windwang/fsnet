@@ -14,6 +14,8 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <title>FSNet</title>
+<script language="JavaScript" src="admin.js">
+</script>
 </head>
 <body>
 <div class="wrap background">
@@ -35,7 +37,7 @@
 </ul>
 Bienvenue Mr XXXXXXXXX
 <div id="logo">
-<h1><a href="http://www.google.com">FSNet<br />
+<h1><a href="http://code.google.com/p/fsnet/">FSNet<br />
 </a></h1>
 <h2 id="slogan">Réseau social</h2>
 </div>
@@ -134,10 +136,22 @@ JJ-MM-AA</p>
 				</th>
 			</tr>
 			<tr>
-				<th width="33%" scope="row">Intitulé</th>
-				<td width="67%"><label> <input type="text" name="nom"
-					accesskey="nom" /> </label></td>
+				
+				<th width="15%" scope="row">Intitulé</th>
+				<td colspan="2" width="85%"><label> <input type="text"
+					name="nom" /> </label></td>
+				</tr>
+			
+			<tr>
+				<td></td>
+				<td colspan="2" id="interests"></td>
 			</tr>
+			<tr><td></td>
+				<td> <input type="button" onclick="addInterest()"
+					value="Ajouter" /></td>
+				</tr>
+				
+				
 			<tr>
 				<th scope="row">&nbsp;</th>
 				<td><label>
