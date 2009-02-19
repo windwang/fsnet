@@ -68,7 +68,7 @@
               </tr>
             </table>
 			<p>&nbsp;</p>
-			<form action="xxxxx" method="get" id="annonce">
+			<form action="AddAnnonce" id="annonce">
 			<table style="width:433" >
 
               <tr>
@@ -76,19 +76,28 @@
                 <td style="width:228"><div style="align:right" class="Style1">
                   <label style="text-align:left">
                   
-                    <input name="textfield2" type="text" size="50" />
+                    <input name="titreAnnonce" type="text" size="50" />
                   
                   </label>
                 </div></td>
               </tr>
               <tr>
                 <th scope="row">Contenu</th>
-                <td><textarea name="textfield" cols="40" rows="10"></textarea></td>
+                <td><textarea name="contenuAnnonce" cols="40" rows="10"></textarea></td>
               </tr>
-			  <tr>
+               <tr>
+                <th style="width:193" scope="row">Date de fin</th>
+                <td style="width:228"><div style="align:right" class="Style1">
+                  <label style="text-align:left">
+                  
+                    <input name="dateFinAnnonce" type="text" size="8" />
+                  (jj/mm/aa)
+                  </label>
+                </div></td>
+              </tr>
                 <th scope="row"></th>
                 <td><div style="text-align:right">
-                  <input name="Input" type="button" value="Publier" />
+                  <input name="submit" type="submit" value="Publier" />
                 </div></td>
 			  </tr>
             </table>
