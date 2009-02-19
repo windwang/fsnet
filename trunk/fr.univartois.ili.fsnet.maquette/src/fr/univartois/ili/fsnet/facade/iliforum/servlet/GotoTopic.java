@@ -37,7 +37,7 @@ public class GotoTopic extends HttpServlet {
 		 Hub monHub=em.getReference(Hub.class, Integer.valueOf(request.getParameter("idHub")));
 		 getServletContext().setAttribute("monHub", monHub);
 		 
-		 RequestDispatcher dispa=getServletContext().getRequestDispatcher("/afficheTopic.jsp");
+		 RequestDispatcher dispa=getServletContext().getRequestDispatcher("/topic.jsp");
 		 dispa.forward(request,response);
 	}
 
