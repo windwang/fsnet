@@ -72,11 +72,12 @@ public class LoginUser extends HttpServlet {
 		try {
 			EntiteSociale en = (EntiteSociale) query.getSingleResult();
 			logger.info(en.getEmail());
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profil.html");
+			getServletContext().setAttribute("membre", en);
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profil.jsp");
 			dispatch.forward(request, response);
 		} catch (Exception e) {
 			logger.info("Authentification échouée");
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/");
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/login.html");
 			dispatch.forward(request, response);
 		}
 	}
