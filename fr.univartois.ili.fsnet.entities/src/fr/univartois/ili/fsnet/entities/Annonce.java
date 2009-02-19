@@ -38,6 +38,11 @@ public class Annonce extends Information {
 		this.dateFinAnnnonce = dateFinAnnnonce;
 	}
 
+	
+	public Annonce(String nom, Date datePublication, String contenu,Date dateFinAnnnonce){
+		super(nom,datePublication,contenu);
+		this.dateFinAnnnonce = dateFinAnnnonce;
+	}
 	/**
 	 * 
 	 * @return The date of the end's ad .
