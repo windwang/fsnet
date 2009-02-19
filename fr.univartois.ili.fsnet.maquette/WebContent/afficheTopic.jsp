@@ -15,5 +15,15 @@ Topic
 	<tr><td>${monTopic.id}</td><td><a href="GotoMessage?idTopic=${monTopic.id}">${monTopic.sujet}</a></td><td>${monTopic.dateSujet}</td></tr>
 </fsnet:topic>
 </table>
+<form action="CreateTopic">
+	<fieldset>
+		<legend> Creer Topic </legend>
+		<label> Nom du Topic : </label>
+		<input type="text" name="nomTopic" size="20" />
+		<label> Message : </label>
+		<textarea name="contenuMessage"></textarea>
+		<input type="submit" name="creertopic" value="creer" />
+	</fieldset>
+</form>
 </body>
 </html>

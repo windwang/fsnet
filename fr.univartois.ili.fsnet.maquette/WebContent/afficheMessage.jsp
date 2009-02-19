@@ -15,5 +15,13 @@ Message
 	<tr><td>${monMess.id}</td><td>${monMess.contenu}</td><td>${monMess.dateMessage}</td></tr>
 </fsnet:message>
 </table>
+<form action="CreateMessage">
+	<fieldset>
+		<legend> Repondre Message </legend>
+		<label> Contenu : </label>
+		<textarea name="contenuMessage"></textarea>
+		<input type="submit" name="répondre" value="creer" />
+	</fieldset>
+</form>
 </body>
 </html>
