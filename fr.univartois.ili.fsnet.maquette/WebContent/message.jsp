@@ -15,13 +15,14 @@
 	href="css/style.css" />
 <title>FSNet</title>
 <script type="text/JavaScript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-    </script>
+	function MM_jumpMenu(targ, selObj, restore) { //v3.0
+		eval(targ + ".location='" + selObj.options[selObj.selectedIndex].value
+				+ "'");
+		if (restore)
+			selObj.selectedIndex = 0;
+	}
+	//
+</script>
 </head>
 <body>
 <div class="wrap background">
@@ -169,11 +170,17 @@ Bienvenue Mr XXXXXXXXX
 			<div class="smallfont"><strong>${monTopic.sujet}</strong></div>
 			<hr style="COLOR: #d1d1e1; BaCKGROUND-COLOR: #d1d1e1; size: 1" />
 
-			<div id="post_message_3994424">${message.contenu}
-			</div>
+			<div id="post_message_3994424">${message.contenu}</div>
 			</td>
 		</tr>
 	</fsnet:message>
+	<tfoot>
+		<tr> <td colspan="3"><form action="CreateMessage">
+		<fieldset><legend> Repondre Message </legend> <label>
+		Contenu : </label> <textarea name="contenuMessage"  cols="60" rows="5"></textarea> <input
+			type="submit" name="repondre" value="repondre" /></fieldset>
+		</form></td></tr>
+	</tfoot>
 </table>
 
 <p id="ad">&nbsp;</p>

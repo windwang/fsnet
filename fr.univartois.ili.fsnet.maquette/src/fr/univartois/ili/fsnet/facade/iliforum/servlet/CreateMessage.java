@@ -38,7 +38,7 @@ public class CreateMessage extends HttpServlet {
 		IliForumFacade iff = new IliForumFacade();
 		iff.addMessage(message);
 		iff.close();
-		RequestDispatcher dispa=getServletContext().getRequestDispatcher("/afficheMessage.jsp");
+		RequestDispatcher dispa=getServletContext().getRequestDispatcher("/message.jsp");
 		dispa.forward(request,response);
 	}
 

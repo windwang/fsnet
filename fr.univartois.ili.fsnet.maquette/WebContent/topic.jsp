@@ -106,9 +106,21 @@ Bienvenue Mr XXXXXXXXX
 				<td class="alt1" />
 				<td class="alt2" />
 			</tr>
-
+</fsnet:topic>
 		</tbody>
-	</fsnet:topic>
+		<tfoot>
+		<tr> <td colspan="4">
+		<form action="CreateTopic">
+	<fieldset>
+		<legend> Creer Topic </legend>
+		<p><label> Nom : </label>
+		<input type="text" name="nomTopic" size="20" /></p>
+		<p><label> Message : </label>
+		<textarea name="contenuMessage" cols="60" rows="5"></textarea>
+		<input type="submit" name="creertopic" value="creer" /></p>
+	</fieldset>
+</form></td></tr>
+		</tfoot>
 	
 
 </table>
