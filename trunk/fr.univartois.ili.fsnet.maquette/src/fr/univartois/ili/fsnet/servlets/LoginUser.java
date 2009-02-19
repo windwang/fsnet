@@ -71,7 +71,7 @@ public class LoginUser extends HttpServlet {
 
 		try {
 			EntiteSociale en = (EntiteSociale) query.getSingleResult();
-			logger.info(en.getMail());
+			logger.info(en.getEmail());
 			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profil.html");
 			dispatch.forward(request, response);
 		} catch (Exception e) {
