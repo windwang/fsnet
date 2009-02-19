@@ -41,7 +41,7 @@ public class CreateTopic extends HttpServlet {
 		iff.addTopic(topic);
 		iff.addMessage(message);
 		iff.close();
-		RequestDispatcher dispa=getServletContext().getRequestDispatcher("/afficheTopic.jsp");
+		RequestDispatcher dispa=getServletContext().getRequestDispatcher("/topic.jsp");
 		dispa.forward(request,response);
 	}
 

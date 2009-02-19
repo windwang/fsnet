@@ -15,13 +15,14 @@
 	href="css/style.css" />
 <title>FSNet</title>
 <script type="text/JavaScript">
-<!--
-function MM_jumpMenu(targ,selObj,restore){ //v3.0
-  eval(targ+".location='"+selObj.options[selObj.selectedIndex].value+"'");
-  if (restore) selObj.selectedIndex=0;
-}
-//-->
-    </script>
+	function MM_jumpMenu(targ, selObj, restore) { //v3.0
+		eval(targ + ".location='" + selObj.options[selObj.selectedIndex].value
+				+ "'");
+		if (restore)
+			selObj.selectedIndex = 0;
+	}
+	//
+</script>
 <style type="text/css">
 <!--
 .Style1 {
@@ -101,15 +102,24 @@ Bienvenue Mr XXXXXXXXX
 					</tbody>
 				</table>
 				</td>
-				<td class="alt2">
-				 </td>
+				<td class="alt2"></td>
 				<td class="alt1" />
 				<td class="alt2" />
 			</tr>
 
 		</tbody>
 	</fsnet:hub>
-	
+	<tfoot>
+		<tr>
+			<td colspan="5">
+			<form action="CreateHub">
+			<fieldset><legend> Creer Hub </legend> <label> Nom
+			du Hub : </label> <input type="text" name="nomHub" size="20" /> <input
+				type="submit" name="creerHub" value="creer" /></fieldset>
+			</form>
+			</td>
+		</tr>
+	</tfoot>
 
 </table>
  
