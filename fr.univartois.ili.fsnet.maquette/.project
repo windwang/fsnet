@@ -5,6 +5,7 @@
 	<projects>
 		<project>fr.univartois.ili.fsnet.entities</project>
 		<project>fr.univartois.ili.fsnet.facade.iliforum</project>
+		<project>fr.univartois.ili.fsnet.facade.iliforumtags</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
