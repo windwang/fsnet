@@ -1,5 +1,5 @@
-#summary One-sentence summary of this page.
 #labels Featured
+
 
 = FSNET =
 
@@ -11,4 +11,3 @@ The aim of the FSNET (Firm Social Network) project is to procure to a firm an in
 = Details =
 
 The FSNET project is developed by the Master Pro students from the Artois University as a 5th year university project in collaboration with SQL Technology. The Study of the project were achieved by the Master students (4th year), the master pro are implementing the code. 
-
