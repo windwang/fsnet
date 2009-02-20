@@ -283,6 +283,11 @@ public class EntiteSociale {
 	 * @return the date of entry of the social entity.
 	 */
 	public String getDateEntree() {
+		
+		if(dateEntree == null){
+			return null;
+		}
+		
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(dateEntree);
 		int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
@@ -305,6 +310,11 @@ public class EntiteSociale {
 	 * @return the date of birth of the social entity.
 	 */
 	public String getDateNaissance() {
+		
+		if(dateNaissance == null){
+			return null;
+		}
+		
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(dateNaissance);
 		int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
