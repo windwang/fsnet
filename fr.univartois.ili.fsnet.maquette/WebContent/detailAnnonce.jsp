@@ -34,15 +34,17 @@
 </form>
 </div>
 <ul id="menu">
-	<li><a class="current" href="index.html">Accueil</a></li>
-	<li><a href="profil.jsp">Mon Profil</a></li>
+	<li><a class="current" href="index.jsp">Accueil</a></li>
+	<li><a href="profil.jsp">Profil</a></li>
 	<li><a href="hub.jsp">Hubs</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
 	<li><a href="annonces.jsp">Annonces</a></li>
 
 </ul>
-Bienvenue Mr XXXXXXXXX
+<fsnet:login var="membre" idLogin="${idLogin}">
+	Bienvenue M. ${membre.nom} ${membre.prenom} 
+</fsnet:login>
 <div id="logo">
 <h1><a href="http://www.google.com">FSNet<br />
 </a></h1>

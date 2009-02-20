@@ -1,13 +1,17 @@
 package fr.univartois.ili.fsnet.servlets;
 
 import java.io.IOException;
-import java.util.logging.Logger;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,13 +20,9 @@ import javax.servlet.http.HttpServletResponse;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
 /**
- * @author lionel desruelles 
- * Servlet implementation class FindUser
+ * @author lionel desruelles Servlet implementation class CompleteProfil
  */
-public class LoginUser extends HttpServlet {
-
-	private static Logger logger = Logger.getLogger("FSNet");
-
+public class CompleteProfil extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String DATABASE_NAME = "fsnetjpa";
@@ -34,13 +34,14 @@ public class LoginUser extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public LoginUser() {
+	public CompleteProfil() {
 		super();
 	}
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
+	/**
+	 * @see Servlet#init(ServletConfig)
+	 */
+	public void init(ServletConfig config) throws ServletException {
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
 	}
@@ -65,23 +66,37 @@ public class LoginUser extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		String email = request.getParameter("email");
+		String dateNaissance = request.getParameter("dateNaissance");
+		String adresse = request.getParameter("adresse");
+		String telephone = request.getParameter("telephone");
+		String profession = request.getParameter("profession");
+
+		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		Date date = null;
+		try {
+			date = (Date) formatter.parse(dateNaissance);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Query query = em
 				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
 		query.setParameter(1, email);
+		EntiteSociale entite = (EntiteSociale) query.getSingleResult();
 
-		try {
-			EntiteSociale en = (EntiteSociale) query.getSingleResult();
-			logger.info(en.getEmail());
-			logger.info(String.valueOf(en.getId()));
-			getServletContext().setAttribute("idLogin", en.getId());
-			
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profil.jsp");
-			dispatch.forward(request, response);
-		} catch (Exception e) {
-			logger.info("Authentification échouée");
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/login.html");
-			dispatch.forward(request, response);
-		}
+		entite.setAdresse(adresse);
+		entite.setDateNaissance(date);
+		entite.setNumTel(telephone);
+		entite.setProfession(profession);
+
+		em.getTransaction().begin();
+		em.persist(entite);
+		em.getTransaction().commit();
+
+//		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
+//				"/profil3.html");
+//		dispatch.forward(request, response);
+		response.sendRedirect("index.jsp");
 	}
 
 	/**
