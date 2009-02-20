@@ -18,6 +18,7 @@
 
  ===Theses explanations are for apache tomcat users :===
 
+ # Download fsnet_d1.zip
  # Create a new database user : username : *fsnet*, password : *fsnet*
  # Create a new database named *fsnet*
  # Copy the _javax.persistence_1.0.0.jar_ and the _mysql-connector-java-x-bin.jar_ in the tomcat/lib directory
