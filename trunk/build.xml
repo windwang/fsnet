@@ -38,8 +38,8 @@
 		</jar>
 		<copy file="./fsnetiliforumtags.jar" todir="${admin.dir}/WebContent/WEB-INF/lib/"/>
 		<move file="./fsnetiliforumtags.jar" todir="${fsnet.dir}/WebContent/WEB-INF/lib/"/>
-		<copy file="${fsnet.iliforumtags.dir}/WebContent/WEB-INF/tlds/iliforumtags.tld" todir="${admin.dir}/WebContent/WEB-INF/"/>
-		<copy file="${fsnet.iliforumtags.dir}/WebContent/WEB-INF/tlds/iliforumtags.tld" todir="${fsnet.dir}/WebContent/WEB-INF/"/>
+		<copy file="${fsnet.iliforumtags.dir}/src/WEB-INF/iliforumtags.tld" todir="${admin.dir}/WebContent/WEB-INF/"/>
+		<copy file="${fsnet.iliforumtags.dir}/src/WEB-INF/iliforumtags.tld" todir="${fsnet.dir}/WebContent/WEB-INF/"/>
 	</target>
 
 	<target name="iliforum.test" depends="iliforum.compile">
