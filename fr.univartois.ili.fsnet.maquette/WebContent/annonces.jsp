@@ -81,22 +81,6 @@ Bienvenue Mr XXXXXXXXX
 			<th><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a></th>
 		</tr>
 	</fsnet:annonce>
-
-<tr>
-		<th style="width: 193" scope="row"><a href="#">Ventes</a></th>
-		<td style="width: 228">
-		<div style="text-align: right" class="Style1">12</div>
-		</td>
-	</tr>
-	<tr>
-		<th scope="row"><a href="#">Informatique</a></th>
-		<td>
-		<div style="text-align: right" class="Style1">27</div>
-		</td>
-	</tr>
-
-
-
 </table>
 <p>&nbsp;</p>
 <hr />
