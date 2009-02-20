@@ -48,6 +48,7 @@ public class AddAnnonce extends HttpServlet {
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
+		
 	}
 
 	/**

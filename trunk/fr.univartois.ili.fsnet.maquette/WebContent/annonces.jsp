@@ -78,10 +78,11 @@ Bienvenue Mr XXXXXXXXX
 	<fsnet:annonce var="monAnnonce">
 		<tr>
 			<th><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a></th>
+			<th><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a></th>
 		</tr>
 	</fsnet:annonce>
 
-	<tr>
+<tr>
 		<th style="width: 193" scope="row"><a href="#">Ventes</a></th>
 		<td style="width: 228">
 		<div style="text-align: right" class="Style1">12</div>
@@ -93,6 +94,8 @@ Bienvenue Mr XXXXXXXXX
 		<div style="text-align: right" class="Style1">27</div>
 		</td>
 	</tr>
+
+
 
 </table>
 <p>&nbsp;</p>
