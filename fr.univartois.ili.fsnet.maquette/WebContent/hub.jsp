@@ -44,7 +44,7 @@
 <ul id="menu">
 	<li><a class="current" href="index.html">accueil</a></li>
 	<li><a href="profil.jsp">Mon Profil</a></li>
-	<li><a href="hub.jsp">Mon r&egrave;seau</a></li>
+	<li><a href="hub.jsp">Hubs</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
 	<li><a href="annonces.jsp">annonces</a></li>
@@ -77,7 +77,7 @@ Bienvenue Mr XXXXXXXXX
 			<div style="text-align: center">Hub</div>
 			</td>
 			<td class="thead">Dernier message</td>
-			<td class="thead">Discussions</td>
+			<td class="thead">Topics</td>
 			<td class="thead">Messages</td>
 		</tr>
 	</thead>

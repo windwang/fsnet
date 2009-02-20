@@ -35,7 +35,7 @@
 <ul id="menu">
 	<li><a class="current" href="index.html">accueil</a></li>
 	<li><a href="profil.jsp">Mon Profil</a></li>
-	<li><a href="hub.jsp">Mon r&egrave;seau</a></li>
+	<li><a href="hub.jsp">Hubs</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
 	<li><a href="annonces.jsp">annonces</a></li>
@@ -64,8 +64,8 @@ Bienvenue Mr XXXXXXXXX
 
 <table style="padding: 6; width: 100%; text-align: center; border: 0;">
 	<tr>
-		<td style="width: 100%"><strong>Persistance</strong> <span>
-		Vos questions sur les Persistances </span></td>
+		<td style="width: 100%"><strong>${monHub.nomCommunaute }</strong> <span>
+		${monTopic.sujet } </span></td>
 	</tr>
 </table>
 
@@ -152,7 +152,7 @@ Bienvenue Mr XXXXXXXXX
 			<div style="align: center">Membre de la communauté</div>
 			</div>
 			<div class="smallfont" style="text-align: center"><img
-				src="images/1219079391_48a9acdf55f28.jpg"
+				src="images/DLBMII.JPG" width="72" height="96"
 				style="width: 116; height: 124; border: 0" alt="" /></div>
 			<div class="smallfont"><br />
 			<div>Date d'inscription: avril 2008</div>
