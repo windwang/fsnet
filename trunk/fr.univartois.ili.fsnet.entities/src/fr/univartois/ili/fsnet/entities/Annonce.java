@@ -60,13 +60,17 @@ public class Annonce extends Information {
 	 * @return The date of the end's ad in the format jj/mm/aaaa.
 	 */
 	public String getDateAnnonce() {
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(dateFinAnnonce);
-		int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
-		int mois = calendar.get(GregorianCalendar.MONTH);
-		int année = calendar.get(GregorianCalendar.YEAR);
-		String date = jour + "/" + mois + "/" + année;
+		String date = "";
+		if (dateFinAnnonce != null) {
+			Calendar calendar = GregorianCalendar.getInstance();
+			calendar.setTime(dateFinAnnonce);
+			int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+			int mois = calendar.get(GregorianCalendar.MONTH)+1;
+			int année = calendar.get(GregorianCalendar.YEAR);
+			date = jour + "/" + mois + "/" + année;
+		}
 		return date;
+
 	}
 
 	/**
