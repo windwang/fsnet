@@ -69,8 +69,11 @@ public class AddInterest extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Interet interet = null;
+		int length = 0;
 		String[] valuesInterests = request.getParameterValues("interets[]");
-		int length = valuesInterests.length;
+		if (valuesInterests != null) {
+			length = valuesInterests.length;
+		}
 		String nom = request.getParameter("nom");
 		interet = new Interet();
 		interet.setNomInteret(nom);
@@ -79,14 +82,16 @@ public class AddInterest extends HttpServlet {
 		em.persist(interet);
 		em.getTransaction().commit();
 
-		for (int i = 0; i < length; i++) {
+		if (length != 0) {
+			for (int i = 0; i < length; i++) {
 
-			interet = new Interet();
-			interet.setNomInteret(valuesInterests[i]);
+				interet = new Interet();
+				interet.setNomInteret(valuesInterests[i]);
 
-			em.getTransaction().begin();
-			em.persist(interet);
-			em.getTransaction().commit();
+				em.getTransaction().begin();
+				em.persist(interet);
+				em.getTransaction().commit();
+			}
 		}
 
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
