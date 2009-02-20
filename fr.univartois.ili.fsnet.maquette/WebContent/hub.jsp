@@ -114,7 +114,7 @@ Bienvenue Mr XXXXXXXXX
 			<td colspan="5">
 			<form action="CreateHub">
 			<fieldset><legend> Creer Hub </legend> <label> Nom
-			du Hub : </label> <input type="text" name="nomHub" size="20" /> <input
+			du Hub : </label> <input type="text" name="nomHub" size="80%" /> <input
 				type="submit" name="creerHub" value="creer" /></fieldset>
 			</form>
 			</td>
