@@ -34,16 +34,12 @@
 </form>
 </div>
 <ul id="menu">
-	<li><a class="current" href="index.jsp">Accueil</a></li>
-	<li><a href="profil.jsp">Mon Profil</a></li>
-<<<<<<< .mine
-	<li><a href="hub.jsp">Mon réseau</a></li>
-=======
+	<li><a href="index.jsp">Accueil</a></li>
+	<li><a href="profil.jsp">Profil</a></li>
 	<li><a href="hub.jsp">Hubs</a></li>
->>>>>>> .r113
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
-	<li><a href="annonces.jsp">Annonces</a></li>
+	<li><a class="current" href="annonces.jsp">Annonces</a></li>
 
 </ul>
 <fsnet:login var="membre" idLogin="${idLogin}">
