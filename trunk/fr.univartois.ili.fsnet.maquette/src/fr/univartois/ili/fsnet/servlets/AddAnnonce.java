@@ -11,6 +11,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -65,6 +66,18 @@ public class AddAnnonce extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String id = request.getParameter("idChoisi");
+		getServletContext().setAttribute("idChoisi", id);
+		
+		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/detailAnnonce.jsp");
+		dispatch.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		String titre = request.getParameter("titreAnnonce");
 		String contenu = request.getParameter("contenuAnnonce");
 		String dateFin = request.getParameter("dateFinAnnonce");
@@ -86,13 +99,6 @@ public class AddAnnonce extends HttpServlet {
 		
 		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
 		dispatch.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 	}
 
 }

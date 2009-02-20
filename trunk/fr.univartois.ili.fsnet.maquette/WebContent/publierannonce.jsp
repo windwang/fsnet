@@ -69,7 +69,7 @@ Bienvenue Mr XXXXXXXXX
 	</tr>
 </table>
 <p>&nbsp;</p>
-<form action="AddAnnonce" id="annonce">
+<form action="AddAnnonce" method="post" id="annonce">
 <table style="width: 433">
 
 	<tr>
