@@ -42,17 +42,17 @@ Bienvenue Mr XXXXXXXXX
 <div id="logo">
 <h1><a href="http://www.google.com">FSNet<br />
 </a></h1>
-<h2 id="slogan">RÃ©seau social</h2>
+<h2 id="slogan">Réseau social</h2>
 </div>
 
 <ul id="feature_menu">
-	<li><a class="current" href="">ActualitÃ©</a></li>
+	<li><a class="current" href="">Actualité</a></li>
 	<li><a href="#">AAAAAAA</a></li>
 	<li><a href="#">BBBBBBBBB</a></li>
 </ul>
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communautÃ© vient d'Ãªtre crÃ©Ã©e.</p>
+<p>Une nouvelle communauté vient d'être créée.</p>
 <p><a class="more" href="#">&not;Detail</a></p>
 </div>
 
@@ -64,7 +64,7 @@ Bienvenue Mr XXXXXXXXX
 	<tr>
 		<th style="width: 181" scope="col">Entrer votre texte</th>
 		<th style="width: 252" scope="col">
-		<div style="text-align: right">2000 caractÃ¨res maximumee</div>
+		<div style="text-align: right">2000 caractères maximums</div>
 		</th>
 	</tr>
 </table>
@@ -89,7 +89,7 @@ Bienvenue Mr XXXXXXXXX
 		<td style="width: 228">
 		<div style="align: right" class="Style1"><label
 			style="text-align: left"> <input name="dateFinAnnonce"
-			type="text" size="8" /> (jj/mm/aa) </label></div>
+			type="text" size="8" /> (jj/mm/aaaa) </label></div>
 		</td>
 	</tr>
 	<th scope="row"></th>

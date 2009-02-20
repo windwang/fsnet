@@ -32,7 +32,6 @@ public class AnnonceTag extends TagSupport {
 	}
 
 	public void setIdChoisi(int idChoisi) {
-		System.out.println("Mise a jour id" + idChoisi);
 		this.idChoisi = idChoisi;
 	}
 
@@ -45,19 +44,18 @@ public class AnnonceTag extends TagSupport {
 	}
 
 	public int doStartTag() throws JspException {
-		System.err.println("je suis ds la balise Annonce");
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("fsnetjpa");
 		EntityManager em = factory.createEntityManager();
-		System.out.println("Valeur id " + idChoisi);
+
 		if (idChoisi != null) {
-			System.out.println("Ici id = " + idChoisi);
+
 			Query requete = em
 					.createQuery("SELECT a FROM Annonce a WHERE a.id=?1");
 			requete.setParameter(1, idChoisi.intValue());
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
 		} else {
-			System.out.println("Pas Ici id = " + idChoisi);
+
 			Query requete = em.createQuery("SELECT a FROM Annonce a");
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
 		}
@@ -80,7 +78,6 @@ public class AnnonceTag extends TagSupport {
 		if (an.hasNext()) {
 			Annonce ann;
 			ann = an.next();
-
 			pageContext.setAttribute(var, ann);
 			return true;
 		}

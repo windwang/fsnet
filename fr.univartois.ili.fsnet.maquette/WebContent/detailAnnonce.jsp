@@ -68,19 +68,23 @@ Bienvenue Mr XXXXXXXXX
 <p>&nbsp;</p>
 <table width="433">
 	<fsnet:annonce var="monAnnonce" idChoisi="${idChoisi}">
-		<tr> 
+		<tr>
 			<th>titre : ${monAnnonce.nom}</th>
-			
+
 		</tr>
 		<tr>
-		<th>contenu : ${monAnnonce.contenu}</th>
+			<th>contenu : ${monAnnonce.contenu}</th>
+		</tr>
+		<tr>
+			<th>Date de fin : ${monAnnonce.dateAnnonce}</th>
 		</tr>
 		<th style="width: 252" scope="col">
-		<div style="text-align: center"><a href="annonces.jsp">retour aux annonces</a></div>
+		<div style="text-align: center"><a href="annonces.jsp">retour
+		aux annonces</a></div>
 		</th>
 	</fsnet:annonce>
 
-	
+
 </table>
 <p>&nbsp;</p>
 <hr />
