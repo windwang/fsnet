@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
