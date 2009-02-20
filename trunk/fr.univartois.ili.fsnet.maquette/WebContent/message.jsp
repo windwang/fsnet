@@ -146,7 +146,7 @@ Bienvenue Mr XXXXXXXXX
 	<fsnet:message var="message" topic="${monTopic}">
 		<tr valign="top">
 			<td class="alt2"
-				style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 0px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 0px solid; width:120">
+				style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 0px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 0px solid; width:20%">
 			<div id="postmenu_3994424">${message.propMsg.nom }</div>
 			<div class="smallfont">
 			<div style="align: center">Membre de la communauté</div>
@@ -171,7 +171,7 @@ Bienvenue Mr XXXXXXXXX
 		<tr> <td colspan="2" style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid;"><form action="CreateMessage">
 		<p align="center"><fieldset><legend> Repondre Message </legend>
 		<label>	Contenu : </label></p>
-		<p><textarea name="contenuMessage"  cols="60" rows="5"></textarea> <input
+		<p><textarea name="contenuMessage"  cols="100" rows="5"></textarea> <input
 			type="submit" name="repondre" value="repondre" /></p></fieldset>
 		</form></td></tr>
 	</tfoot>

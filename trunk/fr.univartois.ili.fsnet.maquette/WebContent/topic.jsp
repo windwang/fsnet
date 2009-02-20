@@ -114,10 +114,10 @@ Bienvenue Mr XXXXXXXXX
 			<form action="CreateTopic">
 			<fieldset><legend> Creer Topic </legend>
 			<p><label> Nom : </label> <input type="text" name="nomTopic"
-				size="20" /></p>
+				size="80%" /></p>
 			<p><label> Message : </label></p>
 			<p><textarea name="contenuMessage"
-				cols="60" rows="5"></textarea> <input type="submit"
+				cols="100" rows="5"></textarea> <input type="submit"
 				name="creertopic" value="creer" /></p>
 			</fieldset>
 			</form>
