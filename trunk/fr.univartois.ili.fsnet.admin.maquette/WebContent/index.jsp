@@ -1,5 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
 <meta http-equiv="content-type"
@@ -14,83 +16,18 @@
 <script language="JavaScript" src="admin.js">
 </script>
 </head>
-
-
 <body onload="show();">
 
-<div id="menu">
-	<dl>
-		<dt><a class="current" href="BureauAdmin.html" title="Retour à l'accueil">Accueil</a></dt>
-	</dl>
-	
-	<dl>			
-		<dt onmouseover="show('smenu1');" onmouseout="show();"><a href="#">Membres</a></dt>
-			<dd id="smenu1">
-				<ul>
-                    <li onmouseover="show('smenu1');" onmouseout="show();"><a href="AddUser.jsp">Ajouter un membre</a></li>
-					<li onmouseover="show('smenu1');" onmouseout="show();"><a href="SearchMember.jsp">Rechercher un membre</a></li>
-				</ul>
-			</dd>
-	</dl>
-	<dl>			
-		<dt onmouseover="show('smenu2');" onmouseout="show();"><a href="#">Intérêts</a></dt>
-			<dd id="smenu2">
-				<ul>
-                    <li onmouseover="show('smenu2');" onmouseout="show();"><a href="AddInterest.jsp">Ajouter des intérêts</a></li>
-				</ul>
-			</dd>
-	</dl>
-	<dl>
-		<dt><a href="#">Communautés</a></dt>
-	</dl>
-	<dl>
-		<dt><a href="#" >Interactions</a></dt>
-	</dl>
-	<dl>
-		<dt><a href="#" >Demande Insc (3)</a></dt>
-	</dl>
-	<dl>
-		<dt><a href="#" >Messagerie (3)</a></dt>
-	</dl>
-	<dl>
-		<dt><a href="#" >Rapport d'activités</a></dt>
-	</dl>
-	<div id="search">
-<form action="">
-<fieldset><input type="text" class="field" value="Mot clé" />
-<input type="submit" class="button" value="" /></fieldset>
-</form>
-</div>
-</div>
+<jsp:include page="header.jsp"></jsp:include>
 
 	
 <div class="wrap background">
 
-<div id="logo">
-<h1><a href="BureauAdmin.html">FSNet<br />
-</a></h1>
-<h2 class="slogan">Réseau social</h2>
-<h2 class="slogan">Administration</h2>
-</div>
-
-<div id="features">
-<ul id="feature_menu">
-	<li><a class="current" href="">Actualité</a></li>
-	<li><a href="#">AAAAAAA</a></li>
-	<li><a href="#">BBBBBBBBB</a></li>
-</ul>
-
-<div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communauté vient d'être créée.</p>
-<p><a class="more" href="#">&not;Detail</a></p>
-</div>
-</div>
-
-<div class="clear"></div>
+<jsp:include page="subHeader.jsp"></jsp:include>
 
 
 <div id="left">
-<h2><a href="BureauAdmin.html">Accueil</a></h2>
+<h2><a href="index.jsp?accueil=current">Accueil</a></h2>
 <p class="date">Date<br />
 JJ-MM-AA</p>
 </div>
@@ -288,27 +225,8 @@ JJ-MM-AA</p>
 </table>
 </div>
 
-<div id="side">
-<div class="boxtop"></div>
-<div class="box">
-<h3>Mes communaut&eacute;s</h3>
-<a href="#"> <span class="item"> <span class="sidedate">JEE<br />
-&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Nouveauté J2EE </strong><br />
-Detail</span> </a> <a href="#"> <span class="item"> <span
-	class="sidedate">JAVA&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Eclipse
-... </strong><br />
-Detail </span> </a> <a href="#"> <span class="item last"> <span
-	class="sidedate">JSP<br />
-</span> <strong>Nouveauté JSP </strong><br />
-Detail</span> </a></div>
-<div class="boxbottom"></div>
+<jsp:include page="CommunityBox.jsp"></jsp:include>
 </div>
-<p id="ad">&nbsp;</p>
-</div>
-
-
-<div id="promo" style="text-align: center">
-<div class="wrap">FSnet licence</div>
-</div>
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

@@ -8,22 +8,25 @@ h2.slogan { font-size: 1.3em; color: #808080; }
 p  { margin: 0 0 15px; line-height: 1.7em; }
 .clear { clear: both; }
 .wrap { margin: 0 auto; width: 950px; }
-.background { background: url(../images/bg.jpg) no-repeat left 42px; }
+.background { background: url(../images/bg.jpg) no-repeat left 0px; }
 
-#search  { float: right; margin: 9px 0 0; width: 205px; }
+#search  { float: left; margin:9px 0px 0 15px; width: 205px; }
 	input.field { float: left; background: #808080; color: #ccc; padding: 4px; border: 0; margin: 0 5px 0 0; width: 170px; font: .8em "Trebuchet MS", Arial, Sans-Serif; }
 		input.field:focus { border-bottom: 1px dotted #ccc; color: #fff; }
 	input.button { float: right; background: url(../images/search.gif) no-repeat; width: 20px; height: 13px; border: 0; margin: 5px 0 0; }
 
-#menu { padding: 0 0 8px; margin: 0 0 25px; height: 20px;}
+#menu {width : 1100px; padding: 0 0 15px; margin: 0 0 25px 110px; height: 20px;}
 	#menu dl {float: left; margin: 0 1px; height: 0.8em;}
-	#menu dt a { float: left; width: 89px; text-align: center; margin: 0 1px 0 0; font-weight: bold; font-size: .8em; padding: 16px 0 21px; color: #ccc;}
-	#menu li a { float: left; width: 89px; text-align: center; margin: 0 1px 0 0; font-weight: bold; font-size: .8em; padding: 5px 0 10px; color: grey;}
-		 #menu dt a:hover, #menu dt a.current { color: #AF1515; background: url(../images/menu.gif) no-repeat center bottom; }
-		 #menu li a:hover { color: #AF1515;}
+	#menu dt a { float: left; width: 95px; text-align: center; margin: 0 1px 0 0; font-weight: bold; font-size: .8em; padding: 16px 0 21px; color: #ccc;}
+	#menu li a{float: left; width: 86px; text-align: center; margin: -10px 1px 0 0; font-weight: bold; font-size: .8em; padding: 6px 0 10px; color:#CCCCCC;background-color: #4F4F4F;}
+	#menu dt a:hover, #menu dt a.current { color: #AF1515; background: url(../images/menu.gif) no-repeat center bottom; }
+	#menu li a:hover {color: #AF1515;background-color: #FFF;}
+	#menu li{margin-left:4px; }
+	
+		 
 		 
 	
-#logo { float: left; margin-top:60px; }
+#logo { float: left; margin-top:0px; }
 #features { margin-top: 70px; }
 #feature{ color: #33617F; float: right; background: #fff; width: 580px; height: 160px; margin: 0 0 40px; font-size: 1.1em; font-style: italic; padding: 10px 10px 2px; }
 	#feature img { float: left; margin: 0 20px 0 0; }
@@ -64,7 +67,7 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 		.sidedate span { font-size: .6em; font-weight: bold; color: #808080; }
 
 #ad { background: url(../images/dot.gif) repeat-x; padding: 15px 0 10px; clear: both; font-size: .9em; line-height: 1.7em;  }
-#promo { clear: both; border-top: 3px solid #6E6E6E; background: #505050 url(../images/footer.gif) no-repeat right top; color: #ccc; padding: 30px 0 0 0; }
+#promo { text-align:center; clear: both; border-top: 3px solid #6E6E6E; background: #505050 url(../images/footer.gif) no-repeat right top; color: #ccc; padding: 30px 0 0 0; }
 	#promo h2 { color: #fff; }
 	#promo a { color: #D9EAF9; border-bottom: 1px dotted #808080; }
 	.col { float: left; width: 280px; margin: 0 30px 20px 0; }

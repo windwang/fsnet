@@ -39,4 +39,6 @@ function show(id) {
 	if (d) {d.style.display='block';}
 }
 
-
+function setFocus(id){
+	document.id.focus();
+}
