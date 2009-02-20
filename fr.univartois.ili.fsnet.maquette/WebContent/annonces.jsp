@@ -1,5 +1,8 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -26,7 +29,7 @@
 <div class="wrap background">
 <div id="search">
 <form action="">
-<fieldset><input type="text" class="field" value="Mot clé" />
+<fieldset><input type="text" class="field" value="Mot clÃ©" />
 <input type="submit" class="button" value="" /></fieldset>
 </form>
 </div>
@@ -73,18 +76,24 @@ Bienvenue Mr XXXXXXXXX
 <p>&nbsp;</p>
 <table width="433">
 	<fsnet:annonce var="monAnnonce">
-${monAnnonce.nom}
+		<tr>
+			<th><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a></th>
+		</tr>
 	</fsnet:annonce>
-	
-              <tr>
-                <th style="width:193" scope="row"><a href="#">Ventes</a></th>
-                <td style="width:228"><div style="text-align: right" class="Style1">12</div></td>
-              </tr>
-              <tr>
-                <th scope="row"><a href="#">Informatique</a></th>
-                <td><div style="text-align: right" class="Style1">27</div></td>
-              </tr>
-             
+
+	<tr>
+		<th style="width: 193" scope="row"><a href="#">Ventes</a></th>
+		<td style="width: 228">
+		<div style="text-align: right" class="Style1">12</div>
+		</td>
+	</tr>
+	<tr>
+		<th scope="row"><a href="#">Informatique</a></th>
+		<td>
+		<div style="text-align: right" class="Style1">27</div>
+		</td>
+	</tr>
+
 </table>
 <p>&nbsp;</p>
 <hr />
