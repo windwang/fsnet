@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -25,16 +26,16 @@
 </div>
 
 <ul id="menu">
-	<li><a class="current" href="index.html">Accueil</a></li>
-	<li><a href="profil.jsp">Mon Profil</a></li>
+	<li><a class="current" href="index.jsp">Accueil</a></li>
+	<li><a href="profil.jsp">Profil</a></li>
 	<li><a href="hub.jsp">Hubs</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
 	<li><a href="annonces.jsp">Annonces</a></li>
 
 </ul>
-
-Bienvenue M. ${membre.nom} ${membre.prenom} 
+<fsnet:login var="membre" idLogin="${idLogin}">
+	Bienvenue M. ${membre.nom} ${membre.prenom} 
 
 <div id="logo">
 <h1><a href="http://code.google.com/p/fsnet/">FSNet<br />
@@ -58,7 +59,7 @@ Bienvenue M. ${membre.nom} ${membre.prenom}
 <div id="left">
 <h2><a href="#">Mon profil </a></h2>
 
-<form action="index.html" method="post">
+<form action="CompleteProfil" method="post" id="completeProfil">
 <table>
 	<tr>
 		<td style="height:19" colspan="3">
@@ -91,15 +92,18 @@ Bienvenue M. ${membre.nom} ${membre.prenom}
 	</tr>
 
 	<tr>
-		<td style="height:27" colspan="2"><label></label> ${membre.nom }</td>
+		<td style="height:27" colspan="2"><label> <input type="text"
+			name="nom" value="${membre.nom }" disabled="disabled"/> </label></td>
 	</tr>
 	<tr>
 		<td style="height:22" colspan="3"><strong>Pr&eacute;nom : </strong></td>
-		<td colspan="2">${membre.prenom }</td>
+		<td colspan="2"> <label > <input type="text"
+			name="prenom" value="${membre.prenom }" disabled="disabled"/> </label></td>
 	</tr>
 	<tr>
 		<td style="height:29" colspan="3"><strong>E-mail : </strong></td>
-		<td colspan="2">${membre.email }</td>
+		<td colspan="2"> <label > <input type="text"
+			name="email" value="${membre.email }" /> </label></td>
 	</tr>
 	<tr>
 		<td style="height:21" colspan="3"><strong>Date d'entr&eacute;e
@@ -108,12 +112,12 @@ Bienvenue M. ${membre.nom} ${membre.prenom}
 	</tr>
 	<tr>
 		<td style="height:29" colspan="3"><strong>Date de naissance :</strong></td>
-		<td colspan="2"> <label > <input type="dateNaissance"
-			name="textfield252" /> </label> <strong> </strong>(JJ/MM/AAAA)</td>
+		<td colspan="2"> <label > <input type="text"
+			name="dateNaissance" value="${membre.dateNaissance }" /> </label> <strong> </strong>(JJ/MM/AAAA)</td>
 	</tr>
 	<tr>
 		<td style="height:29" colspan="3"><strong>sexe :</strong></td>
-		<td colspan="2"><label> <select name="select2">
+		<td colspan="2"><label> <select name="sexe">
 			<option>M</option>
 			<option>F</option>
 		</select> </label></td>
@@ -121,36 +125,37 @@ Bienvenue M. ${membre.nom} ${membre.prenom}
 	<tr>
 		<td style="height:29" colspan="3"><strong>Adresse : </strong></td>
 		<td colspan="2"><label> <input type="text"
-			name="textfield24" /> </label></td>
+			name="adresse" value="${membre.adresse }"/> </label></td>
 	</tr>
 	<tr>
 		<td style="height:29" colspan="3"><strong>Num&eacute;ro de
 		t&eacute;l&eacute;phone : </strong></td>
 		<td colspan="2"><label> <input type="text"
-			name="textfield23" /> </label></td>
+			name="telephone" value="${membre.numTel }"/> </label></td>
 	</tr>
 	<tr>
 		<td style="height:29" colspan="3"><strong>Profession :</strong></td>
-		<td colspan="2"><label> <input type="profession"
-			name="textfield252" /> </label></td>
+		<td colspan="2"><label> <input type="text"
+			name="profession" value="${membre.profession }"/> </label></td>
 	</tr>
 	<tr>
 		<td style="height:29" colspan="3"><strong>Mot de passe : </strong></td>
 		<td colspan="2"><label> <input type="password"
-			name="textfield252" /> </label></td>
+			name="mdp1" disabled="disabled"/> </label></td>
 	</tr>
 	<tr>
 		<td style="height:29" colspan="3"><strong>Confirmer mot de
 		passe : </strong></td>
 		<td colspan="2"><label> <input type="text"
-			name="textfield253" /> </label></td>
+			name="mdp2" disabled="disabled" /> </label></td>
 	</tr>
 	<tr>
+	
 		<td></td>
 		<td colspan="7" rowspan="2" valign="top">
 		<div style="text-align:right;"><label>
 		<input type="submit" name="Submit"
-			value="Enregistrer" />
+			value="Valider" />
 		</label></div>
 		</td>
 	</tr>
@@ -160,7 +165,11 @@ Bienvenue M. ${membre.nom} ${membre.prenom}
 	</tr>
 </table>
 </form>
+
 </div>
+</fsnet:login>
+
 </div>
+
 </body>
 </html>
