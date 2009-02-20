@@ -69,7 +69,7 @@ Bienvenue Mr XXXXXXXXX
 </div>
 
 <div class="clear"></div>
-
+<a href="hub.jsp">FSNet</a> - <a href="GotoTopic?idHub=${monHub.id}">${monHub.nomCommunaute}</a>
 <table style="padding: 6; width: 100%; align: center" border="1">
 	<thead>
 		<tr style="text-align: center">
@@ -115,7 +115,8 @@ Bienvenue Mr XXXXXXXXX
 			<fieldset><legend> Creer Topic </legend>
 			<p><label> Nom : </label> <input type="text" name="nomTopic"
 				size="20" /></p>
-			<p><label> Message : </label> <textarea name="contenuMessage"
+			<p><label> Message : </label></p>
+			<p><textarea name="contenuMessage"
 				cols="60" rows="5"></textarea> <input type="submit"
 				name="creertopic" value="creer" /></p>
 			</fieldset>
