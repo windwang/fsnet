@@ -35,7 +35,7 @@
 </div>
 <ul id="menu">
 	<li><a class="current" href="index.html">Accueil</a></li>
-	<li><a href="profil.html">Profil</a></li>
+	<li><a href="profil.jsp">Mon Profil</a></li>
 	<li><a href="hub.jsp">Mon r&egrave;seau</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
