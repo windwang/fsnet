@@ -291,7 +291,7 @@ public class EntiteSociale {
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(dateEntree);
 		int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
-		int mois = cal.get(GregorianCalendar.MONTH);
+		int mois = cal.get(GregorianCalendar.MONTH)+1;
 		int annee = cal.get(GregorianCalendar.YEAR);
 		return jour+"/"+mois+"/"+annee;
 	}
@@ -318,7 +318,7 @@ public class EntiteSociale {
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(dateNaissance);
 		int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
-		int mois = cal.get(GregorianCalendar.MONTH);
+		int mois = cal.get(GregorianCalendar.MONTH)+1;
 		int annee = cal.get(GregorianCalendar.YEAR);
 		return jour+"/"+mois+"/"+annee;
 	}
