@@ -17,79 +17,13 @@
 </script>
 </head>
 <body onload="show();">
+
+<jsp:include page="header.jsp"></jsp:include>
 <div class="wrap background">
-<div id="search">
-<form action="">
-<fieldset><input type="text" class="field" value="Mot clé" />
-<input type="submit" class="button" value="" /></fieldset>
-</form>
-</div>
-<div id="menu">
-<dl>
-	<dt><a href="BureauAdmin.html" title="Retour à l'accueil">Accueil</a></dt>
-</dl>
-
-<dl>
-	<dt onmouseover="show('smenu1');" onmouseout="show();"><a class="current" href="#">Membres</a></dt>
-	<dd id="smenu1">
-	<ul>
-		<li onmouseover="show('smenu1');" onmouseout="show();"><a
-			href="AddUser.jsp">Ajouter un membre</a></li>
-		<li onmouseover="show('smenu1');" onmouseout="show();"><a
-			href="SearchMember.jsp">Rechercher un membre</a></li>
-	</ul>
-	</dd>
-</dl>
-<dl>
-	<dt onmouseover="show('smenu2');" onmouseout="show();"><a href="#">Intérêts</a></dt>
-	<dd id="smenu2">
-	<ul>
-		<li onmouseover="show('smenu2');" onmouseout="show();"><a
-			 href="AddInterest.jsp">Ajouter des intérêts</a></li>
-	</ul>
-	</dd>
-</dl>
-<dl>
-	<dt><a href="#">Communautés</a></dt>
-</dl>
-<dl>
-	<dt><a href="#">Interactions</a></dt>
-</dl>
-<dl>
-	<dt><a href="#">Demande Insc (3)</a></dt>
-</dl>
-<dl>
-	<dt><a href="#">Messagerie (3)</a></dt>
-</dl>
-<dl>
-	<dt><a href="#">Rapport d'activités</a></dt>
-</dl>
-</div>
-
-<div id="logo">
-<h1><a href="BureauAdmin.html">FSNet<br />
-</a></h1>
-<h2 class="slogan">Réseau social</h2>
-<h2 class="slogan">Administration</h2>
-</div>
-
-<div id="features">
-<ul id="feature_menu">
-	<li><a class="current" href="BureauAdmin.html">Actualité</a></li>
-	<li><a href="#">AAAAAAA</a></li>
-	<li><a href="#">BBBBBBBBB</a></li>
-</ul>
-
-<div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communauté vient d'être créée.</p>
-<p><a class="more" href="#">&not;Detail</a></p>
-</div>
-</div>
-
-<div class="clear"></div>
+<jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="AddUser.jsp">Ajout de membre </a></h2>
+<h2><a href="AddUser.jsp?user=current">Ajout de membre </a></h2>
 <p class="date">Date<br />
 JJ-MM-AA</p>
 <p class="subtitle">
@@ -167,28 +101,10 @@ JJ-MM-AA</p>
 </table>
 </div>
 
-<div id="side">
-<div class="boxtop"></div>
-<div class="box">
-<h3>Mes communaut&eacute;s</h3>
-<a href="#"> <span class="item"> <span class="sidedate">JEE<br />
-&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Nouveauté J2EE </strong><br />
-Detail</span> </a> <a href="#"> <span class="item"> <span
-	class="sidedate">JAVA&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Eclipse
-... </strong><br />
-Detail </span> </a> <a href="#"> <span class="item last"> <span
-	class="sidedate">JSP<br />
-</span> <strong>Nouveauté JSP </strong><br />
-Detail</span> </a></div>
-<div class="boxbottom"></div>
-</div>
-<p id="ad">&nbsp;</p>
+<jsp:include page="CommunityBox.jsp"></jsp:include>
 </div>
 
-<div id="promo">
-<center>
-<div class="wrap">FSnet licence</div>
-</center>
-</div>
+
+<jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

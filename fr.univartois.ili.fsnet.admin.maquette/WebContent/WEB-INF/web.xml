@@ -5,7 +5,6 @@
 	id="WebApp_ID" version="2.5">
 	<display-name>fr.univartois.ili.fsnet.admin.maquette</display-name>
 	<welcome-file-list>
-		<welcome-file>BureauAdmin.html</welcome-file>
 		<welcome-file>index.htm</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
 		<welcome-file>default.html</welcome-file>
