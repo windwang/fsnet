@@ -26,8 +26,8 @@
 </div>
 
 <ul id="menu">
-	<li><a class="current" href="index.jsp">Accueil</a></li>
-	<li><a href="profil.jsp">Profil</a></li>
+	<li><a href="index.jsp">Accueil</a></li>
+	<li><a class="current" href="profil.jsp">Profil</a></li>
 	<li><a href="hub.jsp">Hubs</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
