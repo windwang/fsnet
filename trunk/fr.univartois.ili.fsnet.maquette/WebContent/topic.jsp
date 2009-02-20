@@ -44,7 +44,7 @@
 <ul id="menu">
 	<li><a class="current" href="index.html">accueil</a></li>
 	<li><a href="profil.jsp">Mon Profil</a></li>
-	<li><a href="forum.html">Mon r&egrave;seau</a></li>
+	<li><a href="hub.jsp">Hubs</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
 	<li><a href="annonces.jsp">annonces</a></li>
@@ -77,7 +77,6 @@ Bienvenue Mr XXXXXXXXX
 			<div style="text-align: center">Topic</div>
 			</td>
 			<td class="thead">Dernier message</td>
-			<td class="thead">Discussions</td>
 			<td class="thead">Messages</td>
 		</tr>
 	</thead>
@@ -103,7 +102,6 @@ Bienvenue Mr XXXXXXXXX
 				</table>
 				</td>
 				<td class="alt2"></td>
-				<td class="alt1" />
 				<td class="alt2" />
 			</tr>
 		</tbody>
