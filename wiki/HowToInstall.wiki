@@ -1,8 +1,6 @@
 #labels Phase-Deploy
 = FSNET =
 
-<img src="http://i69.servimg.com/u/f69/13/39/68/14/captur12.png"/>
-
 = Needs =
 
 ===In order to use FSNET, you will have to install :===
