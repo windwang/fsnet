@@ -1,6 +1,8 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
@@ -19,7 +21,7 @@ public class Annonce extends Information {
 	 * The date of the end's ad.
 	 */
 	@Temporal(TemporalType.DATE)
-	private Date dateFinAnnnonce;
+	private Date dateFinAnnonce;
 
 	/**
 	 * Constructor of the class Annonce.
@@ -33,22 +35,38 @@ public class Annonce extends Information {
 	 * @param dateFinAnnnonce
 	 *            .
 	 */
-	public Annonce(Date dateFinAnnnonce) {
+	public Annonce(Date dateFinAnnonce) {
 		super();
-		this.dateFinAnnnonce = dateFinAnnnonce;
+		this.dateFinAnnonce = dateFinAnnonce;
+
 	}
 
-	
-	public Annonce(String nom, Date datePublication, String contenu,Date dateFinAnnnonce){
-		super(nom,datePublication,contenu);
-		this.dateFinAnnnonce = dateFinAnnnonce;
+	public Annonce(String nom, Date datePublication, String contenu,
+			Date dateFinAnnonce) {
+		super(nom, datePublication, contenu);
+		this.dateFinAnnonce = dateFinAnnonce;
 	}
+
 	/**
 	 * 
 	 * @return The date of the end's ad .
 	 */
-	public Date getDateFinAnnnonce() {
-		return dateFinAnnnonce;
+	public Date getDateFinAnnonce() {
+		return dateFinAnnonce;
+	}
+
+	/**
+	 * 
+	 * @return The date of the end's ad in the format jj/mm/aaaa.
+	 */
+	public String getDateAnnonce() {
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.setTime(dateFinAnnonce);
+		int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+		int mois = calendar.get(GregorianCalendar.MONTH);
+		int année = calendar.get(GregorianCalendar.YEAR);
+		String date = jour + "/" + mois + "/" + année;
+		return date;
 	}
 
 	/**
@@ -57,8 +75,8 @@ public class Annonce extends Information {
 	 * @param dateFinAnnnonce
 	 *            .
 	 */
-	public void setDateFinAnnnonce(Date dateFinAnnnonce) {
-		this.dateFinAnnnonce = dateFinAnnnonce;
+	public void setDateFinAnnnonce(Date dateFinAnnonce) {
+		this.dateFinAnnonce = dateFinAnnonce;
 	}
 
 }
