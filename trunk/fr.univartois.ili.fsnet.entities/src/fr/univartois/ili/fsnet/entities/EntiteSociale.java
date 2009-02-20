@@ -1,6 +1,8 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -280,8 +282,13 @@ public class EntiteSociale {
 	 * 
 	 * @return the date of entry of the social entity.
 	 */
-	public Date getDateEntree() {
-		return dateEntree;
+	public String getDateEntree() {
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.setTime(dateEntree);
+		int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
+		int mois = cal.get(GregorianCalendar.MONTH);
+		int annee = cal.get(GregorianCalendar.YEAR);
+		return jour+"/"+mois+"/"+annee;
 	}
 
 	/**
@@ -297,8 +304,13 @@ public class EntiteSociale {
 	 * 
 	 * @return the date of birth of the social entity.
 	 */
-	public Date getDateNaissance() {
-		return dateNaissance;
+	public String getDateNaissance() {
+		Calendar cal = GregorianCalendar.getInstance();
+		cal.setTime(dateNaissance);
+		int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
+		int mois = cal.get(GregorianCalendar.MONTH);
+		int annee = cal.get(GregorianCalendar.YEAR);
+		return jour+"/"+mois+"/"+annee;
 	}
 
 	/**
