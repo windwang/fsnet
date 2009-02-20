@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-modules id="moduleCoreId" project-version="1.5.0">
+    <wb-module deploy-name="fr.univartois.ili.fsnet.maquette">
+        <wb-resource deploy-path="/" source-path="/WebContent"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
+        <dependent-module archiveName="fr.univartois.ili.fsnet.facade.iliforum.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/fr.univartois.ili.fsnet.facade.iliforum/fr.univartois.ili.fsnet.facade.iliforum">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="fr.univartois.ili.fsnet.entities.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/fr.univartois.ili.fsnet.entities/fr.univartois.ili.fsnet.entities">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <dependent-module archiveName="fr.univartois.ili.fsnet.facade.iliforumtags.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/fr.univartois.ili.fsnet.facade.iliforumtags/fr.univartois.ili.fsnet.facade.iliforumtags">
+            <dependency-type>uses</dependency-type>
+        </dependent-module>
+        <property name="context-root" value="fr.univartois.ili.fsnet.maquette"/>
+        <property name="java-output-path"/>
+    </wb-module>
+</project-modules>

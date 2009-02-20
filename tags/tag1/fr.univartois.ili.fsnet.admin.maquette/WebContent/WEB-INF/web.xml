@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	id="WebApp_ID" version="2.5">
+	<display-name>fr.univartois.ili.fsnet.admin.maquette</display-name>
+	<welcome-file-list>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<description></description>
+		<display-name>SendMessage</display-name>
+		<servlet-name>SendMessage</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.admin.servlets.SendMessage</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>SendMessage</servlet-name>
+		<url-pattern>/SendMessage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>AddUser</display-name>
+		<servlet-name>AddUser</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.admin.servlets.AddUser</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddUser</servlet-name>
+		<url-pattern>/AddUser</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<description></description>
+		<display-name>AddInterest</display-name>
+		<servlet-name>AddInterest</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.admin.servlets.AddInterest</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>AddInterest</servlet-name>
+		<url-pattern>/AddInterest</url-pattern>
+	</servlet-mapping>
+	<jsp-config>
+		<taglib>
+			<taglib-uri>http://admin.ili.fsnet.com/</taglib-uri>
+			<taglib-location>/WEB-INF/tlds/adminbalises.tld</taglib-location>
+		</taglib>
+	</jsp-config>
+</web-app>
