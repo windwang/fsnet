@@ -237,5 +237,6 @@
 		<delete file="${fsnet.dir}/WebContent/WEB-INF/lib/fsnetiliforum.jar"/>
 	</target>
 
-	<target name="both" depends="entities,entities.test,iliforum,iliforum.test,iliforumtags,admin,fsnet,clean"/>
+	<!--<target name="both" depends="entities,entities.test,iliforum,iliforum.test,iliforumtags,admin,fsnet,clean"/>-->
+	<target name="both" depends="entities,iliforum,iliforumtags,admin,fsnet,clean"/>
 </project>
