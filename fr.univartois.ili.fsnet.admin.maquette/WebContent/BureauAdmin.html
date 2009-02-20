@@ -11,20 +11,12 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <title>FSNet</title>
-<script type="text/javascript">
-function affCache(idDiv) {
-var div = document.getElementById(idDiv);
-if (div.style.display == "")
-div.style.display = "none";
-else
-div.style.display = "";
-}
-
+<script language="JavaScript" src="admin.js">
 </script>
 </head>
 
 
-<body>
+<body onload="show();">
 <div class="wrap background">
 <div id="search">
 <form action="">
@@ -32,23 +24,56 @@ div.style.display = "";
 <input type="submit" class="button" value="" /></fieldset>
 </form>
 </div>
-<ul id="menu">
-	<li><a class="current" href="#">Accueil</a></li>
-	<li><a href="RechAdmin.html">Membres</a></li>
-	<li><a href="RechAdmin.html">Communautés</a></li>
-	<li><a href="#">Interaction</a></li>
-	<li><a href="#">Messagerie (3)</a></li>
-	<li><a href="GestInscription.html">Demande Insc (3)</a></li>
-	<li><a href="#">Rapport Activité</a></li>
 
-</ul>
-Bienvenue Mr XXXXXXXXX
+<div id="menu">
+	<dl>
+		<dt><a class="current" href="BureauAdmin.html" title="Retour à l'accueil">Accueil</a></dt>
+	</dl>
+	
+	<dl>			
+		<dt onmouseover="show('smenu1');" onmouseout="show();"><a href="#">Membres</a></dt>
+			<dd id="smenu1">
+				<ul>
+                    <li onmouseover="show('smenu1');" onmouseout="show();"><a href="AddUser.jsp">Ajouter un membre</a></li>
+					<li onmouseover="show('smenu1');" onmouseout="show();"><a href="SearchMember.jsp">Rechercher un membre</a></li>
+				</ul>
+			</dd>
+	</dl>
+	<dl>			
+		<dt onmouseover="show('smenu2');" onmouseout="show();"><a href="#">Intérêts</a></dt>
+			<dd id="smenu2">
+				<ul>
+                    <li onmouseover="show('smenu2');" onmouseout="show();"><a href="AddInterest.jsp">Ajouter des intérêts</a></li>
+				</ul>
+			</dd>
+	</dl>
+	<dl>
+		<dt><a href="#">Communautés</a></dt>
+	</dl>
+	<dl>
+		<dt><a href="#" >Interactions</a></dt>
+	</dl>
+	<dl>
+		<dt><a href="#" >Demande Insc (3)</a></dt>
+	</dl>
+	<dl>
+		<dt><a href="#" >Messagerie (3)</a></dt>
+	</dl>
+	<dl>
+		<dt><a href="#" >Rapport d'activités</a></dt>
+	</dl>
+</div>
+	
+
+
 <div id="logo">
-<h1><a href="http://code.google.com/p/fsnet/">FSNet<br />
+<h1><a href="BureauAdmin.html">FSNet<br />
 </a></h1>
-<h2 id="slogan">Réseau social</h2>
+<h2 class="slogan">Réseau social</h2>
+<h2 class="slogan">Administration</h2>
 </div>
 
+<div id="features">
 <ul id="feature_menu">
 	<li><a class="current" href="">Actualité</a></li>
 	<li><a href="#">AAAAAAA</a></li>
@@ -59,14 +84,18 @@ Bienvenue Mr XXXXXXXXX
 <p>Une nouvelle communauté vient d'être créée.</p>
 <p><a class="more" href="#">&not;Detail</a></p>
 </div>
+</div>
 
 <div class="clear"></div>
 
+
 <div id="left">
-<h2><a href="#">Accueil</a></h2>
+<h2><a href="BureauAdmin.html">Accueil</a></h2>
 <p class="date">Date<br />
 JJ-MM-AA</p>
-<table style="width: 479">
+</div>
+<div id="tableauprincipal">
+<table>
 	<tr>
 		<td style="height: 2"></td>
 		<td></td>
@@ -75,23 +104,7 @@ JJ-MM-AA</p>
 	</tr>
 
 	<tr>
-		<td rowspan="16" valign="top" style="background-color: #FFFFCC">
-		<h2 style="text-align: center" class="Style1">Administration</h2>
-		<p class="Style1"><a href="#">Bureau</a></p>
-		<p class="Style1"><a href="#">Messagerie (3)</a></p>
-		<p class="Style1"><a href="RechAdmin.html">Lister membres</a></p>
-		<p class="Style1"><a href="RechAdmin.html">Lister communautés</a></p>
-		<p class="Style1"><a href="GestInscription.html">Demandes
-		d'inscriptions en attente (4) </a></p>
-		<!-- <p class="Style1"><a href="demandeinscription.html">Ajouter Membre</a></p> -->
-		<p class="Style1"><a href="AddUser.jsp">Ajouter Membre</a></p>
-		<p class="Style1"><a href="AddInterest.jsp">Ajouter Interet</a></p>
-
-		<p class="Style1"><a href="#">Interactions</a></p>
-		<p class="Style1"><a href="#">Rapport d'activit&eacute;s </a></p>
-		<p class="Style1"><a href="#">Me déconnecter</a></p>
-		<p class="Style1">&nbsp;</p>
-		</td>
+		
 		<td style="height: 33"></td>
 		<td valign="top" style="background-color: #EDF3F8">
 		<h2 class="Style8"><img
@@ -174,9 +187,9 @@ JJ-MM-AA</p>
 				<td><a href="#">Supprimer</a></td>
 			</tr>
 		</table>
-	</div>
-	</td>
-	<td></td>
+		</div>
+		</td>
+		<td></td>
 	</tr>
 	<tr>
 		<td style="height: 2"></td>
@@ -245,7 +258,7 @@ JJ-MM-AA</p>
 	</tr>
 	<tr>
 		<td style="height: 50"></td>
-		<td></td>
+		<!--  <td></td> -->
 		<td valign="top" style="background-color: #EDF3F8">
 		<h2><span class="Style8"><img
 			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_073.png"
@@ -258,11 +271,11 @@ JJ-MM-AA</p>
 		<td style="height: 2"></td>
 		<td></td>
 		<td></td>
-		<td></td>
+		<!-- <td></td> -->
 	</tr>
 	<tr>
 		<td style="height: 68"></td>
-		<td></td>
+		<!-- <td></td> -->
 		<td valign="top">
 		<ul>
 			<li><a href="#">Demande 1</a></li>
@@ -292,6 +305,7 @@ Detail</span> </a></div>
 </div>
 <p id="ad">&nbsp;</p>
 </div>
+
 
 <div id="promo" style="text-align: center">
 <div class="wrap">FSnet licence</div>

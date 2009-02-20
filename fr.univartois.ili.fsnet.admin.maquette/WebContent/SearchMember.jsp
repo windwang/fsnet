@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="content-type"
+	content="application/xhtml+xml; charset=UTF-8" />
 <meta name="author" content="Luka Cvrk - www.solucija.com" />
 <meta name="description" content="Site Description" />
 <meta name="keywords" content="site, keywords" />
@@ -30,7 +30,8 @@
 </dl>
 
 <dl>
-	<dt onmouseover="show('smenu1');" onmouseout="show();"><a class="current" href="#">Membres</a></dt>
+	<dt onmouseover="show('smenu1');" onmouseout="show();"><a
+		class="current" href="#">Membres</a></dt>
 	<dd id="smenu1">
 	<ul>
 		<li onmouseover="show('smenu1');" onmouseout="show();"><a
@@ -45,7 +46,7 @@
 	<dd id="smenu2">
 	<ul>
 		<li onmouseover="show('smenu2');" onmouseout="show();"><a
-			 href="AddInterest.jsp">Ajouter des intérêts</a></li>
+			href="AddInterest.jsp">Ajouter des intérêts</a></li>
 	</ul>
 	</dd>
 </dl>
@@ -75,7 +76,7 @@
 
 <div id="features">
 <ul id="feature_menu">
-	<li><a class="current" href="BureauAdmin.html">Actualité</a></li>
+	<li><a class="current" href="">Actualité</a></li>
 	<li><a href="#">AAAAAAA</a></li>
 	<li><a href="#">BBBBBBBBB</a></li>
 </ul>
@@ -89,82 +90,104 @@
 <div class="clear"></div>
 
 <div id="left">
-<h2><a href="AddUser.jsp">Ajout de membre </a></h2>
+<h2><a href="SearchMember.jsp">Rechercher un membre</a></h2>
 <p class="date">Date<br />
 JJ-MM-AA</p>
-<p class="subtitle">
 </div>
 <div id="tableauprincipal">
-<table width="100%">
+<table style="width: 90%">
 	<tr>
 		<td height="2"></td>
 		<td></td>
 		<td></td>
-		<td></td>
 	</tr>
 
 	<tr>
-		<td>
-
-		<table>
-			<tr>
-				<th colspan="3" scope="col">
-				<div align="center">Liste des membres</div>
-				</th>
-			</tr>
-			<tr>
-				<th width="33%" scope="row">Nom</th>
-				<th width="33%" scope="row">Prénom</th>
-				<th width="33%" scope="row">Email</th>
-			</tr>
-			<admin:entite var="entite">
-				<tr>
-					<td width="33%">${entite.nom}</td>
-					<td width="33%">${entite.prenom}</td>
-					<td width="33%">${entite.email}</td>
-				</tr>
-			</admin:entite>
-
-		</table>
-		<form id="AddUser" method="post" action="AddUser">
-		<table width="100%" border="0">
-			<tr>
-				<th colspan="2" scope="col">
-				<div align="center">Ajouter un membre</div>
-				</th>
-			</tr>
-
-			<tr>
-				<th width="33%" scope="row">Nom</th>
-				<td width="67%"><label> <input type="text" name="nom"
-					accesskey="nom" /> </label></td>
-			</tr>
-			<tr>
-				<th scope="row">Prénom</th>
-				<td width="67%"><label> <input type="text"
-					name="prenom" accesskey="prenom" /> </label></td>
-			</tr>
-			<tr>
-				<th scope="row">Email</th>
-				<td width="67%"><label> <input type="text" name="email"
-					accesskey="email" /> </label></td>
-			</tr>
-			<tr>
-				<th scope="row">&nbsp;</th>
-				<td><label>
-				<div align="right"><input type="submit" name="Submit"
-					value="Enregistrer" accesskey="Enregistrer" /></div>
-				</label></td>
-			</tr>
-		</table>
-		</form>
-
+		<td valign="top" style="background-color: #EDF3F8">
+		<h2 class="Style8">Rechercher Membre(s)</h2>
 		</td>
-		<td height="33" valign="top">&nbsp;</td>
-		<td></td>
+		<td style="height: 38"></td>
 	</tr>
-	
+	<tr>
+		<td></td>
+		<td style="height: 2"></td>
+	</tr>
+
+	<tr>
+		<td valign="top">
+		<form id="form1" method="post" action="">
+
+		<div style="text-align: right">Date d'entrée <input type="text"
+			name="textfield" /> <br />
+		<br />
+		Nom : <input type="text" name="textfield2" /> <br />
+		<br />
+		Prénom : <input type="text" name="textfield3" /> <br />
+		<br />
+		<input type="submit" name="Submit" value="Rechercher" /></div>
+
+		</form>
+		</td>
+		<td style="height: 38"></td>
+	</tr>
+	<tr>
+		<td></td>
+		<td style="height: 2"></td>
+	</tr>
+	<tr>
+		<td valign="top" style="background-color: #EDF3F8FFFFF">
+		<h2 class="Style8">R&eacute;sultat de la Recherche</h2>
+		</td>
+		<td style="height: 63"></td>
+	</tr>
+	<tr>
+		<td>
+		<div style="text-align: center"></div>
+		</td>
+		<td style="height: 2"></td>
+	</tr>
+	<tr>
+		<td valign="top">
+		<div style="text-align: center">
+		<table style="width: 100%; border: 2">
+			<tr style="background-color: #CCCCCC">
+				<td style="width: 64">
+				<h4>Nom</h4>
+				</td>
+				<td style="width: 84">
+				<h4>Pr&eacute;nom</h4>
+				</td>
+				<td style="width: 106">
+				<h4>Date d'entr&eacute;e</h4>
+				</td>
+				<td style="width: 112">
+				<h4>Afficher D&eacute;tails</h4>
+				</td>
+				<td style="width: 98">
+				<h4>Supprimer</h4>
+				</td>
+			</tr>
+			<tr>
+				<td>Caramba</td>
+				<td>Simpson</td>
+				<td>10/02/2009</td>
+				<td><a href="#">Détails</a></td>
+				<td><a href="#">Supprimer</a></td>
+			</tr>
+			<tr>
+				<td>Speedy</td>
+				<td>Gonzalez</td>
+				<td>12/01/2009</td>
+				<td><a href="#">Détails</a></td>
+				<td><a href="#">Supprimer</a></td>
+			</tr>
+		</table>
+		</div>
+		</td>
+		<td style="height: 40"></td>
+	</tr>
 </table>
+
 </div>
 
 <div id="side">
@@ -185,10 +208,8 @@ Detail</span> </a></div>
 <p id="ad">&nbsp;</p>
 </div>
 
-<div id="promo">
-<center>
+<div id="promo" style="text-align: center">
 <div class="wrap">FSnet licence</div>
-</center>
 </div>
 </body>
 </html>
