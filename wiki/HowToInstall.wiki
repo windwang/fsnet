@@ -1,0 +1,30 @@
+#labels Phase-Deploy
+= FSNET =
+
+<img src="http://i69.servimg.com/u/f69/13/39/68/14/captur12.png"/>
+
+= Needs =
+
+===In order to use FSNET, you will have to install :===
+
+ * an application server (like Apache Tomcat)
+ * a MySQL Database administration tool (like phpmyadmin)
+
+===Librairies to install in the application server :===
+
+ * javax.persistence_1.0.0.jar
+ * mysql-connector-java-x-bin.jar
+
+
+= How to use FSNET =
+
+ ===Theses explanations are for apache tomcat users :===
+
+ # Create a new database user : username : *fsnet*, password : *fsnet*
+ # Create a new database named *fsnet*
+ # Copy the _javax.persistence_1.0.0.jar_ and the _mysql-connector-java-x-bin.jar_ in the tomcat/lib directory
+ # Unzip the fsnet archive
+ # Copy the _fsnet.war_ and _fsadmin.war_ files in the tomcat/webapps
+ # Run the project in your web browser :
+       * http://localhost:8080/fsadmin for the administrator
+       * http://localhost:8080/fsnet for users
