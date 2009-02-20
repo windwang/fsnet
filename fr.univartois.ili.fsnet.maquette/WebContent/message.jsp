@@ -131,27 +131,22 @@ Bienvenue Mr XXXXXXXXX
 	style="PaDDING-RIGHT: 25px; PaDDING-LEFT: 25px; PaDDING-BOTTOM: 0px; PaDDING-TOP: 0px; text-align: left;">
 <div id="edit3994424"
 	style="PaDDING-RIGHT: 0px; PaDDING-LEFT: 0px; PaDDING-BOTTOM: 6px; PaDDING-TOP: 0px">
+<a href="hub.jsp">FSNet</a> - <a href="GotoTopic?idHub=${monHub.id}">${monHub.nomCommunaute}</a> - <a href="GotoMessage?idTopic=${monTopic.id}">${monTopic.sujet}</a>
 <table class="tborder" id="post3994424"
 	style="padding: 6; width: 100%; text-align: left; border: 0">
 
 
 	<tr>
-		<td class="thead"
-			style="BORDER-RIGHT: #d1d1e1 0px solid; BORDER-TOP: #d1d1e1 1px solid; FONT-WEIGHT: normal; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid">
-		Hier, 09h20</td>
-		<td class="thead"
-			style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 1px solid; FONT-WEIGHT: normal; BORDER-LEFT: #d1d1e1 0px solid; BORDER-BOTTOM: #d1d1e1 1px solid; text-align: right"><span
-			class="smallfont"><a href="http://www.google.fr"
-			rel="nofollow"><img
-			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_168.png"
-			alt="Réponse" width="48" height="48" style="border: 0" /></a></span>&nbsp; (<b><a
-			title="Link to this Post" href="#">ajouter une reponse </a></b>)</td>
+		<td colspan="2" class="thead"
+			style="BORDER-RIGHT: #d1d1e1 1px solid;BORDER-TOP: #d1d1e1 1px solid; FONT-WEIGHT: normal; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid">
+		${monTopic.sujet}</td>
+		
 	</tr>
 
 	<fsnet:message var="message" topic="${monTopic}">
 		<tr valign="top">
 			<td class="alt2"
-				style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 0px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 0px solid; width: 175">
+				style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 0px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 0px solid; width:120">
 			<div id="postmenu_3994424">${message.propMsg.nom }</div>
 			<div class="smallfont">
 			<div style="align: center">Membre de la communauté</div>
@@ -167,18 +162,17 @@ Bienvenue Mr XXXXXXXXX
 			</td>
 			<td class="alt1" id="td_post_3994424"
 				style="BORDER-RIGHT: #d1d1e1 1px solid"><!-- icon and title -->
-			<div class="smallfont"><strong>${monTopic.sujet}</strong></div>
-			<hr style="COLOR: #d1d1e1; BaCKGROUND-COLOR: #d1d1e1; size: 1" />
-
+			
 			<div id="post_message_3994424">${message.contenu}</div>
 			</td>
 		</tr>
 	</fsnet:message>
 	<tfoot>
-		<tr> <td colspan="3"><form action="CreateMessage">
-		<fieldset><legend> Repondre Message </legend> <label>
-		Contenu : </label> <textarea name="contenuMessage"  cols="60" rows="5"></textarea> <input
-			type="submit" name="repondre" value="repondre" /></fieldset>
+		<tr> <td colspan="2" style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid;"><form action="CreateMessage">
+		<p align="center"><fieldset><legend> Repondre Message </legend>
+		<label>	Contenu : </label></p>
+		<p><textarea name="contenuMessage"  cols="60" rows="5"></textarea> <input
+			type="submit" name="repondre" value="repondre" /></p></fieldset>
 		</form></td></tr>
 	</tfoot>
 </table>
