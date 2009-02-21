@@ -12,6 +12,7 @@
 
  * javax.persistence_1.0.0.jar
  * mysql-connector-java-x-bin.jar
+ * eclipselink.jar
 
 
 = How to use FSNET =
@@ -21,7 +22,7 @@
  # Download fsnet_d1.zip
  # Create a new database user : username : *fsnet*, password : *fsnet*
  # Create a new database named *fsnet*
- # Copy the _javax.persistence_1.0.0.jar_ and the _mysql-connector-java-x-bin.jar_ in the tomcat/lib directory
+ # Copy the _javax.persistence_1.0.0.jar_, _eclipselink.jar_ and the _mysql-connector-java-x-bin.jar_ in the tomcat/lib directory
  # Unzip the fsnet archive
  # Copy the _fsnet.war_ and _fsadmin.war_ files in the tomcat/webapps
  # Run Tomcat
