@@ -115,7 +115,7 @@
       <li><a href="CreerCommun.html">Créer communauté</a></li>
       <li><a href="#">S'inscrire à une communauté</a></li>
       <li><a href="#">Gérer communauté</a></li>
-      <li><a href="#">Créer événement</a></li>
+      <li><a href="creerevenement.jsp">Créer événement</a></li>
     </ul>
     <p>&nbsp;</p></td>
   </tr>
