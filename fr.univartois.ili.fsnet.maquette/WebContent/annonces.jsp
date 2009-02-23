@@ -48,7 +48,7 @@
 <div id="logo">
 <h1><a href="http://www.google.com">FSNet<br />
 </a></h1>
-<h2 id="slogan">Réseau social</h2>
+<h2 id="slogan">R&#233;seau social</h2>
 </div>
 
 <ul id="feature_menu">
@@ -58,7 +58,7 @@
 </ul>
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communauté vient d'être créée.</p>
+<p>Une nouvelle communauté vient d'être cr&#233;&#233;e.</p>
 <p><a class="more" href="#">&not;Detail</a></p>
 </div>
 
@@ -97,13 +97,13 @@ JJ-MM-AA</p>
 <div class="box">
 <h3>Mes communaut&eacute;s</h3>
 <a href="#"> <span class="item"> <span class="sidedate">JEE<br />
-&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Nouveauté J2EE </strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Nouveaut &#233; J2EE </strong><br />
 Detail</span> </a> <a href="#"> <span class="item"> <span
 	class="sidedate">JAVA&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Eclipse
 ... </strong><br />
 Detail </span> </a> <a href="#"> <span class="item last"> <span
 	class="sidedate">JSP<br />
-</span> <strong>Nouveauté JSP </strong><br />
+</span> <strong>Nouveaut &#233; JSP </strong><br />
 Detail</span> </a></div>
 <div class="boxbottom"></div>
 </div>

@@ -99,4 +99,14 @@
     <servlet-name>CompleteProfil</servlet-name>
     <url-pattern>/CompleteProfil</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AddEvenement</display-name>
+    <servlet-name>AddEvenement</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.servlets.AddEvenement</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AddEvenement</servlet-name>
+    <url-pattern>/AddEvenement</url-pattern>
+  </servlet-mapping>
 </web-app>
