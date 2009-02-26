@@ -7,7 +7,6 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -16,7 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.univartois.ili.fsnet.entities.Interet;
 
 /**
- * @author romuald druelle Servlet implementation class AddInteret
+ * @author romuald druelle Servlet. implementation class AddInteret
  */
 public class AddInterest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -32,17 +31,8 @@ public class AddInterest extends HttpServlet {
 	 */
 	public AddInterest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	// public void init(ServletConfig config) throws ServletException {
-	// super.init(config);
-	// factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-	// em = factory.createEntityManager();
-	// }
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -63,6 +53,17 @@ public class AddInterest extends HttpServlet {
 	}
 
 	/**
+	 * A method that allow to persist an interest.
+	 * 
+	 * @param interet
+	 */
+	private void persist(Interet interet) {
+		em.getTransaction().begin();
+		em.persist(interet);
+		em.getTransaction().commit();
+	}
+
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -70,27 +71,23 @@ public class AddInterest extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Interet interet = null;
 		int length = 0;
+		String nom = request.getParameter("nom");
 		String[] valuesInterests = request.getParameterValues("interets[]");
 		if (valuesInterests != null) {
 			length = valuesInterests.length;
 		}
-		String nom = request.getParameter("nom");
+
 		interet = new Interet();
 		interet.setNomInteret(nom);
 
-		em.getTransaction().begin();
-		em.persist(interet);
-		em.getTransaction().commit();
+		persist(interet);
 
 		if (length != 0) {
 			for (int i = 0; i < length; i++) {
 
 				interet = new Interet();
 				interet.setNomInteret(valuesInterests[i]);
-
-				em.getTransaction().begin();
-				em.persist(interet);
-				em.getTransaction().commit();
+				persist(interet);
 			}
 		}
 
