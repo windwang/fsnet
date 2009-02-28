@@ -18,47 +18,47 @@
 <script type="text/javascript">
 </script>
 </head>
-<body onload="show();setFocus('inputAddInterest')">
+<body onload="showMenu();setFocus('inputAddInterest')">
 
 <jsp:include page="header.jsp"></jsp:include>
 
 
-<div class="wrap background">
-<jsp:include page="subHeader.jsp"></jsp:include>
+<div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="AddInterest.jsp?interet=current">Ajout d'interets </a></h2>
+<h2><a href="AddInterest.jsp?interet=current">Ajout d'interets
+</a></h2>
 <p class="date">Date<br />
 JJ-MM-AA</p>
 </div>
 <div id="tableauprincipal">
 <table width="100%">
-	<tr>
-		<td height="2"></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
 
 	<tr>
 
 		<td>
+		<form id="RemoveInterest" method="post" action="RemoveInterest">
 		<table>
 			<tr>
-				<th scope="col">
+				<th colspan="2" scope="col">
 				<div align="center">Liste des interêts</div>
 				</th>
 			</tr>
 
 			<admin:interet var="interet">
 				<tr>
-					<td width="33%">${interet.nomInteret}</td>
+					<td><input type="checkbox" name="interestSelected"
+						value="${interet.id}" onclick="show('removeButton');" /></td>
+					<td width="99%">${interet.nomInteret}</td>
 				</tr>
 			</admin:interet>
 
 		</table>
-		<form id="AddInterest" method="post" action="AddInterest" >
-		<table width="100%" border="0">
+		<label id="removeButton"><input
+			onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
+			type="submit" value="Supprimer" title="Supprimer" /></label></form>
+		<form id="AddInterest" method="post" action="AddInterest">
+		<table width="100%">
 			<tr>
 				<th colspan="2" scope="col">
 				<div align="center">Ajouter un interêt</div>
@@ -68,7 +68,7 @@ JJ-MM-AA</p>
 
 				<th width="15%" scope="row">Intitulé</th>
 				<td colspan="2" width="85%"><label> <input type="text"
-					name="nom" /> </label></td>
+					name="Intitule" title="Intitulé" /> </label></td>
 			</tr>
 
 			<tr>
@@ -77,30 +77,21 @@ JJ-MM-AA</p>
 			</tr>
 			<tr>
 				<td></td>
-				<td><input name="inputAddInterest" id="inputAddInterest" type="button" onclick="addInterest()"
-					value="Ajouter"  /></td>
+				<td><input name="inputAddInterest" id="inputAddInterest"
+					type="button" onclick="addInterest()" value="Ajouter" /></td>
 			</tr>
 
 
-			<tr>
-				<th scope="row">&nbsp;</th>
-				<td><label>
-				<div align="right"><input type="submit" name="Submit"
-					value="Enregistrer" accesskey="Enregistrer" /></div>
-				</label></td>
-			</tr>
 		</table>
-		</form>
+		<label class="button"> <input type="submit" name="Submit"
+			value="Enregistrer" title="Enregistrer" /> </label></form>
 		</td>
-		<td height="33" valign="top">&nbsp;</td>
-		<td></td>
 	</tr>
-	
+
 </table>
 </div>
 
-<jsp:include page="CommunityBox.jsp"></jsp:include>
-</div>
+<jsp:include page="CommunityBox.jsp"></jsp:include></div>
 
 
 <jsp:include page="footer.jsp"></jsp:include>

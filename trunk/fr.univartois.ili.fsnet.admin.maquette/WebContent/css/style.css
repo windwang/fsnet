@@ -74,6 +74,14 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 		.last { margin: 0; }
 #footer { clear: both; padding: 15px 0; font-size: .84em; color: #808080; border-top: 1px dotted #666; }
 
-table{
-	margin-bottom:1em;
-}
+table{margin-bottom:1em;}
+
+.button{margin-top: -10px;float:right;} 
+
+#AddUser{float:right;}
+
+#AddInterest{float:right;}
+
+#removeButton{display:none;margin-top: -10px;float:right;}
+
+

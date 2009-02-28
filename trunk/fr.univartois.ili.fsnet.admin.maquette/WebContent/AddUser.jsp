@@ -16,11 +16,10 @@
 <script language="JavaScript" src="admin.js">
 </script>
 </head>
-<body onload="show();">
+<body onload="showMenu();">
 
 <jsp:include page="header.jsp"></jsp:include>
-<div class="wrap background">
-<jsp:include page="subHeader.jsp"></jsp:include>
+<div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
 <h2><a href="AddUser.jsp?user=current">Ajout de membre </a></h2>
@@ -31,37 +30,37 @@ JJ-MM-AA</p>
 <div id="tableauprincipal">
 <table width="100%">
 	<tr>
-		<td height="2"></td>
-		<td></td>
-		<td></td>
-		<td></td>
-	</tr>
-
-	<tr>
 		<td>
 
+		<form id="RemoveUser" method="post" action="RemoveUser">
 		<table>
 			<tr>
-				<th colspan="3" scope="col">
+				<th colspan="4" scope="col">
 				<div align="center">Liste des membres</div>
 				</th>
 			</tr>
 			<tr>
+				<th></th>
 				<th width="33%" scope="row">Nom</th>
 				<th width="33%" scope="row">Prénom</th>
 				<th width="33%" scope="row">Email</th>
 			</tr>
 			<admin:entite var="entite">
+
 				<tr>
+					<td><input type="checkbox" name="userSelected"
+						value="${entite.id}" onclick="show('removeButton');" /></td>
 					<td width="33%">${entite.nom}</td>
 					<td width="33%">${entite.prenom}</td>
 					<td width="33%">${entite.email}</td>
 				</tr>
 			</admin:entite>
-
 		</table>
+		<label id="removeButton"><input
+			onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
+			type="submit" value="Supprimer" title="Supprimer" /></label></form>
 		<form id="AddUser" method="post" action="AddUser">
-		<table width="100%" border="0">
+		<table width="100%">
 			<tr>
 				<th colspan="2" scope="col">
 				<div align="center">Ajouter un membre</div>
@@ -70,39 +69,30 @@ JJ-MM-AA</p>
 
 			<tr>
 				<th width="33%" scope="row">Nom</th>
-				<td width="67%"><label> <input type="text" name="nom"
-					accesskey="nom" /> </label></td>
+				<td width="67%"><label> <input type="text" name="Nom"
+					title="Nom" /> </label></td>
 			</tr>
 			<tr>
 				<th scope="row">Prénom</th>
 				<td width="67%"><label> <input type="text"
-					name="prenom" accesskey="prenom" /> </label></td>
+					name="Prenom" title="Prénom" /> </label></td>
 			</tr>
 			<tr>
 				<th scope="row">Email</th>
-				<td width="67%"><label> <input type="text" name="email"
-					accesskey="email" /> </label></td>
-			</tr>
-			<tr>
-				<th scope="row">&nbsp;</th>
-				<td><label>
-				<div align="right"><input type="submit" name="Submit"
-					value="Enregistrer" accesskey="Enregistrer" /></div>
-				</label></td>
+				<td width="67%"><label> <input type="text" name="Email"
+					title="Email" /> </label></td>
 			</tr>
 		</table>
-		</form>
-
+		<label class="button"> <input type="submit" name="Submit"
+			value="Enregistrer" title="Enregistrer" /> </label></form>
 		</td>
-		<td height="33" valign="top">&nbsp;</td>
-		<td></td>
+
 	</tr>
-	
+
 </table>
 </div>
 
-<jsp:include page="CommunityBox.jsp"></jsp:include>
-</div>
+<jsp:include page="CommunityBox.jsp"></jsp:include></div>
 
 
 <jsp:include page="footer.jsp"></jsp:include>

@@ -13,22 +13,22 @@
 </dl>
 
 <dl>
-	<dt onmouseover="show('smenu1');" onmouseout="show();"><a class="${param.user}" href="#">Membres</a></dt>
+	<dt onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a class="${param.user}" href="#">Membres</a></dt>
 	<dd id="smenu1">
 	<ul>
-		<li onmouseover="show('smenu1');" onmouseout="show();"><a
+		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
 			href="AddUser.jsp?user=current">Ajouter un membre</a></li>
-		<li onmouseover="show('smenu1');" onmouseout="show();"><a
+		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
 			href="SearchMember.jsp?user=current">Rechercher un membre</a></li>
 	</ul>
 	</dd>
 </dl>
 <dl>
-	<dt onmouseover="show('smenu2');" onmouseout="show();"><a
+	<dt onmouseover="showMenu('smenu2');" onmouseout="showMenu();"><a
 		class="${param.interet}" href="#">Intérêts</a></dt>
 	<dd id="smenu2">
 	<ul>
-		<li onmouseover="show('smenu2');" onmouseout="show();"><a
+		<li onmouseover="showMenu('smenu2');" onmouseout="showMenu();"><a
 			href="AddInterest.jsp?interet=current">Ajouter des intérêts</a></li>
 	</ul>
 	</dd>

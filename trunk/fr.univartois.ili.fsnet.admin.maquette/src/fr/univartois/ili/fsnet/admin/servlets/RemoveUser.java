@@ -1,26 +1,32 @@
 package fr.univartois.ili.fsnet.admin.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.entities.Interet;
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
 /**
- * @author romuald druelle Servlet. implementation class AddInteret
+ * @author romuald druelle.
+ * 
+ *         Servlet implementation class RemoveData
  */
-public class AddInterest extends HttpServlet {
+public class RemoveUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String DATABASE_NAME = "fsnetjpa";
+
+	private static final String FIND_BY_ID = "SELECT e FROM EntiteSociale e WHERE e.id = ?1";
 
 	private EntityManagerFactory factory;
 
@@ -29,7 +35,7 @@ public class AddInterest extends HttpServlet {
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public AddInterest() {
+	public RemoveUser() {
 		super();
 	}
 
@@ -53,13 +59,13 @@ public class AddInterest extends HttpServlet {
 	}
 
 	/**
-	 * A method that allow to persist an interest.
+	 * A method that allow to remove a social entity.
 	 * 
-	 * @param interet
+	 * @param entite
 	 */
-	private void persist(Interet interet) {
+	private void remove(EntiteSociale entite) {
 		em.getTransaction().begin();
-		em.persist(interet);
+		em.remove(entite);
 		em.getTransaction().commit();
 	}
 
@@ -69,30 +75,25 @@ public class AddInterest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		Interet interet = null;
-		int length = 0;
-		String nom = request.getParameter("Intitule");
-		String[] valuesInterests = request.getParameterValues("interets[]");
-		if (valuesInterests != null) {
-			length = valuesInterests.length;
+		String[] users = request.getParameterValues("userSelected");
+		int length = users.length;
+		Query query;
+		List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
+		EntiteSociale entite = null;
+
+		for (int i = 0; i < length; i++) {
+			query = em.createQuery(FIND_BY_ID);
+			query.setParameter(1, Integer.parseInt(users[i]));
+			entite = (EntiteSociale) query.getSingleResult();
+			lesEntites.add(entite);
 		}
 
-		interet = new Interet();
-		interet.setNomInteret(nom);
-
-		persist(interet);
-
-		if (length != 0) {
-			for (int i = 0; i < length; i++) {
-
-				interet = new Interet();
-				interet.setNomInteret(valuesInterests[i]);
-				persist(interet);
-			}
+		for (EntiteSociale e : lesEntites) {
+			remove(e);
 		}
 
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/AddInterest.jsp");
+				"/AddUser.jsp");
 		disp.forward(request, response);
 	}
 
