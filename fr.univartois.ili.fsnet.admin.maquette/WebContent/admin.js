@@ -31,7 +31,12 @@ function affCache(idDiv) {
 	div.style.display = "";
 }
 
-function show(id) {
+function show(id){
+	var d = document.getElementById(id);
+	d.style.display = "block";
+}
+
+function showMenu(id) {
 	var d = document.getElementById(id);
 		for (var i = 1; i<=10; i++) {
 			if (document.getElementById('smenu'+i)) {document.getElementById('smenu'+i).style.display='none';}
@@ -41,4 +46,10 @@ function show(id) {
 
 function setFocus(id){
 	document.id.focus();
+}
+
+function confirmRemove(){
+	if (!confirm("Etes-vous sûr de vouloir supprimer?")) 
+		return false;
+	else return true;
 }

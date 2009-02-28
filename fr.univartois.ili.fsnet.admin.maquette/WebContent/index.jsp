@@ -16,7 +16,7 @@
 <script language="JavaScript" src="admin.js">
 </script>
 </head>
-<body onload="show();">
+<body onload="showMenu();">
 
 <jsp:include page="header.jsp"></jsp:include>
 

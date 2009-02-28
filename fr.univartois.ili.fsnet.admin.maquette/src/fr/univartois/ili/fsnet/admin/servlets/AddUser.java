@@ -74,10 +74,10 @@ public class AddUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String nom = request.getParameter("nom");
-		String prenom = request.getParameter("prenom");
+		String nom = request.getParameter("Nom");
+		String prenom = request.getParameter("Prenom");
 		// String email = createEmail(nom, prenom);
-		String email = request.getParameter("email");
+		String email = request.getParameter("Email");
 		EntiteSociale entite = new EntiteSociale(nom, prenom, email);
 
 		em.getTransaction().begin();
