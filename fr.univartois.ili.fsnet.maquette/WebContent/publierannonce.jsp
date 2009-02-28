@@ -1,4 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+	<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
 <head>
@@ -26,12 +28,12 @@
 <div class="wrap background">
 <div id="search">
 <form action="">
-<fieldset><input type="text" class="field" value="Mot clé" />
+<fieldset><input type="text" class="field" value="Mot clÃ©" />
 <input type="submit" class="button" value="" /></fieldset>
 </form>
 </div>
 <ul id="menu">
-	<li><a  href="index.jsp">Accueil</a></li>
+	<li><a href="index.jsp">Accueil</a></li>
 	<li><a href="profil.jsp">Profil</a></li>
 	<li><a href="forum.html">Hubs</a></li>
 	<li><a href="#">Interaction</a></li>
@@ -45,17 +47,17 @@
 <div id="logo">
 <h1><a href="http://www.google.com">FSNet<br />
 </a></h1>
-<h2 id="slogan">R�seau social</h2>
+<h2 id="slogan">Réseau social</h2>
 </div>
 
 <ul id="feature_menu">
-	<li><a class="current" href="">Actualit�</a></li>
+	<li><a class="current" href="">Actualité</a></li>
 	<li><a href="#">AAAAAAA</a></li>
 	<li><a href="#">BBBBBBBBB</a></li>
 </ul>
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communaut� vient d'�tre cr��e.</p>
+<p>Une nouvelle communauté vient d'être créée.</p>
 <p><a class="more" href="#">&not;Detail</a></p>
 </div>
 
@@ -67,7 +69,7 @@
 	<tr>
 		<th style="width: 181" scope="col">Entrer votre texte</th>
 		<th style="width: 252" scope="col">
-		<div style="text-align: right">2000 caract�res maximums</div>
+		<div style="text-align: right">2000 caractères maximums</div>
 		</th>
 	</tr>
 </table>
@@ -114,13 +116,13 @@
 <div class="box">
 <h3>Mes communaut&eacute;s</h3>
 <a href="#"> <span class="item"> <span class="sidedate">JEE<br />
-&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Nouveauté J2EE </strong><br />
+&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>NouveautÃ© J2EE </strong><br />
 Detail</span> </a> <a href="#"> <span class="item"> <span
 	class="sidedate">JAVA&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Eclipse
 ... </strong><br />
 Detail </span> </a> <a href="#"> <span class="item last"> <span
 	class="sidedate">JSP<br />
-</span> <strong>Nouveauté JSP </strong><br />
+</span> <strong>NouveautÃ© JSP </strong><br />
 Detail</span> </a></div>
 <div class="boxbottom"></div>
 </div>

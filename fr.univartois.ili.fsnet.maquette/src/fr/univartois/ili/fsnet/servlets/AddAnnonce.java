@@ -5,11 +5,14 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
@@ -20,8 +23,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.univartois.ili.fsnet.entities.*;
 
 /**
- * author jerome bouwy
- * Servlet implementation class AddAnnonce
+ * author jerome bouwy Servlet implementation class AddAnnonce
  */
 public class AddAnnonce extends HttpServlet {
 	private static Logger logger = Logger.getLogger("FSNet");
@@ -34,21 +36,19 @@ public class AddAnnonce extends HttpServlet {
 
 	private EntityManager em;
 
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddAnnonce() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
+	/**
+	 * @see HttpServlet#HttpServlet()
+	 */
+	public AddAnnonce() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
 
-    @Override
+	@Override
 	public void init() throws ServletException {
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
-		
 	}
 
 	/**
@@ -62,44 +62,78 @@ public class AddAnnonce extends HttpServlet {
 			factory.close();
 		}
 	}
+
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		String id = request.getParameter("idChoisi");
 		getServletContext().setAttribute("idChoisi", id);
-		
-		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/detailAnnonce.jsp");
-		dispatch.forward(request, response);
+
+		if (id.equalsIgnoreCase("0")) {
+
+			Query requete = em.createQuery("SELECT a FROM Annonce a");
+			Date aujourdhui = new Date();
+			List<Annonce> listAnn = (List<Annonce>) requete.getResultList();
+			Iterator it = listAnn.iterator();
+			while (it.hasNext()) {
+				Annonce a = (Annonce) it.next();
+
+				if (a.getDateFinAnnonce().before(aujourdhui)) {
+					em.getTransaction().begin();
+					em.remove(a);
+					em.getTransaction().commit();
+				}
+
+			}
+			RequestDispatcher dispatch = getServletContext()
+					.getRequestDispatcher("/annonces.jsp");
+			dispatch.forward(request, response);
+		}
+
+		else {
+			RequestDispatcher dispatch = getServletContext()
+					.getRequestDispatcher("/detailAnnonce.jsp");
+			dispatch.forward(request, response);
+
+		}
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
 		String titre = request.getParameter("titreAnnonce");
 		String contenu = request.getParameter("contenuAnnonce");
 		String dateFin = request.getParameter("dateFinAnnonce");
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		Date date = null;
+		Date aujourdhui = new Date();
 		try {
-			date = (Date)formatter.parse(dateFin);
+			date = (Date) formatter.parse(dateFin);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		System.out.println("Test aDD ANNONCE "+titre+" "+contenu +" "+(new Date().toString()));
 		
-		
-		Annonce nouvelleInfo = new Annonce(titre, new Date(), contenu, date);
+		if (date.after(aujourdhui)) {
+			
+		Annonce nouvelleInfo = new Annonce(titre, aujourdhui, contenu, date);
 		em.getTransaction().begin();
 		em.persist(nouvelleInfo);
 		em.getTransaction().commit();
-		
-		RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
+		}
+		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
+				"/annonces.jsp");
 		dispatch.forward(request, response);
+		
 	}
 
 }
