@@ -29,7 +29,7 @@
 	<li><a href="hub.jsp">Hubs</a></li>
 	<li><a href="#">Interaction</a></li>
 	<li><a href="#">Messagerie</a></li>
-	<li><a href="annonces.jsp">Annonces</a></li>
+	<li><a href="AddAnnonce?idChoisi=0">Annonces</a></li>
 			
 		</ul>
 		<fsnet:login var="membre" idLogin="${idLogin}">
