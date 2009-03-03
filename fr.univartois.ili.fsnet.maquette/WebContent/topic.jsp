@@ -35,42 +35,7 @@
 </head>
 <body>
 <div class="wrap background">
-<div id="search">
-<form action="">
-<fieldset><input type="text" class="field" value="Mot clé" />
-<input type="submit" class="button" value="" /></fieldset>
-</form>
-</div>
-<ul id="menu">
-	<li><a  href="index.jsp">Accueil</a></li>
-	<li><a href="profil.jsp">Profil</a></li>
-	<li><a class="current" href="hub.jsp">Hubs</a></li>
-	<li><a href="#">Interaction</a></li>
-	<li><a href="#">Messagerie</a></li>
-	<li><a href="annonces.jsp">Annonces</a></li>
-
-</ul>
-<fsnet:login var="membre" idLogin="${idLogin}">
-	Bienvenue M. ${membre.nom} ${membre.prenom} 
-</fsnet:login>
-<div id="logo">
-<h1><a href="http://www.google.com">FSNet<br />
-</a></h1>
-<h2 id="slogan">Réseau social</h2>
-</div>
-
-<ul id="feature_menu">
-	<li><a class="current" href="">actualité</a></li>
-	<li><a href="#">aaaaaaa</a></li>
-	<li><a href="#">BBBBBBBBB</a></li>
-</ul>
-
-<div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communauté vient d'être créée</p>
-<p><a class="more" href="#">&not;Detail</a></p>
-</div>
-
-<div class="clear"></div>
+<jsp:include page="haut.jsp"></jsp:include>
 <a href="hub.jsp">FSNet</a> - <a href="GotoTopic?idHub=${monHub.id}">${monHub.nomCommunaute}</a>
 <table style="padding: 6; width: 100%; align: center" border="1">
 	<thead>
@@ -129,11 +94,8 @@
 </table>
  
 
-<p id="ad">&nbsp;</p>
-</div>
 
-<div id="promo" style="text-align: center">
-<div class="wrap">FSnet licence</div>
 </div>
+<jsp:include page="bas.jsp"></jsp:include>
 </body>
 </html>

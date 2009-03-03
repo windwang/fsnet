@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,7 +23,7 @@
 		<div id="search">
 			<form action="">
 				<fieldset>
-					<input type="text" class="field" value="Mot clé" />
+					<input type="text" class="field" value="Mot clÃ©" />
 					<input type="submit" class="button" value="" />
 				</fieldset>
 			</form>
@@ -28,7 +31,7 @@
 		<ul id="menu">
 			<li><a class="current">Login</a></li>						
 		</ul>
-		<p class="date">Date<br />
+			<p class="date">Date<br />
 		  JJ-MM-AA</p>
 		<div id="logo">
 		  <h1><a href="http://www.google.com">FSNet<br />
@@ -68,7 +71,7 @@
         <tr>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
-          <td><div style="align:center"><a href="www.google.fr">Mot de passe oublié ?</a></div></td>
+          <td><div style="align:center"><a href="www.google.fr">Mot de passe oubliÃ© ?</a></div></td>
         </tr>
       </table>
      
@@ -80,11 +83,9 @@
 	
       <p>&nbsp;</p>
       <p>&nbsp;</p>
-      <p>&nbsp;</p>
+     
 </div>
 	
-	<div class="promo" style="text-align:center">
-	  <div class="wrap">FSnet licence </div>
-	</div>
+<jsp:include page="bas.jsp"></jsp:include>
 </body>
 </html>
