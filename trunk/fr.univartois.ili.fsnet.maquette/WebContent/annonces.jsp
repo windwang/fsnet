@@ -15,54 +15,11 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <title>FSNet</title>
-<style type="text/css">
-<!--
-.Style1 {
-	font-size: 1em;
-	font-weight: bold;
-}
--->
-</style>
-<link href="vente voiture" />
+
 </head>
 <body>
 <div class="wrap background">
-<div id="search">
-<form action="">
-<fieldset><input type="text" class="field" value="Mot clÃ©" />
-<input type="submit" class="button" value="" /></fieldset>
-</form>
-</div>
-<ul id="menu">
-	<li><a href="index.jsp">Accueil</a></li>
-	<li><a href="profil.jsp">Profil</a></li>
-	<li><a href="hub.jsp">Hubs</a></li>
-	<li><a href="#">Interaction</a></li>
-	<li><a href="#">Messagerie</a></li>
-	<li><a class="current" href="annonces.jsp">Annonces</a></li>
-
-</ul>
-<fsnet:login var="membre" idLogin="${idLogin}">
-	Bienvenue M. ${membre.nom} ${membre.prenom} 
-</fsnet:login>
-<div id="logo">
-<h1><a href="http://www.google.com">FSNet<br />
-</a></h1>
-<h2 id="slogan">R&#233;seau social</h2>
-</div>
-
-<ul id="feature_menu">
-	<li><a class="current" href="">Actualité</a></li>
-	<li><a href="#">AAAAAAA</a></li>
-	<li><a href="#">BBBBBBBBB</a></li>
-</ul>
-
-<div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communauté vient d'être cr&#233;&#233;e.</p>
-<p><a class="more" href="#">&not;Detail</a></p>
-</div>
-
-<div class="clear"></div>
+<jsp:include page="haut.jsp" />
 
 <div id="left">
 <h2><a href="#">Annonces</a></h2>
@@ -84,35 +41,11 @@
 		</tr>
 	</fsnet:annonce>
 </table>
-<p>&nbsp;</p>
-<hr />
-<p class="Style1">&nbsp;</p>
-<p class="date">Date<br />
-JJ-MM-AA</p>
-<p class="subtitle"></p>
-</div>
 
-<div id="side">
-<div class="boxtop"></div>
-<div class="box">
-<h3>Mes communaut&eacute;s</h3>
-<a href="#"> <span class="item"> <span class="sidedate">JEE<br />
-&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Nouveaut &#233; J2EE </strong><br />
-Detail</span> </a> <a href="#"> <span class="item"> <span
-	class="sidedate">JAVA&nbsp;&nbsp;&nbsp;&nbsp;</span> <strong>Eclipse
-... </strong><br />
-Detail </span> </a> <a href="#"> <span class="item last"> <span
-	class="sidedate">JSP<br />
-</span> <strong>Nouveaut &#233; JSP </strong><br />
-Detail</span> </a></div>
-<div class="boxbottom"></div>
-</div>
-<p id="ad">&nbsp;</p>
-</div>
 
-<div class="promo" style="text-align: center">
-<div class="wrap">FSnet licence</div>
-</div>
+ </div>
+ </div>
 
+<jsp:include page="bas.jsp" />
 </body>
 </html>

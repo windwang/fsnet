@@ -14,47 +14,10 @@
 	<title>FSNet</title>
 </head>
 <body>
+
 	<div class="wrap background">
-		<div id="search">
-			<form action="">
-				<fieldset>
-					<input type="text" class="field" value="Mot clé" />
-					<input type="submit" class="button" value="" />
-				</fieldset>
-			</form>
-		</div>
-		<ul id="menu">
-	<li><a class="current" href="index.jsp">Accueil</a></li>
-	<li><a href="profil.jsp">Profil</a></li>
-	<li><a href="hub.jsp">Hubs</a></li>
-	<li><a href="#">Interaction</a></li>
-	<li><a href="#">Messagerie</a></li>
-	<li><a href="AddAnnonce?idChoisi=0">Annonces</a></li>
-			
-		</ul>
-		<fsnet:login var="membre" idLogin="${idLogin}">
-	Bienvenue M. ${membre.nom} ${membre.prenom} 
-	</fsnet:login>	
-		<div id="logo">
-		  <h1><a href="http://www.google.com">FSNet<br />
-			</a></h1>
-			<h2 id="slogan">Réseau social </h2>
-		</div>
-		
-		<ul id="feature_menu">
-			<li><a class="current" href="">Actualité</a></li>
-			<li><a href="#">AAAAAAA</a></li>
-			<li><a href="#">BBBBBBBBB</a></li>
-		</ul>
-			
-		<div id="feature">
-			<img src="images/feature_img.gif" alt="Featured" />
-			<p>Une nouvelle communauté vient d'être créée.</p>
-			<p><a class="more" href="#">&not;Detail</a></p>
-	  </div>
-		
-		<div class="clear"></div>
-		
+	<jsp:include page="haut.jsp" />
+	
 		<div id="left">
 			<h2><a href="#">Accueil</a></h2>
 			<p class="date">Date<br />
@@ -112,12 +75,12 @@
   <tr>
     <td style="height:110"></td>
     <td valign="top"><ul>
-      <li><a href="CreerCommun.html">Créer communauté</a></li>
+      <li><a href="CreerCommun.jsp">Créer communauté</a></li>
       <li><a href="#">S'inscrire à une communauté</a></li>
       <li><a href="#">Gérer communauté</a></li>
       <li><a href="creerevenement.jsp">Créer événement</a></li>
     </ul>
-    <p>&nbsp;</p></td>
+    </td>
   </tr>
   <tr>
     <td style="height:88"></td>
@@ -153,12 +116,12 @@
 				</div>
 				<div class="boxbottom"></div>
 		</div>
-		<p id="ad">&nbsp;</p>
+		
 	</div>
 	
-	<div id="promo" style="text-align:center">
-	  <div class="wrap">FSnet licence </div>
-	</div>
+
+	<jsp:include page="bas.jsp" />
+	
 </body>
 </html>
     

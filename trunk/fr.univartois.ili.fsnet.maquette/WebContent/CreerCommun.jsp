@@ -1,3 +1,5 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -20,46 +22,10 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 </head>
 <body>
 	<div class="wrap background">
-		<div id="search">
-			<form action="">
-				<fieldset>
-					<input type="text" class="field" value="Mot clé" />
-					<input type="submit" class="button" value="" />
-				</fieldset>
-			</form>
-		</div>
-		<ul id="menu">
-	<li><a class="current" href="index.jsp">Accueil</a></li>
-	<li><a href="profil.jsp">Profil</a></li>
-	<li><a href="hub.jsp">Hubs</a></li>
-	<li><a href="#">Interaction</a></li>
-	<li><a href="#">Messagerie</a></li>
-	<li><a href="annonces.jsp">Annonces</a></li>
-			
-		</ul>
-		Bienvenue Mr XXXXXXXXX		
-		<div id="logo">
-		  <h1><a href="http://www.google.com">FSNet<br />
-			</a></h1>
-			<h2 id="slogan">Réseau social </h2>
-		</div>
-		
-		<ul id="feature_menu">
-			<li><a class="current" href="">Actualité</a></li>
-			<li><a href="#">AAAAAAA</a></li>
-			<li><a href="#">BBBBBBBBB</a></li>
-		</ul>
-			
-		<div id="feature">
-			<img src="images/feature_img.gif" alt="Featured" />
-			<p>Une nouvelle communauté vient d'être créée </p>
-			<p><a class="more" href="#">&not;Detail</a></p>
-		</div>
-		
-		<div class="clear"></div>
+	<jsp:include page="haut.jsp"></jsp:include>
 		
 		<div id="left">
-			<h2><a href="#">Création d'une communauté  </a></h2>
+			<h2><a href="#">Création d'une communaut&eacute;  </a></h2>
 			<p>Date<br />
 		  JJ-MM-AA</p>
 		  
@@ -111,7 +77,7 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 				  <span class="item">
 						<span class="sidedate">JEE<br />
 					&nbsp;&nbsp;&nbsp;&nbsp;</span>
-            <strong>Nouveauté J2EE </strong><br />
+            <strong>Nouveaut&eacute; J2EE </strong><br />
 						Detail</span>
 				  </a>
 					<a href="#">
@@ -124,17 +90,14 @@ function MM_jumpMenu(targ,selObj,restore){ //v3.0
 					<span class="item last">
 					<span class="sidedate">JSP<br />
 						</span>
-						<strong>Nouveauté JSP </strong><br />
+						<strong>Nouveaut&eacute; JSP </strong><br />
 						Detail</span>
 					</a>
 				</div>
 				<div class="boxbottom"></div>
 		</div>
-		<p id="ad">&nbsp;</p>
+		
 	</div>
-	
-	<div id="promo" style="text-align:center">
-	  <div class="wrap">FSnet licence </div>
-	</div>	
+	<jsp:include page="bas.jsp"></jsp:include>
 </body>
 </html>
