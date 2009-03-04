@@ -1,7 +1,9 @@
 package fr.univartois.ili.fsnet.facade.iliforumtags;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -21,7 +23,7 @@ public class HubTag extends TagSupport {
 	private Date dateEnd;
 	private EntiteSociale decideur;
 	
-	private Iterator<Hub> it;
+	private Iterator<HubDTO> it;
 	private IliForumFacade iff;
 
 	public String getVar() {
@@ -58,17 +60,25 @@ public class HubTag extends TagSupport {
 
 	public int doStartTag() throws JspException {
 		iff = new IliForumFacade();
+		List<HubDTO> lHubDTO=new ArrayList<HubDTO>();
+		List<Hub> lHub;
 
 		if (dateBegin != null && dateEnd != null) {
-			it = iff.getListHub(dateBegin, dateEnd).iterator();
+			lHub = iff.getListHub(dateBegin, dateEnd);
 		}
 
 		else if (decideur != null) {
-			it = iff.getListHubByEntiteSociale(decideur).iterator();
+			lHub = iff.getListHubByEntiteSociale(decideur);
 		}
 
 		else
-			it = iff.getListHub().iterator();
+			lHub = iff.getListHub();
+		
+		for(Hub hub : lHub){
+			lHubDTO.add(new HubDTO(hub));
+		}
+		
+		it=lHubDTO.iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -78,10 +88,10 @@ public class HubTag extends TagSupport {
 
 	private boolean updateContext() {
 		if (it.hasNext()) {
-			Hub hub;
-			hub = it.next();
+			HubDTO hubDTO;
+			hubDTO = it.next();
 
-			pageContext.setAttribute(var, hub);
+			pageContext.setAttribute(var, hubDTO);
 			return true;
 		}
 		return false;

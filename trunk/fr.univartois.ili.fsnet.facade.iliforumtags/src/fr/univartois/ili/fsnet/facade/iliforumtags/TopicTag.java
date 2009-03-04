@@ -1,7 +1,9 @@
 package fr.univartois.ili.fsnet.facade.iliforumtags;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -22,8 +24,8 @@ public class TopicTag extends TagSupport {
 	private Date dateEnd;
 	private EntiteSociale user;
 	private Hub hub;
-	
-	private Iterator<Topic> it;
+
+	private Iterator<TopicDTO> it;
 	private IliForumFacade iff;
 
 	public String getVar() {
@@ -34,14 +36,14 @@ public class TopicTag extends TagSupport {
 		this.var = var;
 	}
 
-	public void setHub(Hub myHub){
-		this.hub=myHub;
+	public void setHub(Hub myHub) {
+		this.hub = myHub;
 	}
-	
-	public Hub getHub(){
+
+	public Hub getHub() {
 		return this.hub;
 	}
-	
+
 	public Date getDateBegin() {
 		return dateBegin;
 	}
@@ -68,20 +70,26 @@ public class TopicTag extends TagSupport {
 
 	public int doStartTag() throws JspException {
 		iff = new IliForumFacade();
-
+		List<TopicDTO> lTopicDTO = new ArrayList<TopicDTO>();
+		List<Topic> lTopic;
 		if (dateBegin != null && dateEnd != null) {
-			it = iff.getListTopic(dateBegin, dateEnd).iterator();
+			lTopic = iff.getListTopic(dateBegin, dateEnd);
 		}
 
 		else if (user != null) {
-			it = iff.getListTopicByEntiteSociale(user).iterator();
+			lTopic = iff.getListTopicByEntiteSociale(user);
 		}
 
-		else if(hub != null ){
-			it=iff.getListTopicByHub(hub).iterator();
+		else if (hub != null) {
+			lTopic = iff.getListTopicByHub(hub);
+		} else
+			lTopic = iff.getListTopic();
+
+		for (Topic top : lTopic){
+			lTopicDTO.add(new TopicDTO(top));
 		}
-		else
-			it = iff.getListTopic().iterator();
+
+			it = lTopicDTO.iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -91,9 +99,9 @@ public class TopicTag extends TagSupport {
 
 	private boolean updateContext() {
 		if (it.hasNext()) {
-			Topic top = it.next();
+			TopicDTO topDTO = it.next();
 
-			pageContext.setAttribute(var, top);
+			pageContext.setAttribute(var, topDTO);
 			return true;
 		}
 		return false;
