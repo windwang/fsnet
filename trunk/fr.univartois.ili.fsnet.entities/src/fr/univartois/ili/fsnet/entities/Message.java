@@ -34,7 +34,7 @@ public class Message {
 	/**
 	 * The date of creation of the message.
 	 */
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateMessage;
 
 	/**
