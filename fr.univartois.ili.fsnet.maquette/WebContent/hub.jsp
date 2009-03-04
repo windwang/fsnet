@@ -34,8 +34,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="wrap background">
-<jsp:include page="haut.jsp"></jsp:include>
+<div class="wrap background"><jsp:include page="haut.jsp"></jsp:include>
 
 <table style="padding: 6; width: 100%; align: center" border="1">
 	<thead>
@@ -48,30 +47,31 @@
 			<td class="thead">Messages</td>
 		</tr>
 	</thead>
-	<fsnet:hub var="hub">
+	<fsnet:hub var="hubdto">
 		<tbody>
 			<tr>
-				<td class="alt1active" id="h${hub.id}" style="text-align: left">
+				<td class="alt1active" id="h${hubdto.hub.id}"
+					style="text-align: left">
 				<table style="padding: 0; border: 0">
 					<tbody>
 						<tr>
 							<td><img
 								src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_272.png"
 								alt="" style="width: 48; height: 48; border: 0"
-								id="forum_statusicon_${hub.id}" /></td>
+								id="forum_statusicon_${hubdto.hub.id}" /></td>
 							<td><img alt=""
 								src="Général Java - Forum des développeurs_fichiers/clear.gif"
 								style="width: 9; border: 0; height: 1" /></td>
 							<td>
-							<div><a href="GotoTopic?idHub=${hub.id}"> <strong>${hub.nomCommunaute}</strong></a></div>
+							<div><a href="GotoTopic?idHub=${hubdto.hub.id}"> <strong>${hubdto.hub.nomCommunaute}</strong></a></div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				</td>
 				<td class="alt2"></td>
-				<td class="alt1" />
-				<td class="alt2" />
+				<td class="alt1">${hubdto.nbTopic}</td>
+				<td class="alt2">${hubdto.nbMessage}</td>
 			</tr>
 
 		</tbody>
@@ -89,10 +89,7 @@
 	</tfoot>
 
 </table>
- 
-
-
-</div>
+ </div>
 <jsp:include page="bas.jsp"></jsp:include>
 </body>
 </html>

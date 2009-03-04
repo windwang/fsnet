@@ -34,8 +34,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-<div class="wrap background">
-<jsp:include page="haut.jsp"></jsp:include>
+<div class="wrap background"><jsp:include page="haut.jsp"></jsp:include>
 <a href="hub.jsp">FSNet</a> - <a href="GotoTopic?idHub=${monHub.id}">${monHub.nomCommunaute}</a>
 <table style="padding: 6; width: 100%; align: center" border="1">
 	<thead>
@@ -47,29 +46,31 @@
 			<td class="thead">Messages</td>
 		</tr>
 	</thead>
-	<fsnet:topic var="topic" hub="${monHub}">
+	<fsnet:topic var="topicdto" hub="${monHub}">
 		<tbody>
 			<tr>
-				<td class="alt1active" id="h${topic.id}" style="text-align: left">
+				<td class="alt1active" id="h${topicdto.topic.id}"
+					style="text-align: left">
 				<table style="padding: 0; border: 0">
 					<tbody>
 						<tr>
 							<td><img
 								src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_272.png"
 								alt="" style="width: 48; height: 48; border: 0"
-								id="forum_statusicon_${topic.id}" /></td>
+								id="forum_statusicon_${topicdto.topic.id}" /></td>
 							<td><img alt=""
 								src="Général Java - Forum des développeurs_fichiers/clear.gif"
 								style="width: 9; border: 0; height: 1" /></td>
 							<td>
-							<div><a href="GotoMessage?idTopic=${topic.id}"> <strong>${topic.sujet}</strong></a></div>
+							<div><a href="GotoMessage?idTopic=${topicdto.topic.id}">
+							<strong>${topicdto.topic.sujet}</strong></a></div>
 							</td>
 						</tr>
 					</tbody>
 				</table>
 				</td>
 				<td class="alt2"></td>
-				<td class="alt2" />
+				<td class="alt2">${topicdto.nbMessage}</td>
 			</tr>
 		</tbody>
 	</fsnet:topic>
@@ -81,9 +82,8 @@
 			<p><label> Nom : </label> <input type="text" name="nomTopic"
 				size="80%" /></p>
 			<p><label> Message : </label></p>
-			<p><textarea name="contenuMessage"
-				cols="100" rows="5"></textarea> <input type="submit"
-				name="creertopic" value="creer" /></p>
+			<p><textarea name="contenuMessage" cols="100" rows="5"></textarea>
+			<input type="submit" name="creertopic" value="creer" /></p>
 			</fieldset>
 			</form>
 			</td>
@@ -92,10 +92,7 @@
 
 
 </table>
- 
-
-
-</div>
+ </div>
 <jsp:include page="bas.jsp"></jsp:include>
 </body>
 </html>
