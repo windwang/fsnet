@@ -113,7 +113,7 @@
 	<fsnet:message var="message" topic="${monTopic}">
 		<tr valign="top">
 			<td class="alt2"
-				style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 0px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 0px solid; width:20%">
+				style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid; width:20%">
 			<div id="postmenu_3994424">${message.propMsg.nom }</div>
 			<div class="smallfont">
 			<div style="align: center">Membre de la communauté</div>
@@ -128,7 +128,7 @@
 			</div>
 			</td>
 			<td class="alt1" id="td_post_3994424"
-				style="BORDER-RIGHT: #d1d1e1 1px solid"><!-- icon and title -->
+				style="BORDER-RIGHT: #d1d1e1 1px solid;BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid;"><!-- icon and title -->
 			
 			<div id="post_message_3994424">${message.contenu}</div>
 			</td>
