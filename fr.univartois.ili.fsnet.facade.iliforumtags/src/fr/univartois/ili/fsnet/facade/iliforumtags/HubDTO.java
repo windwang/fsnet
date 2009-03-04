@@ -1,57 +1,68 @@
 package fr.univartois.ili.fsnet.facade.iliforumtags;
 
+import java.util.List;
+
 import fr.univartois.ili.fsnet.entities.Hub;
-import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.Message;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 public class HubDTO {
-	public HubDTO(Hub hub) {
-		this.hub = hub;
-		updateInfo();
-	}
+    public HubDTO(Hub hub) {
+	this.hub = hub;
+	updateInfo();
+    }
 
-	private Hub hub;
+    private Hub hub;
 
-	private int nbTopic;
+    private int nbTopic;
 
-	private int nbMessage;
+    private int nbMessage;
 
-	public Hub getHub() {
-		return hub;
-	}
+    private Message lastMessage;
 
-	public void setHub(Hub hub) {
-		this.hub = hub;
-		updateInfo();
-	}
+    public Hub getHub() {
+	return hub;
+    }
 
-	public int getNbTopic() {
-		updateInfo();
-		return nbTopic;
-	}
+    public void setHub(Hub hub) {
+	this.hub = hub;
+    }
 
-	public void setNbTopic(int nbTopic) {
-		this.nbTopic = nbTopic;
-		updateInfo();
-	}
+    public int getNbTopic() {
+	return nbTopic;
+    }
 
-	public int getNbMessage() {
-		updateInfo();
-		return nbMessage;
-	}
+    public void setNbTopic(int nbTopic) {
+	this.nbTopic = nbTopic;
+    }
 
-	public void setNbMessage(int nbMessage) {
-		this.nbMessage = nbMessage;
-		updateInfo();
-	}
+    public int getNbMessage() {
+	return nbMessage;
+    }
 
-	private void updateInfo() {
-		this.nbTopic = hub.getLesTopics().size();
+    public void setNbMessage(int nbMessage) {
+	this.nbMessage = nbMessage;
+    }
 
-		int nbMess = 0;
-		for (Topic t : hub.getLesTopics()) {
-			nbMess += t.getLesMessages().size();
-		}
-		this.nbMessage = nbMess;
-	}
+    private void updateInfo() {
+	IliForumFacade iff=new IliForumFacade();
+	List<Message> lMessage=iff.getListMessageByHub(hub);
+	this.nbTopic = iff.getListTopicByHub(hub).size();
+
+	
+	this.nbMessage = lMessage.size();
+
+	if (!lMessage.isEmpty())
+	    this.lastMessage = lMessage.get(lMessage.size()-1);
+	iff.close();
+    }
+
+    public Message getLastMessage() {
+        return lastMessage;
+    }
+
+    public void setLastMessage(Message lastMessage) {
+        this.lastMessage = lastMessage;
+    }
 
 }
