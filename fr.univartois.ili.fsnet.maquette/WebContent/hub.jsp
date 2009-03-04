@@ -69,7 +69,8 @@
 					</tbody>
 				</table>
 				</td>
-				<td class="alt2"></td>
+				<td class="alt2"> <a href="GotoMessage?idTopic=${hubdto.lastMessage.topic.id }">
+							${hubdto.lastMessage.dateMessage}</a></td>
 				<td class="alt1">${hubdto.nbTopic}</td>
 				<td class="alt2">${hubdto.nbMessage}</td>
 			</tr>
