@@ -20,7 +20,7 @@ public class Hub extends Communaute {
 	/**
 	 * The date of creation of the hub.
 	 */
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateCreation;
 
 	/**

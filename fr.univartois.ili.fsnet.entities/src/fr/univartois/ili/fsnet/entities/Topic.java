@@ -36,7 +36,7 @@ public class Topic {
 	/**
 	 * The date of the topic.
 	 */
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateSujet;
 
 	/**
