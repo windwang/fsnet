@@ -57,7 +57,7 @@ public class IliForumFacade implements ForumFacade {
 
     @Override
     public List<Hub> getListHub() {
-	Query query = em.createQuery("SELECT h FROM Hub h ");
+	Query query = em.createQuery("SELECT h FROM Hub h ORDER BY h.dateCreation");
 	List<Hub> mesHubs;
 	mesHubs = (List<Hub>) query.getResultList();
 	return mesHubs;
@@ -66,7 +66,7 @@ public class IliForumFacade implements ForumFacade {
     @Override
     public List<Hub> getListHub(Date dateBegin, Date dateEnd) {
 	Query query = em
-		.createQuery("SELECT h FROM Hub h WHERE h.dateCreation>?1 and h.dateCreation<?2");
+		.createQuery("SELECT h FROM Hub h WHERE h.dateCreation>?1 and h.dateCreation<?2 ORDER BY h.dateCreation");
 	query.setParameter(1, dateBegin);
 	query.setParameter(2, dateEnd);
 	List<Hub> mesHubs;
@@ -77,7 +77,7 @@ public class IliForumFacade implements ForumFacade {
     @Override
     public List<Hub> getListHubByEntiteSociale(EntiteSociale decideur) {
 	Query query = em
-		.createQuery("SELECT h FROM Hub h WHERE h.decideur =?1");
+		.createQuery("SELECT h FROM Hub h WHERE h.decideur =?1 ORDER BY h.dateCreation");
 	query.setParameter(1, decideur);
 	List<Hub> mesHubs;
 	mesHubs = (List<Hub>) query.getResultList();
@@ -86,7 +86,7 @@ public class IliForumFacade implements ForumFacade {
 
     @Override
     public List<Message> getListMessage() {
-	Query query = em.createQuery("SELECT m FROM Message m ");
+	Query query = em.createQuery("SELECT m FROM Message m ORDER BY m.dateMessage");
 	List<Message> mesMess;
 	mesMess = (List<Message>) query.getResultList();
 	return mesMess;
@@ -95,7 +95,7 @@ public class IliForumFacade implements ForumFacade {
     @Override
     public List<Message> getListMessage(Date dateBegin, Date dateEnd) {
 	Query query = em
-		.createQuery("SELECT m FROM Message m WHERE m.dateMessage>?1 AND m.dateMessage<?2");
+		.createQuery("SELECT m FROM Message m WHERE m.dateMessage>?1 AND m.dateMessage<?2 ORDER BY m.dateMessage");
 	query.setParameter(1, dateBegin);
 	query.setParameter(2, dateEnd);
 	List<Message> mesMess;
@@ -107,7 +107,7 @@ public class IliForumFacade implements ForumFacade {
     public List<Message> getListMessageByEntiteSocial(
 	    EntiteSociale entiteSociale) {
 	Query query = em
-		.createQuery("SELECT m FROM Message m WHERE m.propMsg=?1");
+		.createQuery("SELECT m FROM Message m WHERE m.propMsg=?1 ORDER BY m.dateMessage");
 	query.setParameter(1, entiteSociale);
 	List<Message> mesMess;
 	mesMess = (List<Message>) query.getResultList();
@@ -117,7 +117,7 @@ public class IliForumFacade implements ForumFacade {
     @Override
     public List<Message> getListMessageByHub(Hub hub) {
 	Query query = em
-		.createQuery("SELECT m FROM Message m WHERE m.topic.hub=?1");
+		.createQuery("SELECT m FROM Message m WHERE m.topic.hub=?1 ORDER BY m.dateMessage");
 	query.setParameter(1, hub);
 	List<Message> mesMess;
 	mesMess = (List<Message>) query.getResultList();
@@ -127,7 +127,7 @@ public class IliForumFacade implements ForumFacade {
     @Override
     public List<Message> getListMessageByTopic(Topic topic) {
 	Query query = em
-		.createQuery("SELECT m FROM Message m WHERE m.topic=?1");
+		.createQuery("SELECT m FROM Message m WHERE m.topic=?1 ORDER BY m.dateMessage");
 	query.setParameter(1, topic);
 	List<Message> mesMess;
 	mesMess = (List<Message>) query.getResultList();
@@ -136,7 +136,7 @@ public class IliForumFacade implements ForumFacade {
 
     @Override
     public List<Topic> getListTopic() {
-	Query query = em.createQuery("SELECT t FROM Topic t");
+	Query query = em.createQuery("SELECT t FROM Topic t ORDER BY t.dateSujet");
 	List<Topic> mesTopics;
 	mesTopics = (List<Topic>) query.getResultList();
 	return mesTopics;
@@ -145,7 +145,7 @@ public class IliForumFacade implements ForumFacade {
     @Override
     public List<Topic> getListTopic(Date dateBegin, Date dateEnd) {
 	Query query = em
-		.createQuery("SELECT t FROM Topic t WHERE t.dateSujet>?1 AND t.dateSujet<?2");
+		.createQuery("SELECT t FROM Topic t WHERE t.dateSujet>?1 AND t.dateSujet<?2 ORDER BY t.dateSujet");
 	query.setParameter(1, dateBegin);
 	query.setParameter(2, dateEnd);
 	List<Topic> mesTopics;
@@ -156,7 +156,7 @@ public class IliForumFacade implements ForumFacade {
     @Override
     public List<Topic> getListTopicByEntiteSociale(EntiteSociale entiteSocial) {
 	Query query = em
-		.createQuery("SELECT t FROM Topic t WHERE t.propTopic=?1");
+		.createQuery("SELECT t FROM Topic t WHERE t.propTopic=?1 ORDER BY t.dateSujet");
 	query.setParameter(1, entiteSocial);
 	List<Topic> mesTopics;
 	mesTopics = (List<Topic>) query.getResultList();
@@ -165,7 +165,7 @@ public class IliForumFacade implements ForumFacade {
 
     @Override
     public List<Topic> getListTopicByHub(Hub hub) {
-	Query query = em.createQuery("SELECT t FROM Topic t WHERE t.hub=?1");
+	Query query = em.createQuery("SELECT t FROM Topic t WHERE t.hub=?1 ORDER BY t.dateSujet");
 	query.setParameter(1, hub);
 	List<Topic> mesTopics;
 	mesTopics = (List<Topic>) query.getResultList();
