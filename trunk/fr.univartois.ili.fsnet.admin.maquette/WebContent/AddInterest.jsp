@@ -28,8 +28,7 @@
 <div id="left">
 <h2><a href="AddInterest.jsp?interet=current">Ajout d'interets
 </a></h2>
-<p class="date">Date<br />
-JJ-MM-AA</p>
+<jsp:include page="date.jsp"></jsp:include>
 </div>
 <div id="tableauprincipal">
 <table width="100%">
