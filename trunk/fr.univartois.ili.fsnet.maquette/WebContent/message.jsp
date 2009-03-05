@@ -127,9 +127,9 @@
 			<div></div>
 			</div>
 			</td>
-			<td class="alt1" id="td_post_3994424"
+			<td class="" id="td_post_3994424"
 				style="BORDER-RIGHT: #d1d1e1 1px solid;BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid;"><!-- icon and title -->
-			
+			<div class="alt1"> ${message.dateMessage } </div>
 			<div id="post_message_3994424">${message.contenu}</div>
 			</td>
 		</tr>
