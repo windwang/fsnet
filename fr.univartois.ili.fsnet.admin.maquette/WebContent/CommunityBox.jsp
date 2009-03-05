@@ -10,7 +10,7 @@
 <div id="side">
 <div class="boxtop"></div>
 <div class="box">
-<h3>Mes communaut&eacute;s</h3>
+<h3>Les communaut&eacute;s</h3>
 <a href="#"> <span class="item"> <span class="sidedate">JEE<br/></span> <strong>Nouveauté J2EE </strong><br />
 Detail</span> </a> <a href="#"> <span class="item"> <span
 	class="sidedate">JAVA</span> <strong>Eclipse

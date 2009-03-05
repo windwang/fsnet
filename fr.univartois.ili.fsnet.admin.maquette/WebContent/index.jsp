@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -14,22 +15,20 @@
 	href="css/style.css" />
 <title>FSNet</title>
 <script language="JavaScript" src="admin.js">
+	
 </script>
 </head>
 <body onload="showMenu();">
 
 <jsp:include page="header.jsp"></jsp:include>
 
-	
-<div class="wrap background">
 
-<jsp:include page="subHeader.jsp"></jsp:include>
+<div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
 
 <div id="left">
 <h2><a href="index.jsp?accueil=current">Accueil</a></h2>
-<p class="date">Date<br />
-JJ-MM-AA</p>
+<jsp:include page="date.jsp"></jsp:include>
 </div>
 <div id="tableauprincipal">
 <table>
@@ -41,9 +40,9 @@ JJ-MM-AA</p>
 	</tr>
 
 	<tr>
-		
+
 		<td style="height: 33"></td>
-		<td valign="top" style="background-color: #EDF3F8">
+		<td style="background-color: #EDF3F8">
 		<h2 class="Style8"><img
 			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_270.png"
 			style="height: 27; width: 32" alt="" /> Ma messagerie</h2>
@@ -225,8 +224,7 @@ JJ-MM-AA</p>
 </table>
 </div>
 
-<jsp:include page="CommunityBox.jsp"></jsp:include>
-</div>
+<jsp:include page="CommunityBox.jsp"></jsp:include></div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

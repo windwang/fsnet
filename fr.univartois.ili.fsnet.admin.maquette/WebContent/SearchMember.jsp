@@ -24,8 +24,7 @@
 
 <div id="left">
 <h2><a href="SearchMember.jsp?user=current">Rechercher un membre</a></h2>
-<p class="date">Date<br />
-JJ-MM-AA</p>
+<jsp:include page="date.jsp"></jsp:include>
 </div>
 <div id="tableauprincipal">
 <table style="width: 90%">

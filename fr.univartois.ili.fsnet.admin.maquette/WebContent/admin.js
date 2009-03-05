@@ -23,7 +23,7 @@ function addInterest() {
 	document.getElementById('interests').appendChild(divNode);
 }
 
-function affCache(idDiv) {
+function showHide(idDiv) {
 	var div = document.getElementById(idDiv);
 	if (div.style.display == "")
 	div.style.display = "none";
@@ -31,9 +31,39 @@ function affCache(idDiv) {
 	div.style.display = "";
 }
 
+function test(idButton,idElt){
+	var d = document.getElementById(idButton);
+	if (showTest(idElt)){
+		d.style.display = "block";
+	} else {
+		d.style.display = "none";
+	}
+}
+
+function showTest(id){
+	var d = document.getElementById(id);
+	var td = d.getElementsByTagName('td');
+	var tdcheckbox = td.item(0);
+	var checkbox = tdcheckbox.childNodes;
+	var length = checkbox.length;
+	alert(length);
+	for (var i = 0; i<length; i++){
+		//alert(checkbox.item(i).nodeValue);
+		if (checkbox.item(i).checked == true){
+			return true;
+		}
+	}
+	return false;
+}
+
 function show(id){
 	var d = document.getElementById(id);
 	d.style.display = "block";
+}
+
+function hide(id){
+	var d = document.getElementById(id);
+	d.style.display = "none";
 }
 
 function showMenu(id) {

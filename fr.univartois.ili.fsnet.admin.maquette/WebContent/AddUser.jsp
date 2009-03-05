@@ -23,9 +23,7 @@
 
 <div id="left">
 <h2><a href="AddUser.jsp?user=current">Ajout de membre </a></h2>
-<p class="date">Date<br />
-JJ-MM-AA</p>
-<p class="subtitle">
+<jsp:include page="date.jsp"></jsp:include>
 </div>
 <div id="tableauprincipal">
 <table width="100%">
