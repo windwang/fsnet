@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-
+	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -23,7 +23,7 @@
 		<div id="search">
 			<form action="">
 				<fieldset>
-					<input type="text" class="field" value="Mot clÃ©" />
+					<input type="text" class="field" value="Mot clé" />
 					<input type="submit" class="button" value="" />
 				</fieldset>
 			</form>
@@ -31,8 +31,10 @@
 		<ul id="menu">
 			<li><a class="current">Login</a></li>						
 		</ul>
-			<p class="date">Date<br />
-		  JJ-MM-AA</p>
+			<fsnet:dateJour var="dateJour">
+		<p class="date">Date<br />
+		  ${dateJour }</p>
+		  </fsnet:dateJour>
 		<div id="logo">
 		  <h1><a href="http://www.google.com">FSNet<br />
 			</a></h1>

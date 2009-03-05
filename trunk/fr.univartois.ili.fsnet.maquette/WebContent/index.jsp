@@ -20,8 +20,7 @@
 	
 		<div id="left">
 			<h2><a href="#">Accueil</a></h2>
-			<p class="date">Date<br />
-		  JJ-MM-AA</p>
+			
 			<table width="479">
 			  <tr> <td style="width:6 ; height:33"></td>
     <td style="width:450; valign:top; bgcolor:#EDF3F8"><h2 class="Style8"><img src="icon_from_jimmac_musichall_cz_270.png" style="width:32 ; height:27" alt=""/> Ma messagerie </h2></td>

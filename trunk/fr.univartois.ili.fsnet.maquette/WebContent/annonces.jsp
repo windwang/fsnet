@@ -18,11 +18,13 @@
 
 </head>
 <body>
-<div class="wrap background">
-<jsp:include page="haut.jsp" />
+<div class="wrap background"><jsp:include page="haut.jsp" />
 
 <div id="left">
+
+
 <h2><a href="#">Annonces</a></h2>
+
 <table width="445">
 	<tr>
 		<th style="width: 181" scope="col">listes des annonces</th>
@@ -43,8 +45,8 @@
 </table>
 
 
- </div>
- </div>
+</div>
+</div>
 
 <jsp:include page="bas.jsp" />
 </body>
