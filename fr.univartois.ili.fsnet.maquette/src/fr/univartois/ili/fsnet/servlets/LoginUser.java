@@ -79,7 +79,7 @@ public class LoginUser extends HttpServlet {
 			dispatch.forward(request, response);
 		} catch (Exception e) {
 			logger.info("Authentification échouée");
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/login.html");
+			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/login.jsp");
 			dispatch.forward(request, response);
 		}
 	}

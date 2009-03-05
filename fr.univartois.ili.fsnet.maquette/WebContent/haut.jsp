@@ -55,8 +55,23 @@
 </ul>
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communauté vient d'être créée.</p>
-<p><a class="more" href="#">&not;Detail</a></p>
+
+
+
+<h3>Dernières annonces </h3>
+	<fsnet:annonce var="monAnnonce" nbAnnonce="2">
+	
+<p>
+			<a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a>
+			<a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a>
+	</p>
+		
+		</fsnet:annonce>
+	<h3>Derniers événements </h3>
+	<fsnet:manifestation var="maManif" nbAnnonce="1">
+	<a href="#">${maManif.nom}</a>
+	
+	</fsnet:manifestation>
 </div>
 
 

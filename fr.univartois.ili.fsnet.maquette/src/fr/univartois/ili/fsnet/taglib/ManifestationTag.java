@@ -10,18 +10,18 @@ import javax.persistence.Query;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import fr.univartois.ili.fsnet.entities.Annonce;
+import fr.univartois.ili.fsnet.entities.Manifestation;
 
-public class AnnonceTag extends TagSupport {
+public class ManifestationTag extends TagSupport {
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String var;
-	private Integer idChoisi;
-	private Date dateFin;
-	private String titre;
-	private Iterator<Annonce> an;
+	
+	
+	private Iterator<Manifestation> manif;
 	private Integer nbAnnonce;
 	private int cpt;
 
@@ -41,41 +41,26 @@ public class AnnonceTag extends TagSupport {
 		this.var = var;
 	}
 
-	public void setIdChoisi(int idChoisi) {
-		this.idChoisi = idChoisi;
-	}
-
-	public Date getDateFin() {
-		return dateFin;
-	}
-
-	public void setDateBegin(Date dateFin) {
-		this.dateFin = dateFin;
-	}
-
-	public int doStartTag() throws JspException {
-		cpt=0;
+		public int doStartTag() throws JspException {
+			System.out.println("Start");
+			cpt=0;
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("fsnetjpa");
 		EntityManager em = factory.createEntityManager();
 
-		if (idChoisi != null) {
-
-			Query requete = em
-					.createQuery("SELECT a FROM Annonce a WHERE a.id=?1");
-			requete.setParameter(1, idChoisi.intValue());
-			an = (Iterator<Annonce>) requete.getResultList().iterator();
-		} else if (nbAnnonce != null) {
+		if (nbAnnonce != null) {
 			// Limite le nombre d'annonces
 
 			Query requete = em
-					.createQuery("SELECT a FROM Annonce a ORDER BY a.dateFinAnnonce DESC");
-			an = (Iterator<Annonce>) requete.getResultList().iterator();
+					.createQuery("SELECT m FROM Manifestation m ");
+			System.out.println("nbAnnonce " + nbAnnonce);
+
+			manif = (Iterator<Manifestation>) requete.getResultList().iterator();
 
 		} else {
 
-			Query requete = em.createQuery("SELECT a FROM Annonce a");
-			an = (Iterator<Annonce>) requete.getResultList().iterator();
+			Query requete = em.createQuery("SELECT m FROM Manifestation m");
+			manif = (Iterator<Manifestation>) requete.getResultList().iterator();
 		}
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
@@ -84,28 +69,21 @@ public class AnnonceTag extends TagSupport {
 		return SKIP_BODY;
 	}
 
-	public String getTitre() {
-		return titre;
-	}
-
-	public void setTitre(String titre) {
-		this.titre = titre;
-	}
-
-	private boolean updateContext() {
+		private boolean updateContext() {
+			System.out.println("update");
 		if (nbAnnonce == null) {
-			if (an.hasNext()) {
-				Annonce ann;
-				ann = an.next();
-				pageContext.setAttribute(var, ann);
+			if (manif.hasNext()) {
+				Manifestation man;
+				man = manif.next();
+				pageContext.setAttribute(var, man);
 				return true;
 			}
 		} else {
-			if ((an.hasNext()) && (cpt < nbAnnonce.intValue())) {
+			if ((manif.hasNext()) && (cpt< nbAnnonce.intValue())) {
 				cpt++;
-				Annonce ann;
-				ann = an.next();
-				pageContext.setAttribute(var, ann);
+				Manifestation man;
+				man = manif.next();
+				pageContext.setAttribute(var, man);
 				return true;
 
 			}
@@ -123,6 +101,7 @@ public class AnnonceTag extends TagSupport {
 
 	@Override
 	public int doEndTag() throws JspException {
+		System.out.println("End");
 		pageContext.removeAttribute(var);
 
 		return super.doEndTag();
