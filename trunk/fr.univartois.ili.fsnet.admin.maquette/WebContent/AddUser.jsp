@@ -16,7 +16,7 @@
 <script language="JavaScript" src="admin.js">
 </script>
 </head>
-<body onload="showMenu();">
+<body onload="showMenu();hide('listToDeploy');">
 
 <jsp:include page="header.jsp"></jsp:include>
 <div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
@@ -34,9 +34,12 @@
 		<table>
 			<tr>
 				<th colspan="4" scope="col">
-				<div align="center">Liste des membres</div>
+				<div align="center"><a id="deployButton" href="#" title="Déployer la liste" onclick="deploy('deployButton','listToDeploy');">[+]</a> Liste des membres</div>
 				</th>
 			</tr>
+			<tr>
+			<td>
+			<table id="listToDeploy">
 			<tr>
 				<th></th>
 				<th width="33%" scope="row">Nom</th>
@@ -53,6 +56,10 @@
 					<td width="33%">${entite.email}</td>
 				</tr>
 			</admin:entite>
+			
+			</table>
+			</td>
+			</tr>
 		</table>
 		<label id="removeButton"><input
 			onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
