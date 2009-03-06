@@ -34,9 +34,7 @@ public class CreateHub extends HttpServlet {
 		String nom=request.getParameter("nomHub");
 		Date date = new Date();
 		Hub hub=new Hub(nom,date,null);
-		IliForumFacade iff = new IliForumFacade();
-		iff.addHub(hub);
-		iff.close();
+		IliForumFacade.getInstance().addHub(hub);
 		RequestDispatcher dispa=getServletContext().getRequestDispatcher("/hub.jsp");
 		 dispa.forward(request,response);
 	}
