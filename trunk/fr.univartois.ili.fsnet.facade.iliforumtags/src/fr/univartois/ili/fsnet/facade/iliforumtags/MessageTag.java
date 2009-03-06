@@ -23,7 +23,6 @@ public class MessageTag extends TagSupport {
 	private EntiteSociale user;
 	private Topic topic;
 	private Iterator<Message> it;
-	private IliForumFacade iff;
 
 	public String getVar() {
 		return var;
@@ -33,14 +32,14 @@ public class MessageTag extends TagSupport {
 		this.var = var;
 	}
 
-	public Topic getTopic(){
+	public Topic getTopic() {
 		return this.topic;
 	}
-	
-	public void setTopic(Topic t){
-		this.topic=t;
+
+	public void setTopic(Topic t) {
+		this.topic = t;
 	}
-	
+
 	public Date getDateBegin() {
 		return dateBegin;
 	}
@@ -66,7 +65,7 @@ public class MessageTag extends TagSupport {
 	}
 
 	public int doStartTag() throws JspException {
-		iff = new IliForumFacade();
+		IliForumFacade iff = IliForumFacade.getInstance();
 
 		if (dateBegin != null && dateEnd != null) {
 			it = iff.getListMessage(dateBegin, dateEnd).iterator();
@@ -76,10 +75,9 @@ public class MessageTag extends TagSupport {
 			it = iff.getListMessageByEntiteSocial(user).iterator();
 		}
 
-		else if(topic != null) {
+		else if (topic != null) {
 			it = iff.getListMessageByTopic(topic).iterator();
-		}
-		else
+		} else
 			it = iff.getListMessage().iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
@@ -109,9 +107,6 @@ public class MessageTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
-		if (iff != null) {
-			iff.close();
-		}
 		return super.doEndTag();
 	}
 }
