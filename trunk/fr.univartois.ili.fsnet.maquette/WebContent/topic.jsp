@@ -32,8 +32,10 @@
 </style>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Insert title here</title>
+<script language="JavaScript" src="maquette.js">
+</script>
 </head>
-<body>
+<body onload="showMenu();">
 <div class="wrap background"><jsp:include page="haut.jsp"></jsp:include>
 <a href="hub.jsp">FSNet</a> - <a href="GotoTopic?idHub=${monHub.id}">${monHub.nomCommunaute}</a>
 <table style="padding: 6; width: 100%; align: center" border="1">

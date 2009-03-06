@@ -15,9 +15,10 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <title>FSNet</title>
-
+<script language="JavaScript" src="maquette.js">
+</script>
 </head>
-<body>
+<body onload="showMenu();">
 <div class="wrap background">
 <jsp:include page="haut.jsp"></jsp:include>
 

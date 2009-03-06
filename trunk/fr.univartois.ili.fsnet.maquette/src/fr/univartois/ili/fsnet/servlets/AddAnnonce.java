@@ -115,40 +115,41 @@ public class AddAnnonce extends HttpServlet {
 		String contenu = request.getParameter("contenuAnnonce");
 		String dateFin = request.getParameter("dateFinAnnonce");
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-
+		System.out.println("date fin " + dateFin);
 		if (titre.isEmpty() || contenu.isEmpty() || dateFin.isEmpty()) {
-			
+
 			request.setAttribute("titre", titre);
 			request.setAttribute("contenu", contenu);
 			request.setAttribute("datefin", dateFin);
 			RequestDispatcher dispatch = getServletContext()
 					.getRequestDispatcher("/publierannonce.jsp");
 			dispatch.forward(request, response);
-			return;
+
+		} else {
+
+			System.out.println("dateFin" + dateFin);
+			Date date = null;
+			Date aujourdhui = new Date();
+			try {
+				date = (Date) formatter.parse(dateFin);
+				System.out.println("date format " + date);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			if (date.after(aujourdhui)) {
+
+				Annonce nouvelleInfo = new Annonce(titre, aujourdhui, contenu,
+						date);
+				em.getTransaction().begin();
+				em.persist(nouvelleInfo);
+				em.getTransaction().commit();
+			}
+			RequestDispatcher dispatch = getServletContext()
+					.getRequestDispatcher("/annonces.jsp");
+			dispatch.forward(request, response);
+
 		}
-
-		System.out.println("dateFin" + dateFin);
-		Date date = null;
-		Date aujourdhui = new Date();
-		try {
-			date = (Date) formatter.parse(dateFin);
-			System.out.println("date format " + date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (date.after(aujourdhui)) {
-
-			Annonce nouvelleInfo = new Annonce(titre, aujourdhui, contenu, date);
-			em.getTransaction().begin();
-			em.persist(nouvelleInfo);
-			em.getTransaction().commit();
-		}
-		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
-				"/annonces.jsp");
-		dispatch.forward(request, response);
-
 	}
-
 }
