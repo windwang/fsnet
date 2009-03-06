@@ -39,7 +39,7 @@
 	<fsnet:annonce var="monAnnonce">
 	<table>
 		<tr>
-			<th><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a></th>
+			<th width ="300"><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a></th>
 			<th><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a></th>
 		</tr>
 		</table>

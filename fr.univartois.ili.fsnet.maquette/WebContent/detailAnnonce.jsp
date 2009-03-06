@@ -28,23 +28,27 @@
 <table width="433">
 	<fsnet:annonce var="monAnnonce" idChoisi="${idChoisi}">
 		<tr>
-			<th>titre : ${monAnnonce.nom}</th>
+			<th width="80"><u>titre : </u></th>
+			<td>${monAnnonce.nom}</td>
 
 		</tr>
 		<tr>
-			<th>contenu : ${monAnnonce.contenu}</th>
+			<th><u>contenu :</u></th><td> ${monAnnonce.contenu}</td>
 		</tr>
 		<tr>
-			<th>Date de fin : ${monAnnonce.dateAnnonce}</th>
+			<th><u>Date de fin :</u> </th><td>${monAnnonce.dateAnnonce}</td>
 		</tr>
-		<th style="width: 252" scope="col">
+		
+	</fsnet:annonce>
+	
+	</table>
+	<table width="433">
+<th  scope="col">
 		<div style="text-align: center"><a href="annonces.jsp">retour
 		aux annonces</a></div>
 		</th>
-	</fsnet:annonce>
-
-
 </table>
+
 <p>&nbsp;</p>
 
 </div>
