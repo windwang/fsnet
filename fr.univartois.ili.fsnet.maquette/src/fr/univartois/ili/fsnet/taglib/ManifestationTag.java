@@ -42,7 +42,7 @@ public class ManifestationTag extends TagSupport {
 	}
 
 		public int doStartTag() throws JspException {
-			System.out.println("Start");
+			
 			cpt=0;
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("fsnetjpa");
@@ -53,7 +53,7 @@ public class ManifestationTag extends TagSupport {
 
 			Query requete = em
 					.createQuery("SELECT m FROM Manifestation m ");
-			System.out.println("nbAnnonce " + nbAnnonce);
+			
 
 			manif = (Iterator<Manifestation>) requete.getResultList().iterator();
 
@@ -70,7 +70,7 @@ public class ManifestationTag extends TagSupport {
 	}
 
 		private boolean updateContext() {
-			System.out.println("update");
+			
 		if (nbAnnonce == null) {
 			if (manif.hasNext()) {
 				Manifestation man;
@@ -101,7 +101,7 @@ public class ManifestationTag extends TagSupport {
 
 	@Override
 	public int doEndTag() throws JspException {
-		System.out.println("End");
+		
 		pageContext.removeAttribute(var);
 
 		return super.doEndTag();
