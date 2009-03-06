@@ -18,7 +18,7 @@
 <script type="text/javascript">
 </script>
 </head>
-<body onload="showMenu();setFocus('inputAddInterest')">
+<body onload="showMenu();hide('listToDeploy');">
 
 <jsp:include page="header.jsp"></jsp:include>
 
@@ -28,8 +28,7 @@
 <div id="left">
 <h2><a href="AddInterest.jsp?interet=current">Ajout d'interets
 </a></h2>
-<jsp:include page="date.jsp"></jsp:include>
-</div>
+<jsp:include page="date.jsp"></jsp:include></div>
 <div id="tableauprincipal">
 <table width="100%">
 
@@ -40,17 +39,24 @@
 		<table>
 			<tr>
 				<th colspan="2" scope="col">
-				<div align="center">Liste des interêts</div>
+				<div align="center"><a id="deployButton" href="#"
+					title="Déployer la liste" onclick="deploy('deployButton','listToDeploy');">[+]</a>
+				Liste des interêts</div>
 				</th>
 			</tr>
-
-			<admin:interet var="interet">
-				<tr>
-					<td><input type="checkbox" name="interestSelected"
-						value="${interet.id}" onclick="show('removeButton');" /></td>
-					<td width="99%">${interet.nomInteret}</td>
-				</tr>
-			</admin:interet>
+			<tr>
+				<td>
+				<table id="listToDeploy">
+					<admin:interet var="interet">
+						<tr>
+							<td><input type="checkbox" name="interestSelected"
+								value="${interet.id}" onclick="show('removeButton');" /></td>
+							<td width="99%">${interet.nomInteret}</td>
+						</tr>
+					</admin:interet>
+				</table>
+				</td>
+			</tr>
 
 		</table>
 		<label id="removeButton"><input

@@ -31,6 +31,21 @@ function showHide(idDiv) {
 	div.style.display = "";
 }
 
+function deploy(idButton,idList){
+	var d = document.getElementById(idButton);
+    c = d.firstChild;
+	var value = c.nodeValue;
+	//alert(value);
+	if (value == "[+]"){
+		c.nodeValue= "[-]";
+	}
+	else {
+		c.nodeValue= "[+]";
+		hide('removeButton');
+	}
+	showHide(idList);
+}
+
 function test(idButton,idElt){
 	var d = document.getElementById(idButton);
 	if (showTest(idElt)){
