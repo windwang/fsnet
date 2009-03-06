@@ -24,7 +24,7 @@ public class IliForumFacadeTest {
 	@Before
 	public void setUp() {
 		System.err.println("Le before est execute");
-		iff = new IliForumFacade();
+		iff=IliForumFacade.getInstance();
 	}
 
 	@After
