@@ -31,44 +31,47 @@ function showHide(idDiv) {
 	div.style.display = "";
 }
 
-function deploy(idButton,idList){
+function deploy(idButton,idList,attributeName){
 	var d = document.getElementById(idButton);
     c = d.firstChild;
 	var value = c.nodeValue;
-	//alert(value);
 	if (value == "[+]"){
 		c.nodeValue= "[-]";
+		d.title="Réduire la liste";
 	}
 	else {
 		c.nodeValue= "[+]";
+		d.title="Déployer la liste";
 		hide('removeButton');
+		unchecked(attributeName);
 	}
 	showHide(idList);
 }
 
-function test(idButton,idElt){
+function showHideButton(idButton,attributeName){
 	var d = document.getElementById(idButton);
-	if (showTest(idElt)){
+	if (hasAnCheckedInput(attributeName)){
 		d.style.display = "block";
 	} else {
 		d.style.display = "none";
 	}
 }
 
-function showTest(id){
-	var d = document.getElementById(id);
-	var td = d.getElementsByTagName('td');
-	var tdcheckbox = td.item(0);
-	var checkbox = tdcheckbox.childNodes;
-	var length = checkbox.length;
-	alert(length);
-	for (var i = 0; i<length; i++){
-		//alert(checkbox.item(i).nodeValue);
-		if (checkbox.item(i).checked == true){
-			return true;
-		}
+function hasAnCheckedInput(attributeName){
+	var d = document.getElementsByTagName('input');
+	for (var i = 0; i<d.length; i++){
+		if ((d.item(i).getAttribute('name') == attributeName) && (d.item(i).checked==true))
+		return true;
 	}
 	return false;
+}
+
+function unchecked(attributeName){
+	var d = document.getElementsByTagName('input');
+	for (var i = 0; i<d.length; i++){
+		if (d.item(i).getAttribute('name') == attributeName)
+		d.item(i).checked=false;
+	}
 }
 
 function show(id){

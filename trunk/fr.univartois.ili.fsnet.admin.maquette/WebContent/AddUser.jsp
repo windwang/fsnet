@@ -34,7 +34,7 @@
 		<table>
 			<tr>
 				<th colspan="4" scope="col">
-				<div align="center"><a id="deployButton" href="#" title="Déployer la liste" onclick="deploy('deployButton','listToDeploy');">[+]</a> Liste des membres</div>
+				<div align="center"><a id="deployButton" href="#" title="Déployer la liste" onclick="deploy('deployButton','listToDeploy','userSelected');">[+]</a> Liste des membres</div>
 				</th>
 			</tr>
 			<tr>
@@ -50,7 +50,7 @@
 
 				<tr>
 					<td><input type="checkbox" name="userSelected"
-						value="${entite.id}" onclick="show('removeButton');" /></td>
+						value="${entite.id}" onclick="showHideButton('removeButton','userSelected');" /></td>
 					<td width="33%">${entite.nom}</td>
 					<td width="33%">${entite.prenom}</td>
 					<td width="33%">${entite.email}</td>
