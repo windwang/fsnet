@@ -34,9 +34,7 @@ public class CreateMessage extends HttpServlet {
 		String nom=request.getParameter("contenuMessage");
 		Date date = new Date();
 		Message message=new Message(nom,date,null,(Topic)getServletContext().getAttribute("monTopic"));
-		IliForumFacade iff = new IliForumFacade();
-		iff.addMessage(message);
-		iff.close();
+		IliForumFacade.getInstance().addMessage(message);
 		RequestDispatcher dispa=getServletContext().getRequestDispatcher("/message.jsp");
 		dispa.forward(request,response);
 	}
