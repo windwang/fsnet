@@ -7,6 +7,11 @@
 	<property name="tomcat.lib" value="/opt/apache-tomcat-6.0.18/lib"/>
 
 	<property name="jars.dir" value="./JARs/WEB-INF/lib"/>
+	
+	<property name="test_results.dir" value="./test_results"/>
+	<property name="pmd.dir" value="./pmd_results"/>
+	<property name="findbugs.dir" value="./findbugs_results"/>
+	<property name="findbugs_home.dir" value="/opt/findbugs-1.3.7"/>
 
 	<!-- Entities properties -->
 	<property name="fsnet.entities.dir" value="fr.univartois.ili.fsnet.entities"/>
@@ -16,6 +21,13 @@
 	<property name="fsnet.iliforum.dir" value="fr.univartois.ili.fsnet.facade.iliforum"/>
 	<property name="fsnet.iliforum.test.dir" value="fr.univartois.ili.fsnet.facade.iliforum.test"/> 
 	<property name="fsnet.iliforumtags.dir" value="fr.univartois.ili.fsnet.facade.iliforumtags"/> 	
+
+	<target name="prepare">
+		<echo>Preparing</echo>
+		<mkdir dir="${test_results.dir}"/>
+		<mkdir dir="${pmd.dir}"/>
+		<mkdir dir="${findbugs.dir}"/>
+	</target>
 
 	<target name="iliforumtags.compile">
 		<echo>Creating the iliforumtags bin dir</echo>
@@ -64,12 +76,13 @@
 		
 		<echo>Testing iliforum</echo>
 		<junit printsummary="yes">
+			<formatter type="xml"/>
 			<classpath>		
 				<pathelement location="${fsnet.iliforum.test.dir}/bin"/>
 			</classpath>
 			<classpath refid="fsnetPath"/>
 
-			<batchtest fork="yes">
+			<batchtest fork="yes" todir="${test_results.dir}">
 				<fileset dir="${fsnet.iliforum.test.dir}/bin">
 					<include name="**/*Test*.class"/>
 					<exclude name="**/AllTests.class"/>
@@ -132,12 +145,13 @@
 		
 		<echo>Testing entities</echo>
 		<junit printsummary="yes">
+			<formatter type="xml"/>
 			<classpath>		
 				<pathelement location="${fsnet.entities.test.dir}/bin"/>
 			</classpath>
 			<classpath refid="fsnetPath"/>
 
-			<batchtest fork="yes">
+			<batchtest fork="yes" todir="${test_results.dir}">
 				<fileset dir="${fsnet.entities.test.dir}/bin">
 					<include name="**/*Test*.class"/>
 					<exclude name="**/AllTests.class"/>
@@ -220,7 +234,36 @@
 		<echo>Deploying on Tomcat 6</echo>
 		<copy file="fsnet.war" todir="${tomcat.deploy}"/>  
 	</target>
-	
+
+	<target name="test_report">
+		<junitreport todir="${test_results.dir}">
+			<fileset dir="${test_results.dir}">
+				<include name="TEST-*.xml"/>
+			</fileset>
+			<report format="frames" todir="${test_results.dir}/html"/>
+		</junitreport>
+	</target>
+
+	<target name="pmd">
+		<taskdef name="pmd" classname="net.sourceforge.pmd.ant.PMDTask"/>
+		<echo>Run PMD stuff</echo>
+		<pmd rulesetfiles="unusedcode,basic,design" targetjdk="${versionJava}">
+			<formatter type="html" toFile="${pmd.dir}/fsnet.pmd"/>
+			<fileset dir=".">
+				<include name="**/*.java"/>
+			</fileset>
+		</pmd>
+	</target>
+
+	<target name="findbugs" description="Verifification du code avec findbugs">
+		<taskdef name="findbugs" classname="edu.umd.cs.findbugs.anttask.FindBugsTask"/>
+		<echo>Verification du code avec Findbugs</echo>
+		<findbugs home="${findbugs_home.dir}" output="html" outputFile="${findbugs.dir}/fsnet_fb.html" >
+			<sourcePath path="." />
+			<class/>
+		</findbugs>
+	</target>	
+
 	<target name="clean">
 		<echo>Cleaning-up</echo>
 		<delete dir="${fsnet.entities.dir}/bin"/>
@@ -237,6 +280,5 @@
 		<delete file="${fsnet.dir}/WebContent/WEB-INF/lib/fsnetiliforum.jar"/>
 	</target>
 
-	<!--<target name="both" depends="entities,entities.test,iliforum,iliforum.test,iliforumtags,admin,fsnet,clean"/>-->
-	<target name="both" depends="entities,iliforum,iliforumtags,admin,fsnet,clean"/>
+	<target name="both" depends="prepare,pmd,findbugs,entities,entities.test,iliforum,iliforum.test,iliforumtags,test_report,admin,fsnet,clean"/>
 </project>
