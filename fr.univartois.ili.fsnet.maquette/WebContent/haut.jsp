@@ -18,6 +18,34 @@
 
 </head>
 <body>
+<div id="menu">
+<dl>
+	<dt><a class="${param.accueil}" href="index.jsp?accueil=current" title="Retour à l'accueil">Accueil</a></dt>
+</dl>
+<dl>
+	<dt><a class="${param.profil}" href="profil.jsp?profil=current" >Profil</a></dt>
+</dl>
+<dl>
+	<dt onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a class="${param.info}" href="#">Information</a></dt>
+	<dd id="smenu1">
+	<ul>
+		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
+			href="AddAnnonce?idChoisi=0&info=current">Annonces</a></li>
+		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
+			href="#">Evénements</a></li>
+	</ul>
+	</dd>
+</dl>
+<dl>
+	<dt><a class="${param.hubs}" href="hub.jsp?hubs=current" >Hubs</a></dt>
+</dl>
+<dl>
+	<dt><a class="${param.interaction}" href="#" >Intéraction</a></dt>
+</dl>
+<dl>
+	<dt><a class="${param.messagerie}" href="#" >Messagerie</a></dt>
+</dl>
+
 
 <div id="search">
 <form action="">
@@ -25,22 +53,30 @@
 <input type="submit" class="button" value="" /></fieldset>
 </form>
 </div>
-<ul id="menu">
-	<li><a href="index.jsp">Accueil</a></li>
-	<li><a href="profil.jsp">Profil</a></li>
-	<li><a href="hub.jsp">Hubs</a></li>
-	<li><a href="#">Interaction</a></li>
-	<li><a href="#">Messagerie</a></li>
-	<li><a href="AddAnnonce?idChoisi=0">Annonces</a></li>
+</div>
 
-</ul>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 <fsnet:login var="membre" idLogin="${idLogin}">
 	Bienvenue M. ${membre.nom} ${membre.prenom} 
 	</fsnet:login>
 
 <div id="logo">
-<h1><a href="http://www.google.com">FSNet<br />
+<h1><a href="index.jsp?accueil=current">FSNet<br />
 </a></h1>
 <h2 id="slogan">Réseau social</h2>
 <fsnet:dateJour var="dateJour">
@@ -74,7 +110,7 @@
 	</fsnet:manifestation>
 </div>
 
-
+ 
 <div class="clear"></div>
 
 </body>

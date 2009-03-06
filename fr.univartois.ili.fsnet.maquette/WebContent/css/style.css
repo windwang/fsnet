@@ -110,29 +110,53 @@ input.button {
 }
 
 #menu {
-	padding: 0 0 8px;
-	margin: 0 0 25px;
+	width: 1100px;
+	padding: 0 0 15px;
+	margin: 0 0 25px 110px;
 	height: 20px;
 }
 
-#menu li {
-	display: inline;
+#menu dl {
+	float: left;
+	margin: 0 1px;
+	height: 0.8em;
 }
 
-#menu li a {
+#menu dt a {
 	float: left;
-	width: 86px;
+	width: 95px;
 	text-align: center;
-	margin: 0 2px 0 0;
+	margin: 0 1px 0 0;
 	font-weight: bold;
 	font-size: .8em;
 	padding: 16px 0 21px;
 	color: #ccc;
 }
 
-#menu li a:hover,#menu li a.current {
+#menu li a {
+	float: left;
+	width: 86px;
+	text-align: center;
+	margin: -10px 1px 0 0;
+	font-weight: bold;
+	font-size: .8em;
+	padding: 6px 0 10px;
+	color: #CCCCCC;
+	background-color: #4F4F4F;
+}
+
+#menu dt a:hover,#menu dt a.current {
 	color: #AF1515;
 	background: url(../images/menu.gif) no-repeat center bottom;
+}
+
+#menu li a:hover {
+	color: #AF1515;
+	background-color: #FFF;
+}
+
+#menu li {
+	margin-left: 4px;
 }
 
 #logo {
@@ -358,14 +382,9 @@ input.button {
 	text-align: center;
 }
 
-
-
-
 .ds_box {
 	background-color: #FFF;
 	border: 1px solid #000;
 	position: absolute;
 	z-index: 32767;
 }
-
-

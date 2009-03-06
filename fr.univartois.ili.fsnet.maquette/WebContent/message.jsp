@@ -14,17 +14,10 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <title>FSNet</title>
-<script type="text/JavaScript">
-	function MM_jumpMenu(targ, selObj, restore) { //v3.0
-		eval(targ + ".location='" + selObj.options[selObj.selectedIndex].value
-				+ "'");
-		if (restore)
-			selObj.selectedIndex = 0;
-	}
-	//
+<script language="JavaScript" src="maquette.js">
 </script>
 </head>
-<body>
+<body onload="showMenu();">
 <div class="wrap background">
 <jsp:include page="haut.jsp"></jsp:include>
 
