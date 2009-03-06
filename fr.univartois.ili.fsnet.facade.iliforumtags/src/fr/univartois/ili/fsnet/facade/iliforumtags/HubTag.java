@@ -22,9 +22,8 @@ public class HubTag extends TagSupport {
 	private Date dateBegin;
 	private Date dateEnd;
 	private EntiteSociale decideur;
-	
+
 	private Iterator<HubDTO> it;
-	private IliForumFacade iff;
 
 	public String getVar() {
 		return var;
@@ -59,8 +58,8 @@ public class HubTag extends TagSupport {
 	}
 
 	public int doStartTag() throws JspException {
-		iff = new IliForumFacade();
-		List<HubDTO> lHubDTO=new ArrayList<HubDTO>();
+		IliForumFacade iff = IliForumFacade.getInstance();
+		List<HubDTO> lHubDTO = new ArrayList<HubDTO>();
 		List<Hub> lHub;
 
 		if (dateBegin != null && dateEnd != null) {
@@ -73,12 +72,12 @@ public class HubTag extends TagSupport {
 
 		else
 			lHub = iff.getListHub();
-		
-		for(Hub hub : lHub){
+
+		for (Hub hub : lHub) {
 			lHubDTO.add(new HubDTO(hub));
 		}
-		
-		it=lHubDTO.iterator();
+
+		it = lHubDTO.iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -108,9 +107,6 @@ public class HubTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
-		if (iff != null) {
-			iff.close();
-		}
 		return super.doEndTag();
 	}
 }

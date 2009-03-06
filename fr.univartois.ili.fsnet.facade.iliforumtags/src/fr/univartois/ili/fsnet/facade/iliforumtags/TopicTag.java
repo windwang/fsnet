@@ -26,7 +26,6 @@ public class TopicTag extends TagSupport {
 	private Hub hub;
 
 	private Iterator<TopicDTO> it;
-	private IliForumFacade iff;
 
 	public String getVar() {
 		return var;
@@ -69,7 +68,7 @@ public class TopicTag extends TagSupport {
 	}
 
 	public int doStartTag() throws JspException {
-		iff = new IliForumFacade();
+		IliForumFacade iff = IliForumFacade.getInstance();
 		List<TopicDTO> lTopicDTO = new ArrayList<TopicDTO>();
 		List<Topic> lTopic;
 		if (dateBegin != null && dateEnd != null) {
@@ -118,9 +117,6 @@ public class TopicTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
-		if (iff != null) {
-			iff.close();
-		}
 		return super.doEndTag();
 	}
 }
