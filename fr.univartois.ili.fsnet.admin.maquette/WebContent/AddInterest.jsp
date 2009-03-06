@@ -40,7 +40,7 @@
 			<tr>
 				<th colspan="2" scope="col">
 				<div align="center"><a id="deployButton" href="#"
-					title="Déployer la liste" onclick="deploy('deployButton','listToDeploy');">[+]</a>
+					title="Déployer la liste" onclick="deploy('deployButton','listToDeploy','interestSelected');">[+]</a>
 				Liste des interêts</div>
 				</th>
 			</tr>
@@ -50,7 +50,7 @@
 					<admin:interet var="interet">
 						<tr>
 							<td><input type="checkbox" name="interestSelected"
-								value="${interet.id}" onclick="show('removeButton');" /></td>
+								value="${interet.id}" onclick="showHideButton('removeButton','interestSelected');" /></td>
 							<td width="99%">${interet.nomInteret}</td>
 						</tr>
 					</admin:interet>
