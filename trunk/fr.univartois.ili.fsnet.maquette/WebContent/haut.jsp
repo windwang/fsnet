@@ -50,15 +50,15 @@
 
 <ul id="feature_menu">
 	<li><a class="current" href="">Actualité</a></li>
-	<li><a href="#">AAAAAAA</a></li>
-	<li><a href="#">BBBBBBBBB</a></li>
+	<li><a href="#">Annonces</a></li>
+	<li><a href="#">Evénements</a></li>
 </ul>
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
 
 
 
-<h3>Dernières annonces </h3>
+<h3><a href="AddAnnonce?idChoisi=0">Dernières annonces</a> </h3>
 	<fsnet:annonce var="monAnnonce" nbAnnonce="2">
 	
 <p>
@@ -67,7 +67,7 @@
 	</p>
 		
 		</fsnet:annonce>
-	<h3>Derniers événements </h3>
+	<h3>Derniers événements</h3>
 	<fsnet:manifestation var="maManif" nbAnnonce="1">
 	<a href="#">${maManif.nom}</a>
 	

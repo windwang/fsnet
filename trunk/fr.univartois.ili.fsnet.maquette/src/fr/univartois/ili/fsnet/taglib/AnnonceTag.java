@@ -54,7 +54,7 @@ public class AnnonceTag extends TagSupport {
 	}
 
 	public int doStartTag() throws JspException {
-		cpt=0;
+		cpt = 0;
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("fsnetjpa");
 		EntityManager em = factory.createEntityManager();
@@ -65,11 +65,10 @@ public class AnnonceTag extends TagSupport {
 					.createQuery("SELECT a FROM Annonce a WHERE a.id=?1");
 			requete.setParameter(1, idChoisi.intValue());
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
-		} else if (nbAnnonce != null) {
-			// Limite le nombre d'annonces
-
+		} else if (nbAnnonce != null) { // Limite le nombre d'annonces
+			System.out.println("nb annonce " + nbAnnonce);
 			Query requete = em
-					.createQuery("SELECT a FROM Annonce a ORDER BY a.dateFinAnnonce DESC");
+					.createQuery("SELECT a FROM Annonce a ORDER BY a.id DESC ");
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
 
 		} else {
