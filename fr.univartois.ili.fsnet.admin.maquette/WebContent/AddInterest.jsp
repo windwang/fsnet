@@ -18,7 +18,7 @@
 <script type="text/javascript">
 </script>
 </head>
-<body onload="showMenu();hide('listToDeploy');">
+<body onload="showMenu();${param.showHide}('listToDeploy');">
 
 <jsp:include page="header.jsp"></jsp:include>
 
@@ -26,7 +26,7 @@
 <div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="AddInterest.jsp?interet=current">Ajout d'interets
+<h2><a href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajout d'interets
 </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
 <div id="tableauprincipal">
@@ -40,7 +40,7 @@
 			<tr>
 				<th colspan="2" scope="col">
 				<div align="center"><a id="deployButton" href="#"
-					title="Déployer la liste" onclick="deploy('deployButton','listToDeploy','interestSelected');">[+]</a>
+					title="${param.titleDeploy}" onclick="deploy('deployButton','listToDeploy','interestSelected');">${param.deploy}</a>
 				Liste des interêts</div>
 				</th>
 			</tr>

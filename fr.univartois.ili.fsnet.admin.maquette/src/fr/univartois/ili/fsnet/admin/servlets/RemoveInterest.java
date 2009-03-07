@@ -96,7 +96,7 @@ public class RemoveInterest extends HttpServlet {
 		}
 
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/AddInterest.jsp");
+				"/AddInterest.jsp?interest=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
 		disp.forward(request, response);
 	}
 

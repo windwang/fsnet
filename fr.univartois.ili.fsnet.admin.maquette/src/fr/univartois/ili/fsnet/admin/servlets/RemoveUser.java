@@ -93,7 +93,7 @@ public class RemoveUser extends HttpServlet {
 		}
 
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/AddUser.jsp");
+				"/AddUser.jsp?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
 		disp.forward(request, response);
 	}
 
