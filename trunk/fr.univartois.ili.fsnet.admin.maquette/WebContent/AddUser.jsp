@@ -16,13 +16,13 @@
 <script language="JavaScript" src="admin.js">
 </script>
 </head>
-<body onload="showMenu();hide('listToDeploy');">
+<body onload="showMenu();${param.showHide}('listToDeploy');">
 
 <jsp:include page="header.jsp"></jsp:include>
 <div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="AddUser.jsp?user=current">Ajout de membre </a></h2>
+<h2><a href="AddUser.jsp?user=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajout de membre </a></h2>
 <jsp:include page="date.jsp"></jsp:include>
 </div>
 <div id="tableauprincipal">
@@ -34,7 +34,7 @@
 		<table>
 			<tr>
 				<th colspan="4" scope="col">
-				<div align="center"><a id="deployButton" href="#" title="Déployer la liste" onclick="deploy('deployButton','listToDeploy','userSelected');">[+]</a> Liste des membres</div>
+				<div align="center"><a id="deployButton" href="#" title="${param.titleDeploy}" onclick="deploy('deployButton','listToDeploy','userSelected');">${param.deploy}</a> Liste des membres</div>
 				</th>
 			</tr>
 			<tr>

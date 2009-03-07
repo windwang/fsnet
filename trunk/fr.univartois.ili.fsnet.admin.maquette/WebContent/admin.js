@@ -76,7 +76,7 @@ function unchecked(attributeName){
 
 function show(id){
 	var d = document.getElementById(id);
-	d.style.display = "block";
+	d.style.display = "";
 }
 
 function hide(id){
