@@ -44,6 +44,9 @@
 			<td class="thead">
 			<div style="text-align: center">Topic</div>
 			</td>
+			<td class="thead">
+			Createur
+			</td>
 			<td class="thead">Dernier message</td>
 			<td class="thead">Messages</td>
 		</tr>
@@ -71,8 +74,11 @@
 					</tbody>
 				</table>
 				</td>
+				<td class="alt2">
+					${topicdto.topic.propTopic.nom} ${topicdto.topic.propTopic.prenom}
+				</td>
 				<td class="alt2"><a
-					href="GotoMessage?idTopic=${topicdto.lastMessage.topic.id}">${topicdto.lastMessage.dateMessage}</a></td>
+					href="GotoMessage?idTopic=${topicdto.lastMessage.topic.id}">${topicdto.lastMessage.dateMessage} - ${topicdto.lastMessage.propMsg.nom} ${topicdto.lastMessage.propMsg.prenom}</a></td>
 				<td class="alt2">${topicdto.nbMessage}</td>
 			</tr>
 		</tbody>
@@ -92,8 +98,6 @@
 			</td>
 		</tr>
 	</tfoot>
-
-
 </table>
  </div>
 <jsp:include page="bas.jsp"></jsp:include>
