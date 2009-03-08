@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -111,12 +112,16 @@
 			<div class="smallfont">
 			<div style="align: center">Membre de la communauté</div>
 			</div>
-			<div class="smallfont" style="text-align: center"><img
-				src="images/DLBMII.JPG" width="72" height="96"
-				style="width: 116; height: 124; border: 0" alt="" /></div>
+			<div class="smallfont" style="text-align: center">
+			<c:if test="${message.propMsg.photo != null}">
+				<img src="${message.propMsg.photo}"  width="72" height="96" />
+			</c:if>
+			<c:if test="${message.propMsg.photo == null}">
+				<img src="images/DLBMII.JPG"  width="72" height="96" />
+			</c:if>
 			<div class="smallfont"><br />
-			<div>Date d'inscription: avril 2008</div>
-			<div>Messages: 32</div>
+			<div>Date d'inscription: ${message.propMsg.dateEntree}</div>
+			<div>Messages: xx</div>
 			<div></div>
 			</div>
 			</td>

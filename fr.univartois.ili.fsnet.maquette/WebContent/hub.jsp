@@ -39,6 +39,9 @@
 			<td class="thead">
 			<div style="text-align: center">Hub</div>
 			</td>
+			<td class="thead">
+				Createur
+			</td>
 			<td class="thead">Dernier message</td>
 			<td class="thead">Topics</td>
 			<td class="thead">Messages</td>
@@ -66,8 +69,10 @@
 					</tbody>
 				</table>
 				</td>
+				<td class="alt2">
+				${hubdto.hub.createur.nom} ${hubdto.hub.createur.prenom}</td>
 				<td class="alt2"> <a href="GotoMessage?idTopic=${hubdto.lastMessage.topic.id }">
-							${hubdto.lastMessage.dateMessage}</a></td>
+							${hubdto.lastMessage.dateMessage} - ${hubto.lastMessage.propMsg.nom } ${hubto.lastMessage.propMsg.prenom }</a></td>
 				<td class="alt1">${hubdto.nbTopic}</td>
 				<td class="alt2">${hubdto.nbMessage}</td>
 			</tr>
