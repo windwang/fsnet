@@ -27,8 +27,8 @@
 </dl>
 <dl>
 	<dt onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a class="${param.info}" href="#">Information</a></dt>
-	<dd id="smenu1" >
-	<ul ">
+	<dd id="smenu1">
+	<ul>
 		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
 			href="AddAnnonce?idChoisi=0&info=current">Annonces</a></li>
 		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
@@ -76,7 +76,7 @@
 	</fsnet:login>
 
 <div id="logo">
-          
+          <h2 > <span style ="color:red;">votre information est publi&#233</span></h2>
 <h1><a href="index.jsp?accueil=current">FSNet<br />
 </a></h1>
 <h2 id="slogan">Réseau social</h2>
@@ -86,16 +86,15 @@
 </fsnet:dateJour></div>
 
 <ul id="feature_menu">
-	<li onclick="showMenu2('ssmenu1');"><a class="current" href="#" >Actualité</a></li>
-	<li onclick="showMenu2('ssmenu2');"><a href="#">Annonces</a></li>
+	<li><a class="current" href="">Actualité</a></li>
+	<li><a href="#">Annonces</a></li>
 	<li><a href="#">&#201;v&#233;nements</a></li>
 </ul>
-
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
 
 
-<div id="ssmenu1">
+
 <h3><a href="AddAnnonce?idChoisi=0">Dernières annonces</a> </h3>
 	<fsnet:annonce var="monAnnonce" nbAnnonce="2">
 	
@@ -111,20 +110,6 @@
     
 	
 	</fsnet:manifestation>
-	</div>
-
-<div id="ssmenu2" style="display: none">
-<h3><a href="AddAnnonce?idChoisi=0">Dernières annonces</a> </h3>
-	<fsnet:annonce var="monAnnonce" nbAnnonce="4">
-	
-<p>
-			<a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a>
-			<a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a>
-	</p>
-		
-		</fsnet:annonce>
-
-	</div>
 </div>
 
  

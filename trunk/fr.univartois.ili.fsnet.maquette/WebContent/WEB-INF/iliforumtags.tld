@@ -162,7 +162,12 @@
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
 		<attribute>
-			<name>nbAnnonce</name>
+			<name>nbEven</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>idEven</name>
 			<required>no</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

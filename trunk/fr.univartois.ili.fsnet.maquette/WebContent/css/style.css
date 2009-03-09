@@ -158,7 +158,9 @@ input.button {
 #menu li {
 	margin-left: 4px;
 }
-
+#smenu1 {
+	margin: 0pt 0pt 0pt 0pt ; padding:0pt; width:0pt; list-style-type: none; list-style-position: outside; 
+	}
 #logo {
 	float: left;
 	margin: 40px 0 0;
