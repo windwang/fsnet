@@ -94,8 +94,11 @@ public class TrayClass {
 	            return;
 	        }
 	        
+	        trayIcon.displayMessage("Notificatios", "Vous avez 3 nouveaux messages.", TrayIcon.MessageType.INFO);
+	        
 	        trayIcon.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
+	            	trayIcon.displayMessage("Notificatios", "Vous avez 3 nouveaux messages.", TrayIcon.MessageType.INFO);
 	                JOptionPane.showMessageDialog(null,
 	                        "This dialog box is run from System Tray");
 	            }
