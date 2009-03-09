@@ -16,48 +16,42 @@
 	href="css/style.css" />
 <title>FSNet</title>
 <script language="JavaScript" src="maquette.js">
+	
 </script>
 </head>
 <body onload="showMenu();">
-<div class="wrap background">
-<jsp:include page="haut.jsp"></jsp:include>
+<div class="wrap background"><jsp:include page="haut.jsp" />
 
 <div id="left">
-<h2><a href="#">détaille du &#201;v&#233;nement</a></h2>
 
+
+<h2><a href="#">&#201;v&#233;nements</a></h2>
+
+<table width="445">
+	<tr>
+		<th style="width: 181" scope="col">listes des &#201;v&#233;nements</th>
+		<th style="width: 252" scope="col">
+		<div style="text-align: center"><a href="publierannonce.jsp">publier
+		un  &#201;v&#233;nement</a></div>
+		</th>
+	</tr>
+</table>
 <p>&nbsp;</p>
 <table width="433">
-	<fsnet:manifestation var="maManif" idEven="${idEven}">
+	<fsnet:manifestation var="maManif">
+	<table>
 		<tr>
-			<th width="80"><u>titre : </u></th>
-			<td>${maManif.nom}</td>
-
+			<th width ="300"><a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a></th>
+			
 		</tr>
-		<tr>
-			<th><u>contenu :</u></th><td> ${maManif.contenu}</td>
-		</tr>	
+		</table>
 	</fsnet:manifestation>
-	
-	</table>
-	<table width="433">
-        <th  scope="col">
-		<div style="text-align: center"><a href="creerevenement.jsp">Publier un &#201;v&#233;nement
-		</a></div>
-		</th>
-        <th  scope="col">
-		<div style="text-align: center"><a href="toutEvenement.jsp">voir tout les &#201;v&#233;nements
-		</a></div>
-		</th>
 </table>
 
-<p>&nbsp;</p>
 
 </div>
-
-
-
 </div>
-<jsp:include page="bas.jsp"></jsp:include>
 
+<jsp:include page="bas.jsp" />
 </body>
 </html>
