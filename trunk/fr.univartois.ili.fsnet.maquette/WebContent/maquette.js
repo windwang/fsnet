@@ -17,6 +17,19 @@ function MM_jumpMenu(targ, selObj, restore) { //v3.0
 		selObj.selectedIndex = 0;
 }
 
+function showMenu2(id) {
+	var d = document.getElementById(id);
+	for ( var i = 1; i <= 10; i++) {
+		if (document.getElementById('ssmenu' + i)) {
+			document.getElementById('ssmenu' + i).style.display = 'none';
+		}
+	}
+	if (d) {
+		d.style.display = 'block';
+	}
+}
+
+
 function GnooCalendar(n, min, max, format) {
 	
 	this.format = new String("fr");
