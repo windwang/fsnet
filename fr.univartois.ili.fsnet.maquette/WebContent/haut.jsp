@@ -85,15 +85,16 @@
 </fsnet:dateJour></div>
 
 <ul id="feature_menu">
-	<li><a class="current" href="">Actualité</a></li>
-	<li><a href="#">Annonces</a></li>
+	<li onclick="showMenu2('ssmenu1');"><a class="current" href="#" >Actualité</a></li>
+	<li onclick="showMenu2('ssmenu2');"><a href="#">Annonces</a></li>
 	<li><a href="#">Evénements</a></li>
 </ul>
+
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
 
 
-
+<div id="ssmenu1">
 <h3><a href="AddAnnonce?idChoisi=0">Dernières annonces</a> </h3>
 	<fsnet:annonce var="monAnnonce" nbAnnonce="2">
 	
@@ -108,6 +109,20 @@
 	<a href="#">${maManif.nom}</a>
 	
 	</fsnet:manifestation>
+	</div>
+
+<div id="ssmenu2" style="display: none">
+<h3><a href="AddAnnonce?idChoisi=0">Dernières annonces</a> </h3>
+	<fsnet:annonce var="monAnnonce" nbAnnonce="4">
+	
+<p>
+			<a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a>
+			<a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a>
+	</p>
+		
+		</fsnet:annonce>
+
+	</div>
 </div>
 
  
