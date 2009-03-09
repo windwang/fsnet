@@ -32,7 +32,7 @@
 		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
 			href="AddAnnonce?idChoisi=0&info=current">Annonces</a></li>
 		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
-			href="toutEven.jsp">Evénements</a></li>
+			href="toutEvenement.jsp">Evénements</a></li>
 	</ul>
 	</dd>
 </dl>
