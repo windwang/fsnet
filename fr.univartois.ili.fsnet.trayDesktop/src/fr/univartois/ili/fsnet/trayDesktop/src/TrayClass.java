@@ -1,20 +1,13 @@
 package fr.univartois.ili.fsnet.trayDesktop.src;
 
-import java.awt.AWTException;
 
-import java.awt.CheckboxMenuItem;
-import java.awt.Image;
-import java.awt.Menu;
-import java.awt.MenuItem;
-import java.awt.PopupMenu;
-import java.awt.SystemTray;
-import java.awt.TrayIcon;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
-
+import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -99,8 +92,16 @@ public class TrayClass {
 	        trayIcon.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	            	trayIcon.displayMessage("Notificatios", "Vous avez 3 nouveaux messages.", TrayIcon.MessageType.INFO);
-	                JOptionPane.showMessageDialog(null,
-	                        "This dialog box is run from System Tray");
+	            	try {
+                        Desktop.getDesktop().browse(new URI("http://java.developpez.com"));
+                    } catch (IOException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    } catch (URISyntaxException e1) {
+                        // TODO Auto-generated catch block
+                        e1.printStackTrace();
+                    }
+	            	// JOptionPane.showMessageDialog(null,"This dialog box is run from System Tray");
 	            }
 	        });
 	        
