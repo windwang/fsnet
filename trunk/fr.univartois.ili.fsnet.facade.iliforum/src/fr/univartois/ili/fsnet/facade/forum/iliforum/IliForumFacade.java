@@ -21,13 +21,12 @@ public class IliForumFacade implements ForumFacade {
 
 	private static IliForumFacade instance = null;
 
-	
-	public static IliForumFacade getInstance(){
-		if(instance==null)
-			instance= new IliForumFacade();
+	public static IliForumFacade getInstance() {
+		if (instance == null)
+			instance = new IliForumFacade();
 		return instance;
 	}
-	
+
 	private IliForumFacade() {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
@@ -37,7 +36,7 @@ public class IliForumFacade implements ForumFacade {
 	public void close() {
 		em.close();
 		em = null;
-		instance=null;
+		instance = null;
 	}
 
 	@Override
@@ -61,6 +60,7 @@ public class IliForumFacade implements ForumFacade {
 	@Override
 	public boolean addTopic(Topic topic) {
 		em.getTransaction().begin();
+		em.merge(topic.getHub());
 		em.persist(topic);
 		em.getTransaction().commit();
 		return true;
