@@ -31,7 +31,7 @@ function showHide(idDiv) {
 	div.style.display = "";
 }
 
-function deploy(idButton,idList,attributeName){
+function deploy(idButton,idList,attrNameCheckBoxes,attrNameCheckBoxAll){
 	var d = document.getElementById(idButton);
     c = d.firstChild;
 	var value = c.nodeValue;
@@ -43,7 +43,8 @@ function deploy(idButton,idList,attributeName){
 		c.nodeValue= "[+]";
 		d.title="Déployer la liste";
 		hide('removeButton');
-		unchecked(attributeName);
+		unchecked(attrNameCheckBoxes);
+		unchecked(attrNameCheckBoxAll);
 	}
 	showHide(idList);
 }
@@ -100,4 +101,15 @@ function confirmRemove(){
 	if (!confirm("Etes-vous sûr de vouloir supprimer?")) 
 		return false;
 	else return true;
+}
+
+function selectAll(idcheckbox,attributeName){
+	var d = document.getElementById(idcheckbox);
+	var checkboxes = document.getElementsByTagName('input');
+	var selected = d.checked;
+	for (var i = 0; i<checkboxes.length; i++){
+		if (checkboxes.item(i).getAttribute('name') == attributeName)
+		checkboxes.item(i).checked=selected;
+	}
+	
 }

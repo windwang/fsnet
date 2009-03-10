@@ -22,9 +22,10 @@
 <div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="AddUser.jsp?user=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajout de membre </a></h2>
-<jsp:include page="date.jsp"></jsp:include>
-</div>
+<h2><a
+	href="AddUser.jsp?user=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajout
+de membre </a></h2>
+<jsp:include page="date.jsp"></jsp:include></div>
 <div id="tableauprincipal">
 <table width="100%">
 	<tr>
@@ -34,31 +35,37 @@
 		<table>
 			<tr>
 				<th colspan="4" scope="col">
-				<div align="center"><a id="deployButton" href="#" title="${param.titleDeploy}" onclick="deploy('deployButton','listToDeploy','userSelected');">${param.deploy}</a> Liste des membres</div>
+				<div align="center"><a id="deployButton" href="#"
+					title="${param.titleDeploy}"
+					onclick="deploy('deployButton','listToDeploy','userSelected','allUsers');">${param.deploy}</a>
+				Liste des membres</div>
 				</th>
 			</tr>
 			<tr>
-			<td>
-			<table id="listToDeploy">
-			<tr>
-				<th></th>
-				<th width="33%" scope="row">Nom</th>
-				<th width="33%" scope="row">Prénom</th>
-				<th width="33%" scope="row">Email</th>
-			</tr>
-			<admin:entite var="entite">
+				<td>
+				<table id="listToDeploy">
+					<tr>
+						<th><input id="allUsers" type="checkbox" name="allUsers"
+							title="Supprimer tout"
+							onclick="selectAll('allUsers','userSelected');showHideButton('removeButton','userSelected');" /></th>
+						<th width="33%" scope="row">Nom</th>
+						<th width="33%" scope="row">Prénom</th>
+						<th width="33%" scope="row">Email</th>
+					</tr>
+					<admin:entite var="entite">
 
-				<tr>
-					<td><input type="checkbox" name="userSelected"
-						value="${entite.id}" onclick="showHideButton('removeButton','userSelected');" /></td>
-					<td width="33%">${entite.nom}</td>
-					<td width="33%">${entite.prenom}</td>
-					<td width="33%">${entite.email}</td>
-				</tr>
-			</admin:entite>
-			
-			</table>
-			</td>
+						<tr>
+							<td><input type="checkbox" name="userSelected"
+								value="${entite.id}" title="Supprimer"
+								onclick="showHideButton('removeButton','userSelected');" /></td>
+							<td width="33%">${entite.nom}</td>
+							<td width="33%">${entite.prenom}</td>
+							<td width="33%">${entite.email}</td>
+						</tr>
+					</admin:entite>
+
+				</table>
+				</td>
 			</tr>
 		</table>
 		<label id="removeButton"><input
