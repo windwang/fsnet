@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -27,7 +28,8 @@ public class Hub extends Communaute {
 	/**
 	 * The list of topics of a hub.
 	 */
-	@OneToMany(mappedBy = "hub", cascade = CascadeType.MERGE)
+	@OneToMany(mappedBy = "hub", cascade = { CascadeType.MERGE,
+			CascadeType.PERSIST })
 	private List<Topic> lesTopics;
 
 	/**
@@ -43,10 +45,10 @@ public class Hub extends Communaute {
 	 * @param dateCreation
 	 * @param lesTopics
 	 */
-	public Hub(String nomCommunaute, Date dateCreation, List<Topic> lesTopics) {
+	public Hub(String nomCommunaute, Date dateCreation) {
 		super(nomCommunaute);
 		this.dateCreation = dateCreation;
-		this.lesTopics = lesTopics;
+		lesTopics = new ArrayList<Topic>();
 	}
 
 	/**
