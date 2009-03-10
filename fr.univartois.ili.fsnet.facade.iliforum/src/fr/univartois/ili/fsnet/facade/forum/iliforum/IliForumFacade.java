@@ -19,11 +19,9 @@ public class IliForumFacade implements ForumFacade {
 
 	private EntityManager em;
 
-	private static IliForumFacade instance = null;
+	private static IliForumFacade instance = new IliForumFacade();
 
 	public static IliForumFacade getInstance() {
-		if (instance == null)
-			instance = new IliForumFacade();
 		return instance;
 	}
 
@@ -36,7 +34,6 @@ public class IliForumFacade implements ForumFacade {
 	public void close() {
 		em.close();
 		em = null;
-		instance = null;
 	}
 
 	@Override
