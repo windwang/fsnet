@@ -30,6 +30,19 @@
 		<mkdir dir="${test_results.dir}"/>
 		<mkdir dir="${pmd.dir}"/>
 		<mkdir dir="${findbugs.dir}"/>
+		<echo>Dropping base ... and recreating it !</echo>
+		<sql 
+			driver="com.mysql.jdbc.Driver"
+			url="jdbc:mysql://localhost/fsnet"
+			userid="fsnet"
+			password="fsnet" >
+			<transaction>
+				DROP DATABASE fsnet;
+			</transaction>
+			<transaction>
+				CREATE DATABASE fsnet;
+			</transaction>
+		</sql>
 	</target>
 
 	<target name="iliforumtags.compile">
@@ -308,7 +321,23 @@
 		<delete file="${fsnet.dir}/WebContent/WEB-INF/lib/fsnetiliforum.jar"/>
 	</target>
 
+	<target name="base">
+		<echo>Dropping base ... and recreating it !</echo>
+		<sql 
+			driver="com.mysql.jdbc.Driver"
+			url="jdbc:mysql://localhost/fsnet"
+			userid="fsnet"
+			password="fsnet" >
+			<transaction>
+				DROP DATABASE fsnet;
+			</transaction>
+			<transaction>
+				CREATE DATABASE fsnet;
+			</transaction>
+		</sql>
+	</target>
+
 	<target name="both"
 		depends="prepare,pmd,findbugs,entities,entities.test,iliforum,
-			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,clean"/>
+			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,clean,base"/>
 </project>
