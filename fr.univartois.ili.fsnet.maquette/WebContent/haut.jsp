@@ -32,7 +32,7 @@
 		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
 			href="AddAnnonce?idChoisi=0&info=current">Annonces</a></li>
 		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
-			href="toutEvenement.jsp">Evénements</a></li>
+			href="toutEvenement.jsp?info=current">Evénements</a></li>
 	</ul>
 	</dd>
 </dl>
@@ -85,17 +85,17 @@
 	${dateJour }</p>
 </fsnet:dateJour></div>
 
-<ul id="feature_menu">
-	<li onclick="showMenu2('ssmenu1');"><a class="current" href="#" >Actualité</a></li>
-	<li onclick="showMenu2('ssmenu2');"><a href="#">Annonces</a></li>
-	<li><a href="#">&#201;v&#233;nements</a></li>
+<ul id="feature_menu" >
+	<li onclick="showMenu2('ssmenu1');" class="${param.Actu}"><a  href="#" id="ssmenu1i">Actualité</a></li>
+	<li onclick="showMenu2('ssmenu2');"  class="${param.Actu}"><a  href="#" id="ssmenu2i">Annonces</a></li>
+	<li onclick="showMenu2('ssmenu3');"  class="${param.Actu}"><a  href="#" id="ssmenu3i">&#201;v&#233;nements</a></li>
 </ul>
 
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
 
 
-<div id="ssmenu1">
+<div id="ssmenu1" >
 <h3><a href="AddAnnonce?idChoisi=0">Dernières annonces</a> </h3>
 	<fsnet:annonce var="monAnnonce" nbAnnonce="2">
 	
@@ -124,6 +124,17 @@
 		
 		</fsnet:annonce>
 
+	</div>
+	<div id="ssmenu3" style="display: none">
+	<a href="top"></a> 
+<h3>Dernières &#233;v&#233;nements</h3>
+	<fsnet:manifestation var="maManif" nbEven="4">
+	
+<p>
+			<a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a>
+			
+		
+		</fsnet:manifestation>
 	</div>
 </div>
 

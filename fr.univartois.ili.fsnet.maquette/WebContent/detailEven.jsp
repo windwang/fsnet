@@ -23,7 +23,7 @@
 <jsp:include page="haut.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="#">détaille du &#201;v&#233;nement</a></h2>
+<h2><a href="#">détail du &#233;v&#233;nement</a></h2>
 
 <p>&nbsp;</p>
 <table width="433">
@@ -41,11 +41,11 @@
 	</table>
 	<table width="433">
         <th  scope="col">
-		<div style="text-align: center"><a href="creerevenement.jsp">Publier un &#201;v&#233;nement
+		<div style="text-align: center"><a href="creerevenement.jsp">Publier un &#233;v&#233;nement
 		</a></div>
 		</th>
         <th  scope="col">
-		<div style="text-align: center"><a href="toutEvenement.jsp">voir tout les &#201;v&#233;nements
+		<div style="text-align: center"><a href="toutEvenement.jsp">voir tout les &#233;v&#233;nements
 		</a></div>
 		</th>
 </table>
