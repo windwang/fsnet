@@ -22,6 +22,9 @@
 	<property name="fsnet.iliforum.test.dir" value="fr.univartois.ili.fsnet.facade.iliforum.test"/> 
 	<property name="fsnet.iliforumtags.dir" value="fr.univartois.ili.fsnet.facade.iliforumtags"/> 	
 
+	<!-- trayDesktop properties -->
+	<property name="fsnet.trayDesktop.dir" value="fr.univartois.ili.fsnet.trayDesktop"/>
+	
 	<target name="prepare">
 		<echo>Preparing</echo>
 		<mkdir dir="${test_results.dir}"/>
@@ -266,6 +269,29 @@
 		</findbugs>
 	</target>	
 
+	<target name="trayDesktop.compile">
+		<echo>Creating the trayDesktop bin dir</echo>
+		<mkdir dir="${fsnet.trayDesktop.dir}/bin"/>
+
+		<echo>Compiling trayDesktop</echo>
+		<javac	srcdir = "${fsnet.trayDesktop.dir}"
+			destdir = "${fsnet.trayDesktop.dir}/bin"
+			source = "${versionJava}"
+			target = "${versionJava}">
+			<classpath refid="fsnetPath"/>
+		</javac>
+	</target>
+
+	<target name="trayDesktop" depends="trayDesktop.compile">
+		
+		<echo>Creating JAR file for trayDesktop</echo>
+		<jar destfile="fsnettrayDesktop.jar">
+			<fileset dir="${fsnet.trayDesktop.dir}/bin"/>
+		</jar>
+		<copy file="./fsnettrayDesktop.jar" todir="${admin.dir}/WebContent/WEB-INF/lib/"/>
+		<move file="./fsnettrayDesktop.jar" todir="${fsnet.dir}/WebContent/WEB-INF/lib/"/>
+	</target>
+
 	<target name="clean">
 		<echo>Cleaning-up</echo>
 		<delete dir="${fsnet.entities.dir}/bin"/>
@@ -282,5 +308,7 @@
 		<delete file="${fsnet.dir}/WebContent/WEB-INF/lib/fsnetiliforum.jar"/>
 	</target>
 
-	<target name="both" depends="prepare,pmd,findbugs,entities,entities.test,iliforum,iliforum.test,iliforumtags,test_report,admin,fsnet,clean"/>
+	<target name="both"
+		depends="prepare,pmd,findbugs,entities,entities.test,iliforum,
+			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,clean"/>
 </project>
