@@ -7,9 +7,9 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import javax.swing.*;
+//import javax.swing.*;
 import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
+//import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -49,7 +49,7 @@ public class TrayClass {
 	        }
 	        final PopupMenu popup = new PopupMenu();
 	        final TrayIcon trayIcon =
-	                new TrayIcon(new ImageIcon("/homelocal/eb/bulb.gif").getImage());
+	                new TrayIcon(new ImageIcon("http://www.frencharoundtheworld.com/blog/wp-content/uploads/ImageManager/alcatel_lucent_icon.gif").getImage());
 	        final SystemTray tray = SystemTray.getSystemTray();
 	        
 	        trayIcon.setToolTip("blabla");
@@ -87,11 +87,11 @@ public class TrayClass {
 	            return;
 	        }
 	        
-	        trayIcon.displayMessage("Notificatios", "Vous avez 3 nouveaux messages.", TrayIcon.MessageType.INFO);
+	        trayIcon.displayMessage("Notificatios", "Java sur developpez.net!!!", TrayIcon.MessageType.INFO);
 	        
 	        trayIcon.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-	            	trayIcon.displayMessage("Notificatios", "Vous avez 3 nouveaux messages.", TrayIcon.MessageType.INFO);
+	            	trayIcon.displayMessage("Notificatios", "Java sur developpez.net!!!", TrayIcon.MessageType.INFO);
 	            	try {
                         Desktop.getDesktop().browse(new URI("http://java.developpez.com"));
                     } catch (IOException e1) {
