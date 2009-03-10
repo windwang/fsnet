@@ -26,8 +26,9 @@
 <div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajout d'interets
-</a></h2>
+<h2><a
+	href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajout
+d'interets </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
 <div id="tableauprincipal">
 <table width="100%">
@@ -40,18 +41,26 @@
 			<tr>
 				<th colspan="2" scope="col">
 				<div align="center"><a id="deployButton" href="#"
-					title="${param.titleDeploy}" onclick="deploy('deployButton','listToDeploy','interestSelected');">${param.deploy}</a>
+					title="${param.titleDeploy}"
+					onclick="deploy('deployButton','listToDeploy','interestSelected','allInterests');">${param.deploy}</a>
 				Liste des interêts</div>
 				</th>
 			</tr>
 			<tr>
 				<td>
 				<table id="listToDeploy">
+					<tr>
+						<th><input id="allInterests" type="checkbox"
+							name="allInterests" title="Supprimer tout"
+							onclick="selectAll('allInterests','interestSelected');showHideButton('removeButton','interestSelected');" /></th>
+						<th scope="row">Intitulé</th>
+					</tr>
 					<admin:interet var="interet">
 						<tr>
 							<td><input type="checkbox" name="interestSelected"
-								value="${interet.id}" onclick="showHideButton('removeButton','interestSelected');" /></td>
-							<td width="99%">${interet.nomInteret}</td>
+								value="${interet.id}" title="Supprimer"
+								onclick="showHideButton('removeButton','interestSelected');" /></td>
+							<td width="99%" align="center">${interet.nomInteret}</td>
 						</tr>
 					</admin:interet>
 				</table>
