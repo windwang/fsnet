@@ -40,7 +40,7 @@ public class IliForumFacadeTest {
 		System.err.println("Le test addHubTest est execute");
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		Date date = (Date) formatter.parse("29/01/02");
-		Hub hub = new Hub("ma communaute", date, null);
+		Hub hub = new Hub("ma communaute", date);
 		iff.addHub(hub);
 		int monId = hub.getId();
 		assertNotNull("id not null", monId);
@@ -51,7 +51,7 @@ public class IliForumFacadeTest {
 		System.err.println("Le test addTopicTest est execute");
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		Date date = (Date) formatter.parse("30/01/02");
-		Hub hub = new Hub("ma communaute", date, null);
+		Hub hub = new Hub("ma communaute", date);
 		iff.addHub(hub);
 		Topic topic = new Topic("mon premier topic", date, null, hub, null);
 		iff.addTopic(topic);
