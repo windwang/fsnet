@@ -45,7 +45,7 @@ public class HubTest {
 		System.err.println("Le test est execute");
 		 DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 	     Date date = (Date)formatter.parse("29/01/02");
-		Hub hub = new Hub("ma communaute",date,null);
+		Hub hub = new Hub("ma communaute",date);
 		em.getTransaction().begin();
 		em.persist(hub);
 		em.getTransaction().commit();
