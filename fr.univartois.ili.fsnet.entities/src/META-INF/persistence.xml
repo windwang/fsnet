@@ -10,6 +10,7 @@
 		<class>fr.univartois.ili.fsnet.entities.Decideur</class>
 		<class>fr.univartois.ili.fsnet.entities.Hub</class>
 		<class>fr.univartois.ili.fsnet.entities.Information</class>
+		<class>fr.univartois.ili.fsnet.entities.Inscription</class>
 		<class>fr.univartois.ili.fsnet.entities.Interaction</class>
 		<class>fr.univartois.ili.fsnet.entities.Interet</class>
 		<class>fr.univartois.ili.fsnet.entities.Manifestation</class>
