@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -26,7 +27,7 @@ public class Hub extends Communaute {
 	/**
 	 * The list of topics of a hub.
 	 */
-	@OneToMany(mappedBy = "hub")
+	@OneToMany(mappedBy = "hub", cascade = CascadeType.MERGE)
 	private List<Topic> lesTopics;
 
 	/**
