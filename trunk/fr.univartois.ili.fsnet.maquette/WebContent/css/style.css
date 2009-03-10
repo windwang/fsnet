@@ -215,13 +215,14 @@ input.button {
 
 #feature_menu li a:hover {
 	color: #071F2D;
-	background: #fff url(../images/bullet_hover.gif) no-repeat 7px 8px;
+	background: #fff url(../images/bullet.gif) no-repeat 7px 8px;
 }
 
+/*
 #feature_menu li a.current {
 	background: #fff url(../images/bullet.gif) no-repeat 5px 12px;
 }
-
+*/
 #left {
 	float: left;
 	width: 550px;

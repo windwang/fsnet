@@ -19,13 +19,19 @@ function MM_jumpMenu(targ, selObj, restore) { //v3.0
 
 function showMenu2(id) {
 	var d = document.getElementById(id);
+	var dd = document.getElementById(id + "i");
 	for ( var i = 1; i <= 10; i++) {
 		if (document.getElementById('ssmenu' + i)) {
 			document.getElementById('ssmenu' + i).style.display = 'none';
+			document.getElementById('ssmenu' + i +"i").style.background = '#C6E5F9 url(../images/bullet.gif) no-repeat 7px 12px';
 		}
+		
 	}
 	if (d) {
+		
+		dd.style.background="#fff url(../images/bullet.gif) no-repeat 7px 8px";
 		d.style.display = 'block';
+		
 	}
 }
 

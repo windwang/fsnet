@@ -25,14 +25,14 @@
 <div id="left">
 
 
-<h2><a href="#">&#201;v&#233;nements</a></h2>
+<h2><a href="#">&#233;v&#233;nements</a></h2>
 
 <table width="445">
 	<tr>
-		<th style="width: 181" scope="col">listes des &#201;v&#233;nements</th>
+		<th style="width: 181" scope="col">listes des &#233;v&#233;nements</th>
 		<th style="width: 252" scope="col">
-		<div style="text-align: center"><a href="publierannonce.jsp">publier
-		un  &#201;v&#233;nement</a></div>
+		<div style="text-align: center"><a href="creerevenement.jsp">publier
+		un  &#233;v&#233;nement</a></div>
 		</th>
 	</tr>
 </table>
