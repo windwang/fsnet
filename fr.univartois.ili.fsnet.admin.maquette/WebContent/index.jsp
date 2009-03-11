@@ -27,7 +27,7 @@
 
 
 <div id="left">
-<h2><a href="index.jsp?accueil=current">Accueil</a></h2>
+<h2><a href="index.jsp?accueil=current" title="Accueil">Accueil</a></h2>
 <jsp:include page="date.jsp"></jsp:include>
 </div>
 <div id="tableauprincipal">
@@ -223,8 +223,7 @@
 	</tr>
 </table>
 </div>
-
-<jsp:include page="CommunityBox.jsp"></jsp:include></div>
+</div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>

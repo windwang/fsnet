@@ -23,7 +23,7 @@
 <jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="SearchMember.jsp?user=current">Rechercher un membre</a></h2>
+<h2><a href="SearchMember.jsp?user=current" title="Rechercher un membre">Rechercher un membre</a></h2>
 <jsp:include page="date.jsp"></jsp:include>
 </div>
 <div id="tableauprincipal">
@@ -122,7 +122,6 @@
 
 </div>
 
-<jsp:include page="CommunityBox.jsp"></jsp:include>
 </div>
 
 <jsp:include page="footer.jsp"></jsp:include>

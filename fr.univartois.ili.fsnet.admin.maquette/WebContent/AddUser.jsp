@@ -23,8 +23,8 @@
 
 <div id="left">
 <h2><a
-	href="AddUser.jsp?user=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajout
-de membre </a></h2>
+	href="AddUser.jsp?user=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste"
+	title="Ajout de membre">Ajout de membre </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
 <div id="tableauprincipal">
 <table width="100%">
@@ -103,8 +103,7 @@ de membre </a></h2>
 
 </table>
 </div>
-
-<jsp:include page="CommunityBox.jsp"></jsp:include></div>
+</div>
 
 
 <jsp:include page="footer.jsp"></jsp:include>

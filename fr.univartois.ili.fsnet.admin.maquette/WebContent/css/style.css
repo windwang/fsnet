@@ -49,8 +49,8 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 	.date { background: #fff; padding: 5px 0; border-right: 1px solid #D3EAFA; border-bottom: 1px solid #D3EAFA; color: #ccc; float: left; width: 55px; margin: 7px 12px 5px 0; text-align: center; }
 	.date span { font-size: 1.6em; }
 	
-#tableauprincipal{margin-left: 25px; width:500px; float:left;}
-    #tableauprincipal table{width:470px;}
+#tableauprincipal{margin-left: 75px; width:700px; float:left;}
+    #tableauprincipal table{width:670px;}
 	
 #side { float: right; width: 300px; margin: 0 0 30px; font-size: .9em; }
 	#side h3 { color: #ccc; margin: 0 0 6px 5px; height: 16px; }
