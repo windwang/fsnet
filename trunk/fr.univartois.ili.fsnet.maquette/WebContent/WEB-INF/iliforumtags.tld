@@ -172,4 +172,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<display-name>Display Interest</display-name>
+		<name>interet</name>
+		<tag-class>fr.univartois.ili.fsnet.taglib.InteretTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>var</name>
+			<required>yes</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>
