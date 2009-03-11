@@ -15,8 +15,14 @@ import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
 public class TrayClass {
-
-	 public static void main(String[] args) {
+	private static String chaine;
+	
+	public TrayClass(String chaine) {
+		// TODO Auto-generated constructor stub
+		this.chaine=chaine;
+	}
+	// public static void main(String[] args) {
+	public void executeTrayIcon(){
 	        /* Use an appropriate Look and Feel */
 	        try {
 	            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
@@ -49,10 +55,10 @@ public class TrayClass {
 	        }
 	        final PopupMenu popup = new PopupMenu();
 	        final TrayIcon trayIcon =
-	                new TrayIcon(new ImageIcon("http://www.frencharoundtheworld.com/blog/wp-content/uploads/ImageManager/alcatel_lucent_icon.gif").getImage());
+	                new TrayIcon(new ImageIcon("/homelocal/eb/bulb.gif").getImage());
 	        final SystemTray tray = SystemTray.getSystemTray();
 	        
-	        trayIcon.setToolTip("blabla");
+	        trayIcon.setToolTip("Notification FSNet");
 	        
 	        // Create a popup menu components
 	     /*   MenuItem aboutItem = new MenuItem("About");
@@ -87,11 +93,11 @@ public class TrayClass {
 	            return;
 	        }
 	        
-	        trayIcon.displayMessage("Notificatios", "Java sur developpez.net!!!", TrayIcon.MessageType.INFO);
+	        trayIcon.displayMessage("Notificatios",chaine , TrayIcon.MessageType.INFO);
 	        
 	        trayIcon.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-	            	trayIcon.displayMessage("Notificatios", "Java sur developpez.net!!!", TrayIcon.MessageType.INFO);
+	            	trayIcon.displayMessage("Notificatios", chaine, TrayIcon.MessageType.INFO);
 	            	try {
                         Desktop.getDesktop().browse(new URI("http://java.developpez.com"));
                     } catch (IOException e1) {
