@@ -27,8 +27,8 @@
 
 <div id="left">
 <h2><a
-	href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajout
-d'interets </a></h2>
+	href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste"
+	title="Ajout d'intérêts">Ajout d'int&eacute;r&ecirc;ts </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
 <div id="tableauprincipal">
 <table width="100%">
@@ -75,7 +75,7 @@ d'interets </a></h2>
 		<table width="100%">
 			<tr>
 				<th colspan="2" scope="col">
-				<div align="center">Ajouter un interêt</div>
+				<div align="center">Ajouter un intérêt</div>
 				</th>
 			</tr>
 			<tr>
@@ -105,7 +105,7 @@ d'interets </a></h2>
 </table>
 </div>
 
-<jsp:include page="CommunityBox.jsp"></jsp:include></div>
+</div>
 
 
 <jsp:include page="footer.jsp"></jsp:include>

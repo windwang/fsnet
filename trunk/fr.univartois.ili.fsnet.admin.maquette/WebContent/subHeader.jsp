@@ -8,7 +8,7 @@
 </head>
 <body>
 <div id="logo">
-<h1><a href="index.jsp?accueil=current">FSNet<br />
+<h1><a href="index.jsp?accueil=current" title="Accueil">FSNet<br />
 </a></h1>
 <h2 class="slogan">Réseau social</h2>
 <h2 class="slogan">Administration</h2>
