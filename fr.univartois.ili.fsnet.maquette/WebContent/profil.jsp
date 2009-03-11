@@ -61,12 +61,12 @@
 
 	<tr>
 		<td style="height:27" colspan="2"><label> <input type="text"
-			name="nom" value="${membre.nom }" disabled="disabled"/> </label></td>
+			name="nom" value="${membre.nom }" /> </label></td>
 	</tr>
 	<tr>
 		<td style="height:22" colspan="3"><strong>Pr&eacute;nom : </strong></td>
 		<td colspan="2"> <label > <input type="text"
-			name="prenom" value="${membre.prenom }" disabled="disabled"/> </label></td>
+			name="prenom" value="${membre.prenom }" /> </label></td>
 	</tr>
 	<tr>
 		<td style="height:29" colspan="3"><strong>E-mail : </strong></td>
@@ -117,6 +117,20 @@
 		<td colspan="2"><label> <input type="text"
 			name="mdp2" disabled="disabled" /> </label></td>
 	</tr>
+	
+	<tr>
+		<td> <h2><a href="#">Mes Intérêts </a></h2> </td>
+	</tr>
+	
+	<fsnet:interet var="interet">
+	<tr>
+		<td><input type="checkbox" name="interestSelected" value="${interet.id}" title="Sélectionner"/></td>
+		<td width="33%">${interet.nomInteret}</td>
+	</tr>
+	</fsnet:interet>
+	
+	
+	
 	<tr>
 	
 		<td></td>
