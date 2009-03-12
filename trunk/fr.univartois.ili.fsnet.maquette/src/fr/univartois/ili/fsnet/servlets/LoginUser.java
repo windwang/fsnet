@@ -16,8 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
 /**
- * @author lionel desruelles 
- * Servlet implementation class FindUser
+ * @author lionel desruelles Servlet implementation class FindUser
  */
 public class LoginUser extends HttpServlet {
 
@@ -73,13 +72,17 @@ public class LoginUser extends HttpServlet {
 			EntiteSociale en = (EntiteSociale) query.getSingleResult();
 			logger.info(en.getEmail());
 			logger.info(String.valueOf(en.getId()));
+
+			logger.info("Taaille interet : " + en.getLesinterets().size());
 			getServletContext().setAttribute("idLogin", en.getId());
-			
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/profil.jsp");
+
+			RequestDispatcher dispatch = getServletContext()
+					.getRequestDispatcher("/profil.jsp");
 			dispatch.forward(request, response);
 		} catch (Exception e) {
 			logger.info("Authentification échouée");
-			RequestDispatcher dispatch = getServletContext().getRequestDispatcher("/login.jsp");
+			RequestDispatcher dispatch = getServletContext()
+					.getRequestDispatcher("/login.jsp");
 			dispatch.forward(request, response);
 		}
 	}
