@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -54,7 +55,8 @@ public class Topic {
 	/**
 	 * he list of messages that the topic contains.
 	 */
-	@OneToMany(mappedBy = "topic")
+	@OneToMany(mappedBy = "topic", cascade = { CascadeType.MERGE,
+			CascadeType.PERSIST, CascadeType.REFRESH })
 	private List<Message> lesMessages;
 
 	/**

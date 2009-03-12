@@ -29,7 +29,7 @@ public class Hub extends Communaute {
 	 * The list of topics of a hub.
 	 */
 	@OneToMany(mappedBy = "hub", cascade = { CascadeType.MERGE,
-			CascadeType.PERSIST })
+			CascadeType.PERSIST, CascadeType.REFRESH })
 	private List<Topic> lesTopics;
 
 	/**
