@@ -3,8 +3,11 @@ package fr.univartois.ili.fsnet.trayDesktop.src;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -20,6 +23,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 
 public class TrayClass {
 	private static String chaine;
+	private static String url;
 	
 	public TrayClass(String chaine) {
 		// TODO Auto-generated constructor stub
@@ -46,12 +50,25 @@ public class TrayClass {
 	        //adding TrayIcon.
 	        SwingUtilities.invokeLater(new Runnable() {
 	            public void run() {
-	                createAndShowGUI();
+	                try {
+						createAndShowGUI();
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 	            }
 	        });
 	    }
 	    
-	    private static void createAndShowGUI() {
+	    private static void createAndShowGUI() throws IOException {
+	    	
+	    	
+	    	final BufferedReader ficTexte = new BufferedReader(new FileReader(new File("/homelocal/eb/FSNet/fr.univartois.ili.fsnet.trayDesktop/src/fr/univartois/ili/fsnet/trayDesktop/src/preferences.txt")));
+			
+			
+			
+
+
 	        //Check the SystemTray support
 	        if (!SystemTray.isSupported()) {
 	            System.out.println("SystemTray is not supported");
@@ -59,7 +76,7 @@ public class TrayClass {
 	        }
 	        final PopupMenu popup = new PopupMenu();
 	        final TrayIcon trayIcon =
-	                new TrayIcon(new ImageIcon("/homelocal/eb/bulb.gif").getImage());
+	                new TrayIcon(new ImageIcon("/homelocal/eb/Bureau/fsnet3.gif").getImage());
 	        final SystemTray tray = SystemTray.getSystemTray();
 	        
 	        trayIcon.setToolTip("Notification FSNet");
@@ -78,7 +95,7 @@ public class TrayClass {
 	        //Add components to popup menu
 	        popup.add(aboutItem);
 	        /*popup.addSeparator();
-	        popup.add(cb1);
+	        
 	        popup.add(cb2);
 	        popup.addSeparator();
 	        popup.add(displayMenu);
@@ -87,6 +104,7 @@ public class TrayClass {
 	        displayMenu.add(infoItem);
 	        displayMenu.add(noneItem);*/
 	        popup.add(exitItem);
+	        popup.add(cb1);
 	        
 	        trayIcon.setPopupMenu(popup);
 	        
@@ -102,8 +120,20 @@ public class TrayClass {
 	        trayIcon.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	            	trayIcon.displayMessage("Notificatios", chaine, TrayIcon.MessageType.INFO);
+	            	String ligne = null;
+					
 	            	try {
-                        Desktop.getDesktop().browse(new URI("http://java.developpez.com"));
+						ligne = ficTexte.readLine();
+					} catch (IOException e2) {
+						// TODO Auto-generated catch block
+						e2.printStackTrace();
+					}
+	    			
+					if (ligne != null) {
+	    				url=ligne;
+	    			}
+	            	try {
+                        Desktop.getDesktop().browse(new URI(url));
                     } catch (IOException e1) {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
