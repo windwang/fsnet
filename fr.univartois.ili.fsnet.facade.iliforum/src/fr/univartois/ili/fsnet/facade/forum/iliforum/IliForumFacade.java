@@ -48,7 +48,11 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public boolean addMessage(Message message) {
+		Topic topic = message.getTopic();
 		em.getTransaction().begin();
+		Topic mergedTopic = em.merge(topic);
+		mergedTopic.getLesMessages().add(message);
+		message.setTopic(mergedTopic);
 		em.persist(message);
 		em.getTransaction().commit();
 		return true;
@@ -56,8 +60,11 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public boolean addTopic(Topic topic) {
+		Hub hub = topic.getHub();
 		em.getTransaction().begin();
-		em.merge(topic.getHub());
+		Hub mergedHub = em.merge(hub);
+		mergedHub.getLesTopics().add(topic);
+		topic.setHub(mergedHub);
 		em.persist(topic);
 		em.getTransaction().commit();
 		return true;
