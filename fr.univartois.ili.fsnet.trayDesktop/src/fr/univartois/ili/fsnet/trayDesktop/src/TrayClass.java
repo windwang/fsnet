@@ -61,14 +61,8 @@ public class TrayClass {
 	    }
 	    
 	    private static void createAndShowGUI() throws IOException {
-	    	
-	    	
-	    	final BufferedReader ficTexte = new BufferedReader(new FileReader(new File("/homelocal/eb/FSNet/fr.univartois.ili.fsnet.trayDesktop/src/fr/univartois/ili/fsnet/trayDesktop/src/preferences.txt")));
-			
-			
-			
-
-
+	    final BufferedReader ficTexte = new BufferedReader(new FileReader(new File("C:\\Users\\benjira\\workspace\\eee\\src\\fr\\univartois\\ili\\fsnet\\trayDesktop\\src\\preferences.txt")));
+		
 	        //Check the SystemTray support
 	        if (!SystemTray.isSupported()) {
 	            System.out.println("SystemTray is not supported");
@@ -103,10 +97,9 @@ public class TrayClass {
 	        displayMenu.add(warningItem);
 	        displayMenu.add(infoItem);
 	        displayMenu.add(noneItem);*/
-	        popup.add(exitItem);
 	        popup.add(cb1);
-	        
-	        trayIcon.setPopupMenu(popup);
+	        popup.add(exitItem);
+	       trayIcon.setPopupMenu(popup);
 	        
 	        try {
 	            tray.add(trayIcon);
@@ -121,7 +114,13 @@ public class TrayClass {
 	            public void actionPerformed(ActionEvent e) {
 	            	trayIcon.displayMessage("Notificatios", chaine, TrayIcon.MessageType.INFO);
 	            	String ligne = null;
-					
+	            	 BufferedReader ficTexte = null;
+					try {
+						ficTexte = new BufferedReader(new FileReader(new File("C:\\Users\\benjira\\workspace\\eee\\src\\fr\\univartois\\ili\\fsnet\\trayDesktop\\src\\preference.conf")));
+					} catch (FileNotFoundException e3) {
+						// TODO Auto-generated catch block
+						e3.printStackTrace();
+					}
 	            	try {
 						ligne = ficTexte.readLine();
 					} catch (IOException e2) {
@@ -150,7 +149,8 @@ public class TrayClass {
 	               // JOptionPane.showMessageDialog(null,"This dialog box is run from the About menu item");
 	            	String input=JOptionPane.showInputDialog(null);
 	            	PrintWriter ecrivain;
-	            	File file=new File("/homelocal/eb/FSNet/fr.univartois.ili.fsnet.trayDesktop/src/fr/univartois/ili/fsnet/trayDesktop/src/preferences.txt");
+	            	String filePath = "C:\\Users\\benjira\\workspace\\eee\\src\\fr\\univartois\\ili\\fsnet\\trayDesktop\\src\\preference.conf";
+	            	File file=new File(filePath);
 	            	if(input!=null && input!=""){
 	            	try {
 						ecrivain =  new PrintWriter(new BufferedWriter(new FileWriter(file)));
@@ -242,4 +242,10 @@ public class TrayClass {
 	    }
 
 	
+	    public static void main(String [] args){
+	    	
+	    	TrayClass c = new TrayClass("bonjour");
+	    	c.executeTrayIcon();
+	    }
+	    
 }
