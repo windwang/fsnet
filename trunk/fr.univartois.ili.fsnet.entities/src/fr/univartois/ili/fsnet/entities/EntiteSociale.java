@@ -1,10 +1,12 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -90,8 +92,8 @@ public class EntiteSociale {
 	/**
 	 * The interest that the social entity informed.
 	 */
-	@ManyToMany(mappedBy = "lesEntites")
-	private List<Interet> lesinterets;
+	@ManyToMany(cascade = { CascadeType.PERSIST })
+	private List<Interet> lesinterets = new ArrayList<Interet>();
 
 	/**
 	 * A social entity can play the role of several decision-makers.
@@ -283,17 +285,17 @@ public class EntiteSociale {
 	 * @return the date of entry of the social entity.
 	 */
 	public String getDateEntree() {
-		
-		if(dateEntree == null){
+
+		if (dateEntree == null) {
 			return null;
 		}
-		
+
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(dateEntree);
 		int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
-		int mois = cal.get(GregorianCalendar.MONTH)+1;
+		int mois = cal.get(GregorianCalendar.MONTH) + 1;
 		int annee = cal.get(GregorianCalendar.YEAR);
-		return jour+"/"+mois+"/"+annee;
+		return jour + "/" + mois + "/" + annee;
 	}
 
 	/**
@@ -310,17 +312,17 @@ public class EntiteSociale {
 	 * @return the date of birth of the social entity.
 	 */
 	public String getDateNaissance() {
-		
-		if(dateNaissance == null){
+
+		if (dateNaissance == null) {
 			return null;
 		}
-		
+
 		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(dateNaissance);
 		int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
-		int mois = cal.get(GregorianCalendar.MONTH)+1;
+		int mois = cal.get(GregorianCalendar.MONTH) + 1;
 		int annee = cal.get(GregorianCalendar.YEAR);
-		return jour+"/"+mois+"/"+annee;
+		return jour + "/" + mois + "/" + annee;
 	}
 
 	/**

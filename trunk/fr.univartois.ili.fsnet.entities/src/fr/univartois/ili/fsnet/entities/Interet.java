@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -7,6 +8,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+
+import com.sun.org.apache.bcel.internal.generic.NEW;
 
 /**
  * 
@@ -27,8 +30,8 @@ public class Interet {
 	/**
 	 * The list of social entities that are affected by this interest.
 	 */
-	@ManyToMany
-	private List<EntiteSociale> lesEntites;
+	@ManyToMany(mappedBy = "lesinterets")
+	private List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
 
 	/**
 	 * The interest name.
