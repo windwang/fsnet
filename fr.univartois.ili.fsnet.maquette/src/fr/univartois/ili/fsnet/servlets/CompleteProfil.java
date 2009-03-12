@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Interet;
 
 /**
  * @author lionel desruelles Servlet implementation class CompleteProfil
@@ -30,6 +34,9 @@ public class CompleteProfil extends HttpServlet {
 	private EntityManagerFactory factory;
 
 	private EntityManager em;
+
+	private static final String FIND_BY_ID = "SELECT i FROM Interet i WHERE i.id = ?1";
+	private static Logger logger = Logger.getLogger("FSNet");
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -71,6 +78,23 @@ public class CompleteProfil extends HttpServlet {
 		String telephone = request.getParameter("telephone");
 		String profession = request.getParameter("profession");
 
+		// Interet
+		String[] interests = request.getParameterValues("interestSelected");
+		int length = interests.length;
+		Query interest;
+		List<Interet> lesInterets = new ArrayList<Interet>();
+		Interet interet = null;
+
+		for (int i = 0; i < length; i++) {
+			logger.info("TEST:id =" + interests[i]);
+			interest = em.createQuery(FIND_BY_ID);
+			interest.setParameter(1, Integer.parseInt(interests[i]));
+			interet = (Interet) interest.getSingleResult();
+			lesInterets.add(interet);
+		}
+
+		//
+
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = null;
 		try {
@@ -86,16 +110,24 @@ public class CompleteProfil extends HttpServlet {
 
 		entite.setAdresse(adresse);
 		entite.setDateNaissance(date);
+
 		entite.setNumTel(telephone);
 		entite.setProfession(profession);
+		entite.setLesinterets(lesInterets);
 
 		em.getTransaction().begin();
 		em.persist(entite);
 		em.getTransaction().commit();
 
-//		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
-//				"/profil3.html");
-//		dispatch.forward(request, response);
+		logger.info("Taille interets : " + entite.getLesinterets().size());
+
+		logger.info("Nom interets : "
+				+ entite.getLesinterets().get(0).getNomInteret());
+
+		// RequestDispatcher dispatch =
+		// getServletContext().getRequestDispatcher(
+		// "/profil3.html");
+		// dispatch.forward(request, response);
 		response.sendRedirect("index.jsp");
 	}
 
