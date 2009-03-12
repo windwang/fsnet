@@ -14,38 +14,44 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-//import javax.swing.*;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
+
+
+
+/**
+ * 
+ * The class TrayClass.
+ *  
+ */
+
 
 public class TrayClass {
 	private static String chaine;
 	private static String url;
+	private static String filePath = "C:\\Users\\benjira\\workspace\\eee\\src\\fr\\univartois\\ili\\fsnet\\trayDesktop\\src\\preference.conf";
+	
+	/**
+	 * Constructor of the class TrayClass.
+	 * @param chaine
+	 */
 	
 	public TrayClass(String chaine) {
 		// TODO Auto-generated constructor stub
 		this.chaine=chaine;
 	}
-	// public static void main(String[] args) {
+	
 	public void executeTrayIcon(){
-	        /* Use an appropriate Look and Feel */
-	        try {
-	            //UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-	            UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-	        } catch (UnsupportedLookAndFeelException ex) {
-	            ex.printStackTrace();
-	        } catch (IllegalAccessException ex) {
-	            ex.printStackTrace();
-	        } catch (InstantiationException ex) {
-	            ex.printStackTrace();
-	        } catch (ClassNotFoundException ex) {
-	            ex.printStackTrace();
+	        /* Use Look and Feel of System */
+		 try {
+	            javax.swing.UIManager.setLookAndFeel(
+	                    javax.swing.UIManager.getSystemLookAndFeelClassName());
 	        }
+	        catch (Exception e){e.printStackTrace();}
+	        
+	        
 	        /* Turn off metal's use of bold fonts */
-	        UIManager.put("swing.boldMetal", Boolean.FALSE);
 	        //Schedule a job for the event-dispatching thread:
 	        //adding TrayIcon.
 	        SwingUtilities.invokeLater(new Runnable() {
@@ -60,43 +66,32 @@ public class TrayClass {
 	        });
 	    }
 	    
+	
+	
+	/**
+	 * ctreate and show the GUI
+	 * @throws IOException
+	 */
 	    private static void createAndShowGUI() throws IOException {
-	    final BufferedReader ficTexte = new BufferedReader(new FileReader(new File("C:\\Users\\benjira\\workspace\\eee\\src\\fr\\univartois\\ili\\fsnet\\trayDesktop\\src\\preferences.txt")));
-		
-	        //Check the SystemTray support
+	    //Check the SystemTray support
 	        if (!SystemTray.isSupported()) {
 	            System.out.println("SystemTray is not supported");
 	            return;
 	        }
 	        final PopupMenu popup = new PopupMenu();
 	        final TrayIcon trayIcon =
-	                new TrayIcon(new ImageIcon("/homelocal/eb/Bureau/fsnet3.gif").getImage());
+	                new TrayIcon(new ImageIcon("C:\\Users\\benjira\\Desktop\\Favicon.gif").getImage());
 	        final SystemTray tray = SystemTray.getSystemTray();
 	        
 	        trayIcon.setToolTip("Notification FSNet");
 	        
 	        // Create a popup menu components
-	        MenuItem aboutItem = new MenuItem("Preferences");
+	        MenuItem configItem = new MenuItem("Preferences");
 	        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
-	        CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
-	        Menu displayMenu = new Menu("Display");
-	        MenuItem errorItem = new MenuItem("Error");
-	        MenuItem warningItem = new MenuItem("Warning");
-	        MenuItem infoItem = new MenuItem("Info");
-	        MenuItem noneItem = new MenuItem("None");
 	        MenuItem exitItem = new MenuItem("   Exit   ");
 	        
 	        //Add components to popup menu
-	        popup.add(aboutItem);
-	        /*popup.addSeparator();
-	        
-	        popup.add(cb2);
-	        popup.addSeparator();
-	        popup.add(displayMenu);
-	        displayMenu.add(errorItem);
-	        displayMenu.add(warningItem);
-	        displayMenu.add(infoItem);
-	        displayMenu.add(noneItem);*/
+	        popup.add(configItem);
 	        popup.add(cb1);
 	        popup.add(exitItem);
 	       trayIcon.setPopupMenu(popup);
@@ -116,7 +111,7 @@ public class TrayClass {
 	            	String ligne = null;
 	            	 BufferedReader ficTexte = null;
 					try {
-						ficTexte = new BufferedReader(new FileReader(new File("C:\\Users\\benjira\\workspace\\eee\\src\\fr\\univartois\\ili\\fsnet\\trayDesktop\\src\\preference.conf")));
+						ficTexte = new BufferedReader(new FileReader(new File(filePath)));
 					} catch (FileNotFoundException e3) {
 						// TODO Auto-generated catch block
 						e3.printStackTrace();
@@ -140,16 +135,15 @@ public class TrayClass {
                         // TODO Auto-generated catch block
                         e1.printStackTrace();
                     }
-	            	// JOptionPane.showMessageDialog(null,"This dialog box is run from System Tray");
+	            
 	            }
 	        });
 	        
-	        aboutItem.addActionListener(new ActionListener() {
+	        configItem.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	               // JOptionPane.showMessageDialog(null,"This dialog box is run from the About menu item");
 	            	String input=JOptionPane.showInputDialog(null);
 	            	PrintWriter ecrivain;
-	            	String filePath = "C:\\Users\\benjira\\workspace\\eee\\src\\fr\\univartois\\ili\\fsnet\\trayDesktop\\src\\preference.conf";
 	            	File file=new File(filePath);
 	            	if(input!=null && input!=""){
 	            	try {
@@ -162,7 +156,7 @@ public class TrayClass {
 						e1.printStackTrace();
 					}
 	            	}
-	            	System.out.println("------------"+input);
+	            
 	            }
 	        });
 	        
@@ -177,16 +171,7 @@ public class TrayClass {
 	            }
 	        });
 	        
-	        cb2.addItemListener(new ItemListener() {
-	            public void itemStateChanged(ItemEvent e) {
-	                int cb2Id = e.getStateChange();
-	                if (cb2Id == ItemEvent.SELECTED){
-	                    trayIcon.setToolTip("Sun TrayIcon");
-	                } else {
-	                    trayIcon.setToolTip(null);
-	                }
-	            }
-	        });
+	       
 	        
 	        ActionListener listener = new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
@@ -216,11 +201,7 @@ public class TrayClass {
 	            }
 	        };
 	        
-	        errorItem.addActionListener(listener);
-	        warningItem.addActionListener(listener);
-	        infoItem.addActionListener(listener);
-	        noneItem.addActionListener(listener);
-	        
+	      	        
 	        exitItem.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	                tray.remove(trayIcon);
@@ -243,8 +224,8 @@ public class TrayClass {
 
 	
 	    public static void main(String [] args){
-	    	
-	    	TrayClass c = new TrayClass("bonjour");
+	    
+	    	TrayClass c = new TrayClass("Bull d'information ");
 	    	c.executeTrayIcon();
 	    }
 	    
