@@ -31,7 +31,7 @@ public class RemoveInterest extends HttpServlet {
 	private EntityManagerFactory factory;
 
 	private EntityManager em;
-	
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -39,14 +39,12 @@ public class RemoveInterest extends HttpServlet {
 		super();
 	}
 
-		
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
 	}
-
 
 	/**
 	 * @see Servlet#destroy()
@@ -59,7 +57,7 @@ public class RemoveInterest extends HttpServlet {
 			factory.close();
 		}
 	}
-	
+
 	/**
 	 * A method that allow to remove an interest.
 	 * 
@@ -84,7 +82,6 @@ public class RemoveInterest extends HttpServlet {
 		Interet interet = null;
 
 		for (int i = 0; i < length; i++) {
-			System.out.println("TEST:id =" + interests[i]);
 			query = em.createQuery(FIND_BY_ID);
 			query.setParameter(1, Integer.parseInt(interests[i]));
 			interet = (Interet) query.getSingleResult();
@@ -95,8 +92,9 @@ public class RemoveInterest extends HttpServlet {
 			remove(i);
 		}
 
-		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/AddInterest.jsp?interest=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
+		RequestDispatcher disp = getServletContext()
+				.getRequestDispatcher(
+						"/AddInterest.jsp?interest=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
 		disp.forward(request, response);
 	}
 
@@ -106,7 +104,7 @@ public class RemoveInterest extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
+		doGet(request, response);
 	}
 
 }

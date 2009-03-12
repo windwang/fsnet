@@ -80,20 +80,20 @@
 				<h2>Ajouter un intérêt</h2>
 				</th>
 			</tr>
-			<tr class="champ">
+			<tr>
 
 				<th width="15%" scope="row">Intitulé</th>
-				<td colspan="2" width="85%"><label> <input type="text"
+				<td colspan="2" width="85%"><label> <input  class="moreInteret" type="text"
 					name="Intitule" title="Intitulé" /> </label></td>
 			</tr>
 
-			<tr class="champ">
+			<tr>
 				<td></td>
 				<td colspan="2" id="interests"></td>
 			</tr>
 			<tr>
 				<td></td>
-				<td><input name="inputAddInterest" id="inputAddInterest"
+				<td><input class="addButton" name="inputAddInterest" id="inputAddInterest"
 					type="button" onclick="addInterest()" value="Ajouter" /></td>
 			</tr>
 

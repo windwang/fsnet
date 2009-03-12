@@ -9,9 +9,11 @@ function addInterest() {
 
 	fileNode.setAttribute('type', 'text');
 	fileNode.setAttribute('name', 'interets[]');
+	fileNode.setAttribute('class','moreInteret');
 
 	removeNode.setAttribute('type', 'button');
 	removeNode.setAttribute('value', 'supprimer');
+	removeNode.setAttribute('class','removeBut');
 
 	divNode.appendChild(fileNode);
 	divNode.appendChild(removeNode);

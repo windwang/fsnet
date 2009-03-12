@@ -34,18 +34,6 @@
 	</dd>
 </dl>
 <dl>
-	<dt><a href="#">Communautés</a></dt>
-</dl>
-<dl>
-	<dt><a href="#">Interactions</a></dt>
-</dl>
-<dl>
-	<dt><a href="#">Demande Insc (3)</a></dt>
-</dl>
-<dl>
-	<dt><a href="#">Messagerie (3)</a></dt>
-</dl>
-<dl>
 	<dt><a href="#">Rapport d'activités</a></dt>
 </dl>
 <div id="search">
