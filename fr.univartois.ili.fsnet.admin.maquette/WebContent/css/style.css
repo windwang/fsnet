@@ -10,12 +10,12 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 .wrap { margin: 0 auto; width: 950px; }
 .background { background: url(../images/bg.jpg) no-repeat left 0px; }
 
-#search  { float: left; margin:9px 0px 0 15px; width: 205px; }
+#search  { float: right; margin:9px 0px 0 15px; width: 205px; }
 	input.field { float: left; background: #808080; color: #ccc; padding: 4px; border: 0; margin: 0 5px 0 0; width: 170px; font: .8em "Trebuchet MS", Arial, Sans-Serif; }
 		input.field:focus { border-bottom: 1px dotted #ccc; color: #fff; }
 	input.button { float: right; background: url(../images/search.gif) no-repeat; width: 20px; height: 13px; border: 0; margin: 5px 0 0; }
 
-#menu {width : 1100px; padding: 0 0 15px; margin: 0 0 25px 110px; height: 20px;}
+#menu {width : 970px; padding: 0 0 15px; margin: 0 0 25px 110px; height: 20px;}
 	#menu dl {float: left; margin: 0 1px; height: 0.8em;}
 	#menu dt a { float: left; width: 95px; text-align: center; margin: 0 1px 0 0; font-weight: bold; font-size: .8em; padding: 16px 0 21px; color: #ccc;}
 	#menu li a{float: left; width: 86px; text-align: center; margin: -10px 1px 0 0; font-weight: bold; font-size: .8em; padding: 6px 0 10px; color:#CCCCCC;background-color: #4F4F4F;}
@@ -40,6 +40,7 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 		#feature_menu li a.current { background: #fff url(../images/bullet.gif) no-repeat 5px 12px; }
 	
 #bottom { margin: 0 20px 0 0;}
+
 	
 #left { float: left; width: 100px; margin: 0 0 10px; text-align: justify; }
 	#left h2 { color: #52A9BA; }
@@ -101,3 +102,7 @@ img{width: 36; height: 32;}
 #listToDeploy td{text-align:center;}
 
 .interest{width:50%;}
+
+.moreInteret{width:87%;}
+.removeBut{width: 12%;}
+.addButton{width: 12%;}
