@@ -39,21 +39,22 @@
 		<form id="RemoveInterest" method="post" action="RemoveInterest">
 		<table>
 			<tr>
-				<th colspan="2" scope="col">
-				<div align="center"><a id="deployButton" href="#"
-					title="${param.titleDeploy}"
+				<th class="entete" colspan="2" scope="col">
+				<h2><img
+					src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_073.png" /><span><a
+					id="deployButton" href="#" title="${param.titleDeploy}"
 					onclick="deploy('deployButton','listToDeploy','interestSelected','allInterests');">${param.deploy}</a>
-				Liste des interêts</div>
+				Liste des interêts</span></h2>
 				</th>
 			</tr>
 			<tr>
 				<td>
 				<table id="listToDeploy">
-					<tr>
-						<th><input id="allInterests" type="checkbox"
-							name="allInterests" title="Supprimer tout"
+					<tr class="champ">
+						<th>Supprimer<input id="allInterests" type="checkbox"
+							name="allInterests" title="Tout supprimer"
 							onclick="selectAll('allInterests','interestSelected');showHideButton('removeButton','interestSelected');" /></th>
-						<th scope="row">Intitulé</th>
+						<th width="99%" scope="row">Intitulé</th>
 					</tr>
 					<admin:interet var="interet">
 						<tr>
@@ -74,18 +75,19 @@
 		<form id="AddInterest" method="post" action="AddInterest">
 		<table width="100%">
 			<tr>
-				<th colspan="2" scope="col">
-				<div align="center">Ajouter un intérêt</div>
+				<th class="entete"></th>
+				<th class="entete" colspan="2" scope="col">
+				<h2>Ajouter un intérêt</h2>
 				</th>
 			</tr>
-			<tr>
+			<tr class="champ">
 
 				<th width="15%" scope="row">Intitulé</th>
 				<td colspan="2" width="85%"><label> <input type="text"
 					name="Intitule" title="Intitulé" /> </label></td>
 			</tr>
 
-			<tr>
+			<tr class="champ">
 				<td></td>
 				<td colspan="2" id="interests"></td>
 			</tr>
