@@ -82,7 +82,7 @@
 			</tr>
 			<tr>
 
-				<th width="15%" scope="row">Intitulé</th>
+				<th class="enteteIntitule" width="15%" scope="row">Intitulé</th>
 				<td colspan="2" width="85%"><label> <input  class="moreInteret" type="text"
 					name="Intitule" title="Intitulé" /> </label></td>
 			</tr>
