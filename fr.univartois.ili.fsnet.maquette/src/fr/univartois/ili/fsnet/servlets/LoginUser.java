@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Inscription;
 
 /**
  * @author lionel desruelles Servlet implementation class FindUser
@@ -68,6 +69,11 @@ public class LoginUser extends HttpServlet {
 				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
 		query.setParameter(1, email);
 
+		Query query2 = em
+				.createQuery("SELECT ins FROM Inscription ins WHERE ins.entite =?1");
+
+		RequestDispatcher dispatch = null;
+
 		try {
 			EntiteSociale en = (EntiteSociale) query.getSingleResult();
 			logger.info(en.getEmail());
@@ -76,13 +82,22 @@ public class LoginUser extends HttpServlet {
 			logger.info("Taaille interet : " + en.getLesinterets().size());
 			getServletContext().setAttribute("idLogin", en.getId());
 
-			RequestDispatcher dispatch = getServletContext()
-					.getRequestDispatcher("/profil.jsp");
+			query2.setParameter(1, en);
+			Inscription inscrit = (Inscription) query2.getSingleResult();
+			logger.info(inscrit.getEtat());
+
+			if (inscrit.getEtat().equals(Inscription.ATTENTE)) {
+				dispatch = getServletContext().getRequestDispatcher(
+						"/profil.jsp");
+			} else {
+				dispatch = getServletContext().getRequestDispatcher(
+						"/index.jsp");
+			}
+
 			dispatch.forward(request, response);
 		} catch (Exception e) {
 			logger.info("Authentification échouée");
-			RequestDispatcher dispatch = getServletContext()
-					.getRequestDispatcher("/login.jsp");
+			dispatch = getServletContext().getRequestDispatcher("/login.jsp");
 			dispatch.forward(request, response);
 		}
 	}

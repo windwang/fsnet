@@ -120,7 +120,7 @@
 	</tr>
 	
 	<tr>
-		<td> <h2><a href="#">Mes Intérêts </a></h2> </td>
+		<td> <h2><a href="#">Mes intérêts </a></h2> </td>
 	</tr>
 	
 	<fsnet:interet var="interet">
@@ -129,10 +129,6 @@
 		<td width="33%">${interet.nomInteret}</td>
 	</tr>
 	</fsnet:interet>
-	
-	
-	
-	
 	
 	<tr>
 	
