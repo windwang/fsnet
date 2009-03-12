@@ -1,3 +1,5 @@
+package fr.univartois.ili.fsnet.trayDesktop.src;
+
 import java.awt.*;                
 import javax.swing.*;              
 
@@ -24,7 +26,7 @@ public class InformationBrowser extends JFrame implements HyperlinkListener, Pro
 	super(); 
 	text = new JEditorPane();
 	text.setContentType("text/html");
-	text.setText("nouveau hub créer ");
+	text.setText("nouveau hub crï¿½er ");
 	
 	text.setText("Google  : <a href=\"http://www.google.fr\" target=\"_blank\"> Goooogle <\\a><br>");
 	text.setEditable(false);    	
