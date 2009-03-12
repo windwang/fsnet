@@ -21,6 +21,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Inscription;
 import fr.univartois.ili.fsnet.entities.Interet;
 
 /**
@@ -35,7 +36,10 @@ public class CompleteProfil extends HttpServlet {
 
 	private EntityManager em;
 
-	private static final String FIND_BY_ID = "SELECT i FROM Interet i WHERE i.id = ?1";
+	private static final String FIND_INTERET_BY_ID = "SELECT i FROM Interet i WHERE i.id = ?1";
+
+	private static final String FIND_INSCRIPTION_BY_ENTITE = "SELECT ins FROM Inscription ins WHERE ins.entite =?1";
+
 	private static Logger logger = Logger.getLogger("FSNet");
 
 	/**
@@ -78,21 +82,28 @@ public class CompleteProfil extends HttpServlet {
 		String telephone = request.getParameter("telephone");
 		String profession = request.getParameter("profession");
 
-		// Interet
-		String[] interests = request.getParameterValues("interestSelected");
-		int length = interests.length;
-		Query interest;
+		Query query = em
+				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
+		query.setParameter(1, email);
+		EntiteSociale entite = (EntiteSociale) query.getSingleResult();
 		List<Interet> lesInterets = new ArrayList<Interet>();
-		Interet interet = null;
+		// Interet
+		String[] interests = null;
+		interests = request.getParameterValues("interestSelected");
 
-		for (int i = 0; i < length; i++) {
-			logger.info("TEST:id =" + interests[i]);
-			interest = em.createQuery(FIND_BY_ID);
-			interest.setParameter(1, Integer.parseInt(interests[i]));
-			interet = (Interet) interest.getSingleResult();
-			lesInterets.add(interet);
+		if (interests != null) {
+			Query interest;
+			int length = interests.length;
+			Interet interet = null;
+
+			for (int i = 0; i < length; i++) {
+				logger.info("TEST:id =" + interests[i]);
+				interest = em.createQuery(FIND_INTERET_BY_ID);
+				interest.setParameter(1, Integer.parseInt(interests[i]));
+				interet = (Interet) interest.getSingleResult();
+				lesInterets.add(interet);
+			}
 		}
-
 		//
 
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -103,10 +114,11 @@ public class CompleteProfil extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		Query query = em
-				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
-		query.setParameter(1, email);
-		EntiteSociale entite = (EntiteSociale) query.getSingleResult();
+
+		Query inscrit = em.createQuery(FIND_INSCRIPTION_BY_ENTITE);
+		inscrit.setParameter(1, entite);
+		Inscription ins = (Inscription) inscrit.getSingleResult();
+		ins.setEtat();
 
 		entite.setAdresse(adresse);
 		entite.setDateNaissance(date);
@@ -121,8 +133,9 @@ public class CompleteProfil extends HttpServlet {
 
 		logger.info("Taille interets : " + entite.getLesinterets().size());
 
-		logger.info("Nom interets : "
-				+ entite.getLesinterets().get(0).getNomInteret());
+		if (interests != null)
+			logger.info("Nom interets : "
+					+ entite.getLesinterets().get(0).getNomInteret());
 
 		// RequestDispatcher dispatch =
 		// getServletContext().getRequestDispatcher(
