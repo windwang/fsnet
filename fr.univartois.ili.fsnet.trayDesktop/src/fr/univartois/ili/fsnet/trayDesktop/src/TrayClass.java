@@ -3,13 +3,17 @@ package fr.univartois.ili.fsnet.trayDesktop.src;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 //import javax.swing.*;
 import javax.swing.ImageIcon;
-//import javax.swing.JOptionPane;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
@@ -61,7 +65,7 @@ public class TrayClass {
 	        trayIcon.setToolTip("Notification FSNet");
 	        
 	        // Create a popup menu components
-	     /*   MenuItem aboutItem = new MenuItem("About");
+	        MenuItem aboutItem = new MenuItem("Preferences");
 	        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
 	        CheckboxMenuItem cb2 = new CheckboxMenuItem("Set tooltip");
 	        Menu displayMenu = new Menu("Display");
@@ -69,11 +73,11 @@ public class TrayClass {
 	        MenuItem warningItem = new MenuItem("Warning");
 	        MenuItem infoItem = new MenuItem("Info");
 	        MenuItem noneItem = new MenuItem("None");
-	        MenuItem exitItem = new MenuItem("Exit");
+	        MenuItem exitItem = new MenuItem("   Exit   ");
 	        
 	        //Add components to popup menu
 	        popup.add(aboutItem);
-	        popup.addSeparator();
+	        /*popup.addSeparator();
 	        popup.add(cb1);
 	        popup.add(cb2);
 	        popup.addSeparator();
@@ -81,10 +85,10 @@ public class TrayClass {
 	        displayMenu.add(errorItem);
 	        displayMenu.add(warningItem);
 	        displayMenu.add(infoItem);
-	        displayMenu.add(noneItem);
+	        displayMenu.add(noneItem);*/
 	        popup.add(exitItem);
 	        
-	        trayIcon.setPopupMenu(popup);*/
+	        trayIcon.setPopupMenu(popup);
 	        
 	        try {
 	            tray.add(trayIcon);
@@ -111,10 +115,24 @@ public class TrayClass {
 	            }
 	        });
 	        
-	        /*aboutItem.addActionListener(new ActionListener() {
+	        aboutItem.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-	                JOptionPane.showMessageDialog(null,
-	                        "This dialog box is run from the About menu item");
+	               // JOptionPane.showMessageDialog(null,"This dialog box is run from the About menu item");
+	            	String input=JOptionPane.showInputDialog(null);
+	            	PrintWriter ecrivain;
+	            	File file=new File("/homelocal/eb/FSNet/fr.univartois.ili.fsnet.trayDesktop/src/fr/univartois/ili/fsnet/trayDesktop/src/preferences.txt");
+	            	if(input!=null && input!=""){
+	            	try {
+						ecrivain =  new PrintWriter(new BufferedWriter(new FileWriter(file)));
+						ecrivain.println(input);
+						ecrivain.close();
+
+					} catch (IOException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+	            	}
+	            	System.out.println("------------"+input);
 	            }
 	        });
 	        
@@ -138,9 +156,9 @@ public class TrayClass {
 	                    trayIcon.setToolTip(null);
 	                }
 	            }
-	        });*/
+	        });
 	        
-	        /*ActionListener listener = new ActionListener() {
+	        ActionListener listener = new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	                MenuItem item = (MenuItem)e.getSource();
 	                //TrayIcon.MessageType type = null;
@@ -166,9 +184,9 @@ public class TrayClass {
 	                            "This is an ordinary message", TrayIcon.MessageType.NONE);
 	                }
 	            }
-	        };*/
+	        };
 	        
-	       /* errorItem.addActionListener(listener);
+	        errorItem.addActionListener(listener);
 	        warningItem.addActionListener(listener);
 	        infoItem.addActionListener(listener);
 	        noneItem.addActionListener(listener);
@@ -178,7 +196,7 @@ public class TrayClass {
 	                tray.remove(trayIcon);
 	                System.exit(0);
 	            }
-	        });*/
+	        });
 	    }
 	    
 	    //Obtain the image URL
