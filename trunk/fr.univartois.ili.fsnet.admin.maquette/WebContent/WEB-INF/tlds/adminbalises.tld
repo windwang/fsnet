@@ -40,4 +40,15 @@
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<display-name>Display Inscription</display-name>
+		<name>inscription</name>
+		<tag-class>fr.univartois.ili.fsnet.admin.tags.InscriptionTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>var</name>
+			<required>yes</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>
