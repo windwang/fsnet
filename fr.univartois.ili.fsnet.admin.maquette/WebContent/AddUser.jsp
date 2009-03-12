@@ -34,19 +34,20 @@
 		<form id="RemoveUser" method="post" action="RemoveUser">
 		<table>
 			<tr>
-				<th colspan="4" scope="col">
-				<div align="center"><a id="deployButton" href="#"
+				<th class="entete" colspan="4" scope="col">
+				<h2><img
+					src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_223.png" /><span><a id="deployButton" href="#"
 					title="${param.titleDeploy}"
 					onclick="deploy('deployButton','listToDeploy','userSelected','allUsers');">${param.deploy}</a>
-				Liste des membres</div>
+				Liste des membres</span></h2>
 				</th>
 			</tr>
 			<tr>
 				<td>
 				<table id="listToDeploy">
-					<tr>
-						<th><input id="allUsers" type="checkbox" name="allUsers"
-							title="Supprimer tout"
+					<tr class="champ">
+						<th>Supprimer<input id="allUsers" type="checkbox" name="allUsers"
+							title="Tout supprimer"
 							onclick="selectAll('allUsers','userSelected');showHideButton('removeButton','userSelected');" /></th>
 						<th width="33%" scope="row">Nom</th>
 						<th width="33%" scope="row">Prénom</th>
@@ -72,27 +73,28 @@
 			onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
 			type="submit" value="Supprimer" title="Supprimer" /></label></form>
 		<form id="AddUser" method="post" action="AddUser">
-		<table width="100%">
+		<table>
 			<tr>
-				<th colspan="2" scope="col">
-				<div align="center">Ajouter un membre</div>
+				<th class="entete"></th>
+				<th class="entete" colspan="2" scope="col">
+				<h2>Ajouter un membre</h2>
 				</th>
 			</tr>
 
-			<tr>
-				<th width="33%" scope="row">Nom</th>
-				<td width="67%"><label> <input type="text" name="Nom"
+			<tr class="champ">
+				<th scope="row">Nom</th>
+				<td><label> <input type="text" name="Nom"
 					title="Nom" /> </label></td>
 			</tr>
-			<tr>
+			<tr class="champ">
 				<th scope="row">Prénom</th>
-				<td width="67%"><label> <input type="text"
+				<td><label> <input type="text"
 					name="Prenom" title="Prénom" /> </label></td>
 			</tr>
-			<tr>
+			<tr class="champ">
 				<th scope="row">Email</th>
-				<td width="67%"><label> <input type="text" name="Email"
-					title="Email" /> </label></td>
+				<td><label> <input type="text"
+					name="Email" title="Email" /> </label></td>
 			</tr>
 		</table>
 		<label class="button"> <input type="submit" name="Submit"
