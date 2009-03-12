@@ -28,156 +28,41 @@
 
 <div id="left">
 <h2><a href="index.jsp?accueil=current" title="Accueil">Accueil</a></h2>
-<jsp:include page="date.jsp"></jsp:include>
-</div>
+<jsp:include page="date.jsp"></jsp:include></div>
 <div id="tableauprincipal">
 <table>
 
 	<tr>
-
-		<td style="background-color: #EDF3F8">
-		<h2 class="Style8"><img
-			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_270.png"
-			style="height: 27; width: 32" alt="" /> Ma messagerie</h2>
-		</td>
-	</tr>
-
-	<tr>
-		<td style="height: 2"></td>
-
+		<th class="entete" colspan="4" scope="col">
+		<h2 title="Liste des membres en attente d'inscription"><img
+			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_223.png" /><span>
+		En attente d'inscription</span></h2>
+		</th>
 	</tr>
 	<tr>
-		<td valign="top">
-		<ul>
-			<li><a href="#">slt c coucou</a></li>
-			<li><a href="#">slt c kiki </a></li>
-		</ul>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 2"></td>
-	</tr>
-
-	<tr>
-		<td valign="top" style="background-color: #EDF3F8">
-		<h2><img
-			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_223.png"
-			/> <span class="Style8">Lister
-		membres </span></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 2"></td>
-	</tr>
-	<tr>
-		<td valign="top">
-		<div style="text-align: center"><a href="#"></a>
-		<table style="width: 100%; border: 2">
-			<tr style="background-color: #CCCCCC">
-				<td style="width: 64">
-				<h4>Nom</h4>
-				</td>
-				<td style="width: 84">
-				<h4>Pr&eacute;nom</h4>
-				</td>
-				<td style="width: 106">
-				<h4>Date d'entr&eacute;e</h4>
-				</td>
-				<td style="width: 112">
-				<h4>Afficher D&eacute;tails</h4>
-				</td>
-				<td style="width: 98">
-				<h4>Supprimer</h4>
-				</td>
+		<td>
+		<table id="listToDeploy">
+			<tr class="champ">
+				<th width="25%" scope="row">Nom</th>
+				<th width="25%" scope="row">Prénom</th>
+				<th width="25%" scope="row">Email</th>
+				<th width="25%" scope="row">Etat</th>
 			</tr>
-			<tr>
-				<td>Bart</td>
-				<td>Simpson</td>
-				<td>10/02/2009</td>
-				<td><a href="#">D&eacute;tails</a></td>
-				<td><a href="#">Supprimer</a></td>
-			</tr>
-			<tr>
-				<td>Speedy</td>
-				<td>Gonzalez</td>
-				<td>12/01/2009</td>
-				<td><a href="#">D&eacute;tails</a></td>
-				<td><a href="#">Supprimer</a></td>
-			</tr>
+			<admin:inscription var="inscription">
+
+				<tr>
+					<td width="25%">${inscription.entite.nom}</td>
+					<td width="25%">${inscription.entite.prenom}</td>
+					<td width="25%">${inscription.entite.email}</td>
+					<td width="25%">${inscription.etat}</td>
+				</tr>
+			</admin:inscription>
+
 		</table>
-		</div>
 		</td>
 	</tr>
-	<tr>
-		<td style="height: 2"></td>
-	</tr>
-	<tr>
-		<td valign="top" style="bgcolor: #EDF3F8">
-		<h2><span class="Style8"> <img
-			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_073.png"
-			style="width: 34; height: 29" alt="" /> Lister communaut&eacute;s </span></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 2"></td>
-	</tr>
-	<tr>
-		<td valign="top">
-		<ul>
-			<li><a href="#">Communaut&eacute; 1</a></li>
-			<li><a href="#">Communaut&eacute; 2</a></li>
-			<li><a href="#">Communaut&eacute; 3</a></li>
-		</ul>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 2"></td>
-	</tr>
-	<tr>
-		<td valign="top" style="background-color: #EDF3F8">
-		<h2><span class="Style8"><img
-			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_073.png"
-			style="height: 29; width: 34" alt="" /> Interactions </span></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 2"></td>
 
-	</tr>
-	<tr>
-		<td valign="top">
-		<ul>
-			<li><a href="#">Liste d'interaction &agrave; journaliser</a></li>
-			<li><a href="#">Liste d'interaction à valider</a></li>
-		</ul>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 2"></td>
-	</tr>
-	<tr>
-		<!--  <td></td> -->
-		<td valign="top" style="background-color: #EDF3F8">
-		<h2><span class="Style8"><img
-			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_073.png"
-			style="width: 34; height: 29" alt="" /></span> <span class="Style8">Demandes
-		d'inscription en attente </span><a href="#">(3)</a></h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 2"></td>
-		<!-- <td></td> -->
-	</tr>
-	<tr>
-		<!-- <td></td> -->
-		<td valign="top">
-		<ul>
-			<li><a href="#">Demande 1</a></li>
-			<li><a href="#">Demande 2</a></li>
-			<li><a href="#">Demande 3</a></li>
-		</ul>
-		</td>
-	</tr>
+
 </table>
 </div>
 </div>

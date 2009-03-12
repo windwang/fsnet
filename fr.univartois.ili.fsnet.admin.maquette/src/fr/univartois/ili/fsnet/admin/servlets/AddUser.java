@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Inscription;
 
 /**
  * @author romuald druelle. Servlet implementation class AddUser
@@ -84,8 +85,14 @@ public class AddUser extends HttpServlet {
 		em.persist(entite);
 		em.getTransaction().commit();
 
-		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/AddUser.jsp?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
+		Inscription inscription = new Inscription(entite);
+		em.getTransaction().begin();
+		em.persist(inscription);
+		em.getTransaction().commit();
+
+		RequestDispatcher disp = getServletContext()
+				.getRequestDispatcher(
+						"/AddUser.jsp?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
 		disp.forward(request, response);
 	}
 
