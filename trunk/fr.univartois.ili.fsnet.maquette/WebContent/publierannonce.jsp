@@ -83,7 +83,7 @@ function init()
 		<td><input type='text' name="dateFinAnnonce" value="${datefin}"
 			size="8" />
 		<button type='button' name='show1' onclick='CL.show();'><img
-			src="images/calendrier.gif" height="20" width="20" /></button>
+			src="images/button_calendar.gif" height="15" width="15" /></button>
 		</td>
 	</tr>
 	<tr>

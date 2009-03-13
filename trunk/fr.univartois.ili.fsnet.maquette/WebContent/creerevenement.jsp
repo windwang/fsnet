@@ -82,7 +82,7 @@ function init()
 		<th style="width: 193" scope="row">Rendez-vous le</th>
 		<td><input type='text' name="dateDebut" value="${date}"
 			size="8" /> <button type='button' name='show1' onclick='CL.show();'><img
-			src="images/calendrier.gif" height="20" width="20" /></button></td>
+			src="images/button_calendar.gif" height="20" width="20" /></button></td>
 	</tr>
 	<tr>
 		<th style="width: 193" scope="row"></th>

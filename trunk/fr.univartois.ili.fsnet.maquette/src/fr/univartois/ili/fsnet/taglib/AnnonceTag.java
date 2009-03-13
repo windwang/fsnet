@@ -20,6 +20,7 @@ public class AnnonceTag extends TagSupport {
 	private String var;
 	private Integer idChoisi;
 	private Date dateFin;
+	private Date dateJour = new Date();
 	private String titre;
 	private Iterator<Annonce> an;
 	private Integer nbAnnonce;
@@ -91,19 +92,39 @@ public class AnnonceTag extends TagSupport {
 		this.titre = titre;
 	}
 
+	/**
+	 * while (it.hasNext()) { Annonce a = (Annonce) it.next();
+	 * System.out.println("                          dateJour " + aujourdhui +
+	 * " date ann " + a.getDateFinAnnonce()); if
+	 * (a.getDateFinAnnonce().before(aujourdhui)) { System.out
+	 * .println("                           je supprime " + a.getNom());
+	 * it.remove(); }
+	 * 
+	 * }
+	 */
+
 	private boolean updateContext() {
 		if (nbAnnonce == null) {
 			if (an.hasNext()) {
 				Annonce ann;
 				ann = an.next();
+				if (ann.getDateFinAnnonce().before(dateJour)) {
+					an.remove();
+					return true;
+				}
 				pageContext.setAttribute(var, ann);
 				return true;
 			}
 		} else {
 			if ((an.hasNext()) && (cpt < nbAnnonce.intValue())) {
-				cpt++;
+
 				Annonce ann;
 				ann = an.next();
+				if (ann.getDateFinAnnonce().before(dateJour)) {
+					an.remove();
+					return true;
+				}
+				cpt++;
 				pageContext.setAttribute(var, ann);
 				return true;
 
