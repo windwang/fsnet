@@ -109,4 +109,14 @@
     <servlet-name>AddEvenement</servlet-name>
     <url-pattern>/AddEvenement</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>LogoutUser</display-name>
+    <servlet-name>LogoutUser</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.servlets.LogoutUser</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoutUser</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
 </web-app>
