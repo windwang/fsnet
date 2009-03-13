@@ -28,16 +28,20 @@ public class InscriptionTag extends TagSupport {
 	private static final String FIND_ALL = "SELECT i FROM Inscription i ORDER BY i.entite.nom ASC";
 
 	private static final String FIND_LAST_BY_STATE = "SELECT i FROM Inscription i WHERE i.etat=?1 ";
-	//private static final String FIND_LAST_BY_STATE = "SELECT i FROM Inscription i WHERE i.etat=?1 ORDER BY i.id DESC LIMIT 5";
+	// private static final String FIND_LAST_BY_STATE =
+	// "SELECT i FROM Inscription i WHERE i.etat=?1 ORDER BY i.id DESC LIMIT 5";
 
 	private static final String DATABASE_NAME = "fsnetjpa";
-	
-	private static final String ATTENTE = "En attente d'inscription";
-	
-	private static final String INSCRIT ="Inscrit";
 
-	private static final String CONDITION = "ORDER BY i.entite.nom ASC";
+	private static final String WAITING = "En attente d'inscription";
 
+	private static final String REGISTERED = "Inscrit";
+
+	private static final String CONDITION_AWAITING_REGISTRATION = "ORDER BY i.entite.nom ASC";
+
+	private static final String CONDITION_REGISTERED = "ORDER BY i.id DESC";
+
+	private static final int MAX_MEMBERS = 7;
 
 	private Iterator<Inscription> it;
 	private String var;
@@ -61,16 +65,24 @@ public class InscriptionTag extends TagSupport {
 
 		if (etat == null) {
 			query = em.createQuery(FIND_ALL);
+			lesInscriptions = query.getResultList();
 		} else {
-			if (INSCRIT.equals(etat)){
-				condition = "";
+			if (REGISTERED.equals(etat)) {
+				condition = CONDITION_REGISTERED;
+				query = em.createQuery(FIND_LAST_BY_STATE + condition);
+				query.setParameter(1, etat);
+				lesInscriptions = query.setFirstResult(0).setMaxResults(
+						MAX_MEMBERS).getResultList();
 			} else {
-				condition = CONDITION;
+				condition = CONDITION_AWAITING_REGISTRATION;
+				query = em.createQuery(FIND_LAST_BY_STATE + condition);
+				query.setParameter(1, etat);
+				lesInscriptions = query.getResultList();
 			}
-			query = em.createQuery(FIND_LAST_BY_STATE+condition);
-			query.setParameter(1, etat);
+			// query = em.createQuery(FIND_LAST_BY_STATE + condition);
+			// query.setParameter(1, etat);
 		}
-		lesInscriptions = query.getResultList();
+		// lesInscriptions = query.setFirstResult(MAX_MEMBERS).getResultList();
 		it = lesInscriptions.iterator();
 		if (it != null && it.hasNext()) {
 			updateContext(it.next());
