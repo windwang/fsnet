@@ -67,9 +67,6 @@
 		
 		<copy file="./fsnetiliforumtags.jar" todir="${admin.dir}/WebContent/WEB-INF/lib/"/>
 		<move file="./fsnetiliforumtags.jar" todir="${fsnet.dir}/WebContent/WEB-INF/lib/"/>
-		<!-- Avoid many copies of iliforumtags.tld -->
-		<!--<copy file="${fsnet.iliforumtags.dir}/src/WEB-INF/iliforumtags.tld" todir="${admin.dir}/WebContent/WEB-INF/"/>
-		<copy file="${fsnet.iliforumtags.dir}/src/WEB-INF/iliforumtags.tld" todir="${fsnet.dir}/WebContent/WEB-INF/"/>-->
 	</target>
 
 	<target name="iliforum.test" depends="iliforum.compile">
@@ -301,8 +298,6 @@
 		<jar destfile="fsnettrayDesktop.jar">
 			<fileset dir="${fsnet.trayDesktop.dir}/bin"/>
 		</jar>
-		<copy file="./fsnettrayDesktop.jar" todir="${admin.dir}/WebContent/WEB-INF/lib/"/>
-		<move file="./fsnettrayDesktop.jar" todir="${fsnet.dir}/WebContent/WEB-INF/lib/"/>
 	</target>
 
 	<target name="clean">
@@ -311,6 +306,8 @@
 		<delete dir="${fsnet.entities.test.dir}/bin"/>
 		<delete dir="${fsnet.iliforum.dir}/bin"/>
 		<delete dir="${fsnet.iliforum.test.dir}/bin"/>
+		<delete dir="${fsnet.iliforumtags.dir}/bin"/>
+		<delete dir="${fsnet.trayDesktop.dir}/bin"/>
 		<delete file="fsnet.war"/>
 		<delete file="fsadmin.war"/>
 		<delete dir="${fsnet.dir}/WebContent/WEB-INF/classes"/>
