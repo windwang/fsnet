@@ -9,8 +9,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 /**
  * 
  * The class Interet.
