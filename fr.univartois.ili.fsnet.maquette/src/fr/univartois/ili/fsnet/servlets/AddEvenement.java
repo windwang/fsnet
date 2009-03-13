@@ -2,6 +2,9 @@ package fr.univartois.ili.fsnet.servlets;
 
 import java.io.IOException;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
@@ -66,22 +69,34 @@ public class AddEvenement extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		String titre = request.getParameter("titreEvenemt");
+		String titre = request.getParameter("titreEvenement");
 		String contenu = request.getParameter("contenuEvenement");
-		if (titre.isEmpty() || contenu.isEmpty()) {
+		String date = request.getParameter("dateDebut");
+		System.out.println("date de debut" + date + titre + contenu);
+		if (titre.isEmpty() || contenu.isEmpty() || date.isEmpty()) {
 
 			request.setAttribute("titre", titre);
 			request.setAttribute("contenu", contenu);
+			request.setAttribute("date", date);
+
 			RequestDispatcher dispatch = getServletContext()
 					.getRequestDispatcher("/creerevenement.jsp");
 			dispatch.forward(request, response);
 		} else {
 
 			System.out.println("Test aDD EVENEMENT " + titre + " " + contenu
-					+ " " + (new Date().toString()));
-
-			Manifestation nouvellevenement = new Manifestation(titre,
-					new Date(), contenu);
+					+ " " + date);
+			Date date1 = null;
+			DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+			try {
+				date1 = (Date) formatter.parse(date);
+				System.out.println("date format " + date);
+			} catch (ParseException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			Manifestation nouvellevenement = new Manifestation(titre, date1,
+					contenu);
 			em.getTransaction().begin();
 			em.persist(nouvellevenement);
 			em.getTransaction().commit();

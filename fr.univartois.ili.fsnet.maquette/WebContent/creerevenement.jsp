@@ -4,6 +4,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
 <head>
+
 <link rel="icon" type="image/png" href="images/favicon.ico" />
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8" />
@@ -13,13 +14,40 @@
 <meta name="robots" content="index, follow" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
+
+
 <title>FSNet</title>
-<script language="JavaScript" src="maquette.js">
+
+<!-- FICHIER DE STYLE DU CALENDRIER //-->
+<link rel='stylesheet' href="css/calendar.css" />
+<!-- FICHIER DE SCRIPT DU CALENDRIER //-->
+<script type="text/javascript" src="maquette.js"></script>
+<script type="text/javascript">
+
+/******************************/
+/**self.defaultStatus = "GnooCalendar 1.4";
+/******************************/
+/* 
+* instanciation de l'objet
+*/
+var CL = new GnooCalendar("CL", 0, 20 );
+
+/******************************/
+function init()
+{
+	CL.init("calend", document.forms["testform"].elements["dateDebut"]);
+	
+
+	
+}
+/******************************/
+//-->
 </script>
 </head>
-<body onload="showMenu();">
-<div class="wrap background">
-<jsp:include page="haut.jsp"></jsp:include>
+<body onload="showMenu();init();">
+<div class="wrap background"><jsp:include page="haut.jsp"></jsp:include>
+
+<a name="top"></a>
 
 <div id="left">
 <h2><a href="#">&#201;v&#233;nement</a></h2>
@@ -27,39 +55,56 @@
 	<tr>
 		<th style="width: 181" scope="col">Entrer votre texte</th>
 		<th style="width: 252" scope="col">
-		<div style="text-align: right">2000 caract&#232;res maximums</div>
+		<div style="text-align: right">2000 caractères maximums</div>
 		</th>
 	</tr>
 </table>
 <p>&nbsp;</p>
-<form action="AddEvenement" method="post" id="evenement">
-<table style="width: 433">
+<form name='testform' method="post" action="AddEvenement" id="evenement"
+	style='margin: 0px;'>
 
+<table style="width: 633">
 	<tr>
 		<th style="width: 193" scope="row">Titre</th>
 		<td style="width: 228">
 		<div style="align: right" class="Style1"><label
-			style="text-align: left"> <input name="titreEvenemt"
-			type="text" size="50" /> </label></div>
+			style="text-align: left"> <input name="titreEvenement"
+			type="text" size="50" value="${titre}" /> </label></div>
 		</td>
 	</tr>
 	<tr>
-		<th scope="row">Contenu</th>
-		<td><textarea name="contenuEvenement" cols="40" rows="10"></textarea></td>
+		<th style="width: 193" scope="row">Contenu</th>
+		<td style="width: 228"><textarea name="contenuEvenement" cols="57"
+			rows="10">${contenu}</textarea></td>
+
 	</tr>
-<tr>
-	<th scope="row"></th>
-	<td>
-	<div style="text-align: right"><input name="submit" type="submit"
-		value="Publier" /></div>
-	</td>
+	<tr>
+		<th style="width: 193" scope="row">Rendez-vous le</th>
+		<td><input type='text' name="dateDebut" value="${date}"
+			size="8" /> <button type='button' name='show1' onclick='CL.show();'><img
+			src="images/calendrier.gif" height="20" width="20" /></button></td>
 	</tr>
+	<tr>
+		<th style="width: 193" scope="row"></th>
+		<td style="width: 228" id="calend">&nbsp;</td>
+	</tr>
+	<tr>
+		<th scope="row"></th>
+		<td>
+		<div style="text-align: right"><input name="submit"
+			type="submit" value="Publier" /></div>
+		</td>
+	</tr>
+
+
+
+
 </table>
+
 </form>
+<br />
+<!-- <div id="calend">&nbsp;</div>--></div>
+<jsp:include page="bas.jsp"></jsp:include>
 </div>
-
-</div>
-
-<jsp:include page="bas.jsp" />
 </body>
 </html>

@@ -107,8 +107,8 @@
 		</fsnet:annonce>
 	<h3>Derniers &#201;v&#233;nements</h3>
 	<fsnet:manifestation var="maManif" nbEven="2">
-	<a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a><br/>
-    
+	<a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a>
+    ${maManif.dateManif}<br/>
 	
 	</fsnet:manifestation>
 	</div>
@@ -131,7 +131,8 @@
 	<fsnet:manifestation var="maManif" nbEven="4">
 	
 <p>
-			<a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a>
+			<a href="AddEvenement?id=${maManif.id}">${maManif.nom} </a>${maManif.dateManif}<br/>
+		
 			
 		
 		</fsnet:manifestation>

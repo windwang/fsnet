@@ -76,8 +76,7 @@
 	</fsnet:login>
 
 <div id="logo">
-    <h2 > <span style ="color:red;">votre information est publi&#233</span></h2> 
-          
+              <h2 > <span style ="color:red;">votre information est publi&#233e</span></h2> 
 <h1><a href="index.jsp?accueil=current">FSNet<br />
 </a></h1>
 <h2 id="slogan">Réseau social</h2>
@@ -108,8 +107,8 @@
 		</fsnet:annonce>
 	<h3>Derniers &#201;v&#233;nements</h3>
 	<fsnet:manifestation var="maManif" nbEven="2">
-	<a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a><br/>
-    
+	<a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a>
+    ${maManif.dateManif}<br/>
 	
 	</fsnet:manifestation>
 	</div>
@@ -132,7 +131,8 @@
 	<fsnet:manifestation var="maManif" nbEven="4">
 	
 <p>
-			<a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a>
+			<a href="AddEvenement?id=${maManif.id}">${maManif.nom} </a>${maManif.dateManif}<br/>
+		
 			
 		
 		</fsnet:manifestation>
