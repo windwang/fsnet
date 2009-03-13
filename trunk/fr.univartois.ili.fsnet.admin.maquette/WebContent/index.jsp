@@ -48,7 +48,7 @@
 				<th width="25%" scope="row">Email</th>
 				<th width="25%" scope="row">Etat</th>
 			</tr>
-			<admin:inscription var="inscription">
+			<admin:inscription var="inscription" etat="En attente d'inscription">
 
 				<tr>
 					<td width="25%">${inscription.entite.nom}</td>

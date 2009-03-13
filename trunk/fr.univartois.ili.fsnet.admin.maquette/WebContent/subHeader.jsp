@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -22,8 +23,12 @@
 </ul>
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
-<p>Une nouvelle communauté vient d'être créée.</p>
-<p><a class="more" href="#">&not;Detail</a></p>
+<h3>Les derniers inscrits</h3>
+<ul>
+	<admin:inscription var="inscription" etat="Inscrit">
+		<li>${inscription.entite.nom} ${inscription.entite.prenom}</li>
+	</admin:inscription>
+</ul>
 </div>
 </div>
 
