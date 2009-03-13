@@ -34,7 +34,7 @@
 	</dd>
 </dl>
 <dl>
-	<dt><a href="#">Rapport d'activités</a></dt>
+	<dt><a href="RecupInfo">Rapport d'activités</a></dt>
 </dl>
 </div>
 
