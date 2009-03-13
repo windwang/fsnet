@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
@@ -64,6 +65,8 @@ public class LoginUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		RequestDispatcher dispatch = null;
+		HttpSession session = request.getSession(true);
 		String email = request.getParameter("email");
 		Query query = em
 				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
@@ -72,21 +75,20 @@ public class LoginUser extends HttpServlet {
 		Query query2 = em
 				.createQuery("SELECT ins FROM Inscription ins WHERE ins.entite =?1");
 
-		RequestDispatcher dispatch = null;
-
 		try {
 			EntiteSociale en = (EntiteSociale) query.getSingleResult();
 			logger.info(en.getEmail());
 			logger.info(String.valueOf(en.getId()));
 
 			logger.info("Taaille interet : " + en.getLesinterets().size());
-			getServletContext().setAttribute("idLogin", en.getId());
+			// getServletContext().setAttribute("idLogin", en.getId());
 
 			query2.setParameter(1, en);
 			Inscription inscrit = (Inscription) query2.getSingleResult();
 			logger.info(inscrit.getEtat());
-
+			session.setAttribute("entite", en);
 			if (inscrit.getEtat().equals(Inscription.ATTENTE)) {
+
 				dispatch = getServletContext().getRequestDispatcher(
 						"/profil.jsp");
 			} else {

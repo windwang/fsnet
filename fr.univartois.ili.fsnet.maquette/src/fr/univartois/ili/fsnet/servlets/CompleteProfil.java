@@ -13,12 +13,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
@@ -49,10 +51,10 @@ public class CompleteProfil extends HttpServlet {
 		super();
 	}
 
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	public void init(ServletConfig config) throws ServletException {
+	@Override
+	public void init() throws ServletException {
+		// TODO Auto-generated method stub
+		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
 	}
@@ -76,16 +78,21 @@ public class CompleteProfil extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
+		HttpSession session = request.getSession();
 		String email = request.getParameter("email");
 		String dateNaissance = request.getParameter("dateNaissance");
 		String adresse = request.getParameter("adresse");
 		String telephone = request.getParameter("telephone");
 		String profession = request.getParameter("profession");
 
-		Query query = em
-				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
-		query.setParameter(1, email);
-		EntiteSociale entite = (EntiteSociale) query.getSingleResult();
+		// Query query = em
+		// .createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
+		// query.setParameter(1, email);
+		// EntiteSociale entite = (EntiteSociale) query.getSingleResult();
+
+		EntiteSociale entite = (EntiteSociale) session.getAttribute("entite");
+		entite = em.find(EntiteSociale.class, entite.getId());
+
 		List<Interet> lesInterets = new ArrayList<Interet>();
 		// Interet
 		String[] interests = null;
@@ -136,12 +143,12 @@ public class CompleteProfil extends HttpServlet {
 		if (interests != null)
 			logger.info("Nom interets : "
 					+ entite.getLesinterets().get(0).getNomInteret());
+		session.setAttribute("entite", entite);
 
-		// RequestDispatcher dispatch =
-		// getServletContext().getRequestDispatcher(
-		// "/profil3.html");
-		// dispatch.forward(request, response);
-		response.sendRedirect("index.jsp");
+		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
+				"/index.jsp");
+		dispatch.forward(request, response);
+
 	}
 
 	/**

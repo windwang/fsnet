@@ -22,7 +22,7 @@
 <body onload="showMenu();">
 <div class="wrap background">
 <jsp:include page="haut.jsp"></jsp:include>
-<fsnet:login var="membre" idLogin="${idLogin}">
+<fsnet:login var="membre" idLogin="${entite.id}">
 
 <div id="left">
 <h2><a href="#">Mon profil </a></h2>
