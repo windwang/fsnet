@@ -74,15 +74,17 @@ function init()
 	</tr>
 	<tr>
 		<th style="width: 193" scope="row">Contenu</th>
-		<td style="width: 228"><textarea name="contenuAnnonce" cols="40"
+		<td style="width: 228"><textarea name="contenuAnnonce" cols="57"
 			rows="10">${contenu}</textarea></td>
 
 	</tr>
 	<tr>
 		<th style="width: 193" scope="row">Date de fin</th>
 		<td><input type='text' name="dateFinAnnonce" value="${datefin}"
-			size="8" /> <input type='button' name='show1' onclick='CL.show();'
-			value='Afficher le calendrier' /></td>
+			size="8" />
+		<button type='button' name='show1' onclick='CL.show();'><img
+			src="images/calendrier.gif" height="20" width="20" /></button>
+		</td>
 	</tr>
 	<tr>
 		<th style="width: 193" scope="row"></th>
@@ -104,7 +106,6 @@ function init()
 </form>
 <br />
 <!-- <div id="calend">&nbsp;</div>--></div>
-<jsp:include page="bas.jsp"></jsp:include>
-</div>
+<jsp:include page="bas.jsp"></jsp:include></div>
 </body>
 </html>
