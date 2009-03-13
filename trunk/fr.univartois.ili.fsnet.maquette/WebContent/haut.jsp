@@ -71,7 +71,7 @@
 
 
 
-<fsnet:login var="membre" idLogin="${idLogin}">
+<fsnet:login var="membre" idLogin="${entite.id}">
 	Bienvenue M. ${membre.nom} ${membre.prenom} 
 	</fsnet:login>
 
