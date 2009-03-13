@@ -18,8 +18,6 @@
 <div id="features">
 <ul id="feature_menu">
 	<li><a class="current" href="#">Actualité</a></li>
-	<li><a href="#">AAAAAAA</a></li>
-	<li><a href="#">BBBBBBBBB</a></li>
 </ul>
 
 <div id="feature"><img src="images/feature_img.gif" alt="Featured" />
