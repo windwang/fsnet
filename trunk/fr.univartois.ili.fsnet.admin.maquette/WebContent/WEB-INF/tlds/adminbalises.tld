@@ -56,4 +56,31 @@
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<display-name>Display Hub</display-name>
+		<name>hub</name>
+		<tag-class>fr.univartois.ili.fsnet.admin.tags.HubTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>var</name>
+			<required>yes</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<display-name>Display Topic</display-name>
+		<name>topic</name>
+		<tag-class>fr.univartois.ili.fsnet.admin.tags.TopicTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>var</name>
+			<required>yes</required>
+			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>hub</name>
+			<required>yes</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

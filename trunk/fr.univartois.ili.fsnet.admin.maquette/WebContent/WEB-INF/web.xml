@@ -64,4 +64,17 @@
     <servlet-name>RemoveInterest</servlet-name>
     <url-pattern>/RemoveInterest</url-pattern>
   </servlet-mapping>
+  <servlet>
+		<description>
+		</description>
+		<display-name>
+		RecupInfo</display-name>
+		<servlet-name>RecupInfo</servlet-name>
+		<servlet-class>
+		fr.univartois.ili.fsnet.admin.servlets.RecupInfo</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>RecupInfo</servlet-name>
+		<url-pattern>/RecupInfo</url-pattern>
+	</servlet-mapping>
 </web-app>
