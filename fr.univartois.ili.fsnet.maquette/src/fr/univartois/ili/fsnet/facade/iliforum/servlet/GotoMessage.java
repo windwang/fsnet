@@ -18,33 +18,42 @@ import fr.univartois.ili.fsnet.entities.Topic;
  */
 public class GotoMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GotoMessage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		 EntityManager em = factory.createEntityManager();
-		 
-		 Topic monTopic=em.getReference(Topic.class, Integer.valueOf(request.getParameter("idTopic")));
-		 getServletContext().setAttribute("monTopic", monTopic);
-		 
-		 RequestDispatcher dispa=getServletContext().getRequestDispatcher("/message.jsp");
-		 dispa.forward(request,response);
+	public GotoMessage() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		EntityManagerFactory factory = Persistence
+				.createEntityManagerFactory("fsnetjpa");
+		EntityManager em = factory.createEntityManager();
+		String idTopic = request.getParameter("idTopic");
+		if ((idTopic != null) && (!idTopic.equals(""))) {
+
+			Topic monTopic = em.getReference(Topic.class, Integer
+					.valueOf(idTopic));
+			getServletContext().setAttribute("monTopic", monTopic);
+		}
+		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
+				"/message.jsp");
+		dispa.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		this.doGet(request, response);
 	}
 
