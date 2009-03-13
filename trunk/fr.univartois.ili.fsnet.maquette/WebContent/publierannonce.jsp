@@ -23,7 +23,7 @@
 <!-- FICHIER DE SCRIPT DU CALENDRIER //-->
 <script type="text/javascript" src="maquette.js"></script>
 <script type="text/javascript">
-<!--
+
 /******************************/
 /**self.defaultStatus = "GnooCalendar 1.4";
 /******************************/

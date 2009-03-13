@@ -34,6 +34,9 @@
 
 		</tr>
 		<tr>
+			<th><u>rendez-vous:</u></th><td> ${maManif.dateManif}</td>
+		</tr>
+		<tr>
 			<th><u>contenu :</u></th><td> ${maManif.contenu}</td>
 		</tr>	
 	</fsnet:manifestation>
