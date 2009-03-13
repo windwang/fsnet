@@ -5,7 +5,6 @@ package fr.univartois.ili.fsnet.admin.tags;
 
 import java.util.Iterator;
 import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -28,13 +27,28 @@ public class InscriptionTag extends TagSupport {
 
 	private static final String FIND_ALL = "SELECT i FROM Inscription i ORDER BY i.entite.nom ASC";
 
+	private static final String FIND_LAST_BY_STATE = "SELECT i FROM Inscription i WHERE i.etat=?1 ";
+	//private static final String FIND_LAST_BY_STATE = "SELECT i FROM Inscription i WHERE i.etat=?1 ORDER BY i.id DESC LIMIT 5";
+
 	private static final String DATABASE_NAME = "fsnetjpa";
+	
+	private static final String ATTENTE = "En attente d'inscription";
+	
+	private static final String INSCRIT ="Inscrit";
+
+	private static final String CONDITION = "ORDER BY i.entite.nom ASC";
+
 
 	private Iterator<Inscription> it;
 	private String var;
+	private String etat;
 
 	public void setVar(final String var) {
 		this.var = var;
+	}
+
+	public void setEtat(final String etat) {
+		this.etat = etat;
 	}
 
 	public int doStartTag() throws JspException {
@@ -43,8 +57,19 @@ public class InscriptionTag extends TagSupport {
 		EntityManager em = factory.createEntityManager();
 		Query query;
 		List<Inscription> lesInscriptions;
+		String condition = null;
 
-		query = em.createQuery(FIND_ALL);
+		if (etat == null) {
+			query = em.createQuery(FIND_ALL);
+		} else {
+			if (INSCRIT.equals(etat)){
+				condition = "";
+			} else {
+				condition = CONDITION;
+			}
+			query = em.createQuery(FIND_LAST_BY_STATE+condition);
+			query.setParameter(1, etat);
+		}
 		lesInscriptions = query.getResultList();
 		it = lesInscriptions.iterator();
 		if (it != null && it.hasNext()) {
@@ -55,8 +80,8 @@ public class InscriptionTag extends TagSupport {
 		return SKIP_BODY;
 	}
 
-	private void updateContext(Inscription entite) {
-		pageContext.setAttribute(var, entite);
+	private void updateContext(Inscription inscription) {
+		pageContext.setAttribute(var, inscription);
 	}
 
 	public int doAfterBody() throws JspException {

@@ -28,9 +28,11 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 	
 #logo { float: left; margin-top:0px; }
 #features { margin-top: 70px; }
-#feature{ color: #33617F; float: right; background: #fff; width: 580px; height: 160px; margin: 0 0 40px; font-size: 1.1em; font-style: italic; padding: 10px 10px 2px; }
+#feature{ color: #33617F; float: right; background: #fff; width: 580px; height: 160px; margin: 0 0 40px; font-size: 1.1em; font-style: italic; padding: 10px 10px 2px; list-style-type: none;}
 	#feature img { float: left; margin: 0 20px 0 0; }
 	#feature p { margin: 10px 0 0; }
+	#feature h3{color:#58a5d5;border-bottom: thin;border-bottom-style: solid;}
+	#feature li{color:#AF1515;}
 	.more { font-size: .74em; font-weight: bold; margin: 0 5px 0 0; color: #390505; font-style: normal; }
 
 #feature_menu { float: right; }
