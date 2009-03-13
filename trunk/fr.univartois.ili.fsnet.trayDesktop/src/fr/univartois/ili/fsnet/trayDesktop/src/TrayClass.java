@@ -17,7 +17,7 @@ import java.net.URL;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
-
+import java.lang.System;
 
 
 /**
@@ -28,9 +28,10 @@ import javax.swing.SwingUtilities;
 
 
 public class TrayClass {
+	public static final String urlTemp="http://www.google.com";
 	private static String chaine;
 	private static String url;
-	private static String filePath = "C:\\Users\\benjira\\workspace\\eee\\src\\fr\\univartois\\ili\\fsnet\\trayDesktop\\src\\preference.conf";
+	private static String filePath =System.getenv("HOME")+"/FSN/preferences.conf";
 	
 	/**
 	 * Constructor of the class TrayClass.
@@ -44,6 +45,9 @@ public class TrayClass {
 	
 	public void executeTrayIcon(){
 	        /* Use Look and Feel of System */
+		
+		
+		
 		 try {
 	            javax.swing.UIManager.setLookAndFeel(
 	                    javax.swing.UIManager.getSystemLookAndFeelClassName());
@@ -73,6 +77,8 @@ public class TrayClass {
 	 * @throws IOException
 	 */
 	    private static void createAndShowGUI() throws IOException {
+	    	
+	    	
 	    //Check the SystemTray support
 	        if (!SystemTray.isSupported()) {
 	            System.out.println("SystemTray is not supported");
@@ -80,7 +86,7 @@ public class TrayClass {
 	        }
 	        final PopupMenu popup = new PopupMenu();
 	        final TrayIcon trayIcon =
-	                new TrayIcon(new ImageIcon("C:\\Users\\benjira\\Desktop\\Favicon.gif").getImage());
+	                new TrayIcon(new ImageIcon("fsnet3.gif").getImage());
 	        final SystemTray tray = SystemTray.getSystemTray();
 	        
 	        trayIcon.setToolTip("Notification FSNet");
@@ -105,18 +111,45 @@ public class TrayClass {
 	        
 	        trayIcon.displayMessage("Notificatios",chaine , TrayIcon.MessageType.INFO);
 	        
+	       
+	       //---------------------- 
+	        final File fichier = new File(filePath);
+			if(!fichier.exists()){
+				File fb = new File(System.getenv("HOME")+"/FSN"); 
+				fb.mkdirs();
+				try {
+					fichier.createNewFile();
+					PrintWriter ecrivain1 = new PrintWriter(new BufferedWriter(new FileWriter(fichier)));
+					ecrivain1.println("http://www.google.com");
+					ecrivain1.close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+	        
+	        
 	        trayIcon.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	            	trayIcon.displayMessage("Notificatios", chaine, TrayIcon.MessageType.INFO);
 	            	String ligne = null;
 	            	 BufferedReader ficTexte = null;
 					try {
-						ficTexte = new BufferedReader(new FileReader(new File(filePath)));
+						ficTexte = new BufferedReader(new FileReader(fichier));
 					} catch (FileNotFoundException e3) {
-						// TODO Auto-generated catch block
-						e3.printStackTrace();
+						File fb = new File(System.getenv("HOME")+"/FSN"); 
+						fb.mkdirs();
+						File fichier = new File(System.getenv("HOME")+"/FSN/preferences.conf");
+						try {
+							fichier.createNewFile();
+						} catch (IOException e1) {
+							// TODO Auto-generated catch block
+							e1.printStackTrace();
+						}
+						
 					}
-	            	try {
+	            	
+					try {
 						ligne = ficTexte.readLine();
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
@@ -125,17 +158,32 @@ public class TrayClass {
 	    			
 					if (ligne != null) {
 	    				url=ligne;
+	    				try {
+	                        Desktop.getDesktop().browse(new URI(url));
+	                    } catch (IOException e1) {
+	                    	try {
+								Desktop.getDesktop().browse(new URI(urlTemp));
+							} catch (IOException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							} catch (URISyntaxException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+	                    } catch (URISyntaxException e1) {
+	                    	try {
+								Desktop.getDesktop().browse(new URI(urlTemp));
+							} catch (IOException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							} catch (URISyntaxException e2) {
+								// TODO Auto-generated catch block
+								e2.printStackTrace();
+							}
+	                    }
+		            
 	    			}
-	            	try {
-                        Desktop.getDesktop().browse(new URI(url));
-                    } catch (IOException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    } catch (URISyntaxException e1) {
-                        // TODO Auto-generated catch block
-                        e1.printStackTrace();
-                    }
-	            
+					
 	            }
 	        });
 	        
@@ -224,8 +272,8 @@ public class TrayClass {
 
 	
 	    public static void main(String [] args){
-	    
-	    	TrayClass c = new TrayClass("Bull d'information ");
+	    	
+	    	TrayClass c = new TrayClass("Nouvel evenement : Soiree le 31 juillet ");
 	    	c.executeTrayIcon();
 	    }
 	    
