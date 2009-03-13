@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.servlets;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -88,6 +89,12 @@ public class LoginUser extends HttpServlet {
 			logger.info(inscrit.getEtat());
 			session.setAttribute("entite", en);
 			if (inscrit.getEtat().equals(Inscription.ATTENTE)) {
+				Date dateJour = new Date();
+				en.setDateEntree(dateJour);
+
+				em.getTransaction().begin();
+				em.persist(en);
+				em.getTransaction().commit();
 
 				dispatch = getServletContext().getRequestDispatcher(
 						"/profil.jsp");
