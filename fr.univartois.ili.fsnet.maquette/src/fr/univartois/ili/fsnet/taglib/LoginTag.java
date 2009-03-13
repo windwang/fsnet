@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.taglib;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import javax.persistence.EntityManager;
@@ -12,9 +11,8 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
-public class LoginTag extends TagSupport{
+public class LoginTag extends TagSupport {
 
-	
 	/**
 	 * 
 	 */
@@ -22,7 +20,6 @@ public class LoginTag extends TagSupport{
 	private String var;
 	private Integer idLogin;
 	private Iterator<EntiteSociale> entSoc;
-
 
 	public String getVar() {
 		return var;
@@ -37,7 +34,6 @@ public class LoginTag extends TagSupport{
 		this.idLogin = idLogin;
 	}
 
-
 	public int doStartTag() throws JspException {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("fsnetjpa");
@@ -48,9 +44,10 @@ public class LoginTag extends TagSupport{
 			Query requete = em
 					.createQuery("SELECT e FROM EntiteSociale e WHERE e.id=?1");
 			requete.setParameter(1, idLogin.intValue());
-			entSoc = (Iterator<EntiteSociale>) requete.getResultList().iterator();
-		} 
-		
+			entSoc = (Iterator<EntiteSociale>) requete.getResultList()
+					.iterator();
+		}
+
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -58,11 +55,11 @@ public class LoginTag extends TagSupport{
 		return SKIP_BODY;
 	}
 
-
 	private boolean updateContext() {
 		if (entSoc.hasNext()) {
-			EntiteSociale entSociale=  entSoc.next();
-			System.out.println("Nom Prenom ==>"+entSociale.getNom()+" "+entSociale.getPrenom());
+			EntiteSociale entSociale = entSoc.next();
+			System.out.println("Nom Prenom ==>" + entSociale.getNom() + " "
+					+ entSociale.getPrenom());
 			pageContext.setAttribute(var, entSociale);
 			return true;
 		}

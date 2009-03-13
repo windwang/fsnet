@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.taglib;
 
-import java.util.Date;
 import java.util.Iterator;
 
 import javax.persistence.EntityManager;
@@ -10,7 +9,6 @@ import javax.persistence.Query;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import fr.univartois.ili.fsnet.entities.Annonce;
 import fr.univartois.ili.fsnet.entities.Manifestation;
 
 public class ManifestationTag extends TagSupport {
