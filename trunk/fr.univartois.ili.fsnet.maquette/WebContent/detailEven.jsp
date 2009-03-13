@@ -23,7 +23,7 @@
 <jsp:include page="haut.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="#">détail du &#233;v&#233;nement</a></h2>
+<h2><a href="#">détail de l&#146;&#233;v&#233;nement</a></h2>
 
 <p>&nbsp;</p>
 <table width="433">

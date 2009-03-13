@@ -41,8 +41,8 @@
 	<fsnet:manifestation var="maManif">
 	<table>
 		<tr>
-			<th width ="300"><a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a></th>
-			
+			<th width ="150"><a href="AddEvenement?id=${maManif.id}">${maManif.nom}  </a>rendez-vous le</th>
+			<th width ="20">${maManif.dateManif}</th>
 		</tr>
 		</table>
 	</fsnet:manifestation>
