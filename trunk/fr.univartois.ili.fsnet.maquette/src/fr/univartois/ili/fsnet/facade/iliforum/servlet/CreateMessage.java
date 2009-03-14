@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
@@ -18,31 +19,40 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
  */
 public class CreateMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public CreateMessage() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String nom=request.getParameter("contenuMessage");
-		Date date = new Date();
-		Message message=new Message(nom,date,null,(Topic)getServletContext().getAttribute("monTopic"));
-		IliForumFacade.getInstance().addMessage(message);
-		RequestDispatcher dispa=getServletContext().getRequestDispatcher("/message.jsp");
-		dispa.forward(request,response);
+	public CreateMessage() {
+		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		String nom = request.getParameter("contenuMessage");
+		Date date = new Date();
+		EntiteSociale ent = (EntiteSociale) request.getSession().getAttribute(
+				"entite");
+		Message message = new Message(nom, date, ent,
+				(Topic) getServletContext().getAttribute("monTopic"));
+
+		IliForumFacade.getInstance().addMessage(message);
+		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
+				"/message.jsp");
+		dispa.forward(request, response);
+	}
+
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		this.doGet(request, response);
 	}
 
