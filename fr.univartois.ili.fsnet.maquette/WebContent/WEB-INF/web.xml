@@ -119,4 +119,28 @@
     <servlet-name>LogoutUser</servlet-name>
     <url-pattern>/logout</url-pattern>
   </servlet-mapping>
+  <filter>
+    <display-name>IsLoggedFilter</display-name>
+    <filter-name>IsLoggedFilter</filter-name>
+    <filter-class>fr.univartois.ili.fsnet.filters.IsLoggedFilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>IsLoggedFilter</filter-name>
+    <url-pattern>/IsLoggedFilter</url-pattern>
+  </filter-mapping>
+  <filter-mapping>
+    <filter-name>IsLoggedFilter</filter-name>
+    <url-pattern>*.jsp</url-pattern>
+  </filter-mapping>
+  <servlet>
+    <description></description>
+    <display-name>InitFSNet</display-name>
+    <servlet-name>InitFSNet</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.servlets.InitFSNet</servlet-class>
+    <load-on-startup>1</load-on-startup>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>InitFSNet</servlet-name>
+    <url-pattern>/InitFSNet</url-pattern>
+  </servlet-mapping>
 </web-app>

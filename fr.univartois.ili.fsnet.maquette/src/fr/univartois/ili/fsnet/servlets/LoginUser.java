@@ -77,7 +77,7 @@ public class LoginUser extends HttpServlet {
 				.createQuery("SELECT ins FROM Inscription ins WHERE ins.entite =?1");
 
 		try {
-			EntiteSociale en = (EntiteSociale) query.getSingleResult();
+			EntiteSociale en = (EntiteSociale) query.getResultList().get(0);
 			logger.info(en.getEmail());
 			logger.info(String.valueOf(en.getId()));
 
@@ -105,7 +105,7 @@ public class LoginUser extends HttpServlet {
 
 			dispatch.forward(request, response);
 		} catch (Exception e) {
-			logger.info("Authentification échouée");
+			logger.info("Authentification échouée" + e);
 			dispatch = getServletContext().getRequestDispatcher("/login.jsp");
 			dispatch.forward(request, response);
 		}

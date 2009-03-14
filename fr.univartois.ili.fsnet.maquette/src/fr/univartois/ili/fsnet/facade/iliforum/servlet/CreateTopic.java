@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
@@ -37,9 +38,11 @@ public class CreateTopic extends HttpServlet {
 		String nom = request.getParameter("nomTopic");
 		String contenu = request.getParameter("contenuMessage");
 		Date date = new Date();
+		EntiteSociale ent = (EntiteSociale) request.getSession().getAttribute(
+				"entite");
 		Topic topic = new Topic(nom, date, null, (Hub) getServletContext()
-				.getAttribute("monHub"), null);
-		Message message = new Message(contenu, date, null, topic);
+				.getAttribute("monHub"), ent);
+		Message message = new Message(contenu, date, ent, topic);
 		IliForumFacade iff = IliForumFacade.getInstance();
 		iff.addTopic(topic);
 		iff.addMessage(message);

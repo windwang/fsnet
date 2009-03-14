@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
@@ -35,6 +36,8 @@ public class CreateHub extends HttpServlet {
 		String nom = request.getParameter("nomHub");
 		Date date = new Date();
 		Hub hub = new Hub(nom, date);
+		hub.setCreateur((EntiteSociale) request.getSession().getAttribute(
+				"entite"));
 		IliForumFacade.getInstance().addHub(hub);
 		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
 				"/hub.jsp");
