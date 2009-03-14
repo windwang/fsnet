@@ -34,7 +34,7 @@ http://i89.servimg.com/u/f89/13/39/68/14/captur11.png
 http://i89.servimg.com/u/f89/13/39/68/14/captur14.png
 
   * Create new event
-  * last announcements and events are reported in the main user page
+  * last announcements, topics and events are reported in the main user page
 
 http://i89.servimg.com/u/f89/13/39/68/14/captur16.png
 
