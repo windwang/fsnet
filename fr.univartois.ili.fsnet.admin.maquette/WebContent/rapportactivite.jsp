@@ -6,6 +6,7 @@
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="refresh" content="300;RecupInfo">
 <meta name="author" content="Luka Cvrk - www.solucija.com" />
 <meta name="description" content="Site Description" />
 <meta name="keywords" content="site, keywords" />
@@ -23,14 +24,7 @@
 <div class="wrap background">
 <jsp:include page="subHeader.jsp"></jsp:include>
 
-<!--<div id="logo">
-<h1><a href="index.jsp?accueil=current" title="Accueil">FSNet<br />
-</a></h1>
-<h2 class="slogan">Réseau social</h2>
-<h2 class="slogan">Administration</h2>
-</div>
-<div class="clear"></div>
---><div id="left">
+<div id="left">
 <h2><a href="RecupInfo" title="Rapport d'activités">Rapport d'activités</a></h2>
 <jsp:include page="date.jsp"></jsp:include>
 </div>

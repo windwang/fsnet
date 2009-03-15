@@ -6,6 +6,8 @@
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="refresh"
+	content="300;AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">
 <meta name="author" content="Luka Cvrk - www.solucija.com" />
 <meta name="description" content="Site Description" />
 <meta name="keywords" content="site, keywords" />
@@ -83,8 +85,9 @@
 			<tr>
 
 				<th class="enteteIntitule" width="15%" scope="row">Intitulé</th>
-				<td colspan="2" width="85%"><label> <input  class="moreInteret" type="text"
-					name="Intitule" title="Intitulé" /> </label></td>
+				<td colspan="2" width="85%"><label> <input
+					class="moreInteret" type="text" name="Intitule" title="Intitulé" />
+				</label></td>
 			</tr>
 
 			<tr>
@@ -93,8 +96,9 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input class="addButton" name="inputAddInterest" id="inputAddInterest"
-					type="button" onclick="addInterest()" value="Ajouter" /></td>
+				<td><input class="addButton" name="inputAddInterest"
+					id="inputAddInterest" type="button" onclick="addInterest()"
+					value="Ajouter" /></td>
 			</tr>
 
 

@@ -6,6 +6,7 @@
 <link rel="icon" type="image/png" href="images/favicon.ico" />
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8" />
+<meta http-equiv="refresh" content="300;SearchMember.jsp?user=current">
 <meta name="author" content="Luka Cvrk - www.solucija.com" />
 <meta name="description" content="Site Description" />
 <meta name="keywords" content="site, keywords" />
