@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Inscription;
 
 /**
  * @author romuald druelle.
@@ -26,7 +27,9 @@ public class RemoveUser extends HttpServlet {
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
-	private static final String FIND_BY_ID = "SELECT e FROM EntiteSociale e WHERE e.id = ?1";
+	private static final String FIND_ENTITY_BY_ID = "SELECT e FROM EntiteSociale e WHERE e.id = ?1";
+	
+	private static final String FIND_REGISTERATION_BY_ENTITY = "SELECT i FROM Inscription i WHERE i.entite = ?1";
 
 	private EntityManagerFactory factory;
 
@@ -63,9 +66,9 @@ public class RemoveUser extends HttpServlet {
 	 * 
 	 * @param entite
 	 */
-	private void remove(EntiteSociale entite) {
+	private void remove(Object object) {
 		em.getTransaction().begin();
-		em.remove(entite);
+		em.remove(object);
 		em.getTransaction().commit();
 	}
 
@@ -79,18 +82,31 @@ public class RemoveUser extends HttpServlet {
 		int length = users.length;
 		Query query;
 		List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
+		List<Inscription> lesInscriptions = new ArrayList<Inscription>();
 		EntiteSociale entite = null;
+		Inscription inscription = null;
 
 		for (int i = 0; i < length; i++) {
-			query = em.createQuery(FIND_BY_ID);
+			query = em.createQuery(FIND_ENTITY_BY_ID);
 			query.setParameter(1, Integer.parseInt(users[i]));
 			entite = (EntiteSociale) query.getSingleResult();
 			lesEntites.add(entite);
+			query = em.createQuery(FIND_REGISTERATION_BY_ENTITY);
+			query.setParameter(1, entite);
+			inscription = (Inscription) query.getSingleResult();
+			lesInscriptions.add(inscription);
+		}
+		
+		for (Inscription i : lesInscriptions){
+			remove(i);
 		}
 
 		for (EntiteSociale e : lesEntites) {
 			remove(e);
 		}
+		
+		lesEntites.clear();
+		lesInscriptions.clear();
 
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
 				"/AddUser.jsp?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");

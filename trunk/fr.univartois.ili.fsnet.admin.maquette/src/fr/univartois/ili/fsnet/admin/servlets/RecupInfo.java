@@ -83,7 +83,7 @@ public class RecupInfo extends HttpServlet {
 		request.setAttribute("nbEvenementPub", nombreEvenementValides());
 		
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/rapportactivite.jsp");
+				"/rapportactivite.jsp?rapport=current");
 		disp.forward(request, response);
 	}
 

@@ -6,6 +6,8 @@
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta http-equiv="refresh"
+	content="300;AddUser.jsp?user=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">
 <meta name="author" content="Luka Cvrk - www.solucija.com" />
 <meta name="description" content="Site Description" />
 <meta name="keywords" content="site, keywords" />
@@ -36,8 +38,8 @@
 			<tr>
 				<th class="entete" colspan="4" scope="col">
 				<h2><img
-					src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_223.png" /><span><a id="deployButton" href="#"
-					title="${param.titleDeploy}"
+					src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_223.png" /><span><a
+					id="deployButton" href="#" title="${param.titleDeploy}"
 					onclick="deploy('deployButton','listToDeploy','userSelected','allUsers');">${param.deploy}</a>
 				Liste des membres</span></h2>
 				</th>
@@ -46,24 +48,26 @@
 				<td>
 				<table id="listToDeploy">
 					<tr class="champ">
-						<th>Supprimer<input id="allUsers" type="checkbox" name="allUsers"
-							title="Tout supprimer"
+						<th>Supprimer<input id="allUsers" type="checkbox"
+							name="allUsers" title="Tout supprimer"
 							onclick="selectAll('allUsers','userSelected');showHideButton('removeButton','userSelected');" /></th>
-						<th width="33%" scope="row">Nom</th>
-						<th width="33%" scope="row">Prénom</th>
-						<th width="33%" scope="row">Email</th>
+						<th width="25%" scope="row">Nom</th>
+						<th width="25%" scope="row">Prénom</th>
+						<th width="25%" scope="row">Email</th>
+						<th width="25%" scope="row">Etat</th>
 					</tr>
-					<admin:entite var="entite">
+					<admin:inscription var="inscription">
 
 						<tr>
 							<td><input type="checkbox" name="userSelected"
-								value="${entite.id}" title="Supprimer"
+								value="${inscription.entite.id}" title="Supprimer"
 								onclick="showHideButton('removeButton','userSelected');" /></td>
-							<td width="33%">${entite.nom}</td>
-							<td width="33%">${entite.prenom}</td>
-							<td width="33%">${entite.email}</td>
+							<td width="25%">${inscription.entite.nom}</td>
+							<td width="25%">${inscription.entite.prenom}</td>
+							<td width="25%">${inscription.entite.email}</td>
+							<td width="25%">${inscription.etat}</td>
 						</tr>
-					</admin:entite>
+					</admin:inscription>
 
 				</table>
 				</td>
@@ -83,18 +87,18 @@
 
 			<tr class="champ">
 				<th scope="row">Nom</th>
-				<td><label> <input type="text" name="Nom"
-					title="Nom" /> </label></td>
+				<td><label> <input type="text" name="Nom" title="Nom" />
+				</label></td>
 			</tr>
 			<tr class="champ">
 				<th scope="row">Prénom</th>
-				<td><label> <input type="text"
-					name="Prenom" title="Prénom" /> </label></td>
+				<td><label> <input type="text" name="Prenom"
+					title="Prénom" /> </label></td>
 			</tr>
 			<tr class="champ">
 				<th scope="row">Email</th>
-				<td><label> <input type="text"
-					name="Email" title="Email" /> </label></td>
+				<td><label> <input type="text" name="Email"
+					title="Email" /> </label></td>
 			</tr>
 		</table>
 		<label class="button"> <input type="submit" name="Submit"

@@ -58,8 +58,8 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 #side { float: right; width: 300px; margin: 0 0 30px; font-size: .9em; }
 	#side h3 { color: #ccc; margin: 0 0 6px 5px; height: 16px; }
 
-.boxtop { background: url(../images/box.gif) no-repeat top; padding: 2px 0; }
-.box { padding: 3px 6px; background: #363636; }
+.boxtop { background: url(../images/box.gif) no-repeat top ; padding: 2px 0;}
+.box { padding: 3px 6px; background: #363636;}
 .boxbottom { background: url(../images/box.gif) no-repeat bottom; padding: 2px 0; }
 
 .item { font-size: .94em; display: block; color: #ccc; background: #fff url(../images/item.gif) no-repeat; height: 54px; padding: 4px 10px; margin: 0 0 5px; }
@@ -109,3 +109,8 @@ img{width: 36; height: 32;}
 .removeBut{width: 12%;}
 .addButton{width: 12%;}
 .enteteIntitule{background-color: #CCCCCC}
+
+details @title{
+	background-color: red;
+	
+}
