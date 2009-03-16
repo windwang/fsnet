@@ -27,24 +27,37 @@ public class EntiteSocialeTag extends TagSupport {
 	private static final long serialVersionUID = 1L;
 
 	private static final String FIND_ALL = "SELECT e FROM EntiteSociale e ORDER BY e.nom ASC";
+	
+	private static final String FIND_BY_ID = "SELECT e FROM EntiteSociale e WHERE e.id = ?1 ";
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
 	private Iterator<EntiteSociale> it;
 	private String var;
+	private String id;
 
 	public void setVar(final String var) {
 		this.var = var;
+	}
+	
+	public void setId(final String id) {
+		this.id = id;
 	}
 
 	public int doStartTag() throws JspException {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
 		EntityManager em = factory.createEntityManager();
-		Query query;
+		Query query = null;
 		List<EntiteSociale> lesEntites;
 
+		if (id == null ){	
 		query = em.createQuery(FIND_ALL);
+		}
+		else {
+			query = em.createQuery(FIND_BY_ID);
+			query.setParameter(1, Integer.parseInt(id));
+		}
 		lesEntites = query.getResultList();
 		it = lesEntites.iterator();
 		if (it != null && it.hasNext()) {

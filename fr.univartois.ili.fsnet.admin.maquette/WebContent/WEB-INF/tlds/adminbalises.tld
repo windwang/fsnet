@@ -17,6 +17,11 @@
 			<required>yes</required>
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
+		<attribute>
+			<name>id</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 	<tag>
 		<display-name>Display Interet</display-name>
@@ -54,6 +59,11 @@
 			<name>etat</name>
 			<required>no</required>
 			<rtexprvalue>false</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>entite</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
 	<tag>

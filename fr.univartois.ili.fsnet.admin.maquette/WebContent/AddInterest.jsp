@@ -32,7 +32,7 @@
 	href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste"
 	title="Ajout d'intérêts">Ajout d'int&eacute;r&ecirc;ts </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
-<div id="tableauprincipal">
+<div id="tableauprincipal_interet">
 <table width="100%">
 
 	<tr>
