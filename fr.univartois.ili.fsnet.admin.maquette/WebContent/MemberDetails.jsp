@@ -19,7 +19,7 @@
 	 
 	<c:if test="${member.etat eq 'Inscrit'}">
 		 <span class="sidedate">Date d'entrée<br /></span>
-		  <strong>${member.entite.dateNaissance}</strong><br />
+		  <strong>${member.entite.dateEntree}</strong><br />
 		<span class="sidedate">Date de naissance<br /></span>
 		<strong>${member.entite.dateNaissance}</strong><br />
 		<span class="sidedate">Adresse<br /></span>

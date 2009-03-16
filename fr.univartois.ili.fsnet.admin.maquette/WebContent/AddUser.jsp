@@ -66,7 +66,9 @@
 							<td width="20%">${inscription.entite.nom}</td>
 							<td width="20%">${inscription.entite.prenom}</td>
 							<td width="20%">${inscription.entite.email}</td>
-							<td width="20%"><a href="#" onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');">Détails</a></td>
+							<td width="20%"><a href="#"
+								onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');"
+								title="Cliquez pour afficher les détails de ce membre">Détails</a></td>
 							<td width="20%">${inscription.etat}</td>
 						</tr>
 					</admin:inscription>
