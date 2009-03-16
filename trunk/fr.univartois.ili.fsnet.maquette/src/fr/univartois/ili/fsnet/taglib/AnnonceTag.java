@@ -92,42 +92,35 @@ public class AnnonceTag extends TagSupport {
 		this.titre = titre;
 	}
 
-	/**
-	 * while (it.hasNext()) { Annonce a = (Annonce) it.next();
-	 * System.out.println("                          dateJour " + aujourdhui +
-	 * " date ann " + a.getDateFinAnnonce()); if
-	 * (a.getDateFinAnnonce().before(aujourdhui)) { System.out
-	 * .println("                           je supprime " + a.getNom());
-	 * it.remove(); }
-	 * 
-	 * }
-	 */
-
 	private boolean updateContext() {
 		if (nbAnnonce == null) {
 			if (an.hasNext()) {
 				Annonce ann;
 				ann = an.next();
-				if (ann.getDateFinAnnonce().before(dateJour)) {
-					an.remove();
-					return true;
+
+				if (ann.getDateFinAnnonce().after(dateJour)) {
+					pageContext.setAttribute(var, ann);
+
+				} else {
+					updateContext();
 				}
-				pageContext.setAttribute(var, ann);
 				return true;
 			}
 		} else {
+
 			if ((an.hasNext()) && (cpt < nbAnnonce.intValue())) {
 
 				Annonce ann;
 				ann = an.next();
-				if (ann.getDateFinAnnonce().before(dateJour)) {
-					an.remove();
-					return true;
-				}
-				cpt++;
-				pageContext.setAttribute(var, ann);
-				return true;
 
+				if (ann.getDateFinAnnonce().after(dateJour)) {
+					cpt++;
+					pageContext.setAttribute(var, ann);
+				} else {
+					updateContext();
+				}
+
+				return true;
 			}
 		}
 		return false;
