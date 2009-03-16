@@ -12,6 +12,7 @@ import javax.persistence.Query;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
 
 /**
@@ -27,9 +28,9 @@ public class InscriptionTag extends TagSupport {
 
 	private static final String FIND_ALL = "SELECT i FROM Inscription i ORDER BY i.entite.nom ASC";
 
-	private static final String FIND_LAST_BY_STATE = "SELECT i FROM Inscription i WHERE i.etat=?1 ";
-	// private static final String FIND_LAST_BY_STATE =
-	// "SELECT i FROM Inscription i WHERE i.etat=?1 ORDER BY i.id DESC LIMIT 5";
+	private static final String FIND_LAST_BY_STATE = "SELECT i FROM Inscription i WHERE i.etat = ?1";
+
+	private static final String FIND_BY_ENTITY = "SELECT i FROM Inscription i WHERE i.entite.id = ?1 ";
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
@@ -46,6 +47,7 @@ public class InscriptionTag extends TagSupport {
 	private Iterator<Inscription> it;
 	private String var;
 	private String etat;
+	private String entite;
 
 	public void setVar(final String var) {
 		this.var = var;
@@ -54,7 +56,11 @@ public class InscriptionTag extends TagSupport {
 	public void setEtat(final String etat) {
 		this.etat = etat;
 	}
-
+	
+	public void setEntite(final String entite) {
+		this.entite = entite;
+	}
+	
 	public int doStartTag() throws JspException {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
@@ -64,7 +70,13 @@ public class InscriptionTag extends TagSupport {
 		String condition = null;
 
 		if (etat == null) {
+			if (entite == null){
 			query = em.createQuery(FIND_ALL);
+			
+			} else {
+				query = em.createQuery(FIND_BY_ENTITY);
+				query.setParameter(1,Integer.parseInt(entite));
+			}
 			lesInscriptions = query.getResultList();
 		} else {
 			if (REGISTERED.equals(etat)) {

@@ -44,18 +44,20 @@
 		<td>
 		<table id="listToDeploy">
 			<tr class="champ">
-				<th width="25%" scope="row">Nom</th>
-				<th width="25%" scope="row">Prénom</th>
-				<th width="25%" scope="row">Email</th>
-				<th width="25%" scope="row">Etat</th>
+				<th width="20%" scope="row">Nom</th>
+				<th width="20%" scope="row">Prénom</th>
+				<th width="20%" scope="row">Email</th>
+				<th width="20%" scope="row">Détails</th>
+				<th width="20%" scope="row">Etat</th>
 			</tr>
 			<admin:inscription var="inscription" etat="En attente d'inscription">
 
 				<tr class="details">
-					<td width="25%">${inscription.entite.nom}</td>
-					<td width="25%">${inscription.entite.prenom}</td>
-					<td width="25%">${inscription.entite.email}</td>
-					<td width="25%">${inscription.etat}</td>
+					<td width="20%">${inscription.entite.nom}</td>
+					<td width="20%">${inscription.entite.prenom}</td>
+					<td width="20%">${inscription.entite.email}</td>
+					<td width="20%"><a href="#" onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');">Détails</a></td>
+					<td width="20%">${inscription.etat}</td>
 				</tr>
 			</admin:inscription>
 
@@ -66,6 +68,7 @@
 
 </table>
 </div>
+<div id="side"></div>
 </div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>

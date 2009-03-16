@@ -24,7 +24,7 @@
 <h3>Les derniers inscrits</h3>
 <ul>
 	<admin:inscription var="inscription" etat="Inscrit">
-		<li>${inscription.entite.nom} ${inscription.entite.prenom}</li>
+		<li><a href="#" onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');">${inscription.entite.nom} ${inscription.entite.prenom}</a></li>
 	</admin:inscription>
 </ul>
 </div>
