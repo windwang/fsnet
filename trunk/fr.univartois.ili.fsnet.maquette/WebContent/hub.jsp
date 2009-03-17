@@ -66,6 +66,7 @@
 							<td>
 							<c:if test="${hubdto.hub.createur.id == entite.id}">
 								<a href="SupprHub?idHub=${hubdto.hub.id}&idEntite=${entite.id}"><img src="images/croix.jpg" width="15"></a>
+								<a href="GotoModifHub?idHub=${hubdto.hub.id}"><img src="images/crayon.jpeg" width="12"/></a>
 							</c:if>
 							<div><a href="GotoTopic?idHub=${hubdto.hub.id}"> <strong>${hubdto.hub.nomCommunaute}</strong></a></div>
 							</td>
