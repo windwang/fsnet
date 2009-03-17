@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -63,6 +64,9 @@
 								src="Général Java - Forum des développeurs_fichiers/clear.gif"
 								style="width: 9; border: 0; height: 1" /></td>
 							<td>
+							<c:if test="${hubdto.hub.createur.id == entite.id}">
+								<a href="SupprHub?idHub=${hubdto.hub.id}&idEntite=${entite.id}"><img src="images/croix.jpg" width="15"></a>
+							</c:if>
 							<div><a href="GotoTopic?idHub=${hubdto.hub.id}"> <strong>${hubdto.hub.nomCommunaute}</strong></a></div>
 							</td>
 						</tr>

@@ -153,4 +153,24 @@
     <servlet-name>SupprTopic</servlet-name>
     <url-pattern>/SupprTopic</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SupprHub</display-name>
+    <servlet-name>SupprHub</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.SupprHub</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SupprHub</servlet-name>
+    <url-pattern>/SupprHub</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SupprMess</display-name>
+    <servlet-name>SupprMess</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.SupprMess</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SupprMess</servlet-name>
+    <url-pattern>/SupprMess</url-pattern>
+  </servlet-mapping>
 </web-app>
