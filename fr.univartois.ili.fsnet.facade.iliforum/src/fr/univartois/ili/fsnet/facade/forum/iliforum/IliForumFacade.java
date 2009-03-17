@@ -194,8 +194,10 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public boolean removeHub(Hub hub) {
+		Hub hubMerge;
 		em.getTransaction().begin();
-		em.remove(hub);
+		hubMerge=em.merge(hub);
+		em.remove(hubMerge);
 		em.getTransaction().commit();
 		return true;
 	}
