@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -70,7 +71,9 @@
 							<div><a href="GotoMessage?idTopic=${topicdto.topic.id}">
 							<strong>${topicdto.topic.sujet}</strong></a></div>
 							</td>
-							<a href="SupprTopic?idTopic=${topicdto.topic.id}&idEntite=${entite.id}"><img src="images/croix.jpg" width="15"></a>
+							<c:if test="${topicdto.topic.propTopic.id == entite.id}">
+								<a href="SupprTopic?idTopic=${topicdto.topic.id}&idEntite=${entite.id}"><img src="images/croix.jpg" width="15"></a>
+							</c:if>
 						</tr>
 					</tbody>
 				</table>

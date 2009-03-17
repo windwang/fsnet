@@ -128,6 +128,9 @@
 			<td class="" id="td_post_3994424"
 				style="BORDER-RIGHT: #d1d1e1 1px solid;BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid;"><!-- icon and title -->
 			<div class="alt1"> ${messageDTO.message.dateMessage } </div>
+			<c:if test="${messageDTO.message.propMsg.id == entite.id}">
+				<a href="SupprMess?idMess=${messageDTO.message.id}&idEntite=${entite.id}"><img src="images/croix.jpg" width="15"></a>
+			</c:if>
 			<div id="post_message_3994424">${messageDTO.message.contenu}</div>
 			</td>
 		</tr>
