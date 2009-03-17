@@ -104,31 +104,31 @@
 		
 	</tr>
 
-	<fsnet:message var="message" topic="${monTopic}">
+	<fsnet:message var="messageDTO" topic="${monTopic}">
 		<tr valign="top">
 			<td class="alt2"
 				style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid; width:20%">
-			<div id="postmenu_3994424">${message.propMsg.nom }</div>
+			<div id="postmenu_3994424">${messageDTO.message.propMsg.nom }</div>
 			<div class="smallfont">
 			<div style="align: center">Membre de la communauté</div>
 			</div>
 			<div class="smallfont" style="text-align: center">
-			<c:if test="${message.propMsg.photo != null}">
-				<img src="${message.propMsg.photo}"  width="72" height="96" />
+			<c:if test="${messageDTO.message.propMsg.photo != null}">
+				<img src="${messageDTO.message.propMsg.photo}"  width="72" height="96" />
 			</c:if>
-			<c:if test="${message.propMsg.photo == null}">
+			<c:if test="${messageDTO.message.propMsg.photo == null}">
 				<img src="images/DLBMII.JPG"  width="72" height="96" />
 			</c:if>
 			<div class="smallfont"><br />
-			<div>Date d'inscription: ${message.propMsg.dateEntree}</div>
-			<div>Messages: xx</div>
+			<div>Date d'inscription: ${messageDTO.message.propMsg.dateEntree}</div>
+			<div>Messages: ${messageDTO.nbMessUser }</div>
 			<div></div>
 			</div>
 			</td>
 			<td class="" id="td_post_3994424"
 				style="BORDER-RIGHT: #d1d1e1 1px solid;BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid;"><!-- icon and title -->
-			<div class="alt1"> ${message.dateMessage } </div>
-			<div id="post_message_3994424">${message.contenu}</div>
+			<div class="alt1"> ${messageDTO.message.dateMessage } </div>
+			<div id="post_message_3994424">${messageDTO.message.contenu}</div>
 			</td>
 		</tr>
 	</fsnet:message>
