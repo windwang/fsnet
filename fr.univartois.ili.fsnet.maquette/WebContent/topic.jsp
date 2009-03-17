@@ -70,6 +70,7 @@
 							<div><a href="GotoMessage?idTopic=${topicdto.topic.id}">
 							<strong>${topicdto.topic.sujet}</strong></a></div>
 							</td>
+							<a href="SupprTopic?idTopic=${topicdto.topic.id}&idEntite=${entite.id}"><img src="images/croix.jpg" width="15"></a>
 						</tr>
 					</tbody>
 				</table>

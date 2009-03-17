@@ -143,4 +143,14 @@
     <servlet-name>InitFSNet</servlet-name>
     <url-pattern>/InitFSNet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SupprTopic</display-name>
+    <servlet-name>SupprTopic</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.SupprTopic</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SupprTopic</servlet-name>
+    <url-pattern>/SupprTopic</url-pattern>
+  </servlet-mapping>
 </web-app>
