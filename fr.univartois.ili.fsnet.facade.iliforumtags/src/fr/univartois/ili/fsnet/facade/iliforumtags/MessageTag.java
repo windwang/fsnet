@@ -1,7 +1,9 @@
 package fr.univartois.ili.fsnet.facade.iliforumtags;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -22,7 +24,7 @@ public class MessageTag extends TagSupport {
 	private Date dateEnd;
 	private EntiteSociale user;
 	private Topic topic;
-	private Iterator<Message> it;
+	private Iterator<MessageDTO> it;
 
 	public String getVar() {
 		return var;
@@ -66,19 +68,26 @@ public class MessageTag extends TagSupport {
 
 	public int doStartTag() throws JspException {
 		IliForumFacade iff = IliForumFacade.getInstance();
-
+		List<MessageDTO> lMessDTO = new ArrayList<MessageDTO>();
+		List<Message> lMess;
 		if (dateBegin != null && dateEnd != null) {
-			it = iff.getListMessage(dateBegin, dateEnd).iterator();
+			lMess = iff.getListMessage(dateBegin, dateEnd);
 		}
 
 		else if (user != null) {
-			it = iff.getListMessageByEntiteSocial(user).iterator();
+			lMess = iff.getListMessageByEntiteSocial(user);
 		}
 
 		else if (topic != null) {
-			it = iff.getListMessageByTopic(topic).iterator();
+			lMess = iff.getListMessageByTopic(topic);
 		} else
-			it = iff.getListMessage().iterator();
+			lMess = iff.getListMessage();
+
+		for (Message mess : lMess) {
+			lMessDTO.add(new MessageDTO(mess));
+		}
+
+		it = lMessDTO.iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -88,9 +97,9 @@ public class MessageTag extends TagSupport {
 
 	private boolean updateContext() {
 		if (it.hasNext()) {
-			Message mess = it.next();
+			MessageDTO messDTO = it.next();
 
-			pageContext.setAttribute(var, mess);
+			pageContext.setAttribute(var, messDTO);
 			return true;
 		}
 		return false;
