@@ -131,19 +131,19 @@ public interface ForumFacade {
      * @param hub
      * @return
      */
-    public boolean updateHub(Hub hub);
+    public boolean updateHub(Hub hub, String titre);
 
     public boolean removeHub(Hub hub);
 
     public boolean addTopic(Topic topic);
 
-    public boolean updateTopic(Topic topic);
+    public boolean updateTopic(Topic topic,String titre);
 
     public boolean removeTopic(Topic topic);
 
     public boolean addMessage(Message message);
 
-    public boolean updateMessage(Message message);
+    public boolean updateMessage(Message message, String contenu);
 
     public boolean removeMessage(Message message);
 

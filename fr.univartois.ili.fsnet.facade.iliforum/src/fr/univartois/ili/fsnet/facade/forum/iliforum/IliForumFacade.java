@@ -223,27 +223,34 @@ public class IliForumFacade implements ForumFacade {
 	}
 
 	@Override
-	public boolean updateHub(Hub hub) {
+	public boolean updateHub(Hub hub, String titre) {
+		Hub hubMerge;
 		em.getTransaction().begin();
-		em.refresh(hub);
+		hubMerge=em.merge(hub);
+		hubMerge.setNomCommunaute(titre);
+		em.persist(hubMerge);
+		em.getTransaction().commit();
+		return true;
+	}
+
+	public boolean updateMessage(Message message,String contenu) {
+		Message messMerge;
+		em.getTransaction().begin();
+		messMerge=em.merge(message);
+		messMerge.setContenu(contenu);
+		em.persist(messMerge);
 		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean updateMessage(Message message) {
+	public boolean updateTopic(Topic topic, String titre) {
+		Topic topMerge;
 		em.getTransaction().begin();
-		em.refresh(message);
+		topMerge=em.merge(topic);
+		topMerge.setSujet(titre);
+		em.persist(topMerge);
 		em.getTransaction().commit();
 		return true;
 	}
-
-	@Override
-	public boolean updateTopic(Topic topic) {
-		em.getTransaction().begin();
-		em.refresh(topic);
-		em.getTransaction().commit();
-		return true;
-	}
-
 }
