@@ -68,13 +68,17 @@
 								src="Général Java - Forum des développeurs_fichiers/clear.gif"
 								style="width: 9; border: 0; height: 1" /></td>
 							<td>
-							<div><a href="GotoMessage?idTopic=${topicdto.topic.id}">
-							<strong>${topicdto.topic.sujet}</strong></a></div>
-							</td>
-							<c:if test="${topicdto.topic.propTopic.id == entite.id}">
-								<a href="SupprTopic?idTopic=${topicdto.topic.id}&idEntite=${entite.id}"><img src="images/croix.jpg" width="15"></a>
-								<a href="GotoModifTopic?idTopic=${topicdto.topic.id}"><img src="images/crayon.jpeg" width="12"/></a>
+							<c:if test="${topicdto.topic.id == monTopic.id}">
+								<form action="ModifTopic">
+								<input type="text" name="titreTopic" value="${topicdto.topic.sujet}" />
+								<input type=submit name="modifier" value="modifier" />
+								</form>
 							</c:if>
+							<c:if test="${topicdto.topic.id != monTopic.id}">
+								<div><a href="GotoMessage?idTopic=${topicdto.topic.id}">
+								<strong>${topicdto.topic.sujet}</strong></a></div>
+							</c:if>
+							</td>
 						</tr>
 					</tbody>
 				</table>
@@ -88,21 +92,7 @@
 			</tr>
 		</tbody>
 	</fsnet:topic>
-	<tfoot>
-		<tr>
-			<td colspan="4">
-			<form action="CreateTopic">
-			<fieldset><legend> Creer Topic </legend>
-			<p><label> Nom : </label> <input type="text" name="nomTopic"
-				size="80%" /></p>
-			<p><label> Message : </label></p>
-			<p><textarea name="contenuMessage" cols="100" rows="5"></textarea>
-			<input type="submit" name="creertopic" value="creer" /></p>
-			</fieldset>
-			</form>
-			</td>
-		</tr>
-	</tfoot>
+	
 </table>
  </div>
 <jsp:include page="bas.jsp"></jsp:include>

@@ -128,24 +128,18 @@
 			<td class="" id="td_post_3994424"
 				style="BORDER-RIGHT: #d1d1e1 1px solid;BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid;"><!-- icon and title -->
 			<div class="alt1"> ${messageDTO.message.dateMessage } </div>
-			<c:if test="${messageDTO.message.propMsg.id == entite.id}">
-				<a href="SupprMess?idMess=${messageDTO.message.id}&idEntite=${entite.id}"><img src="images/croix.jpg" width="15"/></a>
-				<a href="GotoModifMessage?idMess=${messageDTO.message.id}"><img src="images/crayon.jpeg" width="12"/></a>
+			<c:if test="${messageDTO.message.id == monMessage.id}">
+			<form action="ModifMessage">
+				<textarea name="contenuMessage"  cols="100" rows="5">${messageDTO.message.contenu}</textarea>
+				<input type=submit name="modifier" value="modifier" />
+			</form>
 			</c:if>
-			<div id="post_message_3994424">${messageDTO.message.contenu}</div>
+			<c:if test="${messageDTO.message.id != monMessage.id}">
+				<div id="post_message_3994424">${messageDTO.message.contenu}</div>
+			</c:if>
 			</td>
 		</tr>
 	</fsnet:message>
-	<tfoot>
-		<tr> <td colspan="2" style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid;"><form action="CreateMessage">
-		
-			<fieldset><legend> Repondre Message </legend>
-			<p align="center">
-		<label>	Contenu : </label></p>
-		<p><textarea name="contenuMessage"  cols="100" rows="5"></textarea> <input
-			type="submit" name="repondre" value="repondre" /></p></fieldset>
-		</form></td></tr>
-	</tfoot>
 </table>
 
 
