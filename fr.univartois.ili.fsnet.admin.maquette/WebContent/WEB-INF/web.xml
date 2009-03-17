@@ -77,4 +77,15 @@
 		<servlet-name>RecupInfo</servlet-name>
 		<url-pattern>/RecupInfo</url-pattern>
 	</servlet-mapping>
+	
+	<filter>
+		<filter-name>Character Encoding</filter-name>
+		<filter-class>fr.univartois.ili.fsnet.admin.filters.CharsetFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>Character Encoding</filter-name>
+		<servlet-name>AddUser</servlet-name>	
+		<servlet-name>AddInterest</servlet-name>
+	</filter-mapping>
 </web-app>
