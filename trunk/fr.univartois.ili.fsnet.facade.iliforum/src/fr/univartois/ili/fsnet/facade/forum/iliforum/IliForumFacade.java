@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -201,16 +202,20 @@ public class IliForumFacade implements ForumFacade {
 
 	@Override
 	public boolean removeMessage(Message message) {
+		Message messMerge;
 		em.getTransaction().begin();
-		em.remove(message);
+		messMerge = em.merge(message);
+		em.remove(messMerge);
 		em.getTransaction().commit();
 		return true;
 	}
 
 	@Override
 	public boolean removeTopic(Topic topic) {
+		Topic topicMerge;
 		em.getTransaction().begin();
-		em.remove(topic);
+		topicMerge = em.merge(topic);
+		em.remove(topicMerge);
 		em.getTransaction().commit();
 		return true;
 	}
