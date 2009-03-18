@@ -1,7 +1,10 @@
 package fr.univartois.ili.fsnet.admin.servlets;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -11,6 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.admin.SendMail;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
 
@@ -21,6 +25,8 @@ public class AddUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	private static final String DATABASE_NAME = "fsnetjpa";
+
+	private static final String SUBJECT = "Inscription FSNet";
 
 	private EntityManagerFactory factory;
 
@@ -70,6 +76,36 @@ public class AddUser extends HttpServlet {
 	}
 
 	/**
+	 * Method that creates an welcome message to FSNet.
+	 * 
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @return the message .
+	 */
+	private String createMessageRegistration(String nom, String prenom,
+			String email) {
+		StringBuilder message = new StringBuilder();
+		message.append("Bonjour ");
+		message.append(nom);
+		message.append(" ");
+		message.append(prenom);
+		message.append(".\n\n");
+		message
+				.append("Vous venez d'être enregistré à FSNet (Firm Social Network).\n\n");
+		message
+				.append("Désormais vous pouvez vous connecter à votre compte en ne rentrant uniquement votre adresse email ");
+		message.append(email);
+		message.append(" .\n\n");
+		message
+				.append("Pour finaliser votre inscription il suffit de remplir votre profile.\n\n");
+		message.append("Merci pour votre inscription.\n\n");
+		message
+				.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
+		return message.toString();
+	}
+
+	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
@@ -80,6 +116,9 @@ public class AddUser extends HttpServlet {
 		// String email = createEmail(nom, prenom);
 		String email = request.getParameter("Email");
 		EntiteSociale entite = new EntiteSociale(nom, prenom, email);
+		SendMail envMail = new SendMail();
+		List<String> listeDest = new ArrayList<String>();
+		String message = null;
 
 		em.getTransaction().begin();
 		em.persist(entite);
@@ -89,6 +128,15 @@ public class AddUser extends HttpServlet {
 		em.getTransaction().begin();
 		em.persist(inscription);
 		em.getTransaction().commit();
+
+		listeDest.add(email);
+		message = createMessageRegistration(nom, prenom, email);
+		try {
+			envMail.sendMessage(listeDest, SUBJECT, message);
+			log("Message envoyé");
+		} catch (MessagingException e) {
+			log("Erreur : "+e.getMessage());
+		}
 
 		RequestDispatcher disp = getServletContext()
 				.getRequestDispatcher(
