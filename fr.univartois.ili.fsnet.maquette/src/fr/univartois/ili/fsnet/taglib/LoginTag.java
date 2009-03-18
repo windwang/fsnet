@@ -56,11 +56,26 @@ public class LoginTag extends TagSupport {
 	}
 
 	private boolean updateContext() {
+		String checkedM = "";
+		String checkedF = "";
 		if (entSoc.hasNext()) {
 			EntiteSociale entSociale = entSoc.next();
 			System.out.println("Nom Prenom ==>" + entSociale.getNom() + " "
 					+ entSociale.getPrenom());
+
+			if ("M".equalsIgnoreCase(entSociale.getSexe())) {
+				checkedM = "checked";
+
+			}
+			if ("F".equalsIgnoreCase(entSociale.getSexe())) {
+				checkedF = "checked";
+
+			}
+
+			pageContext.setAttribute("checkM", checkedM);
+			pageContext.setAttribute("checkF", checkedF);
 			pageContext.setAttribute(var, entSociale);
+
 			return true;
 		}
 		return false;
@@ -77,7 +92,8 @@ public class LoginTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
-
+		pageContext.removeAttribute("checkM");
+		pageContext.removeAttribute("checkF");
 		return super.doEndTag();
 	}
 }

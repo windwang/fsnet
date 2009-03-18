@@ -84,7 +84,7 @@ public class CompleteProfil extends HttpServlet {
 		String adresse = request.getParameter("adresse");
 		String telephone = request.getParameter("telephone");
 		String profession = request.getParameter("profession");
-
+		String sexe = request.getParameter("sexe");
 		// Query query = em
 		// .createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
 		// query.setParameter(1, email);
@@ -129,6 +129,7 @@ public class CompleteProfil extends HttpServlet {
 
 		entite.setAdresse(adresse);
 		entite.setDateNaissance(date);
+		entite.setSexe(sexe);
 
 		entite.setNumTel(telephone);
 		entite.setProfession(profession);
