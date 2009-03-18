@@ -259,14 +259,14 @@ public class TrayClass {
 	        
 	        
 	        Timer timer=new Timer();
-            int jour=1;
+            
 
             timer.schedule(new TimerTask() {
 
             public void run() {
                 trayIcon.displayMessage("Notificatios", chaine, TrayIcon.MessageType.INFO);;
             }
-            } , jour * 10000);
+            } , 10000,10000);
 	        
 	        
 	        
