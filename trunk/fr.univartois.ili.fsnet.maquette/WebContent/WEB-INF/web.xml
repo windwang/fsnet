@@ -143,6 +143,24 @@
     <servlet-name>InitFSNet</servlet-name>
     <url-pattern>/InitFSNet</url-pattern>
   </servlet-mapping>
+  <filter>
+		<filter-name>Character Encoding</filter-name>
+		<filter-class>fr.univartois.ili.fsnet.filters.CharsetFilter</filter-class>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>Character Encoding</filter-name>
+		<servlet-name>AddAnnonce</servlet-name>	
+		<servlet-name>AddEvenement</servlet-name>
+		<servlet-name>CompleteProfil</servlet-name>
+		<servlet-name>LoginUser</servlet-name>
+		<servlet-name>CreateHub</servlet-name>
+		<servlet-name>CreateTopic</servlet-name>
+		<servlet-name>CreateMessage</servlet-name>
+		<servlet-name>ModifHub</servlet-name>
+		<servlet-name>ModifTopic</servlet-name>
+		<servlet-name>ModifMessage</servlet-name>
+	</filter-mapping>
   <servlet>
     <description></description>
     <display-name>SupprTopic</display-name>

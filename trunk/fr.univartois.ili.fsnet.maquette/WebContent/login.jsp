@@ -73,7 +73,7 @@
         <tr>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
-          <td><div style="align:center"><a href="www.google.fr">Mot de passe oubliÃ© ?</a></div></td>
+          <td><div style="align:center"><a href="www.google.fr">Mot de passe oublié ?</a></div></td>
         </tr>
       </table>
      
