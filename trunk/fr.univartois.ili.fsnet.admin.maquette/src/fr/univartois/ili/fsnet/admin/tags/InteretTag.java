@@ -14,7 +14,6 @@ import javax.persistence.Query;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import fr.univartois.ili.fsnet.entities.Inscription;
 import fr.univartois.ili.fsnet.entities.Interet;
 
 /**

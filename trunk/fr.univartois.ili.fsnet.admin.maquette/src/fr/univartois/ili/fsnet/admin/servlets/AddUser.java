@@ -98,7 +98,7 @@ public class AddUser extends HttpServlet {
 		message.append(email);
 		message.append(" .\n\n");
 		message
-				.append("Pour finaliser votre inscription il suffit de remplir votre profile.\n\n");
+				.append("Pour finaliser votre inscription il suffit de remplir votre profil.\n\n");
 		message.append("Merci pour votre inscription.\n\n");
 		message
 				.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
