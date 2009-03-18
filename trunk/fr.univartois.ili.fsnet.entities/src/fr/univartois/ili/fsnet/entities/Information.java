@@ -32,6 +32,11 @@ public class Information extends Interaction {
 	private String contenu;
 
 	/**
+	 * The visibility information
+	 */
+	private String visible;
+
+	/**
 	 * Constructor of the class Information.
 	 */
 	public Information() {
@@ -46,10 +51,12 @@ public class Information extends Interaction {
 	 * @param dateInformation
 	 * @param contenu
 	 */
-	public Information(String nom, Date dateInformation, String contenu) {
+	public Information(String nom, Date dateInformation, String contenu,
+			String visible) {
 		this.nom = nom;
 		this.dateInformation = dateInformation;
 		this.contenu = contenu;
+		this.visible = visible;
 	}
 
 	/**
@@ -101,6 +108,23 @@ public class Information extends Interaction {
 	 */
 	public void setDateInformation(Date dateInformation) {
 		this.dateInformation = dateInformation;
+	}
+
+	/**
+	 * Gives a visibility to the information
+	 * 
+	 * @param visible
+	 */
+	public void setVisible(String visible) {
+		this.visible = visible;
+	}
+
+	/**
+	 * 
+	 * @return the visibility of the information
+	 */
+	public String getVisible() {
+		return visible;
 	}
 
 }

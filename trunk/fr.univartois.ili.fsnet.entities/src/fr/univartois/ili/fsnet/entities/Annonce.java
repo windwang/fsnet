@@ -42,8 +42,8 @@ public class Annonce extends Information {
 	}
 
 	public Annonce(String nom, Date datePublication, String contenu,
-			Date dateFinAnnonce) {
-		super(nom, datePublication, contenu);
+			Date dateFinAnnonce, String visible) {
+		super(nom, datePublication, contenu, visible);
 		this.dateFinAnnonce = dateFinAnnonce;
 	}
 
@@ -65,7 +65,7 @@ public class Annonce extends Information {
 			Calendar calendar = GregorianCalendar.getInstance();
 			calendar.setTime(dateFinAnnonce);
 			int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
-			int mois = calendar.get(GregorianCalendar.MONTH)+1;
+			int mois = calendar.get(GregorianCalendar.MONTH) + 1;
 			int année = calendar.get(GregorianCalendar.YEAR);
 			date = jour + "/" + mois + "/" + année;
 		}
