@@ -1,12 +1,7 @@
 package fr.univartois.ili.fsnet.admin.servlets;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Logger;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
@@ -19,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class RechercheInteret
  */
 public class SearchInterest extends HttpServlet {
-	private static Logger logger = Logger.getLogger("FSNet");
-
 	private static final long serialVersionUID = 1L;
 
 	private static final String DATABASE_NAME = "fsnetjpa";

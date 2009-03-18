@@ -3,11 +3,7 @@ package fr.univartois.ili.fsnet.admin.servlets;
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
-import java.util.logging.Logger;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -19,17 +15,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.entities.Hub;
-
-import fr.univartois.ili.fsnet.entities.Topic;
-
 /**
  * Servlet implementation class RecupInfo
  */
 public class RecupInfo extends HttpServlet {
-	private static Logger logger = Logger.getLogger("FSNet");
-
 	private static final long serialVersionUID = 1L;
 
 	private static final String DATABASE_NAME = "fsnetjpa";
