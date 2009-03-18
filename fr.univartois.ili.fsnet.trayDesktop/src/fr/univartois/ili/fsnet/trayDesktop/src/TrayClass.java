@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.trayDesktop.src;
 
-
 import java.awt.*;
 import java.awt.event.*;
 import java.io.BufferedReader;
@@ -14,6 +13,9 @@ import java.io.PrintWriter;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.util.Timer;
+import java.util.TimerTask;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
@@ -28,28 +30,44 @@ import java.lang.System;
 
 
 public class TrayClass {
-	public static final String urlTemp="http://www.google.com";
+	
+	public static final String urlTemp="http://code.google.com/p/fsnet/";
 	private static String chaine;
 	private static String url;
 	private static String filePath =System.getenv("HOME")+"/FSN/preferences.conf";
 	private static ImageIcon monIcone;
+		
+	/**
+	 * Getter and setter for attribute chaine
+	 * @param chaine
+	 */
 	
+	public static void setChaine(String chaine) {
+		TrayClass.chaine = chaine;
+	}
+
+	public static String getChaine() {
+		return chaine;
+	}
 	
 	/**
 	 * Constructor of the class TrayClass.
 	 * @param chaine
 	 */
 	
+	
 	public TrayClass(String chaine) {
 		// TODO Auto-generated constructor stub
 		
-		this.chaine=chaine;
+		TrayClass.setChaine(chaine);
 	}
 	
 	public void executeTrayIcon(){
 	        /* Use Look and Feel of System */
 		
-		monIcone=new ImageIcon(getClass().getResource("fsnet3.gif"));
+			
+			
+		monIcone =new ImageIcon(getClass().getResource("/ressources/iconefsnet.png"));
 		
 		 try {
 	            javax.swing.UIManager.setLookAndFeel(
@@ -62,21 +80,31 @@ public class TrayClass {
 	        //Schedule a job for the event-dispatching thread:
 	        //adding TrayIcon.
 	        SwingUtilities.invokeLater(new Runnable() {
-	            public void run() {
-	                try {
-						createAndShowGUI();
-					} catch (IOException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-	            }
+	        	
+	        	
+	        		
+	        		public void run() {
+	        	
+							                try {
+												createAndShowGUI();
+											} catch (IOException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+	        						} 
+	        		
+	        	
+	            
 	        });
+	        
+		
 	    }
-	    
+	   
 	
 	
+
 	/**
-	 * ctreate and show the GUI
+	 * Create and show the GUI
 	 * @throws IOException
 	 */
 	    private static void createAndShowGUI() throws IOException {
@@ -96,12 +124,12 @@ public class TrayClass {
 	        
 	        // Create a popup menu components
 	        MenuItem configItem = new MenuItem("Preferences");
-	        CheckboxMenuItem cb1 = new CheckboxMenuItem("Set auto size");
+	        CheckboxMenuItem size = new CheckboxMenuItem("Set auto size");
 	        MenuItem exitItem = new MenuItem("   Exit   ");
 	        
 	        //Add components to popup menu
 	        popup.add(configItem);
-	        popup.add(cb1);
+	        popup.add(size);
 	        popup.add(exitItem);
 	       trayIcon.setPopupMenu(popup);
 	        
@@ -112,10 +140,8 @@ public class TrayClass {
 	            return;
 	        }
 	        
-	        trayIcon.displayMessage("Notificatios",chaine , TrayIcon.MessageType.INFO);
+	        trayIcon.displayMessage("Notifications",getChaine() , TrayIcon.MessageType.INFO);
 	        
-	       
-	       //---------------------- 
 	        final File fichier = new File(filePath);
 			if(!fichier.exists()){
 				File fb = new File(System.getenv("HOME")+"/FSN"); 
@@ -123,7 +149,7 @@ public class TrayClass {
 				try {
 					fichier.createNewFile();
 					PrintWriter ecrivain1 = new PrintWriter(new BufferedWriter(new FileWriter(fichier)));
-					ecrivain1.println("http://www.google.com");
+					ecrivain1.println(urlTemp);
 					ecrivain1.close();
 				} catch (IOException e1) {
 					// TODO Auto-generated catch block
@@ -134,7 +160,7 @@ public class TrayClass {
 	        
 	        trayIcon.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
-	            	trayIcon.displayMessage("Notificatios", chaine, TrayIcon.MessageType.INFO);
+	            	trayIcon.displayMessage("Notifications", getChaine(), TrayIcon.MessageType.INFO);
 	            	String ligne = null;
 	            	 BufferedReader ficTexte = null;
 					try {
@@ -211,7 +237,7 @@ public class TrayClass {
 	            }
 	        });
 	        
-	        cb1.addItemListener(new ItemListener() {
+	        size.addItemListener(new ItemListener() {
 	            public void itemStateChanged(ItemEvent e) {
 	                int cb1Id = e.getStateChange();
 	                if (cb1Id == ItemEvent.SELECTED){
@@ -222,44 +248,34 @@ public class TrayClass {
 	            }
 	        });
 	        
-	       
-	        
-	        ActionListener listener = new ActionListener() {
-	            public void actionPerformed(ActionEvent e) {
-	                MenuItem item = (MenuItem)e.getSource();
-	                //TrayIcon.MessageType type = null;
-	                System.out.println(item.getLabel());
-	                if ("Error".equals(item.getLabel())) {
-	                    //type = TrayIcon.MessageType.ERROR;
-	                    trayIcon.displayMessage("Sun TrayIcon Demo",
-	                            "This is an error message", TrayIcon.MessageType.ERROR);
-	                    
-	                } else if ("Warning".equals(item.getLabel())) {
-	                    //type = TrayIcon.MessageType.WARNING;
-	                    trayIcon.displayMessage("Sun TrayIcon Demo",
-	                            "This is a warning message", TrayIcon.MessageType.WARNING);
-	                    
-	                } else if ("Info".equals(item.getLabel())) {
-	                    //type = TrayIcon.MessageType.INFO;
-	                    trayIcon.displayMessage("Sun TrayIcon Demo",
-	                            "This is an info message", TrayIcon.MessageType.INFO);
-	                    
-	                } else if ("None".equals(item.getLabel())) {
-	                    //type = TrayIcon.MessageType.NONE;
-	                    trayIcon.displayMessage("Sun TrayIcon Demo",
-	                            "This is an ordinary message", TrayIcon.MessageType.NONE);
-	                }
-	            }
-	        };
-	        
-	      	        
+	       	        
 	        exitItem.addActionListener(new ActionListener() {
 	            public void actionPerformed(ActionEvent e) {
 	                tray.remove(trayIcon);
 	                System.exit(0);
 	            }
 	        });
+	        
+	        
+	        
+	        Timer timer=new Timer();
+            int jour=1;
+
+            timer.schedule(new TimerTask() {
+
+            public void run() {
+                trayIcon.displayMessage("Notificatios", chaine, TrayIcon.MessageType.INFO);;
+            }
+            } , jour * 10000);
+	        
+	        
+	        
+	        
 	    }
+	    
+	    
+	    
+	    
 	    
 	    //Obtain the image URL
 	    protected static Image createImage(String path, String description) {
@@ -279,5 +295,7 @@ public class TrayClass {
 	    	TrayClass c = new TrayClass("Nouvel evenement : Soiree le 31 juillet ");
 	    	c.executeTrayIcon();
 	    }
+
+		
 	    
 }
