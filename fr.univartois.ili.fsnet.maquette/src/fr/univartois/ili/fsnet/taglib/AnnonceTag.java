@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.taglib;
 
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,6 +12,8 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import fr.univartois.ili.fsnet.entities.Annonce;
+import fr.univartois.ili.fsnet.entities.Information;
+import fr.univartois.ili.fsnet.entities.Interaction;
 
 public class AnnonceTag extends TagSupport {
 	/**
@@ -25,6 +28,10 @@ public class AnnonceTag extends TagSupport {
 	private Iterator<Annonce> an;
 	private Integer nbAnnonce;
 	private int cpt;
+	private List<Interaction> listInteraction;
+
+	private EntityManagerFactory factory;
+	private EntityManager em;
 
 	public Integer getNbAnnonce() {
 		return nbAnnonce;
@@ -56,23 +63,22 @@ public class AnnonceTag extends TagSupport {
 
 	public int doStartTag() throws JspException {
 		cpt = 0;
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
-
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		em = factory.createEntityManager();
 		if (idChoisi != null) {
 
 			Query requete = em
 					.createQuery("SELECT a FROM Annonce a WHERE a.id=?1");
 			requete.setParameter(1, idChoisi.intValue());
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
+
 		} else if (nbAnnonce != null) { // Limite le nombre d'annonces
 			System.out.println("nb annonce " + nbAnnonce);
 			Query requete = em
 					.createQuery("SELECT a FROM Annonce a ORDER BY a.id DESC ");
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
 
-		} else {
+		} else { // Affichage de la liste en entier
 
 			Query requete = em.createQuery("SELECT a FROM Annonce a");
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
@@ -98,7 +104,16 @@ public class AnnonceTag extends TagSupport {
 				Annonce ann;
 				ann = an.next();
 
-				if (ann.getDateFinAnnonce().after(dateJour)) {
+				if ((ann.getDateFinAnnonce().after(dateJour))
+						&& ann.getVisible().equalsIgnoreCase("Y")) {
+					Query queryInteraction = em
+							.createQuery("SELECT i FROM Interaction i WHERE i.id=?1");
+					queryInteraction.setParameter(1, ann.getId());
+					Interaction interaction = (Interaction) queryInteraction
+							.getSingleResult();
+
+					pageContext.setAttribute("createur", interaction
+							.getCreateur().getId());
 					pageContext.setAttribute(var, ann);
 
 				} else {
@@ -113,7 +128,8 @@ public class AnnonceTag extends TagSupport {
 				Annonce ann;
 				ann = an.next();
 
-				if (ann.getDateFinAnnonce().after(dateJour)) {
+				if ((ann.getDateFinAnnonce().after(dateJour))
+						&& ann.getVisible().equalsIgnoreCase("Y")) {
 					cpt++;
 					pageContext.setAttribute(var, ann);
 				} else {
@@ -137,7 +153,8 @@ public class AnnonceTag extends TagSupport {
 	@Override
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
-
+		pageContext.removeAttribute("createur");
+		// em.close();
 		return super.doEndTag();
 	}
 }

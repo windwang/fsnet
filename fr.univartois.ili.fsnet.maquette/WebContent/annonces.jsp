@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://iliforum.ili.fsnet.com/" prefix="fsnet"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -42,12 +42,11 @@
 	<fsnet:annonce var="monAnnonce">
 		<table>
 			<tr>
-				<c:if test="${hubdto.hub.createur.id == entite.id}">
-					<a href="SupprHub?idHub=${hubdto.hub.id}&idEntite=${entite.id}"><img
-						src="images/croix.jpg" width="15"/></a>
-					<a href="GotoModifHub?idHub=${hubdto.hub.id}"><img
-						src="images/crayon.jpeg" width="12" /></a>
+				<c:if test="${createur == entite.id}">
+					<a href="SupprAnnonce?idChoisi=${monAnnonce.id}"><img
+						src="images/croix.jpg" width="15" /></a>
 				</c:if>
+				
 				<th width="300"><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a></th>
 				<th><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a></th>
 			</tr>
