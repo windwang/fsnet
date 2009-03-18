@@ -16,7 +16,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Manifestation;
 
 /**
@@ -69,6 +71,12 @@ public class AddEvenement extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		EntiteSociale en = null;
+
+		HttpSession session = request.getSession();
+		en = (EntiteSociale) session.getAttribute("entite");
+
 		String titre = request.getParameter("titreEvenement");
 		String contenu = request.getParameter("contenuEvenement");
 		String date = request.getParameter("dateDebut");
@@ -95,8 +103,11 @@ public class AddEvenement extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+
+			System.out
+					.println("                  entiteSociale " + en.getNom());
 			Manifestation nouvellevenement = new Manifestation(titre, date1,
-					contenu, "Y");
+					contenu, "Y", en);
 			em.getTransaction().begin();
 			em.persist(nouvellevenement);
 			em.getTransaction().commit();
