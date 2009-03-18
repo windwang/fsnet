@@ -251,4 +251,14 @@
     <servlet-name>ModifHub</servlet-name>
     <url-pattern>/ModifHub</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>SupprAnnonce</display-name>
+    <servlet-name>SupprAnnonce</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.servlets.SupprAnnonce</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SupprAnnonce</servlet-name>
+    <url-pattern>/SupprAnnonce</url-pattern>
+  </servlet-mapping>
 </web-app>

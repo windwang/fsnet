@@ -102,7 +102,7 @@ public class AddAnnonce extends HttpServlet {
 		EntiteSociale en = null;
 
 		HttpSession session = request.getSession();
-		session.setAttribute("entite", en);
+		en = (EntiteSociale) session.getAttribute("entite");
 
 		String titre = request.getParameter("titreAnnonce");
 		String contenu = request.getParameter("contenuAnnonce");
