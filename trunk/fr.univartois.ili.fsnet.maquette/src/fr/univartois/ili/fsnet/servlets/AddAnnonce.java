@@ -19,8 +19,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.univartois.ili.fsnet.entities.Annonce;
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Interaction;
 
 /**
  * author jerome bouwy Servlet implementation class AddAnnonce
@@ -74,22 +77,7 @@ public class AddAnnonce extends HttpServlet {
 		getServletContext().setAttribute("idChoisi", id);
 
 		if (id.equalsIgnoreCase("0")) {
-			/**
-			 * System.out.println("liste totale"); Date dateJour = new Date();
-			 * Query requete = em.createQuery("SELECT a FROM Annonce a "); Date
-			 * aujourdhui = new Date(109, 03, 01, 00, 00, 00); List<Annonce>
-			 * listAnn = (List<Annonce>) requete.getResultList(); Iterator it =
-			 * listAnn.iterator();
-			 * 
-			 * while (it.hasNext()) { Annonce a = (Annonce) it.next();
-			 * System.out.println("                          dateJour " +
-			 * aujourdhui + " date ann " + a.getDateFinAnnonce()); if
-			 * (a.getDateFinAnnonce().before(aujourdhui)) { System.out
-			 * .println("                           je supprime " + a.getNom());
-			 * it.remove(); }
-			 * 
-			 * }
-			 */
+
 			RequestDispatcher dispatch = getServletContext()
 					.getRequestDispatcher("/annonces.jsp");
 			dispatch.forward(request, response);
@@ -110,6 +98,11 @@ public class AddAnnonce extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+		EntiteSociale en = null;
+
+		HttpSession session = request.getSession();
+		session.setAttribute("entite", en);
 
 		String titre = request.getParameter("titreAnnonce");
 		String contenu = request.getParameter("contenuAnnonce");
@@ -138,14 +131,12 @@ public class AddAnnonce extends HttpServlet {
 				e.printStackTrace();
 			}
 
-			// if (date.after(aujourdhui)) {
-
 			Annonce nouvelleInfo = new Annonce(titre, aujourdhui, contenu,
-					date, "Y");
+					date, "Y", en);
 			em.getTransaction().begin();
 			em.persist(nouvelleInfo);
 			em.getTransaction().commit();
-			// }
+
 			RequestDispatcher dispatch = getServletContext()
 					.getRequestDispatcher("/annonces.jsp");
 			dispatch.forward(request, response);
