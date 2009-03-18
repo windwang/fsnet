@@ -33,9 +33,7 @@
 
 	/******************************/
 	function init() {
-		CL
-				.init("calend",
-						document.forms["testform"].elements["dateNaissance"]);
+		CL.init("calend", document.forms["testform"].elements["dateNaissance"]);
 
 	}
 	/******************************/
@@ -44,12 +42,13 @@
 </head>
 <body onload="showMenu();init();">
 <div class="wrap background"><jsp:include page="haut.jsp"></jsp:include>
-<fsnet:login var="membre" idLogin="${entite.id}">
-
+<fsnet:login var="membre" idLogin="${entite.id}"  >
+	
 	<div id="left">
 	<h2><a href="#">Mon profil </a></h2>
 
-	<form name='testform' action="CompleteProfil" method="post" id="completeProfil" style='margin: 0px;'>
+	<form name="testform" action="CompleteProfil" method="post"
+		id="completeProfil" style='margin: 0px;'>
 	<table>
 		<tr>
 			<td style="height: 19" colspan="3">
@@ -67,7 +66,7 @@
 			<td style="width: 1"></td>
 			<td style="width: 451"></td>
 		</tr>
-	
+
 		<tr>
 			<td style="height: 27" colspan="3" rowspan="5"><strong>Nom
 			:</strong></td>
@@ -91,42 +90,47 @@
 		<tr>
 			<td style="height: 22" colspan="3"><strong>Pr&eacute;nom
 			: </strong></td>
-			<td colspan="2"><label> <input type="text"
-				name="prenom" value="${membre.prenom }" /> </label></td>
+			<td colspan="2"><label> <input type="text" name="prenom"
+				value="${membre.prenom }" /> </label></td>
 		</tr>
 		<tr>
 			<td style="height: 29" colspan="3"><strong>E-mail : </strong></td>
 			<td colspan="2"><label> <input type="text" name="email"
 				value="${membre.email }" /> </label></td>
 		</tr>
-		
+
 		<tr>
 			<td style="height: 21" colspan="3"><strong>Date
 			d'entr&eacute;e : </strong></td>
-			<td colspan="2"><label> <input type="text"
-				name="mdp1" disabled="disabled" value="${membre.dateEntree}"/></label></td>
+			<td colspan="2"><label> <input type="text" name="mdp1"
+				disabled="disabled" value="${membre.dateEntree}" /></label></td>
 		</tr>
 		<tr>
 			<td style="height: 29" colspan="3"><strong>Date de
 			naissance :</strong></td>
 			<td colspan="2"><label> <input type="text"
-				name="dateNaissance" value="${membre.dateNaissance }" /> 
-			<button type='button' name='show1' onclick='CL.show();'><img
-			src="images/button_calendar.gif" height="15" width="15" /></button></label>
-		</td>
-	</tr>
-	
-	<tr>
-		<th style="width: 193" scope="row"></th>
-		<td style="width: 228" id="calend">&nbsp;</td>
+				name="dateNaissance" value="${membre.dateNaissance }" />
+			<button type='button' name='show1' onclick="CL.show();"
+><img
+				src="images/button_calendar.gif" height="15" width="15" /></button>
+			</label></td>
+		</tr>
+
+		<tr>
+
+			<th style="width: 193" scope="row"></th>
+			<td style="width: 228" id="calend"></td>
 		</tr>
 		<tr>
+		
 			<td style="height: 29" colspan="3"><strong>sexe :</strong></td>
-			<td colspan="2"><label> <select name="sexe">
-				<option>M</option>
-				<option>F</option>
-			</select> </label></td>
+			<td colspan="2">Homme : <INPUT type="radio" name="sexe" ${checkM}
+				value="M"> Femme : <INPUT type="radio" name="sexe" ${checkF} value="F">
+			</td>
+
+
 		</tr>
+
 		<tr>
 			<td style="height: 29" colspan="3"><strong>Adresse : </strong></td>
 			<td colspan="2"><label> <input type="text"
