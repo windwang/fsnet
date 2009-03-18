@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -21,7 +22,6 @@
 </script>
 </head>
 <body onload="showMenu();${param.showHide}('listToDeploy');${param.recherche}('rechercheVide')">
-
 <jsp:include page="header.jsp"></jsp:include>
 
 
@@ -51,7 +51,7 @@
 			<tr>
 			<td>
 			<form id="rechercheInteret" method="post" action="SearchInterest">
-	<label for="inputRechereche">Recherche : </label><input name="searchText" id="searchText" type="text" />
+	<label for="searchText">Recherche : </label><input name="searchText" id="searchText" type="text" />
 	<input type="submit" name="rechercherInteret" value="Rechercher" />
 		</form></td></tr>
 		<form id="RemoveInterest" method="post" action="RemoveInterest">
@@ -74,6 +74,7 @@
 					</admin:interet>
 					<c:if test="${vide ne 'nonVide'}">
 					<p align="center" id="rechercheVide">Aucun résultat ne correspond à votre recherche !!</p>
+					</c:if>
 				</table>
 				</td>
 			</tr>

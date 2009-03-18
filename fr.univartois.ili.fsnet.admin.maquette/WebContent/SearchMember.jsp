@@ -50,7 +50,7 @@
 		<form id="form1" method="post" action="SearchMember">
 
 		<div>
-		Recherche par : 
+		<label for="searchText">Recherche par :</label> 
 		<select name="selectRecherche" id="selectRecherche">
 		<option selected="selected" value="nom">Nom</option>
 		<option value="prenom">Prénom</option>

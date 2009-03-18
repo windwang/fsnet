@@ -79,6 +79,26 @@
 		<servlet-name>RecupInfo</servlet-name>
 		<url-pattern>/RecupInfo</url-pattern>
 	</servlet-mapping>
+	<servlet>
+    <description></description>
+    <display-name>SearchMember</display-name>
+    <servlet-name>SearchMember</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchMember</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchMember</servlet-name>
+    <url-pattern>/SearchMember</url-pattern>
+  </servlet-mapping>
+	<servlet>
+    <description></description>
+    <display-name>SearchInterest</display-name>
+    <servlet-name>SearchInterest</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchInterest</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>SearchInterest</servlet-name>
+    <url-pattern>/SearchInterest</url-pattern>
+  </servlet-mapping>
 
 	<filter>
 		<filter-name>Character Encoding</filter-name>
@@ -89,6 +109,9 @@
 		<filter-name>Character Encoding</filter-name>
 		<servlet-name>AddUser</servlet-name>
 		<servlet-name>AddInterest</servlet-name>
+		<servlet-name>RecupInfo</servlet-name>
+		<servlet-name>SearchMember</servlet-name>
+		<servlet-name>SearchInterest</servlet-name>
 	</filter-mapping>
 	<security-role>
 		<role-name>fsnetadmin</role-name>
