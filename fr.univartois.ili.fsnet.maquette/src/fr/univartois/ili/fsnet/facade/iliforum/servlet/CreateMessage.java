@@ -38,7 +38,9 @@ public class CreateMessage extends HttpServlet {
 		Date date = new Date();
 		EntiteSociale ent = (EntiteSociale) request.getSession().getAttribute(
 				"entite");
-		Message message = new Message(nom, date, ent,
+
+		String nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
+		Message message = new Message(nomUTF8, date, ent,
 				(Topic) getServletContext().getAttribute("monTopic"));
 
 		IliForumFacade.getInstance().addMessage(message);

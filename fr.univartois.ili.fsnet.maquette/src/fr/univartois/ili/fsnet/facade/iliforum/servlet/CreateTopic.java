@@ -40,9 +40,11 @@ public class CreateTopic extends HttpServlet {
 		Date date = new Date();
 		EntiteSociale ent = (EntiteSociale) request.getSession().getAttribute(
 				"entite");
-		Topic topic = new Topic(nom, date, null, (Hub) getServletContext()
+		String nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
+		Topic topic = new Topic(nomUTF8, date, null, (Hub) getServletContext()
 				.getAttribute("monHub"), ent);
-		Message message = new Message(contenu, date, ent, topic);
+		String contenuUTF8 = new String(contenu.getBytes("ISO-8859-1"), "UTF-8");
+		Message message = new Message(contenuUTF8, date, ent, topic);
 		IliForumFacade iff = IliForumFacade.getInstance();
 		iff.addTopic(topic);
 		iff.addMessage(message);

@@ -1,6 +1,9 @@
 package fr.univartois.ili.fsnet.facade.iliforum.servlet;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.CharsetEncoder;
 import java.util.Date;
 
 import javax.servlet.RequestDispatcher;
@@ -34,8 +37,11 @@ public class CreateHub extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String nom = request.getParameter("nomHub");
+
+		String nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
+
 		Date date = new Date();
-		Hub hub = new Hub(nom, date);
+		Hub hub = new Hub(nomUTF8, date);
 		hub.setCreateur((EntiteSociale) request.getSession().getAttribute(
 				"entite"));
 		IliForumFacade.getInstance().addHub(hub);
