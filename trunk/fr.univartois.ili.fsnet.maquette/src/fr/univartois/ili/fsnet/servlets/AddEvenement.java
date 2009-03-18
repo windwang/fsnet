@@ -96,7 +96,7 @@ public class AddEvenement extends HttpServlet {
 				e.printStackTrace();
 			}
 			Manifestation nouvellevenement = new Manifestation(titre, date1,
-					contenu);
+					contenu, "Y");
 			em.getTransaction().begin();
 			em.persist(nouvellevenement);
 			em.getTransaction().commit();
