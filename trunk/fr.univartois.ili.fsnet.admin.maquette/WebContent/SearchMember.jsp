@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -17,14 +19,13 @@
 <script language="JavaScript" src="admin.js">
 </script>
 </head>
-<body onload="showMenu();">
-
+<body onload="showMenu();${param.recherche}('rechercheVide');">
 <jsp:include page="header.jsp"></jsp:include>
 <div class="wrap background">
 <jsp:include page="subHeader.jsp"></jsp:include>
 
 <div id="left">
-<h2><a href="SearchMember.jsp?user=current" title="Rechercher un membre">Rechercher un membre</a></h2>
+<h2><a href="SearchMember.jsp?user=current&recherche=hide" title="Rechercher un membre">Rechercher un membre</a></h2>
 <jsp:include page="date.jsp"></jsp:include>
 </div>
 <div id="tableauprincipal">
@@ -36,9 +37,7 @@
 	</tr>
 
 	<tr>
-		<td valign="top" style="background-color: #EDF3F8">
-		<h2 class="Style8">Rechercher Membre(s)</h2>
-		</td>
+		
 		<td style="height: 38"></td>
 	</tr>
 	<tr>
@@ -48,81 +47,64 @@
 
 	<tr>
 		<td valign="top">
-		<form id="form1" method="post" action="">
+		<form id="form1" method="post" action="SearchMember">
 
-		<div style="text-align: right">Date d'entrée <input type="text"
-			name="textfield" /> <br />
-		<br />
-		Nom : <input type="text" name="textfield2" /> <br />
-		<br />
-		Prénom : <input type="text" name="textfield3" /> <br />
-		<br />
+		<div>
+		Recherche par : 
+		<select name="selectRecherche" id="selectRecherche">
+		<option selected="selected" value="nom">Nom</option>
+		<option value="prenom">Prénom</option>
+		<option value="dateEntree">Date d'entrée</option>
+		</select>
+		 <input type="text" id="searchText"	name="searchText" size="24" />
+		
 		<input type="submit" name="Submit" value="Rechercher" /></div>
 
 		</form>
-		</td>
-		<td style="height: 38"></td>
-	</tr>
-	<tr>
-		<td></td>
-		<td style="height: 2"></td>
-	</tr>
-	<tr>
-		<td valign="top" style="background-color: #EDF3F8FFFFF">
-		<h2 class="Style8">R&eacute;sultat de la Recherche</h2>
-		</td>
-		<td style="height: 63"></td>
-	</tr>
-	<tr>
-		<td>
-		<div style="text-align: center"></div>
-		</td>
-		<td style="height: 2"></td>
-	</tr>
-	<tr>
-		<td valign="top">
-		<div style="text-align: center">
-		<table style="width: 100%; border: 2">
-			<tr style="background-color: #CCCCCC">
-				<td style="width: 64">
-				<h4>Nom</h4>
-				</td>
-				<td style="width: 84">
-				<h4>Pr&eacute;nom</h4>
-				</td>
-				<td style="width: 106">
-				<h4>Date d'entr&eacute;e</h4>
-				</td>
-				<td style="width: 112">
-				<h4>Afficher D&eacute;tails</h4>
-				</td>
-				<td style="width: 98">
-				<h4>Supprimer</h4>
-				</td>
-			</tr>
-			<tr>
-				<td>Caramba</td>
-				<td>Simpson</td>
-				<td>10/02/2009</td>
-				<td><a href="#">Détails</a></td>
-				<td><a href="#">Supprimer</a></td>
-			</tr>
-			<tr>
-				<td>Speedy</td>
-				<td>Gonzalez</td>
-				<td>12/01/2009</td>
-				<td><a href="#">Détails</a></td>
-				<td><a href="#">Supprimer</a></td>
-			</tr>
-		</table>
-		</div>
-		</td>
-		<td style="height: 40"></td>
-	</tr>
+		<form id="RemoveUser" method="post" action="RemoveUser">
+		<table id="listToDeploy">
+		
+					<tr class="champ" id="enteteRecherche">
+						<th>Supprimer<input id="allUsers" type="checkbox"
+							name="allUsers" title="Tout supprimer"
+							onclick="selectAll('allUsers','userSelected');showHideButton('removeButton','userSelected');" /></th>
+						<th width="20%" scope="row">Nom</th>
+						<th width="20%" scope="row">Prénom</th>
+						<th width="20%" scope="row">Email</th>
+						<th width="20%" scope="row">Détails</th>
+						<th width="20%" scope="row">&Eacute;tat</th>
+					</tr>
+					
+					
+			
+					<admin:inscription filtre="${filtre}" var="inscription" parametre="${parametre}"  >
+						<tr>
+							<td><input type="checkbox" name="userSelected"
+								value="${inscription.entite.id}" title="Vous serez redirigé vers la page des membres"
+								onclick="showHideButton('removeButton','userSelected');" /></td>
+							<td width="20%">${inscription.entite.nom}</td>
+							<td width="20%">${inscription.entite.prenom}</td>
+							<td width="20%">${inscription.entite.email}</td>
+							<td width="20%"><a href="#"
+								onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');"
+								title="Cliquez pour afficher les détails de ce membre">Détails</a></td>
+							<td width="20%">${inscription.etat}</td>
+						</tr>					
+					</admin:inscription>
+					<c:if test="${vide ne 'nonVide'}">
+					<p align="center" id="rechercheVide">Aucun résultat ne correspond à votre recherche !!</p>
+					</c:if>
+										
+				</table>
+				<label id="removeButton"><input
+			onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
+			type="submit" value="Supprimer" title="Supprimer" /></label></form>
+		
+</td>
+</tr>
 </table>
-
 </div>
-
+<div id="side"></div>
 </div>
 
 <jsp:include page="footer.jsp"></jsp:include>
