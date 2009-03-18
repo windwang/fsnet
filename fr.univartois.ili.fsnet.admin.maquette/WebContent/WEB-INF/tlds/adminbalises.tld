@@ -33,6 +33,11 @@
 			<required>yes</required>
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
+		<attribute>
+			<name>parametre</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
 	</tag>
 	<tag>
 		<display-name>Display DateJour</display-name>
@@ -62,6 +67,16 @@
 		</attribute>
 		<attribute>
 			<name>entite</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>parametre</name>
+			<required>no</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>filtre</name>
 			<required>no</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

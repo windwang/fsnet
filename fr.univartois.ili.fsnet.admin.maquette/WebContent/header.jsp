@@ -19,7 +19,7 @@
 		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
 			href="AddUser.jsp?user=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajouter un membre</a></li>
 		<li onmouseover="showMenu('smenu1');" onmouseout="showMenu();"><a
-			href="SearchMember.jsp?user=current">Rechercher un membre</a></li>
+			href="SearchMember.jsp?user=current&recherche=hide">Rechercher un membre</a></li>
 	</ul>
 	</dd>
 </dl>
@@ -30,6 +30,8 @@
 	<ul>
 		<li onmouseover="showMenu('smenu2');" onmouseout="showMenu();"><a
 			href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">Ajouter des intérêts</a></li>
+		<li onmouseover="showMenu('smenu2');" onmouseout="showMenu();"><a
+			href="SearchInterest.jsp?interet=current&recherche=hide">Rechercher des intérêts</a></li>
 	</ul>
 	</dd>
 </dl>
