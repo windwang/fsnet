@@ -25,6 +25,7 @@ import javax.servlet.http.HttpSession;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
 import fr.univartois.ili.fsnet.entities.Interet;
+import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  * @author lionel desruelles Servlet implementation class CompleteProfil
@@ -79,22 +80,26 @@ public class CompleteProfil extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		HttpSession session = request.getSession();
-		String email = request.getParameter("email");
 		String dateNaissance = request.getParameter("dateNaissance");
 		String adresse = request.getParameter("adresse");
 		String telephone = request.getParameter("telephone");
 		String profession = request.getParameter("profession");
+		String pwd1 = request.getParameter("pwd1");
+		String pwd2 = request.getParameter("pwd2");
 		String sexe = request.getParameter("sexe");
-		// Query query = em
-		// .createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
-		// query.setParameter(1, email);
-		// EntiteSociale entite = (EntiteSociale) query.getSingleResult();
+
+		// logger.info(pwd1);
+		// logger.info(pwd2);
+
+		pwd1 = Md5.getEncodedPassword(pwd1);
+
+		logger.info(pwd1);
 
 		EntiteSociale entite = (EntiteSociale) session.getAttribute("entite");
-		entite = em.find(EntiteSociale.class, entite.getId());
+		// entite = em.find(EntiteSociale.class, entite.getId());
+		entite = em.merge(entite);
 
 		List<Interet> lesInterets = new ArrayList<Interet>();
-		// Interet
 		String[] interests = null;
 		interests = request.getParameterValues("interestSelected");
 
@@ -111,14 +116,12 @@ public class CompleteProfil extends HttpServlet {
 				lesInterets.add(interet);
 			}
 		}
-		//
 
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 		Date date = null;
 		try {
 			date = (Date) formatter.parse(dateNaissance);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
@@ -134,9 +137,11 @@ public class CompleteProfil extends HttpServlet {
 		entite.setNumTel(telephone);
 		entite.setProfession(profession);
 		entite.setLesinterets(lesInterets);
+		entite.setMdp(pwd1);
 
 		em.getTransaction().begin();
 		em.persist(entite);
+		em.persist(ins);
 		em.getTransaction().commit();
 
 		logger.info("Taille interets : " + entite.getLesinterets().size());

@@ -63,7 +63,7 @@
         </tr>
         <tr>
           <td style="width: 50%;text-align:right">Mot de passe </td>
-          <td><input type="password" name="textfield2" /></td>
+          <td><input type="password" name="password" /></td>
           <td><label>
              
                <input type="submit" name="Submit" value="Connexion" />                        
