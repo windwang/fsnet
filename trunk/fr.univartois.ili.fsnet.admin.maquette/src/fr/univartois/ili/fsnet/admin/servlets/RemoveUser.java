@@ -29,7 +29,7 @@ public class RemoveUser extends HttpServlet {
 
 	private static final String FIND_ENTITY_BY_ID = "SELECT e FROM EntiteSociale e WHERE e.id = ?1";
 	
-	private static final String FIND_REGISTERATION_BY_ENTITY = "SELECT i FROM Inscription i WHERE i.entite = ?1";
+	private static final String FIND_REGISTRATION_BY_ENTITY = "SELECT i FROM Inscription i WHERE i.entite = ?1";
 
 	private EntityManagerFactory factory;
 
@@ -91,7 +91,7 @@ public class RemoveUser extends HttpServlet {
 			query.setParameter(1, Integer.parseInt(users[i]));
 			entite = (EntiteSociale) query.getSingleResult();
 			lesEntites.add(entite);
-			query = em.createQuery(FIND_REGISTERATION_BY_ENTITY);
+			query = em.createQuery(FIND_REGISTRATION_BY_ENTITY);
 			query.setParameter(1, entite);
 			inscription = (Inscription) query.getSingleResult();
 			lesInscriptions.add(inscription);

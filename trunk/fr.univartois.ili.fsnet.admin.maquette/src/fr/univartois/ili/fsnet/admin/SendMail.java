@@ -1,10 +1,11 @@
 package fr.univartois.ili.fsnet.admin;
 
+import java.util.List;
 import java.util.Properties;
 import javax.mail.*;
 import javax.mail.internet.*;
 
-public class EnvoieMail {
+public class SendMail {
 
 	private static final String HOST_SMTP = "smtp.gmail.com";
 
@@ -14,8 +15,8 @@ public class EnvoieMail {
 	private Properties props;
 	private Authenticator auth;
 
-	public EnvoieMail() {
-		// paramettrage du host et adresse smtp
+	public SendMail() {
+		// Setting the host address and smtp address
 		props = new Properties();
 		props.put("mail.transport.protocol", "smtp");
 		props.put("mail.smtp.starttls.enable", "true");
@@ -29,54 +30,46 @@ public class EnvoieMail {
 
 	}
 
-	public void postMail(String liste[], String sujet, String message,
-			String file) throws MessagingException {
-
+	private Message createMessage(List<String> liste, String sujet,
+			String message) throws MessagingException {
 		Session session = Session.getDefaultInstance(props, auth);
 
 		session.setDebug(false);
 
-		// creation de message
+		// creation message
 		Message msg = new MimeMessage(session);
 
-		InternetAddress[] addressTo = new InternetAddress[liste.length];
-		for (int i = 0; i < liste.length; i++) {
-			addressTo[i] = new InternetAddress(liste[i]);
+		InternetAddress[] destination = new InternetAddress[liste.size()];
+		for (int i = 0; i < liste.size(); i++) {
+			destination[i] = new InternetAddress(liste.get(i));
 		}
-		msg.setRecipients(Message.RecipientType.TO, addressTo);
+		msg.setRecipients(Message.RecipientType.TO, destination);
 		msg.setSubject(sujet);
 		msg.setContent(message, "text/plain");
+		return msg;
+	}
+
+	public void sendMessageWithAttachements(List<String> liste, String sujet, String message,
+			String file) throws MessagingException {
+
+		Message msg = createMessage(liste, sujet, message);
 		msg.setFileName(file);
 		Transport.send(msg);
 	}
 
 	// **********************************************************************************
 
-	public void envoyerMessage(String liste[], String sujet, String message)
+	public void sendMessage(List<String> liste, String sujet, String message)
 			throws MessagingException {
 
-		Session session = Session.getDefaultInstance(props, auth);
-
-		session.setDebug(false);
-
-		// creation de message
-		Message msg = new MimeMessage(session);
-
-		InternetAddress[] destination = new InternetAddress[liste.length];
-		for (int i = 0; i < liste.length; i++) {
-			destination[i] = new InternetAddress(liste[i]);
-		}
-		msg.setRecipients(Message.RecipientType.TO, destination);
-		msg.setSubject(sujet);
-		msg.setContent(message, "text/plain");
-
+		Message msg = createMessage(liste, sujet, message);
 		Transport.send(msg);
 	}
 
 	// ***********************************************************************************
 
 	/**
-	 * une fonction qui permet l'authentifcation au pr�s du serveur mail
+	 * a function that allows the authentication to the mail server
 	 */
 	private class AuthenticationSMTP extends javax.mail.Authenticator {
 

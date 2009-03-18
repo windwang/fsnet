@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.admin.EnvoieMail;
+import fr.univartois.ili.fsnet.admin.SendMail;
 
 /**
  * Servlet implementation class SendMessage
@@ -31,7 +31,7 @@ public class SendMessage extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest req, HttpServletResponse res)
 			throws ServletException, IOException {
-		EnvoieMail sendmessage = new EnvoieMail();
+		SendMail sendmessage = new SendMail();
 		String dest = req.getParameter("to");
 		String obj = req.getParameter("subject");
 		String conte = req.getParameter("contenu");
@@ -44,12 +44,12 @@ public class SendMessage extends HttpServlet {
 
 		try {
 			if (file.equals("")) {
-				sendmessage.envoyerMessage(list, obj, conte);
+				//sendmessage.sendMessage(list, obj, conte);
 				System.out.println("Sucessfully Sent mail to All Users");
 				PrintWriter out = res.getWriter();
 				out.write("<b>message bien envoyer</b>");
 			} else {
-				sendmessage.postMail(list, obj, conte, file);
+				//sendmessage.sendMessageWithAttachements(list, obj, conte, file);
 				System.out.println("Sucessfully Sent mail to All Users");
 				PrintWriter out = res.getWriter();
 				out.write("<b>message bien envoyer</b>");
