@@ -20,23 +20,16 @@
 </head>
 <body>
 <div class="wrap background">
-		<div id="search">
-			<form action="">
-				<fieldset>
-					<input type="text" class="field" value="Mot clé" />
-					<input type="submit" class="button" value="" />
-				</fieldset>
-			</form>
+		
+		<div id="menu">
+								
 		</div>
-		<ul id="menu">
-			<li><a class="current">Login</a></li>						
-		</ul>
 			<fsnet:dateJour var="dateJour">
 		<p class="date">Date<br />
 		  ${dateJour }</p>
 		  </fsnet:dateJour>
 		<div id="logo">
-		  <h1><a href="http://www.google.com">FSNet<br />
+		  <h1><a href="http://code.google.com/p/fsnet/">FSNet<br />
 			</a></h1>
 			<h2 id="slogan">Réseau social </h2>
 		</div>
