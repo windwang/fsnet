@@ -15,6 +15,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Information;
 
 
@@ -45,7 +46,8 @@ public class InformationTest {
 		System.err.println("Le test est execute");
 		 DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 	     Date date = (Date)formatter.parse("29/01/02");
-		Information info = new Information("info",date,"blabla","Y");
+	     EntiteSociale createur = new EntiteSociale();
+		Information info = new Information("info",date,"blabla","Y",createur);
 		em.getTransaction().begin();
 		em.persist(info);
 		em.getTransaction().commit();
