@@ -140,7 +140,8 @@ public class AddAnnonce extends HttpServlet {
 
 			// if (date.after(aujourdhui)) {
 
-			Annonce nouvelleInfo = new Annonce(titre, aujourdhui, contenu, date);
+			Annonce nouvelleInfo = new Annonce(titre, aujourdhui, contenu,
+					date, "Y");
 			em.getTransaction().begin();
 			em.persist(nouvelleInfo);
 			em.getTransaction().commit();
