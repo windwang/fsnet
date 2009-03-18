@@ -59,6 +59,11 @@ public class EntiteSociale {
 	private Date dateNaissance;
 
 	/**
+	 * The social entity sexe
+	 */
+	private String sexe;
+
+	/**
 	 * The password for the social entity.
 	 */
 	private String mdp;
@@ -332,6 +337,23 @@ public class EntiteSociale {
 	 */
 	public void setDateNaissance(Date dateNaissance) {
 		this.dateNaissance = dateNaissance;
+	}
+
+	/**
+	 * 
+	 * @return the sexe of the social entity.
+	 */
+	public String getSexe() {
+		return sexe;
+	}
+
+	/**
+	 * Gives a sexe to the social entity.
+	 * 
+	 * @param sexe
+	 */
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
 	}
 
 	/**
