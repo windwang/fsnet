@@ -166,10 +166,10 @@
 			</td>
 		</tr>
 
-		<fsnet:interet var="interet">
+		<fsnet:interet var="interet" idLogin="${entite.id}">
 			<tr>
 				<td><input type="checkbox" name="interestSelected"
-					value="${interet.id}" title="Sélectionner" /></td>
+					value="${interet.id}" title="Sélectionner" ${check }/></td>
 				<td width="33%">${interet.nomInteret}</td>
 			</tr>
 		</fsnet:interet>
