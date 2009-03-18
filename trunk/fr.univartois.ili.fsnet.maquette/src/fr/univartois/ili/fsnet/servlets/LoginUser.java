@@ -17,6 +17,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
+import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  * @author lionel desruelles Servlet implementation class FindUser
@@ -67,8 +68,11 @@ public class LoginUser extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		RequestDispatcher dispatch = null;
-		HttpSession session = request.getSession(true);
+		HttpSession session = request.getSession();
 		String email = request.getParameter("email");
+		String password = request.getParameter("password");
+		EntiteSociale en = null;
+		em.clear();
 		Query query = em
 				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
 		query.setParameter(1, email);
@@ -77,16 +81,20 @@ public class LoginUser extends HttpServlet {
 				.createQuery("SELECT ins FROM Inscription ins WHERE ins.entite =?1");
 
 		try {
-			EntiteSociale en = (EntiteSociale) query.getResultList().get(0);
+
+			en = (EntiteSociale) query.getResultList().get(0);
+			en = em.merge(en);
+
 			logger.info(en.getEmail());
 			logger.info(String.valueOf(en.getId()));
-
-			logger.info("Taaille interet : " + en.getLesinterets().size());
-			// getServletContext().setAttribute("idLogin", en.getId());
+			logger.info("Taille interet : " + en.getLesinterets().size());
 
 			query2.setParameter(1, en);
 			Inscription inscrit = (Inscription) query2.getSingleResult();
+			inscrit = em.merge(inscrit);
+
 			logger.info(inscrit.getEtat());
+
 			session.setAttribute("entite", en);
 			if (inscrit.getEtat().equals(Inscription.ATTENTE)) {
 				Date dateJour = new Date();
@@ -98,12 +106,15 @@ public class LoginUser extends HttpServlet {
 
 				dispatch = getServletContext().getRequestDispatcher(
 						"/profil.jsp");
+				dispatch.forward(request, response);
 			} else {
-				dispatch = getServletContext().getRequestDispatcher(
-						"/index.jsp");
+				if ((inscrit.getEtat().equals(Inscription.INSCRIT))
+						&& Md5.testPassword(password, en.getMdp()))
+					dispatch = getServletContext().getRequestDispatcher(
+							"/index.jsp");
+				dispatch.forward(request, response);
 			}
 
-			dispatch.forward(request, response);
 		} catch (Exception e) {
 			logger.info("Authentification échouée" + e);
 			dispatch = getServletContext().getRequestDispatcher("/login.jsp");

@@ -102,7 +102,7 @@
 		<tr>
 			<td style="height: 21" colspan="3"><strong>Date
 			d'entr&eacute;e : </strong></td>
-			<td colspan="2"><label> <input type="text" name="mdp1"
+			<td colspan="2"><label> <input type="text" name="dateEntree"
 				disabled="disabled" value="${membre.dateEntree}" /></label></td>
 		</tr>
 		<tr>
@@ -151,7 +151,7 @@
 			<td style="height: 29" colspan="3"><strong>Mot de passe
 			: </strong></td>
 			<td colspan="2"><label> <input type="password"
-				name="mdp1" disabled="disabled" /> </label></td>
+				name="pwd1" value="${membre.mdp}" /> </label></td>
 		</tr>
 		<tr>
 			<td style="height: 29" colspan="3"><strong>Confirmer
