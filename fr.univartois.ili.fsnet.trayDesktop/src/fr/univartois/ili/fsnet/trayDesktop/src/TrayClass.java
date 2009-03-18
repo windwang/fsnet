@@ -32,6 +32,8 @@ public class TrayClass {
 	private static String chaine;
 	private static String url;
 	private static String filePath =System.getenv("HOME")+"/FSN/preferences.conf";
+	private static ImageIcon monIcone;
+	
 	
 	/**
 	 * Constructor of the class TrayClass.
@@ -40,13 +42,14 @@ public class TrayClass {
 	
 	public TrayClass(String chaine) {
 		// TODO Auto-generated constructor stub
+		
 		this.chaine=chaine;
 	}
 	
 	public void executeTrayIcon(){
 	        /* Use Look and Feel of System */
 		
-		
+		monIcone=new ImageIcon(getClass().getResource("fsnet3.gif"));
 		
 		 try {
 	            javax.swing.UIManager.setLookAndFeel(
@@ -86,7 +89,7 @@ public class TrayClass {
 	        }
 	        final PopupMenu popup = new PopupMenu();
 	        final TrayIcon trayIcon =
-	                new TrayIcon(new ImageIcon("fsnet3.gif").getImage());
+	                new TrayIcon(monIcone.getImage());
 	        final SystemTray tray = SystemTray.getSystemTray();
 	        
 	        trayIcon.setToolTip("Notification FSNet");
