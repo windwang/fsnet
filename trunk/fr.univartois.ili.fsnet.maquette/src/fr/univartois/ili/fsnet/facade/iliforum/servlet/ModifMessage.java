@@ -32,9 +32,10 @@ public class ModifMessage extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String contenu = request.getParameter("contenuMessage");
+		String contenuUTF8 = new String(contenu.getBytes("ISO-8859-1"), "UTF-8");
 		Message message = (Message) getServletContext().getAttribute(
 				"monMessage");
-		IliForumFacade.getInstance().updateMessage(message, contenu);
+		IliForumFacade.getInstance().updateMessage(message, contenuUTF8);
 
 		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
 				"/message.jsp");
