@@ -90,19 +90,19 @@
 			</tr>
 
 			<tr class="champ">
-				<th scope="row">Nom</th>
-				<td><label> <input type="text" name="Nom" title="Nom" />
-				</label></td>
+				<th scope="row"><label for="nom">Nom</label></th>
+				<td><input type="text" name="Nom" title="Nom" id="nom" />
+				</td>
 			</tr>
 			<tr class="champ">
-				<th scope="row">Prénom</th>
-				<td><label> <input type="text" name="Prenom"
-					title="Prénom" /> </label></td>
+				<th scope="row"> <label for="prenom">Prénom</label></th>
+				<td><input type="text" name="Prenom" id="prenom"
+					title="Prénom" /></td>
 			</tr>
 			<tr class="champ">
-				<th scope="row">Email</th>
-				<td><label> <input type="text" name="Email"
-					title="Email" /> </label></td>
+				<th scope="row"><label for="email">Email</label></th>
+				<td><input type="text" name="Email" id="email"
+					title="Email" /></td>
 			</tr>
 		</table>
 		<label class="button"> <input type="submit" name="Submit"
