@@ -32,8 +32,9 @@ public class ModifTopic extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String titre = request.getParameter("titreTopic");
+		String titreUTF8 = new String(titre.getBytes("ISO-8859-1"), "UTF-8");
 		Topic top = (Topic) getServletContext().getAttribute("monTopic");
-		IliForumFacade.getInstance().updateTopic(top, titre);
+		IliForumFacade.getInstance().updateTopic(top, titreUTF8);
 
 		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
 				"/topic.jsp");

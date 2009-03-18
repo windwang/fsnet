@@ -33,7 +33,8 @@ public class ModifHub extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String titre = request.getParameter("titreHub");
 		Hub hub = (Hub) getServletContext().getAttribute("monHub");
-		IliForumFacade.getInstance().updateHub(hub, titre);
+		String titreUTF8 = new String(titre.getBytes("ISO-8859-1"), "UTF-8");
+		IliForumFacade.getInstance().updateHub(hub, titreUTF8);
 
 		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
 				"/hub.jsp");
