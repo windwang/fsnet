@@ -39,8 +39,8 @@ public class Manifestation extends Information {
 		this.dateManifestation = dateDebut;
 	}
 
-	public Manifestation(String titre, Date date, String contenu) {
-		super(titre,date,contenu);
+	public Manifestation(String titre, Date date, String contenu, String visible) {
+		super(titre, date, contenu, visible);
 		this.dateManifestation = date;
 	}
 
@@ -60,6 +60,7 @@ public class Manifestation extends Information {
 	public void setdateManifestation(Date dateDebut) {
 		this.dateManifestation = dateDebut;
 	}
+
 	/**
 	 * 
 	 * @return The date in the format jj/mm/aaaa.
@@ -70,7 +71,7 @@ public class Manifestation extends Information {
 			Calendar calendar = GregorianCalendar.getInstance();
 			calendar.setTime(dateManifestation);
 			int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
-			int mois = calendar.get(GregorianCalendar.MONTH)+1;
+			int mois = calendar.get(GregorianCalendar.MONTH) + 1;
 			int année = calendar.get(GregorianCalendar.YEAR);
 			date = jour + "/" + mois + "/" + année;
 		}
