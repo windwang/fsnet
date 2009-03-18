@@ -42,8 +42,8 @@ public class Annonce extends Information {
 	}
 
 	public Annonce(String nom, Date datePublication, String contenu,
-			Date dateFinAnnonce, String visible) {
-		super(nom, datePublication, contenu, visible);
+			Date dateFinAnnonce, String visible, EntiteSociale createur) {
+		super(nom, datePublication, contenu, visible, createur);
 		this.dateFinAnnonce = dateFinAnnonce;
 	}
 
