@@ -6,6 +6,7 @@
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
+    <welcome-file>do.it</welcome-file>
   </welcome-file-list>
   <servlet>
     <servlet-name>action</servlet-name>
@@ -144,7 +145,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchFileConfig</servlet-name>
-    <url-pattern>/</url-pattern>
+    <url-pattern>/do.it</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
