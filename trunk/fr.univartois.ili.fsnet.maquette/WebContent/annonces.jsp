@@ -41,14 +41,20 @@
 <table width="433">
 	<fsnet:annonce var="monAnnonce">
 		<table>
+		 <tr>
+             <th width="30"></th>
+             <th></th>
+             <th></th>
+          </tr>
+		
 			<tr>
-				<c:if test="${createur == entite.id}">
+				<td width="30"><c:if test="${createur == entite.id}">
 					<a href="SupprAnnonce?idChoisi=${monAnnonce.id}"><img
 						src="images/croix.jpg" width="15" /></a>
 				</c:if>
-				
-				<th width="300"><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a></th>
-				<th><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a></th>
+				</td>
+				<td width="300"><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a></td>
+				<td><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a></td>
 			</tr>
 		</table>
 	</fsnet:annonce>
