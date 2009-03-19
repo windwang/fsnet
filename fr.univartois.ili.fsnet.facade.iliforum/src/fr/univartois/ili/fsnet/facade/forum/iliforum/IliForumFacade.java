@@ -15,10 +15,10 @@ import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.facade.forum.ForumFacade;
 
-public class IliForumFacade implements ForumFacade {
+public final class IliForumFacade implements ForumFacade {
 	public static final String DATABASE_NAME = "fsnetjpa";
 
-	private EntityManager em;
+	private final transient EntityManager entM;
 
 	private static IliForumFacade instance = new IliForumFacade();
 
@@ -27,62 +27,68 @@ public class IliForumFacade implements ForumFacade {
 	}
 
 	private IliForumFacade() {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		em = factory.createEntityManager();
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+		entM = factory.createEntityManager();
 	}
 
 	public void close() {
-		em.close();
-		em = null;
+		entM.close();
 	}
 
 	@Override
-	public boolean addHub(Hub hub) {
+	public boolean addHub(final Hub hub) {
 
-		em.getTransaction().begin();
-		em.persist(hub);
-		em.getTransaction().commit();
+		entM.getTransaction().begin();
+		entM.persist(hub);
+		entM.getTransaction().commit();
 
 		return true;
 	}
 
 	@Override
-	public boolean addMessage(Message message) {
-		Topic topic = message.getTopic();
-		em.getTransaction().begin();
-		Topic mergedTopic = em.merge(topic);
+	public boolean addMessage(final Message message) {
+		Topic topic;
+		topic = message.getTopic();
+		entM.getTransaction().begin();
+		Topic mergedTopic;
+		mergedTopic = entM.merge(topic);
 		mergedTopic.getLesMessages().add(message);
 		message.setTopic(mergedTopic);
-		em.persist(message);
-		em.getTransaction().commit();
+		entM.persist(message);
+		entM.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean addTopic(Topic topic) {
-		Hub hub = topic.getHub();
-		em.getTransaction().begin();
-		Hub mergedHub = em.merge(hub);
+	public boolean addTopic(final Topic topic) {
+		Hub hub;
+		hub = topic.getHub();
+		entM.getTransaction().begin();
+		Hub mergedHub;
+		mergedHub = entM.merge(hub);
 		mergedHub.getLesTopics().add(topic);
 		topic.setHub(mergedHub);
-		em.persist(topic);
-		em.getTransaction().commit();
+		entM.persist(topic);
+		entM.getTransaction().commit();
 		return true;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Hub> getListHub() {
-		Query query = em
-				.createQuery("SELECT h FROM Hub h ORDER BY h.dateCreation");
+		Query query;
+		query = entM.createQuery("SELECT h FROM Hub h ORDER BY h.dateCreation");
 		List<Hub> mesHubs;
 		mesHubs = (List<Hub>) query.getResultList();
 		return mesHubs;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Hub> getListHub(Date dateBegin, Date dateEnd) {
-		Query query = em
+	public List<Hub> getListHub(final Date dateBegin, final Date dateEnd) {
+		Query query;
+		query = entM
 				.createQuery("SELECT h FROM Hub h WHERE h.dateCreation>?1 and h.dateCreation<?2 ORDER BY h.dateCreation");
 		query.setParameter(1, dateBegin);
 		query.setParameter(2, dateEnd);
@@ -91,9 +97,11 @@ public class IliForumFacade implements ForumFacade {
 		return mesHubs;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Hub> getListHubByEntiteSociale(EntiteSociale decideur) {
-		Query query = em
+	public List<Hub> getListHubByEntiteSociale(final EntiteSociale decideur) {
+		Query query;
+		query = entM
 				.createQuery("SELECT h FROM Hub h WHERE h.decideur =?1 ORDER BY h.dateCreation");
 		query.setParameter(1, decideur);
 		List<Hub> mesHubs;
@@ -101,18 +109,22 @@ public class IliForumFacade implements ForumFacade {
 		return mesHubs;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> getListMessage() {
-		Query query = em
+		Query query;
+		query = entM
 				.createQuery("SELECT m FROM Message m ORDER BY m.dateMessage");
 		List<Message> mesMess;
 		mesMess = (List<Message>) query.getResultList();
 		return mesMess;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Message> getListMessage(Date dateBegin, Date dateEnd) {
-		Query query = em
+	public List<Message> getListMessage(final Date dateBegin, final Date dateEnd) {
+		Query query;
+		query = entM
 				.createQuery("SELECT m FROM Message m WHERE m.dateMessage>?1 AND m.dateMessage<?2 ORDER BY m.dateMessage");
 		query.setParameter(1, dateBegin);
 		query.setParameter(2, dateEnd);
@@ -121,10 +133,12 @@ public class IliForumFacade implements ForumFacade {
 		return mesMess;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Message> getListMessageByEntiteSocial(
-			EntiteSociale entiteSociale) {
-		Query query = em
+			final EntiteSociale entiteSociale) {
+		Query query;
+		query = entM
 				.createQuery("SELECT m FROM Message m WHERE m.propMsg=?1 ORDER BY m.dateMessage");
 		query.setParameter(1, entiteSociale);
 		List<Message> mesMess;
@@ -132,9 +146,11 @@ public class IliForumFacade implements ForumFacade {
 		return mesMess;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Message> getListMessageByHub(Hub hub) {
-		Query query = em
+	public List<Message> getListMessageByHub(final Hub hub) {
+		Query query;
+		query = entM
 				.createQuery("SELECT m FROM Message m WHERE m.topic.hub=?1 ORDER BY m.dateMessage");
 		query.setParameter(1, hub);
 		List<Message> mesMess;
@@ -142,9 +158,11 @@ public class IliForumFacade implements ForumFacade {
 		return mesMess;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Message> getListMessageByTopic(Topic topic) {
-		Query query = em
+	public List<Message> getListMessageByTopic(final Topic topic) {
+		Query query;
+		query = entM
 				.createQuery("SELECT m FROM Message m WHERE m.topic=?1 ORDER BY m.dateMessage");
 		query.setParameter(1, topic);
 		List<Message> mesMess;
@@ -152,18 +170,21 @@ public class IliForumFacade implements ForumFacade {
 		return mesMess;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Topic> getListTopic() {
-		Query query = em
-				.createQuery("SELECT t FROM Topic t ORDER BY t.dateSujet");
+		Query query;
+		query = entM.createQuery("SELECT t FROM Topic t ORDER BY t.dateSujet");
 		List<Topic> mesTopics;
 		mesTopics = (List<Topic>) query.getResultList();
 		return mesTopics;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Topic> getListTopic(Date dateBegin, Date dateEnd) {
-		Query query = em
+	public List<Topic> getListTopic(final Date dateBegin, final Date dateEnd) {
+		Query query;
+		query = entM
 				.createQuery("SELECT t FROM Topic t WHERE t.dateSujet>?1 AND t.dateSujet<?2 ORDER BY t.dateSujet");
 		query.setParameter(1, dateBegin);
 		query.setParameter(2, dateEnd);
@@ -172,9 +193,12 @@ public class IliForumFacade implements ForumFacade {
 		return mesTopics;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Topic> getListTopicByEntiteSociale(EntiteSociale entiteSocial) {
-		Query query = em
+	public List<Topic> getListTopicByEntiteSociale(
+			final EntiteSociale entiteSocial) {
+		Query query;
+		query = entM
 				.createQuery("SELECT t FROM Topic t WHERE t.propTopic=?1 ORDER BY t.dateSujet");
 		query.setParameter(1, entiteSocial);
 		List<Topic> mesTopics;
@@ -182,9 +206,11 @@ public class IliForumFacade implements ForumFacade {
 		return mesTopics;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<Topic> getListTopicByHub(Hub hub) {
-		Query query = em
+	public List<Topic> getListTopicByHub(final Hub hub) {
+		Query query;
+		query = entM
 				.createQuery("SELECT t FROM Topic t WHERE t.hub=?1 ORDER BY t.dateSujet");
 		query.setParameter(1, hub);
 		List<Topic> mesTopics;
@@ -193,85 +219,91 @@ public class IliForumFacade implements ForumFacade {
 	}
 
 	@Override
-	public boolean removeHub(Hub hub) {
+	public boolean removeHub(final Hub hub) {
 		Hub hubMerge;
-		em.getTransaction().begin();
-		hubMerge=em.merge(hub);
-		List<Topic> mesTopics= hubMerge.getLesTopics();
-		Iterator<Topic> itTopic = mesTopics.iterator();
-		while(itTopic.hasNext())
-		{
-			Topic topicMerge = em.merge(itTopic.next());
-			List<Message> mesMessages = topicMerge.getLesMessages();
-			Iterator<Message> itMessage = mesMessages.iterator();
-			while(itMessage.hasNext())
-			{
-				Message deleteMess= em.merge(itMessage.next());
-				em.remove(deleteMess);
+		entM.getTransaction().begin();
+		hubMerge = entM.merge(hub);
+		List<Topic> mesTopics;
+		mesTopics = hubMerge.getLesTopics();
+		Iterator<Topic> itTopic;
+		itTopic = mesTopics.iterator();
+		while (itTopic.hasNext()) {
+			Topic topicMerge;
+			topicMerge = entM.merge(itTopic.next());
+			List<Message> mesMessages;
+			mesMessages = topicMerge.getLesMessages();
+			Iterator<Message> itMessage;
+			itMessage = mesMessages.iterator();
+			while (itMessage.hasNext()) {
+				Message deleteMess;
+				deleteMess = entM.merge(itMessage.next());
+				entM.remove(deleteMess);
 			}
-			em.remove(topicMerge);
+			entM.remove(topicMerge);
 		}
-		em.remove(hubMerge);
-		em.getTransaction().commit();
+		entM.remove(hubMerge);
+		entM.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean removeMessage(Message message) {
+	public boolean removeMessage(final Message message) {
 		Message messMerge;
-		em.getTransaction().begin();
-		messMerge = em.merge(message);
-		em.remove(messMerge);
-		em.getTransaction().commit();
+		entM.getTransaction().begin();
+		messMerge = entM.merge(message);
+		entM.remove(messMerge);
+		entM.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean removeTopic(Topic topic) {
+	public boolean removeTopic(final Topic topic) {
 		Topic topicMerge;
-		em.getTransaction().begin();
-		topicMerge = em.merge(topic);
-		List<Message> mesMessages = topicMerge.getLesMessages();
-		Iterator<Message> it = mesMessages.iterator();
-		while(it.hasNext())
-		{
-			Message deleteMess= em.merge(it.next());
-			em.remove(deleteMess);
+		entM.getTransaction().begin();
+		topicMerge = entM.merge(topic);
+		List<Message> mesMessages;
+		mesMessages = topicMerge.getLesMessages();
+		Iterator<Message> iter;
+		iter = mesMessages.iterator();
+		while (iter.hasNext()) {
+			Message deleteMess;
+			deleteMess = entM.merge(iter.next());
+			entM.remove(deleteMess);
 		}
-		em.remove(topicMerge);
-		em.getTransaction().commit();
+		entM.remove(topicMerge);
+		entM.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean updateHub(Hub hub, String titre) {
+	public boolean updateHub(final Hub hub, final String titre) {
 		Hub hubMerge;
-		em.getTransaction().begin();
-		hubMerge=em.merge(hub);
+		entM.getTransaction().begin();
+		hubMerge = entM.merge(hub);
 		hubMerge.setNomCommunaute(titre);
-		em.persist(hubMerge);
-		em.getTransaction().commit();
+		entM.persist(hubMerge);
+		entM.getTransaction().commit();
 		return true;
 	}
 
-	public boolean updateMessage(Message message,String contenu) {
+	public boolean updateMessage(final Message message, final String contenu) {
 		Message messMerge;
-		em.getTransaction().begin();
-		messMerge=em.merge(message);
+		entM.getTransaction().begin();
+		messMerge = entM.merge(message);
 		messMerge.setContenu(contenu);
-		em.persist(messMerge);
-		em.getTransaction().commit();
+		entM.persist(messMerge);
+		entM.getTransaction().commit();
 		return true;
 	}
 
 	@Override
-	public boolean updateTopic(Topic topic, String titre) {
+	public boolean updateTopic(final Topic topic, final String titre) {
 		Topic topMerge;
-		em.getTransaction().begin();
-		topMerge=em.merge(topic);
+		entM.getTransaction().begin();
+		topMerge = entM.merge(topic);
 		topMerge.setSujet(titre);
-		em.persist(topMerge);
-		em.getTransaction().commit();
+		entM.persist(topMerge);
+		entM.getTransaction().commit();
 		return true;
 	}
 }

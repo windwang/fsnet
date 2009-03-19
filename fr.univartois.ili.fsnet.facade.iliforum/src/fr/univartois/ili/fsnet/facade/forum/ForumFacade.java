@@ -20,7 +20,7 @@ public interface ForumFacade {
      * 
      * @return List of hub
      */
-    public List<Hub> getListHub();
+    List<Hub> getListHub();
 
     /**
      * Get the list of hub created between the date "dateBegin" and the date
@@ -30,7 +30,7 @@ public interface ForumFacade {
      * @param dateEnd
      * @return List of hub
      */
-    public List<Hub> getListHub(Date dateBegin, Date dateEnd);
+    List<Hub> getListHub(Date dateBegin, Date dateEnd);
 
     /**
      * Get the list of hub created by the EntiteSociale "decideur".
@@ -39,14 +39,14 @@ public interface ForumFacade {
      *            who created the hub
      * @return List of hub
      */
-    public List<Hub> getListHubByEntiteSociale(EntiteSociale decideur);
+    List<Hub> getListHubByEntiteSociale(EntiteSociale decideur);
 
     /**
      * Get the list of all Topic.
      * 
      * @return List of topic
      */
-    public List<Topic> getListTopic();
+    List<Topic> getListTopic();
 
     /**
      * Get the list of topic created between the date "dateBegin" and the date
@@ -56,7 +56,7 @@ public interface ForumFacade {
      * @param dateEnd
      * @return List of topic
      */
-    public List<Topic> getListTopic(Date dateBegin, Date dateEnd);
+    List<Topic> getListTopic(Date dateBegin, Date dateEnd);
 
     /**
      * Get the list of topic created by the EntiteSociale "entiteSocial".
@@ -65,7 +65,7 @@ public interface ForumFacade {
      *            who created the hub
      * @return
      */
-    public List<Topic> getListTopicByEntiteSociale(EntiteSociale entiteSocial);
+    List<Topic> getListTopicByEntiteSociale(EntiteSociale entiteSocial);
 
     /**
      * Get the list of topic from the hub "hub".
@@ -73,14 +73,14 @@ public interface ForumFacade {
      * @param hub
      * @return List of topic
      */
-    public List<Topic> getListTopicByHub(Hub hub);
+    List<Topic> getListTopicByHub(Hub hub);
 
     /**
      * Get the list of All Message.
      * 
      * @return List of message
      */
-    public List<Message> getListMessage();
+    List<Message> getListMessage();
 
     /**
      * Get the list of message created between the date "dateBegin" and the date
@@ -90,7 +90,7 @@ public interface ForumFacade {
      * @param dateEnd
      * @return List of message
      */
-    public List<Message> getListMessage(Date dateBegin, Date dateEnd);
+    List<Message> getListMessage(Date dateBegin, Date dateEnd);
 
     /**
      * Get the list of message created by the EntiteSociale "entiteSocial".
@@ -98,7 +98,7 @@ public interface ForumFacade {
      * @param entiteSociale
      * @return List of message
      */
-    public List<Message> getListMessageByEntiteSocial(
+    List<Message> getListMessageByEntiteSocial(
 	    EntiteSociale entiteSociale);
 
     /**
@@ -107,7 +107,7 @@ public interface ForumFacade {
      * @param topic
      * @return List of message
      */
-    public List<Message> getListMessageByTopic(Topic topic);
+    List<Message> getListMessageByTopic(Topic topic);
 
     /**
      * Get list of message from the hub "hub"
@@ -115,7 +115,7 @@ public interface ForumFacade {
      * @param hub
      * @return List of message
      */
-    public List<Message> getListMessageByHub(Hub hub);
+    List<Message> getListMessageByHub(Hub hub);
 
     /**
      * Add a hub.
@@ -123,7 +123,7 @@ public interface ForumFacade {
      * @param hub
      * @return True if hub add successfully, False else.
      */
-    public boolean addHub(Hub hub);
+    boolean addHub(Hub hub);
 
     /**
      * Update the hub
@@ -131,20 +131,20 @@ public interface ForumFacade {
      * @param hub
      * @return
      */
-    public boolean updateHub(Hub hub, String titre);
+    boolean updateHub(Hub hub, String titre);
 
-    public boolean removeHub(Hub hub);
+    boolean removeHub(Hub hub);
 
-    public boolean addTopic(Topic topic);
+    boolean addTopic(Topic topic);
 
-    public boolean updateTopic(Topic topic,String titre);
+    boolean updateTopic(Topic topic,String titre);
 
-    public boolean removeTopic(Topic topic);
+    boolean removeTopic(Topic topic);
 
-    public boolean addMessage(Message message);
+    boolean addMessage(Message message);
 
-    public boolean updateMessage(Message message, String contenu);
+    boolean updateMessage(Message message, String contenu);
 
-    public boolean removeMessage(Message message);
+    boolean removeMessage(Message message);
 
 }
