@@ -3,7 +3,6 @@
   <display-name>fr.univartois.ili.fsnet.admin.maquette</display-name>
   <welcome-file-list>
     <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
     <welcome-file>default.html</welcome-file>
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
@@ -145,7 +144,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchFileConfig</servlet-name>
-    <url-pattern>/SearchFileConfig</url-pattern>
+    <url-pattern>/</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>

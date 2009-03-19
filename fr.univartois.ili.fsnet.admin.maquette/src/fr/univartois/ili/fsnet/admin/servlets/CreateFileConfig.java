@@ -18,12 +18,6 @@ import javax.servlet.http.HttpServletResponse;
 public class CreateFileConfig extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	private static final String DIR_PATH = System.getenv("HOME") + "/FSNADMIN";
-
-	private static final String FILE_PATH = DIR_PATH + "/admin.conf";
-
-	private static final String HOME = "/index.jsp?accueil=current";
-
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -46,18 +40,14 @@ public class CreateFileConfig extends HttpServlet {
 				.toString();
 		String port = request.getSession().getAttribute("port").toString();
 
-		File file = new File(FILE_PATH);
+		File file = new File(SearchFileConfig.FILE_PATH);
 		if (!file.exists()) {
-			File fb = new File(DIR_PATH);
-			if (!fb.exists()) {
-				fb.mkdirs();
-			}
 			file.createNewFile();
 		}
 
 		completeFile(smtpserver, host, pwdhost, addressfsnet, port, file);
 
-		RequestDispatcher dp = getServletContext().getRequestDispatcher(HOME);
+		RequestDispatcher dp = getServletContext().getRequestDispatcher(SearchFileConfig.HOME);
 		dp.forward(request, response);
 
 	}
