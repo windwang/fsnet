@@ -41,10 +41,11 @@ public class SearchInterest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String textRecherche = request.getSession().getAttribute("searchText").toString();
-		String redirection = request.getSession().getAttribute("redirection").toString();
+		String textRecherche = request.getSession().getAttribute("searchText")
+				.toString();
+		String redirection = request.getSession().getAttribute("redirection")
+				.toString();
 		request.setAttribute("parametre", textRecherche);
-		System.out.println("text recherche = " + textRecherche);
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
 				"/" + redirection + "?interet=current&recherche=show");
 		disp.forward(request, response);

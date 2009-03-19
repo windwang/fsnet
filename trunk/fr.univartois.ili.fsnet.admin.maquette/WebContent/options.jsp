@@ -40,27 +40,34 @@
 <div id="tableauprincipal">
 <p></p>
 <html:form action="/lesoptions.do" method="post">
-	<label for="serveurSMTP">serveur SMTP : </label>
+	<div style="text-align: right;float: left;">
+	<label style="padding:5px;" for="serveurSMTP">serveur SMTP : </label><br/>
+	<label style="padding:5px;" for="hote">Hôte : </label><br/>
+	<label style="padding:5px;" for="pass">Mot de passe : </label><br/>
+	<label style="padding:5px;" for="adresseFSNet">Adresse site FSNet : </label><br/>
+	<label style="padding:5px;" for="port">Port : </label><br/>
+	</div>
+	
+	<div>
 	<html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP" />
-	<html:errors property="serveursmtp" />
-	
-	<label for="hote">Hôte : </label>
+	<html:errors property="serveursmtp" /><br />
+		
 	<html:text property="hote" errorStyleClass="error" styleId="hote"/>
-	<html:errors property="hote" />
-
-	<label for="pass">Mot de passe : </label>
+	<html:errors property="hote" /><br />
+	
 	<html:text property="motdepasse" errorStyleClass="error" styleId="pass"/>
-	<html:errors property="motdepasse" />
-	
-	<label for="adresseFSNet">Adresse site FSNet : </label>
+	<html:errors property="motdepasse" /><br />
+		
 	<html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet"/>
-	<html:errors property="adressefsnet" />
+	<html:errors property="adressefsnet" /><br />
 	
-	<label for="port">Port : </label>
 	<html:text property="port" errorStyleClass="error" styleId="port"/>
-	<html:errors property="port" />
-
+	<html:errors property="port" /><br />
+	
+</div>
 	<html:submit title="Enregistrer">Enregistrer</html:submit>
+	
+	
 </html:form>
 </div>
 <div id="side"></div>

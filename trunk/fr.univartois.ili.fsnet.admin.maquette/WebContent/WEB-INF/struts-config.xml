@@ -25,7 +25,7 @@
 			<form-property name="hote" type="java.lang.String" />
 			<form-property name="motdepasse" type="java.lang.String" />
 			<form-property name="adressefsnet" type="java.lang.String" />
-			<form-property name="port" type="java.lang.String" />
+			<form-property name="port" type="java.lang.Integer" />
 		</form-bean>
 	</form-beans>
 	<action-mappings>

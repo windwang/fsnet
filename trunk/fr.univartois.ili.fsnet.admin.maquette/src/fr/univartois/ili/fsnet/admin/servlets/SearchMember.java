@@ -50,7 +50,6 @@ public class SearchMember extends HttpServlet {
 				.toString();
 		String redirection = request.getSession().getAttribute("redirection")
 				.toString();
-		System.out.println("Text recherche " + textRecherche);
 
 		request.setAttribute("filtre", filtreRecherche);
 		request.setAttribute("parametre", textRecherche);

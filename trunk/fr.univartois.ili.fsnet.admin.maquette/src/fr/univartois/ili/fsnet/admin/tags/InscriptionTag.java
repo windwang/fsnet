@@ -138,7 +138,6 @@ public class InscriptionTag extends TagSupport {
 
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
-		// pageContext.removeAttribute("vide");
 		return super.doEndTag();
 	}
 
@@ -153,7 +152,6 @@ public class InscriptionTag extends TagSupport {
 	}
 
 	public List<Inscription> searchNom(String param) {
-		System.out.println("je passe dans searchNom");
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
 		EntityManager em = factory.createEntityManager();
@@ -168,7 +166,6 @@ public class InscriptionTag extends TagSupport {
 	}
 
 	public List<Inscription> searchPrenom(String param) {
-		System.out.println("je passe dans searchPrenom");
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
 		EntityManager em = factory.createEntityManager();
