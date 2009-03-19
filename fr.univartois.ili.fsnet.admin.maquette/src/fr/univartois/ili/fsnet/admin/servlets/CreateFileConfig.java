@@ -6,6 +6,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,8 @@ public class CreateFileConfig extends HttpServlet {
 	private static final String DIR_PATH = System.getenv("HOME") + "/FSNADMIN";
 
 	private static final String FILE_PATH = DIR_PATH + "/admin.conf";
+
+	private static final String HOME = "/index.jsp?accueil=current";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -53,6 +56,9 @@ public class CreateFileConfig extends HttpServlet {
 		}
 
 		completeFile(smtpserver, host, pwdhost, addressfsnet, port, file);
+
+		RequestDispatcher dp = getServletContext().getRequestDispatcher(HOME);
+		dp.forward(request, response);
 
 	}
 
