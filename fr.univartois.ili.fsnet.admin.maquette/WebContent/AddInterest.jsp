@@ -38,7 +38,7 @@
 	<tr>
 
 		<td>
-		<form id="RemoveInterest" method="post" action="RemoveInterest">
+		<form id="RemoveInterest" method="post" action="RemoveInterest?redirection=AddInterest.jsp">
 		<table>
 			<tr>
 				<th class="entete" colspan="2" scope="col">
@@ -74,7 +74,7 @@
 		<label id="removeButton"><input
 			onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
 			type="submit" value="Supprimer" title="Supprimer" /></label></form>
-		<form id="AddInterest" method="post" action="AddInterest">
+		<form id="AddInterest" method="post" action="AddInterest?redirection=AddInterest.jsp">
 		<table width="100%">
 			<tr>
 				<th class="entete"></th>

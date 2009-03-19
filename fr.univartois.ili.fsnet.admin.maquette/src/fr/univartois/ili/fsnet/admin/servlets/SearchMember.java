@@ -44,11 +44,12 @@ public class SearchMember extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		String filtreRecherche = request.getParameter("selectRecherche");
 		String textRecherche = request.getParameter("searchText");
+		String redirection = request.getParameter("redirection");
 
 		request.setAttribute("filtre", filtreRecherche);
 		request.setAttribute("parametre", textRecherche);
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/SearchMember.jsp?user=current&recherche=show");
+				"/" + redirection + "?user=current&recherche=show");
 		disp.forward(request, response);
 	}
 

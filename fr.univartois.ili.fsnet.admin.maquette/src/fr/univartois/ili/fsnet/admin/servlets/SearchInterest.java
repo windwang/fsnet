@@ -42,10 +42,11 @@ public class SearchInterest extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String textRecherche = request.getParameter("searchText");
+		String redirection = request.getParameter("redirection");
 		request.setAttribute("parametre", textRecherche);
 		System.out.println("text recherche = " + textRecherche);
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/SearchInterest.jsp?interet=current&recherche=show");
+				"/" + redirection + "?interet=current&recherche=show");
 		disp.forward(request, response);
 	}
 
