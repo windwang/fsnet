@@ -81,17 +81,13 @@ table{margin-bottom:1em;}
 
 .button{margin-top: -10px;float:right;} 
 
-#AddUser{float:right;}
+#AddUser, #AddInterest{float:right;}
 
-#RemoveUser{width:600px;}
-
-#RemoveInterest{width:800px;}
+#RemoveUser,#RemoveInterest{width:600px;}
 
 .champ th{background-color: #CCCCCC}
 .champ td{width:67%;}
 .champ input{width:390px;}
-
-#AddInterest{float:right;}
 
 #removeButton{display:none;margin-top: -10px;float:right;}
 
@@ -105,7 +101,9 @@ img{width: 36; height: 32;}
 
 .interest{width:50%;}
 
-.moreInteret{width:87%;}
-.removeBut{width: 12%;}
-.addButton{width: 12%;}
+.moreInteret{width:82%;}
+.removeBut{width: 16%;margin-left:3px;}
+.addButton{width: 16%;}
 .enteteIntitule{background-color: #CCCCCC}
+
+#close{float:right; margin: 7px 7px 0 0;}

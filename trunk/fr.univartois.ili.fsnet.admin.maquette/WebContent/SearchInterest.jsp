@@ -32,7 +32,7 @@
 	href="SearchInterest.jsp?interet=current&recherche=hide"
 	title="Recherche d'intérêts">Recherche d'int&eacute;r&ecirc;ts </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
-<div id="tableauprincipal_interet">
+<div id="tableauprincipal">
 <table width="100%" align="left">
 
 	<tr>
@@ -89,7 +89,7 @@
 
 </table>
 </div>
-
+<div id="side"></div>
 </div>
 
 
