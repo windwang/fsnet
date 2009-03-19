@@ -111,11 +111,13 @@ public class AddUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String nom = request.getParameter("Nom");
+/*		String nom = request.getParameter("Nom");
 		String prenom = request.getParameter("Prenom");
 		// String email = createEmail(nom, prenom);
 		String email = request.getParameter("Email");
-		EntiteSociale entite = new EntiteSociale(nom, prenom, email);
+		EntiteSociale entite = new EntiteSociale(nom, prenom, email);*/
+		EntiteSociale entite = (EntiteSociale)request.getSession().getAttribute("entitesociale");
+		String email = entite.getEmail();
 		SendMail envMail = new SendMail();
 		List<String> listeDest = new ArrayList<String>();
 		String message = null;
@@ -130,7 +132,7 @@ public class AddUser extends HttpServlet {
 		em.getTransaction().commit();
 
 		listeDest.add(email);
-		message = createMessageRegistration(nom, prenom, email);
+		message = createMessageRegistration(entite.getNom(), entite.getPrenom(), email);
 		try {
 			envMail.sendMessage(listeDest, SUBJECT, message);
 			log("Message envoyé");

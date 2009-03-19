@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="TheFormUser"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="nom" type="java.lang.String" />
+			<form-property name="prenom" type="java.lang.String" />
+			<form-property name="email" type="java.lang.String" />
+		</form-bean>
+	</form-beans>
+	<action-mappings>
+		<action path="/adduser" type="fr.univartois.ili.fsnet.admin.actions.ActionUser"
+			name="TheFormUser" input="/AddUser.jsp" validate="true" scope="session">
+			<forward name="continue" path="/AddUser" />
+			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
+		</action>
+	</action-mappings>
+	<message-resources parameter="MyApp" null="false" />
+	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+		<set-property property="pathnames"
+			value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator.xml" />
+	</plug-in>
+</struts-config>

@@ -1,0 +1,92 @@
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<form-validation>
+	<formset>
+		<form name="/adduser">
+			<field property="nom" depends="required">
+				<arg key="error.nom" />
+			</field>
+			<field property="prenom" depends="required">
+				<arg key="error.prenom" />
+			</field>
+			<field property="email" depends="required,email">
+				<arg key="error.email" />
+			</field>
+
+		</form><!--
+		<form name="/promotion">
+			<field property="annee" depends="required,intRange">
+				<arg key="error.annee" />
+				<arg key="error.debutannee" />
+				<arg key="error.finannee" />
+				<var>
+					<var-name>min</var-name>
+					<var-value>2005</var-value>
+				</var>
+				<var>
+					<var-name>max</var-name>
+					<var-value>2020</var-value>
+				</var>
+			</field>
+			<field property="pseudo" depends="required">
+				<arg key="error.pseudo" />
+			</field>
+		</form>
+		<form name="/etiquette">
+			<field property="libelle" depends="required">
+				<arg key="error.libelle" />
+			</field>
+		</form>
+		<form name="/firm">
+			<field property="nom" depends="required">
+				<arg key="error.nom" />
+			</field>
+			<field property="adresse" depends="required">
+				<arg key="error.adresse" />
+			</field>
+			<field property="url" depends="url">
+				<arg key="error.url" />
+			</field>
+		</form>
+		<form name="/ancien">
+			<field property="nom" depends="required">
+				<arg key="error.nom" />
+			</field>
+			<field property="prenom" depends="required">
+				<arg key="error.prenom" />
+			</field>
+			<field property="adresse" depends="required">
+				<arg key="error.adresse" />
+			</field>
+			<field property="photo">
+				<arg key="error.photo" />
+			</field>
+			<field property="email" depends="required,email">
+				<arg key="error.email" />
+			</field>
+			
+				<field property="urlfirm" depends="url"> <arg key="error.url" />
+				</field>
+			
+		</form>
+		<form name="/experience">
+			<field property="dateDebut" depends="date">
+				<arg key="error.dateDebut" />
+				
+					Cette date Pattern ne fonctionne pas ici je ne sais pas pourquoi
+				
+				<var>
+					<var-name>datePattern</var-name>
+					<var-value>dd/MM/yyyy</var-value>
+				</var>
+			</field>
+			<field property="dateFin">
+				<arg key="error.dateFin" />
+			</field>
+			<field property="identreprise">
+				<arg key="error.identreprise" />
+			</field>
+		</form>
+	--></formset>
+</form-validation>
