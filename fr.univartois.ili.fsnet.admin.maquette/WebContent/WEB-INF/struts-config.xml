@@ -11,14 +11,27 @@
 			<form-property name="prenom" type="java.lang.String" />
 			<form-property name="email" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="TheFormSearch"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="searchtext" type="java.lang.String" />
+		</form-bean>
 	</form-beans>
 	<action-mappings>
 		<action path="/adduser" type="fr.univartois.ili.fsnet.admin.actions.ActionUser"
-			name="TheFormUser" input="/AddUser.jsp" validate="true" scope="session">
+			name="TheFormUser" input="/AddUser.jsp" validate="true" scope="request">
 			<forward name="continue" path="/AddUser" />
 			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
 		</action>
-	</action-mappings>
+		<action path="/searchmember" type="fr.univartois.ili.fsnet.admin.actions.ActionSearch"
+			name="TheFormSearch" input="/SearchMember.jsp" validate="true" scope="request">
+			<forward name="continue" path="/SearchMember" />
+			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
+		</action>
+		<action path="/searchinterest" type="fr.univartois.ili.fsnet.admin.actions.ActionSearch"
+			name="TheFormSearch" input="/SearchInterest.jsp" validate="true" scope="request">
+			<forward name="continue" path="/SearchInterest" />
+			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
+		</action>	</action-mappings>
 	<message-resources parameter="MyApp" null="false" />
 	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
 		<set-property property="pathnames"

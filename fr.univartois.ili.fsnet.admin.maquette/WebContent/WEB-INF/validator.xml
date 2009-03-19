@@ -14,7 +14,18 @@
 				<arg key="error.email" />
 			</field>
 
-		</form><!--
+		</form>
+		<form name="/searchmember" >
+			<field property="searchtext" depends="required">
+				<arg key="error.searchtext"/>
+			</field>
+		</form>
+		<form name="/searchinterest" >
+			<field property="searchtext" depends="required">
+				<arg key="error.searchtext"/>
+			</field>
+		</form>
+		<!--
 		<form name="/promotion">
 			<field property="annee" depends="required,intRange">
 				<arg key="error.annee" />
