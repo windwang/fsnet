@@ -297,6 +297,12 @@
 		<echo>Creating JAR file for trayDesktop</echo>
 		<jar destfile="fsnettrayDesktop.jar">
 			<fileset dir="${fsnet.trayDesktop.dir}/bin"/>
+			<fileset dir="${fsnet.trayDesktop.dir}/src">
+				<include name="**/*.png"/>
+			</fileset>
+			<manifest>
+				 <attribute name="Main-Class" value="fr.univartois.ili.fsnet.trayDesktop.src.TrayClass"/>
+			</manifest>
 		</jar>
 	</target>
 
