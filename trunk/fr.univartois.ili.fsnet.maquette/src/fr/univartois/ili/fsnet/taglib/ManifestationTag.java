@@ -45,7 +45,7 @@ public class ManifestationTag extends TagSupport {
 		if (idEven != null) {
 
 			Query requete = em
-					.createQuery("SELECT m FROM Manifestation m WHERE m.id=?1");
+					.createQuery("SELECT m FROM Manifestation m WHERE m.id=?1 AND m.visible='Y' ");
 			requete.setParameter(1, idEven.intValue());
 			manif = (Iterator<Manifestation>) requete.getResultList()
 					.iterator();
@@ -53,14 +53,15 @@ public class ManifestationTag extends TagSupport {
 			// Limite le nombre d'evenements
 
 			Query requete = em
-					.createQuery("SELECT m FROM Manifestation m ORDER BY m.id DESC ");
+					.createQuery("SELECT m FROM Manifestation m WHERE  m.visible='Y' ORDER BY m.id DESC ");
 
 			manif = (Iterator<Manifestation>) requete.getResultList()
 					.iterator();
 
 		} else {
 
-			Query requete = em.createQuery("SELECT m FROM Manifestation m");
+			Query requete = em
+					.createQuery("SELECT m FROM Manifestation m WHERE  m.visible='Y'");
 			manif = (Iterator<Manifestation>) requete.getResultList()
 					.iterator();
 		}
