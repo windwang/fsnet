@@ -106,7 +106,7 @@ public class AddEvenement extends HttpServlet {
 			em.getTransaction().commit();
 
 			RequestDispatcher dispatch = getServletContext()
-					.getRequestDispatcher("/EvenementValide.jsp");
+					.getRequestDispatcher("/index.jsp");
 			dispatch.forward(request, response);
 		}
 	}

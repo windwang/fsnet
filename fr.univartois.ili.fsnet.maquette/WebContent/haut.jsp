@@ -44,12 +44,7 @@
 
 
 
-<div id="search">
-<form action="">
-<fieldset><input type="text" class="field" value="Mot clé" />
-<input type="submit" class="button" value="" /></fieldset>
-</form>
-</div>
+
 </div>
 <fsnet:login var="membre" idLogin="${entite.id}">
 	Bienvenue ${civilite } ${membre.nom} ${membre.prenom} 
