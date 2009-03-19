@@ -275,11 +275,19 @@
 		<echo>Verification du code avec Findbugs</echo>
 		<findbugs home="${findbugs_home.dir}" output="html" outputFile="${findbugs.dir}/fsnet_fb.html" >
 			<sourcePath path="." />
+
 			<auxClasspath path="${tomcat.lib}/javax.persistence_1.0.0.jar"/>
 			<auxClasspath path="${tomcat.lib}/junit-4.5.jar"/>
 			<auxClasspath path="${tomcat.lib}/jsp-api-5.5.23.jar"/>
 			<auxClasspath path="${tomcat.lib}/servlet-api.jar"/>
 			<auxClasspath path="${tomcat.lib}/mail-1.4.jar"/>
+			<auxClasspath path="${tomcat.lib}/struts-core-1.3.10.jar"/>
+			<auxClasspath path="${tomcat.lib}/commons-beanutils-1.8.0.jar"/>
+			<auxClasspath path="${tomcat.lib}/commons-chain-1.2.jar"/>
+			<auxClasspath path="${tomcat.lib}/commons-digester-1.8.jar"/>
+			<auxClasspath path="${tomcat.lib}/commons-logging-1.0.4.jar"/>
+			<auxClasspath path="${tomcat.lib}/commons-validator-1.3.1.jar"/>
+
 			<class location="${fsnet.entities.dir}/bin"/>
 			<class location="${fsnet.iliforum.dir}/bin"/>
 			<class location="${fsnet.iliforumtags.dir}/bin"/>
