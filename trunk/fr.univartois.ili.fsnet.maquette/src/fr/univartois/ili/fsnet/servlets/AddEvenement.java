@@ -56,8 +56,6 @@ public class AddEvenement extends HttpServlet {
 		// TODO Auto-generated method stub
 		String id = request.getParameter("id");
 		getServletContext().setAttribute("idEven", id);
-		System.out.println("********************************evoila le param id"
-				+ getServletContext().getInitParameter("idEven"));
 
 		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
 				"/detailEven.jsp");
@@ -80,7 +78,6 @@ public class AddEvenement extends HttpServlet {
 		String titre = request.getParameter("titreEvenement");
 		String contenu = request.getParameter("contenuEvenement");
 		String date = request.getParameter("dateDebut");
-		System.out.println("date de debut" + date + titre + contenu);
 		if (titre.isEmpty() || contenu.isEmpty() || date.isEmpty()) {
 
 			request.setAttribute("titre", titre);
@@ -92,20 +89,16 @@ public class AddEvenement extends HttpServlet {
 			dispatch.forward(request, response);
 		} else {
 
-			System.out.println("Test aDD EVENEMENT " + titre + " " + contenu
-					+ " " + date);
 			Date date1 = null;
 			DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 			try {
 				date1 = (Date) formatter.parse(date);
-				System.out.println("date format " + date);
+
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 
-			System.out
-					.println("                  entiteSociale " + en.getNom());
 			Manifestation nouvellevenement = new Manifestation(titre, date1,
 					contenu, "Y", en);
 			em.getTransaction().begin();

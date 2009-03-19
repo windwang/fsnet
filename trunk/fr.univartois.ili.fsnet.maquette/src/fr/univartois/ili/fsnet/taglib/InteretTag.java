@@ -55,7 +55,7 @@ public class InteretTag extends TagSupport {
 		List<Interet> lesInterets;
 
 		queryInt = em.createQuery(FIND_ALL);
-		lesInterets = queryInt.getResultList();
+		lesInterets = (List<Interet>) queryInt.getResultList();
 		it = lesInterets.iterator();
 
 		queryEnt = em.createQuery(FIND_ENTITE);

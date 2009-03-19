@@ -5,14 +5,11 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
+
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
 import javax.servlet.ServletException;
@@ -23,13 +20,11 @@ import javax.servlet.http.HttpSession;
 
 import fr.univartois.ili.fsnet.entities.Annonce;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.entities.Interaction;
 
 /**
  * author jerome bouwy Servlet implementation class AddAnnonce
  */
 public class AddAnnonce extends HttpServlet {
-	private static Logger logger = Logger.getLogger("FSNet");
 
 	private static final long serialVersionUID = 1L;
 
@@ -120,12 +115,10 @@ public class AddAnnonce extends HttpServlet {
 
 		} else {
 
-			System.out.println("dateFin" + dateFin);
 			Date date = null;
 			Date aujourdhui = new Date();
 			try {
 				date = (Date) formatter.parse(dateFin);
-				System.out.println("date format " + date);
 			} catch (ParseException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
