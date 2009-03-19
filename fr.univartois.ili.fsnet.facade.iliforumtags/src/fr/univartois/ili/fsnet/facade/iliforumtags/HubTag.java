@@ -8,6 +8,8 @@ import java.util.List;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
+import org.eclipse.persistence.internal.jpa.parsing.SubstringNode;
+
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
@@ -91,6 +93,15 @@ public class HubTag extends TagSupport {
 			hubDTO = it.next();
 
 			pageContext.setAttribute(var, hubDTO);
+
+			if (hubDTO.getHub().getNomCommunaute().length() <= 7) {
+				pageContext.setAttribute("svar", hubDTO.getHub()
+						.getNomCommunaute());
+			} else {
+				pageContext.setAttribute("svar", hubDTO.getHub()
+						.getNomCommunaute().substring(0, 7)
+						+ "...");
+			}
 			return true;
 		}
 		return false;
