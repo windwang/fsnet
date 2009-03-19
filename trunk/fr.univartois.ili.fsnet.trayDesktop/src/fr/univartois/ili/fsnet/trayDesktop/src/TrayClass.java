@@ -26,6 +26,12 @@ import java.util.TimerTask;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.xml.rpc.ServiceException;
+
+import fr.univartois.ili.fsnet.webservice.NouvellesInformations;
+import fr.univartois.ili.fsnet.webservice.NouvellesService;
+import fr.univartois.ili.fsnet.webservice.NouvellesServiceLocator;
+
 import java.lang.System;
 
 /**
@@ -324,9 +330,12 @@ public class TrayClass {
 		}
 	}
 
-	public static void main(String[] args) throws UnknownHostException, IOException {
+	public static void main(String[] args) throws UnknownHostException, IOException, ServiceException {
+		NouvellesService nv =new NouvellesServiceLocator();
+		NouvellesInformations nvs=nv.getNouvellesInformationsPort();
+		//System.out.println(nvs.getEvenement());
 
-		TrayClass c = new TrayClass("Nouvel evenement : Soiree le 31 juillet ");
+		TrayClass c = new TrayClass("il y a "+nvs.getEvenement() +"Nouveaux Evenements");
 		c.executeTrayIcon();
 	}
 
