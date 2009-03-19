@@ -110,13 +110,16 @@ public class LoginUser extends HttpServlet {
 			} else {
 				if ((inscrit.getEtat().equals(Inscription.INSCRIT))
 						&& Md5.testPassword(password, en.getMdp()))
-					dispatch = getServletContext().getRequestDispatcher(
-							"/index.jsp");
+					getServletContext().setAttribute("erreur", "");
+				dispatch = getServletContext().getRequestDispatcher(
+						"/index.jsp");
 				dispatch.forward(request, response);
 			}
 
 		} catch (Exception e) {
 			logger.info("Authentification échouée" + e);
+			getServletContext().setAttribute("erreur",
+					"Authentification échouée");
 			dispatch = getServletContext().getRequestDispatcher("/login.jsp");
 			dispatch.forward(request, response);
 		}
