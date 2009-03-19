@@ -8,8 +8,6 @@ import java.util.List;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import org.eclipse.persistence.internal.jpa.parsing.SubstringNode;
-
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
@@ -21,17 +19,17 @@ public class HubTag extends TagSupport {
 	private static final long serialVersionUID = 1L;
 	private String var;
 
-	private Date dateBegin;
-	private Date dateEnd;
-	private EntiteSociale decideur;
+	private transient Date dateBegin;
+	private transient Date dateEnd;
+	private transient EntiteSociale decideur;
 
-	private Iterator<HubDTO> it;
+	private transient Iterator<HubDTO> iterator;
 
 	public String getVar() {
 		return var;
 	}
 
-	public void setVar(String var) {
+	public void setVar(final String var) {
 		this.var = var;
 	}
 
@@ -39,7 +37,7 @@ public class HubTag extends TagSupport {
 		return dateBegin;
 	}
 
-	public void setDateBegin(Date dateBegin) {
+	public void setDateBegin(final Date dateBegin) {
 		this.dateBegin = dateBegin;
 	}
 
@@ -47,7 +45,7 @@ public class HubTag extends TagSupport {
 		return dateEnd;
 	}
 
-	public void setDateEnd(Date dateEnd) {
+	public void setDateEnd(final Date dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 
@@ -55,13 +53,15 @@ public class HubTag extends TagSupport {
 		return decideur;
 	}
 
-	public void setDecideur(EntiteSociale decideur) {
+	public void setDecideur(final EntiteSociale decideur) {
 		this.decideur = decideur;
 	}
 
 	public int doStartTag() throws JspException {
-		IliForumFacade iff = IliForumFacade.getInstance();
-		List<HubDTO> lHubDTO = new ArrayList<HubDTO>();
+		IliForumFacade iff;
+		iff = IliForumFacade.getInstance();
+		List<HubDTO> lHubDTO;
+		lHubDTO = new ArrayList<HubDTO>();
 		List<Hub> lHub;
 
 		if (dateBegin != null && dateEnd != null) {
@@ -72,14 +72,14 @@ public class HubTag extends TagSupport {
 			lHub = iff.getListHubByEntiteSociale(decideur);
 		}
 
-		else
+		else {
 			lHub = iff.getListHub();
-
+		}
 		for (Hub hub : lHub) {
 			lHubDTO.add(new HubDTO(hub));
 		}
 
-		it = lHubDTO.iterator();
+		iterator = lHubDTO.iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -88,9 +88,9 @@ public class HubTag extends TagSupport {
 	}
 
 	private boolean updateContext() {
-		if (it.hasNext()) {
+		if (iterator.hasNext()) {
 			HubDTO hubDTO;
-			hubDTO = it.next();
+			hubDTO = iterator.next();
 
 			pageContext.setAttribute(var, hubDTO);
 
