@@ -71,28 +71,35 @@ public class AddInterest extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		Interet interet = null;
 		int length = 0;
-		String nom = request.getParameter("Intitule");
-		String[] valuesInterests = request.getParameterValues("interets[]");
+		String redirection = request.getParameter("redirection");
+		String[] valuesInterests = (String[]) request.getSession()
+				.getAttribute("interets[]");
+
 		if (valuesInterests != null) {
 			length = valuesInterests.length;
 		}
 
-		interet = new Interet();
-		interet.setNomInteret(nom);
+		interet = (Interet) request.getSession().getAttribute("interet");
 
 		persist(interet);
 
 		if (length != 0) {
 			for (int i = 0; i < length; i++) {
-
-				interet = new Interet();
-				interet.setNomInteret(valuesInterests[i]);
-				persist(interet);
+				System.out.println("Pour interet " + i + " == est vide ? "
+						+ valuesInterests[i].isEmpty());
+				if(!valuesInterests[i].isEmpty()){
+					interet = new Interet();
+					interet.setNomInteret(valuesInterests[i]);
+					persist(interet);
+				}
 			}
 		}
 
-		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/AddInterest.jsp?interest=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
+		RequestDispatcher disp = getServletContext()
+				.getRequestDispatcher(
+						"/"
+								+ redirection
+								+ "?interest=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
 		disp.forward(request, response);
 	}
 

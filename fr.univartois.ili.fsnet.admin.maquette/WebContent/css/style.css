@@ -101,9 +101,17 @@ img{width: 36; height: 32;}
 
 .interest{width:50%;}
 
-.moreInteret{width:82%;}
-.removeBut{width: 16%;margin-left:3px;}
-.addButton{width: 16%;}
+.moreInteret{width:77%;}
+.removeBut{width: 20%;margin-left:2px;}
+.addButton{width: 20%;}
 .enteteIntitule{background-color: #CCCCCC}
 
 #close{float:right; margin: 7px 7px 0 0;}
+
+.error {
+	font-style: italic;
+	background-color: red;
+	border: thin;
+	color: white;
+	/*border-style: dashed*/
+}
