@@ -21,7 +21,7 @@
 <script language="JavaScript" src="admin.js">
 </script>
 </head>
-<body onload="showMenu();${param.recherche}('rechercheVide');">
+<body onload="showMenu();${param.recherche}('rechercheVide');hide('selectEtat');">
 <jsp:include page="header.jsp"></jsp:include>
 <div class="wrap background">
 <jsp:include page="subHeader.jsp"></jsp:include>
@@ -57,13 +57,11 @@
 		<div>
 			<label for="searchText">Recherche par :</label> 
 			<select name="selectRecherche" id="selectRecherche">
-				<option selected="selected" value="nom">Nom</option>
-				<option value="prenom">Prénom</option>
-				<option value="dateEntree">Date d'entrée</option>
+				<option selected="selected" value="nom" >Nom</option>
+				<option value="prenom" ">Prénom</option>
 			</select>
 			<!-- <label for="searchText">Champs :</label>-->
 			<html:text errorStyleClass="error" property="searchtext" styleId="searchText"/> 
-			
 			<html:hidden property="redirection" value="SearchMember.jsp"/>
 			<!-- <label class="button">-->
 				<html:submit>Rechercher</html:submit>
