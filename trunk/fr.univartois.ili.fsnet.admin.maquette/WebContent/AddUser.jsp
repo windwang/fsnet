@@ -91,6 +91,7 @@
 
 	<html:form styleId="AddUser" action="/adduser.do" method="post">
 		<!-- <form id="AddUser" method="post" action="AddUser">-->
+		<html:hidden property="redirection" value="AddUser.jsp" />
 		<table>
 			<tr>
 				<th class="entete"></th>

@@ -41,11 +41,11 @@
 <p></p>
 <html:form action="/lesoptions.do" method="post">
 	<div style="text-align: right;float: left;">
-	<label style="padding:5px;" for="serveurSMTP">serveur SMTP : </label><br/>
-	<label style="padding:5px;" for="hote">Hôte : </label><br/>
-	<label style="padding:5px;" for="pass">Mot de passe : </label><br/>
-	<label style="padding:5px;" for="adresseFSNet">Adresse site FSNet : </label><br/>
-	<label style="padding:5px;" for="port">Port : </label><br/>
+	<label style="padding:65px;" for="serveurSMTP">serveur SMTP : </label><br/>
+	<label style="padding:65px;" for="hote">Hôte : </label><br/>
+	<label style="padding:65px;" for="pass">Mot de passe : </label><br/>
+	<label style="padding:65px;" for="adresseFSNet">Adresse site FSNet : </label><br/>
+	<label style="padding:65px;" for="port">Port : </label><br/>
 	</div>
 	
 	<div>
