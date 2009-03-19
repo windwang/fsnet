@@ -115,3 +115,17 @@ img{width: 36; height: 32;}
 	color: white;
 	/*border-style: dashed*/
 }
+
+#options{
+ 	text-align: right;
+ 	float: left;
+}
+
+#options li{
+	padding-bottom: 0.25em;	
+}
+
+#informationsOptions{
+	color:#58a5d5;
+	font-weight: bold;	
+}
