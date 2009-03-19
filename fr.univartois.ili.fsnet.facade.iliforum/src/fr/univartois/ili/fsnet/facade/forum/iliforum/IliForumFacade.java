@@ -197,6 +197,20 @@ public class IliForumFacade implements ForumFacade {
 		Hub hubMerge;
 		em.getTransaction().begin();
 		hubMerge=em.merge(hub);
+		List<Topic> mesTopics= hubMerge.getLesTopics();
+		Iterator<Topic> itTopic = mesTopics.iterator();
+		while(itTopic.hasNext())
+		{
+			Topic topicMerge = em.merge(itTopic.next());
+			List<Message> mesMessages = topicMerge.getLesMessages();
+			Iterator<Message> itMessage = mesMessages.iterator();
+			while(itMessage.hasNext())
+			{
+				Message deleteMess= em.merge(itMessage.next());
+				em.remove(deleteMess);
+			}
+			em.remove(topicMerge);
+		}
 		em.remove(hubMerge);
 		em.getTransaction().commit();
 		return true;
@@ -217,6 +231,13 @@ public class IliForumFacade implements ForumFacade {
 		Topic topicMerge;
 		em.getTransaction().begin();
 		topicMerge = em.merge(topic);
+		List<Message> mesMessages = topicMerge.getLesMessages();
+		Iterator<Message> it = mesMessages.iterator();
+		while(it.hasNext())
+		{
+			Message deleteMess= em.merge(it.next());
+			em.remove(deleteMess);
+		}
 		em.remove(topicMerge);
 		em.getTransaction().commit();
 		return true;
