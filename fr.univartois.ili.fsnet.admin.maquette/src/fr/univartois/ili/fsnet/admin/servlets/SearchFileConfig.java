@@ -16,13 +16,11 @@ public class SearchFileConfig extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	public static final String FILE_PATH = System.getProperty("user.home")
-			+ ".fsadminrc";
+			+ "/.fsnetadminrc";
 
 	public static final String HOME = "/index.jsp?accueil=current";
 
 	public static final String OPTIONS = "/options.jsp?options=current";
-
-	private String redirection = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -31,17 +29,13 @@ public class SearchFileConfig extends HttpServlet {
 		super();
 	}
 
-	@Override
-	public void init() throws ServletException {
-		searchFile();
-	}
-
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
+		String redirection = searchFile();
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
 				redirection);
 		disp.forward(request, response);
@@ -57,14 +51,12 @@ public class SearchFileConfig extends HttpServlet {
 		doGet(request, response);
 	}
 
-	private void searchFile() {
-
+	private String searchFile() {
 		File file = new File(FILE_PATH);
 		if (!file.exists()) {
-			redirection = OPTIONS;
-		} else {
-			redirection = HOME;
+			return OPTIONS;
 		}
+		return HOME;
 	}
 
 }
