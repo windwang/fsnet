@@ -20,7 +20,7 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
  */
 public class IsLoggedFilter implements Filter {
 
-	private transient static ServletContext servC;
+	private transient ServletContext servC;
 
 	/**
 	 * @see Filter#destroy()

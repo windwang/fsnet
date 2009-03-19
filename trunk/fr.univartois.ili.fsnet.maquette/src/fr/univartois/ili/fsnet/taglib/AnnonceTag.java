@@ -20,7 +20,7 @@ public class AnnonceTag extends TagSupport {
 	private String var;
 	private transient Integer idChoisi;
 	private transient Date dateFin;
-	private transient final Date dateJour = new Date();
+	private transient Date dateJour;
 	private transient String titre;
 	private transient Iterator<Annonce> annonces;
 	private transient Integer nbAnnonce;
@@ -96,6 +96,7 @@ public class AnnonceTag extends TagSupport {
 	}
 
 	private boolean updateContext() {
+		dateJour = new Date();
 		if (nbAnnonce == null) {
 			if (annonces.hasNext()) {
 				Annonce ann;
