@@ -361,5 +361,5 @@
 
 	<target name="both"
 		depends="prepare,pmd,entities,entities.test,iliforum,
-			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,findbugs,base"/>
+			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,findbugs,clean,base"/>
 </project>
