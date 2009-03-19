@@ -45,8 +45,9 @@
 	
     <div  style="text-align: center;" class="promo">    
 	<form action="login" method="post" id="infoLogin" >
-	 
+	 <div style="color:#7D1919;text-align: center; margin-bottom : 20px;">${erreur}</div>
       <table width="90%" border="0">
+      
         <tr>
           <td style="width: 50%;text-align:right">Email</td>
           <td style="width:203"><label>
@@ -66,7 +67,8 @@
         <tr>
           <td>&nbsp;</td>
           <td>&nbsp;</td>
-          <td><div style="align:center"><a href="www.google.fr">Mot de passe oublié ?</a></div></td>
+          <!-- <td><div style="align:center"><a href="www.google.fr">Mot de passe oublié ?</a></div></td>-->
+          
         </tr>
       </table>
      
