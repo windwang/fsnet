@@ -55,8 +55,6 @@ public class InscriptionTag extends TagSupport {
 	private String parametre;
 	private String filtre;
 
-	private DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-
 	public void setFiltre(final String filtre) {
 		this.filtre = filtre;
 	}
@@ -151,14 +149,6 @@ public class InscriptionTag extends TagSupport {
 		if (filtre.equals("prenom")) {
 			return searchPrenom(parametre);
 		}
-		if (filtre.equals("dateEntree")) {
-			try {
-				return searchDateEntree(formatter.parse(parametre));
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				System.out.println("erreur de date");
-			}
-		}
 		return null;
 	}
 
@@ -185,20 +175,6 @@ public class InscriptionTag extends TagSupport {
 		List<Inscription> lesES = new ArrayList<Inscription>();
 		Query query = em
 				.createQuery("SELECT i FROM Inscription i WHERE i.entite.prenom=?1");
-		query.setParameter(1, param);
-		lesES = query.getResultList();
-		return lesES;
-
-	}
-
-	public List<Inscription> searchDateEntree(Date param) {
-		System.out.println("je passe dans searchDateEntree");
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
-		List<Inscription> lesES = new ArrayList<Inscription>();
-		Query query = em
-				.createQuery("SELECT i FROM Inscription i WHERE i.entite.dateEntree=?1");
 		query.setParameter(1, param);
 		lesES = query.getResultList();
 		return lesES;

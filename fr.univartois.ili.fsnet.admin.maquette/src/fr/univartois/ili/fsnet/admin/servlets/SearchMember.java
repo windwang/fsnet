@@ -43,11 +43,14 @@ public class SearchMember extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
-		String filtreRecherche = request.getSession().getAttribute("selectRecherche").toString();
-		String textRecherche = request.getSession().getAttribute("searchText").toString();
-		String redirection = request.getSession().getAttribute("redirection").toString();
-
-		System.out.println("Text recherche "+textRecherche);
+		String filtreRecherche = request.getSession().getAttribute(
+				"selectRecherche").toString();
+		String textRecherche;
+		textRecherche = request.getSession().getAttribute("searchText")
+				.toString();
+		String redirection = request.getSession().getAttribute("redirection")
+				.toString();
+		System.out.println("Text recherche " + textRecherche);
 
 		request.setAttribute("filtre", filtreRecherche);
 		request.setAttribute("parametre", textRecherche);
