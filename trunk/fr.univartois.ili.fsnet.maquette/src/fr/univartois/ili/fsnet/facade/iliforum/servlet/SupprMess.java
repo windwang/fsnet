@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
@@ -22,35 +21,31 @@ public class SupprMess extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SupprMess() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		int idmessage = Integer.valueOf(request.getParameter("idMess"));
-		int identite = Integer.valueOf(request.getParameter("idEntite"));
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		int idmessage;
+		int identite;
+		EntityManagerFactory factory;
+		EntityManager entM;
+		Message mess;
 
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
-		Message mess = em.getReference(Message.class, Integer
-				.valueOf(idmessage));
+		idmessage = Integer.valueOf(request.getParameter("idMess"));
+		identite = Integer.valueOf(request.getParameter("idEntite"));
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		entM = factory.createEntityManager();
+		mess = entM.getReference(Message.class, Integer.valueOf(idmessage));
 
 		if (mess.getPropMsg().getId() == identite) {
 			IliForumFacade.getInstance().removeMessage(mess);
-		} else {
 		}
 
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/message.jsp");
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/message.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -58,8 +53,10 @@ public class SupprMess extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 	}
 

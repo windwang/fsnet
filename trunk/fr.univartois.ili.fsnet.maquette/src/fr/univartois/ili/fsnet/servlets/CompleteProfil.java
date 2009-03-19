@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -15,7 +16,6 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.Servlet;
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -35,37 +35,29 @@ public class CompleteProfil extends HttpServlet {
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
-	private EntityManagerFactory factory;
+	private transient EntityManagerFactory factory;
 
-	private EntityManager em;
+	private transient EntityManager entM;
 
-	private static final String FIND_INTERET_BY_ID = "SELECT i FROM Interet i WHERE i.id = ?1";
+	private static final String FIND_INTERET_ID = "SELECT i FROM Interet i WHERE i.id = ?1";
 
-	private static final String FIND_INSCRIPTION_BY_ENTITE = "SELECT ins FROM Inscription ins WHERE ins.entite =?1";
+	private static final String FIND_INS_BY_ENT = "SELECT ins FROM Inscription ins WHERE ins.entite =?1";
 
-	private static Logger logger = Logger.getLogger("FSNet");
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CompleteProfil() {
-		super();
-	}
+	private static final Logger logger = Logger.getLogger("FSNet");
 
 	@Override
 	public void init() throws ServletException {
-		// TODO Auto-generated method stub
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-		em = factory.createEntityManager();
+		entM = factory.createEntityManager();
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		if (em != null) {
-			em.close();
+		if (entM != null) {
+			entM.close();
 		}
 		if (factory != null) {
 			factory.close();
@@ -76,58 +68,75 @@ public class CompleteProfil extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 
-		HttpSession session = request.getSession();
-		String dateNaissance = request.getParameter("dateNaissance");
-		String adresse = request.getParameter("adresse");
-		String telephone = request.getParameter("telephone");
-		String profession = request.getParameter("profession");
-		String pwd1 = request.getParameter("pwd1");
-		String pwd2 = request.getParameter("pwd2");
-		String sexe = request.getParameter("sexe");
+		HttpSession session;
+		String dateNaissance;
+		String adresse;
+		String telephone;
+		String profession;
+		String pwd;
+		String pwd1;
+		String pwd2;
+		String sexe;
+
+		session = request.getSession();
+		dateNaissance = request.getParameter("dateNaissance");
+		adresse = request.getParameter("adresse");
+		telephone = request.getParameter("telephone");
+		profession = request.getParameter("profession");
+		pwd = request.getParameter("pwd1");
+		pwd2 = request.getParameter("pwd2");
+		sexe = request.getParameter("sexe");
 
 		// logger.info(pwd1);
-		// logger.info(pwd2);
+		logger.info(pwd2);
 
-		pwd1 = Md5.getEncodedPassword(pwd1);
+		pwd1 = Md5.getEncodedPassword(pwd);
 
 		logger.info(pwd1);
 
-		EntiteSociale entite = (EntiteSociale) session.getAttribute("entite");
+		EntiteSociale entite;
+		entite = (EntiteSociale) session.getAttribute("entite");
 		// entite = em.find(EntiteSociale.class, entite.getId());
-		entite = em.merge(entite);
+		entite = entM.merge(entite);
 
-		List<Interet> lesInterets = new ArrayList<Interet>();
+		List<Interet> lesInterets;
+		lesInterets = new ArrayList<Interet>();
 		String[] interests = null;
 		interests = request.getParameterValues("interestSelected");
 
 		if (interests != null) {
 			Query interest;
-			int length = interests.length;
+			int length;
+			length = interests.length;
 			Interet interet = null;
 
 			for (int i = 0; i < length; i++) {
 				logger.info("TEST:id =" + interests[i]);
-				interest = em.createQuery(FIND_INTERET_BY_ID);
+				interest = entM.createQuery(FIND_INTERET_ID);
 				interest.setParameter(1, Integer.parseInt(interests[i]));
 				interet = (Interet) interest.getSingleResult();
 				lesInterets.add(interet);
 			}
 		}
 
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+		DateFormat formatter;
+		formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.FRANCE);
 		Date date = null;
 		try {
 			date = (Date) formatter.parse(dateNaissance);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 
-		Query inscrit = em.createQuery(FIND_INSCRIPTION_BY_ENTITE);
+		Query inscrit;
+		inscrit = entM.createQuery(FIND_INS_BY_ENT);
 		inscrit.setParameter(1, entite);
-		Inscription ins = (Inscription) inscrit.getSingleResult();
+		Inscription ins;
+		ins = (Inscription) inscrit.getSingleResult();
 		ins.setEtat();
 
 		entite.setAdresse(adresse);
@@ -139,20 +148,21 @@ public class CompleteProfil extends HttpServlet {
 		entite.setLesinterets(lesInterets);
 		entite.setMdp(pwd1);
 
-		em.getTransaction().begin();
-		em.persist(entite);
-		em.persist(ins);
-		em.getTransaction().commit();
+		entM.getTransaction().begin();
+		entM.persist(entite);
+		entM.persist(ins);
+		entM.getTransaction().commit();
 
 		logger.info("Taille interets : " + entite.getLesinterets().size());
 
-		if (interests != null)
+		if (interests != null) {
 			logger.info("Nom interets : "
 					+ entite.getLesinterets().get(0).getNomInteret());
+		}
 		session.setAttribute("entite", entite);
 
-		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
-				"/index.jsp");
+		RequestDispatcher dispatch;
+		dispatch = getServletContext().getRequestDispatcher("/index.jsp");
 		dispatch.forward(request, response);
 
 	}
@@ -161,8 +171,9 @@ public class CompleteProfil extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		doGet(request, response);
 	}
 

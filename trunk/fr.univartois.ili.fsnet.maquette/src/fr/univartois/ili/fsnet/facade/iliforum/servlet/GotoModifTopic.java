@@ -20,29 +20,26 @@ public class GotoModifTopic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public GotoModifTopic() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		EntityManagerFactory factory;
+		EntityManager entM;
+		Topic monTopic;
 
-		Topic monTopic = em.getReference(Topic.class, Integer.valueOf(request
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		entM = factory.createEntityManager();
+		monTopic = entM.getReference(Topic.class, Integer.valueOf(request
 				.getParameter("idTopic")));
+
 		getServletContext().setAttribute("monTopic", monTopic);
 
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/modifTopic.jsp");
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/modifTopic.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -50,8 +47,10 @@ public class GotoModifTopic extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 
 	}

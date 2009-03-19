@@ -22,34 +22,39 @@ public class CreateTopic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CreateTopic() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String nom = request.getParameter("nomTopic");
-		String contenu = request.getParameter("contenuMessage");
-		Date date = new Date();
-		EntiteSociale ent = (EntiteSociale) request.getSession().getAttribute(
-				"entite");
-		String nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
-		Topic topic = new Topic(nomUTF8, date, null, (Hub) getServletContext()
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		String nom;
+		String contenu;
+		Date date;
+		EntiteSociale ent;
+		String nomUTF8;
+		Topic topic;
+		String contenuUTF8;
+		Message message;
+		IliForumFacade iff;
+
+		nom = request.getParameter("nomTopic");
+		contenu = request.getParameter("contenuMessage");
+		date = new Date();
+		ent = (EntiteSociale) request.getSession().getAttribute("entite");
+		nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
+		topic = new Topic(nomUTF8, date, null, (Hub) getServletContext()
 				.getAttribute("monHub"), ent);
-		String contenuUTF8 = new String(contenu.getBytes("ISO-8859-1"), "UTF-8");
-		Message message = new Message(contenuUTF8, date, ent, topic);
-		IliForumFacade iff = IliForumFacade.getInstance();
+		contenuUTF8 = new String(contenu.getBytes("ISO-8859-1"), "UTF-8");
+		message = new Message(contenuUTF8, date, ent, topic);
+
+		iff = IliForumFacade.getInstance();
 		iff.addTopic(topic);
 		iff.addMessage(message);
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/topic.jsp");
+
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/topic.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -57,8 +62,10 @@ public class CreateTopic extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 	}
 

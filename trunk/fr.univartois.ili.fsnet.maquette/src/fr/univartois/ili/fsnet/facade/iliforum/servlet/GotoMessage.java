@@ -20,31 +20,30 @@ public class GotoMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public GotoMessage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
-		String idTopic = request.getParameter("idTopic");
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		EntityManagerFactory factory;
+		EntityManager entM;
+		String idTopic;
+
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		entM = factory.createEntityManager();
+		idTopic = request.getParameter("idTopic");
+
 		if ((idTopic != null) && (!idTopic.equals(""))) {
 
-			Topic monTopic = em.getReference(Topic.class, Integer
-					.valueOf(idTopic));
+			Topic monTopic;
+			monTopic = entM.getReference(Topic.class, Integer.valueOf(idTopic));
 			getServletContext().setAttribute("monTopic", monTopic);
 		}
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/message.jsp");
+		entM.close();
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/message.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -52,8 +51,10 @@ public class GotoMessage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 	}
 

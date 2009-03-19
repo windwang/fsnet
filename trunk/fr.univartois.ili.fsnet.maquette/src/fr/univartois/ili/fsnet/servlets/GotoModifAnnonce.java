@@ -20,30 +20,24 @@ public class GotoModifAnnonce extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public GotoModifAnnonce() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
-		String id = request.getParameter("idChoisi");
-		System.out.println("               id annonce " + id);
-		Annonce ann = em.getReference(Annonce.class, Integer.valueOf(request
-				.getParameter("idChoisi")));
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		EntityManager entM;
+		entM = factory.createEntityManager();
+		String ident;
+		ident = request.getParameter("idChoisi");
+		Annonce ann;
+		ann = entM.getReference(Annonce.class, Integer.valueOf(ident));
 		getServletContext().setAttribute("annonce", ann);
 
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/modifAnnonce.jsp");
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/modifAnnonce.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -51,9 +45,9 @@ public class GotoModifAnnonce extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		super.doPost(request, response);
 	}
 

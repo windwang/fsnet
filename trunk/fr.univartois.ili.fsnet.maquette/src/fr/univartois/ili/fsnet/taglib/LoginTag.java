@@ -18,28 +18,30 @@ public class LoginTag extends TagSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String var;
-	private Integer idLogin;
-	private Iterator<EntiteSociale> entSoc;
+	private transient Integer idLogin;
+	private transient Iterator<EntiteSociale> entSoc;
 
 	public String getVar() {
 		return var;
 	}
 
-	public void setVar(String var) {
+	public void setVar(final String var) {
 		this.var = var;
 	}
 
-	public void setIdLogin(int idLogin) {
+	public void setIdLogin(final int idLogin) {
 		this.idLogin = idLogin;
 	}
 
 	public int doStartTag() throws JspException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		EntityManager entM;
+		entM = factory.createEntityManager();
 		if (idLogin != null) {
 
-			Query requete = em
+			Query requete;
+			requete = entM
 					.createQuery("SELECT e FROM EntiteSociale e WHERE e.id=?1");
 			requete.setParameter(1, idLogin.intValue());
 			entSoc = (Iterator<EntiteSociale>) requete.getResultList()
@@ -57,7 +59,8 @@ public class LoginTag extends TagSupport {
 		String checkedM = "";
 		String checkedF = "";
 		if (entSoc.hasNext()) {
-			EntiteSociale entSociale = entSoc.next();
+			EntiteSociale entSociale;
+			entSociale = entSoc.next();
 
 			if ("M".equalsIgnoreCase(entSociale.getSexe())) {
 				checkedM = "checked";

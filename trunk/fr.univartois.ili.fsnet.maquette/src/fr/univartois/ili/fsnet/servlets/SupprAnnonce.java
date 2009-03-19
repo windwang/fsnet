@@ -20,31 +20,23 @@ public class SupprAnnonce extends HttpServlet {
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
-	private EntityManagerFactory factory;
+	private transient EntityManagerFactory factory;
 
-	private EntityManager em;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SupprAnnonce() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private transient EntityManager entM;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-		em = factory.createEntityManager();
+		entM = factory.createEntityManager();
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		if (em != null) {
-			em.close();
+		if (entM != null) {
+			entM.close();
 		}
 		if (factory != null) {
 			factory.close();
@@ -55,25 +47,29 @@ public class SupprAnnonce extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		// TODO Auto-generated method stub
-		String id = request.getParameter("idChoisi");
+		String ident;
+		ident = request.getParameter("idChoisi");
 
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
-		Annonce monAnn = em.getReference(Annonce.class, Integer.valueOf(id));
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		EntityManager entM2;
+		entM2 = factory.createEntityManager();
+		Annonce monAnn;
+		monAnn = entM2.getReference(Annonce.class, Integer.valueOf(ident));
 
 		Annonce hubMerge;
-		em.getTransaction().begin();
-		hubMerge = em.merge(monAnn);
+		entM2.getTransaction().begin();
+		hubMerge = entM2.merge(monAnn);
 		hubMerge.setVisible("N");
-		em.persist(hubMerge);
-		em.getTransaction().commit();
+		entM2.persist(hubMerge);
+		entM2.getTransaction().commit();
 
-		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
-				"/annonces.jsp");
+		RequestDispatcher dispatch;
+		dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
 		dispatch.forward(request, response);
 	}
 
@@ -81,8 +77,9 @@ public class SupprAnnonce extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		// TODO Auto-generated method stub
 
 	}

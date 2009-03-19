@@ -5,6 +5,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,31 +30,25 @@ public class ModifAnnonce extends HttpServlet {
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
-	private EntityManagerFactory factory;
+	private transient EntityManagerFactory factory;
 
-	private EntityManager em;
+	private transient EntityManager entM;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ModifAnnonce() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private static final Logger logger = Logger.getLogger("FSNet");
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-		em = factory.createEntityManager();
+		entM = factory.createEntityManager();
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		if (em != null) {
-			em.close();
+		if (entM != null) {
+			entM.close();
 		}
 		if (factory != null) {
 			factory.close();
@@ -63,39 +59,45 @@ public class ModifAnnonce extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 
 		// String date = request.getParameter("dateDebut");
-		Annonce annonce1 = (Annonce) getServletContext()
-				.getAttribute("annonce");
+		Annonce annonce1;
+		annonce1 = (Annonce) getServletContext().getAttribute("annonce");
 
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
-		Annonce manif = em.getReference(Annonce.class, annonce1.getId());
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		EntityManager entM;
+		entM = factory.createEntityManager();
+		Annonce manif;
+		manif = entM.getReference(Annonce.class, annonce1.getId());
 
-		String titre = request.getParameter("titreAnnonce");
-		String contenu = request.getParameter("contenuAnnonce");
-		String dateFin = request.getParameter("dateFinAnnonce");
-		Date date = null;
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+		String titre;
+		titre = request.getParameter("titreAnnonce");
+		String contenu;
+		contenu = request.getParameter("contenuAnnonce");
+		String dateFin;
+		dateFin = request.getParameter("dateFinAnnonce");
+		Date date = new Date();
+		DateFormat formatter;
+		formatter = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
 		try {
 			date = (Date) formatter.parse(dateFin);
 
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			logger.info(e.getMessage());
 		}
 		manif.setDateFinAnnnonce(date);
 		manif.setContenu(contenu);
 		manif.setNom(titre);
 
-		em.getTransaction().begin();
-		em.merge(manif);
-		em.getTransaction().commit();
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/annonces.jsp");
+		entM.getTransaction().begin();
+		entM.merge(manif);
+		entM.getTransaction().commit();
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/annonces.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -103,9 +105,9 @@ public class ModifAnnonce extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		super.doPost(request, response);
 	}
 

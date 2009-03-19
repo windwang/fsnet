@@ -17,34 +17,36 @@ public class ManifestationTag extends TagSupport {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String var;
+	private transient String var;
 
-	private Iterator<Manifestation> manif;
-	private Integer nbEven;
-	private Integer idEven;
-	private int cpt;
+	private transient Iterator<Manifestation> manif;
+	private transient Integer nbEven;
+	private transient Integer idEven;
+	private transient int cpt;
 
-	public void setNbEven(Integer nbEven) {
+	public void setNbEven(final Integer nbEven) {
 		this.nbEven = nbEven;
 	}
 
-	public void setIdEven(Integer idEven) {
+	public void setIdEven(final Integer idEven) {
 		this.idEven = idEven;
 	}
 
-	public void setVar(String var) {
+	public void setVar(final String var) {
 		this.var = var;
 	}
 
 	public int doStartTag() throws JspException {
 
 		cpt = 0;
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		EntityManager entM;
+		entM = factory.createEntityManager();
 		if (idEven != null) {
 
-			Query requete = em
+			Query requete;
+			requete = entM
 					.createQuery("SELECT m FROM Manifestation m WHERE m.id=?1 AND m.visible='Y' ");
 			requete.setParameter(1, idEven.intValue());
 			manif = (Iterator<Manifestation>) requete.getResultList()
@@ -52,7 +54,8 @@ public class ManifestationTag extends TagSupport {
 		} else if (nbEven != null) {
 			// Limite le nombre d'evenements
 
-			Query requete = em
+			Query requete;
+			requete = entM
 					.createQuery("SELECT m FROM Manifestation m WHERE  m.visible='Y' ORDER BY m.id DESC ");
 
 			manif = (Iterator<Manifestation>) requete.getResultList()
@@ -60,7 +63,8 @@ public class ManifestationTag extends TagSupport {
 
 		} else {
 
-			Query requete = em
+			Query requete;
+			requete = entM
 					.createQuery("SELECT m FROM Manifestation m WHERE  m.visible='Y'");
 			manif = (Iterator<Manifestation>) requete.getResultList()
 					.iterator();
