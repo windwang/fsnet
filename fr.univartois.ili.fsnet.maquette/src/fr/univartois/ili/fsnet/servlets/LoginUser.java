@@ -24,36 +24,29 @@ import fr.univartois.ili.fsnet.security.Md5;
  */
 public class LoginUser extends HttpServlet {
 
-	private static Logger logger = Logger.getLogger("FSNet");
+	private static final Logger logger = Logger.getLogger("FSNet");
 
 	private static final long serialVersionUID = 1L;
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
-	private EntityManagerFactory factory;
+	private transient EntityManagerFactory factory;
 
-	private EntityManager em;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LoginUser() {
-		super();
-	}
+	private transient EntityManager entM;
 
 	@Override
 	public void init() throws ServletException {
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-		em = factory.createEntityManager();
+		entM = factory.createEntityManager();
 	}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
-		if (em != null) {
-			em.close();
+		if (entM != null) {
+			entM.close();
 		}
 		if (factory != null) {
 			factory.close();
@@ -64,52 +57,60 @@ public class LoginUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 
-		RequestDispatcher dispatch = null;
-		HttpSession session = request.getSession();
-		String email = request.getParameter("email");
-		String password = request.getParameter("password");
-		EntiteSociale en = null;
-		em.clear();
-		Query query = em
+		RequestDispatcher dispatch;
+		HttpSession session;
+		session = request.getSession();
+		String email;
+		email = request.getParameter("email");
+		String password;
+		password = request.getParameter("password");
+		EntiteSociale entite;
+		entM.clear();
+		Query query;
+		query = entM
 				.createQuery("SELECT en FROM EntiteSociale en WHERE en.email LIKE ?1");
 		query.setParameter(1, email);
 
-		Query query2 = em
+		Query query2;
+		query2 = entM
 				.createQuery("SELECT ins FROM Inscription ins WHERE ins.entite =?1");
 
 		try {
 
-			en = (EntiteSociale) query.getResultList().get(0);
-			en = em.merge(en);
+			entite = (EntiteSociale) query.getResultList().get(0);
+			entite = entM.merge(entite);
 
-			logger.info(en.getEmail());
-			logger.info(String.valueOf(en.getId()));
-			logger.info("Taille interet : " + en.getLesinterets().size());
+			logger.info(entite.getEmail());
+			logger.info(String.valueOf(entite.getId()));
+			logger.info("Taille interet : " + entite.getLesinterets().size());
 
-			query2.setParameter(1, en);
-			Inscription inscrit = (Inscription) query2.getSingleResult();
-			inscrit = em.merge(inscrit);
+			query2.setParameter(1, entite);
+			Inscription inscrit;
+			inscrit = (Inscription) query2.getSingleResult();
+			inscrit = entM.merge(inscrit);
 
 			logger.info(inscrit.getEtat());
 
-			session.setAttribute("entite", en);
+			session.setAttribute("entite", entite);
 			if (inscrit.getEtat().equals(Inscription.ATTENTE)) {
-				Date dateJour = new Date();
-				en.setDateEntree(dateJour);
+				Date dateJour;
+				dateJour = new Date();
+				entite.setDateEntree(dateJour);
 
-				em.getTransaction().begin();
-				em.persist(en);
-				em.getTransaction().commit();
+				entM.getTransaction().begin();
+				entM.persist(entite);
+				entM.getTransaction().commit();
 
 				dispatch = getServletContext().getRequestDispatcher(
 						"/profil.jsp");
 				dispatch.forward(request, response);
 			} else {
 				if ((inscrit.getEtat().equals(Inscription.INSCRIT))
-						&& Md5.testPassword(password, en.getMdp())) {
+						&& Md5.testPassword(password, entite.getMdp())) {
 					getServletContext().setAttribute("erreur", "");
 					dispatch = getServletContext().getRequestDispatcher(
 							"/index.jsp");
@@ -137,8 +138,9 @@ public class LoginUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		doGet(request, response);
 	}
 

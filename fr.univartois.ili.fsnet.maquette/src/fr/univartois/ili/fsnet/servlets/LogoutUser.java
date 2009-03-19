@@ -3,7 +3,7 @@ package fr.univartois.ili.fsnet.servlets;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
-import javax.servlet.ServletConfig;
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,20 +19,6 @@ public class LogoutUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public LogoutUser() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	@Override
-	public void init() throws ServletException {
-		// TODO Auto-generated method stub
-		super.init();
-	}
-
-	/**
 	 * @see Servlet#destroy()
 	 */
 	public void destroy() {
@@ -43,14 +29,16 @@ public class LogoutUser extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 
-		HttpSession session = request.getSession();
+		HttpSession session;
+		session = request.getSession();
 		session.invalidate();
 
-		RequestDispatcher dis = getServletContext().getRequestDispatcher(
-				"/login.jsp");
+		RequestDispatcher dis;
+		dis = getServletContext().getRequestDispatcher("/login.jsp");
 		dis.forward(request, response);
 
 	}
@@ -59,8 +47,9 @@ public class LogoutUser extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		doGet(request, response);
 	}
 

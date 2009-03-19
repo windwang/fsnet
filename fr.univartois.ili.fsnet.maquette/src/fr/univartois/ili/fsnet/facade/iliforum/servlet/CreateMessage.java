@@ -21,31 +21,30 @@ public class CreateMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CreateMessage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String nom = request.getParameter("contenuMessage");
-		Date date = new Date();
-		EntiteSociale ent = (EntiteSociale) request.getSession().getAttribute(
-				"entite");
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		String nom;
+		Date date;
+		EntiteSociale ent;
+		String nomUTF8;
+		Message message;
 
-		String nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
-		Message message = new Message(nomUTF8, date, ent,
-				(Topic) getServletContext().getAttribute("monTopic"));
+		nom = request.getParameter("contenuMessage");
+		date = new Date();
+		ent = (EntiteSociale) request.getSession().getAttribute("entite");
+		nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
+		message = new Message(nomUTF8, date, ent, (Topic) getServletContext()
+				.getAttribute("monTopic"));
 
 		IliForumFacade.getInstance().addMessage(message);
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/message.jsp");
+
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/message.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -53,8 +52,10 @@ public class CreateMessage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 	}
 

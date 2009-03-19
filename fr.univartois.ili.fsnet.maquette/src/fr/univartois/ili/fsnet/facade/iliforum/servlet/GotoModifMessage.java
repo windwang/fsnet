@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 
 /**
@@ -21,29 +20,26 @@ public class GotoModifMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public GotoModifMessage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		EntityManagerFactory factory;
+		EntityManager entM;
+		Message monMess;
 
-		Message monMess = em.getReference(Message.class, Integer
-				.valueOf(request.getParameter("idMess")));
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		entM = factory.createEntityManager();
+		monMess = entM.getReference(Message.class, Integer.valueOf(request
+				.getParameter("idMess")));
+
 		getServletContext().setAttribute("monMessage", monMess);
 
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/modifMessage.jsp");
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/modifMessage.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -51,8 +47,10 @@ public class GotoModifMessage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		// TODO Auto-generated method stub
 	}
 

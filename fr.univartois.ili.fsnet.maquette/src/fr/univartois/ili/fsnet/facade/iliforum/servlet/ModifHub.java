@@ -18,26 +18,25 @@ public class ModifHub extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ModifHub() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String titre = request.getParameter("titreHub");
-		Hub hub = (Hub) getServletContext().getAttribute("monHub");
-		String titreUTF8 = new String(titre.getBytes("ISO-8859-1"), "UTF-8");
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		String titre;
+		Hub hub;
+		String titreUTF8;
+
+		titre = request.getParameter("titreHub");
+		hub = (Hub) getServletContext().getAttribute("monHub");
+		titreUTF8 = new String(titre.getBytes("ISO-8859-1"), "UTF-8");
+
 		IliForumFacade.getInstance().updateHub(hub, titreUTF8);
 
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/hub.jsp");
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/hub.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -45,8 +44,10 @@ public class ModifHub extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 	}
 

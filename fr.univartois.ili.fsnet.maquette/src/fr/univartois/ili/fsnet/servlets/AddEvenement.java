@@ -6,6 +6,8 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -27,23 +29,16 @@ import fr.univartois.ili.fsnet.entities.Manifestation;
 public class AddEvenement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final String DATABASE_NAME = "fsnetjpa";
-	private EntityManagerFactory factory;
-	private EntityManager em;
-
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AddEvenement() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
+	private transient EntityManagerFactory factory;
+	private transient EntityManager entM;
+	private static final Logger logger = Logger.getLogger("FSNet");
 
 	@Override
 	public void init() throws ServletException {
 		// TODO Auto-generated method stub
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-		em = factory.createEntityManager();
+		entM = factory.createEntityManager();
 
 	}
 
@@ -51,14 +46,15 @@ public class AddEvenement extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		String id = request.getParameter("id");
-		getServletContext().setAttribute("idEven", id);
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		String ident;
+		ident = request.getParameter("id");
+		getServletContext().setAttribute("idEven", ident);
 
-		RequestDispatcher dispatch = getServletContext().getRequestDispatcher(
-				"/detailEven.jsp");
+		RequestDispatcher dispatch;
+		dispatch = getServletContext().getRequestDispatcher("/detailEven.jsp");
 		dispatch.forward(request, response);
 	}
 
@@ -66,57 +62,63 @@ public class AddEvenement extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 
-		EntiteSociale en = null;
+		EntiteSociale entite;
 
-		HttpSession session = request.getSession();
-		en = (EntiteSociale) session.getAttribute("entite");
+		HttpSession session;
+		session = request.getSession();
+		entite = (EntiteSociale) session.getAttribute("entite");
 
-		String titre = request.getParameter("titreEvenement");
-		String contenu = request.getParameter("contenuEvenement");
-		String date = request.getParameter("dateDebut");
+		String titre;
+		titre = request.getParameter("titreEvenement");
+		String contenu;
+		contenu = request.getParameter("contenuEvenement");
+		String date;
+		date = request.getParameter("dateDebut");
 		if (titre.isEmpty() || contenu.isEmpty() || date.isEmpty()) {
 
 			request.setAttribute("titre", titre);
 			request.setAttribute("contenu", contenu);
 			request.setAttribute("date", date);
 
-			RequestDispatcher dispatch = getServletContext()
-					.getRequestDispatcher("/creerevenement.jsp");
+			RequestDispatcher dispatch;
+			dispatch = getServletContext().getRequestDispatcher(
+					"/creerevenement.jsp");
 			dispatch.forward(request, response);
 		} else {
 
-			Date date1 = null;
-			DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+			Date date1;
+			date1 = new Date();
+			DateFormat formatter;
+			formatter = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
 			try {
 				date1 = (Date) formatter.parse(date);
 
 			} catch (ParseException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				logger.info(e.getMessage());
 			}
 
-			Manifestation nouvellevenement = new Manifestation(titre, date1,
-					contenu, "Y", en);
-			em.getTransaction().begin();
-			em.persist(nouvellevenement);
-			em.getTransaction().commit();
+			Manifestation nouvellevenement;
+			nouvellevenement = new Manifestation(titre, date1, contenu, "Y",
+					entite);
+			entM.getTransaction().begin();
+			entM.persist(nouvellevenement);
+			entM.getTransaction().commit();
 
-			RequestDispatcher dispatch = getServletContext()
-					.getRequestDispatcher("/index.jsp");
+			RequestDispatcher dispatch;
+			dispatch = getServletContext().getRequestDispatcher("/index.jsp");
 			dispatch.forward(request, response);
 		}
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
 		super.destroy();
-		if (em != null) {
-			em.close();
+		if (entM != null) {
+			entM.close();
 		}
 		if (factory != null) {
 			factory.close();

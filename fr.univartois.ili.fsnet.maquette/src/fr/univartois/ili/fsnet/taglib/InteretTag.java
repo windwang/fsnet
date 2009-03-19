@@ -27,11 +27,11 @@ public class InteretTag extends TagSupport {
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
-	private Iterator<Interet> it;
+	private transient Iterator<Interet> iterator;
 
-	private List<Interet> interetsPerso;
+	private transient List<Interet> interetsPerso;
 
-	private String var;
+	private transient String var;
 
 	private Integer idLogin;
 
@@ -43,36 +43,38 @@ public class InteretTag extends TagSupport {
 		return idLogin;
 	}
 
-	public void setIdLogin(Integer idLogin) {
+	public void setIdLogin(final Integer idLogin) {
 		this.idLogin = idLogin;
 	}
 
 	public int doStartTag() throws JspException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+		EntityManager entM;
+		entM = factory.createEntityManager();
 		Query queryInt, queryEnt;
 		List<Interet> lesInterets;
 
-		queryInt = em.createQuery(FIND_ALL);
+		queryInt = entM.createQuery(FIND_ALL);
 		lesInterets = (List<Interet>) queryInt.getResultList();
-		it = lesInterets.iterator();
+		iterator = lesInterets.iterator();
 
-		queryEnt = em.createQuery(FIND_ENTITE);
+		queryEnt = entM.createQuery(FIND_ENTITE);
 		queryEnt.setParameter(1, idLogin.intValue());
 
-		EntiteSociale ent = (EntiteSociale) queryEnt.getSingleResult();
+		EntiteSociale ent;
+		ent = (EntiteSociale) queryEnt.getSingleResult();
 		interetsPerso = ent.getLesinterets();
 
-		if (it != null && it.hasNext()) {
-			updateContext(it.next());
+		if (iterator != null && iterator.hasNext()) {
+			updateContext(iterator.next());
 			return EVAL_BODY_INCLUDE;
 		}
 
 		return SKIP_BODY;
 	}
 
-	private void updateContext(Interet interet) {
+	private void updateContext(final Interet interet) {
 		String checked = "";
 		if (interetsPerso.contains(interet)) {
 			checked = "checked";
@@ -82,8 +84,8 @@ public class InteretTag extends TagSupport {
 	}
 
 	public int doAfterBody() throws JspException {
-		if (it.hasNext()) {
-			updateContext(it.next());
+		if (iterator.hasNext()) {
+			updateContext(iterator.next());
 			return EVAL_BODY_AGAIN;
 		}
 		return SKIP_BODY;

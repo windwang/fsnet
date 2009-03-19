@@ -18,33 +18,38 @@ import fr.univartois.ili.fsnet.entities.Hub;
  */
 public class GotoTopic extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public GotoTopic() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		 EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		 EntityManager em = factory.createEntityManager();
-		 
-		 Hub monHub=em.getReference(Hub.class, Integer.valueOf(request.getParameter("idHub")));
-		 getServletContext().setAttribute("monHub", monHub);
-		 
-		 RequestDispatcher dispa=getServletContext().getRequestDispatcher("/topic.jsp");
-		 dispa.forward(request,response);
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		EntityManager entM;
+		entM = factory.createEntityManager();
+
+		Hub monHub;
+		monHub = entM.getReference(Hub.class, Integer.valueOf(request
+				.getParameter("idHub")));
+		getServletContext().setAttribute("monHub", monHub);
+
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/topic.jsp");
+		dispa.forward(request, response);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 	}
 

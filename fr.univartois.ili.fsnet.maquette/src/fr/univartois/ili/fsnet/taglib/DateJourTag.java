@@ -14,15 +14,15 @@ public class DateJourTag extends TagSupport {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String var;
-	private Date date;
-	private int cpt = 0;
-	private String dateJour;
+	private transient Date date;
+	private transient int cpt = 0;
+	private transient String dateJour;
 
 	public String getVar() {
 		return var;
 	}
 
-	public void setVar(String var) {
+	public void setVar(final String var) {
 		this.var = var;
 	}
 
@@ -41,12 +41,16 @@ public class DateJourTag extends TagSupport {
 
 		if (cpt == 0) {
 			cpt++;
-			Calendar calendar = GregorianCalendar.getInstance();
+			Calendar calendar;
+			calendar = GregorianCalendar.getInstance();
 			calendar.setTime(date);
-			int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
-			int mois = calendar.get(GregorianCalendar.MONTH) + 1;
-			int année = calendar.get(GregorianCalendar.YEAR);
-			dateJour = jour + "/" + mois + "/" + année;
+			int jour;
+			jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+			int mois;
+			mois = calendar.get(GregorianCalendar.MONTH) + 1;
+			int annee;
+			annee = calendar.get(GregorianCalendar.YEAR);
+			dateJour = jour + "/" + mois + "/" + annee;
 			pageContext.setAttribute(var, dateJour);
 			return true;
 		}

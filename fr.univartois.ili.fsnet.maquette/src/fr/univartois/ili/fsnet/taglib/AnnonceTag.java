@@ -2,7 +2,6 @@ package fr.univartois.ili.fsnet.taglib;
 
 import java.util.Date;
 import java.util.Iterator;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -13,30 +12,25 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import fr.univartois.ili.fsnet.entities.Annonce;
 
-import fr.univartois.ili.fsnet.entities.Interaction;
-
 public class AnnonceTag extends TagSupport {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private String var;
-	private Integer idChoisi;
-	private Date dateFin;
-	private Date dateJour = new Date();
-	private String titre;
-	private Iterator<Annonce> an;
-	private Integer nbAnnonce;
-	private int cpt;
-
-	private EntityManagerFactory factory;
-	private EntityManager em;
+	private transient Integer idChoisi;
+	private transient Date dateFin;
+	private transient final Date dateJour = new Date();
+	private transient String titre;
+	private transient Iterator<Annonce> annonces;
+	private transient Integer nbAnnonce;
+	private transient int cpt;
 
 	public Integer getNbAnnonce() {
 		return nbAnnonce;
 	}
 
-	public void setNbAnnonce(Integer nbAnnonce) {
+	public void setNbAnnonce(final Integer nbAnnonce) {
 		this.nbAnnonce = nbAnnonce;
 	}
 
@@ -44,11 +38,11 @@ public class AnnonceTag extends TagSupport {
 		return var;
 	}
 
-	public void setVar(String var) {
+	public void setVar(final String var) {
 		this.var = var;
 	}
 
-	public void setIdChoisi(int idChoisi) {
+	public void setIdChoisi(final int idChoisi) {
 		this.idChoisi = idChoisi;
 	}
 
@@ -56,31 +50,35 @@ public class AnnonceTag extends TagSupport {
 		return dateFin;
 	}
 
-	public void setDateBegin(Date dateFin) {
+	public void setDateBegin(final Date dateFin) {
 		this.dateFin = dateFin;
 	}
 
 	public int doStartTag() throws JspException {
+		EntityManagerFactory factory;
+		EntityManager entM;
 		cpt = 0;
 		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		em = factory.createEntityManager();
+		entM = factory.createEntityManager();
 		if (idChoisi != null) {
 
-			Query requete = em
-					.createQuery("SELECT a FROM Annonce a WHERE a.id=?1");
+			Query requete;
+			requete = entM.createQuery("SELECT a FROM Annonce a WHERE a.id=?1");
 			requete.setParameter(1, idChoisi.intValue());
-			an = (Iterator<Annonce>) requete.getResultList().iterator();
+			annonces = (Iterator<Annonce>) requete.getResultList().iterator();
 
 		} else if (nbAnnonce != null) { // Affiche les dernières annonces
 
-			Query requete = em
+			Query requete;
+			requete = entM
 					.createQuery("SELECT a FROM Annonce a ORDER BY a.id DESC ");
-			an = (Iterator<Annonce>) requete.getResultList().iterator();
+			annonces = (Iterator<Annonce>) requete.getResultList().iterator();
 
 		} else { // Affichage de la liste en entier
 
-			Query requete = em.createQuery("SELECT a FROM Annonce a");
-			an = (Iterator<Annonce>) requete.getResultList().iterator();
+			Query requete;
+			requete = entM.createQuery("SELECT a FROM Annonce a");
+			annonces = (Iterator<Annonce>) requete.getResultList().iterator();
 		}
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
@@ -93,15 +91,15 @@ public class AnnonceTag extends TagSupport {
 		return titre;
 	}
 
-	public void setTitre(String titre) {
+	public void setTitre(final String titre) {
 		this.titre = titre;
 	}
 
 	private boolean updateContext() {
 		if (nbAnnonce == null) {
-			if (an.hasNext()) {
+			if (annonces.hasNext()) {
 				Annonce ann;
-				ann = an.next();
+				ann = annonces.next();
 
 				if ((ann.getDateFinAnnonce().after(dateJour))
 						&& ann.getVisible().equalsIgnoreCase("Y")) {
@@ -117,10 +115,10 @@ public class AnnonceTag extends TagSupport {
 			}
 		} else {
 
-			if ((an.hasNext()) && (cpt < nbAnnonce.intValue())) {
+			if ((annonces.hasNext()) && (cpt < nbAnnonce.intValue())) {
 
 				Annonce ann;
-				ann = an.next();
+				ann = annonces.next();
 
 				if ((ann.getDateFinAnnonce().after(dateJour))
 						&& ann.getVisible().equalsIgnoreCase("Y")) {

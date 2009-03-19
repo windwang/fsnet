@@ -12,7 +12,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.Hub;
-import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 /**
@@ -22,34 +21,31 @@ public class SupprHub extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SupprHub() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		int idhub = Integer.valueOf(request.getParameter("idHub"));
-		int identite = Integer.valueOf(request.getParameter("idEntite"));
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		int idhub;
+		int identite;
+		EntityManagerFactory factory;
+		EntityManager entM;
+		Hub monHub;
 
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
-		Hub monHub = em.getReference(Hub.class, Integer.valueOf(idhub));
+		idhub = Integer.valueOf(request.getParameter("idHub"));
+		identite = Integer.valueOf(request.getParameter("idEntite"));
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		entM = factory.createEntityManager();
+		monHub = entM.getReference(Hub.class, Integer.valueOf(idhub));
 
 		if (monHub.getCreateur().getId() == identite) {
 			IliForumFacade.getInstance().removeHub(monHub);
-		} else {
 		}
 
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/hub.jsp");
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/hub.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -57,8 +53,10 @@ public class SupprHub extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 	}
 

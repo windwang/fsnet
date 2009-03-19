@@ -18,27 +18,25 @@ public class ModifMessage extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public ModifMessage() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		String contenu = request.getParameter("contenuMessage");
-		String contenuUTF8 = new String(contenu.getBytes("ISO-8859-1"), "UTF-8");
-		Message message = (Message) getServletContext().getAttribute(
-				"monMessage");
+	@Override
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		String contenu;
+		String contenuUTF8;
+		Message message;
+
+		contenu = request.getParameter("contenuMessage");
+		contenuUTF8 = new String(contenu.getBytes("ISO-8859-1"), "UTF-8");
+		message = (Message) getServletContext().getAttribute("monMessage");
+
 		IliForumFacade.getInstance().updateMessage(message, contenuUTF8);
 
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/message.jsp");
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/message.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -46,8 +44,10 @@ public class ModifMessage extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	@Override
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		this.doGet(request, response);
 	}
 

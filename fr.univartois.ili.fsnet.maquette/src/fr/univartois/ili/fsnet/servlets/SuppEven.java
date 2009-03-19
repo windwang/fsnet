@@ -20,39 +20,34 @@ public class SuppEven extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public SuppEven() {
-		super();
-		// TODO Auto-generated constructor stub
-	}
-
-	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doGet(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
-		int idEven = Integer.valueOf(request.getParameter("idEven"));
-		int identite = Integer.valueOf(request.getParameter("idEntite"));
+	protected void doGet(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
+		int idEven;
+		idEven = Integer.valueOf(request.getParameter("idEven"));
+		int identite;
+		identite = Integer.valueOf(request.getParameter("idEntite"));
 
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
-		Manifestation manif = em.getReference(Manifestation.class, Integer
-				.valueOf(idEven));
+		EntityManagerFactory factory;
+		factory = Persistence.createEntityManagerFactory("fsnetjpa");
+		EntityManager entM;
+		entM = factory.createEntityManager();
+		Manifestation manif;
+		manif = entM.getReference(Manifestation.class, Integer.valueOf(idEven));
 
 		if (manif.getCreateur().getId() == identite) {
 			manif.setVisible("N");
-			em.getTransaction().begin();
-			em.merge(manif);
-			em.getTransaction().commit();
+			entM.getTransaction().begin();
+			entM.merge(manif);
+			entM.getTransaction().commit();
 			// IliForumFacade.getInstance().removeHub( manif);
-		} else {
 		}
 
-		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/toutEvenement.jsp");
+		RequestDispatcher dispa;
+		dispa = getServletContext().getRequestDispatcher("/toutEvenement.jsp");
 		dispa.forward(request, response);
 	}
 
@@ -60,8 +55,9 @@ public class SuppEven extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request,
-			HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(final HttpServletRequest request,
+			final HttpServletResponse response) throws ServletException,
+			IOException {
 		// TODO Auto-generated method stub
 		super.doPost(request, response);
 	}

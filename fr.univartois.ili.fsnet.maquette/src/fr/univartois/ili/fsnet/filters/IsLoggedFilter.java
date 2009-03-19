@@ -20,14 +20,7 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
  */
 public class IsLoggedFilter implements Filter {
 
-	private ServletContext servC;
-
-	/**
-	 * Default constructor.
-	 */
-	public IsLoggedFilter() {
-		// TODO Auto-generated constructor stub
-	}
+	private transient static ServletContext servC;
 
 	/**
 	 * @see Filter#destroy()
@@ -39,15 +32,17 @@ public class IsLoggedFilter implements Filter {
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
 	 */
-	public void doFilter(ServletRequest request, ServletResponse response,
-			FilterChain chain) throws IOException, ServletException {
-		// TODO Auto-generated method stub
-		// place your code here
-		HttpSession session = ((HttpServletRequest) request).getSession();
-		EntiteSociale en = (EntiteSociale) session.getAttribute("entite");
+	public void doFilter(final ServletRequest request,
+			final ServletResponse response, final FilterChain chain)
+			throws IOException, ServletException {
+		HttpSession session;
+		EntiteSociale ent;
 		RequestDispatcher dispatch;
 
-		if (en == null) {
+		session = ((HttpServletRequest) request).getSession();
+		ent = (EntiteSociale) session.getAttribute("entite");
+
+		if (ent == null) {
 			dispatch = servC.getRequestDispatcher("/login.jsp");
 			dispatch.forward(request, response);
 		}
@@ -59,7 +54,7 @@ public class IsLoggedFilter implements Filter {
 	/**
 	 * @see Filter#init(FilterConfig)
 	 */
-	public void init(FilterConfig fConfig) throws ServletException {
+	public void init(final FilterConfig fConfig) throws ServletException {
 		servC = fConfig.getServletContext();
 	}
 
