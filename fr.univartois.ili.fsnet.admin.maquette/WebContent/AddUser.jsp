@@ -2,7 +2,9 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
-<html>
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%>    
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<html:html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -28,6 +30,7 @@
 	href="AddUser.jsp?user=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste"
 	title="Ajout de membre">Ajout de membre </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
+<html:javascript formName="/adduser"/>
 <div id="tableauprincipal">
 <table width="100%">
 	<tr>
@@ -79,8 +82,13 @@
 		</table>
 		<label id="removeButton"><input
 			onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
-			type="submit" value="Supprimer" title="Supprimer" /></label></form>
-		<form id="AddUser" method="post" action="AddUser">
+			type="submit" value="Supprimer" title="Supprimer" /></label>
+			
+			
+	</form>
+
+	<html:form styleId="AddUser" action="/adduser.do" method="post">
+		<!-- <form id="AddUser" method="post" action="AddUser">-->
 		<table>
 			<tr>
 				<th class="entete"></th>
@@ -91,22 +99,24 @@
 
 			<tr class="champ">
 				<th scope="row"><label for="nom">Nom</label></th>
-				<td><input type="text" name="Nom" title="Nom" id="nom" />
+				<td><html:text errorStyleClass="error" property="nom" styleId="nom"/> 
+				<html:errors property="nom" />
 				</td>
 			</tr>
 			<tr class="champ">
 				<th scope="row"> <label for="prenom">Prénom</label></th>
-				<td><input type="text" name="Prenom" id="prenom"
-					title="Prénom" /></td>
+				<td><html:text errorStyleClass="error" property="prenom" styleId="prenom" />
+						<html:errors property="prenom" />  </td>
 			</tr>
 			<tr class="champ">
 				<th scope="row"><label for="email">Email</label></th>
-				<td><input type="text" name="Email" id="email"
-					title="Email" /></td>
+				<td><html:text errorStyleClass="error" property="email"  styleId="email"/>
+						<html:errors property="email" />   </td>
 			</tr>
 		</table>
 		<label class="button"> <input type="submit" name="Submit"
-			value="Enregistrer" title="Enregistrer" /> </label></form>
+			value="Enregistrer" title="Enregistrer" /> </label>
+	</html:form>
 		</td>
 
 	</tr>
@@ -117,4 +127,4 @@
 </div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
-</html>
+</html:html>
