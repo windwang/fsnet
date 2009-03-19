@@ -38,14 +38,16 @@
 
 <html:javascript formName="/lesoptions"/>
 <div id="tableauprincipal">
-<p></p>
+<p id="informationsOptions">Nb:Ce formulaire permet de configurer vos préférences pour l'envoie de mails. Par exemple: quand vous enregistrer un membre un mail lui ait automatiquement envoyé afin qu'il puisse finaliser son inscription.</p>
 <html:form action="/lesoptions.do" method="post">
-	<div style="text-align: right;float: left;">
-	<label style="padding:65px;" for="serveurSMTP">serveur SMTP : </label><br/>
-	<label style="padding:65px;" for="hote">Hôte : </label><br/>
-	<label style="padding:65px;" for="pass">Mot de passe : </label><br/>
-	<label style="padding:65px;" for="adresseFSNet">Adresse site FSNet : </label><br/>
-	<label style="padding:65px;" for="port">Port : </label><br/>
+	<div id="options">
+	<ul>
+		<li><label for="serveurSMTP">serveur SMTP : </label></li>
+		<li><label for="hote">Hôte : </label></li>
+		<li><label for="pass">Mot de passe : </label></li>
+		<li><label for="adresseFSNet">Adresse site FSNet : </label></li>
+		<li><label for="port">Port : </label></li>
+	</ul>
 	</div>
 	
 	<div>
