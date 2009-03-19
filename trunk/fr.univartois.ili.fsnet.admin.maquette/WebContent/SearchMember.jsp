@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%>    
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -28,6 +30,8 @@
 <h2><a href="SearchMember.jsp?user=current&recherche=hide" title="Rechercher un membre">Rechercher un membre</a></h2>
 <jsp:include page="date.jsp"></jsp:include>
 </div>
+<html:javascript formName="/searchmember"/>
+
 <div id="tableauprincipal">
 <table style="width: 90%">
 	<tr>
@@ -47,21 +51,31 @@
 
 	<tr>
 		<td valign="top">
-		<form id="form1" method="post" action="SearchMember">
+		<html:form styleId="form1" action="/searchmember.do" method="post">
+		<!-- <form id="form1" method="post" action="SearchMember">-->
 
 		<div>
-		<label for="searchText">Recherche par :</label> 
-		<select name="selectRecherche" id="selectRecherche">
-		<option selected="selected" value="nom">Nom</option>
-		<option value="prenom">Prénom</option>
-		<option value="dateEntree">Date d'entrée</option>
-		</select>
-		 <input type="text" id="searchText"	name="searchText" size="24" />
-		
-		<input type="submit" name="Submit" value="Rechercher" /></div>
+			<label for="searchText">Recherche par :</label> 
+			<select name="selectRecherche" id="selectRecherche">
+				<option selected="selected" value="nom">Nom</option>
+				<option value="prenom">Prénom</option>
+				<option value="dateEntree">Date d'entrée</option>
+			</select>
+			<!-- <label for="searchText">Champs :</label>-->
+			<html:text errorStyleClass="error" property="searchtext" styleId="searchText"/> 
+			
+			<html:hidden property="redirection" value="SearchMember.jsp"/>
+			<!-- <label class="button">-->
+				<html:submit>Rechercher</html:submit>
+				<br/>
+				<html:errors property="searchtext" />
+			<!-- <input type="submit" name="Submit" value="Rechercher" />-->
+			<!-- </label>-->
+		</div>
 
-		</form>
+		</html:form>
 		<form id="RemoveUser" method="post" action="RemoveUser">
+		<input type="hidden" name="redirection" value="SearchMember.jsp">
 		<table id="listToDeploy">
 		
 					<tr class="champ" id="enteteRecherche">

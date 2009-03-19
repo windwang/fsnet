@@ -38,7 +38,9 @@
 	<tr>
 
 		<td>
-		<form id="RemoveInterest" method="post" action="RemoveInterest?redirection=AddInterest.jsp">
+		<form id="RemoveInterest" method="post" action="RemoveInterest">
+		<input type="hidden" name="redirection" value="AddInterest.jsp"/>
+		
 		<table>
 			<tr>
 				<th class="entete" colspan="2" scope="col">

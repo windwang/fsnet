@@ -3,6 +3,8 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%>    
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -32,6 +34,9 @@
 	href="SearchInterest.jsp?interet=current&recherche=hide"
 	title="Recherche d'intérêts">Recherche d'int&eacute;r&ecirc;ts </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
+
+<html:javascript formName="/searchinterest"/>
+
 <div id="tableauprincipal">
 <table width="100%" align="left">
 
@@ -50,12 +55,24 @@
 			
 			<tr>
 			<td>
-			<form id="rechercheInteret" method="post" action="SearchInterest?redirection=SearchInterest.jsp">
-	<label for="searchText">Recherche : </label><input name="searchText" id="searchText" type="text" />
-	<input type="submit" name="rechercherInteret" value="Rechercher" />
-		</form></td></tr>
-		<form id="RemoveInterest" method="post" action="RemoveInterest?redirection=SearchInterest.jsp">
-		<tr>
+			<html:form styleId="rechercheInteret" action="/searchinterest.do" method="post">
+			
+			<!-- <form id="rechercheInteret" method="post" action="SearchInterest?redirection=SearchInterest.jsp">-->
+	
+				<label for="searchText">Recherche : </label>
+				<html:text errorStyleClass="error" property="searchtext" styleId="searchText"/> 
+				<html:hidden property="redirection" value="SearchInterest.jsp"/>
+				<!-- <input name="searchText" id="searchText" type="text" />-->
+				<html:submit>Rechercher</html:submit>
+				<br/>
+				<html:errors property="searchtext" />
+				<!-- <input type="submit" name="rechercherInteret" value="Rechercher" />-->
+			</html:form>
+			</td>
+		</tr>
+		<form id="RemoveInterest" method="post" action="RemoveInterest">
+			<input type="hidden" name="redirection" value="SearchInterest.jsp"/>
+			<tr>
 				<td>
 				<table id="listToDeploy">
 					<tr class="champ">

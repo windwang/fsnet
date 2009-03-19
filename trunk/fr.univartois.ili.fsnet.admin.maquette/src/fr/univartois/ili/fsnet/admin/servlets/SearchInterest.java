@@ -41,8 +41,8 @@ public class SearchInterest extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String textRecherche = request.getParameter("searchText");
-		String redirection = request.getParameter("redirection");
+		String textRecherche = request.getSession().getAttribute("searchText").toString();
+		String redirection = request.getSession().getAttribute("redirection").toString();
 		request.setAttribute("parametre", textRecherche);
 		System.out.println("text recherche = " + textRecherche);
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(

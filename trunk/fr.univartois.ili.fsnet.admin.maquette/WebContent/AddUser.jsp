@@ -37,6 +37,8 @@
 		<td>
 
 		<form id="RemoveUser" method="post" action="RemoveUser">
+		<input type="hidden" name="redirection" value="AddUser.jsp">
+		
 		<table>
 			<tr>
 				<th class="entete" colspan="4" scope="col">
@@ -114,8 +116,11 @@
 						<html:errors property="email" />   </td>
 			</tr>
 		</table>
-		<label class="button"> <input type="submit" name="Submit"
-			value="Enregistrer" title="Enregistrer" /> </label>
+		<label class="button"> 
+			<html:submit title="Enregistrer" >Enregistrer</html:submit>
+		<!-- <input type="submit" name="Submit"
+			value="Enregistrer" title="Enregistrer" />-->
+		 </label>
 	</html:form>
 		</td>
 
