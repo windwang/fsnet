@@ -102,6 +102,17 @@ public class HubTag extends TagSupport {
 						.getNomCommunaute().substring(0, 7)
 						+ "...");
 			}
+
+			if (hubDTO.getLastMessage() != null) {
+				if (hubDTO.getLastMessage().getTopic().getSujet().length() <= 17) {
+					pageContext.setAttribute("svar2", hubDTO.getLastMessage()
+							.getTopic().getSujet());
+				} else {
+					pageContext.setAttribute("svar2", hubDTO.getLastMessage()
+							.getTopic().getSujet().substring(0, 17)
+							+ "...");
+				}
+			}
 			return true;
 		}
 		return false;
