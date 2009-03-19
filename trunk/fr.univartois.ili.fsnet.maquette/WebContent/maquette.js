@@ -50,6 +50,10 @@ function compare(d, page) {
 		alert('Vous ne pouvez saisir une date antérieure à celle d\'aujourd\'hui.');
 		return -1;
 	}
+	if((page=="Profil") &&(anneeCourant <= annee && moisCourant <= mois && jourCourant <= jour || (anneeCourant <= annee && moisCourant < mois ) || anneeCourant < annee)){
+		alert('Vous ne pouvez saisir une date ultérieure à celle d\'aujourd\'hui.');
+		return -1;
+	}
 	return 0;
 }
 
