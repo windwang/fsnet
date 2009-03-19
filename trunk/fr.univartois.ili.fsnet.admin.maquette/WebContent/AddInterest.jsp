@@ -2,6 +2,8 @@
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%>    
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
 <html>
 <head>
 <link rel="icon" type="image/png" href="images/favicon.ico" />
@@ -32,6 +34,9 @@
 	href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste"
 	title="Ajout d'intérêts">Ajout d'int&eacute;r&ecirc;ts </a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
+
+<html:javascript formName="/addinterest"/>
+
 <div id="tableauprincipal">
 <table width="100%">
 
@@ -76,7 +81,11 @@
 		<label id="removeButton"><input
 			onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
 			type="submit" value="Supprimer" title="Supprimer" /></label></form>
-		<form id="AddInterest" method="post" action="AddInterest?redirection=AddInterest.jsp">
+		
+		
+		<html:form styleId="AddInterest" action="/addinterest.do" method="post">
+		<!-- <form id="AddInterest" method="post" action="AddInterest?redirection=AddInterest.jsp">-->
+		<html:hidden property="redirection" value="AddInterest.jsp" />
 		<table width="100%">
 			<tr>
 				<th class="entete"></th>
@@ -84,12 +93,13 @@
 				<h2>Ajouter un intérêt</h2>
 				</th>
 			</tr>
-			<tr>
-
-				<th class="enteteIntitule" width="15%" scope="row">Intitulé</th>
-				<td colspan="2" width="85%"><label> <input
-					class="moreInteret" type="text" name="Intitule" title="Intitulé" />
-				</label></td>
+			<tr class="champ">
+				<th scope="row"><label for="intitule">Intitulé</label></th>
+				<!-- <th class="enteteIntitule" width="15%" scope="row">Intitulé</th>-->
+				<td colspan="2" width="85%">
+					<html:text errorStyleClass="error" property="nomInteret" styleId="intitule"/> 
+					<html:errors property="nomInteret" />
+				</td>
 			</tr>
 
 			<tr>
@@ -105,8 +115,12 @@
 
 
 		</table>
-		<label class="button"> <input type="submit" name="Submit"
-			value="Enregistrer" title="Enregistrer" /> </label></form>
+		<label class="button"> 
+			<html:submit title="Enregistrer" >Enregistrer</html:submit>
+			<!-- <input type="submit" name="Submit"
+			value="Enregistrer" title="Enregistrer" /> -->
+		</label>
+		</html:form>
 		</td>
 	</tr>
 
