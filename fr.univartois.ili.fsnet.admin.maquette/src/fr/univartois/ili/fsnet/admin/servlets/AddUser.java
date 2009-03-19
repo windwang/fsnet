@@ -143,7 +143,7 @@ public class AddUser extends HttpServlet {
 		} catch (MessagingException e) {
 			log("Erreur : " + e.getMessage());
 		}
-
+System.out.println("Ici addUser "+redirection);
 		RequestDispatcher disp = getServletContext()
 				.getRequestDispatcher(
 						"/"

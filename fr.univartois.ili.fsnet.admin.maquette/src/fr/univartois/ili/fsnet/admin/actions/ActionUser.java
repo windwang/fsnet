@@ -20,6 +20,8 @@ public class ActionUser extends Action{
         EntiteSociale dto = new EntiteSociale();
         BeanUtils.copyProperties(dto,dynaform);
         req.getSession().setAttribute("entitesociale",dto);
+		//req.getSession().setAttribute("redirection", req.getParameter("redirection"));
+
         servlet.getServletContext().log("Je t'ai vue !!!");
         return mapping.findForward("continue"); 
 	}

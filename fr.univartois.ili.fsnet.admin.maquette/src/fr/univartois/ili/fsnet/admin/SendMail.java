@@ -23,6 +23,7 @@ public class SendMail {
 		props.put("mail.smtp.host", HOST_SMTP);
 		props.put("mail.smtp.auth", "true");
 		props.put("mail.smtp.port", "587");
+		props.put("mail.smtp.timeout", "1000");
 		java.security.Security
 				.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
