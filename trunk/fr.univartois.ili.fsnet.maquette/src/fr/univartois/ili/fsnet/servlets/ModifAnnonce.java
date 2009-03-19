@@ -9,26 +9,54 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
 import javax.servlet.RequestDispatcher;
+import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.entities.Manifestation;
+import fr.univartois.ili.fsnet.entities.Annonce;
 
 /**
- * Servlet implementation class ModifEven2
+ * author jerome bouwy Servlet implementation class AddAnnonce
  */
-public class ModifEven2 extends HttpServlet {
+public class ModifAnnonce extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+
+	private static final String DATABASE_NAME = "fsnetjpa";
+
+	private EntityManagerFactory factory;
+
+	private EntityManager em;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ModifEven2() {
+	public ModifAnnonce() {
 		super();
 		// TODO Auto-generated constructor stub
+	}
+
+	@Override
+	public void init() throws ServletException {
+		super.init();
+		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+		em = factory.createEntityManager();
+	}
+
+	/**
+	 * @see Servlet#destroy()
+	 */
+	public void destroy() {
+		if (em != null) {
+			em.close();
+		}
+		if (factory != null) {
+			factory.close();
+		}
 	}
 
 	/**
@@ -39,28 +67,27 @@ public class ModifEven2 extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 
 		// String date = request.getParameter("dateDebut");
-		Manifestation manif1 = (Manifestation) getServletContext()
-				.getAttribute("manif");
+		Annonce annonce1 = (Annonce) getServletContext()
+				.getAttribute("annonce");
 
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("fsnetjpa");
 		EntityManager em = factory.createEntityManager();
-		Manifestation manif = em.getReference(Manifestation.class, manif1
-				.getId());
+		Annonce manif = em.getReference(Annonce.class, annonce1.getId());
 
-		String titre = request.getParameter("titreEvenement");
-		String contenu = request.getParameter("contenuEvenement");
-		String date = request.getParameter("dateDebut");
-		Date dateDebut = null;
+		String titre = request.getParameter("titreAnnonce");
+		String contenu = request.getParameter("contenuAnnonce");
+		String dateFin = request.getParameter("dateFinAnnonce");
+		Date date = null;
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		try {
-			dateDebut = (Date) formatter.parse(date);
-			System.out.println("date format " + date);
+			date = (Date) formatter.parse(dateFin);
+
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		manif.setdateManifestation(dateDebut);
+		manif.setDateFinAnnnonce(date);
 		manif.setContenu(contenu);
 		manif.setNom(titre);
 
@@ -68,7 +95,7 @@ public class ModifEven2 extends HttpServlet {
 		em.merge(manif);
 		em.getTransaction().commit();
 		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/toutEvenement.jsp");
+				"/annonces.jsp");
 		dispa.forward(request, response);
 	}
 

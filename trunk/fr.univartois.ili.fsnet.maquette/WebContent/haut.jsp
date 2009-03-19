@@ -41,12 +41,7 @@
 <dl>
 	<dt><a class="${param.hubs}" href="hub.jsp?hubs=current">Hubs</a></dt>
 </dl>
-<dl>
-	<dt><a class="${param.interaction}" href="#">Intéraction</a></dt>
-</dl>
-<dl>
-	<dt><a class="${param.messagerie}" href="#">Messagerie</a></dt>
-</dl>
+
 
 
 <div id="search">
@@ -89,7 +84,7 @@
 <fsnet:annonce var="monAnnonce" nbAnnonce="2">
 
 	<p><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a>
-	<a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a>
+	${monAnnonce.dateAnnonce}
 	</p>
 
 </fsnet:annonce>

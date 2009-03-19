@@ -30,12 +30,12 @@
 /* 
 * instanciation de l'objet
 */
-var CL = new GnooCalendar("CL", 0, 20,"Evenement" );
+var CL = new GnooCalendar("CL", 0, 20,"Annonce");
 
 /******************************/
 function init()
 {
-	CL.init("calend", document.forms["testform"].elements["dateDebut"]);
+	CL.init("calend", document.forms["testform"].elements["dateFinAnnonce"]);
 	
 
 	
@@ -50,7 +50,7 @@ function init()
 <a name="top"></a>
 
 <div id="left">
-<h2><a href="#">&#201;v&#233;nement</a></h2>
+<h2><a href="#">Annonces</a></h2>
 <table width="445">
 	<tr>
 		<th style="width: 181" scope="col">Entrer votre texte</th>
@@ -60,7 +60,7 @@ function init()
 	</tr>
 </table>
 <p>&nbsp;</p>
-<form name='testform'  action="ModifEven2" id="evenement"
+<form name='testform' method="do" action="ModifAnnonce" id="annonce"
 	style='margin: 0px;'>
 
 <table style="width: 633">
@@ -68,21 +68,23 @@ function init()
 		<th style="width: 193" scope="row">Titre</th>
 		<td style="width: 228">
 		<div style="align: right" class="Style1"><label
-			style="text-align: left"> <input name="titreEvenement"
-			type="text" size="50" value="${manif.nom}" /> </label></div>
+			style="text-align: left"> <input name="titreAnnonce"
+			type="text" size="50" value="${annonce.nom}" /> </label></div>
 		</td>
 	</tr>
 	<tr>
 		<th style="width: 193" scope="row">Contenu</th>
-		<td style="width: 228"><textarea name="contenuEvenement" cols="57"
-			rows="10">${manif.contenu}</textarea></td>
+		<td style="width: 228"><textarea name="contenuAnnonce" cols="57"
+			rows="10">${annonce.contenu}</textarea></td>
 
 	</tr>
 	<tr>
-		<th style="width: 193" scope="row">Rendez-vous le</th>
-		<td><input type='text' name="dateDebut" value="${date}"
-			size="8" /> <button type='button' name='show1' onclick='CL.show();'><img
-			src="images/button_calendar.gif" height="20" width="20" /></button></td>
+		<th style="width: 193" scope="row">Date de fin</th>
+		<td><input type='text' name="dateFinAnnonce" value="${annonce.dateAnnonce}"
+			size="8" />
+		<button type='button' name='show1' onclick='CL.show();'><img
+			src="images/button_calendar.gif" height="15" width="15" /></button>
+		</td>
 	</tr>
 	<tr>
 		<th style="width: 193" scope="row"></th>
@@ -92,7 +94,7 @@ function init()
 		<th scope="row"></th>
 		<td>
 		<div style="text-align: right"><input name="submit"
-			type="submit" value="modifier" /></div>
+			type="submit" value="Publier" /></div>
 		</td>
 	</tr>
 
@@ -104,7 +106,6 @@ function init()
 </form>
 <br />
 <!-- <div id="calend">&nbsp;</div>--></div>
-<jsp:include page="bas.jsp"></jsp:include>
-</div>
+<jsp:include page="bas.jsp"></jsp:include></div>
 </body>
 </html>
