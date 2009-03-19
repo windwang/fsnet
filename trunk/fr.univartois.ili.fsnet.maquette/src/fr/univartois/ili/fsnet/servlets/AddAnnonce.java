@@ -137,7 +137,7 @@ public class AddAnnonce extends HttpServlet {
 
 			RequestDispatcher dispatch;
 			dispatch = getServletContext()
-					.getRequestDispatcher("/annonces.jsp");
+					.getRequestDispatcher("/EvenementValide.jsp");
 			dispatch.forward(request, response);
 
 		}
