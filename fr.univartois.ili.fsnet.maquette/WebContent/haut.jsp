@@ -57,7 +57,7 @@
 </div>
 </div>
 <fsnet:login var="membre" idLogin="${entite.id}">
-	Bienvenue M. ${membre.nom} ${membre.prenom} 
+	Bienvenue ${civilite } ${membre.nom} ${membre.prenom} 
 </fsnet:login>
 
 <p> <a href="logout">Se déconnecter </a> </p>
