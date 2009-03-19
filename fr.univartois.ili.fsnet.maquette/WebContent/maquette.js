@@ -10,7 +10,7 @@ function showMenu(id) {
 	}
 }
 
-function MM_jumpMenu(targ, selObj, restore) { //v3.0
+function MM_jumpMenu(targ, selObj, restore) { // v3.0
 	eval(targ + ".location='" + selObj.options[selObj.selectedIndex].value
 			+ "'");
 	if (restore)
@@ -23,24 +23,42 @@ function showMenu2(id) {
 	for ( var i = 1; i <= 10; i++) {
 		if (document.getElementById('ssmenu' + i)) {
 			document.getElementById('ssmenu' + i).style.display = 'none';
-			document.getElementById('ssmenu' + i +"i").style.background = '#C6E5F9 url(../images/bullet.gif) no-repeat 7px 12px';
+			document.getElementById('ssmenu' + i + "i").style.background = '#C6E5F9 url(../images/bullet.gif) no-repeat 7px 12px';
 		}
-		
+
 	}
 	if (d) {
-		
-		dd.style.background="#fff url(../images/bullet.gif) no-repeat 7px 8px";
+
+		dd.style.background = "#fff url(../images/bullet.gif) no-repeat 7px 8px";
 		d.style.display = 'block';
-		
+
 	}
 }
 
+function compare(d, page) {
 
-function GnooCalendar(n, min, max, format) {
-	
+	var Date_Actuelle = new Date();
+	var jourCourant = Date_Actuelle.getDate();
+	var moisCourant = Date_Actuelle.getMonth() + 1;
+	var anneeCourant = Date_Actuelle.getFullYear();
+
+	var jour = d.substring(0, 2);
+	var mois = d.substring(3, 5);
+	var annee = d.substring(6, 10);
+
+	if(((page=="Annonce")||(page=="Evenement")) &&(anneeCourant >= annee && moisCourant >= mois && jourCourant >= jour || (anneeCourant >= annee && moisCourant > mois ) || anneeCourant > annee)){
+		alert('Vous ne pouvez saisir une date antérieure à celle d\'aujourd\'hui.');
+		return -1;
+	}
+	return 0;
+}
+
+function GnooCalendar(n, min, max, page) {
+
 	this.format = new String("fr");
 	this.name = new String(n);
 	this.tag = new String();
+	this.pageCourante = new String(page);
 	this.title = new String("Calendrier");
 	this.date = new Date();
 	this.moving = new Boolean(false);
@@ -50,10 +68,9 @@ function GnooCalendar(n, min, max, format) {
 	this.maxYear = new Number(this.curYear + max);
 	this.minYear = new Number(this.curYear - min);
 	this.curMonth = new Number(this.date.getMonth());
-	
+
 	/*
-	 * mList()
-	 * retourne la liste des mois 
+	 * mList() retourne la liste des mois
 	 */
 	this.mList = function() {
 		var tmp = "<table border='0' cellpadding='0' cellspacing='0' class='Gtab'>";
@@ -94,8 +111,7 @@ function GnooCalendar(n, min, max, format) {
 		return tmp;
 	}
 	/*
-	 * yList()
-	 * retourne la liste des années 
+	 * yList() retourne la liste des années
 	 */
 	this.yList = function() {
 		var tmp = "<select name='" + this.name + "year' class='Gtxt' ";
@@ -134,10 +150,9 @@ function GnooCalendar(n, min, max, format) {
 		tmp += ">";
 		return tmp;
 	}
-	
+
 	/*
-	 * dList()
-	 * retourne le tableau des jours
+	 * dList() retourne le tableau des jours
 	 */
 	this.dList = function() {
 		var cur = new Number(1);
@@ -182,8 +197,7 @@ function GnooCalendar(n, min, max, format) {
 		return tmp;
 	}
 	/*
-	 * getLink(c)
-	 * retourne la balise d'un lien
+	 * getLink(c) retourne la balise d'un lien
 	 */
 	this.getLink = function(c) {
 		var tmp = new String("");
@@ -198,8 +212,7 @@ function GnooCalendar(n, min, max, format) {
 		return tmp;
 	}
 	/*
-	 * setMonth( Integer m )
-	 * modifie le mois à afficher
+	 * setMonth( Integer m ) modifie le mois à afficher
 	 */
 	this.setMonth = function(m) {
 		this.curMonth = m;
@@ -207,8 +220,7 @@ function GnooCalendar(n, min, max, format) {
 		return;
 	}
 	/*
-	 * getYear( Integer y )
-	 * modifie l'année à afficher
+	 * getYear( Integer y ) modifie l'année à afficher
 	 */
 	this.getYear = function(y) {
 		if (document.layers) {
@@ -236,10 +248,9 @@ function GnooCalendar(n, min, max, format) {
 		}
 		return;
 	}
-	 
+
 	/*
-	 * getMonth( Integer m )
-	 * modifie le mois à afficher
+	 * getMonth( Integer m ) modifie le mois à afficher
 	 */
 	this.getMonth = function(d) {
 		if (document.layers) {
@@ -268,18 +279,16 @@ function GnooCalendar(n, min, max, format) {
 		return;
 	}
 	/*
-	 * setYear( Integer y )
-	 * modifie l'année à afficher
+	 * setYear( Integer y ) modifie l'année à afficher
 	 */
 	this.setYear = function(y) {
 		this.curYear = y;
 		this.show();
 		return;
 	}
-	
+
 	/*
-	 * hide()
-	 * masque le calendrier
+	 * hide() masque le calendrier
 	 */
 	this.hide = function() {
 		if (document.layers)
@@ -289,25 +298,30 @@ function GnooCalendar(n, min, max, format) {
 			document.getElementById(this.div).style.display = 'none';
 		}
 		this.vis = false;
-		this.endMove();
+		// this.endMove();
 		return;
 	}
 
 	/*
-	 * getDate()
-	 * retourne la date selectionnée dans le champs cible
+	 * getDate() retourne la date selectionnée dans le champs cible
 	 */
 	this.getDate = function(d) {
-		if (this.target != null) {
-			this.target.value = d;
-			this.hide();
+		
+		if (compare(d, this.pageCourante) == 0) {
+			if (this.target != null) {
+				this.target.value = d;
+				// this.hide();
+			} else {
+				this.target.focus();
+			}
+
 		}
+		this.hide();
 		return;
 	}
 
 	/*
-	 * show()
-	 * affiche le calendrier
+	 * show() affiche le calendrier
 	 */
 	this.show = function() {
 		this.vis = true;
@@ -329,11 +343,9 @@ function GnooCalendar(n, min, max, format) {
 		return;
 	}
 	/*
-	 * init( String d )
-	 * initialise le Calendrier à la date actuelle
-	 * paramêtres : 
-	 * d : nom du calque d'affichage
-	 * obj : objet dont la propriété value va recevoir le String de la date
+	 * init( String d ) initialise le Calendrier à la date actuelle paramêtres :
+	 * d : nom du calque d'affichage obj : objet dont la propriété value va
+	 * recevoir le String de la date
 	 */
 	this.init = function(d, obj) {
 		this.div = d;
@@ -347,8 +359,7 @@ function GnooCalendar(n, min, max, format) {
 		return;
 	}
 	/*
-	 * checkDate( Integer d )
-	 * paramêtre : le jour d'une date
+	 * checkDate( Integer d ) paramêtre : le jour d'une date
 	 */
 	this.checkDate = function(d) {
 		if (parseInt(d) <= 9)
@@ -357,25 +368,26 @@ function GnooCalendar(n, min, max, format) {
 	}
 
 	/*
-	 formatDate( Integer d, Integer m, Integer y )
-	 paramêtre : le jour d'une date
+	 * formatDate( Integer d, Integer m, Integer y ) paramêtre : le jour d'une
+	 * date
 	 */
 	this.formatDate = function(c) {
 		var tmp = "";
-	
-			tmp = this.checkDate(c) + "/";
-			tmp += this.checkDate(1 + parseInt(this.curMonth)) + "/";
-			tmp += this.curYear;
-			
+
+		tmp = this.checkDate(c) + "/";
+		tmp += this.checkDate(1 + parseInt(this.curMonth)) + "/";
+		tmp += this.curYear;
+
 		return tmp;
 
 	}
 	return this;
 }
-/******************************/
+/** *************************** */
 GnooCalendar.prototype.day = [ "D", "L", "M", "M", "J", "V", "S" ];
 GnooCalendar.prototype.month = [ "Janvier", "F&eacute;vrier", "Mars", "Avril",
 		"Mai", "Juin", "Juillet", "Ao&ucirc;t", "Septembre", "Octobre",
 		"Novembre", "D&eacute;cembre" ];
 
 /** *************************** */
+

@@ -30,7 +30,7 @@
 /* 
 * instanciation de l'objet
 */
-var CL = new GnooCalendar("CL", 0, 20 );
+var CL = new GnooCalendar("CL", 0, 20,"Evenement" );
 
 /******************************/
 function init()

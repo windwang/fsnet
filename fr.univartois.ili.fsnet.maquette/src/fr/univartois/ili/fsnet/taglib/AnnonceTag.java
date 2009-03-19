@@ -72,7 +72,7 @@ public class AnnonceTag extends TagSupport {
 			requete.setParameter(1, idChoisi.intValue());
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
 
-		} else if (nbAnnonce != null) { // Limite le nombre d'annonces
+		} else if (nbAnnonce != null) { // Affiche les dernières annonces
 			System.out.println("nb annonce " + nbAnnonce);
 			Query requete = em
 					.createQuery("SELECT a FROM Annonce a ORDER BY a.id DESC ");
@@ -106,14 +106,9 @@ public class AnnonceTag extends TagSupport {
 
 				if ((ann.getDateFinAnnonce().after(dateJour))
 						&& ann.getVisible().equalsIgnoreCase("Y")) {
-					Query queryInteraction = em
-							.createQuery("SELECT i FROM Interaction i WHERE i.id=?1");
-					queryInteraction.setParameter(1, ann.getId());
-					Interaction interaction = (Interaction) queryInteraction
-							.getSingleResult();
 
-					pageContext.setAttribute("createur", interaction
-							.getCreateur().getId());
+					pageContext.setAttribute("createur", ann.getCreateur()
+							.getId());
 					pageContext.setAttribute(var, ann);
 
 				} else {
@@ -127,11 +122,14 @@ public class AnnonceTag extends TagSupport {
 
 				Annonce ann;
 				ann = an.next();
-
+				System.out.println("annonce " + ann.getNom() + " cpt " + cpt);
 				if ((ann.getDateFinAnnonce().after(dateJour))
 						&& ann.getVisible().equalsIgnoreCase("Y")) {
+
 					cpt++;
 					pageContext.setAttribute(var, ann);
+					System.out.println("annonce envoyée OK " + ann.getNom()
+							+ " cpt " + cpt);
 				} else {
 					updateContext();
 				}
@@ -143,7 +141,8 @@ public class AnnonceTag extends TagSupport {
 	}
 
 	public int doAfterBody() throws JspException {
-
+		pageContext.removeAttribute(var);
+		pageContext.removeAttribute("createur");
 		if (updateContext()) {
 			return EVAL_BODY_AGAIN;
 		}
