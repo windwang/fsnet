@@ -17,21 +17,23 @@ public class TopicDTO {
 		return lastMessage;
 	}
 
-	public void setLastMessage(Message lastMessage) {
+	public void setLastMessage(final Message lastMessage) {
 		this.lastMessage = lastMessage;
 	}
 
-	public TopicDTO(Topic top) {
+	public TopicDTO(final Topic top) {
 		this.topic = top;
 		update();
 
 	}
 
 	private void update() {
-		List<Message> lMessage = topic.getLesMessages();
+		List<Message> lMessage;
+		lMessage = topic.getLesMessages();
 		this.nbMessage = lMessage.size();
-		if (!lMessage.isEmpty())
+		if (!lMessage.isEmpty()) {
 			this.lastMessage = lMessage.get(lMessage.size() - 1);
+		}
 
 	}
 
@@ -39,7 +41,7 @@ public class TopicDTO {
 		return topic;
 	}
 
-	public void setTopic(Topic topic) {
+	public void setTopic(final Topic topic) {
 		this.topic = topic;
 	}
 
@@ -47,7 +49,7 @@ public class TopicDTO {
 		return nbMessage;
 	}
 
-	public void setNbMessage(int nbMessage) {
+	public void setNbMessage(final int nbMessage) {
 		this.nbMessage = nbMessage;
 	}
 

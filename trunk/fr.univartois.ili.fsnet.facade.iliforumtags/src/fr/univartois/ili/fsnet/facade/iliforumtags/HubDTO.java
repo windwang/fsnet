@@ -7,7 +7,7 @@ import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 public class HubDTO {
-	public HubDTO(Hub hub) {
+	public HubDTO(final Hub hub) {
 		this.hub = hub;
 		updateInfo();
 	}
@@ -24,7 +24,7 @@ public class HubDTO {
 		return hub;
 	}
 
-	public void setHub(Hub hub) {
+	public void setHub(final Hub hub) {
 		this.hub = hub;
 	}
 
@@ -32,7 +32,7 @@ public class HubDTO {
 		return nbTopic;
 	}
 
-	public void setNbTopic(int nbTopic) {
+	public void setNbTopic(final int nbTopic) {
 		this.nbTopic = nbTopic;
 	}
 
@@ -40,25 +40,27 @@ public class HubDTO {
 		return nbMessage;
 	}
 
-	public void setNbMessage(int nbMessage) {
+	public void setNbMessage(final int nbMessage) {
 		this.nbMessage = nbMessage;
 	}
 
 	private void updateInfo() {
-		List<Message> lMessage = IliForumFacade.getInstance().getListMessageByHub(hub);
+		List<Message> lMessage;
+		lMessage = IliForumFacade.getInstance().getListMessageByHub(hub);
 		this.nbTopic = hub.getLesTopics().size();
 
 		this.nbMessage = lMessage.size();
 
-		if (!lMessage.isEmpty())
+		if (!lMessage.isEmpty()) {
 			this.lastMessage = lMessage.get(lMessage.size() - 1);
+		}
 	}
 
 	public Message getLastMessage() {
 		return lastMessage;
 	}
 
-	public void setLastMessage(Message lastMessage) {
+	public void setLastMessage(final Message lastMessage) {
 		this.lastMessage = lastMessage;
 	}
 

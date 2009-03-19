@@ -22,20 +22,20 @@ public class TopicTag extends TagSupport {
 
 	private Date dateBegin;
 	private Date dateEnd;
-	private EntiteSociale user;
-	private Hub hub;
+	private transient EntiteSociale user;
+	private transient Hub hub;
 
-	private Iterator<TopicDTO> it;
+	private transient Iterator<TopicDTO> iterator;
 
 	public String getVar() {
 		return var;
 	}
 
-	public void setVar(String var) {
+	public void setVar(final String var) {
 		this.var = var;
 	}
 
-	public void setHub(Hub myHub) {
+	public void setHub(final Hub myHub) {
 		this.hub = myHub;
 	}
 
@@ -47,7 +47,7 @@ public class TopicTag extends TagSupport {
 		return dateBegin;
 	}
 
-	public void setDateBegin(Date dateBegin) {
+	public void setDateBegin(final Date dateBegin) {
 		this.dateBegin = dateBegin;
 	}
 
@@ -55,7 +55,7 @@ public class TopicTag extends TagSupport {
 		return dateEnd;
 	}
 
-	public void setDateEnd(Date dateEnd) {
+	public void setDateEnd(final Date dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 
@@ -63,13 +63,15 @@ public class TopicTag extends TagSupport {
 		return user;
 	}
 
-	public void setUser(EntiteSociale user) {
+	public void setUser(final EntiteSociale user) {
 		this.user = user;
 	}
 
 	public int doStartTag() throws JspException {
-		IliForumFacade iff = IliForumFacade.getInstance();
-		List<TopicDTO> lTopicDTO = new ArrayList<TopicDTO>();
+		IliForumFacade iff;
+		iff = IliForumFacade.getInstance();
+		List<TopicDTO> lTopicDTO;
+		lTopicDTO = new ArrayList<TopicDTO>();
 		List<Topic> lTopic;
 		if (dateBegin != null && dateEnd != null) {
 			lTopic = iff.getListTopic(dateBegin, dateEnd);
@@ -81,14 +83,15 @@ public class TopicTag extends TagSupport {
 
 		else if (hub != null) {
 			lTopic = iff.getListTopicByHub(hub);
-		} else
+		} else {
 			lTopic = iff.getListTopic();
+		}
 
-		for (Topic top : lTopic){
+		for (Topic top : lTopic) {
 			lTopicDTO.add(new TopicDTO(top));
 		}
 
-			it = lTopicDTO.iterator();
+		iterator = lTopicDTO.iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -97,8 +100,9 @@ public class TopicTag extends TagSupport {
 	}
 
 	private boolean updateContext() {
-		if (it.hasNext()) {
-			TopicDTO topDTO = it.next();
+		if (iterator.hasNext()) {
+			TopicDTO topDTO;
+			topDTO = iterator.next();
 
 			pageContext.setAttribute(var, topDTO);
 			return true;

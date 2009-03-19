@@ -22,15 +22,15 @@ public class MessageTag extends TagSupport {
 
 	private Date dateBegin;
 	private Date dateEnd;
-	private EntiteSociale user;
-	private Topic topic;
-	private Iterator<MessageDTO> it;
+	private transient EntiteSociale user;
+	private transient Topic topic;
+	private transient Iterator<MessageDTO> itetrator;
 
 	public String getVar() {
 		return var;
 	}
 
-	public void setVar(String var) {
+	public void setVar(final String var) {
 		this.var = var;
 	}
 
@@ -38,15 +38,15 @@ public class MessageTag extends TagSupport {
 		return this.topic;
 	}
 
-	public void setTopic(Topic t) {
-		this.topic = t;
+	public void setTopic(final Topic top) {
+		this.topic = top;
 	}
 
 	public Date getDateBegin() {
 		return dateBegin;
 	}
 
-	public void setDateBegin(Date dateBegin) {
+	public void setDateBegin(final Date dateBegin) {
 		this.dateBegin = dateBegin;
 	}
 
@@ -54,7 +54,7 @@ public class MessageTag extends TagSupport {
 		return dateEnd;
 	}
 
-	public void setDateEnd(Date dateEnd) {
+	public void setDateEnd(final Date dateEnd) {
 		this.dateEnd = dateEnd;
 	}
 
@@ -62,13 +62,15 @@ public class MessageTag extends TagSupport {
 		return user;
 	}
 
-	public void setUser(EntiteSociale user) {
+	public void setUser(final EntiteSociale user) {
 		this.user = user;
 	}
 
 	public int doStartTag() throws JspException {
-		IliForumFacade iff = IliForumFacade.getInstance();
-		List<MessageDTO> lMessDTO = new ArrayList<MessageDTO>();
+		IliForumFacade iff;
+		iff = IliForumFacade.getInstance();
+		List<MessageDTO> lMessDTO;
+		lMessDTO = new ArrayList<MessageDTO>();
 		List<Message> lMess;
 		if (dateBegin != null && dateEnd != null) {
 			lMess = iff.getListMessage(dateBegin, dateEnd);
@@ -87,7 +89,7 @@ public class MessageTag extends TagSupport {
 			lMessDTO.add(new MessageDTO(mess));
 		}
 
-		it = lMessDTO.iterator();
+		itetrator = lMessDTO.iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -96,8 +98,9 @@ public class MessageTag extends TagSupport {
 	}
 
 	private boolean updateContext() {
-		if (it.hasNext()) {
-			MessageDTO messDTO = it.next();
+		if (itetrator.hasNext()) {
+			MessageDTO messDTO;
+			messDTO = itetrator.next();
 
 			pageContext.setAttribute(var, messDTO);
 			return true;

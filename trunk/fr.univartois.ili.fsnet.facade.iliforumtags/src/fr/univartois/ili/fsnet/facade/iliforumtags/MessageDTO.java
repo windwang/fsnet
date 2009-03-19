@@ -13,7 +13,7 @@ public class MessageDTO {
 		return message;
 	}
 
-	public void setMessage(Message message) {
+	public void setMessage(final Message message) {
 		this.message = message;
 	}
 
@@ -21,18 +21,19 @@ public class MessageDTO {
 		return nbMessUser;
 	}
 
-	public void setNbMessUser(int nbMessUser) {
+	public void setNbMessUser(final int nbMessUser) {
 		this.nbMessUser = nbMessUser;
 	}
 
-	public MessageDTO(Message message) {
+	public MessageDTO(final Message message) {
 		this.message = message;
 		update();
 
 	}
 
 	private void update() {
-		IliForumFacade iff = IliForumFacade.getInstance();
+		IliForumFacade iff;
+		iff = IliForumFacade.getInstance();
 		nbMessUser = iff.getListMessageByEntiteSocial(message.getPropMsg())
 				.size();
 	}
