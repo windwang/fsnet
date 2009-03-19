@@ -19,6 +19,14 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="searchtext" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="TheFormOptions"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="serveursmtp" type="java.lang.String" />
+			<form-property name="hote" type="java.lang.String" />
+			<form-property name="motdepasse" type="java.lang.String" />
+			<form-property name="adressefsnet" type="java.lang.String" />
+			<form-property name="port" type="java.lang.String" />
+		</form-bean>
 	</form-beans>
 	<action-mappings>
 		<action path="/adduser" type="fr.univartois.ili.fsnet.admin.actions.ActionUser"
@@ -29,15 +37,25 @@
 			name="TheFormInterest" input="/AddInterest.jsp" validate="true" scope="request">
 			<forward name="continue" path="/AddInterest" />
 		</action>
-		<action path="/searchmember" type="fr.univartois.ili.fsnet.admin.actions.ActionSearch"
-			name="TheFormSearch" input="/SearchMember.jsp" validate="true" scope="request">
+		<action path="/searchmember"
+			type="fr.univartois.ili.fsnet.admin.actions.ActionSearch" name="TheFormSearch"
+			input="/SearchMember.jsp" validate="true" scope="request">
 			<forward name="continue" path="/SearchMember" />
 		</action>
-		<action path="/searchinterest" type="fr.univartois.ili.fsnet.admin.actions.ActionSearch"
-			name="TheFormSearch" input="/SearchInterest.jsp" validate="true" scope="request">
+		<action path="/searchinterest"
+			type="fr.univartois.ili.fsnet.admin.actions.ActionSearch" name="TheFormSearch"
+			input="/SearchInterest.jsp" validate="true" scope="request">
 			<forward name="continue" path="/SearchInterest" />
-		</action>	
+			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
+		</action>
+		<action path="/lesoptions"
+			type="fr.univartois.ili.fsnet.admin.actions.ActionOptions" name="TheFormOptions"
+			input="/options.jsp" validate="true" scope="request">
+			<forward name="continue" path="/CreateFileConfig" />
+			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
+		</action>
 	</action-mappings>
+
 	<message-resources parameter="MyApp" null="false" />
 	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
 		<set-property property="pathnames"

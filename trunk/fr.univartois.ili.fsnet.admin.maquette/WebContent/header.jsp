@@ -38,6 +38,9 @@
 <dl>
 	<dt><a href="RecupInfo" class="${param.rapport}">Rapport d'activités</a></dt>
 </dl>
+<dl>
+	<dt><a class="${param.option}" href="options.jsp?option=current" title="Configurer les options pour l'envoie de mail">Options</a></dt>
+</dl>
 </div>
 
 </body>

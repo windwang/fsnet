@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,11 +23,22 @@ public class SearchFileConfig extends HttpServlet {
 
 	private static final String OPTIONS = "/options.jsp?options=current";
 
+	private String redirection = null;
+
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public SearchFileConfig() {
 		super();
+	}
+
+	@Override
+	public void init() throws ServletException {
+		searchFile();
+		RequestDispatcher disp = getServletContext().getRequestDispatcher(
+				redirection);
+
+		// disp.forward(request, response);
 	}
 
 	/**
@@ -35,16 +47,7 @@ public class SearchFileConfig extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String redirection = null;
-		File file = new File(FILE_PATH);
-		if (!file.exists()) {
-			redirection = OPTIONS;
-		} else {
-			redirection = HOME;
-		}
-		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				redirection);
-		disp.forward(request, response);
+
 	}
 
 	/**
@@ -54,6 +57,16 @@ public class SearchFileConfig extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+	}
+
+	private void searchFile() {
+
+		File file = new File(FILE_PATH);
+		if (!file.exists()) {
+			redirection = OPTIONS;
+		} else {
+			redirection = HOME;
+		}
 	}
 
 }

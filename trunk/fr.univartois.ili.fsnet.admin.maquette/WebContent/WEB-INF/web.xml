@@ -141,6 +141,7 @@
     <display-name>SearchFileConfig</display-name>
     <servlet-name>SearchFileConfig</servlet-name>
     <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchFileConfig</servlet-class>
+    <load-on-startup>2</load-on-startup>
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchFileConfig</servlet-name>
