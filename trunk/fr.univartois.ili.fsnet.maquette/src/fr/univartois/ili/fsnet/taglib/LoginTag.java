@@ -65,11 +65,12 @@ public class LoginTag extends TagSupport {
 
 			if ("M".equalsIgnoreCase(entSociale.getSexe())) {
 				checkedM = "checked";
+				pageContext.setAttribute("civilite", "M.");
 
 			}
 			if ("F".equalsIgnoreCase(entSociale.getSexe())) {
 				checkedF = "checked";
-
+				pageContext.setAttribute("civilite", "Mme.");
 			}
 
 			pageContext.setAttribute("checkM", checkedM);
@@ -94,6 +95,7 @@ public class LoginTag extends TagSupport {
 		pageContext.removeAttribute(var);
 		pageContext.removeAttribute("checkM");
 		pageContext.removeAttribute("checkF");
+		pageContext.removeAttribute("civilite");
 		return super.doEndTag();
 	}
 }
