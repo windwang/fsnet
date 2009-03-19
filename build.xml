@@ -211,6 +211,7 @@
 	</target>	
 
 	<target name="admin" depends="admin.compile">
+		<copy file="${admin.dir}/src/MyApp.properties" todir="${admin.dir}/WebContent/WEB-INF/classes"/>
 		<echo>Creating WAR file for admin</echo>
 		<jar destfile="fsadmin.war">
 			<fileset dir="${admin.dir}/WebContent"/>
@@ -360,5 +361,5 @@
 
 	<target name="both"
 		depends="prepare,pmd,entities,entities.test,iliforum,
-			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,findbugs,clean,base"/>
+			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,findbugs,base"/>
 </project>
