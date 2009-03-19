@@ -10,15 +10,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
+//import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.net.MalformedURLException;
+//import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-import java.net.URLConnection;
+//import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -37,13 +37,12 @@ import java.lang.System;
 public class TrayClass {
 
 	public static final String urlTemp = "http://code.google.com/p/fsnet/";
-	private static String chaine;
-	private static String url;
+	private  String chaine;
+	private  String url;
 	static Socket soc;
 	String host;
-	private static String filePath = System.getenv("HOME")
-			+ "/FSN/preferences.conf";
-	private static ImageIcon monIcone;
+	private  String filePath = System.getenv("HOME") + "/FSN/preferences.conf";
+	private  ImageIcon monIcone;
 
 	/**
 	 * Getter and setter for attribute chaine
@@ -51,13 +50,7 @@ public class TrayClass {
 	 * @param chaine
 	 */
 
-	public static void setChaine(String chaine) {
-		TrayClass.chaine = chaine;
-	}
-
-	public static String getChaine() {
-		return chaine;
-	}
+	
 
 	/**
 	 * Constructor of the class TrayClass.
@@ -68,14 +61,13 @@ public class TrayClass {
 	public TrayClass(String chaine) {
 		// TODO Auto-generated constructor stub
 
-		TrayClass.setChaine(chaine);
+		this.chaine=chaine;
 	}
 
 	public void executeTrayIcon() throws UnknownHostException, IOException {
 		/* Use Look and Feel of System */
 		soc = new Socket(host, 8080);
-		monIcone = new ImageIcon(getClass().getResource(
-				"/ressources/iconefsnet.png"));
+		monIcone = new ImageIcon(getClass().getResource("/ressources/iconefsnet.png"));
 
 		try {
 			javax.swing.UIManager.setLookAndFeel(javax.swing.UIManager
@@ -108,7 +100,7 @@ public class TrayClass {
 	 * 
 	 * @throws IOException
 	 */
-	private static void createAndShowGUI() throws IOException {
+	private  void createAndShowGUI() throws IOException {
 		
 		// Check the SystemTray support
 		if (!SystemTray.isSupported()) {
@@ -139,7 +131,7 @@ public class TrayClass {
 			return;
 		}
 
-		trayIcon.displayMessage("Notifications", getChaine(),
+		trayIcon.displayMessage("Notifications", chaine,
 				TrayIcon.MessageType.INFO);
 
 		final File fichier = new File(filePath);
@@ -160,7 +152,7 @@ public class TrayClass {
 
 		trayIcon.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				trayIcon.displayMessage("Notifications", getChaine(),
+				trayIcon.displayMessage("Notifications", chaine,
 						TrayIcon.MessageType.INFO);
 				String ligne = null;
 				BufferedReader ficTexte = null;
@@ -263,8 +255,8 @@ public class TrayClass {
 		timer.schedule(new TimerTask() {
 
 			public void run() {
-				// trayIcon.displayMessage("Notificatios", chaine,
-				// TrayIcon.MessageType.INFO);;
+				 trayIcon.displayMessage("Notificatios", chaine,
+				 TrayIcon.MessageType.INFO);;
 				Socket sock = null;
 				try {
 					sock = new Socket("127.0.0.1", 8080);
@@ -292,7 +284,7 @@ public class TrayClass {
 				}
 				//out.println(cmd + " /<url/pattern>/</url-pattern>?toto=blabla HTTP/1.0");
 				//out.println(cmd + " /tp3Servlet/MaServlet?toto=blabla HTTP/1.0");
-				out.println("GET" + " /testServletDistante/maServlet HTTP/1.0");
+				out.println("GET" + " /Ecriture/Ecrire HTTP/1.0");
 				out.println("Host: localhost");
 				out.println("Referer: asta la vista2");
 				out.println("User-Agent: A la mano");
