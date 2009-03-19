@@ -111,12 +111,15 @@ public class AddUser extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-/*		String nom = request.getParameter("Nom");
-		String prenom = request.getParameter("Prenom");
-		// String email = createEmail(nom, prenom);
-		String email = request.getParameter("Email");
-		EntiteSociale entite = new EntiteSociale(nom, prenom, email);*/
-		EntiteSociale entite = (EntiteSociale)request.getSession().getAttribute("entitesociale");
+		/*
+		 * String nom = request.getParameter("Nom"); String prenom =
+		 * request.getParameter("Prenom"); // String email = createEmail(nom,
+		 * prenom); String email = request.getParameter("Email"); EntiteSociale
+		 * entite = new EntiteSociale(nom, prenom, email);
+		 */
+		String redirection = request.getParameter("redirection");
+		EntiteSociale entite = (EntiteSociale) request.getSession()
+				.getAttribute("entitesociale");
 		String email = entite.getEmail();
 		SendMail envMail = new SendMail();
 		List<String> listeDest = new ArrayList<String>();
@@ -132,17 +135,20 @@ public class AddUser extends HttpServlet {
 		em.getTransaction().commit();
 
 		listeDest.add(email);
-		message = createMessageRegistration(entite.getNom(), entite.getPrenom(), email);
+		message = createMessageRegistration(entite.getNom(),
+				entite.getPrenom(), email);
 		try {
 			envMail.sendMessage(listeDest, SUBJECT, message);
 			log("Message envoyé");
 		} catch (MessagingException e) {
-			log("Erreur : "+e.getMessage());
+			log("Erreur : " + e.getMessage());
 		}
 
 		RequestDispatcher disp = getServletContext()
 				.getRequestDispatcher(
-						"/AddUser.jsp?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
+						"/"
+								+ redirection
+								+ "?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
 		disp.forward(request, response);
 	}
 

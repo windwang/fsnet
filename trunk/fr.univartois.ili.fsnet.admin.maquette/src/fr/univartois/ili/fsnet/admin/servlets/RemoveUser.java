@@ -28,7 +28,7 @@ public class RemoveUser extends HttpServlet {
 	private static final String DATABASE_NAME = "fsnetjpa";
 
 	private static final String FIND_ENTITY_BY_ID = "SELECT e FROM EntiteSociale e WHERE e.id = ?1";
-	
+
 	private static final String FIND_REGISTRATION_BY_ENTITY = "SELECT i FROM Inscription i WHERE i.entite = ?1";
 
 	private EntityManagerFactory factory;
@@ -79,6 +79,7 @@ public class RemoveUser extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String[] users = request.getParameterValues("userSelected");
+		String redirection = request.getParameter("redirection");
 		int length = users.length;
 		Query query;
 		List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
@@ -96,20 +97,23 @@ public class RemoveUser extends HttpServlet {
 			inscription = (Inscription) query.getSingleResult();
 			lesInscriptions.add(inscription);
 		}
-		
-		for (Inscription i : lesInscriptions){
+
+		for (Inscription i : lesInscriptions) {
 			remove(i);
 		}
 
 		for (EntiteSociale e : lesEntites) {
 			remove(e);
 		}
-		
+
 		lesEntites.clear();
 		lesInscriptions.clear();
 
-		RequestDispatcher disp = getServletContext().getRequestDispatcher(
-				"/AddUser.jsp?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
+		RequestDispatcher disp = getServletContext()
+				.getRequestDispatcher(
+						"/"
+								+ redirection
+								+ "?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste&recherche=hide");
 		disp.forward(request, response);
 	}
 

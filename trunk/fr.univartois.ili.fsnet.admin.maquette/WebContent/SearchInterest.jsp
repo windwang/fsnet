@@ -50,11 +50,11 @@
 			
 			<tr>
 			<td>
-			<form id="rechercheInteret" method="post" action="SearchInterest">
+			<form id="rechercheInteret" method="post" action="SearchInterest?redirection=SearchInterest.jsp">
 	<label for="searchText">Recherche : </label><input name="searchText" id="searchText" type="text" />
 	<input type="submit" name="rechercherInteret" value="Rechercher" />
 		</form></td></tr>
-		<form id="RemoveInterest" method="post" action="RemoveInterest">
+		<form id="RemoveInterest" method="post" action="RemoveInterest?redirection=SearchInterest.jsp">
 		<tr>
 				<td>
 				<table id="listToDeploy">

@@ -76,6 +76,7 @@ public class RemoveInterest extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String[] interests = request.getParameterValues("interestSelected");
+		String redirection = request.getParameter("redirection");
 		int length = interests.length;
 		Query query;
 		List<Interet> lesInterets = new ArrayList<Interet>();
@@ -94,7 +95,9 @@ public class RemoveInterest extends HttpServlet {
 
 		RequestDispatcher disp = getServletContext()
 				.getRequestDispatcher(
-						"/AddInterest.jsp?interest=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
+						"/"
+								+ redirection
+								+ "?interest=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste&recherche=hide");
 		disp.forward(request, response);
 	}
 
