@@ -9,6 +9,7 @@
 <title>Insert title here</title>
 </head>
 <body>
+<div><img id="close" src="icons/page_01_fichiers/close.png" title="Fermer la fenêtre" onclick="hide('side');"/></div>
 <div class="boxtop"></div>
 <div class="box"><admin:inscription var="member"
 	entite="${param.ent}">

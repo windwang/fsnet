@@ -29,7 +29,7 @@
 <jsp:include page="date.jsp"></jsp:include>
 </div>
 
-
+<div id="tableauprincipal">
 <table>
 	<tr>
 		<td>
@@ -95,8 +95,10 @@
 		</td>
 	</tr>
 </table>
-</div>
 
+</div>
+<div id="side"></div>
+</div>
 <jsp:include page="footer.jsp"></jsp:include>
 </body>
 </html>
