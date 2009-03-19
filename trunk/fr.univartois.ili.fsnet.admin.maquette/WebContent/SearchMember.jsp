@@ -92,7 +92,7 @@
 					<admin:inscription filtre="${filtre}" var="inscription" parametre="${parametre}"  >
 						<tr>
 							<td><input type="checkbox" name="userSelected"
-								value="${inscription.entite.id}" title="Vous serez redirigé vers la page des membres"
+								value="${inscription.entite.id}" title="supprimer"
 								onclick="showHideButton('removeButton','userSelected');" /></td>
 							<td width="20%">${inscription.entite.nom}</td>
 							<td width="20%">${inscription.entite.prenom}</td>
