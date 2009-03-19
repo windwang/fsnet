@@ -1,10 +1,6 @@
 package fr.univartois.ili.fsnet.servlets;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,18 +11,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.entities.Manifestation;
+import fr.univartois.ili.fsnet.entities.Annonce;
 
 /**
- * Servlet implementation class ModifEven2
+ * Servlet implementation class ModifEven1
  */
-public class ModifEven2 extends HttpServlet {
+public class GotoModifAnnonce extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
-	public ModifEven2() {
+	public GotoModifAnnonce() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
@@ -37,38 +33,17 @@ public class ModifEven2 extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-
-		// String date = request.getParameter("dateDebut");
-		Manifestation manif1 = (Manifestation) getServletContext()
-				.getAttribute("manif");
-
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("fsnetjpa");
 		EntityManager em = factory.createEntityManager();
-		Manifestation manif = em.getReference(Manifestation.class, manif1
-				.getId());
+		String id = request.getParameter("idChoisi");
+		System.out.println("               id annonce " + id);
+		Annonce ann = em.getReference(Annonce.class, Integer.valueOf(request
+				.getParameter("idChoisi")));
+		getServletContext().setAttribute("annonce", ann);
 
-		String titre = request.getParameter("titreEvenement");
-		String contenu = request.getParameter("contenuEvenement");
-		String date = request.getParameter("dateDebut");
-		Date dateDebut = null;
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-		try {
-			dateDebut = (Date) formatter.parse(date);
-			System.out.println("date format " + date);
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		manif.setdateManifestation(dateDebut);
-		manif.setContenu(contenu);
-		manif.setNom(titre);
-
-		em.getTransaction().begin();
-		em.merge(manif);
-		em.getTransaction().commit();
 		RequestDispatcher dispa = getServletContext().getRequestDispatcher(
-				"/toutEvenement.jsp");
+				"/modifAnnonce.jsp");
 		dispa.forward(request, response);
 	}
 

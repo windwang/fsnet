@@ -39,12 +39,7 @@
 <dl>
 	<dt><a class="${param.hubs}" href="hub.jsp?hubs=current" >Hubs</a></dt>
 </dl>
-<dl>
-	<dt><a class="${param.interaction}" href="#" >Intéraction</a></dt>
-</dl>
-<dl>
-	<dt><a class="${param.messagerie}" href="#" >Messagerie</a></dt>
-</dl>
+
 
 
 <div id="search">

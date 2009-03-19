@@ -292,5 +292,24 @@
     <servlet-name>SupprAnnonce</servlet-name>
     <url-pattern>/SupprAnnonce</url-pattern>
   </servlet-mapping>
-
+   <servlet>
+    <description></description>
+    <display-name>ModifAnnonce</display-name>
+    <servlet-name>ModifAnnonce</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.servlets.ModifAnnonce</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ModifAnnonce</servlet-name>
+    <url-pattern>/ModifAnnonce</url-pattern>
+  </servlet-mapping>
+ <servlet>
+    <description></description>
+    <display-name>GotoModifAnnonce</display-name>
+    <servlet-name>GotoModifAnnonce</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.servlets.GotoModifAnnonce</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>GotoModifAnnonce</servlet-name>
+    <url-pattern>/GotoModifAnnonce</url-pattern>
+  </servlet-mapping>
 </web-app>
