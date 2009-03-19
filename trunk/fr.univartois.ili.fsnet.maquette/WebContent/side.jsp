@@ -17,13 +17,18 @@
 		<fsnet:hub var="hubdto">
 			<a href="GotoMessage?idTopic=${hubdto.lastMessage.topic.id }">
 				<span class="item"> 
-					<span class="sidedate">${hubdto.hub.nomCommunaute}<br />
+					<span class="sidedate">
+						<!-- ${hubdto.hub.nomCommunaute} -->
+						${svar}
+						<br />
 						&nbsp;&nbsp;&nbsp;&nbsp;
 					</span> 
-					<strong>${hubdto.lastMessage.topic.sujet } </strong><br />
+					<strong>
+					 ${hubdto.lastMessage.topic.sujet }
+					</strong><br />
 					${hubdto.lastMessage.dateMessage}
 				</span>
-			</a> 
+			</a>
 		</fsnet:hub>
 	</div>
 	<div class="boxbottom"></div>

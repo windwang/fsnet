@@ -27,32 +27,8 @@
 <h2><a href="#">Accueil</a></h2>
 
 <table width="479">
-	<tr>
-		<td style="width: 6; height: 33"></td>
-		<td style="width: 450; valign: top; bgcolor: #EDF3F8">
-		<h2 class="Style8"><img
-			src="icon_from_jimmac_musichall_cz_270.png"
-			style="width: 32; height: 27" alt="" /> Ma messagerie</h2>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 2"></td>
-		<td></td>
-	</tr>
+	
 
-	<tr>
-		<td style="height: 38"></td>
-		<td valign="top">
-		<ul>
-			<li><a href="#">slt c coucou</a></li>
-			<li><a href="#">slt c kiki </a></li>
-		</ul>
-		</td>
-	</tr>
-	<tr>
-		<td style="height: 15"></td>
-		<td></td>
-	</tr>
 	<tr>
 		<td style="height: 38"></td>
 		<td valign="top" style="bgcolor: #EDF3F8">
@@ -71,9 +47,7 @@
 		<td style="height: 56"></td>
 		<td valign="top">
 		<ul>
-			<li><a href="#">Communauté 1</a></li>
-			<li><a href="#">Communauté 2</a></li>
-			<li><a href="#">Communauté 3</a></li>
+			<li><a href="hub.jsp">Créer un Hub</a></li>
 		</ul>
 		</td>
 	</tr>
@@ -98,10 +72,10 @@
 		<td style="height: 110"></td>
 		<td valign="top">
 		<ul>
-			<li><a href="CreerCommun.jsp">Créer communauté</a></li>
-			<li><a href="#">S'inscrire à une communauté</a></li>
-			<li><a href="#">Gérer communauté</a></li>
-			<li><a href="creerevenement.jsp">Créer événement</a></li>
+			<li><a href="publierannonce.jsp">Créer une annonce</a></li>
+			<li><a href="annonces.jsp">Accéder aux annonces</a></li>
+			<li><a href="creerevenement.jsp">Créer un événement</a></li>
+			<li><a href="toutEvenement.jsp">Acceder aux événements</a></li>
 		</ul>
 		</td>
 	</tr>
