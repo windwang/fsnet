@@ -12,7 +12,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import fr.univartois.ili.fsnet.entities.Annonce;
-import fr.univartois.ili.fsnet.entities.Information;
+
 import fr.univartois.ili.fsnet.entities.Interaction;
 
 public class AnnonceTag extends TagSupport {
@@ -28,7 +28,6 @@ public class AnnonceTag extends TagSupport {
 	private Iterator<Annonce> an;
 	private Integer nbAnnonce;
 	private int cpt;
-	private List<Interaction> listInteraction;
 
 	private EntityManagerFactory factory;
 	private EntityManager em;
@@ -73,7 +72,7 @@ public class AnnonceTag extends TagSupport {
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
 
 		} else if (nbAnnonce != null) { // Affiche les dernières annonces
-			System.out.println("nb annonce " + nbAnnonce);
+
 			Query requete = em
 					.createQuery("SELECT a FROM Annonce a ORDER BY a.id DESC ");
 			an = (Iterator<Annonce>) requete.getResultList().iterator();
@@ -122,14 +121,13 @@ public class AnnonceTag extends TagSupport {
 
 				Annonce ann;
 				ann = an.next();
-				System.out.println("annonce " + ann.getNom() + " cpt " + cpt);
+
 				if ((ann.getDateFinAnnonce().after(dateJour))
 						&& ann.getVisible().equalsIgnoreCase("Y")) {
 
 					cpt++;
 					pageContext.setAttribute(var, ann);
-					System.out.println("annonce envoyée OK " + ann.getNom()
-							+ " cpt " + cpt);
+
 				} else {
 					updateContext();
 				}
@@ -153,7 +151,7 @@ public class AnnonceTag extends TagSupport {
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
 		pageContext.removeAttribute("createur");
-		// em.close();
+
 		return super.doEndTag();
 	}
 }

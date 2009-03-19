@@ -30,7 +30,6 @@ public class LoginTag extends TagSupport {
 	}
 
 	public void setIdLogin(int idLogin) {
-		System.out.println("Mise a jour id" + idLogin);
 		this.idLogin = idLogin;
 	}
 
@@ -38,9 +37,8 @@ public class LoginTag extends TagSupport {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory("fsnetjpa");
 		EntityManager em = factory.createEntityManager();
-		System.out.println("Valeur id " + idLogin);
 		if (idLogin != null) {
-			System.out.println("Ici id = " + idLogin);
+
 			Query requete = em
 					.createQuery("SELECT e FROM EntiteSociale e WHERE e.id=?1");
 			requete.setParameter(1, idLogin.intValue());
@@ -60,8 +58,6 @@ public class LoginTag extends TagSupport {
 		String checkedF = "";
 		if (entSoc.hasNext()) {
 			EntiteSociale entSociale = entSoc.next();
-			System.out.println("Nom Prenom ==>" + entSociale.getNom() + " "
-					+ entSociale.getPrenom());
 
 			if ("M".equalsIgnoreCase(entSociale.getSexe())) {
 				checkedM = "checked";
