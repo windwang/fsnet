@@ -275,7 +275,17 @@
 		<echo>Verification du code avec Findbugs</echo>
 		<findbugs home="${findbugs_home.dir}" output="html" outputFile="${findbugs.dir}/fsnet_fb.html" >
 			<sourcePath path="." />
-			<class/>
+			<auxClasspath path="${tomcat.lib}/javax.persistence_1.0.0.jar"/>
+			<auxClasspath path="${tomcat.lib}/junit-4.5.jar"/>
+			<auxClasspath path="${tomcat.lib}/jsp-api-5.5.23.jar"/>
+			<auxClasspath path="${tomcat.lib}/servlet-api.jar"/>
+			<auxClasspath path="${tomcat.lib}/mail-1.4.jar"/>
+			<class location="${fsnet.entities.dir}/bin"/>
+			<class location="${fsnet.iliforum.dir}/bin"/>
+			<class location="${fsnet.iliforumtags.dir}/bin"/>
+			<class location="${fsnet.trayDesktop.dir}/bin"/>
+			<class location="${fsnet.dir}/WebContent/WEB-INF/classes"/>
+			<class location="${admin.dir}/WebContent/WEB-INF/classes"/>
 		</findbugs>
 	</target>	
 
@@ -341,6 +351,6 @@
 	</target>
 
 	<target name="both"
-		depends="prepare,pmd,findbugs,entities,entities.test,iliforum,
-			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,clean,base"/>
+		depends="prepare,pmd,entities,entities.test,iliforum,
+			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,findbugs,clean,base"/>
 </project>
