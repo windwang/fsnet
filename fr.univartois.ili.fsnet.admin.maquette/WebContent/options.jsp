@@ -31,7 +31,7 @@
 
 <div id="left">
 <h2><a
-	href="options.jsp=current"
+	href="options.jsp?option=current"
 	title="configuration des options d'envoie de mail">Options</a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
 
@@ -120,6 +120,7 @@
 			value="Enregistrer" title="Enregistrer" />-->
 		 </label>
 </html:form>
+</div>
 <div id="side"></div>
 </div>
 

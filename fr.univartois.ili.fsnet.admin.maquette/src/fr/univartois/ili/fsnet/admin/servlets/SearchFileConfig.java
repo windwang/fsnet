@@ -35,7 +35,6 @@ public class SearchFileConfig extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("IIIICCCCCIIII SEARCHFILECONFIG");
 		String redirection = searchFile();
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
 				redirection);
