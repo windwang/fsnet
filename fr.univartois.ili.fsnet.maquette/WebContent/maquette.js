@@ -46,7 +46,7 @@ function compare(d, page) {
 	var mois = d.substring(3, 5);
 	var annee = d.substring(6, 10);
 
-	if(((page=="Annonce")||(page=="Evenement")) &&(anneeCourant >= annee && moisCourant >= mois && jourCourant >= jour || (anneeCourant >= annee && moisCourant > mois ) || anneeCourant > annee)){
+	if(((page=="Annonce")||(page=="Evenement")) &&(anneeCourant >= annee && moisCourant >= mois && jourCourant > jour || (anneeCourant >= annee && moisCourant > mois ) || anneeCourant > annee)){
 		alert('Vous ne pouvez saisir une date antérieure à celle d\'aujourd\'hui.');
 		return -1;
 	}
