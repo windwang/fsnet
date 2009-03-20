@@ -131,18 +131,20 @@ public class InscriptionTag extends TagSupport {
 		if (nom.length() < SIZE) {
 			pageContext.setAttribute("svarNom", nom);
 		} else {
-			pageContext.setAttribute("svarNom", nom.substring(0, SIZE) + "...");
+			pageContext.setAttribute("svarNom", nom.substring(0, SIZE - 1)
+					+ "...");
 		}
 		if (prenom.length() < SIZE) {
 			pageContext.setAttribute("svarPrenom", prenom);
 		} else {
-			pageContext.setAttribute("svarPrenom", prenom.substring(0, SIZE)
+			pageContext.setAttribute("svarPrenom", prenom
+					.substring(0, SIZE - 1)
 					+ "...");
 		}
 		if (email.length() < SIZE) {
 			pageContext.setAttribute("svarEmail", email);
 		} else {
-			pageContext.setAttribute("svarEmail", email.substring(0, SIZE)
+			pageContext.setAttribute("svarEmail", email.substring(0, SIZE - 1)
 					+ "...");
 		}
 	}
