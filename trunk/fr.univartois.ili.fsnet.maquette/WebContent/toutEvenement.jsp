@@ -28,7 +28,7 @@
 
 
 <h2><a href="#">&#233;v&#233;nements</a></h2>
-
+${info}
 <table width="445">
 	<tr>
 		<th style="width: 181" scope="col">listes des &#233;v&#233;nements</th>

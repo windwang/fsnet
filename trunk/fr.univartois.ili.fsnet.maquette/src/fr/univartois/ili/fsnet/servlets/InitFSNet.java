@@ -47,7 +47,7 @@ public class InitFSNet extends HttpServlet {
 		date2 = (Date) formatter.parse("15/01/1986");
 
 		entite = new EntiteSociale("UserTestNom", "UserTestPrenom",
-				"18 rue JeanSouvraz", date1, date2, "test", null,
+				"18 rue JeanSouvraz", date1, date2, "test", "test", null,
 				"developpeur", "test@test.fr", "03/03/04/05/06", null, null,
 				null);
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);

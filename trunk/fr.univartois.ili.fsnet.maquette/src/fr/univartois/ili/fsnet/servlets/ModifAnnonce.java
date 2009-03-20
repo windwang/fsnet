@@ -96,6 +96,10 @@ public class ModifAnnonce extends HttpServlet {
 		entM.getTransaction().begin();
 		entM.merge(manif);
 		entM.getTransaction().commit();
+		request
+				.setAttribute("info",
+						"<p id=\"info\">La modification d'une annonce est effectuée.</p>");
+
 		RequestDispatcher dispa;
 		dispa = getServletContext().getRequestDispatcher("/annonces.jsp");
 		dispa.forward(request, response);

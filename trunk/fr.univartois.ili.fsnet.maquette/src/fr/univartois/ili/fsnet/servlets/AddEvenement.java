@@ -107,9 +107,11 @@ public class AddEvenement extends HttpServlet {
 			entM.getTransaction().begin();
 			entM.persist(nouvellevenement);
 			entM.getTransaction().commit();
-
+			request.setAttribute("info",
+					"<p id=\"info\">Votre événement est bien validé.</p>");
 			RequestDispatcher dispatch;
-			dispatch = getServletContext().getRequestDispatcher("/index.jsp");
+			dispatch = getServletContext().getRequestDispatcher(
+					"/toutEvenement.jsp");
 			dispatch.forward(request, response);
 		}
 	}

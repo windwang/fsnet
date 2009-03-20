@@ -135,9 +135,12 @@ public class AddAnnonce extends HttpServlet {
 			entM.persist(nouvelleInfo);
 			entM.getTransaction().commit();
 
+			request.setAttribute("info",
+					"<p id=\"info\">Votre annonce est bien validée.</p>");
+
 			RequestDispatcher dispatch;
 			dispatch = getServletContext()
-					.getRequestDispatcher("/EvenementValide.jsp");
+					.getRequestDispatcher("/annonces.jsp");
 			dispatch.forward(request, response);
 
 		}

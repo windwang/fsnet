@@ -391,3 +391,8 @@ input.button {
 	position: absolute;
 	z-index: 32767;
 }
+
+#info{
+	color:#58a5d5;
+	font-weight: bold;	
+}
