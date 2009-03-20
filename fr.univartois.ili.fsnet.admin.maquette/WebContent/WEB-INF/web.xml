@@ -135,7 +135,7 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>SearchFileConfig</servlet-name>
-    <url-pattern>/do.it</url-pattern>
+    <url-pattern>/do.it</url-pattern>    
   </servlet-mapping>
   <servlet>
     <description></description>
@@ -145,6 +145,6 @@
   </servlet>
   <servlet-mapping>
     <servlet-name>CreateFileConfig</servlet-name>
-    <url-pattern>/CreateFileConfig</url-pattern>
+    <url-pattern>/options.asp</url-pattern>
   </servlet-mapping>
 </web-app>
