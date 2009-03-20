@@ -323,12 +323,9 @@
 			<fileset dir="${fsnet.trayDesktop.dir}/src">
 				<include name="**/*.png"/>
 			</fileset>
-			<fileset dir="${tomcat.lib}">
-				<include name="**/jaxrpc.jar"/>
-			</fileset>
 			<manifest>
 				<attribute name="Main-Class" value="fr.univartois.ili.fsnet.trayDesktop.src.TrayClass"/>
-				<attribute name="Class-Path" value="${tomcat.lib}/jaxrpc.jar ${tomcat.lib}/axis.jar ${tomcat.lib}/commons-logging-1.0.4.jar ${tomcat.lib}/commons-discovery-0.2.jar ${tomcat.lib}/mail.jar ${tomcat.lib}/activation.jar ${tomcat.lib}/wsdl4j-1.5.1.jar"/>
+				<attribute name="Class-Path" value="${tomcat.lib}/jaxrpc.jar ${tomcat.lib}/axis.jar ${tomcat.lib}/commons-logging-1.0.4.jar ${tomcat.lib}/commons-discovery-0.2.jar ${tomcat.lib}/mail.jar ${tomcat.lib}/activation.jar ${tomcat.lib}/wsdl4j-1.5.1.jar ${tomcat.lib}/log4j-1.2.8.jar ${tomcat.lib}/saaj.jar ${tomcat.lib}/axis-schema.jar"/>
 			</manifest>			
 		</jar>
 	</target>
