@@ -73,6 +73,9 @@ public class CompleteProfil extends HttpServlet {
 			IOException {
 
 		HttpSession session;
+		String nom;
+		String prenom;
+		String email;
 		String dateNaissance;
 		String adresse;
 		String telephone;
@@ -83,6 +86,9 @@ public class CompleteProfil extends HttpServlet {
 		String sexe;
 
 		session = request.getSession();
+		nom = request.getParameter("nom");
+		prenom = request.getParameter("prenom");
+		email = request.getParameter("email");
 		dateNaissance = request.getParameter("dateNaissance");
 		adresse = request.getParameter("adresse");
 		telephone = request.getParameter("telephone");
@@ -139,6 +145,9 @@ public class CompleteProfil extends HttpServlet {
 		ins = (Inscription) inscrit.getSingleResult();
 		ins.setEtat();
 
+		entite.setNom(nom);
+		entite.setPrenom(prenom);
+		entite.setEmail(email);
 		entite.setAdresse(adresse);
 		entite.setDateNaissance(date);
 		entite.setSexe(sexe);
