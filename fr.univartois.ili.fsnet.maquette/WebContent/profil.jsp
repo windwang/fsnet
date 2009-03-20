@@ -48,7 +48,7 @@
 	<h2><a href="#">Mon profil </a></h2>
 
 	<form name="testform" action="CompleteProfil" method="post"
-		id="completeProfil" style='margin: 0px;'>
+		id="completeProfil" style='margin: 0px;' onSubmit="return validation(this)">
 	<table>
 		<tr>
 			<td style="height: 19" colspan="3">
@@ -156,8 +156,8 @@
 		<tr>
 			<td style="height: 29" colspan="3"><strong>Confirmer
 			mot de passe : </strong></td>
-			<td colspan="2"><label> <input type="text" name="mdp2"
-				disabled="disabled" /> </label></td>
+			<td colspan="2"><label> <input type="password" name="pwd2"
+			 value="${membre.mdp}"/> </label></td>
 		</tr>
 
 		<tr>
