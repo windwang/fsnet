@@ -20,7 +20,7 @@ public class SearchFileConfig extends HttpServlet {
 
 	public static final String HOME = "/index.jsp?accueil=current";
 
-	public static final String OPTIONS = "/options.jsp?options=current";
+	public static final String OPTIONS = "/optionsrequired.jsp?options=current";
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -39,7 +39,7 @@ public class SearchFileConfig extends HttpServlet {
 		RequestDispatcher disp = getServletContext().getRequestDispatcher(
 				redirection);
 		disp.forward(request, response);
-		
+
 	}
 
 	/**

@@ -46,13 +46,16 @@
 			type="fr.univartois.ili.fsnet.admin.actions.ActionSearch" name="TheFormSearch"
 			input="/SearchInterest.jsp" validate="true" scope="request">
 			<forward name="continue" path="/SearchInterest" />
-			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
 		</action>
 		<action path="/lesoptions"
 			type="fr.univartois.ili.fsnet.admin.actions.ActionOptions" name="TheFormOptions"
 			input="/options.jsp" validate="true" scope="request">
 			<forward name="continue" path="/options.asp" />
-			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
+		</action>
+		<action path="/lesoptionsrequired"
+			type="fr.univartois.ili.fsnet.admin.actions.ActionOptions" name="TheFormOptions"
+			input="/optionsrequired.jsp" validate="true" scope="request">
+			<forward name="continue" path="/options.asp" />
 		</action>
 	</action-mappings>
 
