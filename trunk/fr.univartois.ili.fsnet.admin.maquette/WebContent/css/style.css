@@ -113,7 +113,7 @@ img{width: 36; height: 32;}
 	background-color: red;
 	border: thin;
 	color: white;
-	/*border-style: dashed*/
+	/*border-style: dotted*/
 }
 
 #options{
@@ -122,10 +122,17 @@ img{width: 36; height: 32;}
 }
 
 #options li{
-	padding-bottom: 0.25em;	
+	padding-bottom: 0.8em;	
 }
 
 #informationsOptions{
 	color:#58a5d5;
 	font-weight: bold;	
+}
+#champsoptions{
+	
+	text-align:left
+}
+#champsoptions input[type=text]{
+	margin-bottom: 0.45em	
 }
