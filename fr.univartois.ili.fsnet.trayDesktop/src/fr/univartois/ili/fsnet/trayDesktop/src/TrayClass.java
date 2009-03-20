@@ -91,7 +91,9 @@ public class TrayClass {
 		
 		// Check the SystemTray support
 		if (!SystemTray.isSupported()) {
-			System.out.println("SystemTray is not supported");
+			
+			JOptionPane.showMessageDialog(null,"SystemTray is not supported"); 
+			//System.out.println("SystemTray is not supported");
 			return;
 		}
 		final PopupMenu popup = new PopupMenu();
@@ -264,8 +266,6 @@ public class TrayClass {
 	public static void main(String[] args) throws UnknownHostException, IOException, ServiceException {
 		NouvellesService nv =new NouvellesServiceLocator();
 		NouvellesInformations nvs=nv.getNouvellesInformationsPort();
-		
-
 		TrayClass c = new TrayClass("Il y a "+nvs.getEvenement() +" nouveau(x) évenement(s) ");
 		c.executeTrayIcon();
 	}
