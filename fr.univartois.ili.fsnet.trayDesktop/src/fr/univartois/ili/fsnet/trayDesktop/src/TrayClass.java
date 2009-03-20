@@ -253,7 +253,7 @@ public class TrayClass {
 					e2.printStackTrace();
 				}
 				try {
-					trayIcon.displayMessage("Notificatios", "il y a "+nvs.getEvenement() +" Nouveaux Evenements",
+					trayIcon.displayMessage("Notificatios", "il y a "+nvs.getNumberOfNewEvents() +" Nouveaux Evenements",
 					 TrayIcon.MessageType.INFO);
 				} catch (RemoteException e1) {
 					// TODO Auto-generated catch block
@@ -280,7 +280,7 @@ public class TrayClass {
 	public static void main(String[] args) throws UnknownHostException, IOException, ServiceException {
 		NouvellesService nv =new NouvellesServiceLocator();
 		NouvellesInformations nvs=nv.getNouvellesInformationsPort();
-		TrayClass c = new TrayClass("Il y a "+nvs.getEvenement() +" nouveau(x) évenement(s) ");
+		TrayClass c = new TrayClass("Il y a "+nvs.getNumberOfNewEvents() +" nouveau(x) évenement(s) ");
 		c.executeTrayIcon();
 	}
 

@@ -8,5 +8,6 @@
 package fr.univartois.ili.fsnet.webservice;
 
 public interface NouvellesInformations extends java.rmi.Remote {
-    public int getEvenement() throws java.rmi.RemoteException;
+    public int getNumberOfNewEvents() throws java.rmi.RemoteException;
+    public int getNumberOfNewAnnonce() throws java.rmi.RemoteException;
 }

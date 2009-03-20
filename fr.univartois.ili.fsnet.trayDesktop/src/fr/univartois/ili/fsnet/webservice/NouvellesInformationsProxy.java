@@ -44,10 +44,16 @@ public class NouvellesInformationsProxy implements fr.univartois.ili.fsnet.webse
     return nouvellesInformations;
   }
   
-  public int getEvenement() throws java.rmi.RemoteException{
+  public int getNumberOfNewEvents() throws java.rmi.RemoteException{
     if (nouvellesInformations == null)
       _initNouvellesInformationsProxy();
-    return nouvellesInformations.getEvenement();
+    return nouvellesInformations.getNumberOfNewEvents();
+  }
+  
+  public int getNumberOfNewAnnonce() throws java.rmi.RemoteException{
+    if (nouvellesInformations == null)
+      _initNouvellesInformationsProxy();
+    return nouvellesInformations.getNumberOfNewAnnonce();
   }
   
   
