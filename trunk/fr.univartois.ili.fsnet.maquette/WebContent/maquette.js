@@ -396,7 +396,8 @@ GnooCalendar.prototype.month = [ "Janvier", "F&eacute;vrier", "Mars", "Avril",
 /** *************************** */
 
 function validation(f) {
-	  if (f.pwd1.value == '' || f.pwd2.value == '') {
+	  if (f.pwd1.value == '' || f.pwd2.value == '' || f.nom.value == '' || f.prenom.value == '' || f.email.value == '' || f.dateNaissance.value == '' || f.sexe.value == '' || f.adresse.value == '' || f.profession.value == '' || f.telephone.value == '') {
+
 	    alert('Tous les champs ne sont pas remplis');
 	    f.pwd1.focus();
 	    return false;
