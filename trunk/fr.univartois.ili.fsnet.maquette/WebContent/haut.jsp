@@ -78,24 +78,23 @@
 <h3>Dernières annonces <a href="AddAnnonce?idChoisi=0" style="font-size:8pt;font-weight: normal;">(Toutes les annonces)</a></h3>
 <fsnet:annonce var="monAnnonce" nbAnnonce="2">
 
-	<p><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a>
+	<p style="margin-top:0.1em"><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a>
 	${monAnnonce.dateAnnonce}
 	</p>
 
 </fsnet:annonce>
 <h3>Derniers &#201;v&#233;nements <a href="toutEvenement.jsp" style="font-size:8pt;font-weight: normal;">(Tous les évênements)</a></h3>
 <fsnet:manifestation var="maManif" nbEven="2">
-	<a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a>
-    ${maManif.dateManif}<br />
-
+	<p style="margin-top:0.1em"><a href="AddEvenement?id=${maManif.id}">${maManif.nom}</a>
+    ${maManif.dateManif}
+</p>
 </fsnet:manifestation></div>
 
 <div id="ssmenu2" style="display: none">
 <h3>Dernières annonces <a href="AddAnnonce?idChoisi=0" style="font-size:8pt;font-weight: normal;">(Toutes les annonces)</a></h3>
 <fsnet:annonce var="monAnnonce" nbAnnonce="4">
 
-	<p><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a>
-	<a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.dateAnnonce}</a>
+	<p><a href="AddAnnonce?idChoisi=${monAnnonce.id}">${monAnnonce.nom}</a>${monAnnonce.dateAnnonce}
 	</p>
 
 </fsnet:annonce></div>
@@ -103,7 +102,7 @@
 <h3>Derniers &#201;v&#233;nements <a href="toutEvenement.jsp" style="font-size:8pt;font-weight: normal;">(Tous les évênements)</a></h3>
 <fsnet:manifestation var="maManif" nbEven="4">
 
-	<p><a href="AddEvenement?id=${maManif.id}">${maManif.nom} </a>${maManif.dateManif}<br /> </p>
+	<p><a href="AddEvenement?id=${maManif.id}">${maManif.nom} </a>${maManif.dateManif}</p>
 </fsnet:manifestation></div>
 </div>
 
