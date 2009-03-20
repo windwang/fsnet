@@ -38,40 +38,7 @@
 <html:javascript formName="/lesoptions"/>
 <div id="tableauprincipal">
 <p id="informationsOptions">Nb:Ce formulaire permet de configurer vos préférences pour l'envoie de mails. Par exemple: quand vous enregistrer un membre un mail lui ait automatiquement envoyé afin qu'il puisse finaliser son inscription.</p>
-<!--<html:form action="/lesoptions.do" method="post">
-	<div id="options">
-	<ul>
-		<li><label for="serveurSMTP">serveur SMTP : </label></li>
-		<li><label for="hote">Hôte : </label></li>
-		<li><label for="pass">Mot de passe : </label></li>
-		<li><label for="adresseFSNet">Adresse site FSNet : </label></li>
-		<li><label for="port">Port : </label></li>
-	</ul>
-	</div>
-	
-	<div id="champsoptions">
-	<html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP" />
-	<html:errors property="serveursmtp" /><br />
-		
-	<html:text property="hote" errorStyleClass="error" styleId="hote"/>
-	<html:errors property="hote" /><br />
-	
-	<html:text property="motdepasse" errorStyleClass="error" styleId="pass"/>
-	<html:errors property="motdepasse" /><br />
-		
-	<html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet"/>
-	<html:errors property="adressefsnet" /><br />
-	
-	<html:text property="port" errorStyleClass="error" styleId="port"/>
-	<html:errors property="port" /><br />
-	
-</div>
-	<html:submit title="Enregistrer">Enregistrer</html:submit>
-	
-	
-</html:form>
-</div>
--->
+
 
 <html:form action="/lesoptions.do" method="post">
 	<table>
@@ -84,31 +51,31 @@
 
 			<tr class="champ">
 				<th scope="row"><label for="serveurSMTP">serveur SMTP : </label></th>
-				<td><html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP" />
+				<td><html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP" value="${parameters[0]}" />
 					<html:errors property="serveursmtp" />
 				</td>
 			</tr>
 			<tr class="champ">
 				<th scope="row"> <label for="hote">Hôte : </label></th>
-				<td><html:text property="hote" errorStyleClass="error" styleId="hote"/>
+				<td><html:text property="hote" errorStyleClass="error" styleId="hote" value="${parameters[1]}" />
 					<html:errors property="hote" />  
 				</td>
 			</tr>
 			<tr class="champ">
 				<th scope="row"><label for="pass">Mot de passe : </label></th>
-				<td><html:password property="motdepasse" errorStyleClass="error" styleId="pass"/>
+				<td><html:password property="motdepasse" errorStyleClass="error" styleId="pass" value="${parameters[2]}" />
 					<html:errors property="motdepasse" />   
 				</td>
 			</tr>
 			<tr class="champ">
 				<th scope="row"><label for="adresseFSNet">Adresse site FSNet : </label></th>
-				<td><html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet"/>
+				<td><html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet" value="${parameters[3]}" />
 					<html:errors property="adressefsnet" />   
 				</td>
 			</tr>		
 			<tr class="champ">
 				<th scope="row"><label for="port">Port : </label></th>
-				<td><html:text property="port" errorStyleClass="error" styleId="port"/>
+				<td><html:text property="port" errorStyleClass="error" styleId="port" value="${parameters[4]}" />
 					<html:errors property="port" /> 
 				</td>
 			</tr>

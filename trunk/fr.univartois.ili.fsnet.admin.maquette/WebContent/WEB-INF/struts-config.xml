@@ -51,7 +51,7 @@
 		<action path="/lesoptions"
 			type="fr.univartois.ili.fsnet.admin.actions.ActionOptions" name="TheFormOptions"
 			input="/options.jsp" validate="true" scope="request">
-			<forward name="continue" path="/CreateFileConfig" />
+			<forward name="continue" path="/options.asp" />
 			<!-- <forward name="erreur" path="/AddUser.jsp" />-->
 		</action>
 	</action-mappings>

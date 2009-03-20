@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.admin.ParserFileConfig;
+
 /**
  * Servlet implementation class CreateFileConfig
  */
@@ -31,25 +33,22 @@ public class CreateFileConfig extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		String smtpserver = request.getSession().getAttribute("serveursmtp")
-				.toString();
-		String host = request.getSession().getAttribute("hote").toString();
-		String pwdhost = request.getSession().getAttribute("motdepasse")
-				.toString();
-		String addressfsnet = request.getSession().getAttribute("adressefsnet")
-				.toString();
-		String port = request.getSession().getAttribute("port").toString();
-
+		
 		File file = new File(SearchFileConfig.FILE_PATH);
-		if (!file.exists()) {
-			file.createNewFile();
+		ParserFileConfig parser = null;
+		String[] parameters = null;
+		System.out.println("Test exist le fichier contenant "+parameters);
+		
+		if (file.exists()) {
+			parser = new ParserFileConfig(file);
+			parameters = parser.parse();
+			request.setAttribute("parameters", parameters);
+			System.out.println("exist le fichier contenant "+parameters[0]);
 		}
-
-		completeFile(smtpserver, host, pwdhost, addressfsnet, port, file);
-
-		RequestDispatcher dp = getServletContext().getRequestDispatcher(SearchFileConfig.HOME);
+		RequestDispatcher dp = getServletContext().getRequestDispatcher(
+				"/options.jsp?option=current");
 		dp.forward(request, response);
-
+	
 	}
 
 	private void completeFile(String smtpserver, String host, String pwdhost,
@@ -81,7 +80,26 @@ public class CreateFileConfig extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		String smtpserver = request.getSession().getAttribute("serveursmtp")
+				.toString();
+		String host = request.getSession().getAttribute("hote").toString();
+		String pwdhost = request.getSession().getAttribute("motdepasse")
+				.toString();
+		String addressfsnet = request.getSession().getAttribute("adressefsnet")
+				.toString();
+		String port = request.getSession().getAttribute("port").toString();
+
+		File file = new File(SearchFileConfig.FILE_PATH);
+		if (!file.exists()) {
+			file.createNewFile();
+		}
+
+		completeFile(smtpserver, host, pwdhost, addressfsnet, port, file);
+
+		RequestDispatcher dp = getServletContext().getRequestDispatcher(
+				SearchFileConfig.HOME);
+		dp.forward(request, response);
+
 	}
 
 }
