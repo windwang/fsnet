@@ -10,7 +10,7 @@
 <link rel="icon" type="image/png" href="images/favicon.ico" />
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <meta http-equiv="refresh"
-	content="300;AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">
+	content="300;SearchInterest.jsp?interet=current&recherche=hide">
 <meta name="author" content="Luka Cvrk - www.solucija.com" />
 <meta name="description" content="Site Description" />
 <meta name="keywords" content="site, keywords" />
