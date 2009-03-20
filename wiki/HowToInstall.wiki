@@ -14,6 +14,7 @@
  * mysql-connector-java-x-bin.jar
  * eclipselink.jar
  * jstl-1.2.jar
+ * apache axis-bin-1_4.zip
 
 You can find these librairies in the download section.
 
