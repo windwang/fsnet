@@ -42,7 +42,7 @@ public class CreateFileConfig extends HttpServlet {
 		if (file.exists()) {
 			parser = new ParserFileConfig(file);
 			parameters = parser.parse();
-			request.setAttribute("parameters", parameters);
+			request.getSession().setAttribute("parameters", parameters);
 			System.out.println("exist le fichier contenant "+parameters[0]);
 		}
 		RequestDispatcher dp = getServletContext().getRequestDispatcher(
