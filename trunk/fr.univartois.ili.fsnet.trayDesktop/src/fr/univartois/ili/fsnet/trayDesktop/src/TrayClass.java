@@ -10,28 +10,22 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-//import java.io.OutputStreamWriter;
 import java.io.PrintStream;
 import java.io.PrintWriter;
-//import java.net.MalformedURLException;
 import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
-//import java.net.URLConnection;
 import java.net.UnknownHostException;
 import java.util.Timer;
 import java.util.TimerTask;
-
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.xml.rpc.ServiceException;
-
 import fr.univartois.ili.fsnet.webservice.NouvellesInformations;
 import fr.univartois.ili.fsnet.webservice.NouvellesService;
 import fr.univartois.ili.fsnet.webservice.NouvellesServiceLocator;
-
 import java.lang.System;
 
 /**
@@ -50,14 +44,7 @@ public class TrayClass {
 	private  String filePath = System.getenv("HOME") + "/FSN/preferences.conf";
 	private  ImageIcon monIcone;
 
-	/**
-	 * Getter and setter for attribute chaine
-	 * 
-	 * @param chaine
-	 */
-
 	
-
 	/**
 	 * Constructor of the class TrayClass.
 	 * 
@@ -288,33 +275,11 @@ public class TrayClass {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//out.println(cmd + " /<url/pattern>/</url-pattern>?toto=blabla HTTP/1.0");
-				//out.println(cmd + " /tp3Servlet/MaServlet?toto=blabla HTTP/1.0");
-				out.println("GET" + " /Ecriture/Ecrire HTTP/1.0");
-				out.println("Host: localhost");
-				out.println("Referer: asta la vista2");
-				out.println("User-Agent: A la mano");
-				out.println();
-				/*String leTout ="";
-				String msgFromServer;
-				StringBuffer str =new StringBuffer();
-				String test="";
-				BufferedReader in = null;
-				try {
-					while ((msgFromServer = in.readLine()) != null){
-						//leTout+=msgFromServer + "\n";
-						test=msgFromServer;
-						str.append(msgFromServer + "\n");
-						//System.out.println(msgFromServer);
-					}
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}*/
-				//System.out.println(str.toString());
+				
+				
 
 			}
-		}, 10000, 10000);
+		}, 1000, 1000);
 
 	}
 
@@ -333,9 +298,9 @@ public class TrayClass {
 	public static void main(String[] args) throws UnknownHostException, IOException, ServiceException {
 		NouvellesService nv =new NouvellesServiceLocator();
 		NouvellesInformations nvs=nv.getNouvellesInformationsPort();
-		//System.out.println(nvs.getEvenement());
+		
 
-		TrayClass c = new TrayClass("il y a "+nvs.getEvenement() +"Nouveaux Evenements");
+		TrayClass c = new TrayClass("Il y a "+nvs.getEvenement() +" nouveau(x) évenement(s) ");
 		c.executeTrayIcon();
 	}
 
