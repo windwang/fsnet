@@ -21,11 +21,70 @@
 
 
 <div class="wrap background"><jsp:include page="hautValidation.jsp" />
-<p> votre &#201;v&#233;nement est bien valid&#233</p>
+
 
 <div id="left">
 <h2><a href="#">Accueil</a></h2>
 
+<table width="479">
+	
+
+	<tr>
+		<td style="height: 38"></td>
+		<td valign="top" style="bgcolor: #EDF3F8">
+		<h2><img
+			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_223.png"
+			style="width: 36; height: 32" alt="" /> <span class="Style8">Mon
+		r&eacute;seau </span></h2>
+		</td>
+	</tr>
+	<tr>
+		<td style="height: 20"></td>
+		<td>&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td style="height: 56"></td>
+		<td valign="top">
+		<ul>
+			<li><a href="hub.jsp">Créer un Hub</a></li>
+		</ul>
+		</td>
+	</tr>
+	<tr>
+		<td style="height: 17"></td>
+		<td></td>
+	</tr>
+	<tr>
+		<td style="height: 40"></td>
+		<td valign="top" style="bgcolor: #EDF3F8">
+		<h2><span class="Style8"><img
+			src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_073.png"
+			style="width: 34; height: 29" alt="" /> Int&eacute;ractions </span></h2>
+		</td>
+	</tr>
+	<tr>
+		<td style="height: 20"></td>
+		<td>&nbsp;</td>
+	</tr>
+
+	<tr>
+		<td style="height: 110"></td>
+		<td valign="top">
+		<ul>
+			<li><a href="publierannonce.jsp">Créer une annonce</a></li>
+			<li><a href="annonces.jsp">Accéder aux annonces</a></li>
+			<li><a href="creerevenement.jsp">Créer un événement</a></li>
+			<li><a href="toutEvenement.jsp">Acceder aux événements</a></li>
+		</ul>
+		</td>
+	</tr>
+	<tr>
+		<td style="height: 88"></td>
+		<td>&nbsp;</td>
+	</tr>
+</table>
+<!-- 
 <table width="479">
 	<tr>
 		<td style="width: 6; height: 33"></td>
@@ -110,6 +169,7 @@
 		<td>&nbsp;</td>
 	</tr>
 </table>
+-->
 </div>
 
 <jsp:include page="side.jsp" />
