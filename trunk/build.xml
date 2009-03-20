@@ -24,6 +24,9 @@
 
 	<!-- trayDesktop properties -->
 	<property name="fsnet.trayDesktop.dir" value="fr.univartois.ili.fsnet.trayDesktop"/>
+
+	<!-- webservice properties -->
+	<property name="fsnet.webservice.dir" value="fr.univartois.ili.fsnet.webservice"/>
 	
 	<target name="prepare">
 		<echo>Preparing</echo>
@@ -183,6 +186,7 @@
 			<fileset dir="${fsnet.entities.dir}/src" excludes="${fsnet.entities.dir}/src/fr"/>
 		</jar>
 		<copy file="./fsnetentities.jar" todir="${admin.dir}/WebContent/WEB-INF/lib/"/>
+		<copy file="./fsnetentities.jar" todir="${fsnet.webservice.dir}/WebContent/WEB-INF/lib/"/>
 		<move file="./fsnetentities.jar" todir="${fsnet.dir}/WebContent/WEB-INF/lib/"/>
 	</target>
 
@@ -319,6 +323,9 @@
 			<fileset dir="${fsnet.trayDesktop.dir}/src">
 				<include name="**/*.png"/>
 			</fileset>
+			<fileset dir="${tomcat.lib}">
+				<include name="**/jaxrpc.jar"/>
+			</fileset>
 			<manifest>
 				 <attribute name="Main-Class" value="fr.univartois.ili.fsnet.trayDesktop.src.TrayClass"/>
 			</manifest>
@@ -359,7 +366,29 @@
 		</sql>
 	</target>
 
+	<target name="webservice.compile">
+		<echo>Creating the fsnet bin dir</echo>
+		<mkdir dir="${fsnet.webservice.dir}/WebContent/WEB-INF/classes"/>
+
+		<echo>Compiling fsnet</echo>
+		<javac	srcdir = "${fsnet.webservice.dir}"
+			destdir = "${fsnet.webservice.dir}/WebContent/WEB-INF/classes"
+			source = "${versionJava}"
+			target = "${versionJava}">
+			<classpath refid="fsnetPath"/>
+		</javac>
+	</target>	
+
+	<target name="webservice" depends="webservice.compile">
+		<echo>Creating WAR file for fsnet</echo>
+		<jar destfile="fsnetwebservice.war">
+			<fileset dir="${fsnet.webservice.dir}/WebContent"/>
+		</jar>
+		<echo>Deploying on Tomcat 6</echo>
+		<copy file="fsnetwebservice.war" todir="${tomcat.deploy}"/>  
+	</target>
+
 	<target name="both"
 		depends="prepare,pmd,entities,entities.test,iliforum,
-			iliforum.test,iliforumtags,trayDesktop,test_report,admin,fsnet,findbugs,clean,base"/>
+			iliforum.test,iliforumtags,webservice,trayDesktop,test_report,admin,fsnet,findbugs,clean,base"/>
 </project>
