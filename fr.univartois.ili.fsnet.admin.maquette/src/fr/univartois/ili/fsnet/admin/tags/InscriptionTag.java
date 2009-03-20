@@ -45,6 +45,8 @@ public class InscriptionTag extends TagSupport {
 
 	private static final int MAX_MEMBERS = 7;
 
+	private static final int SIZE = 10;
+
 	private Iterator<Inscription> it;
 	private String var;
 	private String etat;
@@ -123,6 +125,26 @@ public class InscriptionTag extends TagSupport {
 
 	private void updateContext(Inscription inscription) {
 		pageContext.setAttribute(var, inscription);
+		String nom = inscription.getEntite().getNom();
+		String prenom = inscription.getEntite().getPrenom();
+		String email = inscription.getEntite().getEmail();
+		if (nom.length() < SIZE) {
+			pageContext.setAttribute("svarNom", nom);
+		} else {
+			pageContext.setAttribute("svarNom", nom.substring(0, SIZE) + "...");
+		}
+		if (prenom.length() < SIZE) {
+			pageContext.setAttribute("svarPrenom", prenom);
+		} else {
+			pageContext.setAttribute("svarPrenom", prenom.substring(0, SIZE)
+					+ "...");
+		}
+		if (email.length() < SIZE) {
+			pageContext.setAttribute("svarEmail", email);
+		} else {
+			pageContext.setAttribute("svarEmail", email.substring(0, SIZE)
+					+ "...");
+		}
 	}
 
 	public int doAfterBody() throws JspException {
