@@ -50,8 +50,8 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 	.date { background: #fff; padding: 5px 0; border-right: 1px solid #D3EAFA; border-bottom: 1px solid #D3EAFA; color: #ccc; float: left; width: 55px; margin: 7px 12px 5px 0; text-align: center; }
 	.date span { font-size: 1.6em; }
 	
-#tableauprincipal{margin-left: 10px; width:600px; float:left;}
-    #tableauprincipal table{width:600px;}
+#tableauprincipal{margin-left: 10px; max-width:600px; min-width:600px;float:left;}
+    #tableauprincipal table{max-width:600px;min-width: 600px;}
     
 #tableauprincipal_interet{margin-left: 50px; width:800px; float:left;}
     #tableauprincipal_interet table{width:800px;}

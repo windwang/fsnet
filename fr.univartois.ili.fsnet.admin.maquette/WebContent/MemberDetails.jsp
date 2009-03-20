@@ -13,7 +13,7 @@
 <div class="boxtop"></div>
 <div class="box"><admin:inscription var="member"
 	entite="${param.ent}">
-	<h3>${member.entite.nom} ${member.entite.prenom}</h3>
+	<h3>Détails</h3>
 
 	 <span class="item"> <span class="sidedate">Email<br />
 	</span> <strong>${member.entite.email}</strong><br />
