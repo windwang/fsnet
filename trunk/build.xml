@@ -332,6 +332,21 @@
 		</jar>
 	</target>
 
+	<target name="trayDesktopLinux">
+		
+		<echo>Creating JAR file for trayDesktop</echo>
+		<jar destfile="fsnettrayDesktopLinux.jar">
+			<fileset dir="${fsnet.trayDesktop.dir}/bin"/>
+			<fileset dir="${fsnet.trayDesktop.dir}/src">
+				<include name="**/*.png"/>
+			</fileset>
+			<manifest>
+				<attribute name="Main-Class" value="fr.univartois.ili.fsnet.trayDesktop.src.TrayClass"/>
+				<attribute name="Class-Path" value="${tomcat.lib}/jaxrpc.jar ${tomcat.lib}/axis.jar ${tomcat.lib}/commons-logging-1.0.4.jar ${tomcat.lib}/commons-discovery-0.2.jar ${tomcat.lib}/mail.jar ${tomcat.lib}/activation.jar ${tomcat.lib}/wsdl4j-1.5.1.jar ${tomcat.lib}/log4j-1.2.8.jar ${tomcat.lib}/saaj.jar ${tomcat.lib}/axis-schema.jar"/>
+			</manifest>			
+		</jar>
+	</target>
+
 	<target name="clean">
 		<echo>Cleaning-up</echo>
 		<delete dir="${fsnet.entities.dir}/bin"/>
@@ -385,10 +400,10 @@
 			<fileset dir="${fsnet.webservice.dir}/WebContent"/>
 		</jar>
 		<echo>Deploying on Tomcat 6</echo>
-		<copy file="fsnetwebservice.war" todir="${tomcat.deploy}"/>  
+		<copy file="fr.univartois.ili.fsnet.webservice.war" todir="${tomcat.deploy}"/>  
 	</target>
 
 	<target name="both"
 		depends="prepare,pmd,entities,entities.test,iliforum,
-			iliforum.test,iliforumtags,webservice,trayDesktop,test_report,admin,fsnet,findbugs,clean,base"/>
+			iliforum.test,iliforumtags,webservice,trayDesktop,trayDesktopLinux,test_report,admin,fsnet,findbugs,clean,base"/>
 </project>
