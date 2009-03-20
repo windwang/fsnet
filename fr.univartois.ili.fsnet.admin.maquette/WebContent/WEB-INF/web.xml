@@ -23,16 +23,6 @@
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>SendMessage</display-name>
-    <servlet-name>SendMessage</servlet-name>
-    <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SendMessage</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>SendMessage</servlet-name>
-    <url-pattern>/SendMessage</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
     <display-name>AddUser</display-name>
     <servlet-name>AddUser</servlet-name>
     <servlet-class>fr.univartois.ili.fsnet.admin.servlets.AddUser</servlet-class>
