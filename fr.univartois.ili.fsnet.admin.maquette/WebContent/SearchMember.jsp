@@ -84,7 +84,7 @@
 						<th width="20%" scope="row">Prénom</th>
 						<th width="20%" scope="row">Email</th>
 						<th width="20%" scope="row">Détails</th>
-						<th width="20%" scope="row">&Eacute;tat</th>
+						<th width="20%" scope="row">Etat</th>
 					</tr>
 					
 					
@@ -94,9 +94,9 @@
 							<td><input type="checkbox" name="userSelected"
 								value="${inscription.entite.id}" title="supprimer"
 								onclick="showHideButton('removeButton','userSelected');" /></td>
-							<td width="20%">${inscription.entite.nom}</td>
-							<td width="20%">${inscription.entite.prenom}</td>
-							<td width="20%">${inscription.entite.email}</td>
+							<td width="20%" title="${inscription.entite.nom}">${svarNom}</td>
+							<td width="20%" title="${inscription.entite.prenom}">${svarPrenom}</td>
+							<td width="20%" title="${inscription.entite.email}">${svarEmail}</td>
 							<td width="20%"><a href="#"
 								onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');"
 								title="Cliquez pour afficher les détails de ce membre">Détails</a></td>

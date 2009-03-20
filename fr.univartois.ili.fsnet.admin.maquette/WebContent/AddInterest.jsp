@@ -70,7 +70,7 @@
 							<td><input type="checkbox" name="interestSelected"
 								value="${interet.id}" title="Supprimer"
 								onclick="showHideButton('removeButton','interestSelected');" /></td>
-							<td width="99%" align="center">${interet.nomInteret}</td>
+							<td width="99%" align="center" title="${interet.nomInteret}">${svarInteret}</td>
 						</tr>
 					</admin:interet>
 				</table>
