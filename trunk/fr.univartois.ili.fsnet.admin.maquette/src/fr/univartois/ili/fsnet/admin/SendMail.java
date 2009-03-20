@@ -12,23 +12,39 @@ public class SendMail {
 	private static final String USER = "mojacojava@gmail.com";
 
 	private static final String PWD = "testjava";
+	
+	private static final String TIMEOUT = "1000";
 	private Properties props;
 	private Authenticator auth;
+	private String addressHost;
+	private String pwdAddressHost;
 
-	public SendMail() {
+	public SendMail(){}
+	
+	public SendMail(String serverSmtp,String addressHost, String pwdAddressHost, String port) {
 		// Setting the host address and smtp address
 		props = new Properties();
 		props.put("mail.transport.protocol", "smtp");
 		props.put("mail.smtp.starttls.enable", "true");
-		props.put("mail.smtp.host", HOST_SMTP);
+		props.put("mail.smtp.host", serverSmtp);
 		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "587");
-		props.put("mail.smtp.timeout", "1000");
+		props.put("mail.smtp.port", port);
+		props.put("mail.smtp.timeout", TIMEOUT);
+		this.addressHost = addressHost;
+		this.pwdAddressHost = pwdAddressHost;
 		java.security.Security
 				.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
 
 		auth = new AuthenticationSMTP();
 
+	}
+	
+	public String getAddressHost(){
+		return addressHost;
+	}
+	
+	public String getPwdAddressHost(){
+		return pwdAddressHost;
 	}
 
 	private Message createMessage(List<String> liste, String sujet,
@@ -74,10 +90,9 @@ public class SendMail {
 	 */
 	private class AuthenticationSMTP extends javax.mail.Authenticator {
 
+
 		public PasswordAuthentication getPasswordAuthentication() {
-			String username = USER;
-			String password = PWD;
-			return new PasswordAuthentication(username, password);
+			return new PasswordAuthentication(addressHost, pwdAddressHost);
 		}
 	}
 

@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.admin.servlets;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,6 +15,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.admin.ParserFileConfig;
 import fr.univartois.ili.fsnet.admin.SendMail;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
@@ -84,7 +86,7 @@ public class AddUser extends HttpServlet {
 	 * @return the message .
 	 */
 	private String createMessageRegistration(String nom, String prenom,
-			String email) {
+			String email, String addressFsnet) {
 		StringBuilder message = new StringBuilder();
 		message.append("Bonjour ");
 		message.append(nom);
@@ -94,7 +96,9 @@ public class AddUser extends HttpServlet {
 		message
 				.append("Vous venez d'être enregistré à FSNet (Firm Social Network).\n\n");
 		message
-				.append("Désormais vous pouvez vous connecter à votre compte en ne rentrant uniquement votre adresse email ");
+				.append("Désormais vous pouvez vous connecter sur le site ");
+		message.append(addressFsnet);
+		message.append(". Pour celà renseignez uniquement votre adresse email ");
 		message.append(email);
 		message.append(" .\n\n");
 		message
@@ -121,9 +125,12 @@ public class AddUser extends HttpServlet {
 		EntiteSociale entite = (EntiteSociale) request.getSession()
 				.getAttribute("entitesociale");
 		String email = entite.getEmail();
-		SendMail envMail = new SendMail();
+		SendMail envMail = null;
 		List<String> listeDest = new ArrayList<String>();
 		String message = null;
+		File file = new File(SearchFileConfig.FILE_PATH);
+		ParserFileConfig parser = null;
+		String[] parameters = null;
 
 		em.getTransaction().begin();
 		em.persist(entite);
@@ -135,15 +142,17 @@ public class AddUser extends HttpServlet {
 		em.getTransaction().commit();
 
 		listeDest.add(email);
+		parser = new ParserFileConfig(file);
+		parameters = parser.parse();
 		message = createMessageRegistration(entite.getNom(),
-				entite.getPrenom(), email);
+				entite.getPrenom(), email, parameters[3]);
+		envMail = new SendMail(parameters[0],parameters[1],parameters[2],parameters[4]);
 		try {
 			envMail.sendMessage(listeDest, SUBJECT, message);
 			log("Message envoyé");
 		} catch (MessagingException e) {
 			log("Erreur : " + e.getMessage());
 		}
-System.out.println("Ici addUser "+redirection);
 		RequestDispatcher disp = getServletContext()
 				.getRequestDispatcher(
 						"/"
