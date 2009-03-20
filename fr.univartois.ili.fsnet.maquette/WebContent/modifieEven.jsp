@@ -80,7 +80,7 @@ function init()
 	</tr>
 	<tr>
 		<th style="width: 193" scope="row">Rendez-vous le</th>
-		<td><input type='text' name="dateDebut" value="${date}"
+		<td><input type='text' name="dateDebut" value="${manif.dateManif}"
 			size="8" /> <button type='button' name='show1' onclick='CL.show();'><img
 			src="images/button_calendar.gif" height="20" width="20" /></button></td>
 	</tr>

@@ -27,7 +27,7 @@
 
 
 <h2><a href="#">Annonces</a></h2>
-
+${info }
 <table width="445">
 	<tr>
 		<th style="width: 181" scope="col">listes des annonces</th>

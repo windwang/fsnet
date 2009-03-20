@@ -46,6 +46,10 @@ public class SuppEven extends HttpServlet {
 			// IliForumFacade.getInstance().removeHub( manif);
 		}
 
+		request
+				.setAttribute("info",
+						"<p id=\"info\">La suppression d'un événement est effectuée.</p>");
+
 		RequestDispatcher dispa;
 		dispa = getServletContext().getRequestDispatcher("/toutEvenement.jsp");
 		dispa.forward(request, response);

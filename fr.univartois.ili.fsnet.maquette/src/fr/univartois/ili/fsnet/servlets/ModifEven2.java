@@ -68,6 +68,11 @@ public class ModifEven2 extends HttpServlet {
 		entM.getTransaction().begin();
 		entM.merge(manif);
 		entM.getTransaction().commit();
+
+		request
+				.setAttribute("info",
+						"<p id=\"info\">La modification d'un événement est effectuée.</p>");
+
 		RequestDispatcher dispa;
 		dispa = getServletContext().getRequestDispatcher("/toutEvenement.jsp");
 		dispa.forward(request, response);

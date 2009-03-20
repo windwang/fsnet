@@ -68,6 +68,10 @@ public class SupprAnnonce extends HttpServlet {
 		entM2.persist(hubMerge);
 		entM2.getTransaction().commit();
 
+		request
+				.setAttribute("info",
+						"<p id=\"info\">La suppression d'une annonce est effectuée.</p>");
+
 		RequestDispatcher dispatch;
 		dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
 		dispatch.forward(request, response);
