@@ -41,5 +41,16 @@ public class Nouvelles {
 
 		return j;
 	}
+	@WebMethod
+	public @WebResult(name = "nbevenement")
+	int getNumberOfNewAnnonce() {
+
+		ql1 = em.createQuery("SELECT m FROM Annonce m where m.dateInformation=?1 ");
+		ql1.setParameter(1, dt);
+		i=ql1.getResultList().size();
+		
+
+		return i;
+	}
 
 }
