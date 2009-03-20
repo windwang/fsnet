@@ -6,12 +6,6 @@ import javax.mail.*;
 import javax.mail.internet.*;
 
 public class SendMail {
-
-	private static final String HOST_SMTP = "smtp.gmail.com";
-
-	private static final String USER = "mojacojava@gmail.com";
-
-	private static final String PWD = "testjava";
 	
 	private static final String TIMEOUT = "1000";
 	private Properties props;
