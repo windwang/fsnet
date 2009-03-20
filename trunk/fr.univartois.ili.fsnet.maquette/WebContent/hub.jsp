@@ -34,20 +34,19 @@
 <body onload="showMenu();MM_jumpMenu();">
 <div class="wrap background"><jsp:include page="haut.jsp"></jsp:include>
 
-<table style="padding: 6; width: 100%; align: center" border="1">
-	<thead>
-		<tr style="text-align: center">
-			<td class="thead">
+<table width="100%">	
+	<tr style="text-align:center;background-color: #CCCCCC">
+		<td class="thead">
 			<div style="text-align: center">Hub</div>
-			</td>
-			<td class="thead">
-				Createur
-			</td>
-			<td class="thead">Dernier message</td>
-			<td class="thead">Topics</td>
-			<td class="thead">Messages</td>
-		</tr>
-	</thead>
+		</td>
+		<td class="thead">
+			Createur
+		</td>
+		<td class="thead">Dernier message</td>
+		<td class="thead">Topics</td>
+		<td class="thead">Messages</td>
+	</tr>
+	
 	<fsnet:hub var="hubdto">
 		<tbody>
 			<tr>
@@ -84,7 +83,7 @@
 
 		</tbody>
 	</fsnet:hub>
-	<tfoot>
+	<tfoot style="background-color: #CCCCCC">
 		<tr>
 			<td colspan="5">
 			<form action="CreateHub">

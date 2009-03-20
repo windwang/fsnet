@@ -39,9 +39,9 @@
 <body onload="showMenu();">
 <div class="wrap background"><jsp:include page="haut.jsp"></jsp:include>
 <a href="hub.jsp">FSNet</a> - <a href="GotoTopic?idHub=${monHub.id}">${monHub.nomCommunaute}</a>
-<table style="padding: 6; width: 100%; align: center" border="1">
+<table width="100%">
 	<thead>
-		<tr style="text-align: center">
+		<tr style="text-align: center;background-color: #CCCCCC"">
 			<td class="thead">
 			<div style="text-align: center">Topic</div>
 			</td>

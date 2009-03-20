@@ -34,9 +34,9 @@
 <body onload="showMenu();MM_jumpMenu();">
 <div class="wrap background"><jsp:include page="haut.jsp"></jsp:include>
 
-<table style="padding: 6; width: 100%; align: center" border="1">
+<table width="100%">
 	<thead>
-		<tr style="text-align: center">
+		<tr style="text-align:center;background-color: #CCCCCC">
 			<td class="thead">
 			<div style="text-align: center">Hub</div>
 			</td>
@@ -88,17 +88,6 @@
 
 		</tbody>
 	</fsnet:hub>
-	<tfoot>
-		<tr>
-			<td colspan="5">
-			<form action="CreateHub">
-			<fieldset><legend> Creer Hub </legend> <label> Nom
-			du Hub : </label> <input type="text" name="nomHub" size="80%" /> <input
-				type="submit" name="creerHub" value="creer" /></fieldset>
-			</form>
-			</td>
-		</tr>
-	</tfoot>
 
 </table>
  </div>
