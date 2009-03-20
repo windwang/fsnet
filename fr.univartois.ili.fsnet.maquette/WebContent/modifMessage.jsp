@@ -93,13 +93,12 @@
 <div id="edit3994424"
 	style="PaDDING-RIGHT: 0px; PaDDING-LEFT: 0px; PaDDING-BOTTOM: 6px; PaDDING-TOP: 0px">
 <a href="hub.jsp">FSNet</a> - <a href="GotoTopic?idHub=${monHub.id}">${monHub.nomCommunaute}</a> - <a href="GotoMessage?idTopic=${monTopic.id}">${monTopic.sujet}</a>
-<table class="tborder" id="post3994424"
-	style="padding: 6; width: 100%; text-align: left; border: 0">
+<table class="tborder" id="post3994424" width="100%">
 
 
 	<tr>
 		<td colspan="2" class="thead"
-			style="BORDER-RIGHT: #d1d1e1 1px solid;BORDER-TOP: #d1d1e1 1px solid; FONT-WEIGHT: normal; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid">
+			style="background-color: #CCCCCC">
 		${monTopic.sujet}</td>
 		
 	</tr>
@@ -107,7 +106,7 @@
 	<fsnet:message var="messageDTO" topic="${monTopic}">
 		<tr valign="top">
 			<td class="alt2"
-				style="BORDER-RIGHT: #d1d1e1 1px solid; BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid; width:20%">
+				style="BORDER-BOTTOM: #d1d1e1 1px solid; width:20%">
 			<div id="postmenu_3994424">${messageDTO.message.propMsg.nom }</div>
 			<div class="smallfont">
 			<div style="align: center">Membre de la communauté</div>
@@ -126,7 +125,7 @@
 			</div>
 			</td>
 			<td class="" id="td_post_3994424"
-				style="BORDER-RIGHT: #d1d1e1 1px solid;BORDER-TOP: #d1d1e1 1px solid; BORDER-LEFT: #d1d1e1 1px solid; BORDER-BOTTOM: #d1d1e1 1px solid;"><!-- icon and title -->
+				style="BORDER-BOTTOM: #d1d1e1 1px solid;"><!-- icon and title -->
 			<div class="alt1"> ${messageDTO.message.dateMessage } </div>
 			<c:if test="${messageDTO.message.id == monMessage.id}">
 			<form action="ModifMessage">
