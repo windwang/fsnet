@@ -96,7 +96,7 @@
 			</tr>
 			<tr class="champ">
 				<th scope="row"><label for="pass">Mot de passe : </label></th>
-				<td><html:text property="motdepasse" errorStyleClass="error" styleId="pass"/>
+				<td><html:password property="motdepasse" errorStyleClass="error" styleId="pass"/>
 					<html:errors property="motdepasse" />   
 				</td>
 			</tr>
