@@ -68,13 +68,13 @@
 							<td><input type="checkbox" name="userSelected"
 								value="${inscription.entite.id}" title="Supprimer"
 								onclick="showHideButton('removeButton','userSelected');" /></td>
-							<td width="20%">${inscription.entite.nom}</td>
-							<td width="20%">${inscription.entite.prenom}</td>
-							<td width="20%">${inscription.entite.email}</td>
+							<td width="20%" title="${inscription.entite.nom}">${svarNom}</td>
+							<td width="20%" title="${inscription.entite.prenom}">${svarPrenom}</td>
+							<td width="20%" title="${inscription.entite.email}">${svarEmail}</td>
 							<td width="20%"><a href="#"
 								onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');show('side');"
-								title="Cliquez pour afficher les détails de ce membre">Détails</a></td>
-							<td width="20%">${inscription.etat}</td>
+								title="Cliquez pour afficher les détails de ${inscription.entite.nom} ${inscription.entite.prenom}">Détails</a></td>
+							<td width="20%" title="${inscription.etat}">${inscription.etat}</td>
 						</tr>
 					</admin:inscription>
 
