@@ -5,6 +5,8 @@
 	<property name="fsnet.dir" value="fr.univartois.ili.fsnet.maquette"/>
 	<property name="tomcat.deploy" value="/opt/apache-tomcat-6.0.18/webapps"/>
 	<property name="tomcat.lib" value="/opt/apache-tomcat-6.0.18/lib"/>
+	
+	<property name="tomcat.win.lib" value="C:\Program Files\Apache Software Foundation\Tomcat 6.0\lib"/>
 
 	<property name="jars.dir" value="./JARs/WEB-INF/lib"/>
 	
@@ -325,7 +327,7 @@
 			</fileset>
 			<manifest>
 				<attribute name="Main-Class" value="fr.univartois.ili.fsnet.trayDesktop.src.TrayClass"/>
-				<attribute name="Class-Path" value="${tomcat.lib}/jaxrpc.jar ${tomcat.lib}/axis.jar ${tomcat.lib}/commons-logging-1.0.4.jar ${tomcat.lib}/commons-discovery-0.2.jar ${tomcat.lib}/mail.jar ${tomcat.lib}/activation.jar ${tomcat.lib}/wsdl4j-1.5.1.jar ${tomcat.lib}/log4j-1.2.8.jar ${tomcat.lib}/saaj.jar ${tomcat.lib}/axis-schema.jar"/>
+				<attribute name="Class-Path" value="${tomcat.win.lib}/jaxrpc.jar ${tomcat.win.lib}/axis.jar ${tomcat.win.lib}/commons-logging-1.0.4.jar ${tomcat.win.lib}/commons-discovery-0.2.jar ${tomcat.win.lib}/mail.jar ${tomcat.win.lib}/activation.jar ${tomcat.win.lib}/wsdl4j-1.5.1.jar ${tomcat.win.lib}/log4j-1.2.8.jar ${tomcat.win.lib}/saaj.jar ${tomcat.win.lib}/axis-schema.jar"/>
 			</manifest>			
 		</jar>
 	</target>
