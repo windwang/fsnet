@@ -110,7 +110,7 @@ public class LoginUser extends HttpServlet {
 				dispatch.forward(request, response);
 			} else {
 				if ((inscrit.getEtat().equals(Inscription.INSCRIT))
-						&& Md5.testPassword(password, entite.getMdp())) {
+						&& password.equals(entite.getMdp())) {
 					getServletContext().setAttribute("erreur", "");
 					dispatch = getServletContext().getRequestDispatcher(
 							"/index.jsp");
