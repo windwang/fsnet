@@ -23,24 +23,30 @@
 </script>
 </head>
 <body onload="showMenu();${param.showHide}('listToDeploy');${param.recherche}('rechercheVide')">
-<jsp:include page="header.jsp"></jsp:include>
+<div class="wrap background">
+<div style="margin-top: 10%"id="logo">
+<h1><a href="#">FSNet<br /></a></h1>
+<h2 class="slogan">Réseau social</h2>
+<h2 class="slogan">Administration</h2>
+</div>
 
 
-<div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
+</div>
 
-<div id="left">
+<div class="clear"></div>
+<div id="center">
 <h2><a
-	href="options.jsp?option=current"
+	href="optionsrequired.jsp?option=current"
 	title="configuration des options d'envoie de mail">Options</a></h2>
 <jsp:include page="date.jsp"></jsp:include></div>
 
 
-<html:javascript formName="/lesoptions"/>
-<div id="tableauprincipal" >
+<html:javascript formName="/lesoptionsrequired"/>
+<div id="tableauprincipal" style="padding-left:10%">
 <p id="informationsOptions">Nb:Ce formulaire permet de configurer vos préférences pour l'envoie de mails. Par exemple: quand vous enregistrer un membre un mail lui ait automatiquement envoyé afin qu'il puisse finaliser son inscription.</p>
 
 
-<html:form action="/lesoptions.do" method="post">
+<html:form action="/lesoptionsrequired.do" method="post">
 	<table>
 			<tr>
 				<th class="entete"></th>
@@ -51,31 +57,31 @@
 
 			<tr class="champ">
 				<th scope="row"><label for="serveurSMTP">serveur SMTP : </label></th>
-				<td><html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP" value="${parameters[0]}" />
+				<td><html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP" />
 					<html:errors property="serveursmtp" />
 				</td>
 			</tr>
 			<tr class="champ">
 				<th scope="row"> <label for="hote">Expéditeur : </label></th>
-				<td><html:text property="hote" errorStyleClass="error" styleId="hote" value="${parameters[1]}" />
+				<td><html:text property="hote" errorStyleClass="error" styleId="hote"  />
 					<html:errors property="hote" />  
 				</td>
 			</tr>
 			<tr class="champ">
 				<th scope="row"><label for="pass">Mot de passe : </label></th>
-				<td><html:password property="motdepasse" errorStyleClass="error" styleId="pass" value="${parameters[2]}" />
+				<td><html:password property="motdepasse" errorStyleClass="error" styleId="pass" />
 					<html:errors property="motdepasse" />   
 				</td>
 			</tr>
 			<tr class="champ">
 				<th scope="row"><label for="adresseFSNet">Adresse site FSNet : </label></th>
-				<td><html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet" value="${parameters[3]}" />
+				<td><html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet" />
 					<html:errors property="adressefsnet" />   
 				</td>
 			</tr>		
 			<tr class="champ">
 				<th scope="row"><label for="port">Port : </label></th>
-				<td><html:text property="port" errorStyleClass="error" styleId="port" value="${parameters[4]}" />
+				<td><html:text property="port" errorStyleClass="error" styleId="port" />
 					<html:errors property="port" /> 
 				</td>
 			</tr>
@@ -87,7 +93,7 @@
 		 </label>
 </html:form>
 </div>
-<div id="side"></div>
+
 </div>
 
 
