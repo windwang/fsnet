@@ -30,6 +30,7 @@ public class InteretTag extends TagSupport {
 	private static final String FIND_ALL = "SELECT i FROM Interet i ORDER BY i.nomInteret ASC";
 	private static final String FIND_BY_NOMINTERET = "SELECT i FROM Interet i WHERE i.nomInteret=?1";
 	private static final String DATABASE_NAME = "fsnetjpa";
+	private static final int SIZE = 70;
 
 	private Iterator<Interet> it;
 	private String var;
@@ -74,6 +75,14 @@ public class InteretTag extends TagSupport {
 
 	private void updateContext(Interet interet) {
 		pageContext.setAttribute(var, interet);
+		String intitule = interet.getNomInteret();
+		if (intitule.length() < SIZE) {
+			pageContext.setAttribute("svarInteret", intitule);
+		} else {
+			pageContext.setAttribute("svarInteret", intitule.substring(0,
+					SIZE - 1)
+					+ "...");
+		}
 	}
 
 	public int doAfterBody() throws JspException {
