@@ -9,10 +9,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintStream;
 import java.io.PrintWriter;
-import java.net.Socket;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
@@ -39,8 +36,6 @@ public class TrayClass {
 	public static final String urlTemp = "http://code.google.com/p/fsnet/";
 	private  String chaine;
 	private  String url;
-	static Socket soc;
-	String host;
 	private  String filePath = System.getenv("HOME") + "/FSN/preferences.conf";
 	private  ImageIcon monIcone;
 
@@ -59,7 +54,7 @@ public class TrayClass {
 
 	public void executeTrayIcon() throws UnknownHostException, IOException {
 		/* Use Look and Feel of System */
-		soc = new Socket(host, 8080);
+		
 		monIcone = new ImageIcon(getClass().getResource("/ressources/iconefsnet.png"));
 
 		try {
@@ -90,7 +85,6 @@ public class TrayClass {
 
 	/**
 	 * Create and show the GUI
-	 * 
 	 * @throws IOException
 	 */
 	private  void createAndShowGUI() throws IOException {
@@ -154,8 +148,7 @@ public class TrayClass {
 				} catch (FileNotFoundException e3) {
 					File fb = new File(System.getenv("HOME") + "/FSN");
 					fb.mkdirs();
-					File fichier = new File(System.getenv("HOME")
-							+ "/FSN/preferences.conf");
+					File fichier = new File(System.getenv("HOME")+ "/FSN/preferences.conf");
 					try {
 						fichier.createNewFile();
 					} catch (IOException e1) {
@@ -250,36 +243,9 @@ public class TrayClass {
 			public void run() {
 				 trayIcon.displayMessage("Notificatios", chaine,
 				 TrayIcon.MessageType.INFO);;
-				Socket sock = null;
-				try {
-					sock = new Socket("127.0.0.1", 8080);
-				} catch (UnknownHostException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				try {
-					BufferedReader in = new BufferedReader(new InputStreamReader(sock.getInputStream()));
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				// DataInputStream din = new DataInputStream(soc.getInputStream());
-				// DataOutputStream dout=new DataOutputStream(soc.getOutputStream());
-				PrintStream out = null;
-				try {
-					out = new PrintStream(soc.getOutputStream());
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
 				
-				
-
 			}
-		}, 1000, 1000);
+		}, 90*10000, 90*10000);
 
 	}
 
