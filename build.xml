@@ -379,7 +379,7 @@
 
 	<target name="webservice" depends="webservice.compile">
 		<echo>Creating WAR file for fsnet</echo>
-		<jar destfile="fsnetwebservice.war">
+		<jar destfile="fr.univartois.ili.fsnet.webservice.war">
 			<fileset dir="${fsnet.webservice.dir}/WebContent"/>
 		</jar>
 		<echo>Deploying on Tomcat 6</echo>
