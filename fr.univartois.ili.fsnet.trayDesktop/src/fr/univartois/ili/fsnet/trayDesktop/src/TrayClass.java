@@ -14,6 +14,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.rmi.RemoteException;
 import java.util.Timer;
 import java.util.TimerTask;
 import javax.swing.ImageIcon;
@@ -243,11 +244,24 @@ public class TrayClass {
 		timer.schedule(new TimerTask() {
 
 			public void run() {
-				 trayIcon.displayMessage("Notificatios", chaine,
-				 TrayIcon.MessageType.INFO);;
+				NouvellesService nv =new NouvellesServiceLocator();
+				NouvellesInformations nvs = null;
+				try {
+					nvs = nv.getNouvellesInformationsPort();
+				} catch (ServiceException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
+				try {
+					trayIcon.displayMessage("Notificatios", "il y a "+nvs.getEvenement() +" Nouveaux Evenements",
+					 TrayIcon.MessageType.INFO);
+				} catch (RemoteException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				};
 				
 			}
-		}, 90*10000, 90*10000);
+		}, 1*10000, 1*10000);
 
 	}
 
