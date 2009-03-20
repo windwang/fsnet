@@ -395,3 +395,22 @@ GnooCalendar.prototype.month = [ "Janvier", "F&eacute;vrier", "Mars", "Avril",
 
 /** *************************** */
 
+function validation(f) {
+	  if (f.pwd1.value == '' || f.pwd2.value == '') {
+	    alert('Tous les champs ne sont pas remplis');
+	    f.pwd1.focus();
+	    return false;
+	    }
+	  else if (f.pwd1.value != f.pwd2.value) {
+	    alert('Ce ne sont pas les mêmes mots de passe!');
+	    f.pwd1.focus();
+	    return false;
+	    }
+	  else if (f.pwd1.value == f.pwd2.value) {
+	    return true;
+	    }
+	  else {
+	    f.pwd1.focus();
+	    return false;
+	    }
+	  }
