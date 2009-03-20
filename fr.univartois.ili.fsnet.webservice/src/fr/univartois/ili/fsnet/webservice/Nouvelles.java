@@ -18,7 +18,8 @@ public class Nouvelles {
 	private EntityManagerFactory factory;
 	private EntityManager em;
 	private Query ql;
-	int j;
+	private Query ql1;
+	int j,i;
 	Date dt;
 
 	public Nouvelles() {
@@ -30,15 +31,15 @@ public class Nouvelles {
 	}
 
 	@WebMethod
-	public @WebResult(name = "travel")
-	int getEvenement() {
+	public @WebResult(name = "nbevenement")
+	int getNumberOfNewEvents() {
 
 		ql = em.createQuery("SELECT m FROM Manifestation m where m.dateInformation=?1 ");
 		ql.setParameter(1, dt);
 		j=ql.getResultList().size();
-		em.close();
-		factory.close();
+		
 
 		return j;
 	}
+
 }
