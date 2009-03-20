@@ -80,7 +80,6 @@ public class CompleteProfil extends HttpServlet {
 		String adresse;
 		String telephone;
 		String profession;
-		String pwd;
 		String pwd1;
 		String pwd2;
 		String sexe;
@@ -93,14 +92,12 @@ public class CompleteProfil extends HttpServlet {
 		adresse = request.getParameter("adresse");
 		telephone = request.getParameter("telephone");
 		profession = request.getParameter("profession");
-		pwd = request.getParameter("pwd1");
+		pwd1 = request.getParameter("pwd1");
 		pwd2 = request.getParameter("pwd2");
 		sexe = request.getParameter("sexe");
 
 		// logger.info(pwd1);
 		logger.info(pwd2);
-
-		pwd1 = Md5.getEncodedPassword(pwd);
 
 		logger.info(pwd1);
 
