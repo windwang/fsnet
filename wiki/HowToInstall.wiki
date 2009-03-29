@@ -28,7 +28,10 @@ You can find these librairies in the download section.
  # Copy the _axis-bin-1_4.zip_, _javax.persistence_1.0.0.jar_, _eclipselink.jar_ , _jstl-1.2.jar_and the _mysql-connector-java-x-bin.jar_ in the tomcat/lib directory
  # Unzip the fsnet archive
  # Copy the _fsnet.war_ and _fsadmin.war_ files in the tomcat/webapps
+ # In tomcat/conf/tomcat-users.xml,add :
+    <role rolename="fsnetadmin"/>
+    <user username="admin" password="admin" roles="fsnetadmin"/>
  # Run Tomcat
  # Run the project in your web browser :
-       * http://localhost:8080/fsadmin for the administrator
+       * http://localhost:8080/fsadmin for the administrator (with login & password)
        * http://localhost:8080/fsnet for users
