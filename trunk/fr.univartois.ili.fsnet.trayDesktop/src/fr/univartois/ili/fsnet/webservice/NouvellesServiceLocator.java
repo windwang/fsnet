@@ -22,7 +22,7 @@ public class NouvellesServiceLocator extends org.apache.axis.client.Service impl
     }
 
     // Use to get a proxy class for NouvellesInformationsPort
-    private java.lang.String NouvellesInformationsPort_address = "http://localhost:8080/fr.univartois.ili.fsnet.webservice/NouvellesService";
+    private java.lang.String NouvellesInformationsPort_address = "http://localhost:8080/fr.univartois.ili.fsnet.maquette/NouvellesService";
 
     public java.lang.String getNouvellesInformationsPortAddress() {
         return NouvellesInformationsPort_address;
