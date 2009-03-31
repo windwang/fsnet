@@ -6,7 +6,6 @@
 		<project>fr.univartois.ili.fsnet.facade.iliforum</project>
 		<project>fr.univartois.ili.fsnet.facade.iliforumtags</project>
 		<project>fr.univartois.ili.fsnet.entities</project>
-		<project>fr.univartois.ili.fsnet.trayDesktop</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

@@ -12,9 +12,6 @@
         <dependent-module deploy-path="/WEB-INF/lib" handle="module:/resource/fr.univartois.ili.fsnet.entities/fr.univartois.ili.fsnet.entities">
             <dependency-type>uses</dependency-type>
         </dependent-module>
-        <dependent-module archiveName="fr.univartois.ili.fsnet.trayDesktop.jar" deploy-path="/WEB-INF/lib" handle="module:/resource/fr.univartois.ili.fsnet.trayDesktop/fr.univartois.ili.fsnet.trayDesktop">
-            <dependency-type>uses</dependency-type>
-        </dependent-module>
         <property name="context-root" value="fr.univartois.ili.fsnet.maquette"/>
         <property name="java-output-path"/>
     </wb-module>
