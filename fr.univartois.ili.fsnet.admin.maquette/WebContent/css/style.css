@@ -100,9 +100,9 @@ img{width: 36; height: 32;}
 
 .entete{background-color: #EDF3F8;}
 
-#listToDeploy th{height: 4em;}
+#listToDeploy th{height: 4em; width:20%}
 
-#listToDeploy td{text-align:center;}
+#listToDeploy td{text-align:center; width:20%}
 
 .interest{width:50%;}
 
