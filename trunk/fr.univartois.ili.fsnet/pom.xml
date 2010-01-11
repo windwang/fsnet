@@ -16,7 +16,7 @@
         <module>entities</module>
         <module>admin</module>
         <module>iliforum</module>
-        <module>iliforumtag</module>
+        <module>iliforumtags</module>
         <module>maquette</module>
         <module>webservice</module>
         <module>trayDesktop</module>
