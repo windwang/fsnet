@@ -17,5 +17,6 @@
   </dependencies>
   <modules>
     <module>entities</module>
+    <module>admin</module>
   </modules>
 </project>
