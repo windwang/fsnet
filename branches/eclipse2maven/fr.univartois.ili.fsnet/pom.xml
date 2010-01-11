@@ -2,10 +2,10 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.univartois.ili.fsnet</groupId>
-    <artifactId>eclipse2maven</artifactId>
+    <artifactId>fsnet</artifactId>
     <packaging>pom</packaging>
     <version>0.1</version>
-    <name>FSNET</name>
+    <name>Firm Social Network</name>
     <url>http://code.google.com/p/fsnet/</url>
     <description>
         The aim of this project is to develop a social network application in Java/JEE technologie to connect
@@ -17,6 +17,10 @@
         <module>admin</module>
         <module>iliforum</module>
         <module>iliforumtag</module>
+        <module>maquette</module>
+        <module>webservice</module>
+        <module>trayDesktop</module>
+        <module>trayWithServlets</module>
     </modules>
 
     <issueManagement>
