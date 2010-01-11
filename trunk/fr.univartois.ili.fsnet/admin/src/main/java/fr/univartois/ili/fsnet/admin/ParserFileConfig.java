@@ -16,41 +16,38 @@ import java.util.logging.Logger;
  */
 public class ParserFileConfig {
 
-	private File file;
+    private File file;
+    private static Logger logger = Logger.getLogger("fsnetadmin");
 
-	private static Logger logger = Logger.getLogger("fsnetadmin");
-	
-	public ParserFileConfig() {
-		super();
-	}
+    public ParserFileConfig() {
+        super();
+    }
 
-	public ParserFileConfig(File file) {
-		this.file = file;
-	}
+    public ParserFileConfig(File file) {
+        this.file = file;
+    }
 
-	public File getFile() {
-		return file;
-	}
+    public File getFile() {
+        return file;
+    }
 
-	public void setFile(File file) {
-		this.file = file;
-	}
-	
-	public String[] parse(){
-		String line = null;
-		BufferedReader reader = null;
-		String[] parameters = null;
-		try {
-			reader = new BufferedReader(new FileReader(file));
-			line = reader.readLine();
-			parameters = line.split(" ");
-		} catch (FileNotFoundException e) {
-			logger.info(e.getMessage());
-		} catch (IOException e) {
-			logger.info(e.getMessage());
-		}
-		return parameters;
-	}
+    public void setFile(File file) {
+        this.file = file;
+    }
 
-	
+    public String[] parse() {
+        String line = null;
+        BufferedReader reader = null;
+        String[] parameters = null;
+        try {
+            reader = new BufferedReader(new FileReader(file));
+            line = reader.readLine();
+            parameters = line.split(" ");
+        } catch (FileNotFoundException e) {
+            logger.info(e.getMessage());
+        } catch (IOException e) {
+            logger.info(e.getMessage());
+        }
+        return parameters;
+    }
 }

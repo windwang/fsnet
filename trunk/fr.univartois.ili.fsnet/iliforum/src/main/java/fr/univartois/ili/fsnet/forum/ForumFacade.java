@@ -99,7 +99,7 @@ public interface ForumFacade {
      * @return List of message
      */
     List<Message> getListMessageByEntiteSocial(
-	    EntiteSociale entiteSociale);
+            EntiteSociale entiteSociale);
 
     /**
      * Get list of message from the topic "topic".
@@ -137,7 +137,7 @@ public interface ForumFacade {
 
     boolean addTopic(Topic topic);
 
-    boolean updateTopic(Topic topic,String titre);
+    boolean updateTopic(Topic topic, String titre);
 
     boolean removeTopic(Topic topic);
 
@@ -146,5 +146,4 @@ public interface ForumFacade {
     boolean updateMessage(Message message, String contenu);
 
     boolean removeMessage(Message message);
-
 }

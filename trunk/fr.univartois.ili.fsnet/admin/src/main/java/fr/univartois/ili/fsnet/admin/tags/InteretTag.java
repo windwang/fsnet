@@ -22,91 +22,89 @@ import fr.univartois.ili.fsnet.entities.Interet;
  */
 public class InteretTag extends TagSupport {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private static final String FIND_ALL = "SELECT i FROM Interet i ORDER BY i.nomInteret ASC";
+    private static final String FIND_BY_NOMINTERET = "SELECT i FROM Interet i WHERE i.nomInteret=?1";
+    private static final String DATABASE_NAME = "fsnetjpa";
+    private static final int SIZE = 70;
+    private Iterator<Interet> it;
+    private String var;
+    private String parametre;
 
-	private static final String FIND_ALL = "SELECT i FROM Interet i ORDER BY i.nomInteret ASC";
-	private static final String FIND_BY_NOMINTERET = "SELECT i FROM Interet i WHERE i.nomInteret=?1";
-	private static final String DATABASE_NAME = "fsnetjpa";
-	private static final int SIZE = 70;
+    public void setVar(final String var) {
+        this.var = var;
+    }
 
-	private Iterator<Interet> it;
-	private String var;
-	private String parametre;
+    public void setParametre(final String parametre) {
+        this.parametre = parametre;
+    }
 
-	public void setVar(final String var) {
-		this.var = var;
-	}
+    @Override
+    public int doStartTag() throws JspException {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        EntityManager em = factory.createEntityManager();
+        Query query;
+        List<Interet> lesInterets;
 
-	public void setParametre(final String parametre) {
-		this.parametre = parametre;
-	}
+        if (parametre != null) {
+            lesInterets = recherche(parametre);
 
-	public int doStartTag() throws JspException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
-		Query query;
-		List<Interet> lesInterets;
+        } else {
+            query = em.createQuery(FIND_ALL);
+            lesInterets = query.getResultList();
+        }
+        if ((lesInterets == null) || (lesInterets.isEmpty())) {
+            pageContext.setAttribute("vide", "vide");
+        } else {
+            it = lesInterets.iterator();
+            pageContext.setAttribute("vide", "nonVide");
+        }
+        it = lesInterets.iterator();
+        if (it != null && it.hasNext()) {
+            updateContext(it.next());
+            return EVAL_BODY_INCLUDE;
+        }
 
-		if (parametre != null) {
-			lesInterets = recherche(parametre);
+        return SKIP_BODY;
+    }
 
-		} else {
-			query = em.createQuery(FIND_ALL);
-			lesInterets = query.getResultList();
-		}
-		if ((lesInterets == null) || (lesInterets.isEmpty())) {
-			pageContext.setAttribute("vide", "vide");
-		} else {
-			it = lesInterets.iterator();
-			pageContext.setAttribute("vide", "nonVide");
-		}
-		it = lesInterets.iterator();
-		if (it != null && it.hasNext()) {
-			updateContext(it.next());
-			return EVAL_BODY_INCLUDE;
-		}
+    private void updateContext(Interet interet) {
+        pageContext.setAttribute(var, interet);
+        String intitule = interet.getNomInteret();
+        if (intitule.length() < SIZE) {
+            pageContext.setAttribute("svarInteret", intitule);
+        } else {
+            pageContext.setAttribute("svarInteret", intitule.substring(0,
+                    SIZE - 1)
+                    + "...");
+        }
+    }
 
-		return SKIP_BODY;
-	}
+    @Override
+    public int doAfterBody() throws JspException {
+        if (it.hasNext()) {
+            updateContext(it.next());
+            return EVAL_BODY_AGAIN;
+        }
+        return SKIP_BODY;
+    }
 
-	private void updateContext(Interet interet) {
-		pageContext.setAttribute(var, interet);
-		String intitule = interet.getNomInteret();
-		if (intitule.length() < SIZE) {
-			pageContext.setAttribute("svarInteret", intitule);
-		} else {
-			pageContext.setAttribute("svarInteret", intitule.substring(0,
-					SIZE - 1)
-					+ "...");
-		}
-	}
+    @Override
+    public int doEndTag() throws JspException {
+        pageContext.removeAttribute(var);
+        return super.doEndTag();
+    }
 
-	public int doAfterBody() throws JspException {
-		if (it.hasNext()) {
-			updateContext(it.next());
-			return EVAL_BODY_AGAIN;
-		}
-		return SKIP_BODY;
-	}
-
-	public int doEndTag() throws JspException {
-		pageContext.removeAttribute(var);
-		return super.doEndTag();
-	}
-
-	public List<Interet> recherche(String param) {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
-		List<Interet> lesI = new ArrayList<Interet>();
-		Query query = em.createQuery(FIND_BY_NOMINTERET);
-		query.setParameter(1, param);
-		lesI = query.getResultList();
-		return lesI;
-	}
-
+    public List<Interet> recherche(String param) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        EntityManager em = factory.createEntityManager();
+        List<Interet> lesI = new ArrayList<Interet>();
+        Query query = em.createQuery(FIND_BY_NOMINTERET);
+        query.setParameter(1, param);
+        lesI = query.getResultList();
+        return lesI;
+    }
 }
