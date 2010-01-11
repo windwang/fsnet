@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.forum;
+package fr.univartois.ili.fsnet.forum;
 
 import java.util.Date;
 import java.util.List;
