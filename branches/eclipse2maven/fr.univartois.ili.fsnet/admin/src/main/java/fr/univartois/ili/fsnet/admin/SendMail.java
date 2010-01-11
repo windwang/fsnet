@@ -26,8 +26,9 @@ public class SendMail {
 		props.put("mail.smtp.timeout", TIMEOUT);
 		this.addressHost = addressHost;
 		this.pwdAddressHost = pwdAddressHost;
-		java.security.Security
-				.addProvider(new com.sun.net.ssl.internal.ssl.Provider());
+		// TODO search reason !
+		/*java.security.Security
+				.addProvider(new com.sun.net.ssl.internal.ssl.Provider());*/
 
 		auth = new AuthenticationSMTP();
 
