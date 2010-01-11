@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<bindings
-    wsdlLocation="http://localhost:8080/fr.univartois.ili.fsnet.webservice/NouvellesService?wsdl"
-    xmlns="http://java.sun.com/xml/ns/jaxws">
-	<enableAsyncMapping>true</enableAsyncMapping>
-</bindings>
-
