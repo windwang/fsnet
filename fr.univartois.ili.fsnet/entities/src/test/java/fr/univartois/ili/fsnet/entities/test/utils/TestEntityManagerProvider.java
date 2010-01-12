@@ -34,14 +34,6 @@ public class TestEntityManagerProvider {
 		map.put("eclipselink.jdbc.url", "jdbc:derby:myDbFSNET;create=true");
 		map.put("eclipselink.ddl-generation", "drop-and-create-tables");
 		map.put("eclipselink.ddl-generation.output-mode", "database");
-/*		<!-- I work in this example without user / password.-->
-		<property name="eclipselink.jdbc.user" value="" />
-		<property name="eclipselink.jdbc.password" value="" />
-
-		<!-- EclipseLink should create the database schema automatically -->
-
-		*/
-
 	}
 	
 	public EntityManager getEntityManager() {
