@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.iliforumtags;
+package fr.univartois.ili.fsnet.facade.iliforumtags;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,11 +9,11 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.entities.Hub;
+import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
-import fr.univartois.ili.fsnet.forum.iliforum.IliForumFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
-public class TopicTag extends TagSupport {
+public class MessageTag extends TagSupport {
 	/**
 	 * 
 	 */
@@ -23,9 +23,8 @@ public class TopicTag extends TagSupport {
 	private Date dateBegin;
 	private Date dateEnd;
 	private transient EntiteSociale user;
-	private transient Hub hub;
-
-	private transient Iterator<TopicDTO> iterator;
+	private transient Topic topic;
+	private transient Iterator<MessageDTO> itetrator;
 
 	public String getVar() {
 		return var;
@@ -35,12 +34,12 @@ public class TopicTag extends TagSupport {
 		this.var = var;
 	}
 
-	public void setHub(final Hub myHub) {
-		this.hub = myHub;
+	public Topic getTopic() {
+		return this.topic;
 	}
 
-	public Hub getHub() {
-		return this.hub;
+	public void setTopic(final Topic top) {
+		this.topic = top;
 	}
 
 	public Date getDateBegin() {
@@ -70,28 +69,27 @@ public class TopicTag extends TagSupport {
 	public int doStartTag() throws JspException {
 		IliForumFacade iff;
 		iff = IliForumFacade.getInstance();
-		List<TopicDTO> lTopicDTO;
-		lTopicDTO = new ArrayList<TopicDTO>();
-		List<Topic> lTopic;
+		List<MessageDTO> lMessDTO;
+		lMessDTO = new ArrayList<MessageDTO>();
+		List<Message> lMess;
 		if (dateBegin != null && dateEnd != null) {
-			lTopic = iff.getListTopic(dateBegin, dateEnd);
+			lMess = iff.getListMessage(dateBegin, dateEnd);
 		}
 
 		else if (user != null) {
-			lTopic = iff.getListTopicByEntiteSociale(user);
+			lMess = iff.getListMessageByEntiteSocial(user);
 		}
 
-		else if (hub != null) {
-			lTopic = iff.getListTopicByHub(hub);
-		} else {
-			lTopic = iff.getListTopic();
+		else if (topic != null) {
+			lMess = iff.getListMessageByTopic(topic);
+		} else
+			lMess = iff.getListMessage();
+
+		for (Message mess : lMess) {
+			lMessDTO.add(new MessageDTO(mess));
 		}
 
-		for (Topic top : lTopic) {
-			lTopicDTO.add(new TopicDTO(top));
-		}
-
-		iterator = lTopicDTO.iterator();
+		itetrator = lMessDTO.iterator();
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
@@ -100,11 +98,11 @@ public class TopicTag extends TagSupport {
 	}
 
 	private boolean updateContext() {
-		if (iterator.hasNext()) {
-			TopicDTO topDTO;
-			topDTO = iterator.next();
+		if (itetrator.hasNext()) {
+			MessageDTO messDTO;
+			messDTO = itetrator.next();
 
-			pageContext.setAttribute(var, topDTO);
+			pageContext.setAttribute(var, messDTO);
 			return true;
 		}
 		return false;

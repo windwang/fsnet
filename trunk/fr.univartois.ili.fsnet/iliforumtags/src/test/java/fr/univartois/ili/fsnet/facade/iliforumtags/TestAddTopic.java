@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.iliforumtags;
+package fr.univartois.ili.fsnet.facade.iliforumtags;
 
 
 
@@ -17,7 +17,7 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Topic;
-import fr.univartois.ili.fsnet.forum.iliforum.IliForumFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 public class TestAddTopic {
 
