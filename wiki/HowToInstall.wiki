@@ -4,8 +4,8 @@
 = Needs =
 
 ===In order to use FSNET, you will have to install :===
-
- * an application server (like Apache Tomcat)
+ * A java 6 compliant JVM
+ * a servlet container (like Apache Tomcat)
  * a MySQL Database administration tool (like phpmyadmin)
 
 ===Librairies to install in the application server :===
