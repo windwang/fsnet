@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.Message;
-import fr.univartois.ili.fsnet.forum.iliforum.IliForumFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 /**
  * Servlet implementation class ModifMessage

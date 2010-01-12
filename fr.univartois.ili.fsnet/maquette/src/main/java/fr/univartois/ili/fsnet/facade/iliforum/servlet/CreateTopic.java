@@ -13,7 +13,7 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
-import fr.univartois.ili.fsnet.forum.iliforum.IliForumFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 /**
  * Servlet implementation class CreateTopic

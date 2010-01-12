@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.iliforumtags;
+package fr.univartois.ili.fsnet.facade.iliforumtags;
 
 import java.util.List;
 

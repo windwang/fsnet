@@ -1,7 +1,7 @@
-package fr.univartois.ili.fsnet.iliforumtags;
+package fr.univartois.ili.fsnet.facade.iliforumtags;
 
 import fr.univartois.ili.fsnet.entities.Message;
-import fr.univartois.ili.fsnet.forum.iliforum.IliForumFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 public class MessageDTO {
 
