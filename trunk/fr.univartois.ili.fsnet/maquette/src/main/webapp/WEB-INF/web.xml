@@ -330,5 +330,9 @@
         <servlet-name>jaxservlet</servlet-name>
         <url-pattern>/NouvellesService</url-pattern>
     </servlet-mapping>
-    
+
+    <persistence-context-ref>
+        <persistence-context-ref-name>persistence/em</persistence-context-ref-name>
+        <persistence-unit-name>fsnetjpa</persistence-unit-name>
+    </persistence-context-ref>
 </web-app>
