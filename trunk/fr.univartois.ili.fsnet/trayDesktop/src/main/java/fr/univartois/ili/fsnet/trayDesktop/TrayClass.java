@@ -201,7 +201,7 @@ public class TrayClass {
                 String input = JOptionPane.showInputDialog(null);
                 PrintWriter ecrivain;
                 File file = new File(filePath);
-                if (input != null && input != "") {
+                if (input != null && !input.equals("")) {
                     try {
                         ecrivain = new PrintWriter(new BufferedWriter(
                                 new FileWriter(file)));
@@ -251,13 +251,16 @@ public class TrayClass {
                     e2.printStackTrace();
                 }
                 try {
-                    trayIcon.displayMessage("Notificatios", "il y a " + nvs.getNumberOfNewEvents() + " Nouveaux Evenements",
-                            TrayIcon.MessageType.INFO);
+                    int nbNewEvents = nvs.getNumberOfNewEvents();
+                    if (nbNewEvents > 0) {
+                        trayIcon.displayMessage("Notificatios", "il y a " + nbNewEvents + " Nouveaux Evenements",
+                                TrayIcon.MessageType.INFO);
+                    }
                 } catch (RemoteException e1) {
                     // TODO Auto-generated catch block
                     e1.printStackTrace();
                 }
-                ;
+
 
             }
         }, 1 * 10000, 1 * 10000);

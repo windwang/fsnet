@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-haha
+Web service loaded !
 </body>
 </html>
