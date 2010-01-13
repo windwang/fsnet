@@ -1,15 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%> 
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%> 
-<html>
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html:html xhtml="true"> 
     <head>
         <link rel="icon" type="image/png" href="images/favicon.ico" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta http-equiv="refresh"
-              content="300;AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste">
+              content="300;AddInterest.jsp?interet=current&amp;showHide=hide&amp;deploy=[%2B]&amp;titleDeploy=D%E9ployer la liste"/>
         <meta name="author" content="Luka Cvrk - www.solucija.com" />
         <meta name="description" content="Site Description" />
         <meta name="keywords" content="site, keywords" />
@@ -31,7 +31,7 @@
 
             <div id="left">
                 <h2>
-                    <a href="AddInterest.jsp?interet=current&showHide=hide&deploy=[%2B]&titleDeploy=D%E9ployer la liste"
+                    <a href="AddInterest.jsp?interet=current&amp;showHide=hide&amp;deploy=[%2B]&amp;titleDeploy=D%E9ployer la liste"
                        title="Ajout d'intérêts">Ajout d'int&eacute;r&ecirc;ts </a>
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
@@ -44,12 +44,12 @@
                     <tr>
                         <td>
                             <form id="RemoveInterest" method="post" action="RemoveInterest">
-                                <input type="hidden" name="redirection" value="AddInterest.jsp"/>
                                 <table>
                                     <tr>
                                         <th class="entete" colspan="2" scope="col">
+                                            <input type="hidden" name="redirection" value="AddInterest.jsp"/>
                                             <h2>
-                                                <img src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_073.png" />
+                                                <img src="icons/icon_from_jimmac_musichall_cz_073.png" alt="logo"/>
                                                 <span>
                                                     <a id="deployButton" href="#" title="${param.titleDeploy}" onclick="deploy('deployButton','listToDeploy','interestSelected','allInterests');">${param.deploy}</a>
                                                     Liste des interêts
@@ -64,14 +64,14 @@
                                                     <th>Supprimer<input id="allInterests" type="checkbox"
                                                                         name="allInterests" title="Tout supprimer"
                                                                         onclick="selectAll('allInterests','interestSelected');showHideButton('removeButton','interestSelected');" /></th>
-                                                    <th width="99%" scope="row">Intitulé</th>
+                                                    <th scope="row">Intitulé</th>
                                                 </tr>
                                                 <admin:interet var="interet">
                                                     <tr>
                                                         <td><input type="checkbox" name="interestSelected"
                                                                    value="${interet.id}" title="Supprimer"
                                                                    onclick="showHideButton('removeButton','interestSelected');" /></td>
-                                                        <td width="99%" align="center" title="${interet.nomInteret}">${svarInteret}</td>
+                                                        <td align="center" title="${interet.nomInteret}">${svarInteret}</td>
                                                     </tr>
                                                 </admin:interet>
                                             </table>
@@ -79,50 +79,48 @@
                                     </tr>
 
                                 </table>
-                                <label id="removeButton">
+                                <div id="removeButton">
                                     <input onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
                                            type="submit" value="Supprimer" title="Supprimer" />
-                                </label>
+                                </div>
                             </form>
 
-
-                            <html:form styleId="AddInterest" action="/addinterest.do" method="post">
-                                <!-- <form id="AddInterest" method="post" action="AddInterest?redirection=AddInterest.jsp">-->
-                                <html:hidden property="redirection" value="AddInterest.jsp" />
-                                <table width="100%">
-                                    <tr>
-                                        <th class="entete"></th>
-                                        <th class="entete" colspan="2" scope="col">
-                                            <h2>Ajouter un intérêt</h2>
-                                        </th>
-                                    </tr>
-                                    <tr class="champ">
-                                        <th scope="row"><label for="intitule">Intitulé</label></th>
-                                        <!-- <th class="enteteIntitule" width="15%" scope="row">Intitulé</th>-->
-                                        <td colspan="2" width="85%">
-                                            <html:text errorStyleClass="error" property="nomInteret" styleId="intitule"/>
-                                            <html:errors property="nomInteret" />
-                                        </td>
-                                    </tr>
-
-                                    <tr>
-                                        <td></td>
-                                        <td colspan="2" id="interests"></td>
-                                    </tr>
-
-                                    <tr>
-                                        <td></td>
-                                        <td><input class="addButton" name="inputAddInterest"
-                                                   id="inputAddInterest" type="button" onclick="addInterest()"
-                                                   value="Ajouter" /></td>
-                                    </tr>
-                                </table>
-                                <label class="button">
-                                    <html:submit title="Enregistrer" >Enregistrer</html:submit>
-                                    <!-- <input type="submit" name="Submit"
-                                        value="Enregistrer" title="Enregistrer" /> -->
-                                </label>
-                            </html:form>
+							<div id="AddInterest">
+	                            <html:form action="/addinterest.do" method="post">                                
+	                                <table>
+	                                    <tr>
+	                                        <th class="entete">
+	                                        	<html:hidden property="redirection" value="AddInterest.jsp" />
+	                                        </th>
+	                                        <th class="entete" colspan="2" scope="col">
+	                                            <h2>Ajouter un intérêt</h2>
+	                                        </th>
+	                                    </tr>
+	                                    <tr class="champ">
+	                                        <th scope="row"><label for="intitule">Intitulé</label></th>
+	                                        <td colspan="2">
+	                                            <html:text errorStyleClass="error" property="nomInteret" styleId="intitule"/>
+	                                            <html:errors property="nomInteret" />
+	                                        </td>
+	                                    </tr>
+	
+	                                    <tr>
+	                                        <td></td>
+	                                        <td colspan="2" id="interests"></td>
+	                                    </tr>
+	
+	                                    <tr>
+	                                        <td></td>
+	                                        <td><input class="addButton" name="inputAddInterest"
+	                                                   id="inputAddInterest" type="button" onclick="addInterest()"
+	                                                   value="Ajouter" /></td>
+	                                    </tr>
+	                                </table>
+	                                <div class="button">
+	                                    <html:submit title="Enregistrer" >Enregistrer</html:submit>
+	                                </div>
+	                            </html:form>
+	                        </div>
                         </td>
                     </tr>
                 </table>
@@ -131,4 +129,4 @@
         </div>
         <jsp:include page="footer.jsp"></jsp:include>
     </body>
-</html>
+</html:html>

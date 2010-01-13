@@ -1,23 +1,18 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
-<html>
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%> 
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"> 
+<html:html xhtml="true">
     <head>
-        <link rel="icon" type="image/png" href="images/favicon.ico" />
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta http-equiv="refresh" content="300;RecupInfo">
-        <meta name="author" content="Luka Cvrk - www.solucija.com" />
-        <meta name="description" content="Site Description" />
-        <meta name="keywords" content="site, keywords" />
-        <meta name="robots" content="index, follow" />
-        <link rel="stylesheet" type="text/css" media="screen"
-              href="css/style.css" />
         <title>FSNET - Rapport d'activité</title>
-        <script type="text/javascript" src="admin.js">
-        </script>
-        <script type="text/javascript">
-        </script>
+        <link rel="icon" type="image/png" href="images/favicon.ico" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+        <meta http-equiv="refresh" content="300;RecupInfo"/>
+        <meta name="author" content="Luka Cvrk - www.solucija.com" />
+        <meta name="robots" content="index, follow" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+        <script type="text/javascript" src="admin.js"></script>
     </head>
     <body onload="showMenu();">
         <jsp:include page="header.jsp"></jsp:include>
@@ -34,7 +29,7 @@
                 <table>
                     <tr>
                         <td>
-			Nombre de personnes inscrites
+							Nombre de personnes inscrites
                         </td>
                         <td>
                             ${nbInscrit}
@@ -42,7 +37,7 @@
                     </tr>
                     <tr>
                         <td>
-			Nombre total d'annonces 
+							Nombre total d'annonces 
                         </td>
                         <td>
                             ${nbAnnoncesTot}
@@ -50,7 +45,7 @@
                     </tr>
                     <tr>
                         <td>
-			Nombre d'annonces en ligne 
+							Nombre d'annonces en ligne 
                         </td>
                         <td>
                             ${nbAnnoncesPub}
@@ -58,7 +53,7 @@
                     </tr>
                     <tr>
                         <td>
-			Nombre total de manifestations 
+							Nombre total de manifestations 
                         </td>
                         <td>
                             ${nbEvenementTot}
@@ -66,7 +61,7 @@
                     </tr>
                     <tr>
                         <td>
-			Nombre de manifestations en ligne 
+							Nombre de manifestations en ligne 
                         </td>
                         <td>
                             ${nbEvenementPub}
@@ -74,7 +69,7 @@
                     </tr>
                     <tr>
                         <td>
-			Nombre total de hubs/forums
+							Nombre total de hubs/forums
                         </td>
                         <td>
                             ${nbHubTot }
@@ -100,4 +95,4 @@
         </div>
         <jsp:include page="footer.jsp"></jsp:include>
     </body>
-</html>
+</html:html>
