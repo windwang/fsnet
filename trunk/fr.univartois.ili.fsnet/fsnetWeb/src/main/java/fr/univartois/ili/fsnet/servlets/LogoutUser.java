@@ -21,9 +21,7 @@ public class LogoutUser extends HttpServlet {
 	/**
 	 * @see Servlet#destroy()
 	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
+	public void destroy() {}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse

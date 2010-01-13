@@ -71,16 +71,12 @@ public class InitFSNet extends HttpServlet {
 	/**
 	 * @see Servlet#init(ServletConfig)
 	 */
-	public void init(final ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-	}
+	public void init(final ServletConfig config) throws ServletException {}
 
 	/**
 	 * @see Servlet#destroy()
 	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
+	public void destroy() {}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
@@ -88,9 +84,7 @@ public class InitFSNet extends HttpServlet {
 	 */
 	protected void doGet(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
-			IOException {
-		// TODO Auto-generated method stub
-	}
+			IOException {}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
@@ -98,8 +92,6 @@ public class InitFSNet extends HttpServlet {
 	 */
 	protected void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
-			IOException {
-		// TODO Auto-generated method stub
-	}
+			IOException {}
 
 }

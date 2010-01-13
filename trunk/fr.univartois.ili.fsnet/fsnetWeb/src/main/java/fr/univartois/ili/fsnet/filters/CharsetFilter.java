@@ -22,14 +22,8 @@ public class CharsetFilter implements Filter {
 		chain.doFilter(request, response);
 	}
 
-	public void destroy() {
-		// TODO Auto-generated method stub
+	public void destroy() {}
 
-	}
-
-	public void init(final FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
-
-	}
+	public void init(final FilterConfig arg0) throws ServletException {}
 
 }

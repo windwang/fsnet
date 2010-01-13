@@ -26,7 +26,6 @@ public class SearchMember extends HttpServlet {
 	 */
 	public SearchMember() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

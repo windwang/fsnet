@@ -50,7 +50,6 @@ public class SupprAnnonce extends HttpServlet {
 	protected void doGet(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
 			IOException {
-		// TODO Auto-generated method stub
 		String ident;
 		ident = request.getParameter("idChoisi");
 
@@ -83,8 +82,5 @@ public class SupprAnnonce extends HttpServlet {
 	 */
 	protected void doPost(final HttpServletRequest request,
 			final HttpServletResponse response) throws ServletException,
-			IOException {
-		// TODO Auto-generated method stub
-
-	}
+			IOException {}
 }

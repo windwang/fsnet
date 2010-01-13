@@ -24,12 +24,12 @@ public class CharsetFilter implements Filter
 	 }
 
 	public void destroy() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 
 	public void init(FilterConfig arg0) throws ServletException {
-		// TODO Auto-generated method stub
+		
 		
 	}
 

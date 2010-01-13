@@ -25,9 +25,7 @@ public class IsLoggedFilter implements Filter {
 	/**
 	 * @see Filter#destroy()
 	 */
-	public void destroy() {
-		// TODO Auto-generated method stub
-	}
+	public void destroy() {}
 
 	/**
 	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
