@@ -67,7 +67,7 @@ public class CreateFileConfig extends HttpServlet {
 			writer.println(sb.toString());
 			writer.close();
 		} catch (IOException e) {
-			log(e.getMessage());
+			log("Error", e);
 		}
 
 	}

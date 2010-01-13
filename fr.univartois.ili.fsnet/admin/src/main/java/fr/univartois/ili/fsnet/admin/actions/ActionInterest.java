@@ -19,11 +19,10 @@ public class ActionInterest extends Action{
         DynaActionForm dynaform = (DynaActionForm)form;
         Interet dto = new Interet();
         BeanUtils.copyProperties(dto,dynaform);
-        servlet.getServletContext().log("Je t'ai vue !!!");
 
         req.getSession().setAttribute("interet",dto);
         req.getSession().setAttribute("interets[]", req.getParameterValues("interets[]"));
-        servlet.getServletContext().log("Je t'ai vue  "+dynaform.getString("nomInteret")+" == "+dto.getNomInteret()+"!!!");
+        
         return mapping.findForward("continue"); 
 	}
 }

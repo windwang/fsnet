@@ -143,9 +143,9 @@ public class AddUser extends HttpServlet {
         envMail = new SendMail(parameters[0], parameters[1], parameters[2], parameters[4]);
         try {
             envMail.sendMessage(listeDest, SUBJECT, message);
-            log("Message envoyé");
+            log("Message sent to " + listeDest);
         } catch (MessagingException e) {
-            log("Erreur : " + e.getMessage());
+            log("Error when sending a mail: ", e);
         }
         RequestDispatcher disp = getServletContext().getRequestDispatcher("/"
                 + redirection + "?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
