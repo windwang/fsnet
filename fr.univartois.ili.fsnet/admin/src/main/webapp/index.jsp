@@ -1,8 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%>    
+
+<html:html xhtml="true">
     <head>
         <meta http-equiv="content-type"	content="application/xhtml+xml; charset=UTF-8"/>
         <meta http-equiv="refresh" content="300;index.jsp?accueil=current"/>
@@ -35,7 +36,7 @@
                     <tr>
                         <th class="entete" colspan="4" scope="col">
                             <h2 title="Liste des membres en attente d'inscription">
-                                <img src="icons/page_01_fichiers/icon_from_jimmac_musichall_cz_223.png" alt="fsnet" />
+                                <img src="icons/icon_from_jimmac_musichall_cz_223.png" alt="fsnet" />
                                 <span>En attente d'inscription</span>
                             </h2>
                         </th>
@@ -77,4 +78,4 @@
         </div>
         <jsp:include page="footer.jsp"></jsp:include>
     </body>
-</html>
+</html:html>

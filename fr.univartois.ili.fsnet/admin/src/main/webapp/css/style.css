@@ -141,3 +141,7 @@ img{width: 36px; height: 32px;}
 #champsoptions input[type=text]{
     margin-bottom: 0.45em
 }
+
+#rechercheVide {
+	text-align: center;
+}
