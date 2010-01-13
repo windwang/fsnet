@@ -17,7 +17,7 @@
         <module>admin</module>
         <module>iliforum</module>
         <module>iliforumtags</module>
-        <module>maquette</module>
+        <module>fsnetWeb</module>
         <module>webservice</module>
         <module>trayDesktop</module>
         <module>trayWithServlets</module>
