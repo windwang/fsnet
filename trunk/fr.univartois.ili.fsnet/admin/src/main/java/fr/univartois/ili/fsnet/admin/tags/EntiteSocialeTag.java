@@ -10,6 +10,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -26,9 +28,6 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
  */
 public class EntiteSocialeTag extends TagSupport {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final String FIND_ALL = "SELECT e FROM EntiteSociale e ORDER BY e.nom ASC";
@@ -38,29 +37,18 @@ public class EntiteSocialeTag extends TagSupport {
 	private static final String DATABASE_NAME = "fsnetjpa";
 
 	private Iterator<EntiteSociale> it;
+	
 	private String var;
+	
 	private String id;
+	
 	private String parametre;
+	
 	private String filtre;
 
 	private DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 
-	public void setFiltre(final String filtre) {
-		this.filtre = filtre;
-	}
-
-	public void setParametre(final String parametre) {
-		this.parametre = parametre;
-	}
-
-	public void setVar(final String var) {
-		this.var = var;
-	}
-
-	public void setId(final String id) {
-		this.id = id;
-	}
-
+	@Override
 	public int doStartTag() throws JspException {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
@@ -92,10 +80,7 @@ public class EntiteSocialeTag extends TagSupport {
 		return SKIP_BODY;
 	}
 
-	private void updateContext(EntiteSociale entite) {
-		pageContext.setAttribute(var, entite);
-	}
-
+	@Override
 	public int doAfterBody() throws JspException {
 		if (it.hasNext()) {
 			updateContext(it.next());
@@ -103,10 +88,11 @@ public class EntiteSocialeTag extends TagSupport {
 		}
 		return SKIP_BODY;
 	}
-
+	
+	@Override
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
-		return super.doEndTag();
+		return SKIP_BODY;
 	}
 
 	public List<EntiteSociale> recherche() {
@@ -119,16 +105,18 @@ public class EntiteSocialeTag extends TagSupport {
 		if (filtre.equals("dateEntree")) {
 			try {
 				return searchDateEntree(formatter.parse(parametre));
-			} catch (ParseException e1) {
-				// TODO Auto-generated catch block
-				System.out.println("erreur de date");
+			} catch (ParseException e) {
+				Logger.getAnonymousLogger().log(Level.SEVERE, "erreur de date", e);
 			}
 		}
 		return null;
 	}
+	
+	private void updateContext(EntiteSociale entite) {
+		pageContext.setAttribute(var, entite);
+	}
 
 	public List<EntiteSociale> searchNom(String param) {
-		System.out.println("je passe dans searchNom");
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
 		EntityManager em = factory.createEntityManager();
@@ -136,13 +124,10 @@ public class EntiteSocialeTag extends TagSupport {
 		Query query = em
 				.createQuery("SELECT e FROM EntiteSociale e WHERE e.nom=?1");
 		query.setParameter(1, param);
-
-		System.out.println("Taille pour nom " + query.getResultList().size());
 		return (List<EntiteSociale>) query.getResultList();
 	}
 
 	public List<EntiteSociale> searchPrenom(String param) {
-		System.out.println("je passe dans searchPrenom");
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
 		EntityManager em = factory.createEntityManager();
@@ -156,7 +141,6 @@ public class EntiteSocialeTag extends TagSupport {
 	}
 
 	public List<EntiteSociale> searchDateEntree(Date param) {
-		System.out.println("je passe dans searchDateEntree");
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
 		EntityManager em = factory.createEntityManager();
@@ -166,6 +150,22 @@ public class EntiteSocialeTag extends TagSupport {
 		query.setParameter(1, param);
 		return (List<EntiteSociale>) query.getResultList();
 
+	}
+	
+	public void setFiltre(final String filtre) {
+		this.filtre = filtre;
+	}
+
+	public void setParametre(final String parametre) {
+		this.parametre = parametre;
+	}
+
+	public void setVar(final String var) {
+		this.var = var;
+	}
+
+	public void setId(final String id) {
+		this.id = id;
 	}
 
 }

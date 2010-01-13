@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -14,9 +13,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.Interet;
 
-/**
- * @author romuald druelle Servlet. implementation class AddInteret
- */
 public class AddInterest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -26,23 +22,13 @@ public class AddInterest extends HttpServlet {
 
 	private EntityManager em;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public AddInterest() {
-		super();
-	}
-
 	@Override
 	public void init() throws ServletException {
-		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
 	}
-
-	/**
-	 * @see Servlet#destroy()
-	 */
+	
+	@Override
 	public void destroy() {
 		if (em != null) {
 			em.close();
@@ -63,10 +49,7 @@ public class AddInterest extends HttpServlet {
 		em.getTransaction().commit();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		Interet interet = null;
@@ -85,8 +68,6 @@ public class AddInterest extends HttpServlet {
 
 		if (length != 0) {
 			for (int i = 0; i < length; i++) {
-				System.out.println("Pour interet " + i + " == est vide ? "
-						+ valuesInterests[i].isEmpty());
 				if(!valuesInterests[i].isEmpty()){
 					interet = new Interet();
 					interet.setNomInteret(valuesInterests[i]);
@@ -103,10 +84,7 @@ public class AddInterest extends HttpServlet {
 		disp.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

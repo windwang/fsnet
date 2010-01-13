@@ -4,21 +4,19 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- * Servlet implementation class RecupInfo
- */
 public class RecupInfo extends HttpServlet {
+	
 	private static final long serialVersionUID = 1L;
 
 	private static final String DATABASE_NAME = "fsnetjpa";
@@ -30,23 +28,12 @@ public class RecupInfo extends HttpServlet {
 	Date date = new Date();
 	DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public RecupInfo() {
-		super();
-	}
-
 	@Override
 	public void init() throws ServletException {
-		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
 	}
 
-	/**
-	 * @see Servlet#destroy()
-	 */
 	public void destroy() {
 		if (em != null) {
 			em.close();
@@ -56,10 +43,7 @@ public class RecupInfo extends HttpServlet {
 		}
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -74,11 +58,8 @@ public class RecupInfo extends HttpServlet {
 				"/rapportactivite.jsp?rapport=current");
 		disp.forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
@@ -90,6 +71,7 @@ public class RecupInfo extends HttpServlet {
 	}
 
 	private int nombreEnCoursInscription() {
+		// TODO what does it means ?
 		// En cours
 		return 0;
 	}

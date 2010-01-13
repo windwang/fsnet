@@ -15,9 +15,6 @@ import fr.univartois.ili.fsnet.entities.Topic;
 
 public class TopicTag extends TagSupport {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final String FIND_ALL = "SELECT t FROM Topic t WHERE t.hub = ?1 ORDER BY t.sujet";
@@ -25,7 +22,9 @@ public class TopicTag extends TagSupport {
 	private static final String DATABASE_NAME = "fsnetjpa";
 
 	private Iterator<Topic> it;
+	
 	private String var;
+	
 	private Hub hub;
 
 	public void setVar(final String var) {
@@ -35,6 +34,8 @@ public class TopicTag extends TagSupport {
 	public void setHub(final Hub hub){
 		this.hub = hub;
 	}
+	
+	@Override
 	public int doStartTag() throws JspException {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
@@ -50,7 +51,6 @@ public class TopicTag extends TagSupport {
 			updateContext(it.next());
 			return EVAL_BODY_INCLUDE;
 		}
-
 		return SKIP_BODY;
 	}
 
@@ -59,6 +59,7 @@ public class TopicTag extends TagSupport {
 		pageContext.setAttribute("nbMessages",topic.getLesMessages().size());
 	}
 
+	@Override
 	public int doAfterBody() throws JspException {
 		if (it.hasNext()) {
 			updateContext(it.next());
@@ -66,12 +67,12 @@ public class TopicTag extends TagSupport {
 		}
 		return SKIP_BODY;
 	}
-
+	
+	@Override
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
 		pageContext.removeAttribute("nbMessages");
-		return super.doEndTag();
+		return SKIP_BODY;
 	}
 
 }
-

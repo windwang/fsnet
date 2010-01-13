@@ -19,10 +19,6 @@ public class ParserFileConfig {
     private File file;
     private static Logger logger = Logger.getLogger("fsnetadmin");
 
-    public ParserFileConfig() {
-        super();
-    }
-
     public ParserFileConfig(File file) {
         this.file = file;
     }
