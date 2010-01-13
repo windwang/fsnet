@@ -8,7 +8,9 @@ package fr.univartois.ili.fsnet.webservice;
 
 public class NouvellesServiceLocator extends org.apache.axis.client.Service implements fr.univartois.ili.fsnet.webservice.NouvellesService {
 
-    public NouvellesServiceLocator() {
+	private static final long serialVersionUID = 4523938577862506472L;
+
+	public NouvellesServiceLocator() {
     }
 
     public NouvellesServiceLocator(org.apache.axis.EngineConfiguration config) {
@@ -19,7 +21,6 @@ public class NouvellesServiceLocator extends org.apache.axis.client.Service impl
         super(wsdlLoc, sName);
     }
     // Use to get a proxy class for NouvellesInformationsPort
-    // TODO change the address (set dinymically in a config file )
     private java.lang.String NouvellesInformationsPort_address = "http://localhost:8084/webservice-0.1/NouvellesService";
 
     public java.lang.String getNouvellesInformationsPortAddress() {

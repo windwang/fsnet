@@ -10,8 +10,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.trayDesktop.FSNetTray;
-
 /**
  * Servlet implementation class InformationsReception
  */
@@ -24,14 +22,12 @@ public class InformationsReception extends HttpServlet {
      */
     public InformationsReception() {
         super();
-        // TODO Auto-generated constructor stub
     }
 
     /**
      * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
      */
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
         String mesChaines = "";
 
         Set<String> maSet = new HashSet<String>();
@@ -42,7 +38,6 @@ public class InformationsReception extends HttpServlet {
             mesChaines += it.next();
             System.out.println(mesChaines);
         }
-        // ????
         //FSNetTray trayClass = new FSNetTray(mesChaines);
         //trayClass.executeTrayIcon();
 
@@ -51,7 +46,5 @@ public class InformationsReception extends HttpServlet {
     /**
      * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
      */
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        // TODO Auto-generated method stub
-    }
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {}
 }
