@@ -22,7 +22,7 @@ public class ActionOptions extends Action {
 		req.getSession().setAttribute("adressefsnet",
 				dynaform.get("adressefsnet"));
 		req.getSession().setAttribute("port", dynaform.get("port"));
-		System.out.println("ICICICICICI LES OPTIONSSSSSS");
+
 		return mapping.findForward("continue");
 	}
 }
