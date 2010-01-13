@@ -13,6 +13,7 @@
         <welcome-file>default.htm</welcome-file>
         <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
+
     <servlet>
         <description></description>
         <display-name>LoginUser</display-name>
@@ -83,12 +84,6 @@
         <servlet-name>AddAnnonce</servlet-name>
         <url-pattern>/AddAnnonce</url-pattern>
     </servlet-mapping>
-    <jsp-config>
-        <taglib>
-            <taglib-uri>http://iliforum.ili.fsnet.com/</taglib-uri>
-            <taglib-location>/WEB-INF/iliforumtags.tld</taglib-location>
-        </taglib>
-    </jsp-config>
     <servlet>
         <description></description>
         <display-name>CompleteProfil</display-name>
@@ -143,23 +138,6 @@
         <servlet-name>InitFSNet</servlet-name>
         <url-pattern>/InitFSNet</url-pattern>
     </servlet-mapping>
-    <filter>
-        <filter-name>Character Encoding</filter-name>
-        <filter-class>fr.univartois.ili.fsnet.filters.CharsetFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>Character Encoding</filter-name>
-        <servlet-name>AddAnnonce</servlet-name>
-        <servlet-name>AddEvenement</servlet-name>
-        <servlet-name>CompleteProfil</servlet-name>
-        <servlet-name>LoginUser</servlet-name>
-        <servlet-name>CreateHub</servlet-name>
-        <servlet-name>CreateTopic</servlet-name>
-        <servlet-name>CreateMessage</servlet-name>
-        <servlet-name>ModifHub</servlet-name>
-        <servlet-name>ModifTopic</servlet-name>
-        <servlet-name>ModifMessage</servlet-name>
-    </filter-mapping>
     <servlet>
         <description></description>
         <display-name>SupprTopic</display-name>
@@ -313,26 +291,21 @@
         <url-pattern>/GotoModifAnnonce</url-pattern>
     </servlet-mapping>
 
-
-    <listener>
-        <listener-class>
-            com.sun.xml.ws.transport.http.servlet.WSServletContextListener
-        </listener-class>
-    </listener>
-
-    <servlet>
-        <servlet-name>jaxservlet</servlet-name>
-        <servlet-class>com.sun.xml.ws.transport.http.servlet.WSServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>jaxservlet</servlet-name>
-        <url-pattern>/NouvellesService</url-pattern>
-    </servlet-mapping>
-
-    <persistence-context-ref>
-        <persistence-context-ref-name>persistence/em</persistence-context-ref-name>
-        <persistence-unit-name>fsnetjpa</persistence-unit-name>
-    </persistence-context-ref>
+    <filter>
+        <filter-name>Character Encoding</filter-name>
+        <filter-class>fr.univartois.ili.fsnet.filters.CharsetFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>Character Encoding</filter-name>
+        <servlet-name>AddAnnonce</servlet-name>
+        <servlet-name>AddEvenement</servlet-name>
+        <servlet-name>CompleteProfil</servlet-name>
+        <servlet-name>LoginUser</servlet-name>
+        <servlet-name>CreateHub</servlet-name>
+        <servlet-name>CreateTopic</servlet-name>
+        <servlet-name>CreateMessage</servlet-name>
+        <servlet-name>ModifHub</servlet-name>
+        <servlet-name>ModifTopic</servlet-name>
+        <servlet-name>ModifMessage</servlet-name>
+    </filter-mapping>
 </web-app>
