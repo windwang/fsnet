@@ -35,7 +35,6 @@ public class RecupInfo extends HttpServlet {
 	 */
 	public RecupInfo() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

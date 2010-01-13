@@ -25,7 +25,6 @@ public class SearchInterest extends HttpServlet {
 	 */
 	public SearchInterest() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

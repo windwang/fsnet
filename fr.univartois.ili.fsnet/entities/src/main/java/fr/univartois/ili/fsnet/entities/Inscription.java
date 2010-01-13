@@ -32,8 +32,8 @@ public class Inscription {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
 
-	/*
-	 * * The social entity.
+	/**
+	 * The social entity.
 	 */
 	private EntiteSociale entite;
 

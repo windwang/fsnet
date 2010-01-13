@@ -35,7 +35,6 @@ public class AddEvenement extends HttpServlet {
 
 	@Override
 	public void init() throws ServletException {
-		// TODO Auto-generated method stub
 		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		entM = factory.createEntityManager();
