@@ -18,19 +18,9 @@ import fr.univartois.ili.fsnet.admin.ParserFileConfig;
  * Servlet implementation class CreateFileConfig
  */
 public class CreateFileConfig extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public CreateFileConfig() {
-		super();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 
@@ -72,10 +62,6 @@ public class CreateFileConfig extends HttpServlet {
 
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String smtpserver = request.getSession().getAttribute("serveursmtp")
@@ -97,7 +83,6 @@ public class CreateFileConfig extends HttpServlet {
 		RequestDispatcher dp = getServletContext().getRequestDispatcher(
 				SearchFileConfig.HOME);
 		dp.forward(request, response);
-
 	}
 
 }

@@ -16,11 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.Interet;
 
-/**
- * @author romuald druelle.
- * 
- *         Servlet implementation class RemoveInterest
- */
 public class RemoveInterest extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,23 +27,13 @@ public class RemoveInterest extends HttpServlet {
 
 	private EntityManager em;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public RemoveInterest() {
-		super();
-	}
-
 	@Override
 	public void init() throws ServletException {
-		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
 	}
 
-	/**
-	 * @see Servlet#destroy()
-	 */
+	@Override
 	public void destroy() {
 		if (em != null) {
 			em.close();
@@ -69,10 +54,7 @@ public class RemoveInterest extends HttpServlet {
 		em.getTransaction().commit();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String[] interests = request.getParameterValues("interestSelected");
@@ -101,10 +83,7 @@ public class RemoveInterest extends HttpServlet {
 		disp.forward(request, response);
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);

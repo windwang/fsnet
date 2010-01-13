@@ -2,8 +2,15 @@ package fr.univartois.ili.fsnet.admin;
 
 import java.util.List;
 import java.util.Properties;
-import javax.mail.*;
-import javax.mail.internet.*;
+
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 public class SendMail {
 
@@ -70,7 +77,7 @@ public class SendMail {
         Transport.send(msg);
     }
 
-    // **********************************************************************************
+
     public void sendMessage(List<String> liste, String sujet, String message)
             throws MessagingException {
 
@@ -78,7 +85,7 @@ public class SendMail {
         Transport.send(msg);
     }
 
-    // ***********************************************************************************
+
     /**
      * a function that allows the authentication to the mail server
      */

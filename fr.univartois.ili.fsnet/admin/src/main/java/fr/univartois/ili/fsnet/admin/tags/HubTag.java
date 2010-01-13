@@ -14,9 +14,6 @@ import fr.univartois.ili.fsnet.entities.Hub;
 
 public class HubTag extends TagSupport {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private static final String FIND_ALL = "SELECT h FROM Hub h ORDER BY h.nomCommunaute";
@@ -24,19 +21,20 @@ public class HubTag extends TagSupport {
 	private static final String DATABASE_NAME = "fsnetjpa";
 
 	private Iterator<Hub> it;
+	
 	private String var;
 
 	public void setVar(final String var) {
 		this.var = var;
 	}
 
+	@Override
 	public int doStartTag() throws JspException {
 		EntityManagerFactory factory = Persistence
 				.createEntityManagerFactory(DATABASE_NAME);
 		EntityManager em = factory.createEntityManager();
 		Query query;
 		List<Hub> lesHubs;
-
 		query = em.createQuery(FIND_ALL);
 		lesHubs = query.getResultList();
 		it = lesHubs.iterator();
@@ -53,6 +51,7 @@ public class HubTag extends TagSupport {
 		pageContext.setAttribute("nbTopics", entite.getLesTopics().size());
 	}
 
+	@Override
 	public int doAfterBody() throws JspException {
 		if (it.hasNext()) {
 			updateContext(it.next());
@@ -61,10 +60,11 @@ public class HubTag extends TagSupport {
 		return SKIP_BODY;
 	}
 
+	@Override
 	public int doEndTag() throws JspException {
 		pageContext.removeAttribute(var);
 		pageContext.removeAttribute("nbTopics");
-		return super.doEndTag();
+		return SKIP_BODY;
 	}
 
 }

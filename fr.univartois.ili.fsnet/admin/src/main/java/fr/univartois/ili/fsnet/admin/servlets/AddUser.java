@@ -20,34 +20,24 @@ import fr.univartois.ili.fsnet.admin.SendMail;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
 
-/**
- * @author romuald druelle. Servlet implementation class AddUser
- */
 public class AddUser extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
+    
     private static final String DATABASE_NAME = "fsnetjpa";
+    
     private static final String SUBJECT = "Inscription FSNet";
+    
     private EntityManagerFactory factory;
+    
     private EntityManager em;
-
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddUser() {
-        super();
-    }
 
     @Override
     public void init() throws ServletException {
-        super.init();
         factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         em = factory.createEntityManager();
     }
 
-    /**
-     * @see Servlet#destroy()
-     */
     @Override
     public void destroy() {
         if (em != null) {
@@ -103,19 +93,9 @@ public class AddUser extends HttpServlet {
         return message.toString();
     }
 
-    /**
-     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
     @Override
     protected void doGet(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {
-        /*
-         * String nom = request.getParameter("Nom"); String prenom =
-         * request.getParameter("Prenom"); // String email = createEmail(nom,
-         * prenom); String email = request.getParameter("Email"); EntiteSociale
-         * entite = new EntiteSociale(nom, prenom, email);
-         */
         String redirection = request.getParameter("redirection");
         EntiteSociale entite = (EntiteSociale) request.getSession().getAttribute("entitesociale");
         String email = entite.getEmail();
@@ -153,10 +133,6 @@ public class AddUser extends HttpServlet {
         disp.forward(request, response);
     }
 
-    /**
-     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-     *      response)
-     */
     @Override
     protected void doPost(HttpServletRequest request,
             HttpServletResponse response) throws ServletException, IOException {

@@ -22,9 +22,6 @@ import fr.univartois.ili.fsnet.entities.Interet;
  */
 public class InteretTag extends TagSupport {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = 1L;
     private static final String FIND_ALL = "SELECT i FROM Interet i ORDER BY i.nomInteret ASC";
     private static final String FIND_BY_NOMINTERET = "SELECT i FROM Interet i WHERE i.nomInteret=?1";
@@ -33,14 +30,6 @@ public class InteretTag extends TagSupport {
     private Iterator<Interet> it;
     private String var;
     private String parametre;
-
-    public void setVar(final String var) {
-        this.var = var;
-    }
-
-    public void setParametre(final String parametre) {
-        this.parametre = parametre;
-    }
 
     @Override
     public int doStartTag() throws JspException {
@@ -95,7 +84,7 @@ public class InteretTag extends TagSupport {
     @Override
     public int doEndTag() throws JspException {
         pageContext.removeAttribute(var);
-        return super.doEndTag();
+        return SKIP_BODY;
     }
 
     public List<Interet> recherche(String param) {
@@ -107,4 +96,13 @@ public class InteretTag extends TagSupport {
         lesI = query.getResultList();
         return lesI;
     }
+    
+    public void setVar(final String var) {
+        this.var = var;
+    }
+
+    public void setParametre(final String parametre) {
+        this.parametre = parametre;
+    }
+
 }

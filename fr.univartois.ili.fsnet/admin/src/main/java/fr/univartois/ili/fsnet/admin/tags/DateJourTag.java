@@ -9,37 +9,40 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 public class DateJourTag extends TagSupport {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 
 	private String var;
+	
 	private Date date;
+	
 	private int cpt = 0;
+	
 	private String dateJour;
 
-	public String getVar() {
-		return var;
-	}
-
-	public void setVar(String var) {
-		this.var = var;
-	}
-
+	@Override
 	public int doStartTag() throws JspException {
-
 		date = new Date();
-
 		if (updateContext()) {
 			return EVAL_BODY_INCLUDE;
 		}
-
 		return SKIP_BODY;
 	}
 
-	private boolean updateContext() {
+	@Override
+	public int doAfterBody() throws JspException {
+		if (updateContext()) {
+			return EVAL_BODY_AGAIN;
+		}
+		return SKIP_BODY;
+	}
 
+	@Override
+	public int doEndTag() throws JspException {
+		pageContext.removeAttribute(var);
+		return SKIP_BODY;
+	}
+	
+	private boolean updateContext() {
 		if (cpt == 0) {
 			cpt++;
 			Calendar calendar = GregorianCalendar.getInstance();
@@ -53,20 +56,14 @@ public class DateJourTag extends TagSupport {
 		}
 		return false;
 	}
-
-	public int doAfterBody() throws JspException {
-		if (updateContext()) {
-			return EVAL_BODY_AGAIN;
-		}
-		return SKIP_BODY;
+	
+	public String getVar() {
+		return var;
 	}
 
-	@Override
-	public int doEndTag() throws JspException {
-		cpt = 0;
-		pageContext.removeAttribute(var);
-
-		return super.doEndTag();
+	public void setVar(String var) {
+		this.var = var;
 	}
+
 
 }

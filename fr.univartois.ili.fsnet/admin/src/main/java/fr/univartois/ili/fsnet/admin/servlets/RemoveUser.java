@@ -17,11 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
 
-/**
- * @author romuald druelle.
- * 
- *         Servlet implementation class RemoveData
- */
 public class RemoveUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -35,23 +30,12 @@ public class RemoveUser extends HttpServlet {
 
 	private EntityManager em;
 
-	/**
-	 * @see HttpServlet#HttpServlet()
-	 */
-	public RemoveUser() {
-		super();
-	}
-
 	@Override
 	public void init() throws ServletException {
-		super.init();
 		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
 		em = factory.createEntityManager();
 	}
 
-	/**
-	 * @see Servlet#destroy()
-	 */
 	public void destroy() {
 		if (em != null) {
 			em.close();
@@ -72,10 +56,7 @@ public class RemoveUser extends HttpServlet {
 		em.getTransaction().commit();
 	}
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String[] users = request.getParameterValues("userSelected");
@@ -116,11 +97,8 @@ public class RemoveUser extends HttpServlet {
 								+ "?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste&recherche=hide");
 		disp.forward(request, response);
 	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
+	
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
