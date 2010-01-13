@@ -18,7 +18,8 @@
         </script>
     </head>
     <body onload="showMenu();">
-        <div class="wrap background"><jsp:include page="haut.jsp" />
+        <div class="wrap background">
+        	<jsp:include page="haut.jsp" />
             <div id="left">
                 <h2><a href="#">Accueil</a></h2>
                 <table width="479">
