@@ -20,7 +20,7 @@ public class NouvellesServiceLocator extends org.apache.axis.client.Service impl
     }
     // Use to get a proxy class for NouvellesInformationsPort
     // TODO change the address (set dinymically in a config file )
-    private java.lang.String NouvellesInformationsPort_address = "http://localhost:8080/webservice-0.1/NouvellesService";
+    private java.lang.String NouvellesInformationsPort_address = "http://localhost:8084/webservice-0.1/NouvellesService";
 
     public java.lang.String getNouvellesInformationsPortAddress() {
         return NouvellesInformationsPort_address;

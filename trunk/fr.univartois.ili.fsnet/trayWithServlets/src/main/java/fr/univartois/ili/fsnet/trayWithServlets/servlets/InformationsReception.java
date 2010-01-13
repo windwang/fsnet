@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.trayDesktop.TrayClass;
+import fr.univartois.ili.fsnet.trayDesktop.FSNetTray;
 
 /**
  * Servlet implementation class InformationsReception
@@ -42,9 +42,9 @@ public class InformationsReception extends HttpServlet {
             mesChaines += it.next();
             System.out.println(mesChaines);
         }
-
-        TrayClass trayClass = new TrayClass(mesChaines);
-        trayClass.executeTrayIcon();
+        // ????
+        //FSNetTray trayClass = new FSNetTray(mesChaines);
+        //trayClass.executeTrayIcon();
 
     }
 
