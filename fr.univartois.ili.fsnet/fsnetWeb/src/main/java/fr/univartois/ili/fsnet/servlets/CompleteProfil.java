@@ -25,7 +25,6 @@ import javax.servlet.http.HttpSession;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
 import fr.univartois.ili.fsnet.entities.Interet;
-import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  * @author lionel desruelles Servlet implementation class CompleteProfil
