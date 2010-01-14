@@ -45,7 +45,6 @@ public class Information extends Interaction {
 	private static RapportActivites rapport = null;
 
 	public Information() {
-
 		super();
 	}
 

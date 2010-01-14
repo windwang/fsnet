@@ -4,10 +4,12 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -32,12 +34,14 @@ public class Topic {
 	/**
 	 * The subject of the topic.
 	 */
+	@Column(nullable=false)
 	private String sujet;
 
 	/**
 	 * The date of the topic.
 	 */
 	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
 	private Date dateSujet;
 
 	/**
@@ -50,6 +54,7 @@ public class Topic {
 	 * The creator of the topic.
 	 */
 	@ManyToOne
+	@JoinColumn(nullable=false)
 	private EntiteSociale propTopic;
 
 	/**
