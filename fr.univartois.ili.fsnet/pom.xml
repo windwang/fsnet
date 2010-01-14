@@ -11,7 +11,6 @@
         The aim of this project is to develop a social network application in Java/JEE technologie to connect
         the members of a specific structure, such as a company or a faculty.
     </description>
-
     <modules>
         <module>entities</module>
         <module>admin</module>
