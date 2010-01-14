@@ -3,10 +3,12 @@
  */
 package fr.univartois.ili.fsnet.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 
 /**
  * @author romuald druelle
@@ -35,11 +37,13 @@ public class Inscription {
 	/**
 	 * The social entity.
 	 */
+	@JoinColumn(nullable=false, unique=true)
 	private EntiteSociale entite;
 
 	/**
 	 * The state.
 	 */
+	@Column(nullable=false)
 	private String etat;
 
 	/**
