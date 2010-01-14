@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -21,6 +22,7 @@ public class Manifestation extends Information {
 	 * The date of the manifestation.
 	 */
 	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date dateManifestation;
 
 	/**

@@ -1,7 +1,5 @@
 package fr.univartois.ili.fsnet.entities.test;
 
-import static org.junit.Assert.assertNotNull;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -27,7 +25,6 @@ public class ManifestationTest {
 
 	@After
 	public void tearDown() {
-
 	}
 
 	@Test
@@ -38,7 +35,14 @@ public class ManifestationTest {
 		em.getTransaction().begin();
 		em.persist(manif);
 		em.getTransaction().commit();
-		int monId = manif.getId();
-		assertNotNull("id not null", monId);
 	}
+	
+	@Test(expected=javax.persistence.RollbackException.class)
+	public void testManifestationDateNotNull() {
+		Manifestation manif = new Manifestation();
+		em.getTransaction().begin();
+		em.persist(manif);
+		em.getTransaction().commit();
+	}
+	
 }
