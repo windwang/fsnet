@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.entities;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,6 +38,7 @@ public class RapportActivites {
 	 * The date of the activities report.
 	 */
 	@Temporal(TemporalType.DATE)
+	@Column(nullable=false)
 	private Date dateRapport;
 
 	/**
