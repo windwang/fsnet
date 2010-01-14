@@ -73,9 +73,9 @@
         </developer>
     </developers>
     <scm>
-        <connection>scm:svn:http://fsnet.googlecode.com/svn/branches/eclipse2maven/fr.univartois.ili.fsnet</connection>
-        <developerConnection>scm:svn:http://fsnet.googlecode.com/svn/branches/eclipse2maven/fr.univartois.ili.fsnet</developerConnection>
-        <url>http://fsnet.googlecode.com/svn/branches/eclipse2maven/fr.univartois.ili.fsnet</url>
+        <connection>scm:svn:http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</connection>
+        <developerConnection>scm:svn:http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</developerConnection>
+        <url>http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</url>
     </scm>
     <reporting>
         <plugins>
