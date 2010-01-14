@@ -5,7 +5,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <div>
     <img id="close"
-         src="icons/page_01_fichiers/close.png"
+         src="icons/close.png"
          alt="Fermer la fenêtre"
          title="Fermer la fenêtre"
          onclick="hide('side');"/>
