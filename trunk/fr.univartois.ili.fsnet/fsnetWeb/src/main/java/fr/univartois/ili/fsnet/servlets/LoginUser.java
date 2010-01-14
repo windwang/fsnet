@@ -126,7 +126,7 @@ public class LoginUser extends HttpServlet {
 			}
 
 		} catch (Exception e) {
-			logger.info("Authentification échouée" + e);
+			logger.info("Authentification échouée");
 			getServletContext().setAttribute("erreur",
 					"Authentification échouée");
 			dispatch = getServletContext().getRequestDispatcher("/login.jsp");
