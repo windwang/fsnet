@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>fr.univartois.ili.fsnet.admin.maquette</display-name>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
@@ -18,17 +18,7 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
-        <display-name>AddUser</display-name>
-        <servlet-name>AddUser</servlet-name>
-        <servlet-class>fr.univartois.ili.fsnet.admin.servlets.AddUser</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>AddUser</servlet-name>
-        <url-pattern>/AddUser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <description></description>
+        <description/>
         <display-name>AddInterest</display-name>
         <servlet-name>AddInterest</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.admin.servlets.AddInterest</servlet-class>
@@ -44,7 +34,7 @@
         </taglib>
     </jsp-config>
     <servlet>
-        <description></description>
+        <description/>
         <display-name>RemoveUser</display-name>
         <servlet-name>RemoveUser</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.admin.servlets.RemoveUser</servlet-class>
@@ -54,7 +44,7 @@
         <url-pattern>/RemoveUser</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
+        <description/>
         <display-name>RemoveInterest</display-name>
         <servlet-name>RemoveInterest</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.admin.servlets.RemoveInterest</servlet-class>
@@ -75,7 +65,7 @@
         <url-pattern>/RecupInfo</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
+        <description/>
         <display-name>SearchMember</display-name>
         <servlet-name>SearchMember</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchMember</servlet-class>
@@ -85,7 +75,7 @@
         <url-pattern>/SearchMember</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
+        <description/>
         <display-name>SearchInterest</display-name>
         <servlet-name>SearchInterest</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchInterest</servlet-class>
@@ -98,14 +88,6 @@
         <filter-name>Character Encoding</filter-name>
         <filter-class>fr.univartois.ili.fsnet.admin.filters.CharsetFilter</filter-class>
     </filter>
-    <filter-mapping>
-        <filter-name>Character Encoding</filter-name>
-        <servlet-name>AddUser</servlet-name>
-        <servlet-name>AddInterest</servlet-name>
-        <servlet-name>RecupInfo</servlet-name>
-        <servlet-name>SearchMember</servlet-name>
-        <servlet-name>SearchInterest</servlet-name>
-    </filter-mapping>
     <security-role>
         <role-name>fsnetadmin</role-name>
     </security-role>
@@ -124,7 +106,7 @@
         <realm-name>AdminRealm</realm-name>
     </login-config>
     <servlet>
-        <description></description>
+        <description/>
         <display-name>SearchFileConfig</display-name>
         <servlet-name>SearchFileConfig</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchFileConfig</servlet-class>
@@ -135,7 +117,7 @@
         <url-pattern>/do.it</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
+        <description/>
         <display-name>CreateFileConfig</display-name>
         <servlet-name>CreateFileConfig</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.admin.servlets.CreateFileConfig</servlet-class>

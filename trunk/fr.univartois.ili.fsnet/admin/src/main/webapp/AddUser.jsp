@@ -18,7 +18,7 @@
         </script>        
     </head>
     <body onload="showMenu();${param.showHide}('listToDeploy');">
-	        <jsp:include page="header.jsp"></jsp:include>
+        <jsp:include page="header.jsp"></jsp:include>
         <div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
             <div id="left">
@@ -31,12 +31,12 @@
                 <table width="100%">
                     <tr>
                         <td>
-                        	
+
                             <form id="RemoveUser" method="post" action="RemoveUser">
                                 <table>
                                     <tr>
                                         <th class="entete" colspan="4" scope="col">
-                                        	<input type="hidden" name="redirection" value="AddUser.jsp"/>
+                                            <input type="hidden" name="redirection" value="AddUser.jsp"/>
                                             <h2><img src="icons/icon_from_jimmac_musichall_cz_223.png" alt="logo"/>
                                                 <span>
                                                     <a id="deployButton" href="#" title="${param.titleDeploy}"
@@ -51,9 +51,9 @@
                                             <table id="listToDeploy">
                                                 <tr class="champ">
                                                     <th>Supprimer
-                                                    	<input id="allUsers" type="checkbox"
-                                                        	name="allUsers" title="Tout supprimer"
-                                                            onclick="selectAll('allUsers','userSelected');showHideButton('removeButton','userSelected');" /></th>
+                                                        <input id="allUsers" type="checkbox"
+                                                               name="allUsers" title="Tout supprimer"
+                                                               onclick="selectAll('allUsers','userSelected');showHideButton('removeButton','userSelected');" /></th>
                                                     <th scope="row">Nom</th>
                                                     <th scope="row">Prénom</th>
                                                     <th scope="row">Email</th>
@@ -69,8 +69,8 @@
                                                         <td title="${inscription.entite.prenom}">${svarPrenom}</td>
                                                         <td title="${inscription.entite.email}">${svarEmail}</td>
                                                         <td><a href="#"
-                                                                onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');show('side');"
-                                                                title="Cliquez pour afficher les détails de ${inscription.entite.nom} ${inscription.entite.prenom}">Détails</a></td>
+                                                               onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');show('side');"
+                                                               title="Cliquez pour afficher les détails de ${inscription.entite.nom} ${inscription.entite.prenom}">Détails</a></td>
                                                         <td title="${inscription.etat}">${inscription.etat}</td>
                                                     </tr>
                                                 </admin:inscription>
@@ -79,48 +79,50 @@
                                     </tr>
                                 </table>
                                 <div>
-                                <label for="removeButton">
-                                    <input id="removeButton" 
-                                    		onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
-                                           type="submit" 
-                                           value="Supprimer" 
-                                           title="Supprimer" />
-                                </label>
+                                    <label for="removeButton">
+                                        <input id="removeButton"
+                                               onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
+                                               type="submit"
+                                               value="Supprimer"
+                                               title="Supprimer" />
+                                    </label>
                                 </div>
                             </form>
-							<div id="AddUser">
-                            <html:form  action="/adduser.do" method="post">
-                                <table>
-                                    <tr>
-                                        <th class="entete">
-                                            <html:hidden property="redirection" value="AddUser.jsp" />
-                                        </th>
-                                        <th class="entete" colspan="2" scope="col">
-                                            <h2>Ajouter un membre</h2>
-                                        </th>
-                                    </tr>
+                            <div id="AddUser">
+                                <html:form  action="/adduser.do" method="post">
+                                    <table>
+                                        <tr>
+                                            <td colspan="2">
+                                                <html:errors property="nom" />
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <th class="entete" colspan="2" scope="col">
+                                                <h2>Ajouter un membre</h2>
+                                            </th>
+                                        </tr>
 
-                                    <tr class="champ">
-                                        <th scope="row"><label for="nom">Nom</label></th>
-                                        <td><html:text errorStyleClass="error" property="nom" styleId="nom"/>
-                                            <html:errors property="nom" />
-                                        </td>
-                                    </tr>
-                                    <tr class="champ">
-                                        <th scope="row"> <label for="prenom">Prénom</label></th>
-                                        <td><html:text errorStyleClass="error" property="prenom" styleId="prenom" />
-                                            <html:errors property="prenom" />  </td>
-                                    </tr>
-                                    <tr class="champ">
-                                        <th scope="row"><label for="email">Email</label></th>
-                                        <td><html:text errorStyleClass="error" property="email"  styleId="email"/>
-                                            <html:errors property="email" />   </td>
-                                    </tr>
-                                </table>
-                                <div class="button">
-                                    <html:submit title="Enregistrer" >Enregistrer</html:submit>
-                                </div>
-                            </html:form>
+                                        <tr class="champ">
+                                            <th scope="row"><label for="nom">Nom</label></th>
+                                            <td><html:text errorStyleClass="error" property="nom" styleId="nom"/>
+                                                <html:errors property="nom" />
+                                            </td>
+                                        </tr>
+                                        <tr class="champ">
+                                            <th scope="row"> <label for="prenom">Prénom</label></th>
+                                            <td><html:text errorStyleClass="error" property="prenom" styleId="prenom" />
+                                                <html:errors property="prenom" />  </td>
+                                        </tr>
+                                        <tr class="champ">
+                                            <th scope="row"><label for="email">Email</label></th>
+                                            <td><html:text errorStyleClass="error" property="email"  styleId="email"/>
+                                                <html:errors property="email" />   </td>
+                                        </tr>
+                                    </table>
+                                    <div class="button">
+                                        <html:submit title="Enregistrer" >Enregistrer</html:submit>
+                                    </div>
+                                </html:form>
                             </div>
                         </td>
 
