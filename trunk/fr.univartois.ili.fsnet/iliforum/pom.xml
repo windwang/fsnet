@@ -12,7 +12,6 @@
     <packaging>jar</packaging>
     <version>0.1</version>
     <name>iliforum</name>
-    <url>http://maven.apache.org</url>
     <dependencies>
         <dependency>
             <groupId>fr.univartois.ili.fsnet</groupId>
