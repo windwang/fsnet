@@ -55,7 +55,7 @@
     </dl>
     <dl>
         <dt>
-            <a class="${param.option}" href="options.asp" title="Configurer les options pour l'envoie de mail">
+            <a class="${param.option}" href="afficherOptions.do" title="Configurer les options pour l'envoie de mail">
 		Options
             </a>
         </dt>

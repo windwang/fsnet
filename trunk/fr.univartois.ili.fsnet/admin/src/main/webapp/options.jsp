@@ -6,7 +6,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html xhtml="true">
     <head>
-    	<title>FSNet : Options</title>
+        <title>FSNet : Options</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
         <meta http-equiv="refresh" content="300;options.jsp?option=current"/>
         <meta name="robots" content="index, follow" />
@@ -23,7 +23,6 @@
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
             </div>
-
             <html:javascript formName="/lesoptions"/>
             <div id="tableauprincipal" >
                 <p id="informationsOptions">
@@ -35,45 +34,50 @@
                 <html:form action="/lesoptions.do" method="post">
                     <table>
                         <tr>
-                            <th class="entete"></th>
+                            <td colspan="2">
+                                <html:errors property="options.errors" />
+                            </td>
+                        </tr>
+                        <tr>
                             <th class="entete" colspan="2" scope="col">
                                 <h2>Configuration</h2>
+
                             </th>
                         </tr>
 
                         <tr class="champ">
                             <th scope="row"><label for="serveurSMTP">serveur SMTP : </label></th>
-                            <td><html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP" value="${parameters[0]}" />
+                            <td><html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP"/>
                                 <html:errors property="serveursmtp" />
                             </td>
                         </tr>
                         <tr class="champ">
                             <th scope="row"> <label for="hote">Expéditeur : </label></th>
-                            <td><html:text property="hote" errorStyleClass="error" styleId="hote" value="${parameters[1]}" />
+                            <td><html:text property="hote" errorStyleClass="error" styleId="hote" />
                                 <html:errors property="hote" />
                             </td>
                         </tr>
                         <tr class="champ">
                             <th scope="row"><label for="pass">Mot de passe : </label></th>
-                            <td><html:password property="motdepasse" errorStyleClass="error" styleId="pass" value="${parameters[2]}" />
+                            <td><html:password property="motdepasse" errorStyleClass="error" styleId="pass" />
                                 <html:errors property="motdepasse" />
                             </td>
                         </tr>
                         <tr class="champ">
                             <th scope="row"><label for="adresseFSNet">Adresse site FSNet : </label></th>
-                            <td><html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet" value="${parameters[3]}" />
+                            <td><html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet" />
                                 <html:errors property="adressefsnet" />
                             </td>
                         </tr>
                         <tr class="champ">
                             <th scope="row"><label for="port">Port : </label></th>
-                            <td><html:text property="port" errorStyleClass="error" styleId="port" value="${parameters[4]}" />
+                            <td><html:text property="port" errorStyleClass="error" styleId="port" />
                                 <html:errors property="port" />
                             </td>
                         </tr>
                     </table>
                     <div class="button">
-                        <html:submit title="Enregistrer" >Enregistrer</html:submit>
+                        <html:submit title="Enregistrer">Enregistrer</html:submit>
                     </div>
                 </html:form>
             </div>

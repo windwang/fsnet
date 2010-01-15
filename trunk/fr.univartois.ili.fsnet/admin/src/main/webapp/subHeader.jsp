@@ -5,7 +5,7 @@
 <div id="logo">
     <h1>
         <a href="index.jsp?accueil=current" title="Accueil">
-			FSNet<br />
+            FSNet<br />
         </a>
     </h1>
     <h2 class="slogan">Réseau social</h2>

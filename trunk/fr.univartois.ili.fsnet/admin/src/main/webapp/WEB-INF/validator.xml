@@ -34,7 +34,7 @@
 			<field property="serveursmtp" depends="required">
 				<arg key="error.serveursmtp"/>
 			</field>
-			<field property="hote" depends="required">
+			<field property="hote" depends="required,email">
 				<arg key="error.hote"/>
 			</field>
 			<field property="motdepasse" depends="required">
