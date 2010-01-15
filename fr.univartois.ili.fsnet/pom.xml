@@ -101,4 +101,10 @@
             </plugin>
         </plugins>
     </reporting>
+    <distributionManagement>
+        <site>
+            <id>fsnet-dev</id>
+            <url>${sites.directory}</url>
+        </site>
+    </distributionManagement>
 </project>
