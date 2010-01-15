@@ -38,7 +38,7 @@
         </action>
         <action path="/addinterest" type="fr.univartois.ili.fsnet.admin.actions.ActionInterest"
                 name="TheFormInterest" input="/AddInterest.jsp" validate="true" scope="request">
-            <forward name="continue" path="/AddInterest" />
+            <forward name="continue" path="/AddInterest.jsp" />
         </action>
         <action path="/searchmember"
                 type="fr.univartois.ili.fsnet.admin.actions.ActionSearch" name="TheFormSearch"
