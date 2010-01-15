@@ -11,7 +11,6 @@
     <packaging>war</packaging>
     <version>0.1</version>
     <name>webservice</name>
-    <url>http://maven.apache.org</url>
     <build>
         <plugins>
             <plugin>

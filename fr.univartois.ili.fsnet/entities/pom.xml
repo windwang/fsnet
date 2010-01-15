@@ -12,7 +12,6 @@
     <artifactId>entities</artifactId>
     <version>0.1</version>
     <name>entities</name>
-    <url>http://maven.apache.org</url>
     <build>
         <plugins>
             <plugin>

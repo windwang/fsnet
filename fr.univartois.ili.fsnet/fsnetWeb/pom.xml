@@ -10,8 +10,7 @@
     <artifactId>fsnetWeb</artifactId>
     <packaging>war</packaging>
     <version>0.1</version>
-    <name>Web public part of FSNet</name>
-    <url>http://maven.apache.org</url>
+    <name>FSNet public website</name>
     <dependencies>
         <dependency>
             <groupId>fr.univartois.ili.fsnet</groupId>
