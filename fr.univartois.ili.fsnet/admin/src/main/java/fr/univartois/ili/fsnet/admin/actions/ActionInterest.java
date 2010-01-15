@@ -19,8 +19,7 @@ public class ActionInterest extends Action{
         Interet dto = new Interet();
         BeanUtils.copyProperties(dto,dynaform);
 
-        req.getSession().setAttribute("interet",dto);
-        req.getSession().setAttribute("interets[]", req.getParameterValues("interets[]"));
+        req.getSession().setAttribute("interet",dto);        
         
         return mapping.findForward("continue"); 
 	}

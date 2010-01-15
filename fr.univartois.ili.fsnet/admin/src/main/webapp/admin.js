@@ -2,29 +2,6 @@ function removeInterestNode(node) {
     document.getElementById('interests').removeChild(node.parentNode);
 }
 
-function addInterest() {
-    var divNode = document.createElement('div');
-    var fileNode = document.createElement('input');
-    var removeNode = document.createElement('input');
-
-    fileNode.setAttribute('type', 'text');
-    fileNode.setAttribute('name', 'interets[]');
-    fileNode.setAttribute('class', 'moreInteret');
-
-    removeNode.setAttribute('type', 'button');
-    removeNode.setAttribute('value', 'supprimer');
-    removeNode.setAttribute('class', 'removeBut');
-
-    divNode.appendChild(fileNode);
-    divNode.appendChild(removeNode);
-
-    removeNode.onclick = function(event) {
-        removeInterestNode(this);
-    }
-
-    document.getElementById('interests').appendChild(divNode);
-}
-
 function showHide(idDiv) {
     var div = document.getElementById(idDiv);
     if (div.style.display == "")
