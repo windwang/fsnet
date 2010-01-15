@@ -104,7 +104,7 @@
     <distributionManagement>
         <site>
             <id>fsnet-dev</id>
-            <url>file:///home/tomcat/apache-tomcat-6.0.20/webapps/</url>
+            <url>file:///home/matthieu/programs/apache-tomcat-6.0.20/webapps/</url>
         </site>
     </distributionManagement>
     
