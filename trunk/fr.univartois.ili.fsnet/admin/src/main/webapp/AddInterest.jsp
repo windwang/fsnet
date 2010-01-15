@@ -108,13 +108,6 @@
 	                                        <td></td>
 	                                        <td colspan="2" id="interests"></td>
 	                                    </tr>
-	
-	                                    <tr>
-	                                        <td></td>
-	                                        <td><input class="addButton" name="inputAddInterest"
-	                                                   id="inputAddInterest" type="button" onclick="addInterest()"
-	                                                   value="Ajouter" /></td>
-	                                    </tr>
 	                                </table>
 	                                <div class="button">
 	                                    <html:submit title="Enregistrer" >Enregistrer</html:submit>
