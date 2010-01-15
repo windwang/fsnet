@@ -1,21 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-    <display-name>fr.univartois.ili.fsnet.maquette</display-name>
-    <context-param>
-        <param-name>member</param-name>
-        <param-value>toto</param-value>
-    </context-param>
+    
+    <display-name>public module for fsnet</display-name>
+    
     <welcome-file-list>
-        <welcome-file>login.jsp</welcome-file>
-        <welcome-file>index.htm</welcome-file>
         <welcome-file>index.jsp</welcome-file>
-        <welcome-file>default.html</welcome-file>
-        <welcome-file>default.htm</welcome-file>
-        <welcome-file>default.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet>
-        <description></description>
         <display-name>LoginUser</display-name>
         <servlet-name>LoginUser</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.LoginUser</servlet-class>
@@ -25,7 +17,6 @@
         <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>GotoTopic</display-name>
         <servlet-name>GotoTopic</servlet-name>
         <servlet-class> fr.univartois.ili.fsnet.facade.iliforum.servlet.GotoTopic </servlet-class>
@@ -35,7 +26,6 @@
         <url-pattern>/GotoTopic</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>GotoMessage</display-name>
         <servlet-name>GotoMessage</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.GotoMessage</servlet-class>
@@ -45,7 +35,6 @@
         <url-pattern>/GotoMessage</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>CreateHub</display-name>
         <servlet-name>CreateHub</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.CreateHub</servlet-class>
@@ -55,7 +44,6 @@
         <url-pattern>/CreateHub</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>CreateTopic</display-name>
         <servlet-name>CreateTopic</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.CreateTopic</servlet-class>
@@ -65,7 +53,6 @@
         <url-pattern>/CreateTopic</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>CreateMessage</display-name>
         <servlet-name>CreateMessage</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.CreateMessage</servlet-class>
@@ -75,7 +62,6 @@
         <url-pattern>/CreateMessage</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>AddAnnonce</display-name>
         <servlet-name>AddAnnonce</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.AddAnnonce</servlet-class>
@@ -85,7 +71,6 @@
         <url-pattern>/AddAnnonce</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>CompleteProfil</display-name>
         <servlet-name>CompleteProfil</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.CompleteProfil</servlet-class>
@@ -95,7 +80,6 @@
         <url-pattern>/CompleteProfil</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>AddEvenement</display-name>
         <servlet-name>AddEvenement</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.AddEvenement</servlet-class>
@@ -105,7 +89,6 @@
         <url-pattern>/AddEvenement</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>LogoutUser</display-name>
         <servlet-name>LogoutUser</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.LogoutUser</servlet-class>
@@ -128,7 +111,6 @@
         <url-pattern>*.jsp</url-pattern>
     </filter-mapping>
     <servlet>
-        <description></description>
         <display-name>InitFSNet</display-name>
         <servlet-name>InitFSNet</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.InitFSNet</servlet-class>
@@ -139,7 +121,6 @@
         <url-pattern>/InitFSNet</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>SupprTopic</display-name>
         <servlet-name>SupprTopic</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.SupprTopic</servlet-class>
@@ -149,7 +130,6 @@
         <url-pattern>/SupprTopic</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>SupprHub</display-name>
         <servlet-name>SupprHub</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.SupprHub</servlet-class>
@@ -159,7 +139,6 @@
         <url-pattern>/SupprHub</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>SupprMess</display-name>
         <servlet-name>SupprMess</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.SupprMess</servlet-class>
@@ -169,7 +148,6 @@
         <url-pattern>/SupprMess</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>GotoModifMessage</display-name>
         <servlet-name>GotoModifMessage</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.GotoModifMessage</servlet-class>
@@ -179,7 +157,6 @@
         <url-pattern>/GotoModifMessage</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>ModifMessage</display-name>
         <servlet-name>ModifMessage</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.ModifMessage</servlet-class>
@@ -189,7 +166,6 @@
         <url-pattern>/ModifMessage</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>GotoModifTopic</display-name>
         <servlet-name>GotoModifTopic</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.GotoModifTopic</servlet-class>
@@ -199,7 +175,6 @@
         <url-pattern>/GotoModifTopic</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>ModifTopic</display-name>
         <servlet-name>ModifTopic</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.ModifTopic</servlet-class>
@@ -209,7 +184,6 @@
         <url-pattern>/ModifTopic</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>GotoModifHub</display-name>
         <servlet-name>GotoModifHub</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.GotoModifHub</servlet-class>
@@ -219,7 +193,6 @@
         <url-pattern>/GotoModifHub</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>ModifHub</display-name>
         <servlet-name>ModifHub</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.facade.iliforum.servlet.ModifHub</servlet-class>
@@ -228,9 +201,7 @@
         <servlet-name>ModifHub</servlet-name>
         <url-pattern>/ModifHub</url-pattern>
     </servlet-mapping>
-
     <servlet>
-        <description></description>
         <display-name>SuppEven</display-name>
         <servlet-name>SuppEven</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.SuppEven</servlet-class>
@@ -240,7 +211,6 @@
         <url-pattern>/SuppEven</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>ModifEven1</display-name>
         <servlet-name>ModifEven1</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.ModifEven1</servlet-class>
@@ -250,7 +220,6 @@
         <url-pattern>/ModifEven1</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>ModifEven2</display-name>
         <servlet-name>ModifEven2</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.ModifEven2</servlet-class>
@@ -261,7 +230,6 @@
     </servlet-mapping>
 
     <servlet>
-        <description></description>
         <display-name>SupprAnnonce</display-name>
         <servlet-name>SupprAnnonce</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.SupprAnnonce</servlet-class>
@@ -271,7 +239,6 @@
         <url-pattern>/SupprAnnonce</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>ModifAnnonce</display-name>
         <servlet-name>ModifAnnonce</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.ModifAnnonce</servlet-class>
@@ -281,7 +248,6 @@
         <url-pattern>/ModifAnnonce</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description></description>
         <display-name>GotoModifAnnonce</display-name>
         <servlet-name>GotoModifAnnonce</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.servlets.GotoModifAnnonce</servlet-class>
