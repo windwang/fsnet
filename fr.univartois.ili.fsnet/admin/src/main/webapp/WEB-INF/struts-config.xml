@@ -50,10 +50,14 @@
                 input="/SearchInterest.jsp" validate="true" scope="request">
             <forward name="continue" path="/SearchInterest" />
         </action>
+        <action path="/afficherOptions"
+                type="fr.univartois.ili.fsnet.admin.actions.ActionDisplayOption" scope="request">
+            <forward name="success" path="/options.jsp" />
+        </action>
         <action path="/lesoptions"
                 type="fr.univartois.ili.fsnet.admin.actions.ActionOptions" name="TheFormOptions"
                 input="/options.jsp" validate="true" scope="request">
-            <forward name="continue" path="/options.asp" />
+            <forward name="continue" path="/afficherOptions.do" />
         </action>
         <action path="/lesoptionsrequired"
                 type="fr.univartois.ili.fsnet.admin.actions.ActionOptions" name="TheFormOptions"

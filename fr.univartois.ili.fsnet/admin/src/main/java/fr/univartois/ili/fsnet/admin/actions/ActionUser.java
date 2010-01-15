@@ -2,7 +2,6 @@ package fr.univartois.ili.fsnet.admin.actions;
 
 import fr.univartois.ili.fsnet.admin.ParserFileConfig;
 import fr.univartois.ili.fsnet.admin.SendMail;
-import fr.univartois.ili.fsnet.admin.servlets.SearchFileConfig;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -18,8 +17,10 @@ import fr.univartois.ili.fsnet.entities.Inscription;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.prefs.Preferences;
 import javax.mail.MessagingException;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -89,13 +90,18 @@ public class ActionUser extends Action {
         listeDest.add(email);
 
         // TODO on va mettre un properties ici
-        File file = new File(SearchFileConfig.FILE_PATH);
-        ParserFileConfig parser = new ParserFileConfig(file);
-        String[] parameters = parser.parse();
+        Preferences appPref = Preferences.userNodeForPackage(ActionOptions.class);
 
-        String message = createMessageRegistration(entite.getNom(),
-                entite.getPrenom(), email, parameters[3]);
-        SendMail envMail = new SendMail(parameters[0], parameters[1], parameters[2], parameters[4]);
+        String message = createMessageRegistration(
+                entite.getNom(),
+                entite.getPrenom(),
+                email,
+                appPref.get("adressefsnet", email));
+        SendMail envMail = new SendMail(
+                appPref.get("serveursmtp", email),
+                appPref.get("hote", email),
+                appPref.get("motdepasse", email),
+                appPref.get("port", email));
         try {
             envMail.sendMessage(listeDest, "Inscription FSNet", message);
             log.log(Level.INFO, "Message sent to " + listeDest);

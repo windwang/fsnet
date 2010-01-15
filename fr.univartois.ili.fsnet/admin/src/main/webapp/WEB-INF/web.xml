@@ -106,14 +106,4 @@
         <servlet-name>SearchFileConfig</servlet-name>
         <url-pattern>/do.it</url-pattern>
     </servlet-mapping>
-    <servlet>
-        <description/>
-        <display-name>CreateFileConfig</display-name>
-        <servlet-name>CreateFileConfig</servlet-name>
-        <servlet-class>fr.univartois.ili.fsnet.admin.servlets.CreateFileConfig</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>CreateFileConfig</servlet-name>
-        <url-pattern>/options.asp</url-pattern>
-    </servlet-mapping>
 </web-app>
