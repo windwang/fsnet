@@ -31,8 +31,7 @@
                 <table width="100%">
                     <tr>
                         <td>
-
-                            <form id="RemoveUser" method="post" action="DeleteUser.do">
+                            <html:form  method="post" action="/DeleteUserFromAddUser">
                                 <table>
                                     <tr>
                                         <th class="entete" colspan="4" scope="col">
@@ -40,7 +39,7 @@
                                             <h2><img src="icons/icon_from_jimmac_musichall_cz_223.png" alt="logo"/>
                                                 <span>
                                                     <a id="deployButton" href="#" title="${param.titleDeploy}"
-                                                       onclick="deploy('deployButton','listToDeploy','userSelected','allUsers');">${param.deploy}</a>
+                                                       onclick="deploy('deployButton','listToDeploy','selectedUsers','allUsers');">${param.deploy}</a>
                                                     Liste des membres
                                                 </span>
                                             </h2>
@@ -62,15 +61,22 @@
                                                 </tr>
                                                 <admin:inscription var="inscription">
                                                     <tr>
-                                                        <td><input type="checkbox" name="userSelected"
-                                                                   value="${inscription.entite.id}" title="Supprimer"
-                                                                   onclick="showHideButton('removeButton','userSelected');" /></td>
+                                                        <td>
+                                                        	<html:multibox 
+                                                        		property="selectedUsers"
+                                                                value="${inscription.entite.id}"
+                                                                onclick="showHideButton('removeButton','selectedUsers');" />
+                                                        </td>
                                                         <td title="${inscription.entite.nom}">${svarNom}</td>
                                                         <td title="${inscription.entite.prenom}">${svarPrenom}</td>
                                                         <td title="${inscription.entite.email}">${svarEmail}</td>
-                                                        <td><a href="#"
+                                                        <td>
+                                                        	<a href="#"
                                                                onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');show('side');"
-                                                               title="Cliquez pour afficher les détails de ${inscription.entite.nom} ${inscription.entite.prenom}">Détails</a></td>
+                                                               title="Cliquez pour afficher les détails de ${inscription.entite.nom} ${inscription.entite.prenom}">
+                                                              Détails
+                                                            </a>
+                                                        </td>
                                                         <td title="${inscription.etat}">${inscription.etat}</td>
                                                     </tr>
                                                 </admin:inscription>
@@ -87,7 +93,7 @@
                                                title="Supprimer" />
                                     </label>
                                 </div>
-                            </form>
+                            </html:form>
                             <div id="AddUser">
                                 <html:form  action="/adduser.do" method="post">
                                     <table>
