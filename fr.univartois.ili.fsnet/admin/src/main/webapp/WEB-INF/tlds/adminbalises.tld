@@ -7,6 +7,17 @@
     <tlib-version>1.0</tlib-version>
     <short-name>admin</short-name>
     <uri>http://admin.ili.fsnet.com/</uri>
+        <tag>
+        <display-name>Display Collection Size</display-name>
+        <name>collectionSize</name>
+        <tag-class>fr.univartois.ili.fsnet.admin.tags.CollectionSizeTag</tag-class>
+        <body-content>empty</body-content>
+        <attribute>
+        	<name>collection</name>
+        	<required>true</required>
+        	<rtexprvalue>true</rtexprvalue>
+        </attribute>
+    </tag>
     <tag>
         <display-name>Display EntiteSociale</display-name>
         <name>entite</name>
