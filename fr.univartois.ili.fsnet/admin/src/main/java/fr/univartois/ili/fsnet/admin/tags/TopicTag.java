@@ -7,13 +7,28 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.servlet.jsp.JspException;
-import javax.servlet.jsp.tagext.TagSupport;
 
+import fr.univartois.ili.fsnet.admin.tags.utils.AbstractGenericIteratorTag;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Topic;
 
-public class TopicTag extends TagSupport {
+/**
+ * @author m
+ *
+ */
+/**
+ * @author m
+ *
+ */
+/**
+ * @author m
+ *
+ */
+/**
+ * @author m
+ * 
+ */
+public class TopicTag extends AbstractGenericIteratorTag<Topic> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -21,58 +36,47 @@ public class TopicTag extends TagSupport {
 
 	private static final String DATABASE_NAME = "fsnetjpa";
 
-	private Iterator<Topic> it;
-	
+	private static final EntityManagerFactory factory = Persistence
+			.createEntityManagerFactory(DATABASE_NAME);
+
 	private String var;
-	
+
 	private Hub hub;
+
+	/**
+	 * @return "topic" as the default var name
+	 */
+	@Override
+	public String getDefaultVarName() {
+		return "topic";
+	}
+
+	@Override
+	protected Iterator<Topic> initIterator() {
+		EntityManager em = factory.createEntityManager();
+		Query query;
+		List<Topic> lesTopics;
+		query = em.createQuery(FIND_ALL);
+		query.setParameter(1, hub);
+		lesTopics = query.getResultList();
+		em.close();
+		return lesTopics.iterator();
+	}
+
+	public String getVar() {
+		return var;
+	}
 
 	public void setVar(final String var) {
 		this.var = var;
 	}
 
-	public void setHub(final Hub hub){
+	public Hub getHub() {
+		return hub;
+	}
+
+	public void setHub(final Hub hub) {
 		this.hub = hub;
-	}
-	
-	@Override
-	public int doStartTag() throws JspException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
-		Query query;
-		List<Topic> lesTopics;
-
-		query = em.createQuery(FIND_ALL);
-		query.setParameter(1, hub);
-		lesTopics = query.getResultList();
-		it = lesTopics.iterator();
-		if (it != null && it.hasNext()) {
-			updateContext(it.next());
-			return EVAL_BODY_INCLUDE;
-		}
-		return SKIP_BODY;
-	}
-
-	private void updateContext(Topic topic) {
-		pageContext.setAttribute(var, topic);
-		pageContext.setAttribute("nbMessages",topic.getLesMessages().size());
-	}
-
-	@Override
-	public int doAfterBody() throws JspException {
-		if (it.hasNext()) {
-			updateContext(it.next());
-			return EVAL_BODY_AGAIN;
-		}
-		return SKIP_BODY;
-	}
-	
-	@Override
-	public int doEndTag() throws JspException {
-		pageContext.removeAttribute(var);
-		pageContext.removeAttribute("nbMessages");
-		return SKIP_BODY;
 	}
 
 }
