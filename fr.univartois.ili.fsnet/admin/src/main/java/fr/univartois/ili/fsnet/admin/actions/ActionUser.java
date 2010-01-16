@@ -76,8 +76,8 @@ public class ActionUser extends Action {
 
     /**
      * Send mails to a list of recipient.
-     * @param entite
-     * @return
+     * @param entite the new EntiteSociale
+     * @return true if success false if fail
      * 
      */
     private boolean sendMails(EntiteSociale entite) {
@@ -86,7 +86,6 @@ public class ActionUser extends Action {
         List<String> listeDest = new ArrayList<String>();
         listeDest.add(email);
 
-        // TODO on va mettre un properties ici
         Preferences appPref = Preferences.userNodeForPackage(ActionOptions.class);
 
         String message = createMessageRegistration(
