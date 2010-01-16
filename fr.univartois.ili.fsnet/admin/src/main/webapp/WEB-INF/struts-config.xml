@@ -45,6 +45,10 @@
                 name="DeleteUserForm" input="/SearchMember.jsp" validate="true"
                 scope="request">
         </action>
+        <action path="/DeleteUserFromAddUser" type="fr.univartois.ili.fsnet.admin.actions.DeleteUser"
+                name="DeleteUserForm" input="/AddUser.jsp" validate="true"
+                scope="request">
+        </action>
         <action path="/addinterest"
                 type="fr.univartois.ili.fsnet.admin.actions.ActionInterest" name="TheFormInterest"
                 input="/AddInterest.jsp" validate="true" scope="request">
