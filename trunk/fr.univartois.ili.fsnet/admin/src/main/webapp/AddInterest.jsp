@@ -44,16 +44,15 @@
                     <tr>
                         <td>
                             <html:errors name="errors.removeInterest"/>
-                            <form id="RemoveInterest" method="post" action="RemoveInterest.do">
+                            <html:form method="post" action="/RemoveInterestFromAddInterest">
                                 <table>
                                     <tr>
                                         <th class="entete" colspan="2" scope="col">
-                                            <input type="hidden" name="redirection" value="AddInterest.jsp"/>
                                             <h2>
                                                 <img src="icons/icon_from_jimmac_musichall_cz_073.png" alt="logo"/>
 
                                                 <span>
-                                                    <a id="deployButton" href="#" title="${param.titleDeploy}" onclick="deploy('deployButton','listToDeploy','interestSelected','allInterests');">${param.deploy}</a>
+                                                    <a id="deployButton" href="#" title="${param.titleDeploy}" onclick="deploy('deployButton','listToDeploy','selectedInterests','allInterests');">${param.deploy}</a>
                                                     Liste des interêts
                                                 </span>
                                             </h2>
@@ -63,16 +62,25 @@
                                         <td>
                                             <table id="listToDeploy">
                                                 <tr class="champ">
-                                                    <th>Supprimer<input id="allInterests" type="checkbox"
-                                                                        name="allInterests" title="Tout supprimer"
-                                                                        onclick="selectAll('allInterests','interestSelected');showHideButton('removeButton','interestSelected');" /></th>
+                                                    <th>
+                                                    	Supprimer
+                                                    	<input 
+                                                    		id="allInterests" 
+                                                    		type="checkbox"
+                                                            name="allInterests" 
+                                                            title="Tout supprimer"
+                                                            onclick="selectAll('allInterests','selectedInterests');showHideButton('removeButton','selectedInterests');" />
+                                                    </th>
                                                     <th scope="row">Intitulé</th>
                                                 </tr>
                                                 <admin:interet var="interet">
                                                     <tr>
-                                                        <td><input type="checkbox" name="interestSelected"
-                                                                   value="${interet.id}" title="Supprimer"
-                                                                   onclick="showHideButton('removeButton','interestSelected');" /></td>
+                                                        <td>
+                                                        	<html:multibox
+                                                        			property="selectedInterests"
+                                                                   	value="${interet.id}"
+                                                                   	onclick="showHideButton('removeButton','selectedInterests');" />
+                                                        </td>
                                                         <td align="center" title="${interet.nomInteret}">${svarInteret}</td>
                                                     </tr>
                                                 </admin:interet>
@@ -85,7 +93,7 @@
                                     <input onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
                                            type="submit" value="Supprimer" title="Supprimer" />
                                 </div>
-                            </form>
+                            </html:form>
 
                             <div id="AddInterest">
                                 <html:errors name="interest.alreadyExists" />

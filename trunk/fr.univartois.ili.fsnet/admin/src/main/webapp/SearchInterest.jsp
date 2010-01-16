@@ -42,7 +42,7 @@
                         <div><html:errors property="searchtext" /></div>
                     </div>
                 </html:form>
-                <form id="RemoveInterest" method="post" action="RemoveInterest.do">
+                <html:form action="/RemoveInterestFromSearchInterest">
                     <table>
                         <tr>
                             <td>
@@ -54,18 +54,17 @@
                                                     type="checkbox"
                                                     name="allInterests"
                                                     title="Tout supprimer"
-                                                    onclick="selectAll('allInterests','interestSelected');showHideButton('removeButton','interestSelected');" />
+                                                    onclick="selectAll('allInterests','selectedInterests');showHideButton('removeButton','selectedInterests');" />
                                         </th>
                                         <th scope="row">Intitulé</th>
                                     </tr>
                                     <admin:interet var="interet" parametre="${requestScope.searchtext}">
                                         <tr>
                                             <td>
-                                                <input  type="checkbox"
-                                                        name="interestSelected"
+                                                <html:multibox
+                                                        property="selectedInterests"
                                                         value="${interet.id}"
-                                                        title="Supprimer"
-                                                        onclick="showHideButton('removeButton','interestSelected');" />
+                                                        onclick="showHideButton('removeButton','selectedInterests');" />
                                             </td>
                                             <td align="center"
                                                 title="${interet.nomInteret}">
@@ -90,7 +89,7 @@
                                value="Supprimer"
                                title="Supprimer" />
                     </div>
-                </form>
+				</html:form>
 
             </div>
             <div id="side"></div>

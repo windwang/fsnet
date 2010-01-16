@@ -19,6 +19,10 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="selectedUsers" type="java.lang.Integer[]" />
         </form-bean>
+        <form-bean name="RemoveInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="selectedInterests" type="java.lang.String[]" />
+        </form-bean>
         <form-bean name="TheFormSearch"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="searchtext" type="java.lang.String" />
@@ -54,10 +58,17 @@
                 input="/AddInterest.jsp" validate="true" scope="request">
             <forward name="continue" path="/AddInterest.jsp" />
         </action>
-        <action path="/RemoveInterest"
-                type="fr.univartois.ili.fsnet.admin.actions.ActionRemoveInterest"
+        <action path="/RemoveInterestFromSearchInterest"
+        		name="RemoveInterestForm"
+        		input="/SearchInterest.jsp"
+                type="fr.univartois.ili.fsnet.admin.actions.RemoveInterest"
                 scope="request">
-            <forward name="success" path="/AddInterest.jsp" />
+        </action>
+        <action path="/RemoveInterestFromAddInterest"
+               	name="RemoveInterestForm"
+        		input="/AddInterest.jsp"
+                type="fr.univartois.ili.fsnet.admin.actions.RemoveInterest"
+                scope="request">
         </action>
         <action path="/searchMember"
                 type="fr.univartois.ili.fsnet.admin.actions.SearchUser" name="TheFormSearch"
