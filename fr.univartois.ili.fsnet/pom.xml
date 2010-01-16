@@ -1,116 +1,122 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-	<modelVersion>4.0.0</modelVersion>
-	<groupId>fr.univartois.ili.fsnet</groupId>
-	<artifactId>fsnet</artifactId>
-	<packaging>pom</packaging>
-	<version>0.1</version>
-	<name>Firm Social Network</name>
-	<url>http://code.google.com/p/fsnet/</url>
-	<description>
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <groupId>fr.univartois.ili.fsnet</groupId>
+    <artifactId>fsnet</artifactId>
+    <packaging>pom</packaging>
+    <version>0.1</version>
+    <name>Firm Social Network</name>
+    <url>http://code.google.com/p/fsnet/</url>
+    <description>
         The aim of this project is to develop a social network application in Java/JEE technologie to connect
         the members of a specific structure, such as a company or a faculty.
     </description>
-	<modules>
-		<module>entities</module>
-		<module>admin</module>
-		<module>iliforum</module>
-		<module>iliforumtags</module>
-		<module>fsnetWeb</module>
-		<module>webservice</module>
-		<module>trayDesktop</module>
-		<module>trayWithServlets</module>
-	</modules>
+    <modules>
+        <module>entities</module>
+        <module>admin</module>
+        <module>iliforum</module>
+        <module>iliforumtags</module>
+        <module>fsnetWeb</module>
+        <module>webservice</module>
+        <module>trayDesktop</module>
+        <module>trayWithServlets</module>
+    </modules>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	</properties>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
 
-	<issueManagement>
-		<system>Google Code</system>
-		<url>http://code.google.com/p/fsnet/issues/list</url>
-	</issueManagement>
-	
-	<developers>
-		<developer>
-			<id>mat.boniface</id>
-			<name>Mathieu Boniface</name>
-			<email>mat.boniface@gmail.com</email>
-			<roles>
-				<role>Project Manager</role>
-				<role>Owner</role>
-			</roles>
-			<organization>univ-artois.fr</organization>
-			<timezone>+1</timezone>
-		</developer>
-		<developer>
-			<id>proucelle.matthieu</id>
-			<name>Matthieu Proucelle</name>
-			<email>proucelle.matthieu@gmail.com</email>
-			<roles>
-				<role>Architect</role>
-				<role>Owner</role>
-			</roles>
-			<organization>univ-artois.fr</organization>
-			<timezone>+1</timezone>
-		</developer>
-		<developer>
-			<id>daniel.leberre</id>
-			<name>Daniel LeBerre</name>
-			<email>daniel.leberre@gmail.com</email>
-			<roles>
-				<role>BOSS</role>
-				<role>Owner</role>
-			</roles>
-			<organization>univ-artois.fr</organization>
-			<timezone>+1</timezone>
-		</developer>
-		<developer>
-			<id>francois.blarel</id>
-			<name>Francois Blarel</name>
-			<email>francois.blarel@gmail.com</email>
-			<roles>
-				<role>Owner</role>
-			</roles>
-			<organization>univ-artois.fr</organization>
-			<timezone>+1</timezone>
-		</developer>
-	</developers>
-	<scm>
-		<connection>scm:svn:http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</connection>
-		<developerConnection>scm:svn:http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</developerConnection>
-		<url>http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</url>
-	</scm>
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-changelog-plugin</artifactId>
-			</plugin>
+    <issueManagement>
+        <system>Google Code</system>
+        <url>http://code.google.com/p/fsnet/issues/list</url>
+    </issueManagement>
 
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>taglist-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jdepend-maven-plugin</artifactId>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-			</plugin>
-		</plugins>
-	</reporting>
-	<distributionManagement>
-		<site>
-			<id>fsnet-dev</id>
-			<url>${sites.directory}</url>
-		</site>
-	</distributionManagement>
+    <developers>
+        <developer>
+            <id>mat.boniface</id>
+            <name>Mathieu Boniface</name>
+            <email>mat.boniface@gmail.com</email>
+            <roles>
+                <role>Project Manager</role>
+                <role>Owner</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>proucelle.matthieu</id>
+            <name>Matthieu Proucelle</name>
+            <email>proucelle.matthieu@gmail.com</email>
+            <roles>
+                <role>Architect</role>
+                <role>Owner</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>daniel.leberre</id>
+            <name>Daniel LeBerre</name>
+            <email>daniel.leberre@gmail.com</email>
+            <roles>
+                <role>BOSS</role>
+                <role>Owner</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>francois.blarel</id>
+            <name>Francois Blarel</name>
+            <email>francois.blarel@gmail.com</email>
+            <roles>
+                <role>Owner</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:svn:http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</connection>
+        <developerConnection>scm:svn:http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</developerConnection>
+        <url>http://fsnet.googlecode.com/svn/trunk/fr.univartois.ili.fsnet</url>
+    </scm>
+    <reporting>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jxr-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-changelog-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>taglist-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jdepend-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </reporting>
+    <distributionManagement>
+        <site>
+            <id>fsnet-dev</id>
+            <url>${sites.directory}</url>
+        </site>
+    </distributionManagement>
+    <repositories>
+        <repository>
+            <id>EclipseLink Repo</id>
+            <url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
+        </repository>
+    </repositories>
 </project>
