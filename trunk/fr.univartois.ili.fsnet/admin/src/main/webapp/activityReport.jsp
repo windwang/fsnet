@@ -57,10 +57,14 @@
 	                    <tr>
     	                    <td>
         	                	<admin:hub var="hub">
- 					Pour le hub " ${hub.nomCommunaute } ",  il y a ${nbTopics } topic(s) :<br/>
+ 									Pour le hub " ${hub.nomCommunaute } ",  il y a 
+ 										<admin:collectionSize collection="${hub.lesTopics}"/> 
+ 									topic(s) :<br/>
+ 									<ul>
                 	                <admin:topic var="topic" hub="${hub}">
-	 					-- Topic " ${topic.sujet } " contenant ${nbMessages } message(s)<br/>
+	 									<li>Topic " ${topic.sujet } " contenant ${nbMessages } message(s)</li>
                         	        </admin:topic>
+                        	        </ul>
                             	</admin:hub>
 	                        </td>
     	                </tr>
