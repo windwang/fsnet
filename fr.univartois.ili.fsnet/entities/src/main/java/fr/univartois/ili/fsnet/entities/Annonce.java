@@ -66,8 +66,8 @@ public class Annonce extends Information {
 			calendar.setTime(dateFinAnnonce);
 			int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
 			int mois = calendar.get(GregorianCalendar.MONTH) + 1;
-			int année = calendar.get(GregorianCalendar.YEAR);
-			date = jour + "/" + mois + "/" + année;
+			int annee = calendar.get(GregorianCalendar.YEAR);
+			date = jour + "/" + mois + "/" + annee;
 		}
 		return date;
 
