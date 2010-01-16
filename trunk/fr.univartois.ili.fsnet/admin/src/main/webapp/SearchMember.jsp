@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://admin.ili.fsnet.com/" prefix="admin"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%>    
+<%@ taglib prefix="html" uri="http://struts.apache.org/tags-html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 
@@ -32,7 +32,7 @@
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
             </div>
-            <html:javascript formName="/searchmember"/>
+            <html:javascript formName="/searchMember"/>
 
             <div id="tableauprincipal">
                 <table style="width: 90%">
@@ -51,18 +51,17 @@
 
                     <tr>
                         <td valign="top">
-                            <html:form action="/searchmember.do" method="post">
+                            <html:form action="/searchMember.do">
                                 <!-- <form id="form1" method="post" action="SearchMember">-->
 
                                 <div>
                                     <label for="searchText">Recherche par :</label>
-                                    <select name="selectRecherche" id="selectRecherche">
-                                        <option selected="selected" value="nom" >Nom</option>
-                                        <option value="prenom">Prénom</option>
-                                    </select>
+                                    <html:select property="selectRecherche">
+                                        <html:option value="nom">Nom</html:option>
+                                        <html:option value="prenom">Prénom</html:option>
+                                    </html:select>
                                     <!-- <label for="searchText">Champs :</label>-->
                                     <html:text errorStyleClass="error" property="searchtext" styleId="searchText"/>
-                                    <html:hidden property="redirection" value="SearchMember.jsp"/>
                                     <!-- <label class="button">-->
                                     <html:submit>Rechercher</html:submit>
                                     <br/>
@@ -76,7 +75,7 @@
                                 <table id="listToDeploy">
                                     <tr class="champ" id="enteteRecherche">
                                         <th>Supprimer
-                                          	<input id="allUsers" type="checkbox"
+                                            <input id="allUsers" type="checkbox"
                                                    name="allUsers" title="Tout supprimer"
                                                    onclick="selectAll('allUsers','selectedUsers');showHideButton('removeButton','userSelected');" />
                                         </th>
@@ -86,37 +85,37 @@
                                         <th scope="row">Détails</th>
                                         <th scope="row">Etat</th>
                                     </tr>
-                                    <admin:inscription filtre="${filtre}" var="inscription" parametre="${parametre}"  >
+
+                                    <admin:inscription filtre="${requestScope.selectRecherche}" var="inscription" parametre="${requestScope.searchtext}"  >
                                         <tr>
                                             <td>
-                                            	<html:multibox 
-                                            		property="selectedUsers"                                                      
-                                            		value="${inscription.entite.id}" 
-                                                    onclick="showHideButton('removeButton','selectedUsers');" 
-                                                />
+                                                <html:multibox
+                                                    property="selectedUsers"
+                                                    value="${inscription.entite.id}"
+                                                    onclick="showHideButton('removeButton','selectedUsers');"
+                                                    />
                                             </td>
                                             <td title="${inscription.entite.nom}">${svarNom}</td>
                                             <td title="${inscription.entite.prenom}">${svarPrenom}</td>
                                             <td title="${inscription.entite.email}">${svarEmail}</td>
                                             <td><a href="#"
-                                                               onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');"
-                                                               title="Cliquez pour afficher les détails de ce membre">Détails</a></td>
+                                                   onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');"
+                                                   title="Cliquez pour afficher les détails de ce membre">Détails</a></td>
                                             <td>${inscription.etat}</td>
                                         </tr>
                                     </admin:inscription>
                                     <c:if test="${vide ne 'nonVide'}">
                                         <tr id="rechercheVide">
-                                        	<td colspan="5">Aucun résultat ne correspond à votre recherche !</td>
+                                            <td colspan="5">Aucun résultat ne correspond à votre recherche !</td>
                                         </tr>
                                     </c:if>
-
                                 </table>
                                 <div>
-                                	<label for="removeButton">
-                                    	<input id="removeButton" type="submit" value="Supprimer" title="Supprimer" />
-                                	</label>
+                                    <label for="removeButton">
+                                        <input id="removeButton" type="submit" value="Supprimer" title="Supprimer" />
+                                    </label>
                                 </div>
-                  			</html:form>
+                            </html:form>
                         </td>
                     </tr>
                 </table>
@@ -125,5 +124,5 @@
         </div>
 
         <jsp:include page="footer.jsp"></jsp:include>
-    </body>   
+    </body>
 </html:html>

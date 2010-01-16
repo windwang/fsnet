@@ -20,12 +20,12 @@
 				<arg key="error.nomInteret" />
 			</field>
 		</form>
-		<form name="/searchmember" >
+		<form name="/searchMember" >
 			<field property="searchtext" depends="required">
 				<arg key="error.searchtext"/>
 			</field>
 		</form>
-		<form name="/searchinterest" >
+		<form name="/searchInterest" >
 			<field property="searchtext" depends="required">
 				<arg key="error.searchtext"/>
 			</field>

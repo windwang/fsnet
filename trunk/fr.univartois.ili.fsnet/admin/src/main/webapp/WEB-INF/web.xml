@@ -23,26 +23,6 @@
             <taglib-location>/WEB-INF/tlds/adminbalises.tld</taglib-location>
         </taglib>
     </jsp-config>
-    <servlet>
-        <description/>
-        <display-name>SearchMember</display-name>
-        <servlet-name>SearchMember</servlet-name>
-        <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchMember</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SearchMember</servlet-name>
-        <url-pattern>/SearchMember</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <description/>
-        <display-name>SearchInterest</display-name>
-        <servlet-name>SearchInterest</servlet-name>
-        <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchInterest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SearchInterest</servlet-name>
-        <url-pattern>/SearchInterest</url-pattern>
-    </servlet-mapping>
     <filter>
         <filter-name>Character Encoding</filter-name>
         <filter-class>fr.univartois.ili.fsnet.admin.filters.CharsetFilter</filter-class>
