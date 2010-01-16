@@ -8,19 +8,30 @@ import javax.servlet.jsp.tagext.TagSupport;
 public abstract class AbstractGenericIteratorTag<T> extends TagSupport {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final String IS_LAST_VAR_NAME = "isLast";
-	
+
 	private static final String IS_FIRST_VAR_NAME = "isFirst";
 
 	private String var;
 
 	private Iterator<T> iterator;
 
+	/**
+	 * Subclass implementation must return an iterator that will be used to
+	 * iterate results
+	 * 
+	 * @return an iterator
+	 */
 	protected abstract Iterator<T> initIterator();
 
+	/**
+	 * Should return a value that represents the variable name pushed in jsp
+	 * 
+	 * @return the default var name to put in page scope
+	 */
 	public abstract String getDefaultVarName();
-	
+
 	private boolean isFirst;
 
 	@Override
@@ -54,7 +65,7 @@ public abstract class AbstractGenericIteratorTag<T> extends TagSupport {
 		return SKIP_BODY;
 	}
 
-	public boolean updateContext() {
+	public final boolean updateContext() {
 		boolean hasNextProposal = iterator.hasNext();
 		if (hasNextProposal) {
 			pageContext.setAttribute(var, iterator.next());

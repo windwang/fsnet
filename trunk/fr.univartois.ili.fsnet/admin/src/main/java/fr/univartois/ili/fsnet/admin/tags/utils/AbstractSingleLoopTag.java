@@ -27,7 +27,6 @@ public abstract class AbstractSingleLoopTag extends TagSupport {
 	@Override
 	public final int doStartTag() throws JspException {
 		retrieveInfos(infos);
-		Logger.getAnonymousLogger().severe("@@@@@@@@@@@@ DO START TAG @@@@@@@@@@@@@@");
 		for (Map.Entry<String, Object> info : infos.entrySet()) {
 			pageContext.setAttribute(info.getKey(), info.getValue(),
 					PageContext.PAGE_SCOPE);
@@ -37,13 +36,11 @@ public abstract class AbstractSingleLoopTag extends TagSupport {
 
 	@Override
 	public final int doAfterBody() throws JspException {
-		Logger.getAnonymousLogger().severe("@@@@@@@@@@@@ DO AFTER TAG @@@@@@@@@@@@@@");
 		return SKIP_BODY;
 	}
 
 	@Override
 	public final int doEndTag() throws JspException {
-		Logger.getAnonymousLogger().severe("@@@@@@@@@@@@ DO END TAG @@@@@@@@@@@@@@");
 		for (Map.Entry<String, Object> info : infos.entrySet()) {
 			pageContext.removeAttribute(info.getKey(), PageContext.PAGE_SCOPE);
 		}

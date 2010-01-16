@@ -62,7 +62,11 @@
  									topic(s) :<br/>
  									<ul>
                 	                <admin:topic var="topic" hub="${hub}">
-	 									<li>Topic " ${topic.sujet } " contenant ${nbMessages } message(s)</li>
+	 									<li>
+	 										Topic " ${topic.sujet } " contenant 
+	 										<admin:collectionSize collection="${topic.lesMessages}"/>  
+	 										message(s)
+	 									</li>
                         	        </admin:topic>
                         	        </ul>
                             	</admin:hub>
