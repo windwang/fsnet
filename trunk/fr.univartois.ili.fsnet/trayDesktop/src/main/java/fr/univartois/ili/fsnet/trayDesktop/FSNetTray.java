@@ -15,9 +15,10 @@ import java.util.logging.Logger;
  * manage system notifications
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
+// TODO when message from EntiteSociale to EntiteSociale will be implemented add personal messages here
 public class FSNetTray {
 
-    public static final String urlTemp = "http://code.google.com/p/fsnet/";
+    private static final String urlTemp = "http://code.google.com/p/fsnet/";
     private TrayIcon tray;
     private final NouvellesInformations nvs;
     private static Logger logger = Logger.getLogger(FSNetTray.class.getName());
@@ -47,11 +48,25 @@ public class FSNetTray {
         return tray;
     }
 
+    /**
+     * Initialize tray icon's parameters
+     */
     private void initTrayIcon() {
-        tray.setToolTip("Notification FSNet");
+        tray.setToolTip(TrayLauncher.trayi18n.getString("NOTIFICATIONFSNET"));
         // Create a popup menu components
         final PopupMenu popup = new PopupMenu();
-        CheckboxMenuItem size = new CheckboxMenuItem("Set auto size");
+
+        MenuItem configItem = new MenuItem(TrayLauncher.trayi18n.getString("CONFIGURATION"));
+        configItem.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new ConfigurationFrame().show();
+            }
+        });
+
+        // TODO mettre ca dans la config
+        CheckboxMenuItem size = new CheckboxMenuItem(TrayLauncher.trayi18n.getString("SETAUTOSIZE"));
         size.addItemListener(new ItemListener() {
 
             @Override
@@ -65,7 +80,7 @@ public class FSNetTray {
             }
         });
 
-        MenuItem exitItem = new MenuItem("   Exit   ");
+        MenuItem exitItem = new MenuItem(TrayLauncher.trayi18n.getString("EXIT"));
         exitItem.addActionListener(new ActionListener() {
 
             @Override
@@ -75,40 +90,52 @@ public class FSNetTray {
         });
 
         // Add components to popup menu
+        popup.add(configItem);
         popup.add(size);
         popup.add(exitItem);
         tray.setPopupMenu(popup);
     }
 
-    private int getNumberOfNewAnnonce() {
-        try {
-            return nvs.getNumberOfNewAnnonce();
-        } catch (RemoteException e1) {
-            logger.log(Level.SEVERE, e1.getLocalizedMessage());
-            stopNotifications();
-        }
-        return 0;
+    /**
+     *
+     * @return the number of new announces
+     * @throws RemoteException if the webservice is unreachable
+     */
+    private int getNumberOfNewAnnonce() throws RemoteException {
+        return nvs.getNumberOfNewAnnonce();
     }
 
-    private int getNumberOfNewEvents() {
-        try {
-            return nvs.getNumberOfNewEvents();
-        } catch (RemoteException e1) {
-            logger.log(Level.SEVERE, e1.getLocalizedMessage());
-            stopNotifications();
-        }
-        return 0;
+    /**
+     *
+     * @return the number of new events
+     * @throws RemoteException if the webservice is unreachable
+     */
+    private int getNumberOfNewEvents() throws RemoteException {
+        return nvs.getNumberOfNewEvents();
     }
 
+    /**
+     *
+     * @return a formatted message
+     */
     private String getMessage() {
         build.delete(0, build.length());
-        int announces = getNumberOfNewAnnonce();
-        int events = getNumberOfNewEvents();
-        if (announces > 0) {
-            build.append("Il y a ").append(getNumberOfNewAnnonce()).append(" nouvelles annonces\n");
-        }
-        if (events > 0) {
-            build.append("Il y a ").append(getNumberOfNewEvents()).append(" nouveaux événements\n");
+        try {
+            int announces = getNumberOfNewAnnonce();
+            int events = getNumberOfNewEvents();
+
+            if (announces > 0) {
+                build.append(TrayLauncher.trayi18n.getString("THEREIS")).append(" ").append(announces).
+                        append(" ").append(TrayLauncher.trayi18n.getString("NEWANNOUNCES"));
+            }
+            if (events > 0) {
+                build.append("THEREIS").append(" ").append(events).
+                        append(" ").append(TrayLauncher.trayi18n.getString("NEWEVENTS"));
+            }
+        } catch (RemoteException e1) {
+            logger.log(Level.SEVERE, e1.getLocalizedMessage());
+            build.append(TrayLauncher.trayi18n.getString("NOCONNECTION "));
+            stopNotifications();
         }
         return build.toString();
     }
@@ -123,7 +150,7 @@ public class FSNetTray {
 
             @Override
             public void run() {
-                tray.displayMessage("Notifications",
+                tray.displayMessage(TrayLauncher.trayi18n.getString("NOTIFICATIONS"),
                         getMessage(),
                         TrayIcon.MessageType.INFO);
             }
@@ -131,7 +158,7 @@ public class FSNetTray {
     }
 
     /**
-     * Stop notifications
+     * Stop tray notifications
      */
     public void stopNotifications() {
         if (timer != null) {
