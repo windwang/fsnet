@@ -25,16 +25,6 @@
     </jsp-config>
     <servlet>
         <description/>
-        <display-name>RemoveUser</display-name>
-        <servlet-name>RemoveUser</servlet-name>
-        <servlet-class>fr.univartois.ili.fsnet.admin.servlets.RemoveUser</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RemoveUser</servlet-name>
-        <url-pattern>/RemoveUser</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <description/>
         <display-name>SearchMember</display-name>
         <servlet-name>SearchMember</servlet-name>
         <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchMember</servlet-class>
