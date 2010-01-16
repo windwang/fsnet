@@ -88,8 +88,6 @@ table{margin-bottom:1em;}
 
 #AddUser, #AddInterest{float:right;}
 
-#RemoveUser,#RemoveInterest{width:600px;}
-
 .champ th{background-color: #CCCCCC}
 .champ td{width:67%;}
 .champ input{width:390px;}

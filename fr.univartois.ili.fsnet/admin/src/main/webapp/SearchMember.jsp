@@ -21,7 +21,7 @@
         <script type="text/javascript" src="admin.js">
         </script>
     </head>
-    <body onload="showMenu();${param.recherche}('rechercheVide');hide('selectEtat');">
+    <body onload="showMenu();${param.recherche}('rechercheVide');hide('removeUser');">
         <jsp:include page="header.jsp"></jsp:include>
         <div class="wrap background">
             <jsp:include page="subHeader.jsp"></jsp:include>
@@ -72,13 +72,14 @@
                                 </div>
 
                             </html:form>
-                            <form id="RemoveUser" method="post" action="RemoveUser">
-                            	<div><input type="hidden" name="redirection" value="SearchMember.jsp"/></div>
+                            <html:form method="post" action="/DeleteUser">
                                 <table id="listToDeploy">
                                     <tr class="champ" id="enteteRecherche">
-                                        <th>Supprimer<input id="allUsers" type="checkbox"
-                                                            name="allUsers" title="Tout supprimer"
-                                                            onclick="selectAll('allUsers','userSelected');showHideButton('removeButton','userSelected');" /></th>
+                                        <th>Supprimer
+                                          	<input id="allUsers" type="checkbox"
+                                                   name="allUsers" title="Tout supprimer"
+                                                   onclick="selectAll('allUsers','selectedUsers');showHideButton('removeButton','userSelected');" />
+                                        </th>
                                         <th scope="row">Nom</th>
                                         <th scope="row">Prénom</th>
                                         <th scope="row">Email</th>
@@ -87,9 +88,13 @@
                                     </tr>
                                     <admin:inscription filtre="${filtre}" var="inscription" parametre="${parametre}"  >
                                         <tr>
-                                            <td><input type="checkbox" name="userSelected"
-                                                       value="${inscription.entite.id}" title="supprimer"
-                                                       onclick="showHideButton('removeButton','userSelected');" /></td>
+                                            <td>
+                                            	<html:multibox 
+                                            		property="selectedUsers"                                                      
+                                            		value="${inscription.entite.id}" 
+                                                    onclick="showHideButton('removeButton','selectedUsers');" 
+                                                />
+                                            </td>
                                             <td title="${inscription.entite.nom}">${svarNom}</td>
                                             <td title="${inscription.entite.prenom}">${svarPrenom}</td>
                                             <td title="${inscription.entite.email}">${svarEmail}</td>
@@ -108,11 +113,10 @@
                                 </table>
                                 <div>
                                 	<label for="removeButton">
-                                    	<input id="removeButton" onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
-                                        	   type="submit" value="Supprimer" title="Supprimer" />
+                                    	<input id="removeButton" type="submit" value="Supprimer" title="Supprimer" />
                                 	</label>
                                 </div>
-                            </form>
+                  			</html:form>
                         </td>
                     </tr>
                 </table>
