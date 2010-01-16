@@ -50,7 +50,7 @@
     </dl>
     <dl>
         <dt>
-            <a href="RecupInfo" class="${param.rapport}">Rapport d'activités</a>
+            <a href="activityReport.jsp" class="${param.rapport}">Rapport d'activités</a>
         </dt>
     </dl>
     <dl>

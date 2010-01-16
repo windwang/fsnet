@@ -24,6 +24,12 @@
         </attribute>
     </tag>
     <tag>
+        <display-name>Retrieve an activity report</display-name>
+        <name>activityReport</name>
+        <tag-class>fr.univartois.ili.fsnet.admin.tags.ActivityReportTag</tag-class>
+        <body-content>scriptless</body-content>
+    </tag>
+    <tag>
         <display-name>Display Interet</display-name>
         <name>interet</name>
         <tag-class>fr.univartois.ili.fsnet.admin.tags.InteretTag</tag-class>
