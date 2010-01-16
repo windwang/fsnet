@@ -32,7 +32,7 @@
                     <tr>
                         <td>
 
-                            <form id="RemoveUser" method="post" action="RemoveUser">
+                            <form id="RemoveUser" method="post" action="DeleteUser.do">
                                 <table>
                                     <tr>
                                         <th class="entete" colspan="4" scope="col">
