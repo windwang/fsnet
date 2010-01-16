@@ -41,6 +41,11 @@ public class ActionDisplayOption extends Action {
         return mapping.findForward("success");
     }
 
+    /**
+     * Get options in preferences file
+     * @param request
+     * @return a dynaActionForm dynamically instanciated
+     */
     private DynaActionForm getServerOptions(HttpServletRequest request) {
         Preferences appPref = Preferences.userNodeForPackage(ActionOptions.class);
 

@@ -43,13 +43,15 @@
                 <table width="100%">
                     <tr>
                         <td>
-                            <form id="RemoveInterest" method="post" action="RemoveInterest">
+                            <html:errors name="errors.removeInterest"/>
+                            <form id="RemoveInterest" method="post" action="RemoveInterest.do">
                                 <table>
                                     <tr>
                                         <th class="entete" colspan="2" scope="col">
                                             <input type="hidden" name="redirection" value="AddInterest.jsp"/>
                                             <h2>
                                                 <img src="icons/icon_from_jimmac_musichall_cz_073.png" alt="logo"/>
+
                                                 <span>
                                                     <a id="deployButton" href="#" title="${param.titleDeploy}" onclick="deploy('deployButton','listToDeploy','interestSelected','allInterests');">${param.deploy}</a>
                                                     Liste des interêts
@@ -85,35 +87,33 @@
                                 </div>
                             </form>
 
-							<div id="AddInterest">
-	                            <html:form action="/addinterest.do" method="post">                                
-	                                <table>
-	                                    <tr>
-	                                        <th class="entete">
-	                                        	<html:hidden property="redirection" value="AddInterest.jsp" />
-	                                        </th>
-	                                        <th class="entete" colspan="2" scope="col">
-	                                            <h2>Ajouter un intérêt</h2>
-	                                        </th>
-	                                    </tr>
-	                                    <tr class="champ">
-	                                        <th scope="row"><label for="intitule">Intitulé</label></th>
-	                                        <td colspan="2">
-	                                            <html:text errorStyleClass="error" property="nomInteret" styleId="intitule"/>
-	                                            <html:errors property="nomInteret" />
-	                                        </td>
-	                                    </tr>
-	
-	                                    <tr>
-	                                        <td></td>
-	                                        <td colspan="2" id="interests"></td>
-	                                    </tr>
-	                                </table>
-	                                <div class="button">
-	                                    <html:submit title="Enregistrer" >Enregistrer</html:submit>
-	                                </div>
-	                            </html:form>
-	                        </div>
+                            <div id="AddInterest">
+                                <html:errors name="interest.alreadyExists" />
+                                <html:form action="/addinterest.do" method="post">
+                                    <table>
+                                        <tr>
+                                            <th class="entete" colspan="2" scope="col">
+                                                <h2>Ajouter un intérêt</h2>
+                                            </th>
+                                        </tr>
+                                        <tr class="champ">
+                                            <th scope="row"><label for="intitule">Intitulé</label></th>
+                                            <td colspan="2">
+                                                <html:text errorStyleClass="error" property="nomInteret" styleId="intitule"/>
+                                                <html:errors property="nomInteret" />
+                                            </td>
+                                        </tr>
+
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="2" id="interests"></td>
+                                        </tr>
+                                    </table>
+                                    <div class="button">
+                                        <html:submit title="Enregistrer" >Enregistrer</html:submit>
+                                    </div>
+                                </html:form>
+                            </div>
                         </td>
                     </tr>
                 </table>

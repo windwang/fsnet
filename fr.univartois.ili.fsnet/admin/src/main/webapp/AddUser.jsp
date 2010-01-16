@@ -93,7 +93,7 @@
                                     <table>
                                         <tr>
                                             <td colspan="2">
-                                                <html:errors property="nom" />
+                                                <html:errors name="entitie.alreadyExists" />
                                             </td>
                                         </tr>
                                         <tr>
