@@ -34,16 +34,6 @@
         <url-pattern>/RemoveUser</url-pattern>
     </servlet-mapping>
     <servlet>
-        <description/>
-        <display-name>RemoveInterest</display-name>
-        <servlet-name>RemoveInterest</servlet-name>
-        <servlet-class>fr.univartois.ili.fsnet.admin.servlets.RemoveInterest</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>RemoveInterest</servlet-name>
-        <url-pattern>/RemoveInterest</url-pattern>
-    </servlet-mapping>
-    <servlet>
         <description>
         </description>
         <display-name>RecupInfo</display-name>
@@ -95,15 +85,4 @@
         <auth-method>BASIC</auth-method>
         <realm-name>AdminRealm</realm-name>
     </login-config>
-    <servlet>
-        <description/>
-        <display-name>SearchFileConfig</display-name>
-        <servlet-name>SearchFileConfig</servlet-name>
-        <servlet-class>fr.univartois.ili.fsnet.admin.servlets.SearchFileConfig</servlet-class>
-        <load-on-startup>2</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>SearchFileConfig</servlet-name>
-        <url-pattern>/do.it</url-pattern>
-    </servlet-mapping>
 </web-app>

@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
-import fr.univartois.ili.fsnet.admin.ParserFileConfig;
 import fr.univartois.ili.fsnet.admin.SendMail;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,10 +13,8 @@ import org.apache.struts.action.DynaActionForm;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.prefs.Preferences;
@@ -55,7 +52,7 @@ public class ActionUser extends Action {
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
             ActionMessage msg = new ActionMessage(
-                    "Impossible de persister l'entité, cet email est déjà dans la base.");
+                    "entitie.alreadyExists");
             actionErrors.add("entitie.alreadyExists", msg);
             saveErrors(req, actionErrors);
         }
@@ -68,13 +65,13 @@ public class ActionUser extends Action {
 
         // TODO gerer le sendmail
         //sendMails(entite);
-        // TODO ajouter un forward dans la conf
-        req.setAttribute("user", "current");
-        req.setAttribute("showHide", "show");
-        req.setAttribute("deploy", "[-]");
-        req.setAttribute("titleDeploy", "R%E9duire la liste");
-        // TODO eviter que les informations se reafichent dans
-        return mapping.findForward("success");
+
+        // TODO eviter que les informations se reafichent dans le form html si ca a fonctionné
+        // TODO gerer autrement les attributs parceque la c'est abusé
+        ActionForward forward = new ActionForward(
+                mapping.findForward("success").getPath()
+                + "?user=current&showHide=show&deploy=[-]&titleDeploy=R%E9duire la liste");
+        return forward;
     }
 
     /**

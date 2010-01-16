@@ -40,6 +40,10 @@
                 name="TheFormInterest" input="/AddInterest.jsp" validate="true" scope="request">
             <forward name="continue" path="/AddInterest.jsp" />
         </action>
+        <action path="/RemoveInterest"
+                type="fr.univartois.ili.fsnet.admin.actions.ActionRemoveInterest" scope="request">
+            <forward name="success" path="/AddInterest.jsp" />
+        </action>
         <action path="/searchmember"
                 type="fr.univartois.ili.fsnet.admin.actions.ActionSearch" name="TheFormSearch"
                 input="/SearchMember.jsp" validate="true" scope="request">

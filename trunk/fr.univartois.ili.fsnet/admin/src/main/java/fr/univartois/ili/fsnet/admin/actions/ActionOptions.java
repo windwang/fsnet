@@ -33,7 +33,7 @@ public class ActionOptions extends Action {
         } catch (BackingStoreException e) {
             log.log(Level.SEVERE, "Impossible d'enregistrer les preferences.");
             ActionErrors errors = new ActionErrors();
-            errors.add("Impossible de sauvegarder les preferences !", new ActionMessage("options.errors"));
+            errors.add("errors.optionSave", new ActionMessage("errors.optionSave"));
 
         }
         return mapping.findForward("continue");
