@@ -20,8 +20,8 @@ public class DateJourTag extends AbstractSingleLoopTag {
 		calendar.setTime(date);
 		int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
 		int mois = calendar.get(GregorianCalendar.MONTH) + 1;
-		int année = calendar.get(GregorianCalendar.YEAR);
-		String dateJour = jour + "/" + mois + "/" + année;
+		int annee = calendar.get(GregorianCalendar.YEAR);
+		String dateJour = jour + "/" + mois + "/" + annee;
 		infos.put(var, dateJour);
 	}
 
