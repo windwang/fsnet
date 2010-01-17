@@ -30,14 +30,14 @@ import org.apache.struts.config.ModuleConfig;
 import org.apache.struts.util.ModuleUtils;
 
 /**
- * Put options in requestScope and forward user to options.jsp
+ * Put options in requestScope and forward user to Options.jsp
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class ActionDisplayOption extends Action {
+public class DisplayOption extends Action {
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setAttribute("TheFormOptions", getServerOptions(request));
+        request.setAttribute("OptionsForm", getServerOptions(request));
         return mapping.findForward("success");
     }
 
@@ -47,11 +47,11 @@ public class ActionDisplayOption extends Action {
      * @return a dynaActionForm dynamically instanciated
      */
     private DynaActionForm getServerOptions(HttpServletRequest request) {
-        Preferences appPref = Preferences.userNodeForPackage(ActionOptions.class);
+        Preferences appPref = Preferences.userNodeForPackage(ModifyOptions.class);
 
         ModuleConfig moduleConfig = ModuleUtils.getInstance().getModuleConfig(request,
                 getServlet().getServletContext());
-        FormBeanConfig formConfig = moduleConfig.findFormBeanConfig("TheFormOptions");
+        FormBeanConfig formConfig = moduleConfig.findFormBeanConfig("OptionsForm");
         DynaActionFormClass dynaClass = DynaActionFormClass.createDynaActionFormClass(formConfig);
         DynaActionForm myForm = null;
         try {

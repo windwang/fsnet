@@ -13,7 +13,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
-public class DeleteUser extends Action {
+public class DeleteMember extends Action {
 
     private static final long serialVersionUID = 1L;
     private static final String DATABASE_NAME = "fsnetjpa";

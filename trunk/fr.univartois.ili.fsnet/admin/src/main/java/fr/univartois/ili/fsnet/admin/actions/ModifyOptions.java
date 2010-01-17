@@ -15,9 +15,9 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 
-public class ActionOptions extends Action {
+public class ModifyOptions extends Action {
 
-    private static final Logger log = Logger.getLogger(ActionOptions.class.getName());
+    private static final Logger log = Logger.getLogger(ModifyOptions.class.getName());
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -50,7 +50,7 @@ public class ActionOptions extends Action {
     public void setServerOptions(String serverSmtp, String host, String password, String adresseFsnet, Integer port)
             throws BackingStoreException {
 
-        Preferences appPref = Preferences.userNodeForPackage(ActionOptions.class);
+        Preferences appPref = Preferences.userNodeForPackage(ModifyOptions.class);
         appPref.put("serveursmtp", serverSmtp);
         appPref.put("hote", host);
         appPref.put("motdepasse", password);

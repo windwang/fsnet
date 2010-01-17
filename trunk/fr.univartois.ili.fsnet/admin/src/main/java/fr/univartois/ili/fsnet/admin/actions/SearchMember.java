@@ -12,7 +12,7 @@ import org.apache.struts.action.DynaActionForm;
  *
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class SearchUser extends Action {
+public class SearchMember extends Action {
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {

@@ -22,7 +22,7 @@
         <div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
 
             <div id="left">
-                <h2><a href="AddUser.jsp?user=current&amp;showHide=hide&amp;deploy=[%2B]&amp;titleDeploy=D%E9ployer la liste"
+                <h2><a href="AddMember.jsp?user=current&amp;showHide=hide&amp;deploy=[%2B]&amp;titleDeploy=D%E9ployer la liste"
                        title="Ajout de membre">Ajout de membre </a>
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
@@ -31,11 +31,11 @@
                 <table width="100%">
                     <tr>
                         <td>
-                            <html:form  method="post" action="/DeleteUserFromAddUser">
+                            <html:form  method="post" action="/DeleteMemberFromAddMember">
                                 <table>
                                     <tr>
                                         <th class="entete" colspan="4" scope="col">
-                                            <input type="hidden" name="redirection" value="AddUser.jsp"/>
+                                            <input type="hidden" name="redirection" value="AddMember.jsp"/>
                                             <h2><img src="icons/icon_from_jimmac_musichall_cz_223.png" alt="logo"/>
                                                 <span>
                                                     <a id="deployButton" href="#" title="${param.titleDeploy}"
@@ -72,7 +72,7 @@
                                                         <td title="${inscription.entite.email}">${svarEmail}</td>
                                                         <td>
                                                         	<a href="#"
-                                                               onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');show('side');"
+                                                               onclick="recupPage('DetailsMember.jsp','ent','${inscription.entite.id}','side');show('side');"
                                                                title="Cliquez pour afficher les détails de ${inscription.entite.nom} ${inscription.entite.prenom}">
                                                               Détails
                                                             </a>
@@ -95,7 +95,7 @@
                                 </div>
                             </html:form>
                             <div id="AddUser">
-                                <html:form  action="/adduser.do" method="post">
+                                <html:form  action="/AddMember.do" method="post">
                                     <table>
                                         <tr>
                                             <td colspan="2">
@@ -139,6 +139,6 @@
             <div id="side"></div>
         </div>
         <jsp:include page="footer.jsp"></jsp:include>
-        <html:javascript formName="/adduser"/>
+        <html:javascript formName="/AddMember"/>
     </body>
 </html:html>

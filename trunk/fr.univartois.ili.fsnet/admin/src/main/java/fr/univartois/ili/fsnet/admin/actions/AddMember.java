@@ -30,11 +30,11 @@ import org.apache.struts.action.ActionMessage;
  * This action create and persist a new EntiteSociale
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class ActionUser extends Action {
+public class AddMember extends Action {
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
     private EntityManager em;
-    private static final Logger log = Logger.getLogger(ActionUser.class.getName());
+    private static final Logger log = Logger.getLogger(AddMember.class.getName());
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse arg3) throws Exception {
@@ -86,7 +86,7 @@ public class ActionUser extends Action {
         List<String> listeDest = new ArrayList<String>();
         listeDest.add(email);
 
-        Preferences appPref = Preferences.userNodeForPackage(ActionOptions.class);
+        Preferences appPref = Preferences.userNodeForPackage(ModifyOptions.class);
 
         String message = createMessageRegistration(
                 entite.getNom(),

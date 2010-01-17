@@ -8,7 +8,7 @@
     <head>
         <title>FSNet : Options</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta http-equiv="refresh" content="300;options.jsp?option=current"/>
+        <meta http-equiv="refresh" content="300;Options.jsp?option=current"/>
         <meta name="robots" content="index, follow" />
         <link rel="icon" type="image/png" href="images/favicon.ico" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
@@ -18,12 +18,12 @@
         <jsp:include page="header.jsp"></jsp:include>
         <div class="wrap background"><jsp:include page="subHeader.jsp"></jsp:include>
             <div id="left">
-                <h2><a href="options.jsp?option=current"
+                <h2><a href="Options.jsp?option=current"
                        title="configuration des options d'envoie de mail">Options</a>
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
             </div>
-            <html:javascript formName="/lesoptions"/>
+            <html:javascript formName="/ModifyOptions"/>
             <div id="tableauprincipal" >
                 <p id="informationsOptions">
                 	Nb:Ce formulaire permet de configurer vos préférences pour 
@@ -31,7 +31,7 @@
                 	mail lui ait automatiquement envoyé afin qu'il puisse finaliser son inscription.
                 </p>
 
-                <html:form action="/lesoptions.do" method="post">
+                <html:form action="/ModifyOptions.do">
                     <table>
                         <tr>
                             <td colspan="2">

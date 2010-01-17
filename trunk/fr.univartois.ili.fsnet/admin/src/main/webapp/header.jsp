@@ -17,7 +17,7 @@
             <ul>
                 <li onmouseover="showMenu('smenu1');"
                     onmouseout="showMenu();">
-                    <a href="AddUser.jsp?user=current&amp;showHide=hide&amp;deploy=[%2B]&amp;titleDeploy=D%E9ployer la liste">
+                    <a href="AddMember.jsp?user=current&amp;showHide=hide&amp;deploy=[%2B]&amp;titleDeploy=D%E9ployer la liste">
 			Ajouter un membre
                     </a>
                 </li>
@@ -41,7 +41,7 @@
     </dl>
     <dl>
         <dt>
-            <a class="${param.option}" href="afficherOptions.do" title="Configurer les options pour l'envoie de mail">
+            <a class="${param.option}" href="DisplayOptions.do" title="Configurer les options pour l'envoie de mail">
 		Options
             </a>
         </dt>
