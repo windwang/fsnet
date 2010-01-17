@@ -36,14 +36,9 @@
             	<div id="interestsList">
             		<fieldset>
             			<legend>Interetsts List</legend>
-            				<c:set var="i" value="0"/>
-							<admin:interet var="interet">
-								<c:if test="${i % 7 == 0}">
-									<!--<div class="clear"></div>-->
-								</c:if>
-                				<div class="interest">${interet.nomInteret}</div>
-                				<c:set var="i" value="${i + 1}"/>             		
-	            			</admin:interet>
+						<admin:interet var="interet">
+                			<div class="interest">${interet.nomInteret}</div>             		
+	            		</admin:interet>
             		</fieldset>
             	</div>
             	<fieldset>
