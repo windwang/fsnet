@@ -1,4 +1,4 @@
-:link,:visited { text-decoration:none } :focus,:active { outline: 0 } ul,ol,dl { list-style:none } h1,h2,h3,h4,h5,h6,pre,code { font-size:1em; } ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,dl,dd,dt { margin:0; padding:0 } a img,:link img,:visited img, fieldset { border:none } address { font-style:normal }
+:link,:visited { text-decoration:none } :focus,:active { outline: 0 } h1,h2,h3,h4,h5,h6,pre,code { font-size:1em; } ul,ol,li,h1,h2,h3,h4,h5,h6,pre,form,body,html,p,blockquote,fieldset,input,dl,dd,dt { margin:0; padding:0 } a img,:link img,:visited img, fieldset { border:none } address { font-style:normal }
 body { font: .8em "Trebuchet MS", Verdana, Helvetica, sans-serif; color: #666;  background: #F7FCFF url(../images/bg.gif) repeat-x; }
 a { color: #AF1515; cursor: pointer; }
 a:hover { color: #7D1919; }
@@ -84,9 +84,13 @@ input.button { float: right; background: url(../images/search.gif) no-repeat; wi
 
 table{margin-bottom:1em;}
 
-.button{margin-top: -10px;float:right;} 
+.button{margin-top: -10px;float:right;}
 
-#AddUser, #AddInterest{float:right;}
+fieldset {
+	border: 1px solid #BBBBBB;
+	padding: 10px;
+	margin: 10px;	
+}
 
 .champ th{background-color: #CCCCCC}
 .champ td{width:67%;}
@@ -101,8 +105,6 @@ img{width: 36px; height: 32px;}
 #listToDeploy th{height: 4em; width:20%}
 
 #listToDeploy td{text-align:center; width:20%}
-
-.interest{width:50%;}
 
 .moreInteret{width:77%;}
 .removeBut{width: 20%;margin-left:2px;}
@@ -142,4 +144,12 @@ img{width: 36px; height: 32px;}
 
 #rechercheVide {
 	text-align: center;
+}
+#interestsList {
+text-align: center;
+}
+
+ #interestsList .interest {
+	float: left;
+	margin: 0 4% 0 4%;
 }

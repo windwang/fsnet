@@ -33,16 +33,30 @@
             <html:javascript formName="/searchInterest"/>
 
             <div id="tableauprincipal">
-
+            	<div id="interestsList">
+            		<fieldset>
+            			<legend>Interetsts List</legend>
+            				<c:set var="i" value="0"/>
+							<admin:interet var="interet">
+								<c:if test="${i % 7 == 0}">
+									<!--<div class="clear"></div>-->
+								</c:if>
+                				<div class="interest">${interet.nomInteret}</div>
+                				<c:set var="i" value="${i + 1}"/>             		
+	            			</admin:interet>
+            		</fieldset>
+            	</div>
+            	<fieldset>
+            	                    	<legend>Search an interest</legend>
                 <html:form action="/searchInterest.do">
-                    <div>
-                        <label for="searchText">Recherche : </label>
+                        <div><label for="searchText">Recherche : </label>
                         <html:text errorStyleClass="error" property="searchtext" styleId="searchText"/>
                         <html:submit>Rechercher</html:submit>
                         <div><html:errors property="searchtext" /></div>
-                    </div>
+                        </div>
                 </html:form>
-                <html:form action="/RemoveInterestFromSearchInterest">
+                    
+                <html:form action="/RemoveInterest">
                     <table>
                         <tr>
                             <td>
@@ -90,7 +104,34 @@
                                title="Supprimer" />
                     </div>
 				</html:form>
+				</fieldset>
+                  <div id="AddInterest">
+                  				<html:errors name="interest.alreadyExists" />
+                                <html:form action="/addinterest.do" method="post">
+                                	<fieldset>
+                                	<legend>Add an interest</legend>
+                                    <table>
+                                        <tr class="champ">
+                                            <th scope="row"><label for="intitule">Intitulé</label></th>
+                                            <td colspan="2">
+                                                <html:text errorStyleClass="error" property="nomInteret" styleId="intitule"/>
+                                                <html:errors property="nomInteret" />
+                                            </td>
+                                        </tr>
 
+                                        <tr>
+                                            <td></td>
+                                            <td colspan="2" id="interests"></td>
+                                        </tr>
+                                    </table>
+                                    <div class="button">
+                                        <html:submit title="Enregistrer" >Enregistrer</html:submit>
+                                    </div>
+                                    </fieldset>
+                                </html:form>
+                            </div>
+                     <div>
+</div>
             </div>
             <div id="side"></div>
         </div>

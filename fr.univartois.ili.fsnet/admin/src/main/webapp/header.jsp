@@ -31,22 +31,8 @@
     </dl>
     <dl>
         <dt onmouseover="showMenu('smenu2');" onmouseout="showMenu();">
-            <a class="${param.interet}" href="#">Intérêts</a>
+            <a class="${param.interet}" href="Interests.jsp">Intérêts</a>
         </dt>
-        <dd id="smenu2">
-            <ul>
-                <li onmouseover="showMenu('smenu2');" onmouseout="showMenu();">
-                    <a href="AddInterest.jsp?interet=current&amp;showHide=hide&amp;deploy=[%2B]&amp;titleDeploy=D%E9ployer la liste">
-			Ajouter des intérêts
-                    </a>
-                </li>
-                <li onmouseover="showMenu('smenu2');" onmouseout="showMenu();">
-                    <a href="SearchInterest.jsp?interet=current&amp;recherche=hide">
-			Rechercher des intérêts
-                    </a>
-                </li>
-            </ul>
-        </dd>
     </dl>
     <dl>
         <dt>
