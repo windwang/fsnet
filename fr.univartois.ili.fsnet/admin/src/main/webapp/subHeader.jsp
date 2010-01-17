@@ -26,7 +26,7 @@
             <admin:inscription var="inscription" etat="Inscrit">
                 <li>
                     <a  href="#"
-                        onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');show('side');"
+                        onclick="recupPage('DetailsMember.jsp','ent','${inscription.entite.id}','side');show('side');"
                         title="Cliquez pour afficher les détails de ${inscription.entite.nom} ${inscription.entite.prenom} ">
                         ${svarNom} ${svarPrenom}
                     </a>

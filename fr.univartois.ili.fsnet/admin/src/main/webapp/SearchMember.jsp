@@ -32,7 +32,7 @@
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
             </div>
-            <html:javascript formName="/searchMember"/>
+            <html:javascript formName="/SearchMember"/>
 
             <div id="tableauprincipal">
                 <table style="width: 90%">
@@ -51,7 +51,7 @@
 
                     <tr>
                         <td valign="top">
-                            <html:form action="/searchMember.do">
+                            <html:form action="/SearchMember.do">
                                 <!-- <form id="form1" method="post" action="SearchMember">-->
 
                                 <div>
@@ -71,7 +71,7 @@
                                 </div>
 
                             </html:form>
-                            <html:form method="post" action="/DeleteUser">
+                            <html:form method="post" action="/DeleteMember">
                                 <table id="listToDeploy">
                                     <tr class="champ" id="enteteRecherche">
                                         <th>Supprimer
@@ -99,7 +99,7 @@
                                             <td title="${inscription.entite.prenom}">${svarPrenom}</td>
                                             <td title="${inscription.entite.email}">${svarEmail}</td>
                                             <td><a href="#"
-                                                   onclick="recupPage('MemberDetails.jsp','ent','${inscription.entite.id}','side');"
+                                                   onclick="recupPage('DetailsMember.jsp','ent','${inscription.entite.id}','side');"
                                                    title="Cliquez pour afficher les détails de ce membre">Détails</a></td>
                                             <td>${inscription.etat}</td>
                                         </tr>

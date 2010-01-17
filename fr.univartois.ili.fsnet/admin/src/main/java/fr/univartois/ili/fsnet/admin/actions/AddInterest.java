@@ -18,7 +18,7 @@ import org.apache.struts.action.DynaActionForm;
 
 import fr.univartois.ili.fsnet.entities.Interet;
 
-public class ActionInterest extends Action {
+public class AddInterest extends Action {
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
     private EntityManager em;

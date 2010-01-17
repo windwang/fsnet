@@ -19,7 +19,7 @@ import org.apache.struts.action.ActionMessage;
  * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class RemoveInterest extends Action {
+public class DeleteInterest extends Action {
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
     private EntityManager em;

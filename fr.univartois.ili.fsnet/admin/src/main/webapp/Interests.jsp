@@ -29,7 +29,7 @@
                 <jsp:include page="date.jsp"></jsp:include>
             </div>
 
-            <html:javascript formName="/searchInterest"/>
+            <html:javascript formName="/SearchInterest"/>
 
             <div id="tableauprincipal">
             	<div id="interestsList">
@@ -42,7 +42,7 @@
             	</div>
             	<fieldset>
             	                    	<legend>Search an interest</legend>
-                <html:form action="/searchInterest.do">
+                <html:form action="/SearchInterest.do">
                         <div><label for="searchText">Recherche : </label>
                         <html:text errorStyleClass="error" property="searchtext" styleId="searchText"/>
                         <html:submit>Rechercher</html:submit>
@@ -50,7 +50,7 @@
                         </div>
                 </html:form>
                     
-                <html:form action="/RemoveInterest">
+                <html:form action="/DeleteInterest">
                     <table>
                         <tr>
                             <td>
@@ -101,7 +101,7 @@
 				</fieldset>
                   <div id="AddInterest">
                   				<html:errors name="interest.alreadyExists" />
-                                <html:form action="/addinterest.do" method="post">
+                                <html:form action="/AddInterest.do" method="post">
                                 	<fieldset>
                                 	<legend>Add an interest</legend>
                                     <table>
