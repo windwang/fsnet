@@ -6,11 +6,11 @@ import java.rmi.RemoteException;
 import java.util.Timer;
 import java.util.TimerTask;
 import fr.univartois.ili.fsnet.webservice.NouvellesInformations;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * 
  * The class FSnetTray has the responsibility to create a tray icon and
  * manage system notifications
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
@@ -18,12 +18,13 @@ import java.util.logging.Logger;
 // TODO when message from EntiteSociale to EntiteSociale will be implemented add personal messages here
 public class FSNetTray {
 
-    private static final String urlTemp = "http://code.google.com/p/fsnet/";
+    private final ResourceBundle trayi18n = TrayLauncher.getBundle();
     private TrayIcon tray;
     private final NouvellesInformations nvs;
     private static Logger logger = Logger.getLogger(FSNetTray.class.getName());
     private Timer timer;
     private StringBuilder build;
+    private static final long MINUTES = 60000;
 
     /**
      *
@@ -52,11 +53,11 @@ public class FSNetTray {
      * Initialize tray icon's parameters
      */
     private void initTrayIcon() {
-        tray.setToolTip(TrayLauncher.trayi18n.getString("NOTIFICATIONFSNET"));
+        tray.setToolTip(trayi18n.getString("NOTIFICATIONFSNET"));
         // Create a popup menu components
         final PopupMenu popup = new PopupMenu();
 
-        MenuItem configItem = new MenuItem(TrayLauncher.trayi18n.getString("CONFIGURATION"));
+        MenuItem configItem = new MenuItem(trayi18n.getString("CONFIGURATION"));
         configItem.addActionListener(new ActionListener() {
 
             @Override
@@ -66,7 +67,7 @@ public class FSNetTray {
         });
 
         // TODO mettre ca dans la config
-        CheckboxMenuItem size = new CheckboxMenuItem(TrayLauncher.trayi18n.getString("SETAUTOSIZE"));
+        CheckboxMenuItem size = new CheckboxMenuItem(trayi18n.getString("SETAUTOSIZE"));
         size.addItemListener(new ItemListener() {
 
             @Override
@@ -80,7 +81,7 @@ public class FSNetTray {
             }
         });
 
-        MenuItem exitItem = new MenuItem(TrayLauncher.trayi18n.getString("EXIT"));
+        MenuItem exitItem = new MenuItem(trayi18n.getString("EXIT"));
         exitItem.addActionListener(new ActionListener() {
 
             @Override
@@ -118,25 +119,18 @@ public class FSNetTray {
      *
      * @return a formatted message
      */
-    private String getMessage() {
+    private String getMessage(int announces, int events) {
         build.delete(0, build.length());
-        try {
-            int announces = getNumberOfNewAnnonce();
-            int events = getNumberOfNewEvents();
 
-            if (announces > 0) {
-                build.append(TrayLauncher.trayi18n.getString("THEREIS")).append(" ").append(announces).
-                        append(" ").append(TrayLauncher.trayi18n.getString("NEWANNOUNCES"));
-            }
-            if (events > 0) {
-                build.append("THEREIS").append(" ").append(events).
-                        append(" ").append(TrayLauncher.trayi18n.getString("NEWEVENTS"));
-            }
-        } catch (RemoteException e1) {
-            logger.log(Level.SEVERE, e1.getLocalizedMessage());
-            build.append(TrayLauncher.trayi18n.getString("NOCONNECTION "));
-            stopNotifications();
+        if (announces > 0) {
+            build.append(trayi18n.getString("THEREIS")).append(" ").append(announces).
+                    append(" ").append(trayi18n.getString("NEWANNOUNCES"));
         }
+        if (events > 0) {
+            build.append("THEREIS").append(" ").append(events).
+                    append(" ").append(trayi18n.getString("NEWEVENTS"));
+        }
+
         return build.toString();
     }
 
@@ -150,11 +144,25 @@ public class FSNetTray {
 
             @Override
             public void run() {
-                tray.displayMessage(TrayLauncher.trayi18n.getString("NOTIFICATIONS"),
-                        getMessage(),
-                        TrayIcon.MessageType.INFO);
+
+                try {
+                    int announces = getNumberOfNewAnnonce();
+                    int events = getNumberOfNewEvents();
+                    if (announces + events > 0) {
+                        String message = getMessage(announces, events);
+                        tray.displayMessage(
+                                trayi18n.getString("NOTIFICATIONS"),
+                                message,
+                                TrayIcon.MessageType.INFO);
+                    }
+                } catch (RemoteException e1) {
+                    logger.log(Level.SEVERE, e1.getLocalizedMessage());
+                    build.append(trayi18n.getString("NOCONNECTION "));
+                    stopNotifications();
+                }
+
             }
-        }, 0, timeLag * 1000);
+        }, 0, timeLag * MINUTES);
     }
 
     /**

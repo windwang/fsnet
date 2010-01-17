@@ -4,6 +4,7 @@ import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
 import fr.univartois.ili.fsnet.trayDesktop.Options.LANG;
+import java.util.ResourceBundle;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -15,6 +16,7 @@ import javax.swing.JTextField;
  */
 public class ConfigurationPanel {
 
+    private final ResourceBundle trayi18n = TrayLauncher.getBundle();
     private final JPanel panel;
     private JTextField login;
     private JTextField password;
@@ -30,18 +32,18 @@ public class ConfigurationPanel {
         builder.setDefaultDialogBorder();
         CellConstraints cc = new CellConstraints();
 
-        builder.addSeparator(TrayLauncher.trayi18n.getString("IDENTIFICATION"), cc.xyw(1, 1, 3));
-        builder.addLabel(TrayLauncher.trayi18n.getString("IDENTIFIANT"), cc.xy(1, 3));
+        builder.addSeparator(trayi18n.getString("IDENTIFICATION"), cc.xyw(1, 1, 3));
+        builder.addLabel(trayi18n.getString("IDENTIFIANT"), cc.xy(1, 3));
         builder.add(login, cc.xy(3, 3));
-        builder.addLabel(TrayLauncher.trayi18n.getString("PASSWORD"), cc.xy(1, 5));
+        builder.addLabel(trayi18n.getString("PASSWORD"), cc.xy(1, 5));
         builder.add(password, cc.xy(3, 5));
 
-        builder.addSeparator(TrayLauncher.trayi18n.getString("FSNET"), cc.xyw(1, 7, 3));
-        builder.addLabel(TrayLauncher.trayi18n.getString("ADRESSE"), cc.xy(1, 9));
+        builder.addSeparator(trayi18n.getString("FSNET"), cc.xyw(1, 7, 3));
+        builder.addLabel(trayi18n.getString("ADRESSE"), cc.xy(1, 9));
         builder.add(url, cc.xy(3, 9));
 
-        builder.addSeparator(TrayLauncher.trayi18n.getString("MISC"), cc.xyw(1, 11, 3));
-        builder.addLabel(TrayLauncher.trayi18n.getString("LANGUAGE"), cc.xy(1, 13));
+        builder.addSeparator(trayi18n.getString("MISC"), cc.xyw(1, 11, 3));
+        builder.addLabel(trayi18n.getString("LANGUAGE"), cc.xy(1, 13));
         builder.add(language, cc.xy(3, 13));
         panel = builder.getPanel();
     }

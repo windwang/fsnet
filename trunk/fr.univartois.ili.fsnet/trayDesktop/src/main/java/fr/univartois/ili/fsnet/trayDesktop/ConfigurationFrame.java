@@ -23,6 +23,7 @@ import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -36,9 +37,10 @@ public class ConfigurationFrame {
 
     private final JFrame frame;
     private final ConfigurationPanel cpanel;
+    private final ResourceBundle trayi18n = TrayLauncher.getBundle();
 
     public ConfigurationFrame() {
-        frame = new JFrame(TrayLauncher.trayi18n.getString("CONFIGURATION"));
+        frame = new JFrame(trayi18n.getString("CONFIGURATION"));
         cpanel = new ConfigurationPanel();
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(cpanel.getPanel(), BorderLayout.CENTER);
@@ -52,8 +54,8 @@ public class ConfigurationFrame {
         frame.setContentPane(panel);
     }
 
-    private final JButton getCancelButton() {
-        JButton but = new JButton(TrayLauncher.trayi18n.getString("ANNULER"));
+    private JButton getCancelButton() {
+        JButton but = new JButton(trayi18n.getString("ANNULER"));
         but.addActionListener(new ActionListener() {
 
             @Override
@@ -64,23 +66,23 @@ public class ConfigurationFrame {
         return but;
     }
 
-    private final JButton getTestButton() {
-        JButton but = new JButton(TrayLauncher.trayi18n.getString("TESTER"));
+    private JButton getTestButton() {
+        JButton but = new JButton(trayi18n.getString("TESTER"));
         but.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (validateConfig()) {
-                    JOptionPane.showMessageDialog(frame, TrayLauncher.trayi18n.getString("VALIDCONFIGURATION"),
-                            TrayLauncher.trayi18n.getString("SUCCESS"), JOptionPane.INFORMATION_MESSAGE);
+                    JOptionPane.showMessageDialog(frame, trayi18n.getString("VALIDCONFIGURATION"),
+                            trayi18n.getString("SUCCESS"), JOptionPane.INFORMATION_MESSAGE);
                 }
             }
         });
         return but;
     }
 
-    private final JButton getValidateButton() {
-        JButton but = new JButton(TrayLauncher.trayi18n.getString("VALIDER"));
+    private JButton getValidateButton() {
+        JButton but = new JButton(trayi18n.getString("VALIDER"));
         but.addActionListener(new ActionListener() {
 
             @Override
@@ -103,7 +105,7 @@ public class ConfigurationFrame {
      * Validate the given configuration
      * @return true if valid, false otherwise
      */
-    private final boolean validateConfig() {
+    private boolean validateConfig() {
         // TODO trouver une meilleur solution
         // il ne faudrait pas modifier Options, mais le webservice m'oblige a le faire...
         try {
@@ -116,8 +118,8 @@ public class ConfigurationFrame {
             Options.setUrl(oldUrl);
             return true;
         } catch (Exception ex) {
-            JOptionPane.showMessageDialog(frame, TrayLauncher.trayi18n.getString("NOCONNECTION"),
-                    TrayLauncher.trayi18n.getString("ERROR"), JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(frame, trayi18n.getString("NOCONNECTION"),
+                    trayi18n.getString("ERROR"), JOptionPane.ERROR_MESSAGE);
         }
         // TODO authentication on webservice
         String login = cpanel.getLogin();
