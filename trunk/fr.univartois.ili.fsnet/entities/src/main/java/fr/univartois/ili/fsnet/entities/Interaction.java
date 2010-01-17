@@ -14,146 +14,139 @@ import javax.persistence.OneToOne;
  * The class Interaction.
  * 
  */
-
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
 public class Interaction {
 
-	/**
-	 * The identifier.
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
+    /**
+     * The identifier.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+    /**
+     *
+     */
+    private boolean valide;
+    /**
+     * The decision maker that governs the interaction.
+     */
+    @OneToOne
+    private Decideur decideur;
+    /**
+     * The creator of the interaction.
+     */
+    @ManyToOne
+    private EntiteSociale createur;
+    /**
+     * Report of activities, which included all interactions.
+     */
+    @ManyToOne
+    private RapportActivites rapport;
 
-	/**
-	 * 
-	 */
-	private boolean valide;
+    /**
+     * Constructor of the class Interaction.
+     */
+    public Interaction() {
+    }
 
-	/**
-	 * The decision maker that governs the interaction.
-	 */
-	@OneToOne
-	private Decideur decideur;
+    /**
+     * Constructor of the class Interaction.
+     *
+     * @param valide
+     * @param decideur
+     * @param createur
+     * @param rapport
+     */
+    public Interaction(boolean valide, Decideur decideur,
+            EntiteSociale createur, RapportActivites rapport) {
+        this.valide = valide;
+        this.decideur = decideur;
+        this.createur = createur;
+        this.rapport = rapport;
+    }
 
-	/**
-	 * The creator of the interaction.
-	 */
-	@ManyToOne
-	private EntiteSociale createur;
+    /**
+     *
+     * @return the identifier.
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * Report of activities, which included all interactions.
-	 */
-	@ManyToOne
-	private RapportActivites rapport;
+    /**
+     * Gives an identifier to the interaction.
+     *
+     * @param id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * Constructor of the class Interaction.
-	 */
-	public Interaction() {
+    /**
+     *
+     * @return a boolean stating whether the interaction is valid or not.
+     */
+    public boolean isValide() {
+        return valide;
+    }
 
-	}
+    /**
+     *
+     * @param valide
+     */
+    public void setValide(boolean valide) {
+        this.valide = valide;
+    }
 
-	/**
-	 * Constructor of the class Interaction.
-	 * 
-	 * @param valide
-	 * @param decideur
-	 * @param createur
-	 * @param rapport
-	 */
-	public Interaction(boolean valide, Decideur decideur,
-			EntiteSociale createur, RapportActivites rapport) {
-		this.valide = valide;
-		this.decideur = decideur;
-		this.createur = createur;
-		this.rapport = rapport;
-	}
+    /**
+     *
+     * @return the decision maker that governs the interaction.
+     */
+    public Decideur getDecideur() {
+        return decideur;
+    }
 
-	/**
-	 * 
-	 * @return the identifier.
-	 */
-	public int getId() {
-		return id;
-	}
+    /**
+     * Gives a decison maker to the interaction.
+     *
+     * @param decideur
+     */
+    public void setDecideur(Decideur decideur) {
+        this.decideur = decideur;
+    }
 
-	/**
-	 * Gives an identifier to the interaction.
-	 * 
-	 * @param id
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     *
+     * @return the creator of the interaction.
+     */
+    public EntiteSociale getCreateur() {
+        return createur;
+    }
 
-	/**
-	 * 
-	 * @return a boolean stating whether the interaction is valid or not.
-	 */
-	public boolean isValide() {
-		return valide;
-	}
+    /**
+     * Gives the creator of the interaction.
+     *
+     * @param createur
+     */
+    public void setCreateur(EntiteSociale createur) {
+        this.createur = createur;
+    }
 
-	/**
-	 * 
-	 * @param valide
-	 */
-	public void setValide(boolean valide) {
-		this.valide = valide;
-	}
+    /**
+     *
+     * @return the report of activities.
+     */
+    public RapportActivites getRapport() {
+        return rapport;
+    }
 
-	/**
-	 * 
-	 * @return the decision maker that governs the interaction.
-	 */
-	public Decideur getDecideur() {
-		return decideur;
-	}
-
-	/**
-	 * Gives a decison maker to the interaction.
-	 * 
-	 * @param decideur
-	 */
-	public void setDecideur(Decideur decideur) {
-		this.decideur = decideur;
-	}
-
-	/**
-	 * 
-	 * @return the creator of the interaction.
-	 */
-	public EntiteSociale getCreateur() {
-		return createur;
-	}
-
-	/**
-	 * Gives the creator of the interaction.
-	 * 
-	 * @param createur
-	 */
-	public void setCreateur(EntiteSociale createur) {
-		this.createur = createur;
-	}
-
-	/**
-	 * 
-	 * @return the report of activities.
-	 */
-	public RapportActivites getRapport() {
-		return rapport;
-	}
-
-	/**
-	 * Gives a report of activities to the interaction.
-	 * 
-	 * @param rapport
-	 */
-	public void setRapport(RapportActivites rapport) {
-		this.rapport = rapport;
-	}
-
+    /**
+     * Gives a report of activities to the interaction.
+     *
+     * @param rapport
+     */
+    public void setRapport(RapportActivites rapport) {
+        this.rapport = rapport;
+    }
 }

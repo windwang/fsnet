@@ -17,41 +17,40 @@ import fr.univartois.ili.fsnet.entities.Hub;
  * Servlet implementation class GotoModifHub
  */
 public class GotoModifHub extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		EntityManagerFactory factory;
-		EntityManager entM;
-		Hub monHub;
+    private static final long serialVersionUID = 1L;
 
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		entM = factory.createEntityManager();
-		monHub = entM.getReference(Hub.class, Integer.valueOf(request
-				.getParameter("idHub")));
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        EntityManagerFactory factory;
+        EntityManager entM;
+        Hub monHub;
 
-		getServletContext().setAttribute("monHub", monHub);
+        factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        entM = factory.createEntityManager();
+        monHub = entM.getReference(Hub.class, Integer.valueOf(request.getParameter("idHub")));
 
-		RequestDispatcher dispa;
-		dispa = getServletContext().getRequestDispatcher("/modifHub.jsp");
-		dispa.forward(request, response);
-	}
+        getServletContext().setAttribute("monHub", monHub);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		this.doGet(request, response);
-	}
+        RequestDispatcher dispa;
+        dispa = getServletContext().getRequestDispatcher("/modifHub.jsp");
+        dispa.forward(request, response);
+    }
 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        this.doGet(request, response);
+    }
 }

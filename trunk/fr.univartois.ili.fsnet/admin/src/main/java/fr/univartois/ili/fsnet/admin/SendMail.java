@@ -77,14 +77,12 @@ public class SendMail {
         Transport.send(msg);
     }
 
-
     public void sendMessage(List<String> liste, String sujet, String message)
             throws MessagingException {
 
         Message msg = createMessage(liste, sujet, message);
         Transport.send(msg);
     }
-
 
     /**
      * a function that allows the authentication to the mail server

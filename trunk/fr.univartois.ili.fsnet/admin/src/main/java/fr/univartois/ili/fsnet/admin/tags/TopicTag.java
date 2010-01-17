@@ -12,71 +12,48 @@ import fr.univartois.ili.fsnet.admin.tags.utils.AbstractGenericIteratorTag;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Topic;
 
-/**
- * @author m
- *
- */
-/**
- * @author m
- *
- */
-/**
- * @author m
- *
- */
-/**
- * @author m
- * 
- */
 public class TopicTag extends AbstractGenericIteratorTag<Topic> {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private static final String FIND_ALL = "SELECT t FROM Topic t WHERE t.hub = ?1 ORDER BY t.sujet";
+    private static final String DATABASE_NAME = "fsnetjpa";
+    private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+    private String var;
+    private Hub hub;
 
-	private static final String FIND_ALL = "SELECT t FROM Topic t WHERE t.hub = ?1 ORDER BY t.sujet";
+    /**
+     * @return "topic" as the default var name
+     */
+    @Override
+    public String getDefaultVarName() {
+        return "topic";
+    }
 
-	private static final String DATABASE_NAME = "fsnetjpa";
+    @Override
+    protected Iterator<Topic> initIterator() {
+        EntityManager em = factory.createEntityManager();
+        Query query;
+        List<Topic> lesTopics;
+        query = em.createQuery(FIND_ALL);
+        query.setParameter(1, hub);
+        lesTopics = query.getResultList();
+        em.close();
+        return lesTopics.iterator();
+    }
 
-	private static final EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory(DATABASE_NAME);
+    public String getVar() {
+        return var;
+    }
 
-	private String var;
+    public void setVar(final String var) {
+        this.var = var;
+    }
 
-	private Hub hub;
+    public Hub getHub() {
+        return hub;
+    }
 
-	/**
-	 * @return "topic" as the default var name
-	 */
-	@Override
-	public String getDefaultVarName() {
-		return "topic";
-	}
-
-	@Override
-	protected Iterator<Topic> initIterator() {
-		EntityManager em = factory.createEntityManager();
-		Query query;
-		List<Topic> lesTopics;
-		query = em.createQuery(FIND_ALL);
-		query.setParameter(1, hub);
-		lesTopics = query.getResultList();
-		em.close();
-		return lesTopics.iterator();
-	}
-
-	public String getVar() {
-		return var;
-	}
-
-	public void setVar(final String var) {
-		this.var = var;
-	}
-
-	public Hub getHub() {
-		return hub;
-	}
-
-	public void setHub(final Hub hub) {
-		this.hub = hub;
-	}
-
+    public void setHub(final Hub hub) {
+        this.hub = hub;
+    }
 }

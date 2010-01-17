@@ -20,40 +20,40 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
  */
 public class IsLoggedFilter implements Filter {
 
-	private transient ServletContext servC;
+    private transient ServletContext servC;
 
-	/**
-	 * @see Filter#destroy()
-	 */
-	public void destroy() {}
+    /**
+     * @see Filter#destroy()
+     */
+    public void destroy() {
+    }
 
-	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
-	 */
-	public void doFilter(final ServletRequest request,
-			final ServletResponse response, final FilterChain chain)
-			throws IOException, ServletException {
-		HttpSession session;
-		EntiteSociale ent;
-		RequestDispatcher dispatch;
+    /**
+     * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+     */
+    public void doFilter(final ServletRequest request,
+            final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
+        HttpSession session;
+        EntiteSociale ent;
+        RequestDispatcher dispatch;
 
-		session = ((HttpServletRequest) request).getSession();
-		ent = (EntiteSociale) session.getAttribute("entite");
+        session = ((HttpServletRequest) request).getSession();
+        ent = (EntiteSociale) session.getAttribute("entite");
 
-		if (ent == null) {
-			dispatch = servC.getRequestDispatcher("/login.jsp");
-			dispatch.forward(request, response);
-		}
+        if (ent == null) {
+            dispatch = servC.getRequestDispatcher("/login.jsp");
+            dispatch.forward(request, response);
+        }
 
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
-	}
+        // pass the request along the filter chain
+        chain.doFilter(request, response);
+    }
 
-	/**
-	 * @see Filter#init(FilterConfig)
-	 */
-	public void init(final FilterConfig fConfig) throws ServletException {
-		servC = fConfig.getServletContext();
-	}
-
+    /**
+     * @see Filter#init(FilterConfig)
+     */
+    public void init(final FilterConfig fConfig) throws ServletException {
+        servC = fConfig.getServletContext();
+    }
 }

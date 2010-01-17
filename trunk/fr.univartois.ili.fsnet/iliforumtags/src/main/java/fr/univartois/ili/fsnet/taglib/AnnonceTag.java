@@ -13,144 +13,143 @@ import javax.servlet.jsp.tagext.TagSupport;
 import fr.univartois.ili.fsnet.entities.Annonce;
 
 public class AnnonceTag extends TagSupport {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String var;
-	private transient Integer idChoisi;
-	private transient Date dateFin;
-	private transient Date dateJour;
-	private transient String titre;
-	private transient Iterator<Annonce> annonces;
-	private transient Integer nbAnnonce;
-	private transient int cpt;
 
-	public Integer getNbAnnonce() {
-		return nbAnnonce;
-	}
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
+    private String var;
+    private transient Integer idChoisi;
+    private transient Date dateFin;
+    private transient Date dateJour;
+    private transient String titre;
+    private transient Iterator<Annonce> annonces;
+    private transient Integer nbAnnonce;
+    private transient int cpt;
 
-	public void setNbAnnonce(final Integer nbAnnonce) {
-		this.nbAnnonce = nbAnnonce;
-	}
+    public Integer getNbAnnonce() {
+        return nbAnnonce;
+    }
 
-	public String getVar() {
-		return var;
-	}
+    public void setNbAnnonce(final Integer nbAnnonce) {
+        this.nbAnnonce = nbAnnonce;
+    }
 
-	public void setVar(final String var) {
-		this.var = var;
-	}
+    public String getVar() {
+        return var;
+    }
 
-	public void setIdChoisi(final int idChoisi) {
-		this.idChoisi = idChoisi;
-	}
+    public void setVar(final String var) {
+        this.var = var;
+    }
 
-	public Date getDateFin() {
-		return dateFin;
-	}
+    public void setIdChoisi(final int idChoisi) {
+        this.idChoisi = idChoisi;
+    }
 
-	public void setDateBegin(final Date dateFin) {
-		this.dateFin = dateFin;
-	}
+    public Date getDateFin() {
+        return dateFin;
+    }
 
-	public int doStartTag() throws JspException {
-		EntityManagerFactory factory;
-		EntityManager entM;
-		cpt = 0;
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		entM = factory.createEntityManager();
-		if (idChoisi != null) {
+    public void setDateBegin(final Date dateFin) {
+        this.dateFin = dateFin;
+    }
 
-			Query requete;
-			requete = entM.createQuery("SELECT a FROM Annonce a WHERE a.id=?1");
-			requete.setParameter(1, idChoisi.intValue());
-			annonces = (Iterator<Annonce>) requete.getResultList().iterator();
+    public int doStartTag() throws JspException {
+        EntityManagerFactory factory;
+        EntityManager entM;
+        cpt = 0;
+        factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        entM = factory.createEntityManager();
+        if (idChoisi != null) {
 
-		} else if (nbAnnonce != null) { // Affiche les dernières annonces
+            Query requete;
+            requete = entM.createQuery("SELECT a FROM Annonce a WHERE a.id=?1");
+            requete.setParameter(1, idChoisi.intValue());
+            annonces = (Iterator<Annonce>) requete.getResultList().iterator();
 
-			Query requete;
-			requete = entM
-					.createQuery("SELECT a FROM Annonce a ORDER BY a.id DESC ");
-			annonces = (Iterator<Annonce>) requete.getResultList().iterator();
+        } else if (nbAnnonce != null) { // Affiche les dernières annonces
 
-		} else { // Affichage de la liste en entier
+            Query requete;
+            requete = entM.createQuery("SELECT a FROM Annonce a ORDER BY a.id DESC ");
+            annonces = (Iterator<Annonce>) requete.getResultList().iterator();
 
-			Query requete;
-			requete = entM.createQuery("SELECT a FROM Annonce a");
-			annonces = (Iterator<Annonce>) requete.getResultList().iterator();
-		}
-		if (updateContext()) {
-			return EVAL_BODY_INCLUDE;
-		}
+        } else { // Affichage de la liste en entier
 
-		return SKIP_BODY;
-	}
+            Query requete;
+            requete = entM.createQuery("SELECT a FROM Annonce a");
+            annonces = (Iterator<Annonce>) requete.getResultList().iterator();
+        }
+        if (updateContext()) {
+            return EVAL_BODY_INCLUDE;
+        }
 
-	public String getTitre() {
-		return titre;
-	}
+        return SKIP_BODY;
+    }
 
-	public void setTitre(final String titre) {
-		this.titre = titre;
-	}
+    public String getTitre() {
+        return titre;
+    }
 
-	private boolean updateContext() {
-		dateJour = new Date();
-		if (nbAnnonce == null) {
-			if (annonces.hasNext()) {
-				Annonce ann;
-				ann = annonces.next();
+    public void setTitre(final String titre) {
+        this.titre = titre;
+    }
 
-				if ((ann.getDateFinAnnonce().after(dateJour))
-						&& ann.getVisible().equalsIgnoreCase("Y")) {
+    private boolean updateContext() {
+        dateJour = new Date();
+        if (nbAnnonce == null) {
+            if (annonces.hasNext()) {
+                Annonce ann;
+                ann = annonces.next();
 
-					pageContext.setAttribute("createur", ann.getCreateur()
-							.getId());
-					pageContext.setAttribute(var, ann);
+                if ((ann.getDateFinAnnonce().after(dateJour))
+                        && ann.getVisible().equalsIgnoreCase("Y")) {
 
-				} else {
-					updateContext();
-				}
-				return true;
-			}
-		} else {
+                    pageContext.setAttribute("createur", ann.getCreateur().getId());
+                    pageContext.setAttribute(var, ann);
 
-			if ((annonces.hasNext()) && (cpt < nbAnnonce.intValue())) {
+                } else {
+                    updateContext();
+                }
+                return true;
+            }
+        } else {
 
-				Annonce ann;
-				ann = annonces.next();
+            if ((annonces.hasNext()) && (cpt < nbAnnonce.intValue())) {
 
-				if ((ann.getDateFinAnnonce().after(dateJour))
-						&& ann.getVisible().equalsIgnoreCase("Y")) {
+                Annonce ann;
+                ann = annonces.next();
 
-					cpt++;
-					pageContext.setAttribute(var, ann);
+                if ((ann.getDateFinAnnonce().after(dateJour))
+                        && ann.getVisible().equalsIgnoreCase("Y")) {
 
-				} else {
-					updateContext();
-				}
+                    cpt++;
+                    pageContext.setAttribute(var, ann);
 
-				return true;
-			}
-		}
-		return false;
-	}
+                } else {
+                    updateContext();
+                }
 
-	public int doAfterBody() throws JspException {
-		pageContext.removeAttribute(var);
-		pageContext.removeAttribute("createur");
-		if (updateContext()) {
-			return EVAL_BODY_AGAIN;
-		}
-		return SKIP_BODY;
-	}
+                return true;
+            }
+        }
+        return false;
+    }
 
-	@Override
-	public int doEndTag() throws JspException {
-		pageContext.removeAttribute(var);
-		pageContext.removeAttribute("createur");
+    public int doAfterBody() throws JspException {
+        pageContext.removeAttribute(var);
+        pageContext.removeAttribute("createur");
+        if (updateContext()) {
+            return EVAL_BODY_AGAIN;
+        }
+        return SKIP_BODY;
+    }
 
-		return super.doEndTag();
-	}
+    @Override
+    public int doEndTag() throws JspException {
+        pageContext.removeAttribute(var);
+        pageContext.removeAttribute("createur");
+
+        return super.doEndTag();
+    }
 }

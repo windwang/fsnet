@@ -13,25 +13,24 @@ import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class DecideurTest {
 
-	private EntityManager em;
+    private EntityManager em;
 
-	@Before
-	public void setUp() {
-		em = TestEntityManagerProvider.getInstance().getEntityManager();
-	}
+    @Before
+    public void setUp() {
+        em = TestEntityManagerProvider.getInstance().getEntityManager();
+    }
 
-	@After
-	public void tearDown() {
+    @After
+    public void tearDown() {
+    }
 
-	}
-
-	@Test
-	public void testPersist() {
-		Decideur decideur = new Decideur(null, null);
-		em.getTransaction().begin();
-		em.persist(decideur);
-		em.getTransaction().commit();
-		int monId = decideur.getId();
-		assertNotNull("id not null", monId);
-	}
+    @Test
+    public void testPersist() {
+        Decideur decideur = new Decideur(null, null);
+        em.getTransaction().begin();
+        em.persist(decideur);
+        em.getTransaction().commit();
+        int monId = decideur.getId();
+        assertNotNull("id not null", monId);
+    }
 }

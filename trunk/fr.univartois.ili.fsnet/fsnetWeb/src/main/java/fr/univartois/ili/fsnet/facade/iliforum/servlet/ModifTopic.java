@@ -15,40 +15,40 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
  * Servlet implementation class ModifTopic
  */
 public class ModifTopic extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		String titre;
-		String titreUTF8;
-		Topic top;
+    private static final long serialVersionUID = 1L;
 
-		titre = request.getParameter("titreTopic");
-		titreUTF8 = new String(titre.getBytes("ISO-8859-1"), "UTF-8");
-		top = (Topic) getServletContext().getAttribute("monTopic");
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        String titre;
+        String titreUTF8;
+        Topic top;
 
-		IliForumFacade.getInstance().updateTopic(top, titreUTF8);
+        titre = request.getParameter("titreTopic");
+        titreUTF8 = new String(titre.getBytes("ISO-8859-1"), "UTF-8");
+        top = (Topic) getServletContext().getAttribute("monTopic");
 
-		RequestDispatcher dispa;
-		dispa = getServletContext().getRequestDispatcher("/topic.jsp");
-		dispa.forward(request, response);
-	}
+        IliForumFacade.getInstance().updateTopic(top, titreUTF8);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		this.doGet(request, response);
-	}
+        RequestDispatcher dispa;
+        dispa = getServletContext().getRequestDispatcher("/topic.jsp");
+        dispa.forward(request, response);
+    }
 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        this.doGet(request, response);
+    }
 }

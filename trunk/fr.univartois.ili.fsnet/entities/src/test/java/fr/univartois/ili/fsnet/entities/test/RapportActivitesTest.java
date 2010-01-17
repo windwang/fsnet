@@ -19,52 +19,51 @@ import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class RapportActivitesTest {
 
-	private EntityManager em;
+    private EntityManager em;
 
-	@Before
-	public void setUp() {
-		em = TestEntityManagerProvider.getInstance().getEntityManager();
-	}
+    @Before
+    public void setUp() {
+        em = TestEntityManagerProvider.getInstance().getEntityManager();
+    }
 
-	@After
-	public void tearDown() {
+    @After
+    public void tearDown() {
+    }
 
-	}
+    @Test
+    public void testPersist() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        Date date = (Date) formatter.parse("29/01/02");
+        RapportActivites rapp = new RapportActivites(null, date);
+        em.getTransaction().begin();
+        em.persist(rapp);
+        em.getTransaction().commit();
+        RapportActivites rapp2 = em.find(RapportActivites.class, rapp.getId());
 
-	@Test
-	public void testPersist() throws ParseException {
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-		Date date = (Date) formatter.parse("29/01/02");
-		RapportActivites rapp = new RapportActivites(null, date);
-		em.getTransaction().begin();
-		em.persist(rapp);
-		em.getTransaction().commit();
-		RapportActivites rapp2= em.find(RapportActivites.class,rapp.getId());
-		
-		assertEquals(rapp2.getId(),rapp.getId());
-		assertEquals(rapp2.getDateRapport(), rapp.getDateRapport());
-	}
+        assertEquals(rapp2.getId(), rapp.getId());
+        assertEquals(rapp2.getDateRapport(), rapp.getDateRapport());
+    }
 
-	@Test
-	public void testGeneratedValueId() throws ParseException {
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-		Date date = (Date) formatter.parse("29/01/02");
-		RapportActivites rapp = new RapportActivites(null, date);
-		em.getTransaction().begin();
-		em.persist(rapp);
-		em.getTransaction().commit();
-		RapportActivites rapp2 = new RapportActivites(null, date);
-		em.getTransaction().begin();
-		em.persist(rapp2);
-		em.getTransaction().commit();
-		assertEquals(rapp.getId() + 1, rapp2.getId());
-	}
+    @Test
+    public void testGeneratedValueId() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        Date date = (Date) formatter.parse("29/01/02");
+        RapportActivites rapp = new RapportActivites(null, date);
+        em.getTransaction().begin();
+        em.persist(rapp);
+        em.getTransaction().commit();
+        RapportActivites rapp2 = new RapportActivites(null, date);
+        em.getTransaction().begin();
+        em.persist(rapp2);
+        em.getTransaction().commit();
+        assertEquals(rapp.getId() + 1, rapp2.getId());
+    }
 
-	@Test(expected=RollbackException.class)
-	public void testDateIsNotNull(){
-		RapportActivites rapp = new RapportActivites(null,null);
-		em.getTransaction().begin();
-		em.persist(rapp);
-		em.getTransaction().commit();
-	}
+    @Test(expected = RollbackException.class)
+    public void testDateIsNotNull() {
+        RapportActivites rapp = new RapportActivites(null, null);
+        em.getTransaction().begin();
+        em.persist(rapp);
+        em.getTransaction().commit();
+    }
 }

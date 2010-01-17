@@ -19,54 +19,53 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
  * Servlet implementation class CreateTopic
  */
 public class CreateTopic extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		String nom;
-		String contenu;
-		Date date;
-		EntiteSociale ent;
-		String nomUTF8;
-		Topic topic;
-		String contenuUTF8;
-		Message message;
-		IliForumFacade iff;
+    private static final long serialVersionUID = 1L;
 
-		nom = request.getParameter("nomTopic");
-		contenu = request.getParameter("contenuMessage");
-		date = new Date();
-		ent = (EntiteSociale) request.getSession().getAttribute("entite");
-		nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
-		topic = new Topic(nomUTF8, date, null, (Hub) getServletContext()
-				.getAttribute("monHub"), ent);
-		contenuUTF8 = new String(contenu.getBytes("ISO-8859-1"), "UTF-8");
-		message = new Message(contenuUTF8, date, ent, topic);
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        String nom;
+        String contenu;
+        Date date;
+        EntiteSociale ent;
+        String nomUTF8;
+        Topic topic;
+        String contenuUTF8;
+        Message message;
+        IliForumFacade iff;
 
-		iff = IliForumFacade.getInstance();
-		iff.addTopic(topic);
-		iff.addMessage(message);
+        nom = request.getParameter("nomTopic");
+        contenu = request.getParameter("contenuMessage");
+        date = new Date();
+        ent = (EntiteSociale) request.getSession().getAttribute("entite");
+        nomUTF8 = new String(nom.getBytes("ISO-8859-1"), "UTF-8");
+        topic = new Topic(nomUTF8, date, null, (Hub) getServletContext().getAttribute("monHub"), ent);
+        contenuUTF8 = new String(contenu.getBytes("ISO-8859-1"), "UTF-8");
+        message = new Message(contenuUTF8, date, ent, topic);
 
-		RequestDispatcher dispa;
-		dispa = getServletContext().getRequestDispatcher("/topic.jsp");
-		dispa.forward(request, response);
-	}
+        iff = IliForumFacade.getInstance();
+        iff.addTopic(topic);
+        iff.addMessage(message);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		this.doGet(request, response);
-	}
+        RequestDispatcher dispa;
+        dispa = getServletContext().getRequestDispatcher("/topic.jsp");
+        dispa.forward(request, response);
+    }
 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        this.doGet(request, response);
+    }
 }

@@ -17,52 +17,51 @@ import fr.univartois.ili.fsnet.entities.Manifestation;
  * Servlet implementation class SuppEven
  */
 public class SuppEven extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		int idEven;
-		idEven = Integer.valueOf(request.getParameter("idEven"));
-		int identite;
-		identite = Integer.valueOf(request.getParameter("idEntite"));
+    private static final long serialVersionUID = 1L;
 
-		EntityManagerFactory factory;
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		EntityManager entM;
-		entM = factory.createEntityManager();
-		Manifestation manif;
-		manif = entM.getReference(Manifestation.class, Integer.valueOf(idEven));
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        int idEven;
+        idEven = Integer.valueOf(request.getParameter("idEven"));
+        int identite;
+        identite = Integer.valueOf(request.getParameter("idEntite"));
 
-		if (manif.getCreateur().getId() == identite) {
-			manif.setVisible("N");
-			entM.getTransaction().begin();
-			entM.merge(manif);
-			entM.getTransaction().commit();
-			// IliForumFacade.getInstance().removeHub( manif);
-		}
+        EntityManagerFactory factory;
+        factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        EntityManager entM;
+        entM = factory.createEntityManager();
+        Manifestation manif;
+        manif = entM.getReference(Manifestation.class, Integer.valueOf(idEven));
 
-		request
-				.setAttribute("info",
-						"<p id=\"info\">La suppression d'un événement est effectuée.</p>");
+        if (manif.getCreateur().getId() == identite) {
+            manif.setVisible("N");
+            entM.getTransaction().begin();
+            entM.merge(manif);
+            entM.getTransaction().commit();
+            // IliForumFacade.getInstance().removeHub( manif);
+        }
 
-		RequestDispatcher dispa;
-		dispa = getServletContext().getRequestDispatcher("/toutEvenement.jsp");
-		dispa.forward(request, response);
-	}
+        request.setAttribute("info",
+                "<p id=\"info\">La suppression d'un événement est effectuée.</p>");
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		super.doPost(request, response);
-	}
+        RequestDispatcher dispa;
+        dispa = getServletContext().getRequestDispatcher("/toutEvenement.jsp");
+        dispa.forward(request, response);
+    }
 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        super.doPost(request, response);
+    }
 }

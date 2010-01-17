@@ -16,71 +16,68 @@ import fr.univartois.ili.fsnet.entities.Annonce;
 
 public class SupprAnnonce extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private static final String DATABASE_NAME = "fsnetjpa";
+    private transient EntityManagerFactory factory;
+    private transient EntityManager entM;
 
-	private static final String DATABASE_NAME = "fsnetjpa";
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        entM = factory.createEntityManager();
+    }
 
-	private transient EntityManagerFactory factory;
+    /**
+     * @see Servlet#destroy()
+     */
+    public void destroy() {
+        if (entM != null) {
+            entM.close();
+        }
+        if (factory != null) {
+            factory.close();
+        }
+    }
 
-	private transient EntityManager entM;
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        String ident;
+        ident = request.getParameter("idChoisi");
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-		entM = factory.createEntityManager();
-	}
+        EntityManagerFactory factory;
+        factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        EntityManager entM2;
+        entM2 = factory.createEntityManager();
+        Annonce monAnn;
+        monAnn = entM2.getReference(Annonce.class, Integer.valueOf(ident));
 
-	/**
-	 * @see Servlet#destroy()
-	 */
-	public void destroy() {
-		if (entM != null) {
-			entM.close();
-		}
-		if (factory != null) {
-			factory.close();
-		}
-	}
+        Annonce hubMerge;
+        entM2.getTransaction().begin();
+        hubMerge = entM2.merge(monAnn);
+        hubMerge.setVisible("N");
+        entM2.persist(hubMerge);
+        entM2.getTransaction().commit();
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		String ident;
-		ident = request.getParameter("idChoisi");
+        request.setAttribute("info",
+                "<p id=\"info\">La suppression d'une annonce est effectuée.</p>");
 
-		EntityManagerFactory factory;
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		EntityManager entM2;
-		entM2 = factory.createEntityManager();
-		Annonce monAnn;
-		monAnn = entM2.getReference(Annonce.class, Integer.valueOf(ident));
+        RequestDispatcher dispatch;
+        dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
+        dispatch.forward(request, response);
+    }
 
-		Annonce hubMerge;
-		entM2.getTransaction().begin();
-		hubMerge = entM2.merge(monAnn);
-		hubMerge.setVisible("N");
-		entM2.persist(hubMerge);
-		entM2.getTransaction().commit();
-
-		request
-				.setAttribute("info",
-						"<p id=\"info\">La suppression d'une annonce est effectuée.</p>");
-
-		RequestDispatcher dispatch;
-		dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
-		dispatch.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {}
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+    }
 }

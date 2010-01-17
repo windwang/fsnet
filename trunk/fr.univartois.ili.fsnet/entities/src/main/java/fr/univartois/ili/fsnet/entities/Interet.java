@@ -14,94 +14,90 @@ import javax.persistence.ManyToMany;
  * The class Interet.
  * 
  */
-
 @Entity
 public class Interet {
 
-	/**
-	 * The identifier.
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
+    /**
+     * The identifier.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+    /**
+     * The list of social entities that are affected by this interest.
+     */
+    @ManyToMany(mappedBy = "lesinterets")
+    private List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
+    /**
+     * The interest name.
+     */
+    private String nomInteret;
 
-	/**
-	 * The list of social entities that are affected by this interest.
-	 */
-	@ManyToMany(mappedBy = "lesinterets")
-	private List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
+    /**
+     * Constructor of the class Interet.
+     */
+    public Interet() {
+    }
 
-	/**
-	 * The interest name.
-	 */
-	private String nomInteret;
+    /**
+     * Constructor of the class Interet.
+     *
+     * @param lesEntites
+     * @param nomInteret
+     */
+    public Interet(List<EntiteSociale> lesEntites, String nomInteret) {
+        this.lesEntites = lesEntites;
+        this.nomInteret = nomInteret;
+    }
 
-	/**
-	 * Constructor of the class Interet.
-	 */
-	public Interet() {
-	}
+    /**
+     *
+     * @return the identifier.
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * Constructor of the class Interet.
-	 * 
-	 * @param lesEntites
-	 * @param nomInteret
-	 */
-	public Interet(List<EntiteSociale> lesEntites, String nomInteret) {
-		this.lesEntites = lesEntites;
-		this.nomInteret = nomInteret;
-	}
+    /**
+     * Gives an identifier to the interest.
+     *
+     * @param id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * 
-	 * @return the identifier.
-	 */
-	public int getId() {
-		return id;
-	}
+    /**
+     *
+     * @return the list of social entities that are affected by this interest.
+     */
+    public List<EntiteSociale> getLesEntites() {
+        return lesEntites;
+    }
 
-	/**
-	 * Gives an identifier to the interest.
-	 * 
-	 * @param id
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * Gives the list of social entities that are affected by this interest.
+     *
+     * @param lesEntites
+     */
+    public void setLesEntites(List<EntiteSociale> lesEntites) {
+        this.lesEntites = lesEntites;
+    }
 
-	/**
-	 * 
-	 * @return the list of social entities that are affected by this interest.
-	 */
-	public List<EntiteSociale> getLesEntites() {
-		return lesEntites;
-	}
+    /**
+     *
+     * @return the interest name.
+     */
+    public String getNomInteret() {
+        return nomInteret;
+    }
 
-	/**
-	 * Gives the list of social entities that are affected by this interest.
-	 * 
-	 * @param lesEntites
-	 */
-	public void setLesEntites(List<EntiteSociale> lesEntites) {
-		this.lesEntites = lesEntites;
-	}
-
-	/**
-	 * 
-	 * @return the interest name.
-	 */
-	public String getNomInteret() {
-		return nomInteret;
-	}
-
-	/**
-	 * Gives a name to the interest.
-	 * 
-	 * @param nomInteret
-	 */
-	public void setNomInteret(String nomInteret) {
-		this.nomInteret = nomInteret;
-	}
-
+    /**
+     * Gives a name to the interest.
+     *
+     * @param nomInteret
+     */
+    public void setNomInteret(String nomInteret) {
+        this.nomInteret = nomInteret;
+    }
 }

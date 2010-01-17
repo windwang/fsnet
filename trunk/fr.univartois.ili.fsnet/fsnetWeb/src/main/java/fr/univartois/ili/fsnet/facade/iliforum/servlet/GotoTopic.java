@@ -17,40 +17,39 @@ import fr.univartois.ili.fsnet.entities.Hub;
  * Servlet implementation class GotoTopic
  */
 public class GotoTopic extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		EntityManagerFactory factory;
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		EntityManager entM;
-		entM = factory.createEntityManager();
+    private static final long serialVersionUID = 1L;
 
-		Hub monHub;
-		monHub = entM.getReference(Hub.class, Integer.valueOf(request
-				.getParameter("idHub")));
-		getServletContext().setAttribute("monHub", monHub);
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        EntityManagerFactory factory;
+        factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        EntityManager entM;
+        entM = factory.createEntityManager();
 
-		RequestDispatcher dispa;
-		dispa = getServletContext().getRequestDispatcher("/topic.jsp");
-		dispa.forward(request, response);
-	}
+        Hub monHub;
+        monHub = entM.getReference(Hub.class, Integer.valueOf(request.getParameter("idHub")));
+        getServletContext().setAttribute("monHub", monHub);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		this.doGet(request, response);
-	}
+        RequestDispatcher dispa;
+        dispa = getServletContext().getRequestDispatcher("/topic.jsp");
+        dispa.forward(request, response);
+    }
 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        this.doGet(request, response);
+    }
 }

@@ -7,61 +7,57 @@ import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
 
 public class HubDTO {
-	public HubDTO(final Hub hub) {
-		this.hub = hub;
-		updateInfo();
-	}
 
-	private Hub hub;
+    public HubDTO(final Hub hub) {
+        this.hub = hub;
+        updateInfo();
+    }
+    private Hub hub;
+    private int nbTopic;
+    private int nbMessage;
+    private Message lastMessage;
 
-	private int nbTopic;
+    public Hub getHub() {
+        return hub;
+    }
 
-	private int nbMessage;
+    public void setHub(final Hub hub) {
+        this.hub = hub;
+    }
 
-	private Message lastMessage;
+    public int getNbTopic() {
+        return nbTopic;
+    }
 
-	public Hub getHub() {
-		return hub;
-	}
+    public void setNbTopic(final int nbTopic) {
+        this.nbTopic = nbTopic;
+    }
 
-	public void setHub(final Hub hub) {
-		this.hub = hub;
-	}
+    public int getNbMessage() {
+        return nbMessage;
+    }
 
-	public int getNbTopic() {
-		return nbTopic;
-	}
+    public void setNbMessage(final int nbMessage) {
+        this.nbMessage = nbMessage;
+    }
 
-	public void setNbTopic(final int nbTopic) {
-		this.nbTopic = nbTopic;
-	}
+    private void updateInfo() {
+        List<Message> lMessage;
+        lMessage = IliForumFacade.getInstance().getListMessageByHub(hub);
+        this.nbTopic = hub.getLesTopics().size();
 
-	public int getNbMessage() {
-		return nbMessage;
-	}
+        this.nbMessage = lMessage.size();
 
-	public void setNbMessage(final int nbMessage) {
-		this.nbMessage = nbMessage;
-	}
+        if (!lMessage.isEmpty()) {
+            this.lastMessage = lMessage.get(lMessage.size() - 1);
+        }
+    }
 
-	private void updateInfo() {
-		List<Message> lMessage;
-		lMessage = IliForumFacade.getInstance().getListMessageByHub(hub);
-		this.nbTopic = hub.getLesTopics().size();
+    public Message getLastMessage() {
+        return lastMessage;
+    }
 
-		this.nbMessage = lMessage.size();
-
-		if (!lMessage.isEmpty()) {
-			this.lastMessage = lMessage.get(lMessage.size() - 1);
-		}
-	}
-
-	public Message getLastMessage() {
-		return lastMessage;
-	}
-
-	public void setLastMessage(final Message lastMessage) {
-		this.lastMessage = lastMessage;
-	}
-
+    public void setLastMessage(final Message lastMessage) {
+        this.lastMessage = lastMessage;
+    }
 }

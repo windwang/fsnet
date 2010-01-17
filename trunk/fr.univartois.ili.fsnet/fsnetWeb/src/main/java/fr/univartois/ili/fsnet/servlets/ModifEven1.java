@@ -17,39 +17,38 @@ import fr.univartois.ili.fsnet.entities.Manifestation;
  * Servlet implementation class ModifEven1
  */
 public class ModifEven1 extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		EntityManagerFactory factory;
-		EntityManager entM;
-		Manifestation manif;
+    private static final long serialVersionUID = 1L;
 
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		entM = factory.createEntityManager();
-		manif = entM.getReference(Manifestation.class, Integer.valueOf(request
-				.getParameter("idEven")));
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        EntityManagerFactory factory;
+        EntityManager entM;
+        Manifestation manif;
 
-		getServletContext().setAttribute("manif", manif);
+        factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        entM = factory.createEntityManager();
+        manif = entM.getReference(Manifestation.class, Integer.valueOf(request.getParameter("idEven")));
 
-		RequestDispatcher dispa;
-		dispa = getServletContext().getRequestDispatcher("/modifieEven.jsp");
-		dispa.forward(request, response);
-	}
+        getServletContext().setAttribute("manif", manif);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		super.doPost(request, response);
-	}
+        RequestDispatcher dispa;
+        dispa = getServletContext().getRequestDispatcher("/modifieEven.jsp");
+        dispa.forward(request, response);
+    }
 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        super.doPost(request, response);
+    }
 }

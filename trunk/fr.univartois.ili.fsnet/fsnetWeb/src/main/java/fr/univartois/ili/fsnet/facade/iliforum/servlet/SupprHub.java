@@ -18,46 +18,46 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.IliForumFacade;
  * Servlet implementation class SupprHub
  */
 public class SupprHub extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		int idhub;
-		int identite;
-		EntityManagerFactory factory;
-		EntityManager entM;
-		Hub monHub;
+    private static final long serialVersionUID = 1L;
 
-		idhub = Integer.valueOf(request.getParameter("idHub"));
-		identite = Integer.valueOf(request.getParameter("idEntite"));
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		entM = factory.createEntityManager();
-		monHub = entM.getReference(Hub.class, Integer.valueOf(idhub));
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        int idhub;
+        int identite;
+        EntityManagerFactory factory;
+        EntityManager entM;
+        Hub monHub;
 
-		if (monHub.getCreateur().getId() == identite) {
-			IliForumFacade.getInstance().removeHub(monHub);
-		}
+        idhub = Integer.valueOf(request.getParameter("idHub"));
+        identite = Integer.valueOf(request.getParameter("idEntite"));
+        factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        entM = factory.createEntityManager();
+        monHub = entM.getReference(Hub.class, Integer.valueOf(idhub));
 
-		RequestDispatcher dispa;
-		dispa = getServletContext().getRequestDispatcher("/hub.jsp");
-		dispa.forward(request, response);
-	}
+        if (monHub.getCreateur().getId() == identite) {
+            IliForumFacade.getInstance().removeHub(monHub);
+        }
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	@Override
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		this.doGet(request, response);
-	}
+        RequestDispatcher dispa;
+        dispa = getServletContext().getRequestDispatcher("/hub.jsp");
+        dispa.forward(request, response);
+    }
 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    @Override
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        this.doGet(request, response);
+    }
 }

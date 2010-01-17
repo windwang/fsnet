@@ -27,121 +27,114 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
  */
 public class AddAnnonce extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private static final String DATABASE_NAME = "fsnetjpa";
+    private transient EntityManagerFactory factory;
+    private transient EntityManager entM;
 
-	private static final String DATABASE_NAME = "fsnetjpa";
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        entM = factory.createEntityManager();
+    }
 
-	private transient EntityManagerFactory factory;
+    /**
+     * @see Servlet#destroy()
+     */
+    public void destroy() {
+        if (entM != null) {
+            entM.close();
+        }
+        if (factory != null) {
+            factory.close();
+        }
+    }
 
-	private transient EntityManager entM;
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        String ident;
+        ident = request.getParameter("idChoisi");
+        getServletContext().setAttribute("idChoisi", ident);
+        RequestDispatcher dispatch;
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-		entM = factory.createEntityManager();
-	}
+        if (ident.equalsIgnoreCase("0")) {
 
-	/**
-	 * @see Servlet#destroy()
-	 */
-	public void destroy() {
-		if (entM != null) {
-			entM.close();
-		}
-		if (factory != null) {
-			factory.close();
-		}
-	}
+            dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
+            dispatch.forward(request, response);
+        } else {
+            dispatch = getServletContext().getRequestDispatcher(
+                    "/detailAnnonce.jsp");
+            dispatch.forward(request, response);
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		String ident;
-		ident = request.getParameter("idChoisi");
-		getServletContext().setAttribute("idChoisi", ident);
-		RequestDispatcher dispatch;
+        }
+    }
 
-		if (ident.equalsIgnoreCase("0")) {
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
 
-			dispatch = getServletContext()
-					.getRequestDispatcher("/annonces.jsp");
-			dispatch.forward(request, response);
-		}
+        EntiteSociale entite;
 
-		else {
-			dispatch = getServletContext().getRequestDispatcher(
-					"/detailAnnonce.jsp");
-			dispatch.forward(request, response);
+        HttpSession session;
+        session = request.getSession();
+        entite = (EntiteSociale) session.getAttribute("entite");
 
-		}
-	}
+        String titre;
+        titre = request.getParameter("titreAnnonce");
+        String contenu;
+        contenu = request.getParameter("contenuAnnonce");
+        String dateFin;
+        dateFin = request.getParameter("dateFinAnnonce");
+        DateFormat formatter;
+        formatter = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
+        if (titre.isEmpty() || contenu.isEmpty() || dateFin.isEmpty()) {
 
-		EntiteSociale entite;
+            request.setAttribute("titre", titre);
+            request.setAttribute("contenu", contenu);
+            request.setAttribute("datefin", dateFin);
+            RequestDispatcher dispatch;
+            dispatch = getServletContext().getRequestDispatcher(
+                    "/publierannonce.jsp");
+            dispatch.forward(request, response);
 
-		HttpSession session;
-		session = request.getSession();
-		entite = (EntiteSociale) session.getAttribute("entite");
+        } else {
 
-		String titre;
-		titre = request.getParameter("titreAnnonce");
-		String contenu;
-		contenu = request.getParameter("contenuAnnonce");
-		String dateFin;
-		dateFin = request.getParameter("dateFinAnnonce");
-		DateFormat formatter;
-		formatter = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
+            Date date = null;
+            Date aujourdhui;
+            aujourdhui = new Date();
+            try {
+                date = (Date) formatter.parse(dateFin);
+            } catch (ParseException e) {
+                Logger logger;
+                logger = Logger.getLogger("FSNet");
+                logger.info(e.getMessage());
+            }
 
-		if (titre.isEmpty() || contenu.isEmpty() || dateFin.isEmpty()) {
+            Annonce nouvelleInfo;
+            nouvelleInfo = new Annonce(titre, aujourdhui, contenu, date, "Y",
+                    entite);
+            entM.getTransaction().begin();
+            entM.persist(nouvelleInfo);
+            entM.getTransaction().commit();
 
-			request.setAttribute("titre", titre);
-			request.setAttribute("contenu", contenu);
-			request.setAttribute("datefin", dateFin);
-			RequestDispatcher dispatch;
-			dispatch = getServletContext().getRequestDispatcher(
-					"/publierannonce.jsp");
-			dispatch.forward(request, response);
+            request.setAttribute("info",
+                    "<p id=\"info\">Votre annonce est bien validée.</p>");
 
-		} else {
+            RequestDispatcher dispatch;
+            dispatch = getServletContext().getRequestDispatcher("/annonces.jsp");
+            dispatch.forward(request, response);
 
-			Date date = null;
-			Date aujourdhui;
-			aujourdhui = new Date();
-			try {
-				date = (Date) formatter.parse(dateFin);
-			} catch (ParseException e) {
-				Logger logger;
-				logger = Logger.getLogger("FSNet");
-				logger.info(e.getMessage());
-			}
-
-			Annonce nouvelleInfo;
-			nouvelleInfo = new Annonce(titre, aujourdhui, contenu, date, "Y",
-					entite);
-			entM.getTransaction().begin();
-			entM.persist(nouvelleInfo);
-			entM.getTransaction().commit();
-
-			request.setAttribute("info",
-					"<p id=\"info\">Votre annonce est bien validée.</p>");
-
-			RequestDispatcher dispatch;
-			dispatch = getServletContext()
-					.getRequestDispatcher("/annonces.jsp");
-			dispatch.forward(request, response);
-
-		}
-	}
+        }
+    }
 }
