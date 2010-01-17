@@ -1,4 +1,3 @@
-
 package fr.univartois.ili.fsnet.webservice.jaxws;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -10,6 +9,4 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "getNumberOfNewAnnonce", namespace = "http://webservice.fsnet.ili.univartois.fr/")
 public class GetNumberOfNewAnnonce {
-
-
 }

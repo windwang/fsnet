@@ -1,4 +1,3 @@
-
 package fr.univartois.ili.fsnet.webservice.jaxws;
 
 import javax.xml.bind.annotation.XmlAccessType;
@@ -32,5 +31,4 @@ public class GetNumberOfNewEventsResponse {
     public void setNbevenement(int nbevenement) {
         this.nbevenement = nbevenement;
     }
-
 }
