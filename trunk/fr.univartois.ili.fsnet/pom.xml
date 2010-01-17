@@ -27,10 +27,22 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
+    <licenses>
+        <license>
+            <name>LGPL</name>
+            <url>http://www.gnu.org/licenses/lgpl.html</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
+
     <issueManagement>
         <system>Google Code</system>
         <url>http://code.google.com/p/fsnet/issues/list</url>
     </issueManagement>
+    <ciManagement>
+        <system>Hudson</system>
+        <url>http://fsnet-dev.opsas.net/hudson/</url>
+    </ciManagement>
 
     <developers>
         <developer>
@@ -49,6 +61,7 @@
             <name>Matthieu Proucelle</name>
             <email>proucelle.matthieu@gmail.com</email>
             <roles>
+                <role>Integrator</role>
                 <role>Architect</role>
                 <role>Owner</role>
             </roles>
@@ -67,11 +80,103 @@
             <timezone>+1</timezone>
         </developer>
         <developer>
-            <id>francois.blarel</id>
-            <name>Francois Blarel</name>
-            <email>francois.blarel@gmail.com</email>
+            <id>christ.hennion</id>
+            <name>Christophe Henion</name>
+            <email>christ.hennion@gmail.com</email>
             <roles>
-                <role>Owner</role>
+                <role>Committer</role>
+            </roles>
+            <organization>http://www.sqltechnologies.com/</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>Grynch62</id>
+            <name>Aurélien Grioche</name>
+            <email>Grynch62@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>orel.legrand</id>
+            <name>Aurélien Legrand</name>
+            <email>orel.legrand@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>mehdi.benzaghar</id>
+            <name>Mehdi Benzaghar</name>
+            <email>mehdi.benzaghar@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>alexandre.lohez</id>
+            <name>Alexandre Lohez</name>
+            <email>alexandre.lohez@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>mehdi.benabdessalem</id>
+            <name>Mehdi Benabdessalem</name>
+            <email>mehdi.benabdessalem@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>supergeoffrey</id>
+            <name>Geoffrey Boulay</name>
+            <email>supergeoffrey@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+
+        <developer>
+            <id>aud4rue</id>
+            <name>Audrey Ruellan</name>
+            <email>aud4rue@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+        <developer>
+            <id>cerelia12</id>
+            <name>Cerelia Besnainou </name>
+            <email>cerelia12@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
+
+        <developer>
+            <id>micgamers</id>
+            <name>Mickael Watrelot</name>
+            <email>micgamers@gmail.com</email>
+            <roles>
+                <role>Committer</role>
             </roles>
             <organization>univ-artois.fr</organization>
             <timezone>+1</timezone>
