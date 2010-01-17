@@ -10,7 +10,7 @@ import java.util.prefs.Preferences;
  * Give informations about the configuration.
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class Options {
+public final class Options {
 
     public static enum LANG {
 
@@ -27,7 +27,7 @@ public class Options {
      *
      * @return the value of login
      */
-    public static final String getLogin() {
+    public static String getLogin() {
         return login;
     }
 
@@ -36,7 +36,7 @@ public class Options {
      *
      * @param login new value of login
      */
-    public static final void setLogin(String login) {
+    public static void setLogin(String login) {
         Options.login = login;
     }
     private static String password;
@@ -46,7 +46,7 @@ public class Options {
      *
      * @return the value of password
      */
-    public static final String getPassword() {
+    public static String getPassword() {
         return password;
     }
 
@@ -55,7 +55,7 @@ public class Options {
      *
      * @param password new value of password
      */
-    public static final void setPassword(String password) {
+    public static void setPassword(String password) {
         Options.password = password;
     }
     private static String url;
@@ -65,7 +65,7 @@ public class Options {
      *
      * @return the value of url
      */
-    public static final String getUrl() {
+    public static String getUrl() {
         return url;
     }
 
@@ -74,7 +74,7 @@ public class Options {
      *
      * @param url new value of url
      */
-    public static final void setUrl(String url) {
+    public static void setUrl(String url) {
         Options.url = url;
     }
     private static LANG language;
@@ -84,7 +84,7 @@ public class Options {
      *
      * @return the value of language
      */
-    public static final LANG getLanguage() {
+    public static LANG getLanguage() {
         return language;
     }
 
@@ -92,7 +92,7 @@ public class Options {
      *
      * @return the current locale
      */
-    public static final Locale getLocale() {
+    public static Locale getLocale() {
         switch (language) {
             case English:
                 return new Locale("en");
@@ -107,11 +107,11 @@ public class Options {
      *
      * @param language new value of language
      */
-    public static final void setLanguage(LANG language) {
+    public static void setLanguage(LANG language) {
         Options.language = language;
     }
 
-    public static final void loadOptions() {
+    public static void loadOptions() {
         Preferences pref = Preferences.userNodeForPackage(Options.class);
         // TODO validate
         saved = pref.getBoolean("saved", false);
@@ -125,7 +125,10 @@ public class Options {
         }
     }
 
-    public static final void saveOptions() {
+    /**
+     * Save options to filesystem
+     */
+    public static void saveOptions() {
         try {
             // TODO validate
             Preferences pref = Preferences.userNodeForPackage(Options.class);
@@ -141,11 +144,18 @@ public class Options {
         }
     }
 
-    public static final boolean isConfigured() {
+    /**
+     *
+     * @return true if already configured, false otherwise
+     */
+    public static boolean isConfigured() {
         return saved;
     }
 
-    public static final void clearOptions() {
+    /**
+     * Clear all option for the application
+     */
+    public static void clearOptions() {
         Preferences pref = Preferences.userNodeForPackage(Options.class);
         try {
             pref.clear();

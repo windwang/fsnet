@@ -7,7 +7,6 @@ import java.awt.Image;
 import java.awt.SystemTray;
 import java.io.IOException;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -25,33 +24,23 @@ import javax.xml.rpc.ServiceException;
  */
 public class TrayLauncher {
 
-    public static ResourceBundle trayi18n;
+    private static ResourceBundle trayi18n;
     private static Logger logger = Logger.getLogger(TrayLauncher.class.getName());
     private static NouvellesInformations nvs;
     private static FSNetTray c;
+    private static final long MINUTES_LAG = 2;
 
-    /**
-     *
-     * @param path
-     * @return the image to display in the tray
-     */
-    private static final Image getTrayImage(String path) {
-        URL imageURL = FSNetTray.class.getResource(path);
-        if (imageURL == null) {
-            logger.log(Level.SEVERE, "Resource not found: " + path);
-            return null;
-        } else {
-            return new ImageIcon(imageURL).getImage();
-        }
+    private TrayLauncher() {
     }
 
-    public static void main(String[] args) throws UnknownHostException, IOException, ServiceException {
+    public static void main(String[] args) throws IOException, ServiceException {
         if (!SystemTray.isSupported()) {
             JOptionPane.showMessageDialog(null, "SystemTray is not supported");
         } else {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
             } catch (Exception e) {
+                logger.log(Level.INFO, "Unable to change L&F");
             }
             Options.loadOptions();
             if (!Options.isConfigured()) {
@@ -60,6 +49,21 @@ public class TrayLauncher {
             NouvellesServiceLocator nv = new NouvellesServiceLocator();
             nvs = nv.getNouvellesInformationsPort();
             reload();
+        }
+    }
+
+    /**
+     *
+     * @param path
+     * @return the image to display in the tray
+     */
+    private static Image getTrayImage(String path) {
+        URL imageURL = FSNetTray.class.getResource(path);
+        if (imageURL == null) {
+            logger.log(Level.SEVERE, "Resource not found: " + path);
+            return null;
+        } else {
+            return new ImageIcon(imageURL).getImage();
         }
     }
 
@@ -82,7 +86,7 @@ public class TrayLauncher {
                         trayi18n = ResourceBundle.getBundle("ressources/Trayi18n", Options.getLocale());
                         c = new FSNetTray(icon, nvs);
                         SystemTray.getSystemTray().add(c.getTrayIcon());
-                        c.startNotifications(10);
+                        c.startNotifications(MINUTES_LAG);
 
                     } catch (AWTException ex) {
                         logger.log(Level.SEVERE, null, ex);
@@ -90,5 +94,9 @@ public class TrayLauncher {
                 }
             }
         });
+    }
+
+    public static final ResourceBundle getBundle() {
+        return trayi18n;
     }
 }
