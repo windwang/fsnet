@@ -17,96 +17,92 @@ import javax.persistence.TemporalType;
  * The class RapportActivites
  * 
  */
-
 @Entity
 public class RapportActivites {
 
-	/**
-	 * The identifier.
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
+    /**
+     * The identifier.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+    /**
+     * The list of interactions that the activities report contains.
+     */
+    @OneToMany(mappedBy = "rapport")
+    private List<Interaction> lesInteractions;
+    /**
+     * The date of the activities report.
+     */
+    @Temporal(TemporalType.DATE)
+    @Column(nullable = false)
+    private Date dateRapport;
 
-	/**
-	 * The list of interactions that the activities report contains.
-	 */
-	@OneToMany(mappedBy = "rapport")
-	private List<Interaction> lesInteractions;
+    /**
+     * Constructor of the class RapportActivites.
+     */
+    public RapportActivites() {
+    }
 
-	/**
-	 * The date of the activities report.
-	 */
-	@Temporal(TemporalType.DATE)
-	@Column(nullable=false)
-	private Date dateRapport;
+    /**
+     * Constructor of the class RapportActivites.
+     *
+     * @param lesInteractions
+     * @param dateRapport
+     */
+    public RapportActivites(List<Interaction> lesInteractions, Date dateRapport) {
+        this.lesInteractions = lesInteractions;
+        this.dateRapport = dateRapport;
+    }
 
-	/**
-	 * Constructor of the class RapportActivites.
-	 */
-	public RapportActivites() {
-	}
+    /**
+     *
+     * @return the identifier.
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * Constructor of the class RapportActivites.
-	 * 
-	 * @param lesInteractions
-	 * @param dateRapport
-	 */
-	public RapportActivites(List<Interaction> lesInteractions, Date dateRapport) {
-		this.lesInteractions = lesInteractions;
-		this.dateRapport = dateRapport;
-	}
+    /**
+     * Gives an identifier to the activities report.
+     *
+     * @param id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * 
-	 * @return the identifier.
-	 */
-	public int getId() {
-		return id;
-	}
+    /**
+     *
+     * @return the list of interactions that the activities report contains.
+     */
+    public List<Interaction> getLesInteractions() {
+        return lesInteractions;
+    }
 
-	/**
-	 * Gives an identifier to the activities report.
-	 * 
-	 * @param id
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * Give a list of interactions to the activities report.
+     *
+     * @param lesInteractions
+     */
+    public void setLesInteractions(List<Interaction> lesInteractions) {
+        this.lesInteractions = lesInteractions;
+    }
 
-	/**
-	 * 
-	 * @return the list of interactions that the activities report contains.
-	 */
-	public List<Interaction> getLesInteractions() {
-		return lesInteractions;
-	}
+    /**
+     *
+     * @return the date of the activities report.
+     */
+    public Date getDateRapport() {
+        return dateRapport;
+    }
 
-	/**
-	 * Give a list of interactions to the activities report.
-	 * 
-	 * @param lesInteractions
-	 */
-	public void setLesInteractions(List<Interaction> lesInteractions) {
-		this.lesInteractions = lesInteractions;
-	}
-
-	/**
-	 * 
-	 * @return the date of the activities report.
-	 */
-	public Date getDateRapport() {
-		return dateRapport;
-	}
-
-	/**
-	 * Gives a date to the activities report.
-	 * 
-	 * @param dateRapport
-	 */
-	public void setDateRapport(Date dateRapport) {
-		this.dateRapport = dateRapport;
-	}
-
+    /**
+     * Gives a date to the activities report.
+     *
+     * @param dateRapport
+     */
+    public void setDateRapport(Date dateRapport) {
+        this.dateRapport = dateRapport;
+    }
 }

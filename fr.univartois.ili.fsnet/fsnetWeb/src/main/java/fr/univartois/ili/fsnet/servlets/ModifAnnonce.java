@@ -25,93 +25,87 @@ import fr.univartois.ili.fsnet.entities.Annonce;
  */
 public class ModifAnnonce extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private static final String DATABASE_NAME = "fsnetjpa";
+    private transient EntityManagerFactory factory;
+    private transient EntityManager entM;
+    private static final Logger logger = Logger.getLogger("FSNet");
 
-	private static final String DATABASE_NAME = "fsnetjpa";
+    @Override
+    public void init() throws ServletException {
+        super.init();
+        factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        entM = factory.createEntityManager();
+    }
 
-	private transient EntityManagerFactory factory;
+    /**
+     * @see Servlet#destroy()
+     */
+    public void destroy() {
+        if (entM != null) {
+            entM.close();
+        }
+        if (factory != null) {
+            factory.close();
+        }
+    }
 
-	private transient EntityManager entM;
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
 
-	private static final Logger logger = Logger.getLogger("FSNet");
+        // String date = request.getParameter("dateDebut");
+        Annonce annonce1;
+        annonce1 = (Annonce) getServletContext().getAttribute("annonce");
 
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-		entM = factory.createEntityManager();
-	}
+        EntityManagerFactory factory;
+        factory = Persistence.createEntityManagerFactory("fsnetjpa");
+        EntityManager entM;
+        entM = factory.createEntityManager();
+        Annonce manif;
+        manif = entM.getReference(Annonce.class, annonce1.getId());
 
-	/**
-	 * @see Servlet#destroy()
-	 */
-	public void destroy() {
-		if (entM != null) {
-			entM.close();
-		}
-		if (factory != null) {
-			factory.close();
-		}
-	}
+        String titre;
+        titre = request.getParameter("titreAnnonce");
+        String contenu;
+        contenu = request.getParameter("contenuAnnonce");
+        String dateFin;
+        dateFin = request.getParameter("dateFinAnnonce");
+        Date date = new Date();
+        DateFormat formatter;
+        formatter = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
+        try {
+            date = (Date) formatter.parse(dateFin);
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
+        } catch (ParseException e) {
+            logger.info(e.getMessage());
+        }
+        manif.setDateFinAnnnonce(date);
+        manif.setContenu(contenu);
+        manif.setNom(titre);
 
-		// String date = request.getParameter("dateDebut");
-		Annonce annonce1;
-		annonce1 = (Annonce) getServletContext().getAttribute("annonce");
+        entM.getTransaction().begin();
+        entM.merge(manif);
+        entM.getTransaction().commit();
+        request.setAttribute("info",
+                "<p id=\"info\">La modification d'une annonce est effectuée.</p>");
 
-		EntityManagerFactory factory;
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		EntityManager entM;
-		entM = factory.createEntityManager();
-		Annonce manif;
-		manif = entM.getReference(Annonce.class, annonce1.getId());
+        RequestDispatcher dispa;
+        dispa = getServletContext().getRequestDispatcher("/annonces.jsp");
+        dispa.forward(request, response);
+    }
 
-		String titre;
-		titre = request.getParameter("titreAnnonce");
-		String contenu;
-		contenu = request.getParameter("contenuAnnonce");
-		String dateFin;
-		dateFin = request.getParameter("dateFinAnnonce");
-		Date date = new Date();
-		DateFormat formatter;
-		formatter = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
-		try {
-			date = (Date) formatter.parse(dateFin);
-
-		} catch (ParseException e) {
-			logger.info(e.getMessage());
-		}
-		manif.setDateFinAnnnonce(date);
-		manif.setContenu(contenu);
-		manif.setNom(titre);
-
-		entM.getTransaction().begin();
-		entM.merge(manif);
-		entM.getTransaction().commit();
-		request
-				.setAttribute("info",
-						"<p id=\"info\">La modification d'une annonce est effectuée.</p>");
-
-		RequestDispatcher dispa;
-		dispa = getServletContext().getRequestDispatcher("/annonces.jsp");
-		dispa.forward(request, response);
-	}
-
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		super.doPost(request, response);
-	}
-
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        super.doPost(request, response);
+    }
 }

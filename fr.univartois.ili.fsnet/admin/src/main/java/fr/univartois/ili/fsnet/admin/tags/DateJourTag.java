@@ -9,28 +9,26 @@ import fr.univartois.ili.fsnet.admin.tags.utils.AbstractSingleLoopTag;
 
 public class DateJourTag extends AbstractSingleLoopTag {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    private String var;
 
-	private String var;
+    @Override
+    public void retrieveInfos(Map<String, Object> infos) {
+        Date date = new Date();
+        Calendar calendar = GregorianCalendar.getInstance();
+        calendar.setTime(date);
+        int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
+        int mois = calendar.get(GregorianCalendar.MONTH) + 1;
+        int annee = calendar.get(GregorianCalendar.YEAR);
+        String dateJour = jour + "/" + mois + "/" + annee;
+        infos.put(var, dateJour);
+    }
 
-	@Override
-	public void retrieveInfos(Map<String, Object> infos) {
-		Date date = new Date();
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.setTime(date);
-		int jour = calendar.get(GregorianCalendar.DAY_OF_MONTH);
-		int mois = calendar.get(GregorianCalendar.MONTH) + 1;
-		int annee = calendar.get(GregorianCalendar.YEAR);
-		String dateJour = jour + "/" + mois + "/" + annee;
-		infos.put(var, dateJour);
-	}
+    public String getVar() {
+        return var;
+    }
 
-	public String getVar() {
-		return var;
-	}
-
-	public void setVar(String var) {
-		this.var = var;
-	}
-	
+    public void setVar(String var) {
+        this.var = var;
+    }
 }

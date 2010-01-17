@@ -16,39 +16,40 @@ import javax.servlet.http.HttpSession;
  * @author lionel.desruelles
  */
 public class LogoutUser extends HttpServlet {
-	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see Servlet#destroy()
-	 */
-	public void destroy() {}
+    private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
+    /**
+     * @see Servlet#destroy()
+     */
+    public void destroy() {
+    }
 
-		HttpSession session;
-		session = request.getSession();
-		session.invalidate();
+    /**
+     * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doGet(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
 
-		RequestDispatcher dis;
-		dis = getServletContext().getRequestDispatcher("/login.jsp");
-		dis.forward(request, response);
+        HttpSession session;
+        session = request.getSession();
+        session.invalidate();
 
-	}
+        RequestDispatcher dis;
+        dis = getServletContext().getRequestDispatcher("/login.jsp");
+        dis.forward(request, response);
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doPost(final HttpServletRequest request,
-			final HttpServletResponse response) throws ServletException,
-			IOException {
-		doGet(request, response);
-	}
+    }
 
+    /**
+     * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+     *      response)
+     */
+    protected void doPost(final HttpServletRequest request,
+            final HttpServletResponse response) throws ServletException,
+            IOException {
+        doGet(request, response);
+    }
 }

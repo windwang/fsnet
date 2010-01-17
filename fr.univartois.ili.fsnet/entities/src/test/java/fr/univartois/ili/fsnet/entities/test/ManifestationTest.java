@@ -16,33 +16,32 @@ import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class ManifestationTest {
 
-	private EntityManager em;
+    private EntityManager em;
 
-	@Before
-	public void setUp() {
-		em = TestEntityManagerProvider.getInstance().getEntityManager();
-	}
+    @Before
+    public void setUp() {
+        em = TestEntityManagerProvider.getInstance().getEntityManager();
+    }
 
-	@After
-	public void tearDown() {
-	}
+    @After
+    public void tearDown() {
+    }
 
-	@Test
-	public void testPersist() throws ParseException {
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-		Date date = (Date) formatter.parse("29/01/02");
-		Manifestation manif = new Manifestation(date);
-		em.getTransaction().begin();
-		em.persist(manif);
-		em.getTransaction().commit();
-	}
-	
-	@Test(expected=javax.persistence.RollbackException.class)
-	public void testManifestationDateNotNull() {
-		Manifestation manif = new Manifestation();
-		em.getTransaction().begin();
-		em.persist(manif);
-		em.getTransaction().commit();
-	}
-	
+    @Test
+    public void testPersist() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        Date date = (Date) formatter.parse("29/01/02");
+        Manifestation manif = new Manifestation(date);
+        em.getTransaction().begin();
+        em.persist(manif);
+        em.getTransaction().commit();
+    }
+
+    @Test(expected = javax.persistence.RollbackException.class)
+    public void testManifestationDateNotNull() {
+        Manifestation manif = new Manifestation();
+        em.getTransaction().begin();
+        em.persist(manif);
+        em.getTransaction().commit();
+    }
 }

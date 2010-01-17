@@ -9,19 +9,19 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
+public class ActionSearch extends Action {
 
-public class ActionSearch extends Action{
-	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse arg3) throws Exception {
-		DynaActionForm dynaform = (DynaActionForm)form;
-		
-		if(req.getParameter("selectRecherche") != null){
-			req.getSession().setAttribute("selectRecherche", req.getParameter("selectRecherche"));
-		}
-		
-		req.getSession().setAttribute("searchText", dynaform.get("searchtext"));
-		req.getSession().setAttribute("redirection", req.getParameter("redirection"));
-		
-        return mapping.findForward("continue"); 
-	}
+    @Override
+    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse arg3) throws Exception {
+        DynaActionForm dynaform = (DynaActionForm) form;
+
+        if (req.getParameter("selectRecherche") != null) {
+            req.getSession().setAttribute("selectRecherche", req.getParameter("selectRecherche"));
+        }
+
+        req.getSession().setAttribute("searchText", dynaform.get("searchtext"));
+        req.getSession().setAttribute("redirection", req.getParameter("redirection"));
+
+        return mapping.findForward("continue");
+    }
 }

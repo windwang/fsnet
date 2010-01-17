@@ -15,15 +15,17 @@ import javax.servlet.ServletResponse;
  * 
  **/
 public class CharsetFilter implements Filter {
-	public void doFilter(final ServletRequest request,
-			final ServletResponse response, final FilterChain chain)
-			throws IOException, ServletException {
-		request.setCharacterEncoding("UTF-8");
-		chain.doFilter(request, response);
-	}
 
-	public void destroy() {}
+    public void doFilter(final ServletRequest request,
+            final ServletResponse response, final FilterChain chain)
+            throws IOException, ServletException {
+        request.setCharacterEncoding("UTF-8");
+        chain.doFilter(request, response);
+    }
 
-	public void init(final FilterConfig arg0) throws ServletException {}
+    public void destroy() {
+    }
 
+    public void init(final FilterConfig arg0) throws ServletException {
+    }
 }

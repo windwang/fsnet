@@ -18,27 +18,26 @@ import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class MessageTest {
 
-	private EntityManager em;
+    private EntityManager em;
 
-	@Before
-	public void setUp() {
-		em = TestEntityManagerProvider.getInstance().getEntityManager();
-	}
+    @Before
+    public void setUp() {
+        em = TestEntityManagerProvider.getInstance().getEntityManager();
+    }
 
-	@After
-	public void tearDown() {
+    @After
+    public void tearDown() {
+    }
 
-	}
-
-	@Test
-	public void testPersist() throws ParseException {
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-		Date date = (Date) formatter.parse("29/01/02");
-		Message message = new Message("mon message", date, null, null);
-		em.getTransaction().begin();
-		em.persist(message);
-		em.getTransaction().commit();
-		int monId = message.getId();
-		assertNotNull("id not null", monId);
-	}
+    @Test
+    public void testPersist() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        Date date = (Date) formatter.parse("29/01/02");
+        Message message = new Message("mon message", date, null, null);
+        em.getTransaction().begin();
+        em.persist(message);
+        em.getTransaction().commit();
+        int monId = message.getId();
+        assertNotNull("id not null", monId);
+    }
 }

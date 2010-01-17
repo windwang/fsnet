@@ -96,7 +96,7 @@ public class InteretTag extends TagSupport {
         lesI = query.getResultList();
         return lesI;
     }
-    
+
     public void setVar(final String var) {
         this.var = var;
     }
@@ -104,5 +104,4 @@ public class InteretTag extends TagSupport {
     public void setParametre(final String parametre) {
         this.parametre = parametre;
     }
-
 }

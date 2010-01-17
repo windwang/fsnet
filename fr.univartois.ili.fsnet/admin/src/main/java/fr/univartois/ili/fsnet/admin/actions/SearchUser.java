@@ -16,7 +16,7 @@ public class SearchUser extends Action {
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        
+
         // TODO traitement dans l'action, la tag est tout pourrit
         DynaActionForm dynaform = (DynaActionForm) form;
         String searchtext = (String) dynaform.get("searchtext");

@@ -18,27 +18,26 @@ import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class AnnonceTest {
 
-	private EntityManager em;
+    private EntityManager em;
 
-	@Before
-	public void setUp() {
-		em = TestEntityManagerProvider.getInstance().getEntityManager();
-	}
+    @Before
+    public void setUp() {
+        em = TestEntityManagerProvider.getInstance().getEntityManager();
+    }
 
-	@After
-	public void tearDown() {
-	}
+    @After
+    public void tearDown() {
+    }
 
-	@Test
-	public void testPersist() throws ParseException {
-		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-		Date date = (Date) formatter.parse("29/01/02");
-		Annonce annonce = new Annonce(date);
-		em.getTransaction().begin();
-		em.persist(annonce);
-		em.getTransaction().commit();
-		int monId = annonce.getId();
-		assertNotNull("id not null", monId);
-	}
-
+    @Test
+    public void testPersist() throws ParseException {
+        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+        Date date = (Date) formatter.parse("29/01/02");
+        Annonce annonce = new Annonce(date);
+        em.getTransaction().begin();
+        em.persist(annonce);
+        em.getTransaction().commit();
+        int monId = annonce.getId();
+        assertNotNull("id not null", monId);
+    }
 }

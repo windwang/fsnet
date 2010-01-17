@@ -13,25 +13,24 @@ import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class InteractionTest {
 
-	private EntityManager em;
+    private EntityManager em;
 
-	@Before
-	public void setUp() {
-		em = TestEntityManagerProvider.getInstance().getEntityManager();
-	}
+    @Before
+    public void setUp() {
+        em = TestEntityManagerProvider.getInstance().getEntityManager();
+    }
 
-	@After
-	public void tearDown() {
+    @After
+    public void tearDown() {
+    }
 
-	}
-
-	@Test
-	public void testPersist() {
-		Interaction inter = new Interaction(true, null, null, null);
-		em.getTransaction().begin();
-		em.persist(inter);
-		em.getTransaction().commit();
-		int monId = inter.getId();
-		assertNotNull("id not null", monId);
-	}
+    @Test
+    public void testPersist() {
+        Interaction inter = new Interaction(true, null, null, null);
+        em.getTransaction().begin();
+        em.persist(inter);
+        em.getTransaction().commit();
+        int monId = inter.getId();
+        assertNotNull("id not null", monId);
+    }
 }

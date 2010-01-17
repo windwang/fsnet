@@ -21,35 +21,34 @@ import org.apache.struts.action.ActionMessage;
  */
 public class RemoveInterest extends Action {
 
-	private static final EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
-	private EntityManager em;
-	private static final String FIND_BY_ID = "SELECT i FROM Interet i WHERE i.id =?1";
+    private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+    private EntityManager em;
+    private static final String FIND_BY_ID = "SELECT i FROM Interet i WHERE i.id =?1";
 
-	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		String[] interests = request.getParameterValues("selectedInterests");
-		if (interests != null) {
-			em = factory.createEntityManager();
-			em.getTransaction().begin();
-			try {
-				for (String s : interests) {
-					Query query = em.createQuery(FIND_BY_ID);
-					query.setParameter(1, Integer.parseInt(s));
-					em.remove(query.getSingleResult());
-				}
-				em.getTransaction().commit();
-			} catch (Exception e) {
-				ActionErrors actionErrors = new ActionErrors();
-				ActionMessage msg = new ActionMessage("errors.removeInterest");
-				actionErrors.add("errors.removeInterest", msg);
-				saveErrors(request, actionErrors);
-			}
-			em.close();
-		}
+    @Override
+    public ActionForward execute(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws Exception {
+        String[] interests = request.getParameterValues("selectedInterests");
+        if (interests != null) {
+            em = factory.createEntityManager();
+            em.getTransaction().begin();
+            try {
+                for (String s : interests) {
+                    Query query = em.createQuery(FIND_BY_ID);
+                    query.setParameter(1, Integer.parseInt(s));
+                    em.remove(query.getSingleResult());
+                }
+                em.getTransaction().commit();
+            } catch (Exception e) {
+                ActionErrors actionErrors = new ActionErrors();
+                ActionMessage msg = new ActionMessage("errors.removeInterest");
+                actionErrors.add("errors.removeInterest", msg);
+                saveErrors(request, actionErrors);
+            }
+            em.close();
+        }
 
-		return mapping.getInputForward();
-	}
+        return mapping.getInputForward();
+    }
 }
