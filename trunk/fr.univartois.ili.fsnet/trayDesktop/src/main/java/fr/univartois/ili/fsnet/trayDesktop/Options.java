@@ -140,7 +140,7 @@ public final class Options {
             pref.put("language", language.toString());
             pref.flush();
         } catch (BackingStoreException ex) {
-            Logger.getLogger(Options.class.getName()).log(Level.SEVERE, "Impossible de flusher les preferences", ex);
+            Logger.getLogger(Options.class.getName()).log(Level.SEVERE, "Unable to flush preferences", ex);
         }
     }
 
