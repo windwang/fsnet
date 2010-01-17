@@ -55,18 +55,12 @@
         </action>
         <action path="/addinterest"
                 type="fr.univartois.ili.fsnet.admin.actions.ActionInterest" name="TheFormInterest"
-                input="/AddInterest.jsp" validate="true" scope="request">
-            <forward name="continue" path="/AddInterest.jsp" />
+                input="/Interests.jsp" validate="true" scope="request">
+            <forward name="continue" path="/Interests.jsp" />
         </action>
-        <action path="/RemoveInterestFromSearchInterest"
+        <action path="/RemoveInterest"
         		name="RemoveInterestForm"
-        		input="/SearchInterest.jsp"
-                type="fr.univartois.ili.fsnet.admin.actions.RemoveInterest"
-                scope="request">
-        </action>
-        <action path="/RemoveInterestFromAddInterest"
-               	name="RemoveInterestForm"
-        		input="/AddInterest.jsp"
+        		input="/Interests.jsp"
                 type="fr.univartois.ili.fsnet.admin.actions.RemoveInterest"
                 scope="request">
         </action>
@@ -77,8 +71,8 @@
         </action>
         <action path="/searchInterest"
                 type="fr.univartois.ili.fsnet.admin.actions.SearchInterest" name="TheFormSearch"
-                input="/SearchInterest.jsp" validate="true" scope="request">
-            <forward name="success" path="/SearchInterest.jsp" />
+                input="/Interests.jsp" validate="true" scope="request">
+            <forward name="success" path="/Interests.jsp" />
         </action>
         <action path="/afficherOptions"
                 type="fr.univartois.ili.fsnet.admin.actions.ActionDisplayOption"
