@@ -80,16 +80,6 @@
             <timezone>+1</timezone>
         </developer>
         <developer>
-            <id>christ.hennion</id>
-            <name>Christophe Henion</name>
-            <email>christ.hennion@gmail.com</email>
-            <roles>
-                <role>Committer</role>
-            </roles>
-            <organization>http://www.sqltechnologies.com/</organization>
-            <timezone>+1</timezone>
-        </developer>
-        <developer>
             <id>Grynch62</id>
             <name>Aurélien Grioche</name>
             <email>Grynch62@gmail.com</email>
