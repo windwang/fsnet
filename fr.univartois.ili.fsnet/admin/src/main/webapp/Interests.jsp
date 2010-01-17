@@ -9,7 +9,6 @@
         <title>FSNet</title>
         <link rel="icon" type="image/png" href="images/favicon.ico" />
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-        <meta http-equiv="refresh" content="300;SearchInterest.jsp?interet=current&amp;recherche=hide"/>
         <meta name="author" content="Luka Cvrk - www.solucija.com" />
         <meta name="description" content="Site Description" />
         <meta name="keywords" content="site, keywords" />
@@ -24,7 +23,7 @@
 
             <div id="left">
                 <h2>
-                    <a href="SearchInterest.jsp?interet=current&amp;recherche=hide"
+                    <a href="Interests.jsp?interet=current&amp;recherche=hide"
                        title="Recherche d'intérêts">Recherche d'int&eacute;r&ecirc;ts </a>
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
@@ -55,7 +54,7 @@
                     <table>
                         <tr>
                             <td>
-                                <input type="hidden" name="redirection" value="SearchInterest.jsp"/>
+                                <input type="hidden" name="redirection" value="Interests.jsp"/>
                                 <table id="listToDeploy">
                                     <tr class="champ">
                                         <th>Supprimer
