@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+"http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+    <!-- Definition of the default Layout, used for each page on the site. -->
+    <definition name=".defaultLayout" path="/tiles/layouts/DefaultLayout.jsp">
+        <put name="title" type="String"/>
+        <put name="header" value="/tiles/header.jsp" />
+        <put name="sidebarLeft" value="/tiles/sidebarLeft.jsp" />
+        <put name="sidebarRight" value="/tiles/sidebarRight.jsp" />
+        <put name="menu"   value="/tiles/menu.jsp" />
+        <put name="body-content"   value="" />
+        <put name="footer" value="/tiles/footer.jsp" />
+    </definition>
+
+
+    <!-- Events -->
+    <definition name="Events" extends=".defaultLayout">
+        <put name="title" value="Events"/>
+        <put name="body-content" value="/content/Events.jsp" />
+    </definition>
+
+</tiles-definitions>
