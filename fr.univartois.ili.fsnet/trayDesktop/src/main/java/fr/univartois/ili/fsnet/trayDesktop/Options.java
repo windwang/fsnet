@@ -87,6 +87,25 @@ public final class Options {
     public static LANG getLanguage() {
         return language;
     }
+    private static int lag;
+
+    /**
+     * Get the value of lag
+     *
+     * @return the value of lag
+     */
+    public static int getLag() {
+        return lag;
+    }
+
+    /**
+     * Set the value of lag
+     *
+     * @param lag new value of lag
+     */
+    public static void setLag(int lag) {
+        Options.lag = lag;
+    }
 
     /**
      *
@@ -118,6 +137,7 @@ public final class Options {
         login = pref.get("login", "");
         password = pref.get("password", "");
         url = pref.get("url", "");
+        lag = pref.getInt("lag", 10);
         try {
             language = LANG.valueOf(pref.get("language", "English"));
         } catch (IllegalArgumentException e) {
@@ -138,6 +158,7 @@ public final class Options {
             pref.put("password", password);
             pref.put("url", url);
             pref.put("language", language.toString());
+            pref.putInt("lag", lag);
             pref.flush();
         } catch (BackingStoreException ex) {
             Logger.getLogger(Options.class.getName()).log(Level.SEVERE, "Unable to flush preferences", ex);

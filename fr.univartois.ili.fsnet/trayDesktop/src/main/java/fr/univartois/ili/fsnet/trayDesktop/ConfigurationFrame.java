@@ -1,19 +1,3 @@
-/*
- *  Copyright (C) 2010 Matthieu Proucelle <matthieu.proucelle at gmail.com>
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- * 
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package fr.univartois.ili.fsnet.trayDesktop;
 
 import fr.univartois.ili.fsnet.webservice.NouvellesInformations;
@@ -21,13 +5,24 @@ import fr.univartois.ili.fsnet.webservice.NouvellesService;
 import fr.univartois.ili.fsnet.webservice.NouvellesServiceLocator;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ResourceBundle;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 /**
  * Create the configuration frame
@@ -38,6 +33,7 @@ public class ConfigurationFrame {
     private final JFrame frame;
     private final ConfigurationPanel cpanel;
     private final ResourceBundle trayi18n = TrayLauncher.getBundle();
+    private final JLabel lab;
 
     public ConfigurationFrame() {
         frame = new JFrame(trayi18n.getString("CONFIGURATION"));
@@ -46,12 +42,132 @@ public class ConfigurationFrame {
         panel.add(cpanel.getPanel(), BorderLayout.CENTER);
 
         JPanel validatePanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
+        ImageIcon loading = TrayLauncher.getImageIcon("/ressources/loading.gif");
+        if (loading != null) {
+            lab = new JLabel(loading);
+        } else {
+            lab = new JLabel();
+        }
+        lab.setVisible(false);
+        validatePanel.add(lab);
         validatePanel.add(getTestButton());
-        validatePanel.add(getCancelButton());
         validatePanel.add(getValidateButton());
+        validatePanel.add(getCancelButton());
         panel.add(validatePanel, BorderLayout.SOUTH);
 
         frame.setContentPane(panel);
+    }
+
+    /**
+     * Test the configuration with threads and timeout
+     */
+    private void tryValidate() {
+        lab.setVisible(true);
+        frame.setEnabled(false);
+        new Thread() {
+
+            @Override
+            public void run() {
+                //TODO Refactor please
+                ExecutorService executor = Executors.newSingleThreadExecutor();
+                Future<Boolean> future = executor.submit(new Callable<Boolean>() {
+
+                    public Boolean call() {
+                        return validateConfig();
+                    }
+                });
+                boolean valid = false;
+                try {
+                    valid = future.get(5, TimeUnit.SECONDS);
+                } catch (Exception ex) {
+                    Logger.getLogger(ConfigurationFrame.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                if (valid) {
+                    configurationSuccess();
+                } else {
+                    configurationFailed();
+                }
+            }
+        }.start();
+    }
+
+    /**
+     * Test the current configuration
+     * @return true if valid, false otherwise
+     */
+    private boolean validateConfig() {
+        // TODO trouver une meilleur solution
+        // il ne faudrait pas modifier Options, mais le webservice m'oblige a le faire...
+        try {
+            String url = cpanel.getUrl();
+            String oldUrl = Options.getUrl();
+            Options.setUrl(url);
+            NouvellesService nv = new NouvellesServiceLocator();
+            NouvellesInformations nvs = nv.getNouvellesInformationsPort();
+            nvs.getNumberOfNewAnnonce();
+            Options.setUrl(oldUrl);
+            return true;
+        } catch (Exception ex) {
+            Logger.getLogger(ConfigurationFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // TODO authentication on webservice
+        String login = cpanel.getLogin();
+        String password = cpanel.getPassword();
+
+        return false;
+    }
+
+    /**
+     * Show success message
+     */
+    private void configurationSuccess() {
+        JOptionPane.showMessageDialog(frame, trayi18n.getString("VALIDCONFIGURATION"),
+                trayi18n.getString("SUCCESS"), JOptionPane.INFORMATION_MESSAGE);
+        terminateValidation();
+    }
+
+    /**
+     * Show error message
+     */
+    private void configurationFailed() {
+        JOptionPane.showMessageDialog(frame, trayi18n.getString("NOCONNECTION"),
+                trayi18n.getString("ERROR"), JOptionPane.ERROR_MESSAGE);
+        terminateValidation();
+    }
+
+    /**
+     * Hide the loadingButton and enable the frame back
+     */
+    private void terminateValidation() {
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+                lab.setVisible(false);
+                frame.setEnabled(true);
+            }
+        });
+    }
+
+    private JButton getValidateButton() {
+        JButton but = new JButton(trayi18n.getString("VALIDER"));
+        but.addActionListener(new ActionListener() {
+
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (validateConfig()) {
+                    Options.setUrl(cpanel.getUrl());
+                    Options.setLogin(cpanel.getLogin());
+                    Options.setPassword(cpanel.getPassword());
+                    Options.setLanguage(cpanel.getLanguage());
+                    Options.setLag(cpanel.getLag());
+                    Options.saveOptions();
+                    frame.dispose();
+                    TrayLauncher.reload();
+                }
+            }
+        });
+        return but;
     }
 
     private JButton getCancelButton() {
@@ -72,60 +188,10 @@ public class ConfigurationFrame {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (validateConfig()) {
-                    JOptionPane.showMessageDialog(frame, trayi18n.getString("VALIDCONFIGURATION"),
-                            trayi18n.getString("SUCCESS"), JOptionPane.INFORMATION_MESSAGE);
-                }
+                tryValidate();
             }
         });
         return but;
-    }
-
-    private JButton getValidateButton() {
-        JButton but = new JButton(trayi18n.getString("VALIDER"));
-        but.addActionListener(new ActionListener() {
-
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (validateConfig()) {
-                    Options.setUrl(cpanel.getUrl());
-                    Options.setLogin(cpanel.getLogin());
-                    Options.setPassword(cpanel.getPassword());
-                    Options.setLanguage(cpanel.getLanguage());
-                    Options.saveOptions();
-                    frame.dispose();
-                    TrayLauncher.reload();
-                }
-            }
-        });
-        return but;
-    }
-
-    /**
-     * Validate the given configuration
-     * @return true if valid, false otherwise
-     */
-    private boolean validateConfig() {
-        // TODO trouver une meilleur solution
-        // il ne faudrait pas modifier Options, mais le webservice m'oblige a le faire...
-        try {
-            String url = cpanel.getUrl();
-            String oldUrl = Options.getUrl();
-            Options.setUrl(url);
-            NouvellesService nv = new NouvellesServiceLocator();
-            NouvellesInformations nvs = nv.getNouvellesInformationsPort();
-            nvs.getNumberOfNewAnnonce();
-            Options.setUrl(oldUrl);
-            return true;
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(frame, trayi18n.getString("NOCONNECTION"),
-                    trayi18n.getString("ERROR"), JOptionPane.ERROR_MESSAGE);
-        }
-        // TODO authentication on webservice
-        String login = cpanel.getLogin();
-        String password = cpanel.getPassword();
-
-        return false;
     }
 
     /**

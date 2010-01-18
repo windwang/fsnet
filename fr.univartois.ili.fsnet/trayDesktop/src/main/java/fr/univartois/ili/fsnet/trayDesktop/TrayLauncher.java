@@ -26,9 +26,7 @@ public class TrayLauncher {
 
     private static ResourceBundle trayi18n;
     private static Logger logger = Logger.getLogger(TrayLauncher.class.getName());
-    private static NouvellesInformations nvs;
     private static FSNetTray c;
-    private static final long MINUTES_LAG = 2;
 
     private TrayLauncher() {
     }
@@ -42,12 +40,6 @@ public class TrayLauncher {
             } catch (Exception e) {
                 logger.log(Level.INFO, "Unable to change L&F");
             }
-            Options.loadOptions();
-            if (!Options.isConfigured()) {
-                new ConfigurationFrame().show();
-            }
-            NouvellesServiceLocator nv = new NouvellesServiceLocator();
-            nvs = nv.getNouvellesInformationsPort();
             reload();
         }
     }
@@ -57,13 +49,13 @@ public class TrayLauncher {
      * @param path
      * @return the image to display in the tray
      */
-    private static Image getTrayImage(String path) {
+    static ImageIcon getImageIcon(String path) {
         URL imageURL = FSNetTray.class.getResource(path);
         if (imageURL == null) {
             logger.log(Level.SEVERE, "Resource not found: " + path);
             return null;
         } else {
-            return new ImageIcon(imageURL).getImage();
+            return new ImageIcon(imageURL);
         }
     }
 
@@ -79,15 +71,21 @@ public class TrayLauncher {
 
             @Override
             public void run() {
+                Options.loadOptions();
 
-                Image icon = getTrayImage("/ressources/iconefsnet.png");
+                trayi18n = ResourceBundle.getBundle("ressources/Trayi18n", Options.getLocale());
+                if (!Options.isConfigured()) {
+                    new ConfigurationFrame().show();
+                }
+                ImageIcon icon = getImageIcon("/ressources/iconefsnet.png");
                 if (icon != null) {
                     try {
-                        trayi18n = ResourceBundle.getBundle("ressources/Trayi18n", Options.getLocale());
-                        c = new FSNetTray(icon, nvs);
+                        NouvellesInformations nvs = new NouvellesServiceLocator().getNouvellesInformationsPort();
+                        c = new FSNetTray(icon.getImage(), nvs);
                         SystemTray.getSystemTray().add(c.getTrayIcon());
-                        c.startNotifications(MINUTES_LAG);
-
+                        c.startNotifications(Options.getLag());
+                    } catch (ServiceException ex) {
+                        logger.log(Level.SEVERE, null, ex);
                     } catch (AWTException ex) {
                         logger.log(Level.SEVERE, null, ex);
                     }
