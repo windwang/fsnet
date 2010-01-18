@@ -32,100 +32,100 @@
             <html:javascript formName="/SearchInterest"/>
 
             <div id="tableauprincipal">
-            	<div id="interestsList">
-            		<fieldset>
-            			<legend>Interetsts List</legend>
-						<admin:interet var="interet">
-                			<div class="interest">${interet.nomInteret}</div>             		
-	            		</admin:interet>
-            		</fieldset>
-            	</div>
-            	<fieldset>
-            	                    	<legend>Search an interest</legend>
-                <html:form action="/SearchInterest.do">
+                <div id="interestsList">
+                    <fieldset>
+                        <legend>Interetsts List</legend>
+                        <admin:interet var="interet">
+                            <div class="interest">${interet.nomInteret}</div>
+                        </admin:interet>
+                    </fieldset>
+                </div>
+                <fieldset>
+                    <legend>Search an interest</legend>
+                    <html:form action="/SearchInterest.do">
                         <div><label for="searchText">Recherche : </label>
-                        <html:text errorStyleClass="error" property="searchtext" styleId="searchText"/>
-                        <html:submit>Rechercher</html:submit>
-                        <div><html:errors property="searchtext" /></div>
+                            <html:text errorStyleClass="error" property="searchtext" styleId="searchText"/>
+                            <html:submit>Rechercher</html:submit>
+                            <div><html:errors property="searchtext" /></div>
                         </div>
-                </html:form>
-                    
-                <html:form action="/DeleteInterest">
-                    <table>
-                        <tr>
-                            <td>
-                                <input type="hidden" name="redirection" value="Interests.jsp"/>
-                                <table id="listToDeploy">
-                                    <tr class="champ">
-                                        <th>Supprimer
-                                            <input  id="allInterests"
-                                                    type="checkbox"
-                                                    name="allInterests"
-                                                    title="Tout supprimer"
-                                                    onclick="selectAll('allInterests','selectedInterests');showHideButton('removeButton','selectedInterests');" />
-                                        </th>
-                                        <th scope="row">Intitulé</th>
-                                    </tr>
-                                    <admin:interet var="interet" parametre="${requestScope.searchtext}">
-                                        <tr>
-                                            <td>
-                                                <html:multibox
+                    </html:form>
+
+                    <html:form action="/DeleteInterest">
+                        <table>
+                            <tr>
+                                <td>
+                                    <input type="hidden" name="redirection" value="Interests.jsp"/>
+                                    <table id="listToDeploy">
+                                        <tr class="champ">
+                                            <th>Supprimer
+                                                <input  id="allInterests"
+                                                        type="checkbox"
+                                                        name="allInterests"
+                                                        title="Tout supprimer"
+                                                        onclick="selectAll('allInterests','selectedInterests');showHideButton('removeButton','selectedInterests');" />
+                                            </th>
+                                            <th scope="row">Intitulé</th>
+                                        </tr>
+                                        <admin:interet var="interet" parametre="${requestScope.searchtext}">
+                                            <tr>
+                                                <td>
+                                                    <html:multibox
                                                         property="selectedInterests"
                                                         value="${interet.id}"
                                                         onclick="showHideButton('removeButton','selectedInterests');" />
-                                            </td>
-                                            <td align="center"
-                                                title="${interet.nomInteret}">
-                                                ${svarInteret}
-                                            </td>
-                                        </tr>
-                                    </admin:interet>
-                                    <c:if test="${vide ne 'nonVide'}">
-                                        <tr>
-                                            <td id="rechercheVide">
+                                                </td>
+                                                <td align="center"
+                                                    title="${interet.nomInteret}">
+                                                    ${svarInteret}
+                                                </td>
+                                            </tr>
+                                        </admin:interet>
+                                        <c:if test="${vide ne 'nonVide'}">
+                                            <tr>
+                                                <td id="rechercheVide">
                                       	   				Aucun résultat ne correspond à votre recherche !!
-                                            </td>
-                                        </tr>
-                                    </c:if>
-                                </table>
-                            </td>
-                        </tr>
-                    </table>
-                    <div id="removeButton">
-                        <input onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
-                               type="submit"
-                               value="Supprimer"
-                               title="Supprimer" />
-                    </div>
-				</html:form>
-				</fieldset>
-                  <div id="AddInterest">
-                  				<html:errors name="interest.alreadyExists" />
-                                <html:form action="/AddInterest.do" method="post">
-                                	<fieldset>
-                                	<legend>Add an interest</legend>
-                                    <table>
-                                        <tr class="champ">
-                                            <th scope="row"><label for="intitule">Intitulé</label></th>
-                                            <td colspan="2">
-                                                <html:text errorStyleClass="error" property="nomInteret" styleId="intitule"/>
-                                                <html:errors property="nomInteret" />
-                                            </td>
-                                        </tr>
-
-                                        <tr>
-                                            <td></td>
-                                            <td colspan="2" id="interests"></td>
-                                        </tr>
+                                                </td>
+                                            </tr>
+                                        </c:if>
                                     </table>
-                                    <div class="button">
-                                        <html:submit title="Enregistrer" >Enregistrer</html:submit>
-                                    </div>
-                                    </fieldset>
-                                </html:form>
+                                </td>
+                            </tr>
+                        </table>
+                        <div id="removeButton">
+                            <input onclick="if (!confirm('Etes-vous sûr de vouloir supprimer?')) return false;"
+                                   type="submit"
+                                   value="Supprimer"
+                                   title="Supprimer" />
+                        </div>
+                    </html:form>
+                </fieldset>
+                <div id="AddInterest">
+                    <html:errors name="interest.alreadyExists" />
+                    <html:form action="/AddInterest.do" method="post">
+                        <fieldset>
+                            <legend>Add an interest</legend>
+                            <table>
+                                <tr class="champ">
+                                    <th scope="row"><label for="intitule">Intitulé</label></th>
+                                    <td colspan="2">
+                                        <html:text errorStyleClass="error" property="nomInteret" styleId="intitule"/>
+                                        <html:errors property="nomInteret" />
+                                    </td>
+                                </tr>
+
+                                <tr>
+                                    <td></td>
+                                    <td colspan="2" id="interests"></td>
+                                </tr>
+                            </table>
+                            <div class="button">
+                                <html:submit title="Enregistrer" >Enregistrer</html:submit>
                             </div>
-                     <div>
-</div>
+                        </fieldset>
+                    </html:form>
+                </div>
+                <div>
+                </div>
             </div>
             <div id="side"></div>
         </div>

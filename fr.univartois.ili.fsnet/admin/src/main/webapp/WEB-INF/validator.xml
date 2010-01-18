@@ -15,7 +15,7 @@
             </field>
 
         </form>
-        <form name="/addinterest">
+        <form name="/AddInterest">
             <field property="nomInteret" depends="required">
                 <arg key="error.nomInteret" />
             </field>

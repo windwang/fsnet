@@ -77,11 +77,11 @@
         <action path="/DisplayOptions"
                 type="fr.univartois.ili.fsnet.admin.actions.DisplayOption"
                 scope="request">
-            <forward name="success" path="/options.jsp" />
+            <forward name="success" path="/Options.jsp" />
         </action>
         <action path="/ModifyOptions"
                 type="fr.univartois.ili.fsnet.admin.actions.ModifyOptions" name="OptionsForm"
-                input="/options.jsp" validate="true" scope="request">
+                input="/Options.jsp" validate="true" scope="request">
             <forward name="continue" path="/DisplayOptions.do" />
         </action>
         <!-- never called ...
