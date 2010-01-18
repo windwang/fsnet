@@ -8,7 +8,7 @@
 
     <!-- Definition of the default Layout, used for each page on the site. -->
     <definition name=".defaultLayout" path="/tiles/layouts/DefaultLayout.jsp">
-        <put name="title" type="String"/>
+        <put name="title" type="string"/>
         <put name="header" value="/tiles/header.jsp" />
         <put name="sidebarLeft" value="/tiles/sidebarLeft.jsp" />
         <put name="sidebarRight" value="/tiles/sidebarRight.jsp" />
