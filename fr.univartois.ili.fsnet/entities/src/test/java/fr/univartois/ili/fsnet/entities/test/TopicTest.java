@@ -43,7 +43,7 @@ public class TopicTest {
             Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
         }
 
-        EntiteSociale es = new EntiteSociale();
+        EntiteSociale es = new EntiteSociale("Ragoût", "Mouton", "RagoûtMouton@toiaussitafaim.com");
         es.setNom("Théophile");
         es.setPrenom("Gautier");
 
