@@ -29,15 +29,18 @@ public class EntiteSocialeTest {
 
 	@Test
 	public void testPersist() {
-		EntiteSociale ent = new EntiteSociale("toto", "tata", "toto@gmail.com");
+		final String lastName = "Germain";
+		final String firstName = "Tantoine";
+		final String mail = "GermainTantoine@gmail.com";
+		EntiteSociale ent = new EntiteSociale(lastName, firstName, mail);
 		em.getTransaction().begin();
 		em.persist(ent);
 		em.getTransaction().commit();
 		EntiteSociale ent2 = em.find(EntiteSociale.class, ent.getId());
 		assertEquals(ent2.getId(), ent.getId());
-		assertEquals(ent2.getNom(), "toto");
-		assertEquals(ent2.getPrenom(), "tata");
-		assertEquals(ent2.getEmail(), "toto@gmail.com");
+		assertEquals(ent2.getNom(), lastName);
+		assertEquals(ent2.getPrenom(), firstName);
+		assertEquals(ent2.getEmail(), mail);
 	}
 
 	@Test
