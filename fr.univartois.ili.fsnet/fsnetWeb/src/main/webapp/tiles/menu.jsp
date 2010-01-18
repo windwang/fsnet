@@ -1,11 +1,14 @@
-<%-- 
-    Document   : menu
-    Created on : 18 janv. 2010, 18:23:42
-    Author     : Matthieu Proucelle <matthieu.proucelle at gmail.com>
---%>
 
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
+<ul id="menu">
+	<li><a class="current" href="#">HOME</a></li>
+	<li><a href="#">PROFILE</a></li>
+	<li><a href="#">ANNOUCEMENTS</a></li>
+	<li><a href="#">EVENTS</a></li>
+	<li><a href="#">HUBS</a></li>
+</ul>
 
-Menu
+<div id="logout">
+	<a class="button">Logout</a>
+</div>
+
+<div class="clear"></div>

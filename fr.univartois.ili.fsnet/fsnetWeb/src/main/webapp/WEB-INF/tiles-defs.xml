@@ -9,10 +9,10 @@
     <!-- Definition of the default Layout, used for each page on the site. -->
     <definition name=".defaultLayout" path="/tiles/layouts/DefaultLayout.jsp">
         <put name="title" type="string"/>
-        <put name="header" value="/tiles/header.jsp" />
-        <put name="sidebarLeft" value="/tiles/sidebarLeft.jsp" />
-        <put name="sidebarRight" value="/tiles/sidebarRight.jsp" />
         <put name="menu"   value="/tiles/menu.jsp" />
+        <put name="logo"   value="/tiles/logo.jsp" />
+        <put name="high" value="/tiles/high.jsp"/>
+        <put name="left" value="/tiles/left.jsp" />
         <put name="body-content"   value="" />
         <put name="footer" value="/tiles/footer.jsp" />
     </definition>

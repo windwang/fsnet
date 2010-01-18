@@ -1,0 +1,27 @@
+#left li {
+	margin-top: 10px;
+	font-size: 120%;
+}
+
+#menu {
+	float:left;
+	width: 60%;	
+}
+
+#logout {
+	float: right;	
+	margin: 10px;
+}
+
+#logout a {
+	background-color: #EEEEEE;
+	color: #505050; 
+}
+
+#left ul {
+	margin-bottom: 20px;
+}
+
+.button {
+	padding: 4px 6px 4px 6px;
+}

@@ -1,11 +1,7 @@
-<%-- 
-    Document   : footer
-    Created on : 18 janv. 2010, 18:23:49
-    Author     : Matthieu Proucelle <matthieu.proucelle at gmail.com>
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-   "http://www.w3.org/TR/html4/loose.dtd">
-
-FOOTER
+<div id="promo">
+	<div class="wrap">	
+		<div id="footer">
+			 <p>Copyright &copy; 2008 &minus; FSNet  &minus; Design: Luka Cvrk, <a title="Awsome Web Templates" href="http://www.solucija.com/">Solucija</a></p>
+		</div>
+	</div>
+</div>
