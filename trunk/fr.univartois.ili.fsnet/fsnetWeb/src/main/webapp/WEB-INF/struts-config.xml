@@ -9,6 +9,10 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="eventName" type="java.lang.String" />
         </form-bean>
+        <form-bean name="SearchEventForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="searchString" type="java.lang.String" />
+        </form-bean>
     </form-beans>
     <global-forwards>
 
@@ -18,6 +22,11 @@
                 name="CreateEventForm" input="Events" scope="request" validate="false" parameter="create" >
             <forward name="success" path="Events" />
         </action>
+        <action path="/SearchEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                name="SearchEventForm" input="Events" scope="request" validate="false" parameter="search" >
+            <forward name="success" path="Events" />
+        </action>
+
         <action path="/Events" type="org.apache.struts.actions.ForwardAction" parameter="Events"/>
     </action-mappings>
 

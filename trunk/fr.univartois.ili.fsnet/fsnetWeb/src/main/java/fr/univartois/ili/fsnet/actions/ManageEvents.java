@@ -1,6 +1,10 @@
 package fr.univartois.ili.fsnet.actions;
 
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Manifestation;
 import java.io.IOException;
+import java.util.Collections;
+import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -26,13 +30,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         EntityManager em = factory.createEntityManager();
         // ICI la recuperation
 
-        // Si tout c'est bien passé, on retourne success
+        // Si tout c'est bien passé, on ferme le EntityManager et on retourne success
+        em.close();
         return mapping.findForward("success");
     }
 
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // TODO code pour la modification
+
         return null;
     }
 
@@ -45,7 +51,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
     @Override
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         // TODO code pour la recherche
-        return null;
+        // Mock objects
+        EntiteSociale es = new EntiteSociale("Proucelle", "Matthieu", "prouprou@fsnet.com");
+        Manifestation manifestation = new Manifestation("Apero chez prouprou", new Date(), "Mock content", "true", es);
+        request.setAttribute("listEvents", Collections.singletonList(es));
+        return mapping.findForward("success");
     }
 
     @Override
