@@ -1,6 +1,6 @@
 package fr.univartois.ili.fsnet.entities.test;
 
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertEquals;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.persistence.RollbackException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -37,7 +38,18 @@ public class HubTest {
         em.getTransaction().begin();
         em.persist(hub);
         em.getTransaction().commit();
-        int monId = hub.getId();
-        assertNotNull("id not null", monId);
+        Hub hub2 = em.find(Hub.class, hub.getId());
+
+        assertEquals(hub.getId(), hub2.getId());
+        assertEquals(hub.getDateCreation(), hub2.getDateCreation());
     }
+    
+    @Test(expected = RollbackException.class)
+    public void testDateCreationIsNotNull() {
+        Hub hub = new Hub("ma communaute", null);
+        em.getTransaction().begin();
+        em.persist(hub);
+        em.getTransaction().commit();
+    }
+    
 }
