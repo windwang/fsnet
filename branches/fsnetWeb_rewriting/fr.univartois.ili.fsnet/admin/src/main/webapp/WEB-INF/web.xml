@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+    <display-name>fr.univartois.ili.fsnet.admin.maquette</display-name>
+    <welcome-file-list>
+        <welcome-file>index.jsp</welcome-file>
+    </welcome-file-list>
+    <servlet>
+        <servlet-name>action</servlet-name>
+        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+        <init-param>
+            <param-name>config</param-name>
+            <param-value>/WEB-INF/struts-config.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>action</servlet-name>
+        <url-pattern>*.do</url-pattern>
+    </servlet-mapping>
+    <jsp-config>
+        <taglib>
+            <taglib-uri>http://admin.ili.fsnet.com/</taglib-uri>
+            <taglib-location>/WEB-INF/tlds/adminbalises.tld</taglib-location>
+        </taglib>
+    </jsp-config>
+    <filter>
+        <filter-name>Character Encoding</filter-name>
+        <filter-class>fr.univartois.ili.fsnet.admin.filters.CharsetFilter</filter-class>
+    </filter>
+    <security-role>
+        <role-name>fsnetadmin</role-name>
+    </security-role>
+    <security-constraint>
+        <display-name>whole access</display-name>
+        <web-resource-collection>
+            <web-resource-name>all content</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>fsnetadmin</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+        <realm-name>AdminRealm</realm-name>
+    </login-config>
+</web-app>

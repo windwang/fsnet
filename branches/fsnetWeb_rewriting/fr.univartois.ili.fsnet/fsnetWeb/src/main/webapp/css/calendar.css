@@ -1,0 +1,60 @@
+@CHARSET "UTF-8";
+
+/* tableau des jours */
+.Gtab {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    text-decoration: none;
+    border: solid 1px #000000;
+    background: #5F9EA0;
+    width: 152px;
+}
+
+/* champs texte */
+.Gname {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 12px;
+    color: #ffffff;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* champs texte */
+.Gtxt {
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 12px;
+    color: #6c628a;
+    text-decoration: none;
+    margin-left: 0px;
+}
+
+/* en-tete semaine */
+.Gh1,.Gh2,.Gh3,.Gh4,.Gh5,.Gh0,.Gh6,.Gc1,.Gc2,.Gc3,.Gc4,.Gc5,.Gc0,.Gc6 {
+    width: 20px;
+    height: 16px;
+    font-size: 12px;
+    background: #1E90FF;
+    border: solid 1px #949fc7;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    line-height: 16px;
+}
+.Gc {
+    width: 20px;
+    height: 16px;
+    border: solid 1px #ffffff;
+    background: #F7FCFF;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    padding: 0px;
+    margin: 0px;
+    color: #000000;
+    text-align: center;
+    cursor: default;
+    line-height: 16px;
+}
