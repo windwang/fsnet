@@ -34,7 +34,7 @@ public class InformationTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        EntiteSociale createur = new EntiteSociale();
+        EntiteSociale createur = new EntiteSociale("test", "bis", "tod@gmail.com");
         em.getTransaction().begin();
         em.persist(createur);
         em.getTransaction().commit();
@@ -56,7 +56,7 @@ public class InformationTest {
     public void testGeneratedValueId() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        EntiteSociale createur = new EntiteSociale();
+        EntiteSociale createur = new EntiteSociale("tests", "biss", "ted@gmail.com");
         em.getTransaction().begin();
         em.persist(createur);
         em.getTransaction().commit();
