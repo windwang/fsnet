@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,6 +21,7 @@ public class Annonce extends Information {
      * The date of the end's ad.
      */
     @Temporal(TemporalType.DATE)
+    @Column(nullable=false)
     private Date dateFinAnnonce;
 
     /**
