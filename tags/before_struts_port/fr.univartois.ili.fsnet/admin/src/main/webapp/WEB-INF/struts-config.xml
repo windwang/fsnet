@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+        <form-bean name="AddMemberForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="nom" type="java.lang.String" />
+            <form-property name="prenom" type="java.lang.String" />
+            <form-property name="email" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="AddInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="nomInteret" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="DeleteMemberForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="selectedUsers" type="java.lang.Integer[]" />
+        </form-bean>
+        <form-bean name="DeleteInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="selectedInterests" type="java.lang.String[]" />
+        </form-bean>
+        <form-bean name="SearchForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="searchtext" type="java.lang.String" />
+            <form-property name="selectRecherche" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="OptionsForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="serveursmtp" type="java.lang.String" />
+            <form-property name="hote" type="java.lang.String" />
+            <form-property name="motdepasse" type="java.lang.String" />
+            <form-property name="adressefsnet" type="java.lang.String" />
+            <form-property name="port" type="java.lang.Integer" />
+        </form-bean>
+    </form-beans>
+    <global-forwards>
+
+    </global-forwards>
+    <action-mappings>
+        <action path="/AddMember" type="fr.univartois.ili.fsnet.admin.actions.AddMember"
+                name="AddMemberForm" input="/AddMember.jsp" validate="true" scope="request">
+            <forward name="success" path="/AddMember.jsp" />
+        </action>
+        <action path="/DeleteMember" type="fr.univartois.ili.fsnet.admin.actions.DeleteMember"
+                name="DeleteMemberForm" input="/SearchMember.jsp" validate="true"
+                scope="request">
+        </action>
+        <action path="/DeleteMemberFromAddMember" type="fr.univartois.ili.fsnet.admin.actions.DeleteMember"
+                name="DeleteMemberForm" input="/AddMember.jsp" validate="true"
+                scope="request">
+        </action>
+        <action path="/AddInterest"
+                type="fr.univartois.ili.fsnet.admin.actions.AddInterest" name="AddInterestForm"
+                input="/Interests.jsp" validate="true" scope="request">
+            <forward name="continue" path="/Interests.jsp" />
+        </action>
+        <action path="/DeleteInterest"
+                name="DeleteInterestForm"
+                input="/Interests.jsp"
+                type="fr.univartois.ili.fsnet.admin.actions.DeleteInterest"
+                scope="request">
+        </action>
+        <action path="/SearchMember"
+                type="fr.univartois.ili.fsnet.admin.actions.SearchMember" name="SearchForm"
+                input="/SearchMember.jsp" validate="true" scope="request">
+            <forward name="success" path="/SearchMember.jsp" />
+        </action>
+        <action path="/SearchInterest"
+                type="fr.univartois.ili.fsnet.admin.actions.SearchInterest" name="SearchForm"
+                input="/Interests.jsp" validate="true" scope="request">
+            <forward name="success" path="/Interests.jsp" />
+        </action>
+        <action path="/DisplayOptions"
+                type="fr.univartois.ili.fsnet.admin.actions.DisplayOption"
+                scope="request">
+            <forward name="success" path="/Options.jsp" />
+        </action>
+        <action path="/ModifyOptions"
+                type="fr.univartois.ili.fsnet.admin.actions.ModifyOptions" name="OptionsForm"
+                input="/Options.jsp" validate="true" scope="request">
+            <forward name="continue" path="/DisplayOptions.do" />
+        </action>
+        <!-- never called ...
+        <action path="/lesoptionsrequired"
+                type="fr.univartois.ili.fsnet.admin.actions.ActionOptions" name="OptionsForm"
+                input="/optionsrequired.jsp" validate="true" scope="request">
+            <forward name="continue" path="/options.asp" />
+        </action>
+        -->
+    </action-mappings>
+
+    <message-resources parameter="MyApp" null="false" />
+    <plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+        <set-property property="pathnames"
+                      value="/org/apache/struts/validator/validator-rules.xml,/WEB-INF/validator.xml" />
+    </plug-in>
+</struts-config>
