@@ -42,7 +42,7 @@
 
         <html:javascript formName="/lesoptionsrequired"/>
         <div id="tableauprincipal" style="padding-left:10%">
-            <p id="informationsOptions">Nb:Ce formulaire permet de configurer vos préférences pour l'envoie de mails. Par exemple: quand vous enregistrer un membre un mail lui ait automatiquement envoyé afin qu'il puisse finaliser son inscription.</p>
+            <p id="informationsOptions">Nb:Ce formulaire permet de configurer vos préférences pour l'envoi de mails. Par exemple: quand vous enregistrez un membre un mail lui est automatiquement envoyé afin qu'il puisse finaliser son inscription.</p>
 
             <html:form action="/lesoptionsrequired.do" method="post">
                 <table>
