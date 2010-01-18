@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import javax.persistence.EntityManager;
+import javax.persistence.RollbackException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -15,69 +16,82 @@ import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class EntiteSocialeTest {
 
-    private EntityManager em;
+	private EntityManager em;
 
-    @Before
-    public void setUp() {
-        em = TestEntityManagerProvider.getInstance().getEntityManager();
-    }
+	@Before
+	public void setUp() {
+		em = TestEntityManagerProvider.getInstance().getEntityManager();
+	}
 
-    @After
-    public void tearDown() {
-    }
+	@After
+	public void tearDown() {
+	}
 
-    @Test
-    public void testPersist() {
-        EntiteSociale ent = new EntiteSociale("toto", "tata", "toto@gmail.com");
-        em.getTransaction().begin();
-        em.persist(ent);
-        em.getTransaction().commit();
-        int monId = ent.getId();
-        assertNotNull("id not null", monId);
-    }
+	@Test
+	public void testPersist() {
+		EntiteSociale ent = new EntiteSociale("toto", "tata", "toto@gmail.com");
+		em.getTransaction().begin();
+		em.persist(ent);
+		em.getTransaction().commit();
+		EntiteSociale ent2 = em.find(EntiteSociale.class, ent.getId());
+		assertEquals(ent2.getId(), ent.getId());
+		assertEquals(ent2.getNom(), "toto");
+		assertEquals(ent2.getPrenom(), "tata");
+		assertEquals(ent2.getEmail(), "toto@gmail.com");
+	}
 
-    @Test
-    public void testUpdate() {
-        EntiteSociale ent = new EntiteSociale("titi", "tata", "toto@gmail.com");
-        em.getTransaction().begin();
-        em.persist(ent);
-        em.getTransaction().commit();
-        assertEquals(ent.getEmail(), "toto@gmail.com");
-        ent.setEmail("tata@gmail.com");
-        em.getTransaction().begin();
-        em.persist(ent);
-        em.getTransaction().commit();
-        int monId = ent.getId();
-        assertNotNull("id not null", monId);
-        assertEquals(ent.getEmail(), "tata@gmail.com");
-    }
+	@Test
+	public void testUpdate() {
+		EntiteSociale ent = new EntiteSociale("titi", "tata", "titi@gmail.com");
+		em.getTransaction().begin();
+		em.persist(ent);
+		em.getTransaction().commit();
+		assertEquals(ent.getEmail(), "titi@gmail.com");
+		ent.setEmail("tata@gmail.com");
+		em.getTransaction().begin();
+		em.persist(ent);
+		em.getTransaction().commit();
+		assertEquals(ent.getEmail(), "tata@gmail.com");
+	}
 
-    @Test
-    public void testDelete() {
-        EntiteSociale ent1 = new EntiteSociale("tata", "tata", "tata@gmail.com");
-        EntiteSociale ent2 = new EntiteSociale("toto", "toto", "toto@gmail.com");
-        EntiteSociale ent3 = new EntiteSociale("titi", "titi", "titi@gmail.com");
+	@Test
+	public void testDelete() {
+		EntiteSociale ent1 = new EntiteSociale("titi", "titi",
+				"mail1@gmail.com");
+		EntiteSociale ent2 = new EntiteSociale("tyty", "tyty",
+				"mail2@gmail.com");
+		EntiteSociale ent3 = new EntiteSociale("tutu", "tutu",
+				"mail3@gmail.com");
 
-        EntiteSociale[] lesEntites = {ent1, ent2, ent3};
-        em.getTransaction().begin();
-        for (EntiteSociale ent : lesEntites) {
-            em.persist(ent);
-        }
-        em.getTransaction().commit();
+		EntiteSociale[] lesEntites = { ent1, ent2, ent3 };
+		em.getTransaction().begin();
+		for (EntiteSociale ent : lesEntites) {
+			em.persist(ent);
+		}
+		em.getTransaction().commit();
 
-        em.getTransaction().begin();
-        em.remove(ent2);
-        em.getTransaction().commit();
-        assertNull(em.find(EntiteSociale.class, ent2.getId()));
+		em.getTransaction().begin();
+		em.remove(ent2);
+		em.getTransaction().commit();
+		assertNull(em.find(EntiteSociale.class, ent2.getId()));
 
-    }
-    // @Test
-    // public void testFindById(){
-    //
-    // EntiteSociale ent = em.find(EntiteSociale.class, 1);
-    //
-    // assertEquals(ent.getMail(), "toto@gmail.com");
-    //
-    //
-    // }
+	}
+
+	@Test(expected = RollbackException.class)
+	public void testUniqueMail() {
+		EntiteSociale ent1 = new EntiteSociale("zaza", "zaza", "zaza@gmail.com");
+		EntiteSociale ent2 = new EntiteSociale("zozo", "zozo", "zaza@gmail.com");
+		em.getTransaction().begin();
+		em.persist(ent1);
+		em.persist(ent2);
+		em.getTransaction().commit();
+	}
+
+	@Test(expected = RollbackException.class)
+	public void testRequieredMail() {
+		EntiteSociale ent = new EntiteSociale("zaza", "zaza", null);
+		em.getTransaction().begin();
+		em.persist(ent);
+		em.getTransaction().commit();
+	}
 }
