@@ -6,4 +6,7 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
+
 <jsp:include page="/content/CreateEvent.jsp"/>
+<jsp:include page="/content/SearchEvent.jsp"/>
+<jsp:include page="/content/ListEvents.jsp"/>

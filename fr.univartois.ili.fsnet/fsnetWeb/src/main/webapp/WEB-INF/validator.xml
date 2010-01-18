@@ -8,5 +8,10 @@
                 <arg key="error.eventName" />
             </field>
         </form>
+        <form name="/SearchEvent">
+            <field property="searchString" depends="required">
+                <arg key="error.searchString" />
+            </field>
+        </form>
     </formset>
 </form-validation>
