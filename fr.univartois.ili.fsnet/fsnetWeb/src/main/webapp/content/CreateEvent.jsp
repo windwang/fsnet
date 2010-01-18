@@ -11,5 +11,5 @@
 
 <html:form action="/CreateEvent">
     <html:text property="eventName" />
-    <html:submit value="Add"/>
+    <html:submit value="Create Event" />
 </html:form>

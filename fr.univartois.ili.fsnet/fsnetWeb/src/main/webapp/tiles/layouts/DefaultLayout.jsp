@@ -39,13 +39,3 @@
         <tiles:insert attribute="footer"/>
     </body>
 </html>
-
-
-<jsp:include page="side.jsp" />
-
-
-
-
-</body>
-</html>
-
