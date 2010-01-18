@@ -40,6 +40,15 @@ public class Annonce extends Information {
 
     }
 
+    /**
+     * Constructor of the class Annonce. 
+     * @param nom
+     * @param datePublication
+     * @param contenu
+     * @param dateFinAnnonce
+     * @param visible
+     * @param createur
+     */
     public Annonce(String nom, Date datePublication, String contenu,
             Date dateFinAnnonce, String visible, EntiteSociale createur) {
         super(nom, datePublication, contenu, visible, createur);
