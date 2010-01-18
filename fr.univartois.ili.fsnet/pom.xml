@@ -20,7 +20,6 @@
         <module>fsnetWeb</module>
         <module>webservice</module>
         <module>trayDesktop</module>
-        <module>trayWithServlets</module>
     </modules>
 
     <properties>
