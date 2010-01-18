@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -22,6 +23,7 @@ public class Hub extends Communaute {
      * The date of creation of the hub.
      */
     @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
     private Date dateCreation;
     /**
      * The list of topics of a hub.
