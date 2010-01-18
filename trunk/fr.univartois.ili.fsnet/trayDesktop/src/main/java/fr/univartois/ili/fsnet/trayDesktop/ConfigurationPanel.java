@@ -8,7 +8,10 @@ import java.util.ResourceBundle;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
+import javax.swing.JSpinner;
 import javax.swing.JTextField;
+import javax.swing.SpinnerModel;
+import javax.swing.SpinnerNumberModel;
 
 /**
  * Create and return a configuration panel for the trayIcon
@@ -22,12 +25,13 @@ public class ConfigurationPanel {
     private JTextField password;
     private JTextField url;
     private JComboBox language;
+    private JSpinner lag;
 
     public ConfigurationPanel() {
 
         createFields();
         FormLayout layout = new FormLayout("right:max(40dlu;p), 4dlu, 75dlu",
-                "p, 4dlu, p, 2dlu, p, 2dlu, p, 4dlu, p, 2dlu, p, 4dlu, p");
+                "p, 4dlu, p, 2dlu, p, 2dlu, p, 4dlu, p, 2dlu, p, 4dlu, p, 2dlu, p, p");
         PanelBuilder builder = new PanelBuilder(layout);
         builder.setDefaultDialogBorder();
         CellConstraints cc = new CellConstraints();
@@ -45,6 +49,9 @@ public class ConfigurationPanel {
         builder.addSeparator(trayi18n.getString("MISC"), cc.xyw(1, 11, 3));
         builder.addLabel(trayi18n.getString("LANGUAGE"), cc.xy(1, 13));
         builder.add(language, cc.xy(3, 13));
+        builder.addLabel(trayi18n.getString("LAG"), cc.xy(1, 15));
+        builder.add(lag, cc.xy(3, 15));
+        builder.addLabel(trayi18n.getString("MINUTES"), cc.xy(1, 16));
         panel = builder.getPanel();
     }
 
@@ -62,6 +69,8 @@ public class ConfigurationPanel {
         url = new JTextField(Options.getUrl());
         language = new JComboBox(LANG.values());
         language.setSelectedItem(Options.getLanguage());
+        SpinnerModel model = new SpinnerNumberModel(Options.getLag(), 1, 120, 1);
+        lag = new JSpinner(model);
     }
 
     /**
@@ -94,5 +103,9 @@ public class ConfigurationPanel {
      */
     public String getUrl() {
         return url.getText();
+    }
+
+    public int getLag() {
+        return (Integer) (lag.getModel().getValue());
     }
 }
