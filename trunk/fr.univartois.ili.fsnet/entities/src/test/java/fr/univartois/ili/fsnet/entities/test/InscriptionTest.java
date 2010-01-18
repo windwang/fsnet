@@ -35,7 +35,7 @@ public class InscriptionTest {
 
     @Test
     public void testPersist() {
-        EntiteSociale entite = new EntiteSociale();
+        EntiteSociale entite = new EntiteSociale("Blanquette", "Veau", "BlanquetteVeau@jaifaim.com");
         entite.setNom("entiteInscription");
         em.getTransaction().begin();
         em.persist(entite);
