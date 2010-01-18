@@ -5,5 +5,5 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-prout
+
 <jsp:include page="/content/CreateEvent.jsp"/>
