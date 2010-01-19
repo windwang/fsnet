@@ -16,7 +16,7 @@
 		
 		<div id="logo">
 			<h1>
-				<a href="index.jsp">FSNet</a>
+				<a>FSNet</a>
 			</h1>
 			<h2 id="slogan">Firm Social Networking</h2>
 		</div>
