@@ -16,19 +16,36 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
+/**
+ * This class represents a servlet that is used in order to authenticate members
+ * 
+ * @author Mathieu Boniface < mat.boniface {At} gmail.com >
+ */
 public class Authenticate extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * Welcome page path when the user is authenticated
+	 */
 	private static final String WELCOME_AUTHENTICATED_PAGE = "Events.do";
 
+	/**
+	 * Welcome page path when the user is NOT authenticated
+	 */
 	public static final String WELCOME_NON_AUTHENTICATED_PAGE = "/WEB-INF/jsp/login.jsp";
 
-	public static final String AUTHENTICATED_USER = "authenticated_user";
+	/**
+	 * Authenticated user key in session scope
+	 */
+	public static final String AUTHENTICATED_USER = "user";
 
 	public static final EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("fsnetjpa");
 
+	/**
+	 * This method is called when an user user tries to sign in
+	 */
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
@@ -54,20 +71,27 @@ public class Authenticate extends HttpServlet {
 				Logger.getAnonymousLogger()
 						.fine("Member authentication failed");
 				Logger.getAnonymousLogger().fine("memberMail : " + memberMail);
+
+				// throw an error message to the request
 				req.setAttribute("loginError", "login.error");
 			}
 			em.close();
 		}
 
 		if (authenticated) {
+			// the user is now authenticated
 			resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
 		} else {
+			// the user is not authenticated
 			RequestDispatcher dispatcher = req
 					.getRequestDispatcher(WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatcher.forward(req, resp);
 		}
 	}
 
+	/**
+	 * Delegated to doGet
+	 */
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {

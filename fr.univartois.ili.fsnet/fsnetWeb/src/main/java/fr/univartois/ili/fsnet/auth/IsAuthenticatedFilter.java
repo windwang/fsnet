@@ -16,14 +16,17 @@ import javax.servlet.http.HttpSession;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
 /**
- * Servlet Filter implementation class IsLoggedFilter
+ * This filter is used to make sure that the current request is made by an
+ * authenticated user
+ * 
+ * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
 public class IsAuthenticatedFilter implements Filter {
 
-	private transient ServletContext servC;
+	private ServletContext servletContext;
 
 	/**
-	 * @see Filter#doFilter(ServletRequest, ServletResponse, FilterChain)
+	 * Verify if the current user is authenticated
 	 */
 	public void doFilter(final ServletRequest request,
 			final ServletResponse response, final FilterChain chain)
@@ -37,20 +40,19 @@ public class IsAuthenticatedFilter implements Filter {
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
 
 		if (es == null) {
-			dispatch = servC
+			dispatch = servletContext
 					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatch.forward(request, response);
 		} else {
 			chain.doFilter(request, response);
 		}
-		
 	}
 
 	/**
-	 * @see Filter#init(FilterConfig)
+	 * Init method used to retrieve Servlet Context
 	 */
-	public void init(final FilterConfig fConfig) throws ServletException {
-		servC = fConfig.getServletContext();
+	public void init(final FilterConfig filterConfig) throws ServletException {
+		servletContext = filterConfig.getServletContext();
 	}
 
 	@Override
