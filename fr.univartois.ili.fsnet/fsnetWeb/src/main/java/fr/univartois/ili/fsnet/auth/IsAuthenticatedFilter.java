@@ -40,10 +40,10 @@ public class IsAuthenticatedFilter implements Filter {
 			dispatch = servC
 					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatch.forward(request, response);
+		} else {
+			chain.doFilter(request, response);
 		}
-
-		// pass the request along the filter chain
-		chain.doFilter(request, response);
+		
 	}
 
 	/**

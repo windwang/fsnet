@@ -2,7 +2,7 @@
 <web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
     <display-name>fr.univartois.ili.fsnet.fsnetWeb</display-name>
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>Authenticate</welcome-file>
     </welcome-file-list>
     <servlet>
         <servlet-name>action</servlet-name>
@@ -26,7 +26,7 @@
         <servlet-name>action</servlet-name>
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
-    <!-- 
+    
 	<filter>
 		<filter-name>IsAuthenticatedFilter</filter-name>
 		<filter-class>fr.univartois.ili.fsnet.auth.IsAuthenticatedFilter</filter-class>
@@ -36,7 +36,7 @@
 		<filter-name>IsAuthenticatedFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
- -->
+
 	<servlet>
 		<servlet-name>Authenticate</servlet-name>
 		<servlet-class>fr.univartois.ili.fsnet.auth.Authenticate</servlet-class>
@@ -45,6 +45,16 @@
 	<servlet-mapping>
 		<servlet-name>Authenticate</servlet-name>
 		<url-pattern>/Authenticate</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
+		<servlet-name>Logout</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.auth.Logout</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>Logout</servlet-name>
+		<url-pattern>/Logout</url-pattern>
 	</servlet-mapping>
 
 </web-app>

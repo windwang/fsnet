@@ -41,7 +41,7 @@ label {
 	color: #DDDDDD;
 }
 
-input[type=text], textarea {
+input[type=text], input[type=password], textarea {
 	border: 1px solid #808080;	
 } 
 #CreateEvent {margin-left: 50px;}
@@ -51,16 +51,51 @@ input[type=text], textarea {
 #CreateEvent #eventDate {width: 30%;}
 #CreateEvent input[type=submit] {float: right;}
 
-
 #login {
 	background: #505050 url(../images/footer.gif) no-repeat;
-	width: 60%;
-	height: 200px;
-	margin: 200px auto 0 auto;
+	width: 90%;
+	height: 150px;
+	float:left;
+	margin-left: 5%;
+	border: 3px solid grey;
 }
 
-#login-logo {
-	position: absolute;
-	top: 50px;
-	left: 15%;
+#login label {
+	color: white;
+	font-weight: bold;	
+}
+#login input {
+	height: 20px;	
+	width: 100%;
+	border-color: #DDDDDD;
+	background-color: #CCCCCC;
+}
+#login table {
+	margin-top: 20px;
+	margin-left: 260px;	
+	height: 100px;
+	width: 300px;
+}
+#login tr {
+	margin-top: 10px;
+}
+
+#login-title {
+	margin-top: 40px;
+	margin-bottom: 20px;
+	text-align:center;
+	font-weight: bold;
+	font-size: 200%;
+}
+
+#login h3 {
+	text-align: center;
+	font-size: 150%;
+	color: white;	
+}
+
+#login input[type=submit] {
+	border: 1px solid #DDDDDD;
+	background-color: #CCCCCC;
+	height: 100%;
 }
