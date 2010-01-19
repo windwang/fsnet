@@ -23,6 +23,12 @@
         <put name="title" value="Events"/>
         <put name="body-content" value="/content/Events.jsp" />
     </definition>
+
+    
+    <definition name="Contacts" extends=".defaultLayout">
+        <put name="title" value="Contacts"/>
+        <put name="body-content" value="/content/Contacts.jsp" />
+    </definition>
     
     <!-- Interests -->
     <definition name="Interests" extends=".defaultLayout">
