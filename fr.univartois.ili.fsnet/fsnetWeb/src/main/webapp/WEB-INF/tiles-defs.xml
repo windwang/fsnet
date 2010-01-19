@@ -41,4 +41,10 @@
         <put name="title" value="Profile"/>
         <put name="body-content" value="/content/profile/Profile.jsp" />
     </definition>
+    
+    <!-- Topic -->
+    <definition name="Topic" extends=".defaultLayout">
+        <put name="title" value="Topic"/>
+        <put name="body-content" value="/content/topic/Topic.jsp" />
+    </definition>
 </tiles-definitions>
