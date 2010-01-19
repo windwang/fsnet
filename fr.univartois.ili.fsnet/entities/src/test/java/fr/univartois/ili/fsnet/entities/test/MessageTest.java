@@ -39,7 +39,7 @@ public class MessageTest {
 	public void testPersist() throws ParseException {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		Date date = (Date) formatter.parse("29/01/02");
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "totu@gmail.com");
+		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "torui@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();
