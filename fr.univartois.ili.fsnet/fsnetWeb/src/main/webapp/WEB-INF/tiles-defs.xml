@@ -42,7 +42,7 @@
         <put name="body-content" value="/content/hubs/Hubs.jsp" />
     </definition>
     
-    <!-- Profil -->
+    <!-- Profile -->
     <definition name="Profile" extends=".defaultLayout">
         <put name="title" value="Profile"/>
         <put name="body-content" value="/content/profile/Profile.jsp" />
@@ -52,5 +52,16 @@
     <definition name="Topic" extends=".defaultLayout">
         <put name="title" value="Topic"/>
         <put name="body-content" value="/content/topic/Topic.jsp" />
+    </definition>
+    
+        
+    <!-- Announces -->
+    <definition name="Announces" extends=".defaultLayout">
+        <put name="title" value="Announces"/>
+        <put name="body-content" value="/content/announces/Announces.jsp" />
+    </definition>
+       <definition name="CreateModifyAnnounce" extends=".defaultLayout">
+        <put name="title" value="Announces"/>
+        <put name="body-content" value="/content/announces/CreateModifyAnnounce.jsp" />
     </definition>
 </tiles-definitions>

@@ -156,7 +156,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		// TODO add label mapping
-		return mapping.findForward("");
+		return mapping.findForward("success");
 	}
 
 }
