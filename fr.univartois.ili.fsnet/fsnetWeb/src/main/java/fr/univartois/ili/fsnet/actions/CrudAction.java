@@ -10,7 +10,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
 
 /**
- * Interface definying commons methodes for a CRUD action
+ * Interface definying commons methods for a CRUD action
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public interface CrudAction {

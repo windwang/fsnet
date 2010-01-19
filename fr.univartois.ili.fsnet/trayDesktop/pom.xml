@@ -19,34 +19,15 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.axis</groupId>
-            <artifactId>axis-jaxrpc</artifactId>
-            <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.axis</groupId>
-            <artifactId>axis</artifactId>
-            <version>1.4</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-logging</groupId>
-            <artifactId>commons-logging</artifactId>
-            <version>1.1.1</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-discovery</groupId>
-            <artifactId>commons-discovery</artifactId>
-            <version>20040218.194635</version>
-        </dependency>
-        <dependency>
-            <groupId>axis</groupId>
-            <artifactId>axis-wsdl4j</artifactId>
-            <version>1.5.1</version>
-        </dependency>
-        <dependency>
             <groupId>com.jgoodies</groupId>
             <artifactId>forms</artifactId>
             <version>1.2.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.xml.ws</groupId>
+            <artifactId>webservices-rt</artifactId>
+            <version>1.4</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
     <build>
@@ -59,10 +40,52 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>jaxws-maven-plugin</artifactId>
+                <version>1.10</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>wsimport</goal>
+                        </goals>
+                        <configuration>
+                            <wsdlFiles>
+                                <wsdlFile>fsnet/webservice/Info.wsdl</wsdlFile>
+                            </wsdlFiles>
+                            <staleFile>${project.build.directory}/jaxws/stale/Info.stale</staleFile>
+                        </configuration>
+                        <id>wsimport-generate-Info</id>
+                        <phase>generate-sources</phase>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>javax.xml</groupId>
+                        <artifactId>webservices-api</artifactId>
+                        <version>1.4</version>
+                    </dependency>
+                </dependencies>
+                <configuration>
+                    <sourceDestDir>${project.build.directory}/generated-sources/jaxws-wsimport</sourceDestDir>
+                    <xnocompile>true</xnocompile>
+                    <verbose>true</verbose>
+                    <extension>true</extension>
+                    <catalog>${basedir}/src/jax-ws-catalog.xml</catalog>
+                </configuration>
+            </plugin>
         </plugins>
     </build>
-
+    <repositories>
+        <repository>
+            <url>http://download.java.net/maven/2</url>
+            <id>metro</id>
+            <layout>default</layout>
+            <name>Repository for library[metro]</name>
+        </repository>
+    </repositories>
 </project>
+
 
 
 

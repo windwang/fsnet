@@ -1,11 +1,11 @@
 package fr.univartois.ili.fsnet.trayDesktop;
 
+import fr.univartois.ili.fsnet.webservice.Info;
 import java.awt.*;
 import java.awt.event.*;
 import java.rmi.RemoteException;
 import java.util.Timer;
 import java.util.TimerTask;
-import fr.univartois.ili.fsnet.webservice.NouvellesInformations;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,7 +20,7 @@ public class FSNetTray {
 
     private final ResourceBundle trayi18n = TrayLauncher.getBundle();
     private TrayIcon tray;
-    private final NouvellesInformations nvs;
+    private final Info ins;
     private static Logger logger = Logger.getLogger(FSNetTray.class.getName());
     private Timer timer;
     private StringBuilder build;
@@ -29,15 +29,15 @@ public class FSNetTray {
     /**
      *
      * @param image the icon to display in system tray
-     * @param nvs the webservice to invoke
+     * @param infoService the webservice to invoke
      */
-    public FSNetTray(Image image, NouvellesInformations nvs) {
-        if (image == null || nvs == null) {
+    public FSNetTray(Image image, Info info) {
+        if (image == null || info == null) {
             throw new IllegalArgumentException();
         }
         tray = new TrayIcon(image);
         this.build = new StringBuilder();
-        this.nvs = nvs;
+        this.ins = info;
         initTrayIcon();
     }
 
@@ -103,7 +103,8 @@ public class FSNetTray {
      * @throws RemoteException if the webservice is unreachable
      */
     private int getNumberOfNewAnnonce() throws RemoteException {
-        return nvs.getNumberOfNewAnnonce();
+        return ins.getNewAnnouncementCount(Options.getLogin(), Options.getPassword());
+
     }
 
     /**
@@ -112,7 +113,7 @@ public class FSNetTray {
      * @throws RemoteException if the webservice is unreachable
      */
     private int getNumberOfNewEvents() throws RemoteException {
-        return nvs.getNumberOfNewEvents();
+        return ins.getNewEventsCount(Options.getLogin(), Options.getPassword());
     }
 
     /**
@@ -127,7 +128,7 @@ public class FSNetTray {
                     append(" ").append(trayi18n.getString("NEWANNOUNCES"));
         }
         if (events > 0) {
-            build.append("THEREIS").append(" ").append(events).
+            build.append(trayi18n.getString("THEREIS")).append(" ").append(events).
                     append(" ").append(trayi18n.getString("NEWEVENTS"));
         }
 
