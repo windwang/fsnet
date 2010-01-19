@@ -50,3 +50,17 @@ input[type=text], textarea {
 #CreateEvent #eventDescription { width: 100%;}
 #CreateEvent #eventDate {width: 30%;}
 #CreateEvent input[type=submit] {float: right;}
+
+
+#login {
+	background: #505050 url(../images/footer.gif) no-repeat;
+	width: 60%;
+	height: 200px;
+	margin: 200px auto 0 auto;
+}
+
+#login-logo {
+	position: absolute;
+	top: 50px;
+	left: 15%;
+}
