@@ -75,48 +75,29 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			title = request.getParameter("titleAnnouncement");
 			content = request.getParameter("contentAnnouncement");
 			stringExpiryDate = request.getParameter("expiryDateAnnouncement");
-			if (title != null && !title.isEmpty() && content != null
-					&& !content.isEmpty() && stringExpiryDate != null
-					&& !stringExpiryDate.isEmpty()) {
-				simpleFormat = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
-				try {
-					expiryDate = (Date) simpleFormat.parse(stringExpiryDate);
-					// TODO
-					today = new Date(0);
-					if (0 < expiryDate.compareTo(today)) {
-
-						newAnnounce = new Annonce(title, today, content,
-								expiryDate, "Y", entiteSociale);
-						entityManager.getTransaction().begin();
-						entityManager.persist(newAnnounce);
-						entityManager.getTransaction().commit();
-
-					} else {
-						errors.add("message", new ActionMessage(
-								"errors.dateLessThanCurrentDate"));
-						saveErrors(request, errors);
-					}
-				} catch (ParseException e) {
-					servlet
-							.log("class:ManageAnnounces methode:create exception whene formatying date ");
-					e.printStackTrace();
+			today = new Date(0);
+			simpleFormat = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
+			try {
+				expiryDate = (Date) simpleFormat.parse(stringExpiryDate);
+				//TODO
+				if (0 < expiryDate.compareTo(today)) {
+					newAnnounce = new Annonce(title, today, content,
+							expiryDate, "Y", entiteSociale);
+					entityManager.getTransaction().begin();
+					entityManager.persist(newAnnounce);
+					entityManager.getTransaction().commit();
+				} else {
+					errors.add("message", new ActionMessage(
+							"errors.dateLessThanCurrentDate"));
+					saveErrors(request, errors);
 				}
-
-			} else {
-				if (title == null || title.isEmpty())
-					errors.add("message", new ActionMessage(
-							"errors.required.title"));
-				if (stringExpiryDate == null || stringExpiryDate.isEmpty())
-					errors.add("message", new ActionMessage(
-							"errors.required.content"));
-				if (content == null || content.isEmpty())
-					errors.add("message", new ActionMessage(
-							"errors.required.expiryDate"));
-				saveErrors(request, errors);
+			} catch (ParseException e) {
+				servlet
+						.log("class:ManageAnnounces methode:create exception whene formatying date ");
+				e.printStackTrace();
 			}
 			// TODO
 			return mapping.findForward("");
-
 		}
 		return mapping.findForward("");
 
