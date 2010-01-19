@@ -118,8 +118,18 @@
 			<forward name="success" path="/DisplayProfile.do" />
 		</action>
 		
+		<action path="/DisplayContacts" type="fr.univartois.ili.fsnet.actions.ManageContacts"
+			parameter="display">
+			<forward name="success" path="Contacts" />
+		</action>
+		
 		<action path="/Events" type="org.apache.struts.actions.ForwardAction"
 			parameter="Events" />
+
+			
+		<action path="/Contacts" type="org.apache.struts.actions.ForwardAction"
+			parameter="Contacts" />
+
 			
 		<action path="/Interests" type="org.apache.struts.actions.ForwardAction"
 			parameter="Interests" />
@@ -129,6 +139,7 @@
 		
 		<action path="/Topic" type="org.apache.struts.actions.ForwardAction"
 		parameter="Topic" />
+
 
 	</action-mappings>
 
