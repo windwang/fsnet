@@ -27,6 +27,19 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="hubName" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="UpdateProfileForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="name" type="java.lang.String" />
+			<form-property name="firstname" type="java.lang.String" />
+			<form-property name="adress" type="java.lang.String" />
+			<form-property name="dateOfBirth" type="java.lang.String" />
+			<form-property name="sexe" type="java.lang.String" />
+			<form-property name="pwd" type="java.lang.String" />
+			<form-property name="confirmPwd" type="java.lang.String" />
+			<form-property name="job" type="java.lang.String" />
+			<form-property name="mail" type="java.lang.String" />
+			<form-property name="phone" type="java.lang.String" />
+		</form-bean>
 	</form-beans>
 	<global-forwards>
 
@@ -61,6 +74,16 @@
 			<forward name="success" path="Hubs" />
 		</action>
 		
+		<action path="/DisplayProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+			parameter="display">
+			<forward name="success" path="Profile" />
+		</action>
+		<action path="/UpdateProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+			name="UpdateProfileForm" scope="request" validate="false"
+			parameter="modify">
+			<forward name="success" path="/DisplayProfile.do" />
+		</action>
+		
 		<action path="/Events" type="org.apache.struts.actions.ForwardAction"
 			parameter="Events" />
 			
@@ -69,6 +92,7 @@
 			
 		<action path="/Hubs" type="org.apache.struts.actions.ForwardAction"
 		parameter="Hubs" />
+		
 			
 	</action-mappings>
 

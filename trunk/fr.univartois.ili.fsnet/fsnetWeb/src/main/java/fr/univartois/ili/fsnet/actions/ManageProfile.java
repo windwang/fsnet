@@ -27,9 +27,9 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 /**
  *
- * @author 
+ * @author Geoffrey Boulay 
  */
-public class ManageProfil extends MappingDispatchAction implements CrudAction {
+public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -38,7 +38,8 @@ public class ManageProfil extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+    	return mapping.findForward("success");
     }
 
     @Override
@@ -53,6 +54,7 @@ public class ManageProfil extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        //throw new UnsupportedOperationException("Not supported yet.");
+    	return mapping.findForward("success");
     }
 }
