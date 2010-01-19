@@ -3,6 +3,10 @@
 	font-size: 120%;
 }
 
+#body-content {
+	float: left;	
+}
+
 #menu {
 	float:left;
 	width: 60%;	
@@ -23,5 +27,26 @@
 }
 
 .button {
-	padding: 4px 6px 4px 6px;
+	border: 1px solid grey;
+	background-color: #505050;
+	color: #DDDDDD;
+	padding: 2px 6px 2px 6px;
 }
+
+label {
+	font-size: 110%;	
+}
+
+.button:hover {
+	color: #DDDDDD;
+}
+
+input[type=text], textarea {
+	border: 1px solid #808080;	
+} 
+#CreateEvent {margin-left: 50px;}
+#CreateEvent label {width:100px; display:block;	float:left;}
+#CreateEvent #eventName {width: 100%;}
+#CreateEvent #eventDescription { width: 100%;}
+#CreateEvent #eventDate {width: 30%;}
+#CreateEvent input[type=submit] {float: right;}
