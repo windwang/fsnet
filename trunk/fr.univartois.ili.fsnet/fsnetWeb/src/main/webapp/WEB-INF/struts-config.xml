@@ -27,6 +27,10 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="hubName" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="CreateTopicForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="topicSujet" type="java.lang.String" />
+		</form-bean>
 		<form-bean name="UpdateProfileForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="name" type="java.lang.String" />
@@ -74,6 +78,36 @@
 			<forward name="success" path="Hubs" />
 		</action>
 		
+		<action path="/CreateTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+			name="CreateTopic" input="Topic" scope="request" validate="false"
+			parameter="create">
+			<forward name="success" path="Topic" />
+		</action>
+		
+		<action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+			name="DeleteTopic" input="Topic" scope="request" validate="false"
+			parameter="delete">
+			<forward name="success" path="Topic" />
+		</action>
+		
+		<action path="/ChangeTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+			name="ChangeTopic" input="Topic" scope="request" validate="false"
+			parameter="modify">
+			<forward name="success" path="Topic" />
+		</action>
+		
+		<action path="/ListTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+			name="ListTopic" input="Topic" scope="request" validate="false"
+			parameter="display">
+			<forward name="success" path="Topic" />
+		</action>
+		
+		<action path="/SearchTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+			name="SearchTopic" input="Topic" scope="request" validate="false"
+			parameter="search">
+			<forward name="success" path="Topic" />
+		</action>
+		
 		<action path="/DisplayProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			parameter="display">
 			<forward name="success" path="Profile" />
@@ -93,7 +127,9 @@
 		<action path="/Hubs" type="org.apache.struts.actions.ForwardAction"
 		parameter="Hubs" />
 		
-			
+		<action path="/Topic" type="org.apache.struts.actions.ForwardAction"
+		parameter="Topic" />
+
 	</action-mappings>
 
 	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
