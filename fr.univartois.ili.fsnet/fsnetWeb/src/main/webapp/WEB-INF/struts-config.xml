@@ -33,6 +33,9 @@
 
 		<action path="/Events" type="org.apache.struts.actions.ForwardAction"
 			parameter="Events" />
+			
+		<action path="/Interests" type="org.apache.struts.actions.ForwardAction"
+			parameter="Interests" />
 	</action-mappings>
 
 	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
