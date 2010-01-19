@@ -17,46 +17,140 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.apache.commons.beanutils.BeanUtils;
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Interet;
 import fr.univartois.ili.fsnet.entities.Manifestation;
 
 /**
- *
- * @author 
+ * Execute CRUD Actions (and more) for the entity interet
+ * 
+ * @author Alexandre Lohez <alexandre.lohez at gmail.com>
  */
 public class ManageInterests extends MappingDispatchAction implements CrudAction {
 
+	private static EntityManagerFactory factory = Persistence
+	.createEntityManagerFactory("fsnetjpa");
+
+	private static final Logger logger = Logger.getAnonymousLogger();
+	
     @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	
+    public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {        
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		String interestName = (String) dynaForm.get("interestName");
+		Interet interet = new Interet(new ArrayList<EntiteSociale>(), interestName);
+		
+        logger.info("new interest: " + interestName);
+        
+        try {
+            em.getTransaction().begin();
+            em.persist(interet);
+            em.getTransaction().commit();
+        } catch (RollbackException ex) {
+            ActionErrors actionErrors = new ActionErrors();
+            ActionMessage msg = new ActionMessage(
+                    "interest.alreadyExists");
+            actionErrors.add("interest", msg);
+            saveErrors(request, actionErrors);
+        }
+
+        em.close();
 		
 		return mapping.findForward("success");
     }
 
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		String interestId = (String) dynaForm.get("interestId");
+		String interestName = (String) dynaForm.get("interestName");
+				
+        logger.info("interest modification: " + interestName);
+        
+        try {
+            em.getTransaction().begin();
+            em.createQuery("UPDATE Interet SET nomInteret = :interestName WHERE idInteret = ?interestId")
+            	.setParameter("interestName", interestName)
+            	.setParameter("interestId", interestId)
+            	.executeUpdate();
+            em.getTransaction().commit();
+        } catch (RollbackException ex) {
+            ActionErrors actionErrors = new ActionErrors();
+            ActionMessage msg = new ActionMessage(
+                    "interest.alreadyExists");
+            actionErrors.add("interest", msg);
+            saveErrors(request, actionErrors);
+        }
+
+        em.close();
+		
+		return mapping.findForward("success");
     }
 
     @Override
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		String interestId = (String) dynaForm.get("interestId");
+				
+        logger.info("interest deleted: id=" + interestId);
+        
+        try {
+            em.getTransaction().begin();
+            em.createQuery("DELETE FROM Interet WHERE idInteret = ?interestId")
+            	.setParameter("interestId", interestId)
+            	.executeUpdate();
+            em.getTransaction().commit();
+        } catch (RollbackException ex) {
+            ActionErrors actionErrors = new ActionErrors();
+            ActionMessage msg = new ActionMessage(
+                    "interest.notExists");
+            actionErrors.add("interest", msg);
+            saveErrors(request, actionErrors);
+        }
+
+        em.close();
+		
+		return mapping.findForward("success");
     }
 
-    @Override
+	@Override
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		String interestName = (String) dynaForm.get("interestName");
+				
+        logger.info("search interest: " + interestName);
+        
+        // TO DO em.find
+		
+		return mapping.findForward("success");
     }
 
     @Override
