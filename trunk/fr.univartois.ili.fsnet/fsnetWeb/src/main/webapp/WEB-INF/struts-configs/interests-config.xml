@@ -5,11 +5,21 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
     <form-beans>
+    	<form-bean name="CreateInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="interestName" type="java.lang.String" />
+        </form-bean>
     </form-beans>
     <global-forwards>
 
     </global-forwards>
     <action-mappings>
+    	 <action path="/CreateInterest" type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                name="CreateInterestForm" input="Interests" scope="request" validate="true"
+                parameter="create">
+            <forward name="success" path="Interests" />
+        </action>
+    
         <action path="/Interests" type="org.apache.struts.actions.ForwardAction"
                 parameter="Interests" />
 

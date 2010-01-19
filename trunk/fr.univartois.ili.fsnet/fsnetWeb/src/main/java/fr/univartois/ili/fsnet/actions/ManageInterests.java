@@ -109,6 +109,8 @@ public class ManageInterests extends MappingDispatchAction implements CrudAction
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	EntityManager em = factory.createEntityManager();
 				
+    	// TODO verify if user has the right to do delete
+    	
 		if (request.getParameterMap().containsKey("interestId")) {
 			int interestId = Integer.valueOf(request.getParameter("interestId"));
 						
@@ -147,26 +149,28 @@ public class ManageInterests extends MappingDispatchAction implements CrudAction
         		.setParameter("interestName", interestName)
         		.getResultList();
         
-        request.getSession().setAttribute("interestResult", result);
+        request.setAttribute("interestResult", result);
 		
 		return mapping.findForward("success");
     }
 
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	/*EntityManager em = factory.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		String interestId = dynaForm.get("interestId");
-				
-        logger.info("search interest: " + interestName);
-        
-        List<Interet> result =
-        	em.createQuery("SELECT interest FROM Interest interest WHERE interest.nomInteret LIKE '%:interestName%' ")
-        		.setParameter("interestName", interestName)
-        		.getResultList();
-        
-        request.getSession().setAttribute("interestResult", result);
-		*/
+    	EntityManager em = factory.createEntityManager();
+		
+		if (request.getParameterMap().containsKey("interestId")) {
+			int interestId = Integer.valueOf(request.getParameter("interestId"));
+			
+			logger.info("search interest: id=" + interestId);
+	        
+	        List<EntiteSociale> result =
+	        	em.createQuery("SELECT socialEntity FROM Interest interest, IN(interest.lesEntites) socialEntity WHERE interest.id = ?interestId")
+	        		.setParameter("interestId", interestId)
+	        		.getResultList();
+	        
+	        request.getSession().setAttribute("interestResult", result);
+		}
+		
 		return mapping.findForward("success");
     }
 }
