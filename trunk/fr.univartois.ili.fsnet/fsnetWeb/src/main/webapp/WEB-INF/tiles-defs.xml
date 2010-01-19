@@ -30,4 +30,9 @@
         <put name="body-content" value="/content/interests/Interests.jsp" />
     </definition>
 
+	<!-- Hubs -->
+    <definition name="Hubs" extends=".defaultLayout">
+        <put name="title" value="Hubs"/>
+        <put name="body-content" value="/content/Hubs.jsp" />
+    </definition>
 </tiles-definitions>

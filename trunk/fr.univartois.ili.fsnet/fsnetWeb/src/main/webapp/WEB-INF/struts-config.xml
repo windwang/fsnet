@@ -15,6 +15,18 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="searchString" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="CreateHubForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="hubName" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="DeleteHubForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="hubId" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="SearchHubForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="hubName" type="java.lang.String" />
+		</form-bean>
 	</form-beans>
 	<global-forwards>
 
@@ -30,12 +42,34 @@
 			parameter="search">
 			<forward name="success" path="Events" />
 		</action>
-
+			
+		<action path="/CreateHub" type="fr.univartois.ili.fsnet.actions.ManageHubs"
+			name="CreateHubForm" input="Hubs" scope="request" validate="false"
+			parameter="create">
+			<forward name="success" path="Hubs" />
+		</action>
+		
+		<action path="/DeleteHub" type="fr.univartois.ili.fsnet.actions.ManageHubs"
+			name="DeleteHubForm" input="Hubs" scope="request" validate="false"
+			parameter="delete">
+			<forward name="success" path="Hubs" />
+		</action>
+		
+		<action path="/SearchHub" type="fr.univartois.ili.fsnet.actions.ManageHubs"
+			name="SearchHubForm" input="Hubs" scope="request" validate="false"
+			parameter="search">
+			<forward name="success" path="Hubs" />
+		</action>
+		
 		<action path="/Events" type="org.apache.struts.actions.ForwardAction"
 			parameter="Events" />
 			
 		<action path="/Interests" type="org.apache.struts.actions.ForwardAction"
 			parameter="Interests" />
+			
+		<action path="/Hubs" type="org.apache.struts.actions.ForwardAction"
+		parameter="Hubs" />
+			
 	</action-mappings>
 
 	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
