@@ -37,8 +37,8 @@
     </definition>
     
     <!-- Profil -->
-    <definition name="Profil" extends=".defaultLayout">
-        <put name="title" value="Hubs"/>
-        <put name="body-content" value="/content/profil/Profil.jsp" />
+    <definition name="Profile" extends=".defaultLayout">
+        <put name="title" value="Profile"/>
+        <put name="body-content" value="/content/profile/Profile.jsp" />
     </definition>
 </tiles-definitions>
