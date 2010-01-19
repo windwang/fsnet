@@ -21,13 +21,13 @@
     <!-- Events -->
     <definition name="Events" extends=".defaultLayout">
         <put name="title" value="Events"/>
-        <put name="body-content" value="/content/Events.jsp" />
+        <put name="body-content" value="/content/events/Events.jsp" />
     </definition>
 
     
     <definition name="Contacts" extends=".defaultLayout">
         <put name="title" value="Contacts"/>
-        <put name="body-content" value="/content/Contacts.jsp" />
+        <put name="body-content" value="/content/contacts/Contacts.jsp" />
     </definition>
     
     <!-- Interests -->
