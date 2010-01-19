@@ -33,6 +33,12 @@
 	<!-- Hubs -->
     <definition name="Hubs" extends=".defaultLayout">
         <put name="title" value="Hubs"/>
-        <put name="body-content" value="/content/Hubs.jsp" />
+        <put name="body-content" value="/content/hubs/Hubs.jsp" />
+    </definition>
+    
+    <!-- Profil -->
+    <definition name="Profil" extends=".defaultLayout">
+        <put name="title" value="Hubs"/>
+        <put name="body-content" value="/content/profil/Profil.jsp" />
     </definition>
 </tiles-definitions>
