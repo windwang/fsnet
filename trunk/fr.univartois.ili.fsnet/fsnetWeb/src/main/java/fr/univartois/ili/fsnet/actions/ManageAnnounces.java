@@ -1,27 +1,10 @@
-/*
- *  Copyright (C) 2010 Matthieu Proucelle <matthieu.proucelle at gmail.com>
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- * 
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
-
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.sql.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import javax.persistence.EntityManager;
@@ -38,6 +21,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.entities.Annonce;
@@ -45,156 +29,135 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
 /**
  * 
- * @author BENZAGHAR MEHDI
+ * @author Mehdi Benzaghar <matthieu.proucelle at gmail.com>
  */
 public class ManageAnnounces extends MappingDispatchAction implements
 		CrudAction {
 
+	private static final EntityManagerFactory factory = Persistence
+			.createEntityManagerFactory("fsnetjpa");
+
+	/**
+	 * @return to announces view after persisting new announce
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		if (processRoles(request, response, mapping)) {
-			Annonce newAnnounce;
-			EntiteSociale entiteSociale;
-			HttpSession session;
-			String title;
-			String content;
-			String stringExpiryDate;
-			Date expiryDate;
-			Date today;
-			DateFormat simpleFormat;
-			String DATABASE_NAME = "fsnet";
-			EntityManagerFactory factory;
-			EntityManager entityManager;
-			ActionMessages errors = new ActionErrors();
-			session = request.getSession();
-			factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-			entityManager = factory.createEntityManager();
-			entiteSociale = (EntiteSociale) session.getAttribute("entite");
-			title = request.getParameter("titleAnnouncement");
-			content = request.getParameter("contentAnnouncement");
-			stringExpiryDate = request.getParameter("expiryDateAnnouncement");
-			today = new Date(0);
-			simpleFormat = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
-			try {
-				expiryDate = (Date) simpleFormat.parse(stringExpiryDate);
-				//TODO
-				if (0 < expiryDate.compareTo(today)) {
-					newAnnounce = new Annonce(title, today, content,
-							expiryDate, "Y", entiteSociale);
-					entityManager.getTransaction().begin();
-					entityManager.persist(newAnnounce);
-					entityManager.getTransaction().commit();
-				} else {
-					errors.add("message", new ActionMessage(
-							"errors.dateLessThanCurrentDate"));
-					saveErrors(request, errors);
-				}
-			} catch (ParseException e) {
-				servlet
-						.log("class:ManageAnnounces methode:create exception whene formatying date ");
-				e.printStackTrace();
+		EntityManager entityManager = factory.createEntityManager();
+		// TODO quel est le paramètre pour récupérer l'entité authentifiée ?
+		EntiteSociale entiteSociale = (EntiteSociale) request.getSession(true)
+				.getAttribute("entite");
+
+		DynaActionForm formAnnounce = (DynaActionForm) form;
+		String title = (String) formAnnounce.get("announcementTitle");
+		String content = (String) formAnnounce.get("contentAnnouncement");
+		String stringExpiryDate = (String) formAnnounce
+				.get("expiryDateAnnouncement");
+
+		Date today = new Date();
+		DateFormat simpleFormat;
+		simpleFormat = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
+		try {
+			Date expiryDate = (Date) simpleFormat.parse(stringExpiryDate);
+			// TODO check if this test is necessary
+			if (0 < expiryDate.compareTo(today)) {
+				Annonce announce = new Annonce(title, today, content,
+						expiryDate, "Y", entiteSociale);
+				entityManager.getTransaction().begin();
+				entityManager.persist(announce);
+				entityManager.getTransaction().commit();
+			} else {
+				ActionMessages errors = new ActionErrors();
+				errors.add("message", new ActionMessage(
+						"errors.dateLessThanCurrentDate"));
+				saveErrors(request, errors);
 			}
-			// TODO
-			return mapping.findForward("");
+		} catch (ParseException e) {
+			servlet.log(getClass().getName()
+					+ " methode:create exception whene formatying date ");
+			e.printStackTrace();
 		}
+		entityManager.close();
+		// TODO add label mapping
 		return mapping.findForward("");
 
 	}
 
+	/**
+	 * @return to views announce after updating it
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		EntityManager entityManager = factory.createEntityManager();	
+		Date today = new Date();		
+		DynaActionForm formAnnounce = (DynaActionForm) form;
+		String title = (String) formAnnounce.get("titleAnnouncement");
+		String content = (String) formAnnounce.get("contentAnnouncement");
+		String stringExpiryDate = (String) formAnnounce.get("expiryDateAnnouncement");
+		Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
+		DateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
+		EntiteSociale entiteSociale = (EntiteSociale) request.getSession(true);
+		try {
+			Date expiryDate = (Date) simpleFormat.parse(stringExpiryDate);
+			// TODO check if this test is necessary
+			if (0 < expiryDate.compareTo(today)) {
+				Annonce announce = new Annonce(title, today, content, expiryDate, "Y",
+						entiteSociale);
+				announce.setId(idAnnounce);
+				entityManager.getTransaction().begin();
+				entityManager.merge(announce);
+				entityManager.getTransaction().commit();
+			} else {
+				ActionMessages errors = new ActionMessages();
+				errors.add("message", new ActionMessage(
+						"errors.dateLessThanCurrentDate"));
+				saveErrors(request, errors);
+			}
+		} catch (ParseException e) {
+			servlet
+					.log("class:ManageAnnounces methode:create exception whene formatying date ");
+			e.printStackTrace();
+		}
+		entityManager.close();
+		// TODO add label mapping
+		return mapping.findForward("");
 	}
 
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		EntityManager entityManager = factory.createEntityManager();	
+		DynaActionForm formAnnounce = (DynaActionForm) form;		
+		Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");		
+		Annonce announce = new Annonce();
+		announce.setId(idAnnounce);
+		entityManager.getTransaction().begin();
+		//TODO try catch with remove null
+		entityManager.remove(entityManager.find(Annonce.class, idAnnounce));
+		entityManager.getTransaction().commit();
+		// TODO add label mapping
+		return mapping.findForward("");
+
 	}
 
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		// TODO add label mapping
+		return mapping.findForward("");
 	}
 
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
-
-	/**
-	 * @author mehdi
-	 * @param request
-	 * @return boolean true : if user is connected
-	 */
-	protected boolean isUserConnected(HttpServletRequest request) {
-		EntiteSociale es = null;
-		if (request != null) {
-			HttpSession session = request.getSession(false);
-			if (session != null) {
-				es = (EntiteSociale) session.getAttribute("es");
-			}
-
-			return es != null;
-		}
-		return false;
-	}
-
-	/**
-	 * @author mehdi
-	 * @param request
-	 * @return boolean true : if this session is valid
-	 * @throws ServletException
-	 */
-
-	protected boolean isSessionValid(HttpServletRequest request)
-			throws ServletException {
-		if (request != null) {
-			return request.isRequestedSessionIdValid();
-		}
-
-		return false;
-	}
-
-	/**
-	 * 
-	 * 
-	 * @param request
-	 * @param response
-	 * @param mapping
-	 * @return boolean true : if the session is valid and the user is connected
-	 * @throws java.io.IOException
-	 * @throws javax.servlet.ServletException
-	 */
-	protected boolean processRoles(HttpServletRequest request,
-			HttpServletResponse response, ActionMapping mapping)
-			throws java.io.IOException, javax.servlet.ServletException {
-
-		ActionMessages messages = new ActionMessages();
-		if (isSessionValid(request)) {
-			if (isUserConnected(request)) {
-				return true;
-			} else {
-				messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-						"error.connection.required"));
-			}
-		} else {
-			messages.add(ActionMessages.GLOBAL_MESSAGE, new ActionMessage(
-					"error.session.expired"));
-		}
-
-		request.getRequestDispatcher("/index.jsp").forward(request, response);
-
-		return false;
+		// TODO add label mapping
+		return mapping.findForward("");
 	}
 
 }
