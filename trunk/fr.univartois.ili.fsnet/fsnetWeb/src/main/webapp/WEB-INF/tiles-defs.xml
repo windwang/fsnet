@@ -23,5 +23,11 @@
         <put name="title" value="Events"/>
         <put name="body-content" value="/content/Events.jsp" />
     </definition>
+    
+    <!-- Interests -->
+    <definition name="Interests" extends=".defaultLayout">
+        <put name="title" value="Interests"/>
+        <put name="body-content" value="/content/interests/Interests.jsp" />
+    </definition>
 
 </tiles-definitions>
