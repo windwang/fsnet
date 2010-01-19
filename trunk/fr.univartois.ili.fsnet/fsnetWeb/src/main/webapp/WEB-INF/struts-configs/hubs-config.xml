@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+        <form-bean name="CreateHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubName" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="DeleteHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="SearchHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubName" type="java.lang.String" />
+        </form-bean>
+    </form-beans>
+    <global-forwards>
+
+    </global-forwards>
+    <action-mappings>
+        <action path="/Hubs" type="org.apache.struts.actions.ForwardAction"
+                parameter="Hubs" />
+
+    </action-mappings>
+</struts-config>
