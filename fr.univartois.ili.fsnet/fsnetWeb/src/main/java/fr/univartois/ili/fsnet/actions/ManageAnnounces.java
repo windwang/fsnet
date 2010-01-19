@@ -13,7 +13,6 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -45,7 +44,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
-		// TODO quel est le paramètre pour récupérer l'entité authentifiée ?
+		// TODO update paramater
 		EntiteSociale entiteSociale = (EntiteSociale) request.getSession(true)
 				.getAttribute("entite");
 
@@ -136,7 +135,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		Annonce announce = new Annonce();
 		announce.setId(idAnnounce);
 		entityManager.getTransaction().begin();
-		//TODO try catch with remove null
+		//TODO use try catch with remove can be null!
 		entityManager.remove(entityManager.find(Annonce.class, idAnnounce));
 		entityManager.getTransaction().commit();
 		// TODO add label mapping
