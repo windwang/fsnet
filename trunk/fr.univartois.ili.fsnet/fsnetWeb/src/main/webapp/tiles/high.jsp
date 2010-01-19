@@ -6,7 +6,7 @@
 </ul>
 
 <div id="feature">
-	<img src="images/feature_img.gif" alt="Featured" />
+	<img src="../images/feature_img.gif" alt="Featured" />
 
 	<p>
 		Mauris magna sem, pellentesque sit amet, nonummy vel, nonummy id,
