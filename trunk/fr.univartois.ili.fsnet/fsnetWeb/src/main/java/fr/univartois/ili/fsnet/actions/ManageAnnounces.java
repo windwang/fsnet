@@ -28,7 +28,7 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
 /**
  * 
- * @author Mehdi Benzaghar <matthieu.proucelle at gmail.com>
+ * @author Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
  */
 public class ManageAnnounces extends MappingDispatchAction implements
 		CrudAction {

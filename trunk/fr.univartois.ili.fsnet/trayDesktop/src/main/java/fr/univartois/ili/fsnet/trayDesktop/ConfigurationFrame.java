@@ -1,13 +1,13 @@
 package fr.univartois.ili.fsnet.trayDesktop;
 
-import fr.univartois.ili.fsnet.webservice.NouvellesInformations;
-import fr.univartois.ili.fsnet.webservice.NouvellesService;
-import fr.univartois.ili.fsnet.webservice.NouvellesServiceLocator;
+import fr.univartois.ili.fsnet.webservice.Info;
+import fr.univartois.ili.fsnet.webservice.InfoService;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -23,6 +23,7 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+import javax.xml.namespace.QName;
 
 /**
  * Create the configuration frame
@@ -96,24 +97,19 @@ public class ConfigurationFrame {
      * @return true if valid, false otherwise
      */
     private boolean validateConfig() {
-        // TODO trouver une meilleur solution
-        // il ne faudrait pas modifier Options, mais le webservice m'oblige a le faire...
         try {
             String url = cpanel.getUrl();
             String oldUrl = Options.getUrl();
-            Options.setUrl(url);
-            NouvellesService nv = new NouvellesServiceLocator();
-            NouvellesInformations nvs = nv.getNouvellesInformationsPort();
-            nvs.getNumberOfNewAnnonce();
-            Options.setUrl(oldUrl);
+            String login = cpanel.getLogin();
+            String password = cpanel.getPassword();
+            InfoService infoService = new InfoService(new URL(url),
+                    new QName("http://webservice.fsnet.ili.univartois.fr/", "InfoService"));
+            Info infoPort = infoService.getInfoPort();
+            infoPort.getNewAnnouncementCount(login, password);
             return true;
         } catch (Exception ex) {
             Logger.getLogger(ConfigurationFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
-        // TODO authentication on webservice
-        String login = cpanel.getLogin();
-        String password = cpanel.getPassword();
-
         return false;
     }
 

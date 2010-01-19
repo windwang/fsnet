@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.trayDesktop;
 
-import fr.univartois.ili.fsnet.webservice.NouvellesInformations;
-import fr.univartois.ili.fsnet.webservice.NouvellesServiceLocator;
+import fr.univartois.ili.fsnet.webservice.InfoService;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.SystemTray;
@@ -14,7 +13,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.xml.rpc.ServiceException;
 
 /**
  * The class TrayLauncher creates an instance of the web service and an instance
@@ -31,7 +29,7 @@ public class TrayLauncher {
     private TrayLauncher() {
     }
 
-    public static void main(String[] args) throws IOException, ServiceException {
+    public static void main(String[] args) throws IOException {
         if (!SystemTray.isSupported()) {
             JOptionPane.showMessageDialog(null, "SystemTray is not supported");
         } else {
@@ -80,12 +78,11 @@ public class TrayLauncher {
                 ImageIcon icon = getImageIcon("/ressources/iconefsnet.png");
                 if (icon != null) {
                     try {
-                        NouvellesInformations nvs = new NouvellesServiceLocator().getNouvellesInformationsPort();
-                        c = new FSNetTray(icon.getImage(), nvs);
+                        // TODO enlever ca
+                        InfoService service = new InfoService();
+                        c = new FSNetTray(icon.getImage(), service.getInfoPort());
                         SystemTray.getSystemTray().add(c.getTrayIcon());
                         c.startNotifications(Options.getLag());
-                    } catch (ServiceException ex) {
-                        logger.log(Level.SEVERE, null, ex);
                     } catch (AWTException ex) {
                         logger.log(Level.SEVERE, null, ex);
                     }
