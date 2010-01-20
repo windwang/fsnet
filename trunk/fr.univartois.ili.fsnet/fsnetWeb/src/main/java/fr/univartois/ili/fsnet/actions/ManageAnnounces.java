@@ -6,6 +6,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import javax.persistence.EntityManager;
@@ -27,6 +28,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.Annonce;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Interet;
 
 /**
  * 
@@ -47,13 +49,14 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
 		// TODO update paramater
-		EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+		EntiteSociale entiteSociale = (EntiteSociale) request.getSession()
+				.getAttribute(Authenticate.AUTHENTICATED_USER);
 
 		DynaActionForm formAnnounce = (DynaActionForm) form;
-		String title = (String) formAnnounce.get("announcementTitle");
-		String content = (String) formAnnounce.get("contentAnnouncement");
+		String title = (String) formAnnounce.get("announceTitle");
+		String content = (String) formAnnounce.get("announceContent");
 		String stringExpiryDate = (String) formAnnounce
-				.get("expiryDateAnnouncement");
+				.get("announceExpiryDate");
 
 		Date today = new Date();
 		DateFormat simpleFormat;
@@ -79,8 +82,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			e.printStackTrace();
 		}
 		entityManager.close();
-		// TODO add label mapping
-		return mapping.findForward("");
+		System.out
+				.println("ok!-----------------------------------------------");
+		return mapping.findForward("success");
 
 	}
 
@@ -91,21 +95,24 @@ public class ManageAnnounces extends MappingDispatchAction implements
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager entityManager = factory.createEntityManager();	
-		Date today = new Date();		
+		EntityManager entityManager = factory.createEntityManager();
+		Date today = new Date();
 		DynaActionForm formAnnounce = (DynaActionForm) form;
 		String title = (String) formAnnounce.get("titleAnnouncement");
 		String content = (String) formAnnounce.get("contentAnnouncement");
-		String stringExpiryDate = (String) formAnnounce.get("expiryDateAnnouncement");
+		String stringExpiryDate = (String) formAnnounce
+				.get("expiryDateAnnouncement");
 		Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
-		DateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
-		EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+		DateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy",
+				Locale.FRANCE);
+		EntiteSociale entiteSociale = (EntiteSociale) request.getSession()
+				.getAttribute(Authenticate.AUTHENTICATED_USER);
 		try {
 			Date expiryDate = (Date) simpleFormat.parse(stringExpiryDate);
 			// TODO check if this test is necessary
 			if (0 < expiryDate.compareTo(today)) {
-				Annonce announce = new Annonce(title, today, content, expiryDate, "Y",
-						entiteSociale);
+				Annonce announce = new Annonce(title, today, content,
+						expiryDate, "Y", entiteSociale);
 				announce.setId(idAnnounce);
 				entityManager.getTransaction().begin();
 				entityManager.merge(announce);
@@ -122,54 +129,71 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			e.printStackTrace();
 		}
 		entityManager.close();
-		// TODO add label mapping
 		return mapping.findForward("success");
 	}
-/**
+
+	/**
  * 
  */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager entityManager = factory.createEntityManager();	
-				
-		Integer idAnnounce = (Integer) request.getAttribute("idAnnounce");		
+		EntityManager entityManager = factory.createEntityManager();
+
+		Integer idAnnounce = (Integer) request.getAttribute("idAnnounce");
 		Annonce announce = new Annonce();
 		announce.setId(idAnnounce);
 		entityManager.getTransaction().begin();
-		//TODO use try catch with remove can be null!
+		// TODO use try catch with remove can be null!
 		entityManager.remove(entityManager.find(Annonce.class, idAnnounce));
 		entityManager.getTransaction().commit();
-		// TODO add label mapping
 		return mapping.findForward("success");
 
 	}
-/**
- * @return list of announce
- */
+
+	/**
+	 * @return list of announce
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO 
-		Collection listAnnounces = null;
+		DynaActionForm seaarchForm = (DynaActionForm) form;
+		String textSearchAnnounce = (String) seaarchForm.get("textSearchAnnounce");
+		EntityManager entityManager = factory.createEntityManager();
+		List<Annonce> listAnnounces;
+		//TODO warning
+		servlet.log("search");
+		if (textSearchAnnounce != null) {
+			listAnnounces = entityManager
+					.createQuery(
+							"SELECT a FROM Annonce a WHERE a.nom LIKE :textSearchAnnounce OR a.contenu LIKE :textSearchAnnounce ")
+					.setParameter("textSearchAnnounce", "%"+textSearchAnnounce+"%")
+					.getResultList();
+		} else {
+			listAnnounces = entityManager.createQuery(
+					"SELECT a FROM Annonce a ")
+					.getResultList();
+		}
+
 		request.setAttribute("listAnnounces", listAnnounces);
 		return mapping.findForward("success");
 	}
-/**
- * @return announce in request 
- */
+
+	/**
+	 * @return announce in request
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager entityManager = factory.createEntityManager();	
-		
-		Integer idAnnounce = (Integer) request.getAttribute("idAnnounce");		
+		EntityManager entityManager = factory.createEntityManager();
+
+		Integer idAnnounce = (Integer) request.getAttribute("idAnnounce");
 
 		entityManager.getTransaction().begin();
-		//TODO use try catch with remove can be null!
+		// TODO use try catch with remove can be null!
 		Annonce announce = entityManager.find(Annonce.class, idAnnounce);
 		entityManager.getTransaction().commit();
 		request.setAttribute("announce", announce);

@@ -9,14 +9,14 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
-<html:form action="/CreateAnnounce">
-	<table id="CreateAnnounce">
+<html:form action="/Announces">
+	<table id="SearchAnnounce">
 		<tr>
 			<td>
 				<label for="announceSearch">recherche annonce  :</label>
 			</td>
 			<td>
-    			<html:text property="announceSearchString" styleId="announceSearchString" />
+    			<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
     		</td>
     		<td>
     			<html:submit styleClass="button">Search Announce</html:submit>
