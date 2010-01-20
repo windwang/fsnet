@@ -54,6 +54,7 @@ public class InscriptionTest {
         EntiteSociale es = new EntiteSociale();
         es.setPrenom("victor");
         es.setNom("hugo");
+        es.setEmail("toto@gmail.com");
 
         Inscription i1 = new Inscription();
         i1.setEntite(es);
