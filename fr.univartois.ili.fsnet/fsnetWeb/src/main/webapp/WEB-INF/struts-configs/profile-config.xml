@@ -10,7 +10,7 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">   
             <form-property name="id" type="java.lang.String" />	
     	</form-bean>
-        <form-bean name="UpdateProfileForm"
+        <form-bean name="ModifyProfileForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="name" type="java.lang.String" />
             <form-property name="firstName" type="java.lang.String" />
@@ -33,8 +33,12 @@
                 parameter="display" name="DisplayProfileForm" scope="request" validate="false">
             <forward name="success" path="ShowProfile" />
         </action>
-        <action path="/UpdateProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-                name="UpdateProfileForm" scope="request" validate="false" parameter="modify" >
+        <action path="/ModifyProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+                name="ModifyProfileForm" scope="request" validate="false" parameter="modify" >
+            <forward name="success" path="/Profile.do" />
+        </action>
+        <action path="/Profile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+                parameter="display" >
             <forward name="success" path="Profile" />
         </action>
     </action-mappings>
