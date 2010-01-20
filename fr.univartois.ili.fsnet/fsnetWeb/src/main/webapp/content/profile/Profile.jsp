@@ -6,38 +6,50 @@
 <html:form action="/ModifyProfile">
     <table id="ModifyProfile">
         <tr>
-            <th>Name</th>
+            <td>
+                <label for="name">Name :</label>
+            </td>
             <td>
                 <html:text errorStyleClass="error" property="name" value="${currentUser.nom}"/>
             </td>
         </tr>
         <tr>
-            <th>Firstname</th>
+            <td>
+                <label for="firstName">FirstName :</label>
+            </td>
             <td>
                 <html:text errorStyleClass="error" property="firstName"  value="${currentUser.prenom}"/>
             </td>
         </tr>
         <tr>
-            <th>Adress</th>
+            <td>
+                <label for="adress">Address :</label>
+            </td>
             <td>
                 <html:textarea errorStyleClass="error" property="adress" value="${currentUser.adresse}"/>
             </td>
         </tr>
         <tr>
-            <th>Welcome date</th>
             <td>
-                ${currentUser.dateEntree}
+                <label>Inscription date :</label>
+            </td>
+            <td>
+                <html:textarea errorStyleClass="error" property="dateEntree" value="${currentUser.dateEntree}" disabled="true"/>
             </td>
         </tr>
         <tr>
-            <th>Birth date (DD/MM/YYYY)</th>
+            <td>
+                <label for="dateOfBirth">Birth date :</label>
+            </td>
             <td>
                 <!-- TODO ajouter un calendrier avec ajax -->
                 <html:text errorStyleClass="error" property="dateOfBirth" value="${currentUser.dateNaissance}"/>
             </td>
         </tr>
         <tr>
-            <th>Sexe</th>
+            <td>
+                <label for="sexe">Sexe :</label>
+            </td>
             <td>
                 <!-- TODO refaire avec les constante de entité social -->
                 <html:select property="sexe">
@@ -47,27 +59,37 @@
             </td>
         </tr>
         <tr>
-            <th>Password</th>
+            <td>
+                <label for="pwd">Password :</label>
+            </td>
             <td><html:password property="pwd" value="${currentUser.mdp}"/></td>
         </tr>
         <tr>
-            <th>Confirm password</th>
+            <td>
+                <label for="confirmPwd">Confirm password :</label>
+            </td>
             <td><html:password property="confirmPwd" value="${currentUser.mdp}"/></td>
         </tr>
         <tr>
-            <th>Job</th>
+            <td>
+                <label for="job">Job :</label>
+            </td>
             <td>
                 <html:text errorStyleClass="error" property="job" value="${currentUser.profession}"/>
             </td>
         </tr>
         <tr>
-            <th>E-mail</th>
             <td>
-                <html:text errorStyleClass="error" property="mail" value="${currentUser.email}"/>
+                <label for="mail">Email :</label>
+            </td>
+            <td>
+                <html:text errorStyleClass="error" property="mail" value="${currentUser.email}" disabled="true"/>
             </td>
         </tr>
         <tr>
-            <th>Phone number</th>
+            <td>
+                <label for="phone">Phone number :</label>
+            </td>
             <td>
                 <html:text errorStyleClass="error" property="phone" value="${currentUser.numTel}"/>
             </td>
