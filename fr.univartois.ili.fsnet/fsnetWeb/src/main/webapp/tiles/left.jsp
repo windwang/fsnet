@@ -1,13 +1,30 @@
 <%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
-<h2><a href="#">Page Title</a></h2>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+
 <h2>My Network</h2>
 <ul>
 	<li><a>Create new hub</a></li>
 </ul>
 <h2>Interactions</h2>
 <ul>
-	<li><a>Create an annoucement </a></li>
-	<li><a>Go to annoucements</a></li>
-	<li><a>Create an event</a></li>
-	<li><a>Go to events</a></li>
+	<li>
+		<html:link action="/CreateAnnounce">
+			Create an annoucement 
+		</html:link>
+	</li>
+	<li>
+		<html:link action="/DisplayAnnounce"> 
+			Go to annoucements
+		</html:link>
+	</li>
+	<li>
+		<html:link action="/CreateEvent"> 
+			Create an event
+		</html:link>
+	</li>
+	<li>
+		<html:link action="/DisplayEvent">
+			Go to events
+		</html:link> 
+	</li>
 </ul>

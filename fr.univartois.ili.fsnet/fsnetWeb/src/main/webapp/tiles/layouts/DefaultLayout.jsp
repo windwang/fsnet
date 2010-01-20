@@ -18,6 +18,7 @@
             
 			<tiles:insert attribute="high"/>
 			
+			<h2><a><tiles:getAsString name="title"/></a></h2>
             <div id="left">
                 <tiles:insert attribute="left"/>
             </div>
