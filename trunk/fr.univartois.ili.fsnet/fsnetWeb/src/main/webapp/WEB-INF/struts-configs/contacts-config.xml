@@ -4,22 +4,32 @@
 "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
-    <form-beans>
+	<form-beans>
 
-    </form-beans>
-    <global-forwards>
+	</form-beans>
+	<global-forwards>
 
-    </global-forwards>
-    <action-mappings>
+	</global-forwards>
+	<action-mappings>
 
-        <action path="/DisplayContacts" type="fr.univartois.ili.fsnet.actions.ManageContacts"
-                parameter="display">
-            <forward name="success" path="Contacts" />
-        </action>
+		<action path="/DisplayContacts" type="fr.univartois.ili.fsnet.actions.ManageContacts"
+			parameter="display">
+			<forward name="success" path="Contacts" />
+		</action>
 
-        <action path="/Contacts" type="org.apache.struts.actions.ForwardAction"
-                parameter="Contacts" />
+		<action path="/DisplayDemands" type="fr.univartois.ili.fsnet.actions.ManageContacts"
+			parameter="displayDemands">
+			<forward name="success" path="Contacts" />
+		</action>
+		
+		<action path="/DisplayRequests" type="fr.univartois.ili.fsnet.actions.ManageContacts"
+			parameter="displayRequests">
+			<forward name="success" path="Contacts" />
+		</action>
 
-    </action-mappings>
-    
+		<action path="/Contacts" type="org.apache.struts.actions.ForwardAction"
+			parameter="Contacts" />
+
+	</action-mappings>
+
 </struts-config>
