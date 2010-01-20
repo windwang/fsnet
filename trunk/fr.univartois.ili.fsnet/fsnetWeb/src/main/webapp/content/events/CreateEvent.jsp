@@ -8,6 +8,7 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
+<h3>Create Event</h3>
 <html:form action="/CreateEvent">
 	<table id="CreateEvent">
 		<tr>
