@@ -18,6 +18,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -33,6 +34,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.auth.Authenticate;
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 
 /**
@@ -51,9 +54,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
     	DynaActionForm dynaForm = (DynaActionForm) form;
 		String hubName = (String) dynaForm.get("hubName");
 				
-		logger.info("new event: " + hubName);
+		logger.info("new hub: " + hubName);
 		
 		Hub hub= new Hub(hubName, new Date());
+		EntiteSociale es = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+		
+		hub.setCreateur(es);
 		
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -76,7 +82,31 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	
+    	DynaActionForm dynaForm = (DynaActionForm) form;
+    	String hubName;
+    	if(form==null){
+			hubName="";
+		}
+    	else{
+    		hubName = (String) dynaForm.get("hubName");
+    	}
+		
+				
+		logger.info("search hub: " + hubName);
+		
+		EntityManager em = factory.createEntityManager();
+		
+		List<Hub> result =
+        	em.createQuery("SELECT hub FROM Hub hub WHERE hub.nomCommunaute LIKE :hubName ")
+        		.setParameter("hubName", "%"+hubName+"%")
+        		.getResultList();
+		request.setAttribute("hubResults", result);
+    	
+    	//    	Manifestation manifestation = new Manifestation("Apero chez prouprou",
+//				new Date(), "Mock content", "true", es);
+//		request.setAttribute("listEvents", Collections.singletonList(es));
+		return mapping.findForward("success");
     }
 
     @Override

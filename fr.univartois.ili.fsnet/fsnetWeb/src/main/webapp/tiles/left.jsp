@@ -3,7 +3,11 @@
 
 <h2>My Network</h2>
 <ul>
-	<li><a>Create new hub</a></li>
+	<li>
+		<html:link action="/CreateHub">
+			Create new hub
+		</html:link>
+	</li>
 </ul>
 <h2>Interactions</h2>
 <ul>
