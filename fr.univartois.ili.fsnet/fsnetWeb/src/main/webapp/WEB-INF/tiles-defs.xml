@@ -9,6 +9,7 @@
     <!-- Definition of the default Layout, used for each page on the site. -->
     <definition name=".defaultLayout" path="/tiles/layouts/DefaultLayout.jsp">
         <put name="title" type="string"/>
+        <put name="currentMenu" type="string"/>
         <put name="menu"   value="/tiles/menu.jsp" />
         <put name="logo"   value="/tiles/logo.jsp" />
         <put name="high" value="/tiles/high.jsp"/>
@@ -21,18 +22,21 @@
     <!-- Events -->
     <definition name="Events" extends=".defaultLayout">
         <put name="title" value="Events"/>
+        <put name="currentMenu" value="Events"/>
         <put name="body-content" value="/content/events/Events.jsp" />
     </definition>
 
-    
+
     <definition name="Contacts" extends=".defaultLayout">
         <put name="title" value="Contacts"/>
+        <put name="currentMenu" value="Contacts"/>
         <put name="body-content" value="/content/contacts/Contacts.jsp" />
     </definition>
-    
+
     <!-- Interests -->
     <definition name="Interests" extends=".defaultLayout">
         <put name="title" value="Interests"/>
+        <put name="currentMenu" value="Interests"/>
         <put name="body-content" value="/content/interests/Interests.jsp" />
     </definition>
     <definition name="AddInterest" extends=".defaultLayout">
@@ -40,45 +44,53 @@
         <put name="body-content" value="/content/interests/AddInterest.jsp" />
     </definition>
 
-	<!-- Hubs -->
+    <!-- Hubs -->
     <definition name="Hubs" extends=".defaultLayout">
         <put name="title" value="Hubs"/>
+        <put name="currentMenu" value="Hubs"/>
         <put name="body-content" value="/content/hubs/Hubs.jsp" />
     </definition>
-    
+
     <!-- Profile -->
     <definition name="Profile" extends=".defaultLayout">
         <put name="title" value="Profile"/>
+        <put name="currentMenu" value="Profile"/>
         <put name="body-content" value="/content/profile/Profile.jsp" />
     </definition>
-    
-   <definition name="ShowProfile" extends=".defaultLayout">
+
+    <definition name="ShowProfile" extends=".defaultLayout">
         <put name="title" value="Profile"/>
+        <put name="currentMenu" value="Profile"/>
         <put name="body-content" value="/content/profile/ShowProfile.jsp" />
     </definition>
-    
+
     <!-- Topic -->
     <definition name="Topic" extends=".defaultLayout">
-        <put name="title" value="Topic"/>
+        <put name="title" value="Topics"/>
+        <put name="currentMenu" value="Topics"/>
         <put name="body-content" value="/content/topics/Topic.jsp" />
     </definition>
-    
-        
+
+
     <!-- Announces -->
     <definition name="Announces" extends=".defaultLayout">
         <put name="title" value="Announces"/>
+        <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/Announces.jsp" />
     </definition>
-       <definition name="DisplayCreateAnnounce" extends=".defaultLayout">
+    <definition name="DisplayCreateAnnounce" extends=".defaultLayout">
         <put name="title" value="Create Announce"/>
+        <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
     </definition>
     <definition name="DisplayModifyAnnounce" extends=".defaultLayout">
         <put name="title" value="ModifyAnnounce"/>
+        <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
     </definition>
     <definition name="DisplayAnnounce" extends=".defaultLayout">
         <put name="title" value="DisplayAnnounce"/>
+        <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
     </definition>
 </tiles-definitions>
