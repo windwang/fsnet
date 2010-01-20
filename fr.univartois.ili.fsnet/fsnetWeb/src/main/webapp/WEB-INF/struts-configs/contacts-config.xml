@@ -12,28 +12,17 @@
 	</global-forwards>
 	<action-mappings>
 
-		<action path="/DisplayContacts" type="fr.univartois.ili.fsnet.actions.ManageContacts"
+		<action path="/Contacts" type="fr.univartois.ili.fsnet.actions.ManageContacts"
 			parameter="display">
 			<forward name="success" path="Contacts" />
 		</action>
 
-		<action path="/DisplayDemands" type="fr.univartois.ili.fsnet.actions.ManageContacts"
-			parameter="displayDemands">
-			<forward name="success" path="Contacts" />
-		</action>
-		
-		<action path="/DisplayRequests" type="fr.univartois.ili.fsnet.actions.ManageContacts"
-			parameter="displayRequests">
-			<forward name="success" path="Contacts" />
-		</action>
-		
 		<action path="/AskContact" type="fr.univartois.ili.fsnet.actions.ManageContacts"
 			parameter="ask">
 			<forward name="success" path="Contacts" />
 		</action>
 
-		<action path="/Contacts" type="org.apache.struts.actions.ForwardAction"
-			parameter="Contacts" />
+		
 
 	</action-mappings>
 
