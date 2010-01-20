@@ -4,12 +4,19 @@
 }
 
 #body-content {
-	float: left;	
+	float: left;
+	width: 590px;
+	margin-bottom: 50px;
+}
+#body-content h3 {
+	text-align: center;
+	font-size: 125%;
+	margin: 15px 0 10px 0;	
 }
 
 #menu {
 	float:left;
-	width: 60%;	
+	width: 70%;	
 }
 
 #logout {
@@ -44,12 +51,15 @@ label {
 input[type=text], input[type=password], textarea {
 	border: 1px solid #808080;	
 } 
-#CreateEvent {margin-left: 50px;}
+#CreateEvent {margin-left: 50px; width: 100%;}
 #CreateEvent label {width:100px; display:block;	float:left;}
 #CreateEvent #eventName {width: 100%;}
 #CreateEvent #eventDescription { width: 100%;}
 #CreateEvent #eventDate {width: 30%;}
 #CreateEvent input[type=submit] {float: right;}
+
+#SearchEvent {margin-left: 190px;}
+#SearchEvent .button {margin-left: 15px;}
 
 #login {
 	background: #505050 url(../images/footer.gif) no-repeat;
