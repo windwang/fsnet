@@ -11,11 +11,12 @@
 		</tr>
 		<logic:iterate id="announce" scope="request" name="listAnnounces">
 			<tr>
+			<bean:define id="idAnnounce" name="announce" property="id" />
 				<td><html:link href="/DisplayAnnounce.do" paramId="idAnnounce"
-					paramName="announce.idAnnounce">
-					<bean:write name="announce" property="title" />
+					paramName="idAnnounce">
+					<bean:write name="announce" property="nom" />
 				</html:link></td>
-				<td><bean:write name="announce" property="expiryDate" /></td>
+				<td><bean:write name="announce" property="dateFinAnnonce" /></td>
 			</tr>
 		</logic:iterate>
 	</table>

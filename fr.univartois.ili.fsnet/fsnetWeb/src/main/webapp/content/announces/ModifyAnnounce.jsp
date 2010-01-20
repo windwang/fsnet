@@ -1,5 +1,5 @@
 <%-- 
-    Document   : DisplayAnnounce
+    Document   : CreateAnnounce
     Created on : 18 janv. 2010, 18:06:12
     Author     : Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
 --%>
@@ -8,16 +8,15 @@
     pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
-<html:form >
-	<table id="CreateAnnounce">
+<html:form action="/ModifyAnnounce">
+	<table id="ModifyAnnounce">
 		<tr>
 			<td>
 				<label for="announceTitle">Titre :</label>
 			</td>
 			<td>
-    			<bean:write name="announce" property="title" />
+    			<html:text property="announceTitle" styleId="announceTitle" />
     		</td>
     	</tr>
     	<tr>
@@ -25,7 +24,7 @@
     			<label for="announceContent">Contenu: </label>
     		</td>
     		<td>
-    			<bean:write name="announce" property="content" />
+    			<html:textarea cols="40" rows="8" property="announceContent" styleId="announceContent"/>
     		</td>
     	</tr>
     	<tr>
@@ -33,7 +32,8 @@
     			<label for="announceExpiryDate">Date :</label>
     		</td>
     		<td>
-    			<bean:write name="announce" property="expiryDate" />
+    			<html:text property="announceExpiryDate" styleId="announceExpiryDate"/>
+    			<html:submit styleClass="button">Modify Announce</html:submit>
     		</td>
     	</tr>
     	<tr>
