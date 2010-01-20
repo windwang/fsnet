@@ -1,12 +1,13 @@
 <%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <ul id="menu">
-	<li><a class="current" href="#">HOME</a></li>
-	<li><html:link action="/Contacts">CONTACTS</html:link></li>
-	<li><html:link action="/Interests">INTERESTS</html:link></li>
-	<li><html:link action="/UpdateProfile">PROFILE</html:link></li>
-	<li><html:link action="/Announces">ANNOUCEMENTS</html:link></li>
-	<li><html:link action="/Events">EVENTS</html:link></li>
-	<li><html:link action="/Hubs">HUBS</html:link></li>
+	<li><html:link action="/Home" styleClass="${currentMenu == 'Home' ? 'current' : ''}">HOME</html:link></li>
+        <li><html:link action="/Contacts" styleClass="${currentMenu == 'Contacts' ? 'current' : ''}">CONTACTS</html:link></li>
+	<li><html:link action="/Interests" styleClass="${currentMenu == 'Interests' ? 'current' : ''}">INTERESTS</html:link></li>
+	<li><html:link action="/UpdateProfile" styleClass="${currentMenu == 'Profile' ? 'current' : ''}">PROFILE</html:link></li>
+	<li><html:link action="/Announces" styleClass="${currentMenu == 'Announces' ? 'current' : ''}">ANNOUCEMENTS</html:link></li>
+	<li><html:link action="/Events" styleClass="${currentMenu == 'Events' ? 'current' : ''}">EVENTS</html:link></li>
+	<li><html:link action="/Hubs" styleClass="${currentMenu == 'Hubs' ? 'current' : ''}">HUBS</html:link></li>
 </ul>
 
 <div id="logout">
