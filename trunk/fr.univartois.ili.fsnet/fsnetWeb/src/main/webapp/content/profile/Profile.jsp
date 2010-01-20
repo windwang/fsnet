@@ -5,48 +5,38 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
 
- <div>
+ 	<h3>Update Profile</h3>
  	<html:form action="/UpdateProfile">
-		<table>
+		<table id="UpdateProfile">
 			<tr>
 				<th>Name</th>
 				<td>
-					<html:text errorStyleClass="error" property="name">
-						<!-- TODO nom de l'utilisateur ${ XXX.nom } -->
-					</html:text>
+					<html:text errorStyleClass="error" property="name" value="${user.nom}"/>
 				</td>
 			</tr>
 			<tr>
 				<th>Firstname</th>
 				<td>
-					<html:text errorStyleClass="error" property="firstname">
-						<!-- TODO prenom de l'utilisateur ${ XXX.prenom } -->
-					</html:text>
+					<html:text errorStyleClass="error" property="firstName"  value="${user.prenom}"/>
 				</td>
 			</tr>
 			<tr>
 				<th>Adress</th>
 				<td>
-					<html:textarea errorStyleClass="error" property="adress">
-						<!-- TODO adresse de l'utilisateur ${ XXX.adresse } -->
-					</html:textarea>
+					<html:textarea errorStyleClass="error" property="adress" value="${user.adresse}"/>
 				</td>
 			</tr>
 			<tr>
 				<th>Welcome date</th>
-				<td>
-					
-						<!-- TODO date d'inscription de l'utilisateur ${ XXX.dateEntree } -->
-					
+				<td>					
+					${user.dateEntree} 				
 				</td>
 			</tr>
 			<tr>
 				<th>Birth date (DD/MM/YYYY)</th>
 				<td>
 					<!-- TODO ajouter un calendrier avec ajax -->
-					<html:text errorStyleClass="error" property="dateOfBirth">
-						<!-- TODO date de naissance de l'utilisateur ${ XXX.dateNaissance } -->
-					</html:text>
+					<html:text errorStyleClass="error" property="dateOfBirth" value="${user.dateNaissance}"/>
 				</td>
 			</tr>
 			<tr>
@@ -61,41 +51,33 @@
 			</tr>
 			<tr>
 				<th>Password</th>
-				<td><html:password property="pwd">
-					<!-- TODO date de naissance de l'utilisateur ${ XXX.mdp } -->
-				</html:password></td>
+				<td><html:password property="pwd" value="${user.mdp}"/></td>
 			</tr>
 			<tr>
 				<th>Confirm password</th>
-				<td><html:password property="confirmPwd">
-					<!-- TODO date de naissance de l'utilisateur ${ XXX.mdp } -->
-				</html:password></td>
+				<td><html:password property="confirmPwd" value="${user.mdp}"/></td>
 			</tr>
 			<tr>
 				<th>Job</th>
 				<td>
-					<html:text errorStyleClass="error" property="job">
-						<!-- TODO metier l'utilisateur ${ XXX.profession } -->
-					</html:text>
+					<html:text errorStyleClass="error" property="job" value="${user.profession}"/>
 				</td>
 			</tr>
 			<tr>
 				<th>E-mail</th>
 				<td>
-					<html:text errorStyleClass="error" property="mail">
-						<!-- TODO e-mail l'utilisateur ${ XXX.email } -->
-					</html:text>
+					<html:text errorStyleClass="error" property="mail" value="${user.email}"/>
 				</td>
 			</tr>	
 			<tr>
 				<th>Phone number</th>
 				<td>
-					<html:text errorStyleClass="error" property="phone">
-						<!-- TODO numero de telephone de l'utilisateur ${ XXX.numTel } -->
-					</html:text>
+					<html:text errorStyleClass="error" property="phone" value="${user.numTel}"/>
 				</td>
-			</tr>			
+			</tr>	
+			<tr> <td/> 
+				<td><html:submit>Validate</html:submit></td>	
+			</tr>	
 		</table> 
-		<html:submit>Validate</html:submit>
-	</html:form>   
-</div>   
+
+	</html:form>      

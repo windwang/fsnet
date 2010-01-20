@@ -17,19 +17,64 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+
+import fr.univartois.ili.fsnet.auth.Authenticate;
+import fr.univartois.ili.fsnet.entities.EntiteSociale;
+
 
 /**
  *
  * @author Geoffrey Boulay 
  */
 public class ManageProfile extends MappingDispatchAction implements CrudAction {
+	/**
+	 *  watched profile variable session name
+	 */
+	public static final String WATCHED_PROFILE_VARIABLE="watchedProfile";
+	
+	/**
+	 * format a name
+	 * exemple : entry : le BerrE return Le Berre
+	 * @param name string to format
+	 * @return format string
+	 */
+	public static final String formatName(String name){
+		StringBuffer buf = new StringBuffer();
+		boolean upperCase = true;
+		for(int i=0;i<name.length();i++){
+			char c = name.charAt(i);
+			switch(c){
+			case '\'':;
+			case ' ':;
+			case '-':
+				buf.append(c);
+				upperCase=true;
+				break;
+			default :
+				buf.append((upperCase)?(Character.toUpperCase(c)):(Character.toLowerCase(c)));
+				upperCase=false;
+			}
+		}
+		return buf.toString();
+	}
+	
+	private static EntityManagerFactory factory = Persistence
+	.createEntityManagerFactory("fsnetjpa");
 
     @Override
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
@@ -38,7 +83,24 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //throw new UnsupportedOperationException("Not supported yet.");
+    	EntiteSociale user  = (EntiteSociale)request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+    	DynaActionForm dyna =(DynaActionForm) form;
+    	user.setNom(formatName(dyna.getString("name")));
+    	user.setPrenom(formatName(dyna.getString("firstName")));
+    	user.setAdresse(dyna.getString("adress"));
+    	try{
+    		user.setDateNaissance(Date.valueOf("dateOfBirth"));
+    	}catch(IllegalArgumentException iae){}
+    	user.setSexe(dyna.getString("sexe"));
+    	user.setMdp(dyna.getString("pwd"));
+    	user.setProfession(formatName(dyna.getString("job")));
+    	user.setEmail(dyna.getString("mail"));
+    	user.setNumTel(dyna.getString("phone"));
+    	EntityManager em = factory.createEntityManager();
+    	em.getTransaction().begin();
+    	em.merge(user);
+    	em.getTransaction().commit();
+    	em.close();
     	return mapping.findForward("success");
     }
 
@@ -46,7 +108,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-
+ 
     @Override
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         throw new UnsupportedOperationException("Not supported yet.");
@@ -54,7 +116,13 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        //throw new UnsupportedOperationException("Not supported yet.");
+    	EntityManager em = factory.createEntityManager();
+    	String id = ((DynaActionForm)form).getString("id");
+    	EntiteSociale profile = em.find(EntiteSociale.class,Integer.parseInt(id));
+    	request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
+    	em.close();
+    	EntiteSociale user  = (EntiteSociale)request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+    	System.out.println(user.getId());
     	return mapping.findForward("success");
     }
 }
