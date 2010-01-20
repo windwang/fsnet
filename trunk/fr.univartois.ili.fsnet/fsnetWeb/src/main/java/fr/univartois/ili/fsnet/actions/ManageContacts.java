@@ -18,6 +18,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -50,8 +51,10 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			throws IOException, ServletException {
 		EntityManager em = TestEntityManagerProvider.getInstance()
 				.getEntityManager();
-		List listEntities = em.createQuery("select entite from EntiteSociale entite").getResultList();
+		List<EntiteSociale> listEntities = em.createQuery(
+				"select entite from EntiteSociale entite").getResultList();
 		request.setAttribute("listEntities", listEntities);
+		Logger.getAnonymousLogger().severe("@@@@@@@@@@@@@" + listEntities);
 		return mapping.findForward("success");
 	}
 
@@ -232,10 +235,17 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		EntityManager em = TestEntityManagerProvider.getInstance()
+				.getEntityManager();
 		EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
 				Authenticate.AUTHENTICATED_USER);
+		user = em.find(EntiteSociale.class, user.getId());
 		List<EntiteSociale> listContacts = user.getContacts();
 		request.setAttribute("listContacts", listContacts);
+		List<EntiteSociale> listDemands = user.getAsked();
+		request.setAttribute("listDemands", listDemands);
+		List<EntiteSociale> listRequests = user.getRequested();
+		request.setAttribute("listRequests", listRequests);
 		return mapping.findForward("success");
 	}
 }
