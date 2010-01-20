@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -25,11 +26,13 @@ public class Decideur {
      * A decision-maker is a social entity.
      */
     @ManyToOne
+    @Column(nullable = false)
     private EntiteSociale entSociale;
     /**
      * A decision-maker governs interaction.
      */
     @OneToOne
+    @Column(nullable = false)
     private Interaction interaction;
 
     /**

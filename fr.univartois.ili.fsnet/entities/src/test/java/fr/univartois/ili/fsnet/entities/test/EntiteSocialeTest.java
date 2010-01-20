@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.entities.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import javax.persistence.EntityManager;
@@ -52,8 +51,9 @@ public class EntiteSocialeTest {
 		assertEquals(ent.getEmail(), "titi@gmail.com");
 		ent.setEmail("tata@gmail.com");
 		em.getTransaction().begin();
-		em.persist(ent);
+		em.merge(ent);
 		em.getTransaction().commit();
+		ent = em.find(EntiteSociale.class, ent.getId());
 		assertEquals(ent.getEmail(), "tata@gmail.com");
 	}
 

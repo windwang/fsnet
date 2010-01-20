@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.entities.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -14,10 +13,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Annonce;
 import fr.univartois.ili.fsnet.entities.Decideur;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.entities.Information;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.RapportActivites;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
