@@ -48,6 +48,11 @@
         <put name="body-content" value="/content/profile/Profile.jsp" />
     </definition>
     
+   <definition name="ShowProfile" extends=".defaultLayout">
+        <put name="title" value="Profile"/>
+        <put name="body-content" value="/content/profile/ShowProfile.jsp" />
+    </definition>
+    
     <!-- Topic -->
     <definition name="Topic" extends=".defaultLayout">
         <put name="title" value="Topic"/>
