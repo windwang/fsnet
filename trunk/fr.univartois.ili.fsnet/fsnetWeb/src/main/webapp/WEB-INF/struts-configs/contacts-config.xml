@@ -26,6 +26,11 @@
 			parameter="displayRequests">
 			<forward name="success" path="Contacts" />
 		</action>
+		
+		<action path="/AskContact" type="fr.univartois.ili.fsnet.actions.ManageContacts"
+			parameter="ask">
+			<forward name="success" path="Contacts" />
+		</action>
 
 		<action path="/Contacts" type="org.apache.struts.actions.ForwardAction"
 			parameter="Contacts" />
