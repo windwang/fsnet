@@ -1,2 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%-- 
+    Document   : CreateHub
+    Author     : Audrey Ruellan et Cerelia Besnainou
+--%>
+
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
+
+<jsp:include page="/content/hubs/CreateHub.jsp"/>

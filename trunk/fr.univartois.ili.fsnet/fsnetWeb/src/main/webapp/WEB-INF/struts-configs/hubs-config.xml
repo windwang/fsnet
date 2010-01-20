@@ -22,6 +22,11 @@
 
     </global-forwards>
     <action-mappings>
+        <action path="/CreateHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+                name="CreateHubForm" input="Hubs" scope="request" validate="false"
+                parameter="create">
+            <forward name="success" path="Hubs" />
+        </action>
         <action path="/Hubs" type="org.apache.struts.actions.ForwardAction"
                 parameter="Hubs" />
 
