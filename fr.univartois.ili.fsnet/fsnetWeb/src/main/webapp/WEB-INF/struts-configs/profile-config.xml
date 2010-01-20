@@ -5,10 +5,15 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
     <form-beans>
+    
+        <form-bean name="DisplayProfileForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">   
+            <form-property name="id" type="java.lang.String" />	
+    	</form-bean>
         <form-bean name="UpdateProfileForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="name" type="java.lang.String" />
-            <form-property name="firstname" type="java.lang.String" />
+            <form-property name="firstName" type="java.lang.String" />
             <form-property name="adress" type="java.lang.String" />
             <form-property name="dateOfBirth" type="java.lang.String" />
             <form-property name="sexe" type="java.lang.String" />
@@ -25,12 +30,12 @@
     <action-mappings>
 
         <action path="/DisplayProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-                parameter="display">
-            <forward name="success" path="Profile" />
+                parameter="display" name="DisplayProfileForm" scope="request" validate="false">
+            <forward name="success" path="ShowProfile" />
         </action>
         <action path="/UpdateProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-                name="UpdateProfileForm" scope="request" validate="false" parameter="modify">
-            <forward name="success" path="/DisplayProfile.do" />
+                name="UpdateProfileForm" scope="request" validate="false" parameter="modify" >
+            <forward name="success" path="Profile" />
         </action>
     </action-mappings>
 </struts-config>
