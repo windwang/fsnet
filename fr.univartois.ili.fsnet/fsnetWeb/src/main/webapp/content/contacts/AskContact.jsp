@@ -3,7 +3,12 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <h2>Liste de vos contacts:</h2>
-<c:forEach var="contact" items="${requestScope.listContacts.contacts}">
-    -${contact.nom}
+<form>
+<select name="entitySelected">
+<c:forEach var="contact" items="${requestScope.listEntities}">
+    <option value="${contact}">${contact.nom}</option>
 </c:forEach>
+</select>
+</form>
