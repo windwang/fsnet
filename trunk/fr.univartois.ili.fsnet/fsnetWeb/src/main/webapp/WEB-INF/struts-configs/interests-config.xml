@@ -9,19 +9,40 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="interestName" type="java.lang.String" />
         </form-bean>
+        <form-bean name="AddInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="interestId" type="java.lang.String" />
+		</form-bean>
     </form-beans>
     <global-forwards>
 
     </global-forwards>
     <action-mappings>
-    	 <action path="/CreateInterest" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-                name="CreateInterestForm" input="Interests" scope="request" validate="true"
-                parameter="create">
+    	<action path="/DisplayInterests" type="fr.univartois.ili.fsnet.actions.ManageInterests"
+                input="Interests" scope="request" parameter="display">
             <forward name="success" path="Interests" />
         </action>
-    
-        <action path="/Interests" type="org.apache.struts.actions.ForwardAction"
-                parameter="Interests" />
+        
+        <action 
+				path="/AddInterest" 
+				type="fr.univartois.ili.fsnet.actions.ManageInterests"
+				name="AddInterestForm" 
+				input="Interests" 
+				scope="request" 
+				validate="true"
+				parameter="add">
+			<forward name="success" path="/Interests.do" />
+		</action>
+		    
+		<action 
+				path="/Interests" 
+				type="fr.univartois.ili.fsnet.actions.ManageInterests"
+				input="Interests" 
+				scope="request" 
+				parameter="display">
+			<forward name="success" path="Interests" />
+		</action>
+
 
     </action-mappings>
 </struts-config>
