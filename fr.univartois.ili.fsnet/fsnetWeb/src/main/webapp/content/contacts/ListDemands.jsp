@@ -3,7 +3,7 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-Liste de vos contacts:
-<c:forEach var="contact" items="${requestScope.listContacts.contacts}">
+Liste des demandes reçues:
+<c:forEach var="contact" items="${requestScope.listDemands.asked}">
     -${contact.nom}
 </c:forEach>
