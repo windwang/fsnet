@@ -17,7 +17,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -36,6 +35,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
@@ -43,7 +43,7 @@ import fr.univartois.ili.fsnet.entities.Topic;
 
 /**
  *
- * @author 
+ * @author Zhu Rui <zrhurey at gmail.com>
  */
 public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
@@ -59,9 +59,8 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		String topicSujet = (String) dynaForm.get("topicSujet");
 		Hub entiteHub = (Hub) dynaForm.get("entityHub");
 		Date date = new Date();
-		List<Message> lesMsgs = (List<Message>) dynaForm.get("listMessages");
-		EntiteSociale entiteSociale = (EntiteSociale) dynaForm.get("entitySociale");
-		Topic topic = new Topic(topicSujet,date,lesMsgs,entiteHub,entiteSociale);
+		EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+		Topic topic = new Topic(topicSujet,date,null,entiteHub,entiteSociale);
         em.getTransaction().begin();
         em.persist(topic);
 	    em.getTransaction().commit();
