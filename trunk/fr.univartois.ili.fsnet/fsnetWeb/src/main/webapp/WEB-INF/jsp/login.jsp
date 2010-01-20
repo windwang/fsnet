@@ -26,7 +26,7 @@
 		<h2 id="login-title">Welcome on FSNet !</h2>
 		<div id="login">
 			
-			<form action="Authenticate">
+			<form action="Authenticate" method="post">
 				<table>
 					<tr>
 						<td>
