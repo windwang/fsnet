@@ -60,8 +60,16 @@
         <put name="title" value="Announces"/>
         <put name="body-content" value="/content/announces/Announces.jsp" />
     </definition>
-       <definition name="CreateModifyAnnounce" extends=".defaultLayout">
-        <put name="title" value="Announces"/>
-        <put name="body-content" value="/content/announces/CreateModifyAnnounce.jsp" />
+       <definition name="DisplayCreateAnnounce" extends=".defaultLayout">
+        <put name="title" value="Create Announce"/>
+        <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
+    </definition>
+    <definition name="DisplayModifyAnnounce" extends=".defaultLayout">
+        <put name="title" value="ModifyAnnounce"/>
+        <put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
+    </definition>
+    <definition name="DisplayAnnounce" extends=".defaultLayout">
+        <put name="title" value="DisplayAnnounce"/>
+        <put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
     </definition>
 </tiles-definitions>
