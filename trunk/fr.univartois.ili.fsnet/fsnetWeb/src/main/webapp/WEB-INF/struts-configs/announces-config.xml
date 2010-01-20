@@ -30,6 +30,10 @@
                 parameter="display">
             <forward name="success" path="CreateModifyAnnounce" />
         </action>
+        <action path="/DisplayAnnounce" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+        parameter="display">
+        	<forward name="success" path="DisplayAnnounce"></forward>
+        </action>
     </action-mappings>
 
 </struts-config>

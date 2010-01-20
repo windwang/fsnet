@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Locale;
 
@@ -23,6 +24,7 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.Annonce;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
@@ -45,8 +47,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
 		// TODO update paramater
-		EntiteSociale entiteSociale = (EntiteSociale) request.getSession(true)
-				.getAttribute("entite");
+		EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
 
 		DynaActionForm formAnnounce = (DynaActionForm) form;
 		String title = (String) formAnnounce.get("announcementTitle");
@@ -98,7 +99,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		String stringExpiryDate = (String) formAnnounce.get("expiryDateAnnouncement");
 		Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
 		DateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy", Locale.FRANCE);
-		EntiteSociale entiteSociale = (EntiteSociale) request.getSession(true);
+		EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
 		try {
 			Date expiryDate = (Date) simpleFormat.parse(stringExpiryDate);
 			// TODO check if this test is necessary
@@ -122,16 +123,18 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		}
 		entityManager.close();
 		// TODO add label mapping
-		return mapping.findForward("");
+		return mapping.findForward("success");
 	}
-
+/**
+ * 
+ */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();	
-		DynaActionForm formAnnounce = (DynaActionForm) form;		
-		Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");		
+				
+		Integer idAnnounce = (Integer) request.getAttribute("idAnnounce");		
 		Annonce announce = new Annonce();
 		announce.setId(idAnnounce);
 		entityManager.getTransaction().begin();
@@ -139,23 +142,37 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.remove(entityManager.find(Annonce.class, idAnnounce));
 		entityManager.getTransaction().commit();
 		// TODO add label mapping
-		return mapping.findForward("");
+		return mapping.findForward("success");
 
 	}
-
+/**
+ * @return list of announce
+ */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO add label mapping
-		return mapping.findForward("");
+		// TODO 
+		Collection listAnnounces = null;
+		request.setAttribute("listAnnounces", listAnnounces);
+		return mapping.findForward("success");
 	}
-
+/**
+ * @return announce in request 
+ */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO add label mapping
+		EntityManager entityManager = factory.createEntityManager();	
+		
+		Integer idAnnounce = (Integer) request.getAttribute("idAnnounce");		
+
+		entityManager.getTransaction().begin();
+		//TODO use try catch with remove can be null!
+		Annonce announce = entityManager.find(Annonce.class, idAnnounce);
+		entityManager.getTransaction().commit();
+		request.setAttribute("announce", announce);
 		return mapping.findForward("success");
 	}
 
