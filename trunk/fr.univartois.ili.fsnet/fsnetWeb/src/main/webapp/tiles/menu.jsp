@@ -3,7 +3,7 @@
 	<li><a class="current" href="#">HOME</a></li>
 	<li><html:link action="/Contacts">CONTACTS</html:link></li>
 	<li><html:link action="/Interests">INTERESTS</html:link></li>
-	<li><html:link action="/Profile">PROFILE</html:link></li>
+	<li><html:link action="/DisplayProfile">PROFILE</html:link></li>
 	<li><html:link action="/Announces">ANNOUCEMENTS</html:link></li>
 	<li><html:link action="/Events">EVENTS</html:link></li>
 	<li><html:link action="/Hubs">HUBS</html:link></li>
