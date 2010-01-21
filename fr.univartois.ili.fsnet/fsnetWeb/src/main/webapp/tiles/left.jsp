@@ -17,18 +17,8 @@
 		</html:link>
 	</li>
 	<li>
-		<html:link action="/DisplayAnnounce"> 
-			Go to annoucements
-		</html:link>
-	</li>
-	<li>
-		<html:link action="/CreateEvent"> 
+		<html:link action="/DisplayCreateEvent"> 
 			Create an event
 		</html:link>
-	</li>
-	<li>
-		<html:link action="/DisplayEvent">
-			Go to events
-		</html:link> 
 	</li>
 </ul>

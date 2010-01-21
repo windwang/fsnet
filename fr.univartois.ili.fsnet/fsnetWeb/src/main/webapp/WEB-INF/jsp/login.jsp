@@ -33,7 +33,7 @@
 							<label for="memberMail">Mail :</label>
 						</td>
 						<td>
-							<input type="text" name="memberMail" id="memberMail"/>
+							<input type="text" name="memberMail" id="memberMail" class="error"/>
 						</td>
 					</tr>
 					<tr>
