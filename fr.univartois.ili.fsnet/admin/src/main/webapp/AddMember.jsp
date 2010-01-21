@@ -23,7 +23,7 @@
 
             <div id="left">
                 <h2><a href="AddMember.jsp?user=current&amp;showHide=hide&amp;deploy=[%2B]&amp;titleDeploy=D%E9ployer la liste"
-                       title="Ajout de membre">Ajout de membre </a>
+                       title="Gestion des membres">Gestion des membres </a>
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
             </div>
@@ -130,6 +130,77 @@
                                     </div>
                                 </html:form>
                             </div>
+                            
+                            
+                            
+                            
+                            <html:form action="/SearchMember.do">
+                                <!-- <form id="form1" method="post" action="SearchMember">-->
+
+                                <div>
+                                    <label for="searchText">Recherche par :</label>
+                                    <html:select property="selectRecherche">
+                                        <html:option value="nom">Nom</html:option>
+                                        <html:option value="prenom">Prénom</html:option>
+                                    </html:select>
+                                    <!-- <label for="searchText">Champs :</label>-->
+                                    <html:text errorStyleClass="error" property="searchtext" styleId="searchText"/>
+                                    <!-- <label class="button">-->
+                                    <html:submit>Rechercher</html:submit>
+                                    <br/>
+                                    <html:errors property="searchtext" />
+                                    <!-- <input type="submit" name="Submit" value="Rechercher" />-->
+                                    <!-- </label>-->
+                                </div>
+
+                            </html:form>
+                            <html:form method="post" action="/DeleteMember">
+                                <table id="listToDeploy">
+                                    <tr class="champ" id="enteteRecherche">
+                                        <th>Supprimer
+                                            <input id="allUsers" type="checkbox"
+                                                   name="allUsers" title="Tout supprimer"
+                                                   onclick="selectAll('allUsers','selectedUsers');showHideButton('removeButton','userSelected');" />
+                                        </th>
+                                        <th scope="row">Nom</th>
+                                        <th scope="row">Prénom</th>
+                                        <th scope="row">Email</th>
+                                        <th scope="row">Détails</th>
+                                        <th scope="row">Etat</th>
+                                    </tr>
+
+                                    <admin:inscription filtre="${requestScope.selectRecherche}" var="inscription" parametre="${requestScope.searchtext}"  >
+                                        <tr>
+                                            <td>
+                                                <html:multibox
+                                                    property="selectedUsers"
+                                                    value="${inscription.entite.id}"
+                                                    onclick="showHideButton('removeButton','selectedUsers');"
+                                                    />
+                                            </td>
+                                            <td title="${inscription.entite.nom}">${svarNom}</td>
+                                            <td title="${inscription.entite.prenom}">${svarPrenom}</td>
+                                            <td title="${inscription.entite.email}">${svarEmail}</td>
+                                            <td><a href="#"
+                                                   onclick="recupPage('DetailsMember.jsp','ent','${inscription.entite.id}','side');"
+                                                   title="Cliquez pour afficher les détails de ce membre">Détails</a></td>
+                                            <td>${inscription.etat}</td>
+                                        </tr>
+                                    </admin:inscription>
+                                    <c:if test="${vide ne 'nonVide'}">
+                                        <tr id="rechercheVide">
+                                            <td colspan="5">Aucun résultat ne correspond à votre recherche !</td>
+                                        </tr>
+                                    </c:if>
+                                </table>
+                                <div>
+                                    <label for="removeButton">
+                                        <input id="removeButton" type="submit" value="Supprimer" title="Supprimer" />
+                                    </label>
+                                </div>
+                            </html:form>
+                            
+                            
                         </td>
 
                     </tr>

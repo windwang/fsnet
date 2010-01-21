@@ -66,8 +66,8 @@
         </action>
         <action path="/SearchMember"
                 type="fr.univartois.ili.fsnet.admin.actions.SearchMember" name="SearchForm"
-                input="/SearchMember.jsp" validate="true" scope="request">
-            <forward name="success" path="/SearchMember.jsp" />
+                input="/AddMember.jsp" validate="true" scope="request">
+            <forward name="success" path="/AddMember.jsp" />
         </action>
         <action path="/SearchInterest"
                 type="fr.univartois.ili.fsnet.admin.actions.SearchInterest" name="SearchForm"
