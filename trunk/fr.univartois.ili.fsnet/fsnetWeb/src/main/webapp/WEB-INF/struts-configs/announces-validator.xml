@@ -1,6 +1,37 @@
 <!DOCTYPE form-validation PUBLIC
 "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
 "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
-<form-validation>
 
+<!-- Mehdi Benzaghar <mehdi.benzaghar at gmail.com> -->
+
+<form-validation>
+  <formset>
+        <form name="/CreateAnnounce">
+            <field property="announceTitle" depends="required">
+                <arg key="error.announceTitle" />
+            </field>
+            <field property="announceContent" depends="required">
+                <arg key="error.announceContent" />
+            </field>
+            <field property="announceExpiryDate" depends="required">
+                <arg key="error.announceExpiryDate" />
+            </field>
+        </form>
+        <form name="/ModifyAnnounce">
+            <field property="announceTitle" depends="required">
+                <arg key="error.announceTitle" />
+            </field>
+            <field property="announceContent" depends="required">
+                <arg key="error.announceContent" />
+            </field>
+            <field property="announceExpiryDate" depends="required">
+                <arg key="error.announceExpiryDate" />
+            </field>
+        </form>
+        <form name="/SearchAnnounce">
+            <field property="textSearchAnnounce" depends="required">
+                <arg key="error.textSearchAnnounce" />
+            </field>
+        </form>
+    </formset>
 </form-validation>

@@ -12,12 +12,21 @@
 
 <html:form >
 	<table id="CreateAnnounce">
+	<tr>
+			<td>
+				<label for="announceCreator">Créateur :</label>
+			</td>
+			<td>
+			<bean:write name="entiteSociale" property="nom" />
+    			<bean:write name="entiteSociale" property="prenom" />
+    		</td>
+    	</tr>
 		<tr>
 			<td>
 				<label for="announceTitle">Titre :</label>
 			</td>
 			<td>
-    			<bean:write name="announce" property="title" />
+    			<bean:write name="announce" property="nom" />
     		</td>
     	</tr>
     	<tr>
@@ -25,7 +34,7 @@
     			<label for="announceContent">Contenu: </label>
     		</td>
     		<td>
-    			<bean:write name="announce" property="content" />
+    			<bean:write name="announce" property="contenu" />
     		</td>
     	</tr>
     	<tr>
@@ -33,7 +42,7 @@
     			<label for="announceExpiryDate">Date :</label>
     		</td>
     		<td>
-    			<bean:write name="announce" property="expiryDate" />
+    			<bean:write name="announce" property="dateFinAnnonce" />
     		</td>
     	</tr>
     	<tr>
