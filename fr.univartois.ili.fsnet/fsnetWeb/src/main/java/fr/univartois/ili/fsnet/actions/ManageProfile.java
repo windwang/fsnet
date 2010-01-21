@@ -125,17 +125,14 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
             return mapping.findForward("success");
         }
         try {
-            // TODO Affichage autre profile
             String idS = ((DynaActionForm) form).getString("id");
             int id = Integer.parseInt(idS);
             EntiteSociale profile = em.find(EntiteSociale.class, Integer.parseInt(idS));
             request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
             em.close();
-            EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
             return mapping.findForward("success");
         } catch (NumberFormatException e) {
-            // TODO ERROR
+            return mapping.findForward("fail");
         }
-        return mapping.findForward("fail");
     }
 }
