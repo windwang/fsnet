@@ -74,8 +74,8 @@
 
     <!-- Topic -->
     <definition name="Topic" extends=".defaultLayout">
-        <put name="title" value="Topics"/>
-        <put name="currentMenu" value="Topics"/>
+        <put name="title" value="Topic"/>
+        <put name="currentMenu" value="Topic"/>
         <put name="body-content" value="/content/topics/Topic.jsp" />
     </definition>
 
