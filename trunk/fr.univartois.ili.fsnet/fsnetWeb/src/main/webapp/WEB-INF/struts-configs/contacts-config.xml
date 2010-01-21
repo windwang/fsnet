@@ -5,17 +5,21 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
 	<form-beans>
-		<form-bean  name="DemandContactForm" 
-					type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="entitySelected" type="java.lang.String"/>
+		<form-bean name="DemandContactForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="entitySelected" type="java.lang.String" />
 		</form-bean>
-		<form-bean  name="AcceptContactForm" 
-					type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="entityAccepted" type="java.lang.String"/>
+		<form-bean name="AcceptContactForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="entityAccepted" type="java.lang.String" />
 		</form-bean>
-		<form-bean  name="RefuseContactForm" 
-					type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="entityRefused" type="java.lang.String"/>
+		<form-bean name="RefuseContactForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="entityRefused" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="DeleteContactForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="entityDeleted" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
 	<global-forwards>
@@ -33,20 +37,25 @@
 			<forward name="success" path="AskContact" />
 		</action>
 
-		<action path="/ContactDemand" name="DemandContactForm" type="fr.univartois.ili.fsnet.actions.ManageContacts"
-			parameter="askContact">
-			<forward name="success" path="/Contacts.do" redirect="true"/>
+		<action path="/ContactDemand" name="DemandContactForm"
+			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="askContact">
+			<forward name="success" path="/Contacts.do" redirect="true" />
 		</action>
-		
-		<action path="/AcceptContact" name="AcceptContactForm" type="fr.univartois.ili.fsnet.actions.ManageContacts"
-			parameter="accept">
-			<forward name="success" path="/Contacts.do" redirect="true"/>
-		</action>		
 
-		<action  path="/RefuseContact" name="RefuseContactForm" type="fr.univartois.ili.fsnet.actions.ManageContacts"
-			parameter="refuse">
-			<forward name="success" path="/Contacts.do" redirect="true"/>
-		</action>	
+		<action path="/AcceptContact" name="AcceptContactForm"
+			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="accept">
+			<forward name="success" path="/Contacts.do" redirect="true" />
+		</action>
+
+		<action path="/RefuseContact" name="RefuseContactForm"
+			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="refuse">
+			<forward name="success" path="/Contacts.do" redirect="true" />
+		</action>
+
+		<action path="/DeleteContact" name="DeleteContactForm"
+			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="delete">
+			<forward name="success" path="/Contacts.do" redirect="true" />
+		</action>
 
 	</action-mappings>
 
