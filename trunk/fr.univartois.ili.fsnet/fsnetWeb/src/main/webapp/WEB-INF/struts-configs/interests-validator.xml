@@ -13,5 +13,20 @@
                 <arg key="error.interest.remove" />
             </field>
         </form>
+        <form name="/SearchInterest">
+            <field property="interestName">
+                <arg key="error.interest.search" />
+            </field>
+        </form>
+        <form name="/CreateInterest">
+            <field property="interestName" depends="required">
+                <arg key="error.interest.create" />
+            </field>
+        </form>
+        <form name="/DeleteInterest">
+            <field property="interestId" depends="required">
+                <arg key="error.interest.create" />
+            </field>
+        </form>
 	</formset>
 </form-validation>
