@@ -13,6 +13,15 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="topicId" type="java.lang.Integer" />
         </form-bean>
+        <form-bean name="ChangeTopicForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="topicId" type="java.lang.Integer" />
+            <form-property name="hubNomCommunaute" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="SearchTopicForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="topicSujetSearch" type="java.lang.String" />
+        </form-bean>
     </form-beans>
     <global-forwards>
 
@@ -29,19 +38,19 @@
         </action>
 
         <action path="/ChangeTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-                name="ChangeTopic" input="Topic" scope="request" validate="false"
-                parameter="modify">
-            <forward name="success" path="ChangeTopic" />
+                name="ChangeTopicForm" input="Topic" scope="request" validate="false"
+                parameter="modify">   
+            <forward name="success" path="/Topic.do" />
         </action>
 
         <action path="/ListTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
                 input="Topic" scope="request" validate="false"
                 parameter="display">
-            <forward name="success" path="ListTopic" />
+            <forward name="success" path="/Topic.do" />
         </action>
 
         <action path="/SearchTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-                name="CreateTopicForm" scope="request" parameter="search">
+                name="SearchTopicForm" scope="request" parameter="search">
             <forward name="success" path="/Topic.do" />
         </action>
 
