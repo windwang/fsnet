@@ -40,6 +40,11 @@
         <put name="currentMenu" value="Contacts"/>
         <put name="body-content" value="/content/contacts/Contacts.jsp" />
     </definition>
+        <definition name="AskContact" extends=".defaultLayout">
+        <put name="title" value="Add Contact"/>
+        <put name="currentMenu" value="Contacts"/>
+        <put name="body-content" value="/content/contacts/AskContact.jsp" />
+    </definition>
 
     <!-- Interests -->
     <definition name="Interests" extends=".defaultLayout">

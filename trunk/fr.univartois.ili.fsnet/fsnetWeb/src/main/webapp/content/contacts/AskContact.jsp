@@ -5,10 +5,11 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 
 <h2>Ajouter un contacts:</h2>
-<form>
-	<select name="entitySelected">
+<html:form method="get" action="/ContactDemand">
+	<html:select property="entitySelected">
 		<c:forEach var="contact" items="${listEntities}">
-			<option value="${contact.id}">${contact.nom}</option>
+			<html:option value="${contact.id}">${contact.nom}</html:option>
 		</c:forEach>
-	</select>
-</form>
+	</html:select>
+	<html:submit >Envoyer demande</html:submit>
+</html:form>
