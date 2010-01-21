@@ -79,13 +79,13 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		em.getTransaction().begin();
 		// TODO changer les listes en set sur les entites sociales pour eviter
 		// les doublons
-		
+
 		EntiteSociale entity = em.find(EntiteSociale.class, entitySelected);
 		user = em.find(EntiteSociale.class, user.getId());
 		user.getRequested().add(entity);
 		entity.getAsked().add(user);
-		//em.merge(entity);
-		//em.merge(user);
+		// em.merge(entity);
+		// em.merge(user);
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
@@ -112,8 +112,8 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 				Authenticate.AUTHENTICATED_USER);
 		final String idString = (String) dynaForm.get("entityAccepted");
 		int id = Integer.parseInt(idString);
-		user = em.find(EntiteSociale.class,user.getId());
-		EntiteSociale entityAccepted = em.find(EntiteSociale.class,id);
+		user = em.find(EntiteSociale.class, user.getId());
+		EntiteSociale entityAccepted = em.find(EntiteSociale.class, id);
 		em.getTransaction().begin();
 		user.getContacts().add(entityAccepted);
 		entityAccepted.getContacts().add(user);
@@ -146,8 +146,8 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 				Authenticate.AUTHENTICATED_USER);
 		final String idString = (String) dynaForm.get("entityRefused");
 		int id = Integer.parseInt(idString);
-		user = em.find(EntiteSociale.class,user.getId());
-		EntiteSociale entityRefused = em.find(EntiteSociale.class,id);
+		user = em.find(EntiteSociale.class, user.getId());
+		EntiteSociale entityRefused = em.find(EntiteSociale.class, id);
 		em.getTransaction().begin();
 		user.getAsked().remove(entityRefused);
 		entityRefused.getRequested().remove(user);
@@ -221,7 +221,21 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet.");
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		EntityManager em = factory.createEntityManager();
+		EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
+				Authenticate.AUTHENTICATED_USER);
+		final String idString = (String) dynaForm.get("entityDeleted");
+		int id = Integer.parseInt(idString);
+		user = em.find(EntiteSociale.class, user.getId());
+		EntiteSociale entityDeleted = em.find(EntiteSociale.class, id);
+		em.getTransaction().begin();
+		user.getContacts().remove(entityDeleted);
+		entityDeleted.getContacts().remove(user);
+		em.merge(user);
+		em.merge(entityDeleted);
+		em.getTransaction().commit();
+		return mapping.findForward("success");
 	}
 
 	@Override
