@@ -14,7 +14,7 @@
 		<tr>
 		<td><label>Sujet of the topic :</label></td>
 		<td><html:text property="topicSujet" styleId="topicSujet" /></td>
-		<td><html:submit/></td>
+		<td><html:submit value="Add"/></td>
 		</tr>
     </table>
 </html:form>
