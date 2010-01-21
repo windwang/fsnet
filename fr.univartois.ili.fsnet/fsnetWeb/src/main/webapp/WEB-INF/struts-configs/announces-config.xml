@@ -24,16 +24,17 @@
 
 	<action-mappings>
 		<!-- Announces -->
-		<action path="/Announces" name="SearchAnnounceForm" scope="request"
+		<action path="/Announces" name="SearchAnnounceForm" scope="request" input="Announces"
 			type="fr.univartois.ili.fsnet.actions.ManageAnnounces" parameter="search">
 			<forward name="success" path="Announces" />
 		</action>
-		<action path="/CreateAnnounce" name="AnnounceForm" scope="request"
+		<action path="/CreateAnnounce" name="AnnounceForm" scope="request" input="DisplayCreateAnnounce"
 			type="fr.univartois.ili.fsnet.actions.ManageAnnounces" parameter="create">
 			<forward name="success" path="/Announces.do" />
+
 		</action>
 
-		<action path="/ModifyAnnounce" name="AnnounceForm" scope="request"
+		<action path="/ModifyAnnounce" name="AnnounceForm" scope="request" input="DisplayModifyAnnounce"
 			type="fr.univartois.ili.fsnet.actions.ManageAnnounces" parameter="modify">
 			<forward name="success" path="ModifyAnnounces" />
 		</action>
@@ -47,6 +48,7 @@
 		</action>
 
 		<action path="/DisplayCreateAnnounce" type="org.apache.struts.actions.ForwardAction" parameter="DisplayCreateAnnounce" />
+		
 		
 
 	</action-mappings>

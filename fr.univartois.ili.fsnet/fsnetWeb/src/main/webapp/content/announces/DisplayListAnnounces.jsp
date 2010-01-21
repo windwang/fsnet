@@ -5,10 +5,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <logic:present name="listAnnounces">
 	<table id="EventList">
-		<tr>
-			<td>Titre</td>
-			<td>Date d'expiration</td>
-		</tr>
+
 		<logic:iterate id="announce" scope="request" name="listAnnounces">
 			<tr class="header">
 				<bean:define id="idAnnounce" name="announce" property="id" />
