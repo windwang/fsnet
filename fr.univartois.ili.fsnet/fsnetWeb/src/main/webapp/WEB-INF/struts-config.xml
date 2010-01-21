@@ -14,8 +14,9 @@
 
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
 
-    <message-resources parameter="FSneti18n" null="false" />
-
+    <message-resources parameter="FSneti18n" null="false"/>
+    
+	
     <!--
                 ======================= Validator plugin =============================
         -->
