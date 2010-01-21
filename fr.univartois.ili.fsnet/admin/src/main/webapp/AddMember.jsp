@@ -52,7 +52,7 @@
                                                     <th>Supprimer
                                                         <input id="allUsers" type="checkbox"
                                                                name="allUsers" title="Tout supprimer"
-                                                               onclick="selectAll('allUsers','userSelected');showHideButton('removeButton','userSelected');" /></th>
+                                                               onclick="selectAll('allUsers','selectedUsers');showHideButton('removeButton','selectedUsers');" /></th>
                                                     <th scope="row">Nom</th>
                                                     <th scope="row">Prénom</th>
                                                     <th scope="row">Email</th>
