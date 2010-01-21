@@ -9,19 +9,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html:form action="/CreateTopic">
+	<h3>Create a topic :</h3>
 	<table>
 		<tr>
-		<td><label>Sujet :</label></td>
+		<td><label>Sujet of the topic :</label></td>
 		<td><html:text property="topicSujet" styleId="topicSujet" /></td>
-		</tr>
-		<tr>
-		<td><label>In which the topic appears</label></td>
-		<td><html:select property="hub">
-			<c:forEach var="hub" items="${listHubs}">
-				<html:option value="${hub.id}">${hub.nomCommunaute}</html:option>	
-			</c:forEach>
-		</html:select>
-		<html:submit/></td>
+		<td><html:submit/></td>
 		</tr>
     </table>
 </html:form>

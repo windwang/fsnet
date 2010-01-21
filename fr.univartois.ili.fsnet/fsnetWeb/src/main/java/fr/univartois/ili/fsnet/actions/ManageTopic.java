@@ -57,14 +57,15 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     	EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
 		String topicSujet = (String) dynaForm.get("topicSujet");
-		Hub entiteHub = (Hub) dynaForm.get("entityHub");
+		//Hub entiteHub = (Hub) dynaForm.get("entityHub");
 		Date date = new Date();
 		EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
-		Topic topic = new Topic(topicSujet,date,null,entiteHub,entiteSociale);
+		Topic topic = new Topic(topicSujet,date,null,null,entiteSociale);
         em.getTransaction().begin();
         em.persist(topic);
 	    em.getTransaction().commit();
 	    em.close();
+	    System.out.println("----------Create topic "+topicSujet+" OK------------");
 		return mapping.findForward("success");
     }
 
@@ -120,7 +121,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	EntityManager em = factory.createEntityManager();
     	List<Topic> result = null;
-    	result = em.createQuery("SELECT OBJECT(topic) FROM Topic topic order by sujet").getResultList();
+    	result = em.createQuery("SELECT OBJECT(topic) FROM Topic topic").getResultList();
         request.getSession().setAttribute("listTopics", result);
     	return mapping.findForward("success");
     }
