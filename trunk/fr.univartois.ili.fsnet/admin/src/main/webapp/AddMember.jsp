@@ -98,8 +98,8 @@
                                 <html:form  action="/AddMember.do" method="post">
                                     <table>
                                         <tr>
-                                            <td colspan="2">
-                                                <html:errors name="entitie.alreadyExists" />
+                                            <td colspan="2" class="error">
+                                                <html:errors />
                                             </td>
                                         </tr>
                                         <tr>
