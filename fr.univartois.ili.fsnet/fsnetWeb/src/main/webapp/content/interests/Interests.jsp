@@ -6,3 +6,4 @@
 
 <jsp:include page="/content/interests/MyInterests.jsp"/>
 <jsp:include page="/content/interests/AddInterest.jsp"/>
+<jsp:include page="/content/interests/RemoveInterest.jsp"/>

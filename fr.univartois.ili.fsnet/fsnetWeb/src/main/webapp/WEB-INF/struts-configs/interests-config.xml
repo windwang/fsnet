@@ -5,11 +5,11 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
     <form-beans>
-    	<form-bean name="CreateInterestForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="interestName" type="java.lang.String" />
-        </form-bean>
         <form-bean name="AddInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="interestId" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="RemoveInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="interestId" type="java.lang.String" />
 		</form-bean>
@@ -18,8 +18,12 @@
 
     </global-forwards>
     <action-mappings>
-    	<action path="/DisplayInterests" type="fr.univartois.ili.fsnet.actions.ManageInterests"
-                input="Interests" scope="request" parameter="display">
+    	<action 
+    			path="/DisplayInterests" 
+    			type="fr.univartois.ili.fsnet.actions.ManageInterests"
+                input="Interests" 
+                scope="request" 
+                parameter="display">
             <forward name="success" path="Interests" />
         </action>
         
@@ -31,6 +35,17 @@
 				scope="request" 
 				validate="false"
 				parameter="add">
+			<forward name="success" path="/Interests.do" />
+		</action>
+		
+		<action 
+				path="/RemoveInterest" 
+				type="fr.univartois.ili.fsnet.actions.ManageInterests"
+				name="RemoveInterestForm" 
+				input="Interests" 
+				scope="request" 
+				validate="false"
+				parameter="remove">
 			<forward name="success" path="/Interests.do" />
 		</action>
 		    
