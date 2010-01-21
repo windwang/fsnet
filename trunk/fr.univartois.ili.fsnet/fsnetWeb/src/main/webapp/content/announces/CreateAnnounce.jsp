@@ -8,7 +8,7 @@
     pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-
+<html:javascript formName="/CreateAnnounce"/>
 <html:form action="/CreateAnnounce">
 	<table id="CreateAnnounce">
 		<tr>

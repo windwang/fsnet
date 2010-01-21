@@ -28,8 +28,8 @@
                 <arg key="error.announceExpiryDate" />
             </field>
         </form>
-        <form name="/SearchAnnounce">
-            <field property="textSearchAnnounce" depends="required">
+        <form name="/Announces">
+            <field property="textSearchAnnounce" depends="">
                 <arg key="error.textSearchAnnounce" />
             </field>
         </form>

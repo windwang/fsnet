@@ -118,7 +118,13 @@
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/Announces.jsp" />
     </definition>
+
     <definition name="DisplayCreateAnnounce" extends=".defaultLayout">
+        <put name="title" value="Create Announce"/>
+        <put name="currentMenu" value="Announces"/>
+        <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
+    </definition>
+     <definition name="CreateAnnounce" extends=".defaultLayout">
         <put name="title" value="Create Announce"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />

@@ -11,6 +11,7 @@ import java.util.Locale;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -80,8 +81,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			e.printStackTrace();
 		}
 		entityManager.close();
-		System.out
-				.println("ok!-----------------------------------------------");
+
 		return mapping.findForward("success");
 
 	}
@@ -191,6 +191,10 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		Integer idAnnounce = Integer.valueOf(request.getParameter("idAnnounce"));
 		// TODO use try catch with find can be null!
 		Annonce announce = entityManager.find(Annonce.class, idAnnounce);
+		Query q = entityManager.createQuery(
+				"SELECT es FROM EntiteSociale es,IN(es.lesinteractions) e WHERE e.id = :idAnnounce")
+		.setParameter("idAnnounce", idAnnounce);
+		System.out.println(q.getSingleResult().getClass());
 		EntiteSociale entiteSociale = (EntiteSociale) entityManager
 		.createQuery(
 				"SELECT es FROM EntiteSociale es,IN(es.lesinteractions) e WHERE e.id = :idAnnounce")
