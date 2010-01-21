@@ -77,7 +77,20 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+    	String hubId = request.getParameter("hubId");
+    	
+//    	DynaActionForm dynaForm = (DynaActionForm) form;
+//		String hubId = (String) dynaForm.get("hubId");
+				
+		logger.info("delete hub: " + hubId);
+		
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+        em.createQuery("DELETE FROM Hub hub WHERE hub.id = :hubId ")
+        		.setParameter("hubId", Integer.parseInt(hubId)).executeUpdate();
+        em.getTransaction().commit();
+		em.close();
+		return mapping.findForward("success");
     }
 
     @Override
@@ -103,9 +116,6 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         		.getResultList();
 		request.setAttribute("hubResults", result);
     	
-    	//    	Manifestation manifestation = new Manifestation("Apero chez prouprou",
-//				new Date(), "Mock content", "true", es);
-//		request.setAttribute("listEvents", Collections.singletonList(es));
 		return mapping.findForward("success");
     }
 

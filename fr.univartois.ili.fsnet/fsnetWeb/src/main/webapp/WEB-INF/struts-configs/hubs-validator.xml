@@ -5,7 +5,7 @@
 	<formset>
         <form name="/CreateHub">
             <field property="hubName" depends="required">
-                <arg key="error.hubName" />
+                <arg key="hubs.error.name" />
             </field>
         </form>
     </formset>

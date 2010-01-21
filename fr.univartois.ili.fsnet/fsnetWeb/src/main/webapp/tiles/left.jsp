@@ -4,7 +4,7 @@
 <h2>My Network</h2>
 <ul>
 	<li>
-		<html:link action="/CreateHub">
+		<html:link action="/DisplayCreateHub">
 			Create new hub
 		</html:link>
 	</li>

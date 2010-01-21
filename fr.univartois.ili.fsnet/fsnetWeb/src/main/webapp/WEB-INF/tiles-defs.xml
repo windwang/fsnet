@@ -62,7 +62,13 @@
         <put name="currentMenu" value="Hubs"/>
         <put name="body-content" value="/content/hubs/Hubs.jsp" />
     </definition>
-
+    
+     <definition name="CreateHub" extends=".defaultLayout">
+        <put name="title" value="Hubs"/>
+        <put name="currentMenu" value="Hubs"/>
+        <put name="body-content" value="/content/hubs/CreateHub.jsp" />
+    </definition>
+    
     <!-- Profile -->
     <definition name="Profile" extends=".defaultLayout">
         <put name="title" value="Profile"/>
