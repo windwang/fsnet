@@ -7,6 +7,7 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
+<h3>Create Hub</h3>
 <html:form action="/CreateHub">
 	<table id="CreateHub">
 		<tr>
@@ -22,7 +23,7 @@
     	</tr>
     	<tr>
     		<td>
-    			<html:errors/>
+    			<html:errors property="hubName"/>
     		</td>
     	</tr>
     </table>

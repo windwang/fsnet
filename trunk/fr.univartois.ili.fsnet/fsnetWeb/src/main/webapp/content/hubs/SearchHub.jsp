@@ -7,6 +7,7 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
+<h3>Search Hub</h3>
 <html:form action="/SearchHub">
 	<table id="SearchHub">
 		<tr>
