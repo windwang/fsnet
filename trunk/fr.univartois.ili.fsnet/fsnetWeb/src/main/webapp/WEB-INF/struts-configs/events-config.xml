@@ -16,9 +16,6 @@
 			<form-property name="searchString" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
-	<global-forwards>
-
-	</global-forwards>
 	<action-mappings>
 		<action 
 				path="/CreateEvent" 

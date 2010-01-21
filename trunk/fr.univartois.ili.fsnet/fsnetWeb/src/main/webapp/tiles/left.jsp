@@ -12,7 +12,7 @@
 <h2>Interactions</h2>
 <ul>
 	<li>
-		<html:link action="/CreateAnnounce">
+		<html:link action="/DisplayCreateAnnounce">
 			Create an annoucement 
 		</html:link>
 	</li>
