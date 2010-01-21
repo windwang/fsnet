@@ -38,7 +38,7 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 	-MS-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=60)";
 }
 	
-#left { float: left; width: 30%; margin: 0 0 10px; text-align: justify; }
+#left { float: left; width: 25%; margin: 0 0 10px; text-align: justify; }
 	#left h2 { color: #52A9BA; }
 		#left h2 a { border-bottom: 1px dotted #ACCADE; padding: 0 0 3px; }
 		#left .more { color: #7EA4BC; }
