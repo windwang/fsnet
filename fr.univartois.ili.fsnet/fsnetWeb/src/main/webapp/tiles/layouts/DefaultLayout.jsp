@@ -18,8 +18,11 @@
 
             <tiles:insert attribute="high"/>
 
-            <h2><a><tiles:getAsString name="title"/></a></h2>
+
             <div id="left">
+                <h2>
+                	<a><tiles:getAsString name="title"/></a>
+                </h2>
                 <tiles:insert attribute="left"/>
             </div>
 
