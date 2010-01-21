@@ -99,8 +99,8 @@ public class ManageInterests extends MappingDispatchAction implements
 		Interet interest = (Interet) em.createQuery(
 				"SELECT interest FROM Interet interest WHERE interest.id = :interestId")
 				.setParameter("interestId", interestId).getSingleResult();
-
-		if (interest != null && !user.getLesinterets().contains(interest)) {
+		
+		if (interest != null) {
 			user.getLesinterets().add(interest);
 			em.getTransaction().begin();
 			em.merge(user);
@@ -208,22 +208,20 @@ public class ManageInterests extends MappingDispatchAction implements
 				Authenticate.AUTHENTICATED_USER);
 
 		logger.info("Displaying interests");
-
-		// TODO pas de resultat if user
 		
 		if (user != null) {
 			List<Interet> listInterests = em.createQuery(
-					"SELECT interest FROM Interet interest, IN(interest.lesEntites) entity WHERE entity.id <> :entityId ")
+					"SELECT interest FROM EntiteSociale entity, IN(entity.lesinterets) interestEntity, Interet interest WHERE entity.id = :entityId AND NOT interest.id = interestEntity.id")
 					.setParameter("entityId", user.getId())
 					.getResultList();
-			em.close();
 			request.setAttribute("listInterests", listInterests);
 		} else {
 			List<Interet> listInterests = em.createQuery(
 					"SELECT interest FROM Interet interest").getResultList();
-			em.close();
 			request.setAttribute("listInterests", listInterests);
 		}
+		
+		em.close();
 		return mapping.findForward("success");
 	}
 
