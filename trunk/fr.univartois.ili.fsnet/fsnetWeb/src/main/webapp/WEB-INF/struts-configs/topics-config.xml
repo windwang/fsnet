@@ -15,36 +15,37 @@
     </global-forwards>
     <action-mappings>
         <action path="/CreateTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-                name="CreateTopic" input="Topic" scope="request" validate="false"
-                parameter="create">
-            <forward name="success" path="Topic" />
+                name="CreateTopicForm" scope="request" parameter="create">
+            <forward name="success" path="/Topic.do" />
         </action>
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
                 name="DeleteTopic" input="Topic" scope="request" validate="false"
                 parameter="delete">
-            <forward name="success" path="Topic" />
+            <forward name="success" path="DeleteTopic" />
         </action>
 
         <action path="/ChangeTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
                 name="ChangeTopic" input="Topic" scope="request" validate="false"
                 parameter="modify">
-            <forward name="success" path="Topic" />
+            <forward name="success" path="ChangeTopic" />
         </action>
 
         <action path="/ListTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
                 name="ListTopic" input="Topic" scope="request" validate="false"
                 parameter="display">
-            <forward name="success" path="Topic" />
+            <forward name="success" path="ListTopic" />
         </action>
 
         <action path="/SearchTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
                 name="SearchTopic" input="Topic" scope="request" validate="false"
                 parameter="search">
-            <forward name="success" path="Topic" />
+            <forward name="success" path="SearchTopic" />
         </action>
 
-        <action path="/Topic" type="org.apache.struts.actions.ForwardAction"
-                parameter="Topic" />
+		<action path="/Topic" name="ListTopic" scope="request"
+			type="fr.univartois.ili.fsnet.actions.ManageTopic" parameter="display">
+			<forward name="success" path="Topic" />
+		</action>
     </action-mappings>
 </struts-config>
