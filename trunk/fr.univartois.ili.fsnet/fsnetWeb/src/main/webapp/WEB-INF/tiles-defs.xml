@@ -18,15 +18,23 @@
         <put name="footer" value="/tiles/footer.jsp" />
     </definition>
 
-
     <!-- Events -->
-    <definition name="Events" extends=".defaultLayout">
+    <definition name="CreateEvent" extends=".defaultLayout">
         <put name="title" value="Events"/>
+        <put name="body-content" value="/content/events/CreateEvent.jsp" />
         <put name="currentMenu" value="Events"/>
-        <put name="body-content" value="/content/events/Events.jsp" />
+    </definition>
+    
+    <definition name="DisplayEvents" extends=".defaultLayout">
+        <put name="title" value="Events"/>
+        <put name="body-content" value="/content/events/DisplayEvents.jsp" />
+    </definition>
+    <definition name="SearchEvents" extends=".defaultLayout">
+        <put name="title" value="Events"/>
+        <put name="body-content" value="/content/events/DisplayEvents.jsp" />
     </definition>
 
-
+    <!-- Contacts -->
     <definition name="Contacts" extends=".defaultLayout">
         <put name="title" value="Contacts"/>
         <put name="currentMenu" value="Contacts"/>
@@ -70,7 +78,6 @@
         <put name="currentMenu" value="Topics"/>
         <put name="body-content" value="/content/topics/Topic.jsp" />
     </definition>
-
 
     <!-- Announces -->
     <definition name="Announces" extends=".defaultLayout">
