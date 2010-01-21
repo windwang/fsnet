@@ -72,20 +72,43 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		int topicId = (Integer)dynaForm.get("topicId");
-		String topicSujet = (String) dynaForm.get("topicSujet");
-		Hub entityHub = (Hub) dynaForm.get("entityHub");
-		List<Message> lesMsgs = (List<Message>) dynaForm.get("listMessages");
-        em.getTransaction().begin();
-        Query query = em.createQuery("UPDATE Topic SET sujet = :sujet, hub = :hub, lesMessages = :lesMsgs WHERE id = ?topicId");
-	    	query.setParameter("sujet", topicSujet);
-	    	query.setParameter("hub", entityHub);
-	    	query.setParameter("lesMsgs",lesMsgs);
-	    	query.setParameter("topicId",topicId);
-	    	query.executeUpdate();
-        em.getTransaction().commit();
-        em.close();
+		Topic topic = null;
+		Hub hub = null;
+		String hubNom = null;
+		if (request.getParameterMap().containsKey("find")) {
+			int topicId = Integer.valueOf(request.getParameter("topicId"));
+			topic = em.find(Topic.class, topicId);
+			request.getSession().setAttribute("topicFind", topic);
+			request.getSession().setAttribute("creatorTopic", topic.getPropTopic());
+			request.getSession().setAttribute("hubTopic", topic.getHub());
+			request.getSession().setAttribute("messageTopic", topic.getLesMessages());
+			List<Hub> hubs = null;
+	    	hubs = em.createQuery("SELECT OBJECT(hub) FROM Hub hub order by hub.nomCommunaute").getResultList();
+	    	request.getSession().setAttribute("listHubs", hubs);
+		}
+		if (request.getParameterMap().containsKey("update")) {
+			System.out.println("-----------prepare to update--------------");
+			int topicIdUpdate = Integer.valueOf(request.getParameter("topicId"));
+			hubNom = request.getParameter("hubNom");
+			/**
+			 * toto
+			 * il faut trouver l'identification de Hub
+			 * non resolu pour l'instant
+			 */
+			/*
+			hub = em.find(Hub.class, hubNom);
+			em.getTransaction().begin();
+	        Query query = em.createQuery("UPDATE Topic SET hub = :hub WHERE id = :topicId");
+	    		query.setParameter("hub",hub);		        	
+		    	query.setParameter("topicId",topicIdUpdate);
+		    	query.executeUpdate();
+	        em.getTransaction().commit();
+	        System.out.println("-----------update Ok--------------");
+	        em.close();
+	        */
+		}
 		return mapping.findForward("success");
+		
     }
 
     @Override
@@ -109,7 +132,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		String topicSujet = (String) dynaForm.get("topicSujet");
+		String topicSujet = (String) dynaForm.get("topicSujetSearch");
 		System.out.println("rearch : "+topicSujet);
         Query query = em.createQuery("SELECT OBJECT(topic) FROM Topic topic WHERE topic.sujet LIKE :sujetRea ");
         	query.setParameter("sujetRea", "%"+topicSujet+"%");

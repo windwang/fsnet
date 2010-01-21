@@ -11,3 +11,4 @@
 <jsp:include page="CreateTopic.jsp"/>
 <jsp:include page="SearchTopic.jsp"/>
 <jsp:include page="DeleteTopic.jsp"/>
+<jsp:include page="ChangeTopic.jsp"/>
