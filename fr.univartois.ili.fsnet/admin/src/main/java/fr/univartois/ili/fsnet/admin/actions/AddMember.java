@@ -44,7 +44,6 @@ public class AddMember extends Action {
         EntiteSociale entite = new EntiteSociale();
         BeanUtils.copyProperties(entite, dynaform);
 
-        // TODO verifier les exceptions levés par rapport aux erreurs possibles (meme email.. ?)
         try {
             em.getTransaction().begin();
             em.persist(entite);
@@ -57,9 +56,18 @@ public class AddMember extends Action {
             saveErrors(req, actionErrors);
         }
         Inscription inscription = new Inscription(entite);
-        em.getTransaction().begin();
-        em.persist(inscription);
-        em.getTransaction().commit();
+        try{
+        	em.getTransaction().begin();
+        	em.persist(inscription);
+            em.getTransaction().commit();
+        } catch (RollbackException ex){
+        	ActionErrors actionErrors = new ActionErrors();
+            ActionMessage msg = new ActionMessage(
+                    "entitie.alreadyExists");
+            actionErrors.add("entitie.alreadyExists", msg);
+            saveErrors(req, actionErrors);
+        }
+        
 
         em.close();
 
