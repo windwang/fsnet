@@ -13,14 +13,13 @@
 <table id="HubList">
 <c:forEach var="hub" items="${hubResults}">
 	<tr class="header">
-			<th colspan="2">${hub.nomCommunaute}</th>
+			<th colspan="2"><html:link action="/DisplayHub?hubId=${hub.id}">${hub.nomCommunaute}</html:link></th>
 	</tr>
 	<tr class="content">
 			<td class="left">${hub.dateCreation}</td>
 			<td class="left">${hub.createur.prenom} ${hub.createur.nom}</td>
     		<td class="right">
     			 <c:if test="${sessionScope.user.id eq hub.createur.id}">
-    			 	<html:hidden property="hubId" value="${hub.id}" />
 	    			 <html:link action="/DeleteHub?hubId=${hub.id}" styleClass="button">Delete Hub</html:link>
 				</c:if>
     		</td>

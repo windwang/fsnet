@@ -32,6 +32,10 @@
                 parameter="delete">
             <forward name="success" path="/SearchHub.do" />
         </action>
+        <action path="/DisplayHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+                parameter="display">
+            <forward name="success" path="DisplayHub" />
+        </action>
         <action path="/Hubs" type="fr.univartois.ili.fsnet.actions.ManageHub"
                 parameter="search">
          <forward name="success" path="Hubs" />
