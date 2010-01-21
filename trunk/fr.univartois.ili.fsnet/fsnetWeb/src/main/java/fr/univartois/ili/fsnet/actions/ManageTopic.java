@@ -57,7 +57,6 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     	EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
 		String topicSujet = (String) dynaForm.get("topicSujet");
-		//Hub entiteHub = (Hub) dynaForm.get("entityHub");
 		Date date = new Date();
 		EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
 		Topic topic = new Topic(topicSujet,date,null,null,entiteSociale);
@@ -110,10 +109,11 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     	EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
 		String topicSujet = (String) dynaForm.get("topicSujet");
-        Query query = em.createQuery("SELECT OBJECT(topic) FROM Topic topic WHERE topic.sujet LIKE '%:topicSujet%' ");
-        	query.setParameter("topicSujet", topicSujet);
+		System.out.println("rearch : "+topicSujet);
+        Query query = em.createQuery("SELECT OBJECT(topic) FROM Topic topic WHERE topic.sujet LIKE :sujetRea ");
+        	query.setParameter("sujetRea", "%"+topicSujet+"%");
         List<Topic> result =query.getResultList();
-        request.setAttribute("listEntityTopic", result);
+        request.setAttribute("resRearchTopics", result);
 		return mapping.findForward("success");
     }
 
@@ -121,7 +121,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	EntityManager em = factory.createEntityManager();
     	List<Topic> result = null;
-    	result = em.createQuery("SELECT OBJECT(topic) FROM Topic topic").getResultList();
+    	result = em.createQuery("SELECT OBJECT(topic) FROM Topic topic order by topic.sujet").getResultList();
         request.getSession().setAttribute("listTopics", result);
     	return mapping.findForward("success");
     }
