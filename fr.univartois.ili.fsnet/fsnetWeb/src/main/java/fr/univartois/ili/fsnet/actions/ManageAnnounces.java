@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -28,7 +27,6 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.Annonce;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.entities.Interet;
 
 /**
  * 
@@ -190,13 +188,17 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
 
-		Integer idAnnounce = (Integer) request.getAttribute("idAnnounce");
-
-		entityManager.getTransaction().begin();
-		// TODO use try catch with remove can be null!
+		Integer idAnnounce = Integer.valueOf(request.getParameter("idAnnounce"));
+		// TODO use try catch with find can be null!
 		Annonce announce = entityManager.find(Annonce.class, idAnnounce);
-		entityManager.getTransaction().commit();
+		EntiteSociale entiteSociale = (EntiteSociale) entityManager
+		.createQuery(
+				"SELECT es FROM EntiteSociale es,IN(es.lesinteractions) e WHERE e.id = :idAnnounce")
+		.setParameter("idAnnounce", idAnnounce).getSingleResult();
+		servlet.log(entiteSociale.getNom()+"------------------------------------------");
 		request.setAttribute("announce", announce);
+		request.setAttribute("entiteSociale", entiteSociale);
+		
 		return mapping.findForward("success");
 	}
 

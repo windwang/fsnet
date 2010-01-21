@@ -12,7 +12,7 @@
 		<logic:iterate id="announce" scope="request" name="listAnnounces">
 			<tr>
 			<bean:define id="idAnnounce" name="announce" property="id" />
-				<td><html:link href="/DisplayAnnounce.do" paramId="idAnnounce"
+				<td><html:link action="/DisplayAnnounce.do" paramId="idAnnounce"
 					paramName="idAnnounce">
 					<bean:write name="announce" property="nom" />
 				</html:link></td>
