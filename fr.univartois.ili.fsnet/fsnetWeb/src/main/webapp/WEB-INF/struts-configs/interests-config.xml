@@ -29,7 +29,7 @@
 				name="AddInterestForm" 
 				input="Interests" 
 				scope="request" 
-				validate="true"
+				validate="false"
 				parameter="add">
 			<forward name="success" path="/Interests.do" />
 		</action>
