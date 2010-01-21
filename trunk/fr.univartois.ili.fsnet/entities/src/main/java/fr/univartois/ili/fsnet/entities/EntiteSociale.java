@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
@@ -104,28 +106,33 @@ public class EntiteSociale {
 	@OneToMany(mappedBy = "propTopic")
 	private List<Topic> lesTopics;
 
+	
 	/**
 	 * The contact list
 	 */
 	@OneToMany
+	@JoinTable(name="contacts")
 	private List<EntiteSociale> contacts;
 
 	/**
 	 * list of refused contacts
 	 */
 	@OneToMany
+	@JoinTable(name="refused")
 	private List<EntiteSociale> refused;
 
 	/**
 	 * List of requested contacts
 	 */
 	@OneToMany
+	@JoinTable(name="requested")
 	private List<EntiteSociale> requested;
 
 	/**
 	 * Received demands list
 	 */
 	@OneToMany
+	@JoinTable(name="asked")
 	private List<EntiteSociale> asked;
 
 	/**
