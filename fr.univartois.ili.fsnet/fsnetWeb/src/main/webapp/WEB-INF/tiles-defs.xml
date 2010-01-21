@@ -133,4 +133,10 @@
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
     </definition>
+    
+    <!-- Members -->
+    <definition name="SearchMembers" extends=".defaultLayout">
+        <put name="title" value="Members"/>
+        <put name="body-content" value="/content/members/SearchMember.jsp" />
+    </definition>
 </tiles-definitions>
