@@ -83,7 +83,7 @@
                 <label for="mail">Email :</label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="mail" value="${currentUser.email}" disabled="true"/>
+                <html:text errorStyleClass="error" property="mail" value="${currentUser.email}" readonly="true"/>
             </td>
         </tr>
         <tr>
