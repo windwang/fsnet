@@ -10,3 +10,4 @@
 <jsp:include page="ListTopic.jsp"/>
 <jsp:include page="CreateTopic.jsp"/>
 <jsp:include page="SearchTopic.jsp"/>
+<jsp:include page="DeleteTopic.jsp"/>

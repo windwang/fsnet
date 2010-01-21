@@ -15,7 +15,7 @@
 		<tr>
 		<td><label>Objet of search :</label></td>
 		<td><html:text property="topicSujet" styleId="topicSujet" /></td>
-		<td><html:submit/></td>
+		<td><html:submit value="Ok"/></td>
 		</tr>
 	</html:form>
 	<c:if test="${not empty resRearchTopics}">

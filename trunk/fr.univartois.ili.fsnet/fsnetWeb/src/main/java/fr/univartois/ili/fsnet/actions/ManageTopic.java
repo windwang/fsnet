@@ -94,10 +94,11 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     	if (request.getParameterMap().containsKey("topicId")) {
 			int topicId = Integer.valueOf(request.getParameter("topicId"));
             em.getTransaction().begin();
-            Query query = em.createQuery("DELETE FROM Topic WHERE id = ?topicId");
+            Query query = em.createQuery("DELETE FROM Topic topic WHERE topic.id = :topicId");
             	query.setParameter("topicId", topicId);
             	query.executeUpdate();
             em.getTransaction().commit();
+            System.out.println("----------Delete topic "+topicId+" OK------------");
 	        em.close();
 		}
 		

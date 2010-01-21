@@ -9,6 +9,10 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="topicSujet" type="java.lang.String" />
         </form-bean>
+        <form-bean name="DeleteTopicForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="topicId" type="java.lang.Integer" />
+        </form-bean>
     </form-beans>
     <global-forwards>
 
@@ -20,9 +24,8 @@
         </action>
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-                name="DeleteTopic" input="Topic" scope="request" validate="false"
-                parameter="delete">
-            <forward name="success" path="DeleteTopic" />
+                name="DeleteTopicForm" scope="request" parameter="delete">
+            <forward name="success" path="/Topic.do" />
         </action>
 
         <action path="/ChangeTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
@@ -32,7 +35,7 @@
         </action>
 
         <action path="/ListTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-                name="ListTopic" input="Topic" scope="request" validate="false"
+                input="Topic" scope="request" validate="false"
                 parameter="display">
             <forward name="success" path="ListTopic" />
         </action>
