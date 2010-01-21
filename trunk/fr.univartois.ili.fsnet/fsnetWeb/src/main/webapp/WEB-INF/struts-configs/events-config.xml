@@ -24,9 +24,9 @@
 				path="/CreateEvent" 
 				type="fr.univartois.ili.fsnet.actions.ManageEvents"
 				name="CreateEventForm" 
-				input="Events" 
+				input="/DisplayCreateEvent.do" 
 				scope="request" 
-				validate="false"
+				validate="true"
 				parameter="create">
 			<forward name="success" path="CreateEvent" />
 		</action>

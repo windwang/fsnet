@@ -6,8 +6,8 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <h3>Create Event</h3>
 <html:form action="/CreateEvent">
 	<table id="CreateEvent">
@@ -16,7 +16,14 @@
 				<label for="eventName">Name :</label>
 			</td>
 			<td>
-    			<html:text property="eventName" styleId="eventName" />
+    			<html:text  property="eventName" 
+    						styleId="eventName" 
+    						errorStyleClass="error" />
+   				<logic:messagesPresent property="eventName">
+   					<div class="errorMessage">
+   						<html:errors property="eventName"/>
+   					</div>
+   				</logic:messagesPresent>
     		</td>
     	</tr>
     	<tr>
@@ -24,7 +31,15 @@
     			<label for="eventDescription">Description: </label>
     		</td>
     		<td>
-    			<html:textarea cols="40" rows="8" property="eventDescription" styleId="eventDescription"/>
+    			<html:textarea  cols="40" rows="8" 
+    							property="eventDescription" 
+    							styleId="eventDescription"
+    							errorStyleClass="error"/>
+    			<logic:messagesPresent property="eventDescription">
+   					<div class="errorMessage">
+   						<html:errors property="eventDescription"/>
+   					</div>
+   				</logic:messagesPresent>
     		</td>
     	</tr>
     	<tr>
@@ -32,14 +47,13 @@
     			<label for="eventDate">Date :</label>
     		</td>
     		<td>
-    			<html:text property="eventDate" styleId="eventDate"/>
-    			<html:submit styleClass="button">Create Event</html:submit>
-    		</td>
-    	</tr>
-    	<tr>
-    		<td colspan="2">
-    			
-    			<html:errors/>
+    			<html:text property="eventDate" styleId="eventDate" errorStyleClass="error"/>
+ 				<html:submit styleClass="button">Create Event</html:submit>
+    			<logic:messagesPresent property="eventDate">
+   					<div class="errorMessage">
+   						<html:errors property="eventDate"/>
+   					</div>
+   				</logic:messagesPresent>
     		</td>
     	</tr>
     </table>
