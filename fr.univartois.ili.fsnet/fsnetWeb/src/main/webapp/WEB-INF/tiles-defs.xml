@@ -55,6 +55,18 @@
         <put name="title" value="RemoveInterest"/>
         <put name="body-content" value="/content/interests/RemoveInterest.jsp" />
     </definition>
+    <definition name="SearchInterest" extends=".defaultLayout">
+        <put name="title" value="SearchInterest"/>
+        <put name="body-content" value="/content/interests/SearchInterest.jsp" />
+    </definition>
+    <definition name="CreateInterest" extends=".defaultLayout">
+        <put name="title" value="CreateInterest"/>
+        <put name="body-content" value="/content/interests/CreateInterest.jsp" />
+    </definition>
+    <definition name="DeleteInterest" extends=".defaultLayout">
+        <put name="title" value="DeleteInterest"/>
+        <put name="body-content" value="/content/interests/DeleteInterest.jsp" />
+    </definition>
 
     <!-- Hubs -->
     <definition name="Hubs" extends=".defaultLayout">

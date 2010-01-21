@@ -22,9 +22,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +38,10 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Interet;
+
+// TODO faire un validate = true et forwarding vers /Interest.do 
+// TODO attention : rustine sur les requetes
+// TODO attention : rustine sur les merge user de session
 
 /**
  * Execute CRUD Actions (and more) for the entity interet
@@ -60,24 +62,32 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		String interestName = (String) dynaForm.get("interestName");
-		Interet interet = new Interet(new ArrayList<EntiteSociale>(),
-				interestName);
+		
+		if (dynaForm.get("interestName") != null && !((String)dynaForm.get("interestName")).isEmpty()) {
+			String interestName = (String) dynaForm.get("interestName");
+			Interet interest = new Interet(new ArrayList<EntiteSociale>(),
+					interestName);
 
-		logger.info("new interest: " + interestName);
+			logger.info("new interest: " + interestName);
 
-		try {
-			em.getTransaction().begin();
-			em.persist(interet);
-			em.getTransaction().commit();
-		} catch (RollbackException ex) {
+			try {
+				em.getTransaction().begin();
+				em.persist(interest);
+				em.getTransaction().commit();
+			} catch (RollbackException ex) {
+				ActionErrors actionErrors = new ActionErrors();
+				ActionMessage msg = new ActionMessage("interest.alreadyExists");
+				actionErrors.add("error.interest.create", msg);
+				saveErrors(request, actionErrors);
+			}
+
+			em.close();
+		} else {
 			ActionErrors actionErrors = new ActionErrors();
-			ActionMessage msg = new ActionMessage("interest.alreadyExists");
-			actionErrors.add("interest", msg);
+			ActionMessage msg = new ActionMessage("interest.noName");
+			actionErrors.add("error.interest.create", msg);
 			saveErrors(request, actionErrors);
 		}
-
-		em.close();
 
 		return mapping.findForward("success");
 	}
@@ -201,10 +211,11 @@ public class ManageInterests extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
-
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		
 		// TODO verify if user has the right to do delete
 
-		if (request.getParameterMap().containsKey("interestId")) {
+		if (dynaForm.get("interestId") != null && !((String)dynaForm.get("interestId")).isEmpty()) {
 			int interestId = Integer
 					.valueOf(request.getParameter("interestId"));
 
@@ -213,13 +224,19 @@ public class ManageInterests extends MappingDispatchAction implements
 			try {
 				em.getTransaction().begin();
 				em.createQuery(
-						"DELETE FROM Interet WHERE idInteret = :interestId")
+						"DELETE FROM Interet interest WHERE interest.id = :interestId")
 						.setParameter("interestId", interestId).executeUpdate();
 				em.getTransaction().commit();
+				
+				EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
+						Authenticate.AUTHENTICATED_USER);
+				user = em.find(EntiteSociale.class, user.getId());	
+				em.refresh(user);
+				request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER, user);
 			} catch (RollbackException ex) {
 				ActionErrors actionErrors = new ActionErrors();
 				ActionMessage msg = new ActionMessage("interest.notExists");
-				actionErrors.add("interest", msg);
+				actionErrors.add("error.interest.delete", msg);
 				saveErrors(request, actionErrors);
 			}
 
@@ -235,17 +252,22 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		String interestName = (String) dynaForm.get("interestName");
-
-		logger.info("search interest: " + interestName);
-
-		List<Interet> result = em
-				.createQuery(
-						"SELECT interest FROM Interest interest WHERE interest.nomInteret LIKE '%:interestName%' ")
-				.setParameter("interestName", interestName).getResultList();
-		em.close();
 		
-		request.setAttribute("interestResult", result);
+		if (dynaForm.get("interestName") != null) {
+			String interestName = (String) dynaForm.get("interestName");
+
+			logger.info("search interest: " + interestName);
+
+			List<Interet> result = 
+					em.createQuery("SELECT interest FROM Interet interest WHERE interest.nomInteret LIKE :interestName ")
+					.setParameter("interestName", '%'+interestName+'%')
+					.getResultList();
+			em.close();
+			
+			if (result.size() > 0) {
+				request.setAttribute("interestResult", result);
+			}
+		}
 		
 		return mapping.findForward("success");
 	}
@@ -263,13 +285,13 @@ public class ManageInterests extends MappingDispatchAction implements
 		if (user != null) {
 			// TODO requete provisoire
 			
-			List<Interet> listInterests = em.createQuery(
+			List<Interet> listAllInterests = em.createQuery(
 					"SELECT interest FROM Interet interest")
 					.getResultList();
 						
 			List<Interet> finalList = new ArrayList<Interet>();
 			boolean dirtyIsOK;
-			for (Interet interest : listInterests) {
+			for (Interet interest : listAllInterests) {
 				dirtyIsOK = true;
 				for (Interet interestEntity : user.getLesinterets()) {
 					if (interestEntity.getId() == interest.getId()) {
@@ -280,7 +302,7 @@ public class ManageInterests extends MappingDispatchAction implements
 					finalList.add(interest);
 				}
 			}
-			
+			request.setAttribute("allInterests", listAllInterests);
 			request.setAttribute("listInterests", finalList);
 		} else {
 			List<Interet> listInterests = em.createQuery(
