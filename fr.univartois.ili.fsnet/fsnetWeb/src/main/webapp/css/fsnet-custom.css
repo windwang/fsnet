@@ -1,7 +1,7 @@
 .errorMessage {
 	font-size: 120%;
 	text-align: center;
-	
+	width: 80%;
 }
 
 #left li {
@@ -60,8 +60,8 @@ input[type=text], input[type=password], textarea {
 } 
 #CreateEvent {margin-left: 50px; width: 100%;}
 #CreateEvent label {width:100px; display:block;	float:left;}
-#CreateEvent #eventName {width: 100%;}
-#CreateEvent #eventDescription { width: 100%;}
+#CreateEvent #eventName {width: 80%;}
+#CreateEvent #eventDescription { width: 80%;}
 #CreateEvent #eventDate {width: 30%;}
 #CreateEvent input[type=submit] {float: right;}
 
@@ -75,9 +75,13 @@ input[type=text], input[type=password], textarea {
 #EventList .content .right {padding: 15px;}
 #EventList .gap td {border-top: 1px solid #BBB;}
 #EventList .gap {height: 15px;}
-#EventList {}
-#EventList {}
 
+#ModifyProfile {margin-left: 120px;width: 80%;}
+#ModifyProfile td:first-child {width: 30%;}
+#ModifyProfile input[type="text"], 
+#ModifyProfile input[type="password"],
+#ModifyProfile  textarea {width: 60%;}
+#ModifyProfile input[type=submit] {float: right;}
 
 #login {
 	background: #505050 url(../images/footer.gif) no-repeat;
@@ -130,6 +134,6 @@ input[type=text], input[type=password], textarea {
 	height: 100%;
 }
 
-input[type="text"][class="error"], textarea[class=fieldError] {
+input[type="text"][class="error"], textarea[class="error"] {
 	border: 1px solid #AF1515;
 }

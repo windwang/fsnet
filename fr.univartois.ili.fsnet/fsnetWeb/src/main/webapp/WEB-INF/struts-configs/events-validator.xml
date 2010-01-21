@@ -7,10 +7,11 @@
             <field property="eventName" depends="required">
                 <arg key="error.eventName" />
             </field>
-        </form>
-        <form name="/SearchEvent">
-            <field property="searchString" depends="required">
-                <arg key="error.searchString" />
+             <field property="eventDescription" depends="required">
+                <arg key="error.eventDescription" />
+            </field>
+            <field property="eventDate" depends="required">
+                <arg key="error.eventDate" />
             </field>
         </form>
     </formset>

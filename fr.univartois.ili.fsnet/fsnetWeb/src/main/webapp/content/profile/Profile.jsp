@@ -31,14 +31,6 @@
         </tr>
         <tr>
             <td>
-                <label>Inscription date :</label>
-            </td>
-            <td>
-                <html:textarea errorStyleClass="error" property="dateEntree" value="${currentUser.dateEntree}" disabled="true"/>
-            </td>
-        </tr>
-        <tr>
-            <td>
                 <label for="dateOfBirth">Birth date :</label>
             </td>
             <td>
@@ -94,8 +86,10 @@
                 <html:text errorStyleClass="error" property="phone" value="${currentUser.numTel}"/>
             </td>
         </tr>
-        <tr> <td/>
-            <td><html:submit>Validate</html:submit></td>
+        <tr>        	
+            <td colspan="2">
+            	<html:submit>Validate</html:submit>
+          	</td>
         </tr>
     </table>
 
