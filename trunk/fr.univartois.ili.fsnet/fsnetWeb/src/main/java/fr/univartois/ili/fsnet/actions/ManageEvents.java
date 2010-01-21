@@ -15,9 +15,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -50,7 +52,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		logger.info("new event: " + eventName + "\n" + eventDescription + "\n"
 				+ eventDate);
-		EntiteSociale member = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+		EntiteSociale member = (EntiteSociale) request.getSession()
+				.getAttribute(Authenticate.AUTHENTICATED_USER);
 		// TODO : -> récupérer une date valide
 		// -> voir à quoi corespond le paramètre visible
 		Manifestation event = new Manifestation(eventName, new Date(),
@@ -96,11 +99,16 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		if ("".equals(searchString)) {
 			query = em.createQuery("SELECT e FROM Manifestation e");
 		} else {
-			query = em.createQuery("SELECT e FROM Manifestation e WHERE e.nom LIKE :searchString OR e.contenu LIKE :searchString ");
+			query = em
+					.createQuery("SELECT e FROM Manifestation e WHERE e.nom LIKE :searchString OR e.contenu LIKE :searchString ");
 			query.setParameter("searchString", "%" + searchString + "%");
 		}
 		results = query.getResultList();
-		System.out.println(results);
+		if (results.isEmpty()) {
+			ActionErrors errors = new ActionErrors();
+			errors.add("searchString", new ActionMessage("search.noResults", searchString));
+			saveErrors(request, errors);
+		}
 		request.setAttribute("events", results);
 		return mapping.findForward("success");
 	}
@@ -115,3 +123,4 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 }
+

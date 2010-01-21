@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 
 <h3>Search Event</h3>
@@ -18,6 +19,9 @@
 </html:form>
 
 <h3>Events :</h3>
+<logic:messagesPresent property="searchString">
+	<p class="errorMessage"><html:errors property="searchString"/></p>
+</logic:messagesPresent>
 <table id="EventList">
 	<c:forEach var="event" items="${events}">
 		<tr class="header">
