@@ -22,7 +22,9 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -85,53 +87,102 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		int interestId = Integer.valueOf((String) dynaForm.get("interestId"));
+		int interestId = Integer.valueOf((String)dynaForm.get("interestId"));
 
 		EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
 				Authenticate.AUTHENTICATED_USER);
 
 		logger.info("add interest: id=" + interestId + " for user: "
-				+ user.getNom() + " " + user.getPrenom());
+				+ user.getNom() + " " + user.getPrenom()+" "+user.getId());
 
-		// TODO faire un test entity contains interest directement dans la requete
-		// TODO validator en carton => redirection
+		// TODO requete provisoire 
 		
 		Interet interest = (Interet) em.createQuery(
 				"SELECT interest FROM Interet interest WHERE interest.id = :interestId")
-				.setParameter("interestId", interestId).getSingleResult();
+				.setParameter("interestId", interestId)
+				.getSingleResult();
 		
-		if (interest != null) {
+		boolean dirtyIsOk = true;
+		
+		for (Interet interestTmp : user.getLesinterets()) {
+			if (interestTmp.getId() == interestId) {
+				dirtyIsOk = false;
+			}
+		}
+		
+		if (dirtyIsOk) {
 			user.getLesinterets().add(interest);
 			em.getTransaction().begin();
 			em.merge(user);
 			em.getTransaction().commit();
-			
-			request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER, user.getId());
+				
+			request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER, user);
+		} else {
+			logger.info("Add interest refused");
 		}
-
+	
 		em.close();
 
 		return mapping.findForward("success");
 	}
 
+	public ActionForward remove(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		int interestId = Integer.valueOf((String)dynaForm.get("interestId"));
+
+		EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
+				Authenticate.AUTHENTICATED_USER);
+
+		logger.info("remove interest: id=" + interestId + " for user: "
+				+ user.getNom() + " " + user.getPrenom()+" "+user.getId());
+
+		// TODO requete provisoire 
+		
+		Interet interest = null;
+				
+		for (Interet interestTmp : user.getLesinterets()) {
+			if (interestTmp.getId() == interestId) {
+				interest = interestTmp;
+				break;
+			}
+		}
+		
+		if (interest != null) {
+			user.getLesinterets().remove(interest);
+			em.getTransaction().begin();
+			em.merge(user);
+			em.getTransaction().commit();
+				
+			request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER, user);
+		} else {
+			logger.info("remove interest refused");
+		}
+	
+		em.close();
+
+		return mapping.findForward("success");
+	}
+	
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		int interestId = (Integer) dynaForm.get("interestId");
+		int interestId = Integer.valueOf((String) dynaForm.get("interestId"));
 		String interestName = (String) dynaForm.get("interestName");
 
 		logger.info("interest modification: " + interestName);
 
 		try {
 			em.getTransaction().begin();
-			em
-					.createQuery(
-							"UPDATE Interet SET nomInteret = :interestName WHERE idInteret = :interestId")
-					.setParameter("interestName", interestName).setParameter(
-							"interestId", interestId).executeUpdate();
+			em.createQuery("UPDATE Interet SET nomInteret = :interestName WHERE idInteret = :interestId")
+					.setParameter("interestName", interestName)
+					.setParameter("interestId", interestId)
+					.executeUpdate();
 			em.getTransaction().commit();
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
@@ -210,11 +261,27 @@ public class ManageInterests extends MappingDispatchAction implements
 		logger.info("Displaying interests");
 		
 		if (user != null) {
+			// TODO requete provisoire
+			
 			List<Interet> listInterests = em.createQuery(
-					"SELECT interest FROM EntiteSociale entity, IN(entity.lesinterets) interestEntity, Interet interest WHERE entity.id = :entityId AND NOT interest.id = interestEntity.id")
-					.setParameter("entityId", user.getId())
+					"SELECT interest FROM Interet interest")
 					.getResultList();
-			request.setAttribute("listInterests", listInterests);
+						
+			List<Interet> finalList = new ArrayList<Interet>();
+			boolean dirtyIsOK;
+			for (Interet interest : listInterests) {
+				dirtyIsOK = true;
+				for (Interet interestEntity : user.getLesinterets()) {
+					if (interestEntity.getId() == interest.getId()) {
+						dirtyIsOK = false;
+					}
+				}
+				if (dirtyIsOK) {
+					finalList.add(interest);
+				}
+			}
+			
+			request.setAttribute("listInterests", finalList);
 		} else {
 			List<Interet> listInterests = em.createQuery(
 					"SELECT interest FROM Interet interest").getResultList();
