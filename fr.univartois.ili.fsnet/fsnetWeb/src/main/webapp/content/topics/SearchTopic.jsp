@@ -13,9 +13,9 @@
 <table>
 	<html:form action="/SearchTopic">
 		<tr>
-		<td><label>Objet of search :</label></td>
+		<td><label>Key of search :</label></td>
 		<td><html:text property="topicSujetSearch" styleId="topicSujet" /></td>
-		<td><html:submit value="Ok"/></td>
+		<td><html:submit value="Ok" styleClass="button"/></td>
 		</tr>
 	</html:form>
 	<c:if test="${not empty resRearchTopics}">

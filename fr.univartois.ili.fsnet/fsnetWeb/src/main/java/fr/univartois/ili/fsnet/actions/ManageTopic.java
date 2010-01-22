@@ -55,60 +55,26 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     @Override
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	EntityManager em = factory.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		String topicSujet = (String) dynaForm.get("topicSujet");
-		Date date = new Date();
-		EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
-		Topic topic = new Topic(topicSujet,date,null,null,entiteSociale);
-        em.getTransaction().begin();
-        em.persist(topic);
-	    em.getTransaction().commit();
-	    em.close();
-	    System.out.println("----------Create topic "+topicSujet+" OK------------");
+    	if (request.getParameterMap().containsKey("hubId")) {
+			DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
+			String topicSujet = (String) dynaForm.get("topicSujet");
+			int hubId = Integer.valueOf(request.getParameter("hubId"));
+			Hub hub = em.find(Hub.class, hubId);
+			Date date = new Date();
+			EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+			Topic topic = new Topic(topicSujet,date,null,hub,entiteSociale);
+	        em.getTransaction().begin();
+	        em.persist(topic);
+		    em.getTransaction().commit();
+		    em.close();
+		    System.out.println("----------Create topic "+topicSujet+" OK------------");
+    	}
 		return mapping.findForward("success");
     }
 
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	EntityManager em = factory.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		Topic topic = null;
-		Hub hub = null;
-		String hubNom = null;
-		if (request.getParameterMap().containsKey("find")) {
-			int topicId = Integer.valueOf(request.getParameter("topicId"));
-			topic = em.find(Topic.class, topicId);
-			request.getSession().setAttribute("topicFind", topic);
-			request.getSession().setAttribute("creatorTopic", topic.getPropTopic());
-			request.getSession().setAttribute("hubTopic", topic.getHub());
-			request.getSession().setAttribute("messageTopic", topic.getLesMessages());
-			List<Hub> hubs = null;
-	    	hubs = em.createQuery("SELECT OBJECT(hub) FROM Hub hub order by hub.nomCommunaute").getResultList();
-	    	request.getSession().setAttribute("listHubs", hubs);
-		}
-		if (request.getParameterMap().containsKey("update")) {
-			System.out.println("-----------prepare to update--------------");
-			int topicIdUpdate = Integer.valueOf(request.getParameter("topicId"));
-			hubNom = request.getParameter("hubNom");
-			/**
-			 * toto
-			 * il faut trouver l'identification de Hub
-			 * non resolu pour l'instant
-			 */
-			/*
-			hub = em.find(Hub.class, hubNom);
-			em.getTransaction().begin();
-	        Query query = em.createQuery("UPDATE Topic SET hub = :hub WHERE id = :topicId");
-	    		query.setParameter("hub",hub);		        	
-		    	query.setParameter("topicId",topicIdUpdate);
-		    	query.executeUpdate();
-	        em.getTransaction().commit();
-	        System.out.println("-----------update Ok--------------");
-	        em.close();
-	        */
-		}
-		return mapping.findForward("success");
-		
+		return null;
     }
 
     @Override
@@ -133,22 +99,30 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     	EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
 		String topicSujet = (String) dynaForm.get("topicSujetSearch");
-        Query query = em.createQuery("SELECT OBJECT(topic) FROM Topic topic WHERE topic.sujet LIKE :sujetRea ");
-        	query.setParameter("sujetRea", "%"+topicSujet+"%");
-        List<Topic> result = query.getResultList();
-        request.setAttribute("resRearchTopics", result);
+		if (topicSujet != null) {
+	        Query query = em.createQuery("SELECT OBJECT(topic) FROM Topic topic WHERE topic.sujet LIKE :sujetRea ");
+	        	query.setParameter("sujetRea", "%"+topicSujet+"%");
+	        List<Topic> result = query.getResultList();
+	        request.setAttribute("resRearchTopics", result);
+		}
 		return mapping.findForward("success");
     }
 
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	EntityManager em = factory.createEntityManager();
-    	EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
-    	List<Topic> result = null;
-    	Query query = em.createQuery("SELECT OBJECT(topic) FROM Topic topic WHERE topic.propTopic = :es order by topic.sujet");
-    		query.setParameter("es",entiteSociale);
-    	result = query.getResultList();
-        request.getSession().setAttribute("listTopics", result);
+    	if (request.getParameterMap().containsKey("hubId")) {
+    		int hubId = Integer.valueOf(request.getParameter("hubId"));
+    		System.out.println("hudId : "+hubId);
+	    	Hub hub = em.find(Hub.class, hubId);
+	    	EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+	    	Query query = em.createQuery("SELECT OBJECT(topic) FROM Topic topic WHERE topic.propTopic = :es and topic.hub = :hub order by topic.sujet");
+	    		query.setParameter("es",entiteSociale);
+	    		query.setParameter("hub",hub);
+	   		List<Topic> result = query.getResultList();
+	        request.getSession().setAttribute("listTopics", result);
+	        request.getSession().setAttribute("hubId", hubId);
+    	}
     	return mapping.findForward("success");
     }
 }
