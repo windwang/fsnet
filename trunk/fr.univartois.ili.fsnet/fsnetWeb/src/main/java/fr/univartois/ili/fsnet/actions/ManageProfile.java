@@ -33,6 +33,8 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.form.ProfileForm;
+
 import org.apache.struts.action.DynaActionFormClass;
 import org.apache.struts.config.FormBeanConfig;
 import org.apache.struts.config.ModuleConfig;
@@ -86,19 +88,17 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
-        DynaActionForm dyna = (DynaActionForm) form;
-        user.setNom(formatName(dyna.getString("name")));
-        user.setPrenom(formatName(dyna.getString("firstName")));
-        user.setAdresse(dyna.getString("adress"));
-        try {
-            user.setDateNaissance(Date.valueOf("dateOfBirth"));
-        } catch (IllegalArgumentException iae) {
-        }
-        user.setSexe(dyna.getString("sexe"));
-        user.setMdp(dyna.getString("pwd"));
-        user.setProfession(formatName(dyna.getString("job")));
-        user.setEmail(dyna.getString("mail"));
-        user.setNumTel(dyna.getString("phone"));
+        ProfileForm pform = (ProfileForm) form;
+        user.setNom(formatName(pform.getName()));
+        user.setPrenom(formatName(pform.getFirstName()));
+        user.setAdresse(pform.getAdress());
+        //TODO
+        //user.setDateNaissance(pform.getDateOfBirth());
+        user.setSexe(pform.getSexe());
+        user.setMdp(pform.getPwd());
+        user.setProfession(formatName(pform.getJob()));
+        user.setEmail(pform.getMail());
+        user.setNumTel(pform.getPhone());
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.merge(user);

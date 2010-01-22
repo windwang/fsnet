@@ -46,7 +46,8 @@
             <field property="pwd" depends="">
                 <arg key="error.updateProfile.pwd" />
             </field> 
-            <field property="confirmPwd" depends="compareTo">
+            <!-- TODO comparaison des champs pwd et confirmPwd-->
+            <field property="confirmPwd" depends="">
                 <arg key="error.updateProfile.pwd" />
             </field>  
             <field property="phone" depends="mask">

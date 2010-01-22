@@ -2,16 +2,18 @@
          pageEncoding="UTF-8"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
-
+<%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
 <h3>Update Profile</h3>
 <html:form action="/ModifyProfile">
     <table id="ModifyProfile">
         <tr>
             <td>
-                <label for="name"><bean:message key="updateProfile.name"/></label>
+                <label for="name">
+                	<bean:message key="updateProfile.name"/>
+                </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="name" value="${currentUser.nom}"/>
+                <html:text errorStyleClass="error" property="name" value="${currentUser.nom}" styleId="name"/>
             </td>
         </tr>
         <tr><td colspan="2"><label><html:errors property="name"/></label></td></tr>
@@ -41,7 +43,13 @@
                 <html:text errorStyleClass="error" readonly="true" styleId="dateOfBirth" property="dateOfBirth" value="${currentUser.dateNaissance}"/>
             </td>
         </tr>
-        <tr><td colspan="2"><label><html:errors property="dateOfBirth"/></label></td></tr>
+        <logic:messagesPresent property="dateOfBirth">
+	        <tr>
+	        	<td colspan="2">
+	        			<html:errors property="dateOfBirth"/>
+	        	</td>
+	        </tr>
+        </logic:messagesPresent>
         <tr>
             <td>
                 <label for="sexe"><bean:message key="updateProfile.sexe"/></label>
@@ -97,7 +105,9 @@
         <tr><td colspan="2"><label><html:errors property="phone"/></label></td></tr> 
         <tr>        	
             <td colspan="2">
-            	<html:submit>Validate</html:submit>
+            	<html:submit>
+            		<bean:message key="updateProfile.validate"/>
+            	</html:submit>
           	</td>
         </tr>
     </table>

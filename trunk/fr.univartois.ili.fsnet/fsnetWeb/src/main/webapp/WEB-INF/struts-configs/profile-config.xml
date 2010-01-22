@@ -11,7 +11,7 @@
             <form-property name="id" type="java.lang.String" />	
     	</form-bean>
         <form-bean name="ModifyProfileForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm" >
+                   type="fr.univartois.ili.fsnet.form.ProfileForm" >
             <form-property name="name" type="java.lang.String" />
             <form-property name="firstName" type="java.lang.String" />
             <form-property name="adress" type="java.lang.String" />
