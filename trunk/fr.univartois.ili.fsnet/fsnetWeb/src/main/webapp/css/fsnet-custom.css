@@ -85,12 +85,12 @@ input[type=text], input[type=password], textarea {
 #EventList .gap {height: 15px;}
 
 #ModifyProfile {margin-left: 120px;width: 60%;}
-#ModifyProfile td:first-child {width: 30%;}
+#ModifyProfile td:first-child {width: 35%;}
 #ModifyProfile input[type="text"], 
 #ModifyProfile input[type="password"],
 #ModifyProfile  textarea {width: 100%;}
 #ModifyProfile input[type=submit] {float: right;}
-#ModifyProfile #dateOfBirth {width: 90%;margin-right: 8px; color: black;}
+#ModifyProfile #dateOfBirth {width: 90%;margin-right: 6px; color: black;}
 
 #MemberList {width: 100%;}
 #MemberList td {width: 30%;}
