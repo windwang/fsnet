@@ -35,7 +35,7 @@
             </plugin>
         </plugins>
     </build>
-
+    
     <dependencies>
 
         <dependency>
@@ -44,26 +44,26 @@
             <version>0.1</version>
         </dependency>
 
-        <!-- a virer quand on aura trouvé une solution -->
         <dependency>
-            <groupId>javax.persistence</groupId>
-            <artifactId>persistence-api</artifactId>
-            <version>1.0</version>
+            <groupId>org.eclipse.persistence</groupId>
+            <artifactId>javax.persistence</artifactId>
+            <version>2.0.0</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>eclipselink</artifactId>
             <version>2.0.0</version>
             <scope>compile</scope>
         </dependency>
+
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
             <version>5.1.10</version>
             <scope>compile</scope>
         </dependency>
-        <!-- a virer quand on aura trouvé une solution -->
 
         <dependency>
             <groupId>junit</groupId>
