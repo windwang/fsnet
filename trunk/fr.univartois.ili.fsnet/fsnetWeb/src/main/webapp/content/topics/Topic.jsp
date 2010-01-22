@@ -6,9 +6,5 @@
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-
 <jsp:include page="ListTopic.jsp"/>
-<jsp:include page="CreateTopic.jsp"/>
 <jsp:include page="SearchTopic.jsp"/>
-<jsp:include page="DeleteTopic.jsp"/>
-<jsp:include page="ChangeTopic.jsp"/>

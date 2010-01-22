@@ -22,6 +22,9 @@
     			 <c:if test="${sessionScope.user.id eq hub.createur.id}">
 	    			 <html:link action="/DeleteHub?hubId=${hub.id}" styleClass="button">Delete Hub</html:link>
 				</c:if>
+				<html:link action="/ListTopic" styleClass="button">
+					<html:param name="hubId" value="${hub.id}"/>
+					display topics</html:link>					
     		</td>
     </tr>
     <tr class="gap">
