@@ -4,27 +4,27 @@
 <form-validation>
 	<formset>
 		<form name="/AddInterest">
-            <field property="interestId" depends="required">
+            <field property="addedInterestId" depends="required,minlength">
                 <arg key="error.interest.add" />
             </field>
         </form>
         <form name="/RemoveInterest">
-            <field property="interestId" depends="required">
+            <field property="removedInterestId" depends="required,minlength">
                 <arg key="error.interest.remove" />
             </field>
         </form>
         <form name="/SearchInterest">
-            <field property="interestName">
+            <field property="searchInterestName" depends="">
                 <arg key="error.interest.search" />
             </field>
         </form>
         <form name="/CreateInterest">
-            <field property="interestName" depends="required">
+            <field property="createdInterestName" depends="required">
                 <arg key="error.interest.create" />
             </field>
         </form>
         <form name="/DeleteInterest">
-            <field property="interestId" depends="required">
+            <field property="deletedInterestId" depends="required,minlength">
                 <arg key="error.interest.create" />
             </field>
         </form>

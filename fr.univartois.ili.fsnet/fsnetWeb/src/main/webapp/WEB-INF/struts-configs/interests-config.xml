@@ -7,23 +7,23 @@
     <form-beans>
         <form-bean name="AddInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="interestId" type="java.lang.String" />
+			<form-property name="addedInterestId" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="RemoveInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="interestId" type="java.lang.String" />
+			<form-property name="removedInterestId" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="SearchInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="interestName" type="java.lang.String" />
+			<form-property name="searchInterestName" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="CreateInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="interestName" type="java.lang.String" />
+			<form-property name="createdInterestName" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="DeleteInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="interestId" type="java.lang.String" />
+			<form-property name="deletedInterestId" type="java.lang.String" />
 		</form-bean>
     </form-beans>
     <global-forwards>
@@ -33,7 +33,7 @@
     	<action 
     			path="/DisplayInterests" 
     			type="fr.univartois.ili.fsnet.actions.ManageInterests"
-                input="Interests" 
+                input="/Interests.do" 
                 scope="request" 
                 parameter="display">
             <forward name="success" path="Interests" />
@@ -43,9 +43,9 @@
 				path="/AddInterest" 
 				type="fr.univartois.ili.fsnet.actions.ManageInterests"
 				name="AddInterestForm" 
-				input="Interests" 
+				input="/Interests.do" 
 				scope="request" 
-				validate="false"
+				validate="true"
 				parameter="add">
 			<forward name="success" path="/Interests.do" />
 		</action>
@@ -54,9 +54,9 @@
 				path="/RemoveInterest" 
 				type="fr.univartois.ili.fsnet.actions.ManageInterests"
 				name="RemoveInterestForm" 
-				input="Interests" 
+				input="/Interests.do" 
 				scope="request" 
-				validate="false"
+				validate="true"
 				parameter="remove">
 			<forward name="success" path="/Interests.do" />
 		</action>
@@ -65,9 +65,9 @@
 				path="/SearchInterest" 
 				type="fr.univartois.ili.fsnet.actions.ManageInterests"
 				name="SearchInterestForm" 
-				input="Interests" 
+				input="/Interests.do" 
 				scope="request" 
-				validate="false"
+				validate="true"
 				parameter="search">
 			<forward name="success" path="/Interests.do" />
 		</action>
@@ -76,9 +76,9 @@
 				path="/CreateInterest" 
 				type="fr.univartois.ili.fsnet.actions.ManageInterests"
 				name="CreateInterestForm" 
-				input="Interests" 
+				input="/Interests.do" 
 				scope="request" 
-				validate="false"
+				validate="true"
 				parameter="create">
 			<forward name="success" path="/Interests.do" />
 		</action>
@@ -87,9 +87,9 @@
 				path="/DeleteInterest" 
 				type="fr.univartois.ili.fsnet.actions.ManageInterests"
 				name="DeleteInterestForm" 
-				input="Interests" 
+				input="/Interests.do" 
 				scope="request" 
-				validate="false"
+				validate="true"
 				parameter="delete">
 			<forward name="success" path="/Interests.do" />
 		</action>
@@ -97,7 +97,7 @@
 		<action 
 				path="/Interests" 
 				type="fr.univartois.ili.fsnet.actions.ManageInterests"
-				input="Interests" 
+				input="/Interests.do" 
 				scope="request" 
 				parameter="display">
 			<forward name="success" path="Interests" />

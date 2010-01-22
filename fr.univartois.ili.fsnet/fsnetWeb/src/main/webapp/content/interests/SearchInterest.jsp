@@ -4,11 +4,11 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<h2>Rechercher un intérêt</h2>
+<h3>Rechercher un intérêt</h3>
 <html:javascript formName="/SearchInterest"/>
 <html:form action="/SearchInterest">
-	<html:text property="interestName"/>
-	<html:errors property="error.interest.remove"/>
+	<html:text property="searchInterestName"/>
+	<html:errors property="searchInterestName"/>
 	<html:submit/>
 </html:form>
 

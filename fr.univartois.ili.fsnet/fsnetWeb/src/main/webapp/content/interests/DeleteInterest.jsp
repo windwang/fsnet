@@ -5,10 +5,10 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
 <c:if test="${not empty allInterests}">
-	<h2>Supprimer un intérêt</h2>
+	<h3>Supprimer un intérêt</h3>
 	<html:javascript formName="/DeleteInterest"/>
 	<html:form action="/DeleteInterest">
-		<html:select property="interestId">
+		<html:select property="deletedInterestId">
 			<html:option value="0">Intérêt</html:option>
 			<c:forEach var="interest" items="${allInterests}">
 				<html:option value="${interest.id}">${interest.nomInteret}</html:option>	
@@ -16,6 +16,6 @@
 		</html:select>
 		<html:submit/>
 	</html:form>
-	<html:errors property="error.interest.delete"/>
+	<html:errors property="deletedInterestId"/>
 </c:if>
     
