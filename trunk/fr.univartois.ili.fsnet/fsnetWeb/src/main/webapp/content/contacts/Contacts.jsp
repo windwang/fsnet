@@ -57,16 +57,6 @@
             <td>
                 ${contact.prenom} ${contact.nom}
             </td>
-            <td class="tableButton"> 
-                <html:link action="/AcceptContact" styleClass="button">
-                    <html:param name="entityAccepted" value="${contact.id}" />
-    		Accept
-                </html:link>
-                <html:link action="/RefuseContact" styleClass="button">
-                    <html:param name="entityRefused" value="${contact.id}" />
-    		Refuse
-                </html:link>
-            </td>
         </tr>
     </c:forEach>
 </table>

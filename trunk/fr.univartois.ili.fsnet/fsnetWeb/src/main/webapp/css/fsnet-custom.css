@@ -179,3 +179,10 @@ input[type=text], input[type=password], textarea {
 input[type="text"][class="error"], textarea[class="error"] {
     border: 1px solid #AF1515;
 }
+
+.alignRight {
+    text-align: right;
+}
+.alignCenter {
+    text-align: auto;
+}
