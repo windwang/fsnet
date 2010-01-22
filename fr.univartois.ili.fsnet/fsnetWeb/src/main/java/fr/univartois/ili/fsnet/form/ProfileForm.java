@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.form;
 
 
 
+import java.text.ParseException;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -13,6 +14,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 
 import org.apache.struts.validator.ValidatorForm;
+
+import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 
 
 
@@ -29,6 +32,7 @@ public class ProfileForm extends ValidatorForm {
 	private String job;
 	private String mail;
 	private String phone;
+	private Date parsedDateOfBirth;
 	
 	@Override
 	public ActionErrors validate(ActionMapping arg0, HttpServletRequest arg1) {
@@ -36,7 +40,16 @@ public class ProfileForm extends ValidatorForm {
 		if (errors.isEmpty() && ! pwd.equals(confirmPwd)) {
 			errors.add("confirmPwd",new ActionMessage("error.updateProfile.confirmPwd.diff"));
 		}
+		try {
+			parsedDateOfBirth  = DateUtils.format(dateOfBirth);
+		} catch (ParseException e) {
+			errors.add("dateOfBirth",new ActionMessage("error.updateProfile.date.invalid"));
+		}
 		return errors; 
+	}
+	
+	public Date getParsedDateOfBirth() {
+		return parsedDateOfBirth;
 	}
 	
 	public String getName() {
