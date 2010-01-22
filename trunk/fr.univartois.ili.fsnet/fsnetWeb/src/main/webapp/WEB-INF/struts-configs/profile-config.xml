@@ -33,10 +33,10 @@
             <forward name="success" path="ShowProfile" />
         </action>
         <action path="/ModifyProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-                name="ModifyProfileForm" scope="request" validate="true" parameter="modify" >
+                name="ModifyProfileForm" scope="request" validate="true" parameter="modify" input="/Profile.do" >
             <forward name="success" path="/Profile.do" />
         </action>
-        <action path="/Profile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+        <action path="/Profile" type="fr.univartois.ili.fsnet.actions.ManageProfile" scope="request"
                 parameter="display" >
             <forward name="success" path="Profile" />
         </action>

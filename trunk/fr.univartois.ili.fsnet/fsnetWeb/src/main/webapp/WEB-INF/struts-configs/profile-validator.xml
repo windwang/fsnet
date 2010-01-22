@@ -7,8 +7,8 @@
             <field property="name" depends="required,mask">
                 <arg key="error.updateProfile.name" />
                 <msg name="mask"
-                 	key="registrationForm.lastname.maskmsg"/>
-			    <arg0 key="registrationForm.lastname.displayname"/>
+                 	key="error.updateProfile.maskword"/>
+			    <arg0 key="error.updateProfile.name"/>
 			    <var>
 			        <var-name>mask</var-name>
 			        <var-value>^[a-zA-Z]+([\-\' ][a-zA-Z]+)*$</var-value>
@@ -17,8 +17,8 @@
              <field property="firstName" depends="required,mask">
                 <arg key="error.updateProfile.firstname" />
                 <msg name="mask"
-                 	key="registrationForm.lastname.maskmsg"/>
-			    <arg0 key="registrationForm.lastname.displayname"/>
+                 	key="error.updateProfile.maskword"/>
+			    <arg0 key="error.updateProfile.firstname"/>
 			    <var>
 			        <var-name>mask</var-name>
 			        <var-value>^[a-zA-Z]+([\-\' ][a-zA-Z]+)*$</var-value>
@@ -36,24 +36,27 @@
             <field property="job" depends="mask">
                 <arg key="error.updateProfile.job" />
                 <msg name="mask"
-                 	key="registrationForm.lastname.maskmsg"/>
-			    <arg0 key="registrationForm.lastname.displayname"/>
+                 	key="error.updateProfile.maskword"/>
+			    <arg0 key="error.updateProfile.job"/>
 			    <var>
 			        <var-name>mask</var-name>
-			        <var-value>([a-zA-Z]+).([\-\' ][a-zA-Z]+)*</var-value>
+			        <var-value>^[a-zA-Z]+([\-\' ][a-zA-Z]+)*$</var-value>
 			    </var>
             </field>  
-            <field property="mail" depends="email,required">
-                <arg key="error.updateProfile.email" />
-            </field>    
+            <field property="pwd" depends="">
+                <arg key="error.updateProfile.pwd" />
+            </field> 
+            <field property="confirmPwd" depends="compareTo">
+                <arg key="error.updateProfile.pwd" />
+            </field>  
             <field property="phone" depends="mask">
-                <arg key="error.updateProfile.job" />
+                <arg key="error.updateProfile.phone" />
                 <msg name="mask"
-                 	key="registrationForm.lastname.maskmsg"/>
-			    <arg0 key="registrationForm.lastname.displayname"/>
+                 	key="error.updateProfile.maskTel"/>
+			    <arg0 key="error.updateProfile.phone"/>           
 			    <var>
 			        <var-name>mask</var-name>
-			        <var-value>[0-9]+</var-value>
+			        <var-value>^[0-9]+$</var-value>
 			    </var>
             </field>  
             <field property="mail" depends="email,required">
