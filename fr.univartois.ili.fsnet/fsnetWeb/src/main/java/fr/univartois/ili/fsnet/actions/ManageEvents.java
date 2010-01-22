@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
@@ -10,7 +9,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,7 +22,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.auth.Authenticate;
-import fr.univartois.ili.fsnet.entities.Annonce;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Manifestation;
 
@@ -56,11 +53,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
 		// TODO : -> récupérer une date valide
 		// -> voir à quoi corespond le paramètre visible
-		Manifestation event = new Manifestation(eventName, new Date(),
-				eventDescription, null, null);
-
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
+		member = em.find(EntiteSociale.class, member.getId());
+		Manifestation event = new Manifestation(eventName, new Date(),
+				eventDescription, null, member);
 		em.persist(event);
 		em.getTransaction().commit();
 		em.close();
@@ -106,7 +103,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		results = query.getResultList();
 		if (results.isEmpty()) {
 			ActionErrors errors = new ActionErrors();
-			errors.add("searchString", new ActionMessage("search.noResults", searchString));
+			errors.add("searchString", new ActionMessage("search.noResults",
+					searchString));
 			saveErrors(request, errors);
 		}
 		request.setAttribute("events", results);
@@ -123,4 +121,3 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 }
-

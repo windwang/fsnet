@@ -1,7 +1,3 @@
-#ui-datepicker-div {
-	font-size: 80%;
-}
-
 .errorMessage {
 	font-size: 120%;
 	text-align: center;
@@ -22,7 +18,8 @@
 	text-align: center;
 	font-size: 130%;
 	margin: 25px 0 20px 0;
-	background: url(../images/bg-h3.png) repeat-x;	
+	padding: 5px;
+	background: url(../images/bg-h3.png) repeat-x;
 }
 
 #menu {
