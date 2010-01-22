@@ -19,7 +19,7 @@
     			<html:text property="hubName" styleId="hubName" />
     		</td>
     		<td>
-    			<html:submit styleClass="button"><bean:message key="hubs.delete"/></html:submit>
+    			<html:submit styleClass="button"><bean:message key="hubs.create"/></html:submit>
     		</td>
     	</tr>
     	<tr>
