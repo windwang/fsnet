@@ -9,6 +9,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <h3>${topic.sujet} : Messages </h3>
+		
 <table>
 <c:forEach var="msg" items="${topic.lesMessages}">
     <tr><td><html:link action="">

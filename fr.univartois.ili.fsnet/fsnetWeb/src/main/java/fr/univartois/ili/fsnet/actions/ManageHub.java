@@ -39,98 +39,108 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 
 /**
- *
+ * 
  * @author Cerelia Besnainou et Audrey Ruellan
  */
 public class ManageHub extends MappingDispatchAction implements CrudAction {
-	
+
 	private static EntityManagerFactory factory = Persistence
-	.createEntityManagerFactory("fsnetjpa");
-	
+			.createEntityManagerFactory("fsnetjpa");
+
 	private static final Logger logger = Logger.getAnonymousLogger();
 
-    @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	DynaActionForm dynaForm = (DynaActionForm) form;
+	@Override
+	public ActionForward create(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form;
 		String hubName = (String) dynaForm.get("hubName");
-				
+
 		logger.info("new hub: " + hubName);
-		
-		Hub hub= new Hub(hubName, new Date());
-		EntiteSociale es = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
-		
+
+		Hub hub = new Hub(hubName, new Date());
+		EntiteSociale es = (EntiteSociale) request.getSession().getAttribute(
+				Authenticate.AUTHENTICATED_USER);
+
 		hub.setCreateur(es);
-		
+
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
 		em.persist(hub);
 		em.getTransaction().commit();
 		em.close();
-		
+
 		return mapping.findForward("success");
-    }
+	}
 
-    @Override
-    public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	@Override
+	public ActionForward modify(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-    @Override
-    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	String hubId = request.getParameter("hubId");
-    			
+	@Override
+	public ActionForward delete(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		String hubId = request.getParameter("hubId");
+
 		logger.info("delete hub: " + hubId);
-		
+
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
-        em.createQuery("DELETE FROM Hub hub WHERE hub.id = :hubId ")
-        		.setParameter("hubId", Integer.parseInt(hubId)).executeUpdate();
-        em.getTransaction().commit();
+		em.createQuery("DELETE FROM Hub hub WHERE hub.id = :hubId ")
+				.setParameter("hubId", Integer.parseInt(hubId)).executeUpdate();
+		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
-    }
+	}
 
-    @Override
-    public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	
-    	DynaActionForm dynaForm = (DynaActionForm) form;
-    	String hubName;
-    	if(form==null){
-			hubName="";
+	@Override
+	public ActionForward search(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		String hubName;
+		if (form == null) {
+			hubName = "";
+		} else {
+			hubName = (String) dynaForm.get("hubName");
 		}
-    	else{
-    		hubName = (String) dynaForm.get("hubName");
-    	}
-		
-				
-		logger.info("search hub: " + hubName);
-		
-		EntityManager em = factory.createEntityManager();
-		
-		List<Hub> result =
-        	em.createQuery("SELECT hub FROM Hub hub WHERE hub.nomCommunaute LIKE :hubName ")
-        		.setParameter("hubName", "%"+hubName+"%")
-        		.getResultList();
-		request.setAttribute("hubResults", result);
-    	
-		return mapping.findForward("success");
-    }
 
-    @Override
-    public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-    	String hubId = request.getParameter("hubId");
-		
+		logger.info("search hub: " + hubName);
+
+		EntityManager em = factory.createEntityManager();
+
+		List<Hub> result = em
+				.createQuery(
+						"SELECT hub FROM Hub hub WHERE hub.nomCommunaute LIKE :hubName ")
+				.setParameter("hubName", "%" + hubName + "%").getResultList();
+		request.setAttribute("hubResults", result);
+
+		return mapping.findForward("success");
+	}
+
+	@Override
+	public ActionForward display(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException { 
+		String hubId = (String) request.getParameter("hubId");
+
 		logger.info("display hub: " + hubId);
-		
+
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
-        Hub result = (Hub) em.createQuery("SELECT hub FROM Hub hub WHERE hub.id = :hubId")
-        		.setParameter("hubId", Integer.parseInt(hubId)).getSingleResult();
-        em.getTransaction().commit();
+		Hub result = (Hub) em.createQuery(
+				"SELECT hub FROM Hub hub WHERE hub.id = :hubId").setParameter(
+				"hubId", Integer.parseInt(hubId)).getSingleResult();
+		em.getTransaction().commit();
+
 		em.close();
-		
+
 		request.setAttribute("hubResult", result);
-		
 		return mapping.findForward("success");
-    }
+	}
 }
