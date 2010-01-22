@@ -21,11 +21,10 @@ import fr.univartois.ili.fsnet.entities.Interet;
 public class AddInterest extends Action {
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-    private EntityManager em;
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse arg3) throws Exception {
-        em = factory.createEntityManager();
+    	EntityManager em = factory.createEntityManager();
         DynaActionForm dynaform = (DynaActionForm) form;
         Interet dto = new Interet();
         BeanUtils.copyProperties(dto, dynaform);
