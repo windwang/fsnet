@@ -32,13 +32,10 @@
 
 #logout {
 	float: right;	
-	margin: 10px;
+	margin: 20px;
 }
 
-#logout a {
-	background-color: #EEEEEE;
-	color: #505050; 
-}
+
 
 #left ul {
 	margin-bottom: 20px;
@@ -94,6 +91,11 @@ input[type=text], input[type=password], textarea {
 #ModifyProfile  textarea {width: 100%;}
 #ModifyProfile input[type=submit] {float: right;}
 #ModifyProfile #dateOfBirth {width: 90%;margin-right: 8px; color: black;}
+
+#MemberList {width: 100%;}
+#MemberList td {width: 30%;}
+
+#SearchMember {width: 100%; text-align: center;}
 
 #login {
 	background: #505050 url(../images/footer.gif) no-repeat;
