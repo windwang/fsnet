@@ -16,43 +16,69 @@
                 <html:text errorStyleClass="error" property="name" value="${currentUser.nom}" styleId="name"/>
             </td>
         </tr>
-        <tr><td colspan="2"><label><html:errors property="name"/></label></td></tr>
-        <tr>
-            <td>
-                <label for="firstName"><bean:message key="updateProfile.firstname"/></label>
-            </td>
-            <td>
-                <html:text errorStyleClass="error" property="firstName"  value="${currentUser.prenom}"/>
-            </td>
-        </tr>
-        <tr><td colspan="2"><label><html:errors property="firstName"/></label></td></tr>
-        <tr>
-            <td>
-                <label for="adress"><bean:message key="updateProfile.adress"/></label>
-            </td>
-            <td>
-                <html:textarea errorStyleClass="error" property="adress" value="${currentUser.adresse}"/>
-            </td>
-        </tr>
-        <tr><td colspan="2"><label><html:errors property="adress"/></label></td></tr>
-        <tr>
-            <td>
-                <label for="dateOfBirth"><bean:message key="updateProfile.dateOfBirth"/></label>
-            </td>
-            <td>
-                <html:text errorStyleClass="error" readonly="true" styleId="dateOfBirth" property="dateOfBirth" value="${currentUser.dateNaissance}"/>
-            </td>
-        </tr>
-        <logic:messagesPresent property="dateOfBirth">
+        <logic:messagesPresent property="name">
 	        <tr>
 	        	<td colspan="2">
-	        			<html:errors property="dateOfBirth"/>
+	        		<html:errors property="name"/>
 	        	</td>
 	        </tr>
         </logic:messagesPresent>
         <tr>
             <td>
-                <label for="sexe"><bean:message key="updateProfile.sexe"/></label>
+                <label for="firstName">
+                	<bean:message key="updateProfile.firstname"/>
+                </label>
+            </td>
+            <td>
+                <html:text errorStyleClass="error" property="firstName"  value="${currentUser.prenom}" styleId="firstName"/>
+            </td>
+        </tr>
+        <logic:messagesPresent property="firstName">
+        	<tr>
+        		<td colspan="2">
+        			<html:errors property="firstName"/>
+        		</td>
+        	</tr>
+        </logic:messagesPresent>
+        <tr>
+            <td>
+                <label for="adress">
+                	<bean:message key="updateProfile.adress"/>
+                </label>
+            </td>
+            <td>
+                <html:textarea errorStyleClass="error" property="adress" value="${currentUser.adresse}" styleId="adress"/>
+            </td>
+        </tr>
+        <logic:messagesPresent property="adress">
+        	<tr>
+        		<td colspan="2">
+        			<html:errors property="adress"/>
+        		</td>
+        	</tr>
+        </logic:messagesPresent>
+        <tr>
+            <td>
+                <label for="dateOfBirth">
+                	<bean:message key="updateProfile.dateOfBirth"/>
+                </label>
+            </td>
+            <td>
+                <html:text errorStyleClass="error" readonly="true" styleId="dateOfBirth" property="dateOfBirth" value="${currentUser.dateNaissance}" />
+            </td>
+        </tr>
+        <logic:messagesPresent property="dateOfBirth">
+	        <tr>
+	        	<td colspan="2">
+	        		<html:errors property="dateOfBirth"/>
+	        	</td>
+	        </tr>
+        </logic:messagesPresent>
+        <tr>
+            <td>
+                <label for="sexe">
+                	<bean:message key="updateProfile.sexe"/>
+                </label>
             </td>
             <td>
                 <html:select property="sexe" value="${currentUser.sexe}">
@@ -61,48 +87,98 @@
                 </html:select>
             </td>
         </tr>
-        <tr><td colspan="2"><label><html:errors property="sexe"/></label></td></tr>
+        <logic:messagesPresent property="sexe">
+        	<tr>
+        		<td colspan="2">
+        			<html:errors property="sexe"/>
+        		</td>
+        	</tr>
+        </logic:messagesPresent>
         <tr>
             <td>
-                <label for="pwd"><bean:message key="updateProfile.pwd"/></label>
-            </td>
-            <td><html:password property="pwd" value="${currentUser.mdp}"/></td>
-        </tr>
-        <tr><td colspan="2"><label><html:errors property="pwd"/></label></td></tr>
-        <tr>
-            <td>
-                <label for="confirmPwd"><bean:message key="updateProfile.confirmPwd"/></label>
-            </td>
-            <td><html:password property="confirmPwd" value="${currentUser.mdp}"/></td>
-        </tr>
-        <tr><td colspan="2"><label><html:errors property="confirmPwd"/></label></td></tr>
-        <tr>
-            <td>
-                <label for="job"><bean:message key="updateProfile.job"/></label>
+                <label for="pwd">
+                	<bean:message key="updateProfile.pwd"/>
+                </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="job" value="${currentUser.profession}"/>
+            	<html:password property="pwd" value="${currentUser.mdp}" styleId="pwd"/>
             </td>
         </tr>
-        <tr><td colspan="2"><label><html:errors property="job"/></label></td></tr>
+        <logic:messagesPresent property="pwd">
+        	<tr>
+        		<td colspan="2">
+        			<html:errors property="pwd"/>
+        		</td>
+        	</tr>
+        </logic:messagesPresent>
         <tr>
             <td>
-                <label for="mail"><bean:message key="updateProfile.email"/></label>
+                <label for="confirmPwd">
+                	<bean:message key="updateProfile.confirmPwd"/>
+                </label>
+            </td>
+            <td>
+            	<html:password property="confirmPwd" value="${currentUser.mdp}" styleId="confirmPwd"/>
+            </td>
+        </tr>
+        <logic:messagesPresent property="confirmPwd">
+        	<tr>
+        		<td colspan="2">
+        			<html:errors property="confirmPwd"/>
+        		</td>
+        	</tr>
+        </logic:messagesPresent>
+        <tr>
+            <td>
+                <label for="job">
+                	<bean:message key="updateProfile.job"/>
+                </label>
+            </td>
+            <td>
+                <html:text errorStyleClass="error" property="job" value="${currentUser.profession}" styleId="job"/>
+            </td>
+        </tr>
+        <logic:messagesPresent property="job"> 
+        	<tr>
+        		<td colspan="2">
+        			<html:errors property="job"/>
+        		</td>
+        	</tr>
+        </logic:messagesPresent>
+        <tr>
+            <td>
+                <label for="mail">
+                	<bean:message key="updateProfile.email"/>
+                </label>
             </td>
             <td>
                 <html:text errorStyleClass="error" property="mail" value="${currentUser.email}" readonly="true"/>
             </td>
         </tr>
-        <tr><td colspan="2"><label><html:errors property="mail"/></label></td></tr>        
+        <logic:messagesPresent property="mail">
+        	<tr>
+        		<td colspan="2">
+        			<html:errors property="mail"/>
+        		</td>
+        	</tr>  
+        </logic:messagesPresent>      
         <tr>
             <td>
-                <label for="phone"><bean:message key="updateProfile.phone"/></label>
+                <label for="phone">
+                	<bean:message key="updateProfile.phone"/>
+                </label>
             </td>
             <td>
                 <html:text errorStyleClass="error" property="phone" value="${currentUser.numTel}"/>
             </td>
         </tr>
-        <tr><td colspan="2"><label><html:errors property="phone"/></label></td></tr> 
+        <logic:messagesPresent property="phone">
+	        <tr>
+	        	<td colspan="2">
+	        		<html:errors property="phone"/>
+	        	</td>
+	        </tr> 
+        </logic:messagesPresent>
         <tr>        	
             <td colspan="2">
             	<html:submit>
