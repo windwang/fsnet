@@ -2,9 +2,9 @@ package fr.univartois.ili.fsnet.trayDesktop;
 
 import fr.univartois.ili.fsnet.webservice.InfoService;
 import java.awt.AWTException;
-import java.awt.Image;
 import java.awt.SystemTray;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -13,6 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import javax.xml.namespace.QName;
 
 /**
  * The class TrayLauncher creates an instance of the web service and an instance
@@ -72,17 +73,18 @@ public class TrayLauncher {
                 Options.loadOptions();
 
                 trayi18n = ResourceBundle.getBundle("ressources/Trayi18n", Options.getLocale());
-                if (!Options.isConfigured()) {
-                    new ConfigurationFrame().show();
-                }
                 ImageIcon icon = getImageIcon("/ressources/iconefsnet.png");
                 if (icon != null) {
                     try {
-                        // TODO enlever ca
-                        InfoService service = new InfoService();
-                        c = new FSNetTray(icon.getImage(), service.getInfoPort());
-                        SystemTray.getSystemTray().add(c.getTrayIcon());
-                        c.startNotifications(Options.getLag());
+                        InfoService infoService;
+                        try {
+                            infoService = new InfoService(new URL(Options.getUrl()), new QName("http://webservice.fsnet.ili.univartois.fr/", "InfoService"));
+                            c = new FSNetTray(icon.getImage(), infoService.getInfoPort());
+                            SystemTray.getSystemTray().add(c.getTrayIcon());
+                            c.startNotifications(Options.getLag());
+                        } catch (MalformedURLException ex) {
+                            new ConfigurationFrame().show();
+                        }
                     } catch (AWTException ex) {
                         logger.log(Level.SEVERE, null, ex);
                     }
