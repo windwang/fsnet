@@ -110,28 +110,28 @@ public class EntiteSociale {
 	/**
 	 * The contact list
 	 */
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="contacts")
 	private List<EntiteSociale> contacts;
 
 	/**
 	 * list of refused contacts
 	 */
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="refused")
 	private List<EntiteSociale> refused;
 
 	/**
 	 * List of requested contacts
 	 */
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="requested")
 	private List<EntiteSociale> requested;
 
 	/**
 	 * Received demands list
 	 */
-	@OneToMany
+	@OneToMany(cascade=CascadeType.ALL)
 	@JoinTable(name="asked")
 	private List<EntiteSociale> asked;
 
