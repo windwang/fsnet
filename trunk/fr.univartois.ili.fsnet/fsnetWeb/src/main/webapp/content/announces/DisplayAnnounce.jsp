@@ -9,9 +9,19 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <html:form >
 	<table id="CreateAnnounce">
+	<logic:present name="owner">
+	<tr>
+	<bean:define id="idAnnounce" name="announce" property="id" />
+	<td><html:link  action="/DisplayForModifyAnnounce"  paramId="idAnnounce" paramName="idAnnounce">update</html:link>	</td>
+	<td><html:link  action="/DeleteAnnounce"  paramId="idAnnounce" paramName="idAnnounce">delete</html:link></td>
+	</tr>
+	</logic:present>
+	<tr>
+	</tr>
 	<tr>
 			<td>
 				<label for="announceCreator">Créateur :</label>
