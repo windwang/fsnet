@@ -5,28 +5,16 @@
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+         pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-
+<h3>Search Announce </h3>
 <html:form action="/Announces">
-	<table id="SearchAnnounce">
-		<tr>
-			<td>
-				<label for="announceSearch">recherche annonce  :</label>
-			</td>
-			<td>
-    			<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
-    		</td>
-    		<td>
-    			<html:submit styleClass="button">Search Announce</html:submit>
-    		</td>
-    	</tr>
-    	<tr>
-    		<td colspan="2">
-    			<html:messages id="message" />
-    			<html:errors/>
-    		</td>
-    	</tr>
-    </table>
+
+    Announce's name :
+    <html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
+
+    <html:submit styleClass="button">Search</html:submit>
+    <html:messages id="message" />
+    <html:errors/>
 </html:form>
