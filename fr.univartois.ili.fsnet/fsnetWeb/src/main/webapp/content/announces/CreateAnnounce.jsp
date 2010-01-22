@@ -4,8 +4,7 @@
     Author     : Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
 --%>
 
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@page contentType="text/html;charset=ISO-8859-1" language="java" %>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <html:javascript formName="/CreateAnnounce"/>
@@ -32,7 +31,7 @@
     			<label for="announceExpiryDate">Date :</label>
     		</td>
     		<td>
-    			<html:text property="announceExpiryDate" styleId="announceExpiryDate" disabled="true"/>
+    			<html:text property="announceExpiryDate" styleId="announceExpiryDate" disabled="false"/>
     			<html:submit styleClass="button">Create Announce</html:submit>
     		</td>
     	</tr>

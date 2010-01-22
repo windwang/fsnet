@@ -129,7 +129,12 @@
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
     </definition>
-    <definition name="DisplayModifyAnnounce" extends=".defaultLayout">
+    <definition name="ModifyAnnounce" extends=".defaultLayout">
+        <put name="title" value="ModifyAnnounce"/>
+        <put name="currentMenu" value="Announces"/>
+        <put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
+    </definition>
+    <definition name="DisplayForModifyAnnounce" extends=".defaultLayout">
         <put name="title" value="ModifyAnnounce"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
