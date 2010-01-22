@@ -118,6 +118,11 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 	   		List<Message> result = query.getResultList();
 	        request.getSession().setAttribute("listMsgs", result);
     	}
+    	if (request.getParameterMap().containsKey("msgId")) {
+    		int msgId = Integer.valueOf(request.getParameter("msgId"));
+    		Message msg = em.find(Message.class, msgId);
+    		request.getSession().setAttribute("contenu", msg.getContenu());
+    	}
     	return mapping.findForward("success");
     }
 }

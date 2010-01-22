@@ -10,7 +10,12 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <h3>the topics</h3>
 <table>
-<c:forEach var="msgs" items="${lesMsgs}">
-    <tr><td>${msgs.contenu}</td></tr>
+<c:forEach var="msg" items="${lesMsgs}">
+    <tr><td><html:link action="" styleClass="button">
+		<html:param name="msgId" value="${msg.id}" />
+		${msg.dateMessage} ${msg.propMsg}</html:link></td></tr>
+	<c:if test="${not empty contenu}">
+		<tr><td>${contenu}</td></tr>
+	</c:if>	
 </c:forEach>
 </table>
