@@ -6,9 +6,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
 
-<h3>Hubs :</h3>
+<h3><bean:message key="hubs.hubs"/></h3>
 
 <table id="HubList">
 <c:forEach var="hub" items="${hubResults}">
@@ -20,7 +21,7 @@
 			<td class="left">${hub.createur.prenom} ${hub.createur.nom}</td>
     		<td class="right">
     			 <c:if test="${sessionScope.user.id eq hub.createur.id}">
-	    			 <html:link action="/DeleteHub?hubId=${hub.id}" styleClass="button">Delete Hub</html:link>
+	    			 <html:link action="/DeleteHub?hubId=${hub.id}" styleClass="button"><bean:message key="hubs.delete"/></html:link>
 				</c:if>
 				<html:link action="/ListTopic" styleClass="button">
 					<html:param name="hubId" value="${hub.id}"/>
