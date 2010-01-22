@@ -67,7 +67,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 	        em.persist(topic);
 		    em.getTransaction().commit();
 		    em.close();
-		    System.out.println("----------Create topic "+topicSujet+" OK------------");
+		    logger.info("----------Create topic "+topicSujet+" OK------------");
     	}
 		return mapping.findForward("success");
     }
@@ -87,7 +87,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
             	query.setParameter("topicId", topicId);
             	query.executeUpdate();
             em.getTransaction().commit();
-            System.out.println("----------Delete topic "+topicId+" OK------------");
+            logger.info("----------Delete topic "+topicId+" OK------------");
 	        em.close();
 		}
 		
