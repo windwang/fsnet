@@ -3,7 +3,7 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<h2>Mes intérêts</h2>
+<h3>Mes intérêts</h3>
 <ul>
 	<c:choose>
 		<c:when test="${not empty user.lesinterets}">	

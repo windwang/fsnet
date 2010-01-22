@@ -61,34 +61,27 @@ public class ManageInterests extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		
-		if (dynaForm.get("interestName") != null && !((String)dynaForm.get("interestName")).isEmpty()) {
-			String interestName = (String) dynaForm.get("interestName");
-			Interet interest = new Interet(new ArrayList<EntiteSociale>(),
-					interestName);
+		DynaActionForm dynaForm = (DynaActionForm) form;	
+	
+		String interestName = (String) dynaForm.get("createdInterestName");
+		Interet interest = new Interet(new ArrayList<EntiteSociale>(),
+				interestName);
 
-			logger.info("new interest: " + interestName);
+		logger.info("new interest: " + interestName);
 
-			try {
-				em.getTransaction().begin();
-				em.persist(interest);
-				em.getTransaction().commit();
-			} catch (RollbackException ex) {
-				ActionErrors actionErrors = new ActionErrors();
-				ActionMessage msg = new ActionMessage("interest.alreadyExists");
-				actionErrors.add("error.interest.create", msg);
-				saveErrors(request, actionErrors);
-			}
-
-			em.close();
-		} else {
+		try {
+			em.getTransaction().begin();
+			em.persist(interest);
+			em.getTransaction().commit();
+		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
-			ActionMessage msg = new ActionMessage("interest.noName");
+			ActionMessage msg = new ActionMessage("interest.alreadyExists");
 			actionErrors.add("error.interest.create", msg);
 			saveErrors(request, actionErrors);
 		}
 
+		em.close();
+	
 		return mapping.findForward("success");
 	}
 
@@ -97,7 +90,7 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		int interestId = Integer.valueOf((String)dynaForm.get("interestId"));
+		int interestId = Integer.valueOf((String)dynaForm.get("addedInterestId"));
 
 		EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
 				Authenticate.AUTHENTICATED_USER);
@@ -141,7 +134,7 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		int interestId = Integer.valueOf((String)dynaForm.get("interestId"));
+		int interestId = Integer.valueOf((String)dynaForm.get("removedInterestId"));
 
 		EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
 				Authenticate.AUTHENTICATED_USER);
@@ -176,6 +169,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		return mapping.findForward("success");
 	}
 	
+	// TODO modify
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -215,33 +209,31 @@ public class ManageInterests extends MappingDispatchAction implements
 		
 		// TODO verify if user has the right to do delete
 
-		if (dynaForm.get("interestId") != null && !((String)dynaForm.get("interestId")).isEmpty()) {
-			int interestId = Integer
-					.valueOf(request.getParameter("interestId"));
+		int interestId = Integer
+				.valueOf(request.getParameter("deletedInterestId"));
 
-			logger.info("interest deleted: id=" + interestId);
+		logger.info("interest deleted: id=" + interestId);
 
-			try {
-				em.getTransaction().begin();
-				em.createQuery(
-						"DELETE FROM Interet interest WHERE interest.id = :interestId")
-						.setParameter("interestId", interestId).executeUpdate();
-				em.getTransaction().commit();
-				
-				EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
-						Authenticate.AUTHENTICATED_USER);
-				user = em.find(EntiteSociale.class, user.getId());	
-				em.refresh(user);
-				request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER, user);
-			} catch (RollbackException ex) {
-				ActionErrors actionErrors = new ActionErrors();
-				ActionMessage msg = new ActionMessage("interest.notExists");
-				actionErrors.add("error.interest.delete", msg);
-				saveErrors(request, actionErrors);
-			}
-
-			em.close();
+		try {
+			em.getTransaction().begin();
+			em.createQuery(
+					"DELETE FROM Interet interest WHERE interest.id = :interestId")
+					.setParameter("interestId", interestId).executeUpdate();
+			em.getTransaction().commit();
+			
+			EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(
+					Authenticate.AUTHENTICATED_USER);
+			user = em.find(EntiteSociale.class, user.getId());	
+			em.refresh(user);
+			request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER, user);
+		} catch (RollbackException ex) {
+			ActionErrors actionErrors = new ActionErrors();
+			ActionMessage msg = new ActionMessage("interest.notExists");
+			actionErrors.add("error.interest.delete", msg);
+			saveErrors(request, actionErrors);
 		}
+
+		em.close();
 
 		return mapping.findForward("success");
 	}
@@ -252,23 +244,24 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
+		String interestName = "";
 		
-		if (dynaForm.get("interestName") != null) {
-			String interestName = (String) dynaForm.get("interestName");
-
-			logger.info("search interest: " + interestName);
-
-			List<Interet> result = 
-					em.createQuery("SELECT interest FROM Interet interest WHERE interest.nomInteret LIKE :interestName ")
-					.setParameter("interestName", '%'+interestName+'%')
-					.getResultList();
-			em.close();
-			
-			if (result.size() > 0) {
-				request.setAttribute("interestResult", result);
-			}
+		if (dynaForm.get("searchInterestName") != null) {
+			interestName = (String) dynaForm.get("searchInterestName");
 		}
+	
+		logger.info("search interest: " + interestName);
+
+		List<Interet> result = 
+				em.createQuery("SELECT interest FROM Interet interest WHERE interest.nomInteret LIKE :interestName ")
+				.setParameter("interestName", '%'+interestName+'%')
+				.getResultList();
+		em.close();
 		
+		if (result.size() > 0) {
+			request.setAttribute("interestResult", result);
+		}
+	
 		return mapping.findForward("success");
 	}
 
@@ -281,58 +274,30 @@ public class ManageInterests extends MappingDispatchAction implements
 				Authenticate.AUTHENTICATED_USER);
 
 		logger.info("Displaying interests");
+	
+		// TODO requete provisoire
 		
-		if (user != null) {
-			// TODO requete provisoire
-			
-			List<Interet> listAllInterests = em.createQuery(
-					"SELECT interest FROM Interet interest")
-					.getResultList();
-						
-			List<Interet> finalList = new ArrayList<Interet>();
-			boolean dirtyIsOK;
-			for (Interet interest : listAllInterests) {
-				dirtyIsOK = true;
-				for (Interet interestEntity : user.getLesinterets()) {
-					if (interestEntity.getId() == interest.getId()) {
-						dirtyIsOK = false;
-					}
-				}
-				if (dirtyIsOK) {
-					finalList.add(interest);
+		List<Interet> listAllInterests = em.createQuery(
+				"SELECT interest FROM Interet interest")
+				.getResultList();
+					
+		List<Interet> finalList = new ArrayList<Interet>();
+		boolean dirtyIsOK;
+		for (Interet interest : listAllInterests) {
+			dirtyIsOK = true;
+			for (Interet interestEntity : user.getLesinterets()) {
+				if (interestEntity.getId() == interest.getId()) {
+					dirtyIsOK = false;
 				}
 			}
-			request.setAttribute("allInterests", listAllInterests);
-			request.setAttribute("listInterests", finalList);
-		} else {
-			List<Interet> listInterests = em.createQuery(
-					"SELECT interest FROM Interet interest").getResultList();
-			request.setAttribute("listInterests", listInterests);
+			if (dirtyIsOK) {
+				finalList.add(interest);
+			}
 		}
+		request.setAttribute("allInterests", listAllInterests);
+		request.setAttribute("listInterests", finalList);
 		
 		em.close();
-		return mapping.findForward("success");
-	}
-
-	public ActionForward displaySocialEntityList(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
-
-		if (request.getParameterMap().containsKey("interestId")) {
-			int interestId = Integer
-					.valueOf(request.getParameter("interestId"));
-
-			logger.info("search social entity for interest: id=" + interestId);
-
-			List<EntiteSociale> result = em
-					.createQuery(
-							"SELECT socialEntity FROM Interest interest, IN(interest.lesEntites) socialEntity WHERE interest.id = :interestId")
-					.setParameter("interestId", interestId).getResultList();
-
-			request.setAttribute("interestResult", result);
-		}
-
 		return mapping.findForward("success");
 	}
 }
