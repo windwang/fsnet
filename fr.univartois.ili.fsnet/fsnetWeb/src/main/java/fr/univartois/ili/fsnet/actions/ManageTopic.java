@@ -111,17 +111,12 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
     	EntityManager em = factory.createEntityManager();
-    	if (request.getParameterMap().containsKey("hubId")) {
-    		int hubId = Integer.valueOf(request.getParameter("hubId"));
-    		System.out.println("hudId : "+hubId);
-	    	Hub hub = em.find(Hub.class, hubId);
-	    	EntiteSociale entiteSociale = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
-	    	Query query = em.createQuery("SELECT OBJECT(topic) FROM Topic topic WHERE topic.propTopic = :es and topic.hub = :hub order by topic.sujet");
-	    		query.setParameter("es",entiteSociale);
-	    		query.setParameter("hub",hub);
-	   		List<Topic> result = query.getResultList();
-	        request.getSession().setAttribute("listTopics", result);
-	        request.getSession().setAttribute("hubId", hubId);
+    	if (request.getParameterMap().containsKey("topicId")) {
+    		int topicId = Integer.valueOf(request.getParameter("topicId"));
+	    	Query query = em.createQuery("SELECT lesMessages FROM Topic topic WHERE topic.id:topicId ");
+	    		query.setParameter("topicId",topicId);
+	   		List<Message> result = query.getResultList();
+	        request.getSession().setAttribute("listMsgs", result);
     	}
     	return mapping.findForward("success");
     }

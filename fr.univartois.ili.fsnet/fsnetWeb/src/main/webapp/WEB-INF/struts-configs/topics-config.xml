@@ -28,7 +28,7 @@
             <forward name="success" path="/Topic.do" />
         </action>
 
-        <action path="/ListTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+        <action path="/DisplayTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
                 parameter="display">
             <forward name="success" path="/Topic.do" />
         </action>
