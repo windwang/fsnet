@@ -8,7 +8,8 @@
         <link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
         <title><tiles:getAsString name="title"/></title>
-    </head>
+    	<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
+	</head>
     <body>
         <div class="wrap background">
             <tiles:useAttribute name="currentMenu" scope="request" ignore="true"/>

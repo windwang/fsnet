@@ -8,6 +8,8 @@
 
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+
+
 <h3>Create Event</h3>
 <html:form action="/CreateEvent">
 	<table id="CreateEvent">
@@ -47,7 +49,9 @@
     			<label for="eventDate">Date :</label>
     		</td>
     		<td>
-    			<html:text property="eventDate" styleId="eventDate" errorStyleClass="error"/>
+    			<html:text property="eventDate" styleId="eventDate" disabled="true" errorStyleClass="error"/>
+    			
+    			
  				<html:submit styleClass="button">Create Event</html:submit>
     			<logic:messagesPresent property="eventDate">
    					<div class="errorMessage">
@@ -58,3 +62,22 @@
     	</tr>
     </table>
 </html:form>
+ 
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$.datepicker.setDefaults($.extend(
+					{
+						minDate: 0,
+					 	dateFormat: 'dd/mm/yy',
+					 	showOn: 'button', 
+					 	buttonImage: 'images/calendar.gif', 
+					 	buttonImageOnly: true, 
+					 	showMonthAfterYear: false
+					}));
+			$("#eventDate").datepicker($.datepicker.regional['fr']);		
+		});
+	</script> 
+ 
