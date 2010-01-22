@@ -37,6 +37,26 @@
 		<filter-name>IsAuthenticatedFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
+	
+	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>fr.univartois.ili.fsnet.auth.SetCharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ignore</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>*.do</url-pattern>
+		
+	</filter-mapping>
+	
 
 	<servlet>
 		<servlet-name>Authenticate</servlet-name>
