@@ -1,8 +1,12 @@
 package fr.univartois.ili.fsnet.trayDesktop;
 
+import com.sun.xml.ws.client.ClientTransportException;
 import fr.univartois.ili.fsnet.webservice.Info;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.rmi.RemoteException;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -89,7 +93,27 @@ public class FSNetTray {
                 System.exit(0);
             }
         });
+        tray.addActionListener(new ActionListener() {
 
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                try {
+                    // TODO configurer l'url dans la config et l'utiliser ici
+                    Desktop.getDesktop().browse(new URI("http://www.your.url"));
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(FSNetTray.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(FSNetTray.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
+        tray.addMouseListener(new MouseAdapter() {
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                displayMessage();
+            }
+        });
         // Add components to popup menu
         popup.add(configItem);
         popup.add(size);
@@ -136,7 +160,7 @@ public class FSNetTray {
     }
 
     /**
-     * Start a timer which will check new events
+     * Start a timer which will display message regulary
      * @param timeLag number of seconds between two requests
      */
     public void startNotifications(long timeLag) {
@@ -145,25 +169,44 @@ public class FSNetTray {
 
             @Override
             public void run() {
-
-                try {
-                    int announces = getNumberOfNewAnnonce();
-                    int events = getNumberOfNewEvents();
-                    if (announces + events > 0) {
-                        String message = getMessage(announces, events);
-                        tray.displayMessage(
-                                trayi18n.getString("NOTIFICATIONS"),
-                                message,
-                                TrayIcon.MessageType.INFO);
-                    }
-                } catch (RemoteException e1) {
-                    logger.log(Level.SEVERE, e1.getLocalizedMessage());
-                    build.append(trayi18n.getString("NOCONNECTION "));
-                    stopNotifications();
-                }
-
+                displayMessage();
             }
-        }, 0, timeLag * MINUTES);
+        }, 0, timeLag * Options.getLag());
+    }
+
+    /**
+     * Display a message with new alerts
+     */
+    private void displayMessage() {
+        try {
+            int announces = getNumberOfNewAnnonce();
+            int events = getNumberOfNewEvents();
+            if (announces + events > 0) {
+                String message = getMessage(announces, events);
+                tray.displayMessage(
+                        trayi18n.getString("NOTIFICATIONS"),
+                        message,
+                        TrayIcon.MessageType.INFO);
+            } else {
+                tray.displayMessage(
+                        trayi18n.getString("NONEWEVENTS"),
+                        trayi18n.getString("NONEWEVENTS"),
+                        TrayIcon.MessageType.INFO);
+            }
+        } catch (RemoteException e1) {
+            //logger.log(Level.SEVERE, e1.getLocalizedMessage());
+            System.out.println("prout");
+            tray.displayMessage(
+                    trayi18n.getString("NOCONNECTION"),
+                    trayi18n.getString("NOCONNECTION"),
+                    TrayIcon.MessageType.INFO);
+            stopNotifications();
+        } catch (ClientTransportException e2) {
+            tray.displayMessage(
+                    trayi18n.getString("NOCONNECTION"),
+                    trayi18n.getString("NOCONNECTION"),
+                    TrayIcon.MessageType.INFO);
+        }
     }
 
     /**
