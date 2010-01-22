@@ -18,6 +18,10 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.sql.Date;
+import java.text.DateFormat;
+import java.text.FieldPosition;
+import java.text.ParseException;
+import java.text.ParsePosition;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -25,12 +29,15 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.text.DateFormatter;
+
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.form.ProfileForm;
@@ -92,8 +99,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         user.setNom(formatName(pform.getName()));
         user.setPrenom(formatName(pform.getFirstName()));
         user.setAdresse(pform.getAdress());
-        //TODO
-        //user.setDateNaissance(pform.getDateOfBirth());
+        user.setDateNaissance(pform.getParsedDateOfBirth());
         user.setSexe(pform.getSexe());
         user.setMdp(pform.getPwd());
         user.setProfession(formatName(pform.getJob()));
