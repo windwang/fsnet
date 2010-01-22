@@ -34,8 +34,7 @@
                 <label for="dateOfBirth">Birth date :</label>
             </td>
             <td>
-                <!-- TODO ajouter un calendrier avec ajax -->
-                <html:text errorStyleClass="error" property="dateOfBirth" value="${currentUser.dateNaissance}"/>
+                <html:text errorStyleClass="error" disabled="true" styleId="dateOfBirth" property="dateOfBirth" value="${currentUser.dateNaissance}"/>
             </td>
         </tr>
         <tr>
@@ -92,5 +91,25 @@
           	</td>
         </tr>
     </table>
+</html:form>
 
-</html:form>      
+	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
+	<script type="text/javascript">
+		$(function() {
+			$.datepicker.setDefaults($.extend(
+					{
+						yearRange: '-100:+1',
+						changeYear: true,
+						maxDate: 0,
+					 	dateFormat: 'dd/mm/yy',
+					 	showOn: 'button', 
+					 	buttonImage: 'images/calendar.gif', 
+					 	buttonImageOnly: true, 
+					 	showMonthAfterYear: false
+					}));
+			$("#dateOfBirth").datepicker($.datepicker.regional['fr']);		
+		});
+	</script> 
+      
