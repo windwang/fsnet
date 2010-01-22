@@ -20,7 +20,7 @@
 	</html:form>
 	<c:if test="${not empty resRearchTopics}">
 		<tr>
-		<th>Result of rearch</th>
+		<th>Result of search</th>
 		</tr>
 		<tr>
 		<c:forEach var="topic" items="${resRearchTopics}">
