@@ -14,12 +14,12 @@
 <table class="inLineTable">
     <c:forEach var="hub" items="${hubResults}">
         <tr>
-            <td>
+            <th>
                 <html:link action="/DisplayHub">
                     <html:param name="hubId" value="${hub.id}"/>
                     ${hub.nomCommunaute}
                 </html:link>
-            </td>
+            </th>
             <td>
                 Created on
                 <bean:write name="hub" property="dateCreation" format="dd/MM/yyyy"/>
