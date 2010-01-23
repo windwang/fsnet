@@ -177,7 +177,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager entityManager = factory.createEntityManager();
-        
+
         Integer idAnnounce = Integer.valueOf(request.getParameter("idAnnounce"));
 
         Annonce announce = entityManager.find(Annonce.class, idAnnounce);

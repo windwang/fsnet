@@ -108,8 +108,13 @@
     <!-- Topic -->
     <definition name="Topic" extends=".defaultLayout">
         <put name="title" value="Topic"/>
-        <put name="currentMenu" value="Topic"/>
+        <put name="currentMenu" value="Hub"/>
         <put name="body-content" value="/content/topics/Topic.jsp" />
+    </definition>
+    <definition name="CreateModifyTopicMessage" extends=".defaultLayout">
+        <put name="title" value="Topic Message"/>
+        <put name="currentMenu" value="Hub"/>
+        <put name="body-content" value="/content/topics/ModifyCreateTopicMessage.jsp" />
     </definition>
 
     <!-- Announces -->
