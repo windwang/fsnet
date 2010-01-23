@@ -10,14 +10,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
-
-<script type="text/javascript">
-    tinyMCE.init({
-        // General options
-        mode : "textareas",
-        theme : "simple"
-    });
-</script>
+<script type="text/javascript" src="js/mceTextArea.js"/>
 
 <h3>Create Message</h3>
 <html:form action="/CreateTopicMessage">
@@ -28,7 +21,8 @@
             <td>
                 <html:textarea  cols="60" rows="8"
                                 property="messageDescription"
-                                styleId="messageDescription"> 
+                                styleId="messageDescription"
+                                styleClass="mceTextArea">
                 </html:textarea>
             </td>
         </tr>
