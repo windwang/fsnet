@@ -32,13 +32,16 @@
         <put name="currentMenu" value="Events"/>
     </definition>
 
-    <definition name="DisplayEvents" extends=".defaultLayout">
+    <definition name="Events" extends=".defaultLayout">
         <put name="title" value="Events"/>
         <put name="body-content" value="/content/events/DisplayEvents.jsp" />
+        <put name="currentMenu" value="Events"/>
     </definition>
-    <definition name="SearchEvents" extends=".defaultLayout">
-        <put name="title" value="Events"/>
-        <put name="body-content" value="/content/events/DisplayEvents.jsp" />
+    
+    <definition name="DisplayEvent" extends=".defaultLayout">
+        <put name="title" value="DisplayEvent"/>
+        <put name="currentMenu" value="Events"/>
+        <put name="body-content" value="/content/events/DisplayEvent.jsp" />
     </definition>
 
     <!-- Contacts -->

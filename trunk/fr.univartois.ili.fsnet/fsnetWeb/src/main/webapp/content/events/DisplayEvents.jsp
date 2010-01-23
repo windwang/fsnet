@@ -12,7 +12,7 @@
 
 
 <h3>Search Event</h3>
-<html:form action="/SearchEvent">
+<html:form action="/Events">
     <div id="SearchEvent">
         <html:text property="searchString" />
         <html:submit styleClass="button" />
@@ -29,7 +29,7 @@
             <th>
                 <html:link action="/DisplayEvent">
                     ${event.nom}
-                    <html:param name="id" value="${event.id}"/>
+                    <html:param name="eventId" value="${event.id}"/>
                 </html:link>
             </th>
             <td class="left">

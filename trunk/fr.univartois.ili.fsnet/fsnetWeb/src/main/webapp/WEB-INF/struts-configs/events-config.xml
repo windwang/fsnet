@@ -11,41 +11,60 @@
             <form-property name="eventDescription" type="java.lang.String" />
             <form-property name="eventDate" type="java.lang.String" />
         </form-bean>
+        <form-bean  name="DisplayEventForm" 
+        			type="org.apache.struts.validator.DynaValidatorActionForm">
+        	<form-property name="eventId" type="java.lang.String"/>
+        </form-bean>
+        <form-bean  name="DeleteEventForm" 
+        			type="org.apache.struts.validator.DynaValidatorActionForm">
+        	<form-property name="eventId" type="java.lang.String"/>
+        </form-bean>
         <form-bean name="SearchEventForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="searchString" type="java.lang.String" />
         </form-bean>
     </form-beans>
     <action-mappings>
-        <action
-            path="/CreateEvent"
-            type="fr.univartois.ili.fsnet.actions.ManageEvents"
-            name="CreateEventForm"
-            input="/DisplayCreateEvent.do"
-            scope="request"
-            validate="true"
-            parameter="create">
-            <forward name="success" path="/DisplayEvents.do" />
-        </action>
-        <action
-            path="/SearchEvent"
-            type="fr.univartois.ili.fsnet.actions.ManageEvents"
-            name="SearchEventForm"
-            input="Events"
-            scope="request"
-            validate="false"
-            parameter="search">
-            <forward name="success" path="SearchEvents" />
+        <action path="/CreateEvent"
+            	type="fr.univartois.ili.fsnet.actions.ManageEvents"
+            	name="CreateEventForm"
+            	input="/DisplayCreateEvent.do"
+            	scope="request"
+            	validate="true"
+            	parameter="create">
+            <forward name="success" path="DisplayEvent" />
         </action>
 
         <action path="/DisplayCreateEvent"
                 type="org.apache.struts.actions.ForwardAction"
                 parameter="CreateEvent"/>
 
-        <action path="/DisplayEvents"
+        <action path="/Events"
+        		name="SearchEventForm"
                 type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                input="Events"
+            	scope="request"
+            	validate="false"
+                parameter="search" >
+            <forward name="success" path="Events" />
+        </action>
+        <action path="/DisplayEvent"
+        		name="DisplayEventForm"
+                type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                input="Events"
+            	scope="request"
+            	validate="true"
                 parameter="display" >
-            <forward name="success" path="DisplayEvents" />
+            <forward name="success" path="DisplayEvent" />
+        </action>
+        <action path="/DeleteEvent"
+        		name="DeleteEventForm"
+                type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                input="Events"
+            	scope="request"
+            	validate="true"
+                parameter="delete" >
+            <forward name="success" path="/Events.do" />
         </action>
     </action-mappings>
 </struts-config>

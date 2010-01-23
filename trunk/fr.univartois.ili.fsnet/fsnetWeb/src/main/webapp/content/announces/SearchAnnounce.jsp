@@ -10,11 +10,11 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <h3>Search Announce </h3>
 <html:form action="/Announces">
+	<div id="SearchAnnounce">
+    	<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
 
-    Announce's name :
-    <html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
-
-    <html:submit styleClass="button">Search</html:submit>
-    <html:messages id="message" />
-    <html:errors/>
+	    <html:submit styleClass="button">Search</html:submit>
+    	<html:messages id="message" />
+    	<html:errors/>
+    </div>
 </html:form>

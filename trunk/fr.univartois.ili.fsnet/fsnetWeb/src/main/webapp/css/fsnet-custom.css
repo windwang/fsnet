@@ -1,3 +1,5 @@
+#ui-datepicker-div {font-size: 80%;}
+
 .errorMessage {
     font-size: 120%;
     text-align: center;
@@ -14,11 +16,6 @@
     width: 75%;
     margin-bottom: 50px;
 }
-#body-content h3 {
-    text-align: center;
-    font-size: 130%;
-    margin: 25px 0 20px 0;
-}
 
 
 .inLineTable {
@@ -31,7 +28,6 @@
 }
 
 #body-content h3 {
-    background-image: none;
     text-align: left;
     border-bottom: 1px solid #505050;
     font-size: 130%;
@@ -101,8 +97,8 @@ input[type=text], input[type=password], textarea {
 #CreateAnnounce #announceExpiryDate {width: 25%; color: black; margin-right: 8px;}
 #CreateAnnounce input[type=submit] {float: right;}
 
-#SearchEvent {margin-left: 190px;}
-#SearchEvent .button {margin-left: 15px;}
+#SearchEvent, #SearchAnnounce {margin-left: 190px;}
+#SearchEvent .button, #SearchAnnounce .button {margin-left: 15px;}
 
 #EventList {width: 100%;}
 #EventList .header td {width: 20%;}
@@ -111,6 +107,8 @@ input[type=text], input[type=password], textarea {
 #EventList .content .right {padding: 15px;}
 #EventList .gap td {border-top: 1px solid #BBB;}
 #EventList .gap {height: 15px;}
+
+#DisplayEvent, #DisplayAnnounce {width: 100%}
 
 #ModifyProfile {margin-left: 120px;width: 60%;}
 #ModifyProfile td:first-child {width: 35%;}
