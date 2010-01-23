@@ -7,6 +7,16 @@
 <%@page contentType="text/html;charset=ISO-8859-1" language="java" %>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        // General options
+        mode : "textareas",
+        theme : "simple"
+    });
+</script>
+
+
 <html:javascript formName="/CreateAnnounce"/>
 <h3>Create Announce </h3>
 <html:form action="/CreateAnnounce">

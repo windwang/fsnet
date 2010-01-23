@@ -9,6 +9,16 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+<script type="text/javascript">
+    tinyMCE.init({
+        // General options
+        mode : "textareas",
+        theme : "simple"
+    });
+</script>
+
+
 <h3>Modify Announce </h3>
 <html:form action="/ModifyAnnounce">
     <html:hidden property="idAnnounce" value="${announce.id}"/>
