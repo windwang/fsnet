@@ -27,7 +27,7 @@
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
                 parameter="delete">
-            <forward name="success" path="/Topic.do" />
+            <forward name="success" path="/DisplayHub.do" />
         </action>
 
         <action path="/DisplayTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
