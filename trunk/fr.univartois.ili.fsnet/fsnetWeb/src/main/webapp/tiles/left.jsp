@@ -3,22 +3,22 @@
 
 <h2>My Network</h2>
 <ul>
-	<li>
-		<html:link action="/DisplayCreateHub">
+    <li>
+        <html:link action="/DisplayCreateHub">
 			Create new hub
-		</html:link>
-	</li>
+        </html:link>
+    </li>
 </ul>
 <h2>Interactions</h2>
 <ul>
-	<li>
-		<html:link action="/DisplayCreateAnnounce">
+    <li>
+        <html:link action="/DisplayCreateAnnounce">
 			Create an annoucement 
-		</html:link>
-	</li>
-	<li>
-		<html:link action="/DisplayCreateEvent"> 
+        </html:link>
+    </li>
+    <li>
+        <html:link action="/DisplayCreateEvent">
 			Create an event
-		</html:link>
-	</li>
+        </html:link>
+    </li>
 </ul>

@@ -24,7 +24,7 @@
         <put name="body-content" value="/content/events/CreateEvent.jsp" />
         <put name="currentMenu" value="Events"/>
     </definition>
-    
+
     <definition name="DisplayEvents" extends=".defaultLayout">
         <put name="title" value="Events"/>
         <put name="body-content" value="/content/events/DisplayEvents.jsp" />
@@ -40,7 +40,7 @@
         <put name="currentMenu" value="Contacts"/>
         <put name="body-content" value="/content/contacts/Contacts.jsp" />
     </definition>
-        <definition name="AskContact" extends=".defaultLayout">
+    <definition name="AskContact" extends=".defaultLayout">
         <put name="title" value="Add Contact"/>
         <put name="currentMenu" value="Contacts"/>
         <put name="body-content" value="/content/contacts/AskContact.jsp" />
@@ -79,19 +79,19 @@
         <put name="currentMenu" value="Hubs"/>
         <put name="body-content" value="/content/hubs/Hubs.jsp" />
     </definition>
-    
-     <definition name="CreateHub" extends=".defaultLayout">
+
+    <definition name="CreateHub" extends=".defaultLayout">
         <put name="title" value="Hubs"/>
         <put name="currentMenu" value="Hubs"/>
         <put name="body-content" value="/content/hubs/CreateHub.jsp" />
     </definition>
-    
-     <definition name="DisplayHub" extends=".defaultLayout">
+
+    <definition name="DisplayHub" extends=".defaultLayout">
         <put name="title" value="Hubs"/>
         <put name="currentMenu" value="Hubs"/>
         <put name="body-content" value="/content/hubs/DisplayHub.jsp" />
     </definition>
-    
+
     <!-- Profile -->
     <definition name="Profile" extends=".defaultLayout">
         <put name="title" value="Profile"/>
@@ -124,7 +124,7 @@
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
     </definition>
-     <definition name="CreateAnnounce" extends=".defaultLayout">
+    <definition name="CreateAnnounce" extends=".defaultLayout">
         <put name="title" value="Create Announce"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
@@ -144,7 +144,7 @@
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
     </definition>
-    
+
     <!-- Members -->
     <definition name="SearchMembers" extends=".defaultLayout">
         <put name="title" value="Members"/>
