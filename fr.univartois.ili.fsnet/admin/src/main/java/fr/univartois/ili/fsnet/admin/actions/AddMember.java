@@ -33,12 +33,11 @@ import org.apache.struts.action.ActionMessage;
 public class AddMember extends Action {
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-    private EntityManager em;
     private static final Logger log = Logger.getLogger(AddMember.class.getName());
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse arg3) throws Exception {
-        em = factory.createEntityManager();
+        EntityManager em = factory.createEntityManager();
         // create and persists new EntiteSociale
         DynaActionForm dynaform = (DynaActionForm) form;
         EntiteSociale entite = new EntiteSociale();

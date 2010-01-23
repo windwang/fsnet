@@ -34,9 +34,6 @@ public class Information extends Interaction {
     /**
      * Constructor of the class Information.
      */
-    private static boolean valide = true;
-    private static Decideur decideur = null;
-    private static RapportActivites rapport = null;
 
     public Information() {
         super();
@@ -51,8 +48,8 @@ public class Information extends Interaction {
      */
     public Information(String nom, Date dateInformation, String contenu,
             String visible, EntiteSociale createur) {
-
-        super(valide, decideur, createur, rapport);
+    	// TODO avoid hard coded parameters decideur, visible and RapportActivite
+        super(true, null, createur, null);
         this.nom = nom;
         this.dateInformation = dateInformation;
         this.contenu = contenu;
