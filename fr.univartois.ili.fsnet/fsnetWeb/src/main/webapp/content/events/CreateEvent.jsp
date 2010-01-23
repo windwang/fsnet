@@ -8,16 +8,19 @@
 
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="js/mceTextArea.js"/>
+<script type="text/javascript" src="js/mceTextArea.js"></script>
 
-<h3>Create Event</h3>
+<h3><bean:message key="events.0"/></h3>
 <html:form action="/CreateEvent">
     <table id="CreateEvent">
         <tr>
             <td>
-                <label for="eventName">Name :</label>
+                <label for="eventName">
+                	<bean:message key="events.1"/>
+                </label>
             </td>
             <td>
                 <html:text  property="eventName"
@@ -32,7 +35,9 @@
         </tr>
         <tr>
             <td>
-                <label for="eventDescription">Description: </label>
+                <label for="eventDescription">
+                	<bean:message key="events.2"/>
+                </label>
             </td>
             <td>
                 <html:textarea  property="eventDescription"
@@ -49,7 +54,9 @@
         </tr>
         <tr>
             <td>
-                <label for="eventDate">Date :</label>
+                <label for="eventDate">
+                	<bean:message key="events.3"/>
+                </label>
             </td>
             <td>
                 <html:text  property="eventDate" 
@@ -57,7 +64,9 @@
                 			readonly="true" 
                 			errorStyleClass="error"/>
 
-                <html:submit styleClass="button">Create Event</html:submit>
+                <html:submit styleClass="button">
+                		<bean:message key="events.4"/>
+                </html:submit>
                 <logic:messagesPresent property="eventDate">
                     <div class="errorMessage">
                         <html:errors property="eventDate"/>

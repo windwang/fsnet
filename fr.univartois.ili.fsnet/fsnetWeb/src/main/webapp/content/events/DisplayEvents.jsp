@@ -11,17 +11,25 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 
-<h3>Search Event</h3>
+<h3>
+	<bean:message key="events.8"/>
+</h3>
 <html:form action="/Events">
     <div id="SearchEvent">
         <html:text property="searchString" />
-        <html:submit styleClass="button" />
+        <html:submit styleClass="button" >
+        	<bean:message key="events.11"/>
+        </html:submit>
     </div>
 </html:form>
 
-<h3>Events :</h3>
+<h3>
+	<bean:message key="events.9"/>
+</h3>
 <logic:messagesPresent property="searchString">
-    <p class="errorMessage"><html:errors property="searchString"/></p>
+    <p class="errorMessage">
+    	<html:errors property="searchString"/>
+    </p>
 </logic:messagesPresent>
 <table  class="inLineTable">
     <c:forEach var="event" items="${events}">
@@ -33,8 +41,9 @@
                 </html:link>
             </th>
             <td class="left">
-                will occur on
-                <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy"/>, by
+                <bean:message key="events.10"/>
+                <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy"/>, 
+                <bean:message key="events.16"/>
                 <html:link action="/DisplayProfile">
                     <html:param name="id" value="${event.createur.id}"/>
                     ${event.createur.prenom} ${event.createur.nom}
