@@ -12,11 +12,12 @@
 <table id="DisplayEvent" style="border-left: 1px solid grey;">
     <tr class="authorDate">
         <td>
-            Created by
+            <bean:message key="events.5"/>
             <html:link action="/DisplayProfile">
                 <html:param name="id" value="${event.createur.id}"/>
                 ${event.createur.prenom} ${event.createur.nom} 
-            </html:link>, date : 
+            </html:link>, 
+            <bean:message key="events.6"/> 
             <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy" />
         </td>
     </tr>
@@ -30,7 +31,7 @@
             <c:if test="${user.id eq event.createur.id}">
                 <html:link  action="/DeleteEvent" styleClass="button">
                     <html:param name="eventId" value="${event.id}"/>
-                	delete
+                	<bean:message key="events.7"/>
                 </html:link>
             </c:if>
         </td>

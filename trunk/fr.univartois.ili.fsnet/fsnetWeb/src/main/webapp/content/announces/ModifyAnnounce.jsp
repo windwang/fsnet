@@ -11,7 +11,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript" src="js/mceTextArea.js"/>
+<script type="text/javascript" src="js/mceTextArea.js"></script>
 
 
 <h3>Modify Announce </h3>
