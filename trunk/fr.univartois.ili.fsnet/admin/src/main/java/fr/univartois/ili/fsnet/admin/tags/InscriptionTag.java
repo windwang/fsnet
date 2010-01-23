@@ -3,14 +3,13 @@
  */
 package fr.univartois.ili.fsnet.admin.tags;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -43,7 +42,7 @@ public class InscriptionTag extends TagSupport {
     public int doStartTag() throws JspException {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         EntityManager em = factory.createEntityManager();
-        Query query;
+        TypedQuery<Inscription> query;
         List<Inscription> lesInscriptions;
         String condition = null;
         if (filtre != null) {
@@ -51,23 +50,23 @@ public class InscriptionTag extends TagSupport {
         } else {
             if (etat == null) {
                 if (entite == null) {
-                    query = em.createQuery(FIND_ALL);
+                    query = em.createQuery(FIND_ALL, Inscription.class);
 
                 } else {
-                    query = em.createQuery(FIND_BY_ENTITY);
+                    query = em.createQuery(FIND_BY_ENTITY, Inscription.class);
                     query.setParameter(1, Integer.parseInt(entite));
                 }
                 lesInscriptions = query.getResultList();
             } else {
                 if (REGISTERED.equals(etat)) {
                     condition = CONDITION_REGISTERED;
-                    query = em.createQuery(FIND_LAST_BY_STATE + condition);
+                    query = em.createQuery(FIND_LAST_BY_STATE + condition, Inscription.class);
                     query.setParameter(1, etat);
                     lesInscriptions = query.setFirstResult(0).setMaxResults(
                             MAX_MEMBERS).getResultList();
                 } else {
                     condition = CONDITION_AWAITING_REGISTRATION;
-                    query = em.createQuery(FIND_LAST_BY_STATE + condition);
+                    query = em.createQuery(FIND_LAST_BY_STATE + condition, Inscription.class);
                     query.setParameter(1, etat);
                     lesInscriptions = query.getResultList();
                 }
@@ -147,8 +146,8 @@ public class InscriptionTag extends TagSupport {
     public List<Inscription> searchNom(String param) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         EntityManager em = factory.createEntityManager();
-        List<Inscription> lesES = new ArrayList<Inscription>();
-        Query query = em.createQuery("SELECT i FROM Inscription i WHERE i.entite.nom=?1");
+        List<Inscription> lesES;
+        TypedQuery<Inscription> query = em.createQuery("SELECT i FROM Inscription i WHERE i.entite.nom=?1", Inscription.class);
         query.setParameter(1, param);
         lesES = query.getResultList();
         return lesES;
@@ -157,8 +156,8 @@ public class InscriptionTag extends TagSupport {
     public List<Inscription> searchPrenom(String param) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         EntityManager em = factory.createEntityManager();
-        List<Inscription> lesES = new ArrayList<Inscription>();
-        Query query = em.createQuery("SELECT i FROM Inscription i WHERE i.entite.prenom=?1");
+        List<Inscription> lesES;
+        TypedQuery<Inscription> query = em.createQuery("SELECT i FROM Inscription i WHERE i.entite.prenom=?1", Inscription.class);
         query.setParameter(1, param);
         lesES = query.getResultList();
         return lesES;
