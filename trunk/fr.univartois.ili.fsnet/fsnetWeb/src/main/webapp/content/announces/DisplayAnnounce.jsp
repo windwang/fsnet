@@ -21,8 +21,8 @@
         <td>
             Created by
             <html:link action="/DisplayProfile">
-                <html:param name="id" value="${announce.createur.id}"/>
-                ${announce.createur.prenom} ${announce.createur.nom}
+                <html:param name="id" value="${entiteSociale.id}"/>
+                ${entiteSociale.prenom} ${entiteSociale.nom}
             </html:link>, Expires on
             <bean:write name="announce" property="dateFinAnnonce" format="dd/MM/yyyy" />
         </td>
