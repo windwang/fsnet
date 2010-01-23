@@ -9,7 +9,7 @@
         <tr>
             <td>
                 <label for="name">
-                	<bean:message key="updateProfile.name"/>
+                    <bean:message key="updateProfile.name"/>
                 </label>
             </td>
             <td>
@@ -17,16 +17,16 @@
             </td>
         </tr>
         <logic:messagesPresent property="name">
-	        <tr>
-	        	<td colspan="2">
-	        		<html:errors property="name"/>
-	        	</td>
-	        </tr>
+            <tr>
+                <td colspan="2">
+                    <html:errors property="name"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>
             <td>
                 <label for="firstName">
-                	<bean:message key="updateProfile.firstname"/>
+                    <bean:message key="updateProfile.firstname"/>
                 </label>
             </td>
             <td>
@@ -34,16 +34,16 @@
             </td>
         </tr>
         <logic:messagesPresent property="firstName">
-        	<tr>
-        		<td colspan="2">
-        			<html:errors property="firstName"/>
-        		</td>
-        	</tr>
+            <tr>
+                <td colspan="2">
+                    <html:errors property="firstName"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>
             <td>
                 <label for="adress">
-                	<bean:message key="updateProfile.adress"/>
+                    <bean:message key="updateProfile.adress"/>
                 </label>
             </td>
             <td>
@@ -51,16 +51,16 @@
             </td>
         </tr>
         <logic:messagesPresent property="adress">
-        	<tr>
-        		<td colspan="2">
-        			<html:errors property="adress"/>
-        		</td>
-        	</tr>
+            <tr>
+                <td colspan="2">
+                    <html:errors property="adress"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>
             <td>
                 <label for="dateOfBirth">
-                	<bean:message key="updateProfile.dateOfBirth"/>
+                    <bean:message key="updateProfile.dateOfBirth"/>
                 </label>
             </td>
             <td>
@@ -68,16 +68,16 @@
             </td>
         </tr>
         <logic:messagesPresent property="dateOfBirth">
-	        <tr>
-	        	<td colspan="2">
-	        		<html:errors property="dateOfBirth"/>
-	        	</td>
-	        </tr>
+            <tr>
+                <td colspan="2">
+                    <html:errors property="dateOfBirth"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>
             <td>
                 <label for="sexe">
-                	<bean:message key="updateProfile.sexe"/>
+                    <bean:message key="updateProfile.sexe"/>
                 </label>
             </td>
             <td>
@@ -88,50 +88,50 @@
             </td>
         </tr>
         <logic:messagesPresent property="sexe">
-        	<tr>
-        		<td colspan="2">
-        			<html:errors property="sexe"/>
-        		</td>
-        	</tr>
+            <tr>
+                <td colspan="2">
+                    <html:errors property="sexe"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>
             <td>
                 <label for="pwd">
-                	<bean:message key="updateProfile.pwd"/>
+                    <bean:message key="updateProfile.pwd"/>
                 </label>
             </td>
             <td>
-            	<html:password property="pwd" value="${currentUser.mdp}" styleId="pwd"/>
+                <html:password property="pwd" value="${currentUser.mdp}" styleId="pwd"/>
             </td>
         </tr>
         <logic:messagesPresent property="pwd">
-        	<tr>
-        		<td colspan="2">
-        			<html:errors property="pwd"/>
-        		</td>
-        	</tr>
+            <tr>
+                <td colspan="2">
+                    <html:errors property="pwd"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>
             <td>
                 <label for="confirmPwd">
-                	<bean:message key="updateProfile.confirmPwd"/>
+                    <bean:message key="updateProfile.confirmPwd"/>
                 </label>
             </td>
             <td>
-            	<html:password property="confirmPwd" value="${currentUser.mdp}" styleId="confirmPwd"/>
+                <html:password property="confirmPwd" value="${currentUser.mdp}" styleId="confirmPwd"/>
             </td>
         </tr>
         <logic:messagesPresent property="confirmPwd">
-        	<tr>
-        		<td colspan="2">
-        			<html:errors property="confirmPwd"/>
-        		</td>
-        	</tr>
+            <tr>
+                <td colspan="2">
+                    <html:errors property="confirmPwd"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>
             <td>
                 <label for="job">
-                	<bean:message key="updateProfile.job"/>
+                    <bean:message key="updateProfile.job"/>
                 </label>
             </td>
             <td>
@@ -139,16 +139,16 @@
             </td>
         </tr>
         <logic:messagesPresent property="job"> 
-        	<tr>
-        		<td colspan="2">
-        			<html:errors property="job"/>
-        		</td>
-        	</tr>
+            <tr>
+                <td colspan="2">
+                    <html:errors property="job"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>
             <td>
                 <label for="mail">
-                	<bean:message key="updateProfile.email"/>
+                    <bean:message key="updateProfile.email"/>
                 </label>
             </td>
             <td>
@@ -156,16 +156,16 @@
             </td>
         </tr>
         <logic:messagesPresent property="mail">
-        	<tr>
-        		<td colspan="2">
-        			<html:errors property="mail"/>
-        		</td>
-        	</tr>  
+            <tr>
+                <td colspan="2">
+                    <html:errors property="mail"/>
+                </td>
+            </tr>
         </logic:messagesPresent>      
         <tr>
             <td>
                 <label for="phone">
-                	<bean:message key="updateProfile.phone"/>
+                    <bean:message key="updateProfile.phone"/>
                 </label>
             </td>
             <td>
@@ -173,39 +173,38 @@
             </td>
         </tr>
         <logic:messagesPresent property="phone">
-	        <tr>
-	        	<td colspan="2">
-	        		<html:errors property="phone"/>
-	        	</td>
-	        </tr> 
+            <tr>
+                <td colspan="2">
+                    <html:errors property="phone"/>
+                </td>
+            </tr>
         </logic:messagesPresent>
         <tr>        	
             <td colspan="2">
-            	<html:submit>
-            		<bean:message key="updateProfile.validate"/>
-            	</html:submit>
-          	</td>
+                <html:submit>
+                    <bean:message key="updateProfile.validate"/>
+                </html:submit>
+            </td>
         </tr>
     </table>
 </html:form>
 
-	<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-	<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
-	<script type="text/javascript">
-		$(function() {
-			$.datepicker.setDefaults($.extend(
-					{
-						yearRange: '-100:+1',
-						changeYear: true,
-						maxDate: 0,
-					 	dateFormat: 'dd/mm/yy',
-					 	showOn: 'button', 
-					 	buttonImage: 'images/calendar.gif', 
-					 	buttonImageOnly: true, 
-					 	showMonthAfterYear: false
-					}));
-			$("#dateOfBirth").datepicker($.datepicker.regional['fr']);		
-		});
-	</script> 
-      
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
+<script type="text/javascript">
+    $(function() {
+        $.datepicker.setDefaults($.extend(
+        {
+            yearRange: '-100:+1',
+            changeYear: true,
+            maxDate: 0,
+            dateFormat: 'dd/mm/yy',
+            showOn: 'button',
+            buttonImage: 'images/calendar.gif',
+            buttonImageOnly: true,
+            showMonthAfterYear: false
+        }));
+        $("#dateOfBirth").datepicker($.datepicker.regional['fr']);
+    });
+</script> 

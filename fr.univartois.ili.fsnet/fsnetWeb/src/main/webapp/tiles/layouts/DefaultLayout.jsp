@@ -8,8 +8,8 @@
         <link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
         <title><tiles:getAsString name="title"/></title>
-    	<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />	
-	</head>
+        <link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+    </head>
     <body>
         <div class="wrap background">
             <tiles:useAttribute name="currentMenu" scope="request" ignore="true"/>
@@ -22,7 +22,7 @@
 
             <div id="left">
                 <h2>
-                	<a><tiles:getAsString name="title"/></a>
+                    <a><tiles:getAsString name="title"/></a>
                 </h2>
                 <tiles:insert attribute="left"/>
             </div>

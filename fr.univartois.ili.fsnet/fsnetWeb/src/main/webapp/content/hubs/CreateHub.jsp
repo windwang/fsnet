@@ -10,22 +10,22 @@
 
 <h3><bean:message key="hubs.create"/></h3>
 <html:form action="/CreateHub">
-	<table id="CreateHub">
-		<tr>
-			<td>
-				<label for="hubName"><bean:message key="hubs.name"/></label>
-			</td>
-			<td>
-    			<html:text property="hubName" styleId="hubName" />
-    		</td>
-    		<td>
-    			<html:submit styleClass="button"><bean:message key="hubs.create"/></html:submit>
-    		</td>
-    	</tr>
-    	<tr>
-    		<td>
-    			<html:errors property="hubName"/>
-    		</td>
-    	</tr>
+    <table id="CreateHub">
+        <tr>
+            <td>
+                <label for="hubName"><bean:message key="hubs.name"/></label>
+            </td>
+            <td>
+                <html:text property="hubName" styleId="hubName" />
+            </td>
+            <td>
+                <html:submit styleClass="button"><bean:message key="hubs.create"/></html:submit>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <html:errors property="hubName"/>
+            </td>
+        </tr>
     </table>
 </html:form>
