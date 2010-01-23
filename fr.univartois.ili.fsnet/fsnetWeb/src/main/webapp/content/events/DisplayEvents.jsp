@@ -35,7 +35,10 @@
             <td class="left">
                 will occur on
                 <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy"/>, by
-
+                <html:link action="/DisplayProfile">
+                    <html:param name="id" value="${event.createur.id}"/>
+                    ${event.createur.prenom} ${event.createur.nom}
+                </html:link>
             </td>
             <td  class="tableButton">
                 ${event.contenu}

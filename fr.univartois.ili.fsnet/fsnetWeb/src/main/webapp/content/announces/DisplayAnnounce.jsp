@@ -29,7 +29,7 @@
     </tr>
     <tr>
         <td >
-            <bean:write name="announce" property="contenu" />
+            ${announce.contenu}
         </td>
     </tr>
 

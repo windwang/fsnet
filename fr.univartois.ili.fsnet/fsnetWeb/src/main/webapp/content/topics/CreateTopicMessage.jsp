@@ -9,24 +9,34 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
+<script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
+
+<script type="text/javascript">
+    tinyMCE.init({
+        // General options
+        mode : "textareas",
+        theme : "simple"
+    });
+</script>
+
 <h3>Create Message</h3>
 <html:form action="/CreateTopicMessage">
+    <html:hidden property="topicId" value="${topicId}"/>
+    Description:
     <table id="CreateTopicMessage">
         <tr>
             <td>
-                <label for="messageDescription">Description: </label>
-            </td>
-            <td>
-                <html:textarea  cols="40" rows="8"
+                <html:textarea  cols="60" rows="8"
                                 property="messageDescription"
                                 styleId="messageDescription"> 
-
-               </html:textarea>
+                </html:textarea>
             </td>
-            <td><html:hidden property="topicId" value="${topicId}"/></td>
-            <td>
+        </tr>
+        <tr>
+            <td colspan="2" class="alignRight">
                 <html:submit styleClass="button">Create Message</html:submit>
             </td>
         </tr>
     </table>
+
 </html:form>

@@ -7,12 +7,9 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<table id="DisplayEvent">
-    <tr>
-        <th>
-            <h3>${event.nom}</h3>
-        </th>
-    </tr>
+<h3>${event.nom}</h3>
+
+<table id="DisplayEvent" style="border-left: 1px solid grey;">
     <tr class="authorDate">
         <td>
             Created by
@@ -30,12 +27,12 @@
     </tr>
     <tr>
         <td  class="alignRight">
-        	<c:if test="${user.id eq event.createur.id}">
+            <c:if test="${user.id eq event.createur.id}">
                 <html:link  action="/DeleteEvent" styleClass="button">
-                	<html:param name="eventId" value="${event.id}"/>
+                    <html:param name="eventId" value="${event.id}"/>
                 	delete
                 </html:link>
-			</c:if>
+            </c:if>
         </td>
     </tr>
 </table>
