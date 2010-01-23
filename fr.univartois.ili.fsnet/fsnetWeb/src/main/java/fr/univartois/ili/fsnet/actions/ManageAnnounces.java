@@ -44,7 +44,6 @@ public class ManageAnnounces extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager entityManager = factory.createEntityManager();
-        request.setCharacterEncoding("UTF-8");
         EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, entityManager);
 
         DynaActionForm formAnnounce = (DynaActionForm) form;
@@ -92,14 +91,14 @@ public class ManageAnnounces extends MappingDispatchAction implements
         String content = (String) formAnnounce.get("announceContent");
         String stringExpiryDate = (String) formAnnounce.get("announceExpiryDate");
         Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
-
+        Annonce announce = entityManager.find(Annonce.class, idAnnounce); 
         EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, entityManager);
         try {
             Date expiryDate = DateUtils.format(stringExpiryDate);
             if (0 > DateUtils.compareToToday(expiryDate)) {
-                Annonce announce = new Annonce(title, today, content,
-                        expiryDate, "Y", entiteSociale);
-                announce.setId(idAnnounce);
+                announce.setContenu(content);
+                announce.setDateFinAnnnonce(expiryDate);
+                announce.setNom(title);
                 entityManager.getTransaction().begin();
                 entityManager.merge(announce);
                 entityManager.getTransaction().commit();
@@ -109,6 +108,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
                         "errors.dateLessThanCurrentDate"));
                 saveErrors(request, errors);
             }
+            request.setAttribute("announce", announce);
         } catch (ParseException e) {
             servlet.log("class:ManageAnnounces methode:create exception whene formatying date ");
             e.printStackTrace();
@@ -183,16 +183,15 @@ public class ManageAnnounces extends MappingDispatchAction implements
         Annonce announce = entityManager.find(Annonce.class, idAnnounce);
         EntiteSociale entiteSocialeOwner = (EntiteSociale) entityManager.createQuery(
                 "SELECT es FROM EntiteSociale es,IN(es.lesinteractions) e WHERE e = :announce").setParameter("announce", announce).getSingleResult();
-
+        
         request.setAttribute("announce", announce);
         request.setAttribute("entiteSociale", entiteSocialeOwner);
+      
         EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, entityManager);
         if (entiteSociale.getId() == entiteSocialeOwner.getId()) {
             request.setAttribute("owner", true);
         }
 
-        servlet.log(entiteSociale.getId() + "------------"
-                + entiteSocialeOwner.getId());
         return mapping.findForward("success");
     }
 }
