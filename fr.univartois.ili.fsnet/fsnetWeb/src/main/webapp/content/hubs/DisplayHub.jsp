@@ -46,6 +46,7 @@
                     <c:if test="${sessionScope.user.id eq topic.propTopic.id}">
                         <html:link action="/DeleteTopic" styleClass="button">
                             <html:param name="topicId" value="${topic.id}"/>
+                            <html:param name="hubId" value="${hubResult.id}"/>
 		    			Delete Topic
                         </html:link>
                     </c:if>
@@ -80,6 +81,7 @@
                 <td class="tableButton">
                     <html:link action="/DeleteTopic" styleClass="button">
                         <html:param name="topicId" value="${topic.id}"/>
+                        <html:param name="hubId" value="${hubResult.id}"/>
 		    			Delete Topic
                     </html:link>
                 </td>

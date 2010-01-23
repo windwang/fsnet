@@ -85,14 +85,19 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
+		int hubId = Integer.valueOf(Integer.parseInt(request.getParameter("hubId")));
+		Hub hub = em.find(Hub.class, hubId);
 		if (request.getParameterMap().containsKey("topicId")) {
 			int topicId = Integer.valueOf(request.getParameter("topicId"));
+			Topic topic = em.find(Topic.class, topicId);
 			em.getTransaction().begin();
 			Query query = em
 					.createQuery("DELETE FROM Topic topic WHERE topic.id = :topicId");
 			query.setParameter("topicId", topicId);
 			query.executeUpdate();
-			em.getTransaction().commit();
+			
+			hub.getLesTopics().remove(topic);
+			em.getTransaction().commit();			
 			em.close();
 		}
 
