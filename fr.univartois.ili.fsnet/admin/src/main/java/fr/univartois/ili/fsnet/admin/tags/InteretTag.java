@@ -90,7 +90,7 @@ public class InteretTag extends TagSupport {
     public List<Interet> recherche(String param) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         EntityManager em = factory.createEntityManager();
-        List<Interet> lesI = new ArrayList<Interet>();
+        List<Interet> lesI;
         TypedQuery<Interet> query = em.createQuery(FIND_BY_NOMINTERET, Interet.class);
         query.setParameter(1, param);
         lesI = query.getResultList();
