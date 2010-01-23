@@ -41,7 +41,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		DynaActionForm dynaForm = (DynaActionForm) form;
+		DynaActionForm dynaForm = (DynaActionForm) form; 							//NOSONAR
 		String eventName = (String) dynaForm.get("eventName");
 		String eventDescription = (String) dynaForm.get("eventDescription");
 		String eventDate = (String) dynaForm.get("eventDate");
@@ -83,7 +83,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form;
+		DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
 		String eventId = (String) dynaForm.get("eventId");
 
 		EntityManager em = factory.createEntityManager();
@@ -107,7 +107,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm seaarchForm = (DynaActionForm) form;
+		DynaActionForm seaarchForm = (DynaActionForm) form; 							//NOSONAR
 		String searchString = (String) seaarchForm.get("searchString");
 
 		EntityManager em = factory.createEntityManager();
@@ -137,7 +137,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form;
+		DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
 		String eventId = (String) dynaForm.get("eventId");
 
 		EntityManager em = factory.createEntityManager();
