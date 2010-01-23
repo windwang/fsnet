@@ -33,8 +33,9 @@
                 </html:link>
             </th>
             <td class="left">
-                wille occur on
-                <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy"/>
+                will occur on
+                <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy"/>, by
+
             </td>
             <td  class="tableButton">
                 ${event.contenu}
