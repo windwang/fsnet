@@ -121,7 +121,6 @@ input[type=text], input[type=password], textarea {
 #MemberList {width: 100%;}
 #MemberList td {width: 30%;}
 
-#SearchMember {width: 100%; text-align: center;}
 
 #login {
     background: #505050 url(../images/footer.gif) no-repeat;
@@ -181,8 +180,9 @@ input[type="text"][class="error"], textarea[class="error"] {
 .alignRight {
     text-align: right;
 }
+
 .alignCenter {
-    text-align: auto;
+    text-align: center;
 }
 
 .authorDate {

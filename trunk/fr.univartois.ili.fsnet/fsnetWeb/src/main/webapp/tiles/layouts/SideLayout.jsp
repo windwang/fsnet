@@ -17,24 +17,26 @@
         <div class="wrap background">
             <tiles:useAttribute name="currentMenu" scope="request" ignore="true"/>
             <tiles:insert attribute="menu"/>
-
-            <div style="float: left; width: 25%" >
-                <div id="logo" >
-                    <tiles:insert attribute="logo"/>
-                </div>
-                <div id="left" style="margin-top: 30px; width: 100%">
-                    <c:set var="pageTitle">
-                        <tiles:getAsString name="title"/>
-                    </c:set>
-                    <h2>
-                        <a><bean:message key="${pageTitle}"/></a>
-                    </h2>
-                    <tiles:insert attribute="left"/>
-                </div>
+            <div id="logo" >
+                <tiles:insert attribute="logo"/>
             </div>
-            <div id="body-content" style="width:75%;">
+            <tiles:insert attribute="high"/>
+
+
+            <div id="left">
+                <c:set var="pageTitle">
+                    <tiles:getAsString name="title"/>
+                </c:set>
+                <h2>
+                    <a><bean:message key="${pageTitle}"/></a>
+                </h2>
+                <tiles:insert attribute="left"/>
+            </div>
+
+            <div id="body-content">
                 <tiles:insert attribute="body-content"/>
             </div>
+
         </div>
         <tiles:insert attribute="footer"/>
     </body>
