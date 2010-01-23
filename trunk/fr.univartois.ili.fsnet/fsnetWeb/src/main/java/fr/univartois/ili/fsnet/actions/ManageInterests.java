@@ -23,6 +23,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -39,7 +40,6 @@ import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Interet;
 
-// TODO faire un validate = true et forwarding vers /Interest.do 
 // TODO attention : rustine sur les requetes
 // TODO attention : rustine sur les merge user de session
 
@@ -101,31 +101,33 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		// TODO requete provisoire
 
-		Interet interest = (Interet) em
-				.createQuery(
-						"SELECT interest FROM Interet interest WHERE interest.id = :interestId")
-				.setParameter("interestId", interestId).getSingleResult();
-
-		boolean dirtyIsOk = true;
-
-		for (Interet interestTmp : user.getLesinterets()) {
-			if (interestTmp.getId() == interestId) {
-				dirtyIsOk = false;
+		try {
+			Interet interest = (Interet) em
+					.createQuery(
+							"SELECT interest FROM Interet interest WHERE interest.id = :interestId")
+					.setParameter("interestId", interestId).getSingleResult();
+	
+			boolean dirtyIsOk = true;
+	
+			for (Interet interestTmp : user.getLesinterets()) {
+				if (interestTmp.getId() == interestId) {
+					dirtyIsOk = false;
+				}
 			}
+	
+			if (dirtyIsOk) {
+				user.getLesinterets().add(interest);
+				em.getTransaction().begin();
+				em.merge(user);
+				em.getTransaction().commit();
+	
+				request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER,
+						user);
+			} else {
+				logger.info("Add interest refused");
+			}
+		} catch (PersistenceException e) {
 		}
-
-		if (dirtyIsOk) {
-			user.getLesinterets().add(interest);
-			em.getTransaction().begin();
-			em.merge(user);
-			em.getTransaction().commit();
-
-			request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER,
-					user);
-		} else {
-			logger.info("Add interest refused");
-		}
-
 		em.close();
 
 		return mapping.findForward("success");
@@ -180,8 +182,8 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
-		int interestId = Integer.valueOf((String) dynaForm.get("interestId"));
-		String interestName = (String) dynaForm.get("interestName");
+		int interestId = Integer.valueOf((String) dynaForm.get("modifiedInterestId"));
+		String interestName = (String) dynaForm.get("modifiedInterestName");
 
 		logger.info("interest modification: " + interestName);
 
@@ -189,14 +191,21 @@ public class ManageInterests extends MappingDispatchAction implements
 			em.getTransaction().begin();
 			em
 					.createQuery(
-							"UPDATE Interet SET nomInteret = :interestName WHERE idInteret = :interestId")
-					.setParameter("interestName", interestName).setParameter(
-							"interestId", interestId).executeUpdate();
+							"UPDATE Interet interest SET interest.nomInteret = :interestName WHERE interest.id = :interestId")
+					.setParameter("interestName", interestName)
+					.setParameter("interestId", interestId)
+					.executeUpdate();
 			em.getTransaction().commit();
+			EntiteSociale user = (EntiteSociale) request.getSession()
+			.getAttribute(Authenticate.AUTHENTICATED_USER);
+			user = em.find(EntiteSociale.class, user.getId());
+			em.refresh(user);
+			request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER,
+					user);
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
 			ActionMessage msg = new ActionMessage("interest.alreadyExists");
-			actionErrors.add("interest", msg);
+			actionErrors.add("error.interest.name.modified", msg);
 			saveErrors(request, actionErrors);
 		}
 
