@@ -3,13 +3,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
+<c:set var="inputTextContent">
+	<bean:message key="menu.7"/>
+</c:set>
 
 <div id="search">
     <html:form action="/SearchMember">
         <fieldset>
-            <html:text styleClass="field" property="searchText" onclick="this.value=''" value="Search Keyword">
-				Search Keyword
-            </html:text>
+            <html:text styleClass="field" property="searchText" onclick="this.value=''" value="${inputTextContent}"/>
             <html:submit styleClass="searchButton" value=" "/>
         </fieldset>
     </html:form>

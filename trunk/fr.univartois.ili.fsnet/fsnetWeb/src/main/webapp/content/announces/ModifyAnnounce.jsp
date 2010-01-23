@@ -7,8 +7,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
@@ -39,8 +40,10 @@
                 <label for="announceExpiryDate">Date :</label>
             </td>
             <td>
-            
-                <html:text property="announceExpiryDate" styleId="announceExpiryDate" value="${announce.dateFinAnnonce}"/>
+            <c:set var="formattedDate">
+                <bean:write name="announce" property="dateFinAnnonce" format="dd/MM/yyyy"/>
+			</c:set>
+                <html:text property="announceExpiryDate" styleId="announceExpiryDate" value="${formattedDate}"/>
                 <html:submit styleClass="button">Modify Announce</html:submit>
             </td>
         </tr>
