@@ -29,17 +29,18 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
+    /*
     public ActionForward ask(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        List<EntiteSociale> listEntities = em.createQuery(
-                "select entite from EntiteSociale entite").getResultList();
-        request.setAttribute("listEntities", listEntities);
-        em.close();
-        return mapping.findForward("success");
+    HttpServletRequest request, HttpServletResponse response)
+    throws IOException, ServletException {
+    EntityManager em = factory.createEntityManager();
+    List<EntiteSociale> listEntities = em.createQuery(
+    "select entite from EntiteSociale entite").getResultList();
+    request.setAttribute("listEntities", listEntities);
+    em.close();
+    return mapping.findForward("success");
     }
-
+     */
     /**
      * Submit a request contact to another social entity
      *
@@ -63,17 +64,22 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
         ActionErrors errors = new ActionErrors();
         if (entitySelected != user.getId()) {
             em.getTransaction().begin();
-            
+
             // TODO changer les listes en set sur les entites sociales pour eviter
             // les doublons
             EntiteSociale entity = em.find(EntiteSociale.class, entitySelected);
-            user.getRequested().add(entity);
-            entity.getAsked().add(user);
-            em.getTransaction().commit();
-            em.close();
+
+            if (notInRelation(user, entity)) {
+                user.getRequested().add(entity);
+                entity.getAsked().add(user);
+                em.getTransaction().commit();
+            } else {
+                errors.add("entitySelected", new ActionMessage("contacts.error.alreadyAsked"));
+            }
         } else {
             errors.add("entitySelected", new ActionMessage("contacts.error.askself"));
         }
+        em.close();
         return mapping.findForward("success");
     }
 
@@ -97,14 +103,21 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
         final String idString = (String) dynaForm.get("entityAccepted");
         int id = Integer.parseInt(idString);
         EntiteSociale entityAccepted = em.find(EntiteSociale.class, id);
-        em.getTransaction().begin();
-        user.getContacts().add(entityAccepted);
-        entityAccepted.getContacts().add(user);
-        user.getAsked().remove(entityAccepted);
-        entityAccepted.getRequested().remove(user);
-        em.merge(user);
-        em.merge(entityAccepted);
-        em.getTransaction().commit();
+        //TODO check that in a method when --facading--
+        if (user.getAsked().contains(entityAccepted)
+                && entityAccepted.getRequested().contains(user)
+                && !user.getContacts().contains(entityAccepted)
+                && !entityAccepted.getContacts().contains(user)) {
+            em.getTransaction().begin();
+            user.getContacts().add(entityAccepted);
+            entityAccepted.getContacts().add(user);
+            user.getAsked().remove(entityAccepted);
+            entityAccepted.getRequested().remove(user);
+            em.getTransaction().commit();
+        } else {
+            //TODO create a non consistant database error message SEVER !
+        }
+        em.close();
         return mapping.findForward("success");
     }
 
@@ -129,58 +142,14 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
         final String idString = (String) dynaForm.get("entityRefused");
         int id = Integer.parseInt(idString);
         EntiteSociale entityRefused = em.find(EntiteSociale.class, id);
+
         em.getTransaction().begin();
         user.getAsked().remove(entityRefused);
         entityRefused.getRequested().remove(user);
         em.merge(user);
         em.merge(entityRefused);
         em.getTransaction().commit();
-        return mapping.findForward("success");
-    }
-
-    /**
-     * Display the list of asked contacts
-     *
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return
-     * @throws IOException
-     * @throws ServletException
-     */
-    public ActionForward displayRequests(ActionMapping mapping,
-            ActionForm form, HttpServletRequest request,
-            HttpServletResponse response) throws IOException, ServletException {
-
-        EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
-        List<EntiteSociale> listRequests = user.getRequested();
         em.close();
-        request.setAttribute("listRequests", listRequests);
-        return mapping.findForward("success");
-    }
-
-    /**
-     * Display the list of received demands
-     *
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return
-     * @throws IOException
-     * @throws ServletException
-     */
-    public ActionForward displayDemands(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-
-        EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
-        List<EntiteSociale> listDemands = user.getAsked();
-        em.close();
-        request.setAttribute("listDemands", listDemands);
         return mapping.findForward("success");
     }
 
@@ -211,8 +180,6 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
         em.getTransaction().begin();
         user.getContacts().remove(entityDeleted);
         entityDeleted.getContacts().remove(user);
-        em.merge(user);
-        em.merge(entityDeleted);
         em.getTransaction().commit();
         em.close();
         return mapping.findForward("success");
@@ -232,13 +199,21 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 
         EntityManager em = factory.createEntityManager();
         EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
-        List<EntiteSociale> listContacts = user.getContacts();
-        request.setAttribute("listContacts", listContacts);
-        List<EntiteSociale> listDemands = user.getAsked();
-        request.setAttribute("listDemands", listDemands);
-        List<EntiteSociale> listRequests = user.getRequested();
-        request.setAttribute("listRequests", listRequests);
+        user.getContacts();
+        user.getAsked();
+        user.getRequested();
+        request.setAttribute("theUser", user);
         em.close();
         return mapping.findForward("success");
+    }
+
+    // TODO move in facade
+    private boolean notInRelation(EntiteSociale user, EntiteSociale entity) {
+        return !(user.getAsked().contains(entity)
+                || user.getRequested().contains(entity)
+                || user.getContacts().contains(entity)
+                || entity.getAsked().contains(user)
+                || entity.getRequested().contains(user)
+                || entity.getContacts().contains(user));
     }
 }
