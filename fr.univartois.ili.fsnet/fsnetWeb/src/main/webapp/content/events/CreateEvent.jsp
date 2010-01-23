@@ -49,7 +49,10 @@
                 <label for="eventDate">Date :</label>
             </td>
             <td>
-                <html:text property="eventDate" styleId="eventDate" readonly="true" errorStyleClass="error"/>
+                <html:text  property="eventDate" 
+                			styleId="eventDate" 
+                			readonly="true" 
+                			errorStyleClass="error"/>
 
                 <html:submit styleClass="button">Create Event</html:submit>
                 <logic:messagesPresent property="eventDate">

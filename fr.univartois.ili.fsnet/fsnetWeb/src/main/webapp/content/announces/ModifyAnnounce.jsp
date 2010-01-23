@@ -12,7 +12,7 @@
 <h3>Modify Announce </h3>
 <html:form action="/ModifyAnnounce">
     <html:hidden property="idAnnounce" value="${announce.id}"/>
-    <table id="ModifyAnnounce">
+    <table id="CreateAnnounce">
         <tr>
             <td>
                 <label for="announceTitle">Titre :</label>
