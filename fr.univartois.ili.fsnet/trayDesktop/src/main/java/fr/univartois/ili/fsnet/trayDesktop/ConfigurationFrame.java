@@ -1,10 +1,7 @@
 package fr.univartois.ili.fsnet.trayDesktop;
 
-import fr.univartois.ili.fsnet.webservice.Info;
-import fr.univartois.ili.fsnet.webservice.InfoService;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.net.URL;
@@ -16,6 +13,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -24,6 +22,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.xml.namespace.QName;
+
+import fr.univartois.ili.fsnet.webservice.Info;
+import fr.univartois.ili.fsnet.webservice.InfoService;
 
 /**
  * Create the configuration frame
@@ -99,7 +100,6 @@ public class ConfigurationFrame {
     private boolean validateConfig() {
         try {
             String url = cpanel.getUrl();
-            String oldUrl = Options.getUrl();
             String login = cpanel.getLogin();
             String password = cpanel.getPassword();
             InfoService infoService = new InfoService(new URL(url),
