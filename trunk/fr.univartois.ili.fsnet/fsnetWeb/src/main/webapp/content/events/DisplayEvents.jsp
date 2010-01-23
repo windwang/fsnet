@@ -8,33 +8,37 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 
 <h3>Search Event</h3>
 <html:form action="/SearchEvent">
-	<div id="SearchEvent">
-    	<html:text property="searchString" />
-    	<html:submit styleClass="button" />
+    <div id="SearchEvent">
+        <html:text property="searchString" />
+        <html:submit styleClass="button" />
     </div>
 </html:form>
 
 <h3>Events :</h3>
 <logic:messagesPresent property="searchString">
-	<p class="errorMessage"><html:errors property="searchString"/></p>
+    <p class="errorMessage"><html:errors property="searchString"/></p>
 </logic:messagesPresent>
-<table id="EventList">
-	<c:forEach var="event" items="${events}">
-		<tr class="header">
-			<th colspan="2">${event.nom}</th>
-		</tr>
-		<tr class="content">
-			<td class="left">${event.dateManifestation}</td>
-    		<td class="right">
-    			${event.contenu}
-    		</td>
-    	</tr>
-    	<tr class="gap">
-    		<td colspan="2"></td>
-    	</tr>
-	</c:forEach>
+<table  class="inLineTable">
+    <c:forEach var="event" items="${events}">
+        <tr>
+            <th>
+                <html:link action="/DisplayEvent">
+                    ${event.nom}
+                    <html:param name="id" value="${event.id}"/>
+                </html:link>
+            </th>
+            <td class="left">
+                wille occur on
+                <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy"/>
+            </td>
+            <td  class="tableButton">
+                ${event.contenu}
+            </td>
+        </tr>
+    </c:forEach>
 </table>
