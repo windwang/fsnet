@@ -11,85 +11,79 @@
 
 
 <html:form action="/CreateTopic">
-	<h3>Create Topic :</h3>
-	<table>
-		<tr>
-		<td><label>Topic's subjet :</label></td>
-		<td><html:text property="topicSujet" styleId="topicSujet" /></td>
-		<td><html:hidden property="hubId" value="${hubResult.id}"/></td>
-		<td><html:submit styleClass="button">Create Topic</html:submit></td>
-		</tr>
+    <h3>Create Topic :</h3>
+    <table>
+        <tr>
+            <td><label>Topic's subjet :</label></td>
+            <td><html:text property="topicSujet" styleId="topicSujet" /></td>
+            <td><html:hidden property="hubId" value="${hubResult.id}"/></td>
+            <td><html:submit styleClass="button">Create Topic</html:submit></td>
+        </tr>
     </table>
 </html:form>
 
 <h3>Search Topic</h3>
 <table>
-	<html:form action="/SearchTopic">
-		<tr>
-		<td><label>Topic's subjet :</label></td>
-		<td><html:text property="topicSujetSearch" styleId="topicSujet" /></td>
-		<td><html:hidden property="hubId" value="${hubResult.id}"/></td>
-		<td><html:submit styleClass="button">Search Topic</html:submit></td>
-		</tr>
-	</html:form>
-	<c:if test="${not empty resRearchTopics}">
-		<tr>
-		<th>Result of search</th>
-		</tr>
-		<c:forEach var="topic" items="${resRearchTopics}">
-		<tr>
-			<td> <html:link action="/DisplayTopic">
-		    		<html:param name="topicId" value="${topic.id}"/>
-	    			${topic.sujet}
-	    		</html:link></td>
-	    	<td>
-		    	<c:if test="${sessionScope.user.id eq topic.propTopic.id}">
-		    	 <html:link action="/DeleteTopic" styleClass="button">
-			    		<html:param name="topicId" value="${topic.id}"/>
+    <html:form action="/SearchTopic">
+        <tr>
+            <td><label>Topic's subjet :</label></td>
+            <td><html:text property="topicSujetSearch" styleId="topicSujet" /></td>
+            <td><html:hidden property="hubId" value="${hubResult.id}"/></td>
+            <td><html:submit styleClass="button">Search Topic</html:submit></td>
+        </tr>
+    </html:form>
+    <c:if test="${not empty resRearchTopics}">
+        <tr>
+            <th>Result of search</th>
+        </tr>
+        <c:forEach var="topic" items="${resRearchTopics}">
+            <tr>
+                <td> <html:link action="/DisplayTopic">
+                        <html:param name="topicId" value="${topic.id}"/>
+                        ${topic.sujet}
+                    </html:link></td>
+                <td>
+                    <c:if test="${sessionScope.user.id eq topic.propTopic.id}">
+                        <html:link action="/DeleteTopic" styleClass="button">
+                            <html:param name="topicId" value="${topic.id}"/>
 		    			Delete Topic
-		    	</html:link>
-		    	</c:if>
-	    	</td>
-	    </tr>
-		</c:forEach>
-				
-	</c:if>
+                        </html:link>
+                    </c:if>
+                </td>
+            </tr>
+        </c:forEach>
+
+    </c:if>
 </table>
 
+
 <h3><bean:message key="hubs.hub"/> ${hubResult.nomCommunaute}</h3>
-<table id="HubList">
-	<tr class="content">
-			<td class="left">${hubResult.dateCreation}</td>
-			<td class="left">${hubResult.createur.prenom} ${hubResult.createur.nom}</td>
-    		<td class="right">
-    			 <c:if test="${sessionScope.user.id eq hubResult.createur.id}">
-	    			 <html:link action="/DeleteHub" styleClass="button">
-		    			 <html:param name="hubId" value="${hub.id}"/>
-		    			 <bean:message key="hubs.delete"/>
-	    			 </html:link>
-				</c:if>
-    		</td>
-    </tr>
-   
-    	<c:forEach var="topic" items="${hubResult.lesTopics}">
-    	 <tr>
-    	 	<td>
-    	 	<html:link action="/DisplayTopic">
-		    		<html:param name="topicId" value="${topic.id}"/>
-		    		${topic.sujet}
-	    	</html:link></td>
-	    	<td>
-		    	<c:if test="${sessionScope.user.id eq topic.propTopic.id}">
-		    	 <html:link action="/DeleteTopic" styleClass="button">
-			    		<html:param name="topicId" value="${topic.id}"/>
+<table class="inLineTable">
+    <c:forEach var="topic" items="${hubResult.lesTopics}">
+        <tr>
+            <td>
+                <html:link action="/DisplayTopic">
+                    <html:param name="topicId" value="${topic.id}"/>
+                    ${topic.sujet}
+                </html:link>
+            </td>
+            <td>
+                Created on
+                <bean:write name="hubResult" property="dateCreation" format="dd/MM/yyyy"/>
+                by
+                <html:link action="/DisplayProfile">
+                    <html:param name="id" value="${hubResult.createur.id}"/>
+                    ${hubResult.createur.prenom} ${hubResult.createur.nom}
+                </html:link>
+            </td>
+            <c:if test="${sessionScope.user.id eq hubResult.createur.id}">
+                <td class="tableButton">
+                    <html:link action="/DeleteTopic" styleClass="button">
+                        <html:param name="topicId" value="${topic.id}"/>
 		    			Delete Topic
-		    	</html:link>
-		    	</c:if>
-	    	</td>
-    	 </tr>
-    	</c:forEach>
-    
-    <tr class="gap">
-    		<td colspan="2"></td>
-    </tr>
+                    </html:link>
+                </td>
+            </c:if>
+        </tr>
+    </c:forEach>
 </table>
