@@ -36,9 +36,9 @@
             </td>
             <td>
                 <html:textarea  property="eventDescription"
-                                styleId="eventDescription"
                                 errorStyleClass="error"
                                 styleClass="mceTextArea"
+                                style="width: 100%;"
                                 />
                 <logic:messagesPresent property="eventDescription">
                     <div class="errorMessage">
