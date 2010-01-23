@@ -186,3 +186,10 @@ input[type="text"][class="error"], textarea[class="error"] {
 .alignCenter {
     text-align: auto;
 }
+
+.authorDate {
+    font-style: italic;
+    font-weight: bold;
+    color : #656565;
+    background-color: #F2F2F2;
+}

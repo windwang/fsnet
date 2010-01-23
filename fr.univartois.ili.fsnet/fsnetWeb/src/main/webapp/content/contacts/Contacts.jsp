@@ -3,7 +3,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
-<a href="AskContact.do">Ajouter un contact</a>
 <h3>Liste de vos contacts</h3>
 <table class="inLineTable">
 
