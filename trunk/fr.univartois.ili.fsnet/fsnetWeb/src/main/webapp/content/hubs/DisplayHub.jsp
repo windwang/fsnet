@@ -77,7 +77,7 @@
                     ${hubResult.createur.prenom} ${hubResult.createur.nom}
                 </html:link>
             </td>
-            <c:if test="${sessionScope.user.id eq hubResult.createur.id}">
+            <c:if test="${sessionScope.user.id eq topic.propTopic.id}">
                 <td class="tableButton">
                     <html:link action="/DeleteTopic" styleClass="button">
                         <html:param name="topicId" value="${topic.id}"/>

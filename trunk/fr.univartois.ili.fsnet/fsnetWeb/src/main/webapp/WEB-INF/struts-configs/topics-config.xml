@@ -66,6 +66,10 @@
                 parameter="create">
             <forward name="success" path="/DisplayTopic.do" />
         </action>
+         <action path="/DeleteTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
+                parameter="delete">
+            <forward name="success" path="/DisplayTopic.do" />
+        </action>
 
         <action path="/DisplayCreateTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
                 parameter="display">
