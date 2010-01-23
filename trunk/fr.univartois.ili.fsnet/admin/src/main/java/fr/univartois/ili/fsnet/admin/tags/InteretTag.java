@@ -10,7 +10,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
@@ -35,14 +35,14 @@ public class InteretTag extends TagSupport {
     public int doStartTag() throws JspException {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         EntityManager em = factory.createEntityManager();
-        Query query;
+        TypedQuery<Interet> query;
         List<Interet> lesInterets;
 
         if (parametre != null) {
             lesInterets = recherche(parametre);
 
         } else {
-            query = em.createQuery(FIND_ALL);
+            query = em.createQuery(FIND_ALL, Interet.class);
             lesInterets = query.getResultList();
         }
         if ((lesInterets == null) || (lesInterets.isEmpty())) {
@@ -91,7 +91,7 @@ public class InteretTag extends TagSupport {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         EntityManager em = factory.createEntityManager();
         List<Interet> lesI = new ArrayList<Interet>();
-        Query query = em.createQuery(FIND_BY_NOMINTERET);
+        TypedQuery<Interet> query = em.createQuery(FIND_BY_NOMINTERET, Interet.class);
         query.setParameter(1, param);
         lesI = query.getResultList();
         return lesI;

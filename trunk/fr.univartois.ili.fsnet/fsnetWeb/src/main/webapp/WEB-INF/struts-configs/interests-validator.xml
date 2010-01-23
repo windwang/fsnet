@@ -4,12 +4,12 @@
 <form-validation>
 	<formset>
 		<form name="/AddInterest">
-            <field property="addedInterestId" depends="required,minlength">
+            <field property="addedInterestId" depends="required,integer">
                 <arg key="error.interest.add" />
             </field>
         </form>
         <form name="/RemoveInterest">
-            <field property="removedInterestId" depends="required,minlength">
+            <field property="removedInterestId" depends="required,integer">
                 <arg key="error.interest.remove" />
             </field>
         </form>
@@ -24,7 +24,7 @@
             </field>
         </form>
         <form name="/DeleteInterest">
-            <field property="deletedInterestId" depends="required,minlength">
+            <field property="deletedInterestId" depends="required,integer">
                 <arg key="error.interest.create" />
             </field>
         </form>

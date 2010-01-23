@@ -22,7 +22,6 @@ import org.apache.struts.action.ActionMessage;
 public class DeleteInterest extends Action {
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-    private EntityManager em;
     private static final String FIND_BY_ID = "SELECT i FROM Interet i WHERE i.id =?1";
 
     @Override
@@ -31,7 +30,7 @@ public class DeleteInterest extends Action {
             throws Exception {
         String[] interests = request.getParameterValues("selectedInterests");
         if (interests != null) {
-            em = factory.createEntityManager();
+            EntityManager em = factory.createEntityManager();
             em.getTransaction().begin();
             try {
                 for (String s : interests) {

@@ -17,11 +17,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.sql.Date;
-import java.text.DateFormat;
-import java.text.FieldPosition;
-import java.text.ParseException;
-import java.text.ParsePosition;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -29,7 +24,6 @@ import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.swing.text.DateFormatter;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -37,15 +31,9 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.form.ProfileForm;
-
-import org.apache.struts.action.DynaActionFormClass;
-import org.apache.struts.config.FormBeanConfig;
-import org.apache.struts.config.ModuleConfig;
-import org.apache.struts.util.ModuleUtils;
 
 /**
  *
@@ -133,7 +121,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         try {
             String idS = ((DynaActionForm) form).getString("id");
             int id = Integer.parseInt(idS);
-            EntiteSociale profile = em.find(EntiteSociale.class, Integer.parseInt(idS));
+            EntiteSociale profile = em.find(EntiteSociale.class, id);
             request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
             em.close();
             return mapping.findForward("success");
