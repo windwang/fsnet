@@ -8,6 +8,7 @@
          pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"/>
@@ -38,6 +39,7 @@
                 <label for="announceExpiryDate">Date :</label>
             </td>
             <td>
+            
                 <html:text property="announceExpiryDate" styleId="announceExpiryDate" value="${announce.dateFinAnnonce}"/>
                 <html:submit styleClass="button">Modify Announce</html:submit>
             </td>
