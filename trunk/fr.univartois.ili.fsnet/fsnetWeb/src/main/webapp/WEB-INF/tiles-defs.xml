@@ -18,6 +18,13 @@
         <put name="footer" value="/tiles/footer.jsp" />
     </definition>
 
+    <!-- Home -->
+    <definition name="Home" extends=".defaultLayout">
+        <put name="title" value="Home"/>
+        <put name="currentMenu" value="Home"/>
+        <put name="body-content" value="/content/home/Dashboard.jsp" />
+    </definition>
+
     <!-- Events -->
     <definition name="CreateEvent" extends=".defaultLayout">
         <put name="title" value="Events"/>

@@ -28,7 +28,7 @@ public class Authenticate extends HttpServlet {
 	/**
 	 * Welcome page path when the user is authenticated
 	 */
-	private static final String WELCOME_AUTHENTICATED_PAGE = "DisplayEvents.do";
+	private static final String WELCOME_AUTHENTICATED_PAGE = "Home.do";
 
 	/**
 	 * Welcome page path when the user is NOT authenticated
