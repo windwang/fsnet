@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.entities;
 
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -26,6 +27,7 @@ public class Information extends Interaction {
     /**
      * The content of the information.
      */
+    @Column(length=5000)
     private String contenu;
     /**
      * The visibility information
