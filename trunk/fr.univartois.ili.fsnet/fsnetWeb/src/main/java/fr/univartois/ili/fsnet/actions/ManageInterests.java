@@ -35,6 +35,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
@@ -76,7 +77,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
 			ActionMessage msg = new ActionMessage("interest.alreadyExists");
-			actionErrors.add("error.interest.create", msg);
+			actionErrors.add("createdInterestName", msg);
 			saveErrors(request, actionErrors);
 		}
 
@@ -202,10 +203,10 @@ public class ManageInterests extends MappingDispatchAction implements
 			em.refresh(user);
 			request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER,
 					user);
-		} catch (RollbackException ex) {
+		} catch (DatabaseException ex) {
 			ActionErrors actionErrors = new ActionErrors();
 			ActionMessage msg = new ActionMessage("interest.alreadyExists");
-			actionErrors.add("error.interest.name.modified", msg);
+			actionErrors.add("modifiedInterestName", msg);
 			saveErrors(request, actionErrors);
 		}
 
