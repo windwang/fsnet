@@ -15,6 +15,17 @@
             <form-property name="topicSujetSearch" type="java.lang.String" />
             <form-property name="hubId" type="java.lang.String"/>
         </form-bean>
+         <form-bean name="CreateTopicMessageForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="messageDescription" type="java.lang.String" />
+            <form-property name="topicId" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="ModifyTopicMessageForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="messageDescription" type="java.lang.String" />
+            <form-property name="topicId" type="java.lang.String" />
+            <form-property name="messageId" type="java.lang.String" />
+        </form-bean>
     </form-beans>
     <global-forwards>
 
@@ -45,18 +56,24 @@
         </action>
 
         <action path="/ModifyTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
+        		name="ModifyTopicMessageForm" input="/DisplayModifyTopicMessage.do" scope="request" validate="false"
                 parameter="modify">
             <forward name="success" path="/DisplayTopic.do" />
         </action>
 
         <action path="/CreateTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
+        		name="CreateTopicMessageForm" input="/DisplayCreateTopicMessage.do" scope="request" validate="false"
                 parameter="create">
             <forward name="success" path="/DisplayTopic.do" />
         </action>
 
-        <action path="/DisplayCreateModifyTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
+        <action path="/DisplayCreateTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
                 parameter="display">
-            <forward name="success" path="CreateModifyTopicMessage" />
+            <forward name="success" path="CreateTopicMessage" />
+        </action>
+        <action path="/DisplayModifyTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
+                parameter="display">
+            <forward name="success" path="ModifyTopicMessage" />
         </action>
 
 

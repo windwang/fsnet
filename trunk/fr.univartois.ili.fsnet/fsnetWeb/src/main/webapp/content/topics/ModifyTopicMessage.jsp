@@ -9,8 +9,8 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<h3>Message</h3>
-<html:form action="/CreateTopicMessage">
+<h3>Modify Message</h3>
+<html:form action="/ModifyTopicMessage">
     <table id="CreateTopicMessage">
         <tr>
             <td>
@@ -24,8 +24,9 @@
                </html:textarea>
             </td>
             <td><html:hidden property="topicId" value="${topicId}"/></td>
+            <td><html:hidden property="messageId" value="${message.id}"/></td>
             <td>
-                <html:submit styleClass="button">Validate Message</html:submit>
+                <html:submit styleClass="button">Modify Message</html:submit>
             </td>
         </tr>
     </table>
