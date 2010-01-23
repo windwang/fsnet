@@ -85,14 +85,13 @@ public class ManageAnnounces extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager entityManager = factory.createEntityManager();
-        Date today = new Date();
         DynaActionForm formAnnounce = (DynaActionForm) form;
         String title = (String) formAnnounce.get("announceTitle");
         String content = (String) formAnnounce.get("announceContent");
         String stringExpiryDate = (String) formAnnounce.get("announceExpiryDate");
         Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
         Annonce announce = entityManager.find(Annonce.class, idAnnounce); 
-        EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, entityManager);
+        
         try {
             Date expiryDate = DateUtils.format(stringExpiryDate);
             if (0 > DateUtils.compareToToday(expiryDate)) {
@@ -102,6 +101,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
                 entityManager.getTransaction().begin();
                 entityManager.merge(announce);
                 entityManager.getTransaction().commit();
+                
             } else {
                 ActionMessages errors = new ActionMessages();
                 errors.add("message", new ActionMessage(
@@ -109,9 +109,11 @@ public class ManageAnnounces extends MappingDispatchAction implements
                 saveErrors(request, errors);
             }
             request.setAttribute("announce", announce);
+            request.setAttribute("owner", true);
         } catch (ParseException e) {
             servlet.log("class:ManageAnnounces methode:create exception whene formatying date ");
             e.printStackTrace();
+            return mapping.findForward("failer");
         }
         entityManager.close();
         return mapping.findForward("success");
@@ -186,7 +188,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
         
         request.setAttribute("announce", announce);
         request.setAttribute("entiteSociale", entiteSocialeOwner);
-      
+        servlet.log(entiteSocialeOwner.toString()+entiteSocialeOwner.getNom());
         EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, entityManager);
         if (entiteSociale.getId() == entiteSocialeOwner.getId()) {
             request.setAttribute("owner", true);

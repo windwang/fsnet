@@ -41,7 +41,8 @@
 		<action path="/ModifyAnnounce" name="AnnounceForm" scope="request"
 			input="ModifyAnnounce" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			parameter="modify">
-			<forward name="success" path="ModifyAnnounce" />
+			<forward name="success" path="DisplayAnnounce" />
+			<forward name="failer" path="ModifyAnnounce" />
 		</action>
 		<action path="/DisplayForModifyAnnounce" name="AnnounceForm"
 			scope="request" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
