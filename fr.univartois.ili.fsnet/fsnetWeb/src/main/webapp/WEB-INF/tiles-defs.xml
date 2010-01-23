@@ -82,6 +82,10 @@
         <put name="title" value="DeleteInterest"/>
         <put name="body-content" value="/content/interests/DeleteInterest.jsp" />
     </definition>
+    <definition name="ModifyInterest" extends=".defaultLayout">
+        <put name="title" value="ModifyInterest"/>
+        <put name="body-content" value="/content/interests/ModifyInterest.jsp" />
+    </definition>
 
     <!-- Hubs -->
     <definition name="Hubs" extends=".defaultLayout">

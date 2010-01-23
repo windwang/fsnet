@@ -8,4 +8,5 @@
 <jsp:include page="/content/interests/RemoveInterest.jsp"/>
 <jsp:include page="/content/interests/SearchInterest.jsp"/>
 <jsp:include page="/content/interests/CreateInterest.jsp"/>
+<jsp:include page="/content/interests/ModifyInterest.jsp"/>
 <jsp:include page="/content/interests/DeleteInterest.jsp"/>
