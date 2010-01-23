@@ -19,13 +19,14 @@
     <html:hidden property="topicId" value="${topicId}"/>
     <html:hidden property="messageId" value="${message.id}"/>
     Description:
-    <table >
+    <table style="width: 100%;">
         <tr>
             <td>
                 <html:textarea  cols="60" rows="8"
                                 property="messageDescription"
                                 styleId="messageDescription"
                                 styleClass="mceTextArea"
+                                style="width: 100%;"
                                 value="${message.contenu}">
                 </html:textarea>
             </td>

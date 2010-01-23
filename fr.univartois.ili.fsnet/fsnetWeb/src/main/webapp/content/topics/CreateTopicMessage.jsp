@@ -16,13 +16,15 @@
 <html:form action="/CreateTopicMessage">
     <html:hidden property="topicId" value="${topicId}"/>
     Description:
-    <table id="CreateTopicMessage">
+    <table style="width: 100%;">
         <tr>
             <td>
-                <html:textarea  cols="60" rows="8"
+                <html:textarea
                                 property="messageDescription"
                                 styleId="messageDescription"
-                                styleClass="mceTextArea">
+                                styleClass="mceTextArea"
+                                style="width: 100%;"
+                                >
                 </html:textarea>
             </td>
         </tr>

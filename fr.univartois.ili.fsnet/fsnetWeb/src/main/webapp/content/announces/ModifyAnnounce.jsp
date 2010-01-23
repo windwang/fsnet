@@ -30,7 +30,7 @@
                 <label for="announceContent">Contenu: </label>
             </td>
             <td>
-                <html:textarea cols="40" rows="8" value="${announce.contenu}" property="announceContent" styleId="announceContent"  styleClass="mceTextArea"/>
+                <html:textarea cols="40" rows="8" value="${announce.contenu}" property="announceContent" styleId="announceContent"  styleClass="mceTextArea" style="width: 100%;"/>
             </td>
         </tr>
         <tr>
