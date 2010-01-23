@@ -8,13 +8,7 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-    tinyMCE.init({
-        // General options
-        mode : "textareas",
-        theme : "simple"
-    });
-</script>
+<script type="text/javascript" src="js/mceTextArea.js"/>
 
 
 <html:javascript formName="/CreateAnnounce"/>
@@ -34,7 +28,7 @@
                 <label for="announceContent">Contenu: </label>
             </td>
             <td>
-                <html:textarea cols="40" rows="8" property="announceContent" styleId="announceContent"/>
+                <html:textarea cols="40" rows="8" property="announceContent" styleId="announceContent"  styleClass="mceTextArea"/>
             </td>
         </tr>
         <tr>

@@ -11,13 +11,7 @@
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 
-<script type="text/javascript">
-    tinyMCE.init({
-        // General options
-        mode : "textareas",
-        theme : "simple"
-    });
-</script>
+<script type="text/javascript" src="js/mceTextArea.js"/>
 
 <h3>Modify Message</h3>
 
@@ -31,6 +25,7 @@
                 <html:textarea  cols="60" rows="8"
                                 property="messageDescription"
                                 styleId="messageDescription"
+                                styleClass="mceTextArea"
                                 value="${message.contenu}">
                 </html:textarea>
             </td>

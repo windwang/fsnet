@@ -10,13 +10,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
-<script type="text/javascript">
-tinyMCE.init({
-	// General options
-	mode : "textareas",
-	theme : "simple"
-});
-</script>
+<script type="text/javascript" src="js/mceTextArea.js"/>
 
 <h3>Create Event</h3>
 <html:form action="/CreateEvent">
@@ -41,10 +35,10 @@ tinyMCE.init({
                 <label for="eventDescription">Description: </label>
             </td>
             <td>
-                <html:textarea  cols="40" rows="8"
-                                property="eventDescription"
+                <html:textarea  property="eventDescription"
                                 styleId="eventDescription"
                                 errorStyleClass="error"
+                                styleClass="mceTextArea"
                                 />
                 <logic:messagesPresent property="eventDescription">
                     <div class="errorMessage">
