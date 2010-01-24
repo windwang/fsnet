@@ -9,7 +9,7 @@
     <h3><bean:message key="interests.5"/></h3>
 	<html:javascript formName="/ModifyInterest"/>
 	<html:form action="/ModifyInterest">
-		<html:select property="modifiedInterestId">
+            <html:select property="modifiedInterestId" styleClass="select">
         	<html:option value="0"><bean:message key="interests.1"/></html:option>
         	<c:forEach var="interest" items="${requestScope.allInterests}">
             	<html:option value="${interest.id}">${interest.nomInteret}</html:option>
@@ -18,6 +18,6 @@
         <html:errors property="modifiedInterestId"/>
 	    <html:text property="modifiedInterestName"/>
 	    <html:errors property="modifiedInterestName"/>
-	    <html:submit/>
+	    <html:submit styleClass="button"/>
 	</html:form>
 </c:if>

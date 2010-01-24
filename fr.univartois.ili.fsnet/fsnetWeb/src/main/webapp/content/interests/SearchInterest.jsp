@@ -10,7 +10,7 @@
 <html:form action="/SearchInterest">
     <html:text property="searchInterestName"/>
     <html:errors property="searchInterestName"/>
-    <html:submit/>
+    <html:submit styleClass="button"/>
 </html:form>
 
 <jsp:include page="/content/interests/ResultInterest.jsp"/>
