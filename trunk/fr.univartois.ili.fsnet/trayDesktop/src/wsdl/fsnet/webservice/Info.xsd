@@ -1,53 +1,176 @@
-<?xml version="1.0" encoding="UTF-8"?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.1.4-b01-. --><xs:schema xmlns:tns="http://webservice.fsnet.ili.univartois.fr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice.fsnet.ili.univartois.fr/">
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-12/14/2009 02:16 PM(ramkris)-. -->
+<xs:schema xmlns:tns="http://webservice.fsnet.ili.univartois.fr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice.fsnet.ili.univartois.fr/">
 
-<xs:element name="getNewAnnouncementCount" type="tns:getNewAnnouncementCount"></xs:element>
+<xs:element name="getNewAnnouncementCount" type="tns:getNewAnnouncementCount" />
 
-<xs:element name="getNewAnnouncementCountResponse" type="tns:getNewAnnouncementCountResponse"></xs:element>
+<xs:element name="getNewAnnouncementCountResponse" type="tns:getNewAnnouncementCountResponse" />
 
-<xs:element name="getNewEventsCount" type="tns:getNewEventsCount"></xs:element>
+<xs:element name="getNewEventsCount" type="tns:getNewEventsCount" />
 
-<xs:element name="getNewEventsCountResponse" type="tns:getNewEventsCountResponse"></xs:element>
+<xs:element name="getNewEventsCountResponse" type="tns:getNewEventsCountResponse" />
 
-<xs:element name="getNewMessages" type="tns:getNewMessages"></xs:element>
+<xs:element name="getNewMessages" type="tns:getNewMessages" />
 
-<xs:element name="getNewMessagesResponse" type="tns:getNewMessagesResponse"></xs:element>
+<xs:element name="getNewMessagesResponse" type="tns:getNewMessagesResponse" />
 
 <xs:complexType name="getNewMessages">
 <xs:sequence>
-<xs:element name="login" type="xs:string" minOccurs="0"></xs:element>
-<xs:element name="password" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="login" type="xs:string" minOccurs="0" />
+<xs:element name="password" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getNewMessagesResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded"></xs:element>
+<xs:element name="return" type="tns:annonce" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="annonce">
+<xs:complexContent>
+<xs:extension base="tns:information">
+<xs:sequence />
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="information">
+<xs:complexContent>
+<xs:extension base="tns:interaction">
+<xs:sequence>
+<xs:element name="contenu" type="xs:string" minOccurs="0" />
+<xs:element name="dateInformation" type="xs:dateTime" minOccurs="0" />
+<xs:element name="nom" type="xs:string" minOccurs="0" />
+<xs:element name="visible" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="interaction">
+<xs:sequence>
+<xs:element name="createur" type="tns:entiteSociale" minOccurs="0" />
+<xs:element name="decideur" type="tns:decideur" minOccurs="0" />
+<xs:element name="id" type="xs:int" />
+<xs:element name="rapport" type="tns:rapportActivites" minOccurs="0" />
+<xs:element name="valide" type="xs:boolean" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="entiteSociale">
+<xs:sequence>
+<xs:element name="adresse" type="xs:string" minOccurs="0" />
+<xs:element name="asked" type="tns:entiteSociale" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="contacts" type="tns:entiteSociale" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="email" type="xs:string" minOccurs="0" />
+<xs:element name="id" type="xs:int" />
+<xs:element name="lesDecideurs" type="tns:decideur" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="lesMessages" type="tns:message" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="lesTopics" type="tns:topic" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="lesinteractions" type="tns:interaction" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="lesinterets" type="tns:interet" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="mdp" type="xs:string" minOccurs="0" />
+<xs:element name="nom" type="xs:string" minOccurs="0" />
+<xs:element name="numTel" type="xs:string" minOccurs="0" />
+<xs:element name="photo" type="xs:string" minOccurs="0" />
+<xs:element name="prenom" type="xs:string" minOccurs="0" />
+<xs:element name="profession" type="xs:string" minOccurs="0" />
+<xs:element name="refused" type="tns:entiteSociale" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="requested" type="tns:entiteSociale" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="sexe" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="decideur">
+<xs:sequence>
+<xs:element name="entSociale" type="tns:entiteSociale" minOccurs="0" />
+<xs:element name="id" type="xs:int" />
+<xs:element name="interaction" type="tns:interaction" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="message">
+<xs:sequence>
+<xs:element name="contenu" type="xs:string" minOccurs="0" />
+<xs:element name="dateMessage" type="xs:dateTime" minOccurs="0" />
+<xs:element name="id" type="xs:int" />
+<xs:element name="propMsg" type="tns:entiteSociale" minOccurs="0" />
+<xs:element name="topic" type="tns:topic" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="topic">
+<xs:sequence>
+<xs:element name="dateSujet" type="xs:dateTime" minOccurs="0" />
+<xs:element name="hub" type="tns:hub" minOccurs="0" />
+<xs:element name="id" type="xs:int" />
+<xs:element name="lesMessages" type="tns:message" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="propTopic" type="tns:entiteSociale" minOccurs="0" />
+<xs:element name="sujet" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="hub">
+<xs:complexContent>
+<xs:extension base="tns:communaute">
+<xs:sequence>
+<xs:element name="dateCreation" type="xs:dateTime" minOccurs="0" />
+<xs:element name="lesTopics" type="tns:topic" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="communaute">
+<xs:complexContent>
+<xs:extension base="tns:interaction">
+<xs:sequence>
+<xs:element name="nomCommunaute" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:extension>
+</xs:complexContent>
+</xs:complexType>
+
+<xs:complexType name="interet">
+<xs:sequence>
+<xs:element name="id" type="xs:int" />
+<xs:element name="lesEntites" type="tns:entiteSociale" nillable="true" minOccurs="0" maxOccurs="unbounded" />
+<xs:element name="nomInteret" type="xs:string" minOccurs="0" />
+</xs:sequence>
+</xs:complexType>
+
+<xs:complexType name="rapportActivites">
+<xs:sequence>
+<xs:element name="dateRapport" type="xs:dateTime" minOccurs="0" />
+<xs:element name="id" type="xs:int" />
+<xs:element name="lesInteractions" type="tns:interaction" nillable="true" minOccurs="0" maxOccurs="unbounded" />
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getNewAnnouncementCount">
 <xs:sequence>
-<xs:element name="login" type="xs:string" minOccurs="0"></xs:element>
-<xs:element name="password" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="login" type="xs:string" minOccurs="0" />
+<xs:element name="password" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getNewAnnouncementCountResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:int" minOccurs="0"></xs:element>
+<xs:element name="return" type="xs:int" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getNewEventsCount">
 <xs:sequence>
-<xs:element name="login" type="xs:string" minOccurs="0"></xs:element>
-<xs:element name="password" type="xs:string" minOccurs="0"></xs:element>
+<xs:element name="login" type="xs:string" minOccurs="0" />
+<xs:element name="password" type="xs:string" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 
 <xs:complexType name="getNewEventsCountResponse">
 <xs:sequence>
-<xs:element name="return" type="xs:int" minOccurs="0"></xs:element>
+<xs:element name="return" type="xs:int" minOccurs="0" />
 </xs:sequence>
 </xs:complexType>
 </xs:schema>

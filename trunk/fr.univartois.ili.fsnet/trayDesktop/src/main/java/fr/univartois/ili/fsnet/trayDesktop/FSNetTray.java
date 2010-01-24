@@ -98,8 +98,7 @@ public class FSNetTray {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    // TODO configurer l'url dans la config et l'utiliser ici
-                    Desktop.getDesktop().browse(new URI("http://www.your.url"));
+                    Desktop.getDesktop().browse(new URI(Options.getFsnetUrl()));
                 } catch (URISyntaxException ex) {
                     Logger.getLogger(FSNetTray.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
@@ -171,7 +170,7 @@ public class FSNetTray {
             public void run() {
                 displayMessage();
             }
-        }, 0, timeLag * Options.getLag());
+        }, 0, MINUTES * Options.getLag());
     }
 
     /**

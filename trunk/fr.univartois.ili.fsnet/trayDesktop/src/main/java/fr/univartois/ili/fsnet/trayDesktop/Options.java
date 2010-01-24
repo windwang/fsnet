@@ -65,7 +65,7 @@ public final class Options {
      *
      * @return the value of url
      */
-    public static String getUrl() {
+    public static String getWSUrl() {
         return url;
     }
 
@@ -74,7 +74,7 @@ public final class Options {
      *
      * @param url new value of url
      */
-    public static void setUrl(String url) {
+    public static void setWSUrl(String url) {
         Options.url = url;
     }
     private static LANG language;
@@ -129,6 +129,25 @@ public final class Options {
     public static void setLanguage(LANG language) {
         Options.language = language;
     }
+    protected static String fsneturl;
+
+    /**
+     * Get the value of fsneturl
+     *
+     * @return the value of fsneturl
+     */
+    public static String getFsnetUrl() {
+        return fsneturl;
+    }
+
+    /**
+     * Set the value of fsneturl
+     *
+     * @param fsneturl new value of fsneturl
+     */
+    public static void setFsnetUrl(String fsneturl) {
+        Options.fsneturl = fsneturl;
+    }
 
     public static void loadOptions() {
         Preferences pref = Preferences.userNodeForPackage(Options.class);
@@ -136,7 +155,8 @@ public final class Options {
         saved = pref.getBoolean("saved", false);
         login = pref.get("login", "");
         password = pref.get("password", "");
-        url = pref.get("url", "");
+        url = pref.get("wsurl", "");
+        fsneturl = pref.get("fsneturl", "");
         lag = pref.getInt("lag", 10);
         try {
             language = LANG.valueOf(pref.get("language", "English"));
@@ -156,7 +176,8 @@ public final class Options {
             pref.putBoolean("saved", true);
             pref.put("login", login);
             pref.put("password", password);
-            pref.put("url", url);
+            pref.put("wsurl", url);
+            pref.put("fsneturl", fsneturl);
             pref.put("language", language.toString());
             pref.putInt("lag", lag);
             pref.flush();

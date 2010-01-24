@@ -36,6 +36,7 @@ public class ConfigurationFrame {
     private final ConfigurationPanel cpanel;
     private final ResourceBundle trayi18n = TrayLauncher.getBundle();
     private final JLabel lab;
+    private JButton validateButton;
 
     public ConfigurationFrame() {
         frame = new JFrame(trayi18n.getString("CONFIGURATION"));
@@ -85,8 +86,10 @@ public class ConfigurationFrame {
                     Logger.getLogger(ConfigurationFrame.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 if (valid) {
+                    validateButton.setEnabled(true);
                     configurationSuccess();
                 } else {
+                    validateButton.setEnabled(false);
                     configurationFailed();
                 }
             }
@@ -99,7 +102,7 @@ public class ConfigurationFrame {
      */
     private boolean validateConfig() {
         try {
-            String url = cpanel.getUrl();
+            String url = cpanel.getWSUrl();
             String login = cpanel.getLogin();
             String password = cpanel.getPassword();
             InfoService infoService = new InfoService(new URL(url),
@@ -146,13 +149,14 @@ public class ConfigurationFrame {
     }
 
     private JButton getValidateButton() {
-        JButton but = new JButton(trayi18n.getString("VALIDER"));
-        but.addActionListener(new ActionListener() {
+        validateButton = new JButton(trayi18n.getString("VALIDER"));
+        validateButton.addActionListener(new ActionListener() {
 
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (validateConfig()) {
-                    Options.setUrl(cpanel.getUrl());
+                    Options.setWSUrl(cpanel.getWSUrl());
+                    Options.setFsnetUrl(cpanel.getFsnetUrl());
                     Options.setLogin(cpanel.getLogin());
                     Options.setPassword(cpanel.getPassword());
                     Options.setLanguage(cpanel.getLanguage());
@@ -160,10 +164,17 @@ public class ConfigurationFrame {
                     Options.saveOptions();
                     frame.dispose();
                     TrayLauncher.reload();
+                } else {
+                    validateButton.setEnabled(false);
+                    
+                    configurationFailed();
                 }
             }
         });
-        return but;
+        if (!validateConfig()) {
+            validateButton.setEnabled(false);
+        }
+        return validateButton;
     }
 
     private JButton getCancelButton() {
@@ -194,6 +205,7 @@ public class ConfigurationFrame {
      * Show the configuration frame
      */
     public void show() {
+        frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
