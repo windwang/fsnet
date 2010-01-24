@@ -144,8 +144,8 @@ public class FSNetConfiguration {
 		return properties.getProperty(SMTP_PORT);
 	}
 
-	public void setSMTPPort(String SMTPPort) {
-		properties.setProperty(SMTP_PORT, SMTPPort);
+	public void setSMTPPort(int SMTPPort) {
+		properties.setProperty(SMTP_PORT, Integer.toString(SMTPPort));
 	}
 
 	public String getFrom() {

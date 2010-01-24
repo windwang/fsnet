@@ -11,9 +11,9 @@
 <html:javascript formName="/ModifyOptions" />
 <div id="tableauprincipal">
 <p id="informationsOptions">Nb:Ce formulaire permet de configurer
-vos préférences pour l'envoie de mails. Par exemple: quand vous
-enregistrer un membre un mail lui ait automatiquement envoyé afin qu'il
-puisse finaliser son inscription.</p>
+vos préférences pour l'envoi de mails. Lorsque vous inscrivez un 
+nouvel utilisateur un mot de passe est généré automatiquement puis,
+lui est transmis par mail, cette étape est donc nécéssaire.</p>
 
 <html:form action="/ModifyOptions.do">
 	<table>
