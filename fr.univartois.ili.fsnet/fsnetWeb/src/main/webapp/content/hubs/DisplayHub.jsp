@@ -11,30 +11,30 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <html:form action="/CreateTopic">
-    <h3>Create Topic :</h3>
+    <h3><bean:message key="hubs.createTopic"/></h3>
     <table>
         <tr>
-            <td><label>Topic's subjet :</label></td>
+            <td><label><bean:message key="hubs.subjectTopic"/></label></td>
             <td><html:text property="topicSujet" styleId="topicSujet" /></td>
             <td><html:hidden property="hubId" value="${hubResult.id}"/></td>
-            <td><html:submit styleClass="button">Create Topic</html:submit></td>
+            <td><html:submit styleClass="button"><bean:message key="hubs.createTopic"/></html:submit></td>
         </tr>
     </table>
 </html:form>
 
-<h3>Search Topic</h3>
+<h3><bean:message key="hubs.searchTopic"/></h3>
 <table>
     <html:form action="/SearchTopic">
         <tr>
-            <td><label>Topic's subjet :</label></td>
+            <td><label><bean:message key="hubs.subjectTopic"/></label></td>
             <td><html:text property="topicSujetSearch" styleId="topicSujet" /></td>
             <td><html:hidden property="hubId" value="${hubResult.id}"/></td>
-            <td><html:submit styleClass="button">Search Topic</html:submit></td>
+            <td><html:submit styleClass="button"><bean:message key="hubs.searchTopic"/></html:submit></td>
         </tr>
     </html:form>
     <c:if test="${not empty resRearchTopics}">
         <tr>
-            <th>Result of search</th>
+            <th><bean:message key="hubs.resultSearchTopic"/></th>
         </tr>
         <c:forEach var="topic" items="${resRearchTopics}">
             <tr>
@@ -47,7 +47,7 @@
                         <html:link action="/DeleteTopic" styleClass="button">
                             <html:param name="topicId" value="${topic.id}"/>
                             <html:param name="hubId" value="${hubResult.id}"/>
-		    			Delete Topic
+		    			<bean:message key="hubs.deleteTopic"/>
                         </html:link>
                     </c:if>
                 </td>
@@ -58,7 +58,7 @@
 </table>
 
 
-<h3><bean:message key="hubs.hub"/> ${hubResult.nomCommunaute} - Topics</h3>
+<h3><bean:message key="hubs.hub"/> ${hubResult.nomCommunaute} - <bean:message key="hubs.topics"/></h3>
 <table class="inLineTable">
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
@@ -71,9 +71,9 @@
                     ${couple.key.sujet}
                 </html:link>
                 <br/>
-                Created on
+                <bean:message key="hubs.createdOn"/>
                 <bean:write name="hubResult" property="dateCreation" format="dd/MM/yyyy"/>
-                by
+                <bean:message key="hubs.by"/>
                 <html:link action="/DisplayProfile">
                     <html:param name="id" value="${hubResult.createur.id}"/>
                     ${hubResult.createur.prenom} ${hubResult.createur.nom}
@@ -85,10 +85,10 @@
                     <c:set var="lastMessage" value="${couple.value}"/>
                     <bean:write name="lastMessage" property="dateMessage" format="dd/MM/yyyy"/>
                     <br/>
-                    par ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
+                     <bean:message key="hubs.by"/> ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
                 </logic:notEmpty>
                 <logic:empty name="couple" property="value">
-                    Aucun Message
+                    <bean:message key="hubs.noMessage"/>
                 </logic:empty>
             </td>
             <c:if test="${sessionScope.user.id eq couple.key.propTopic.id}">
@@ -96,7 +96,7 @@
                     <html:link action="/DeleteTopic" styleClass="button">
                         <html:param name="topicId" value="${couple.key.id}"/>
                         <html:param name="hubId" value="${hubResult.id}"/>
-		    			Delete Topic
+		    			 <bean:message key="hubs.deleteTopic"/>
                     </html:link>
                 </td>
             </c:if>

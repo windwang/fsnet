@@ -21,9 +21,9 @@
                 </html:link>
             </th>
             <td>
-                Created on
+                <bean:message key="hubs.createdOn"/>
                 <bean:write name="hub" property="dateCreation" format="dd/MM/yyyy"/>
-                by
+                <bean:message key="hubs.by"/>
                 <html:link action="/DisplayProfile">
                     <html:param name="id" value="${hub.createur.id}"/>
                     ${hub.createur.prenom} ${hub.createur.nom}

@@ -10,7 +10,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
-<h3>${topic.sujet} : Messages </h3>
+<h3><bean:message key="topics.topic"/> ${topic.sujet} - <bean:message key="topics.messages"/></h3>
 <c:forEach var="msg" items="${topic.lesMessages}">
     <table class="topicTable">
         <tr class="topicHeader">
@@ -40,7 +40,7 @@
             <html:link action="/DisplayModifyTopicMessage" styleClass="button">
                 <html:param name="topicId" value="${topic.id}" />
                 <html:param name="messageId" value="${msg.id}" />
-		           Modify
+		           <bean:message key="topics.modifyMsg"/>
             </html:link>
         </c:if>
 
@@ -48,7 +48,7 @@
             <html:link action="/DeleteTopicMessage" styleClass="button">
                 <html:param name="topicId" value="${topic.id}" />
                 <html:param name="messageId" value="${msg.id}" />
-		           Delete
+		           <bean:message key="topics.deleteMsg"/>
             </html:link>
         </c:if>
 
@@ -58,7 +58,7 @@
 
 <html:link action="/DisplayCreateTopicMessage" styleClass="button">
     <html:param name="topicId" value="${topic.id}" />
-    Answer
+    <bean:message key="topics.answerMsg"/>
 </html:link>
 
 

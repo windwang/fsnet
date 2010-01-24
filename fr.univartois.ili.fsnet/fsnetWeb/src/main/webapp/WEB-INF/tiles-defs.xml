@@ -123,7 +123,7 @@
     <definition name="Topic" extends=".defaultLayout">
         <put name="title" value="pageTitle.6"/>
         <put name="currentMenu" value="Hub"/>
-        <put name="body-content" value="/content/topics/Topic.jsp" />
+        <put name="body-content" value="/content/topics/DisplayTopic.jsp" />
     </definition>
     <definition name="CreateTopicMessage" extends=".defaultLayout">
         <put name="title" value="pageTitle.7"/>
