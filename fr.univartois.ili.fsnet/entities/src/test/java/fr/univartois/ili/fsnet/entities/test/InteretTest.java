@@ -36,7 +36,7 @@ public class InteretTest {
 	 * Check that if we can persiste un entity interet
 	 */
 	public void testPersist() {
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "totu@gmail.com");
+		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "interestpersist@gmail.com");
 		EntiteSociale ent2 = new EntiteSociale("toto2", "tutu2", "totu2@gmail.com");
 		List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
 		em.getTransaction().begin();
@@ -62,8 +62,8 @@ public class InteretTest {
 	 * Check that the name of interet can not be null
 	 */
 	public void testNomInteretIsNotNull() {
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "totu@gmail.com");
-		EntiteSociale ent2 = new EntiteSociale("toto2", "tutu2", "totu2@gmail.com");
+		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "interestNom1totu@gmail.com");
+		EntiteSociale ent2 = new EntiteSociale("toto2", "tutu2", "interestNom2@gmail.com");
 		List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
 		em.getTransaction().begin();
 		em.persist(ent1);
@@ -84,8 +84,8 @@ public class InteretTest {
 	 * Check that the name of interet should be unique
 	 */
 	public void testNomInteretIsUnique() {
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "totu@gmail.com");
-		EntiteSociale ent2 = new EntiteSociale("toto2", "tutu2", "totu2@gmail.com");
+		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "interestUnic1@gmail.com");
+		EntiteSociale ent2 = new EntiteSociale("toto2", "tutu2", "interestUnic2@gmail.com");
 		List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
 		em.getTransaction().begin();
 		em.persist(ent1);

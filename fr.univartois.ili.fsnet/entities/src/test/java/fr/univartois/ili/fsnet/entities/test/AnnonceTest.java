@@ -53,7 +53,7 @@ public class AnnonceTest {
 		String nom = "UserIli";
 		String contenu = "content";
 		String visible = "visible";
-		EntiteSociale es = new EntiteSociale("name", "prenom", "mail");
+		EntiteSociale es = new EntiteSociale("name", "prenom", "mailannonce@mail.com");
 		em.getTransaction().begin();
 		em.persist(es);
 		em.getTransaction().commit();

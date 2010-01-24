@@ -38,7 +38,7 @@ public class InteractionTest {
 
     @Test
     public void testPersist() throws ParseException {
-    	EntiteSociale createur = new EntiteSociale("testo", "bisas", "toss@gmail.com");
+    	EntiteSociale createur = new EntiteSociale("testo", "bisas", "tosssss@gmail.com");
 		em.getTransaction().begin();
 		em.persist(createur);
 		em.getTransaction().commit();
@@ -66,7 +66,7 @@ public class InteractionTest {
     
     @Test
     public void testGeneratedValueId() throws ParseException {
-    	EntiteSociale createur = new EntiteSociale("testos", "bisass", "tossi@gmail.com");
+    	EntiteSociale createur = new EntiteSociale("testos", "bisass", "tossissss@gmail.com");
 		em.getTransaction().begin();
 		em.persist(createur);
 		em.getTransaction().commit();
