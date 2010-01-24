@@ -31,21 +31,14 @@
         </form>
         
         <form name="/ModifyOptions" >
-         
             <field property="serveursmtp" depends="required">
                 <arg key="error.serveursmtp"/>
             </field>
             <field property="hote" depends="required,email">
                 <arg key="error.hote"/>
             </field>
-            <field property="motdepasse" depends="required">
-                <arg key="error.motdepasse"/>
-            </field>
             <field property="adressefsnet" depends="required">
                 <arg key="error.adressefsnet"/>
-            </field>
-            <field property="port" depends="required,integer">
-                <arg key="error.port"/>
             </field>
         </form>
         
