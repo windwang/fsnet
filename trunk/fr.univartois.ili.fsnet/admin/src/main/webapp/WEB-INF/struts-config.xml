@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
-
 <!DOCTYPE struts-config PUBLIC
 "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
@@ -33,8 +32,12 @@
             <form-property name="serveursmtp" type="java.lang.String" />
             <form-property name="hote" type="java.lang.String" />
             <form-property name="motdepasse" type="java.lang.String" />
+            <form-property name="username" type="java.lang.String" />
+            <form-property name="authenticate" type="java.lang.String" />
             <form-property name="adressefsnet" type="java.lang.String" />
-            <form-property name="port" type="java.lang.Integer" />
+            <form-property name="port" type="java.lang.String" />
+            <form-property name="enableTLS" type="java.lang.String" />
+            <form-property name="enableSSL" type="java.lang.String" />
         </form-bean>
     </form-beans>
     <global-forwards>
@@ -84,13 +87,6 @@
                 input="/Options.jsp" validate="true" scope="request">
             <forward name="continue" path="/DisplayOptions.do" />
         </action>
-        <!-- never called ...
-        <action path="/lesoptionsrequired"
-                type="fr.univartois.ili.fsnet.admin.actions.ActionOptions" name="OptionsForm"
-                input="/optionsrequired.jsp" validate="true" scope="request">
-            <forward name="continue" path="/options.asp" />
-        </action>
-        -->
     </action-mappings>
 
     <message-resources parameter="MyApp" null="false" />

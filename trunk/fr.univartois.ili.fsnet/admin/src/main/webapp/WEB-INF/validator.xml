@@ -13,7 +13,6 @@
             <field property="email" depends="required,email">
                 <arg key="error.email" />
             </field>
-
         </form>
         <form name="/AddInterest">
             <field property="nomInteret" depends="required">
@@ -30,7 +29,9 @@
                 <arg key="error.searchtext"/>
             </field>
         </form>
+        
         <form name="/ModifyOptions" >
+         
             <field property="serveursmtp" depends="required">
                 <arg key="error.serveursmtp"/>
             </field>
@@ -43,29 +44,11 @@
             <field property="adressefsnet" depends="required">
                 <arg key="error.adressefsnet"/>
             </field>
-            <field property="port" depends="required">
+            <field property="port" depends="required,integer">
                 <arg key="error.port"/>
             </field>
         </form>
-        <!--
-                <form name="/lesoptionsrequired" >
-                        <field property="serveursmtp" depends="required">
-                                <arg key="error.serveursmtp"/>
-                        </field>
-                        <field property="hote" depends="required,email">
-                                <arg key="error.hote"/>
-                        </field>
-                        <field property="motdepasse" depends="required">
-                                <arg key="error.motdepasse"/>
-                        </field>
-                        <field property="adressefsnet" depends="required">
-                                <arg key="error.adressefsnet"/>
-                        </field>
-                        <field property="port" depends="required">
-                                <arg key="error.port"/>
-                        </field>
-                </form>
-                -->
+        
     </formset>
 
 </form-validation>
