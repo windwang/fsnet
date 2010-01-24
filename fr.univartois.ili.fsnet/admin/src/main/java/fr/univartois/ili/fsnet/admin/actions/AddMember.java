@@ -55,7 +55,7 @@ public class AddMember extends Action {
 			actionErrors.add("entitie.alreadyExists", msg);
 			saveErrors(req, actionErrors);
 		}
-		em.close();		
+		em.close();
 
 		// TODO eviter que les informations se reafichent dans le form html si
 		// ca a fonctionné
@@ -76,12 +76,13 @@ public class AddMember extends Action {
 	 * @author Mathieu Boniface < mat.boniface {At} gmail.com >
 	 */
 	private void sendConfirmationMail(EntiteSociale entite) {
-		Properties conf = FSNetConfiguration.getInstance()
+		FSNetConfiguration conf = FSNetConfiguration.getInstance();
+		Properties properties = FSNetConfiguration.getInstance()
 				.getFSNetConfiguration();
-		String fsnetAddress = conf.getProperty("fsnet.address");
+		String fsnetAddress = conf.getFSNetWebAddress();
 		String message = createMessageRegistration(entite.getNom(), entite
 				.getPrenom(), fsnetAddress);
-		// send a mail 
+		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 		mail.setSubject("Inscription FSNet");
