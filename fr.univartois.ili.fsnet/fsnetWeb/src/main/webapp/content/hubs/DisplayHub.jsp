@@ -63,7 +63,7 @@
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
             <td>
-                <img src="images/message.svg" alt="Message Icon"/>
+                <img src="images/message.png" alt="Message Icon"/>
             </td>
             <td>
                 <html:link action="/DisplayTopic">
