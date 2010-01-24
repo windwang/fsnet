@@ -29,18 +29,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
-    /*
-    public ActionForward ask(ActionMapping mapping, ActionForm form,
-    HttpServletRequest request, HttpServletResponse response)
-    throws IOException, ServletException {
-    EntityManager em = factory.createEntityManager();
-    List<EntiteSociale> listEntities = em.createQuery(
-    "select entite from EntiteSociale entite").getResultList();
-    request.setAttribute("listEntities", listEntities);
-    em.close();
-    return mapping.findForward("success");
-    }
-     */
+
     /**
      * Submit a request contact to another social entity
      *

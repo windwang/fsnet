@@ -6,12 +6,12 @@
 
 <h3>Ajouter un intérêt</h3>
 <c:choose>
-    <c:when test="${not empty listInterests}">
+    <c:when test="${not empty requestScope.listInterests}">
         <html:javascript formName="/AddInterest"/>
         <html:form action="/AddInterest">
             <html:select property="addedInterestId">
                 <html:option value="0">Intérêt</html:option>
-                <c:forEach var="interest" items="${listInterests}">
+                <c:forEach var="interest" items="${requestScope.listInterests}">
                     <html:option value="${interest.id}">${interest.nomInteret}</html:option>
                 </c:forEach>
             </html:select>

@@ -10,8 +10,9 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
-<h3><bean:message key="topics.topic"/> ${topic.sujet} - <bean:message key="topics.messages"/></h3>
-<c:forEach var="msg" items="${topic.lesMessages}">
+<h3>${requestScope.topic.sujet} : Messages </h3>
+<c:forEach var="msg" items="${requestScope.topic.lesMessages}">
+
     <table class="topicTable">
         <tr class="topicHeader">
             <td colspan="2">
