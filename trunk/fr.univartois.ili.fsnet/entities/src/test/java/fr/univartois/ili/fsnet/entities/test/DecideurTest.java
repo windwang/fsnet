@@ -24,6 +24,7 @@ public class DecideurTest {
     public void tearDown() {
     }
 
+    // TODO TEST-LOL galileo
     @Test
     public void testPersist() {
         Decideur decideur = new Decideur();

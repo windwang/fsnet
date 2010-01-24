@@ -44,17 +44,17 @@ public class EntiteSocialeTest {
 
 	@Test
 	public void testUpdate() {
-		EntiteSociale ent = new EntiteSociale("titi", "tata", "titi@gmail.com");
+		EntiteSociale ent = new EntiteSociale("titi", "tata", "esupdate@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent);
 		em.getTransaction().commit();
-		assertEquals(ent.getEmail(), "titi@gmail.com");
-		ent.setEmail("tata@gmail.com");
+		assertEquals(ent.getEmail(), "esupdate@gmail.com");
+		ent.setEmail("esupdate2@gmail.com");
 		em.getTransaction().begin();
 		em.merge(ent);
 		em.getTransaction().commit();
 		ent = em.find(EntiteSociale.class, ent.getId());
-		assertEquals(ent.getEmail(), "tata@gmail.com");
+		assertEquals(ent.getEmail(), "esupdate2@gmail.com");
 	}
 
 	@Test

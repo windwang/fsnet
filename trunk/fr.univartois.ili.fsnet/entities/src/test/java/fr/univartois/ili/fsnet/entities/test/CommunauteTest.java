@@ -24,6 +24,7 @@ public class CommunauteTest {
     public void tearDown() {
     }
 
+    // TODO TEST-LOL galileo
     @Test
     public void testPersist() {
         Communaute communaute = new Communaute("Ma communaute");

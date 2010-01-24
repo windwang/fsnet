@@ -39,7 +39,7 @@ public class MessageTest {
 	public void testPersist() throws ParseException {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		Date date = (Date) formatter.parse("29/01/02");
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "torui@gmail.com");
+		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "messagepersist@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();
@@ -61,7 +61,7 @@ public class MessageTest {
 	public void testContenuMessageIsNotNull() throws ParseException {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		Date date = (Date) formatter.parse("29/01/02");
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "totu@gmail.com");
+		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "messagecontenu@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();
@@ -76,7 +76,7 @@ public class MessageTest {
 	 * Check that the date of the message can not be null
 	 */
 	public void testDateMessageIsNotNull() throws ParseException {
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "totu@gmail.com");
+		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "messagedate@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();
