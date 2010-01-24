@@ -105,11 +105,11 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
         request.setAttribute("topicId", topicId);
         String messageId = request.getParameter("messageId");
 
-        /*if (messageId != null) {
+        if (messageId != null) {
             EntityManager em = factory.createEntityManager();
             Message message = em.find(Message.class, Integer.parseInt(messageId));
             request.setAttribute("message", message);
-        }*/
+        }
 
         return mapping.findForward("success");
     }
