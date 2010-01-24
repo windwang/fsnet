@@ -27,12 +27,16 @@
                     style="width: 100%;"
                     >
                 </html:textarea>
+                 <div class="errorMessage">
+                 	<html:errors property="messageDescription"/>
+                 </div>
             </td>
         </tr>
         <tr>
             <td colspan="2" class="alignRight">
                 <html:submit styleClass="button"><bean:message key="topics.createMessage"/></html:submit>
-            </td>
+            </td>              
+
         </tr>
     </table>
 

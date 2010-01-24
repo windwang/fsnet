@@ -7,11 +7,18 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 
 <h3><bean:message key="hubs.hubs"/></h3>
-
+	<c:set var="hub" value="${hubResults}"/>
+	<logic:empty name="hub">
+		<p class="errorMessage">
+          <bean:message key="hubs.hubNotFound"/>
+        </p>
+    </logic:empty>
 <table class="inLineTable">
+
     <c:forEach var="hub" items="${hubResults}">
         <tr>
             <th>

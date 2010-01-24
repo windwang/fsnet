@@ -9,4 +9,18 @@
             </field>
         </form>
     </formset>
+    <formset>
+        <form name="/CreateTopicMessage">
+            <field property="messageDescription" depends="required">
+                <arg key="topics.error.messageDescription" />
+            </field>
+        </form>
+    </formset>
+    <formset>
+        <form name="/ModifyTopicMessage">
+            <field property="messageDescription" depends="required">
+                <arg key="topics.error.messageDescription" />
+            </field>
+        </form>
+    </formset>
 </form-validation>

@@ -56,13 +56,13 @@
         </action>
 
         <action path="/ModifyTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
-        		name="ModifyTopicMessageForm" input="/DisplayModifyTopicMessage.do" scope="request" validate="false"
+        		name="ModifyTopicMessageForm" input="/DisplayModifyTopicMessage.do" scope="request" validate="true"
                 parameter="modify">
             <forward name="success" path="/DisplayTopic.do" />
         </action>
 
         <action path="/CreateTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
-        		name="CreateTopicMessageForm" input="/DisplayCreateTopicMessage.do" scope="request" validate="false"
+        		name="CreateTopicMessageForm" input="/DisplayCreateTopicMessage.do" scope="request" validate="true"
                 parameter="create">
             <forward name="success" path="/DisplayTopic.do" />
         </action>

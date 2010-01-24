@@ -17,13 +17,14 @@
             </td>
             <td>
                 <html:text property="hubName" styleId="hubName" />
+                 
             </td>
             <td>
                 <html:submit styleClass="button"><bean:message key="hubs.create"/></html:submit>
             </td>
         </tr>
-        <tr>
-            <td>
+        <tr class="errorMessage">
+        	<td>
                 <html:errors property="hubName"/>
             </td>
         </tr>
