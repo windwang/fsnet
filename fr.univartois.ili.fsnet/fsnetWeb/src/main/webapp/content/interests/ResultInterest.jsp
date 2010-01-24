@@ -2,6 +2,7 @@
          pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <c:choose>
     <c:when test="${not empty requestScope.interestResult}">
@@ -12,6 +13,6 @@
         </ul>
     </c:when>
     <c:otherwise>
-		Aucun résultat
+    	<bean:message key="interests.10"/>
     </c:otherwise>
 </c:choose>
