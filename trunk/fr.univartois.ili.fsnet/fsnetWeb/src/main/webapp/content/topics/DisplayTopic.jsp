@@ -14,40 +14,41 @@
 <table class="inLineTable">
     <c:forEach var="msg" items="${topic.lesMessages}">
         <tr>
-        	<td>
+           
+            <td>
         	  Created on
                 <bean:write name="msg" property="dateMessage" format="dd/MM/yyyy"/>
                 by
-                 <html:link action="/DisplayProfile">
+                <html:link action="/DisplayProfile">
                     <html:param name="id" value="${msg.propMsg.id}"/>
                     ${msg.propMsg.prenom} ${msg.propMsg.nom}
-                 </html:link>
-           </td>
-           <td class="tableButton">
-           	<c:if test="${sessionScope.user.id eq msg.propMsg.id}">
-	           	<html:link action="/DisplayModifyTopicMessage" styleClass="button">
-	               <html:param name="topicId" value="${topic.id}" />
-		           <html:param name="messageId" value="${msg.id}" />
+                </html:link>
+            </td>
+            <td class="tableButton">
+                <c:if test="${sessionScope.user.id eq msg.propMsg.id}">
+                    <html:link action="/DisplayModifyTopicMessage" styleClass="button">
+                        <html:param name="topicId" value="${topic.id}" />
+                        <html:param name="messageId" value="${msg.id}" />
 		           Modify
-				</html:link>
-			</c:if>
-		   </td>
-		    <td class="tableButton">
-           	<c:if test="${sessionScope.user.id eq msg.propMsg.id}">
-	           	<html:link action="/DeleteTopicMessage" styleClass="button">
-	               <html:param name="topicId" value="${topic.id}" />
-		           <html:param name="messageId" value="${msg.id}" />
+                    </html:link>
+                </c:if>
+            </td>
+            <td class="tableButton">
+                <c:if test="${sessionScope.user.id eq msg.propMsg.id}">
+                    <html:link action="/DeleteTopicMessage" styleClass="button">
+                        <html:param name="topicId" value="${topic.id}" />
+                        <html:param name="messageId" value="${msg.id}" />
 		           Delete
-				</html:link>
-			</c:if>
-		   </td>
-       </tr>
-                <c:if test="${not empty msg.contenu}">
-           			 <tr><td>${msg.contenu}</td></tr>
-        		</c:if>
+                    </html:link>
+                </c:if>
+            </td>
+        </tr>
+        <c:if test="${not empty msg.contenu}">
+            <tr><td>${msg.contenu}</td></tr>
+        </c:if>
     </c:forEach>
 </table>
 <html:link action="/DisplayCreateTopicMessage" styleClass="button">
-           <html:param name="topicId" value="${topic.id}" />
-           Answer
+    <html:param name="topicId" value="${topic.id}" />
+    Answer
 </html:link>
