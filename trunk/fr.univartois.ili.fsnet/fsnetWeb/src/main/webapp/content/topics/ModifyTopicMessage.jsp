@@ -8,17 +8,18 @@
 
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 
-<script type="text/javascript" src="js/mceTextArea.js"/>
+<script type="text/javascript" src="js/mceTextArea.js"></script>
 
-<h3>Modify Message</h3>
+<h3><bean:message key="topics.modifyMessage"/></h3>
 
 <html:form action="/ModifyTopicMessage">
     <html:hidden property="topicId" value="${topicId}"/>
     <html:hidden property="messageId" value="${message.id}"/>
-    Description:
+    <bean:message key="topics.descriptionMessage"/>
     <table style="width: 100%;">
         <tr>
             <td>
@@ -33,7 +34,7 @@
         </tr>
         <tr>
             <td colspan="2" class="alignRight">
-                <html:submit styleClass="button">Modify Message</html:submit>
+                <html:submit styleClass="button"><bean:message key="topics.modifyMessage"/></html:submit>
             </td>
         </tr>
     </table>

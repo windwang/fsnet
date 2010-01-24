@@ -39,7 +39,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
     public ActionForward create(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String hubName = (String) dynaForm.get("hubName");
 
         logger.info("new hub: " + hubName);
@@ -87,7 +87,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String hubName;
         if (form == null) {
             hubName = "";

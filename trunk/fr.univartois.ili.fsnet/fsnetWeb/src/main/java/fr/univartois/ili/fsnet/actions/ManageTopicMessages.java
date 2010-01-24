@@ -27,7 +27,7 @@ import fr.univartois.ili.fsnet.form.ProfileForm;
 
 /**
  *
- * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
+ * @author Cerelia Besnainou et Audrey Ruellan
  */
 public class ManageTopicMessages extends MappingDispatchAction implements CrudAction {
 
@@ -40,7 +40,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 	public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 		logger.info("create Message: ");
 		EntityManager em = factory.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;
+		DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
 		String messageDescription = (String) dynaForm.get("messageDescription");
 		int topicId = Integer.valueOf(Integer.parseInt(dynaForm.getString("topicId")));
 		Topic topic = em.find(Topic.class, topicId);
@@ -64,7 +64,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
 		logger.info("modify Message ");
 		EntityManager em = factory.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;
+		DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
 		String messageDescription = (String) dynaForm.get("messageDescription");
 		int messageId = Integer.valueOf(Integer.parseInt(dynaForm.getString("messageId")));
 		Message message = em.find(Message.class, messageId);
