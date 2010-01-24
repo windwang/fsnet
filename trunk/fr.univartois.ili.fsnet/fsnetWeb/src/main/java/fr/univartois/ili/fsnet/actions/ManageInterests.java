@@ -59,7 +59,7 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
 
         String interestName = (String) dynaForm.get("createdInterestName");
         Interet interest = new Interet(new ArrayList<EntiteSociale>(),
@@ -87,7 +87,7 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         int interestId = Integer.valueOf((String) dynaForm.get("addedInterestId"));
 
         EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
@@ -114,8 +114,6 @@ public class ManageInterests extends MappingDispatchAction implements
                 user.getLesinterets().add(interest);
                 em.merge(user);
                 em.getTransaction().commit();
-                System.out.println("----------------commited");
-                //request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER,user);
             } else {
                 logger.info("Add interest refused");
             }
@@ -130,7 +128,7 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         int interestId = Integer.valueOf((String) dynaForm.get("removedInterestId"));
 
         EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
@@ -151,8 +149,6 @@ public class ManageInterests extends MappingDispatchAction implements
             em.getTransaction().begin();
             em.merge(user);
             em.getTransaction().commit();
-
-            //request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER,user);
         } else {
             logger.info("remove interest refused");
         }
@@ -168,7 +164,7 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         int interestId = Integer.valueOf((String) dynaForm.get("modifiedInterestId"));
         String interestName = (String) dynaForm.get("modifiedInterestName");
 
@@ -179,8 +175,6 @@ public class ManageInterests extends MappingDispatchAction implements
             em.createQuery(
                     "UPDATE Interet interest SET interest.nomInteret = :interestName WHERE interest.id = :interestId").setParameter("interestName", interestName).setParameter("interestId", interestId).executeUpdate();
             em.getTransaction().commit();
-            //EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
-            //request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER, user);
         } catch (DatabaseException ex) {
             ActionErrors actionErrors = new ActionErrors();
             ActionMessage msg = new ActionMessage("interest.alreadyExists");
@@ -211,11 +205,8 @@ public class ManageInterests extends MappingDispatchAction implements
                     "DELETE FROM Interet interest WHERE interest.id = :interestId").setParameter("interestId", interestId).executeUpdate();
             em.getTransaction().commit();
 
-            /*EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
-            user = em.find(EntiteSociale.class, user.getId());
+            EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
             em.refresh(user);
-            request.getSession().setAttribute(Authenticate.AUTHENTICATED_USER,
-            user);*/
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
             ActionMessage msg = new ActionMessage("interest.notExists");
@@ -224,7 +215,7 @@ public class ManageInterests extends MappingDispatchAction implements
         }
 
         em.close();
-
+        
         return mapping.findForward("success");
     }
 
@@ -233,7 +224,7 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         String interestName = "";
 
         if (dynaForm.get("searchInterestName") != null) {
@@ -283,7 +274,7 @@ public class ManageInterests extends MappingDispatchAction implements
                 finalList.add(interest);
             }
         }
-
+        
         request.setAttribute("user", user);
         request.setAttribute("allInterests", listAllInterests);
         request.setAttribute("listInterests", finalList);
