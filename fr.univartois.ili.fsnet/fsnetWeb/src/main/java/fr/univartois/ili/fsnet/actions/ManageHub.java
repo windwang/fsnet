@@ -120,8 +120,14 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         Hub result = (Hub) em.createQuery(
                 "SELECT hub FROM Hub hub WHERE hub.id = :hubId").setParameter(
                 "hubId", Integer.parseInt(hubId)).getSingleResult();
+
         for (Topic t : result.getLesTopics()) {
-            topicsLastMessage.put(t, t.getLesMessages().get(t.getLesMessages().size() - 1));
+            List<Message> messages = t.getLesMessages();
+            Message lastMessage = null;
+            if (messages.size() > 0) {
+                lastMessage = messages.get(messages.size() - 1);
+            }
+            topicsLastMessage.put(t, lastMessage);
         }
         em.getTransaction().commit();
         em.close();

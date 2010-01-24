@@ -8,6 +8,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <html:form action="/CreateTopic">
     <h3>Create Topic :</h3>
@@ -78,13 +79,14 @@
                     ${hubResult.createur.prenom} ${hubResult.createur.nom}
                 </html:link>
             </td>
-            <td style="background-color: #deebf3;">
-                <c:set var="lastMessage" value="${couple.value}"/>
-                <bean:write name="lastMessage" property="dateMessage" format="dd/MM/yyyy"/>
-                <br/>
-                par ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
-            </td>
-
+            <logic:notEmpty name="couple" property="value">
+                <td style="background-color: #C7E5F8;">
+                    <c:set var="lastMessage" value="${couple.value}"/>
+                    <bean:write name="lastMessage" property="dateMessage" format="dd/MM/yyyy"/>
+                    <br/>
+                    par ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
+                </td>
+            </logic:notEmpty>
             <c:if test="${sessionScope.user.id eq couple.key.propTopic.id}">
                 <td class="tableButton">
                     <html:link action="/DeleteTopic" styleClass="button">
