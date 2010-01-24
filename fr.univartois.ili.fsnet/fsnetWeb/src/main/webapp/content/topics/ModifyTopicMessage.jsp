@@ -30,6 +30,9 @@
                                 style="width: 100%;"
                                 value="${message.contenu}">
                 </html:textarea>
+                 <div class="errorMessage">
+                 	<html:errors property="messageDescription"/>
+                 </div>
             </td>
         </tr>
         <tr>
