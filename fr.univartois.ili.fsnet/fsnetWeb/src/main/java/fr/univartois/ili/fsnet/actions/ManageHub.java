@@ -1,19 +1,3 @@
-/*
- *  Copyright (C) 2010 Matthieu Proucelle <matthieu.proucelle at gmail.com>
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- * 
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
@@ -37,6 +21,10 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
+import fr.univartois.ili.fsnet.entities.Message;
+import fr.univartois.ili.fsnet.entities.Topic;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 
@@ -44,103 +32,101 @@ import fr.univartois.ili.fsnet.entities.Hub;
  */
 public class ManageHub extends MappingDispatchAction implements CrudAction {
 
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+    private static final Logger logger = Logger.getAnonymousLogger();
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+    @Override
+    public ActionForward create(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        DynaActionForm dynaForm = (DynaActionForm) form;
+        String hubName = (String) dynaForm.get("hubName");
 
-	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		String hubName = (String) dynaForm.get("hubName");
+        logger.info("new hub: " + hubName);
 
-		logger.info("new hub: " + hubName);
+        Hub hub = new Hub(hubName, new Date());
+        EntiteSociale es = (EntiteSociale) request.getSession().getAttribute(
+                Authenticate.AUTHENTICATED_USER);
 
-		Hub hub = new Hub(hubName, new Date());
-		EntiteSociale es = (EntiteSociale) request.getSession().getAttribute(
-				Authenticate.AUTHENTICATED_USER);
+        hub.setCreateur(es);
 
-		hub.setCreateur(es);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.persist(hub);
+        em.getTransaction().commit();
+        em.close();
 
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		em.persist(hub);
-		em.getTransaction().commit();
-		em.close();
+        return mapping.findForward("success");
+    }
 
-		return mapping.findForward("success");
-	}
+    @Override
+    public ActionForward modify(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+    @Override
+    public ActionForward delete(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String hubId = request.getParameter("hubId");
 
-	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		String hubId = request.getParameter("hubId");
+        logger.info("delete hub: " + hubId);
 
-		logger.info("delete hub: " + hubId);
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        em.createQuery("DELETE FROM Hub hub WHERE hub.id = :hubId ").setParameter("hubId", Integer.parseInt(hubId)).executeUpdate();
+        em.getTransaction().commit();
+        em.close();
+        return mapping.findForward("success");
+    }
 
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		em.createQuery("DELETE FROM Hub hub WHERE hub.id = :hubId ")
-				.setParameter("hubId", Integer.parseInt(hubId)).executeUpdate();
-		em.getTransaction().commit();
-		em.close();
-		return mapping.findForward("success");
-	}
+    @Override
+    public ActionForward search(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
 
-	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+        DynaActionForm dynaForm = (DynaActionForm) form;
+        String hubName;
+        if (form == null) {
+            hubName = "";
+        } else {
+            hubName = (String) dynaForm.get("hubName");
+        }
 
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		String hubName;
-		if (form == null) {
-			hubName = "";
-		} else {
-			hubName = (String) dynaForm.get("hubName");
-		}
+        logger.info("search hub: " + hubName);
 
-		logger.info("search hub: " + hubName);
+        EntityManager em = factory.createEntityManager();
 
-		EntityManager em = factory.createEntityManager();
+        List<Hub> result = em.createQuery(
+                "SELECT hub FROM Hub hub WHERE hub.nomCommunaute LIKE :hubName ").setParameter("hubName", "%" + hubName + "%").getResultList();
+        request.setAttribute("hubResults", result);
 
-		List<Hub> result = em
-				.createQuery(
-						"SELECT hub FROM Hub hub WHERE hub.nomCommunaute LIKE :hubName ")
-				.setParameter("hubName", "%" + hubName + "%").getResultList();
-		request.setAttribute("hubResults", result);
+        return mapping.findForward("success");
+    }
 
-		return mapping.findForward("success");
-	}
+    @Override
+    public ActionForward display(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String hubId = (String) request.getParameter("hubId");
 
-	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException { 
-		String hubId = (String) request.getParameter("hubId");
+        logger.info("display hub: " + hubId);
 
-		logger.info("display hub: " + hubId);
-
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		Hub result = (Hub) em.createQuery(
-				"SELECT hub FROM Hub hub WHERE hub.id = :hubId").setParameter(
-				"hubId", Integer.parseInt(hubId)).getSingleResult();
-		em.getTransaction().commit();
-
-		em.close();
-
-		request.setAttribute("hubResult", result);
-		return mapping.findForward("success");
-	}
+        Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        Hub result = (Hub) em.createQuery(
+                "SELECT hub FROM Hub hub WHERE hub.id = :hubId").setParameter(
+                "hubId", Integer.parseInt(hubId)).getSingleResult();
+        for (Topic t : result.getLesTopics()) {
+            topicsLastMessage.put(t, t.getLesMessages().get(t.getLesMessages().size() - 1));
+        }
+        em.getTransaction().commit();
+        em.close();
+        request.setAttribute("hubResult", result);
+        request.setAttribute("topicsLastMessage", topicsLastMessage);
+        return mapping.findForward("success");
+    }
 }

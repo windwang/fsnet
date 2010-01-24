@@ -18,8 +18,7 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersContactsResult}">
             <tr class="content">
-                <td>${member.nom}</td>
-                <td>${member.prenom}</td>
+                <td>${member.nom} ${member.prenom}</td>
                 <td class="tableButton">
                     <html:link action="/DisplayProfile" styleClass="button">
                         Profil
@@ -36,8 +35,7 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersRequestedResult}">
             <tr class="content">
-                <td>${member.nom}</td>
-                <td>${member.prenom}</td>
+                <td>${member.nom} ${member.prenom}</td>
                 <td class="tableButton">
                     <html:link action="/DisplayProfile" styleClass="button">
                         Profil
@@ -54,8 +52,7 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersAskedResult}">
             <tr class="content">
-                <td>${member.nom}</td>
-                <td>${member.prenom}</td>
+                <td>${member.nom} ${member.prenom}</td>
                 <td class="tableButton">
                     <html:link action="/AcceptContact" styleClass="button">
                         Accepter
@@ -77,8 +74,7 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersResult}">
             <tr class="content">
-                <td>${member.nom}</td>
-                <td>${member.prenom}</td>
+                <td>${member.nom} ${member.prenom}</td>
                 <td class="tableButton">
                     <html:link action="/ContactDemand" styleClass="button">
                         Ajouter

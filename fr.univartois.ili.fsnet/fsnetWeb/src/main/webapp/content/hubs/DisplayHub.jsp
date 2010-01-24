@@ -9,7 +9,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
-
 <html:form action="/CreateTopic">
     <h3>Create Topic :</h3>
     <table>
@@ -58,17 +57,19 @@
 </table>
 
 
-<h3><bean:message key="hubs.hub"/> ${hubResult.nomCommunaute}</h3>
+<h3><bean:message key="hubs.hub"/> ${hubResult.nomCommunaute} - Topics</h3>
 <table class="inLineTable">
-    <c:forEach var="topic" items="${hubResult.lesTopics}">
+    <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
             <td>
-                <html:link action="/DisplayTopic">
-                    <html:param name="topicId" value="${topic.id}"/>
-                    ${topic.sujet}
-                </html:link>
+                <img src="images/message.svg" alt="Message Icon"/>
             </td>
             <td>
+                <html:link action="/DisplayTopic">
+                    <html:param name="topicId" value="${couple.key.id}"/>
+                    ${couple.key.sujet}
+                </html:link>
+                <br/>
                 Created on
                 <bean:write name="hubResult" property="dateCreation" format="dd/MM/yyyy"/>
                 by
@@ -77,10 +78,17 @@
                     ${hubResult.createur.prenom} ${hubResult.createur.nom}
                 </html:link>
             </td>
-            <c:if test="${sessionScope.user.id eq topic.propTopic.id}">
+            <td style="background-color: #deebf3;">
+                <c:set var="lastMessage" value="${couple.value}"/>
+                <bean:write name="lastMessage" property="dateMessage" format="dd/MM/yyyy"/>
+                <br/>
+                par ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
+            </td>
+
+            <c:if test="${sessionScope.user.id eq couple.key.propTopic.id}">
                 <td class="tableButton">
                     <html:link action="/DeleteTopic" styleClass="button">
-                        <html:param name="topicId" value="${topic.id}"/>
+                        <html:param name="topicId" value="${couple.key.id}"/>
                         <html:param name="hubId" value="${hubResult.id}"/>
 		    			Delete Topic
                     </html:link>

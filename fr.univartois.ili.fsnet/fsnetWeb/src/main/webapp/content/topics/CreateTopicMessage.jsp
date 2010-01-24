@@ -20,11 +20,11 @@
         <tr>
             <td>
                 <html:textarea
-                                property="messageDescription"
-                                styleId="messageDescription"
-                                styleClass="mceTextArea"
-                                style="width: 100%;"
-                                >
+                    property="messageDescription"
+                    styleId="messageDescription"
+                    styleClass="mceTextArea"
+                    style="width: 100%;"
+                    >
                 </html:textarea>
             </td>
         </tr>
