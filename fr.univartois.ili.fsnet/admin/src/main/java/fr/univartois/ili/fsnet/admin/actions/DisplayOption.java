@@ -16,9 +16,9 @@
  */
 package fr.univartois.ili.fsnet.admin.actions;
 
-import java.util.prefs.Preferences;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -29,41 +29,69 @@ import org.apache.struts.config.FormBeanConfig;
 import org.apache.struts.config.ModuleConfig;
 import org.apache.struts.util.ModuleUtils;
 
+import fr.univartois.ili.fsnet.admin.utils.FSNetConfiguration;
+
 /**
  * Put options in requestScope and forward user to Options.jsp
+ * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class DisplayOption extends Action {
 
-    @Override
-    public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-        request.setAttribute("OptionsForm", getServerOptions(request));
-        return mapping.findForward("success");
-    }
+	@Override
+	public ActionForward execute(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		request.setAttribute("OptionsForm", getServerOptions(request));
+		return mapping.findForward("success");
+	}
 
-    /**
-     * Get options in preferences file
-     * @param request
-     * @return a dynaActionForm dynamically instanciated
-     */
-    private DynaActionForm getServerOptions(HttpServletRequest request) {
-        Preferences appPref = Preferences.userNodeForPackage(ModifyOptions.class);
+	/**
+	 * Get options in preferences file
+	 * 
+	 * @param request
+	 * @return a dynaActionForm dynamically instanciated
+	 */
+	private DynaActionForm getServerOptions(HttpServletRequest request) {
+		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 
-        ModuleConfig moduleConfig = ModuleUtils.getInstance().getModuleConfig(request,
-                getServlet().getServletContext());
-        FormBeanConfig formConfig = moduleConfig.findFormBeanConfig("OptionsForm");
-        DynaActionFormClass dynaClass = DynaActionFormClass.createDynaActionFormClass(formConfig);
-        DynaActionForm myForm = null;
-        try {
-            myForm = (DynaActionForm) dynaClass.newInstance();
-            myForm.set("hote", appPref.get("hote", ""));
-            myForm.set("serveursmtp", appPref.get("serveursmtp", ""));
-            myForm.set("motdepasse", appPref.get("motdepasse", ""));
-            myForm.set("adressefsnet", appPref.get("adressefsnet", ""));
-            myForm.set("port", appPref.getInt("port", 0));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return myForm;
-    }
+		ModuleConfig moduleConfig = ModuleUtils.getInstance().getModuleConfig(
+				request, getServlet().getServletContext());
+		FormBeanConfig formConfig = moduleConfig
+				.findFormBeanConfig("OptionsForm");
+		DynaActionFormClass dynaClass = DynaActionFormClass
+				.createDynaActionFormClass(formConfig);
+		DynaActionForm myForm = null;
+		try {
+			myForm = (DynaActionForm) dynaClass.newInstance();
+			myForm.set("hote", conf.getFrom());
+			if (conf.isTLSEnabled()) {
+				myForm.set("enableTLS", "on");
+			} else {
+				myForm.set("enableTLS", "");
+			}
+			if (conf.isSSLEnabled()) {
+				myForm.set("enableSSL", "on");
+			} else {
+				myForm.set("enableSSL", "");
+			}
+			if (conf.isAuthenticationEnabled()) {
+				myForm.set("authenticate", "on");
+				myForm.set("username", conf.getUsername());
+				myForm.set("motdepasse", conf.getPassword());
+			} else {
+				myForm.set("authenticate", "");
+				myForm.set("username", "");
+				myForm.set("motdepasse", "");
+			}
+			myForm.set("serveursmtp", conf.getSMTPHost());
+			myForm.set("port", conf.getSMTPPort());			
+			myForm.set("adressefsnet", conf.getFSNetWebAddress());
+			
+			
+		} catch (Exception ex) {
+			ex.printStackTrace();
+		}
+		return myForm;
+	}
 }

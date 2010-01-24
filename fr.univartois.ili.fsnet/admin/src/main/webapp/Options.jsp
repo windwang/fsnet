@@ -23,64 +23,9 @@
                 </h2>
                 <jsp:include page="date.jsp"></jsp:include>
             </div>
-            <html:javascript formName="/ModifyOptions"/>
-            <div id="tableauprincipal" >
-                <p id="informationsOptions">
-                	Nb:Ce formulaire permet de configurer vos préférences pour 
-                	l'envoie de mails. Par exemple: quand vous enregistrer un membre un 
-                	mail lui ait automatiquement envoyé afin qu'il puisse finaliser son inscription.
-                </p>
-
-                <html:form action="/ModifyOptions.do">
-                    <table>
-                        <tr>
-                            <td colspan="2">
-                                <html:errors property="options.errors" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <th class="entete" colspan="2" scope="col">
-                                <h2>Configuration</h2>
-
-                            </th>
-                        </tr>
-
-                        <tr class="champ">
-                            <th scope="row"><label for="serveurSMTP">serveur SMTP : </label></th>
-                            <td><html:text property="serveursmtp" errorStyleClass="error" styleId="serveurSMTP"/>
-                                <html:errors property="serveursmtp" />
-                            </td>
-                        </tr>
-                        <tr class="champ">
-                            <th scope="row"> <label for="hote">Expéditeur : </label></th>
-                            <td><html:text property="hote" errorStyleClass="error" styleId="hote" />
-                                <html:errors property="hote" />
-                            </td>
-                        </tr>
-                        <tr class="champ">
-                            <th scope="row"><label for="pass">Mot de passe : </label></th>
-                            <td><html:password property="motdepasse" errorStyleClass="error" styleId="pass" />
-                                <html:errors property="motdepasse" />
-                            </td>
-                        </tr>
-                        <tr class="champ">
-                            <th scope="row"><label for="adresseFSNet">Adresse site FSNet : </label></th>
-                            <td><html:text property="adressefsnet" errorStyleClass="error" styleId="adresseFSNet" />
-                                <html:errors property="adressefsnet" />
-                            </td>
-                        </tr>
-                        <tr class="champ">
-                            <th scope="row"><label for="port">Port : </label></th>
-                            <td><html:text property="port" errorStyleClass="error" styleId="port" />
-                                <html:errors property="port" />
-                            </td>
-                        </tr>
-                    </table>
-                    <div class="button">
-                        <html:submit title="Enregistrer">Enregistrer</html:submit>
-                    </div>
-                </html:form>
-            </div>
+            
+            <jsp:include page="/WEB-INF/jspf/option.jsp"></jsp:include>
+            
             <div id="side"></div>
         </div>
         <jsp:include page="footer.jsp"></jsp:include>
