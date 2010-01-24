@@ -79,14 +79,16 @@
                     ${hubResult.createur.prenom} ${hubResult.createur.nom}
                 </html:link>
             </td>
-            <logic:notEmpty name="couple" property="value">
-                <td style="background-color: #C7E5F8;">
+
+            <td style="background-color: #C7E5F8;">
+                <logic:notEmpty name="couple" property="value">
                     <c:set var="lastMessage" value="${couple.value}"/>
                     <bean:write name="lastMessage" property="dateMessage" format="dd/MM/yyyy"/>
                     <br/>
                     par ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
-                </td>
-            </logic:notEmpty>
+                </logic:notEmpty>
+                Aucun Message
+            </td>
             <c:if test="${sessionScope.user.id eq couple.key.propTopic.id}">
                 <td class="tableButton">
                     <html:link action="/DeleteTopic" styleClass="button">
