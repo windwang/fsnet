@@ -87,7 +87,9 @@
                     <br/>
                     par ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
                 </logic:notEmpty>
-                Aucun Message
+                <logic:empty name="couple" property="value">
+                    Aucun Message
+                </logic:empty>
             </td>
             <c:if test="${sessionScope.user.id eq couple.key.propTopic.id}">
                 <td class="tableButton">
