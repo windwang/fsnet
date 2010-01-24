@@ -128,9 +128,17 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-        int interestId = Integer.valueOf((String) dynaForm.get("removedInterestId"));
-
+        
+        int interestId;
+        
+        if (request.getParameterMap().containsKey("removedInterestId")) {
+        	interestId = Integer.valueOf(request.getParameter("removedInterestId"));
+        	
+        } else {
+        	DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
+            interestId = Integer.valueOf((String) dynaForm.get("removedInterestId"));
+        }
+        
         EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
 
         logger.info("remove interest: id=" + interestId + " for user: "
@@ -152,7 +160,7 @@ public class ManageInterests extends MappingDispatchAction implements
         } else {
             logger.info("remove interest refused");
         }
-
+        
         em.close();
 
         return mapping.findForward("success");
