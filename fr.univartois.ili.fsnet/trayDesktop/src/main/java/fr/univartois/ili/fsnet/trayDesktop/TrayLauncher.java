@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.trayDesktop;
 
+import fr.univartois.ili.fsnet.webservice.Info;
 import fr.univartois.ili.fsnet.webservice.InfoService;
 import java.awt.AWTException;
 import java.awt.SystemTray;
@@ -76,9 +77,8 @@ public class TrayLauncher {
                 ImageIcon icon = getImageIcon("/ressources/iconefsnet.png");
                 if (icon != null) {
                     try {
-                        InfoService infoService;
                         try {
-                            infoService = new InfoService(new URL(Options.getUrl()), new QName("http://webservice.fsnet.ili.univartois.fr/", "InfoService"));
+                            InfoService infoService = new InfoService(new URL(Options.getWSUrl()), new QName("http://webservice.fsnet.ili.univartois.fr/", "InfoService"));
                             c = new FSNetTray(icon.getImage(), infoService.getInfoPort());
                             SystemTray.getSystemTray().add(c.getTrayIcon());
                             c.startNotifications(Options.getLag());
