@@ -21,7 +21,9 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
+import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
+import java.util.Collections;
 
 /**
  * 
@@ -37,7 +39,8 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         DynaActionForm dynaForm = (DynaActionForm) form;
-        String topicSujet = (String) dynaForm.get("topicSujet");
+        String topicSujet = (String) dynaForm.get("topicSubject");
+        String messageDescription = (String) dynaForm.get("messageDescription");
         int hubId = Integer.valueOf(Integer.parseInt(dynaForm.getString("hubId")));
         Hub hub = em.find(Hub.class, hubId);
 
@@ -45,11 +48,13 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
         EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, em);
         Topic topic = new Topic(topicSujet, date, null, hub, entiteSociale);
+        Message message = new Message(messageDescription, date, entiteSociale, topic);
 
         em.getTransaction().begin();
         hub.getLesTopics().add(topic);
+        // TODO quelqu'un a une autre solution ? sinon null pointer
+        topic.setLesMessages(Collections.singletonList(message));
         em.getTransaction().commit();
-
         em.close();
         return mapping.findForward("success");
     }
@@ -118,9 +123,9 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
         }
         /*if (request.getParameterMap().containsKey("msgId")) {
-            int msgId = Integer.valueOf(request.getParameter("msgId"));
-            Message msg = em.find(Message.class, msgId);
-            request.setAttribute("contenu", msg.getContenu());
+        int msgId = Integer.valueOf(request.getParameter("msgId"));
+        Message msg = em.find(Message.class, msgId);
+        request.setAttribute("contenu", msg.getContenu());
         }*/
         em.close();
         return mapping.findForward("success");

@@ -7,15 +7,16 @@
     <form-beans>
         <form-bean name="CreateTopicForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="topicSujet" type="java.lang.String" />
+            <form-property name="topicSubject" type="java.lang.String" />
             <form-property name="hubId" type="java.lang.String"/>
+            <form-property name="messageDescription" type="java.lang.String"/>
         </form-bean>
         <form-bean name="SearchTopicForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="topicSujetSearch" type="java.lang.String" />
             <form-property name="hubId" type="java.lang.String"/>
         </form-bean>
-         <form-bean name="CreateTopicMessageForm"
+        <form-bean name="CreateTopicMessageForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="messageDescription" type="java.lang.String" />
             <form-property name="topicId" type="java.lang.String" />
@@ -32,9 +33,13 @@
     </global-forwards>
     <action-mappings>
         <action path="/CreateTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+                input="/DisplayCreateTopic.do"
                 name="CreateTopicForm" scope="request" parameter="create">
             <forward name="success" path="/DisplayHub.do" />
         </action>
+
+        <action path="/DisplayCreateTopic" type="org.apache.struts.actions.ForwardAction"
+                parameter="CreateTopic"/>
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
                 parameter="delete">
@@ -56,17 +61,17 @@
         </action>
 
         <action path="/ModifyTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
-        		name="ModifyTopicMessageForm" input="/DisplayModifyTopicMessage.do" scope="request" validate="true"
+                name="ModifyTopicMessageForm" input="/DisplayModifyTopicMessage.do" scope="request" validate="true"
                 parameter="modify">
             <forward name="success" path="/DisplayTopic.do" />
         </action>
 
         <action path="/CreateTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
-        		name="CreateTopicMessageForm" input="/DisplayCreateTopicMessage.do" scope="request" validate="true"
+                name="CreateTopicMessageForm" input="/DisplayCreateTopicMessage.do" scope="request" validate="true"
                 parameter="create">
             <forward name="success" path="/DisplayTopic.do" />
         </action>
-         <action path="/DeleteTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
+        <action path="/DeleteTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
                 parameter="delete">
             <forward name="success" path="/DisplayTopic.do" />
         </action>

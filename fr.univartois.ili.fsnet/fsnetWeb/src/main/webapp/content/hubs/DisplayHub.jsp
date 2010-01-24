@@ -10,17 +10,7 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<html:form action="/CreateTopic">
-    <h3><bean:message key="hubs.createTopic"/></h3>
-    <table>
-        <tr>
-            <td><label><bean:message key="hubs.subjectTopic"/></label></td>
-            <td><html:text property="topicSujet" styleId="topicSujet" /></td>
-            <td><html:hidden property="hubId" value="${hubResult.id}"/></td>
-            <td><html:submit styleClass="button"><bean:message key="hubs.createTopic"/></html:submit></td>
-        </tr>
-    </table>
-</html:form>
+
 
 <h3><bean:message key="hubs.searchTopic"/></h3>
 <table>
@@ -105,3 +95,8 @@
         </tr>
     </c:forEach>
 </table>
+
+<html:link action="/DisplayCreateTopic" styleClass="button">
+    <html:param name="hubId" value="${hubResult.id}"/>
+    <bean:message key="hubs.createTopic"/>
+</html:link>
