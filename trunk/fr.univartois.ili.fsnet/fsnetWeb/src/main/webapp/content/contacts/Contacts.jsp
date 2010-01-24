@@ -5,6 +5,7 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <c:if test="${empty theUser.contacts && empty theUser.asked && empty theUser.requested}">
+    <h3>Contacts</h3>
     Vous n'avez pas encore de contacts.
 </c:if>
 <logic:notEmpty name="theUser" property="contacts" >

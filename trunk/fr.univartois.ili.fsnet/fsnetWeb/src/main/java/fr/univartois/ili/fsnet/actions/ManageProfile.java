@@ -16,6 +16,7 @@
  */
 package fr.univartois.ili.fsnet.actions;
 
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import java.io.IOException;
 
 import javax.persistence.EntityManager;
@@ -82,7 +83,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntiteSociale user = (EntiteSociale) request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER);
+
+        EntityManager em = factory.createEntityManager();
+        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
         ProfileForm pform = (ProfileForm) form;
         user.setNom(formatName(pform.getName()));
         user.setPrenom(formatName(pform.getFirstName()));
@@ -93,7 +96,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         user.setProfession(formatName(pform.getJob()));
         user.setEmail(pform.getMail());
         user.setNumTel(pform.getPhone());
-        EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.merge(user);
         em.getTransaction().commit();
@@ -115,7 +117,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         if (form == null) {
-            request.setAttribute("currentUser", request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER));
+            request.setAttribute("currentUser", UserUtils.getAuthenticatedUser(request, em));
             return mapping.findForward("success");
         }
         try {
@@ -123,10 +125,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
             int id = Integer.parseInt(idS);
             EntiteSociale profile = em.find(EntiteSociale.class, id);
             request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
-            em.close();
+            
             return mapping.findForward("success");
         } catch (NumberFormatException e) {
             return mapping.findForward("fail");
+        } finally {
+            em.close();
         }
     }
 }

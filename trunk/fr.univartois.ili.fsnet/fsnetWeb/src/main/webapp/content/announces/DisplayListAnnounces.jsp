@@ -3,10 +3,14 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<logic:present name="listAnnounces">
-    <h3>
-        Announces : 
-    </h3>
+<h3>
+    Announces :
+</h3>
+<logic:empty name="listAnnounces">
+    No announcement yet.
+</logic:empty>
+<logic:notEmpty name="listAnnounces">
+
     <table class="inLineTable">
 
         <logic:iterate id="announce" scope="request" name="listAnnounces">
@@ -31,4 +35,4 @@
             </tr>
         </logic:iterate>
     </table>
-</logic:present>
+</logic:notEmpty>

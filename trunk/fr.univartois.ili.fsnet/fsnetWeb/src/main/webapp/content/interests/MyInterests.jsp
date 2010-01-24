@@ -6,8 +6,8 @@
 <h3>Mes intérêts</h3>
 <ul>
     <c:choose>
-        <c:when test="${not empty user.lesinterets}">
-            <c:forEach var="interest" items="${user.lesinterets}">
+        <c:when test="${not empty requestScope.user.lesinterets}">
+            <c:forEach var="interest" items="${requestScope.user.lesinterets}">
                 <li>${interest.nomInteret}</li>
             </c:forEach>
         </c:when>

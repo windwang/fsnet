@@ -12,23 +12,24 @@
 
 
 <h3>
-	<bean:message key="events.8"/>
+    <bean:message key="events.8"/>
 </h3>
+
 <html:form action="/Events">
     <div id="SearchEvent">
         <html:text property="searchString" />
         <html:submit styleClass="button" >
-        	<bean:message key="events.11"/>
+            <bean:message key="events.11"/>
         </html:submit>
     </div>
 </html:form>
 
 <h3>
-	<bean:message key="events.9"/>
+    <bean:message key="events.9"/>
 </h3>
 <logic:messagesPresent property="searchString">
     <p class="errorMessage">
-    	<html:errors property="searchString"/>
+        <html:errors property="searchString"/>
     </p>
 </logic:messagesPresent>
 <table  class="inLineTable">

@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import java.io.IOException;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +19,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
@@ -44,13 +44,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
         logger.info("new hub: " + hubName);
 
+        EntityManager em = factory.createEntityManager();
         Hub hub = new Hub(hubName, new Date());
-        EntiteSociale es = (EntiteSociale) request.getSession().getAttribute(
-                Authenticate.AUTHENTICATED_USER);
+        EntiteSociale es = UserUtils.getAuthenticatedUser(request, em);
 
         hub.setCreateur(es);
 
-        EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         em.persist(hub);
         em.getTransaction().commit();
@@ -101,6 +100,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
         List<Hub> result = em.createQuery(
                 "SELECT hub FROM Hub hub WHERE hub.nomCommunaute LIKE :hubName ").setParameter("hubName", "%" + hubName + "%").getResultList();
+        em.close();
         request.setAttribute("hubResults", result);
 
         return mapping.findForward("success");

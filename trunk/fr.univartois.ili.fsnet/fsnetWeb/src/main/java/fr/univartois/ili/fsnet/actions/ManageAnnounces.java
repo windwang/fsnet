@@ -23,7 +23,6 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.Annonce;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 
@@ -90,8 +89,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
         String content = (String) formAnnounce.get("announceContent");
         String stringExpiryDate = (String) formAnnounce.get("announceExpiryDate");
         Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
-        Annonce announce = entityManager.find(Annonce.class, idAnnounce); 
-        
+        Annonce announce = entityManager.find(Annonce.class, idAnnounce);
+
         try {
             Date expiryDate = DateUtils.format(stringExpiryDate);
             if (0 > DateUtils.compareToToday(expiryDate)) {
@@ -101,7 +100,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
                 entityManager.getTransaction().begin();
                 entityManager.merge(announce);
                 entityManager.getTransaction().commit();
-                
+
             } else {
                 ActionMessages errors = new ActionMessages();
                 errors.add("message", new ActionMessage(
@@ -114,8 +113,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
             servlet.log("class:ManageAnnounces methode:create exception whene formatying date ");
             e.printStackTrace();
             return mapping.findForward("failer");
+        } finally {
+            entityManager.close();
         }
-        entityManager.close();
         return mapping.findForward("success");
     }
 
@@ -166,7 +166,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
             listAnnounces = entityManager.createQuery(
                     "SELECT a FROM Annonce a ").getResultList();
         }
-
+        entityManager.close();
         request.setAttribute("listAnnounces", listAnnounces);
         return mapping.findForward("success");
     }
@@ -180,16 +180,19 @@ public class ManageAnnounces extends MappingDispatchAction implements
             throws IOException, ServletException {
         EntityManager entityManager = factory.createEntityManager();
 
+        EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, entityManager);
         Integer idAnnounce = Integer.valueOf(request.getParameter("idAnnounce"));
 
         Annonce announce = entityManager.find(Annonce.class, idAnnounce);
         EntiteSociale entiteSocialeOwner = (EntiteSociale) entityManager.createQuery(
-                "SELECT es FROM EntiteSociale es,IN(es.lesinteractions) e WHERE e = :announce").setParameter("announce", announce).getSingleResult();
-        
+                "SELECT es FROM EntiteSociale es,IN(es.lesinteractions) e WHERE e = :announce").
+                setParameter("announce", announce).
+                getSingleResult();
+
+        entityManager.close();
         request.setAttribute("announce", announce);
         request.setAttribute("entiteSociale", entiteSocialeOwner);
-        servlet.log(entiteSocialeOwner.toString()+entiteSocialeOwner.getNom());
-        EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, entityManager);
+        servlet.log(entiteSocialeOwner.toString() + entiteSocialeOwner.getNom());
         if (entiteSociale.getId() == entiteSocialeOwner.getId()) {
             request.setAttribute("owner", true);
         }
