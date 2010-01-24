@@ -9,13 +9,13 @@
     <h3><bean:message key="interests.9"/></h3>
     <html:javascript formName="/RemoveInterest"/>
     <html:form action="/RemoveInterest">
-        <html:select property="removedInterestId">
+        <html:select property="removedInterestId" styleClass="select">
             <html:option value="0"><bean:message key="interests.1"/></html:option>
             <c:forEach var="interest" items="${requestScope.user.lesinterets}">
                 <html:option value="${interest.id}">${interest.nomInteret}</html:option>
             </c:forEach>
         </html:select>
-        <html:submit/>
+        <html:submit styleClass="button"/>
     </html:form>
     <html:errors property="removedInterestId"/>
 </c:if>

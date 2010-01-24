@@ -181,7 +181,7 @@
         </logic:messagesPresent>
         <tr>        	
             <td colspan="2">
-                <html:submit>
+                <html:submit styleClass="button">
                     <bean:message key="updateProfile.validate"/>
                 </html:submit>
             </td>

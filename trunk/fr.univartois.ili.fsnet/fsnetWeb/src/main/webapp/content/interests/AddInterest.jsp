@@ -10,17 +10,17 @@
     <c:when test="${not empty requestScope.listInterests}">
         <html:javascript formName="/AddInterest"/>
         <html:form action="/AddInterest">
-            <html:select property="addedInterestId">
+            <html:select property="addedInterestId" styleClass="select">
                 <html:option value="0"><bean:message key="interests.1"/></html:option>
                 <c:forEach var="interest" items="${requestScope.listInterests}">
                     <html:option value="${interest.id}">${interest.nomInteret}</html:option>
                 </c:forEach>
             </html:select>
-            <html:submit/>
+            <html:submit styleClass="button"/>
         </html:form>
         <html:errors property="addedInterestId"/>
     </c:when>
     <c:otherwise>
-		<bean:message key="interests.2"/>
+        <bean:message key="interests.2"/>
     </c:otherwise>
 </c:choose>

@@ -55,6 +55,8 @@
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
             <td>
+                <!-- TODO gerer les favoris -->
+                <img src="images/non-favorite.png" alt="Favorite" onclick="this.src='images/favorite.png';" onmouseover="this.style.cursor='pointer'"/>
                 <img src="images/message.png"/>
             </td>
             <td>

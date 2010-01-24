@@ -9,5 +9,5 @@
 <html:form action="/CreateInterest">
     <html:text property="createdInterestName"/>
     <html:errors property="createdInterestName"/>
-    <html:submit/>
+    <html:submit styleClass="button"/>
 </html:form>

@@ -9,13 +9,13 @@
     <h3><bean:message key="interests.4"/></h3>
     <html:javascript formName="/DeleteInterest"/>
     <html:form action="/DeleteInterest">
-        <html:select property="deletedInterestId">
+        <html:select property="deletedInterestId" styleClass="select">
             <html:option value="0"><bean:message key="interests.1"/></html:option>
             <c:forEach var="interest" items="${requestScope.allInterests}">
                 <html:option value="${interest.id}">${interest.nomInteret}</html:option>
             </c:forEach>
         </html:select>
-        <html:submit/>
+        <html:submit styleClass="button"/>
     </html:form>
     <html:errors property="deletedInterestId"/>
 </c:if>
