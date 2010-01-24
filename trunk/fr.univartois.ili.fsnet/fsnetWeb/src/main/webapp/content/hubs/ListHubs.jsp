@@ -11,12 +11,10 @@
 
 
 <h3><bean:message key="hubs.hubs"/></h3>
-	<c:set var="hub" value="${hubResults}"/>
-	<logic:empty name="hub">
-		<p class="errorMessage">
-          <bean:message key="hubs.hubNotFound"/>
-        </p>
-    </logic:empty>
+<c:set var="hub" value="${hubResults}"/>
+<logic:empty name="hub">
+        <bean:message key="hubs.hubNotFound"/>
+</logic:empty>
 <table class="inLineTable">
 
     <c:forEach var="hub" items="${hubResults}">

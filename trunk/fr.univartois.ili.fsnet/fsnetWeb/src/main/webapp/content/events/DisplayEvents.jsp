@@ -28,9 +28,7 @@
     <bean:message key="events.9"/>
 </h3>
 <logic:messagesPresent property="searchString">
-    <p class="errorMessage">
         <html:errors property="searchString"/>
-    </p>
 </logic:messagesPresent>
 <table  class="inLineTable">
     <c:forEach var="event" items="${events}">

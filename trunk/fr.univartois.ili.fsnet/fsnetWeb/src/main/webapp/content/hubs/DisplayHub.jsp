@@ -47,7 +47,7 @@
                         <html:link action="/DeleteTopic" styleClass="button">
                             <html:param name="topicId" value="${topic.id}"/>
                             <html:param name="hubId" value="${hubResult.id}"/>
-		    			<bean:message key="hubs.deleteTopic"/>
+                            <bean:message key="hubs.deleteTopic"/>
                         </html:link>
                     </c:if>
                 </td>
@@ -58,6 +58,9 @@
 
 
 <h3><bean:message key="hubs.hub"/> ${hubResult.nomCommunaute} - <bean:message key="hubs.topics"/></h3>
+<logic:empty name="topicsLastMessage">
+    <bean:message key="hubs.notopics"/>
+</logic:empty>
 <table class="inLineTable">
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
@@ -84,7 +87,7 @@
                     <c:set var="lastMessage" value="${couple.value}"/>
                     <bean:write name="lastMessage" property="dateMessage" format="dd/MM/yyyy"/>
                     <br/>
-                     <bean:message key="hubs.by"/> ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
+                    <bean:message key="hubs.by"/> ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
                 </logic:notEmpty>
                 <logic:empty name="couple" property="value">
                     <bean:message key="hubs.noMessage"/>
@@ -95,7 +98,7 @@
                     <html:link action="/DeleteTopic" styleClass="button">
                         <html:param name="topicId" value="${couple.key.id}"/>
                         <html:param name="hubId" value="${hubResult.id}"/>
-		    			 <bean:message key="hubs.deleteTopic"/>
+                        <bean:message key="hubs.deleteTopic"/>
                     </html:link>
                 </td>
             </c:if>
