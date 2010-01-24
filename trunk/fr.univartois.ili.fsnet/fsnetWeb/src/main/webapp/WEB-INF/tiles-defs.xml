@@ -125,6 +125,11 @@
         <put name="currentMenu" value="Hub"/>
         <put name="body-content" value="/content/topics/DisplayTopic.jsp" />
     </definition>
+    <definition name="CreateTopic" extends=".defaultLayout">
+        <put name="title" value="pageTitle.6"/>
+        <put name="currentMenu" value="Hub"/>
+        <put name="body-content" value="/content/topics/CreateTopic.jsp" />
+    </definition>
     <definition name="CreateTopicMessage" extends=".defaultLayout">
         <put name="title" value="pageTitle.7"/>
         <put name="currentMenu" value="Hub"/>

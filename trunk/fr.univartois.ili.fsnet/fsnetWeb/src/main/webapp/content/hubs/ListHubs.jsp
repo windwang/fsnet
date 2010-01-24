@@ -13,7 +13,7 @@
 <h3><bean:message key="hubs.hubs"/></h3>
 <c:set var="hub" value="${hubResults}"/>
 <logic:empty name="hub">
-        <bean:message key="hubs.hubNotFound"/>
+    <bean:message key="hubs.hubNotFound"/>
 </logic:empty>
 <table class="inLineTable">
 
