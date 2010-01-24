@@ -1,5 +1,17 @@
 #ui-datepicker-div {font-size: 80%;}
 
+#eventDescription_container .mceLayout {
+	border: 1px solid #505050;
+}
+
+#announceContent_container .mceLayout {
+	border: 1px solid #505050;
+}
+
+#messageDescription_container .mceLayout {
+	border: 1px solid #505050;
+}
+
 .errorMessage {
     font-size: 120%;
     text-align: center;
@@ -99,6 +111,8 @@ input[type=text], input[type=password], textarea {
 
 #SearchEvent, #SearchAnnounce {margin-left: 190px;}
 #SearchEvent .button, #SearchAnnounce .button {margin-left: 15px;}
+
+#SearchHub {margin-left: 190px;}
 
 #EventList {width: 100%;}
 #EventList .header td {width: 20%;}

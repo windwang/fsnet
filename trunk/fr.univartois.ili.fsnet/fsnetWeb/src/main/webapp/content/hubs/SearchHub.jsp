@@ -13,9 +13,6 @@
     <table id="SearchHub">
         <tr>
             <td>
-                <label for="hubName"><bean:message key="hubs.name"/></label>
-            </td>
-            <td>
                 <html:text property="hubName" styleId="hubName" />
             </td>
             <td>
