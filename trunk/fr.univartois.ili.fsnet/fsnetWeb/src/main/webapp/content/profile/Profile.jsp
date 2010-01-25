@@ -3,7 +3,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h3>
 	<bean:message key="updateProfile.title"/>
@@ -100,40 +100,7 @@
                 </td>
             </tr>
         </logic:messagesPresent>
-        <tr>
-            <td>
-                <label for="pwd">
-                    <bean:message key="updateProfile.pwd"/>
-                </label>
-            </td>
-            <td>
-                <html:password property="pwd" styleId="pwd"/>
-            </td>
-        </tr>
-        <logic:messagesPresent property="pwd">
-            <tr>
-                <td colspan="2">
-                    <html:errors property="pwd"/>
-                </td>
-            </tr>
-        </logic:messagesPresent>
-        <tr>
-            <td>
-                <label for="confirmPwd">
-                    <bean:message key="updateProfile.confirmPwd"/>
-                </label>
-            </td>
-            <td>
-                <html:password property="confirmPwd" styleId="confirmPwd"/>
-            </td>
-        </tr>
-        <logic:messagesPresent property="confirmPwd">
-            <tr>
-                <td colspan="2">
-                    <html:errors property="confirmPwd"/>
-                </td>
-            </tr>
-        </logic:messagesPresent>
+
         <tr>
             <td>
                 <label for="job">
@@ -214,3 +181,38 @@
         $("#dateOfBirth").datepicker($.datepicker.regional['fr']);
     });
 </script> 
+
+<h3>
+	<bean:message key="updateProfile.changePassword.title"/>
+</h3>
+
+<html:form action="/ChangePassword">
+	<table>
+		<c:forTokens var="typePwd" items="oldPassword:newPassword:confirmNewPassword" delims=":">
+			<tr>
+				<td>
+					<label for="${typePwd}">
+						<bean:message key="updateProfile.changePassword.${typePwd}"/>
+					</label>	
+				</td>
+				<td>
+					<html:password property="${typePwd}" styleId="${typePwd}"/>
+				</td>
+			</tr>
+			<logic:messagesPresent property="${typePwd}">
+				<tr>
+					<td colspan="2">
+						<html:errors property="${typePwd}"/>
+					</td>
+				</tr>
+			</logic:messagesPresent>
+		</c:forTokens>
+		<tr>        	
+            <td colspan="2">
+                <html:submit styleClass="button">
+                    <bean:message key="updateProfile.validate"/>
+                </html:submit>
+            </td>
+        </tr>
+	</table>
+</html:form>

@@ -16,8 +16,10 @@
  */
 package fr.univartois.ili.fsnet.actions;
 
+import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import java.io.IOException;
+import java.text.ParseException;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -84,19 +86,22 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-
         EntityManager em = factory.createEntityManager();
         EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
-        ProfileForm pform = (ProfileForm) form;
-        user.setNom(formatName(pform.getName()));
-        user.setPrenom(formatName(pform.getFirstName()));
-        user.setAdresse(pform.getAdress());
-        user.setDateNaissance(pform.getParsedDateOfBirth());
-        user.setSexe(pform.getSexe());
-        user.setMdp(Md5.getEncodedPassword(pform.getPwd()));
-        user.setProfession(formatName(pform.getJob()));
-        user.setEmail(pform.getMail());
-        user.setNumTel(pform.getPhone());
+        DynaActionForm dynaForm = (DynaActionForm) form;
+        user.setNom(formatName(dynaForm.getString("name")));
+        user.setPrenom(formatName(dynaForm.getString("firstName")));
+        user.setAdresse(dynaForm.getString("adress"));
+        try {
+			user.setDateNaissance(DateUtils.format(dynaForm.getString("dateOfBirth")));
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        user.setSexe(dynaForm.getString("sexe"));
+        user.setProfession(formatName(dynaForm.getString("job")));
+        user.setEmail(dynaForm.getString("mail"));
+        user.setNumTel(dynaForm.getString("phone"));
         em.getTransaction().begin();
         em.merge(user);
         em.getTransaction().commit();
