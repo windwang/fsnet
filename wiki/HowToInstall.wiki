@@ -8,30 +8,56 @@
  * a servlet container (like Apache Tomcat)
  * a MySQL Database administration tool (like phpmyadmin)
 
-===Librairies to install in the application server :===
+You can find dependency librairies in fsnet-libs_d3.zip
 
- * javax.persistence_1.0.0.jar
- * mysql-connector-java-x-bin.jar
- * eclipselink.jar
- * jstl-1.2.jar
- * apache axis-bin-1_4.zip
+= How to install FSNET =
 
-You can find these librairies in the download section.
+ ===Theses explanations are for apache tomcat 6.x users :===
 
-= How to use FSNET =
-
- ===Theses explanations are for apache tomcat users :===
-
- # Download fsnet_d1.zip
- # Create a new database user : username : *fsnet*, password : *fsnet*
+ # Download fsnet_d3.zip, fsnet-libs_d3.zip and fsnet-tray_d3.zip
+ # Create a new user for mysql : username : *fsnet*, password : *fsnet*
  # Create a new database named *fsnet*
- # Copy the _axis-bin-1_4.zip_, _javax.persistence_1.0.0.jar_, _eclipselink.jar_ , _jstl-1.2.jar_and the _mysql-connector-java-x-bin.jar_ in the tomcat/lib directory
- # Unzip the fsnet archive
- # Copy the _fsnet.war_ and _fsadmin.war_ files in the tomcat/webapps
+ # Unzip the fsnet-libs_d3.zip archive
+ # Copy these dependencies in the tomcat/lib/ directory
+ # unzip the fsnet_d3.zip
+ # Copy the admin.war, fsnetWeb.war and webservice.war files in the tomcat/webapps
  # In tomcat/conf/tomcat-users.xml,add :
     <role rolename="fsnetadmin"/>
     <user username="admin" password="admin" roles="fsnetadmin"/>
  # Run Tomcat
  # Run the project in your web browser :
-       * http://localhost:8080/fsadmin for the administrator (with login & password)
-       * http://localhost:8080/fsnet for users
+       * http://localhost:8080/admin for the administrator (with login & password)
+       * http://localhost:8080/fsnetWeb for users
+       * http://localhost:8080/webservice for the webservice used by tray
+ # Unzip fsnet-tray_d3.zip
+ # Run it using : java -jar trayDesktop.jar
+
+= How to use FSNET =
+After you have installed FSNET, you have to join the admin part.
+At this time you should configure the SMTP server access because when you add
+a new user, a password is generated and sent in the confirmation email.
+
+For example to configure SMTP server using a gmail account :
+ * SMTP Server : mail.gmail.com
+ * Port : 465
+ * Sender : yourname@gmail.com
+ * Enable TLS : checked
+ * Enable SSL : checked
+ * Enable authentication : checked
+ * Username : yourname
+ * Password : ...
+ * Fsnet address : the address of fsnet's public part that will be sent in the confirmation mail
+
+
+= How to build from sources =
+ # Checkout the last revision of fsnet using : svn checkout http://fsnet.googlecode.com/svn/trunk/ fsnet-read-only
+ # cd fsnet-read-only/fr.univartois.ili.fsnet/
+ # mvn package
+ # wait for a while
+ # you can take deliverables in : 
+   * admin/target/admin-0.1.war 
+   * fsnetWeb/target/fsnetWeb-0.1.war
+   * webservice/target/webservice-0.1.war
+   * trayDesktop/target/trayDesktop-0.1.jar
+  
+ 
