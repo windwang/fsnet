@@ -4,9 +4,6 @@ package fr.univartois.ili.fsnet.form;
 
 import java.text.ParseException;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.action.ActionErrors;
@@ -41,6 +38,7 @@ public class ProfileForm extends ValidatorForm {
 			errors.add("confirmPwd",new ActionMessage("error.updateProfile.confirmPwd.diff"));
 		}
 		try {
+			java.util.logging.Logger.getAnonymousLogger().log(java.util.logging.Level.SEVERE, dateOfBirth);
 			parsedDateOfBirth  = DateUtils.format(dateOfBirth);
 		} catch (ParseException e) {
 			errors.add("dateOfBirth",new ActionMessage("error.updateProfile.date.invalid"));

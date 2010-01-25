@@ -43,13 +43,6 @@
 			        <var-value>^[a-zA-Z]+([\-\' ][a-zA-Z]+)*$</var-value>
 			    </var>
             </field>  
-            <field property="pwd" depends="">
-                <arg key="error.updateProfile.pwd" />
-            </field> 
-            <!-- TODO comparaison des champs pwd et confirmPwd-->
-            <field property="confirmPwd" depends="">
-                <arg key="error.updateProfile.pwd" />
-            </field>  
             <field property="phone" depends="mask">
                 <arg key="error.updateProfile.phone" />
                 <msg name="mask"
