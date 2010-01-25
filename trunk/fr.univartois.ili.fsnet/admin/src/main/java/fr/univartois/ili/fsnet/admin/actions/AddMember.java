@@ -21,6 +21,7 @@ import org.apache.struts.action.DynaActionForm;
 import fr.univartois.ili.fsnet.admin.utils.FSNetConfiguration;
 import fr.univartois.ili.fsnet.admin.utils.FSNetMailer;
 import fr.univartois.ili.fsnet.admin.utils.Mail;
+import fr.univartois.ili.fsnet.admin.utils.Security;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.entities.Inscription;
 
@@ -43,12 +44,16 @@ public class AddMember extends Action {
 		EntiteSociale entite = new EntiteSociale();
 		BeanUtils.copyProperties(entite, dynaform);
 		Inscription inscription = new Inscription(entite);
+		String generatedPassword = Security.generateRandomPassword();
+		entite.setMdp(Security.getEncodedPassword(generatedPassword));
+		servlet.log("####### new User : " + entite.getEmail() + " #######");
+		servlet.log("####### password : " + generatedPassword + " #######");
 		try {
 			em.getTransaction().begin();
 			em.persist(entite);
 			em.persist(inscription);
 			em.getTransaction().commit();
-			sendConfirmationMail(entite);
+			sendConfirmationMail(entite, generatedPassword);
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
 			ActionMessage msg = new ActionMessage("entitie.alreadyExists");
@@ -75,13 +80,13 @@ public class AddMember extends Action {
 	 * 
 	 * @author Mathieu Boniface < mat.boniface {At} gmail.com >
 	 */
-	private void sendConfirmationMail(EntiteSociale entite) {
+	private void sendConfirmationMail(EntiteSociale entite, String password) {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		Properties properties = FSNetConfiguration.getInstance()
 				.getFSNetConfiguration();
 		String fsnetAddress = conf.getFSNetWebAddress();
 		String message = createMessageRegistration(entite.getNom(), entite
-				.getPrenom(), fsnetAddress);
+				.getPrenom(), fsnetAddress, password);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
@@ -100,20 +105,23 @@ public class AddMember extends Action {
 	 * @return the message .
 	 */
 	private String createMessageRegistration(String nom, String prenom,
-			String addressFsnet) {
+			String addressFsnet, String password) {
 		StringBuilder message = new StringBuilder();
 		message.append("Bonjour ").append(nom).append(" ").append(prenom);
-		message.append(".\n\n");
+		message.append(",<br/><br/>");
 		message
-				.append("<h2>Vous venez d'être enregistré à FSNet (Firm Social Network).</h2>\n\n");
+				.append("<h3>Vous venez d'être enregistré sur FSNet (Firm Social Network).</h3><br/><br/>");
 		message.append("Désormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
 		message.append(" .\n\n");
 		message
 				.append("Pour finaliser votre inscription il suffit de remplir votre profil.\n\n");
-		message.append("Merci pour votre inscription.\n\n");
+		message.append("Un mot de passe à été généré automatiquement : <em>");
+		message.append(password);
 		message
-				.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
+				.append("</em><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
 		return message.toString();
 	}
+
 }
+
