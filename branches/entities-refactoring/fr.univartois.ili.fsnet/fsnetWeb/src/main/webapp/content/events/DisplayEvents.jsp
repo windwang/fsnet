@@ -35,7 +35,7 @@
         <tr>
             <th>
                 <html:link action="/DisplayEvent">
-                    ${event.nom}
+                    ${event.title}
                     <html:param name="eventId" value="${event.id}"/>
                 </html:link>
             </th>
@@ -44,12 +44,12 @@
                 <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy"/>, 
                 <bean:message key="events.16"/>
                 <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${event.createur.id}"/>
-                    ${event.createur.prenom} ${event.createur.nom}
+                    <html:param name="id" value="${event.creator.id}"/>
+                    ${event.creator.firstName} ${event.creator.name}
                 </html:link>
             </td>
             <td  class="tableButton">
-                ${event.contenu}
+                ${event.content}
             </td>
         </tr>
     </c:forEach>

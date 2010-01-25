@@ -10,34 +10,34 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
-<h3>${requestScope.topic.sujet} : Messages </h3>
-<c:forEach var="msg" items="${requestScope.topic.lesMessages}">
+<h3>${requestScope.topic.title} : Messages </h3>
+<c:forEach var="msg" items="${requestScope.topic.messages}">
 
     <table class="topicTable">
         <tr class="topicHeader">
             <td colspan="2">
-                <bean:write name="msg" property="dateMessage" format="dd/MM/yyyy HH:mm"/>
+                <bean:write name="msg" property="creationDate" format="dd/MM/yyyy HH:mm"/>
             </td>
         </tr>
         <tr>
             <td class="topicOwner">
                 <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${msg.propMsg.id}"/>
-                    ${msg.propMsg.prenom} ${msg.propMsg.nom}
+                    <html:param name="id" value="${msg.from.id}"/>
+                    ${msg.from.firstName} ${msg.from.name}
                 </html:link>
                 <br/>
                 <img src="images/emblem-personal.png">
             </td>
             <td class="topicMessage">
-                <c:if test="${not empty msg.contenu}">
-                    ${msg.contenu}
+                <c:if test="${not empty msg.body}">
+                    ${msg.body}
                 </c:if>
             </td>
         </tr>
 
     </table>
     <div class="topicButton">
-        <c:if test="${sessionScope.user.id eq msg.propMsg.id}">
+        <c:if test="${sessionScope.user.id eq msg.from.id}">
             <html:link action="/DisplayModifyTopicMessage" styleClass="button">
                 <html:param name="topicId" value="${topic.id}" />
                 <html:param name="messageId" value="${msg.id}" />
@@ -45,7 +45,7 @@
             </html:link>
         </c:if>
 
-        <c:if test="${sessionScope.user.id eq msg.propMsg.id}">
+        <c:if test="${sessionScope.user.id eq msg.from.id}">
             <html:link action="/DeleteTopicMessage" styleClass="button">
                 <html:param name="topicId" value="${topic.id}" />
                 <html:param name="messageId" value="${msg.id}" />

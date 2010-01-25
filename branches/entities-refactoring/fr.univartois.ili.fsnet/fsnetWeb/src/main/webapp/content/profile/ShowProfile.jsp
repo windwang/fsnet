@@ -6,7 +6,7 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
 <h3>
-	<bean:message key="showProfile.title" arg0="${watchedProfile.prenom} ${watchedProfile.nom}"/>
+	<bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
 </h3>
 <table class="watchedProfile">
     <tr>
@@ -19,19 +19,19 @@
     </tr>
     <tr>
         <th><bean:message key="updateProfile.adress"/></th>
-        <td>${watchedProfile.adresse}</td>
+        <td>${watchedProfile.address}</td>
     </tr>
     <tr>
         <th><bean:message key="updateProfile.dateOfBirth"/></th>
-        <td>${watchedProfile.dateNaissance}</td>
+        <td>${watchedProfile.birthDate}</td>
     </tr>
 
     <tr>
         <th><bean:message key="updateProfile.sexe"/></th>
-        <td>${watchedProfile.sexe}</td>
+        <td>${watchedProfile.sex}</td>
     </tr>
     <tr>
         <th><bean:message key="updateProfile.phone"/></th>
-        <td>${watchedProfile.numTel}</td>
+        <td>${watchedProfile.phone}</td>
     </tr>
 </table>

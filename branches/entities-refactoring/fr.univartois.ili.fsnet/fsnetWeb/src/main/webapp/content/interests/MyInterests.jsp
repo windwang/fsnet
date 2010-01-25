@@ -8,10 +8,10 @@
 <h3><bean:message key="interests.6"/></h3>
 <ul>
     <c:choose>
-        <c:when test="${not empty requestScope.user.lesinterets}">
-            <c:forEach var="interest" items="${requestScope.user.lesinterets}">
+        <c:when test="${not empty requestScope.user.interests}">
+            <c:forEach var="interest" items="${requestScope.user.interests}">
                 <li>
-                	${interest.nomInteret}
+                	${interest.name}
                 	<html:link styleClass="button" action="/RemoveInterest">
                 		<html:param name="removedInterestId" value="${interest.id}"/>
                 		<bean:message key="interests.7"/>

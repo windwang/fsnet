@@ -13,7 +13,7 @@
             <html:select property="addedInterestId" styleClass="select">
                 <html:option value="0"><bean:message key="interests.1"/></html:option>
                 <c:forEach var="interest" items="${requestScope.listInterests}">
-                    <html:option value="${interest.id}">${interest.nomInteret}</html:option>
+                    <html:option value="${interest.id}">${interest.name}</html:option>
                 </c:forEach>
             </html:select>
             <html:submit styleClass="button"/>

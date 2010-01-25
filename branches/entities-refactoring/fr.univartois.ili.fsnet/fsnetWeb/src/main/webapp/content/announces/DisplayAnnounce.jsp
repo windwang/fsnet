@@ -21,15 +21,15 @@
         <td>
             <bean:message  key="announce.createdBy"/>
             <html:link action="/DisplayProfile">
-                <html:param name="id" value="${announce.createur.id}"/>
-                ${announce.createur.prenom} ${announce.createur.nom}
+                <html:param name="id" value="${announce.creator.id}"/>
+                ${announce.creator.firstName} ${announce.creator.name}
             </html:link><<bean:message key="announce.expiryDate"/>
-            <bean:write name="announce" property="dateFinAnnonce" format="dd/MM/yyyy" />
+            <bean:write name="announce" property="endDate" format="dd/MM/yyyy" />
         </td>
     </tr>
     <tr>
         <td >
-            ${announce.contenu}
+            ${announce.content}
         </td>
     </tr>
 

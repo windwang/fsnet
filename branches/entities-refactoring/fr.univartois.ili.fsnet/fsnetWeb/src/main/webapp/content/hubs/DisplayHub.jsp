@@ -30,10 +30,10 @@
             <tr>
                 <td> <html:link action="/DisplayTopic">
                         <html:param name="topicId" value="${topic.id}"/>
-                        ${topic.sujet}
+                        ${topic.title}
                     </html:link></td>
                 <td>
-                    <c:if test="${sessionScope.user.id eq topic.propTopic.id}">
+                    <c:if test="${sessionScope.user.id eq topic.creator.id}">
                         <html:link action="/DeleteTopic" styleClass="button">
                             <html:param name="topicId" value="${topic.id}"/>
                             <html:param name="hubId" value="${hubResult.id}"/>
@@ -47,7 +47,7 @@
 </table>
 
 
-<h3><bean:message key="hubs.hub"/> ${hubResult.nomCommunaute} - <bean:message key="hubs.topics"/></h3>
+<h3><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="hubs.topics"/></h3>
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
 </logic:empty>
@@ -62,15 +62,15 @@
             <td>
                 <html:link action="/DisplayTopic">
                     <html:param name="topicId" value="${couple.key.id}"/>
-                    ${couple.key.sujet}
+                    ${couple.key.content}
                 </html:link>
                 <br/>
                 <bean:message key="hubs.createdOn"/>
-                <bean:write name="hubResult" property="dateCreation" format="dd/MM/yyyy"/>
+                <bean:write name="hubResult" property="creationDate" format="dd/MM/yyyy"/>
                 <bean:message key="hubs.by"/>
                 <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${hubResult.createur.id}"/>
-                    ${hubResult.createur.prenom} ${hubResult.createur.nom}
+                    <html:param name="id" value="${couple.key.creator.id}"/>
+                    ${couple.key.creator.firstName} ${couple.key.creator.name}
                 </html:link>
             </td>
 
@@ -79,13 +79,13 @@
                     <c:set var="lastMessage" value="${couple.value}"/>
                     <bean:write name="lastMessage" property="dateMessage" format="dd/MM/yyyy"/>
                     <br/>
-                    <bean:message key="hubs.by"/> ${lastMessage.propMsg.prenom} ${lastMessage.propMsg.nom}
+                    <bean:message key="hubs.by"/> ${lastMessage.from.firstName} ${lastMessage.from.nom}
                 </logic:notEmpty>
                 <logic:empty name="couple" property="value">
                     <bean:message key="hubs.noMessage"/>
                 </logic:empty>
             </td>
-            <c:if test="${sessionScope.user.id eq couple.key.propTopic.id}">
+            <c:if test="${sessionScope.user.id eq couple.key.creator.id}">
                 <td class="tableButton">
                     <html:link action="/DeleteTopic" styleClass="button">
                         <html:param name="topicId" value="${couple.key.id}"/>

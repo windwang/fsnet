@@ -28,7 +28,7 @@
                                 styleId="messageDescription"
                                 styleClass="mceTextArea"
                                 style="width: 100%;"
-                                value="${message.contenu}">
+                                value="${message.body}">
                 </html:textarea>
                  <div class="errorMessage">
                  	<html:errors property="messageDescription"/>

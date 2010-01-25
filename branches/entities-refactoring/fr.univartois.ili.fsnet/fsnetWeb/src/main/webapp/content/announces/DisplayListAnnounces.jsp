@@ -18,14 +18,14 @@
                 <bean:define id="idAnnounce" name="announce" property="id" />
                 <th colspan="2">
                     <html:link action="/DisplayAnnounce.do" paramId="idAnnounce" paramName="idAnnounce">
-                        <bean:write name="announce" property="nom" />
+                        <bean:write name="announce" property="title" />
                     </html:link>
                 </th>
                 <td>
                     <bean:message key="announce.by"/>
                     <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${announce.createur.id}"/>
-                        ${announce.createur.prenom} ${announce.createur.nom}
+                        <html:param name="id" value="${announce.creator.id}"/>
+                        ${announce.creator.firstName} ${announce.creator.name}
                     </html:link>
                 </td>
                 <td class="tableButton">

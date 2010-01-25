@@ -8,7 +8,7 @@
     <c:when test="${not empty requestScope.interestResult}">
         <ul>
             <c:forEach var="interest" items="${requestScope.interestResult}">
-                <li>${interest.nomInteret}</li>
+                <li>${interest.name}</li>
             </c:forEach>
         </ul>
     </c:when>

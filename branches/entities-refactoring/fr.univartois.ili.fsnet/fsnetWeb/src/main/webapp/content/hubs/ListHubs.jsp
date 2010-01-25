@@ -22,20 +22,20 @@
             <th>
                 <html:link action="/DisplayHub">
                     <html:param name="hubId" value="${hub.id}"/>
-                    ${hub.nomCommunaute}
+                    ${hub.title}
                 </html:link>
             </th>
             <td>
                 <bean:message key="hubs.createdOn"/>
-                <bean:write name="hub" property="dateCreation" format="dd/MM/yyyy"/>
+                <bean:write name="hub" property="creationDate" format="dd/MM/yyyy"/>
                 <bean:message key="hubs.by"/>
                 <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${hub.createur.id}"/>
-                    ${hub.createur.prenom} ${hub.createur.nom}
+                    <html:param name="id" value="${hub.creator.id}"/>
+                    ${hub.creator.firstName} ${hub.creator.name}
                 </html:link>
             </td>
             <td class="tableButton">
-                <c:if test="${sessionScope.user.id eq hub.createur.id}">
+                <c:if test="${sessionScope.user.id eq hub.creator.id}">
                     <html:link action="/DeleteHub" styleClass="button">
                         <html:param name="hubId" value="${hub.id}"/>
                         <bean:message key="hubs.delete"/>

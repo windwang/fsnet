@@ -6,7 +6,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <h3>
-	<bean:message key="updateProfile.title"/>
+    <bean:message key="updateProfile.title"/>
 </h3>
 
 
@@ -19,7 +19,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="name" value="${currentUser.nom}" styleId="name"/>
+                <html:text errorStyleClass="error" property="name" value="${currentUser.name}" styleId="name"/>
             </td>
         </tr>
         <logic:messagesPresent property="name">
@@ -36,7 +36,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="firstName"  value="${currentUser.prenom}" styleId="firstName"/>
+                <html:text errorStyleClass="error" property="firstName"  value="${currentUser.firstName}" styleId="firstName"/>
             </td>
         </tr>
         <logic:messagesPresent property="firstName">
@@ -53,7 +53,7 @@
                 </label>
             </td>
             <td>
-                <html:textarea errorStyleClass="error" property="adress" value="${currentUser.adresse}" styleId="adress"/>
+                <html:textarea errorStyleClass="error" property="adress" value="${currentUser.address.address}" styleId="adress"/>
             </td>
         </tr>
         <logic:messagesPresent property="adress">
@@ -70,7 +70,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" readonly="true" styleId="dateOfBirth" property="dateOfBirth" value="${currentUser.dateNaissance}" />
+                <html:text errorStyleClass="error" readonly="true" styleId="dateOfBirth" property="dateOfBirth" value="${currentUser.birthDate}" />
             </td>
         </tr>
         <logic:messagesPresent property="dateOfBirth">
@@ -87,7 +87,7 @@
                 </label>
             </td>
             <td>
-                <html:select property="sexe" value="${currentUser.sexe}">
+                <html:select property="sexe" value="${currentUser.sex}">
                     <html:option value="Man">Male</html:option>
                     <html:option value="Woman">Female</html:option>
                 </html:select>
@@ -142,7 +142,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="phone" value="${currentUser.numTel}"/>
+                <html:text errorStyleClass="error" property="phone" value="${currentUser.phome}"/>
             </td>
         </tr>
         <logic:messagesPresent property="phone">
@@ -183,36 +183,36 @@
 </script> 
 
 <h3>
-	<bean:message key="updateProfile.changePassword.title"/>
+    <bean:message key="updateProfile.changePassword.title"/>
 </h3>
 
 <html:form action="/ChangePassword">
-	<table>
-		<c:forTokens var="typePwd" items="oldPassword:newPassword:confirmNewPassword" delims=":">
-			<tr>
-				<td>
-					<label for="${typePwd}">
-						<bean:message key="updateProfile.changePassword.${typePwd}"/>
-					</label>	
-				</td>
-				<td>
-					<html:password property="${typePwd}" styleId="${typePwd}"/>
-				</td>
-			</tr>
-			<logic:messagesPresent property="${typePwd}">
-				<tr>
-					<td colspan="2">
-						<html:errors property="${typePwd}"/>
-					</td>
-				</tr>
-			</logic:messagesPresent>
-		</c:forTokens>
-		<tr>        	
+    <table>
+        <c:forTokens var="typePwd" items="oldPassword:newPassword:confirmNewPassword" delims=":">
+            <tr>
+                <td>
+                    <label for="${typePwd}">
+                        <bean:message key="updateProfile.changePassword.${typePwd}"/>
+                    </label>
+                </td>
+                <td>
+                    <html:password property="${typePwd}" styleId="${typePwd}"/>
+                </td>
+            </tr>
+            <logic:messagesPresent property="${typePwd}">
+                <tr>
+                    <td colspan="2">
+                        <html:errors property="${typePwd}"/>
+                    </td>
+                </tr>
+            </logic:messagesPresent>
+        </c:forTokens>
+        <tr>
             <td colspan="2">
                 <html:submit styleClass="button">
                     <bean:message key="updateProfile.validate"/>
                 </html:submit>
             </td>
         </tr>
-	</table>
+    </table>
 </html:form>
