@@ -1,16 +1,16 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.Embeddable;
 
-/**
- *
- * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
- */
+
 @Embeddable
 public class Address implements Serializable {
 
-    private String address;
+	private static final long serialVersionUID = 1L;
+	
+	private String address;
 
     public Address() {
     }

@@ -1,11 +1,14 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.ManyToOne;
 
 public class PrivateMessage extends Message implements Serializable {
 
-    private String subject;
+	private static final long serialVersionUID = 1L;
+	
+	private String subject;
     @ManyToOne
     private SocialEntity to;
 

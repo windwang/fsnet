@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.util.Set;
+
 import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 
@@ -12,8 +13,9 @@ import javax.persistence.OneToMany;
 @Entity
 public class Community extends Interaction {
 
-   
-    @OneToMany
+	private static final long serialVersionUID = 1L;
+	
+	@OneToMany
     private Set<Hub> hubs;
 
     /**

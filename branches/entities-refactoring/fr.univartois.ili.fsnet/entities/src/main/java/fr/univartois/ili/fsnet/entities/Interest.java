@@ -1,7 +1,7 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.io.Serializable;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,9 +18,11 @@ import javax.persistence.ManyToMany;
  * 
  */
 @Entity
-public class Interest {
+public class Interest implements Serializable {
 
-    /**
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * The identifier.
      */
     @Id

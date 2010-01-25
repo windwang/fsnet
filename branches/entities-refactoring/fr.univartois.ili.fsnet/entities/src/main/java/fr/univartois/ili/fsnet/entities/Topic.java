@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -17,7 +16,10 @@ import javax.persistence.OneToMany;
 @Entity
 public class Topic extends Interaction {
 
-    /**
+    
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * The hub in which the topic appears.
      */
     @ManyToOne

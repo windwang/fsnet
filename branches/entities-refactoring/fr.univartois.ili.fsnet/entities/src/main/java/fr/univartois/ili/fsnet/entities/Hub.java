@@ -16,7 +16,9 @@ import javax.persistence.OneToMany;
 @Entity
 public class Hub extends Interaction {
 
-    /**
+   	private static final long serialVersionUID = 1L;
+   	
+	/**
      * The list of topics of a hub.
      */
     @OneToMany(mappedBy = "hub", cascade = {CascadeType.MERGE,
