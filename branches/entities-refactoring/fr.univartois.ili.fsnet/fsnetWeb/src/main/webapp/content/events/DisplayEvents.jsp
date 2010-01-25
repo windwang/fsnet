@@ -41,7 +41,7 @@
             </th>
             <td class="left">
                 <bean:message key="events.10"/>
-                <bean:write name="event" property="dateManifestation" format="dd/MM/yyyy"/>, 
+                <bean:write name="event" property="startDate" format="dd/MM/yyyy"/>,
                 <bean:message key="events.16"/>
                 <html:link action="/DisplayProfile">
                     <html:param name="id" value="${event.creator.id}"/>

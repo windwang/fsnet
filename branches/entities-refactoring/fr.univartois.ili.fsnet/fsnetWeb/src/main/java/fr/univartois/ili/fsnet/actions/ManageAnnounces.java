@@ -171,7 +171,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		if (textSearchAnnounce != null) {
 			listAnnounces = entityManager
 					.createQuery(
-							"SELECT a FROM Announcement a WHERE a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce ")
+							"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND ( a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ")
 					.setParameter("textSearchAnnounce",
 							"%" + textSearchAnnounce + "%").getResultList();
 		} else {

@@ -142,7 +142,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="phone" value="${currentUser.phome}"/>
+                <html:text errorStyleClass="error" property="phone" value="${currentUser.phone}"/>
             </td>
         </tr>
         <logic:messagesPresent property="phone">

@@ -13,6 +13,6 @@
         </ul>
     </c:when>
     <c:otherwise>
-    	<bean:message key="interests.10"/>
+        <bean:message key="interests.10"/>
     </c:otherwise>
 </c:choose>

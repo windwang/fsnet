@@ -266,7 +266,7 @@ public class ManageInterests extends MappingDispatchAction implements
         // TODO requete provisoire
 
         List<Interest> listAllInterests = em.createQuery(
-                "SELECT interest FROM Interet interest", Interest.class).getResultList();
+                "SELECT interest FROM Interest interest", Interest.class).getResultList();
 
         List<Interest> finalList = new ArrayList<Interest>();
         boolean dirtyIsOK;

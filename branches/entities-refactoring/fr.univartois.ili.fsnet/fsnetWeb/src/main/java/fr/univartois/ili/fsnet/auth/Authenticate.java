@@ -51,7 +51,7 @@ public class Authenticate extends HttpServlet {
 
         if (memberMail != null && memberPass != null) {
             EntityManager em = emf.createEntityManager();
-            Query query = em.createQuery("Select es from SocialEntity es where es.mail = :memberMail");
+            Query query = em.createQuery("Select es from SocialEntity es where es.email = :memberMail");
             query.setParameter("memberMail", memberMail);
 
             try {

@@ -34,11 +34,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.form.ProfileForm;
-import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  *
@@ -93,13 +90,13 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         user.setName(formatName(dynaForm.getString("name")));
         user.setPrenom(formatName(dynaForm.getString("firstName")));
         // TODO creer une adresse ds le form
-        user.setAddress(new Address(dynaForm.getString("adress"),"ville"));
+        user.setAddress(new Address(dynaForm.getString("adress"), "ville"));
         try {
-			user.setBirthDate(DateUtils.format(dynaForm.getString("dateOfBirth")));
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+            user.setBirthDate(DateUtils.format(dynaForm.getString("dateOfBirth")));
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
         user.setSex(dynaForm.getString("sexe"));
         user.setProfession(formatName(dynaForm.getString("job")));
         user.setEmail(dynaForm.getString("mail"));

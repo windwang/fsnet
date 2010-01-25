@@ -23,6 +23,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Meeting;
 
@@ -59,7 +60,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         em.getTransaction().begin();
         //member = em.find(SocialEntity.class, member.getId());
         // TODO !!! date de fin et date de debut !!
-        Meeting event = new Meeting(member, eventName, eventDescription, typedEventDate, false, typedEventDate, null);
+        Meeting event = new Meeting(member, eventName, eventDescription, typedEventDate, false, typedEventDate, new Address());
 
         member.getInteractions().add(event);
         em.persist(event);

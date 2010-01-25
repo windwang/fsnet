@@ -62,7 +62,7 @@
             <td>
                 <html:link action="/DisplayTopic">
                     <html:param name="topicId" value="${couple.key.id}"/>
-                    ${couple.key.content}
+                    ${couple.key.title}
                 </html:link>
                 <br/>
                 <bean:message key="hubs.createdOn"/>
@@ -77,9 +77,9 @@
             <td style="background-color: #C7E5F8;">
                 <logic:notEmpty name="couple" property="value">
                     <c:set var="lastMessage" value="${couple.value}"/>
-                    <bean:write name="lastMessage" property="dateMessage" format="dd/MM/yyyy"/>
+                    <bean:write name="lastMessage" property="creationDate" format="dd/MM/yyyy"/>
                     <br/>
-                    <bean:message key="hubs.by"/> ${lastMessage.from.firstName} ${lastMessage.from.nom}
+                    <bean:message key="hubs.by"/> ${lastMessage.from.firstName} ${lastMessage.from.name}
                 </logic:notEmpty>
                 <logic:empty name="couple" property="value">
                     <bean:message key="hubs.noMessage"/>

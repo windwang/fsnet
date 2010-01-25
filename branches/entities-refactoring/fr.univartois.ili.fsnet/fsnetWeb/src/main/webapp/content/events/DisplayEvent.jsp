@@ -23,7 +23,7 @@
     </tr>
     <tr>
         <td>
-            ${event.contenu}
+            ${event.content}
         </td>
     </tr>
     <tr>

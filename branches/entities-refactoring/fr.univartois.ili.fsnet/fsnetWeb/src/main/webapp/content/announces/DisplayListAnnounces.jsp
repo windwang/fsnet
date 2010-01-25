@@ -30,7 +30,7 @@
                 </td>
                 <td class="tableButton">
                     <bean:message key="announce.expiryDate"/>
-                    <bean:write name="announce" property="dateFinAnnonce" format="dd/MM/yyyy"/>
+                    <bean:write name="announce" property="endDate" format="dd/MM/yyyy"/>
                 </td>
             </tr>
         </logic:iterate>
