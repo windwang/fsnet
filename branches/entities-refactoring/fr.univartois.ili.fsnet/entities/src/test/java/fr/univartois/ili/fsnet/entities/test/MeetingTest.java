@@ -36,6 +36,7 @@ public class MeetingTest {
         final SocialEntity socialEntity = new SocialEntity("ktest6", "test6", "test6@test.com");
         Meeting manif = new Meeting(socialEntity, "Meeting", "null", date, true, date, new Address());
         em.getTransaction().begin();
+        em.persist(socialEntity);
         em.persist(manif);
         em.getTransaction().commit();
     }

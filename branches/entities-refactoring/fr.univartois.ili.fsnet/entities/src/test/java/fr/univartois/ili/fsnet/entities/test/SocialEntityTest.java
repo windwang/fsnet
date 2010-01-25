@@ -37,8 +37,8 @@ public class SocialEntityTest {
 		em.getTransaction().commit();
 		SocialEntity ent2 = em.find(SocialEntity.class, ent.getId());
 		assertEquals(ent2.getId(), ent.getId());
-		assertEquals(ent2.getNom(), lastName);
-		assertEquals(ent2.getPrenom(), firstName);
+		assertEquals(ent2.getName(), lastName);
+		assertEquals(ent2.getFirstName(), firstName);
 		assertEquals(ent2.getEmail(), mail);
 	}
 
@@ -90,7 +90,7 @@ public class SocialEntityTest {
 		em.getTransaction().commit();
 	}
 
-	@Test(expected = RollbackException.class)
+	@Test(expected = IllegalArgumentException.class)
 	public void testRequieredMail() {
 		SocialEntity ent = new SocialEntity("zaza", "zaza", null);
 		em.getTransaction().begin();

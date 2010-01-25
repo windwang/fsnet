@@ -41,8 +41,10 @@ public class AnnouncementTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        Announcement annonce = new Announcement(new SocialEntity("test", "test", "test@test.com"), "test Announcement", "HEHEHEHEHE", new Date(), false);
+        final SocialEntity socialEntity = new SocialEntity("test", "test", "test@test.com");
+        Announcement annonce = new Announcement(socialEntity, "test Announcement", "HEHEHEHEHE", new Date(), false);
         em.getTransaction().begin();
+        em.persist(socialEntity);
         em.persist(annonce);
         em.getTransaction().commit();
         Announcement annonce2 = em.find(Announcement.class, annonce.getId());
@@ -78,12 +80,16 @@ public class AnnouncementTest {
     public void testGeneratedValueId() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        Announcement annonce = new Announcement(new SocialEntity("test2", "test2", "test2@test.com"), "test2 Announcement", "HEHEHEHEHE2", new Date(), false);
+        final SocialEntity socialEntity = new SocialEntity("test2", "test2", "test2@test.com");
+        Announcement annonce = new Announcement(socialEntity, "test2 Announcement", "HEHEHEHEHE2", new Date(), false);
         em.getTransaction().begin();
+        em.persist(socialEntity);
         em.persist(annonce);
         em.getTransaction().commit();
-        Announcement annonce2 = new Announcement(new SocialEntity("test3", "test3", "test3@test.com"), "test 3Announcement", "HEHEHEHEHE3", new Date(), false);
+        final SocialEntity socialEntity1 = new SocialEntity("test3", "test3", "test3@test.com");
+        Announcement annonce2 = new Announcement(socialEntity1, "test 3Announcement", "HEHEHEHEHE3", new Date(), false);
         em.getTransaction().begin();
+        em.persist(socialEntity1);
         em.persist(annonce2);
         em.getTransaction().commit();
         assertEquals(annonce.getId() + 1, annonce2.getId());

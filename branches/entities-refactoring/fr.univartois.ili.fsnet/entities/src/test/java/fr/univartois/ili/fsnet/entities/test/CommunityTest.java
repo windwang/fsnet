@@ -28,8 +28,10 @@ public class CommunityTest {
     // TODO TEST-LOL galileo
     @Test
     public void testPersist() {
-        Community communaute = new Community(new SocialEntity("test5", "test5", "test5@test.com"),"Ma communaute");
+        final SocialEntity socialEntity = new SocialEntity("test5", "test5", "test5@test.com");
+        Community communaute = new Community(socialEntity, "Ma communaute");
         em.getTransaction().begin();
+        em.persist(socialEntity);
         em.persist(communaute);
         em.getTransaction().commit();
         int monId = communaute.getId();

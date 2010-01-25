@@ -47,14 +47,17 @@ public class TopicTest {
         }
 
         SocialEntity es = new SocialEntity("Ragoût", "Mouton", "RagoûtMouton@toiaussitafaim.com");
-        es.setNom("Théophile");
+        es.setName("Théophile");
         es.setPrenom("Gautier");
-        Hub h = new Hub(new Community(es, "macom"), es, "mon hub");
-        Topic top = new Topic(h, es, "mon topic");
+        final Community community = new Community(es, "macom");
+        Hub hub = new Hub( community, es, "mon hub");
+        Topic top = new Topic(hub, es, "mon topic");
         TopicMessage firstmessage = new TopicMessage("kiiiii", es, top);
         top.getMessages().add(firstmessage);
         em.getTransaction().begin();
         em.persist(es);
+        em.persist(community);
+        em.persist(hub);
         em.persist(top);
         em.getTransaction().commit();
     }

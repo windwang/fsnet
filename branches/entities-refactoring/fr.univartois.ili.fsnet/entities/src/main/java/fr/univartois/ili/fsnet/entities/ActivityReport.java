@@ -29,7 +29,7 @@ public class ActivityReport {
     /**
      * The list of interactions that the activities report contains.
      */
-    @OneToMany(mappedBy = "rapport")
+    @OneToMany(mappedBy = "report")
     private List<Interaction> lesInteractions;
     /**
      * The date of the activities report.

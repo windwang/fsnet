@@ -36,9 +36,12 @@ public class HubTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        final SocialEntity socialEntity = new SocialEntity("ktest6", "test6", "test6@test.com");
-        Hub hub = new Hub(new Community(socialEntity, "Ma comm"), socialEntity, "mon hub");
+        final SocialEntity socialEntity = new SocialEntity("ktest6", "test6", "test6d@test.com");
+        final Community community = new Community(socialEntity, "Ma comm");
+        Hub hub = new Hub( community, socialEntity, "mon hub");
         em.getTransaction().begin();
+        em.persist(socialEntity);
+        em.persist(community);
         em.persist(hub);
         em.getTransaction().commit();
         Hub hub2 = em.find(Hub.class, hub.getId());

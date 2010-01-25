@@ -64,15 +64,15 @@ public class SocialEntity {
     /**
      * The social entity sexe
      */
-    private String sexe;
+    private String sex;
     /**
      * The password for the social entity.
      */
-    private String mdp;
+    private String password;
     /**
      * A picture of the social entity.
      */
-    private String photo;
+    private String picture;
     /**
      * The profession of the social entity.
      */
@@ -85,27 +85,27 @@ public class SocialEntity {
     /**
      * The telephone number of the social entity.
      */
-    private String numTel;
+    private String phone;
     /**
      * The interactions that the social entity created.
      */
     @OneToMany(mappedBy = "creator")
-    private List<Interaction> lesinteractions;
+    private List<Interaction> createdInteractions;
     /**
      * The interest that the social entity informed.
      */
     @ManyToMany(cascade = {CascadeType.PERSIST})
-    private List<Interest> lesinterets = new ArrayList<Interest>();
+    private List<Interest> interests = new ArrayList<Interest>();
     /**
      * The messages that the social entity created.
      */
-    @OneToMany(mappedBy = "propMsg")
-    private List<Message> lesMessages;
+    @OneToMany(mappedBy = "from")
+    private List<Message> messages;
     /**
      * The topics that the corporate entity has created.
      */
-    @OneToMany(mappedBy = "propTopic")
-    private List<Topic> lesTopics;
+    @OneToMany(mappedBy = "creator")
+    private List<Topic> topics;
     /**
      * The contact list
      */
@@ -174,24 +174,24 @@ public class SocialEntity {
      *
      * @return the social entity name.
      */
-    public String getNom() {
+    public String getName() {
         return name;
     }
 
     /**
      * Gives a name to the social entity.
      *
-     * @param nom
+     * @param name
      */
-    public void setNom(String nom) {
-        this.name = nom;
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
      *
      * @return the social entity firstname.
      */
-    public String getPrenom() {
+    public String getFirstName() {
         return firstName;
     }
 
@@ -200,8 +200,8 @@ public class SocialEntity {
      *
      * @param firstName
      */
-    public void setPrenom(String prenom) {
-        this.firstName = prenom;
+    public void setPrenom(String firstName) {
+        this.firstName = firstName;
     }
 
     /**
@@ -224,28 +224,18 @@ public class SocialEntity {
     /**
      * Gives a date of entry to the social entity.
      *
-     * @param dateEntree
+     * @param inscriptionDate
      */
-    public void setDateEntree(Date dateEntree) {
-        this.inscritpionDate = dateEntree;
+    public void setInscriptionDate(Date inscriptionDate) {
+        this.inscritpionDate = inscriptionDate;
     }
 
     /**
      *
      * @return the date of birth of the social entity.
      */
-    public String getBirthDate() {
-
-        if (birthDate == null) {
-            return null;
-        }
-
-        Calendar cal = GregorianCalendar.getInstance();
-        cal.setTime(birthDate);
-        int jour = cal.get(GregorianCalendar.DAY_OF_MONTH);
-        int mois = cal.get(GregorianCalendar.MONTH) + 1;
-        int annee = cal.get(GregorianCalendar.YEAR);
-        return jour + "/" + mois + "/" + annee;
+    public Date getBirthDate() {
+        return birthDate;
     }
 
     /**
@@ -269,8 +259,8 @@ public class SocialEntity {
      *
      * @return the sexe of the social entity.
      */
-    public String getSexe() {
-        return sexe;
+    public String getSex() {
+        return sex;
     }
 
     /**
@@ -279,41 +269,41 @@ public class SocialEntity {
      * @param sexe
      */
     public void setSexe(String sexe) {
-        this.sexe = sexe;
+        this.sex = sexe;
     }
 
     /**
      *
      * @return the password of the social entity.
      */
-    public String getMdp() {
-        return mdp;
+    public String getPassword() {
+        return password;
     }
 
     /**
      * Gives a password to the social entity.
      *
-     * @param mdp
+     * @param password
      */
-    public void setMdp(String mdp) {
-        this.mdp = mdp;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     /**
      *
      * @return the picture of the social entity.
      */
-    public String getPhoto() {
-        return photo;
+    public String getPicture() {
+        return picture;
     }
 
     /**
      * Gives a picture to the social entity.
      *
-     * @param photo
+     * @param picture
      */
-    public void setPhoto(String photo) {
-        this.photo = photo;
+    public void setPicture(String picture) {
+        this.picture = picture;
     }
 
     /**
@@ -354,85 +344,85 @@ public class SocialEntity {
      *
      * @return the telephone number of the social entity.
      */
-    public String getNumTel() {
-        return numTel;
+    public String getPhone() {
+        return phone;
     }
 
     /**
      * Gives a telephone number to the social entity.
      *
-     * @param numTel
+     * @param phone
      */
-    public void setNumTel(String numTel) {
-        this.numTel = numTel;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     /**
      *
      * @return the list of interactions that the social entity created.
      */
-    public List<Interaction> getLesinteractions() {
-        return lesinteractions;
+    public List<Interaction> getInteractions() {
+        return createdInteractions;
     }
 
     /**
      * Gives a list of interactions to the social entity.
      *
-     * @param lesinteractions
+     * @param interactions
      */
-    public void setLesinteractions(List<Interaction> lesinteractions) {
-        this.lesinteractions = lesinteractions;
+    public void setInteractions(List<Interaction> interactions) {
+        this.createdInteractions = interactions;
     }
 
     /**
      *
      * @return the list of interest that the social entity informed.
      */
-    public List<Interest> getLesinterets() {
-        return lesinterets;
+    public List<Interest> getInterests() {
+        return interests;
     }
 
     /**
      * Gives a list of interest to the social entity.
      *
-     * @param lesinterets
+     * @param interests
      */
-    public void setLesinterets(List<Interest> lesinterets) {
-        this.lesinterets = lesinterets;
+    public void setInterests(List<Interest> interests) {
+        this.interests = interests;
     }
 
     /**
      *
      * @return the list of messages that the social entity created.
      */
-    public List<Message> getLesMessages() {
-        return lesMessages;
+    public List<Message> getMessages() {
+        return messages;
     }
 
     /**
      * Gives a list of messages to the social entity.
      *
-     * @param lesMessages
+     * @param messages
      */
-    public void setLesMessages(List<Message> lesMessages) {
-        this.lesMessages = lesMessages;
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
     }
 
     /**
      *
      * @return the list of topics that the social entity created.
      */
-    public List<Topic> getLesTopics() {
-        return lesTopics;
+    public List<Topic> getTopics() {
+        return topics;
     }
 
     /**
      * Gives a list of topics to the social entity.
      *
-     * @param lesTopics
+     * @param topics
      */
-    public void setLesTopics(List<Topic> lesTopics) {
-        this.lesTopics = lesTopics;
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
     }
 
     /**

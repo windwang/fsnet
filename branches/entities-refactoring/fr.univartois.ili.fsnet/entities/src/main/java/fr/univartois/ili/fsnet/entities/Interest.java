@@ -31,7 +31,7 @@ public class Interest {
 	/**
 	 * The list of social entities that are affected by this interest.
 	 */
-	@ManyToMany(mappedBy = "lesinterets")
+	@ManyToMany(mappedBy = "interests")
 	@JoinColumn(nullable=false)
 	private List<SocialEntity> lesEntites = new ArrayList<SocialEntity>();
 
