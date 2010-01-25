@@ -19,9 +19,9 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.entities.Message;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 
 /**
  *
@@ -43,11 +43,11 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
         Date date = new Date();
 
-        EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, em);
-        Message message = new Message(messageDescription, date, entiteSociale, topic);
+        SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
+        TopicMessage message = new TopicMessage(messageDescription, SocialEntity, topic);
 
         em.getTransaction().begin();
-        topic.getLesMessages().add(message);
+        topic.getMessages().add(message);
         em.getTransaction().commit();
 
         em.close();
@@ -62,14 +62,14 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
         DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String messageDescription = (String) dynaForm.get("messageDescription");
         int messageId = Integer.valueOf(Integer.parseInt(dynaForm.getString("messageId")));
-        Message message = em.find(Message.class, messageId);
-        message.setContenu(messageDescription);
+        TopicMessage message = em.find(TopicMessage.class, messageId);
+        message.setBody(messageDescription);
         int topicId = Integer.valueOf(Integer.parseInt(dynaForm.getString("topicId")));
         Topic topic = em.find(Topic.class, topicId);
 
         em.getTransaction().begin();
         em.merge(message);
-        topic.getLesMessages();
+        topic.getMessages();
         em.getTransaction().commit();
         em.close();
         return mapping.findForward("success");
@@ -81,13 +81,13 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
         int topicId = Integer.valueOf(request.getParameter("topicId"));
         Topic topic = em.find(Topic.class, topicId);
         int messageId = Integer.valueOf(Integer.parseInt(request.getParameter("messageId")));
-        Message message = em.find(Message.class, messageId);
+        TopicMessage message = em.find(TopicMessage.class, messageId);
         em.getTransaction().begin();
-        Query query = em.createQuery("DELETE FROM Message message WHERE message.id = :messageId");
+        Query query = em.createQuery("DELETE FROM TopicMessage message WHERE message.id = :messageId");
         query.setParameter("messageId", messageId);
         query.executeUpdate();
 
-        topic.getLesMessages().remove(message);
+        topic.getMessages().remove(message);
         em.getTransaction().commit();
         em.close();
         return mapping.findForward("success");
@@ -107,7 +107,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
         if (messageId != null) {
             EntityManager em = factory.createEntityManager();
-            Message message = em.find(Message.class, Integer.parseInt(messageId));
+            TopicMessage message = em.find(TopicMessage.class, Integer.parseInt(messageId));
             request.setAttribute("message", message);
         }
 

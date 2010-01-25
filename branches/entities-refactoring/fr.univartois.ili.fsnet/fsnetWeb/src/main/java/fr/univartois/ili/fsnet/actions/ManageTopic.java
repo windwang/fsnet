@@ -23,6 +23,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 import java.util.Collections;
 
 /**
@@ -47,13 +48,11 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
         Date date = new Date();
 
         SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
-        Topic topic = new Topic(topicSujet, date, null, hub, SocialEntity);
-        Message message = new Message(messageDescription, date, SocialEntity, topic);
+        Topic topic = new Topic(hub, SocialEntity, topicSujet);
+        Message message = new TopicMessage(messageDescription, SocialEntity, topic);
 
         em.getTransaction().begin();
-        hub.getLesTopics().add(topic);
-        // TODO quelqu'un a une autre solution ? sinon null pointer
-        topic.setLesMessages(Collections.singletonList(message));
+        hub.getTopics().add(topic);
         em.getTransaction().commit();
         em.close();
         return mapping.findForward("success");
@@ -80,8 +79,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
             Query query = em.createQuery("DELETE FROM Topic topic WHERE topic.id = :topicId");
             query.setParameter("topicId", topicId);
             query.executeUpdate();
-
-            hub.getLesTopics().remove(topic);
+            hub.getTopics().remove(topic);
             em.getTransaction().commit();
 
         }
@@ -99,7 +97,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
         int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
         Hub hub = em.find(Hub.class, hubId);
         if (topicSujet != null) {
-            Query query = em.createQuery("SELECT topic FROM Topic topic WHERE topic.sujet LIKE :sujetRea AND topic.hub = :hub ");
+            Query query = em.createQuery("SELECT topic FROM Topic topic WHERE topic.title LIKE :sujetRea AND topic.hub = :hub ");
             query.setParameter("sujetRea", "%" + topicSujet + "%");
             query.setParameter("hub", hub);
             List<Topic> result = query.getResultList();
