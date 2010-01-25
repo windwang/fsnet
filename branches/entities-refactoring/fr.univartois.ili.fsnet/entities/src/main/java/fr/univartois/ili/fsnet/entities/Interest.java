@@ -51,6 +51,7 @@ public class Interest {
      * @param name
      */
     public Interest(String name) {
+        if(name == null) throw new IllegalArgumentException();
         this.nomInteret = name;
     }
 

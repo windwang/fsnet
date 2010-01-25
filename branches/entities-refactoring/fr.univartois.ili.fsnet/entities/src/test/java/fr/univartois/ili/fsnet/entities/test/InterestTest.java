@@ -15,6 +15,8 @@ import org.junit.Test;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
+import java.util.HashSet;
+import java.util.Set;
 
 
 public class InterestTest {
@@ -38,7 +40,7 @@ public class InterestTest {
 	public void testPersist() {
 		SocialEntity ent1 = new SocialEntity("toto", "tutu", "interestpersist@gmail.com");
 		SocialEntity ent2 = new SocialEntity("toto2", "tutu2", "totu2@gmail.com");
-		List<SocialEntity> lesEntites = new ArrayList<SocialEntity>();
+		Set<SocialEntity> lesEntites = new HashSet<SocialEntity>();
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();
@@ -47,7 +49,8 @@ public class InterestTest {
 		em.persist(ent2);
 		em.getTransaction().commit();
 		lesEntites.add(ent2);
-		Interest inte = new Interest(lesEntites,"java");
+		Interest inte = new Interest("java");
+                inte.setEntities(lesEntites);
 		em.getTransaction().begin();
 		em.persist(inte);
 		em.getTransaction().commit();
@@ -57,23 +60,12 @@ public class InterestTest {
 		assertEquals(inte2.getName(),inte.getName());
 	}
 	
-	@Test(expected = RollbackException.class)
+	@Test(expected = IllegalArgumentException.class)
 	/**
 	 * Check that the name of interet can not be null
 	 */
 	public void testNomInteretIsNotNull() {
-		SocialEntity ent1 = new SocialEntity("toto", "tutu", "interestNom1totu@gmail.com");
-		SocialEntity ent2 = new SocialEntity("toto2", "tutu2", "interestNom2@gmail.com");
-		List<SocialEntity> lesEntites = new ArrayList<SocialEntity>();
-		em.getTransaction().begin();
-		em.persist(ent1);
-		em.getTransaction().commit();
-		lesEntites.add(ent1);
-		em.getTransaction().begin();
-		em.persist(ent2);
-		em.getTransaction().commit();
-		lesEntites.add(ent2);
-		Interest inte = new Interest(lesEntites,null);
+		Interest inte = new Interest(null);
 		em.getTransaction().begin();
 		em.persist(inte);
 		em.getTransaction().commit();	
@@ -86,7 +78,7 @@ public class InterestTest {
 	public void testNomInteretIsUnique() {
 		SocialEntity ent1 = new SocialEntity("toto", "tutu", "interestUnic1@gmail.com");
 		SocialEntity ent2 = new SocialEntity("toto2", "tutu2", "interestUnic2@gmail.com");
-		List<SocialEntity> lesEntites = new ArrayList<SocialEntity>();
+		Set<SocialEntity> lesEntites = new HashSet<SocialEntity>();
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();
@@ -95,11 +87,13 @@ public class InterestTest {
 		em.persist(ent2);
 		em.getTransaction().commit();
 		lesEntites.add(ent2);
-		Interest inte = new Interest(lesEntites,"java");
+		Interest inte = new Interest("java");
+                inte.setEntities(lesEntites);
 		em.getTransaction().begin();
 		em.persist(inte);
 		em.getTransaction().commit();	
-		Interest inte2 = new Interest(lesEntites,"java");
+		Interest inte2 = new Interest("java");
+                inte2.setEntities(lesEntites);
 		em.getTransaction().begin();
 		em.persist(inte2);
 		em.getTransaction().commit();	
