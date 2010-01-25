@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  * This class represents a servlet that is used in order to authenticate members
@@ -29,7 +30,6 @@ public class Authenticate extends HttpServlet {
 	 * Welcome page path when the user is authenticated
 	 */
 	private static final String WELCOME_AUTHENTICATED_PAGE = "Home.do";
-
 
 	/**
 	 * Welcome page path when the user is NOT authenticated
@@ -62,11 +62,11 @@ public class Authenticate extends HttpServlet {
 
 			try {
 				EntiteSociale es = (EntiteSociale) query.getSingleResult();
-				// TODO activer la vérification du mot de passe
-				if (es != null) {
-					// Member found, so he's authenticated
+				if (Md5.testPassword(memberPass, es.getMdp())) {
 					authenticated = true;
 					req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
+				} else {
+					req.setAttribute("loginError", "login.error");
 				}
 			} catch (NoResultException e) {
 				Logger.getAnonymousLogger()

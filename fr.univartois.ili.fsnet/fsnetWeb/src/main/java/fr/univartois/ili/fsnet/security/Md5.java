@@ -30,7 +30,7 @@ public class Md5 {
     }
 
     public static boolean testPassword(final String clearTextTestPassword,
-            final String encodedActualPassword) throws NoSuchAlgorithmException {
+            final String encodedActualPassword) {
         String encodedTestPassword;
         encodedTestPassword = getEncodedPassword(clearTextTestPassword);
 
