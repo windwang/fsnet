@@ -22,7 +22,7 @@ import org.apache.struts.action.ActionMessage;
 public class DeleteInterest extends Action {
 
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-    private static final String FIND_BY_ID = "SELECT i FROM Interet i WHERE i.id =?1";
+    private static final String FIND_BY_ID = "SELECT i FROM Interest i WHERE i.id =?1";
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,

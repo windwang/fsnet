@@ -53,8 +53,8 @@ public class InterestTest {
 		em.getTransaction().commit();
 		Interest inte2 = em.find(Interest.class, inte.getId());
 		assertEquals(inte2.getId(),inte.getId());
-		assertEquals(inte2.getLesEntites(),inte.getLesEntites());
-		assertEquals(inte2.getNomInteret(),inte.getNomInteret());
+		assertEquals(inte2.getEntities(),inte.getEntities());
+		assertEquals(inte2.getName(),inte.getName());
 	}
 	
 	@Test(expected = RollbackException.class)

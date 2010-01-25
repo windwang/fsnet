@@ -222,7 +222,7 @@ public class SocialEntity {
     }
 
     /**
-     * Gives a date of entry to the social entity.
+     * Set a date of entry to the social entity.
      *
      * @param inscriptionDate
      */
@@ -230,6 +230,11 @@ public class SocialEntity {
         this.inscritpionDate = inscriptionDate;
     }
 
+    public Date getInscritpionDate() {
+        return inscritpionDate;
+    }
+
+    
     /**
      *
      * @return the date of birth of the social entity.

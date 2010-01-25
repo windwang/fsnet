@@ -19,7 +19,7 @@ import javax.persistence.TypedQuery;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  * @author romuald druelle
@@ -27,134 +27,130 @@ import fr.univartois.ili.fsnet.entities.EntiteSociale;
  */
 public class EntiteSocialeTag extends TagSupport {
 
-	private static final long serialVersionUID = 1L;
-	private static final String FIND_ALL = "SELECT e FROM EntiteSociale e ORDER BY e.nom ASC";
-	private static final String FIND_BY_ID = "SELECT e FROM EntiteSociale e WHERE e.id = ?1 ";
-	private static final String DATABASE_NAME = "fsnetjpa";
-	private Iterator<EntiteSociale> it;
-	private String var;
-	private String id;
-	private String parametre;
-	private String filtre;
-	private DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
+    private static final long serialVersionUID = 1L;
+    private static final String FIND_ALL = "SELECT e FROM SocialEntity e ORDER BY e.name ASC";
+    private static final String FIND_BY_ID = "SELECT e FROM SocialEntity e WHERE e.id = ?1 ";
+    private static final String DATABASE_NAME = "fsnetjpa";
+    private Iterator<SocialEntity> it;
+    private String var;
+    private String id;
+    private String parametre;
+    private String filtre;
+    private DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 
-	@Override
-	public int doStartTag() throws JspException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
-        TypedQuery<EntiteSociale> query = null;
-		List<EntiteSociale> lesEntites = null;
-		if (filtre != null) {
-			lesEntites = recherche();
-		} else {
-			if (id == null) {
+    @Override
+    public int doStartTag() throws JspException {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<SocialEntity> query = null;
+        List<SocialEntity> lesEntites = null;
+        if (filtre != null) {
+            lesEntites = recherche();
+        } else {
+            if (id == null) {
 
-				query = em.createQuery(FIND_ALL, EntiteSociale.class);
-			} else {
-				query = em.createQuery(FIND_BY_ID, EntiteSociale.class);
-				query.setParameter(1, Integer.parseInt(id));
-			}
-			lesEntites = query.getResultList();
-		}
-		if (lesEntites == null) {
-			it = null;
-		} else {
-			it = lesEntites.iterator();
-		}
-		if (it != null && it.hasNext()) {
-			updateContext(it.next());
-			return EVAL_BODY_INCLUDE;
-		}
+                query = em.createQuery(FIND_ALL, SocialEntity.class);
+            } else {
+                query = em.createQuery(FIND_BY_ID, SocialEntity.class);
+                query.setParameter(1, Integer.parseInt(id));
+            }
+            lesEntites = query.getResultList();
+        }
+        if (lesEntites == null) {
+            it = null;
+        } else {
+            it = lesEntites.iterator();
+        }
+        if (it != null && it.hasNext()) {
+            updateContext(it.next());
+            return EVAL_BODY_INCLUDE;
+        }
 
-		return SKIP_BODY;
-	}
+        return SKIP_BODY;
+    }
 
-	@Override
-	public int doAfterBody() throws JspException {
-		if (it.hasNext()) {
-			updateContext(it.next());
-			return EVAL_BODY_AGAIN;
-		}
-		return SKIP_BODY;
-	}
+    @Override
+    public int doAfterBody() throws JspException {
+        if (it.hasNext()) {
+            updateContext(it.next());
+            return EVAL_BODY_AGAIN;
+        }
+        return SKIP_BODY;
+    }
 
-	@Override
-	public int doEndTag() throws JspException {
-		pageContext.removeAttribute(var);
-		return SKIP_BODY;
-	}
+    @Override
+    public int doEndTag() throws JspException {
+        pageContext.removeAttribute(var);
+        return SKIP_BODY;
+    }
 
-	public List<EntiteSociale> recherche() {
-		if (filtre.equals("nom")) {
-			return searchNom(parametre);
-		}
-		if (filtre.equals("prenom")) {
-			return searchPrenom(parametre);
-		}
-		if (filtre.equals("dateEntree")) {
-			try {
-				return searchDateEntree(formatter.parse(parametre));
-			} catch (ParseException e) {
-				Logger.getAnonymousLogger().log(Level.SEVERE, "erreur de date",
-						e);
-			}
-		}
-		return null;
-	}
+    public List<SocialEntity> recherche() {
+        if (filtre.equals("nom")) {
+            return searchNom(parametre);
+        }
+        if (filtre.equals("prenom")) {
+            return searchPrenom(parametre);
+        }
+        if (filtre.equals("dateEntree")) {
+            try {
+                return searchDateEntree(formatter.parse(parametre));
+            } catch (ParseException e) {
+                Logger.getAnonymousLogger().log(Level.SEVERE, "erreur de date",
+                        e);
+            }
+        }
+        return null;
+    }
 
-	private void updateContext(EntiteSociale entite) {
-		pageContext.setAttribute(var, entite);
-	}
+    private void updateContext(SocialEntity entite) {
+        pageContext.setAttribute(var, entite);
+    }
 
-	public List<EntiteSociale> searchNom(String param) {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
-		TypedQuery<EntiteSociale> query = em.createQuery(
-				"SELECT e FROM EntiteSociale e WHERE e.nom=?1",
-				EntiteSociale.class);
-		query.setParameter(1, param);
-		return (List<EntiteSociale>) query.getResultList();
-	}
+    public List<SocialEntity> searchNom(String param) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<SocialEntity> query = em.createQuery(
+                "SELECT e FROM SocialEntity e WHERE e.name=?1",
+                SocialEntity.class);
+        query.setParameter(1, param);
+        return (List<SocialEntity>) query.getResultList();
+    }
 
-	public List<EntiteSociale> searchPrenom(String param) {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
-		TypedQuery<EntiteSociale> query = em.createQuery(
-				"SELECT e FROM EntiteSociale e WHERE e.prenom=?1",
-				EntiteSociale.class);
-		query.setParameter(1, param);
-		return (List<EntiteSociale>) query.getResultList();
+    public List<SocialEntity> searchPrenom(String param) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<SocialEntity> query = em.createQuery(
+                "SELECT e FROM SocialEntity e WHERE e.firstName=?1",
+                SocialEntity.class);
+        query.setParameter(1, param);
+        return (List<SocialEntity>) query.getResultList();
 
-	}
+    }
 
-	public List<EntiteSociale> searchDateEntree(Date param) {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory(DATABASE_NAME);
-		EntityManager em = factory.createEntityManager();
-		TypedQuery<EntiteSociale> query = em.createQuery(
-				"SELECT e FROM EntiteSociale e WHERE e.dateEntree=?1",
-				EntiteSociale.class);
-		query.setParameter(1, param);
-		return (List<EntiteSociale>) query.getResultList();
+    public List<SocialEntity> searchDateEntree(Date param) {
+        EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
+        EntityManager em = factory.createEntityManager();
+        TypedQuery<SocialEntity> query = em.createQuery(
+                "SELECT e FROM SocialEntity e WHERE e.inscriptionDate=?1",
+                SocialEntity.class);
+        query.setParameter(1, param);
+        return (List<SocialEntity>) query.getResultList();
 
-	}
+    }
 
-	public void setFiltre(final String filtre) {
-		this.filtre = filtre;
-	}
+    public void setFiltre(final String filtre) {
+        this.filtre = filtre;
+    }
 
-	public void setParametre(final String parametre) {
-		this.parametre = parametre;
-	}
+    public void setParametre(final String parametre) {
+        this.parametre = parametre;
+    }
 
-	public void setVar(final String var) {
-		this.var = var;
-	}
+    public void setVar(final String var) {
+        this.var = var;
+    }
 
-	public void setId(final String id) {
-		this.id = id;
-	}
+    public void setId(final String id) {
+        this.id = id;
+    }
 }

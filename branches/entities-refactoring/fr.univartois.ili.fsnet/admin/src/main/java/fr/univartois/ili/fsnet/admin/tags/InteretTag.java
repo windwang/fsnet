@@ -14,7 +14,7 @@ import javax.persistence.TypedQuery;
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import fr.univartois.ili.fsnet.entities.Interet;
+import fr.univartois.ili.fsnet.entities.Interest;
 
 /**
  * @author romuald druelle
@@ -23,11 +23,11 @@ import fr.univartois.ili.fsnet.entities.Interet;
 public class InteretTag extends TagSupport {
 
     private static final long serialVersionUID = 1L;
-    private static final String FIND_ALL = "SELECT i FROM Interet i ORDER BY i.nomInteret ASC";
-    private static final String FIND_BY_NOMINTERET = "SELECT i FROM Interet i WHERE i.nomInteret=?1";
+    private static final String FIND_ALL = "SELECT i FROM Interest i ORDER BY i.name ASC";
+    private static final String FIND_BY_NOMINTERET = "SELECT i FROM Interest i WHERE i.name=?1";
     private static final String DATABASE_NAME = "fsnetjpa";
     private static final int SIZE = 70;
-    private Iterator<Interet> it;
+    private Iterator<Interest> it;
     private String var;
     private String parametre;
 
@@ -35,14 +35,14 @@ public class InteretTag extends TagSupport {
     public int doStartTag() throws JspException {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         EntityManager em = factory.createEntityManager();
-        TypedQuery<Interet> query;
-        List<Interet> lesInterets;
+        TypedQuery<Interest> query;
+        List<Interest> lesInterets;
 
         if (parametre != null) {
             lesInterets = recherche(parametre);
 
         } else {
-            query = em.createQuery(FIND_ALL, Interet.class);
+            query = em.createQuery(FIND_ALL, Interest.class);
             lesInterets = query.getResultList();
         }
         if ((lesInterets == null) || (lesInterets.isEmpty())) {
@@ -60,9 +60,9 @@ public class InteretTag extends TagSupport {
         return SKIP_BODY;
     }
 
-    private void updateContext(Interet interet) {
+    private void updateContext(Interest interet) {
         pageContext.setAttribute(var, interet);
-        String intitule = interet.getNomInteret();
+        String intitule = interet.getName();
         if (intitule.length() < SIZE) {
             pageContext.setAttribute("svarInteret", intitule);
         } else {
@@ -87,11 +87,11 @@ public class InteretTag extends TagSupport {
         return SKIP_BODY;
     }
 
-    public List<Interet> recherche(String param) {
+    public List<Interest> recherche(String param) {
         EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
         EntityManager em = factory.createEntityManager();
-        List<Interet> lesI;
-        TypedQuery<Interet> query = em.createQuery(FIND_BY_NOMINTERET, Interet.class);
+        List<Interest> lesI;
+        TypedQuery<Interest> query = em.createQuery(FIND_BY_NOMINTERET, Interest.class);
         query.setParameter(1, param);
         lesI = query.getResultList();
         return lesI;

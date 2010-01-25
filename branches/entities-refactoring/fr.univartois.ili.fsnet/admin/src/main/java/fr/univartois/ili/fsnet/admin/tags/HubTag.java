@@ -16,7 +16,7 @@ public class HubTag extends AbstractGenericIteratorTag<Hub> {
     private static final long serialVersionUID = 1L;
     private static final String DATABASE_NAME = "fsnetjpa";
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-    private static final String FIND_ALL = "SELECT h FROM Hub h ORDER BY h.nomCommunaute";
+    private static final String FIND_ALL = "SELECT h FROM Hub h ORDER BY h.title";
 
     @Override
     public String getDefaultVarName() {

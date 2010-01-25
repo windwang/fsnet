@@ -18,8 +18,7 @@ public class DeleteMember extends Action {
     private static final long serialVersionUID = 1L;
     private static final String DATABASE_NAME = "fsnetjpa";
     private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory(DATABASE_NAME);
-    private static final String DELETE_ENTITY_BY_ID = "DELETE FROM EntiteSociale e WHERE e.id = ?1";
-    private static final String DELETE_REGISTRATION_BY_ENTITY_ID = "DELETE FROM Inscription i WHERE i.entite.id = ?1";
+    private static final String DELETE_ENTITY_BY_ID = "DELETE FROM SocialEntity e WHERE e.id = ?1";
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form,
@@ -38,11 +37,6 @@ public class DeleteMember extends Action {
         for (Integer userId : userIds) {
 
             query = em.createQuery(DELETE_ENTITY_BY_ID);
-            query.setParameter(1, userId);
-            query.executeUpdate();
-
-            // TODO Add a CascadeType.DELETE constraint to avoid following lines
-            query = em.createQuery(DELETE_REGISTRATION_BY_ENTITY_ID);
             query.setParameter(1, userId);
             query.executeUpdate();
 

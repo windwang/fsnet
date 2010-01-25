@@ -16,7 +16,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 
-import fr.univartois.ili.fsnet.entities.Interet;
+import fr.univartois.ili.fsnet.entities.Interest;
 
 public class AddInterest extends Action {
 
@@ -24,14 +24,14 @@ public class AddInterest extends Action {
 
     @Override
     public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest req, HttpServletResponse arg3) throws Exception {
-    	EntityManager em = factory.createEntityManager();
+        EntityManager em = factory.createEntityManager();
         DynaActionForm dynaform = (DynaActionForm) form;
-        Interet dto = new Interet();
-        BeanUtils.copyProperties(dto, dynaform);
-
+        String interestname = (String) dynaform.get("nomInteret");
+        Interest interest = new Interest(interestname);
+        
         try {
             em.getTransaction().begin();
-            em.persist(dto);
+            em.persist(interest);
             em.getTransaction().commit();
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();

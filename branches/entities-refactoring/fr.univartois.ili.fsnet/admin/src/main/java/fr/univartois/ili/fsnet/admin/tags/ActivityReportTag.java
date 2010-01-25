@@ -33,28 +33,28 @@ public class ActivityReportTag extends AbstractSingleLoopTag {
     }
 
     private Object nombreInscrit() {
-        Query query = em.createQuery("SELECT count(en) FROM EntiteSociale en");
+        Query query = em.createQuery("SELECT count(en) FROM SocialEntity en");
         return query.getSingleResult();
     }
 
     private Object nombreAnnonces() {
-        Query query = em.createQuery("SELECT count(a) FROM Annonce a");
+        Query query = em.createQuery("SELECT count(a) FROM Announcement a");
         return query.getSingleResult();
     }
 
     private Object nombreAnnoncesValides() {
-        Query query = em.createQuery("SELECT count(a) FROM Annonce a WHERE a.dateFinAnnonce>?1");
+        Query query = em.createQuery("SELECT count(a) FROM Announcement a WHERE a.endDate>?1");
         query.setParameter(1, date);
         return query.getSingleResult();
     }
 
     private Object nombreEvenements() {
-        Query query = em.createQuery("SELECT count(e) FROM Manifestation e");
+        Query query = em.createQuery("SELECT count(e) FROM Meeting e");
         return query.getSingleResult();
     }
 
     private Object nombreEvenementValides() {
-        Query query = em.createQuery("SELECT count(e) FROM Manifestation e WHERE e.dateManifestation>?1");
+        Query query = em.createQuery("SELECT count(e) FROM Meeting e WHERE e.startDate>?1");
         query.setParameter(1, date);
         return query.getSingleResult();
     }
