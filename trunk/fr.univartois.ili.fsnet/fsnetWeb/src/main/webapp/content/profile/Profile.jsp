@@ -3,7 +3,13 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@ taglib prefix="logic" uri="http://struts.apache.org/tags-logic" %>
-<h3>Update Profile</h3>
+
+
+<h3>
+	<bean:message key="updateProfile.title"/>
+</h3>
+
+
 <html:form action="/ModifyProfile">
     <table id="ModifyProfile">
         <tr>
