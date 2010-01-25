@@ -51,11 +51,10 @@ public class Message implements Serializable {
     /**
      *
      * @param body the body of the message
-     * @param topic the topic where is this message
      * @param from the author of the message
      */
-    public Message(String body, Topic topic, SocialEntity from) {
-        if (body == null || topic == null || from == null) {
+    public Message(String body, SocialEntity from) {
+        if (body == null || from == null) {
             throw new IllegalArgumentException();
         }
         this.creationDate = new Date();

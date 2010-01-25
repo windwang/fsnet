@@ -5,13 +5,24 @@ import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 
 @Entity
-public abstract class TopicMessage extends Message implements Serializable {
+public class TopicMessage extends Message implements Serializable {
 
     /**
      * The topic in which the message appears.
      */
     @ManyToOne
     private Topic topic;
+
+    public TopicMessage() {
+    }
+
+    public TopicMessage(String body, SocialEntity from, Topic topic) {
+        super(body, from);
+        if (topic == null) {
+            throw new IllegalArgumentException();
+        }
+        this.topic = topic;
+    }
 
     /**
      *

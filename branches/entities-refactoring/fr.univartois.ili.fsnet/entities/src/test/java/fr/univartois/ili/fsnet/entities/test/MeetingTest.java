@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities.test;
 
+import fr.univartois.ili.fsnet.entities.Address;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -12,9 +13,10 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Meeting;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
-public class ManifestationTest {
+public class MeetingTest {
 
     private EntityManager em;
 
@@ -31,17 +33,11 @@ public class ManifestationTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        Meeting manif = new Meeting(date);
+        final SocialEntity socialEntity = new SocialEntity("ktest6", "test6", "test6@test.com");
+        Meeting manif = new Meeting(socialEntity, "Meeting", "null", date, true, date, new Address());
         em.getTransaction().begin();
         em.persist(manif);
         em.getTransaction().commit();
     }
 
-    @Test(expected = javax.persistence.RollbackException.class)
-    public void testManifestationDateNotNull() {
-        Meeting manif = new Meeting();
-        em.getTransaction().begin();
-        em.persist(manif);
-        em.getTransaction().commit();
-    }
 }

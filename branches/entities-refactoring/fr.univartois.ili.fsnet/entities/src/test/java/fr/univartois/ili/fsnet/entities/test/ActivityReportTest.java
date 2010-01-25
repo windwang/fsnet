@@ -8,16 +8,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.persistence.RollbackException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.Information;
+import fr.univartois.ili.fsnet.entities.ActivityReport;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
-public class InformationTest {
+public class ActivityReportTest {
 
     private EntityManager em;
 
@@ -34,42 +34,36 @@ public class InformationTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        SocialEntity createur = new SocialEntity("test", "bis", "tod@gmail.com");
+        ActivityReport rapp = new ActivityReport(null, date);
         em.getTransaction().begin();
-        em.persist(createur);
+        em.persist(rapp);
         em.getTransaction().commit();
-        Information info = new Information("info", date, "blabla", "Y",
-                createur);
-        em.getTransaction().begin();
-        em.persist(info);
-        em.getTransaction().commit();
-        Information info2 = em.find(Information.class, info.getId());
-		assertEquals(info.getId(), info2.getId());
-		assertEquals(info.getNom(), info2.getNom());
-		assertEquals(info.getDateInformation(), info2.getDateInformation());
-		assertEquals(info.getContenu(), info2.getContenu());
-		assertEquals(info.getVisible(), info2.getVisible());
-		assertEquals(info.getCreator(), info2.getCreator());
+        ActivityReport rapp2 = em.find(ActivityReport.class, rapp.getId());
+
+        assertEquals(rapp2.getId(), rapp.getId());
+        assertEquals(rapp2.getDateRapport(), rapp.getDateRapport());
     }
-    
+
     @Test
     public void testGeneratedValueId() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        SocialEntity createur = new SocialEntity("tests", "biss", "ted@gmail.com");
+        ActivityReport rapp = new ActivityReport(null, date);
         em.getTransaction().begin();
-        em.persist(createur);
+        em.persist(rapp);
         em.getTransaction().commit();
-        Information info = new Information("info", date, "blabla", "Y",
-                createur);
+        ActivityReport rapp2 = new ActivityReport(null, date);
         em.getTransaction().begin();
-        em.persist(info);
+        em.persist(rapp2);
         em.getTransaction().commit();
-        Information info2 = new Information("info", date, "blabla", "Y",
-                createur);
+        assertEquals(rapp.getId() + 1, rapp2.getId());
+    }
+
+    @Test(expected = RollbackException.class)
+    public void testDateIsNotNull() {
+        ActivityReport rapp = new ActivityReport(null, null);
         em.getTransaction().begin();
-        em.persist(info2);
+        em.persist(rapp);
         em.getTransaction().commit();
-        assertEquals(info.getId() + 1, info2.getId());
     }
 }

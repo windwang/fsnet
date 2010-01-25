@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities.test;
 
+import fr.univartois.ili.fsnet.entities.Community;
 import static org.junit.Assert.assertEquals;
 
 import java.text.DateFormat;
@@ -15,6 +16,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Hub;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class HubTest {
@@ -34,7 +36,8 @@ public class HubTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        Hub hub = new Hub("ma communaute", date);
+        final SocialEntity socialEntity = new SocialEntity("ktest6", "test6", "test6@test.com");
+        Hub hub = new Hub(new Community(socialEntity, "Ma comm"), socialEntity, "mon hub");
         em.getTransaction().begin();
         em.persist(hub);
         em.getTransaction().commit();
@@ -43,13 +46,5 @@ public class HubTest {
         assertEquals(hub.getId(), hub2.getId());
         assertEquals(hub.getCreationDate(), hub2.getCreationDate());
     }
-    
-    @Test(expected = RollbackException.class)
-    public void testDateCreationIsNotNull() {
-        Hub hub = new Hub("ma communaute", null);
-        em.getTransaction().begin();
-        em.persist(hub);
-        em.getTransaction().commit();
-    }
-    
+
 }

@@ -8,10 +8,11 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Decideur;
+import fr.univartois.ili.fsnet.entities.Community;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
-public class DecideurTest {
+public class CommunityTest {
 
     private EntityManager em;
 
@@ -27,12 +28,11 @@ public class DecideurTest {
     // TODO TEST-LOL galileo
     @Test
     public void testPersist() {
-        Decideur decideur = new Decideur();
+        Community communaute = new Community(new SocialEntity("test5", "test5", "test5@test.com"),"Ma communaute");
         em.getTransaction().begin();
-        em.persist(decideur);
+        em.persist(communaute);
         em.getTransaction().commit();
-        int monId = decideur.getId();
+        int monId = communaute.getId();
         assertNotNull("id not null", monId);
     }
-  
 }

@@ -17,7 +17,7 @@ import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 
-public class InteretTest {
+public class InterestTest {
 
 	private EntityManager em;
 	

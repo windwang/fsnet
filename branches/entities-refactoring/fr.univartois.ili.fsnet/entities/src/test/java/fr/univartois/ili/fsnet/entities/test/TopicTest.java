@@ -1,5 +1,7 @@
 package fr.univartois.ili.fsnet.entities.test;
 
+import fr.univartois.ili.fsnet.entities.Community;
+import fr.univartois.ili.fsnet.entities.Hub;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,6 +17,7 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class TopicTest {
@@ -46,54 +49,10 @@ public class TopicTest {
         SocialEntity es = new SocialEntity("Ragoût", "Mouton", "RagoûtMouton@toiaussitafaim.com");
         es.setNom("Théophile");
         es.setPrenom("Gautier");
-
-        Topic top = new Topic("master pro", date, null, null, es);
-
-        em.getTransaction().begin();
-        em.persist(es);
-        em.persist(top);
-        em.getTransaction().commit();
-    }
-
-    /**
-     * Check that topic's date cannot be null
-     */
-    @Test(expected = javax.persistence.RollbackException.class)
-    public void testDateNotNull() {
-
-        SocialEntity es = new SocialEntity();
-        es.setNom("Baudelaire");
-        es.setPrenom("Charles");
-
-        // set the topic date to null should throw an exception
-        Topic top = new Topic("master pro", null, null, null, es);
-
-        em.getTransaction().begin();
-        em.persist(es);
-        em.persist(top);
-        em.getTransaction().commit();
-    }
-
-    /**
-     * Check that topic's owner cannot be null
-     */
-    @Test(expected = javax.persistence.RollbackException.class)
-    public void testTitreNotNull() {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-        Date date = null;
-        try {
-            date = (Date) formatter.parse("29/01/02");
-        } catch (ParseException e) {
-            Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-        }
-
-        SocialEntity es = new SocialEntity();
-        es.setNom("Voltaire");
-        es.setPrenom("");
-
-        // set the topic title to null should throw an exception
-        Topic top = new Topic(null, date, null, null, es);
-
+        Hub h = new Hub(new Community(es, "macom"), es, "mon hub");
+        Topic top = new Topic(h, es, "mon topic");
+        TopicMessage firstmessage = new TopicMessage("kiiiii", es, top);
+        top.getMessages().add(firstmessage);
         em.getTransaction().begin();
         em.persist(es);
         em.persist(top);

@@ -9,6 +9,15 @@ public class PrivateMessage extends Message implements Serializable {
     @ManyToOne
     private SocialEntity to;
 
+    public PrivateMessage(String body, SocialEntity from, String subject, SocialEntity to) {
+        super(body, from);
+        if (subject == null || to == null) {
+            throw new IllegalArgumentException();
+        }
+        this.subject = subject;
+        this.to = to;
+    }
+
     /**
      * Get the subject
      *

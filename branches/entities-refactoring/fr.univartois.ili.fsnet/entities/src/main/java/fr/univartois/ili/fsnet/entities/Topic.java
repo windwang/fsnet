@@ -35,9 +35,9 @@ public class Topic extends Interaction {
     public Topic() {
     }
 
-    public Topic(Hub hub, SocialEntity creator, String title, TopicMessage firstMessage) {
+    public Topic(Hub hub, SocialEntity creator, String title) {
         super(creator, title);
-        if (hub == null || creator == null || title == null || firstMessage == null) {
+        if (hub == null || creator == null || title == null) {
             throw new IllegalArgumentException();
         }
         this.messages = new ArrayList<TopicMessage>();

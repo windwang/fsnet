@@ -41,6 +41,9 @@ public class Announcement extends Interaction {
     public Announcement(SocialEntity creator, String title, String content,
             Date endDate, boolean isPrivate) {
         super(creator, title);
+        if (content == null || endDate == null) {
+            throw new IllegalArgumentException();
+        }
         this.content = content;
         this.endDate = endDate;
     }

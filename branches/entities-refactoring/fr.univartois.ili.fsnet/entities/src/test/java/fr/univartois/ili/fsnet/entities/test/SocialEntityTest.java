@@ -13,7 +13,7 @@ import org.junit.Test;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
-public class EntiteSocialeTest {
+public class SocialEntityTest {
 
 	private EntityManager em;
 
