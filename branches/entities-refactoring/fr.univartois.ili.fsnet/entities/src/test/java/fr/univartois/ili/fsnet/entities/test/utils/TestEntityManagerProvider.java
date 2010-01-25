@@ -29,8 +29,8 @@ public class TestEntityManagerProvider {
     }
 
     private void writeProperties(Map<String, String> map) {
-        map.put("eclipselink.jdbc.driver", "org.apache.derby.jdbc.EmbeddedDriver");
-        map.put("eclipselink.jdbc.url", "jdbc:derby:myDbFSNET;create=true");
+        map.put("eclipselink.jdbc.driver", "com.mysql.jdbc.Driver");
+        map.put("eclipselink.jdbc.url", "jdbc:mysql://localhost/fsnet");
         map.put("eclipselink.ddl-generation", "drop-and-create-tables");
         map.put("eclipselink.ddl-generation.output-mode", "database");
     }

@@ -46,10 +46,13 @@ public abstract class Interaction implements Serializable {
      */
     @ManyToOne
     private ActivityReport report;
+    
     @ManyToMany
     private Set<Interest> interests;
+    
     @Temporal(TemporalType.DATE)
     private Date creationDate;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastModified;
 
