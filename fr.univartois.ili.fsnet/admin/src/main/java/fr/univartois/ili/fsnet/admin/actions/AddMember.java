@@ -109,17 +109,13 @@ public class AddMember extends Action {
 		StringBuilder message = new StringBuilder();
 		message.append("Bonjour ").append(nom).append(" ").append(prenom);
 		message.append(",<br/><br/>");
-		message
-				.append("<h3>Vous venez d'être enregistré sur FSNet (Firm Social Network).</h3><br/><br/>");
+		message.append("Vous venez d'être enregistré sur FSNet (Firm Social Network).<br/><br/>");
 		message.append("Désormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
-		message.append(" .\n\n");
-		message
-				.append("Pour finaliser votre inscription il suffit de remplir votre profil.\n\n");
-		message.append("Un mot de passe à été généré automatiquement : <em>");
+		message.append(" .<br/><br/>");
+		message.append("Un mot de passe a été généré automatiquement : <em>");
 		message.append(password);
-		message
-				.append("</em><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
+		message.append("</em><br/><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
 		return message.toString();
 	}
 
