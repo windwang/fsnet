@@ -59,5 +59,6 @@ For example to configure SMTP server using a gmail account :
    * fsnetWeb/target/fsnetWeb-0.1.war
    * webservice/target/webservice-0.1.war
    * trayDesktop/target/trayDesktop-0.1.jar
-  
+
+ If the build fails don't forget to take a look [http://fsnet-dev.opsas.net/hudson/ here]
  
