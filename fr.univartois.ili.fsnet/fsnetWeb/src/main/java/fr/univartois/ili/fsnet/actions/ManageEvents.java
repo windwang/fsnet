@@ -57,7 +57,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         EntityManager em = factory.createEntityManager();
         EntiteSociale member = UserUtils.getAuthenticatedUser(request, em);
         em.getTransaction().begin();
-        member = em.find(EntiteSociale.class, member.getId());
+        //member = em.find(EntiteSociale.class, member.getId());
         Manifestation event = new Manifestation(eventName, typedEventDate,
                 eventDescription, null, member);
         member.getLesinteractions().add(event);

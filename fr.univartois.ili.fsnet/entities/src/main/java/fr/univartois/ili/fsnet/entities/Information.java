@@ -33,12 +33,14 @@ public class Information extends Interaction {
      * The visibility information
      */
     private String visible;
+    
     /**
      * Constructor of the class Information.
      */
 
     public Information() {
         super();
+        this.dateInformation = new Date();
     }
 
     /**

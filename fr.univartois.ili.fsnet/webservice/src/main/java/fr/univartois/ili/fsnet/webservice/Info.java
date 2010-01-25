@@ -13,7 +13,7 @@ import javax.persistence.Query;
 
 /**
  * This webservice is used by fsnet heavy clients to get informations
- * on new events, announces, mesages etc... for their fsnet
+ * on new events, announces, mesages etc...
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 @WebService()

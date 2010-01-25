@@ -40,10 +40,10 @@ public class Manifestation extends Information {
         this.dateManifestation = dateDebut;
     }
 
-    public Manifestation(String titre, Date date, String contenu,
+    public Manifestation(String titre, Date dateManif, String contenu,
             String visible, EntiteSociale createur) {
-        super(titre, date, contenu, visible, createur);
-        this.dateManifestation = date;
+        super(titre, new Date(), contenu, visible, createur);
+        this.dateManifestation = dateManif;
     }
 
     /**

@@ -51,7 +51,7 @@
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
 </logic:empty>
-<table class="inLineTable">
+<table class="inLineTable" style="margin-bottom: 20px;">
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
             <td>
@@ -98,7 +98,7 @@
     </c:forEach>
 </table>
 
-<html:link action="/DisplayCreateTopic" styleClass="button">
+<html:link action="/DisplayCreateTopic" styleClass="button" >
     <html:param name="hubId" value="${hubResult.id}"/>
     <bean:message key="hubs.createTopic"/>
 </html:link>
