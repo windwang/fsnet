@@ -18,7 +18,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class ManageMembers extends MappingDispatchAction {
 
@@ -38,43 +38,43 @@ public class ManageMembers extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
-		TypedQuery<EntiteSociale> query = null;
-		TypedQuery<EntiteSociale> queryContacts = null;
-		TypedQuery<EntiteSociale> queryRequested = null;
-		TypedQuery<EntiteSociale> queryAsked = null;
-		List<EntiteSociale> resultOthers = null;
-		List<EntiteSociale> resultContacts = null;
-		List<EntiteSociale> resultRequested = null;
-		List<EntiteSociale> resultAsked = null;
-		EntiteSociale member = UserUtils.getAuthenticatedUser(request, em);
+		TypedQuery<SocialEntity> query = null;
+		TypedQuery<SocialEntity> queryContacts = null;
+		TypedQuery<SocialEntity> queryRequested = null;
+		TypedQuery<SocialEntity> queryAsked = null;
+		List<SocialEntity> resultOthers = null;
+		List<SocialEntity> resultContacts = null;
+		List<SocialEntity> resultRequested = null;
+		List<SocialEntity> resultAsked = null;
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 
-		member = em.find(EntiteSociale.class, member.getId());
+		member = em.find(SocialEntity.class, member.getId());
 
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
 			String searchText = (String) dynaForm.get("searchText");
 
 			query = em.createQuery(
-					"SELECT es FROM EntiteSociale es WHERE (es.nom LIKE :searchText"
-					+ " OR es.prenom LIKE :searchText OR es.email LIKE :searchText) AND es.id <> :id", EntiteSociale.class);
+					"SELECT es FROM SocialEntity es WHERE (es.name LIKE :searchText"
+					+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText) AND es.id <> :id", SocialEntity.class);
 			query.setParameter("searchText", "%" + searchText + "%");
 			query.setParameter("id", member.getId());
 
 			queryContacts = em.createQuery(
-					"SELECT e FROM EntiteSociale e JOIN e.contacts c WHERE c.id = :id AND (e.nom LIKE :searchText"
-					+ " OR e.prenom LIKE :searchText OR e.email LIKE :searchText)", EntiteSociale.class);
+					"SELECT e FROM SocialEntity e JOIN e.contacts c WHERE c.id = :id AND (e.name LIKE :searchText"
+					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
 			queryContacts.setParameter("searchText", "%" + searchText + "%");
 			queryContacts.setParameter("id", member.getId());
 
 			queryRequested = em.createQuery(
-					"SELECT e FROM EntiteSociale e JOIN e.asked r WHERE r.id = :id AND (e.nom LIKE :searchText"
-					+ " OR e.prenom LIKE :searchText OR e.email LIKE :searchText)", EntiteSociale.class);
+					"SELECT e FROM SocialEntity e JOIN e.asked r WHERE r.id = :id AND (e.name LIKE :searchText"
+					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
 			queryRequested.setParameter("searchText", "%" + searchText + "%");
 			queryRequested.setParameter("id", member.getId());
 
 			queryAsked = em.createQuery(
-					"SELECT e FROM EntiteSociale e JOIN e.requested r WHERE r.id = :id AND (e.nom LIKE :searchText"
-					+ " OR e.prenom LIKE :searchText OR e.email LIKE :searchText)", EntiteSociale.class);
+					"SELECT e FROM SocialEntity e JOIN e.requested r WHERE r.id = :id AND (e.name LIKE :searchText"
+					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
 			queryAsked.setParameter("searchText", "%" + searchText + "%");
 			queryAsked.setParameter("id", member.getId());
 
@@ -83,7 +83,7 @@ public class ManageMembers extends MappingDispatchAction {
 			resultAsked = queryAsked.getResultList();
 
 		} else {
-			query = em.createQuery("SELECT es FROM EntiteSociale es WHERE es.id <> :id", EntiteSociale.class);
+			query = em.createQuery("SELECT es FROM SocialEntity es WHERE es.id <> :id", SocialEntity.class);
 			query.setParameter("id", member.getId());
 
 			resultContacts = member.getContacts();

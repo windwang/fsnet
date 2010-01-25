@@ -17,7 +17,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionMessage;
 
@@ -46,7 +46,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
             throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form;
         EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         final String idString = (String) dynaForm.get("entitySelected");
         int entitySelected = Integer.parseInt(idString);
 
@@ -56,7 +56,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 
             // TODO changer les listes en set sur les entites sociales pour eviter
             // les doublons
-            EntiteSociale entity = em.find(EntiteSociale.class, entitySelected);
+            SocialEntity entity = em.find(SocialEntity.class, entitySelected);
 
             if (notInRelation(user, entity)) {
                 user.getRequested().add(entity);
@@ -88,10 +88,10 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
             throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form;
         EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         final String idString = (String) dynaForm.get("entityAccepted");
         int id = Integer.parseInt(idString);
-        EntiteSociale entityAccepted = em.find(EntiteSociale.class, id);
+        SocialEntity entityAccepted = em.find(SocialEntity.class, id);
         //TODO check that in a method when --facading--
         if (user.getAsked().contains(entityAccepted)
                 && entityAccepted.getRequested().contains(user)
@@ -127,10 +127,10 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 
         DynaActionForm dynaForm = (DynaActionForm) form;
         EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         final String idString = (String) dynaForm.get("entityRefused");
         int id = Integer.parseInt(idString);
-        EntiteSociale entityRefused = em.find(EntiteSociale.class, id);
+        SocialEntity entityRefused = em.find(SocialEntity.class, id);
 
         em.getTransaction().begin();
         user.getAsked().remove(entityRefused);
@@ -162,10 +162,10 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
             throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form;
         EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         final String idString = (String) dynaForm.get("entityDeleted");
         int id = Integer.parseInt(idString);
-        EntiteSociale entityDeleted = em.find(EntiteSociale.class, id);
+        SocialEntity entityDeleted = em.find(SocialEntity.class, id);
         em.getTransaction().begin();
         user.getContacts().remove(entityDeleted);
         entityDeleted.getContacts().remove(user);
@@ -187,7 +187,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
             throws IOException, ServletException {
 
         EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         user.getContacts();
         user.getAsked();
         user.getRequested();
@@ -197,7 +197,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
     }
 
     // TODO move in facade
-    private boolean notInRelation(EntiteSociale user, EntiteSociale entity) {
+    private boolean notInRelation(SocialEntity user, SocialEntity entity) {
         return !(user.getAsked().contains(entity)
                 || user.getRequested().contains(entity)
                 || user.getContacts().contains(entity)

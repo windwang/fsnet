@@ -19,10 +19,11 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,13 +44,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         String hubName = (String) dynaForm.get("hubName");
 
         logger.info("new hub: " + hubName);
-
         EntityManager em = factory.createEntityManager();
-        Hub hub = new Hub(hubName, new Date());
-        EntiteSociale es = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
-        hub.setCreateur(es);
 
+        Hub hub = new Hub(null, user, hubName);
+        SocialEntity es = UserUtils.getAuthenticatedUser(request, em);
         em.getTransaction().begin();
         em.persist(hub);
         em.getTransaction().commit();
@@ -99,7 +99,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         EntityManager em = factory.createEntityManager();
 
         List<Hub> result = em.createQuery(
-                "SELECT hub FROM Hub hub WHERE hub.nomCommunaute LIKE :hubName ").setParameter("hubName", "%" + hubName + "%").getResultList();
+                "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName ").setParameter("hubName", "%" + hubName + "%").getResultList();
         em.close();
         request.setAttribute("hubResults", result);
 
@@ -121,8 +121,8 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
                 "SELECT hub FROM Hub hub WHERE hub.id = :hubId").setParameter(
                 "hubId", Integer.parseInt(hubId)).getSingleResult();
 
-        for (Topic t : result.getLesTopics()) {
-            List<Message> messages = t.getLesMessages();
+        for (Topic t : result.getTopics()) {
+            List<TopicMessage> messages = t.getMessages();
             Message lastMessage = null;
             if (messages.size() > 0) {
                 lastMessage = messages.get(messages.size() - 1);

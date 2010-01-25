@@ -19,7 +19,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
@@ -46,9 +46,9 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
         Date date = new Date();
 
-        EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request, em);
-        Topic topic = new Topic(topicSujet, date, null, hub, entiteSociale);
-        Message message = new Message(messageDescription, date, entiteSociale, topic);
+        SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
+        Topic topic = new Topic(topicSujet, date, null, hub, SocialEntity);
+        Message message = new Message(messageDescription, date, SocialEntity, topic);
 
         em.getTransaction().begin();
         hub.getLesTopics().add(topic);

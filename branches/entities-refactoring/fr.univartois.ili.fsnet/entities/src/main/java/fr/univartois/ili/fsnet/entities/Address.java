@@ -12,6 +12,17 @@ public class Address implements Serializable {
 
     private String address;
 
+    public Address() {
+    }
+
+    public Address(String address, String city) {
+        if (address == null || city == null) {
+            throw new IllegalArgumentException();
+        }
+        this.address = address;
+        this.city = city;
+    }
+
     /**
      * Get the value of address
      *

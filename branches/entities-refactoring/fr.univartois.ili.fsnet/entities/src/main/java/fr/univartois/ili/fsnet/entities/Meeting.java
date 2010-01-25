@@ -1,14 +1,10 @@
 package fr.univartois.ili.fsnet.entities;
 
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
-import javax.persistence.Column;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * 

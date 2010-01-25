@@ -13,7 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  * This filter is used to make sure that the current request is made by an
@@ -32,11 +32,11 @@ public class IsAuthenticatedFilter implements Filter {
 			final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 		HttpSession session;
-		EntiteSociale es;
+		SocialEntity es;
 		RequestDispatcher dispatch;
 
 		session = ((HttpServletRequest) request).getSession();
-		es = (EntiteSociale) session
+		es = (SocialEntity) session
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
 
 		if (es == null) {

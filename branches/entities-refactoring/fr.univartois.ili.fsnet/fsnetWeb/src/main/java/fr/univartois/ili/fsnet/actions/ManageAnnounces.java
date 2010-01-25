@@ -23,8 +23,8 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.entities.Annonce;
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  * 
@@ -44,7 +44,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
-		EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request,
+		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 
 		DynaActionForm formAnnounce = (DynaActionForm) form;
@@ -56,8 +56,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		try {
 			Date expiryDate = DateUtils.format(stringExpiryDate);
 			if (0 > DateUtils.compareToToday(expiryDate)) {
-				Annonce announce = new Annonce(title, new Date(), content,
-						expiryDate, "Y", entiteSociale);
+				Announcement announce = new Announcement(user, title, content, expiryDate, false);
 				entityManager.getTransaction().begin();
 				entityManager.persist(announce);
 				entityManager.getTransaction().commit();
@@ -92,14 +91,14 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		String stringExpiryDate = (String) formAnnounce
 				.get("announceExpiryDate");
 		Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
-		Annonce announce = entityManager.find(Annonce.class, idAnnounce);
+		Announcement announce = entityManager.find(Announcement.class, idAnnounce);
 
 		try {
 			Date expiryDate = DateUtils.format(stringExpiryDate);
 			if (0 > DateUtils.compareToToday(expiryDate)) {
-				announce.setContenu(content);
-				announce.setDateFinAnnnonce(expiryDate);
-				announce.setNom(title);
+				announce.setContent(content);
+				announce.setEndDate(expiryDate);
+				announce.setTitle(title);
 				entityManager.getTransaction().begin();
 				entityManager.merge(announce);
 				entityManager.getTransaction().commit();
@@ -135,7 +134,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		Integer idAnnounce = Integer
 				.valueOf(request.getParameter("idAnnounce"));
 
-		Annonce announce = entityManager.find(Annonce.class, idAnnounce);
+		Announcement announce = entityManager.find(Announcement.class, idAnnounce);
 		servlet.log("remove announce");
 		ActionMessages message = new ActionErrors();
 		entityManager.getTransaction().begin();
@@ -166,18 +165,18 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		String textSearchAnnounce = (String) seaarchForm
 				.get("textSearchAnnounce");
 		EntityManager entityManager = factory.createEntityManager();
-		List<Annonce> listAnnounces;
+		List<Announcement> listAnnounces;
 		// TODO warning
 		servlet.log("search");
 		if (textSearchAnnounce != null) {
 			listAnnounces = entityManager
 					.createQuery(
-							"SELECT a FROM Annonce a WHERE a.nom LIKE :textSearchAnnounce OR a.contenu LIKE :textSearchAnnounce ")
+							"SELECT a FROM Announcement a WHERE a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce ")
 					.setParameter("textSearchAnnounce",
 							"%" + textSearchAnnounce + "%").getResultList();
 		} else {
 			listAnnounces = entityManager.createQuery(
-					"SELECT a FROM Annonce a ").getResultList();
+					"SELECT a FROM Announcement a ").getResultList();
 		}
 		entityManager.close();
 		request.setAttribute("listAnnounces", listAnnounces);
@@ -193,24 +192,24 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
 
-		EntiteSociale entiteSociale = UserUtils.getAuthenticatedUser(request,
+		SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 		Integer idAnnounce = Integer
 				.valueOf(request.getParameter("idAnnounce"));
 
-		Annonce announce = entityManager.find(Annonce.class, idAnnounce);
-		EntiteSociale entiteSocialeOwner = (EntiteSociale) entityManager
+		Announcement announce = entityManager.find(Announcement.class, idAnnounce);
+		SocialEntity SocialEntityOwner = (SocialEntity) entityManager
 				.createQuery(
-						"SELECT es FROM EntiteSociale es,IN(es.lesinteractions) e WHERE e = :announce")
+						"SELECT es FROM SocialEntity es,IN(es.interactions) e WHERE e = :announce")
 				.setParameter("announce", announce).getSingleResult();
 
 		entityManager.close();
 		request.setAttribute("announce", announce);
-		request.setAttribute("entiteSociale", entiteSocialeOwner);
+		request.setAttribute("SocialEntity", SocialEntityOwner);
 		servlet
-				.log(entiteSocialeOwner.toString()
-						+ entiteSocialeOwner.getNom());
-		if (entiteSociale.getId() == entiteSocialeOwner.getId()) {
+				.log(SocialEntityOwner.toString()
+						+ SocialEntityOwner.getName());
+		if (SocialEntity.getId() == SocialEntityOwner.getId()) {
 			request.setAttribute("owner", true);
 		}
 

@@ -1,9 +1,7 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -273,7 +271,7 @@ public class SocialEntity {
      *
      * @param sexe
      */
-    public void setSexe(String sexe) {
+    public void setSex(String sexe) {
         this.sex = sexe;
     }
 

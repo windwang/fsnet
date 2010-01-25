@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.security.Md5;
 
 /**
@@ -24,79 +24,70 @@ import fr.univartois.ili.fsnet.security.Md5;
  */
 public class Authenticate extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
+    /**
+     * Welcome page path when the user is authenticated
+     */
+    private static final String WELCOME_AUTHENTICATED_PAGE = "Home.do";
+    /**
+     * Welcome page path when the user is NOT authenticated
+     */
+    public static final String WELCOME_NON_AUTHENTICATED_PAGE = "/WEB-INF/jsp/login.jsp";
+    /**
+     * Authenticated user key in session scope
+     */
+    public static final String AUTHENTICATED_USER = "user";
+    public static final EntityManagerFactory emf = Persistence.createEntityManagerFactory("fsnetjpa");
 
-	/**
-	 * Welcome page path when the user is authenticated
-	 */
-	private static final String WELCOME_AUTHENTICATED_PAGE = "Home.do";
+    /**
+     * This method is called when an user user tries to sign in
+     */
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        boolean authenticated = false;
+        String memberMail = req.getParameter("memberMail");
+        String memberPass = req.getParameter("memberPass");
 
-	/**
-	 * Welcome page path when the user is NOT authenticated
-	 */
-	public static final String WELCOME_NON_AUTHENTICATED_PAGE = "/WEB-INF/jsp/login.jsp";
+        if (memberMail != null && memberPass != null) {
+            EntityManager em = emf.createEntityManager();
+            Query query = em.createQuery("Select es from SocialEntity es where es.mail = :memberMail");
+            query.setParameter("memberMail", memberMail);
 
-	/**
-	 * Authenticated user key in session scope
-	 */
-	public static final String AUTHENTICATED_USER = "user";
+            try {
+                SocialEntity es = (SocialEntity) query.getSingleResult();
+                if (Md5.testPassword(memberPass, es.getPassword())) {
+                    authenticated = true;
+                    req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
+                } else {
+                    req.setAttribute("loginError", "login.error");
+                }
+            } catch (NoResultException e) {
+                Logger.getAnonymousLogger().fine("Member authentication failed");
+                Logger.getAnonymousLogger().fine("memberMail : " + memberMail);
 
-	public static final EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("fsnetjpa");
+                // throw an error message to the request
+                req.setAttribute("loginError", "login.error");
+            }
+            em.close();
+        }
 
-	/**
-	 * This method is called when an user user tries to sign in
-	 */
-	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		boolean authenticated = false;
-		String memberMail = req.getParameter("memberMail");
-		String memberPass = req.getParameter("memberPass");
+        if (authenticated) {
+            // the user is now authenticated
+            resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
+        } else {
+            // the user is not authenticated
+            RequestDispatcher dispatcher = req.getRequestDispatcher(WELCOME_NON_AUTHENTICATED_PAGE);
+            dispatcher.forward(req, resp);
+        }
+    }
 
-		if (memberMail != null && memberPass != null) {
-			EntityManager em = emf.createEntityManager();
-			Query query = em
-					.createQuery("Select es from EntiteSociale es where es.email = :memberMail");
-			query.setParameter("memberMail", memberMail);
-
-			try {
-				EntiteSociale es = (EntiteSociale) query.getSingleResult();
-				if (Md5.testPassword(memberPass, es.getMdp())) {
-					authenticated = true;
-					req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
-				} else {
-					req.setAttribute("loginError", "login.error");
-				}
-			} catch (NoResultException e) {
-				Logger.getAnonymousLogger()
-						.fine("Member authentication failed");
-				Logger.getAnonymousLogger().fine("memberMail : " + memberMail);
-
-				// throw an error message to the request
-				req.setAttribute("loginError", "login.error");
-			}
-			em.close();
-		}
-
-		if (authenticated) {
-			// the user is now authenticated
-			resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
-		} else {
-			// the user is not authenticated
-			RequestDispatcher dispatcher = req
-					.getRequestDispatcher(WELCOME_NON_AUTHENTICATED_PAGE);
-			dispatcher.forward(req, resp);
-		}
-	}
-
-	/**
-	 * Delegated to doGet
-	 */
-	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		doGet(req, resp);
-	}
-
+    /**
+     * Delegated to doGet
+     */
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+            throws ServletException, IOException {
+        doGet(req, resp);
+    }
 }

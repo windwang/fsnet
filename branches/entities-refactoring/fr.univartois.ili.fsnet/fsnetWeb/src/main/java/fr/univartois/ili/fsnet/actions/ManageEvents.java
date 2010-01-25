@@ -23,8 +23,8 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.entities.Manifestation;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.Meeting;
 
 /**
  * Execute CRUD Actions for the entity Event
@@ -55,12 +55,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
             return mapping.getInputForward();
         }
         EntityManager em = factory.createEntityManager();
-        EntiteSociale member = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
         em.getTransaction().begin();
-        //member = em.find(EntiteSociale.class, member.getId());
-        Manifestation event = new Manifestation(eventName, typedEventDate,
-                eventDescription, null, member);
-        member.getLesinteractions().add(event);
+        //member = em.find(SocialEntity.class, member.getId());
+        // TODO !!! date de fin et date de debut !!
+        Meeting event = new Meeting(member, eventName, eventDescription, typedEventDate, false, typedEventDate, null);
+
+        member.getInteractions().add(event);
         em.persist(event);
         request.setAttribute("event", event);
         em.getTransaction().commit();
@@ -87,11 +88,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         EntityManager em = factory.createEntityManager();
 
         em.getTransaction().begin();
-        TypedQuery<Manifestation> query = em.createQuery(
-                "Select e from Manifestation e where e.id = :eventId",
-                Manifestation.class);
+        TypedQuery<Meeting> query = em.createQuery(
+                "Select e from Meeting e where e.id = :eventId",
+                Meeting.class);
         query.setParameter("eventId", Integer.parseInt(eventId));
-        Manifestation event = query.getSingleResult();
+        Meeting event = query.getSingleResult();
         em.remove(event);
         em.flush();
         em.getTransaction().commit();
@@ -109,16 +110,16 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         String searchString = (String) seaarchForm.get("searchString");
 
         EntityManager em = factory.createEntityManager();
-        List<Manifestation> results;
-        final TypedQuery<Manifestation> query;
+        List<Meeting> results;
+        final TypedQuery<Meeting> query;
         // on empty search return all events
         if ("".equals(searchString)) {
-            query = em.createQuery("SELECT e FROM Manifestation e",
-                    Manifestation.class);
+            query = em.createQuery("SELECT e FROM Meeting e",
+                    Meeting.class);
         } else {
-            query = em.createQuery("SELECT e FROM Manifestation e "
-                    + "WHERE e.nom LIKE :searchString "
-                    + "OR e.contenu LIKE :searchString ", Manifestation.class);
+            query = em.createQuery("SELECT e FROM Meeting e "
+                    + "WHERE e.title LIKE :searchString "
+                    + "OR e.content LIKE :searchString ", Meeting.class);
             query.setParameter("searchString", "%" + searchString + "%");
         }
         results = query.getResultList();
@@ -140,11 +141,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         String eventId = (String) dynaForm.get("eventId");
 
         EntityManager em = factory.createEntityManager();
-        TypedQuery<Manifestation> query = em.createQuery(
-                "Select e from Manifestation e where e.id = :eventId",
-                Manifestation.class);
+        TypedQuery<Meeting> query = em.createQuery(
+                "Select e from Meeting e where e.id = :eventId",
+                Meeting.class);
         query.setParameter("eventId", Integer.parseInt(eventId));
-        Manifestation event = query.getSingleResult();
+        Meeting event = query.getSingleResult();
         em.close();
 
         request.setAttribute("event", event);

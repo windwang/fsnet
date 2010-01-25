@@ -38,8 +38,8 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.entities.Interet;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.Interest;
 
 // TODO attention : rustine sur les requetes
 // TODO attention : rustine sur les merge user de session
@@ -62,8 +62,7 @@ public class ManageInterests extends MappingDispatchAction implements
         DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
 
         String interestName = (String) dynaForm.get("createdInterestName");
-        Interet interest = new Interet(new ArrayList<EntiteSociale>(),
-                interestName);
+        Interest interest = new Interest(interestName);
 
         logger.info("new interest: " + interestName);
 
@@ -90,20 +89,20 @@ public class ManageInterests extends MappingDispatchAction implements
         DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         int interestId = Integer.valueOf((String) dynaForm.get("addedInterestId"));
 
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
         logger.info("add interest: id=" + interestId + " for user: "
-                + user.getNom() + " " + user.getPrenom() + " " + user.getId());
+                + user.getName() + " " + user.getFirstName() + " " + user.getId());
 
         // TODO requete provisoire
 
         try {
-            Interet interest = (Interet) em.createQuery(
-                    "SELECT interest FROM Interet interest WHERE interest.id = :interestId").setParameter("interestId", interestId).getSingleResult();
+            Interest interest = (Interest) em.createQuery(
+                    "SELECT interest FROM Interest interest WHERE interest.id = :interestId").setParameter("interestId", interestId).getSingleResult();
 
             boolean dirtyIsOk = true;
 
-            for (Interet interestTmp : user.getLesinterets()) {
+            for (Interest interestTmp : user.getInterests()) {
                 if (interestTmp.getId() == interestId) {
                     dirtyIsOk = false;
                 }
@@ -111,7 +110,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
             if (dirtyIsOk) {
                 em.getTransaction().begin();
-                user.getLesinterets().add(interest);
+                user.getInterests().add(interest);
                 em.merge(user);
                 em.getTransaction().commit();
             } else {
@@ -128,39 +127,39 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        
+
         int interestId;
-        
+
         if (request.getParameterMap().containsKey("removedInterestId")) {
-        	interestId = Integer.valueOf(request.getParameter("removedInterestId"));
-        	
+            interestId = Integer.valueOf(request.getParameter("removedInterestId"));
+
         } else {
-        	DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
+            DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
             interestId = Integer.valueOf((String) dynaForm.get("removedInterestId"));
         }
-        
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
         logger.info("remove interest: id=" + interestId + " for user: "
-                + user.getNom() + " " + user.getPrenom() + " " + user.getId());
+                + user.getName() + " " + user.getFirstName() + " " + user.getId());
 
         // TODO requete provisoire
-        Interet interest = null;
-        for (Interet interestTmp : user.getLesinterets()) {
+        Interest interest = null;
+        for (Interest interestTmp : user.getInterests()) {
             if (interestTmp.getId() == interestId) {
                 interest = interestTmp;
                 break;
             }
         }
         if (interest != null) {
-            user.getLesinterets().remove(interest);
+            user.getInterests().remove(interest);
             em.getTransaction().begin();
             em.merge(user);
             em.getTransaction().commit();
         } else {
             logger.info("remove interest refused");
         }
-        
+
         em.close();
 
         return mapping.findForward("success");
@@ -181,7 +180,7 @@ public class ManageInterests extends MappingDispatchAction implements
         try {
             em.getTransaction().begin();
             em.createQuery(
-                    "UPDATE Interet interest SET interest.nomInteret = :interestName WHERE interest.id = :interestId").setParameter("interestName", interestName).setParameter("interestId", interestId).executeUpdate();
+                    "UPDATE Interest interest SET interest.name = :interestName WHERE interest.id = :interestId").setParameter("interestName", interestName).setParameter("interestId", interestId).executeUpdate();
             em.getTransaction().commit();
         } catch (DatabaseException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -210,10 +209,10 @@ public class ManageInterests extends MappingDispatchAction implements
         try {
             em.getTransaction().begin();
             em.createQuery(
-                    "DELETE FROM Interet interest WHERE interest.id = :interestId").setParameter("interestId", interestId).executeUpdate();
+                    "DELETE FROM Interest interest WHERE interest.id = :interestId").setParameter("interestId", interestId).executeUpdate();
             em.getTransaction().commit();
 
-            EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+            SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
             em.refresh(user);
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -223,7 +222,7 @@ public class ManageInterests extends MappingDispatchAction implements
         }
 
         em.close();
-        
+
         return mapping.findForward("success");
     }
 
@@ -241,10 +240,10 @@ public class ManageInterests extends MappingDispatchAction implements
 
         logger.info("search interest: " + interestName);
 
-        List<Interet> result = em.createQuery(
-                "SELECT interest FROM Interet interest "
-                + "WHERE interest.nomInteret LIKE :interestName ",
-                Interet.class).setParameter("interestName",
+        List<Interest> result = em.createQuery(
+                "SELECT interest FROM Interest interest "
+                + "WHERE interest.name LIKE :interestName ",
+                Interest.class).setParameter("interestName",
                 '%' + interestName + '%').getResultList();
         em.close();
 
@@ -260,20 +259,20 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
         logger.info("Displaying interests");
 
         // TODO requete provisoire
 
-        List<Interet> listAllInterests = em.createQuery(
-                "SELECT interest FROM Interet interest", Interet.class).getResultList();
+        List<Interest> listAllInterests = em.createQuery(
+                "SELECT interest FROM Interet interest", Interest.class).getResultList();
 
-        List<Interet> finalList = new ArrayList<Interet>();
+        List<Interest> finalList = new ArrayList<Interest>();
         boolean dirtyIsOK;
-        for (Interet interest : listAllInterests) {
+        for (Interest interest : listAllInterests) {
             dirtyIsOK = true;
-            for (Interet interestEntity : user.getLesinterets()) {
+            for (Interest interestEntity : user.getInterests()) {
                 if (interestEntity.getId() == interest.getId()) {
                     dirtyIsOK = false;
                 }
@@ -282,7 +281,7 @@ public class ManageInterests extends MappingDispatchAction implements
                 finalList.add(interest);
             }
         }
-        
+
         request.setAttribute("user", user);
         request.setAttribute("allInterests", listAllInterests);
         request.setAttribute("listInterests", finalList);

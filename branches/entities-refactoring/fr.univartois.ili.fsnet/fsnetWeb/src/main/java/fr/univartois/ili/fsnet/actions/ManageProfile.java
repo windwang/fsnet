@@ -35,7 +35,8 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.auth.Authenticate;
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.Address;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.form.ProfileForm;
 import fr.univartois.ili.fsnet.security.Md5;
 
@@ -87,21 +88,22 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        EntiteSociale user = UserUtils.getAuthenticatedUser(request, em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         DynaActionForm dynaForm = (DynaActionForm) form;
-        user.setNom(formatName(dynaForm.getString("name")));
+        user.setName(formatName(dynaForm.getString("name")));
         user.setPrenom(formatName(dynaForm.getString("firstName")));
-        user.setAdresse(dynaForm.getString("adress"));
+        // TODO creer une adresse ds le form
+        user.setAddress(new Address(dynaForm.getString("adress"),"ville"));
         try {
-			user.setDateNaissance(DateUtils.format(dynaForm.getString("dateOfBirth")));
+			user.setBirthDate(DateUtils.format(dynaForm.getString("dateOfBirth")));
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        user.setSexe(dynaForm.getString("sexe"));
+        user.setSex(dynaForm.getString("sexe"));
         user.setProfession(formatName(dynaForm.getString("job")));
         user.setEmail(dynaForm.getString("mail"));
-        user.setNumTel(dynaForm.getString("phone"));
+        user.setPhone(dynaForm.getString("phone"));
         em.getTransaction().begin();
         em.merge(user);
         em.getTransaction().commit();
@@ -129,7 +131,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         try {
             String idS = ((DynaActionForm) form).getString("id");
             int id = Integer.parseInt(idS);
-            EntiteSociale profile = em.find(EntiteSociale.class, id);
+            SocialEntity profile = em.find(SocialEntity.class, id);
             request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
             return mapping.findForward("success");
         } catch (NumberFormatException e) {
