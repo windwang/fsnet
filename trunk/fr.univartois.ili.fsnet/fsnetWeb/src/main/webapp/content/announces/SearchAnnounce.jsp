@@ -8,12 +8,13 @@
          pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<h3>Search Announce </h3>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<h3><bean:message key="announce.searchAnnounce" /> </h3>
 <html:form action="/Announces">
 	<div id="SearchAnnounce">
     	<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
 
-	    <html:submit styleClass="button">Search</html:submit>
+	    <html:submit styleClass="button"><bean:message key="announce.searchAnnounce" /></html:submit>
     	<html:messages id="message" />
     	<html:errors/>
     </div>
