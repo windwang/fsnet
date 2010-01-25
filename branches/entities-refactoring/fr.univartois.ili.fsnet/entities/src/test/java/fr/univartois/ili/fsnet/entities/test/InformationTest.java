@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Information;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
@@ -34,7 +34,7 @@ public class InformationTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        EntiteSociale createur = new EntiteSociale("test", "bis", "tod@gmail.com");
+        SocialEntity createur = new SocialEntity("test", "bis", "tod@gmail.com");
         em.getTransaction().begin();
         em.persist(createur);
         em.getTransaction().commit();
@@ -49,14 +49,14 @@ public class InformationTest {
 		assertEquals(info.getDateInformation(), info2.getDateInformation());
 		assertEquals(info.getContenu(), info2.getContenu());
 		assertEquals(info.getVisible(), info2.getVisible());
-		assertEquals(info.getCreateur(), info2.getCreateur());
+		assertEquals(info.getCreator(), info2.getCreator());
     }
     
     @Test
     public void testGeneratedValueId() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        EntiteSociale createur = new EntiteSociale("tests", "biss", "ted@gmail.com");
+        SocialEntity createur = new SocialEntity("tests", "biss", "ted@gmail.com");
         em.getTransaction().begin();
         em.persist(createur);
         em.getTransaction().commit();

@@ -14,9 +14,9 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Decideur;
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Interaction;
-import fr.univartois.ili.fsnet.entities.RapportActivites;
+import fr.univartois.ili.fsnet.entities.ActivityReport;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 /**
  * 
@@ -38,7 +38,7 @@ public class InteractionTest {
 
     @Test
     public void testPersist() throws ParseException {
-    	EntiteSociale createur = new EntiteSociale("testo", "bisas", "tosssss@gmail.com");
+    	SocialEntity createur = new SocialEntity("testo", "bisas", "tosssss@gmail.com");
 		em.getTransaction().begin();
 		em.persist(createur);
 		em.getTransaction().commit();
@@ -48,7 +48,7 @@ public class InteractionTest {
         em.getTransaction().commit();
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        RapportActivites rapp = new RapportActivites(null, date);
+        ActivityReport rapp = new ActivityReport(null, date);
         em.getTransaction().begin();
         em.persist(rapp);
         em.getTransaction().commit();
@@ -59,14 +59,14 @@ public class InteractionTest {
         Interaction inter2 = em.find(Interaction.class, inter.getId());
 		assertEquals(inter.getId(), inter2.getId());
 		assertEquals(inter.getDecideur(), inter2.getDecideur());
-		assertEquals(inter.getCreateur(), inter2.getCreateur());
-		assertEquals(inter.getRapport(), inter2.getRapport());
+		assertEquals(inter.getCreator(), inter2.getCreator());
+		assertEquals(inter.getReport(), inter2.getReport());
 		assertEquals(inter.isValide(), inter2.isValide());
     }
     
     @Test
     public void testGeneratedValueId() throws ParseException {
-    	EntiteSociale createur = new EntiteSociale("testos", "bisass", "tossissss@gmail.com");
+    	SocialEntity createur = new SocialEntity("testos", "bisass", "tossissss@gmail.com");
 		em.getTransaction().begin();
 		em.persist(createur);
 		em.getTransaction().commit();
@@ -76,7 +76,7 @@ public class InteractionTest {
         em.getTransaction().commit();
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        RapportActivites rapp = new RapportActivites(null, date);
+        ActivityReport rapp = new ActivityReport(null, date);
         em.getTransaction().begin();
         em.persist(rapp);
         em.getTransaction().commit();

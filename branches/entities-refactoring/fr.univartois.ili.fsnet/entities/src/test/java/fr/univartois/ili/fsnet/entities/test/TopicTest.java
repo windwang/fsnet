@@ -13,7 +13,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
@@ -43,7 +43,7 @@ public class TopicTest {
             Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
         }
 
-        EntiteSociale es = new EntiteSociale("Ragoût", "Mouton", "RagoûtMouton@toiaussitafaim.com");
+        SocialEntity es = new SocialEntity("Ragoût", "Mouton", "RagoûtMouton@toiaussitafaim.com");
         es.setNom("Théophile");
         es.setPrenom("Gautier");
 
@@ -61,7 +61,7 @@ public class TopicTest {
     @Test(expected = javax.persistence.RollbackException.class)
     public void testDateNotNull() {
 
-        EntiteSociale es = new EntiteSociale();
+        SocialEntity es = new SocialEntity();
         es.setNom("Baudelaire");
         es.setPrenom("Charles");
 
@@ -87,7 +87,7 @@ public class TopicTest {
             Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
         }
 
-        EntiteSociale es = new EntiteSociale();
+        SocialEntity es = new SocialEntity();
         es.setNom("Voltaire");
         es.setPrenom("");
 

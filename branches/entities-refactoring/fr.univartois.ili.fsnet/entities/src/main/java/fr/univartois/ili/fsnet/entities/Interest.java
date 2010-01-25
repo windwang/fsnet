@@ -14,12 +14,12 @@ import javax.persistence.ManyToMany;
 
 /**
  * 
- * The class Interet.
+ * The class Interest.
  * 
  */
 
 @Entity
-public class Interet {
+public class Interest {
 
 	/**
 	 * The identifier.
@@ -33,7 +33,7 @@ public class Interet {
 	 */
 	@ManyToMany(mappedBy = "lesinterets")
 	@JoinColumn(nullable=false)
-	private List<EntiteSociale> lesEntites = new ArrayList<EntiteSociale>();
+	private List<SocialEntity> lesEntites = new ArrayList<SocialEntity>();
 
 	/**
 	 * The interest name.
@@ -42,18 +42,18 @@ public class Interet {
 	private String nomInteret;
 
 	/**
-	 * Constructor of the class Interet.
+	 * Constructor of the class Interest.
 	 */
-	public Interet() {
+	public Interest() {
 	}
 
 	/**
-	 * Constructor of the class Interet.
+	 * Constructor of the class Interest.
 	 * 
 	 * @param lesEntites
 	 * @param nomInteret
 	 */
-	public Interet(List<EntiteSociale> lesEntites, String nomInteret) {
+	public Interest(List<SocialEntity> lesEntites, String nomInteret) {
 		this.lesEntites = lesEntites;
 		this.nomInteret = nomInteret;
 	}
@@ -79,7 +79,7 @@ public class Interet {
 	 * 
 	 * @return the list of social entities that are affected by this interest.
 	 */
-	public List<EntiteSociale> getLesEntites() {
+	public List<SocialEntity> getLesEntites() {
 		return lesEntites;
 	}
 
@@ -88,7 +88,7 @@ public class Interet {
 	 * 
 	 * @param lesEntites
 	 */
-	public void setLesEntites(List<EntiteSociale> lesEntites) {
+	public void setLesEntites(List<SocialEntity> lesEntites) {
 		this.lesEntites = lesEntites;
 	}
 

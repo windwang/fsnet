@@ -14,11 +14,11 @@ import javax.persistence.TemporalType;
 
 /**
  * 
- * The class RapportActivites
+ * The class ActivityReport
  * 
  */
 @Entity
-public class RapportActivites {
+public class ActivityReport {
 
     /**
      * The identifier.
@@ -39,18 +39,18 @@ public class RapportActivites {
     private Date dateRapport;
 
     /**
-     * Constructor of the class RapportActivites.
+     * Constructor of the class ActivityReport.
      */
-    public RapportActivites() {
+    public ActivityReport() {
     }
 
     /**
-     * Constructor of the class RapportActivites.
+     * Constructor of the class ActivityReport.
      *
      * @param lesInteractions
      * @param dateRapport
      */
-    public RapportActivites(List<Interaction> lesInteractions, Date dateRapport) {
+    public ActivityReport(List<Interaction> lesInteractions, Date dateRapport) {
         this.lesInteractions = lesInteractions;
         this.dateRapport = dateRapport;
     }

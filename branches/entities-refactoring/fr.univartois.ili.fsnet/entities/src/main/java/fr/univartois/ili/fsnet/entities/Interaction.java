@@ -1,13 +1,20 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -16,7 +23,7 @@ import javax.persistence.OneToOne;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED)
-public class Interaction {
+public abstract class Interaction implements Serializable {
 
     /**
      * The identifier.
@@ -25,24 +32,25 @@ public class Interaction {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
     /**
-     *
+     * The community name.
      */
-    private boolean valide;
-    /**
-     * The decision maker that governs the interaction.
-     */
-    @OneToOne
-    private Decideur decideur;
+    private String title;
     /**
      * The creator of the interaction.
      */
     @ManyToOne
-    private EntiteSociale createur;
+    private SocialEntity creator;
     /**
      * Report of activities, which included all interactions.
      */
     @ManyToOne
-    private RapportActivites rapport;
+    private ActivityReport report;
+    @ManyToMany
+    private Set<Interest> interests;
+    @Temporal(TemporalType.DATE)
+    private Date creationDate;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date lastModified;
 
     /**
      * Constructor of the class Interaction.
@@ -50,20 +58,16 @@ public class Interaction {
     public Interaction() {
     }
 
-    /**
-     * Constructor of the class Interaction.
-     *
-     * @param valide
-     * @param decideur
-     * @param createur
-     * @param rapport
-     */
-    public Interaction(boolean valide, Decideur decideur,
-            EntiteSociale createur, RapportActivites rapport) {
-        this.valide = valide;
-        this.decideur = decideur;
-        this.createur = createur;
-        this.rapport = rapport;
+    // TODO voir rapport d'activité
+    // TODO !!! private
+    public Interaction(SocialEntity creator, String title) {
+        if(creator == null || title == null) throw new IllegalArgumentException();
+        Date date = new Date();
+        this.title = title;
+        this.creationDate = date;
+        this.lastModified = date;
+        this.creator = creator;
+        //this.report = rapport;
     }
 
     /**
@@ -85,60 +89,27 @@ public class Interaction {
 
     /**
      *
-     * @return a boolean stating whether the interaction is valid or not.
-     */
-    public boolean isValide() {
-        return valide;
-    }
-
-    /**
-     *
-     * @param valide
-     */
-    public void setValide(boolean valide) {
-        this.valide = valide;
-    }
-
-    /**
-     *
-     * @return the decision maker that governs the interaction.
-     */
-    public Decideur getDecideur() {
-        return decideur;
-    }
-
-    /**
-     * Gives a decison maker to the interaction.
-     *
-     * @param decideur
-     */
-    public void setDecideur(Decideur decideur) {
-        this.decideur = decideur;
-    }
-
-    /**
-     *
      * @return the creator of the interaction.
      */
-    public EntiteSociale getCreateur() {
-        return createur;
+    public SocialEntity getCreator() {
+        return creator;
     }
 
     /**
-     * Gives the creator of the interaction.
+     * Set the creator of the interaction.
      *
-     * @param createur
+     * @param creator
      */
-    public void setCreateur(EntiteSociale createur) {
-        this.createur = createur;
+    public void setCreator(SocialEntity createur) {
+        this.creator = createur;
     }
 
     /**
      *
      * @return the report of activities.
      */
-    public RapportActivites getRapport() {
-        return rapport;
+    public ActivityReport getReport() {
+        return report;
     }
 
     /**
@@ -146,7 +117,77 @@ public class Interaction {
      *
      * @param rapport
      */
-    public void setRapport(RapportActivites rapport) {
-        this.rapport = rapport;
+    public void setReport(ActivityReport rapport) {
+        this.report = rapport;
+    }
+
+    /**
+     *
+     * @return the list of interests
+     */
+    public Set<Interest> getInterests() {
+        return interests;
+    }
+
+    /**
+     *
+     * @param interests the list of interests
+     */
+    public void setInterests(Set<Interest> interests) {
+        this.interests = interests;
+    }
+
+    /**
+     * Get the value of createDate
+     *
+     * @return the value of createDate
+     */
+    public Date getCreationDate() {
+        return creationDate;
+    }
+
+    /**
+     * Set the value of createDate
+     *
+     * @param createDate new value of createDate
+     */
+    public void setCreationDate(Date createDate) {
+        this.creationDate = createDate;
+    }
+
+    /**
+     * Get the value of lastModified
+     *
+     * @return the value of lastModified
+     */
+    public Date getLastModified() {
+        return lastModified;
+    }
+
+    /**
+     * Set the value of lastModified
+     *
+     * @param lastModified new value of lastModified
+     */
+    public void setLastModified(Date lastModified) {
+        this.lastModified = lastModified;
+    }
+
+    /**
+     *
+     * @return the community name.
+     */
+    public String getTitle() {
+        return title;
+    }
+
+    /**
+     * Gives a name to the community.
+     *
+     * @param title
+     *            .
+     */
+    public void setTitle(String name) {
+        this.title = name;
     }
 }

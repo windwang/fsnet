@@ -12,7 +12,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Inscription;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
@@ -35,7 +35,7 @@ public class InscriptionTest {
 
     @Test
     public void testPersist() {
-        EntiteSociale entite = new EntiteSociale("Blanquette", "Veau", "BlanquetteVeau@jaifaim.com");
+        SocialEntity entite = new SocialEntity("Blanquette", "Veau", "BlanquetteVeau@jaifaim.com");
         entite.setNom("entiteInscription");
         em.getTransaction().begin();
         em.persist(entite);
@@ -51,7 +51,7 @@ public class InscriptionTest {
 
     @Test(expected = javax.persistence.RollbackException.class)
     public void testUniqueConstraints() {
-        EntiteSociale es = new EntiteSociale();
+        SocialEntity es = new SocialEntity();
         es.setPrenom("victor");
         es.setNom("hugo");
         es.setEmail("totoinscription@gmail.com");

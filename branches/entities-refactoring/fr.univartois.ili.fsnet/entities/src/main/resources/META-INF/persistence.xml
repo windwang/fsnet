@@ -1,34 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="1.0"
-	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd ">
-	<persistence-unit name="fsnetjpa">
-		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-		<class>fr.univartois.ili.fsnet.entities.EntiteSociale</class>
-		<class>fr.univartois.ili.fsnet.entities.Annonce</class>
-		<class>fr.univartois.ili.fsnet.entities.Communaute</class>
-		<class>fr.univartois.ili.fsnet.entities.Decideur</class>
-		<class>fr.univartois.ili.fsnet.entities.Hub</class>
-		<class>fr.univartois.ili.fsnet.entities.Information</class>
-		<class>fr.univartois.ili.fsnet.entities.Inscription</class>
-		<class>fr.univartois.ili.fsnet.entities.Interaction</class>
-		<class>fr.univartois.ili.fsnet.entities.Interet</class>
-		<class>fr.univartois.ili.fsnet.entities.Manifestation</class>
-		<class>fr.univartois.ili.fsnet.entities.Message</class>
-		<class>fr.univartois.ili.fsnet.entities.RapportActivites</class>
-		<class>fr.univartois.ili.fsnet.entities.Topic</class>
-		<properties>
-			<property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver" />
-			<property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost/fsnet" />
-			<!-- I work in this example without user / password.-->
-			<property name="eclipselink.jdbc.user" value="fsnet" />
-			<property name="eclipselink.jdbc.password" value="fsnet" />
-			<!-- EclipseLink should create the database schema automatically -->
-			<property name="eclipselink.ddl-generation" value="create-tables" />
-			<property name="eclipselink.ddl-generation.output-mode"
-				value="database" />
-			 <property name="eclipselink.weaving" value="static" />
-			<property name="eclipselink.logging.level" value="WARNING" /> 
-		</properties>
-	</persistence-unit>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd ">
+  <persistence-unit name="fsnetjpa">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>fr.univartois.ili.fsnet.entities.Annonce</class>
+    <class>fr.univartois.ili.fsnet.entities.Communaute</class>
+    <class>fr.univartois.ili.fsnet.entities.Decideur</class>
+    <class>fr.univartois.ili.fsnet.entities.Hub</class>
+    <class>fr.univartois.ili.fsnet.entities.Information</class>
+    <class>fr.univartois.ili.fsnet.entities.Inscription</class>
+    <class>fr.univartois.ili.fsnet.entities.Interaction</class>
+    <class>fr.univartois.ili.fsnet.entities.Interet</class>
+    <class>fr.univartois.ili.fsnet.entities.RapportActivites</class>
+    <class>fr.univartois.ili.fsnet.entities.Topic</class>
+    <class>fr.univartois.ili.fsnet.entities.TopicMessage</class>
+    <class>fr.univartois.ili.fsnet.entities.Meeting</class>
+    <class>fr.univartois.ili.fsnet.entities.SocialEntity</class>
+    <properties>
+      <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+      <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost/fsnet"/>
+      <!-- I work in this example without user / password.-->
+      <property name="eclipselink.jdbc.user" value="fsnet"/>
+      <property name="eclipselink.jdbc.password" value="fsnet"/>
+      <!-- EclipseLink should create the database schema automatically -->
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+      <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+      <property name="eclipselink.weaving" value="static"/>
+      <property name="eclipselink.logging.level" value="WARNING"/>
+    </properties>
+  </persistence-unit>
 </persistence>

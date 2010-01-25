@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -17,148 +18,116 @@ import javax.persistence.TemporalType;
  * The class Message.
  * 
  */
-
 @Entity
-public class Message {
+public class Message implements Serializable {
 
-	/**
-	 * The identifier.
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
+    /**
+     * The identifier.
+     */
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
+    /**
+     * The content of the message.
+     */
+    @Column(nullable = false, length = 5000)
+    private String body;
+    /**
+     * The date of creation of the message.
+     */
+    @Temporal(TemporalType.TIMESTAMP)
+    @Column(nullable = false)
+    private Date creationDate;
+    /**
+     * The author of the message.
+     */
+    @ManyToOne
+    @JoinColumn(nullable = false)
+    private SocialEntity from;
 
-	/**
-	 * The content of the message.
-	 */
-	@Column(nullable=false, length=5000)
-	private String contenu;
+    public Message() {
+    }
 
-	/**
-	 * The date of creation of the message.
-	 */
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false)
-	private Date dateMessage;
+    /**
+     *
+     * @param body the body of the message
+     * @param topic the topic where is this message
+     * @param from the author of the message
+     */
+    public Message(String body, Topic topic, SocialEntity from) {
+        if (body == null || topic == null || from == null) {
+            throw new IllegalArgumentException();
+        }
+        this.creationDate = new Date();
+        this.body = body;
+        this.from = from;
+    }
 
-	/**
-	 * The creator of the message.
-	 */
-	@ManyToOne
-	@JoinColumn(nullable=false)
-	private EntiteSociale propMsg;
+    /**
+     *
+     * @return the identifier.
+     */
+    public int getId() {
+        return id;
+    }
 
-	/**
-	 * The topic in which the message appears.
-	 */
-	@ManyToOne
-	private Topic topic;
+    /**
+     * Gives an identifier to the Message.
+     *
+     * @param id
+     */
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	/**
-	 * Constructor of the class Message.
-	 */
-	public Message() {
-	}
+    /**
+     *
+     * @return the content of the message.
+     */
+    public String getBody() {
+        return body;
+    }
 
-	/**
-	 * Constructor of the class Message.
-	 * 
-	 * @param contenu
-	 * @param dateMessage
-	 * @param propMsg
-	 * @param topic
-	 */
-	public Message(String contenu, Date dateMessage, EntiteSociale propMsg,
-			Topic topic) {
-		this.contenu = contenu;
-		this.dateMessage = dateMessage;
-		this.propMsg = propMsg;
-		this.topic = topic;
-	}
+    /**
+     * Gives a content of the message.
+     *
+     * @param body
+     */
+    public void setBody(String body) {
+        this.body = body;
+    }
 
-	/**
-	 * 
-	 * @return the identifier.
-	 */
-	public int getId() {
-		return id;
-	}
+    /**
+     *
+     * @return the date of creation of the message.
+     */
+    public Date getCreationDate() {
+        return creationDate;
+    }
 
-	/**
-	 * Gives an identifier to the Message.
-	 * 
-	 * @param id
-	 */
-	public void setId(int id) {
-		this.id = id;
-	}
+    /**
+     * Gives a date of creation to the message.
+     *
+     * @param creationDate
+     */
+    public void setCreationDate(Date creationDate) {
+        this.creationDate = creationDate;
+    }
 
-	/**
-	 * 
-	 * @return the content of the message.
-	 */
-	public String getContenu() {
-		return contenu;
-	}
+    /**
+     *
+     * @return the creator of the message.
+     */
+    public SocialEntity getFrom() {
+        return from;
+    }
 
-	/**
-	 * Gives a content of the message.
-	 * 
-	 * @param contenu
-	 */
-	public void setContenu(String contenu) {
-		this.contenu = contenu;
-	}
-
-	/**
-	 * 
-	 * @return the date of creation of the message.
-	 */
-	public Date getDateMessage() {
-		return dateMessage;
-	}
-
-	/**
-	 * Gives a date of creation to the message.
-	 * 
-	 * @param dateMessage
-	 */
-	public void setDateMessage(Date dateMessage) {
-		this.dateMessage = dateMessage;
-	}
-
-	/**
-	 * 
-	 * @return the creator of the message.
-	 */
-	public EntiteSociale getPropMsg() {
-		return propMsg;
-	}
-
-	/**
-	 * Gives a creator to the message.
-	 * 
-	 * @param propMsg
-	 */
-	public void setPropMsg(EntiteSociale propMsg) {
-		this.propMsg = propMsg;
-	}
-
-	/**
-	 * 
-	 * @return the topic in which the message appears.
-	 */
-	public Topic getTopic() {
-		return topic;
-	}
-
-	/**
-	 * Gives the topic in which the message appears.
-	 * 
-	 * @param topic
-	 */
-	public void setTopic(Topic topic) {
-		this.topic = topic;
-	}
-
+    /**
+     * Gives a creator to the message.
+     *
+     * @param from
+     */
+    public void setPropMsg(SocialEntity from) {
+        this.from = from;
+    }
 }

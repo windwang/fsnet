@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
@@ -39,7 +39,7 @@ public class MessageTest {
 	public void testPersist() throws ParseException {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		Date date = (Date) formatter.parse("29/01/02");
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "messagepersist@gmail.com");
+		SocialEntity ent1 = new SocialEntity("toto", "tutu", "messagepersist@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();
@@ -49,9 +49,9 @@ public class MessageTest {
 		em.getTransaction().commit();
 		Message msg2 = em.find(Message.class, msg1.getId());
 		assertEquals(msg2.getId(),msg1.getId());
-		assertEquals(msg2.getContenu(),msg1.getContenu());
-		assertEquals(msg2.getDateMessage(),msg1.getDateMessage());
-		assertEquals(msg2.getPropMsg(),msg1.getPropMsg());
+		assertEquals(msg2.getBody(),msg1.getBody());
+		assertEquals(msg2.getCreationDate(),msg1.getCreationDate());
+		assertEquals(msg2.getFrom(),msg1.getFrom());
 	}
 	
 	@Test(expected = RollbackException.class)
@@ -61,7 +61,7 @@ public class MessageTest {
 	public void testContenuMessageIsNotNull() throws ParseException {
 		DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
 		Date date = (Date) formatter.parse("29/01/02");
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "messagecontenu@gmail.com");
+		SocialEntity ent1 = new SocialEntity("toto", "tutu", "messagecontenu@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();
@@ -76,7 +76,7 @@ public class MessageTest {
 	 * Check that the date of the message can not be null
 	 */
 	public void testDateMessageIsNotNull() throws ParseException {
-		EntiteSociale ent1 = new EntiteSociale("toto", "tutu", "messagedate@gmail.com");
+		SocialEntity ent1 = new SocialEntity("toto", "tutu", "messagedate@gmail.com");
 		em.getTransaction().begin();
 		em.persist(ent1);
 		em.getTransaction().commit();

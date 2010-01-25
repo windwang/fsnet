@@ -11,7 +11,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Manifestation;
+import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class ManifestationTest {
@@ -31,7 +31,7 @@ public class ManifestationTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        Manifestation manif = new Manifestation(date);
+        Meeting manif = new Meeting(date);
         em.getTransaction().begin();
         em.persist(manif);
         em.getTransaction().commit();
@@ -39,7 +39,7 @@ public class ManifestationTest {
 
     @Test(expected = javax.persistence.RollbackException.class)
     public void testManifestationDateNotNull() {
-        Manifestation manif = new Manifestation();
+        Meeting manif = new Meeting();
         em.getTransaction().begin();
         em.persist(manif);
         em.getTransaction().commit();

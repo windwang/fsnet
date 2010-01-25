@@ -41,7 +41,7 @@ public class HubTest {
         Hub hub2 = em.find(Hub.class, hub.getId());
 
         assertEquals(hub.getId(), hub2.getId());
-        assertEquals(hub.getDateCreation(), hub2.getDateCreation());
+        assertEquals(hub.getCreationDate(), hub2.getCreationDate());
     }
     
     @Test(expected = RollbackException.class)

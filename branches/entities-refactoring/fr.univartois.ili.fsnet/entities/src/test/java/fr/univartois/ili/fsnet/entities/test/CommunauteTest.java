@@ -8,7 +8,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Communaute;
+import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class CommunauteTest {
@@ -27,7 +27,7 @@ public class CommunauteTest {
     // TODO TEST-LOL galileo
     @Test
     public void testPersist() {
-        Communaute communaute = new Communaute("Ma communaute");
+        Community communaute = new Community("Ma communaute");
         em.getTransaction().begin();
         em.persist(communaute);
         em.getTransaction().commit();

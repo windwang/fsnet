@@ -1,15 +1,12 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 /**
  * 
@@ -17,20 +14,16 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
-public class Hub extends Communaute {
+public class Hub extends Interaction {
 
-    /**
-     * The date of creation of the hub.
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date dateCreation;
     /**
      * The list of topics of a hub.
      */
     @OneToMany(mappedBy = "hub", cascade = {CascadeType.MERGE,
         CascadeType.PERSIST, CascadeType.REFRESH})
-    private List<Topic> lesTopics;
+    private List<Topic> topics;
+    @ManyToOne
+    private Community community;
 
     /**
      * Constructor of the class Hub.
@@ -43,45 +36,44 @@ public class Hub extends Communaute {
      *
      * @param nomCommunaute
      * @param dateCreation
-     * @param lesTopics
+     * @param topics
      */
-    public Hub(String nomCommunaute, Date dateCreation) {
-        super(nomCommunaute);
-        this.dateCreation = dateCreation;
-        lesTopics = new ArrayList<Topic>();
-    }
-
-    /**
-     *
-     * @return the date of creation of the hub.
-     */
-    public Date getDateCreation() {
-        return dateCreation;
-    }
-
-    /**
-     * Gives a date of creation to the hub.
-     *
-     * @param dateCreation
-     */
-    public void setDateCreation(Date dateCreation) {
-        this.dateCreation = dateCreation;
+    public Hub(Community community, SocialEntity creator, String name) {
+        super(creator, name);
+        topics = new ArrayList<Topic>();
+        this.community = community;
     }
 
     /**
      *
      * @return the list of topics of a hub.
      */
-    public List<Topic> getLesTopics() {
-        return lesTopics;
+    public List<Topic> getTopics() {
+        return topics;
     }
 
     /**
      * Gives a list of topics to a hub.
      *
-     * @param lesTopics
+     * @param topics
      */
-    public void setLesTopics(List<Topic> lesTopics) {
-        this.lesTopics = lesTopics;
+    public void setTopics(List<Topic> topics) {
+        this.topics = topics;
+    }
+
+    /**
+     *
+     * @return the community
+     */
+    public Community getCommunity() {
+        return community;
+    }
+
+    /**
+     *
+     * @param community the hub community
+     */
+    public void setCommunity(Community community) {
+        this.community = community;
     }
 }

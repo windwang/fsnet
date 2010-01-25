@@ -14,7 +14,7 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.RapportActivites;
+import fr.univartois.ili.fsnet.entities.ActivityReport;
 import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 
 public class RapportActivitesTest {
@@ -34,11 +34,11 @@ public class RapportActivitesTest {
     public void testPersist() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        RapportActivites rapp = new RapportActivites(null, date);
+        ActivityReport rapp = new ActivityReport(null, date);
         em.getTransaction().begin();
         em.persist(rapp);
         em.getTransaction().commit();
-        RapportActivites rapp2 = em.find(RapportActivites.class, rapp.getId());
+        ActivityReport rapp2 = em.find(ActivityReport.class, rapp.getId());
 
         assertEquals(rapp2.getId(), rapp.getId());
         assertEquals(rapp2.getDateRapport(), rapp.getDateRapport());
@@ -48,11 +48,11 @@ public class RapportActivitesTest {
     public void testGeneratedValueId() throws ParseException {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        RapportActivites rapp = new RapportActivites(null, date);
+        ActivityReport rapp = new ActivityReport(null, date);
         em.getTransaction().begin();
         em.persist(rapp);
         em.getTransaction().commit();
-        RapportActivites rapp2 = new RapportActivites(null, date);
+        ActivityReport rapp2 = new ActivityReport(null, date);
         em.getTransaction().begin();
         em.persist(rapp2);
         em.getTransaction().commit();
@@ -61,7 +61,7 @@ public class RapportActivitesTest {
 
     @Test(expected = RollbackException.class)
     public void testDateIsNotNull() {
-        RapportActivites rapp = new RapportActivites(null, null);
+        ActivityReport rapp = new ActivityReport(null, null);
         em.getTransaction().begin();
         em.persist(rapp);
         em.getTransaction().commit();
