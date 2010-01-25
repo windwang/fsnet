@@ -35,6 +35,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
 import fr.univartois.ili.fsnet.form.ProfileForm;
+import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  *
@@ -92,7 +93,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         user.setAdresse(pform.getAdress());
         user.setDateNaissance(pform.getParsedDateOfBirth());
         user.setSexe(pform.getSexe());
-        user.setMdp(pform.getPwd());
+        user.setMdp(Md5.getEncodedPassword(pform.getPwd()));
         user.setProfession(formatName(pform.getJob()));
         user.setEmail(pform.getMail());
         user.setNumTel(pform.getPhone());
@@ -125,7 +126,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
             int id = Integer.parseInt(idS);
             EntiteSociale profile = em.find(EntiteSociale.class, id);
             request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
-            
             return mapping.findForward("success");
         } catch (NumberFormatException e) {
             return mapping.findForward("fail");

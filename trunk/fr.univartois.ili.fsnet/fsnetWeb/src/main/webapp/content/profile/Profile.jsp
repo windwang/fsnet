@@ -101,7 +101,7 @@
                 </label>
             </td>
             <td>
-                <html:password property="pwd" value="${currentUser.mdp}" styleId="pwd"/>
+                <html:password property="pwd" styleId="pwd"/>
             </td>
         </tr>
         <logic:messagesPresent property="pwd">
@@ -118,7 +118,7 @@
                 </label>
             </td>
             <td>
-                <html:password property="confirmPwd" value="${currentUser.mdp}" styleId="confirmPwd"/>
+                <html:password property="confirmPwd" styleId="confirmPwd"/>
             </td>
         </tr>
         <logic:messagesPresent property="confirmPwd">
