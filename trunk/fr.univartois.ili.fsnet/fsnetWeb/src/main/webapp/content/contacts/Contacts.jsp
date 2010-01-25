@@ -22,9 +22,8 @@
 					<bean:message key="contact.profil" />
 					<html:param name="id" value="${contact.id}" />
 				</html:link> <html:link action="/DeleteContact" styleClass="button">
-                        <bean:message key="contact.delete" />
-                        <html:param name="entityDeleted"
-						value="${contact.id}" />
+					<bean:message key="contact.delete" />
+					<html:param name="entityDeleted" value="${contact.id}" />
 				</html:link></td>
 			</tr>
 		</c:forEach>
@@ -42,12 +41,11 @@
 				<td class="tableButton"><html:link action="/AcceptContact"
 					styleClass="button">
 					<html:param name="entityAccepted" value="${contact.id}" />
-    		<bean:message key="contact.accept" />
-                    </html:link> <html:link action="/RefuseContact"
-					styleClass="button">
+					<bean:message key="contact.accept" />
+				</html:link> <html:link action="/RefuseContact" styleClass="button">
 					<html:param name="entityRefused" value="${contact.id}" />
-    		<bean:message key="contact.refuse" />
-                    </html:link></td>
+					<bean:message key="contact.refuse" />
+				</html:link></td>
 			</tr>
 		</c:forEach>
 
@@ -56,7 +54,8 @@
 
 <logic:notEmpty name="theUser" property="requested">
 	<table class="inLineTable">
-		<h3>Liste de vos demandes effectuées<bean:message key="contact.eff" /></h3>
+		<h3>Liste de vos demandes effectuées<bean:message
+			key="contact.eff" /></h3>
 		<c:forEach var="contact" items="${theUser.requested}">
 			<tr>
 				<td>${contact.prenom} ${contact.nom}</td>
