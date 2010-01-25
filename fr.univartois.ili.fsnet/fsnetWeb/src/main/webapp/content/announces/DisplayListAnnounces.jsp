@@ -4,10 +4,10 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <h3>
-    Announces :
+    <bean:message key="announce"/>s
 </h3>
 <logic:empty name="listAnnounces">
-    No announcement yet.
+    <bean:message key="announce.emptyList"/>
 </logic:empty>
 <logic:notEmpty name="listAnnounces">
 
@@ -22,14 +22,14 @@
                     </html:link>
                 </th>
                 <td>
-                    Par
+                    <bean:message key="announce.by"/>
                     <html:link action="/DisplayProfile">
                         <html:param name="id" value="${announce.createur.id}"/>
                         ${announce.createur.prenom} ${announce.createur.nom}
                     </html:link>
                 </td>
                 <td class="tableButton">
-                    Valide jusqu'au
+                    <bean:message key="announce.expiryDate"/>
                     <bean:write name="announce" property="dateFinAnnonce" format="dd/MM/yyyy"/>
                 </td>
             </tr>

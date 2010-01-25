@@ -16,18 +16,18 @@
 <script type="text/javascript" src="js/mceTextArea.js"> </script>
 
 
-<h3>Modify Announce</h3>
+<h3><bean:message key="announce.modifyAnnounce"/> </h3>
 <html:form action="/ModifyAnnounce">
 
 	<html:hidden property="idAnnounce" value="${announce.id}" />
 	<table id="CreateAnnounce">
 		<tr>
-			<td><label for="announceTitle">Titre :</label></td>
+			<td><label for="announceTitle"><bean:message key="announce.title" /></label></td>
 			<td><html:text property="announceTitle" value="${announce.nom}"
 				styleId="announceTitle" /></td>
 		</tr>
 		<tr>
-			<td><label for="announceContent">Contenu: </label></td>
+			<td><label for="announceContent"><bean:message key="announce.content" /> </label></td>
 			<td><html:textarea cols="40" rows="8"
 				value="${announce.contenu}" property="announceContent"
 				styleId="announceContent" styleClass="mceTextArea"
@@ -40,7 +40,7 @@
 					format="dd/MM/yyyy" />
 			</c:set> 
 				<html:text property="announceExpiryDate" styleId="announceExpiryDate" value="${formattedDate}"/>
-				<html:submit styleClass="button">Modify Announce</html:submit></td>
+				<html:submit styleClass="button"><bean:message key="announce.modifyAnnounce" /></html:submit></td>
 		</tr>
 		<tr>
 			<td colspan="2"><html:messages id="message" /> <html:errors />

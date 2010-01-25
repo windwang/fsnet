@@ -19,11 +19,11 @@
     </tr>
     <tr class="authorDate">
         <td>
-            Created by
+            <bean:message  key="announce.createdBy"/>
             <html:link action="/DisplayProfile">
-                <html:param name="id" value="${entiteSociale.id}"/>
-                ${entiteSociale.prenom} ${entiteSociale.nom}
-            </html:link>, Expires on
+                <html:param name="id" value="${announce.createur.id}"/>
+                ${announce.createur.prenom} ${announce.createur.nom}
+            </html:link><<bean:message key="announce.expiryDate"/>
             <bean:write name="announce" property="dateFinAnnonce" format="dd/MM/yyyy" />
         </td>
     </tr>
@@ -45,8 +45,8 @@
 
             <logic:present name="owner">
                 <bean:define id="idAnnounce" name="announce" property="id" />
-                <html:link  action="/DisplayForModifyAnnounce"  paramId="idAnnounce" paramName="idAnnounce" styleClass="button">update</html:link>
-                <html:link  action="/DeleteAnnounce"  paramId="idAnnounce" paramName="idAnnounce" styleClass="button">delete</html:link>
+                <html:link  action="/DisplayForModifyAnnounce"  paramId="idAnnounce" paramName="idAnnounce" styleClass="button"><bean:message key="announce.updateAnnounce"/> </html:link>
+                <html:link  action="/DeleteAnnounce"  paramId="idAnnounce" paramName="idAnnounce" styleClass="button"><bean:message key="announce.deleteAnnounce"/> </html:link>
             </logic:present>
 
         </td>
