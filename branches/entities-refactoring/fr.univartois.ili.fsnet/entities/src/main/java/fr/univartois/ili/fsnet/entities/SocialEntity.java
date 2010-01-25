@@ -88,7 +88,7 @@ public class SocialEntity {
      * The interactions that the social entity created.
      */
     @OneToMany(mappedBy = "creator")
-    private List<Interaction> createdInteractions;
+    private List<Interaction> interactions;
     /**
      * The interest that the social entity informed.
      */
@@ -365,7 +365,7 @@ public class SocialEntity {
      * @return the list of interactions that the social entity created.
      */
     public List<Interaction> getInteractions() {
-        return createdInteractions;
+        return interactions;
     }
 
     /**
@@ -374,7 +374,7 @@ public class SocialEntity {
      * @param interactions
      */
     public void setInteractions(List<Interaction> interactions) {
-        this.createdInteractions = interactions;
+        this.interactions = interactions;
     }
 
     /**

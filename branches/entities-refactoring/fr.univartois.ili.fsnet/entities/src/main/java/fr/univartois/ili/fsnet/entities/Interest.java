@@ -38,7 +38,7 @@ public class Interest implements Serializable {
      * The interest name.
      */
     @Column(nullable = false, unique = true)
-    private String nomInteret;
+    private String name;
 
     /**
      * Constructor of the class Interest.
@@ -54,7 +54,7 @@ public class Interest implements Serializable {
      */
     public Interest(String name) {
         if(name == null) throw new IllegalArgumentException();
-        this.nomInteret = name;
+        this.name = name;
     }
 
     /**
@@ -96,7 +96,7 @@ public class Interest implements Serializable {
      * @return the interest name.
      */
     public String getName() {
-        return nomInteret;
+        return name;
     }
 
     /**
@@ -105,6 +105,6 @@ public class Interest implements Serializable {
      * @param name
      */
     public void setName(String name) {
-        this.nomInteret = name;
+        this.name = name;
     }
 }
