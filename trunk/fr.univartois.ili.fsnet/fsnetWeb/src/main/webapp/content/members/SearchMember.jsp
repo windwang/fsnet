@@ -14,7 +14,7 @@
 <h3>Members :</h3>
 
 <c:if test="${! empty membersContactsResult}">
-    <h4>Contacts</h4>
+    <h4>Liste de vos contacts</h4>
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersContactsResult}">
             <tr class="content">
@@ -31,7 +31,7 @@
 </c:if>
 
 <c:if test="${! empty membersRequestedResult}">
-    <h4>Requested</h4>
+    <h4>Liste de vos demandes effectuées</h4>
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersRequestedResult}">
             <tr class="content">
@@ -48,7 +48,7 @@
 </c:if>
 
 <c:if test="${! empty membersAskedResult}">
-    <h4>Asked</h4>
+    <h4>Liste des demandes reçues</h4>
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersAskedResult}">
             <tr class="content">
@@ -70,7 +70,7 @@
 
 <c:if test="${! empty membersResult}">
 
-    <h4>Other Members</h4>
+    <h4>Autres membres</h4>
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersResult}">
             <tr class="content">
