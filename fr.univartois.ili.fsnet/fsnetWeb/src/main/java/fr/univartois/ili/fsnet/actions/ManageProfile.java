@@ -20,6 +20,8 @@ import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -82,6 +84,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
+    private static Logger logger = Logger.getAnonymousLogger();
+    
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
@@ -94,8 +98,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         try {
             user.setBirthDate(DateUtils.format(dynaForm.getString("dateOfBirth")));
         } catch (ParseException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+        	logger.log(Level.SEVERE,"invalide date");
         }
         user.setSex(dynaForm.getString("sexe"));
         user.setProfession(formatName(dynaForm.getString("job")));
