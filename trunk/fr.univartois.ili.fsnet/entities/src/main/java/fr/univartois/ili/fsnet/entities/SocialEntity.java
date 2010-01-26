@@ -98,7 +98,7 @@ public class SocialEntity {
 	 * The messages that the social entity created.
 	 */
 	@OneToMany(mappedBy = "from")
-	private List<Message> messages;
+	private List<TopicMessage> topicMessages;
 	/**
 	 * The topics that the corporate entity has created.
 	 */
@@ -158,6 +158,9 @@ public class SocialEntity {
 		this.name = name;
 		this.firstName = firstName;
 		this.email = email;
+                interactions = new ArrayList<Interaction>();
+                interests = new ArrayList<Interest>();
+                topicMessages = new ArrayList<TopicMessage>();
 	}
 
 	/**
@@ -404,19 +407,19 @@ public class SocialEntity {
 
 	/**
 	 * 
-	 * @return the list of messages that the social entity created.
+	 * @return the list of TopicMessages that the social entity created.
 	 */
-	public List<Message> getMessages() {
-		return messages;
+	public List<TopicMessage> getTopicMessages() {
+		return topicMessages;
 	}
 
 	/**
-	 * Gives a list of messages to the social entity.
+	 * Set the list of TopicMessages.
 	 * 
 	 * @param messages
 	 */
-	public void setMessages(List<Message> messages) {
-		this.messages = messages;
+	public void setMessages(List<TopicMessage> messages) {
+		this.topicMessages = messages;
 	}
 
 	/**
