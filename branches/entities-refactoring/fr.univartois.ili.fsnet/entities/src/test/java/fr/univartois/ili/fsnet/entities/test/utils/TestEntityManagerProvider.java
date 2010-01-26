@@ -9,33 +9,36 @@ import javax.persistence.Persistence;
 
 public class TestEntityManagerProvider {
 
-    private static final TestEntityManagerProvider instance;
+	private static final TestEntityManagerProvider instance;
 
-    static {
-        instance = new TestEntityManagerProvider();
-    }
+	static {
+		instance = new TestEntityManagerProvider();
+	}
 
-    public static TestEntityManagerProvider getInstance() {
-        return instance;
-    }
-    private EntityManager entityManager;
+	public static TestEntityManagerProvider getInstance() {
+		return instance;
+	}
 
-    private TestEntityManagerProvider() {
-        Map<String, String> properties = new HashMap<String, String>();
-        writeProperties(properties);
-        //Persistence.
-        EntityManagerFactory emf = Persistence.createEntityManagerFactory("fsnetjpa", properties);
-        entityManager = emf.createEntityManager();
-    }
+	private EntityManager entityManager;
 
-    private void writeProperties(Map<String, String> map) {
-        map.put("eclipselink.jdbc.driver", "com.mysql.jdbc.Driver");
-        map.put("eclipselink.jdbc.url", "jdbc:mysql://localhost/fsnet");
-        map.put("eclipselink.ddl-generation", "drop-and-create-tables");
-        map.put("eclipselink.ddl-generation.output-mode", "database");
-    }
+	private TestEntityManagerProvider() {
+		Map<String, String> properties = new HashMap<String, String>();
+		writeProperties(properties);
+		// Persistence.
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory(
+				"fsnetjpa", properties);
+		entityManager = emf.createEntityManager();
+	}
 
-    public EntityManager getEntityManager() {
-        return entityManager;
-    }
+	private void writeProperties(Map<String, String> map) {
+		map.put("eclipselink.jdbc.driver",
+				"org.apache.derby.jdbc.EmbeddedDriver");
+		map.put("eclipselink.jdbc.url", "jdbc:derby:myDbFSNET;create=true");
+		map.put("eclipselink.ddl-generation", "drop-and-create-tables");
+		map.put("eclipselink.ddl-generation.output-mode", "database");
+	}
+
+	public EntityManager getEntityManager() {
+		return entityManager;
+	}
 }

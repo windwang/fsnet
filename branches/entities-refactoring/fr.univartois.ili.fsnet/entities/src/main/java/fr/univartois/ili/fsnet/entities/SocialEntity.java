@@ -135,6 +135,9 @@ public class SocialEntity {
 	@OneToMany(mappedBy = "from")
 	private List<PrivateMessage> sentPrivateMessages;
 
+	@OneToMany(mappedBy = "socialEntity")
+	private List<InteractionRole> rolesInInteractions; 
+	
 	/**
 	 * Constructor of the class SocialEntity.
 	 */
@@ -530,6 +533,20 @@ public class SocialEntity {
 	 */
 	public void setSentPrivateMessages(List<PrivateMessage> sentPrivateMessages) {
 		this.sentPrivateMessages = sentPrivateMessages;
+	}
+
+	/**
+	 * @return the rolesInInteractions
+	 */
+	public List<InteractionRole> getRolesInInteractions() {
+		return rolesInInteractions;
+	}
+
+	/**
+	 * @param rolesInInteractions the roles associated with the interactions to set
+	 */
+	public void setRolesInInteractions(List<InteractionRole> rolesInInteractions) {
+		this.rolesInInteractions = rolesInInteractions;
 	}
 
 }
