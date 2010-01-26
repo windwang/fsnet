@@ -10,7 +10,9 @@
 <html:form action="/SearchInterest">
     <html:text property="searchInterestName"/>
     <html:errors property="searchInterestName"/>
-    <html:submit styleClass="button"/>
+    <html:submit styleClass="button">
+    	<bean:message key="interests.search"/>
+    </html:submit>
 </html:form>
 
 <jsp:include page="/content/interests/ResultInterest.jsp"/>
