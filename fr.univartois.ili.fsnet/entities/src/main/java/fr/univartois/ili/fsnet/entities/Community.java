@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.Entity;
@@ -13,9 +14,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Community extends Interaction {
 
-	private static final long serialVersionUID = 1L;
-	
-	@OneToMany
+    private static final long serialVersionUID = 1L;
+    @OneToMany
     private Set<Hub> hubs;
 
     /**
@@ -32,8 +32,8 @@ public class Community extends Interaction {
      */
     public Community(SocialEntity creator, String name) {
         super(creator, name);
+        hubs = new HashSet<Hub>();
     }
-
 
     /**
      * Get the value of hubs

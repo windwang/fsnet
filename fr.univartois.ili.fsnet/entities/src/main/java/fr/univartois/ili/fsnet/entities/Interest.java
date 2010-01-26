@@ -20,9 +20,8 @@ import javax.persistence.ManyToMany;
 @Entity
 public class Interest implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	/**
+    private static final long serialVersionUID = 1L;
+    /**
      * The identifier.
      */
     @Id
@@ -53,8 +52,11 @@ public class Interest implements Serializable {
      * @param name
      */
     public Interest(String name) {
-        if(name == null) throw new IllegalArgumentException();
+        if (name == null) {
+            throw new IllegalArgumentException();
+        }
         this.name = name;
+        this.entities = new HashSet<SocialEntity>();
     }
 
     /**

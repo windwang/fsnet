@@ -9,19 +9,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
-@Inheritance(strategy=InheritanceType.TABLE_PER_CLASS)
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PrivateMessage extends Message implements Serializable {
 
-	private static final long serialVersionUID = 1L;
-	
-	private String subject;
-	
+    private static final long serialVersionUID = 1L;
+    private String subject;
     @ManyToOne
-    @JoinColumn(nullable=false)
+    @JoinColumn(nullable = false)
     private SocialEntity to;
-    
-    public PrivateMessage() {}
-    
+
+    public PrivateMessage() {
+    }
+
     public PrivateMessage(String body, SocialEntity from, String subject, SocialEntity to) {
         super(body, from);
         if (subject == null || to == null) {
