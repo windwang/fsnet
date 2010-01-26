@@ -16,7 +16,6 @@ public class HubFacade {
 
     public HubFacade(EntityManager em) {
         this.em = em;
-
     }
 
     /**

@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.iliforum;
+package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
 import org.junit.After;
 import org.junit.AfterClass;
@@ -12,7 +12,7 @@ import org.junit.runners.Suite;
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({fr.univartois.ili.fsnet.facade.iliforum.SocialEntityFacadeTest.class, fr.univartois.ili.fsnet.facade.iliforum.ContactTest.class})
+@Suite.SuiteClasses({fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacadeTest.class, fr.univartois.ili.fsnet.facade.forum.iliforum.ContactTest.class})
 public class AllTests {
 
     @BeforeClass
