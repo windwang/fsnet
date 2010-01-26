@@ -18,6 +18,8 @@
         <html:errors property="modifiedInterestId"/>
 	    <html:text property="modifiedInterestName"/>
 	    <html:errors property="modifiedInterestName"/>
-	    <html:submit styleClass="button"/>
+	    <html:submit styleClass="button">
+	    	<bean:message key="interests.modify"/>
+	    </html:submit>
 	</html:form>
 </c:if>

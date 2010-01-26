@@ -15,7 +15,9 @@
                 <html:option value="${interest.id}">${interest.nomInteret}</html:option>
             </c:forEach>
         </html:select>
-        <html:submit styleClass="button"/>
+        <html:submit styleClass="button">
+        	<bean:message key="interests.remove"/>
+        </html:submit>
     </html:form>
     <html:errors property="removedInterestId"/>
 </c:if>

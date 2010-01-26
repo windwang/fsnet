@@ -9,5 +9,7 @@
 <html:form action="/CreateInterest">
     <html:text property="createdInterestName"/>
     <html:errors property="createdInterestName"/>
-    <html:submit styleClass="button"/>
+    <html:submit styleClass="button">
+    	<bean:message key="interests.create"/>
+    </html:submit>
 </html:form>
