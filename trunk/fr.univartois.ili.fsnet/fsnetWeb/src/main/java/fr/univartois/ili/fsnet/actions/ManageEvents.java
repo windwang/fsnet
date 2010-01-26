@@ -64,9 +64,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
         member.getInteractions().add(event);
         em.persist(event);
-        request.setAttribute("event", event);
+
         em.getTransaction().commit();
         em.close();
+        request.setAttribute("event", event);
         return mapping.findForward("success");
     }
 
