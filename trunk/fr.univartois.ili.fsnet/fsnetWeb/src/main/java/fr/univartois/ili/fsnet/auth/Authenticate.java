@@ -53,22 +53,28 @@ public class Authenticate extends HttpServlet {
             EntityManager em = emf.createEntityManager();
             Query query = em.createQuery("Select es from SocialEntity es where es.email = :memberMail");
             query.setParameter("memberMail", memberMail);
+            // TODO remove; FOR TESTING PURPOSE ONLY
 
+            SocialEntity es = (SocialEntity) query.getSingleResult();
+            authenticated = true;
+            req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
+
+            /*
             try {
-                SocialEntity es = (SocialEntity) query.getSingleResult();
-                if (Md5.testPassword(memberPass, es.getPassword())) {
-                    authenticated = true;
-                    req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
-                } else {
-                    req.setAttribute("loginError", "login.error");
-                }
-            } catch (NoResultException e) {
-                Logger.getAnonymousLogger().fine("Member authentication failed");
-                Logger.getAnonymousLogger().fine("memberMail : " + memberMail);
-
-                // throw an error message to the request
-                req.setAttribute("loginError", "login.error");
+            SocialEntity es = (SocialEntity) query.getSingleResult();
+            if (Md5.testPassword(memberPass, es.getPassword())) {
+            authenticated = true;
+            req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
+            } else {
+            req.setAttribute("loginError", "login.error");
             }
+            } catch (NoResultException e) {
+            Logger.getAnonymousLogger().fine("Member authentication failed");
+            Logger.getAnonymousLogger().fine("memberMail : " + memberMail);
+
+            // throw an error message to the request
+            req.setAttribute("loginError", "login.error");
+            }*/
             em.close();
         }
 
