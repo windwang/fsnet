@@ -3,7 +3,7 @@
     <display-name>fr.univartois.ili.fsnet.admin.maquette</display-name>
 
     <welcome-file-list>
-        <welcome-file>index.jsp</welcome-file>
+        <welcome-file>/index.jsp</welcome-file>
     </welcome-file-list>
 
     <servlet>
@@ -11,7 +11,11 @@
         <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
         <init-param>
             <param-name>config</param-name>
-            <param-value>/WEB-INF/struts-config.xml</param-value>
+            <param-value>/WEB-INF/struts-config.xml,
+                /WEB-INF/struts-configs/interests-config.xml,
+                /WEB-INF/struts-configs/profile-config.xml,
+                /WEB-INF/struts-configs/members-config.xml
+            </param-value>
         </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
@@ -21,17 +25,24 @@
         <url-pattern>*.do</url-pattern>
     </servlet-mapping>
     
-    <filter>
-        <filter-name>Configuration-Filter</filter-name>
-        <filter-class>fr.univartois.ili.fsnet.admin.filters.IsConfigurationSet</filter-class>
-    </filter>
-    
-    <filter-mapping>
-    	<filter-name>Configuration-Filter</filter-name>
-    	<url-pattern>*.jsp</url-pattern>
-    	<url-pattern>*.do</url-pattern>
-    	
-    </filter-mapping>
+    	<filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>fr.univartois.ili.fsnet.admin.filters.SetCharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>ignore</param-name>
+			<param-value>false</param-value>
+		</init-param>
+	</filter>
+	
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>*.do</url-pattern>
+	</filter-mapping>
+
 
     <security-role>
         <role-name>fsnetadmin</role-name>
@@ -52,12 +63,6 @@
         <auth-method>BASIC</auth-method>
         <realm-name>AdminRealm</realm-name>
     </login-config>
-        
-    <jsp-config>
-        <taglib>
-            <taglib-uri>http://admin.ili.fsnet.com/</taglib-uri>
-            <taglib-location>/WEB-INF/tlds/adminbalises.tld</taglib-location>
-        </taglib>
-    </jsp-config>
+
     
 </web-app>

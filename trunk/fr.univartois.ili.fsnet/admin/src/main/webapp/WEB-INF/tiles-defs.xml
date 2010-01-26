@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE tiles-definitions PUBLIC
+"-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
+"http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+
+<tiles-definitions>
+
+    <!-- Definition of the default Layout, used for each page on the site. -->
+    <definition name=".defaultLayout" path="/tiles/layouts/DefaultLayout.jsp">
+        <put name="title" type="string"/>
+        <put name="currentMenu" type="string"/>
+        <put name="menu"   value="/tiles/menu.jsp" />
+        <put name="logo"   value="/tiles/logo.jsp" />
+        <put name="high" value="/tiles/high.jsp"/>
+        <put name="left" value="/tiles/left.jsp" />
+        <put name="body-content"   value="" />
+        <put name="footer" value="/tiles/footer.jsp" />
+    </definition>
+
+    <!-- Home -->
+    <definition name="Home" extends=".defaultLayout">
+        <put name="title" value="pageTitle.0"/>
+        <put name="currentMenu" value="Home"/>
+        <put name="body-content" value="/content/home/Dashboard.jsp" />
+    </definition>
+
+   
+    <!-- Interests -->
+    <definition name="Interests" extends=".defaultLayout">
+        <put name="title" value="pageTitle.13"/>
+        <put name="currentMenu" value="Interests"/>
+        <put name="body-content" value="/content/interests/Interests.jsp" />
+    </definition>
+    <definition name="AddInterest" extends=".defaultLayout">
+        <put name="title" value="AddInterest"/>
+        <put name="body-content" value="/content/interests/AddInterest.jsp" />
+    </definition>
+    <definition name="RemoveInterest" extends=".defaultLayout">
+        <put name="title" value="RemoveInterest"/>
+        <put name="body-content" value="/content/interests/RemoveInterest.jsp" />
+    </definition>
+    <definition name="SearchInterest" extends=".defaultLayout">
+        <put name="title" value="SearchInterest"/>
+        <put name="body-content" value="/content/interests/SearchInterest.jsp" />
+    </definition>
+    <definition name="CreateInterest" extends=".defaultLayout">
+        <put name="title" value="CreateInterest"/>
+        <put name="body-content" value="/content/interests/CreateInterest.jsp" />
+    </definition>
+    <definition name="DeleteInterest" extends=".defaultLayout">
+        <put name="title" value="DeleteInterest"/>
+        <put name="body-content" value="/content/interests/DeleteInterest.jsp" />
+    </definition>
+    <definition name="ModifyInterest" extends=".defaultLayout">
+        <put name="title" value="ModifyInterest"/>
+        <put name="body-content" value="/content/interests/ModifyInterest.jsp" />
+    </definition>
+
+  
+    <!-- Members -->
+    <definition name="SearchMembers" extends=".defaultLayout">
+        <put name="title" value="pageTitle.12"/>
+        <put name="body-content" value="/content/members/SearchMember.jsp" />
+    </definition>
+</tiles-definitions>
