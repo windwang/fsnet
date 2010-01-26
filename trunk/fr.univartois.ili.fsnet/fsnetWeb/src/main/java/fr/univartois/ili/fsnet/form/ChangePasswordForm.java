@@ -60,7 +60,7 @@ public class ChangePasswordForm extends ValidatorForm {
             res.add("oldPassword", new ActionMessage("error.changePassword.oldPassword"));
         }
         if (!newPassword.equals(confirmNewPassword)) {
-            res.add("oldPassword", new ActionMessage("error.updateProfile.confirmPwd.diff"));
+            res.add("confirmNewPassword", new ActionMessage("error.updateProfile.confirmPwd.diff"));
         }
         return res;
     }
