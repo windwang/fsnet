@@ -8,5 +8,16 @@
                 <arg key="error.searchText" />
             </field>
         </form>
+        <form name="/CreateMember">
+            <field property="name" depends="required">
+                <arg key="members.error.name" />
+            </field>
+              <field property="firstName" depends="required">
+                <arg key="members.error.firstName" />
+            </field>
+              <field property="mail" depends="required,email">
+                <arg key="members.error.mail" />
+            </field>
+        </form>
     </formset>
 </form-validation>
