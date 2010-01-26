@@ -3,7 +3,9 @@ package fr.univartois.ili.fsnet.facade.forum.iliforum;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
+import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -50,5 +52,35 @@ public class TopicMessageFacade {
         if (message != null) {
             em.remove(message);
         }
+    }
+
+    /**
+     * Search TopicMessages in the given Topic
+     * @param pattern the pattern to search
+     * @param topic the Topic to search in
+     * @return a list of TopicMessage
+     */
+    public List<TopicMessage> searchTopic(String pattern, Topic topic) {
+        if (pattern == null || topic == null) {
+            throw new IllegalArgumentException();
+        }
+        TypedQuery<TopicMessage> query = em.createQuery("SELECT tm FROM TopicMessage tm WHERE tm.body LIKE :pattern AND tm.topic = :topic ", TopicMessage.class);
+        query.setParameter("pattern", "%" + pattern + "%");
+        query.setParameter("topic", topic);
+        return query.getResultList();
+    }
+
+    /**
+     * Search TopicMessages
+     * @param pattern the pattern to search
+     * @return a list of TopicMessage
+     */
+    public List<TopicMessage> searchTopic(String pattern) {
+        if (pattern == null) {
+            throw new IllegalArgumentException();
+        }
+        TypedQuery<TopicMessage> query = em.createQuery("SELECT tm FROM TopicMessage tm WHERE tm.body LIKE :pattern ", TopicMessage.class);
+        query.setParameter("pattern", "%" + pattern + "%");
+        return query.getResultList();
     }
 }
