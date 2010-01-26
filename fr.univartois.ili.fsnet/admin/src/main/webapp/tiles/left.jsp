@@ -4,25 +4,20 @@
 <h2>
 	<bean:message key="left.0"/>
 </h2>
-<ul>
-    <li>
-        <html:link action="/DisplayCreateHub">
-			<bean:message key="left.1"/>
-        </html:link>
-    </li>
-</ul>
+
 <h2>
-	<bean:message key="left.2"/>
+	<bean:message key="left.1"/>
 </h2>
 <ul>
     <li>
-        <html:link action="/DisplayCreateAnnounce">
-			<bean:message key="left.3"/> 
+        <html:link action="/DisplayCreateMember">
+			<bean:message key="left.2"/>
         </html:link>
     </li>
     <li>
-        <html:link action="/DisplayCreateEvent">
-			<bean:message key="left.4"/>
+        <html:link action="/DisplayCreateInterest">
+			<bean:message key="left.3"/> 
         </html:link>
     </li>
+
 </ul>
