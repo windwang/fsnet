@@ -1,30 +1,12 @@
-/*
- *  Copyright (C) 2010 Matthieu Proucelle <matthieu.proucelle at gmail.com>
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- * 
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -42,8 +24,8 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 import fr.univartois.ili.fsnet.admin.actions.CrudAction;
 import fr.univartois.ili.fsnet.entities.Interest;
 
-/// TODO attention : rustine sur les requetes
-// TODO attention : rustine sur les merge user de session
+// TODO attention : rustine sur les requetes
+
 /**
  * Execute CRUD Actions (and more) for the entity interet
  * 
@@ -162,9 +144,7 @@ public class ManageInterests extends MappingDispatchAction implements
                 '%' + interestName + '%').getResultList();
         em.close();
 
-        if (result.size() > 0) {
-            request.setAttribute("interestResult", result);
-        }
+        request.setAttribute("interestResult", result);
 
         return mapping.findForward("success");
     }
