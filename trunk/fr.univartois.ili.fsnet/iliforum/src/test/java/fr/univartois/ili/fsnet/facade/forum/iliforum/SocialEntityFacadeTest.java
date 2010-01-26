@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.iliforum;
+package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
 import static org.junit.Assert.assertEquals;
 
