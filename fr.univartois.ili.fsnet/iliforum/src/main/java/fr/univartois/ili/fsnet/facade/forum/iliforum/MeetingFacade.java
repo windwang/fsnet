@@ -10,28 +10,26 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class MeetingFacade {
 
-	private final EntityManager em;
+    private final EntityManager em;
 
-	MeetingFacade(EntityManager em) {
-		this.em = em;
-	}
+    MeetingFacade(EntityManager em) {
+        this.em = em;
+    }
 
-	public Meeting createMeeting(SocialEntity member, String eventName,
-			String eventDescription, Date endDate, Boolean isPrivate,
-			Date startDate, String address, String city) {
+    public Meeting createMeeting(SocialEntity member, String eventName,
+            String eventDescription, Date endDate, Boolean isPrivate,
+            Date startDate, String address, String city) {
 
-		Meeting event = new Meeting(member, eventName, eventDescription,
-				endDate, isPrivate, startDate, new Address(address, city));
+        Meeting event = new Meeting(member, eventName, eventDescription,
+                endDate, isPrivate, startDate, new Address(address, city));
 
-		member.getInteractions().add(event);
-		em.persist(event);
+        member.getInteractions().add(event);
+        em.persist(event);
+        return event;
+    }
 
-		return event;
+    public Meeting deleteMeeting() {
+        return null;
 
-	}
-	
-	public Meeting deleteMeeting(){
-		return null;
-		
-	}
+    }
 }
