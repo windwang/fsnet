@@ -18,7 +18,8 @@ import org.junit.Test;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
-import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class TopicTest {
 
@@ -26,7 +27,8 @@ public class TopicTest {
 
     @Before
     public void setUp() {
-        em = TestEntityManagerProvider.getInstance().getEntityManager();
+        EntityManagerFactory fact = Persistence.createEntityManagerFactory("TestPU");
+        em = fact.createEntityManager();
     }
 
     @After
@@ -50,7 +52,7 @@ public class TopicTest {
         es.setName("Théophile");
         es.setPrenom("Gautier");
         final Community community = new Community(es, "macom");
-        Hub hub = new Hub( community, es, "mon hub");
+        Hub hub = new Hub(community, es, "mon hub");
         Topic top = new Topic(hub, es, "mon topic");
         TopicMessage firstmessage = new TopicMessage("kiiiii", es, top);
         top.getMessages().add(firstmessage);

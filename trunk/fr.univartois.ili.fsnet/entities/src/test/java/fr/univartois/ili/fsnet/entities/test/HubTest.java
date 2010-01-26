@@ -9,7 +9,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
-import javax.persistence.RollbackException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -17,7 +16,8 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class HubTest {
 
@@ -25,7 +25,8 @@ public class HubTest {
 
     @Before
     public void setUp() {
-        em = TestEntityManagerProvider.getInstance().getEntityManager();
+        EntityManagerFactory fact = Persistence.createEntityManagerFactory("TestPU");
+        em = fact.createEntityManager();
     }
 
     @After
@@ -38,7 +39,7 @@ public class HubTest {
         Date date = (Date) formatter.parse("29/01/02");
         final SocialEntity socialEntity = new SocialEntity("ktest6", "test6", "test6d@test.com");
         final Community community = new Community(socialEntity, "Ma comm");
-        Hub hub = new Hub( community, socialEntity, "mon hub");
+        Hub hub = new Hub(community, socialEntity, "mon hub");
         em.getTransaction().begin();
         em.persist(socialEntity);
         em.persist(community);
@@ -49,5 +50,4 @@ public class HubTest {
         assertEquals(hub.getId(), hub2.getId());
         assertEquals(hub.getCreationDate(), hub2.getCreationDate());
     }
-
 }

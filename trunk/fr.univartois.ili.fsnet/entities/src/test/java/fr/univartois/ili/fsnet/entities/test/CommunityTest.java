@@ -10,7 +10,8 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class CommunityTest {
 
@@ -18,7 +19,8 @@ public class CommunityTest {
 
     @Before
     public void setUp() {
-        em = TestEntityManagerProvider.getInstance().getEntityManager();
+        EntityManagerFactory fact = Persistence.createEntityManagerFactory("TestPU");
+        em = fact.createEntityManager();
     }
 
     @After

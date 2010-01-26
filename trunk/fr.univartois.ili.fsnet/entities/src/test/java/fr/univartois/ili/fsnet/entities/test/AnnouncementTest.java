@@ -8,7 +8,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
-import javax.persistence.RollbackException;
 
 import org.junit.After;
 import org.junit.Before;
@@ -16,8 +15,9 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
 import java.lang.IllegalArgumentException;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 /**
  * 
@@ -30,7 +30,8 @@ public class AnnouncementTest {
 
     @Before
     public void setUp() {
-        em = TestEntityManagerProvider.getInstance().getEntityManager();
+        EntityManagerFactory fact = Persistence.createEntityManagerFactory("TestPU");
+        em = fact.createEntityManager();
     }
 
     @After
