@@ -245,3 +245,11 @@ input[type="text"][class="error"], textarea[class="error"] {
     float: right;
     margin-bottom: 10px;
 }
+
+.background {
+    background-image: none;
+}
+
+#menu li a:hover, #menu li a.current {
+    background: url(../images/menu2.gif) no-repeat center bottom;
+}

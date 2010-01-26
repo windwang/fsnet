@@ -8,8 +8,8 @@
 <html:html xhtml="true">
     <head>
         <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
-        <link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
+        <link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
         <title><tiles:getAsString name="title"/></title>
         <link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
     </head>
