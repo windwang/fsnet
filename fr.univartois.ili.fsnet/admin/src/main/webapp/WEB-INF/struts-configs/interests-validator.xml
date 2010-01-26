@@ -3,16 +3,6 @@
 "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
 <form-validation>
 	<formset>		
-		<form name="/AddInterest">
-            <field property="addedInterestId" depends="required,integer">
-                <arg key="error.interest.add" />
-            </field>
-        </form>
-        <form name="/RemoveInterest">
-            <field property="removedInterestId" depends="required,integer">
-                <arg key="error.interest.remove" />
-            </field>
-        </form>
         <form name="/ModifyInterest">
             <field property="modifiedInterestId" depends="required,integer">
                 <arg key="error.interest.id.modified" />

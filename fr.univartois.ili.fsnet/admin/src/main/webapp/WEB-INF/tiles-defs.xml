@@ -32,14 +32,6 @@
         <put name="currentMenu" value="Interests"/>
         <put name="body-content" value="/content/interests/Interests.jsp" />
     </definition>
-    <definition name="AddInterest" extends=".defaultLayout">
-        <put name="title" value="AddInterest"/>
-        <put name="body-content" value="/content/interests/AddInterest.jsp" />
-    </definition>
-    <definition name="RemoveInterest" extends=".defaultLayout">
-        <put name="title" value="RemoveInterest"/>
-        <put name="body-content" value="/content/interests/RemoveInterest.jsp" />
-    </definition>
     <definition name="SearchInterest" extends=".defaultLayout">
         <put name="title" value="SearchInterest"/>
         <put name="body-content" value="/content/interests/SearchInterest.jsp" />
