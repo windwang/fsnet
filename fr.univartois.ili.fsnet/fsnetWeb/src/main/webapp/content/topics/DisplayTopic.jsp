@@ -11,7 +11,7 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
 <h3>${requestScope.topic.title} : Messages </h3>
-<c:forEach var="msg" items="${requestScope.topic.topicMessages}">
+<c:forEach var="msg" items="${requestScope.topic.messages}">
 
     <table class="topicTable">
         <tr class="topicHeader">
@@ -41,18 +41,20 @@
             <html:link action="/DisplayModifyTopicMessage" styleClass="button">
                 <html:param name="topicId" value="${topic.id}" />
                 <html:param name="messageId" value="${msg.id}" />
-		           <bean:message key="topics.modifyMsg"/>
+                <bean:message key="topics.modifyMsg"/>
             </html:link>
         </c:if>
 
+        <!--
         <c:if test="${sessionScope.user.id eq msg.from.id}">
             <html:link action="/DeleteTopicMessage" styleClass="button">
                 <html:param name="topicId" value="${topic.id}" />
                 <html:param name="messageId" value="${msg.id}" />
-		           <bean:message key="topics.deleteMsg"/>
+                <bean:message key="topics.deleteMsg"/>
             </html:link>
         </c:if>
 
+        -->
     </div>
 </c:forEach>
 
