@@ -55,4 +55,8 @@
         <put name="title" value="pageTitle.12"/>
         <put name="body-content" value="/content/members/SearchMember.jsp" />
     </definition>
+    <definition name="Members" extends=".defaultLayout">
+        <put name="title" value="pageTitle.12"/>
+        <put name="body-content" value="/content/members/Members.jsp" />
+    </definition>
 </tiles-definitions>
