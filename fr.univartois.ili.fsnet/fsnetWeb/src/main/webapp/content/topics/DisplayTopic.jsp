@@ -11,7 +11,7 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
 <h3>${requestScope.topic.title} : Messages </h3>
-<c:forEach var="msg" items="${requestScope.topic.messages}">
+<c:forEach var="msg" items="${requestScope.topic.topicMessages}">
 
     <table class="topicTable">
         <tr class="topicHeader">
