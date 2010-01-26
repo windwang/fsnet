@@ -47,7 +47,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 
-		DynaActionForm formAnnounce = (DynaActionForm) form;
+		DynaActionForm formAnnounce = (DynaActionForm) form; //NOSONAR
 		String title = (String) formAnnounce.get("announceTitle");
 		String content = (String) formAnnounce.get("announceContent");
 		String stringExpiryDate = (String) formAnnounce
@@ -85,7 +85,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
-		DynaActionForm formAnnounce = (DynaActionForm) form;
+		DynaActionForm formAnnounce = (DynaActionForm) form;//NOSONAR
 		String title = (String) formAnnounce.get("announceTitle");
 		String content = (String) formAnnounce.get("announceContent");
 		String stringExpiryDate = (String) formAnnounce
@@ -161,7 +161,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm seaarchForm = (DynaActionForm) form;
+		DynaActionForm seaarchForm = (DynaActionForm) form;//NOSONAR
 		String textSearchAnnounce = (String) seaarchForm
 				.get("textSearchAnnounce");
 		EntityManager entityManager = factory.createEntityManager();
