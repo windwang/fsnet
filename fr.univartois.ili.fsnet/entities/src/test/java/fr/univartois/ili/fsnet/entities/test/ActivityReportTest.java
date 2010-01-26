@@ -15,7 +15,8 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.ActivityReport;
-import fr.univartois.ili.fsnet.entities.test.utils.TestEntityManagerProvider;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 public class ActivityReportTest {
 
@@ -23,7 +24,8 @@ public class ActivityReportTest {
 
     @Before
     public void setUp() {
-        em = TestEntityManagerProvider.getInstance().getEntityManager();
+        EntityManagerFactory fact = Persistence.createEntityManagerFactory("TestPU");
+        em = fact.createEntityManager();
     }
 
     @After
