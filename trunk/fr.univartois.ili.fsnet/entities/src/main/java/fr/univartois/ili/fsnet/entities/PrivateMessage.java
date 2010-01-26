@@ -17,6 +17,7 @@ public class PrivateMessage extends Message implements Serializable {
     @ManyToOne
     @JoinColumn(nullable = false)
     private SocialEntity to;
+    private boolean read;
 
     public PrivateMessage() {
     }
@@ -28,6 +29,7 @@ public class PrivateMessage extends Message implements Serializable {
         }
         this.subject = subject;
         this.to = to;
+        this.read = false;
     }
 
     /**
@@ -64,5 +66,21 @@ public class PrivateMessage extends Message implements Serializable {
      */
     public void setTo(SocialEntity to) {
         this.to = to;
+    }
+
+    /**
+     *
+     * @return true if the message has been read
+     */
+    public boolean isRead() {
+        return read;
+    }
+
+    /**
+     * Set the message state
+     * @param read
+     */
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }
