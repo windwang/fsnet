@@ -16,10 +16,8 @@ import javax.persistence.OneToMany;
 @Entity
 public class Topic extends Interaction {
 
-    
-	private static final long serialVersionUID = 1L;
-	
-	/**
+    private static final long serialVersionUID = 1L;
+    /**
      * The hub in which the topic appears.
      */
     @ManyToOne

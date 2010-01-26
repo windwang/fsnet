@@ -13,61 +13,57 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 
 @Entity
-@Table(uniqueConstraints=
-		@UniqueConstraint(columnNames={
-								"SOCIALENTITY_ID", 
-								"INTERACTION_ID"}))
+@Table(uniqueConstraints =
+@UniqueConstraint(columnNames = {
+    "SOCIALENTITY_ID",
+    "INTERACTION_ID"}))
 public class InteractionRole implements Serializable {
 
-	private static final long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
-	public static enum RoleName {
+    public static enum RoleName {
+
         DECISION_MAKER, SUBSCRIBER
     }
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private Long id;
-	
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
     @ManyToOne
     private Interaction interaction;
-    
     @ManyToOne
     private SocialEntity socialEntity;
-    
-    @Enumerated(value=EnumType.STRING)
+    @Enumerated(value = EnumType.STRING)
     private RoleName rolename;
 
-	
-	/**
-	 * @return the id
-	 */
-	public Long getId() {
-		return id;
-	}
+    /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	/**
-	 * @param id the id to set
-	 */
-	public void setId(Long id) {
-		this.id = id;
-	}
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	/**
-	 * @return the rolename
-	 */
-	public RoleName getRolename() {
-		return rolename;
-	}
+    /**
+     * @return the rolename
+     */
+    public RoleName getRolename() {
+        return rolename;
+    }
 
-	/**
-	 * @param rolename the rolename to set
-	 */
-	public void setRolename(RoleName rolename) {
-		this.rolename = rolename;
-	}
+    /**
+     * @param rolename the rolename to set
+     */
+    public void setRolename(RoleName rolename) {
+        this.rolename = rolename;
+    }
 
-	/**
+    /**
      * Get the value of interaction
      *
      * @return the value of interaction
