@@ -3,7 +3,7 @@ package fr.univartois.ili.fsnet.facade.forum;
 import java.util.Date;
 import java.util.List;
 
-import fr.univartois.ili.fsnet.entities.EntiteSociale;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.Topic;
@@ -33,13 +33,13 @@ public interface ForumFacade {
     List<Hub> getListHub(Date dateBegin, Date dateEnd);
 
     /**
-     * Get the list of hub created by the EntiteSociale "decideur".
+     * Get the list of hub created by the SocialEntity "decideur".
      * 
      * @param decideur
      *            who created the hub
      * @return List of hub
      */
-    List<Hub> getListHubByEntiteSociale(EntiteSociale decideur);
+    List<Hub> getListHubBySocialEntity(SocialEntity decideur);
 
     /**
      * Get the list of all Topic.
@@ -59,13 +59,13 @@ public interface ForumFacade {
     List<Topic> getListTopic(Date dateBegin, Date dateEnd);
 
     /**
-     * Get the list of topic created by the EntiteSociale "entiteSocial".
+     * Get the list of topic created by the SocialEntity "entiteSocial".
      * 
      * @param entiteSocial
      *            who created the hub
      * @return
      */
-    List<Topic> getListTopicByEntiteSociale(EntiteSociale entiteSocial);
+    List<Topic> getListTopicBySocialEntity(SocialEntity entiteSocial);
 
     /**
      * Get the list of topic from the hub "hub".
@@ -93,13 +93,13 @@ public interface ForumFacade {
     List<Message> getListMessage(Date dateBegin, Date dateEnd);
 
     /**
-     * Get the list of message created by the EntiteSociale "entiteSocial".
+     * Get the list of message created by the SocialEntity "entiteSocial".
      * 
-     * @param entiteSociale
+     * @param SocialEntity
      * @return List of message
      */
     List<Message> getListMessageByEntiteSocial(
-            EntiteSociale entiteSociale);
+            SocialEntity SocialEntity);
 
     /**
      * Get list of message from the topic "topic".
