@@ -34,10 +34,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.EntiteSociale;
-import fr.univartois.ili.fsnet.form.ProfileForm;
-import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  *

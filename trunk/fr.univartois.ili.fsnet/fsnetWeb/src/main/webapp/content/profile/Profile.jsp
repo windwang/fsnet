@@ -186,8 +186,8 @@
 	<bean:message key="updateProfile.changePassword.title"/>
 </h3>
 
-<html:form action="/ChangePassword">
-	<table>
+<html:form action="/ChangePassword" >
+	<table id="ModifyProfile">
 		<c:forTokens var="typePwd" items="oldPassword:newPassword:confirmNewPassword" delims=":">
 			<tr>
 				<td>
