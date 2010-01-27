@@ -15,7 +15,8 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     SocialEntityFacadeTest.class,
     ContactTest.class,
-    PrivateMessageFacadeTest.class
+    PrivateMessageFacadeTest.class,
+    MeetingFacadeTest.class
 })
 public class AllTests {
 

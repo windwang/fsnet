@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.iliforum;
+package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
@@ -60,15 +60,23 @@ public class MeetingFacadeTest {
 
 		Date start = new Date();
 		Date end = new Date();
-		Meeting es1 = mf.createMeeting(new SocialEntity("zaza", "zaza",
-				"zaza1@gmail.com"), "tata", "tete", end, false, start,
+		em.getTransaction().begin();
+		SocialEntity member3 = new SocialEntity("zaza", "zaza",
+				"zaza1@gmail.com");
+		em.persist(member3);
+		Meeting es1 = mf.createMeeting(member3, "tata", "tete", end, false, start,
 				"address", "city");
-		Meeting es2 = mf.createMeeting(new SocialEntity("zaza", "zaza",
-				"zaza2@gmail.com"), "titi", "toto", end, false, start,
+		SocialEntity member2 = new SocialEntity("zaza", "zaza",
+				"zaza2@gmail.com");
+		em.persist(member2);
+		Meeting es2 = mf.createMeeting(member2, "titi", "toto", end, false, start,
 				"address", "city");
-		Meeting es3 = mf.createMeeting(new SocialEntity("zaza", "zaza",
-				"zaza3@gmail.com"), "tutu", "tyty", end, false, start,
+		SocialEntity member = new SocialEntity("zaza", "zaza",
+				"zaza3@gmail.com");
+		em.persist(member);
+		Meeting es3 = mf.createMeeting(member, "tutu", "tyty", end, false, start,
 				"address", "city");
+		em.getTransaction().commit();
 		String searchText = "titi";
 		List<Meeting> results = mf.searchMeeting(searchText);
 		Meeting mRes = results.get(0);
@@ -76,26 +84,33 @@ public class MeetingFacadeTest {
 		assertEquals(es2.getContent(), mRes.getContent());
 	}
 
-	@Test
+	@Test 
 	public void testDelete() {
 		Date start = new Date();
 		Date end = new Date();
-		Meeting es1 = mf.createMeeting(new SocialEntity("zaza", "zaza",
-				"zaza4@gmail.com"), "tata", "tete", end, false, start,
+		em.getTransaction().begin();
+		SocialEntity member = new SocialEntity("zaza", "zaza",
+				"zaza4@gmail.com");
+		em.persist(member);
+		Meeting es1 = mf.createMeeting(member, "tata", "tete", end, false, start,
 				"address", "city");
-		Meeting es2 = mf.createMeeting(new SocialEntity("zaza", "zaza",
-				"zaza5@gmail.com"), "titi", "toto", end, false, start,
+		SocialEntity member2 = new SocialEntity("zaza", "zaza",
+				"zaza5@gmail.com");
+		em.persist(member2);
+		Meeting es2 = mf.createMeeting(member2, "titi", "toto", end, false, start,
 				"address", "city");
-		Meeting es3 = mf.createMeeting(new SocialEntity("zaza", "zaza",
-				"zaza6@gmail.com"), "tutu", "tyty", end, false, start,
+		SocialEntity member3 = new SocialEntity("zaza", "zaza",
+				"zaza6@gmail.com");
+		em.persist(member3);
+		Meeting es3 = mf.createMeeting(member3, "tutu", "tyty", end, false, start,
 				"address", "city");
 
-		Meeting[] lesMeeting = { es1, es2, es3 };
-		for (Meeting ent : lesMeeting) {
-			em.persist(ent);
-		}
+		em.getTransaction().commit();
 
-		em.remove(es2);
+		em.getTransaction().begin();
+		
+		mf.deleteMeeting(es2.getId());
+		em.getTransaction().commit();
 		assertNull(em.find(Meeting.class, es2.getId()));
 
 	}
