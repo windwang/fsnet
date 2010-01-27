@@ -39,11 +39,10 @@ public class PrivateMessageFacadeTest {
     }
 
     /**
-     * Test of sendPrivateMessage method, of class PrivateMessageFacade.
+     * Test the sendPrivateMessage methode
      */
     @Test
     public void testSendPrivateMessage() {
-        System.out.println("sendMessage");
         String body = "Test message privé 1";
         em.getTransaction().begin();
         SocialEntityFacade sef = new SocialEntityFacade(em);
@@ -58,5 +57,35 @@ public class PrivateMessageFacadeTest {
         // TODO assertSame because equals method not implement
         assertSame(from.getSentPrivateMessages().get(0), to.getReceivedPrivateMessages().get(0));
         assertSame(result, pmfound);
+    }
+
+    /**
+     * Test the PrivateMessage removing feature
+     */
+    @Test
+    public void testDeletePrivateMessage() {
+        String body = "Test message privé 2";
+        em.getTransaction().begin();
+        SocialEntityFacade sef = new SocialEntityFacade(em);
+        SocialEntity from = sef.createSocialEntity("TestName 1", "TestFirstName1", "deletemessagetest1@gmail.com");
+        String subject = "The subject test 2";
+        SocialEntity to = sef.createSocialEntity("TestName 12", "TestFirstName12", "deletemessagetest12@gmail.com");
+
+        PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+        PrivateMessage message = pmf.sendPrivateMessage(body, from, subject, to);
+
+
+        assertEquals(1, from.getSentPrivateMessages().size());
+        assertEquals(message, from.getSentPrivateMessages().get(0));
+        assertEquals(1, to.getReceivedPrivateMessages().size());
+        assertEquals(message, to.getReceivedPrivateMessages().get(0));
+
+        pmf.deletePrivateMessage(from, message);
+        assertEquals(0, from.getSentPrivateMessages().size());
+
+        pmf.deletePrivateMessage(to, message);
+        assertEquals(0, to.getReceivedPrivateMessages().size());
+        em.getTransaction().commit();
+
     }
 }

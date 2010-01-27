@@ -7,10 +7,9 @@ import javax.persistence.Persistence;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Interest;
-
 public class InterestFacadeTest {
-	private EntityManager em;
+
+    private EntityManager em;
     private InterestFacade interestFacade;
 
     @Before
@@ -19,12 +18,11 @@ public class InterestFacadeTest {
         em = emf.createEntityManager();
         interestFacade = new InterestFacade(em);
     }
-    
+
     @Test
     public void testCreateInterest() {
 //    	String interestName = "Sport";
 //    	Interest interest = interestFacade.createInterest(interestName);
 //    	em.getTransaction().begin();
     }
-
 }

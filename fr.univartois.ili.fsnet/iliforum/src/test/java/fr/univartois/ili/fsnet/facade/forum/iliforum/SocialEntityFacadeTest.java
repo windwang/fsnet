@@ -1,18 +1,10 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
-import static org.junit.Assert.assertEquals;
-
-import java.util.HashMap;
-import java.util.List;
-
 import javax.persistence.EntityManager;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade.SearchResult;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
