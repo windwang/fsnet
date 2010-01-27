@@ -16,11 +16,17 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.form.ChangePasswordForm;
 import fr.univartois.ili.fsnet.security.Md5;
 
-
+/**
+ * 
+ * formular validator for change password form
+ * @author geoffrey
+ *
+ */
 public class ChangePassword extends Action{
 
 	 private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-	
+
+	 
 	@Override
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
