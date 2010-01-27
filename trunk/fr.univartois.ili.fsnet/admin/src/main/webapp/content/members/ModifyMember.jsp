@@ -12,9 +12,9 @@ Modify a member
 
 <html:form action="/ModifyMember">
     <table id="ModifyMember">
-    <tr >
-            <td>
-                <html:errors /> ${member.id}
+    <tr   >
+            <td COLSPAN="2">
+                <html:errors /> 
             </td>
            
         </tr>
@@ -23,10 +23,10 @@ Modify a member
                 <label for="name">
                    Name :
                 </label>
-                <html:hidden property="id" value="${member.id}" />
+                <html:hidden property="id"/>
             </td>
             <td>
-                <html:text property="name" value="${member.name}" styleId="name" />
+                <html:text property="name" styleId="name" errorStyleClass="error"/>
             </td>
         </tr>
        
@@ -37,7 +37,7 @@ Modify a member
                 </label>
             </td>
             <td>
-                <html:text property="firstName"  value="${member.firstName}" styleId="firstName" errorStyleClass="error"/>
+                <html:text property="firstName"  styleId="firstName" errorStyleClass="error"/>
             </td>
         </tr>
 
@@ -48,7 +48,7 @@ Modify a member
                 </label>
             </td>
             <td>
-                <html:text property="email" styleId="email"  value="${member.email}" errorStyleClass="error"/>
+                <html:text property="email" styleId="email" errorStyleClass="error"/>
             </td>
         </tr>
        
