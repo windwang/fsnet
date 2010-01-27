@@ -1,9 +1,15 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import java.nio.channels.IllegalSelectorException;
+
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
+/**
+*
+* @author Aurelien Legrand
+*/
 public class ContactFacade {
 
 	EntityManager em;
@@ -20,15 +26,16 @@ public class ContactFacade {
 	 * @param asked
 	 */
 	public void askContact(SocialEntity asker, SocialEntity asked) {
-		if (!asker.getAsked().contains(asked)
+		if(asker.equals(asked))
+			throw new IllegalArgumentException();
+		if (!(asker.getAsked().contains(asked)
 				|| asker.getRequested().contains(asked)
 				|| asker.getContacts().contains(asked)
 				|| asked.getAsked().contains(asker)
 				|| asked.getRequested().contains(asker)
-				|| asked.getContacts().contains(asker)) {
+				|| asked.getContacts().contains(asker))) {
 			asker.getRequested().add(asked);
 			asked.getAsked().add(asker);
-			em.getTransaction().commit();
 		}
 		else{
 			throw new IllegalStateException();
@@ -44,6 +51,16 @@ public class ContactFacade {
 	public void refuseContact(SocialEntity member, SocialEntity refused) {
 		if (member == null || refused == null)
 			throw new IllegalArgumentException();
+		if(member.getContacts().contains(refused)
+				||member.getRefused().contains(refused)
+				||!member.getAsked().contains(refused)
+				||member.getRequested().contains(refused)
+				||!refused.getRequested().contains(member)
+				||refused.getContacts().contains(member)
+				||refused.getRefused().contains(member)
+				||refused.getAsked().contains(member))
+			throw new IllegalStateException();
+
 		member.getAsked().remove(refused);
 		refused.getRequested().remove(member);
 		member.getRefused().add(refused);
@@ -86,7 +103,6 @@ public class ContactFacade {
 			throw new IllegalArgumentException();
 		member.getContacts().remove(removedEntity);
 		removedEntity.getContacts().remove(member);
-		em.getTransaction().commit();
 
 	}
 
@@ -98,7 +114,9 @@ public class ContactFacade {
 	public void deleteContact(int id) {
 
 		SocialEntity deletedEntity = em.find(SocialEntity.class, id);
+		if (deletedEntity == null)
+			return;
 		em.remove(deletedEntity);
-		em.getTransaction().commit();
 	}
+	
 }
