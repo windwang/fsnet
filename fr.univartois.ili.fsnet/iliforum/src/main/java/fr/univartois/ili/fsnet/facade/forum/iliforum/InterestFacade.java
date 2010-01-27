@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.Interest;
-import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  *
