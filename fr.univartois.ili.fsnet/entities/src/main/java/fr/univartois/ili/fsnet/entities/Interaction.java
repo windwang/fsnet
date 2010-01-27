@@ -53,6 +53,7 @@ public abstract class Interaction implements Serializable {
     private Date creationDate;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastModified;
+    
     @OneToMany(mappedBy = "interaction")
     private Set<InteractionRole> roles;
 

@@ -2,38 +2,38 @@ package fr.univartois.ili.fsnet.entities;
 
 public class InteractionRolePK {
 
-	private Long socialEntityId;
+	private int socialEntity;
 
-	private Long interactionId;
+	private int interaction;
 
 	/**
 	 * @return the socialEntityId
 	 */
-	public Long getSocialEntityId() {
-		return socialEntityId;
+	public int getSocialEntityId() {
+		return socialEntity;
 	}
 
 	/**
 	 * @param socialEntityId
 	 *            the socialEntityId to set
 	 */
-	public void setSocialEntityId(Long socialEntityId) {
-		this.socialEntityId = socialEntityId;
+	public void setSocialEntityId(int socialEntityId) {
+		this.socialEntity = socialEntityId;
 	}
 
 	/**
 	 * @return the interactionId
 	 */
-	public Long getInteractionId() {
-		return interactionId;
+	public int getInteractionId() {
+		return interaction;
 	}
 
 	/**
 	 * @param interactionId
 	 *            the interactionId to set
 	 */
-	public void setInteractionId(Long interactionId) {
-		this.interactionId = interactionId;
+	public void setInteractionId(int interactionId) {
+		this.interaction = interactionId;
 	}
 
 }
