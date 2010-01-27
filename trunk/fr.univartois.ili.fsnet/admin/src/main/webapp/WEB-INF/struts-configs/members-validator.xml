@@ -15,7 +15,7 @@
               <field property="firstName" depends="required">
                 <arg key="members.error.firstName" />
             </field>
-              <field property="mail" depends="required,email">
+              <field property="email" depends="required,email">
                 <arg key="members.error.mail" />
             </field>
         </form>
