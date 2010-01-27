@@ -1,8 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
-import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import java.io.IOException;
-import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -11,15 +9,16 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionMessage;
 
 /**
  * 
@@ -103,8 +102,8 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
             user.getAsked().remove(entityAccepted);
             entityAccepted.getRequested().remove(user);
             em.getTransaction().commit();
-        } else {
-            //TODO create a non consistant database error message SEVER !
+        } else {		//NOSONAR
+            //TODO 1. create a non consistant database error message SEVER !
         }
         em.close();
         return mapping.findForward("success");

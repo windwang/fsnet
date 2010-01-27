@@ -1,11 +1,12 @@
 package fr.univartois.ili.fsnet.actions.utils;
 
-import fr.univartois.ili.fsnet.auth.Authenticate;
-import fr.univartois.ili.fsnet.entities.SocialEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
+
+import fr.univartois.ili.fsnet.auth.Authenticate;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  *

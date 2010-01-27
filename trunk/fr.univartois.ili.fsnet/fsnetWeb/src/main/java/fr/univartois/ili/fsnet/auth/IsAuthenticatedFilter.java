@@ -35,7 +35,7 @@ public class IsAuthenticatedFilter implements Filter {
 		SocialEntity es;
 		RequestDispatcher dispatch;
 
-		session = ((HttpServletRequest) request).getSession();
+		session = ((HttpServletRequest) request).getSession();					//NOSONAR
 		es = (SocialEntity) session
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
 
