@@ -85,8 +85,7 @@
 }
 
 .select{
-    background-color: #505050;
-    color: #DDDDDD; 
+    color: #505050; 
     padding: 2px 6px 2px 6px;
 }
 
@@ -95,7 +94,7 @@ label {
 }
 
 .button:hover {
-    color: #DDDDDD;
+    background-color: #555555;
 }
 
 input[type=text], input[type=password], textarea {
@@ -141,57 +140,7 @@ input[type=text], input[type=password], textarea {
 #MemberList {width: 100%;}
 #MemberList td {width: 30%;}
 
-
-#login {
-    background: #505050 url(../images/footer.gif) no-repeat;
-    width: 90%;
-    height: 150px;
-    float:left;
-    margin-left: 5%;
-    border: 3px solid grey;
-}
-
-#login label {
-    color: white;
-    font-weight: bold;
-}
-
-#login input {
-    height: 20px;
-    width: 100%;
-    border-color: #DDDDDD;
-    background-color: #CCCCCC;
-}
-
-#login table {
-    margin-top: 20px;
-    margin-left: 260px;
-    height: 100px;
-    width: 300px;
-}
-#login tr {
-    margin-top: 10px;
-}
-
-#login-title {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    text-align:center;
-    font-weight: bold;
-    font-size: 200%;
-}
-
-#login h3 {
-    text-align: center;
-    font-size: 150%;
-    color: white;
-}
-
-#login input[type=submit] {
-    border: 1px solid #DDDDDD;
-    background-color: #CCCCCC;
-    height: 100%;
-}
+#ConfigureMail .button {float: right;}
 
 input[type="text"][class="error"], textarea[class="error"] {
     border: 1px solid #AF1515;
@@ -253,3 +202,4 @@ input[type="text"][class="error"], textarea[class="error"] {
 #menu li a:hover, #menu li a.current {
     background: url(../images/menu2.gif) no-repeat center bottom;
 }
+

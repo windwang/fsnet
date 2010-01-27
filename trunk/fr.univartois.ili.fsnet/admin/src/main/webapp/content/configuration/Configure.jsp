@@ -3,11 +3,12 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <h3>
 	<bean:message key="configure.10"/>
 </h3>
 <html:form action="/SaveMailConfiguration">
-<table>
+<table id="ConfigureMail">
 	<tr>
 		<td>
 			<label for="SMTPHost">
@@ -15,9 +16,16 @@
 			</label>
 		</td>
 		<td>
-			<html:text styleId="SMTPHost" property="SMTPHost"/>
+			<html:text errorStyleClass="error" styleId="SMTPHost" property="SMTPHost"/>
 		</td>
 	</tr>
+	<logic:messagesPresent property="SMTPHost" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="SMTPHost" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td>
 			<label for="SMTPPort">
@@ -25,9 +33,16 @@
 			</label>
 		</td>
 		<td>
-			<html:text styleId="SMTPPort" property="SMTPPort"/>
+			<html:text errorStyleClass="error" styleId="SMTPPort" property="SMTPPort"/>
 		</td>	
 	</tr>
+	<logic:messagesPresent property="SMTPPort" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="SMTPPort" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td>
 			<label for="enableAuthentication">
@@ -35,9 +50,16 @@
 			</label>
 		</td>
 		<td>
-			<html:checkbox styleId="enableAuthentication" property="enableAuthentication"></html:checkbox>
+			<html:checkbox styleId="enableAuthentication" property="enableAuthentication" />
 		</td>
 	</tr>
+	<logic:messagesPresent property="enableAuthentication" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="enableAuthentication" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td>
 			<label for="SMTPUsername">
@@ -45,9 +67,16 @@
 			</label>
 		</td>
 		<td>
-			<html:text styleId="SMTPUsername" property="SMTPUsername"/>
+			<html:text errorStyleClass="error" styleId="SMTPUsername" property="SMTPUsername"/>
 		</td>
 	</tr>
+	<logic:messagesPresent property="SMTPUsername" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="SMTPUsername" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td>
 			<label for="SMTPPassword">
@@ -55,9 +84,16 @@
 			</label>
 		</td>
 		<td>
- 			<html:text styleId="SMTPPassword" property="SMTPPassword"/> 
+ 			<html:text errorStyleClass="error" styleId="SMTPPassword" property="SMTPPassword"/> 
 		</td>
 	</tr>
+	<logic:messagesPresent property="SMTPPassword" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="SMTPPassword" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td>
 			<label for="MailFrom">
@@ -65,9 +101,16 @@
 			</label>
 		</td>
 		<td>
-			<html:text styleId="MailFrom" property="MailFrom"/>
+			<html:text errorStyleClass="error" styleId="MailFrom" property="MailFrom"/>
 		</td>
 	</tr>
+	<logic:messagesPresent property="MailFrom" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="MailFrom" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td>
 			<label for="enableTLS">
@@ -78,6 +121,13 @@
 			<html:checkbox styleId="enableTLS" property="enableTLS"/>
 		</td>
 	</tr>
+	<logic:messagesPresent property="enableTLS" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="enableTLS" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td>
 			<label for="enableSSL">
@@ -88,6 +138,13 @@
 			<html:checkbox styleId="enableSSL" property="enableSSL"/>
 		</td> 
 	</tr>
+	<logic:messagesPresent property="enableSSL" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="enableSSL" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td>
 			<label for="FSNetWebURL">
@@ -95,29 +152,53 @@
 			</label>
 		</td>
 		<td>
-			<html:text styleId="FSNetWebURL" property="FSNetWebURL"/>
+			<html:text errorStyleClass="error" styleId="FSNetWebURL" property="FSNetWebURL"/>
 		</td>
 	</tr>
+	<logic:messagesPresent property="FSNetWebURL" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="FSNetWebURL" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td colspan="2">
-			<html:submit>
+			<html:submit styleClass="button">
 				<bean:message key="configure.9"/>
 			</html:submit>
 		</td>
 	</tr>
-	<html:errors/>
 </table>
 </html:form>
 
-<h3>Tester la configuration en envoyant un mail</h3>
+<h3>
+	<bean:message key="configure.16"/>
+</h3>
 <html:form action="/SendTestMail">
-	<html:text property="Recipient"></html:text>
-	<html:submit/>	
+	<table id="SendTestMail">
+		<tr>
+			<td>
+				<label for="Recipient">
+					<bean:message key="configure.14"/>
+				</label>
+				<html:text errorStyleClass="error" property="Recipient" styleId="Recipient"></html:text>
+			</td>
+			<td>
+				<html:submit styleClass="button" >
+					<bean:message key="configure.11"/>
+				</html:submit>
+			</td>
+		</tr>
+		<logic:messagesPresent property="Recipient">
+			<tr>
+				<td colspan="2">
+					<html:errors property="Recipient"/>
+				</td>
+			</tr>
+		</logic:messagesPresent>
+	</table>
 </html:form>
-
-
-
-
 
 
 
