@@ -15,12 +15,19 @@
 			<form-property name="firstName" type="java.lang.String" />
 			<form-property name="email" type="java.lang.String" />
 		</form-bean>
+		
 		<form-bean name="ModifyMemberForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="id" type="java.lang.Integer" />
 			<form-property name="name" type="java.lang.String" />
 			<form-property name="firstName" type="java.lang.String" />
 			<form-property name="email" type="java.lang.String" />
+			<form-property name="address" type="java.lang.String" />
+            <form-property name="birthDay" type="java.util.Date" />
+            <form-property name="formatBirthDay" type="java.lang.String" />
+            <form-property name="sexe" type="java.lang.String" />
+            <form-property name="job" type="java.lang.String" />
+            <form-property name="phone" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
 	<global-forwards>
