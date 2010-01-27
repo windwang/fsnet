@@ -14,7 +14,7 @@ import org.junit.runners.Suite;
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
     SocialEntityFacadeTest.class,
-    ContactTest.class,
+    ContactFacadeTest.class,
     PrivateMessageFacadeTest.class,
     MeetingFacadeTest.class
 })
