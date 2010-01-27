@@ -4,7 +4,7 @@
 
 <ul>
     <li>
-        <html:link action="/DisplayCreateMember">
+        <html:link action="/Members">
 			<bean:message key="left.2"/>
         </html:link>
     </li>
