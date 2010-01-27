@@ -59,6 +59,4 @@ public class PrivateMessageFacadeTest {
         assertSame(from.getSentPrivateMessages().get(0), to.getReceivedPrivateMessages().get(0));
         assertSame(result, pmfound);
     }
-
-
 }

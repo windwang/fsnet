@@ -16,7 +16,7 @@ public class ContactFacade {
 	/**
 	 * Ask a SocialEntity to be your friend
 	 * 
-	 * @param asker
+	 * @param asker 
 	 * @param asked
 	 */
 	public void askContact(SocialEntity asker, SocialEntity asked) {

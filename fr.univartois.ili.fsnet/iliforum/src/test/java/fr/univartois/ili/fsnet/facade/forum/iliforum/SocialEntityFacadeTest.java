@@ -47,7 +47,7 @@ public class SocialEntityFacadeTest {
         SocialEntity ent3 = new SocialEntity("zozi", "zozi", "zizi@gmail.com");
         String searchText = "zo";
         HashMap<SearchResult, List<SocialEntity>> result = sef.searchSocialEntity(searchText, ent1.getId());
-        List<SocialEntity> l = result.get("Others");
+        List<SocialEntity> l = result.get(SearchResult.Contacts);
         SocialEntity ent21 = l.get(0);
         assertEquals(ent2.getName(), ent21.getName());
         assertEquals(ent2.getFirstName(), ent21.getFirstName());

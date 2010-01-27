@@ -12,7 +12,11 @@ import org.junit.runners.Suite;
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 @RunWith(Suite.class)
-@Suite.SuiteClasses({fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacadeTest.class, fr.univartois.ili.fsnet.facade.forum.iliforum.ContactTest.class})
+@Suite.SuiteClasses({
+    SocialEntityFacadeTest.class,
+    ContactTest.class,
+    PrivateMessageFacadeTest.class
+})
 public class AllTests {
 
     @BeforeClass

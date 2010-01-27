@@ -6,7 +6,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.ContactFacade;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
