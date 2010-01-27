@@ -103,9 +103,9 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 		mail.setSubject("FSNet mail test");
-		mail.setContent("ping");
+		mail.setContent("Configuration réussie");
 		mail.addRecipient(dynaForm.getString("Recipient"));
-		//mailer.sendMail(mail);
+		mailer.sendMail(mail);
 		return mapping.findForward("success");
 	}
 }
