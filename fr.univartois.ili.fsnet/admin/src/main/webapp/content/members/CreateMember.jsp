@@ -6,7 +6,7 @@
 
 
 <h3>
-  Create a member
+  <bean:message key="members.create"/>
 </h3>
 
 <html:form action="/CreateMember">
@@ -14,7 +14,7 @@
         <tr>
             <td>
                 <label for="name">
-                   Name :
+                    <bean:message key="members.name"/>
                 </label>
             </td>
             <td>
@@ -29,7 +29,7 @@
         <tr>
             <td>
                 <label for="firstName">
-                   First name :
+                    <bean:message key="members.firstName"/>
                 </label>
             </td>
             <td>
@@ -44,7 +44,7 @@
         <tr>
             <td>
                 <label for="email">
-                    Email :
+                    <bean:message key="members.email"/>
                 </label>
             </td>
             <td>
@@ -59,7 +59,7 @@
         <tr>        	
             <td colspan="2">
                 <html:submit styleClass="button">
-                    Validate
+                   <bean:message key="members.validate"/>
                 </html:submit>
             </td>
         </tr>
