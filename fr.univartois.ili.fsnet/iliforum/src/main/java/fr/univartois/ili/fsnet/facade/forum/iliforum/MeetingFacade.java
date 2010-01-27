@@ -11,9 +11,9 @@ import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class MeetingFacade {
-/**
- * @author mickael watrelot - micgamers@gmail.com
- */
+	/**
+	 * @author mickael watrelot - micgamers@gmail.com
+	 */
 	private final EntityManager em;
 
 	public MeetingFacade(EntityManager em) {
@@ -22,6 +22,7 @@ public class MeetingFacade {
 
 	/**
 	 * Create a New Meeting
+	 * 
 	 * @param member
 	 * @param eventName
 	 * @param eventDescription
@@ -43,33 +44,32 @@ public class MeetingFacade {
 		em.persist(event);
 		return event;
 	}
-	
-	
+
 	/**
 	 * 
-	 * @param id
-	 * @return 
+	 * @param meetingId
+	 * @return
 	 */
-	public Meeting getMeeting(int id){
-		return em.find(Meeting.class, id);
+	public Meeting getMeeting(int meetingId) {
+		return em.find(Meeting.class, meetingId);
 	}
 
 	/**
 	 * Delete the Meeting with the id of the meeting meetingId
+	 * 
 	 * @param meetingId
 	 */
-	public void deleteMeeting(String meetingId) {
-		String eventId = meetingId;
-		TypedQuery<Meeting> query = em.createQuery(
-				"Select e from Meeting e where e.id = :eventId", Meeting.class);
-		query.setParameter("eventId", Integer.parseInt(eventId));
-		Meeting event = query.getSingleResult();
-		em.remove(event);
-		em.flush();
+	public void deleteMeeting(int meetingId) {
+		Meeting meet = getMeeting(meetingId);
+		if (meet != null) {
+			em.remove(meet);
+			em.flush();
+		}
 	}
 
 	/**
 	 * Search the meeting with the param searchStr
+	 * 
 	 * @param searchStr
 	 * @return
 	 */
@@ -84,19 +84,5 @@ public class MeetingFacade {
 		query.setParameter("searchString", "%" + searchString + "%");
 		results = query.getResultList();
 		return results;
-	}
-
-	/**
-	 * Display the meeting with the param displayMeet
-	 * @param displayMeet
-	 * @return
-	 */
-	public Meeting displayMeeting(String displayMeet) {
-		String eventId = displayMeet;
-		TypedQuery<Meeting> query = em.createQuery(
-				"Select e from Meeting e where e.id = :eventId", Meeting.class);
-		query.setParameter("eventId", Integer.parseInt(eventId));
-		Meeting event = query.getSingleResult();
-		return event;
 	}
 }
