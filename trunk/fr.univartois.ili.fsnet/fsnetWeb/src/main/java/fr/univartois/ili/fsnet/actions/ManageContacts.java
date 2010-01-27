@@ -44,7 +44,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
     public ActionForward askContact(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         final String idString = (String) dynaForm.get("entitySelected");
@@ -86,7 +86,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
     public ActionForward accept(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         final String idString = (String) dynaForm.get("entityAccepted");
@@ -125,19 +125,24 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         final String idString = (String) dynaForm.get("entityRefused");
         int id = Integer.parseInt(idString);
         SocialEntity entityRefused = em.find(SocialEntity.class, id);
-
+        if (user.getAsked().contains(entityRefused)
+                && entityRefused.getRequested().contains(user)
+                && !user.getContacts().contains(entityRefused)
+                && !entityRefused.getContacts().contains(user)) {
         em.getTransaction().begin();
         user.getAsked().remove(entityRefused);
         entityRefused.getRequested().remove(user);
+        user.getRefused().add(entityRefused);
         em.merge(user);
         em.merge(entityRefused);
         em.getTransaction().commit();
+        }
         em.close();
         return mapping.findForward("success");
     }
@@ -160,7 +165,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
     public ActionForward delete(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         final String idString = (String) dynaForm.get("entityDeleted");
