@@ -13,6 +13,8 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
+    AnnouncementFacadeTest.class,
+    InterestFacadeTest.class,
     SocialEntityFacadeTest.class,
     ContactFacadeTest.class,
     PrivateMessageFacadeTest.class,

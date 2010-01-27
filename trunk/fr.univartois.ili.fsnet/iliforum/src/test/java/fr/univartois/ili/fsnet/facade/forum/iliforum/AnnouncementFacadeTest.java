@@ -12,44 +12,41 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Announcement;
-import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class AnnouncementFacadeTest {
 
-	private EntityManager em;
-	private AnnouncementFacade af;
-	private SocialEntityFacade sef;
+    private EntityManager em;
+    private AnnouncementFacade af;
+    private SocialEntityFacade sef;
 
-	@Before
-	public void setUp() {
-		EntityManagerFactory emf = Persistence
-				.createEntityManagerFactory("TestPU");
-		em = emf.createEntityManager();
-		af = new AnnouncementFacade(em);
-		sef = new SocialEntityFacade(em);
-	}
+    @Before
+    public void setUp() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("TestPU");
+        em = emf.createEntityManager();
+        af = new AnnouncementFacade(em);
+        sef = new SocialEntityFacade(em);
+    }
 
-	@Test
-	public void testCreate() {
-		SocialEntity member = sef.createSocialEntity("zaza", "zaza",
-				"zaza@gmail.com");
-		String eventName = "eventName";
-		String eventDescription = "eventDescription";
-		Date endDate = new Date();
-		Boolean isPrivate = false;
+    @Test
+    public void testCreate() {
+        SocialEntity member = sef.createSocialEntity("zaza", "zaza",
+                "zaza@gmail.com");
+        String eventName = "eventName";
+        String eventDescription = "eventDescription";
+        Date endDate = new Date();
+        Boolean isPrivate = false;
 
-		Announcement ann = af.createAnnouncement(member, eventName,
-				eventDescription, endDate, isPrivate);
-		Announcement annp = em.find(Announcement.class, ann.getId());
-		assertEquals(annp.getCreator(), ann.getCreator());
-		assertEquals(annp.getTitle(), ann.getTitle());
-		assertEquals(annp.getContent(), ann.getContent());
-		assertEquals(annp.getEndDate(), ann.getEndDate());
-	}
-	
-	@Test
-	public void testSearch() {
-		
-	}
+        Announcement ann = af.createAnnouncement(member, eventName,
+                eventDescription, endDate, isPrivate);
+        Announcement annp = em.find(Announcement.class, ann.getId());
+        assertEquals(annp.getCreator(), ann.getCreator());
+        assertEquals(annp.getTitle(), ann.getTitle());
+        assertEquals(annp.getContent(), ann.getContent());
+        assertEquals(annp.getEndDate(), ann.getEndDate());
+    }
+
+    @Test
+    public void testSearch() {
+    }
 }
