@@ -60,6 +60,15 @@
         <put name="body-content" value="/content/members/Members.jsp" />
     </definition>
     
+     <definition name="DisplayForModifyMember" extends=".defaultLayout">
+        <put name="title" value="pageTitle.12"/>
+        <put name="body-content" value="/content/members/ModifyMember.jsp" />
+    </definition>
+  <definition name="ModifyMember" extends=".defaultLayout">
+        <put name="title" value="pageTitle.12"/>
+        <put name="body-content" value="/content/members/ModifyMember.jsp" />
+    </definition>
+    
     <!-- Configuration -->
     <definition name="Configure" extends=".defaultLayout">
         <put name="title" value="pageTitle.14"/>

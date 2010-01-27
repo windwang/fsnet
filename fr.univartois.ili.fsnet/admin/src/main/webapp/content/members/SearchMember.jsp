@@ -18,7 +18,9 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersResult}">
             <tr class="content">
-                <td><html:link action="">${member.name} ${member.firstName}</html:link></td>
+                <td><html:link action="/DisplayMember">${member.name} ${member.firstName}
+                <html:param name="idMember" value="${member.id}"/>
+                </html:link></td>
                   <td class="tableButton">
                     <html:link action="DeleteMember" styleClass="button">
                        Delete
