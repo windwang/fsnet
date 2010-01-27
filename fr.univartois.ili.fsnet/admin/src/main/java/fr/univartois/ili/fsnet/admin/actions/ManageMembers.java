@@ -74,14 +74,19 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		EntityManager entityManager = factory.createEntityManager();
 
 		Integer idMember = Integer.valueOf(request.getParameter("idMember"));
 
 		SocialEntity member = entityManager.find(SocialEntity.class, idMember);
-
+	
 		entityManager.close();
-		request.setAttribute("member", member);
+		dynaForm.set("name", member.getName());
+		dynaForm.set("email", member.getEmail());
+		dynaForm.set("firstName", member.getFirstName());
+		dynaForm.set("id",member.getId());
+		//request.setAttribute("member", member);
 		
 		return mapping.findForward("success");
 	}
@@ -108,7 +113,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		ActionMessages errors = new ActionErrors();
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
-		System.out.println("ok");
 		return mapping.findForward("success");
 	}
 
