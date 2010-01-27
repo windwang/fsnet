@@ -40,7 +40,7 @@ public class Info {
     public Integer getNewEventsCount(@WebParam(name = "login")
             final String login, @WebParam(name = "password")
             final String password) {
-        Query ql = em.createQuery("SELECT m FROM Manifestation m where m.dateInformation=?1 ");
+        Query ql = em.createQuery("SELECT m FROM Meeting m where m.creationDate=?1 ");
         ql.setParameter(1, dt);
         return ql.getResultList().size();
     }
@@ -55,7 +55,7 @@ public class Info {
     public Integer getNewAnnouncementCount(@WebParam(name = "login")
             final String login, @WebParam(name = "password")
             final String password) {
-        Query ql1 = em.createQuery("SELECT m FROM Annonce m where m.dateInformation=?1 ");
+        Query ql1 = em.createQuery("SELECT m FROM Announcement m where type(m) in (Announcement) and m.creationDate=?1 ");
         ql1.setParameter(1, dt);
         return ql1.getResultList().size();
     }
