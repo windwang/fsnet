@@ -16,6 +16,7 @@
 			<form-property name="enableTLS" type="java.lang.String"/>
 			<form-property name="enableSSL" type="java.lang.String"></form-property>
 			<form-property name="FSNetWebURL" type="java.lang.String"></form-property>
+			<form-property name="Recipient" type="java.lang.String"></form-property>
 		</form-bean>
 	</form-beans>
 	<global-forwards>
@@ -33,15 +34,24 @@
 				scope="request">
 			<forward name="success" path="Configure"/>
 		</action>
-		
+		<action path="/SendTestMail"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				input="/EditConfiguration"
+				parameter="sendTestMail"
+				name="MailConfigurationForm"
+				validate="false"
+				scope="request">
+				
+			<forward name="success" path="/EditConfiguration.do"/>
+		</action>
 		<action path="/SaveMailConfiguration"
 				name="MailConfigurationForm"		
-				type="fr.univartois.ili.fsnet.admin.actions.configuration.ConfigureFSNet"
-				input="Configuration"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				input="/EditConfiguration"
 				parameter="saveMailConfiguration"
 				validate="false"
 				scope="request">
-			<forward name="success" path="Configure"/>
+			<forward name="success" path="/EditConfiguration.do"/>
 		</action>
 	</action-mappings>
 

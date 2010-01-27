@@ -3,7 +3,9 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-
+<h3>
+	<bean:message key="configure.10"/>
+</h3>
 <html:form action="/SaveMailConfiguration">
 <table>
 	<tr>
@@ -105,5 +107,23 @@
 	</tr>
 	<html:errors/>
 </table>
-	
 </html:form>
+
+<h3>Tester la configuration en envoyant un mail</h3>
+<html:form action="/SendTestMail">
+	<html:text property="Recipient"></html:text>
+	<html:submit/>	
+</html:form>
+
+
+
+
+
+
+
+
+
+
+
+
+

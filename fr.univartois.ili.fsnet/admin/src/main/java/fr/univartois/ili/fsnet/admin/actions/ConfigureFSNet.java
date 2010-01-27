@@ -13,6 +13,8 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.admin.utils.FSNetConfiguration;
+import fr.univartois.ili.fsnet.admin.utils.FSNetMailer;
+import fr.univartois.ili.fsnet.admin.utils.Mail;
 
 public class ConfigureFSNet extends MappingDispatchAction {
 
@@ -93,5 +95,17 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		return mapping.findForward("success");
 	}
-
+	
+	public ActionForward sendTestMail(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		FSNetMailer mailer = FSNetMailer.getInstance();
+		Mail mail = mailer.createMail();
+		mail.setSubject("FSNet mail test");
+		mail.setContent("ping");
+		mail.addRecipient(dynaForm.getString("Recipient"));
+		//mailer.sendMail(mail);
+		return mapping.findForward("success");
+	}
 }
