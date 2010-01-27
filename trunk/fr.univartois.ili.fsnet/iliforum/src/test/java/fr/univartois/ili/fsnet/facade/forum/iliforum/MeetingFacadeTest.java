@@ -64,24 +64,24 @@ public class MeetingFacadeTest {
 		SocialEntity member3 = new SocialEntity("zaza", "zaza",
 				"zaza1@gmail.com");
 		em.persist(member3);
-		Meeting es1 = mf.createMeeting(member3, "tata", "tete", end, false, start,
+		Meeting m1 = mf.createMeeting(member3, "tata", "tete", end, false, start,
 				"address", "city");
 		SocialEntity member2 = new SocialEntity("zaza", "zaza",
 				"zaza2@gmail.com");
 		em.persist(member2);
-		Meeting es2 = mf.createMeeting(member2, "titi", "toto", end, false, start,
+		Meeting m2 = mf.createMeeting(member2, "titi", "toto", end, false, start,
 				"address", "city");
 		SocialEntity member = new SocialEntity("zaza", "zaza",
 				"zaza3@gmail.com");
 		em.persist(member);
-		Meeting es3 = mf.createMeeting(member, "tutu", "tyty", end, false, start,
+		Meeting m3 = mf.createMeeting(member, "tutu", "tyty", end, false, start,
 				"address", "city");
 		em.getTransaction().commit();
 		String searchText = "titi";
 		List<Meeting> results = mf.searchMeeting(searchText);
 		Meeting mRes = results.get(0);
-		assertEquals(es2.getTitle(), mRes.getTitle());
-		assertEquals(es2.getContent(), mRes.getContent());
+		assertEquals(m2.getTitle(), mRes.getTitle());
+		assertEquals(m2.getContent(), mRes.getContent());
 	}
 
 	@Test 
@@ -89,29 +89,31 @@ public class MeetingFacadeTest {
 		Date start = new Date();
 		Date end = new Date();
 		em.getTransaction().begin();
-		SocialEntity member = new SocialEntity("zaza", "zaza",
+		SocialEntity member = 
+			
+			new SocialEntity("zaza", "zaza",
 				"zaza4@gmail.com");
 		em.persist(member);
-		Meeting es1 = mf.createMeeting(member, "tata", "tete", end, false, start,
+		Meeting m1 = mf.createMeeting(member, "tata", "tete", end, false, start,
 				"address", "city");
 		SocialEntity member2 = new SocialEntity("zaza", "zaza",
 				"zaza5@gmail.com");
 		em.persist(member2);
-		Meeting es2 = mf.createMeeting(member2, "titi", "toto", end, false, start,
+		Meeting m2 = mf.createMeeting(member2, "titi", "toto", end, false, start,
 				"address", "city");
 		SocialEntity member3 = new SocialEntity("zaza", "zaza",
 				"zaza6@gmail.com");
 		em.persist(member3);
-		Meeting es3 = mf.createMeeting(member3, "tutu", "tyty", end, false, start,
+		Meeting m3 = mf.createMeeting(member3, "tutu", "tyty", end, false, start,
 				"address", "city");
 
 		em.getTransaction().commit();
 
 		em.getTransaction().begin();
 		
-		mf.deleteMeeting(es2.getId());
+		mf.deleteMeeting(m2.getId());
 		em.getTransaction().commit();
-		assertNull(em.find(Meeting.class, es2.getId()));
+		assertNull(em.find(Meeting.class, m2.getId()));
 
 	}
 }
