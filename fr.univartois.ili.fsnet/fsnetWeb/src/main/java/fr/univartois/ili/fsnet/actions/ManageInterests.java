@@ -1,19 +1,3 @@
-/*
- *  Copyright (C) 2010 Matthieu Proucelle <matthieu.proucelle at gmail.com>
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- * 
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package fr.univartois.ili.fsnet.actions;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -24,7 +8,6 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceException;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -40,9 +23,10 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
-// TODO attention : rustine sur les requetes
-// TODO attention : rustine sur les merge user de session
+
 /**
  * Execute CRUD Actions (and more) for the entity interet
  * 
@@ -60,15 +44,14 @@ public class ManageInterests extends MappingDispatchAction implements
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-
+        InterestFacade facade = new InterestFacade(em);
         String interestName = (String) dynaForm.get("createdInterestName");
-        Interest interest = new Interest(interestName);
 
         logger.info("new interest: " + interestName);
 
         try {
             em.getTransaction().begin();
-            em.persist(interest);
+            facade.createInterest(interestName);
             em.getTransaction().commit();
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -90,34 +73,14 @@ public class ManageInterests extends MappingDispatchAction implements
         int interestId = Integer.valueOf((String) dynaForm.get("addedInterestId"));
 
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-
+        SocialEntityFacade facade = new SocialEntityFacade(em);
         logger.info("add interest: id=" + interestId + " for user: "
                 + user.getName() + " " + user.getFirstName() + " " + user.getId());
+       
+        em.getTransaction().begin();
+        facade.addInterest(interestId, user.getId());
+        em.getTransaction().commit();
 
-        // TODO requete provisoire
-
-        try {
-            Interest interest = (Interest) em.createQuery(
-                    "SELECT interest FROM Interest interest WHERE interest.id = :interestId").setParameter("interestId", interestId).getSingleResult();
-
-            boolean dirtyIsOk = true;
-
-            for (Interest interestTmp : user.getInterests()) {
-                if (interestTmp.getId() == interestId) {
-                    dirtyIsOk = false;
-                }
-            }
-
-            if (dirtyIsOk) {
-                em.getTransaction().begin();
-                user.getInterests().add(interest);
-                em.merge(user);
-                em.getTransaction().commit();
-            } else {
-                logger.info("Add interest refused");
-            }
-        } catch (PersistenceException e) {
-        }
         em.close();
 
         return mapping.findForward("success");
@@ -139,33 +102,21 @@ public class ManageInterests extends MappingDispatchAction implements
         }
 
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-
+        SocialEntityFacade facade = new SocialEntityFacade(em);
         logger.info("remove interest: id=" + interestId + " for user: "
                 + user.getName() + " " + user.getFirstName() + " " + user.getId());
 
-        // TODO requete provisoire
-        Interest interest = null;
-        for (Interest interestTmp : user.getInterests()) {
-            if (interestTmp.getId() == interestId) {
-                interest = interestTmp;
-                break;
-            }
-        }
-        if (interest != null) {
-            user.getInterests().remove(interest);
-            em.getTransaction().begin();
-            em.merge(user);
-            em.getTransaction().commit();
-        } else {
-            logger.info("remove interest refused");
-        }
+
+        em.getTransaction().begin();
+        facade.removeInterest(interestId, user.getId());
+        em.getTransaction().commit();
+
 
         em.close();
 
         return mapping.findForward("success");
     }
 
-    // TODO modify
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
@@ -174,13 +125,12 @@ public class ManageInterests extends MappingDispatchAction implements
         DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         int interestId = Integer.valueOf((String) dynaForm.get("modifiedInterestId"));
         String interestName = (String) dynaForm.get("modifiedInterestName");
-
+        InterestFacade facade = new InterestFacade(em);
         logger.info("interest modification: " + interestName);
 
         try {
             em.getTransaction().begin();
-            em.createQuery(
-                    "UPDATE Interest interest SET interest.name = :interestName WHERE interest.id = :interestId").setParameter("interestName", interestName).setParameter("interestId", interestId).executeUpdate();
+            facade.modifyInterest(interestName, interestId);
             em.getTransaction().commit();
         } catch (DatabaseException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -203,13 +153,12 @@ public class ManageInterests extends MappingDispatchAction implements
         // TODO verify if user has the right to do delete
 
         int interestId = Integer.valueOf(request.getParameter("deletedInterestId"));
-
+        InterestFacade facade = new InterestFacade(em);
         logger.info("interest deleted: id=" + interestId);
 
         try {
             em.getTransaction().begin();
-            em.createQuery(
-                    "DELETE FROM Interest interest WHERE interest.id = :interestId").setParameter("interestId", interestId).executeUpdate();
+            facade.deleteInterest(interestId);
             em.getTransaction().commit();
 
             SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -237,19 +186,13 @@ public class ManageInterests extends MappingDispatchAction implements
         if (dynaForm.get("searchInterestName") != null) {
             interestName = (String) dynaForm.get("searchInterestName");
         }
-
+        InterestFacade facade = new InterestFacade(em);
         logger.info("search interest: " + interestName);
 
-        List<Interest> result = em.createQuery(
-                "SELECT interest FROM Interest interest "
-                + "WHERE interest.name LIKE :interestName ",
-                Interest.class).setParameter("interestName",
-                '%' + interestName + '%').getResultList();
+        List<Interest> result = facade.searchInterest(interestName);
         em.close();
 
-        if (result.size() > 0) {
-            request.setAttribute("interestResult", result);
-        }
+        request.setAttribute("interestResult", result);
 
         return mapping.findForward("success");
     }
@@ -260,13 +203,12 @@ public class ManageInterests extends MappingDispatchAction implements
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-
+        InterestFacade facade = new InterestFacade(em);
         logger.info("Displaying interests");
 
         // TODO requete provisoire
 
-        List<Interest> listAllInterests = em.createQuery(
-                "SELECT interest FROM Interest interest", Interest.class).getResultList();
+        List<Interest> listAllInterests = facade.getInterests();
 
         List<Interest> finalList = new ArrayList<Interest>();
         boolean dirtyIsOK;
