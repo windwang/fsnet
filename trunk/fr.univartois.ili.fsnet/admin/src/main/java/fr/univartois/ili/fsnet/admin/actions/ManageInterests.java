@@ -24,8 +24,6 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 
-// TODO attention : rustine sur les requetes
-
 /**
  * Execute CRUD Actions (and more) for the entity interet
  * 
@@ -65,7 +63,6 @@ public class ManageInterests extends MappingDispatchAction implements
         return mapping.findForward("success");
     }
 
-    // TODO modify
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
@@ -150,8 +147,6 @@ public class ManageInterests extends MappingDispatchAction implements
         EntityManager em = factory.createEntityManager();
         InterestFacade facade = new InterestFacade(em);
         logger.info("Displaying interests");
-
-        // TODO requete provisoire
 
         List<Interest> listAllInterests = facade.getInterests();
         em.close();
