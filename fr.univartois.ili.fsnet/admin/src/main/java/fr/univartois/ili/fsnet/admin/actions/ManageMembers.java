@@ -1,6 +1,8 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
+import java.text.ParseException;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -21,6 +23,8 @@ import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.admin.actions.utils.DateUtils;
+import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
@@ -82,11 +86,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialEntity member = entityManager.find(SocialEntity.class, idMember);
 	
 		entityManager.close();
+		dynaForm.set("address",member.getAddress().getAddress()+" "+member.getAddress().getCity());
+		dynaForm.set("phone",member.getPhone());
+		dynaForm.set("sexe",member.getSex());
+		dynaForm.set("job",member.getProfession());
+		dynaForm.set("birthDay",member.getBirthDate());
 		dynaForm.set("name", member.getName());
 		dynaForm.set("email", member.getEmail());
 		dynaForm.set("firstName", member.getFirstName());
 		dynaForm.set("id",member.getId());
-		//request.setAttribute("member", member);
 		
 		return mapping.findForward("success");
 	}
@@ -100,11 +108,30 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
+		String job = (String) formSocialENtity.get("job");
+		String address = (String) formSocialENtity.get("address");
+		String phone = (String) formSocialENtity.get("phone");
+		String sexe = (String) formSocialENtity.get("sexe");
+		Date birthDay=null;
+		try {
+			birthDay = DateUtils.format((String) formSocialENtity.get("formatBirthDay"));
+			formSocialENtity.set("birthDay", birthDay);
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 		Integer idMember = (Integer) formSocialENtity.get("id");
+		
 		SocialEntity member = entityManager.find(SocialEntity.class, idMember);
 		member.setPrenom(firstName);
 		member.setName(name);
 		member.setEmail(email);
+		member.setAddress(new Address("",address));
+		member.setBirthDate(birthDay);
+		member.setPhone(phone);
+		member.setSex(sexe);
+		member.setProfession(job);
 		entityManager.getTransaction().begin();
 		entityManager.merge(member);
 		entityManager.getTransaction().commit();
