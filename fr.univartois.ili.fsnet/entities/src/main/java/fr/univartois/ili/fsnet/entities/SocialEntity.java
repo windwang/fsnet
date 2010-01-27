@@ -557,4 +557,189 @@ public class SocialEntity {
     public void setRolesInInteractions(List<InteractionRole> rolesInInteractions) {
         this.rolesInInteractions = rolesInInteractions;
     }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((asked == null) ? 0 : asked.hashCode());
+		result = prime * result
+				+ ((birthDate == null) ? 0 : birthDate.hashCode());
+		result = prime * result
+				+ ((contacts == null) ? 0 : contacts.hashCode());
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		result = prime * result
+				+ ((firstName == null) ? 0 : firstName.hashCode());
+		result = prime * result
+				+ ((inscritpionDate == null) ? 0 : inscritpionDate.hashCode());
+		result = prime * result
+				+ ((interactions == null) ? 0 : interactions.hashCode());
+		result = prime * result
+				+ ((interests == null) ? 0 : interests.hashCode());
+		result = prime * result
+				+ ((lastConnection == null) ? 0 : lastConnection.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
+		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
+		result = prime * result
+				+ ((profession == null) ? 0 : profession.hashCode());
+		result = prime
+				* result
+				+ ((receivedPrivateMessages == null) ? 0
+						: receivedPrivateMessages.hashCode());
+		result = prime * result + ((refused == null) ? 0 : refused.hashCode());
+		result = prime * result
+				+ ((requested == null) ? 0 : requested.hashCode());
+		result = prime
+				* result
+				+ ((rolesInInteractions == null) ? 0 : rolesInInteractions
+						.hashCode());
+		result = prime
+				* result
+				+ ((sentPrivateMessages == null) ? 0 : sentPrivateMessages
+						.hashCode());
+		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
+		result = prime * result
+				+ ((topicMessages == null) ? 0 : topicMessages.hashCode());
+		result = prime * result + ((topics == null) ? 0 : topics.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		SocialEntity other = (SocialEntity) obj;
+		if (address == null) {
+			if (other.address != null)
+				return false;
+		} else if (!address.equals(other.address))
+			return false;
+		if (asked == null) {
+			if (other.asked != null)
+				return false;
+		} else if (!asked.equals(other.asked))
+			return false;
+		if (birthDate == null) {
+			if (other.birthDate != null)
+				return false;
+		} else if (!birthDate.equals(other.birthDate))
+			return false;
+		if (contacts == null) {
+			if (other.contacts != null)
+				return false;
+		} else if (!contacts.equals(other.contacts))
+			return false;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		if (firstName == null) {
+			if (other.firstName != null)
+				return false;
+		} else if (!firstName.equals(other.firstName))
+			return false;
+		if (inscritpionDate == null) {
+			if (other.inscritpionDate != null)
+				return false;
+		} else if (!inscritpionDate.equals(other.inscritpionDate))
+			return false;
+		if (interactions == null) {
+			if (other.interactions != null)
+				return false;
+		} else if (!interactions.equals(other.interactions))
+			return false;
+		if (interests == null) {
+			if (other.interests != null)
+				return false;
+		} else if (!interests.equals(other.interests))
+			return false;
+		if (lastConnection == null) {
+			if (other.lastConnection != null)
+				return false;
+		} else if (!lastConnection.equals(other.lastConnection))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (password == null) {
+			if (other.password != null)
+				return false;
+		} else if (!password.equals(other.password))
+			return false;
+		if (phone == null) {
+			if (other.phone != null)
+				return false;
+		} else if (!phone.equals(other.phone))
+			return false;
+		if (picture == null) {
+			if (other.picture != null)
+				return false;
+		} else if (!picture.equals(other.picture))
+			return false;
+		if (profession == null) {
+			if (other.profession != null)
+				return false;
+		} else if (!profession.equals(other.profession))
+			return false;
+		if (receivedPrivateMessages == null) {
+			if (other.receivedPrivateMessages != null)
+				return false;
+		} else if (!receivedPrivateMessages
+				.equals(other.receivedPrivateMessages))
+			return false;
+		if (refused == null) {
+			if (other.refused != null)
+				return false;
+		} else if (!refused.equals(other.refused))
+			return false;
+		if (requested == null) {
+			if (other.requested != null)
+				return false;
+		} else if (!requested.equals(other.requested))
+			return false;
+		if (rolesInInteractions == null) {
+			if (other.rolesInInteractions != null)
+				return false;
+		} else if (!rolesInInteractions.equals(other.rolesInInteractions))
+			return false;
+		if (sentPrivateMessages == null) {
+			if (other.sentPrivateMessages != null)
+				return false;
+		} else if (!sentPrivateMessages.equals(other.sentPrivateMessages))
+			return false;
+		if (sex == null) {
+			if (other.sex != null)
+				return false;
+		} else if (!sex.equals(other.sex))
+			return false;
+		if (topicMessages == null) {
+			if (other.topicMessages != null)
+				return false;
+		} else if (!topicMessages.equals(other.topicMessages))
+			return false;
+		if (topics == null) {
+			if (other.topics != null)
+				return false;
+		} else if (!topics.equals(other.topics))
+			return false;
+		return true;
+	}
+    
 }
