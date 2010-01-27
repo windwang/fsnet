@@ -128,10 +128,13 @@ public class SocialEntity {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "SOCIAL_ENTITY__ASKED_CONTACTS")
     private List<SocialEntity> asked;
+    
     @OneToMany(mappedBy = "to")
     private List<PrivateMessage> receivedPrivateMessages;
+    
     @OneToMany(mappedBy = "from")
     private List<PrivateMessage> sentPrivateMessages;
+    
     @OneToMany(mappedBy = "socialEntity")
     private List<InteractionRole> rolesInInteractions;
 
