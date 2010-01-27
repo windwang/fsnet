@@ -16,8 +16,6 @@
  */
 package fr.univartois.ili.fsnet.actions;
 
-import fr.univartois.ili.fsnet.actions.utils.DateUtils;
-import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.logging.Level;
@@ -36,6 +34,8 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.actions.utils.DateUtils;
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
@@ -90,7 +90,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form;				//NOSONAR
         user.setName(formatName(dynaForm.getString("name")));
         user.setPrenom(formatName(dynaForm.getString("firstName")));
         // TODO creer une adresse ds le form
@@ -129,7 +129,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
             return mapping.findForward("success");
         }
         try {
-            String idS = ((DynaActionForm) form).getString("id");
+            String idS = ((DynaActionForm) form).getString("id"); 				//NOSONAR
             int id = Integer.parseInt(idS);
             SocialEntity profile = em.find(SocialEntity.class, id);
             request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);

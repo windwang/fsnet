@@ -1,10 +1,10 @@
 package fr.univartois.ili.fsnet.actions;
 
-import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -12,6 +12,7 @@ import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -21,8 +22,9 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
-import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 

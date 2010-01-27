@@ -33,7 +33,7 @@ public class ChangePassword extends Action{
 			throws Exception {
 		EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        ChangePasswordForm cpf = (ChangePasswordForm) form;
+        ChangePasswordForm cpf = (ChangePasswordForm) form;   			//NOSONAR
         user.setPassword(Md5.getEncodedPassword(cpf.getNewPassword()));
         em.getTransaction().begin();
         em.merge(user);

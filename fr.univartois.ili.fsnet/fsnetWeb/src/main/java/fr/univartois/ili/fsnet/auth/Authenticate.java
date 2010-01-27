@@ -1,11 +1,9 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  * This class represents a servlet that is used in order to authenticate members
