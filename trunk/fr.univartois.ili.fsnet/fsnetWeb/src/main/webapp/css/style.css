@@ -13,7 +13,6 @@ h2#slogan { font-size: 1.3em; color: #808080; }
 p  { margin: 0 0 15px; line-height: 1.7em; }
 .clear { clear: both; }
 .wrap { margin: 0 auto; width: 900px; }
-.background { background: url(../images/bg.jpg) no-repeat left 42px; }
 
 #search  { float: right; margin: 9px 0 0; width: 205px; }
 #search	input.field { float: left; background: #808080; color: #ccc; padding: 4px; border: 0; margin: 0 5px 0 0; width: 170px; font: .8em "Trebuchet MS", Arial, Sans-Serif; }
