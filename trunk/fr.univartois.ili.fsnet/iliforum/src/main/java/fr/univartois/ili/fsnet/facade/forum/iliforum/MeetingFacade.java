@@ -10,79 +10,80 @@ import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
+/**
+ * @author mickael watrelot - micgamers@gmail.com
+ */
 public class MeetingFacade {
-	/**
-	 * @author mickael watrelot - micgamers@gmail.com
-	 */
-	private final EntityManager em;
 
-	public MeetingFacade(EntityManager em) {
-		this.em = em;
-	}
+    private final EntityManager em;
 
-	/**
-	 * Create a New Meeting
-	 * 
-	 * @param member
-	 * @param eventName
-	 * @param eventDescription
-	 * @param endDate
-	 * @param isPrivate
-	 * @param startDate
-	 * @param address
-	 * @param city
-	 * @return the new meeting
-	 */
-	public Meeting createMeeting(SocialEntity member, String eventName,
-			String eventDescription, Date endDate, Boolean isPrivate,
-			Date startDate, String address, String city) {
+    public MeetingFacade(EntityManager em) {
+        this.em = em;
+    }
 
-		Meeting event = new Meeting(member, eventName, eventDescription,
-				endDate, isPrivate, startDate, new Address(address, city));
+    /**
+     * Create a New Meeting
+     *
+     * @param member
+     * @param eventName
+     * @param eventDescription
+     * @param endDate
+     * @param isPrivate
+     * @param startDate
+     * @param address
+     * @param city
+     * @return the new meeting
+     */
+    public Meeting createMeeting(SocialEntity member, String eventName,
+            String eventDescription, Date endDate, Boolean isPrivate,
+            Date startDate, String address, String city) {
 
-		member.getInteractions().add(event);
-		em.persist(event);
-		return event;
-	}
+        Meeting event = new Meeting(member, eventName, eventDescription,
+                endDate, isPrivate, startDate, new Address(address, city));
 
-	/**
-	 * 
-	 * @param meetingId
-	 * @return
-	 */
-	public Meeting getMeeting(int meetingId) {
-		return em.find(Meeting.class, meetingId);
-	}
+        member.getInteractions().add(event);
+        em.persist(event);
+        return event;
+    }
 
-	/**
-	 * Delete the Meeting with the id of the meeting meetingId
-	 * 
-	 * @param meetingId
-	 */
-	public void deleteMeeting(int meetingId) {
-		Meeting meet = getMeeting(meetingId);
-		if (meet != null) {
-			em.remove(meet);
-			em.flush();
-		}
-	}
+    /**
+     *
+     * @param meetingId
+     * @return
+     */
+    public Meeting getMeeting(int meetingId) {
+        return em.find(Meeting.class, meetingId);
+    }
 
-	/**
-	 * Search the meeting with the param searchStr
-	 * 
-	 * @param searchStr
-	 * @return
-	 */
-	public List<Meeting> searchMeeting(String searchStr) {
-		String searchString = searchStr;
+    /**
+     * Delete the Meeting with the id of the meeting meetingId
+     *
+     * @param meetingId
+     */
+    public void deleteMeeting(int meetingId) {
+        Meeting meet = getMeeting(meetingId);
+        if (meet != null) {
+            em.remove(meet);
+            em.flush();
+        }
+    }
 
-		List<Meeting> results;
-		final TypedQuery<Meeting> query;
-		query = em.createQuery("SELECT e FROM Meeting e "
-				+ "WHERE e.title LIKE :searchString "
-				+ "OR e.content LIKE :searchString ", Meeting.class);
-		query.setParameter("searchString", "%" + searchString + "%");
-		results = query.getResultList();
-		return results;
-	}
+    /**
+     * Search the meeting with the param searchStr
+     *
+     * @param searchStr
+     * @return
+     */
+    public List<Meeting> searchMeeting(String searchStr) {
+        String searchString = searchStr;
+
+        List<Meeting> results;
+        final TypedQuery<Meeting> query;
+        query = em.createQuery("SELECT e FROM Meeting e "
+                + "WHERE e.title LIKE :searchString "
+                + "OR e.content LIKE :searchString ", Meeting.class);
+        query.setParameter("searchString", "%" + searchString + "%");
+        results = query.getResultList();
+        return results;
+    }
 }

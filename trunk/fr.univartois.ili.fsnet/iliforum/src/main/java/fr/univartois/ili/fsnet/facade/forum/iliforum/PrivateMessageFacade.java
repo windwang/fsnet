@@ -16,6 +16,14 @@ public class PrivateMessageFacade {
         this.em = em;
     }
 
+    /**
+     * Send a private message
+     * @param body the body of the message
+     * @param from the author of the message
+     * @param subject the subject of the message
+     * @param to the recipient of the message
+     * @return the persisted PrivateMessage
+     */
     public final PrivateMessage sendPrivateMessage(String body, SocialEntity from, String subject, SocialEntity to) {
         PrivateMessage pm = new PrivateMessage(body, from, subject, to);
         em.persist(pm);
@@ -24,6 +32,11 @@ public class PrivateMessageFacade {
         return pm;
     }
 
+    /**
+     * Delete a PrivateMessage
+     * @param entity the related entity (author or recipient)
+     * @param message the message to delete
+     */
     public final void deletePrivateMessage(SocialEntity entity, PrivateMessage message) {
         if (entity == null || message == null) {
             throw new IllegalArgumentException();
