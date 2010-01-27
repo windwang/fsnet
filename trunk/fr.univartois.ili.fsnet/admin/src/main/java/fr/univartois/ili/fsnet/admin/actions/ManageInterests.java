@@ -22,6 +22,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 
 // TODO attention : rustine sur les requetes
 
@@ -42,15 +43,15 @@ public class ManageInterests extends MappingDispatchAction implements
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-
+        InterestFacade facade = new InterestFacade(em);
+        
         String interestName = (String) dynaForm.get("createdInterestName");
-        Interest interest = new Interest(interestName);
 
         logger.info("new interest: " + interestName);
 
         try {
             em.getTransaction().begin();
-            em.persist(interest);
+            facade.createInterest(interestName);
             em.getTransaction().commit();
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -73,13 +74,12 @@ public class ManageInterests extends MappingDispatchAction implements
         DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
         int interestId = Integer.valueOf((String) dynaForm.get("modifiedInterestId"));
         String interestName = (String) dynaForm.get("modifiedInterestName");
-
+        InterestFacade facade = new InterestFacade(em);
         logger.info("interest modification: " + interestName);
 
         try {
             em.getTransaction().begin();
-            em.createQuery(
-                    "UPDATE Interest interest SET interest.name = :interestName WHERE interest.id = :interestId").setParameter("interestName", interestName).setParameter("interestId", interestId).executeUpdate();
+            facade.modifyInterest(interestName, interestId);
             em.getTransaction().commit();
         } catch (DatabaseException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -102,13 +102,12 @@ public class ManageInterests extends MappingDispatchAction implements
         // TODO verify if user has the right to do delete
 
         int interestId = Integer.valueOf(request.getParameter("deletedInterestId"));
-
+        InterestFacade facade = new InterestFacade(em);
         logger.info("interest deleted: id=" + interestId);
 
         try {
             em.getTransaction().begin();
-            em.createQuery(
-                    "DELETE FROM Interest interest WHERE interest.id = :interestId").setParameter("interestId", interestId).executeUpdate();
+            facade.deleteInterest(interestId);
             em.getTransaction().commit();
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -133,14 +132,10 @@ public class ManageInterests extends MappingDispatchAction implements
         if (dynaForm.get("searchInterestName") != null) {
             interestName = (String) dynaForm.get("searchInterestName");
         }
-
+        InterestFacade facade = new InterestFacade(em);
         logger.info("search interest: " + interestName);
 
-        List<Interest> result = em.createQuery(
-                "SELECT interest FROM Interest interest "
-                + "WHERE interest.name LIKE :interestName ",
-                Interest.class).setParameter("interestName",
-                '%' + interestName + '%').getResultList();
+        List<Interest> result = facade.searchInterest(interestName);
         em.close();
 
         request.setAttribute("interestResult", result);
@@ -153,17 +148,16 @@ public class ManageInterests extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-
+        InterestFacade facade = new InterestFacade(em);
         logger.info("Displaying interests");
 
         // TODO requete provisoire
 
-        List<Interest> listAllInterests = em.createQuery(
-                "SELECT interest FROM Interest interest", Interest.class).getResultList();
-
+        List<Interest> listAllInterests = facade.getInterests();
+        em.close();
         request.setAttribute("allInterests", listAllInterests);
 
-        em.close();
+        
         return mapping.findForward("success");
     }
 }
