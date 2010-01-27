@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
@@ -23,16 +24,20 @@ public class SocialEntityFacade {
 
 	private final EntityManager em;
 
+	/**
+	 * 
+	 * @param em
+	 */
 	public SocialEntityFacade(EntityManager em) {
 		this.em = em;
 	}
 
 	/**
-	 * 
-	 * @param name
-	 * @param firstName
-	 * @param email
-	 * @return the created SocialEntity
+	 * create a new Social Entity
+	 * @param name the name of the new Social Entity
+	 * @param firstName the firsname of the new Social Entity
+	 * @param email the email of the new Social Entity
+	 * @return the created SocialEntity 
 	 */
 	public SocialEntity createSocialEntity(String name, String firstName, String email) {
 		SocialEntity es = new SocialEntity(name, firstName, email);
@@ -41,19 +46,29 @@ public class SocialEntityFacade {
 	}
 	
 	/**
-	 * 
-	 * @param id
-	 * @return the SocialEntity
+	 * search Social Entity by id
+	 * @param id the id of the Social Entity
+	 * @return the SocialEntity we search
 	 */
-	public SocialEntity getSocialEntity(int id){
-		return em.find(SocialEntity.class, id);
+	public SocialEntity getSocialEntity(int socialEntityId){
+		return em.find(SocialEntity.class, socialEntityId);
+	}
+	
+	/**
+	 * delete a Social Entity
+	 * @param socialEntityId the id of the Social Entity to delete
+	 */
+	public void deleteSocialEntity(int socialEntityId){
+		SocialEntity se = getSocialEntity(socialEntityId);
+		em.remove(se);
+		em.flush();
 	}
 
 	/**
-	 * 
-	 * @param searchText
-	 * @param socialEntityId the connected SocialEntity id
-	 * @return a map of list of search results
+	 * search Social Entitys having Name Or FirstName Or Email like searchText
+	 * @param searchText the search text
+	 * @param socialEntityId the id of the Social Entity who search for others Social Entity
+	 * @return a map of list of search results (Contacts, Requested, Asked and Others)
 	 */
 	public HashMap<SearchResult, List<SocialEntity>> searchSocialEntity(String searchText, int socialEntityId){
 
@@ -107,5 +122,49 @@ public class SocialEntityFacade {
 		results.put(SearchResult.Asked, resultAsked);
 
 		return results;
+	}
+	
+	/**
+	 * search a Social Entity having Name Or FirstName Or Email like searchText
+	 * @param searchText the search text
+	 * @return the list of Social Entitys matching with the search text
+	 */
+	public List<SocialEntity> searchSocialEntity(String searchText){
+		TypedQuery<SocialEntity> query = null;
+		List<SocialEntity> results = null;
+
+		query = em.createQuery(
+				"SELECT es FROM SocialEntity es WHERE es.name LIKE :searchText"
+				+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText", SocialEntity.class);
+		query.setParameter("searchText", "%" + searchText + "%");
+		results = query.getResultList();
+		
+		return results;
+	}
+	
+	/**
+	 * add interest in user interests
+	 * @param interestId id of the interest to add
+	 * @param userId id of the user
+	 */
+	public void addInterest(int interestId, int userId){
+		InterestFacade interestFacade = new InterestFacade(em);
+		Interest interest = interestFacade.getInterest(interestId);
+		SocialEntity user = getSocialEntity(userId);
+		if(!user.getInterests().contains(interest)){
+			user.getInterests().add(interest);
+		}
+	}
+
+	/**
+	 * remove interest from user interests
+	 * @param interestId id of the interest to remove
+	 * @param userId id of the user
+	 */
+	public void removeInterest(int interestId, int userId){
+		InterestFacade interestFacade = new InterestFacade(em);
+		Interest interest = interestFacade.getInterest(interestId);
+		SocialEntity user = getSocialEntity(userId);
+		user.getInterests().remove(interest);
 	}
 }
