@@ -4,28 +4,32 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
 
+<html:javascript formName="/ModifyMember"/>
 
 <h3>
-  Create a member
+Modify a member
 </h3>
 
-<html:form action="/CreateMember">
-    <table id="CreateMember">
+<html:form action="/ModifyMember">
+    <table id="ModifyMember">
+    <tr >
+            <td>
+                <html:errors /> ${member.id}
+            </td>
+           
+        </tr>
         <tr>
             <td>
                 <label for="name">
                    Name :
                 </label>
+                <html:hidden property="id" value="${member.id}" />
             </td>
             <td>
-                <html:text property="name" styleId="name" errorStyleClass="error"/>
+                <html:text property="name" value="${member.name}" styleId="name" />
             </td>
         </tr>
-       <tr class="errorMessage">
-            <td>
-                <html:errors property="name"/>
-            </td>
-        </tr>
+       
         <tr>
             <td>
                 <label for="firstName">
@@ -33,14 +37,10 @@
                 </label>
             </td>
             <td>
-                <html:text property="firstName" styleId="firstName" errorStyleClass="error"/>
+                <html:text property="firstName"  value="${member.firstName}" styleId="firstName" errorStyleClass="error"/>
             </td>
         </tr>
-          <tr class="errorMessage">
-            <td>
-                <html:errors property="firstName"/>
-            </td>
-        </tr>
+
         <tr>
             <td>
                 <label for="email">
@@ -48,18 +48,14 @@
                 </label>
             </td>
             <td>
-                <html:text property="email" styleId="email" errorStyleClass="error"/>
+                <html:text property="email" styleId="email"  value="${member.email}" errorStyleClass="error"/>
             </td>
         </tr>
-        <tr class="errorMessage">
-            <td>
-                <html:errors property="email"/>
-            </td>
-        </tr>
+       
         <tr>        	
             <td colspan="2">
                 <html:submit styleClass="button">
-                    Validate
+                    update
                 </html:submit>
             </td>
         </tr>
