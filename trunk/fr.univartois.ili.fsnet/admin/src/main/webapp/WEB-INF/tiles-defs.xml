@@ -59,4 +59,12 @@
         <put name="title" value="pageTitle.12"/>
         <put name="body-content" value="/content/members/Members.jsp" />
     </definition>
+    
+    <!-- Configuration -->
+    <definition name="Configure" extends=".defaultLayout">
+        <put name="title" value="pageTitle.14"/>
+        <put name="body-content" value="/content/configuration/Configure.jsp" />
+    </definition>
+    
+    
 </tiles-definitions>

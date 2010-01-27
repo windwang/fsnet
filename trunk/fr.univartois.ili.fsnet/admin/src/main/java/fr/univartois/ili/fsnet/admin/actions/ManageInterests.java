@@ -21,7 +21,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
-import fr.univartois.ili.fsnet.admin.actions.CrudAction;
 import fr.univartois.ili.fsnet.entities.Interest;
 
 // TODO attention : rustine sur les requetes

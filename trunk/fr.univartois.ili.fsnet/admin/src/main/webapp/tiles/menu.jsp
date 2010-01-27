@@ -34,7 +34,7 @@
     	</html:link>
     </li>
     <li>
-    	<html:link action="/Configuration" styleClass="${currentMenu == 'Configuration' ? 'current' : ''}">
+    	<html:link action="/EditConfiguration" styleClass="${currentMenu == 'Configuration' ? 'current' : ''}">
     		<bean:message key="menu.3"/>
     	</html:link>
     </li>
