@@ -86,7 +86,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialEntity member = entityManager.find(SocialEntity.class, idMember);
 	
 		entityManager.close();
-		dynaForm.set("address",member.getAddress().getAddress()+" "+member.getAddress().getCity());
+		if (member.getAddress() != null) {
+			dynaForm.set("address",member.getAddress().getAddress()+" "+member.getAddress().getCity());
+		}
 		dynaForm.set("phone",member.getPhone());
 		dynaForm.set("sexe",member.getSex());
 		dynaForm.set("job",member.getProfession());
