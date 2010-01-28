@@ -61,17 +61,17 @@ public class MeetingFacadeTest {
         Date end = new Date();
         em.getTransaction().begin();
         SocialEntity member3 = sef.createSocialEntity("zaza", "zaza",
-                "zaza1@gmail.com");
+                "BuildBrokenizer1@gmail.com");
         Meeting m1 = mf.createMeeting(member3, "tata", "tete", end, false,
                 start, "address", "city");
 
         SocialEntity member2 = sef.createSocialEntity("zaza", "zaza",
-                "zaza2@gmail.com");
+                "BuildBrokenizer2@gmail.com");
         Meeting m2 = mf.createMeeting(member2, "titi", "toto", end, false,
                 start, "address", "city");
 
         SocialEntity member = sef.createSocialEntity("zaza", "zaza",
-                "zaza3@gmail.com");
+                "BuildBrokenizer3@gmail.com");
         Meeting m3 = mf.createMeeting(member, "tutu", "tyty", end, false,
                 start, "address", "city");
 
@@ -89,15 +89,15 @@ public class MeetingFacadeTest {
         Date end = new Date();
         em.getTransaction().begin();
         SocialEntity member = sef.createSocialEntity("zaza", "zaza",
-                "zaza4@gmail.com");
+                "BuildBrokenizer4@gmail.com");
         Meeting m1 = mf.createMeeting(member, "tata", "tete", end, false,
                 start, "address", "city");
         SocialEntity member2 = sef.createSocialEntity("zaza", "zaza",
-                "zaza5@gmail.com");
+                "BuildBrokenizer5@gmail.com");
         Meeting m2 = mf.createMeeting(member2, "titi", "toto", end, false,
                 start, "address", "city");
         SocialEntity member3 = sef.createSocialEntity("zaza", "zaza",
-                "zaza6@gmail.com");
+                "BuildBrokenizer6@gmail.com");
         Meeting m3 = mf.createMeeting(member3, "tutu", "tyty", end, false,
                 start, "address", "city");
 
