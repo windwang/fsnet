@@ -50,7 +50,9 @@
 			</label>
 		</td>
 		<td>
-			<html:checkbox styleId="enableAuthentication" property="enableAuthentication" />
+			<html:checkbox  styleId="enableAuthentication" 
+							property="enableAuthentication" 
+							onchange="updateAuthenticationFields();" />
 		</td>
 	</tr>
 	<logic:messagesPresent property="enableAuthentication" >
@@ -84,7 +86,7 @@
 			</label>
 		</td>
 		<td>
- 			<html:text errorStyleClass="error" styleId="SMTPPassword" property="SMTPPassword"/> 
+ 			<html:password errorStyleClass="error" styleId="SMTPPassword" property="SMTPPassword"/> 
 		</td>
 	</tr>
 	<logic:messagesPresent property="SMTPPassword" >
@@ -202,7 +204,21 @@
 
 
 
-
+			<script type="text/javascript">
+				function updateAuthenticationFields() {
+					var usernameField = document.getElementById('SMTPUsername');
+					var passwordField = document.getElementById('SMTPPassword');
+					var enableAuthentication = document.getElementById('enableAuthentication');
+					if (enableAuthentication.checked) {
+						usernameField.disabled= false;
+						passwordField.disabled= false;
+					} else {
+						usernameField.disabled= true;
+						passwordField.disabled= true;
+					}
+				}
+				updateAuthenticationFields();
+			</script>
 
 
 
