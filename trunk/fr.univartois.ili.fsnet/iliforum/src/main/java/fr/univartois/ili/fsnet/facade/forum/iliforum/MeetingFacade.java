@@ -17,6 +17,10 @@ public class MeetingFacade {
 
     private final EntityManager em;
 
+    /**
+     * Constructor
+     * @param em
+     */
     public MeetingFacade(EntityManager em) {
         this.em = em;
     }
