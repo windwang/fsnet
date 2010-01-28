@@ -47,7 +47,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 
-		DynaActionForm formAnnounce = (DynaActionForm) form; //NOSONAR
+		DynaActionForm formAnnounce = (DynaActionForm) form; // NOSONAR
 		String title = (String) formAnnounce.get("announceTitle");
 		String content = (String) formAnnounce.get("announceContent");
 		String stringExpiryDate = (String) formAnnounce
@@ -56,7 +56,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		try {
 			Date expiryDate = DateUtils.format(stringExpiryDate);
 			if (0 > DateUtils.compareToToday(expiryDate)) {
-				Announcement announce = new Announcement(user, title, content, expiryDate, false);
+				Announcement announce = new Announcement(user, title, content,
+						expiryDate, false);
 				entityManager.getTransaction().begin();
 				entityManager.persist(announce);
 				entityManager.getTransaction().commit();
@@ -85,13 +86,14 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
-		DynaActionForm formAnnounce = (DynaActionForm) form;//NOSONAR
+		DynaActionForm formAnnounce = (DynaActionForm) form;// NOSONAR
 		String title = (String) formAnnounce.get("announceTitle");
 		String content = (String) formAnnounce.get("announceContent");
 		String stringExpiryDate = (String) formAnnounce
 				.get("announceExpiryDate");
 		Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
-		Announcement announce = entityManager.find(Announcement.class, idAnnounce);
+		Announcement announce = entityManager.find(Announcement.class,
+				idAnnounce);
 
 		try {
 			Date expiryDate = DateUtils.format(stringExpiryDate);
@@ -134,7 +136,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		Integer idAnnounce = Integer
 				.valueOf(request.getParameter("idAnnounce"));
 
-		Announcement announce = entityManager.find(Announcement.class, idAnnounce);
+		Announcement announce = entityManager.find(Announcement.class,
+				idAnnounce);
 		servlet.log("remove announce");
 		ActionMessages message = new ActionErrors();
 		entityManager.getTransaction().begin();
@@ -161,7 +164,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm seaarchForm = (DynaActionForm) form;//NOSONAR
+		DynaActionForm seaarchForm = (DynaActionForm) form;// NOSONAR
 		String textSearchAnnounce = (String) seaarchForm
 				.get("textSearchAnnounce");
 		EntityManager entityManager = factory.createEntityManager();
@@ -171,12 +174,13 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		if (textSearchAnnounce != null) {
 			listAnnounces = entityManager
 					.createQuery(
-							"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND ( a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ")
-					.setParameter("textSearchAnnounce",
+							"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND ( a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ",
+							Announcement.class).setParameter(
+							"textSearchAnnounce",
 							"%" + textSearchAnnounce + "%").getResultList();
 		} else {
 			listAnnounces = entityManager.createQuery(
-					"SELECT a FROM Announcement a ").getResultList();
+					"SELECT a FROM Announcement a ", Announcement.class).getResultList();
 		}
 		entityManager.close();
 		request.setAttribute("listAnnounces", listAnnounces);
@@ -197,7 +201,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		Integer idAnnounce = Integer
 				.valueOf(request.getParameter("idAnnounce"));
 
-		Announcement announce = entityManager.find(Announcement.class, idAnnounce);
+		Announcement announce = entityManager.find(Announcement.class,
+				idAnnounce);
 		SocialEntity SocialEntityOwner = (SocialEntity) entityManager
 				.createQuery(
 						"SELECT es FROM SocialEntity es,IN(es.interactions) e WHERE e = :announce")
@@ -206,9 +211,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.close();
 		request.setAttribute("announce", announce);
 		request.setAttribute("SocialEntity", SocialEntityOwner);
-		servlet
-				.log(SocialEntityOwner.toString()
-						+ SocialEntityOwner.getName());
+		servlet.log(SocialEntityOwner.toString() + SocialEntityOwner.getName());
 		if (SocialEntity.getId() == SocialEntityOwner.getId()) {
 			request.setAttribute("owner", true);
 		}

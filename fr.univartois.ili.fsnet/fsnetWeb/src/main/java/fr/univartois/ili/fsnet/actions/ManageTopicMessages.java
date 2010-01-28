@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -40,8 +39,6 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
         String messageDescription = (String) dynaForm.get("messageDescription");
         int topicId = Integer.valueOf(Integer.parseInt(dynaForm.getString("topicId")));
         Topic topic = em.find(Topic.class, topicId);
-
-        Date date = new Date();
 
         SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
         TopicMessage message = new TopicMessage(messageDescription, SocialEntity, topic);

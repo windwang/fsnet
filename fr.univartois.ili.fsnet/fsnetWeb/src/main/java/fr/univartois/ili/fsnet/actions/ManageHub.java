@@ -32,106 +32,108 @@ import fr.univartois.ili.fsnet.entities.TopicMessage;
  */
 public class ManageHub extends MappingDispatchAction implements CrudAction {
 
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-    private static final Logger logger = Logger.getAnonymousLogger();
+	private static EntityManagerFactory factory = Persistence
+			.createEntityManagerFactory("fsnetjpa");
+	private static final Logger logger = Logger.getAnonymousLogger();
 
-    @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
-        String hubName = (String) dynaForm.get("hubName");
+	@Override
+	public ActionForward create(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String hubName = (String) dynaForm.get("hubName");
 
-        logger.info("new hub: " + hubName);
-        EntityManager em = factory.createEntityManager();
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		logger.info("new hub: " + hubName);
+		EntityManager em = factory.createEntityManager();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
+		Hub hub = new Hub(null, user, hubName);
+		em.getTransaction().begin();
+		em.persist(hub);
+		em.getTransaction().commit();
+		em.close();
 
-        Hub hub = new Hub(null, user, hubName);
-        SocialEntity es = UserUtils.getAuthenticatedUser(request, em);
-        em.getTransaction().begin();
-        em.persist(hub);
-        em.getTransaction().commit();
-        em.close();
+		return mapping.findForward("success");
+	}
 
-        return mapping.findForward("success");
-    }
+	@Override
+	public ActionForward modify(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-    @Override
-    public ActionForward modify(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	@Override
+	public ActionForward delete(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		String hubId = request.getParameter("hubId");
 
-    @Override
-    public ActionForward delete(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        String hubId = request.getParameter("hubId");
+		logger.info("delete hub: " + hubId);
 
-        logger.info("delete hub: " + hubId);
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		em.createQuery("DELETE FROM Hub hub WHERE hub.id = :hubId ")
+				.setParameter("hubId", Integer.parseInt(hubId)).executeUpdate();
+		em.getTransaction().commit();
+		em.close();
+		return mapping.findForward("success");
+	}
 
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        em.createQuery("DELETE FROM Hub hub WHERE hub.id = :hubId ").setParameter("hubId", Integer.parseInt(hubId)).executeUpdate();
-        em.getTransaction().commit();
-        em.close();
-        return mapping.findForward("success");
-    }
+	@Override
+	public ActionForward search(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
-    @Override
-    public ActionForward search(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String hubName;
+		if (form == null) {
+			hubName = "";
+		} else {
+			hubName = (String) dynaForm.get("hubName");
+		}
 
-        DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
-        String hubName;
-        if (form == null) {
-            hubName = "";
-        } else {
-            hubName = (String) dynaForm.get("hubName");
-        }
+		logger.info("search hub: " + hubName);
 
-        logger.info("search hub: " + hubName);
+		EntityManager em = factory.createEntityManager();
 
-        EntityManager em = factory.createEntityManager();
+		List<Hub> result = em.createQuery(
+				"SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName ", Hub.class)
+				.setParameter("hubName", "%" + hubName + "%")
+				.getResultList();
+		em.close();
+		request.setAttribute("hubResults", result);
 
-        List<Hub> result = em.createQuery(
-                "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName ").setParameter("hubName", "%" + hubName + "%").getResultList();
-        em.close();
-        request.setAttribute("hubResults", result);
+		return mapping.findForward("success");
+	}
 
-        return mapping.findForward("success");
-    }
+	@Override
+	public ActionForward display(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		String hubId = (String) request.getParameter("hubId");
 
-    @Override
-    public ActionForward display(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        String hubId = (String) request.getParameter("hubId");
+		logger.info("display hub: " + hubId);
 
-        logger.info("display hub: " + hubId);
+		Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		Hub result = (Hub) em.createQuery(
+				"SELECT hub FROM Hub hub WHERE hub.id = :hubId").setParameter(
+				"hubId", Integer.parseInt(hubId)).getSingleResult();
 
-        Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
-        EntityManager em = factory.createEntityManager();
-        em.getTransaction().begin();
-        Hub result = (Hub) em.createQuery(
-                "SELECT hub FROM Hub hub WHERE hub.id = :hubId").setParameter(
-                "hubId", Integer.parseInt(hubId)).getSingleResult();
-
-        for (Topic t : result.getTopics()) {
-            List<TopicMessage> messages = t.getMessages();
-            Message lastMessage = null;
-            if (messages.size() > 0) {
-                lastMessage = messages.get(messages.size() - 1);
-            }
-            topicsLastMessage.put(t, lastMessage);
-        }
-        em.getTransaction().commit();
-        em.close();
-        request.setAttribute("hubResult", result);
-        request.setAttribute("topicsLastMessage", topicsLastMessage);
-        return mapping.findForward("success");
-    }
+		for (Topic t : result.getTopics()) {
+			List<TopicMessage> messages = t.getMessages();
+			Message lastMessage = null;
+			if (messages.size() > 0) {
+				lastMessage = messages.get(messages.size() - 1);
+			}
+			topicsLastMessage.put(t, lastMessage);
+		}
+		em.getTransaction().commit();
+		em.close();
+		request.setAttribute("hubResult", result);
+		request.setAttribute("topicsLastMessage", topicsLastMessage);
+		return mapping.findForward("success");
+	}
 }

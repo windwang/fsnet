@@ -62,7 +62,7 @@ public class MeetingFacadeTest {
         em.getTransaction().begin();
         SocialEntity member3 = sef.createSocialEntity("zaza", "zaza",
                 "BuildBrokenizer1@gmail.com");
-        Meeting m1 = mf.createMeeting(member3, "tata", "tete", end, false,
+        mf.createMeeting(member3, "tata", "tete", end, false,
                 start, "address", "city");
 
         SocialEntity member2 = sef.createSocialEntity("zaza", "zaza",
@@ -72,7 +72,7 @@ public class MeetingFacadeTest {
 
         SocialEntity member = sef.createSocialEntity("zaza", "zaza",
                 "BuildBrokenizer3@gmail.com");
-        Meeting m3 = mf.createMeeting(member, "tutu", "tyty", end, false,
+        mf.createMeeting(member, "tutu", "tyty", end, false,
                 start, "address", "city");
 
         em.getTransaction().commit();
@@ -90,7 +90,7 @@ public class MeetingFacadeTest {
         em.getTransaction().begin();
         SocialEntity member = sef.createSocialEntity("zaza", "zaza",
                 "BuildBrokenizer4@gmail.com");
-        Meeting m1 = mf.createMeeting(member, "tata", "tete", end, false,
+        mf.createMeeting(member, "tata", "tete", end, false,
                 start, "address", "city");
         SocialEntity member2 = sef.createSocialEntity("zaza", "zaza",
                 "BuildBrokenizer5@gmail.com");
@@ -98,7 +98,7 @@ public class MeetingFacadeTest {
                 start, "address", "city");
         SocialEntity member3 = sef.createSocialEntity("zaza", "zaza",
                 "BuildBrokenizer6@gmail.com");
-        Meeting m3 = mf.createMeeting(member3, "tutu", "tyty", end, false,
+        mf.createMeeting(member3, "tutu", "tyty", end, false,
                 start, "address", "city");
 
         em.getTransaction().commit();

@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,10 +20,8 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Hub;
-import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
-import fr.univartois.ili.fsnet.entities.TopicMessage;
 
 /**
  * 
@@ -42,18 +39,11 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; 					// NOSONAR
 		String topicSujet = (String) dynaForm.get("topicSubject");
-		String messageDescription = (String) dynaForm.get("messageDescription");
 		int hubId = Integer.valueOf(Integer.parseInt(dynaForm
 				.getString("hubId")));
 		Hub hub = em.find(Hub.class, hubId);
-
-		Date date = new Date();
-
 		SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
 		Topic topic = new Topic(hub, SocialEntity, topicSujet);
-		Message message = new TopicMessage(messageDescription, SocialEntity,
-				topic);
-
 		em.getTransaction().begin();
 		hub.getTopics().add(topic);
 		em.getTransaction().commit();
