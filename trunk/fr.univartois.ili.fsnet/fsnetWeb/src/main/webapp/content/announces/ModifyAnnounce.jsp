@@ -64,3 +64,4 @@
         $("#announceExpiryDate").datepicker($.datepicker.regional['fr']);
     });
 </script>
+
