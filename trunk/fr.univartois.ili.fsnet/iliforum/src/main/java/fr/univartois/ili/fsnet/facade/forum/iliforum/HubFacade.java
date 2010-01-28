@@ -1,10 +1,12 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import java.util.List;
-import javax.persistence.EntityManager;
 
 /**
  *
@@ -58,7 +60,7 @@ public class HubFacade {
      */
     public final List<Hub> searchHub(String pattern) {
         List<Hub> hubs = em.createQuery(
-                "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName ").
+                "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName ", Hub.class).
                 setParameter("hubName", "%" + pattern + "%").
                 getResultList();
         return hubs;
@@ -72,7 +74,7 @@ public class HubFacade {
      */
     public final List<Hub> searchHub(String pattern, Community community) {
         List<Hub> hubs = em.createQuery(
-                "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName AND hub.community = :com").
+                "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName AND hub.community = :com", Hub.class).
                 setParameter("hubName", "%" + pattern + "%").
                 setParameter("com", community).
                 getResultList();

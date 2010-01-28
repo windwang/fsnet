@@ -4,9 +4,10 @@
  */
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import javax.persistence.EntityManager;
+
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.FSNetFacade;
-import javax.persistence.EntityManager;
 
 /**
  *

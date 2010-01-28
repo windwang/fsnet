@@ -47,11 +47,9 @@ public class AnnouncementFacade {
 
     public List<Announcement> searchAnnouncement(String textSearchAnnounce) {
         List<Announcement> listAnnounces;
-        List resultList = em.createQuery(
-                "SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND ( a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ").setParameter("textSearchAnnounce",
+        listAnnounces = em.createQuery(
+                "SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND ( a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ", Announcement.class).setParameter("textSearchAnnounce",
                 "%" + textSearchAnnounce + "%").getResultList();
-        listAnnounces = resultList;
-
         return listAnnounces;
 
     }

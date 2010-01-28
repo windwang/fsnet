@@ -1,12 +1,11 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import org.junit.Before;
 import org.junit.Test;
-
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class SocialEntityFacadeTest {
 

@@ -1,16 +1,20 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
-import fr.univartois.ili.fsnet.entities.PrivateMessage;
-import fr.univartois.ili.fsnet.entities.SocialEntity;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertSame;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import fr.univartois.ili.fsnet.entities.PrivateMessage;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  *
