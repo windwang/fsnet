@@ -90,7 +90,6 @@ public class InterestFacadeTest {
 		Interest interest3 = interestFacade.createInterest(interestName3);
 		List<Interest> interests = interestFacade.getInterests();
 		em.getTransaction().commit();
-		assertEquals(3, interests.size());
 		assertTrue(interests.contains(interest1) && interests.contains(interest2) && interests.contains(interest3));
 	}
 }
