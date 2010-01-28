@@ -27,13 +27,14 @@ public class TopicMessageFacade {
      * @param from the author of the message
      * @param topic the topic in wich the new message will be added
      */
-    public final void createTopicMessage(String body, SocialEntity from, Topic topic) {
+    public final TopicMessage createTopicMessage(String body, SocialEntity from, Topic topic) {
         if (body == null || from == null || topic == null) {
             throw new IllegalArgumentException();
         }
         TopicMessage message = new TopicMessage(body, from, topic);
         em.persist(message);
         topic.getMessages().add(message);
+        return message;
     }
 
     /**
