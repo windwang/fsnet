@@ -1,11 +1,13 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 /**
  *
@@ -26,7 +28,7 @@ public class TopicMessageFacade {
      * @param topic the topic in wich the new message will be added
      */
     public final void createTopicMessage(String body, SocialEntity from, Topic topic) {
-        if (body != null || from == null || topic == null) {
+        if (body == null || from == null || topic == null) {
             throw new IllegalArgumentException();
         }
         TopicMessage message = new TopicMessage(body, from, topic);

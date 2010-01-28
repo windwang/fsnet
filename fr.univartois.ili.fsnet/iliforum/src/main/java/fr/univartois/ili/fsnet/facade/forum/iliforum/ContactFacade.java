@@ -1,7 +1,5 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
-import java.nio.channels.IllegalSelectorException;
-
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;

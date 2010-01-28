@@ -1,8 +1,9 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import javax.persistence.EntityManager;
+
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import javax.persistence.EntityManager;
 
 /**
  *

@@ -1,11 +1,13 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
-import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 /**
  *
