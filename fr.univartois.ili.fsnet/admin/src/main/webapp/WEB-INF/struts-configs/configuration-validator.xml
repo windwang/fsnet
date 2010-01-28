@@ -9,5 +9,25 @@
         		<arg key="configure.13" name="email"/>
         	</field>
         </form>
+        <form name="/SaveMailConfiguration">
+        	<field property="SMTPPort" depends="required,integer">
+        		<arg0 key="configure.19"/>
+        	</field>
+        	<field property="SMTPUsername" depends="validwhen">
+        		<arg0 key="configure.18"/>
+        		<var>
+        			<var-name>test</var-name>
+        			<var-value>((enableAuthentication == null) or (*this* != null))</var-value>
+        		</var>
+        	</field>
+        	<field property="SMTPPassword" depends="validwhen">
+        		<arg0 key="configure.17"/>
+        		<var>
+        			<var-name>test</var-name>
+        			<var-value>((enableAuthentication == null) or (*this* != null))</var-value>
+        		</var>
+        	</field>
+        	
+        </form>
     </formset>
 </form-validation>
