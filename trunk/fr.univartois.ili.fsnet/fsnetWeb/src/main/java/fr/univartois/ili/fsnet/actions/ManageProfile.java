@@ -93,8 +93,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         DynaActionForm dynaForm = (DynaActionForm) form;				//NOSONAR
         user.setName(formatName(dynaForm.getString("name")));
         user.setPrenom(formatName(dynaForm.getString("firstName")));
-        // TODO creer une adresse ds le form
-        user.setAddress(new Address(dynaForm.getString("adress"), "ville"));
+        user.setAddress(new Address(dynaForm.getString("adress"),formatName(dynaForm.getString("city") )));
         try {
             user.setBirthDate(DateUtils.format(dynaForm.getString("dateOfBirth")));
         } catch (ParseException e) {

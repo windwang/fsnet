@@ -53,13 +53,30 @@
                 </label>
             </td>
             <td>
-                <html:textarea errorStyleClass="error" property="adress" value="${currentUser.address.address}" styleId="adress"/>
+                <html:text errorStyleClass="error" property="adress" value="${currentUser.address.address}" styleId="adress"/>
             </td>
         </tr>
         <logic:messagesPresent property="adress">
             <tr>
                 <td colspan="2">
                     <html:errors property="adress"/>
+                </td>
+            </tr>
+        </logic:messagesPresent>
+        <tr>
+            <td>
+                <label for="city">
+                    <bean:message key="updateProfile.city"/>
+                </label>
+            </td>
+            <td>
+                <html:text errorStyleClass="error" property="city" value="${currentUser.address.city}" styleId="adress"/>
+            </td>
+        </tr>
+        <logic:messagesPresent property="city">
+            <tr>
+                <td colspan="2">
+                    <html:errors property="city"/>
                 </td>
             </tr>
         </logic:messagesPresent>
@@ -187,7 +204,7 @@
 </h3>
 
 <html:form action="/ChangePassword">
-    <table>
+    <table align="center">
         <c:forTokens var="typePwd" items="oldPassword:newPassword:confirmNewPassword" delims=":">
             <tr>
                 <td>
@@ -208,7 +225,7 @@
             </logic:messagesPresent>
         </c:forTokens>
         <tr>
-            <td colspan="2">
+            <td colspan="2" align="right">
                 <html:submit styleClass="button">
                     <bean:message key="updateProfile.validate"/>
                 </html:submit>
