@@ -15,6 +15,7 @@
             <form-property name="name" type="java.lang.String" />
             <form-property name="firstName" type="java.lang.String" />
             <form-property name="adress" type="java.lang.String" />
+            <form-property name="city" type="java.lang.String" />
             <form-property name="dateOfBirth" type="java.lang.String" />
             <form-property name="sexe" type="java.lang.String" />
             <form-property name="job" type="java.lang.String" />
