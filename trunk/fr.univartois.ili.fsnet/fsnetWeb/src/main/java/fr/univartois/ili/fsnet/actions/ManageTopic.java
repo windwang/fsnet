@@ -22,6 +22,7 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 
 /**
  * 
@@ -38,12 +39,14 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; 					// NOSONAR
-		String topicSujet = (String) dynaForm.get("topicSubject");
+		String topicSujet = (String) dynaForm.get("topicSubject");				// NOSONAR
+		String messageDescription = (String) dynaForm.get("messageDescription");
 		int hubId = Integer.valueOf(Integer.parseInt(dynaForm
 				.getString("hubId")));
 		Hub hub = em.find(Hub.class, hubId);
-		SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
-		Topic topic = new Topic(hub, SocialEntity, topicSujet);
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request, em);
+		Topic topic = new Topic(hub, socialEntity, topicSujet);
+                TopicMessage message = new TopicMessage(messageDescription, socialEntity, topic);
 		em.getTransaction().begin();
 		hub.getTopics().add(topic);
 		em.getTransaction().commit();
