@@ -26,12 +26,12 @@ public class InteractionFacade {
      */
     public void addInterest(Interaction interaction, Interest interest) {
         if (interaction == null || interest == null) {
-            final Set<Interest> interests = interaction.getInterests();
-            if (!interests.contains(interest)) {
-                interests.add(interest);
-            }
+            throw new IllegalArgumentException();
         }
-
+        final Set<Interest> interests = interaction.getInterests();
+        if (!interests.contains(interest)) {
+            interests.add(interest);
+        }
     }
 
     /**
@@ -58,6 +58,4 @@ public class InteractionFacade {
         }
         interaction.getInterests().remove(interest);
     }
-
-
 }
