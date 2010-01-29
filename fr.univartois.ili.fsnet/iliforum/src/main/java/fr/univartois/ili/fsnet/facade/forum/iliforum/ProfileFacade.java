@@ -15,6 +15,8 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  * @author geoffrey boulay
  *
  */
+
+// TODO @jojo REMOVE SYNCHRONIZED
 public class ProfileFacade {
 
     private EntityManager em;
@@ -36,6 +38,7 @@ public class ProfileFacade {
      * @return true if success
      */
     public synchronized boolean changePassword(SocialEntity socialEntity, String old, String newPassword) {
+        //TODO NPE
         if (!old.equals(socialEntity.getPassword())) {
             loger.log(Level.SEVERE, "Formular validation error");
             return false;

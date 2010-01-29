@@ -59,6 +59,9 @@ public class HubFacade {
      * @return a list of pattern matching hub
      */
     public final List<Hub> searchHub(String pattern) {
+        if (pattern == null) {
+            throw new IllegalArgumentException();
+        }
         List<Hub> hubs = em.createQuery(
                 "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName ", Hub.class).
                 setParameter("hubName", "%" + pattern + "%").
@@ -73,6 +76,9 @@ public class HubFacade {
      * @return a list of pattern matching hub
      */
     public final List<Hub> searchHub(String pattern, Community community) {
+        if (pattern == null || community == null) {
+            throw new IllegalArgumentException();
+        }
         List<Hub> hubs = em.createQuery(
                 "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName AND hub.community = :com", Hub.class).
                 setParameter("hubName", "%" + pattern + "%").

@@ -71,7 +71,7 @@ public class SocialEntityFacade {
      * @return a map of list of search results (Contacts, Requested, Asked and Others)
      */
     public HashMap<SearchResult, List<SocialEntity>> searchSocialEntity(String searchText, int socialEntityId) {
-
+    //TODO NPE
         TypedQuery<SocialEntity> query = null;
         TypedQuery<SocialEntity> queryContacts = null;
         TypedQuery<SocialEntity> queryRequested = null;
@@ -130,6 +130,7 @@ public class SocialEntityFacade {
      * @return the list of Social Entitys matching with the search text
      */
     public List<SocialEntity> searchSocialEntity(String searchText) {
+        //TODO NPE
         TypedQuery<SocialEntity> query = null;
         List<SocialEntity> results = null;
 

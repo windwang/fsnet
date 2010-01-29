@@ -54,6 +54,7 @@ public class AnnouncementFacade {
      */
     public Announcement modifyAnnouncement(int idAnnounce, String annName,
             String annDescription, Date endDate) {
+        //TODO NPE
         Announcement announce = em.find(Announcement.class, idAnnounce);
         announce.setTitle(annName);
         announce.setContent(annDescription);
@@ -79,6 +80,7 @@ public class AnnouncementFacade {
      * @return a list of Announcement
      */
     public List<Announcement> searchAnnouncement(String textSearchAnnounce) {
+        //TODO NPE + LISIBLE
         List<Announcement> listAnnounces;
         listAnnounces = em.createQuery(
                 "SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND ( a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ", Announcement.class).setParameter("textSearchAnnounce",
