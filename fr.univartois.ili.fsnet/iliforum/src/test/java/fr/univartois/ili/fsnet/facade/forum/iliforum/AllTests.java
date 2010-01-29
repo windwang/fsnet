@@ -19,6 +19,7 @@ import org.junit.runners.Suite;
     PrivateMessageFacadeTest.class,
     MeetingFacadeTest.class,
     InterestFacadeTest.class,
+    HubFacadeTest.class,
     TopicMessageFacadeTest.class
 })
 public class AllTests {
