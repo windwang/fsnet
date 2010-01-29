@@ -20,7 +20,8 @@ import org.junit.runners.Suite;
     MeetingFacadeTest.class,
     InterestFacadeTest.class,
     HubFacadeTest.class,
-    TopicMessageFacadeTest.class
+    TopicMessageFacadeTest.class,
+    TopicFacadeTest.class
 })
 public class AllTests {
 
