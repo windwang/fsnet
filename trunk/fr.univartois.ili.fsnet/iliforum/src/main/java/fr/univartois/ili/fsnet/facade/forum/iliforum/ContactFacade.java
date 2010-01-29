@@ -24,6 +24,7 @@ public class ContactFacade {
      * @param asked
      */
     public void askContact(SocialEntity asker, SocialEntity asked) {
+        //TODO NPE
         if (asker.equals(asked)) {
             throw new IllegalArgumentException();
         }

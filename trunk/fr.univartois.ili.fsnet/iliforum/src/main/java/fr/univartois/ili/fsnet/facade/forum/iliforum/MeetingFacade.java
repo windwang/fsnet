@@ -79,6 +79,7 @@ public class MeetingFacade {
      * @return
      */
     public List<Meeting> searchMeeting(String searchStr) {
+        //TODO NPE + remove useless variables
         String searchString = searchStr;
 
         List<Meeting> results;

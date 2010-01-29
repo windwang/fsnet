@@ -44,6 +44,7 @@ public class InterestFacade {
 	 * @param interestId the id of the interest to modify
 	 */
 	public void modifyInterest(String interestName, int interestId){
+            //TODO NPE
 		Interest interest = getInterest(interestId);
 		interest.setName(interestName);	
 	}
@@ -64,6 +65,7 @@ public class InterestFacade {
 	 * @return the list of interests having name like interestName
 	 */
 	public List<Interest> searchInterest(String interestName){
+            //TODO NPE
 		List<Interest> result = em.createQuery(
 				"SELECT interest FROM Interest interest "
 				+ "WHERE interest.name LIKE :interestName ",
