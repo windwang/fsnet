@@ -48,6 +48,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialEntity socialEntity = new SocialEntity(name, firstName, mail);
 		em.getTransaction().begin();
 		em.persist(socialEntity);
+		
 		em.getTransaction().commit();
 		em.close();
 		
