@@ -8,18 +8,18 @@
  * a servlet container (like Apache Tomcat)
  * a MySQL Database administration tool (like phpmyadmin)
 
-You can find dependency librairies in fsnet-libs_d3.zip
+You can find dependency librairies in fsnet-libs_d4.zip
 
 = How to install FSNET =
 
  ===Theses explanations are for apache tomcat 6.x users :===
 
- # Download fsnet_d3.zip, fsnet-libs_d3.zip and fsnet-tray_d3.zip
+ # Download fsnet_d4.zip, fsnet-libs_d4.zip and fsnet-tray_d4.zip
  # Create a new user for mysql : username : *fsnet*, password : *fsnet*
  # Create a new database named *fsnet*
- # Unzip the fsnet-libs_d3.zip archive
+ # Unzip the fsnet-libs_d4.zip archive
  # Copy these dependencies in the tomcat/lib/ directory
- # unzip the fsnet_d3.zip
+ # unzip the fsnet_d4.zip
  # Copy the admin.war, fsnetWeb.war and webservice.war files in the tomcat/webapps
  # In tomcat/conf/tomcat-users.xml,add :
     <role rolename="fsnetadmin"/>
@@ -29,7 +29,7 @@ You can find dependency librairies in fsnet-libs_d3.zip
        * http://localhost:8080/admin for the administrator (with login & password)
        * http://localhost:8080/fsnetWeb for users
        * http://localhost:8080/webservice for the webservice used by tray
- # Unzip fsnet-tray_d3.zip
+ # Unzip fsnet-tray_d4.zip
  # Run it using : java -jar trayDesktop.jar
 
 = How to use FSNET =
