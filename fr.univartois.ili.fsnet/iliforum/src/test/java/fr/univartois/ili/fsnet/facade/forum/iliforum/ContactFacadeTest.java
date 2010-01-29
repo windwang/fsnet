@@ -26,6 +26,11 @@ public class ContactFacadeTest {
 
     }
 
+    
+    /**
+     * try to accept a SocialEntity without having received a demand
+     * @return an IllegalStateException
+     */
     @Test(expected = IllegalStateException.class)
     public void acceptWithoutAskingTest() {
         ContactFacade cf = new ContactFacade(em);
@@ -39,6 +44,10 @@ public class ContactFacadeTest {
         cf.acceptContact(se1, se2);
     }
 
+    /**
+     * try to ask someone you have already asked
+     * @return an IllegalStateException 
+     */
     @Test(expected = IllegalStateException.class)
     public void alreadyAskedTest() {
         ContactFacade cf = new ContactFacade(em);
@@ -53,6 +62,11 @@ public class ContactFacadeTest {
         cf.askContact(se2, se1);
     }
 
+    
+    /**
+     * delete a SocialEntity and control that she have been remove from
+     * the contact list of the other members
+     */
     @Test
     public void deleteCascadeTest() {
         em.getTransaction().begin();
@@ -69,6 +83,10 @@ public class ContactFacadeTest {
         assertTrue(!se1.getContacts().contains(se2));
     }
 
+    /**
+     * try to ask himself as new contact
+     * @return an IllegalStateException
+     */
     @Test(expected = IllegalArgumentException.class)
     public void askHimselfTest() {
         em.getTransaction().begin();
@@ -81,6 +99,9 @@ public class ContactFacadeTest {
 
     }
 
+    /**
+     * try a contact remove
+     */
     @Test
     public void removeContactTest() {
         em.getTransaction().begin();
@@ -97,6 +118,11 @@ public class ContactFacadeTest {
         assertTrue(!se1.getContacts().contains(se2));
     }
 
+    
+    /**
+     * try to ask a SocialEntity who is already in your contact list
+     *  @return an IllegalStateException
+     */
     @Test(expected = IllegalStateException.class)
     public void alreadyInContactTest() {
         em.getTransaction().begin();
@@ -110,6 +136,11 @@ public class ContactFacadeTest {
         em.getTransaction().commit();
     }
 
+    /**
+     * try to refuse without having received a demand someone who is already
+     * in your contact list
+     * @return an IllegalStateException
+     */
     @Test(expected = IllegalStateException.class)
     public void refuseSocialEntityAlreadyInContact() {
         em.getTransaction().begin();
