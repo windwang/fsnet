@@ -1,0 +1,15 @@
+#ChangeLog of FSNet
+
+= fsnet-d4 =
+
+ * Some UI improvements
+ * Admin part has been entirely rewritten
+ * Using a facade in order to share code between multiple client (issue 31)
+ * We have switched from JPA 1.0 to JPA 2.0 (issue 27)
+ * findbugs critical violations has been dropped (issue 24) 
+ * Entities (JPA) has been entirely rewritten, so the source code is now in English (issue 30)
+ * many features has been added in the entities, and they will be implemented in near future (issue 30)
+
+= fsnet-d3
+
+ * first fully functional version
