@@ -9,6 +9,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -24,6 +25,10 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.admin.actions.utils.DateUtils;
+import fr.univartois.ili.fsnet.admin.utils.FSNetConfiguration;
+import fr.univartois.ili.fsnet.admin.utils.FSNetMailer;
+import fr.univartois.ili.fsnet.admin.utils.Mail;
+import fr.univartois.ili.fsnet.admin.utils.Security;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
@@ -46,15 +51,72 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		EntityManager em = factory.createEntityManager();
 
 		SocialEntity socialEntity = new SocialEntity(name, firstName, mail);
-		em.getTransaction().begin();
-		em.persist(socialEntity);
-		
-		em.getTransaction().commit();
+		String generatedPassword = null;
+		try {
+			generatedPassword = Security.generateRandomPassword();
+			socialEntity.setPassword(Security.getEncodedPassword(generatedPassword));
+			em.getTransaction().begin();
+			em.persist(socialEntity);
+			em.getTransaction().commit();
+			sendConfirmationMail(socialEntity, generatedPassword);
+		} catch(RollbackException e) {
+			ActionErrors errors = new ActionErrors();
+			errors.add("email", new ActionMessage("members.user.exists"));
+			saveErrors(request, errors);
+		} catch (Exception e) {
+			ActionErrors errors = new ActionErrors();
+			errors.add("email", new ActionMessage("members.error.on.create"));
+			saveErrors(request, errors);
+		}
 		em.close();
 		
 		return mapping.findForward("success");
 	}
-
+	/**
+	 * Send mails to a list of recipient.
+	 * 
+	 * @param socialEntity
+	 *            the new EntiteSociale
+	 * @return true if success false if fail
+	 * 
+	 * @author Mathieu Boniface < mat.boniface {At} gmail.com >
+	 */
+	private void sendConfirmationMail(SocialEntity socialEntity, String password) {
+		FSNetConfiguration conf = FSNetConfiguration.getInstance();
+		String fsnetAddress = conf.getFSNetWebAddress();
+		String message = createMessageRegistration(socialEntity.getName(), socialEntity
+				.getFirstName(), fsnetAddress, password);
+		// send a mail
+		FSNetMailer mailer = FSNetMailer.getInstance();
+		Mail mail = mailer.createMail();
+		mail.setSubject("Inscription FSNet");
+		mail.addRecipient(socialEntity.getEmail());
+		mail.setContent(message);
+		mailer.sendMail(mail);
+	}
+	/**
+	 * Method that creates an welcome message to FSNet.
+	 * 
+	 * @param nom
+	 * @param prenom
+	 * @param email
+	 * @return the message .
+	 */
+	private String createMessageRegistration(String nom, String prenom,
+			String addressFsnet, String password) {
+		StringBuilder message = new StringBuilder();
+		message.append("Bonjour ").append(nom).append(" ").append(prenom);
+		message.append(",<br/><br/>");
+		message.append("Vous venez d'être enregistré sur FSNet (Firm Social Network).<br/><br/>");
+		message.append("Désormais vous pouvez vous connecter sur le site ");
+		message.append(addressFsnet);
+		message.append(" .<br/><br/>");
+		message.append("Un mot de passe a été généré automatiquement : <em>");
+		message.append(password);
+		message.append("</em><br/><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
+		return message.toString();
+	}
+	
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
