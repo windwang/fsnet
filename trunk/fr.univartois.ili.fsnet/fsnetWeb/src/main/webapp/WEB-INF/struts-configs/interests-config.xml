@@ -21,15 +21,6 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="createdInterestName" type="java.lang.String" />
         </form-bean>
-        <form-bean name="ModifyInterestForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="modifiedInterestName" type="java.lang.String" />
-            <form-property name="modifiedInterestId" type="java.lang.String" />
-        </form-bean>
-        <form-bean name="DeleteInterestForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="deletedInterestId" type="java.lang.String" />
-        </form-bean>
     </form-beans>
     <global-forwards>
 
@@ -67,17 +58,6 @@
         </action>
 
         <action
-            path="/ModifyInterest"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="ModifyInterestForm"
-            input="/Interests.do"
-            scope="request"
-            validate="true"
-            parameter="modify">
-            <forward name="success" path="/Interests.do" />
-        </action>
-
-        <action
             path="/SearchInterest"
             type="fr.univartois.ili.fsnet.actions.ManageInterests"
             name="SearchInterestForm"
@@ -96,17 +76,6 @@
             scope="request"
             validate="true"
             parameter="create">
-            <forward name="success" path="/Interests.do" />
-        </action>
-
-        <action
-            path="/DeleteInterest"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="DeleteInterestForm"
-            input="/Interests.do"
-            scope="request"
-            validate="true"
-            parameter="delete">
             <forward name="success" path="/Interests.do" />
         </action>
 

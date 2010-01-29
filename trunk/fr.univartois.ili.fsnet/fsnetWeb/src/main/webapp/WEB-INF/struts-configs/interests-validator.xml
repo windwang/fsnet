@@ -13,14 +13,6 @@
                 <arg key="error.interest.remove" />
             </field>
         </form>
-        <form name="/ModifyInterest">
-            <field property="modifiedInterestId" depends="required,integer">
-                <arg key="error.interest.id.modified" />
-            </field>
-            <field property="modifiedInterestName" depends="required">
-                <arg key="error.interest.name.modified" />
-            </field>
-        </form>
         <form name="/SearchInterest">
             <field property="searchInterestName" depends="">
                 <arg key="error.interest.search" />
@@ -28,11 +20,6 @@
         </form>
         <form name="/CreateInterest">
             <field property="createdInterestName" depends="required">
-                <arg key="error.interest.create" />
-            </field>
-        </form>
-        <form name="/DeleteInterest">
-            <field property="deletedInterestId" depends="required,integer">
                 <arg key="error.interest.create" />
             </field>
         </form>
