@@ -59,7 +59,7 @@ public class HubFacadeTest {
 
 	}
 
-	@Test
+	//@Test
 	public void deleteHubTest() {
 		em.getTransaction().begin();
 		Hub deletedHub = hf.createHub(com, creator, "deletedHub");
