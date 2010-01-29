@@ -42,7 +42,7 @@ public class TopicFacade {
     public final void deleteTopic(int id) {
         Topic c = em.find(Topic.class, id);
         if (c != null) {
-            em.remove(id);
+            em.remove(c);
         }
     }
 

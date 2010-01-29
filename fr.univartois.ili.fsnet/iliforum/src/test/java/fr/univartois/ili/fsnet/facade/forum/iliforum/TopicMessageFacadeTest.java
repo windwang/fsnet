@@ -12,7 +12,6 @@ import javax.persistence.Persistence;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -87,7 +86,6 @@ public class TopicMessageFacadeTest {
 		em.getTransaction().commit();
 		String pattern = "body";
 		List<TopicMessage> results = tmf.searchTopic(pattern);
-		System.out.println("results = "+results);
 		TopicMessage tmRes = results.get(0);
 		assertEquals(message.getBody(), tmRes.getBody());
 		assertEquals(message.getFrom(), tmRes.getFrom());
