@@ -98,12 +98,14 @@
 <script type="text/javascript">
     $(function() {
         $.datepicker.setDefaults($.extend( {
-            minDate : 0,
-            dateFormat : 'dd/mm/yy',
-            showOn : 'button',
-            buttonImage : 'images/calendar.gif',
-            buttonImageOnly : true,
-            showMonthAfterYear : false
+        	 yearRange: '-100:+1',
+             changeYear: true,
+             maxDate: 0,
+             dateFormat: 'dd/mm/yy',
+             showOn: 'button',
+             buttonImage: 'images/calendar.gif',
+             buttonImageOnly: true,
+             showMonthAfterYear: false
         }));
         $("#birthDay").datepicker($.datepicker.regional['fr']);
     });
