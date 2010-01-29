@@ -33,7 +33,7 @@ public class AnnouncementFacade {
      * @param isPrivate
      * @return the new Announcement
      */
-    public Announcement createAnnouncement(SocialEntity member, String annName,
+    public final Announcement createAnnouncement(SocialEntity member, String annName,
             String annDescription, Date endDate, Boolean isPrivate) {
         Announcement announce = new Announcement(member, annName,
                 annDescription, endDate, isPrivate);
@@ -52,7 +52,7 @@ public class AnnouncementFacade {
      * @param endDate
      * @return the Announcement modify
      */
-    public Announcement modifyAnnouncement(int idAnnounce, String annName,
+    public final Announcement modifyAnnouncement(int idAnnounce, String annName,
             String annDescription, Date endDate) {
         //TODO NPE
         Announcement announce = em.find(Announcement.class, idAnnounce);
@@ -68,7 +68,7 @@ public class AnnouncementFacade {
      * 
      * @param idAnnounce
      */
-    public void deleteAnnouncement(int idAnnounce) {
+    public final void deleteAnnouncement(int idAnnounce) {
         Announcement announce = em.find(Announcement.class, idAnnounce);
         em.remove(announce);
         em.flush();
@@ -79,7 +79,7 @@ public class AnnouncementFacade {
      * @param textSearchAnnounce
      * @return a list of Announcement
      */
-    public List<Announcement> searchAnnouncement(String textSearchAnnounce) {
+    public final List<Announcement> searchAnnouncement(String textSearchAnnounce) {
         //TODO NPE + LISIBLE
         List<Announcement> listAnnounces;
         listAnnounces = em.createQuery(

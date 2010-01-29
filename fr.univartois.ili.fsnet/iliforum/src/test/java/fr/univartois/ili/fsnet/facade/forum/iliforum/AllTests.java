@@ -21,7 +21,8 @@ import org.junit.runners.Suite;
     InterestFacadeTest.class,
     HubFacadeTest.class,
     TopicMessageFacadeTest.class,
-    TopicFacadeTest.class
+    TopicFacadeTest.class,
+    CommunityFacadeTest.class
 })
 public class AllTests {
 

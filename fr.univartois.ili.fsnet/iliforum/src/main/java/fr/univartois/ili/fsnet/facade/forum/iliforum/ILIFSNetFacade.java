@@ -22,7 +22,7 @@ public class ILIFSNetFacade implements FSNetFacade {
     }
 
     @Override
-    public SocialEntity createSocialEntity(String name, String firstName, String email) {
+    public final SocialEntity createSocialEntity(String name, String firstName, String email) {
         SocialEntityFacade sef = new SocialEntityFacade(em);
         return sef.createSocialEntity(name, firstName, email);
     }

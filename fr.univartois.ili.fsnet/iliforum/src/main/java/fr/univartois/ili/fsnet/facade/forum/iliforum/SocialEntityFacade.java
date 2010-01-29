@@ -39,7 +39,7 @@ public class SocialEntityFacade {
      * @param email the email of the new Social Entity
      * @return the created SocialEntity
      */
-    public SocialEntity createSocialEntity(String name, String firstName, String email) {
+    public final SocialEntity createSocialEntity(String name, String firstName, String email) {
         SocialEntity es = new SocialEntity(name, firstName, email);
         em.persist(es);
         return es;
@@ -50,7 +50,7 @@ public class SocialEntityFacade {
      * @param id the id of the Social Entity
      * @return the SocialEntity we search
      */
-    public SocialEntity getSocialEntity(int socialEntityId) {
+    public final SocialEntity getSocialEntity(int socialEntityId) {
         return em.find(SocialEntity.class, socialEntityId);
     }
 
@@ -58,7 +58,7 @@ public class SocialEntityFacade {
      * delete a Social Entity
      * @param socialEntityId the id of the Social Entity to delete
      */
-    public void deleteSocialEntity(int socialEntityId) {
+    public final void deleteSocialEntity(int socialEntityId) {
         SocialEntity se = getSocialEntity(socialEntityId);
         em.remove(se);
         em.flush();
@@ -70,7 +70,7 @@ public class SocialEntityFacade {
      * @param socialEntityId the id of the Social Entity who search for others Social Entity
      * @return a map of list of search results (Contacts, Requested, Asked and Others)
      */
-    public HashMap<SearchResult, List<SocialEntity>> searchSocialEntity(String searchText, int socialEntityId) {
+    public final HashMap<SearchResult, List<SocialEntity>> searchSocialEntity(String searchText, int socialEntityId) {
     //TODO NPE
         TypedQuery<SocialEntity> query = null;
         TypedQuery<SocialEntity> queryContacts = null;
@@ -129,7 +129,7 @@ public class SocialEntityFacade {
      * @param searchText the search text
      * @return the list of Social Entitys matching with the search text
      */
-    public List<SocialEntity> searchSocialEntity(String searchText) {
+    public final List<SocialEntity> searchSocialEntity(String searchText) {
         //TODO NPE
         TypedQuery<SocialEntity> query = null;
         List<SocialEntity> results = null;
@@ -148,7 +148,7 @@ public class SocialEntityFacade {
      * @param interestId id of the interest to add
      * @param userId id of the user
      */
-    public void addInterest(int interestId, int userId) {
+    public final void addInterest(int interestId, int userId) {
         InterestFacade interestFacade = new InterestFacade(em);
         Interest interest = interestFacade.getInterest(interestId);
         SocialEntity user = getSocialEntity(userId);
@@ -162,7 +162,7 @@ public class SocialEntityFacade {
      * @param interestId id of the interest to remove
      * @param userId id of the user
      */
-    public void removeInterest(int interestId, int userId) {
+    public final void removeInterest(int interestId, int userId) {
         InterestFacade interestFacade = new InterestFacade(em);
         Interest interest = interestFacade.getInterest(interestId);
         SocialEntity user = getSocialEntity(userId);
