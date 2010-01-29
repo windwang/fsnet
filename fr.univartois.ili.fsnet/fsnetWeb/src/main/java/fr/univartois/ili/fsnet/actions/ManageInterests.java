@@ -20,7 +20,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
-import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Interest;
@@ -123,58 +122,14 @@ public class ManageInterests extends MappingDispatchAction implements
     public ActionForward modify(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-        int interestId = Integer.valueOf((String) dynaForm.get("modifiedInterestId"));
-        String interestName = (String) dynaForm.get("modifiedInterestName");
-        InterestFacade facade = new InterestFacade(em);
-        logger.info("interest modification: " + interestName);
-
-        try {
-            em.getTransaction().begin();
-            facade.modifyInterest(interestName, interestId);
-            em.getTransaction().commit();
-        } catch (DatabaseException ex) {
-            ActionErrors actionErrors = new ActionErrors();
-            ActionMessage msg = new ActionMessage("interest.alreadyExists");
-            actionErrors.add("modifiedInterestName", msg);
-            saveErrors(request, actionErrors);
-        }
-
-        em.close();
-
-        return mapping.findForward("success");
+        return null;
     }
 
     @Override
     public ActionForward delete(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-
-        // TODO verify if user has the right to do delete
-
-        int interestId = Integer.valueOf(request.getParameter("deletedInterestId"));
-        InterestFacade facade = new InterestFacade(em);
-        logger.info("interest deleted: id=" + interestId);
-
-        try {
-            em.getTransaction().begin();
-            facade.deleteInterest(interestId);
-            em.getTransaction().commit();
-
-            SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-            em.refresh(user);
-        } catch (RollbackException ex) {
-            ActionErrors actionErrors = new ActionErrors();
-            ActionMessage msg = new ActionMessage("interest.notExists");
-            actionErrors.add("error.interest.delete", msg);
-            saveErrors(request, actionErrors);
-        }
-
-        em.close();
-
-        return mapping.findForward("success");
+       return null;
     }
 
     @Override
