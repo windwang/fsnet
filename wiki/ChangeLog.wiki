@@ -1,6 +1,6 @@
-#ChangeLog of FSNet
+= ChangeLog of FSNet =
 
-= fsnet-d4 =
+== fsnet-d4 ==
 
  * Some UI improvements
  * Admin part has been entirely rewritten
@@ -10,6 +10,6 @@
  * Entities (JPA) has been entirely rewritten, so the source code is now in English (issue 30)
  * many features has been added in the entities, and they will be implemented in near future (issue 30)
 
-= fsnet-d3 =
+== fsnet-d3 ==
 
  * first fully functional version
