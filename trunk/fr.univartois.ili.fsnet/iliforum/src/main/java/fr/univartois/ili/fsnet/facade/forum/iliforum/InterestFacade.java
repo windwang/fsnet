@@ -23,7 +23,7 @@ public class InterestFacade {
 	 * @param interestName the name of the interest
 	 * @return the interest created
 	 */
-	public Interest createInterest(String interestName){
+	public final Interest createInterest(String interestName){
 		Interest interest = new Interest(interestName);
 		em.persist(interest);
 		return interest;
@@ -34,7 +34,7 @@ public class InterestFacade {
 	 * @param interestId the id of the interest we search
 	 * @return the interest we search
 	 */
-	public Interest getInterest(int interestId){
+	public final Interest getInterest(int interestId){
 		return em.find(Interest.class, interestId);
 	}
 
@@ -43,7 +43,7 @@ public class InterestFacade {
 	 * @param interestName the new interest name
 	 * @param interestId the id of the interest to modify
 	 */
-	public void modifyInterest(String interestName, int interestId){
+	public final void modifyInterest(String interestName, int interestId){
             //TODO NPE
 		Interest interest = getInterest(interestId);
 		interest.setName(interestName);	
@@ -53,7 +53,7 @@ public class InterestFacade {
 	 * delete an interest 
 	 * @param interestId the id of the interest to delete
 	 */
-	public void deleteInterest(int interestId){
+	public final void deleteInterest(int interestId){
 		Interest interest = getInterest(interestId);
 		em.remove(interest);
 		em.flush();
@@ -64,7 +64,7 @@ public class InterestFacade {
 	 * @param interestName the name of the interest we search
 	 * @return the list of interests having name like interestName
 	 */
-	public List<Interest> searchInterest(String interestName){
+	public final List<Interest> searchInterest(String interestName){
             //TODO NPE
 		List<Interest> result = em.createQuery(
 				"SELECT interest FROM Interest interest "
@@ -78,7 +78,7 @@ public class InterestFacade {
 	 * 
 	 * @return the list of all interests
 	 */
-	public List<Interest> getInterests(){
+	public final List<Interest> getInterests(){
 		List<Interest> listAllInterests = em.createQuery(
 				"SELECT interest FROM Interest interest", Interest.class).getResultList();
 		return listAllInterests;

@@ -10,7 +10,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  */
 public class ContactFacade {
 
-    EntityManager em;
+    private EntityManager em;
 
     public ContactFacade(EntityManager em) {
         this.em = em;
@@ -23,7 +23,7 @@ public class ContactFacade {
      * @param asker
      * @param asked
      */
-    public void askContact(SocialEntity asker, SocialEntity asked) {
+    public final void askContact(SocialEntity asker, SocialEntity asked) {
     	if (asker == null || asked == null) {
             throw new IllegalArgumentException();
         }
@@ -49,7 +49,7 @@ public class ContactFacade {
      * @param currentUser
      * @param refused
      */
-    public void refuseContact(SocialEntity member, SocialEntity refused) {
+    public final void refuseContact(SocialEntity member, SocialEntity refused) {
         if (member == null || refused == null) {
             throw new IllegalArgumentException();
         }
@@ -77,7 +77,7 @@ public class ContactFacade {
      * @param member
      * @param accepted
      */
-    public void acceptContact(SocialEntity member, SocialEntity accepted) {
+    public final void acceptContact(SocialEntity member, SocialEntity accepted) {
         if (member == null || accepted == null) {
             throw new IllegalArgumentException();
         }
@@ -102,7 +102,7 @@ public class ContactFacade {
      * @param member
      * @param removedEntity
      */
-    public void removeContact(SocialEntity member, SocialEntity removedEntity) {
+    public final void removeContact(SocialEntity member, SocialEntity removedEntity) {
         if (member == null || removedEntity == null) {
             throw new IllegalArgumentException();
         }
@@ -116,7 +116,7 @@ public class ContactFacade {
      *
      * @param deletedEntity
      */
-    public void deleteContact(int id) {
+    public final void deleteContact(int id) {
 
         SocialEntity deletedEntity = em.find(SocialEntity.class, id);
         if (deletedEntity == null) {

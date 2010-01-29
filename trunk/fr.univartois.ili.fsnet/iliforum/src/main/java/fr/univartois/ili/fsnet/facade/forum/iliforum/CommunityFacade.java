@@ -2,7 +2,6 @@ package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.Topic;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -35,7 +34,7 @@ public class CommunityFacade {
      * Delete the community with the given id
      * @param id
      */
-    public void deleteCommunity(int id){
+    public final void deleteCommunity(int id){
         Community community = em.find(Community.class, id);
         em.remove(community);
         em.flush();
@@ -46,7 +45,7 @@ public class CommunityFacade {
      * @param id the id of the communty
      * @return the community with the given id
      */
-    public Community getCommunity(int id){
+    public final Community getCommunity(int id){
         return em.find(Community.class, id);
     }
 
@@ -55,7 +54,7 @@ public class CommunityFacade {
      * @param pattern
      * @return
      */
-    public List<Community> searchCommunity(String pattern) {
+    public final List<Community> searchCommunity(String pattern) {
         if (pattern == null) {
             throw new IllegalArgumentException();
         }

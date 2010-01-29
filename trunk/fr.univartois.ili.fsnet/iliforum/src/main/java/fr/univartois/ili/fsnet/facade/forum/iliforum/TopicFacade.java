@@ -61,7 +61,7 @@ public class TopicFacade {
      * @param hub the hub to search in
      * @return a list of topics
      */
-    public List<Topic> searchTopic(String pattern, Hub hub) {
+    public final List<Topic> searchTopic(String pattern, Hub hub) {
         if (pattern == null || hub == null) {
             throw new IllegalArgumentException();
         }
@@ -76,7 +76,7 @@ public class TopicFacade {
      * @param pattern the pattern to search
      * @return a list of topics
      */
-    public List<Topic> searchTopic(String pattern) {
+    public final List<Topic> searchTopic(String pattern) {
         if (pattern == null) {
             throw new IllegalArgumentException();
         }

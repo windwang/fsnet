@@ -37,7 +37,7 @@ public class ProfileFacade {
      * @param newPassword new password
      * @return true if success
      */
-    public synchronized boolean changePassword(SocialEntity socialEntity, String old, String newPassword) {
+    public final synchronized boolean changePassword(SocialEntity socialEntity, String old, String newPassword) {
         //TODO NPE
         if (!old.equals(socialEntity.getPassword())) {
             loger.log(Level.SEVERE, "Formular validation error");
@@ -60,7 +60,7 @@ public class ProfileFacade {
      * @param mail his mail
      * @param phone his phone
      */
-    public synchronized void editProfile(SocialEntity socialEntity, String name, String firstName, Address address, Date dateOfBirth,
+    public final synchronized void editProfile(SocialEntity socialEntity, String name, String firstName, Address address, Date dateOfBirth,
             String sexe, String job, String mail, String phone) {
         socialEntity.setName(name);
         socialEntity.setPrenom(firstName);

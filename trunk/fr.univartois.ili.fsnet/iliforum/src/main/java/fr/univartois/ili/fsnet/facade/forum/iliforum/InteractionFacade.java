@@ -24,7 +24,7 @@ public class InteractionFacade {
      * @param interaction the interaction to add the interest in
      * @param interest the interest to add to the interaction
      */
-    public void addInterest(Interaction interaction, Interest interest) {
+    public final void addInterest(Interaction interaction, Interest interest) {
         if (interaction == null || interest == null) {
             throw new IllegalArgumentException();
         }
@@ -39,7 +39,7 @@ public class InteractionFacade {
      * @param interaction the interaction to add the interest in
      * @param interests the list of interests to add to the interaction
      */
-    public void addInterests(Interaction interaction, List<Interest> interests) {
+    public final void addInterests(Interaction interaction, List<Interest> interests) {
         if (interaction == null || interests == null) {
             throw new IllegalArgumentException();
         }
@@ -52,7 +52,7 @@ public class InteractionFacade {
      * @param interaction the interaction to remove the interest from
      * @param interests the interest to remove from the interaction
      */
-    public void removeInterest(Interaction interaction, Interest interest) {
+    public final void removeInterest(Interaction interaction, Interest interest) {
         if (interaction == null || interest == null) {
             throw new IllegalArgumentException();
         }

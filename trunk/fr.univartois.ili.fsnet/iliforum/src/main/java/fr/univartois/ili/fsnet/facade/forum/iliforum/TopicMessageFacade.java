@@ -63,7 +63,7 @@ public class TopicMessageFacade {
      * @param topic the Topic to search in
      * @return a list of TopicMessage
      */
-    public List<TopicMessage> searchTopic(String pattern, Topic topic) {
+    public final List<TopicMessage> searchTopic(String pattern, Topic topic) {
         if (pattern == null || topic == null) {
             throw new IllegalArgumentException();
         }
@@ -78,7 +78,7 @@ public class TopicMessageFacade {
      * @param pattern the pattern to search
      * @return a list of TopicMessage
      */
-    public List<TopicMessage> searchTopic(String pattern) {
+    public final List<TopicMessage> searchTopic(String pattern) {
         if (pattern == null) {
             throw new IllegalArgumentException();
         }

@@ -13,9 +13,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Community;
-import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.Topic;
 
 public class CommunityFacadeTest {
 	private EntityManager em;

@@ -38,7 +38,7 @@ public class MeetingFacade {
      * @param city
      * @return the new meeting
      */
-    public Meeting createMeeting(SocialEntity member, String eventName,
+    public final Meeting createMeeting(SocialEntity member, String eventName,
             String eventDescription, Date endDate, Boolean isPrivate,
             Date startDate, String address, String city) {
 
@@ -55,7 +55,7 @@ public class MeetingFacade {
      * @param meetingId
      * @return
      */
-    public Meeting getMeeting(int meetingId) {
+    public final Meeting getMeeting(int meetingId) {
         return em.find(Meeting.class, meetingId);
     }
 
@@ -64,7 +64,7 @@ public class MeetingFacade {
      *
      * @param meetingId
      */
-    public void deleteMeeting(int meetingId) {
+    public final void deleteMeeting(int meetingId) {
         Meeting meet = getMeeting(meetingId);
         if (meet != null) {
             em.remove(meet);
@@ -78,7 +78,7 @@ public class MeetingFacade {
      * @param searchStr
      * @return
      */
-    public List<Meeting> searchMeeting(String searchStr) {
+    public final List<Meeting> searchMeeting(String searchStr) {
         //TODO NPE + remove useless variables
         String searchString = searchStr;
 
