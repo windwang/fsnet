@@ -158,7 +158,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		
 		if (result.size() == NB_RESULTS_ON_DEMAND) {
 			result.remove(result.size()-1);
-			request.setAttribute("hasnext", result);
+			request.setAttribute("hasnext", true);
 		}
 		request.setAttribute("interestResult", result);
 		request.setAttribute("currentPage", 0);
@@ -194,7 +194,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		if (result.size() == NB_RESULTS_ON_DEMAND) {
 			result.remove(result.size()-1);
-			request.setAttribute("hasnext", result);
+			request.setAttribute("hasnext", true);
 		}
 		request.setAttribute("interestResult", result);
 		request.setAttribute("currentPage", page);
