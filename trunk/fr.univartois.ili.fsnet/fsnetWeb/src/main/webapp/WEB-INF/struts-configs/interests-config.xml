@@ -67,6 +67,15 @@
             parameter="search">
             <forward name="success" path="/Interests.do" />
         </action>
+        
+        <action
+            path="/AdvancedSearchInterest"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            input="/Interests.do"
+            scope="request"
+            parameter="advancedSearch">
+            <forward name="success" path="/Interests.do" />
+        </action>
 
         <action
             path="/CreateInterest"
