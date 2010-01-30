@@ -73,6 +73,25 @@ public class InterestFacade {
 						'%' + interestName + '%').getResultList();
 		return result;
 	}
+	
+	/**
+	 * 
+	 * @param interestName the name of the interest we search
+	 * @param begin point of beginning for the research
+	 * @param number how many by result
+	 * @return the list of interests having name like interestName
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public final List<Interest> searchInterest(String interestName, int begin, int number){
+            //TODO NPE
+		List<Interest> result = em.createQuery(
+				"SELECT interest FROM Interest interest "
+				+ "WHERE interest.name LIKE :interestName ",
+				Interest.class).setParameter("interestName",
+						'%' + interestName + '%').setFirstResult(begin).setMaxResults(number).getResultList();
+		return result;
+	}
 
 	/**
 	 * 
