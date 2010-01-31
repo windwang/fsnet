@@ -15,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.validator.EmailValidator;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -47,13 +48,14 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String firstName = (String) dynaForm.get("firstName");
 		String mail = (String) dynaForm.get("email");
 
-		logger.info("new socialentity: " + name + " " + firstName + " " + mail);
+		logger.info("#### New User : " + mail);
 		EntityManager em = factory.createEntityManager();
 
 		SocialEntity socialEntity = new SocialEntity(name, firstName, mail);
 		String generatedPassword = null;
 		try {
 			generatedPassword = Security.generateRandomPassword();
+			logger.info("#### Password : " + generatedPassword);
 			socialEntity.setPassword(Security.getEncodedPassword(generatedPassword));
 			em.getTransaction().begin();
 			em.persist(socialEntity);
