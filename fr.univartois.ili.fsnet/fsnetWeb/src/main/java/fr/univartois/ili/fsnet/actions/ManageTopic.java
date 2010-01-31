@@ -46,9 +46,10 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		Hub hub = em.find(Hub.class, hubId);
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request, em);
 		Topic topic = new Topic(hub, socialEntity, topicSujet);
-                TopicMessage message = new TopicMessage(messageDescription, socialEntity, topic);
+        TopicMessage message = new TopicMessage(messageDescription, socialEntity, topic);
 		em.getTransaction().begin();
 		hub.getTopics().add(topic);
+		topic.getMessages().add(message);
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
