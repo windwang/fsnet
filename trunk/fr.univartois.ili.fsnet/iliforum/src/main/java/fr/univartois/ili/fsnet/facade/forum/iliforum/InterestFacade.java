@@ -83,8 +83,7 @@ public class InterestFacade {
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
-	public final List<Interest> searchInterest(String interestName, int begin, int number){
-            //TODO NPE
+	public final List<Interest> advancedSearchInterest(String interestName, int begin, int number){
 		List<Interest> result = em.createQuery(
 				"SELECT interest FROM Interest interest "
 				+ "WHERE interest.name LIKE :interestName ",
