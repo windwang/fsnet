@@ -21,15 +21,6 @@
                     <target>1.6</target>
                 </configuration>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <exclude>**/TestEntityManagerProvider.java</exclude>
-                    </excludes>
-                </configuration>
-            </plugin>
         </plugins>
     </build>
 
@@ -69,12 +60,5 @@
         </dependency>
 
     </dependencies>
-    <repositories>
-        <repository>
-            <id>EclipseLink Repo</id>
-            <url>http://www.eclipse.org/downloads/download.php?r=1&amp;nf=1&amp;file=/rt/eclipselink/maven.repo</url>
-        </repository>
-    </repositories>
-
 </project>
 
