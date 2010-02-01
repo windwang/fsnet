@@ -19,7 +19,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="name" value="${currentUser.name}" styleId="name"/>
+                <html:text errorStyleClass="error" property="name"  styleId="name"/>
             </td>
         </tr>
         <logic:messagesPresent property="name">
@@ -36,7 +36,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="firstName"  value="${currentUser.firstName}" styleId="firstName"/>
+                <html:text errorStyleClass="error" property="firstName"   styleId="firstName"/>
             </td>
         </tr>
         <logic:messagesPresent property="firstName">
@@ -53,7 +53,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="adress" value="${currentUser.address.address}" styleId="adress"/>
+                <html:text errorStyleClass="error" property="adress"  styleId="adress"/>
             </td>
         </tr>
         <logic:messagesPresent property="adress">
@@ -70,7 +70,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="city" value="${currentUser.address.city}" styleId="adress"/>
+                <html:text errorStyleClass="error" property="city" styleId="adress"/>
             </td>
         </tr>
         <logic:messagesPresent property="city">
@@ -87,7 +87,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" readonly="true" styleId="dateOfBirth" property="dateOfBirth" value="${currentUser.birthDate}" />
+                <html:text errorStyleClass="error" readonly="true" styleId="dateOfBirth" property="dateOfBirth"  />
             </td>
         </tr>
         <logic:messagesPresent property="dateOfBirth">
@@ -104,7 +104,7 @@
                 </label>
             </td>
             <td>
-                <html:select property="sexe" value="${currentUser.sex}">
+                <html:select property="sexe" >
                     <html:option value="Man">Male</html:option>
                     <html:option value="Woman">Female</html:option>
                 </html:select>
@@ -125,7 +125,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="job" value="${currentUser.profession}" styleId="job"/>
+                <html:text errorStyleClass="error" property="job"  styleId="job"/>
             </td>
         </tr>
         <logic:messagesPresent property="job"> 
@@ -142,7 +142,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="mail" value="${currentUser.email}" readonly="true"/>
+                <html:text errorStyleClass="error" property="mail"  />
             </td>
         </tr>
         <logic:messagesPresent property="mail">
@@ -159,7 +159,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="phone" value="${currentUser.phone}"/>
+                <html:text errorStyleClass="error" property="phone" />
             </td>
         </tr>
         <logic:messagesPresent property="phone">
