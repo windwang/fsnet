@@ -119,23 +119,55 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
     public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
+    
+ 
+    public ActionForward displayToModify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        EntityManager em = factory.createEntityManager();
+        DynaActionForm dina = (DynaActionForm) form;
+    	SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+        request.setAttribute("currentUser", user);
+        dina.set("name", user.getName());
+        dina.set("firstName", user.getFirstName());
+        dina.set("adress", user.getAddress().getAddress());
+        dina.set("city", user.getAddress().getCity());
+        String formatedDateOfBirth; 
+        //TODO FORMATED DATE
+       // dina.set("dateOfBirth", formatedDateOfBirth);
+        dina.set("sexe",user.getSex());
+        dina.set("job",user.getProfession());
+        dina.set("mail", user.getEmail());
+        dina.set("phone", user.getPhone());
+        return mapping.findForward("success");
+    }
 
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
-        if (form == null) {
-            request.setAttribute("currentUser", UserUtils.getAuthenticatedUser(request, em));
+        DynaActionForm dina = (DynaActionForm) form;
+       /* if (form == null) {
+        	SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+            request.setAttribute("currentUser", user);
+            DynaActionForm dina = (DynaActionForm) form;
+            dina.set("name", user.getName());
+            dina.
             return mapping.findForward("success");
-        }
+        }*/
         try {
-            String idS = ((DynaActionForm) form).getString("id"); 				//NOSONAR
+            String idS = dina.getString("id"); 				//NOSONAR
             int id = Integer.parseInt(idS);
             SocialEntity profile = em.find(SocialEntity.class, id);
             request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
             return mapping.findForward("success");
         } catch (NumberFormatException e) {
             return mapping.findForward("fail");
-        } finally {
+        }catch(IllegalArgumentException iae){ 
+        	SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+            request.setAttribute("currentUser", user);
+            dina.set("name", user.getName());
+            
+            request.setAttribute("name", user.getName());
+            return mapping.findForward("success");
+        }finally {
             em.close();
         }
     }
