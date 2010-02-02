@@ -7,7 +7,7 @@
 <h3><bean:message key="interests.3"/></h3>
 <html:javascript formName="/CreateInterest"/>
 <html:form action="/CreateInterest">
+    <html:errors property="createdInterestName"/><br />
     <html:text property="createdInterestName"/>
-    <html:errors property="createdInterestName"/>
     <html:submit styleClass="button"/>
 </html:form>
