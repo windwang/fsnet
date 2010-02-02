@@ -21,6 +21,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.actions.CrudAction;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -78,13 +79,18 @@ public class ManageInterests extends MappingDispatchAction implements
 				.get("addedInterestId"));
 
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		SocialEntityFacade facade = new SocialEntityFacade(em);
+		
+		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
+		InterestFacade facadeInterest = new InterestFacade(em);
+		
+		Interest interest = facadeInterest.getInterest(interestId);
+		
 		logger.info("add interest: id=" + interestId + " for user: "
 				+ user.getName() + " " + user.getFirstName() + " "
 				+ user.getId());
 
 		em.getTransaction().begin();
-		facade.addInterest(interestId, user.getId());
+		facadeSE.addInterest(interest, user);
 		em.getTransaction().commit();
 
 		em.close();
@@ -110,13 +116,18 @@ public class ManageInterests extends MappingDispatchAction implements
 		}
 
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		SocialEntityFacade facade = new SocialEntityFacade(em);
+		
+		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
+		InterestFacade facadeInterest = new InterestFacade(em);
+		
+		Interest interest = facadeInterest.getInterest(interestId);
+		
 		logger.info("remove interest: id=" + interestId + " for user: "
 				+ user.getName() + " " + user.getFirstName() + " "
 				+ user.getId());
 
 		em.getTransaction().begin();
-		facade.removeInterest(interestId, user.getId());
+		facadeSE.removeInterest(interest, user);
 		em.getTransaction().commit();
 
 		em.close();
@@ -215,8 +226,6 @@ public class ManageInterests extends MappingDispatchAction implements
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("Displaying interests");
-
-		// TODO requete provisoire
 
 		List<Interest> listAllInterests = facade.getInterests();
 		em.close();
