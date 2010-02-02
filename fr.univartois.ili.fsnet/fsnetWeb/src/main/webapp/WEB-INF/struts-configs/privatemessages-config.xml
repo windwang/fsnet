@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+
+    </form-beans>
+    <global-forwards>
+
+    </global-forwards>
+    <action-mappings>
+        <action path="/Inbox" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                parameter="display">
+            <forward name="success" path="DisplayPrivateMessages" />
+        </action>
+    </action-mappings>
+</struts-config>

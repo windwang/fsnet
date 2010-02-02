@@ -175,4 +175,18 @@
         <put name="title" value="pageTitle.12"/>
         <put name="body-content" value="/content/members/SearchMember.jsp" />
     </definition>
+
+        <!-- Private Messages -->
+    <definition name="DisplayPrivateMessages" extends=".defaultLayout">
+        <put name="title" value="pageTitle.13"/>
+        <put name="body-content" value="/content/privatemessages/DisplayMessages.jsp" />
+    </definition>
+    <definition name="DisplayPrivateMessage" extends=".defaultLayout">
+        <put name="title" value="pageTitle.13"/>
+        <put name="body-content" value="/content/privatemessages/DisplayMessage.jsp" />
+    </definition>
+    <definition name="CreatePrivateMessage" extends=".defaultLayout">
+        <put name="title" value="pageTitle.13"/>
+        <put name="body-content" value="/content/privatemessages/CreateMessage.jsp" />
+    </definition>
 </tiles-definitions>
