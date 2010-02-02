@@ -23,5 +23,9 @@
                 <arg key="error.interest.create" />
             </field>
         </form>
+        <form name="/AdvancedSearchInterest">
+            <field property="nextPage" depends="required,integer"/>
+            <field property="search" depends="required"/>
+        </form>
 	</formset>
 </form-validation>

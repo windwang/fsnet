@@ -182,8 +182,12 @@ public class ManageInterests extends MappingDispatchAction implements
 						
 		int page = 0;
 		
-		if (request.getParameterMap().containsKey("page")) {
-			page = Integer.valueOf(request.getParameter("page"));
+		if (request.getParameterMap().containsKey("nextPage")) {
+			try {
+				page = Integer.valueOf(request.getParameter("nextPage"));
+			} catch (NumberFormatException e) {
+				page = 0;
+			}
 			if (page < 0) {
 				page = 0;
 			}
