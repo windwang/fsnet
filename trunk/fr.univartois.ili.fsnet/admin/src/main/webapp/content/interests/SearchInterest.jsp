@@ -9,9 +9,9 @@
 <h3><bean:message key="interests.11"/></h3>
 <html:javascript formName="/SearchInterest"/>
 <html:form action="/SearchInterest">
-    <html:text property="searchInterestName"/>
-    <html:errors property="searchInterestName"/>
-    <html:submit styleClass="button"/>
+ 		<html:errors property="searchInterestName"/>
+    	<html:text property="searchInterestName"/>
+      <html:submit styleClass="button"/>
 </html:form>
 
 <logic:present name="interestResult" scope="request">
