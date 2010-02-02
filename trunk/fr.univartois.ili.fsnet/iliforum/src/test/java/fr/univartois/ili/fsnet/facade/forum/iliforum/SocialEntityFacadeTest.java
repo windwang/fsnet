@@ -57,7 +57,7 @@ public class SocialEntityFacadeTest {
 		String email = "cd@email.com";
 		em.getTransaction().begin();
 		SocialEntity es = sef.createSocialEntity(name, firstName, email);
-		sef.deleteSocialEntity(es.getId());
+		sef.deleteSocialEntity(es);
 		em.getTransaction().commit();
 		assertNull(em.find(SocialEntity.class, es.getId()));
 	}
@@ -82,7 +82,7 @@ public class SocialEntityFacadeTest {
 		em.getTransaction().begin();
 		SocialEntity es = sef.createSocialEntity(name, firstName, email);
 		Interest interest = interestFacade.createInterest(interestName);
-		sef.addInterest(interest.getId(), es.getId());
+		sef.addInterest(interest, es);
 		em.getTransaction().commit();
 		assertEquals(1, es.getInterests().size());
 		assertTrue(es.getInterests().contains(interest));
@@ -98,11 +98,21 @@ public class SocialEntityFacadeTest {
 		em.getTransaction().begin();
 		SocialEntity es = sef.createSocialEntity(name, firstName, email);
 		Interest interest = interestFacade.createInterest(interestName);
-		sef.addInterest(interest.getId(), es.getId());
-		sef.removeInterest(interest.getId(), es.getId());
+		sef.addInterest(interest, es);
+		sef.removeInterest(interest, es);
 		em.getTransaction().commit();
 		assertEquals(0, es.getInterests().size());
 		assertTrue(!es.getInterests().contains(interest));
+	}
+
+	@Test
+	public void testAddFavoriteInteraction(){
+		//TODO test the SerachSocialEntitys method
+	}
+
+	@Test
+	public void testRemoveFavoriteInteraction(){
+		//TODO test the SerachSocialEntitys method
 	}
 
 }

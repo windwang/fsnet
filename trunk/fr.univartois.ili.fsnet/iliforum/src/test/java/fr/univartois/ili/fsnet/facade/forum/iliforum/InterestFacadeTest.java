@@ -36,7 +36,7 @@ public class InterestFacadeTest {
 		Interest interestBis = em.find(Interest.class , interest.getId());
 		assertTrue(interest.equals(interestBis));
 		em.getTransaction().begin();
-		interestFacade.deleteInterest(interest.getId());
+		interestFacade.deleteInterest(interest);
 		em.getTransaction().commit();
 	}
 
@@ -49,7 +49,7 @@ public class InterestFacadeTest {
 		em.getTransaction().commit();
 		assertTrue(interest.equals(interestBis));
 		em.getTransaction().begin();
-		interestFacade.deleteInterest(interest.getId());
+		interestFacade.deleteInterest(interest);
 		em.getTransaction().commit();
 	}
 
@@ -58,12 +58,12 @@ public class InterestFacadeTest {
 		String interestName = "Java";
 		em.getTransaction().begin();
 		Interest interest = interestFacade.createInterest(interestName);
-		interestFacade.modifyInterest("Java6", interest.getId());
+		interestFacade.modifyInterest("Java6", interest);
 		Interest interestBis = interestFacade.getInterest(interest.getId());
 		em.getTransaction().commit();
 		assertEquals("Java6", interestBis.getName());
 		em.getTransaction().begin();
-		interestFacade.deleteInterest(interest.getId());
+		interestFacade.deleteInterest(interest);
 		em.getTransaction().commit();
 	}
 
@@ -72,7 +72,7 @@ public class InterestFacadeTest {
 		String interestName = "JEE";
 		em.getTransaction().begin();
 		Interest interest = interestFacade.createInterest(interestName);
-		interestFacade.deleteInterest(interest.getId());
+		interestFacade.deleteInterest(interest);
 		em.getTransaction().commit();
 		assertNull(em.find(SocialEntity.class, interest.getId()));
 	}
