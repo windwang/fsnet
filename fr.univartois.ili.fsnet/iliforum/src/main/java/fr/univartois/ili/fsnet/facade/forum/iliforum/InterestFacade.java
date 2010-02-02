@@ -24,6 +24,7 @@ public class InterestFacade {
 	 * @return the interest created
 	 */
 	public final Interest createInterest(String interestName){
+		if(interestName == null) throw new IllegalArgumentException();
 		Interest interest = new Interest(interestName);
 		em.persist(interest);
 		return interest;
@@ -41,20 +42,19 @@ public class InterestFacade {
 	/**
 	 * modify an interest name
 	 * @param interestName the new interest name
-	 * @param interestId the id of the interest to modify
+	 * @param interest the interest to modify
 	 */
-	public final void modifyInterest(String interestName, int interestId){
-        if(interestName == null) throw new IllegalArgumentException();
-		Interest interest = getInterest(interestId);
+	public final void modifyInterest(String interestName, Interest interest){
+        if(interestName == null || interest == null) throw new IllegalArgumentException();
 		interest.setName(interestName);	
 	}
 
 	/**
 	 * delete an interest 
-	 * @param interestId the id of the interest to delete
+	 * @param the interest to delete
 	 */
-	public final void deleteInterest(int interestId){
-		Interest interest = getInterest(interestId);
+	public final void deleteInterest(Interest interest){
+		if(interest == null) throw new IllegalArgumentException();
 		em.remove(interest);
 		em.flush();
 	}

@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
@@ -58,19 +59,19 @@ public class SocialEntityFacade {
      * delete a Social Entity
      * @param socialEntityId the id of the Social Entity to delete
      */
-    public final void deleteSocialEntity(int socialEntityId) {
-        SocialEntity se = getSocialEntity(socialEntityId);
-        em.remove(se);
+    public final void deleteSocialEntity(SocialEntity socialEntity) {
+    	if(socialEntity == null) throw new IllegalArgumentException();
+        em.remove(socialEntity);
         em.flush();
     }
 
     /**
      * search Social Entitys having Name Or FirstName Or Email like searchText
      * @param searchText the search text
-     * @param socialEntityId the id of the Social Entity who search for others Social Entity
+     * @param socialEntity the Social Entity who search for others Social Entity
      * @return a map of list of search results (Contacts, Requested, Asked and Others)
      */
-    public final HashMap<SearchResult, List<SocialEntity>> searchSocialEntity(String searchText, int socialEntityId) {
+    public final HashMap<SearchResult, List<SocialEntity>> searchSocialEntity(String searchText, SocialEntity socialEntity) {
     	if(searchText == null) throw new IllegalArgumentException();
         TypedQuery<SocialEntity> query = null;
         TypedQuery<SocialEntity> queryContacts = null;
@@ -88,28 +89,28 @@ public class SocialEntityFacade {
                 "SELECT es FROM SocialEntity es WHERE (es.name LIKE :searchText"
                 + " OR es.firstName LIKE :searchText OR es.email LIKE :searchText) AND es.id <> :id", SocialEntity.class);
         query.setParameter("searchText", "%" + searchText + "%");
-        query.setParameter("id", socialEntityId);
+        query.setParameter("id", socialEntity.getId());
         resultOthers = query.getResultList();
 
         queryContacts = em.createQuery(
                 "SELECT e FROM SocialEntity e JOIN e.contacts c WHERE c.id = :id AND (e.name LIKE :searchText"
                 + " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
         queryContacts.setParameter("searchText", "%" + searchText + "%");
-        queryContacts.setParameter("id", socialEntityId);
+        queryContacts.setParameter("id", socialEntity.getId());
         resultContacts = queryContacts.getResultList();
 
         queryRequested = em.createQuery(
                 "SELECT e FROM SocialEntity e JOIN e.asked r WHERE r.id = :id AND (e.name LIKE :searchText"
                 + " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
         queryRequested.setParameter("searchText", "%" + searchText + "%");
-        queryRequested.setParameter("id", socialEntityId);
+        queryRequested.setParameter("id", socialEntity.getId());
         resultRequested = queryRequested.getResultList();
 
         queryAsked = em.createQuery(
                 "SELECT e FROM SocialEntity e JOIN e.requested r WHERE r.id = :id AND (e.name LIKE :searchText"
                 + " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
         queryAsked.setParameter("searchText", "%" + searchText + "%");
-        queryAsked.setParameter("id", socialEntityId);
+        queryAsked.setParameter("id", socialEntity.getId());
         resultAsked = queryAsked.getResultList();
 
         resultOthers.removeAll(resultContacts);
@@ -144,28 +145,48 @@ public class SocialEntityFacade {
     }
 
     /**
-     * add interest in user interests
-     * @param interestId id of the interest to add
-     * @param userId id of the user
+     * add interest in SocialEntity interests
+     * @param interest the interest to add
+     * @param socialEntity the SocialEntity
      */
-    public final void addInterest(int interestId, int userId) {
-        InterestFacade interestFacade = new InterestFacade(em);
-        Interest interest = interestFacade.getInterest(interestId);
-        SocialEntity user = getSocialEntity(userId);
-        if (!user.getInterests().contains(interest)) {
-            user.getInterests().add(interest);
+    public final void addInterest(Interest interest, SocialEntity socialEntity) {
+        if(interest == null || socialEntity == null) throw new IllegalArgumentException();
+        if (!socialEntity.getInterests().contains(interest)) {
+            socialEntity.getInterests().add(interest);
         }
     }
 
     /**
-     * remove interest from user interests
-     * @param interestId id of the interest to remove
-     * @param userId id of the user
+     * remove interest from a SocialEntity interests
+     * @param interest the interest to remove
+     * @param socialEntity the SocialEntity
      */
-    public final void removeInterest(int interestId, int userId) {
-        InterestFacade interestFacade = new InterestFacade(em);
-        Interest interest = interestFacade.getInterest(interestId);
-        SocialEntity user = getSocialEntity(userId);
-        user.getInterests().remove(interest);
+    public final void removeInterest(Interest interest, SocialEntity socialEntity) {
+    	if(interest == null || socialEntity == null) throw new IllegalArgumentException();
+    	socialEntity.getInterests().remove(interest);
+    }
+    
+    /**
+     * add a favorite interaction
+     * @param socialEntity the SocialEntity who want to add a favorite interaction
+     * @param interaction the favorite interaction to add
+     */
+    public final void addFavoriteInteraction(SocialEntity socialEntity, Interaction interaction){
+    	if(socialEntity == null || interaction == null) throw new IllegalArgumentException();
+    	List <Interaction> fovoriteInteractions = socialEntity.getFavoriteInteractions();
+    	fovoriteInteractions.add(interaction);
+    	socialEntity.setFavoriteInteractions(fovoriteInteractions);
+    }
+    
+    /**
+     * remove a favorite interaction
+     * @param socialEntity the SocialEntity who want to remove a favorite interaction
+     * @param interaction the favorite interaction to remove
+     */
+    public final void removeFavoriteInteraction(SocialEntity socialEntity, Interaction interaction){
+    	if(socialEntity == null || interaction == null) throw new IllegalArgumentException();
+    	List <Interaction> fovoriteInteractions = socialEntity.getFavoriteInteractions();
+    	fovoriteInteractions.remove(interaction);
+    	socialEntity.setFavoriteInteractions(fovoriteInteractions);
     }
 }
