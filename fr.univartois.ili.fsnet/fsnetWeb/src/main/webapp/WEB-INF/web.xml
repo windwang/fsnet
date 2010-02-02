@@ -55,9 +55,17 @@
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<url-pattern>*.do</url-pattern>
-		
 	</filter-mapping>
 	
+	<servlet>
+		<servlet-name>ResetPassword</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.auth.ResetPassword</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ResetPassword</servlet-name>
+		<url-pattern>/ResetPassword</url-pattern>
+	</servlet-mapping>
 
 	<servlet>
 		<servlet-name>Authenticate</servlet-name>

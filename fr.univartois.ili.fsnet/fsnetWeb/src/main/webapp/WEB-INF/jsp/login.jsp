@@ -25,34 +25,59 @@
 		
 		<h2 id="login-title">Welcome on FSNet !</h2>
 		<div id="login">
-			
-			<form action="Authenticate" method="post">
-				<table>
-					<tr>
-						<td>
-							<label for="memberMail">Mail :</label>
-						</td>
-						<td>
-							<input type="text" name="memberMail" id="memberMail" class="error"/>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<label for="memberPass">Password :</label>
-						</td>
-						<td>
-							<input type="password" name="memberPass"/>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="2">
-							<input type="submit"/>
-						</td>
-					</tr>
-				</table>
-			</form>
-			<c:if test="${! empty loginError}">
-				<h3><bean:message key="${loginError}"/></h3>
+			<div id="loginWrapper">
+				<form action="Authenticate" method="post">
+					<table>
+						<tr>
+							<td>
+								<label for="memberMail">
+									<bean:message key="login.1"/>
+								</label>
+							</td>
+							<td>
+								<input type="text" name="memberMail" id="memberMail" class="error"/>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<label for="memberPass">
+									<bean:message key="login.0"/>
+								</label>
+							</td>
+							<td>
+								<input type="password" name="memberPass"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="2">
+								<a onclick="showResetPassword();">
+									<bean:message key="login.2"/>
+								</a>
+								<input type="submit"/>
+							</td>
+						</tr>
+					</table>
+				</form>
+			</div>
+			<div style="display:none" id="resetPasswordWrapper">
+				<form action="ResetPassword" method="post">
+					<div>
+						<label for="memberMail">Email :</label>
+						<input type="text" id="memberMail"/>
+						<input type="submit"/>
+					</div>
+				</form>
+			</div>
+			<script type="text/javascript">
+				function showResetPassword() {
+					var resetPasswordWrapper = document.getElementById('resetPasswordWrapper');
+					var loginWrapper = document.getElementById('loginWrapper');
+					loginWrapper.style.display = 'none';
+					resetPasswordWrapper.style.display = 'block';
+				}
+			</script>
+			<c:if test="${! empty loginMessage}">
+				<h3><bean:message key="${loginMessage}"/></h3>
 			</c:if>
 		</div>
 		
