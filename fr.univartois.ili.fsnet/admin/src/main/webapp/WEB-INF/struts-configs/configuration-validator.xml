@@ -10,6 +10,9 @@
         	</field>
         </form>
         <form name="/SaveMailConfiguration">
+        	<field property="MailFrom" depends="required,email">
+        		<arg key="configure.20" name="required"/>
+        	</field>
         	<field property="SMTPPort" depends="required,integer">
         		<arg0 key="configure.19"/>
         	</field>

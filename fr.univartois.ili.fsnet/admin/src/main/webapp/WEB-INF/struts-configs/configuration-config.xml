@@ -14,9 +14,9 @@
 			<form-property name="MailFrom" type="java.lang.String"/>
 			<form-property name="enableAuthentication" type="java.lang.String"/>
 			<form-property name="enableTLS" type="java.lang.String"/>
-			<form-property name="enableSSL" type="java.lang.String"></form-property>
-			<form-property name="FSNetWebURL" type="java.lang.String"></form-property>
-			<form-property name="Recipient" type="java.lang.String"></form-property>
+			<form-property name="enableSSL" type="java.lang.String"/>
+			<form-property name="FSNetWebURL" type="java.lang.String"/>
+			<form-property name="Recipient" type="java.lang.String"/>
 		</form-bean>
 	</form-beans>
 	<action-mappings>
