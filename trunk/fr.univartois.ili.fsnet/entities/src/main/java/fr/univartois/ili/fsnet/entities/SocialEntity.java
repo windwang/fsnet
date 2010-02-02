@@ -569,18 +569,13 @@ public class SocialEntity {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((asked == null) ? 0 : asked.hashCode());
 		result = prime * result
 				+ ((birthDate == null) ? 0 : birthDate.hashCode());
-		result = prime * result
-				+ ((contacts == null) ? 0 : contacts.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result
 				+ ((firstName == null) ? 0 : firstName.hashCode());
 		result = prime * result
 				+ ((inscritpionDate == null) ? 0 : inscritpionDate.hashCode());
-		result = prime * result
-				+ ((interactions == null) ? 0 : interactions.hashCode());
 		result = prime * result
 				+ ((interests == null) ? 0 : interests.hashCode());
 		result = prime * result
@@ -592,25 +587,7 @@ public class SocialEntity {
 		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
 		result = prime * result
 				+ ((profession == null) ? 0 : profession.hashCode());
-		result = prime
-				* result
-				+ ((receivedPrivateMessages == null) ? 0
-						: receivedPrivateMessages.hashCode());
-		result = prime * result + ((refused == null) ? 0 : refused.hashCode());
-		result = prime * result
-				+ ((requested == null) ? 0 : requested.hashCode());
-		result = prime
-				* result
-				+ ((rolesInInteractions == null) ? 0 : rolesInInteractions
-						.hashCode());
-		result = prime
-				* result
-				+ ((sentPrivateMessages == null) ? 0 : sentPrivateMessages
-						.hashCode());
 		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
-		result = prime * result
-				+ ((topicMessages == null) ? 0 : topicMessages.hashCode());
-		result = prime * result + ((topics == null) ? 0 : topics.hashCode());
 		return result;
 	}
 
@@ -631,20 +608,10 @@ public class SocialEntity {
 				return false;
 		} else if (!address.equals(other.address))
 			return false;
-		if (asked == null) {
-			if (other.asked != null)
-				return false;
-		} else if (!asked.equals(other.asked))
-			return false;
 		if (birthDate == null) {
 			if (other.birthDate != null)
 				return false;
 		} else if (!birthDate.equals(other.birthDate))
-			return false;
-		if (contacts == null) {
-			if (other.contacts != null)
-				return false;
-		} else if (!contacts.equals(other.contacts))
 			return false;
 		if (email == null) {
 			if (other.email != null)
@@ -660,11 +627,6 @@ public class SocialEntity {
 			if (other.inscritpionDate != null)
 				return false;
 		} else if (!inscritpionDate.equals(other.inscritpionDate))
-			return false;
-		if (interactions == null) {
-			if (other.interactions != null)
-				return false;
-		} else if (!interactions.equals(other.interactions))
 			return false;
 		if (interests == null) {
 			if (other.interests != null)
@@ -701,48 +663,16 @@ public class SocialEntity {
 				return false;
 		} else if (!profession.equals(other.profession))
 			return false;
-		if (receivedPrivateMessages == null) {
-			if (other.receivedPrivateMessages != null)
-				return false;
-		} else if (!receivedPrivateMessages
-				.equals(other.receivedPrivateMessages))
-			return false;
-		if (refused == null) {
-			if (other.refused != null)
-				return false;
-		} else if (!refused.equals(other.refused))
-			return false;
-		if (requested == null) {
-			if (other.requested != null)
-				return false;
-		} else if (!requested.equals(other.requested))
-			return false;
-		if (rolesInInteractions == null) {
-			if (other.rolesInInteractions != null)
-				return false;
-		} else if (!rolesInInteractions.equals(other.rolesInInteractions))
-			return false;
-		if (sentPrivateMessages == null) {
-			if (other.sentPrivateMessages != null)
-				return false;
-		} else if (!sentPrivateMessages.equals(other.sentPrivateMessages))
-			return false;
 		if (sex == null) {
 			if (other.sex != null)
 				return false;
 		} else if (!sex.equals(other.sex))
 			return false;
-		if (topicMessages == null) {
-			if (other.topicMessages != null)
-				return false;
-		} else if (!topicMessages.equals(other.topicMessages))
-			return false;
-		if (topics == null) {
-			if (other.topics != null)
-				return false;
-		} else if (!topics.equals(other.topics))
-			return false;
 		return true;
 	}
+
+	
+
+	
     
 }

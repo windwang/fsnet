@@ -117,8 +117,6 @@ public class Interest implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((entities == null) ? 0 : entities.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		return result;
 	}
@@ -135,11 +133,6 @@ public class Interest implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Interest other = (Interest) obj;
-		if (entities == null) {
-			if (other.entities != null)
-				return false;
-		} else if (!entities.equals(other.entities))
-			return false;
 		if (name == null) {
 			if (other.name != null)
 				return false;
@@ -147,5 +140,7 @@ public class Interest implements Serializable {
 			return false;
 		return true;
 	}
+
+	
     
 }
