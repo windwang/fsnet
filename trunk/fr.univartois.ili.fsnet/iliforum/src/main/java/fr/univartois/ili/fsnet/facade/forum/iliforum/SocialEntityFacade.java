@@ -173,9 +173,7 @@ public class SocialEntityFacade {
      */
     public final void addFavoriteInteraction(SocialEntity socialEntity, Interaction interaction){
     	if(socialEntity == null || interaction == null) throw new IllegalArgumentException();
-    	List <Interaction> fovoriteInteractions = socialEntity.getFavoriteInteractions();
-    	fovoriteInteractions.add(interaction);
-    	socialEntity.setFavoriteInteractions(fovoriteInteractions);
+    	socialEntity.getFavoriteInteractions().add(interaction);
     }
     
     /**
@@ -185,8 +183,6 @@ public class SocialEntityFacade {
      */
     public final void removeFavoriteInteraction(SocialEntity socialEntity, Interaction interaction){
     	if(socialEntity == null || interaction == null) throw new IllegalArgumentException();
-    	List <Interaction> fovoriteInteractions = socialEntity.getFavoriteInteractions();
-    	fovoriteInteractions.remove(interaction);
-    	socialEntity.setFavoriteInteractions(fovoriteInteractions);
+    	socialEntity.getFavoriteInteractions().remove(interaction);
     }
 }
