@@ -60,6 +60,21 @@
                 <arg key="error.updateProfile.email" />
             </field>               
         </form>
+        
+        
+        
+        <form name="/Profile">
+        	 <field property="name" depends=""/>          
+             <field property="firstName" depends=""/>                
+            <field property="adresse" depends=""/>
+            <field property="dateOfBirth" depends=""/>
+            <field property="sexe" depends=""/>
+            <field property="city" depends=""/>  
+            <field property="job" depends=""/>
+            <field property="phone" depends=""/>
+            <field property="mail" depends=""/>
+
+        </form>
     </formset>
 
 </form-validation>
