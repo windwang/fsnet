@@ -16,7 +16,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  *
  */
 
-// TODO @jojo REMOVE SYNCHRONIZED
+
 public class ProfileFacade {
 
     private EntityManager em;
@@ -37,14 +37,17 @@ public class ProfileFacade {
      * @param newPassword new password
      * @return true if success
      */
-    public final synchronized boolean changePassword(SocialEntity socialEntity, String old, String newPassword) {
-        //TODO NPE
+    public final boolean changePassword(SocialEntity socialEntity, String old, String newPassword) {
+    	if(socialEntity == null || old == null || newPassword == null){
+    		throw new IllegalArgumentException();
+    	}
         if (!old.equals(socialEntity.getPassword())) {
             loger.log(Level.SEVERE, "Formular validation error");
             return false;
         }
         socialEntity.setPassword(newPassword);
         em.merge(socialEntity);
+        em.flush();
         return true;
     }
 
@@ -60,7 +63,7 @@ public class ProfileFacade {
      * @param mail his mail
      * @param phone his phone
      */
-    public final synchronized void editProfile(SocialEntity socialEntity, String name, String firstName, Address address, Date dateOfBirth,
+    public final void editProfile(SocialEntity socialEntity, String name, String firstName, Address address, Date dateOfBirth,
             String sexe, String job, String mail, String phone) {
         socialEntity.setName(name);
         socialEntity.setPrenom(firstName);
@@ -71,5 +74,6 @@ public class ProfileFacade {
         socialEntity.setEmail(mail);
         socialEntity.setPhone(phone);
         em.merge(socialEntity);
+        em.flush();
     }
 }
