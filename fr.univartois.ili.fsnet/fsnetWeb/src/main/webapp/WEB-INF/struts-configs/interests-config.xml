@@ -21,6 +21,11 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="createdInterestName" type="java.lang.String" />
         </form-bean>
+        <form-bean name="AdvancedSearchInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="nextPage" type="java.lang.String" />
+            <form-property name="search" type="java.lang.String" />
+        </form-bean>
     </form-beans>
     <global-forwards>
 
@@ -71,8 +76,10 @@
         <action
             path="/AdvancedSearchInterest"
             type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="AdvancedSearchInterestForm"
             input="/Interests.do"
             scope="request"
+            validate="false"
             parameter="advancedSearch">
             <forward name="success" path="/Interests.do" />
         </action>

@@ -17,14 +17,14 @@
 	        <logic:present name="currentPage" scope="request">
 				<c:if test="${requestScope.currentPage > 0}">
 					<html:link styleClass="button" action="/AdvancedSearchInterest">
-						<html:param name="page" value="${requestScope.currentPage-1}"/>
+						<html:param name="nextPage" value="${requestScope.currentPage-1}"/>
 					 	<html:param name="search" value="${requestScope.currentSearch}"/>
 						<bean:message key="interests.12"/>
 					</html:link>
 				</c:if>
 				<logic:present name="hasnext" scope="request">
 					<html:link styleClass="button" action="/AdvancedSearchInterest">
-						<html:param name="page" value="${requestScope.currentPage+1}"/>
+						<html:param name="nextPage" value="${requestScope.currentPage+1}"/>
 					 	<html:param name="search" value="${requestScope.currentSearch}"/>
 						<bean:message key="interests.13"/>
 					</html:link>
