@@ -17,7 +17,9 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -77,6 +79,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         }
         return buf.toString();
     }
+    
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
     @Override
@@ -120,6 +123,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         throw new UnsupportedOperationException("Not supported yet.");
     }
     
+    private DateFormat formatter= new SimpleDateFormat("dd/MM/yyyy");
  
     public ActionForward displayToModify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
@@ -132,9 +136,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         	dina.set("adress", user.getAddress().getAddress());
         	dina.set("city", user.getAddress().getCity());
         }
-        String formatedDateOfBirth; 
-        //TODO FORMATED DATE
-       // dina.set("dateOfBirth", formatedDateOfBirth);
+        if(user.getBirthDate()!=null)
+        	dina.set("dateOfBirth", formatter.format(user.getBirthDate()));
         dina.set("sexe",user.getSex());
         dina.set("job",user.getProfession());
         dina.set("mail", user.getEmail());
@@ -146,15 +149,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         DynaActionForm dina = (DynaActionForm) form;
-       /* if (form == null) {
-        	SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-            request.setAttribute("currentUser", user);
-            DynaActionForm dina = (DynaActionForm) form;
-            dina.set("name", user.getName());
-            dina.
-            return mapping.findForward("success");
-        }*/
-        try {
+        try{
             String idS = dina.getString("id"); 				//NOSONAR
             int id = Integer.parseInt(idS);
             SocialEntity profile = em.find(SocialEntity.class, id);
@@ -162,13 +157,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
             return mapping.findForward("success");
         } catch (NumberFormatException e) {
             return mapping.findForward("fail");
-        }catch(IllegalArgumentException iae){ 
-        	SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-            request.setAttribute("currentUser", user);
-            dina.set("name", user.getName());
-            
-            request.setAttribute("name", user.getName());
-            return mapping.findForward("success");
         }finally {
             em.close();
         }
