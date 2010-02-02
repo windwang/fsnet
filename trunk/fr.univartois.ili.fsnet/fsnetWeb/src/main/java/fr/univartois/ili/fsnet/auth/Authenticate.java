@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  * This class represents a servlet that is used in order to authenticate members
@@ -70,7 +69,7 @@ public class Authenticate extends HttpServlet {
 				Logger.getAnonymousLogger().fine("memberMail : " + memberMail);
 
 				// throw an error message to the request
-				req.setAttribute("loginError", "login.error");
+				req.setAttribute("loginMessage", "login.error");
 			}
 			em.close();
 		}

@@ -153,20 +153,20 @@ input[type=text], input[type=password], textarea {
     font-weight: bold;
 }
 
-#login input {
+#login input[type="text"], #login input[type="password"] {
     height: 20px;
     width: 100%;
     border-color: #DDDDDD;
     background-color: #CCCCCC;
 }
 
-#login table {
+#loginWrapper table {
     margin-top: 20px;
     margin-left: 260px;
     height: 100px;
-    width: 300px;
+    width: 320px;
 }
-#login tr {
+#loginWrapper tr {
     margin-top: 10px;
 }
 
@@ -184,10 +184,27 @@ input[type=text], input[type=password], textarea {
     color: white;
 }
 
+#login a {
+	color: white;
+	text-decoration: underline;
+}
+
+
+
 #login input[type=submit] {
     border: 1px solid #DDDDDD;
     background-color: #CCCCCC;
-    height: 100%;
+    height: 25px;
+    padding: 0 15px;
+    float: right;
+}
+
+#resetPasswordWrapper {
+	width: 350px;
+	margin: 40px auto;	
+}
+#resetPasswordWrapper input[type="text"] {
+	width: 200px;
 }
 
 input[type="text"][class="error"], textarea[class="error"] {
