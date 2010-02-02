@@ -21,6 +21,8 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicMessageFacade;
 
 /**
  *
@@ -38,10 +40,13 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
         DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String messageDescription = (String) dynaForm.get("messageDescription");
         int topicId = Integer.valueOf(Integer.parseInt(dynaForm.getString("topicId")));
-        Topic topic = em.find(Topic.class, topicId);
+        
+        TopicFacade topicFacade = new TopicFacade(em);
+        Topic topic = topicFacade.getTopic(topicId);
 
         SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
-        TopicMessage message = new TopicMessage(messageDescription, SocialEntity, topic);
+        TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
+        TopicMessage message = topicMessageFacade.createTopicMessage(messageDescription, SocialEntity, topic);
 
         em.getTransaction().begin();
         topic.getMessages().add(message);
@@ -59,10 +64,12 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
         DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String messageDescription = (String) dynaForm.get("messageDescription");
         int messageId = Integer.valueOf(Integer.parseInt(dynaForm.getString("messageId")));
-        TopicMessage message = em.find(TopicMessage.class, messageId);
+        TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
+        TopicMessage message = topicMessageFacade.getTopicMessage(messageId);
         message.setBody(messageDescription);
         int topicId = Integer.valueOf(Integer.parseInt(dynaForm.getString("topicId")));
-        Topic topic = em.find(Topic.class, topicId);
+        TopicFacade topicFacade = new TopicFacade(em);
+        Topic topic = topicFacade.getTopic(topicId);
 
         em.getTransaction().begin();
         em.merge(message);
@@ -76,9 +83,11 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         int topicId = Integer.valueOf(request.getParameter("topicId"));
-        Topic topic = em.find(Topic.class, topicId);
+        TopicFacade topicFacade = new TopicFacade(em);
+        Topic topic = topicFacade.getTopic(topicId);
         int messageId = Integer.valueOf(Integer.parseInt(request.getParameter("messageId")));
-        TopicMessage message = em.find(TopicMessage.class, messageId);
+        TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
+        TopicMessage message = topicMessageFacade.getTopicMessage(messageId);
         em.getTransaction().begin();
         Query query = em.createQuery("DELETE FROM TopicMessage message WHERE message.id = :messageId");
         query.setParameter("messageId", messageId);
@@ -104,7 +113,8 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
         if (messageId != null) {
             EntityManager em = factory.createEntityManager();
-            TopicMessage message = em.find(TopicMessage.class, Integer.parseInt(messageId));
+            TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
+            TopicMessage message = topicMessageFacade.getTopicMessage(Integer.parseInt(messageId));
             request.setAttribute("message", message);
         }
 
