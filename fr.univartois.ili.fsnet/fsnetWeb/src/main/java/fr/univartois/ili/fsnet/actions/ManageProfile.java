@@ -128,8 +128,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
         request.setAttribute("currentUser", user);
         dina.set("name", user.getName());
         dina.set("firstName", user.getFirstName());
-        dina.set("adress", user.getAddress().getAddress());
-        dina.set("city", user.getAddress().getCity());
+        if (user.getAddress() != null) {
+        	dina.set("adress", user.getAddress().getAddress());
+        	dina.set("city", user.getAddress().getCity());
+        }
         String formatedDateOfBirth; 
         //TODO FORMATED DATE
        // dina.set("dateOfBirth", formatedDateOfBirth);
