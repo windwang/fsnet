@@ -15,7 +15,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.validator.EmailValidator;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -32,6 +31,7 @@ import fr.univartois.ili.fsnet.admin.utils.Mail;
 import fr.univartois.ili.fsnet.admin.utils.Security;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
@@ -51,7 +51,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		logger.info("#### New User : " + mail);
 		EntityManager em = factory.createEntityManager();
 
-		SocialEntity socialEntity = new SocialEntity(name, firstName, mail);
+		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
+		SocialEntity socialEntity = facadeSE.createSocialEntity(name, firstName, mail);
+	
 		String generatedPassword = null;
 		try {
 			generatedPassword = Security.generateRandomPassword();
@@ -184,13 +186,14 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			birthDay = DateUtils.format((String) formSocialENtity.get("formatBirthDay"));
 			formSocialENtity.set("birthDay", birthDay);
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 		Integer idMember = (Integer) formSocialENtity.get("id");
 		
-		SocialEntity member = entityManager.find(SocialEntity.class, idMember);
+		SocialEntityFacade facadeSE = new SocialEntityFacade(entityManager);
+		
+		SocialEntity member = facadeSE.getSocialEntity(idMember);
 		member.setPrenom(firstName);
 		member.setName(name);
 		member.setEmail(email);
