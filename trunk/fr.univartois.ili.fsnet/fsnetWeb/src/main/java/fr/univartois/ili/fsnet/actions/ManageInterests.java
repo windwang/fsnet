@@ -153,7 +153,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		
 		logger.info("search interest: " + interestName);
 		
-		List<Interest> result = facade.advancedSearchInterest(interestName, 1, NB_RESULTS_ON_DEMAND);
+		List<Interest> result = facade.advancedSearchInterest(interestName, 0, NB_RESULTS_ON_DEMAND);
 		em.close();
 		
 		if (result.size() == NB_RESULTS_ON_DEMAND) {
@@ -189,7 +189,7 @@ public class ManageInterests extends MappingDispatchAction implements
 			}
 		}
 		
-		List<Interest> result = facade.advancedSearchInterest(interestName, page * NB_RESULTS_RETURNED + 1, NB_RESULTS_ON_DEMAND);
+		List<Interest> result = facade.advancedSearchInterest(interestName, page * NB_RESULTS_RETURNED , NB_RESULTS_ON_DEMAND);
 		em.close();
 
 		if (result.size() == NB_RESULTS_ON_DEMAND) {
