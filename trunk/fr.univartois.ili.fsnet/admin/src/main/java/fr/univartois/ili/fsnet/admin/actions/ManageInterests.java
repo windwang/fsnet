@@ -72,11 +72,12 @@ public class ManageInterests extends MappingDispatchAction implements
         int interestId = Integer.valueOf((String) dynaForm.get("modifiedInterestId"));
         String interestName = (String) dynaForm.get("modifiedInterestName");
         InterestFacade facade = new InterestFacade(em);
+        Interest interest = facade.getInterest(interestId);
         logger.info("interest modification: " + interestName);
 
         try {
             em.getTransaction().begin();
-            facade.modifyInterest(interestName, interestId);
+            facade.modifyInterest(interestName, interest);
             em.getTransaction().commit();
         } catch (DatabaseException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -100,11 +101,12 @@ public class ManageInterests extends MappingDispatchAction implements
 
         int interestId = Integer.valueOf(request.getParameter("deletedInterestId"));
         InterestFacade facade = new InterestFacade(em);
+        Interest interest = facade.getInterest(interestId);
         logger.info("interest deleted: id=" + interestId);
 
         try {
             em.getTransaction().begin();
-            facade.deleteInterest(interestId);
+            facade.deleteInterest(interest);
             em.getTransaction().commit();
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
