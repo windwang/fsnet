@@ -8,10 +8,4 @@
 			<bean:message key="left.2"/>
         </html:link>
     </li>
-    <li>
-        <html:link action="/DisplayCreateInterest">
-			<bean:message key="left.3"/> 
-        </html:link>
-    </li>
-
 </ul>
