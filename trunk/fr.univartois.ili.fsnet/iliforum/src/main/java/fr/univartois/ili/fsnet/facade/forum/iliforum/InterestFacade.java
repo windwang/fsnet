@@ -44,7 +44,7 @@ public class InterestFacade {
 	 * @param interestId the id of the interest to modify
 	 */
 	public final void modifyInterest(String interestName, int interestId){
-            //TODO NPE
+        if(interestName == null) throw new IllegalArgumentException();
 		Interest interest = getInterest(interestId);
 		interest.setName(interestName);	
 	}
@@ -65,7 +65,7 @@ public class InterestFacade {
 	 * @return the list of interests having name like interestName
 	 */
 	public final List<Interest> searchInterest(String interestName){
-            //TODO NPE
+		if(interestName == null) throw new IllegalArgumentException();
 		List<Interest> result = em.createQuery(
 				"SELECT interest FROM Interest interest "
 				+ "WHERE interest.name LIKE :interestName ",
