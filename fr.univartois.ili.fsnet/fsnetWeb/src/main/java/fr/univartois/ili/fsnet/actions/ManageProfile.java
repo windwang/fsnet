@@ -1,27 +1,10 @@
-/*
- *  Copyright (C) 2010 Matthieu Proucelle <matthieu.proucelle at gmail.com>
- * 
- *  This program is free software: you can redistribute it and/or modify
- *  it under the terms of the GNU General Public License as published by
- *  the Free Software Foundation, either version 3 of the License, or
- *  (at your option) any later version.
- * 
- *  This program is distributed in the hope that it will be useful,
- *  but WITHOUT ANY WARRANTY; without even the implied warranty of
- *  MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
- *  GNU General Public License for more details.
- * 
- *  You should have received a copy of the GNU General Public License
- *  along with this program.  If not, see <http://www.gnu.org/licenses/>.
- */
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -40,125 +23,139 @@ import fr.univartois.ili.fsnet.actions.utils.DateUtils;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileFacade;
 
 /**
- *
- * @author Geoffrey Boulay 
+ * 
+ * @author Geoffrey Boulay
  */
 public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
-    /**
-     *  watched profile variable session name
-     */
-    public static final String WATCHED_PROFILE_VARIABLE = "watchedProfile";
+	/**
+	 * watched profile variable session name
+	 */
+	public static final String WATCHED_PROFILE_VARIABLE = "watchedProfile";
 
-    /**
-     * format a name
-     * exemple : entry : le BerrE return Le Berre
-     * @param name string to format
-     * @return format string
-     */
-    public static final String formatName(String name) {
-        StringBuffer buf = new StringBuffer();
-        boolean upperCase = true;
-        for (int i = 0; i < name.length(); i++) {
-            char c = name.charAt(i);
-            switch (c) {
-                case '\'':
-                    ;
-                case ' ':
-                    ;
-                case '-':
-                    buf.append(c);
-                    upperCase = true;
-                    break;
-                default:
-                    buf.append((upperCase) ? (Character.toUpperCase(c)) : (Character.toLowerCase(c)));
-                    upperCase = false;
-            }
-        }
-        return buf.toString();
-    }
-    
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+	private static final EntityManagerFactory factory = Persistence
+			.createEntityManagerFactory("fsnetjpa");
+	
+	private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-    @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	/**
+	 * format a name exemple : entry : le BerrE return Le Berre
+	 * 
+	 * @param name
+	 *            string to format
+	 * @return format string
+	 */
+	public static final String formatName(String name) {
+		StringBuffer buf = new StringBuffer();
+		boolean upperCase = true;
+		for (int i = 0; i < name.length(); i++) {
+			char c = name.charAt(i);
+			switch (c) {
+			case '\'':
+				;
+			case ' ':
+				;
+			case '-':
+				buf.append(c);
+				upperCase = true;
+				break;
+			default:
+				buf.append((upperCase) ? (Character.toUpperCase(c))
+						: (Character.toLowerCase(c)));
+				upperCase = false;
+			}
+		}
+		return buf.toString();
+	}
 
-    private static Logger logger = Logger.getAnonymousLogger();
-    
-    @Override
-    public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        DynaActionForm dynaForm = (DynaActionForm) form;				//NOSONAR
-        user.setName(formatName(dynaForm.getString("name")));
-        user.setPrenom(formatName(dynaForm.getString("firstName")));
-        user.setAddress(new Address(dynaForm.getString("adress"),formatName(dynaForm.getString("city") )));
-        try {
-            user.setBirthDate(DateUtils.format(dynaForm.getString("dateOfBirth")));
-        } catch (ParseException e) {
-        	logger.log(Level.SEVERE,"invalide date");
-        }
-        user.setSex(dynaForm.getString("sexe"));
-        user.setProfession(formatName(dynaForm.getString("job")));
-        user.setEmail(dynaForm.getString("mail"));
-        user.setPhone(dynaForm.getString("phone"));
-        em.getTransaction().begin();
-        em.merge(user);
-        em.getTransaction().commit();
-        em.close();
-        return mapping.findForward("success");
-    }
+	@Override
+	public ActionForward create(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-    @Override
-    public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+	@Override
+	public ActionForward modify(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;
+		Date birthday = null;
+		try {
+			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
+		} catch (ParseException e1) {
+			// DO NOTHING
+		}
+		ProfileFacade pf = new ProfileFacade(em);
+		em.getTransaction().begin();
+		pf.editProfile(UserUtils.getAuthenticatedUser(request, em),
+				formatName(dynaForm.getString("name")), formatName(dynaForm
+						.getString("firstName")), new Address(dynaForm
+						.getString("adress"), formatName(dynaForm
+						.getString("city"))), birthday, dynaForm
+						.getString("sexe"), formatName(dynaForm
+						.getString("job")), dynaForm.getString("mail"),
+				dynaForm.getString("phone"));
+		em.getTransaction().commit();
+		return mapping.findForward("success");
+	}
 
-    @Override
-    public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-    
-    private DateFormat formatter= new SimpleDateFormat("dd/MM/yyyy");
- 
-    public ActionForward displayToModify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        DynaActionForm dina = (DynaActionForm) form;
-    	SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        request.setAttribute("currentUser", user);
-        dina.set("name", user.getName());
-        dina.set("firstName", user.getFirstName());
-        if (user.getAddress() != null) {
-        	dina.set("adress", user.getAddress().getAddress());
-        	dina.set("city", user.getAddress().getCity());
-        }
-        if(user.getBirthDate()!=null)
-        	dina.set("dateOfBirth", formatter.format(user.getBirthDate()));
-        dina.set("sexe",user.getSex());
-        dina.set("job",user.getProfession());
-        dina.set("mail", user.getEmail());
-        dina.set("phone", user.getPhone());
-        return mapping.findForward("success");
-    }
+	@Override
+	public ActionForward delete(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
 
-    @Override
-    public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        DynaActionForm dina = (DynaActionForm) form;
-        try{
-            String idS = dina.getString("id"); 				//NOSONAR
-            int id = Integer.parseInt(idS);
-            SocialEntity profile = em.find(SocialEntity.class, id);
-            request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
-            return mapping.findForward("success");
-        } catch (NumberFormatException e) {
-            return mapping.findForward("fail");
-        }finally {
-            em.close();
-        }
-    }
+	@Override
+	public ActionForward search(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		throw new UnsupportedOperationException("Not supported yet.");
+	}
+
+	public ActionForward displayToModify(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dina = (DynaActionForm) form;
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		request.setAttribute("currentUser", user);
+		dina.set("name", user.getName());
+		dina.set("firstName", user.getFirstName());
+		if (user.getAddress() != null) {
+			dina.set("adress", user.getAddress().getAddress());
+			dina.set("city", user.getAddress().getCity());
+		}
+		if (user.getBirthDate() != null)
+			dina.set("dateOfBirth", formatter.format(user.getBirthDate()));
+		dina.set("sexe", user.getSex());
+		dina.set("job", user.getProfession());
+		dina.set("mail", user.getEmail());
+		dina.set("phone", user.getPhone());
+		return mapping.findForward("success");
+	}
+
+	@Override
+	public ActionForward display(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dyna = (DynaActionForm) form;
+		try {
+			String idS = dyna.getString("id"); // NOSONAR
+			int id = Integer.parseInt(idS);
+			SocialEntity profile = em.find(SocialEntity.class, id);
+			request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
+			return mapping.findForward("success");
+		} catch (NumberFormatException e) {
+			return mapping.findForward("fail");
+		} finally {
+			em.close();
+		}
+	}
 }
