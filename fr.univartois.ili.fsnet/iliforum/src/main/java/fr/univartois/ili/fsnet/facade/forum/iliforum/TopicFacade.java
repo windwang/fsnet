@@ -29,6 +29,9 @@ public class TopicFacade {
      * @return the created and persisted Topic
      */
     public final Topic createTopic(Hub hub, SocialEntity creator, String title) {
+    	if (hub == null || creator == null || title == null) {
+            throw new IllegalArgumentException();
+        }
         Topic topic = new Topic(hub, creator, title);
         em.persist(topic);
         hub.getTopics().add(topic);
