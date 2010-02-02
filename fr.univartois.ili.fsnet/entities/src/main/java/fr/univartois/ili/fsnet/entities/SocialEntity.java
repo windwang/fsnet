@@ -137,6 +137,9 @@ public class SocialEntity {
     
     @OneToMany(mappedBy = "socialEntity")
     private List<InteractionRole> rolesInInteractions;
+    
+    @ManyToMany(cascade = {CascadeType.PERSIST})
+    private List<Interaction> favoriteInteractions; 
 
     /**
      * Constructor of the class SocialEntity.
@@ -671,7 +674,19 @@ public class SocialEntity {
 		return true;
 	}
 
-	
+	/**
+	 * @param favoriteInteractions the favoriteInteractions to set
+	 */
+	public void setFavoriteInteractions(List<Interaction> favoriteInteractions) {
+		this.favoriteInteractions = favoriteInteractions;
+	}
+
+	/**
+	 * @return the favoriteInteractions
+	 */
+	public List<Interaction> getFavoriteInteractions() {
+		return favoriteInteractions;
+	}
 
 	
     

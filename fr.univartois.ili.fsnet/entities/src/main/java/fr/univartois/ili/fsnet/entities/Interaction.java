@@ -11,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -56,6 +57,10 @@ public abstract class Interaction implements Serializable {
     
     @OneToMany(mappedBy = "interaction")
     private Set<InteractionRole> roles;
+    
+    @ManyToMany(mappedBy = "favoriteInteractions")
+    @JoinColumn(nullable = false)
+    private Set<SocialEntity> followingEntitys;
 
     /**
      * Constructor of the class Interaction.
@@ -217,4 +222,18 @@ public abstract class Interaction implements Serializable {
     public Set<InteractionRole> getRoles() {
         return roles;
     }
+
+	/**
+	 * @param followingEntitys the followingEntitys to set
+	 */
+	public void setFollowingEntitys(Set<SocialEntity> followingEntitys) {
+		this.followingEntitys = followingEntitys;
+	}
+
+	/**
+	 * @return the followingEntitys
+	 */
+	public Set<SocialEntity> getFollowingEntitys() {
+		return followingEntitys;
+	}
 }
