@@ -12,10 +12,10 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileFacade;
 import fr.univartois.ili.fsnet.form.ChangePasswordForm;
-import fr.univartois.ili.fsnet.security.Md5;
 
 /**
  * 
@@ -36,9 +36,9 @@ public class ChangePassword extends Action{
 		ProfileFacade pf = new ProfileFacade(em);
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         ChangePasswordForm cpf = (ChangePasswordForm) form;   			//NOSONAR
-        user.setPassword(Md5.getEncodedPassword(cpf.getNewPassword()));
+        user.setPassword(Encryption.getEncodedPassword(cpf.getNewPassword()));
         em.getTransaction().begin();
-        pf.changePassword(user,Md5.getEncodedPassword(cpf.getOldPassword()) , Md5.getEncodedPassword(cpf.getNewPassword()));
+        pf.changePassword(user,Encryption.getEncodedPassword(cpf.getOldPassword()) , Encryption.getEncodedPassword(cpf.getNewPassword()));
         em.getTransaction().commit();
         em.close();
 		return mapping.findForward("success");

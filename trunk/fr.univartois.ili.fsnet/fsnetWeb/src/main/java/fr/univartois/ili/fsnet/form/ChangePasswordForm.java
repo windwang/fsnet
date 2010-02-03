@@ -11,8 +11,8 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.validator.ValidatorForm;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.security.Md5;
 
 public class ChangePasswordForm extends ValidatorForm {
 
@@ -55,7 +55,7 @@ public class ChangePasswordForm extends ValidatorForm {
         EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         ActionErrors res = super.validate(mapping, request);
-        String old = Md5.getEncodedPassword(oldPassword);
+        String old = Encryption.getEncodedPassword(oldPassword);
         if (!user.getPassword().equals(old)) {
             res.add("oldPassword", new ActionMessage("error.changePassword.oldPassword"));
         }
