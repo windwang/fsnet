@@ -3,26 +3,15 @@
 "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
 <form-validation>
     <formset>
-        <form name="/CreateTopic">
-            <field property="topicSubject" depends="required">
-                <arg key="error.topicSubjet" />
+        <form name="/CreatePrivateMessageForm">
+            <field property="messageTo" depends="required">
+                <arg key="privatemessages.error.messageTo" />
             </field>
-            <field property="messageDescription" depends="required">
-                <arg key="topics.error.messageDescription" />
+            <field property="messageTo" depends="required">
+                <arg key="privatemessages.error.messageSubject" />
             </field>
-        </form>
-    </formset>
-    <formset>
-        <form name="/CreateTopicMessage">
-            <field property="messageDescription" depends="required">
-                <arg key="topics.error.messageDescription" />
-            </field>
-        </form>
-    </formset>
-    <formset>
-        <form name="/ModifyTopicMessage">
-            <field property="messageDescription" depends="required">
-                <arg key="topics.error.messageDescription" />
+            <field property="messageBody" depends="required">
+                <arg key="privatemessages.error.messageBody" />
             </field>
         </form>
     </formset>

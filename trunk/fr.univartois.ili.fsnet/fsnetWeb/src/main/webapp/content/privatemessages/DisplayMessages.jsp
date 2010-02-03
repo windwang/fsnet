@@ -1,5 +1,5 @@
 <%-- 
-    Document   : DisplayInbox
+    Document   : DisplayMessages
     Created on : 2 févr. 2010, 18:29:45
     Author     : Matthieu Proucelle <matthieu.proucelle at gmail.com>
 --%>
@@ -13,7 +13,7 @@
 
 <h3>Boite de reception</h3>
 <logic:empty name="messages">
-    zdzdzdzd
+    Pas de messages
 </logic:empty>
 <table class="inLineTable">
     <c:forEach items="${requestScope.messages}" var="message">
@@ -52,7 +52,7 @@
                     <html:link action="/DisplayMessage">
                         <html:param name="messageId" value="${message.id}"/>
                         <span>${fn:substring(message.subject, 0,20)} : </span>
-                        <span style="color: gray">${fn:substring(message.body, 0, 20)}</span>
+                        <span style="color: gray">${fn:escapeXml(fn:substring(message.body, 0, 20))}</span>
                     </html:link>
                 </td>
             </c:if>

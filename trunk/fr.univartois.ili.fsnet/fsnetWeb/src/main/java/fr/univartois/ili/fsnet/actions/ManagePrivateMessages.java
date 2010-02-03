@@ -7,6 +7,7 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.PrivateMessageFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -67,7 +68,30 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
 
     @Override
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+        EntityManager em = factory.createEntityManager();
+        try {
+            if (form != null) {
+                DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+                // NOSONAR
+                int messageId = Integer.parseInt(dynaForm.getString("messageId"));
+                SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
+
+                PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+                PrivateMessage privateMessage = pmf.getPrivateMessage(messageId);
+                em.getTransaction().begin();
+                pmf.deletePrivateMessage(authenticatedUser, privateMessage);
+                em.getTransaction().commit();
+                em.close();
+                return mapping.findForward("success");
+            } else {
+                // TODO error try to delete message but not owner
+            }
+
+        } catch (NumberFormatException e) {
+        }
+        em.close();
+        // TODO errors
+        return mapping.findForward("fail");
     }
 
     @Override
@@ -75,7 +99,10 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         EntityManager em = factory.createEntityManager();
         SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
         if (form == null) {
-            request.setAttribute("messages", authenticatedUser.getReceivedPrivateMessages());
+            List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(authenticatedUser.getReceivedPrivateMessages());
+            Collections.reverse(userMessages);
+            request.setAttribute("messages", userMessages);
+
         } else {
             // TODO
         }
@@ -84,6 +111,33 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
 
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        throw new UnsupportedOperationException("Not supported yet.");
+
+        EntityManager em = factory.createEntityManager();
+        try {
+            if (form != null) {
+                DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+                // NOSONAR
+                int messageId = Integer.parseInt(dynaForm.getString("messageId"));
+                SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
+                PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+                PrivateMessage privateMessage = pmf.getPrivateMessage(messageId);
+                if (privateMessage != null
+                        && (authenticatedUser.equals(privateMessage.getFrom())
+                        || authenticatedUser.equals(privateMessage.getTo()))) {
+                    em.getTransaction().begin();
+                    privateMessage.setReed(true);
+                    em.getTransaction().commit();
+                    em.close();
+                    request.setAttribute("theMessage", privateMessage);
+                    return mapping.findForward("success");
+                } else {
+                    // TODO error try to display message but not owner 
+                }
+            }
+        } catch (NumberFormatException e) {
+        }
+        em.close();
+        // TODO errors
+        return mapping.findForward("fail");
     }
 }
