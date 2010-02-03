@@ -83,7 +83,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;
+		DynaActionForm dynaForm = (DynaActionForm) form;		//NOSONAR
 		Date birthday = null;
 		try {
 			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
@@ -122,7 +122,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
-		DynaActionForm dina = (DynaActionForm) form;
+		DynaActionForm dina = (DynaActionForm) form;			//NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		request.setAttribute("currentUser", user);
 		dina.set("name", user.getName());
@@ -145,9 +145,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
-		DynaActionForm dyna = (DynaActionForm) form;
+		DynaActionForm dyna = (DynaActionForm) form;		// NOSONAR 
 		try {
-			String idS = dyna.getString("id"); // NOSONAR
+			String idS = dyna.getString("id");
 			int id = Integer.parseInt(idS);
 			SocialEntity profile = em.find(SocialEntity.class, id);
 			request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
