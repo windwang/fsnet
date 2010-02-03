@@ -15,6 +15,8 @@
     <class>fr.univartois.ili.fsnet.entities.SocialEntity</class>
     <class>fr.univartois.ili.fsnet.entities.Topic</class>
     <class>fr.univartois.ili.fsnet.entities.TopicMessage</class>
+    <class>fr.univartois.ili.fsnet.entities.Configuration</class>
+    
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
       <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
