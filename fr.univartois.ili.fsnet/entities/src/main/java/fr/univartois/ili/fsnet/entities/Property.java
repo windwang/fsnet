@@ -5,9 +5,9 @@ import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 @Entity
-public class Configuration {
+public class Property {
 	
-	public Configuration(){
+	public Property(){
 		
 	}
 	
