@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.admin.utils;
+package fr.univartois.ili.fsnet.commons.mail;
 
 import java.io.File;
 import java.io.FileInputStream;

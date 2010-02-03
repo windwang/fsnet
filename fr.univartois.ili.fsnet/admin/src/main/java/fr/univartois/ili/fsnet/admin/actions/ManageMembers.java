@@ -25,10 +25,10 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.admin.actions.utils.DateUtils;
-import fr.univartois.ili.fsnet.admin.utils.FSNetConfiguration;
-import fr.univartois.ili.fsnet.admin.utils.FSNetMailer;
-import fr.univartois.ili.fsnet.admin.utils.Mail;
-import fr.univartois.ili.fsnet.admin.utils.Security;
+import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
+import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
+import fr.univartois.ili.fsnet.commons.mail.Mail;
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
@@ -56,9 +56,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	
 		String generatedPassword = null;
 		try {
-			generatedPassword = Security.generateRandomPassword();
+			generatedPassword = Encryption.generateRandomPassword();
 			logger.info("#### Password : " + generatedPassword);
-			socialEntity.setPassword(Security.getEncodedPassword(generatedPassword));
+			socialEntity.setPassword(Encryption.getEncodedPassword(generatedPassword));
 			em.getTransaction().begin();
 			em.persist(socialEntity);
 			em.getTransaction().commit();

@@ -12,9 +12,9 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
-import fr.univartois.ili.fsnet.admin.utils.FSNetConfiguration;
-import fr.univartois.ili.fsnet.admin.utils.FSNetMailer;
-import fr.univartois.ili.fsnet.admin.utils.Mail;
+import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
+import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
+import fr.univartois.ili.fsnet.commons.mail.Mail;
 
 public class ConfigureFSNet extends MappingDispatchAction {
 
