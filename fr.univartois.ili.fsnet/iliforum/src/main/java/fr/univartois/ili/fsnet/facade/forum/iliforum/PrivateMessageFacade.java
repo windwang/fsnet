@@ -86,4 +86,13 @@ public class PrivateMessageFacade {
         query.setParameter("pattern", "%" + pattern + "%");
         return query.getResultList();
     }
+
+    /**
+     *
+     * @param id
+     * @return the message with the given id
+     */
+    public final PrivateMessage getPrivateMessage(int id) {
+        return em.find(PrivateMessage.class, id);
+    }
 }

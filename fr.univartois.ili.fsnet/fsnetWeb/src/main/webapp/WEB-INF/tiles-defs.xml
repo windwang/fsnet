@@ -37,7 +37,7 @@
         <put name="body-content" value="/content/events/DisplayEvents.jsp" />
         <put name="currentMenu" value="Events"/>
     </definition>
-    
+
     <definition name="DisplayEvent" extends=".defaultLayout">
         <put name="title" value="pageTitle.1"/>
         <put name="currentMenu" value="Events"/>
@@ -131,7 +131,7 @@
         <put name="currentMenu" value="Hub"/>
         <put name="body-content" value="/content/topics/CreateTopicMessage.jsp" />
     </definition>
-     <definition name="ModifyTopicMessage" extends=".defaultLayout">
+    <definition name="ModifyTopicMessage" extends=".defaultLayout">
         <put name="title" value="pageTitle.7"/>
         <put name="currentMenu" value="Hub"/>
         <put name="body-content" value="/content/topics/ModifyTopicMessage.jsp" />
@@ -176,7 +176,7 @@
         <put name="body-content" value="/content/members/SearchMember.jsp" />
     </definition>
 
-        <!-- Private Messages -->
+    <!-- Private Messages -->
     <definition name="DisplayPrivateMessages" extends=".defaultLayout">
         <put name="title" value="pageTitle.13"/>
         <put name="body-content" value="/content/privatemessages/DisplayMessages.jsp" />
