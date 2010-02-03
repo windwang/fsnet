@@ -102,6 +102,11 @@
             <artifactId>struts-annotations</artifactId>
             <version>1.0.5</version>
         </dependency>
+        <dependency>
+        	<groupId>fr.univartois.ili.fsnet</groupId>
+        	<artifactId>commons</artifactId>
+        	<version>0.1</version>
+        </dependency>
     </dependencies>
 
 </project>
