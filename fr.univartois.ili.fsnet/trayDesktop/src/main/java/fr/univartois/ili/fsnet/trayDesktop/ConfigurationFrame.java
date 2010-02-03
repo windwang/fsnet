@@ -111,7 +111,7 @@ public class ConfigurationFrame {
             infoPort.getNewAnnouncementCount(login, password);
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(ConfigurationFrame.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ConfigurationFrame.class.getName()).log(Level.FINE, null, ex);
         }
         return false;
     }

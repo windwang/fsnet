@@ -9,6 +9,7 @@ import javax.persistence.TypedQuery;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import javax.persistence.Query;
 
 /**
  *
@@ -56,11 +57,32 @@ public class SocialEntityFacade {
     }
 
     /**
+     * Find a SocialEntity by its email
+     * @param email the email to search for
+     * @return the fetched social entity
+     */
+    public final SocialEntity findByEmail(String email) {
+        if (email == null) {
+            throw new IllegalArgumentException();
+        }
+        TypedQuery<SocialEntity> query = em.createQuery(
+                "SELECT es FROM SocialEntity es WHERE es.email = :email", SocialEntity.class);
+        query.setParameter("email", email);
+        try {
+            return query.getSingleResult();
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    /**
      * delete a Social Entity
      * @param socialEntityId the id of the Social Entity to delete
      */
     public final void deleteSocialEntity(SocialEntity socialEntity) {
-    	if(socialEntity == null) throw new IllegalArgumentException();
+        if (socialEntity == null) {
+            throw new IllegalArgumentException();
+        }
         em.remove(socialEntity);
         em.flush();
     }
@@ -72,7 +94,9 @@ public class SocialEntityFacade {
      * @return a map of list of search results (Contacts, Requested, Asked and Others)
      */
     public final HashMap<SearchResult, List<SocialEntity>> searchSocialEntity(String searchText, SocialEntity socialEntity) {
-    	if(searchText == null) throw new IllegalArgumentException();
+        if (searchText == null) {
+            throw new IllegalArgumentException();
+        }
         TypedQuery<SocialEntity> query = null;
         TypedQuery<SocialEntity> queryContacts = null;
         TypedQuery<SocialEntity> queryRequested = null;
@@ -131,7 +155,9 @@ public class SocialEntityFacade {
      * @return the list of Social Entitys matching with the search text
      */
     public final List<SocialEntity> searchSocialEntity(String searchText) {
-    	if(searchText == null) throw new IllegalArgumentException();
+        if (searchText == null) {
+            throw new IllegalArgumentException();
+        }
         TypedQuery<SocialEntity> query = null;
         List<SocialEntity> results = null;
 
@@ -150,7 +176,9 @@ public class SocialEntityFacade {
      * @param socialEntity the SocialEntity
      */
     public final void addInterest(Interest interest, SocialEntity socialEntity) {
-        if(interest == null || socialEntity == null) throw new IllegalArgumentException();
+        if (interest == null || socialEntity == null) {
+            throw new IllegalArgumentException();
+        }
         if (!socialEntity.getInterests().contains(interest)) {
             socialEntity.getInterests().add(interest);
         }
@@ -162,10 +190,12 @@ public class SocialEntityFacade {
      * @param socialEntity the SocialEntity
      */
     public final void removeInterest(Interest interest, SocialEntity socialEntity) {
-    	if(interest == null || socialEntity == null) throw new IllegalArgumentException();
-    	socialEntity.getInterests().remove(interest);
+        if (interest == null || socialEntity == null) {
+            throw new IllegalArgumentException();
+        }
+        socialEntity.getInterests().remove(interest);
     }
-    
+
     /**
      * add a favorite interaction
      * @param socialEntity the SocialEntity who want to add a favorite interaction
@@ -175,7 +205,7 @@ public class SocialEntityFacade {
     	if(socialEntity == null || interaction == null) throw new IllegalArgumentException();
     	socialEntity.getFavoriteInteractions().add(interaction);
     }
-    
+
     /**
      * remove a favorite interaction
      * @param socialEntity the SocialEntity who want to remove a favorite interaction
