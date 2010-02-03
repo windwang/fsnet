@@ -7,8 +7,12 @@ import javax.persistence.Id;
 @Entity
 public class Configuration {
 	
+	public Configuration(){
+		
+	}
+	
 	public static enum FsnetProperty {
-		SMTP_PORT, SMPT_HOST;
+		SMTP_PORT, SMTP_HOST;
 	}
 	
 	@Id
