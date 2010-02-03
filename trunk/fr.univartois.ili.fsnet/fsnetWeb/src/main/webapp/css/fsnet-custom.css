@@ -181,8 +181,6 @@ input[type=text], input[type=password], textarea {
 	text-decoration: underline;
 }
 
-
-
 #login input[type=submit] {
     border: 1px solid #DDDDDD;
     background-color: #CCCCCC;
@@ -191,8 +189,12 @@ input[type=text], input[type=password], textarea {
     float: right;
 }
 
+#resetPasswordWrapper a {
+	margin-top: 10px;
+}
+
 #resetPasswordWrapper {
-	width: 350px;
+	width: 370px;
 	margin: 40px auto;	
 }
 #resetPasswordWrapper input[type="text"] {
