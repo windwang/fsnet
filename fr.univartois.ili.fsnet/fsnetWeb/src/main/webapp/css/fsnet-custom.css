@@ -267,3 +267,8 @@ tr.notReed {
     background-color: #cfecff;
     font-weight: bold;
 }
+
+/* TODO Find a way to place more menu items */
+.wrap {
+    width: 1010px;
+}

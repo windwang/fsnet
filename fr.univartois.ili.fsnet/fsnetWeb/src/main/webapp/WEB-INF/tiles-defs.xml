@@ -178,15 +178,21 @@
 
     <!-- Private Messages -->
     <definition name="DisplayPrivateMessages" extends=".defaultLayout">
-        <put name="title" value="pageTitle.13"/>
+        <put name="title" value="pageTitle.14"/>
+        <put name="currentMenu" value="Messages"/>
+        <put name="left" value="/content/privatemessages/leftMenu.jsp" />
         <put name="body-content" value="/content/privatemessages/DisplayMessages.jsp" />
     </definition>
     <definition name="DisplayPrivateMessage" extends=".defaultLayout">
-        <put name="title" value="pageTitle.13"/>
+        <put name="title" value="pageTitle.14"/>
+        <put name="currentMenu" value="Messages"/>
+        <put name="left" value="/content/privatemessages/leftMenu.jsp" />
         <put name="body-content" value="/content/privatemessages/DisplayMessage.jsp" />
     </definition>
     <definition name="CreatePrivateMessage" extends=".defaultLayout">
-        <put name="title" value="pageTitle.13"/>
+        <put name="title" value="pageTitle.14"/>
+        <put name="currentMenu" value="Messages"/>
+        <put name="left" value="/content/privatemessages/leftMenu.jsp" />
         <put name="body-content" value="/content/privatemessages/CreateMessage.jsp" />
     </definition>
 </tiles-definitions>
