@@ -41,7 +41,7 @@
     </html:link>
     <html:form action="/CreatePrivateMessage">
         <html:hidden property="messageTo" value="${theMessage.from.email}"/>
-        <table id="quickResponse" style="width: 100%; height: 60px; display : none ; margin-top : 10px;">
+        <table id="quickResponse" style="width: 100%; display : none ; margin-top : 10px;">
             <tr>
                 <td>
                     <label for="messageTo">

@@ -23,6 +23,11 @@
         </html:link>
     </li>
     <li>
+        <html:link action="/Inbox" styleClass="${currentMenu == 'Messages' ? 'current' : ''}">
+            <bean:message key="menu.8"/>
+        </html:link>
+    </li>
+    <li>
         <html:link action="/Contacts" styleClass="${currentMenu == 'Contacts' ? 'current' : ''}">
             <bean:message key="menu.1"/>
         </html:link>
