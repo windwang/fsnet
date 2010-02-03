@@ -30,14 +30,6 @@
 }
 
 
-.inLineTable {
-    width: 100%;
-    border-collapse:collapse;
-}
-.inLineTable tr{
-    background-color: #E8F5FD;
-    border: 5px solid #F7FCFF;
-}
 
 #body-content h3 {
     text-align: left;
@@ -258,4 +250,18 @@ input[type="text"][class="error"], textarea[class="error"] {
 .topicButton{
     float: right;
     margin-bottom: 10px;
+}
+
+.inLineTable {
+    width: 100%;
+    border-collapse:collapse;
+}
+.inLineTable tr{
+    background-color: #E8F5FD;
+    border: 5px solid #F7FCFF;
+}
+
+tr.notReed {
+    background-color: #cfecff;
+    font-weight: bold;
 }

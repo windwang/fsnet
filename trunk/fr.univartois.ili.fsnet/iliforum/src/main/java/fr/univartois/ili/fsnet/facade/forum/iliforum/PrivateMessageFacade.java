@@ -4,6 +4,8 @@ import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import java.util.List;
+import javax.persistence.TypedQuery;
 
 /**
  *
@@ -49,5 +51,39 @@ public class PrivateMessageFacade {
         if (message.getTo().equals(entity)) {
             entity.getReceivedPrivateMessages().remove(message);
         }
+    }
+
+    /**
+     * Search a private message in the social entity received messages
+     * @param entity the recipient of messages
+     * @param pattern the pattern to match
+     * @return the list of matching messages
+     */
+    public final List<PrivateMessage> searchReceivedPrivateMessage(SocialEntity entity, String pattern) {
+        if (entity == null || pattern == null) {
+            throw new IllegalArgumentException();
+        }
+        TypedQuery<PrivateMessage> query = em.createQuery(
+                "SELECT message FROM PrivateMessage message WHERE message.to = :entity "
+                + "AND (message.body LIKE :pattern OR message.subject LIKE :pattern", PrivateMessage.class);
+        query.setParameter("pattern", "%" + pattern + "%");
+        return query.getResultList();
+    }
+
+    /**
+     * Search a private message in the social entity sent messages
+     * @param entity the author of messages
+     * @param pattern the pattern to match
+     * @return the list of matching messages
+     */
+    public final List<PrivateMessage> searchSentPrivateMessage(SocialEntity entity, String pattern) {
+        if (entity == null || pattern == null) {
+            throw new IllegalArgumentException();
+        }
+        TypedQuery<PrivateMessage> query = em.createQuery(
+                "SELECT message FROM PrivateMessage message WHERE message.from = :entity "
+                + "AND (message.body LIKE :pattern OR message.subject LIKE :pattern", PrivateMessage.class);
+        query.setParameter("pattern", "%" + pattern + "%");
+        return query.getResultList();
     }
 }
