@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE struts-config PUBLIC
 "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
@@ -103,5 +103,14 @@
             parameter="display">
             <forward name="success" path="Interests" />
         </action>
+        
+         <action
+            path="/InterestCheckBoxes"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            parameter="display">
+            <forward name="success" path="/content/hubs/InterestCheckBoxes.jsp" />
+        </action>
+        
+        
     </action-mappings>
 </struts-config>

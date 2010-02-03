@@ -4,7 +4,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
@@ -19,6 +19,7 @@
                 <html:text property="hubName" styleId="hubName" />
 
             </td>
+            <c:import url="/InterestCheckBoxes.do"/>
             <td>
                 <html:submit styleClass="button"><bean:message key="hubs.create"/></html:submit>
             </td>
