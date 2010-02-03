@@ -63,7 +63,7 @@
 				<form action="ResetPassword" method="post">
 					<div>
 						<label for="memberMail">Email :</label>
-						<input type="text" id="memberMail"/>
+						<input name="memberMail" type="text" id="memberMail"/>
 						<input type="submit"/>
 					</div>
 				</form>

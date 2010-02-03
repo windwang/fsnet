@@ -12,6 +12,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
+import fr.univartois.ili.fsnet.commons.mail.Mail;
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class ResetPassword extends HttpServlet {
@@ -22,10 +25,28 @@ public class ResetPassword extends HttpServlet {
 			.createEntityManagerFactory("fsnetjpa");
 
 	public void resetPassword(SocialEntity se) {
-		// TODO change the password
-		// TODO send a mail
+		String generatedPassword = Encryption.generateRandomPassword();
+		String message = createMessage(generatedPassword);
+		FSNetMailer mailer = FSNetMailer.getInstance(); 
+		Mail mail = mailer.createMail();
+		mail.addRecipient(se.getEmail());
+		mail.setContent(message);
+		se.setPassword(Encryption.getEncodedPassword(generatedPassword));
+		mail.setSubject("Génération d'un nouveau mot de passe pour FSNet");
+		mailer.sendMail(mail);
 	}
 
+	private String createMessage(String password) {
+		StringBuffer sb = new StringBuffer();
+		sb.append("Bonjour, <br/><br/>");
+		sb.append("Suite à votre demande, un nouveau mot de passe vous a été attribué : ");
+		sb.append(password);
+		sb.append("<br/><br/>");
+		sb.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages.");
+		sb.append("Merci de ne pas répondre à ce message.");
+		return sb.toString();
+	}
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
