@@ -41,8 +41,8 @@ public class ManageInterests extends MappingDispatchAction implements
 	private static final Logger logger = Logger.getAnonymousLogger();
 
 	private static final int NB_RESULTS_ON_DEMAND = 6;
-	private static final int NB_RESULTS_RETURNED = NB_RESULTS_ON_DEMAND -1;
-	
+	private static final int NB_RESULTS_RETURNED = NB_RESULTS_ON_DEMAND - 1;
+
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -79,20 +79,20 @@ public class ManageInterests extends MappingDispatchAction implements
 				.get("addedInterestId"));
 
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		
+
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 		InterestFacade facadeInterest = new InterestFacade(em);
-		
+
 		Interest interest = facadeInterest.getInterest(interestId);
-		
-		logger.info("add interest: id=" + interestId + " for user: "
-				+ user.getName() + " " + user.getFirstName() + " "
-				+ user.getId());
+		if (interest != null) {
+			logger.info("add interest: id=" + interestId + " for user: "
+					+ user.getName() + " " + user.getFirstName() + " "
+					+ user.getId());
 
-		em.getTransaction().begin();
-		facadeSE.addInterest(interest, user);
-		em.getTransaction().commit();
-
+			em.getTransaction().begin();
+			facadeSE.addInterest(interest, user);
+			em.getTransaction().commit();
+		}
 		em.close();
 
 		return mapping.findForward("success");
@@ -108,7 +108,6 @@ public class ManageInterests extends MappingDispatchAction implements
 		if (request.getParameterMap().containsKey("removedInterestId")) {
 			interestId = Integer.valueOf(request
 					.getParameter("removedInterestId"));
-
 		} else {
 			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 			interestId = Integer.valueOf((String) dynaForm
@@ -116,22 +115,22 @@ public class ManageInterests extends MappingDispatchAction implements
 		}
 
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		
+
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 		InterestFacade facadeInterest = new InterestFacade(em);
-		
+
 		Interest interest = facadeInterest.getInterest(interestId);
-		
-		logger.info("remove interest: id=" + interestId + " for user: "
-				+ user.getName() + " " + user.getFirstName() + " "
-				+ user.getId());
+		if (interest != null) {
+			logger.info("remove interest: id=" + interestId + " for user: "
+					+ user.getName() + " " + user.getFirstName() + " "
+					+ user.getId());
 
-		em.getTransaction().begin();
-		facadeSE.removeInterest(interest, user);
-		em.getTransaction().commit();
-
+			em.getTransaction().begin();
+			facadeSE.removeInterest(interest, user);
+			em.getTransaction().commit();
+		}
 		em.close();
-
+		
 		return mapping.findForward("success");
 	}
 
@@ -157,18 +156,19 @@ public class ManageInterests extends MappingDispatchAction implements
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		String interestName = "";
 		InterestFacade facade = new InterestFacade(em);
-		
+
 		if (dynaForm.get("searchInterestName") != null) {
 			interestName = (String) dynaForm.get("searchInterestName");
 		}
-		
+
 		logger.info("search interest: " + interestName);
-		
-		List<Interest> result = facade.advancedSearchInterest(interestName, 0, NB_RESULTS_ON_DEMAND);
+
+		List<Interest> result = facade.advancedSearchInterest(interestName, 0,
+				NB_RESULTS_ON_DEMAND);
 		em.close();
-		
+
 		if (result.size() == NB_RESULTS_ON_DEMAND) {
-			result.remove(result.size()-1);
+			result.remove(result.size() - 1);
 			request.setAttribute("hasnext", true);
 		}
 		request.setAttribute("interestResult", result);
@@ -190,9 +190,9 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("advanced search interest: " + interestName);
-						
+
 		int page = 0;
-		
+
 		if (request.getParameterMap().containsKey("nextPage")) {
 			try {
 				page = Integer.valueOf(request.getParameter("nextPage"));
@@ -203,12 +203,13 @@ public class ManageInterests extends MappingDispatchAction implements
 				page = 0;
 			}
 		}
-		
-		List<Interest> result = facade.advancedSearchInterest(interestName, page * NB_RESULTS_RETURNED , NB_RESULTS_ON_DEMAND);
+
+		List<Interest> result = facade.advancedSearchInterest(interestName,
+				page * NB_RESULTS_RETURNED, NB_RESULTS_ON_DEMAND);
 		em.close();
 
 		if (result.size() == NB_RESULTS_ON_DEMAND) {
-			result.remove(result.size()-1);
+			result.remove(result.size() - 1);
 			request.setAttribute("hasnext", true);
 		}
 		request.setAttribute("interestResult", result);
@@ -229,6 +230,8 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		List<Interest> listAllInterests = facade.getInterests();
 		em.close();
+
+		// TODO remplacer avec une vraie requete si possible
 
 		List<Interest> finalList = new ArrayList<Interest>();
 		boolean dirtyIsOK;
