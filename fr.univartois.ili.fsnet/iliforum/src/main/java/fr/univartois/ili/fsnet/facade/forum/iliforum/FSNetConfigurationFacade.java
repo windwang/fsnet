@@ -18,12 +18,12 @@ public class FSNetConfigurationFacade {
 		this.em = em;
 	}
 
-	private int getSMTPPort() {
+	public int getSMTPPort() {
 		return Integer.parseInt(em.find(Configuration.class,
 				Configuration.FsnetProperty.SMTP_PORT).getValue());
 	}
 
-	private void setSMTPPort(int smtpPort) {
+	public void setSMTPPort(int smtpPort) {
 		Configuration smtpPortConf = em.find(Configuration.class,
 				Configuration.FsnetProperty.SMTP_PORT);
 		if (smtpPortConf == null) {
@@ -38,12 +38,12 @@ public class FSNetConfigurationFacade {
 
 	}
 
-	private int getSMTPHost() {
+	public int getSMTPHost() {
 		return Integer.parseInt(em.find(Configuration.class,
 				Configuration.FsnetProperty.SMTP_HOST).getValue());
 	}
 
-	private void setSMTPHost(int smtpHost) {
+	public void setSMTPHost(int smtpHost) {
 		Configuration smtpHostConf = em.find(Configuration.class,
 				Configuration.FsnetProperty.SMTP_HOST);
 		if(smtpHostConf == null) {
