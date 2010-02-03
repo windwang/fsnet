@@ -70,7 +70,9 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
+		//TODO hubId not necessary
 		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
 		int hubId = Integer.valueOf(Integer.parseInt(request
 				.getParameter("hubId")));
 		HubFacade hubFacade = new HubFacade(em);
@@ -78,10 +80,11 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		if (request.getParameterMap().containsKey("topicId")) {
 			int topicId = Integer.valueOf(request.getParameter("topicId"));
 			TopicFacade topicFacade = new TopicFacade(em);
-			topicFacade.deleteTopic(topicId);
 			Topic topic = topicFacade.getTopic(topicId);
 			hub.getTopics().remove(topic);
+			topicFacade.deleteTopic(topicId);
 		}
+		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
 	}
