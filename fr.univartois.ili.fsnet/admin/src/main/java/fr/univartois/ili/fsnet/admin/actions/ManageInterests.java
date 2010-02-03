@@ -30,131 +30,139 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
  * @author Alexandre Lohez <alexandre.lohez at gmail.com>
  */
 public class ManageInterests extends MappingDispatchAction implements
-        CrudAction {
+		CrudAction {
 
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-    private static final Logger logger = Logger.getAnonymousLogger();
+	private static EntityManagerFactory factory = Persistence
+			.createEntityManagerFactory("fsnetjpa");
+	private static final Logger logger = Logger.getAnonymousLogger();
 
-    @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-        InterestFacade facade = new InterestFacade(em);
-        
-        String interestName = (String) dynaForm.get("createdInterestName");
+	@Override
+	public ActionForward create(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		InterestFacade facade = new InterestFacade(em);
 
-        logger.info("new interest: " + interestName);
+		String interestName = (String) dynaForm.get("createdInterestName");
 
-        try {
-            em.getTransaction().begin();
-            facade.createInterest(interestName);
-            em.getTransaction().commit();
-        } catch (RollbackException ex) {
-            ActionErrors actionErrors = new ActionErrors();
-            ActionMessage msg = new ActionMessage("interest.alreadyExists");
-            actionErrors.add("createdInterestName", msg);
-            saveErrors(request, actionErrors);
-        }
+		logger.info("new interest: " + interestName);
 
-        em.close();
+		try {
+			em.getTransaction().begin();
+			facade.createInterest(interestName);
+			em.getTransaction().commit();
+		} catch (RollbackException ex) {
+			ActionErrors actionErrors = new ActionErrors();
+			ActionMessage msg = new ActionMessage("interest.alreadyExists");
+			actionErrors.add("createdInterestName", msg);
+			saveErrors(request, actionErrors);
+		}
 
-        return mapping.findForward("success");
-    }
+		em.close();
 
-    @Override
-    public ActionForward modify(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-        int interestId = Integer.valueOf((String) dynaForm.get("modifiedInterestId"));
-        String interestName = (String) dynaForm.get("modifiedInterestName");
-        InterestFacade facade = new InterestFacade(em);
-        Interest interest = facade.getInterest(interestId);
-        logger.info("interest modification: " + interestName);
+		return mapping.findForward("success");
+	}
 
-        try {
-            em.getTransaction().begin();
-            facade.modifyInterest(interestName, interest);
-            em.getTransaction().commit();
-        } catch (DatabaseException ex) {
-            ActionErrors actionErrors = new ActionErrors();
-            ActionMessage msg = new ActionMessage("interest.alreadyExists");
-            actionErrors.add("modifiedInterestName", msg);
-            saveErrors(request, actionErrors);
-        }
+	@Override
+	public ActionForward modify(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		int interestId = Integer.valueOf((String) dynaForm
+				.get("modifiedInterestId"));
+		String interestName = (String) dynaForm.get("modifiedInterestName");
+		InterestFacade facade = new InterestFacade(em);
 
-        em.close();
+		Interest interest = facade.getInterest(interestId);
 
-        return mapping.findForward("success");
-    }
+		if (interest != null) {
+			logger.info("interest modification: " + interestName);
 
-    @Override
-    public ActionForward delete(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
+			try {
+				em.getTransaction().begin();
+				facade.modifyInterest(interestName, interest);
+				em.getTransaction().commit();
+			} catch (DatabaseException ex) {
+				ActionErrors actionErrors = new ActionErrors();
+				ActionMessage msg = new ActionMessage("interest.alreadyExists");
+				actionErrors.add("modifiedInterestName", msg);
+				saveErrors(request, actionErrors);
+			}
+		}
 
-        // TODO verify if user has the right to do delete
+		em.close();
 
-        int interestId = Integer.valueOf(request.getParameter("deletedInterestId"));
-        InterestFacade facade = new InterestFacade(em);
-        Interest interest = facade.getInterest(interestId);
-        logger.info("interest deleted: id=" + interestId);
+		return mapping.findForward("success");
+	}
 
-        try {
-            em.getTransaction().begin();
-            facade.deleteInterest(interest);
-            em.getTransaction().commit();
-        } catch (RollbackException ex) {
-            ActionErrors actionErrors = new ActionErrors();
-            ActionMessage msg = new ActionMessage("interest.notExists");
-            actionErrors.add("error.interest.delete", msg);
-            saveErrors(request, actionErrors);
-        }
+	@Override
+	public ActionForward delete(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
 
-        em.close();
+		// TODO verify if user has the right to do delete
 
-        return mapping.findForward("success");
-    }
+		int interestId = Integer.valueOf(request
+				.getParameter("deletedInterestId"));
+		InterestFacade facade = new InterestFacade(em);
+		Interest interest = facade.getInterest(interestId);
 
-    @Override
-    public ActionForward search(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-        String interestName = "";
+		if (interest != null) {
+			logger.info("interest deleted: id=" + interestId);
 
-        if (dynaForm.get("searchInterestName") != null) {
-            interestName = (String) dynaForm.get("searchInterestName");
-        }
-        InterestFacade facade = new InterestFacade(em);
-        logger.info("search interest: " + interestName);
+			try {
+				em.getTransaction().begin();
+				facade.deleteInterest(interest);
+				em.getTransaction().commit();
+			} catch (RollbackException ex) {
+				ActionErrors actionErrors = new ActionErrors();
+				ActionMessage msg = new ActionMessage("interest.notExists");
+				actionErrors.add("error.interest.delete", msg);
+				saveErrors(request, actionErrors);
+			}
+		}
+		em.close();
 
-        List<Interest> result = facade.searchInterest(interestName);
-        em.close();
+		return mapping.findForward("success");
+	}
 
-        request.setAttribute("interestResult", result);
+	@Override
+	public ActionForward search(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		String interestName = "";
 
-        return mapping.findForward("success");
-    }
+		if (dynaForm.get("searchInterestName") != null) {
+			interestName = (String) dynaForm.get("searchInterestName");
+		}
+		InterestFacade facade = new InterestFacade(em);
+		logger.info("search interest: " + interestName);
 
-    @Override
-    public ActionForward display(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
-        InterestFacade facade = new InterestFacade(em);
-        logger.info("Displaying interests");
+		List<Interest> result = facade.searchInterest(interestName);
+		em.close();
 
-        List<Interest> listAllInterests = facade.getInterests();
-        em.close();
-        request.setAttribute("allInterests", listAllInterests);
+		request.setAttribute("interestResult", result);
 
-        
-        return mapping.findForward("success");
-    }
+		return mapping.findForward("success");
+	}
+
+	@Override
+	public ActionForward display(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		InterestFacade facade = new InterestFacade(em);
+		logger.info("Displaying interests");
+
+		List<Interest> listAllInterests = facade.getInterests();
+		em.close();
+		request.setAttribute("allInterests", listAllInterests);
+
+		return mapping.findForward("success");
+	}
 }
