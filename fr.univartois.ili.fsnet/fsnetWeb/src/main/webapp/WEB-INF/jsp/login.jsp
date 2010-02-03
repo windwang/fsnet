@@ -50,7 +50,7 @@
 						</tr>
 						<tr>
 							<td colspan="2">
-								<a onclick="showResetPassword();">
+								<a onclick="showResetPasswordForm();">
 									<bean:message key="login.2"/>
 								</a>
 								<input type="submit"/>
@@ -61,19 +61,40 @@
 			</div>
 			<div style="display:none" id="resetPasswordWrapper">
 				<form action="ResetPassword" method="post">
-					<div>
-						<label for="memberMail">Email :</label>
-						<input name="memberMail" type="text" id="memberMail"/>
-						<input type="submit"/>
-					</div>
+					<table>
+						<tr>
+							<td>
+								<label for="memberMail">Email :</label>
+							</td>
+							<td>
+								<input name="memberMail" type="text" id="memberMail"/>
+							</td>
+							<td>
+								<input type="submit"/>
+							</td>
+						</tr>
+						<tr>
+							<td colspan="3">
+								<a onclick="showLoginForm();">
+									<bean:message key="login.4"/>
+								</a>
+							</td>
+						</tr>
+					</table>
 				</form>
 			</div>
 			<script type="text/javascript">
-				function showResetPassword() {
+				function showResetPasswordForm() {
 					var resetPasswordWrapper = document.getElementById('resetPasswordWrapper');
 					var loginWrapper = document.getElementById('loginWrapper');
 					loginWrapper.style.display = 'none';
 					resetPasswordWrapper.style.display = 'block';
+				}
+				function showLoginForm() {
+					var resetPasswordWrapper = document.getElementById('resetPasswordWrapper');
+					var loginWrapper = document.getElementById('loginWrapper');
+					loginWrapper.style.display = 'block';
+					resetPasswordWrapper.style.display = 'none';
 				}
 			</script>
 			<c:if test="${! empty loginMessage}">
