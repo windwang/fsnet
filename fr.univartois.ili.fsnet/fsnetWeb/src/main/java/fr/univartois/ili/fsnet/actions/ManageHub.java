@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,10 +22,12 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Hub;
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 
 /**
  * 
@@ -36,6 +39,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 			.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
+	
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -46,7 +50,6 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		logger.info("new hub: " + hubName);
 		EntityManager em = factory.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-
 		Hub hub = new Hub(null, user, hubName);
 		em.getTransaction().begin();
 		em.persist(hub);
@@ -114,7 +117,6 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		String hubId = (String) request.getParameter("hubId");
 
 		logger.info("display hub: " + hubId);
-
 		Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
@@ -134,6 +136,16 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		em.close();
 		request.setAttribute("hubResult", result);
 		request.setAttribute("topicsLastMessage", topicsLastMessage);
+		return mapping.findForward("success");
+	}
+	
+	public ActionForward getAllInterest(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		InterestFacade fac = new InterestFacade(em);
+		List<Interest> listInterests = fac.getInterests();
+		request.setAttribute("Interests", listInterests);
 		return mapping.findForward("success");
 	}
 }
