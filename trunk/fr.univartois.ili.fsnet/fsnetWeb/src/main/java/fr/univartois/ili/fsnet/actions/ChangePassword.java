@@ -13,6 +13,7 @@ import org.apache.struts.action.ActionMapping;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileFacade;
 import fr.univartois.ili.fsnet.form.ChangePasswordForm;
 import fr.univartois.ili.fsnet.security.Md5;
 
@@ -24,7 +25,7 @@ import fr.univartois.ili.fsnet.security.Md5;
  */
 public class ChangePassword extends Action{
 
-	 private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
 	 
 	@Override
@@ -32,11 +33,12 @@ public class ChangePassword extends Action{
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		EntityManager em = factory.createEntityManager();
+		ProfileFacade pf = new ProfileFacade(em);
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         ChangePasswordForm cpf = (ChangePasswordForm) form;   			//NOSONAR
         user.setPassword(Md5.getEncodedPassword(cpf.getNewPassword()));
         em.getTransaction().begin();
-        em.merge(user);
+        pf.changePassword(user,Md5.getEncodedPassword(cpf.getOldPassword()) , Md5.getEncodedPassword(cpf.getNewPassword()));
         em.getTransaction().commit();
         em.close();
 		return mapping.findForward("success");
