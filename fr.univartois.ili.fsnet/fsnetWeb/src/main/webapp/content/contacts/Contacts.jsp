@@ -53,9 +53,8 @@
 </logic:notEmpty>
 
 <logic:notEmpty name="theUser" property="requested">
+ <h3><bean:message key="contact.eff" /></h3>
     <table class="inLineTable">
-        <h3>Liste de vos demandes effectuées<bean:message
-                key="contact.eff" /></h3>
             <c:forEach var="contact" items="${theUser.requested}">
             <tr>
                 <td>${contact.firstName} ${contact.name}</td>
