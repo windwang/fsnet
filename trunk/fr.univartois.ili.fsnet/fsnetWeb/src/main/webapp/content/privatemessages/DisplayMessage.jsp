@@ -22,7 +22,15 @@
     <table class="topicTable">
         <tr class="topicHeader">
             <td>
-                De : ${theMessage.from.firstName} ${theMessage.from.name} <span style="float: right"><bean:write name="theMessage" property="creationDate" format="dd/MM/yyyy HH:mm"/></span>
+                De :
+                <html:link action="/DisplayProfile">
+                    <html:param name="id" value="${theMessage.from.id}"/>
+                    ${theMessage.from.firstName} ${theMessage.from.name}
+                </html:link>
+                ${theMessage.from.email}
+                <span style="float: right">
+                    <bean:write name="theMessage" property="creationDate" format="dd/MM/yyyy HH:mm"/>
+                </span>
             </td>
         </tr>
         <tr>
