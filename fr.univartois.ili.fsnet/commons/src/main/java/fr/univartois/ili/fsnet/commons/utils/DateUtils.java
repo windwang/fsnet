@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.actions.utils;
+package fr.univartois.ili.fsnet.commons.utils;
 
 import java.text.DateFormat;
 import java.text.ParseException;
