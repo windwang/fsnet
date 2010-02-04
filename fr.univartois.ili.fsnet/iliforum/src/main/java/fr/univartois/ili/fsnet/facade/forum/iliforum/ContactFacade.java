@@ -88,6 +88,7 @@ public class ContactFacade {
             member.getAsked().remove(accepted);
             accepted.getRequested().remove(member);
             member.getContacts().add(accepted);
+            accepted.getContacts().add(member);
             em.merge(member);
             em.merge(accepted);
         } else {
@@ -97,7 +98,7 @@ public class ContactFacade {
     }
 
     /**
-     * Remove a contact to your contact list
+     * Remove a contact from your contact list
      *
      * @param member
      * @param removedEntity
@@ -117,8 +118,9 @@ public class ContactFacade {
      * @param deletedEntity
      */
     public final void deleteContact(int id) {
-
-        SocialEntity deletedEntity = em.find(SocialEntity.class, id);
+    	SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+        SocialEntity deletedEntity = socialEntityFacade.getSocialEntity(id);
+        
         if (deletedEntity == null) {
             return;
         }
