@@ -45,6 +45,10 @@ public class AnnouncementFacade {
 		return announce;
 	}
 
+	public final Announcement getAnnouncement(int idAnnounce){
+		return em.find(Announcement.class, idAnnounce);
+	}
+
 	/**
 	 * Modify the Announcement
 	 * 
@@ -59,7 +63,7 @@ public class AnnouncementFacade {
 		if (annName == null || annDescription == null || endDate == null) {
 			throw new IllegalArgumentException();
 		}
-		Announcement announce = em.find(Announcement.class, idAnnounce);
+		Announcement announce = getAnnouncement(idAnnounce);
 		if (announce == null) {
 			throw new IllegalArgumentException();
 		}
@@ -75,8 +79,10 @@ public class AnnouncementFacade {
 	 * 
 	 * @param idAnnounce
 	 */
-	public final void deleteAnnouncement(int idAnnounce) {
-		Announcement announce = em.find(Announcement.class, idAnnounce);
+	public final void deleteAnnouncement(Announcement announce) {
+		if(announce == null){
+			throw new IllegalArgumentException();
+		}
 		em.remove(announce);
 		em.flush();
 	}
@@ -93,10 +99,10 @@ public class AnnouncementFacade {
 		}
 		List<Announcement> listAnnounces;
 		listAnnounces = em
-				.createQuery(
-						"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
-								+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ",
-						Announcement.class).setParameter("textSearchAnnounce",
+		.createQuery(
+				"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
+				+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ",
+				Announcement.class).setParameter("textSearchAnnounce",
 						"%" + textSearchAnnounce + "%").getResultList();
 		return listAnnounces;
 
