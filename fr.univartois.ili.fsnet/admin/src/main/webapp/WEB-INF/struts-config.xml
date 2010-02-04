@@ -36,6 +36,7 @@
                       /WEB-INF/struts-configs/interests-validator.xml,
                       /WEB-INF/struts-configs/profile-validator.xml,                     
                       /WEB-INF/struts-configs/members-validator.xml,
+                      /WEB-INF/struts-configs/communities-validator.xml,
                       /WEB-INF/struts-configs/configuration-validator.xml" />
 	</plug-in>
 
