@@ -9,7 +9,6 @@ import javax.persistence.TypedQuery;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import javax.persistence.Query;
 
 /**
  *

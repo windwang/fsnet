@@ -93,7 +93,7 @@ public class AnnouncementFacadeTest {
 
 		em.getTransaction().begin();
 
-		af.deleteAnnouncement(ann2.getId());
+		af.deleteAnnouncement(ann2);
 		em.getTransaction().commit();
 		assertNull(em.find(Announcement.class, ann2.getId()));
 
