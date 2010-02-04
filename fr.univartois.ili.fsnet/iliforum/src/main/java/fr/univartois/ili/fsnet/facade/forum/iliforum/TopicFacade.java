@@ -46,6 +46,7 @@ public class TopicFacade {
         Topic c = em.find(Topic.class, id);
         if (c != null) {
             em.remove(c);
+            em.flush();
         }
     }
 
