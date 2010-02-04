@@ -1,5 +1,5 @@
 <%-- 
-    Document   : CreateHub
+    Document   : Members
     Author     : Audrey Ruellan et Cerelia Besnainou
 --%>
 

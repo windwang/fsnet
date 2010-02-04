@@ -33,6 +33,11 @@ import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
+/**
+ * Execute CRUD Actions (and more) for the entity member
+ * 
+ * @author Audrey Ruellan et Cerelia Besnainou
+ */
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 	private static EntityManagerFactory factory = Persistence

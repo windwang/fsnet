@@ -69,6 +69,13 @@
         <put name="body-content" value="/content/members/ModifyMember.jsp" />
     </definition>
     
+    <!-- Communities -->
+    <definition name="Communities" extends=".defaultLayout">
+        <put name="title" value="pageTitle.15"/>
+        <put name="body-content" value="/content/communities/Communities.jsp" />
+    </definition>
+
+    
     <!-- Configuration -->
     <definition name="Configure" extends=".defaultLayout">
         <put name="title" value="pageTitle.14"/>

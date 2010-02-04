@@ -34,6 +34,11 @@
     	</html:link>
     </li>
     <li>
+    	<html:link action="/Communities" styleClass="${currentMenu == 'Communities' ? 'current' : ''}">
+    		<bean:message key="menu.8"/>
+    	</html:link>
+    </li>
+    <li>
     	<html:link action="/EditConfiguration" styleClass="${currentMenu == 'Configuration' ? 'current' : ''}">
     		<bean:message key="menu.3"/>
     	</html:link>
