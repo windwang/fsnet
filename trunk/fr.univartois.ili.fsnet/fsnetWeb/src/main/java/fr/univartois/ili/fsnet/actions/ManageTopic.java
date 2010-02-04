@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -20,7 +21,6 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
-import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicMessageFacade;
@@ -39,6 +39,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
 		DynaActionForm dynaForm = (DynaActionForm) form; 					// NOSONAR
 		String topicSujet = (String) dynaForm.get("topicSubject");				// NOSONAR
 		String messageDescription = (String) dynaForm.get("messageDescription");
@@ -50,10 +51,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic topic = topicFacade.createTopic(hub, socialEntity, topicSujet);
 		TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
-		TopicMessage message = topicMessageFacade.createTopicMessage(messageDescription, socialEntity, topic);
-		em.getTransaction().begin();
-		hub.getTopics().add(topic);
-		topic.getMessages().add(message);
+		topicMessageFacade.createTopicMessage(messageDescription, socialEntity, topic);
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
@@ -115,6 +113,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 			int topicId = Integer.valueOf(request.getParameter("topicId"));
 			TopicFacade topicFacade = new TopicFacade(em);
 			Topic result = topicFacade.getTopic(topicId);
+			Logger.getAnonymousLogger().info("#############  topic messages = "+ result.getMessages().size());
 			request.setAttribute("topic", result);
 		}
 		em.close();
