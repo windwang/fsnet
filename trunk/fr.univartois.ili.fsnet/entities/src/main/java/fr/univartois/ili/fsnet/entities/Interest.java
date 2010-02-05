@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 /**
  * 
@@ -33,6 +35,13 @@ public class Interest implements Serializable {
     @ManyToMany(mappedBy = "interests")
     @JoinColumn(nullable = false)
     private Set<SocialEntity> entities = new HashSet<SocialEntity>();
+    
+    @OneToMany(mappedBy="parentInterest")
+    private Set<Interest> childrenInterests;
+    
+    @ManyToOne
+    private Interest parentInterest;
+    
     /**
      * The interest name.
      */
@@ -109,10 +118,38 @@ public class Interest implements Serializable {
     public void setName(String name) {
         this.name = name;
     }
-
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
+    
+    
+    
+    
+	/**
+	 * @return the children's interests of this interests
 	 */
+	public Set<Interest> getChildrenInterests() {
+		return childrenInterests;
+	}
+
+	/**
+	 * @param childrenInterests the children's interests to set
+	 */
+	public void setChildrenInterests(Set<Interest> childrenInterests) {
+		this.childrenInterests = childrenInterests;
+	}
+
+	/**
+	 * @return the parent's interest of this interest
+	 */
+	public Interest getParentInterest() {
+		return parentInterest;
+	}
+
+	/**
+	 * @param parentInterest the parent's interest to set
+	 */
+	public void setParentInterest(Interest parentInterest) {
+		this.parentInterest = parentInterest;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -121,9 +158,6 @@ public class Interest implements Serializable {
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -139,8 +173,6 @@ public class Interest implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}
-
-	
+	}	
     
 }
