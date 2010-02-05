@@ -13,7 +13,7 @@
 
 
 <logic:empty name="messages">
-    Pas de messages
+<bean:message key="privatemessages.nomessages"/>
 </logic:empty>
 <table class="inLineTable">
     <c:forEach items="${requestScope.messages}" var="message">
@@ -36,8 +36,9 @@
                     </html:link>
                 </td>
             </c:if>
-            <c:if test="${message.reed}">
             <tr>
+              <c:if test="${message.reed}">
+            
                 <td>
                     <input type="checkbox"/>
                 </td>
@@ -61,4 +62,4 @@
             </td>
         </tr>
     </c:forEach>
-</table>tEmpty>
+</table>

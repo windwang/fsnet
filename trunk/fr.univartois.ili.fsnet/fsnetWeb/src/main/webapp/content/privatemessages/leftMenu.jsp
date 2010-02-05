@@ -2,20 +2,20 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <h2>
-	Mes messages
+	<bean:message key="privatemessages.mymessages"/>
 </h2>
 <ul>
     <li>
         <html:link action="/DisplayCreatePrivateMessage">
-			Nouveau message
+        <bean:message key="privatemessages.newmessage"/>
         </html:link>
     </li>
     <li>
         <html:link action="/Inbox">
-			Boite de réception
+			<bean:message key="privatemessages.inbox"/>
         </html:link>
     </li>
     <li>
-			Messages envoyés
+			 <bean:message key="privatemessages.Messagessent"/>
     </li>
 </ul>

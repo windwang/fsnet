@@ -11,9 +11,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<h3>Boite de reception</h3>
+<h3><bean:message key="privatemessages.inbox"/></h3>
 <logic:empty name="messages">
-    Pas de messages
+    <bean:message key="privatemessages.nomessages"/>
 </logic:empty>
 <table class="inLineTable">
     <c:forEach items="${requestScope.messages}" var="message">
