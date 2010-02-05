@@ -34,7 +34,6 @@ import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
-
 /**
  * Execute CRUD Actions (and more) for the entity member
  * 
@@ -60,18 +59,20 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		EntityManager em = factory.createEntityManager();
 
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
-		SocialEntity socialEntity = facadeSE.createSocialEntity(name, firstName, mail);
-	
+		SocialEntity socialEntity = facadeSE.createSocialEntity(name,
+				firstName, mail);
+
 		String generatedPassword = null;
 		try {
 			generatedPassword = Encryption.generateRandomPassword();
 			logger.info("#### Password : " + generatedPassword);
-			socialEntity.setPassword(Encryption.getEncodedPassword(generatedPassword));
+			socialEntity.setPassword(Encryption
+					.getEncodedPassword(generatedPassword));
 			em.getTransaction().begin();
 			em.persist(socialEntity);
 			em.getTransaction().commit();
 			sendConfirmationMail(socialEntity, generatedPassword);
-		} catch(RollbackException e) {
+		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
 			errors.add("email", new ActionMessage("members.user.exists"));
 			saveErrors(request, errors);
@@ -81,9 +82,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 		}
 		em.close();
-		
+
 		return mapping.findForward("success");
 	}
+
 	/**
 	 * Send mails to a list of recipient.
 	 * 
@@ -96,8 +98,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	private void sendConfirmationMail(SocialEntity socialEntity, String password) {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		String fsnetAddress = conf.getFSNetWebAddress();
-		String message = createMessageRegistration(socialEntity.getName(), socialEntity
-				.getFirstName(), fsnetAddress, password);
+		String message = createMessageRegistration(socialEntity.getName(),
+				socialEntity.getFirstName(), fsnetAddress, password);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
@@ -106,6 +108,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		mail.setContent(message);
 		mailer.sendMail(mail);
 	}
+
 	/**
 	 * Method that creates an welcome message to FSNet.
 	 * 
@@ -119,16 +122,18 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		StringBuilder message = new StringBuilder();
 		message.append("Bonjour ").append(nom).append(" ").append(prenom);
 		message.append(",<br/><br/>");
-		message.append("Vous venez d'être enregistré sur FSNet (Firm Social Network).<br/><br/>");
+		message
+				.append("Vous venez d'être enregistré sur FSNet (Firm Social Network).<br/><br/>");
 		message.append("Désormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
 		message.append("Un mot de passe a été généré automatiquement : <em>");
 		message.append(password);
-		message.append("</em><br/><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
+		message
+				.append("</em><br/><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
 		return message.toString();
 	}
-	
+
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -148,8 +153,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		em.close();
 		return mapping.findForward("success");
 	}
-	
-	
 
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
@@ -157,25 +160,29 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		EntityManager entityManager = factory.createEntityManager();
-		
+
 		Integer idMember = Integer.valueOf(request.getParameter("idMember"));
 
 		SocialEntity member = entityManager.find(SocialEntity.class, idMember);
-	
+
 		entityManager.close();
-		if (member.getAddress() != null) {
-			dynaForm.set("address",member.getAddress().getAddress()+" "+member.getAddress().getCity());
-		}
-		dynaForm.set("phone",member.getPhone());
-		dynaForm.set("sexe",member.getSex());
-		dynaForm.set("job",member.getProfession());
-		dynaForm.set("birthDay",member.getBirthDate());
+		String adress = "";
+		if (member.getAddress() != null)
+			adress += member.getAddress().getAddress();
+
+		if (member.getAddress().getCity() != null)
+			adress += member.getAddress().getCity();
+		dynaForm.set("address", adress);
+		dynaForm.set("phone", member.getPhone());
+		dynaForm.set("sexe", member.getSex());
+		dynaForm.set("job", member.getProfession());
+		dynaForm.set("birthDay", member.getBirthDate());
 		dynaForm.set("name", member.getName());
 		dynaForm.set("email", member.getEmail());
 		dynaForm.set("firstName", member.getFirstName());
-		dynaForm.set("id",member.getId());
+		dynaForm.set("id", member.getId());
 		request.setAttribute("interests", member.getInterests());
-		request.setAttribute("id",member.getId());
+		request.setAttribute("id", member.getId());
 
 		return mapping.findForward("success");
 	}
@@ -193,23 +200,24 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String address = (String) formSocialENtity.get("address");
 		String phone = (String) formSocialENtity.get("phone");
 		String sexe = (String) formSocialENtity.get("sexe");
-		Date birthDay=null;
+		Date birthDay = null;
 		try {
-			birthDay = DateUtils.format((String) formSocialENtity.get("formatBirthDay"));
+			birthDay = DateUtils.format((String) formSocialENtity
+					.get("formatBirthDay"));
 			formSocialENtity.set("birthDay", birthDay);
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
 
 		Integer idMember = (Integer) formSocialENtity.get("id");
-		
+
 		SocialEntityFacade facadeSE = new SocialEntityFacade(entityManager);
-		
+
 		SocialEntity member = facadeSE.getSocialEntity(idMember);
 		member.setPrenom(firstName);
 		member.setName(name);
 		member.setEmail(email);
-		member.setAddress(new Address("",address));
+		member.setAddress(new Address("", address));
 		member.setBirthDate(birthDay);
 		member.setPhone(phone);
 		member.setSex(sexe);
@@ -218,7 +226,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		entityManager.merge(member);
 		entityManager.getTransaction().commit();
 		request.setAttribute("member", member);
-		
+
 		ActionMessages errors = new ActionErrors();
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
@@ -254,9 +262,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("membersResult", resultOthers);
 		return mapping.findForward("success");
 	}
-	
+
 	/**
 	 * delete interest member by admin
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -265,22 +274,24 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteInterestMember(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		Integer interestSelected = Integer.valueOf(request.getParameter("interestSelected"));
-		Integer idSocialEntity = Integer.valueOf(request.getParameter("idMember"));
-		
+	public ActionForward deleteInterestMember(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		Integer interestSelected = Integer.valueOf(request
+				.getParameter("interestSelected"));
+		Integer idSocialEntity = Integer.valueOf(request
+				.getParameter("idMember"));
+
 		EntityManager em = factory.createEntityManager();
-		
-		
+
 		logger.info("delete interest social entity");
 		SocialEntityFacade ise = new SocialEntityFacade(em);
 		em.getTransaction().begin();
-		ise.removeInterest(em.find(Interest.class, interestSelected), em.find(SocialEntity.class, idSocialEntity));
+		ise.removeInterest(em.find(Interest.class, interestSelected), em.find(
+				SocialEntity.class, idSocialEntity));
 		em.getTransaction().commit();
 		em.close();
-		
+
 		return mapping.findForward("success");
 	}
 }
