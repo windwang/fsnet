@@ -30,7 +30,7 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 /**
  * Execute CRUD Actions (and more) for the entity community
  * 
- * @author Audrey Ruellan et Cerelia Besnainou
+ * @author Audrey Ruellan and Cerelia Besnainou
  */
 public class ManageCommunities extends MappingDispatchAction implements CrudAction {
 

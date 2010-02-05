@@ -1,6 +1,6 @@
 <%-- 
     Document   : CreateHub
-    Author     : Audrey Ruellan, Cerelia Besnainou et Zhu rui <zrhurey@gmail.com>
+    Author     : Audrey Ruellan, Cerelia Besnainou and Zhu rui <zrhurey@gmail.com>
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
