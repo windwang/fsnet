@@ -15,7 +15,7 @@
     <class>fr.univartois.ili.fsnet.entities.SocialEntity</class>
     <class>fr.univartois.ili.fsnet.entities.Topic</class>
     <class>fr.univartois.ili.fsnet.entities.TopicMessage</class>
-    <class>fr.univartois.ili.fsnet.entities.Configuration</class>
+    <class>fr.univartois.ili.fsnet.entities.Property</class>
     
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
