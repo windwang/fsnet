@@ -82,6 +82,18 @@ public class SocialEntityFacade {
         if (socialEntity == null) {
             throw new IllegalArgumentException();
         }
+        for (SocialEntity contact : socialEntity.getContacts()) {
+            contact.getContacts().remove(socialEntity);
+        }
+        for (SocialEntity contact : socialEntity.getRefused()) {
+            contact.getRefused().remove(socialEntity);
+        }
+        for (SocialEntity contact : socialEntity.getRequested()) {
+            contact.getRequested().remove(socialEntity);
+        }
+        for (SocialEntity contact : socialEntity.getAsked()) {
+            contact.getAsked().remove(socialEntity);
+        }
         em.remove(socialEntity);
         em.flush();
     }
@@ -200,9 +212,11 @@ public class SocialEntityFacade {
      * @param socialEntity the SocialEntity who want to add a favorite interaction
      * @param interaction the favorite interaction to add
      */
-    public final void addFavoriteInteraction(SocialEntity socialEntity, Interaction interaction){
-    	if(socialEntity == null || interaction == null) throw new IllegalArgumentException();
-    	socialEntity.getFavoriteInteractions().add(interaction);
+    public final void addFavoriteInteraction(SocialEntity socialEntity, Interaction interaction) {
+        if (socialEntity == null || interaction == null) {
+            throw new IllegalArgumentException();
+        }
+        socialEntity.getFavoriteInteractions().add(interaction);
     }
 
     /**
@@ -210,8 +224,10 @@ public class SocialEntityFacade {
      * @param socialEntity the SocialEntity who want to remove a favorite interaction
      * @param interaction the favorite interaction to remove
      */
-    public final void removeFavoriteInteraction(SocialEntity socialEntity, Interaction interaction){
-    	if(socialEntity == null || interaction == null) throw new IllegalArgumentException();
-    	socialEntity.getFavoriteInteractions().remove(interaction);
+    public final void removeFavoriteInteraction(SocialEntity socialEntity, Interaction interaction) {
+        if (socialEntity == null || interaction == null) {
+            throw new IllegalArgumentException();
+        }
+        socialEntity.getFavoriteInteractions().remove(interaction);
     }
 }
