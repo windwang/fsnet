@@ -24,6 +24,7 @@ import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 /**
  * 
@@ -146,6 +147,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
+		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		DynaActionForm dyna = (DynaActionForm) form;		// NOSONAR 
 	    int id = -1;
@@ -155,7 +157,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		} catch (NumberFormatException e) {
 			id = user.getId();
 		} 
-		SocialEntity profile = em.find(SocialEntity.class, id);
+		SocialEntity profile = sef.getSocialEntity(id);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		request.setAttribute(EDITABLE_PROFILE_VARIABLE, profile.equals(user));
 		if(user.getBirthDate()!=null)
