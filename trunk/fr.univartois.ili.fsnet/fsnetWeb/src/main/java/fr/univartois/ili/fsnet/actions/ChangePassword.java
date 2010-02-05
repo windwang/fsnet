@@ -36,9 +36,8 @@ public class ChangePassword extends Action{
 		ProfileFacade pf = new ProfileFacade(em);
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         ChangePasswordForm cpf = (ChangePasswordForm) form;   			//NOSONAR
-        user.setPassword(Encryption.getEncodedPassword(cpf.getNewPassword()));
         em.getTransaction().begin();
-        pf.changePassword(user,Encryption.getEncodedPassword(cpf.getOldPassword()) , Encryption.getEncodedPassword(cpf.getNewPassword()));
+        pf.changePassword(user,cpf.getOldPassword() , cpf.getNewPassword());
         em.getTransaction().commit();
         em.close();
 		return mapping.findForward("success");

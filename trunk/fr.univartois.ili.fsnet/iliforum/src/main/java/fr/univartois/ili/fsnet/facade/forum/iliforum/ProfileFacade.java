@@ -6,6 +6,7 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
@@ -33,19 +34,21 @@ public class ProfileFacade {
     /**
      * change the password from a user
      * @param socialEntity user
-     * @param old old password
+     * @param oldPassword old password
      * @param newPassword new password
      * @return true if success
      */
-    public final boolean changePassword(SocialEntity socialEntity, String old, String newPassword) {
-    	if(socialEntity == null || old == null || newPassword == null){
+    public final boolean changePassword(SocialEntity socialEntity, String oldPassword, String newPassword) {
+    	if(socialEntity == null || oldPassword == null || newPassword == null){
     		throw new IllegalArgumentException();
     	}
-        if (!old.equals(socialEntity.getPassword())) {
+    	String encryptOldPassword = Encryption.getEncodedPassword(oldPassword);
+    	String encryptNewPassword = Encryption.getEncodedPassword(newPassword);
+        if (!encryptOldPassword.equals(socialEntity.getPassword())) {
             loger.log(Level.SEVERE, "Formular validation error");
             return false;
         }
-        socialEntity.setPassword(newPassword);
+        socialEntity.setPassword(encryptNewPassword);
         em.merge(socialEntity);
         em.flush();
         return true;
