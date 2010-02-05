@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.facade.forum.iliforum;
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.Property;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  * 
@@ -38,9 +39,9 @@ public class FSNetConfigurationFacade {
 
     }
 
-    public int getSMTPHost() {
-        return Integer.parseInt(em.find(Property.class,
-                Property.FsnetProperty.SMTP_HOST).getValue());
+    public String getSMTPHost() {
+        return em.find(Property.class,
+                Property.FsnetProperty.SMTP_HOST).getValue();
     }
 
     public void setSMTPHost(String smtpHost) {
@@ -57,9 +58,9 @@ public class FSNetConfigurationFacade {
         }
     }
 
-    public int getSMTPUser() {
-        return Integer.parseInt(em.find(Property.class,
-                Property.FsnetProperty.SMTP_USER).getValue());
+    public String getSMTPUser() {
+        return em.find(Property.class,
+                Property.FsnetProperty.SMTP_USER).getValue();
     }
 
     public void setSMTPUser(String smtpUser) {
@@ -76,9 +77,9 @@ public class FSNetConfigurationFacade {
         }
     }
    
-    public int getSMTPPassword() {
-        return Integer.parseInt(em.find(Property.class,
-                Property.FsnetProperty.SMTP_PASSWORD).getValue());
+    public String getSMTPPassword() {
+        return em.find(Property.class,
+                Property.FsnetProperty.SMTP_PASSWORD).getValue();
     }
 
     public void setSMTPPassword(String smtpPassword) {
@@ -95,12 +96,12 @@ public class FSNetConfigurationFacade {
         }
     }
    
-    public int getSMTPTLS() {
-        return Integer.parseInt(em.find(Property.class,
-                Property.FsnetProperty.ENABLE_TLS).getValue());
+    public String getTLS() {
+        return em.find(Property.class,
+                Property.FsnetProperty.ENABLE_TLS).getValue();
     }
 
-    public void setSMTPTLS(Boolean tls) {
+    public void setTLS(Boolean tls) {
         Property smtpTLSConf = em.find(Property.class,
                 Property.FsnetProperty.ENABLE_TLS);
         if(smtpTLSConf == null) {
@@ -114,12 +115,12 @@ public class FSNetConfigurationFacade {
         }
     }
    
-    public int getSMTPSSL() {
-        return Integer.parseInt(em.find(Property.class,
-                Property.FsnetProperty.ENABLE_SSL).getValue());
+    public String getSSL() {
+        return em.find(Property.class,
+                Property.FsnetProperty.ENABLE_SSL).getValue();
     }
 
-    public void setSMTPSSL(Boolean ssl) {
+    public void setSSL(Boolean ssl) {
         Property smtpSSLConf = em.find(Property.class,
                 Property.FsnetProperty.ENABLE_SSL);
         if(smtpSSLConf == null) {
@@ -134,12 +135,12 @@ public class FSNetConfigurationFacade {
     }
    
    
-    public int getSMTPAuthentification() {
-        return Integer.parseInt(em.find(Property.class,
-                Property.FsnetProperty.ENABLE_AUTHENTICATION).getValue());
+    public String getAuthentification() {
+        return em.find(Property.class,
+                Property.FsnetProperty.ENABLE_AUTHENTICATION).getValue();
     }
 
-    public void setSMTPAuthentification(Boolean authentification) {
+    public void setAuthentification(Boolean authentification) {
         Property smtpAuthentificationConf = em.find(Property.class,
                 Property.FsnetProperty.ENABLE_AUTHENTICATION);
         if(smtpAuthentificationConf == null) {
@@ -153,9 +154,9 @@ public class FSNetConfigurationFacade {
         }
     }
    
-    public int getMailFrom() {
-        return Integer.parseInt(em.find(Property.class,
-                Property.FsnetProperty.MAIL_FROM).getValue());
+    public String getMailFrom() {
+        return em.find(Property.class,
+                Property.FsnetProperty.MAIL_FROM).getValue();
     }
 
     public void setMailFrom(String mailFrom) {
@@ -172,9 +173,9 @@ public class FSNetConfigurationFacade {
         }
     }
    
-    public int getUrl() {
-        return Integer.parseInt(em.find(Property.class,
-                Property.FsnetProperty.URL).getValue());
+    public String getUrl() {
+        return em.find(Property.class,
+                Property.FsnetProperty.URL).getValue();
     }
 
     public void setUrl(String url) {

@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.entities;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Enumerated;
 import javax.persistence.Id;
@@ -17,10 +18,12 @@ public class Property {
 	
 	@Id
 	@Enumerated
+	@Column(name="KEY_PK")
 	private FsnetProperty key;
 	
 	private String value;
 
+	
 	public FsnetProperty getKey() {
 		return key;
 	}
@@ -36,5 +39,5 @@ public class Property {
 	public void setValue(String value) {
 		this.value = value;
 	}
-	
+
 }
