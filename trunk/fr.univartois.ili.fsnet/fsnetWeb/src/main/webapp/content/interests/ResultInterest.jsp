@@ -8,11 +8,16 @@
 
 <c:choose>
     <c:when test="${not empty requestScope.interestResult}">
-        <ul>
+        <div class="cloud">
             <c:forEach var="interest" items="${requestScope.interestResult}">
-                <li>${interest.name}</li>
+                <div>
+                	<html:link action="/InterestInformations">
+                		<html:param name="interestId" value="${interest.id}"/>
+                		${interest.name}
+                	</html:link>
+                </div>
             </c:forEach>
-        </ul>
+        </div>
         <logic:present name="currentSearch" scope="request">
 	        <logic:present name="currentPage" scope="request">
 				<c:if test="${requestScope.currentPage > 0}">
