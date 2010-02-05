@@ -22,7 +22,8 @@ import org.junit.runners.Suite;
     HubFacadeTest.class,
     TopicMessageFacadeTest.class,
     TopicFacadeTest.class,
-    CommunityFacadeTest.class
+    CommunityFacadeTest.class,
+    ProfileFacadeTest.class
 })
 public class AllTests {
 
