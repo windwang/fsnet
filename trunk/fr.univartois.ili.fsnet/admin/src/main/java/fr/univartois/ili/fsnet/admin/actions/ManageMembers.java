@@ -30,13 +30,16 @@ import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Address;
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
+
 
 /**
  * Execute CRUD Actions (and more) for the entity member
  * 
  * @author Audrey Ruellan and Cerelia Besnainou
+ * @author Mehdi Benzaghar
  */
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
@@ -145,6 +148,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		em.close();
 		return mapping.findForward("success");
 	}
+	
+	
 
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
@@ -152,7 +157,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		EntityManager entityManager = factory.createEntityManager();
-
+		
 		Integer idMember = Integer.valueOf(request.getParameter("idMember"));
 
 		SocialEntity member = entityManager.find(SocialEntity.class, idMember);
@@ -169,7 +174,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("email", member.getEmail());
 		dynaForm.set("firstName", member.getFirstName());
 		dynaForm.set("id",member.getId());
-		
+		request.setAttribute("interests", member.getInterests());
+		request.setAttribute("id",member.getId());
+
 		return mapping.findForward("success");
 	}
 
@@ -245,6 +252,35 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		em.close();
 
 		request.setAttribute("membersResult", resultOthers);
+		return mapping.findForward("success");
+	}
+	
+	/**
+	 * delete interest member by admin
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward deleteInterestMember(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		Integer interestSelected = Integer.valueOf(request.getParameter("interestSelected"));
+		Integer idSocialEntity = Integer.valueOf(request.getParameter("idMember"));
+		
+		EntityManager em = factory.createEntityManager();
+		
+		
+		logger.info("delete interest social entity");
+		SocialEntityFacade ise = new SocialEntityFacade(em);
+		em.getTransaction().begin();
+		ise.removeInterest(em.find(Interest.class, interestSelected), em.find(SocialEntity.class, idSocialEntity));
+		em.getTransaction().commit();
+		em.close();
+		
 		return mapping.findForward("success");
 	}
 }
