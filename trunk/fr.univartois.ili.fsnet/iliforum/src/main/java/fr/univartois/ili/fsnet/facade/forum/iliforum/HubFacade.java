@@ -33,7 +33,8 @@ public class HubFacade {
 	 */
 	public final Hub createHub(Community community, SocialEntity creator,
 			String name) {
-		if (community == null || creator == null || name == null) {
+                //TODO actually no gestion for commmunity
+		if (creator == null || name == null) {
 			throw new IllegalArgumentException();
 		}
 		Hub hub = new Hub(community, creator, name);

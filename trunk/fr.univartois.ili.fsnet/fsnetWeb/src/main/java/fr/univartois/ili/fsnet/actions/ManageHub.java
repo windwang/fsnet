@@ -28,7 +28,9 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import java.util.ArrayList;
 
 /**
  * 
@@ -36,111 +38,124 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
  */
 public class ManageHub extends MappingDispatchAction implements CrudAction {
 
-	private static EntityManagerFactory factory = Persistence
-	.createEntityManagerFactory("fsnetjpa");
-	private static final Logger logger = Logger.getAnonymousLogger();
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+    private static final Logger logger = Logger.getAnonymousLogger();
 
+    
+    @Override
+    public ActionForward create(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+        String hubName = (String) dynaForm.get("hubName");
+        EntityManager em = factory.createEntityManager();
 
-	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String hubName = (String) dynaForm.get("hubName");
-		EntityManager em = factory.createEntityManager();
-		HubFacade hubFacade = new HubFacade(em);
-		logger.info("new hub: " + hubName);
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		em.getTransaction().begin();
-		hubFacade.createHub(null, user, hubName);
-		em.getTransaction().commit();
-		em.close();
+        //
+        String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+        InterestFacade fac = new InterestFacade(em);
+        List<Interest> interests = new ArrayList<Interest>();
+        int currentId;
+        for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+            interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
+        }
 
-		return mapping.findForward("success");
-	}
+        //
+        HubFacade hubFacade = new HubFacade(em);
+        logger.info("new hub: " + hubName);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+        em.getTransaction().begin();
+        Hub createdHub = hubFacade.createHub(null, user, hubName);
+        
+        InteractionFacade ifacade = new InteractionFacade(em);
+        ifacade.addInterests(createdHub, interests);
+        em.getTransaction().commit();
+        em.close();
 
-	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet.");
-	}
+        return mapping.findForward("success");
+    }
 
-	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
-		String hubId = request.getParameter("hubId");
+    @Override
+    public ActionForward modify(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
-		logger.info("delete hub: " + hubId);
+    @Override
+    public ActionForward delete(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String hubId = request.getParameter("hubId");
 
-		EntityManager em = factory.createEntityManager();
-		HubFacade hubFacade = new HubFacade(em);
-		em.getTransaction().begin();
-		hubFacade.delete(Integer.parseInt(hubId));
-		em.getTransaction().commit();
-		em.close();
-		return mapping.findForward("success");
-	}
+        logger.info("delete hub: " + hubId);
 
-	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+        EntityManager em = factory.createEntityManager();
+        HubFacade hubFacade = new HubFacade(em);
+        em.getTransaction().begin();
+        hubFacade.delete(Integer.parseInt(hubId));
+        em.getTransaction().commit();
+        em.close();
+        return mapping.findForward("success");
+    }
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String hubName;
-		if (form == null) {
-			hubName = "";
-		} else {
-			hubName = (String) dynaForm.get("hubName");
-		}
-		logger.info("search hub: " + hubName);
-		EntityManager em = factory.createEntityManager();
-		HubFacade hubFacade = new HubFacade(em);
-		em.getTransaction().begin();
-		List<Hub> result = hubFacade.searchHub(hubName);
-		em.getTransaction().commit();
-		em.close();
-		request.setAttribute("hubResults", result);
+    @Override
+    public ActionForward search(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
 
-		return mapping.findForward("success");
-	}
+        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+        String hubName;
+        if (form == null) {
+            hubName = "";
+        } else {
+            hubName = (String) dynaForm.get("hubName");
+        }
+        logger.info("search hub: " + hubName);
+        EntityManager em = factory.createEntityManager();
+        HubFacade hubFacade = new HubFacade(em);
+        em.getTransaction().begin();
+        List<Hub> result = hubFacade.searchHub(hubName);
+        em.getTransaction().commit();
+        em.close();
+        request.setAttribute("hubResults", result);
 
-	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
-		String hubId = (String) request.getParameter("hubId");
-		logger.info("display hub: " + hubId);
-		Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		HubFacade hubFacade = new HubFacade(em);
-		Hub result = hubFacade.getHub(Integer.parseInt(hubId));
+        return mapping.findForward("success");
+    }
 
-		for (Topic t : result.getTopics()) {
-			List<TopicMessage> messages = t.getMessages();
-			Message lastMessage = null;
-			if (messages.size() > 0) {
-				lastMessage = messages.get(messages.size() - 1);
-			}
-			topicsLastMessage.put(t, lastMessage);
-		}
-		em.getTransaction().commit();
-		em.close();
-		request.setAttribute("hubResult", result);
-		request.setAttribute("topicsLastMessage", topicsLastMessage);
-		return mapping.findForward("success");
-	}
+    @Override
+    public ActionForward display(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        String hubId = (String) request.getParameter("hubId");
+        logger.info("display hub: " + hubId);
+        Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        HubFacade hubFacade = new HubFacade(em);
+        Hub result = hubFacade.getHub(Integer.parseInt(hubId));
 
-	public ActionForward getAllInterest(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
-		InterestFacade fac = new InterestFacade(em);
-		List<Interest> listInterests = fac.getInterests();
-		request.setAttribute("Interests", listInterests);
-		return mapping.findForward("success");
-	}
+        for (Topic t : result.getTopics()) {
+            List<TopicMessage> messages = t.getMessages();
+            Message lastMessage = null;
+            if (messages.size() > 0) {
+                lastMessage = messages.get(messages.size() - 1);
+            }
+            topicsLastMessage.put(t, lastMessage);
+        }
+        em.getTransaction().commit();
+        em.close();
+        request.setAttribute("hubResult", result);
+        request.setAttribute("topicsLastMessage", topicsLastMessage);
+        return mapping.findForward("success");
+    }
+
+    public ActionForward getAllInterest(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        EntityManager em = factory.createEntityManager();
+        InterestFacade fac = new InterestFacade(em);
+        List<Interest> listInterests = fac.getInterests();
+        request.setAttribute("Interests", listInterests);
+        return mapping.findForward("success");
+    }
 }
