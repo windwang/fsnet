@@ -13,6 +13,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
@@ -33,6 +34,7 @@ public class ProfileFacadeTest {
 	private SocialEntity toto;
 	private Address addr = new Address("Rue Jean souvraz", "Lens");
 	private Date birthDay = new Date();
+	private String genaratePassword;
 	
 	/**
 	 * inisialisation
@@ -47,7 +49,12 @@ public class ProfileFacadeTest {
 			em.getTransaction().begin();
 			toto=sef.createSocialEntity("toto", "titi", "toto@titi.fr");
 			em.getTransaction().commit();
-			
+			genaratePassword = Encryption.generateRandomPassword();
+			Encryption.getEncodedPassword(genaratePassword);
+			em.getTransaction().begin();
+			toto.setPassword(Encryption.getEncodedPassword(genaratePassword));
+			em.merge(toto);
+			em.getTransaction().commit();
 	}
 	
 	/**
@@ -88,14 +95,15 @@ public class ProfileFacadeTest {
 	 */
 	@Test
 	public void changePasswordTest(){
-	/*	em.getTransaction().begin();
-		boolean ok = pf.changePassword(toto, toto.getPassword(), "totoPwd");
+		assertEquals(Encryption.getEncodedPassword(genaratePassword),toto.getPassword());
+		em.getTransaction().begin();
+		boolean ok = pf.changePassword(toto, genaratePassword, "totoPwd");
 		em.getTransaction().commit();
 		em.getTransaction().begin();
 		SocialEntity totoSearch = sef.getSocialEntity(toto.getId());
 		em.getTransaction().commit();
-		assertEquals(totoSearch.getPassword(), "totoPwd");
-		assertTrue(ok);*/
+		assertEquals(totoSearch.getPassword(), Encryption.getEncodedPassword("totoPwd"));
+		assertTrue(ok);
 	}
 	
 	/**
@@ -103,10 +111,14 @@ public class ProfileFacadeTest {
 	 */
 	@Test
 	public void uncorrectChangePasswordTest(){
-	/*	em.getTransaction().begin();
+		em.getTransaction().begin();
 		boolean ok = pf.changePassword(toto, toto.getPassword()+"titititit", "totoPwd");
 		em.getTransaction().commit();
-		assertFalse(ok);*/
+		assertFalse(ok);
+		em.getTransaction().begin();
+		SocialEntity totoSearch = sef.getSocialEntity(toto.getId());
+		em.getTransaction().commit();
+		assertEquals(Encryption.getEncodedPassword(genaratePassword), totoSearch.getPassword());
 	}
 	
 }
