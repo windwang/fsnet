@@ -1,6 +1,6 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -78,9 +78,10 @@ public class ContactFacadeTest {
         em.persist(se2);
         cf.askContact(se1, se2);
         cf.acceptContact(se2, se1);
-        cf.deleteContact(se2.getId());
+
+        sef.deleteSocialEntity(se2);
         em.getTransaction().commit();
-        assertTrue(!se1.getContacts().contains(se2));
+        assertFalse(se1.getContacts().contains(se2));
     }
 
     /**
