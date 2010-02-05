@@ -5,6 +5,11 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
 	<form-beans>
+		<form-bean name="DeleteInterestMember"
+		 type="org.apache.struts.validator.DynaValidatorActionForm">
+		 	<form-property name="id" type="java.lang.Integer" />
+		 	<form-property name="idInterest" type="java.lang.Integer" />
+		</form-bean>
 		<form-bean name="SearchMemberForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="searchText" type="java.lang.String" />
@@ -34,7 +39,7 @@
 
 	</global-forwards>
 	<action-mappings>
-		<action path="/DisplayMember"
+		<action path="/DisplayMember" 
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" name="ModifyMemberForm"
 			input="Members" scope="request" parameter="display">
 			<forward name="success" path="DisplayForModifyMember" />
@@ -52,7 +57,7 @@
 			<forward name="success" path="Members" />
 		</action>
 
-		<action path="/CreateMember"
+		<action path="/CreateMember" 
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" name="CreateMemberForm"
 			input="Members" scope="request" validate="true" parameter="create">
 			<forward name="success" path="/Members.do" />
@@ -60,14 +65,20 @@
 
 
 
-		<action path="/DeleteMember"
+		<action path="/DeleteMember" scope="request"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" parameter="delete">
 			<forward name="success" path="/Members.do" />
 		</action>
 
-		<action path="/Members"
+		<action path="/Members" scope="request"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" parameter="search">
 			<forward name="success" path="Members" />
 		</action>
+		
+		<action path="/DeleteInterestMember" scope="request"
+			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" parameter="deleteInterestMember">
+			<forward name="success" path="/DisplayMember.do" />
+		</action>
+		
 	</action-mappings>
 </struts-config>

@@ -91,7 +91,27 @@
 		</tr>
 	</table>
 </html:form>
+<hr />
+<bean:message key="members.herInterests"/>
+<br /><br />
+<table  class="inLineTable">
+        <c:forEach var="interest" items="${interests}">
 
+            <tr class="content">
+                <td>
+                ${interest.name}
+                </td>
+                  <td class="tableButton">
+                    <html:link action="DeleteInterestMember" styleClass="button">
+                       <bean:message key="members.deleteInterest"/>
+                       <html:param name="interestSelected" value="${interest.id}"/>
+                       <html:param name="idMember" value="${id}"/>
+                    </html:link>
+                </td>
+            </tr>
+            
+        </c:forEach>
+    </table>
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
