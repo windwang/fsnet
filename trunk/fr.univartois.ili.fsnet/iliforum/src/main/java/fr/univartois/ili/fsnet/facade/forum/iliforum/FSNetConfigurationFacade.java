@@ -12,50 +12,183 @@ import fr.univartois.ili.fsnet.entities.Property;
 
 public class FSNetConfigurationFacade {
 
-	private final EntityManager em;
+    private final EntityManager em;
 
-	public FSNetConfigurationFacade(EntityManager em) {
-		this.em = em;
-	}
+    public FSNetConfigurationFacade(EntityManager em) {
+        this.em = em;
+    }
 
-	public int getSMTPPort() {
-		return Integer.parseInt(em.find(Property.class,
-				Property.FsnetProperty.SMTP_PORT).getValue());
-	}
+    public int getSMTPPort() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.SMTP_PORT).getValue());
+    }
 
-	public void setSMTPPort(int smtpPort) {
-		Property smtpPortConf = em.find(Property.class,
-				Property.FsnetProperty.SMTP_PORT);
-		if (smtpPortConf == null) {
-			smtpPortConf = new Property();
-			smtpPortConf.setKey(Property.FsnetProperty.SMTP_PORT);
-			smtpPortConf.setValue(String.valueOf(smtpPort));
-			em.persist(smtpPortConf);
-		} else {
-			smtpPortConf.setValue(String.valueOf(smtpPort));
-			em.merge(smtpPortConf);
-		}
+    public void setSMTPPort(int smtpPort) {
+        Property smtpPortConf = em.find(Property.class,
+                Property.FsnetProperty.SMTP_PORT);
+        if (smtpPortConf == null) {
+            smtpPortConf = new Property();
+            smtpPortConf.setKey(Property.FsnetProperty.SMTP_PORT);
+            smtpPortConf.setValue(String.valueOf(smtpPort));
+            em.persist(smtpPortConf);
+        } else {
+            smtpPortConf.setValue(String.valueOf(smtpPort));
+            em.merge(smtpPortConf);
+        }
 
-	}
+    }
 
-	public int getSMTPHost() {
-		return Integer.parseInt(em.find(Property.class,
-				Property.FsnetProperty.SMTP_HOST).getValue());
-	}
+    public int getSMTPHost() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.SMTP_HOST).getValue());
+    }
 
-	public void setSMTPHost(int smtpHost) {
-		Property smtpHostConf = em.find(Property.class,
-				Property.FsnetProperty.SMTP_HOST);
-		if(smtpHostConf == null) {
-			smtpHostConf = new Property();
-			smtpHostConf.setKey(Property.FsnetProperty.SMTP_HOST);
-			smtpHostConf.setValue(String.valueOf(smtpHost));
-			em.persist(smtpHostConf);
-		} else {
-			smtpHostConf.setValue(String.valueOf(smtpHost));
-			em.merge(smtpHostConf);
-		}
-	}
-	
-	
+    public void setSMTPHost(String smtpHost) {
+        Property smtpHostConf = em.find(Property.class,
+                Property.FsnetProperty.SMTP_HOST);
+        if (smtpHostConf == null) {
+            smtpHostConf = new Property();
+            smtpHostConf.setKey(Property.FsnetProperty.SMTP_HOST);
+            smtpHostConf.setValue(smtpHost);
+            em.persist(smtpHostConf);
+        } else {
+            smtpHostConf.setValue(smtpHost);
+            em.merge(smtpHostConf);
+        }
+    }
+
+    public int getSMTPUser() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.SMTP_USER).getValue());
+    }
+
+    public void setSMTPUser(String smtpUser) {
+        Property smtpUserConf = em.find(Property.class,
+                Property.FsnetProperty.SMTP_USER);
+        if(smtpUserConf == null) {
+            smtpUserConf = new Property();
+            smtpUserConf.setKey(Property.FsnetProperty.SMTP_USER);
+            smtpUserConf.setValue(smtpUser);
+            em.persist(smtpUserConf);
+        } else {
+            smtpUserConf.setValue(smtpUser);
+            em.merge(smtpUserConf);
+        }
+    }
+   
+    public int getSMTPPassword() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.SMTP_PASSWORD).getValue());
+    }
+
+    public void setSMTPPassword(String smtpPassword) {
+        Property smtpPasswordConf = em.find(Property.class,
+                Property.FsnetProperty.SMTP_PASSWORD);
+        if(smtpPasswordConf == null) {
+            smtpPasswordConf = new Property();
+            smtpPasswordConf.setKey(Property.FsnetProperty.SMTP_PASSWORD);
+            smtpPasswordConf.setValue(smtpPassword);
+            em.persist(smtpPasswordConf);
+        } else {
+            smtpPasswordConf.setValue(smtpPassword);
+            em.merge(smtpPasswordConf);
+        }
+    }
+   
+    public int getSMTPTLS() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.ENABLE_TLS).getValue());
+    }
+
+    public void setSMTPTLS(Boolean tls) {
+        Property smtpTLSConf = em.find(Property.class,
+                Property.FsnetProperty.ENABLE_TLS);
+        if(smtpTLSConf == null) {
+            smtpTLSConf = new Property();
+            smtpTLSConf.setKey(Property.FsnetProperty.ENABLE_TLS);
+            smtpTLSConf.setValue(String.valueOf(tls));
+            em.persist(smtpTLSConf);
+        } else {
+            smtpTLSConf.setValue(String.valueOf(tls));
+            em.merge(smtpTLSConf);
+        }
+    }
+   
+    public int getSMTPSSL() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.ENABLE_SSL).getValue());
+    }
+
+    public void setSMTPSSL(Boolean ssl) {
+        Property smtpSSLConf = em.find(Property.class,
+                Property.FsnetProperty.ENABLE_SSL);
+        if(smtpSSLConf == null) {
+            smtpSSLConf = new Property();
+            smtpSSLConf.setKey(Property.FsnetProperty.ENABLE_SSL);
+            smtpSSLConf.setValue(String.valueOf(ssl));
+            em.persist(smtpSSLConf);
+        } else {
+            smtpSSLConf.setValue(String.valueOf(ssl));
+            em.merge(smtpSSLConf);
+        }
+    }
+   
+   
+    public int getSMTPAuthentification() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.ENABLE_AUTHENTICATION).getValue());
+    }
+
+    public void setSMTPAuthentification(Boolean authentification) {
+        Property smtpAuthentificationConf = em.find(Property.class,
+                Property.FsnetProperty.ENABLE_AUTHENTICATION);
+        if(smtpAuthentificationConf == null) {
+            smtpAuthentificationConf = new Property();
+            smtpAuthentificationConf.setKey(Property.FsnetProperty.ENABLE_AUTHENTICATION);
+            smtpAuthentificationConf.setValue(String.valueOf(authentification));
+            em.persist(smtpAuthentificationConf);
+        } else {
+            smtpAuthentificationConf.setValue(String.valueOf(authentification));
+            em.merge(smtpAuthentificationConf);
+        }
+    }
+   
+    public int getMailFrom() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.MAIL_FROM).getValue());
+    }
+
+    public void setMailFrom(String mailFrom) {
+        Property smtpMailFromConf = em.find(Property.class,
+                Property.FsnetProperty.MAIL_FROM);
+        if(smtpMailFromConf == null) {
+            smtpMailFromConf = new Property();
+            smtpMailFromConf.setKey(Property.FsnetProperty.MAIL_FROM);
+            smtpMailFromConf.setValue(mailFrom);
+            em.persist(smtpMailFromConf);
+        } else {
+            smtpMailFromConf.setValue(mailFrom);
+            em.merge(smtpMailFromConf);
+        }
+    }
+   
+    public int getUrl() {
+        return Integer.parseInt(em.find(Property.class,
+                Property.FsnetProperty.URL).getValue());
+    }
+
+    public void setUrl(String url) {
+        Property smtpUrlConf = em.find(Property.class,
+                Property.FsnetProperty.URL);
+        if(smtpUrlConf == null) {
+            smtpUrlConf = new Property();
+            smtpUrlConf.setKey(Property.FsnetProperty.URL);
+            smtpUrlConf.setValue(url);
+            em.persist(smtpUrlConf);
+        } else {
+            smtpUrlConf.setValue(url);
+            em.merge(smtpUrlConf);
+        }
+    }
+
 }
