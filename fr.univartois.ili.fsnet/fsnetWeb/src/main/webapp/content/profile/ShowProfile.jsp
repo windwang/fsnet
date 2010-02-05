@@ -63,7 +63,7 @@
 	<c:forEach var="interest" items="${watchedProfile.interests}">
 		<tr>
 			<td>
-				<html:link action="/InfoInterest">
+				<html:link action="/InterestInformations">
                		<html:param name="InterestId" value="${interest.id}"/>
                		${interest.name}
             	</html:link>

@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -23,6 +24,8 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.CrudAction;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.entities.Hub;
+import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
@@ -130,7 +133,7 @@ public class ManageInterests extends MappingDispatchAction implements
 			em.getTransaction().commit();
 		}
 		em.close();
-		
+
 		return mapping.findForward("success");
 	}
 
@@ -251,6 +254,35 @@ public class ManageInterests extends MappingDispatchAction implements
 		request.setAttribute("allInterests", listAllInterests);
 		request.setAttribute("listInterests", finalList);
 
+		return mapping.findForward("success");
+	}
+
+	public ActionForward informations(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		InterestFacade facade = new InterestFacade(em);
+		logger.info("Displaying interest's informations");
+
+		int interestId;
+		if (request.getParameterMap().containsKey("interestId")) {
+			try {
+				interestId = Integer.valueOf(request.getParameter("interestId"));
+			} catch (NumberFormatException e) {
+				interestId = 0;
+			}
+
+			Interest interest = facade.getInterest(interestId);
+			HashMap<String, List<Interaction>> resultMap = facade.getInteractions(interestId);
+			em.close();
+			
+			if (interest != null) {
+				request.setAttribute("interest", interest);
+				for (String interactionClass : resultMap.keySet()) {
+					request.setAttribute(interactionClass, resultMap.get(interactionClass));
+				}
+			}
+		}
 		return mapping.findForward("success");
 	}
 }

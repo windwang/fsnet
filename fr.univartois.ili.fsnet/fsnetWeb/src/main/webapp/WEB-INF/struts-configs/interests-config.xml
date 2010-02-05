@@ -104,6 +104,15 @@
             <forward name="success" path="Interests" />
         </action>
         
+        <action
+            path="/InterestInformations"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            input="/Interests.do"
+            scope="request"
+            parameter="informations">
+            <forward name="success" path="InfoInterest" />
+        </action>
+        
          <action
             path="/InterestCheckBoxes"
             type="fr.univartois.ili.fsnet.actions.ManageInterests"
