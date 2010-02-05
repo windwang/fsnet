@@ -23,8 +23,7 @@
     </tr>
     <tr>
         <th><bean:message key="updateProfile.city"/></th>
-        <td>${watchedProfile.address.city
-        }</td>
+        <td>${watchedProfile.address.city}</td>
     </tr>
     <tr>
         <th><bean:message key="updateProfile.dateOfBirth"/></th>
@@ -48,7 +47,7 @@
     	<tr>
     		<td colspan="2" align="right">
     			<html:link styleClass="button" href="Profile.do">
-					editer
+					<bean:message key="showProfile.edit"/>
 				</html:link>
 			</td>
 		</tr>
