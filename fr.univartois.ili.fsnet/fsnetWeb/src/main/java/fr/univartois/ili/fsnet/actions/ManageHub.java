@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,6 +20,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Message;
@@ -40,16 +40,19 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
     private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
     private static final Logger logger = Logger.getAnonymousLogger();
-
     
-    @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-        String hubName = (String) dynaForm.get("hubName");
-        EntityManager em = factory.createEntityManager();
-
+	@Override
+	public ActionForward create(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String hubName = (String) dynaForm.get("hubName");
+		String communityId = (String) request.getParameter("communityId");
+		EntityManager em = factory.createEntityManager();
+		Community community = em.find(Community.class, Integer.parseInt(communityId));
+	
+		
         //
         String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
         InterestFacade fac = new InterestFacade(em);
@@ -58,14 +61,14 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         for (currentId = 0; currentId < InterestsIds.length; currentId++) {
             interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
         }
-
         //
-        HubFacade hubFacade = new HubFacade(em);
-        logger.info("new hub: " + hubName);
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        em.getTransaction().begin();
-        Hub createdHub = hubFacade.createHub(null, user, hubName);
         
+    	HubFacade hubFacade = new HubFacade(em);
+		logger.info("new hub: " + hubName);
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		em.getTransaction().begin();
+		Hub createdHub = hubFacade.createHub(community, user, hubName);
+	
         InteractionFacade ifacade = new InteractionFacade(em);
         ifacade.addInterests(createdHub, interests);
         em.getTransaction().commit();
@@ -97,27 +100,31 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         em.close();
         return mapping.findForward("success");
     }
-
+    
     @Override
     public ActionForward search(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
 
-        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-        String hubName;
-        if (form == null) {
-            hubName = "";
-        } else {
-            hubName = (String) dynaForm.get("hubName");
-        }
-        logger.info("search hub: " + hubName);
-        EntityManager em = factory.createEntityManager();
-        HubFacade hubFacade = new HubFacade(em);
-        em.getTransaction().begin();
-        List<Hub> result = hubFacade.searchHub(hubName);
-        em.getTransaction().commit();
-        em.close();
-        request.setAttribute("hubResults", result);
+
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			String hubName;
+			String communityId = (String) request.getParameter("communityId");
+			
+			if (form == null) {
+				hubName = "";
+			} else {
+				hubName = (String) dynaForm.get("hubName");
+			}
+			logger.info("search hub: " + hubName);
+			EntityManager em = factory.createEntityManager();
+			Community community = em.find(Community.class, Integer.parseInt(communityId));
+			HubFacade hubFacade = new HubFacade(em);
+			em.getTransaction().begin();
+			List<Hub> result = hubFacade.searchHub(hubName,community);
+			em.getTransaction().commit();
+			em.close();
+			request.setAttribute("hubResults", result);
 
         return mapping.findForward("success");
     }
