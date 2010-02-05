@@ -54,6 +54,11 @@
             <version>10.5.3.0_1</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+        	<groupId>fr.univartois.ili.fsnet</groupId>
+        	<artifactId>commons</artifactId>
+        	<version>0.1</version>
+        </dependency>
     </dependencies>
 
 
