@@ -52,7 +52,6 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
 
             return mapping.findForward("success");
         } else {
-            // TODO !!! GERER ERREUR
             ActionErrors errors = new ActionErrors();
             errors.add("messageTo", new ActionMessage(("privatemessages.to.error")));
             saveErrors(request, errors);
@@ -83,8 +82,12 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
                 em.getTransaction().commit();
                 em.close();
                 return mapping.findForward("success");
-            } else {
-                // TODO error try to delete message but not owner
+            } else {            	
+            	ActionErrors errors = new ActionErrors();
+            	errors.add("messageTo", new ActionMessage(("privatemessages.not.owner")));
+                saveErrors(request, errors);
+               
+                
             }
 
         } catch (NumberFormatException e) {

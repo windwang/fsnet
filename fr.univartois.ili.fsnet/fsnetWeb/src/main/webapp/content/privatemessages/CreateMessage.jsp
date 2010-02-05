@@ -17,7 +17,7 @@
 
 
 
-<h3>Envoyer un message</h3>
+<h3><bean:message key="privatemessages.sendM"/></h3>
 
 <html:form action="/CreatePrivateMessage">
 
@@ -25,7 +25,7 @@
         <tr>
             <td>
                 <label for="messageTo">
-                    Destinataire
+                    <bean:message key="privatemessages.recipient"/>
                 </label>
             </td>
             <td>
@@ -42,7 +42,7 @@
         <tr>
             <td>
                 <label for="messageSubject">
-                    Sujet
+                    <bean:message key="privatemessages.subject"/>
                 </label>
             </td>
             <td>
@@ -76,7 +76,7 @@
         <tr>
             <td colspan="2" class="alignRight">
                 <html:submit styleClass="button">
-                    Envoyer
+                    <bean:message key="privatemessages.send"/>
                 </html:submit>
             </td>
         </tr>

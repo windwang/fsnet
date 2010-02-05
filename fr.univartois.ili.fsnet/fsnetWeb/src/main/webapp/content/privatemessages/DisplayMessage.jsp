@@ -13,7 +13,7 @@
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
 <logic:empty name="theMessage" scope="request">
-    <h3>Impossible d'afficher le message</h3>
+    <h3><bean:message key="privatemessages.impossible"/></h3>
 </logic:empty>
 <h3>
     ${theMessage.subject}
@@ -22,7 +22,7 @@
     <table class="topicTable">
         <tr class="topicHeader">
             <td>
-                De :
+                <bean:message key="privatemessages.from"/> :
                 <html:link action="/DisplayProfile">
                     <html:param name="id" value="${theMessage.from.id}"/>
                     ${theMessage.from.firstName} ${theMessage.from.name}
@@ -41,11 +41,11 @@
     </table>
 
     <a class="button" onclick="document.getElementById('quickResponse').style.display='table'">
-        <img src="images/quickResponse.png" style="vertical-align: bottom"/>Reponse rapide
+        <img src="images/quickResponse.png" style="vertical-align: bottom"/><bean:message key="privatemessages.Quickresponse"/>
     </a>
     <html:link action="/DeletePrivateMessage" styleClass="button" style="float: right">
         <html:param name="messageId" value="${theMessage.id}"/>
-        Supprimer
+        <bean:message key="privatemessages.delete"/>
     </html:link>
     <html:form action="/CreatePrivateMessage">
         <html:hidden property="messageTo" value="${theMessage.from.email}"/>
@@ -53,7 +53,7 @@
             <tr>
                 <td>
                     <label for="messageTo">
-                        A :
+                        <bean:message key="privatemessages.to"/> :
                     </label>
                 </td>
                 <td>
@@ -66,7 +66,7 @@
             <tr>
                 <td>
                     <label for="messageSubject">
-                        Sujet :
+                        <bean:message key="privatemessages.subject"/> :
                     </label>
                 </td>
                 <td>
@@ -85,13 +85,12 @@
             <tr>
                 <td colspan="2" class="alignRight">
                     <html:submit styleClass="button">
-                        Envoyer
+                        <bean:message key="privatemessages.send"/>
                     </html:submit>
                 </td>
-            </tr>
-        </html:form>
+            </tr>        
     </table>
-
+</html:form>
 
 
 
