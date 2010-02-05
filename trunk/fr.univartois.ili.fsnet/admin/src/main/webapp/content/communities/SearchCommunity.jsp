@@ -21,7 +21,7 @@
                 <td>${community.title}      
                 </td>
                 <td>
-	                <bean:message key="hubs.by"/>
+	                <bean:message key="communities.by"/>
 	                <html:link action="/DisplayMember">
 	                    <html:param name="idMember" value="${community.creator.id}"/>
 	                    ${community.creator.firstName} ${community.creator.name}

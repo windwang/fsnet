@@ -18,8 +18,19 @@
 	<table  class="inLineTable">
         <c:forEach var="community" items="${communitiesResult}">
             <tr class="content">
-                <td>${community.title}      
+                <td>
+	                <html:link action="/Hubs">
+		                    <html:param name="communityId" value="${community.id}"/>
+	                		${community.title} 
+	                </html:link>     
                 </td>
+                <td>
+	                <bean:message key="communities.by"/>
+	                <html:link action="/DisplayProfile">
+	                    <html:param name="id" value="${community.creator.id}"/>
+	                    ${community.creator.firstName} ${community.creator.name}
+	                </html:link>
+            	</td>
                 <td class="tableButton">
                 <c:if test="${sessionScope.user.id eq community.creator.id}">
                     <html:link action="/DeleteCommunity" styleClass="button">

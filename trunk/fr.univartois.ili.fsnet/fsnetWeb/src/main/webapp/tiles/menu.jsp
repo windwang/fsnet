@@ -57,11 +57,6 @@
             <bean:message key="menu.9"/>
         </html:link>
     </li>
-    <li>
-        <html:link action="/Hubs" styleClass="${currentMenu == 'Hubs' ? 'current' : ''}">
-            <bean:message key="menu.6"/>
-        </html:link>
-    </li>
     
 </ul>
 

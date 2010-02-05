@@ -10,6 +10,7 @@
 
 <h3><bean:message key="hubs.search"/></h3>
 <html:form action="/SearchHub">
+	<html:hidden property="communityId" value="${param.communityId}"/>
     <table id="SearchHub">
         <tr>
             <td>
