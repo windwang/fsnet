@@ -24,6 +24,9 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Address;
+import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.InteractionRole;
+import fr.univartois.ili.fsnet.entities.InteractionRolePK;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
@@ -101,6 +104,35 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         em.close();
 
         request.setAttribute("event", event);
+        return mapping.findForward("success");
+    }
+    
+
+    public ActionForward subscribe(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response){
+    	DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
+    	String socialEntityId = (String) dynaForm.get("seId");
+    	String eventId = (String) dynaForm.get("eventId");
+    	EntityManager em = factory.createEntityManager();
+    	em.getTransaction().begin();
+    	TypedQuery<Meeting> queryEvent = em.createQuery(
+                "Select e from Meeting e where e.id = :eventId",
+                Meeting.class);
+        queryEvent.setParameter("eventId", Integer.parseInt(eventId));
+        
+        TypedQuery<SocialEntity> querySE = em.createQuery(
+                "SELECT es FROM SocialEntity es WHERE es.id = :seId",
+                SocialEntity.class);
+        querySE.setParameter("seId", Integer.parseInt(socialEntityId));
+        
+        SocialEntity se = querySE.getSingleResult();
+        Meeting meeting = queryEvent.getSingleResult();
+        InteractionRole interactionRole = new InteractionRole();
+        interactionRole.setInteraction(meeting);
+        interactionRole.setSocialEntity(se);
+        interactionRole.setRole(InteractionRole.RoleName.SUBSCRIBER);
+        em.persist(interactionRole);
+        em.getTransaction().commit();
         return mapping.findForward("success");
     }
 
