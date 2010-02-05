@@ -67,7 +67,7 @@
 
 	<login-config>
 		<auth-method>BASIC</auth-method>
-		<realm-name>AdminRealm</realm-name>
+		<realm-name>FSNetAdminRealm</realm-name>
 	</login-config>
 
 
