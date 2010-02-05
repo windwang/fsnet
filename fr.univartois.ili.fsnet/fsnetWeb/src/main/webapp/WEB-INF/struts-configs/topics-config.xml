@@ -10,6 +10,7 @@
             <form-property name="topicSubject" type="java.lang.String" />
             <form-property name="hubId" type="java.lang.String"/>
             <form-property name="messageDescription" type="java.lang.String"/>
+            <form-property name="selectedInterests" type="java.lang.String[]" />
         </form-bean>
         <form-bean name="SearchTopicForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -84,7 +85,11 @@
                 parameter="display">
             <forward name="success" path="ModifyTopicMessage" />
         </action>
-
-
+        <action
+            path="/InterestCheckBoxes"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            parameter="display">
+            <forward name="success" path="/content/hubs/InterestCheckBoxes.jsp" />
+        </action>
     </action-mappings>
 </struts-config>
