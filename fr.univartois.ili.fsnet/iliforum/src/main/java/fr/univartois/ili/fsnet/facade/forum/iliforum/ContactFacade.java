@@ -111,19 +111,4 @@ public class ContactFacade {
         removedEntity.getContacts().remove(member);
 
     }
-
-    /**
-     * Delete a contact on the DataBase
-     *
-     * @param deletedEntity
-     */
-    public final void deleteContact(int id) {
-    	SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-        SocialEntity deletedEntity = socialEntityFacade.getSocialEntity(id);
-        
-        if (deletedEntity == null) {
-            return;
-        }
-        em.remove(deletedEntity);
-    }
 }
