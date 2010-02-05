@@ -8,6 +8,7 @@
         <form-bean name="CreateHubForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="hubName" type="java.lang.String" />
+            <form-property name="selectedInterests" type="java.lang.String[]" />
         </form-bean>
         <form-bean name="SearchHubForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
