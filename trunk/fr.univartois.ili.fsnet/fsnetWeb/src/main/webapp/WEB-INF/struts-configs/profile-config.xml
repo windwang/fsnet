@@ -33,13 +33,13 @@
 	<action-mappings>
 		<action path="/DisplayProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			parameter="display" name="DisplayProfileForm" scope="request"
-			validate="false">
+			validate="true">
 			<forward name="success" path="ShowProfile" />
 		</action>
 		<action path="/ModifyProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			name="profileForm" scope="request" validate="true" parameter="modify"
-			input="/Profile.do">
-			<forward name="success" path="/Profile.do" />
+			input="Profile">
+			<forward name="success" path="/DisplayProfile.do" />
 		</action>
 		<action path="/Profile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			scope="request" parameter="displayToModify" validate="true" name="profileForm">

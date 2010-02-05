@@ -38,7 +38,7 @@
         </html:link>
     </li>
     <li>
-        <html:link action="/Profile" styleClass="${currentMenu == 'Profile' ? 'current' : ''}">
+        <html:link action="/DisplayProfile" styleClass="${currentMenu == 'Profile' ? 'current' : ''}">
             <bean:message key="menu.3"/>
         </html:link>
     </li>

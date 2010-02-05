@@ -4,7 +4,7 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>  
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h3>
 	<bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
 </h3>
@@ -19,19 +19,39 @@
     </tr>
     <tr>
         <th><bean:message key="updateProfile.adress"/></th>
-        <td>${watchedProfile.address}</td>
+        <td>${watchedProfile.address.address}</td>
+    </tr>
+    <tr>
+        <th><bean:message key="updateProfile.city"/></th>
+        <td>${watchedProfile.address.city
+        }</td>
     </tr>
     <tr>
         <th><bean:message key="updateProfile.dateOfBirth"/></th>
-        <td>${watchedProfile.birthDate}</td>
+        <td>${birthDay}</td>
     </tr>
-
+    <tr>
+        <th><bean:message key="updateProfile.job"/></th>
+        <td>${watchedProfile.profession}</td>
+    </tr>
     <tr>
         <th><bean:message key="updateProfile.sexe"/></th>
-        <td>${watchedProfile.sex}</td>
+        <td>
+			<bean:message key="updateProfile.sexe.${watchedProfile.sex}"/>
+        </td>
     </tr>
     <tr>
         <th><bean:message key="updateProfile.phone"/></th>
         <td>${watchedProfile.phone}</td>
     </tr>
+    <c:if test="${edit}">
+    	<tr>
+    		<td colspan="2" align="right">
+    			<html:link styleClass="button" href="Profile.do">
+					editer
+				</html:link>
+			</td>
+		</tr>
+    </c:if>
 </table>
+

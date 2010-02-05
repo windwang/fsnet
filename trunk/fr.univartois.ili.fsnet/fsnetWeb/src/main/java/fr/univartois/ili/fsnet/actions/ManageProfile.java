@@ -35,6 +35,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * watched profile variable session name
 	 */
 	public static final String WATCHED_PROFILE_VARIABLE = "watchedProfile";
+	public static final String EDITABLE_PROFILE_VARIABLE = "edit";
 
 	private static final EntityManagerFactory factory = Persistence
 			.createEntityManagerFactory("fsnetjpa");
@@ -145,17 +146,21 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		DynaActionForm dyna = (DynaActionForm) form;		// NOSONAR 
+	    int id = -1;
 		try {
 			String idS = dyna.getString("id");
-			int id = Integer.parseInt(idS);
-			SocialEntity profile = em.find(SocialEntity.class, id);
-			request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
-			return mapping.findForward("success");
+			id = Integer.parseInt(idS);			
 		} catch (NumberFormatException e) {
-			return mapping.findForward("fail");
-		} finally {
-			em.close();
-		}
+			id = user.getId();
+		} 
+		SocialEntity profile = em.find(SocialEntity.class, id);
+		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
+		request.setAttribute(EDITABLE_PROFILE_VARIABLE, profile.equals(user));
+		if(user.getBirthDate()!=null)
+			request.setAttribute("birthDay", formatter.format(user.getBirthDate()));
+		em.close();
+		return mapping.findForward("success");		
 	}
 }
