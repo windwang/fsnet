@@ -91,18 +91,21 @@
     <definition name="Hubs" extends=".defaultLayout">
         <put name="title" value="pageTitle.4"/>
         <put name="currentMenu" value="Hubs"/>
+        <put name="left" value="/content/hubs/leftMenu.jsp" />
         <put name="body-content" value="/content/hubs/Hubs.jsp" />
     </definition>
 
     <definition name="CreateHub" extends=".defaultLayout">
         <put name="title" value="pageTitle.4"/>
         <put name="currentMenu" value="Hubs"/>
+        <put name="left" value="/content/hubs/leftMenu.jsp" />
         <put name="body-content" value="/content/hubs/CreateHub.jsp" />
     </definition>
 
     <definition name="DisplayHub" extends=".defaultLayout">
         <put name="title" value="pageTitle.4"/>
         <put name="currentMenu" value="Hubs"/>
+        <put name="left" value="/content/hubs/leftMenu.jsp" />
         <put name="body-content" value="/content/hubs/DisplayHub.jsp" />
     </definition>
 
@@ -203,7 +206,21 @@
     <!-- Communities -->
     <definition name="Communities" extends=".defaultLayout">
         <put name="title" value="pageTitle.15"/>
+        <put name="currentMenu" value="Communities"/>
+        <put name="left" value="/content/communities/leftMenu.jsp" />
         <put name="body-content" value="/content/communities/Communities.jsp" />
+    </definition>
+      <definition name="DisplayCreateCommunity" extends=".defaultLayout">
+        <put name="title" value="pageTitle.15"/>
+        <put name="currentMenu" value="Communities"/>
+        <put name="left" value="/content/communities/leftMenu.jsp" />
+        <put name="body-content" value="/content/communities/CreateCommunity.jsp" />
+    </definition>
+      <definition name="DisplayCommunities" extends=".defaultLayout">
+        <put name="title" value="pageTitle.15"/>
+        <put name="currentMenu" value="Communities"/>
+        <put name="left" value="/content/communities/leftMenu.jsp" />
+        <put name="body-content" value="/content/communities/SearchCommunity.jsp" />
     </definition>
 </tiles-definitions>
 

@@ -33,6 +33,13 @@
 				parameter="delete">
 			<forward name="success" path="/SearchCommunity.do" />
 		</action>
+		<action path="/DisplayCreateCommunity"
+			type="org.apache.struts.actions.ForwardAction" parameter="DisplayCreateCommunity">
+		</action>
+		<action path="/DisplayCommunities" 
+			type="fr.univartois.ili.fsnet.actions.ManageCommunities" parameter="search">
+			<forward name="success" path="DisplayCommunities" />
+		</action>
 		<action path="/Communities"
 				type="fr.univartois.ili.fsnet.actions.ManageCommunities" parameter="search">
 			<forward name="success" path="Communities" />			
