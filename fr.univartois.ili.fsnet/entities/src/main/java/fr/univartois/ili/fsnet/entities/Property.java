@@ -12,7 +12,7 @@ public class Property {
 	}
 	
 	public static enum FsnetProperty {
-		SMTP_PORT, SMTP_HOST;
+		SMTP_PORT, SMTP_HOST, SMTP_USER, SMTP_PASSWORD, ENABLE_TLS, ENABLE_SSL, ENABLE_AUTHENTICATION, MAIL_FROM, URL;
 	}
 	
 	@Id
