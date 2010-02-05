@@ -1,9 +1,13 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
+import fr.univartois.ili.fsnet.entities.Hub;
+import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 
 /**
@@ -102,6 +106,31 @@ public class InterestFacade {
 		return listAllInterests;
 	}
 	
-	
-
+	/**
+	 * 
+	 * @param interestName the name of the interest we search
+	 * @param begin point of beginning for the research
+	 * @param number how many by result
+	 * @return the list of interests having name like interestName
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public final HashMap<String, List<Interaction>> getInteractions(int interestId){
+		HashMap<String, List<Interaction>> resultMap = new HashMap<String, List<Interaction>>();
+		List<Interaction> resultHub = em.createQuery(
+				"SELECT interaction FROM Interaction interaction, IN(interaction.interests) interest "
+				+ "WHERE interest.id = :interestId",
+				Interaction.class).setParameter("interestId", interestId).getResultList();
+		for (Interaction interaction : resultHub) {
+			if (! resultMap.containsKey(interaction.getClass().getSimpleName())) {
+				List<Interaction> list = new ArrayList<Interaction>();
+				list.add(interaction);
+				resultMap.put(interaction.getClass().getSimpleName(), list);
+			} else {
+				resultMap.get(interaction.getClass()).add(interaction);
+			}
+			System.out.println(interaction.getClass().getSimpleName());
+		}
+		return resultMap;
+	}
 }
