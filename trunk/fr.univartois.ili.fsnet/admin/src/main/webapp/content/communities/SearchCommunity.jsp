@@ -20,12 +20,19 @@
             <tr class="content">
                 <td>${community.title}      
                 </td>
+                <td>
+	                <bean:message key="hubs.by"/>
+	                <html:link action="/DisplayMember">
+	                    <html:param name="idMember" value="${community.creator.id}"/>
+	                    ${community.creator.firstName} ${community.creator.name}
+	                </html:link>
+            	</td>
                 <td class="tableButton">
                     <html:link action="/DeleteCommunity" styleClass="button">
                         <html:param name="communityId" value="${community.id}"/>
                         <bean:message key="communities.delete"/>
                     </html:link>
-            </td>
+            	</td>
             </tr>
         </c:forEach>
     </table>

@@ -1,7 +1,7 @@
 <%-- 
-    Document   : ModifyCreateTopicMessage
+    Document   : CreateTopicMessage
     Created on : 23 janv. 2010, 12:59:30
-    Author     : Cerelia Besnainou et Audrey Ruellan
+    Author     : Cerelia Besnainou and Audrey Ruellan
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

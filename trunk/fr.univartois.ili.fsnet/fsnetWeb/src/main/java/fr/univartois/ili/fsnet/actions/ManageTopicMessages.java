@@ -26,7 +26,7 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicMessageFacade;
 
 /**
  *
- * @author Cerelia Besnainou et Audrey Ruellan
+ * @author Cerelia Besnainou and Audrey Ruellan
  */
 public class ManageTopicMessages extends MappingDispatchAction implements CrudAction {
 

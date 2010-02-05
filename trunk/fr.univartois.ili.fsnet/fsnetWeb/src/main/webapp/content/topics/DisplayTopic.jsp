@@ -1,7 +1,7 @@
 <%-- 
     Document   : Topic
     Created on : 19 janv. 2010 23:51
-    Author     : Zhu rui <zrhurey@gmail.com>, Cerelia Besnainou et Audrey Ruellan
+    Author     : Zhu rui <zrhurey@gmail.com>, Cerelia Besnainou and Audrey Ruellan
 --%>
 
 <%@ page language="java" contentType="text/html; charset=UTF-8"
