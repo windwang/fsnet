@@ -32,11 +32,12 @@
             <bean:message key="menu.1"/>
         </html:link>
     </li>
+    <!--  
     <li>
         <html:link action="/Interests" styleClass="${currentMenu == 'Interests' ? 'current' : ''}">
             <bean:message key="menu.2"/>
         </html:link>
-    </li>
+    </li>-->
     <li>
         <html:link action="/DisplayProfile" styleClass="${currentMenu == 'Profile' ? 'current' : ''}">
             <bean:message key="menu.3"/>
