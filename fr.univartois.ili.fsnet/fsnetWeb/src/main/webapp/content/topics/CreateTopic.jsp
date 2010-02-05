@@ -37,7 +37,7 @@
                     </div>
                 </logic:messagesPresent>
             </td>
-            <jsp:include page="/InterestCheckBoxes.do"/>
+            <c:import url="/InterestCheckBoxes.do"/>
         </tr>
         <tr>
             <td>
