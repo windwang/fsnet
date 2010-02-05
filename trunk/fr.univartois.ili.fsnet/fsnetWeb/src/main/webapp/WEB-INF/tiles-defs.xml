@@ -195,4 +195,12 @@
         <put name="left" value="/content/privatemessages/leftMenu.jsp" />
         <put name="body-content" value="/content/privatemessages/CreateMessage.jsp" />
     </definition>
+    
+    <!-- Communities -->
+    <definition name="Communities" extends=".defaultLayout">
+        <put name="title" value="pageTitle.15"/>
+        <put name="body-content" value="/content/communities/Communities.jsp" />
+    </definition>
 </tiles-definitions>
+
+
