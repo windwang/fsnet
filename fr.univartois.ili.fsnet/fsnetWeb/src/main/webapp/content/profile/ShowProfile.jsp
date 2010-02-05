@@ -54,3 +54,29 @@
     </c:if>
 </table>
 
+<h3>
+	<bean:message key="showInterest.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
+</h3>
+
+
+<table>
+	<c:forEach var="interest" items="${watchedProfile.interests}">
+		<tr>
+			<td>
+				<html:link action="/InfoInterest">
+               		<html:param name="InterestId" value="${interest.id}"/>
+               		${interest.name}
+            	</html:link>
+			</td>
+		</tr>
+	</c:forEach>
+	    <c:if test="${edit}">
+    	<tr>
+    		<td colspan="1" align="right">
+    			<html:link styleClass="button" action="/Interests">
+					<bean:message key="showProfile.edit"/>
+				</html:link>
+			</td>
+		</tr>
+    </c:if>
+</table>
