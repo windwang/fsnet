@@ -14,6 +14,10 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="searchText" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="DeleteCommunityForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="communityId" type="java.lang.String" />
+		</form-bean>
 	</form-beans>
 	<global-forwards>
 
@@ -29,8 +33,8 @@
 			input="Communities" scope="request" validate="false" parameter="search">
 			<forward name="success" path="Communities" />
 		</action>
-		<action path="/DeleteCommunity" type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
-				parameter="delete">
+		<action path="/DeleteCommunity" type="fr.univartois.ili.fsnet.actions.ManageCommunities" name="DeleteCommunityForm"
+			input="/Communities.do" scope="request" validate="true" parameter="delete">
 			<forward name="success" path="/SearchCommunity.do" />
 		</action>
 		<action path="/DisplayCreateCommunity"
