@@ -8,8 +8,8 @@
                 <arg key="communities.error.name" />
             </field>
         </form>
-         <form name="/SearchCommunity">
-            <field property="searchText" depends="required">
+         <form name="/DeleteCommunity">
+            <field property="communityId" depends="integer">
                 <arg key="error.searchText" />
             </field>
         </form>

@@ -56,7 +56,9 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		String communityId = request.getParameter("communityId");
+	
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String communityId = (String) dynaForm.get("communityId");
 
 		logger.info("delete community: " + communityId);
 		
