@@ -23,7 +23,6 @@ import org.junit.runners.Suite;
     TopicMessageFacadeTest.class,
     TopicFacadeTest.class,
     CommunityFacadeTest.class,
-    FSNetConfigurationFacadeTest.class,
     ProfileFacadeTest.class
 })
 public class AllTests {

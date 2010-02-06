@@ -2,33 +2,28 @@ package fr.univartois.ili.fsnet.entities;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.Enumerated;
 import javax.persistence.Id;
 
 @Entity
 public class Property {
 	
-	public Property(){
-		
-	}
-	
-	public static enum FsnetProperty {
-		SMTP_PORT, SMTP_HOST, SMTP_USER, SMTP_PASSWORD, ENABLE_TLS, ENABLE_SSL, ENABLE_AUTHENTICATION, MAIL_FROM, URL;
-	}
-	
 	@Id
-	@Enumerated
 	@Column(name="KEY_PK")
-	private FsnetProperty key;
+	private String key; 
 	
 	private String value;
 
-	
-	public FsnetProperty getKey() {
+	/**
+	 * @return the key
+	 */
+	public String getKey() {
 		return key;
 	}
 
-	public void setKey(FsnetProperty key) {
+	/**
+	 * @param key the key to set
+	 */
+	public void setKey(String key) {
 		this.key = key;
 	}
 

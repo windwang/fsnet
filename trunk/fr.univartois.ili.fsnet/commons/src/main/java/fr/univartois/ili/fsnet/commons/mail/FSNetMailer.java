@@ -20,32 +20,24 @@ public class FSNetMailer {
 		return instance;
 	}
 
-	private Properties properties;
-
 	static {
 		instance = new FSNetMailer();
 	}
 
-	private FSNetMailer() {
-		properties = FSNetConfiguration.getInstance().getFSNetConfiguration();
-	}
-
-	public boolean isReadyToSendMail() {
-		return FSNetConfiguration.getInstance().isMailConfigured();
-	}
-
-	public void sendMail(Mail mail) {
+	public void sendMail(Mail mail) { 
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
+		Properties properties = conf.getFSNetConfiguration();
 		Session session = Session.getDefaultInstance(properties, null);
-		String smtpHost = FSNetConfiguration.getInstance().getSMTPHost();
-		String user = conf.getUsername();
-		String password = (String) conf.getPassword();
+		String smtpHost = properties.getProperty(FSNetConfiguration.SMTP_HOST_KEY);
+		String user = properties.getProperty(FSNetConfiguration.SMTP_USER_KEY);
+		String password = properties.getProperty(FSNetConfiguration.SMTP_PASSWORD_KEY);
+		String from = properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY);
 		Transport transport;
 		try {
 			transport = session.getTransport("smtp");
 			transport.connect(smtpHost, user, password);
 			Message message = mail.getMessage();
-			message.setFrom(new InternetAddress(conf.getFrom()));
+			message.setFrom(new InternetAddress(from));
 			transport.sendMessage(message, message.getAllRecipients());
 			transport.close();
 		} catch (NoSuchProviderException e) {
@@ -56,6 +48,8 @@ public class FSNetMailer {
 	}
 
 	public Mail createMail() {
+		FSNetConfiguration conf = FSNetConfiguration.getInstance();
+		Properties properties = conf.getFSNetConfiguration();
 		Session session = Session.getDefaultInstance(properties, null);
 		MimeMessage message = new MimeMessage(session);
 		Mail mail = new Mail(message);
