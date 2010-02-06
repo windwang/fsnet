@@ -1,10 +1,12 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
-import fr.univartois.ili.fsnet.entities.Interaction;
-import fr.univartois.ili.fsnet.entities.Interest;
 import java.util.List;
 import java.util.Set;
+
 import javax.persistence.EntityManager;
+
+import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.Interest;
 
 /**
  *

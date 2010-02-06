@@ -2,20 +2,20 @@ package fr.univartois.ili.fsnet.entities.test;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Interest;
-import java.util.HashSet;
-import java.util.Set;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class InterestTest {
 

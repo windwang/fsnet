@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 
 import org.junit.After;
@@ -11,8 +13,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class SocialEntityTest {
 
