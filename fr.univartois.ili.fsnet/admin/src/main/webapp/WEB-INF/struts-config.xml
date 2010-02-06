@@ -12,14 +12,6 @@
 		<action path="/Home" 
 				type="org.apache.struts.actions.ForwardAction"
 				parameter="Home" />
-		<action path="/EditConfiguration"
-				name="MailConfigurationForm"
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				parameter="editMailConfiguration"
-				validate="false"
-				scope="request">
-			<forward name="success" path="Configure"/>
-		</action>
 	</action-mappings>
 
 	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />

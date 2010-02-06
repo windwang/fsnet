@@ -97,7 +97,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 */
 	private void sendConfirmationMail(SocialEntity socialEntity, String password) {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
-		String fsnetAddress = conf.getFSNetWebAddress();
+		String fsnetAddress = conf.getFSNetConfiguration().getProperty(
+				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
 		String message = createMessageRegistration(socialEntity.getName(),
 				socialEntity.getFirstName(), fsnetAddress, password);
 		// send a mail

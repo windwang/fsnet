@@ -33,11 +33,19 @@
 		<action path="/SaveMailConfiguration"
 				name="MailConfigurationForm"		
 				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				input="/EditConfiguration.do"
+				input="Configure"
 				parameter="saveMailConfiguration"
 				validate="true"
 				scope="request">
 			<forward name="success" path="/EditConfiguration.do"/>
+		</action>
+		<action path="/EditConfiguration"
+				name="MailConfigurationForm"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				parameter="editMailConfiguration"
+				validate="false"
+				scope="request">
+			<forward name="success" path="Configure"/>
 		</action>
 		</action-mappings>
 </struts-config>
