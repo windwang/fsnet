@@ -11,29 +11,68 @@
 		<h2>${requestScope.interest.name}</h2>
 		<c:if test="${not empty requestScope.interest.entities}">
 			<h3><bean:message key="interests.14"/></h3>
-			<ul>
+			<div class="cloud">
 				<c:forEach var="socialEntities" items="${requestScope.interest.entities}">
-					<li>
+					<div>
 						<html:link action="/DisplayProfile">
 							<html:param name="id" value="${socialEntities.id}"/>
 							${socialEntities.firstName} ${socialEntities.name}								
 						</html:link>
-					</li>
+					</div>
 				</c:forEach>
-			</ul>
+			</div>
 		</c:if>
 		<c:if test="${not empty requestScope.Hub}">
 			<h3><bean:message key="pageTitle.4"/></h3>
-			<ul>
+			<div class="cloud">
 				<c:forEach var="hub" items="${requestScope.Hub}">
-					<li>
+					<div>
 						<html:link action="/DisplayHub">
 							<html:param name="hubId" value="${hub.id}"/>
 							${hub.title}								
 						</html:link>
-					</li>
+					</div>
 				</c:forEach>
-			</ul>
+			</div>
+		</c:if>
+		<c:if test="${not empty requestScope.Topic}">
+			<h3><bean:message key="pageTitle.6"/></h3>
+			<div class="cloud">
+				<c:forEach var="topic" items="${requestScope.Topic}">
+					<div>
+						<html:link action="/Topic">
+							<html:param name="topicId" value="${topic.id}"/>
+							${topic.title}								
+						</html:link>
+					</div>
+				</c:forEach>
+			</div>
+		</c:if>
+		<c:if test="${not empty requestScope.Meeting}">
+			<h3><bean:message key="pageTitle.1"/></h3>
+			<div class="cloud">
+				<c:forEach var="meeting" items="${requestScope.Meeting}">
+					<div>
+						<html:link action="/DisplayEvent">
+							<html:param name="eventId" value="${meeting.id}"/>
+							${meeting.title}								
+						</html:link>
+					</div>
+				</c:forEach>
+			</div>
+		</c:if>
+		<c:if test="${not empty requestScope.Announcement}">
+			<h3><bean:message key="pageTitle.8"/></h3>
+			<div class="cloud">
+				<c:forEach var="announce" items="${requestScope.Announcement}">
+					<div>
+						<html:link action="/DisplayAnnounce">
+							<html:param name="idAnnounce" value="${announce.id}"/>
+							${announce.title}								
+						</html:link>
+					</div>
+				</c:forEach>
+			</div>
 		</c:if>
 	</c:when>
 	<c:otherwise>
