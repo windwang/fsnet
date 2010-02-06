@@ -64,7 +64,7 @@
 		<tr>
 			<td>
 				<html:link action="/InterestInformations">
-               		<html:param name="InterestId" value="${interest.id}"/>
+               		<html:param name="interestId" value="${interest.id}"/>
                		${interest.name}
             	</html:link>
 			</td>
