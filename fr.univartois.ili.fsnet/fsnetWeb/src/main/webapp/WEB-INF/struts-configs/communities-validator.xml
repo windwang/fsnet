@@ -9,8 +9,7 @@
             </field>
         </form>
          <form name="/DeleteCommunity">
-            <field property="communityId" depends="integer">
-                <arg key="error.searchText" />
+            <field property="communityId" depends="integer,required">
             </field>
         </form>
     </formset>
