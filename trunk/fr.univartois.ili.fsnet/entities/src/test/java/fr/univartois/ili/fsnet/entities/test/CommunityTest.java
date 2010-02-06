@@ -3,6 +3,8 @@ package fr.univartois.ili.fsnet.entities.test;
 import static org.junit.Assert.assertNotNull;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 
 import org.junit.After;
 import org.junit.Before;
@@ -10,8 +12,6 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 
 public class CommunityTest {
 

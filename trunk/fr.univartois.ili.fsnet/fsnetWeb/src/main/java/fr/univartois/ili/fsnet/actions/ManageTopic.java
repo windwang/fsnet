@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -27,7 +28,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicMessageFacade;
-import java.util.ArrayList;
 
 /**
  * 

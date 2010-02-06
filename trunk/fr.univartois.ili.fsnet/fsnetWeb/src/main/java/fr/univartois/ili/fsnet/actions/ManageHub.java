@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,7 +31,6 @@ import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
-import java.util.ArrayList;
 
 /**
  * 

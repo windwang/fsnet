@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +30,6 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
-import java.util.ArrayList;
 
 /**
  * 
