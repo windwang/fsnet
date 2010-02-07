@@ -9,6 +9,30 @@
 <c:choose>
 	<c:when test="${not empty requestScope.interest}">
 		<h2>${requestScope.interest.name}</h2>
+		<c:if test="${not empty requestScope.interest.parentInterest}">
+			<h3><bean:message key="interests.15"/></h3>
+			<div class="cloud">
+				<div>
+					<html:link action="/InterestInformations">
+						<html:param name="interestId" value="${interest.parentInterest.id}"/>
+						${interest.parentInterest.name}
+					</html:link>
+				</div>
+			</div>
+		</c:if>
+		<c:if test="${not empty requestScope.interest.childrenInterests}">
+			<h3><bean:message key="interests.16"/></h3>
+			<div class="cloud">
+				<c:forEach var="interestChild" items="${requestScope.interest.childrenInterests}">
+					<div>
+						<html:link action="/InterestInformations">
+							<html:param name="interestId" value="${interestChild.id}"/>
+							${interestChild.name}								
+						</html:link>
+					</div>
+				</c:forEach>
+			</div>
+		</c:if>
 		<c:if test="${not empty requestScope.interest.entities}">
 			<h3><bean:message key="interests.14"/></h3>
 			<div class="cloud">
