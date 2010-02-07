@@ -36,7 +36,9 @@
     <tr>
         <th><bean:message key="updateProfile.sexe"/></th>
         <td>
-			<bean:message key="updateProfile.sexe.${watchedProfile.sex}"/>
+        	<c:if test="${watchedProfile.sex != null }">
+				<bean:message key="updateProfile.sexe.${watchedProfile.sex}"/>
+			</c:if>
         </td>
     </tr>
     <tr>
