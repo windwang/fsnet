@@ -12,6 +12,11 @@
             <form-property name="messageDescription" type="java.lang.String"/>
             <form-property name="selectedInterests" type="java.lang.String[]" />
         </form-bean>
+        <form-bean name="DeleteTopicForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="topicId" type="java.lang.String" />
+            <form-property name="hubId" type="java.lang.String" />
+        </form-bean>
         <form-bean name="SearchTopicForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="topicSujetSearch" type="java.lang.String" />
@@ -43,6 +48,7 @@
                 parameter="CreateTopic"/>
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+       			name="DeleteTopicForm" input="Home" scope="request" validate="true"
                 parameter="delete">
             <forward name="success" path="/DisplayHub.do" />
         </action>

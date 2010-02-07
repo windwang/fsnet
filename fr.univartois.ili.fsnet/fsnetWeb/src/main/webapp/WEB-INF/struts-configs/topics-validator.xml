@@ -12,6 +12,12 @@
             </field>
         </form>
     </formset>
+     <formset>
+        <form name="/DeleteTopic">
+            <field property="topicId" depends="integer,required"></field>
+            <field property="hubId" depends="integer,required"></field>
+        </form>
+    </formset>
     <formset>
         <form name="/CreateTopicMessage">
             <field property="messageDescription" depends="required">

@@ -83,13 +83,15 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         //TODO hubId not necessary
+    	DynaActionForm dynaForm = (DynaActionForm) form; 					// NOSONAR
+    	int hubId = Integer.parseInt((String) dynaForm.get("hubId"));	
+        int topicId = Integer.valueOf((String) dynaForm.get("topicId"));
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
-        int hubId = Integer.valueOf(Integer.parseInt(request.getParameter("hubId")));
+       
         HubFacade hubFacade = new HubFacade(em);
         Hub hub = hubFacade.getHub(hubId);
         if (request.getParameterMap().containsKey("topicId")) {
-            int topicId = Integer.valueOf(request.getParameter("topicId"));
             TopicFacade topicFacade = new TopicFacade(em);
             Topic topic = topicFacade.getTopic(topicId);
             TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);

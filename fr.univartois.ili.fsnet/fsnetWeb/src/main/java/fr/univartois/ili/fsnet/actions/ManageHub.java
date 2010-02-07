@@ -135,7 +135,8 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
     public ActionForward display(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        String hubId = (String) request.getParameter("hubId");
+    	DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+        String hubId = (String) dynaForm.get("hubId");
         logger.info("display hub: " + hubId);
         Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
         EntityManager em = factory.createEntityManager();
