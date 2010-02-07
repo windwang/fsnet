@@ -52,12 +52,18 @@ public class ManageInterests extends MappingDispatchAction implements
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 		String interestName = (String) dynaForm.get("createdInterestName");
+		int parentInterestId = Integer.valueOf((String)dynaForm.get("parentInterestId"));
 
 		logger.info("new interest: " + interestName);
 
 		try {
 			em.getTransaction().begin();
-			facade.createInterest(interestName);
+			if (parentInterestId != 0) {
+				facade.createInterest(interestName, parentInterestId);
+			} else {
+				facade.createInterest(interestName);
+			}
+			
 			em.getTransaction().commit();
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
