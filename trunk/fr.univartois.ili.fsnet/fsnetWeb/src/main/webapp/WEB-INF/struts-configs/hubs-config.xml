@@ -19,6 +19,10 @@
             <form-property name="hubId" type="java.lang.String" />
             <form-property name="communityId" type="java.lang.String" />
         </form-bean>
+         <form-bean name="DisplayHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+        </form-bean>
 
     </form-beans>
     <global-forwards>
@@ -41,6 +45,7 @@
             <forward name="success" path="/SearchHub.do" />
         </action>
         <action path="/DisplayHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+        		name="DisplayHubForm" input="Home" scope="request" validate="true"
                 parameter="display">
             <forward name="success" path="DisplayHub" />
         </action>
