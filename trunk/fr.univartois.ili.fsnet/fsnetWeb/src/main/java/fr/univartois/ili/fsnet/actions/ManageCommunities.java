@@ -1,9 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -22,12 +20,13 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
-import fr.univartois.ili.fsnet.entities.Message;
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.Topic;
-import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import java.util.ArrayList;
 
 /**
  * Execute CRUD Actions (and more) for the entity community
@@ -36,97 +35,107 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
  */
 public class ManageCommunities extends MappingDispatchAction implements CrudAction {
 
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
-	private static final Logger logger = Logger.getAnonymousLogger();
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+    private static final Logger logger = Logger.getAnonymousLogger();
 
-	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String name = (String) dynaForm.get("name");
-		
-		logger.info("#### New Community : " + name);
-		EntityManager em = factory.createEntityManager();
-		CommunityFacade communityFacade = new CommunityFacade(em);
-		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
-		em.getTransaction().begin();
-		communityFacade.createCommunity(creator, name);
-		em.getTransaction().commit();
-		em.close();
-		
-		return mapping.findForward("success");
-	}
-	
-	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-	
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String communityId = (String) dynaForm.get("communityId");
+    @Override
+    public ActionForward create(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+        String name = (String) dynaForm.get("name");
 
-		logger.info("delete community: " + communityId);
-		
-		EntityManager em = factory.createEntityManager();
-		CommunityFacade communityFacade = new CommunityFacade(em);
-		em.getTransaction().begin();
-		communityFacade.deleteCommunity(Integer.parseInt(communityId));
-		em.getTransaction().commit();
-		em.close();
-		
-		return mapping.findForward("success");
-	
-	}
+        logger.info("#### New Community : " + name);
+        EntityManager em = factory.createEntityManager();
+        CommunityFacade communityFacade = new CommunityFacade(em);
+        SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
+        em.getTransaction().begin();
+        Community createdCommunity = communityFacade.createCommunity(creator, name);
 
-	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String communityId = (String) dynaForm.get("communityId");
+        String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+        InterestFacade fac = new InterestFacade(em);
+        List<Interest> interests = new ArrayList<Interest>();
+        int currentId;
+        for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+            interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
+        }
+        InteractionFacade ifacade = new InteractionFacade(em);
+        ifacade.addInterests(createdCommunity, interests);
+
+        em.getTransaction().commit();
+        em.close();
+
+        return mapping.findForward("success");
+    }
+
+    @Override
+    public ActionForward display(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+        String communityId = (String) dynaForm.get("communityId");
         logger.info("display community: " + communityId);
-   
+
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
         CommunityFacade communityFacade = new CommunityFacade(em);
         Community result = communityFacade.getCommunity(Integer.parseInt(communityId));
         HubFacade hubFacade = new HubFacade(em);
-		List<Hub> resultHubs = hubFacade.searchHub("",result);
+        List<Hub> resultHubs = hubFacade.searchHub("", result);
         em.getTransaction().commit();
         em.close();
         request.setAttribute("hubResults", resultHubs);
         return mapping.findForward("success");
-	}
+    }
 
-	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet");
-	}
+    @Override
+    public ActionForward delete(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
 
-	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
-		List<Community> result = null;
-		String searchText = "";
-		CommunityFacade communityFacade = new CommunityFacade(em);
-		if (form != null) {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-			searchText = (String) dynaForm.get("searchText");
-			
-		}
-		em.getTransaction().begin();
-		result = communityFacade.searchCommunity(searchText);
-		em.getTransaction().commit();
-		em.close();
-		
+        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+        String communityId = (String) dynaForm.get("communityId");
 
-		request.setAttribute("communitiesResult", result);
-		return mapping.findForward("success");
-	}
+        logger.info("delete community: " + communityId);
+
+        EntityManager em = factory.createEntityManager();
+        CommunityFacade communityFacade = new CommunityFacade(em);
+        em.getTransaction().begin();
+        communityFacade.deleteCommunity(Integer.parseInt(communityId));
+        em.getTransaction().commit();
+        em.close();
+
+        return mapping.findForward("success");
+
+    }
+
+    @Override
+    public ActionForward modify(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        throw new UnsupportedOperationException("Not supported yet");
+    }
+
+    @Override
+    public ActionForward search(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        EntityManager em = factory.createEntityManager();
+        List<Community> result = null;
+        String searchText = "";
+        CommunityFacade communityFacade = new CommunityFacade(em);
+        if (form != null) {
+            DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+            searchText = (String) dynaForm.get("searchText");
+
+        }
+        em.getTransaction().begin();
+        result = communityFacade.searchCommunity(searchText);
+        em.getTransaction().commit();
+        em.close();
+
+
+        request.setAttribute("communitiesResult", result);
+        return mapping.findForward("success");
+    }
 }
