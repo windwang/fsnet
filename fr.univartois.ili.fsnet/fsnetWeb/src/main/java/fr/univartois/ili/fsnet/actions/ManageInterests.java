@@ -29,6 +29,10 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
+// TODO remove request.getParameter and replace with dynaForm validator
+// TODO replace all select=0 in jsp and add a box for null parent in create/modify
+// TODO modify in another jsp
+
 /**
  * Execute CRUD Actions (and more) for the entity interet
  * 
