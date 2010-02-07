@@ -20,6 +20,9 @@
             <field property="createdInterestName" depends="required">
                 <arg key="error.interest.create" />
             </field>
+            <field property="parentInterestId" depends="integer">
+                <arg key="error.interest.parent" />
+            </field>
         </form>
         <form name="/DeleteInterest">
             <field property="deletedInterestId" depends="required,integer">
