@@ -9,6 +9,7 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="name" type="java.lang.String" />
 			<form-property name="communityId" type="java.lang.String" />
+                        <form-property name="selectedInterests" type="java.lang.String[]" />
 		</form-bean>
 		<form-bean name="SearchCommunityForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
