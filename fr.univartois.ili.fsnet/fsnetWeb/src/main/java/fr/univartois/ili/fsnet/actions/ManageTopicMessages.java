@@ -100,12 +100,15 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        logger.info("display Message: ");
-        String topicId = request.getParameter("topicId");
+    	DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
+       
+        String topicId = (String) dynaForm.get("topicId");
+    	logger.info("display Message: ");
+       
         request.setAttribute("topicId", topicId);
-        String messageId = request.getParameter("messageId");
-
-        if (messageId != null) {
+      
+        if (request.getParameter("messageId")!=null) {
+        	String messageId = (String) dynaForm.get("messageId");
             EntityManager em = factory.createEntityManager();
             TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
             TopicMessage message = topicMessageFacade.getTopicMessage(Integer.parseInt(messageId));

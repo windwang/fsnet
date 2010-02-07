@@ -22,6 +22,10 @@
             <form-property name="topicSujetSearch" type="java.lang.String" />
             <form-property name="hubId" type="java.lang.String"/>
         </form-bean>
+        <form-bean name="DisplayCreateTopicForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+        </form-bean>
         <form-bean name="CreateTopicMessageForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="messageDescription" type="java.lang.String" />
@@ -32,6 +36,19 @@
             <form-property name="messageDescription" type="java.lang.String" />
             <form-property name="topicId" type="java.lang.String" />
             <form-property name="messageId" type="java.lang.String" />
+        </form-bean>
+          <form-bean name="DisplayTopicForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="topicId" type="java.lang.String" />
+        </form-bean>
+         <form-bean name="DisplayModifyTopicMessageForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="topicId" type="java.lang.String" />
+            <form-property name="messageId" type="java.lang.String" />
+        </form-bean>
+         <form-bean name="DisplayCreateTopicMessageForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="topicId" type="java.lang.String" />
         </form-bean>
     </form-beans>
     <global-forwards>
@@ -45,6 +62,7 @@
         </action>
 
         <action path="/DisplayCreateTopic" type="org.apache.struts.actions.ForwardAction"
+        		name="DisplayCreateTopicForm" input="Home" scope="request" validate="true"
                 parameter="CreateTopic"/>
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
@@ -54,6 +72,7 @@
         </action>
 
         <action path="/DisplayTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+        		name="DisplayTopicForm" input="Home" scope="request" validate="true"
                 parameter="display">
             <forward name="success" path="/Topic.do" />
         </action>
@@ -84,10 +103,12 @@
         </action>
 
         <action path="/DisplayCreateTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
+                name="DisplayCreateTopicMessageForm" input="Home" scope="request" validate="true"
                 parameter="display">
             <forward name="success" path="CreateTopicMessage" />
         </action>
         <action path="/DisplayModifyTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
+        		name="DisplayModifyTopicMessageForm" input="Home" scope="request" validate="true"
                 parameter="display">
             <forward name="success" path="ModifyTopicMessage" />
         </action>
