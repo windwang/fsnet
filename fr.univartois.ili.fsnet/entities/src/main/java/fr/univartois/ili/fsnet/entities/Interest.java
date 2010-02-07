@@ -67,6 +67,24 @@ public class Interest implements Serializable {
         this.name = name;
         this.entities = new HashSet<SocialEntity>();
     }
+    
+    /**
+     * Constructor of the class Interest.
+     *
+     * @param entities
+     * @param name
+     * @param parentInterest
+     * 
+     * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+     */
+    public Interest(String name, Interest parentInterest) {
+        if (name == null || parentInterest == null) {
+            throw new IllegalArgumentException();
+        }
+        this.name = name;
+        this.entities = new HashSet<SocialEntity>();
+        this.parentInterest = parentInterest;
+    }
 
     /**
      *
