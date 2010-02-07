@@ -4,32 +4,40 @@
 <form-validation>
     <formset>
         <form name="/CreateTopic">
+        	 <field property="hubId" depends="integer,required"></field>
             <field property="topicSubject" depends="required">
-                <arg key="error.topicSubjet" />
+                <arg key="topics.error.topicSubjet" />
             </field>
             <field property="messageDescription" depends="required">
                 <arg key="topics.error.messageDescription" />
             </field>
         </form>
-    </formset>
-     <formset>
         <form name="/DeleteTopic">
             <field property="topicId" depends="integer,required"></field>
             <field property="hubId" depends="integer,required"></field>
         </form>
-    </formset>
-    <formset>
+         <form name="/DisplayTopic">
+            <field property="topicId" depends="integer,required"></field>
+        </form>
+        <form name="/DisplayCreateTopicForm">
+            <field property="hubId" depends="integer,required"></field>
+        </form>
         <form name="/CreateTopicMessage">
             <field property="messageDescription" depends="required">
                 <arg key="topics.error.messageDescription" />
             </field>
         </form>
-    </formset>
-    <formset>
         <form name="/ModifyTopicMessage">
             <field property="messageDescription" depends="required">
                 <arg key="topics.error.messageDescription" />
             </field>
+        </form>
+        <form name="/DisplayModifyTopicMessage">
+            <field property="messageId" depends="integer,required"></field>
+            <field property="topicId" depends="integer,required"></field>
+        </form>
+        <form name="/DisplayCreateTopicMessage">
+            <field property="topicId" depends="integer,required"></field>
         </form>
     </formset>
 </form-validation>
