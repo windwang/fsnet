@@ -19,7 +19,7 @@
         <c:forEach var="community" items="${communitiesResult}">
             <tr class="content">
                 <td>
-	                <html:link action="/Hubs">
+	                <html:link action="/DisplayCommunity">
 		                    <html:param name="communityId" value="${community.id}"/>
 	                		${community.title} 
 	                </html:link>     
