@@ -14,6 +14,12 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="hubName" type="java.lang.String" />
         </form-bean>
+        <form-bean name="DeleteHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+            <form-property name="communityId" type="java.lang.String" />
+        </form-bean>
+
     </form-beans>
     <global-forwards>
 
@@ -30,6 +36,7 @@
             <forward name="success" path="Hubs" />
         </action>
          <action path="/DeleteHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+         		name="DeleteHubForm" input="Home" scope="request" validate="true"
                 parameter="delete">
             <forward name="success" path="/SearchHub.do" />
         </action>

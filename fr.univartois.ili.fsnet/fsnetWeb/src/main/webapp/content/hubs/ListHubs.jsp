@@ -38,6 +38,7 @@
                 <c:if test="${sessionScope.user.id eq hub.creator.id}">
                     <html:link action="/DeleteHub" styleClass="button">
                         <html:param name="hubId" value="${hub.id}"/>
+                        <html:param name="communityId" value="${hub.community.id}"/>
                         <bean:message key="hubs.delete"/>
                     </html:link>
                 </c:if>

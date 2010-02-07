@@ -12,5 +12,9 @@
             <field property="communityId" depends="integer,required">
             </field>
         </form>
+        <form name="/DisplayCommunity">
+            <field property="communityId" depends="integer,required">
+            </field>
+        </form>
     </formset>
 </form-validation>

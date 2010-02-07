@@ -1,7 +1,9 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -19,8 +21,13 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.entities.Community;
+import fr.univartois.ili.fsnet.entities.Hub;
+import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.CommunityFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
 
 /**
  * Execute CRUD Actions (and more) for the entity community
@@ -77,7 +84,20 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet");
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String communityId = (String) dynaForm.get("communityId");
+        logger.info("display community: " + communityId);
+   
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        CommunityFacade communityFacade = new CommunityFacade(em);
+        Community result = communityFacade.getCommunity(Integer.parseInt(communityId));
+        HubFacade hubFacade = new HubFacade(em);
+		List<Hub> resultHubs = hubFacade.searchHub("",result);
+        em.getTransaction().commit();
+        em.close();
+        request.setAttribute("hubResults", resultHubs);
+        return mapping.findForward("success");
 	}
 
 	@Override
