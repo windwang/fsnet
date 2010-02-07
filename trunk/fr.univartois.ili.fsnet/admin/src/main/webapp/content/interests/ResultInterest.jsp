@@ -3,14 +3,20 @@
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
 <c:choose>
     <c:when test="${not empty requestScope.interestResult}">
-        <ul>
+        <div class="cloud">
             <c:forEach var="interest" items="${requestScope.interestResult}">
-                <li>${interest.name}</li>
+                <div>
+                	<html:link action="/InterestInformations">
+                		<html:param name="interestId" value="${interest.id}"/>
+                		${interest.name}
+                	</html:link>
+                </div>
             </c:forEach>
-        </ul>
+        </div>
     </c:when>
     <c:otherwise>
         <bean:message key="interests.10"/>

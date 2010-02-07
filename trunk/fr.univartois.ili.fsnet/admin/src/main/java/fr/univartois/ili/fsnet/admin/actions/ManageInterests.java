@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -21,6 +22,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
+import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 
@@ -45,12 +47,17 @@ public class ManageInterests extends MappingDispatchAction implements
 		InterestFacade facade = new InterestFacade(em);
 
 		String interestName = (String) dynaForm.get("createdInterestName");
-
+		int parentInterestId = Integer.valueOf((String) dynaForm.get("parentInterestId"));
+		
 		logger.info("new interest: " + interestName);
 
 		try {
 			em.getTransaction().begin();
-			facade.createInterest(interestName);
+			if (parentInterestId != 0) {
+				facade.createInterest(interestName, parentInterestId);
+			} else {
+				facade.createInterest(interestName);
+			}
 			em.getTransaction().commit();
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
@@ -73,10 +80,12 @@ public class ManageInterests extends MappingDispatchAction implements
 		int interestId = Integer.valueOf((String) dynaForm
 				.get("modifiedInterestId"));
 		String interestName = (String) dynaForm.get("modifiedInterestName");
+		int parentInterestId = Integer.valueOf((String) dynaForm.get("modifiedParentInterstId"));
 		InterestFacade facade = new InterestFacade(em);
 
 		Interest interest = facade.getInterest(interestId);
 
+		
 		if (interest != null) {
 			logger.info("interest modification: " + interestName);
 
@@ -163,6 +172,35 @@ public class ManageInterests extends MappingDispatchAction implements
 		em.close();
 		request.setAttribute("allInterests", listAllInterests);
 
+		return mapping.findForward("success");
+	}
+	
+	public ActionForward informations(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = factory.createEntityManager();
+		InterestFacade facade = new InterestFacade(em);
+		logger.info("Displaying interest's informations");
+
+		int interestId;
+		if (request.getParameterMap().containsKey("interestId")) {
+			try {
+				interestId = Integer.valueOf(request.getParameter("interestId"));
+			} catch (NumberFormatException e) {
+				interestId = 0;
+			}
+
+			Interest interest = facade.getInterest(interestId);
+			HashMap<String, List<Interaction>> resultMap = facade.getInteractions(interestId);
+			em.close();
+			
+			if (interest != null) {
+				request.setAttribute("interest", interest);
+				for (String interactionClass : resultMap.keySet()) {
+					request.setAttribute(interactionClass, resultMap.get(interactionClass));
+				}
+			}
+		}
 		return mapping.findForward("success");
 	}
 }

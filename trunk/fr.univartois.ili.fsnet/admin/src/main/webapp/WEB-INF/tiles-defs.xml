@@ -48,6 +48,10 @@
         <put name="title" value="ModifyInterest"/>
         <put name="body-content" value="/content/interests/ModifyInterest.jsp" />
     </definition>
+    <definition name="InfoInterest" extends=".defaultLayout">
+        <put name="title" value="pageTitle.13"/>
+        <put name="body-content" value="/content/interests/InfoInterest.jsp" />
+    </definition>
 
   
     <!-- Members -->

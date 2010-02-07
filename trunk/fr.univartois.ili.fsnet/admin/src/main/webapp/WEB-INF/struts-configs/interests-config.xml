@@ -12,6 +12,7 @@
         <form-bean name="CreateInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="createdInterestName" type="java.lang.String" />
+            <form-property name="parentInterestId" type="java.lang.String" />
         </form-bean>
         <form-bean name="ModifyInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -78,6 +79,15 @@
             validate="true"
             parameter="delete">
             <forward name="success" path="/Interests.do" />
+        </action>
+        
+        <action
+            path="/InterestInformations"
+            type="fr.univartois.ili.fsnet.admin.actions.ManageInterests"
+            input="/Interests.do"
+            scope="request"
+            parameter="informations">
+            <forward name="success" path="InfoInterest" />
         </action>
 
         <action
