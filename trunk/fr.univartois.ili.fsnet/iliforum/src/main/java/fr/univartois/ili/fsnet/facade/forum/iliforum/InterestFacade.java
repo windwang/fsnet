@@ -67,6 +67,21 @@ public class InterestFacade {
         if(interestName == null || interest == null) throw new IllegalArgumentException();
 		interest.setName(interestName);	
 	}
+	
+	/**
+	 * modify an interest name
+	 * @param interestName the new interest name
+	 * @param interest the interest to modify
+	 * @param parentInterestId his parent id
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public final void modifyInterest(String interestName, Interest interest, int parentInterestId){
+		Interest parentInterest = getInterest(parentInterestId);
+		if(interestName == null || interest == null || parentInterest == null) throw new IllegalArgumentException();
+		interest.setName(interestName);
+		interest.setParentInterest(parentInterest);
+	}
 
 	/**
 	 * delete an interest 
