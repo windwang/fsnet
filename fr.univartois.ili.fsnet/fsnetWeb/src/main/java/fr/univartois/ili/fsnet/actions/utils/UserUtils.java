@@ -7,6 +7,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 /**
  *
@@ -23,7 +24,8 @@ public class UserUtils {
                 Authenticate.AUTHENTICATED_USER);
 
         EntityManager em = factory.createEntityManager();
-        user = em.find(SocialEntity.class, user.getId());
+        SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+        user = socialEntityFacade.getSocialEntity(user.getId());
         em.close();
         return user;
     }
@@ -32,10 +34,12 @@ public class UserUtils {
         SocialEntity user = (SocialEntity) req.getSession().getAttribute(
                 Authenticate.AUTHENTICATED_USER);
         if (em.getTransaction().isActive()) {
-            user = em.find(SocialEntity.class, user.getId());
+            SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+            user = socialEntityFacade.getSocialEntity(user.getId());
         } else {
             em.getTransaction().begin();
-            user = em.find(SocialEntity.class, user.getId());
+            SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+            user = socialEntityFacade.getSocialEntity(user.getId());
             em.getTransaction().commit();
         }
         return user;

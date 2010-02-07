@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 /**
  * This class represents a servlet that is used in order to authenticate members
@@ -51,11 +51,10 @@ public class Authenticate extends HttpServlet {
 
 		if (memberMail != null && memberPass != null) {
 			EntityManager em = emf.createEntityManager();
-			Query query = em
-					.createQuery("Select es from SocialEntity es where es.email = :memberMail");
-			query.setParameter("memberMail", memberMail);
+                        SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			try {
-				SocialEntity es = (SocialEntity) query.getSingleResult();
+                                SocialEntity es = socialEntityFacade.findByEmail(memberMail);
+				//SocialEntity es = (SocialEntity) query.getSingleResult();
 				// TODO : uncomment those lines to enable password verification
 				//if (Md5.testPassword(memberPass, es.getPassword())) {
 					authenticated = true;
