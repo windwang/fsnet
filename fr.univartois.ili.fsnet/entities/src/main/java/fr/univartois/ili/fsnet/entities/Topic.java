@@ -25,8 +25,7 @@ public class Topic extends Interaction {
     /**
      * the list of messages that the topic contains.
      */
-    @OneToMany(mappedBy = "topic", cascade = {CascadeType.MERGE,
-        CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "topic", cascade = {CascadeType.ALL})
     private List<TopicMessage> messages;
 
     /**
