@@ -23,6 +23,7 @@ import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
@@ -91,6 +92,12 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
             int topicId = Integer.valueOf(request.getParameter("topicId"));
             TopicFacade topicFacade = new TopicFacade(em);
             Topic topic = topicFacade.getTopic(topicId);
+            TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
+            for(TopicMessage topicMessage : topic.getMessages()){
+                topicMessageFacade.deleteTopicMessage(topicMessage.getId());
+            }
+            topic.getInterests().clear();
+            topic.getMessages().clear();
             hub.getTopics().remove(topic);
             topicFacade.deleteTopic(topicId);
         }

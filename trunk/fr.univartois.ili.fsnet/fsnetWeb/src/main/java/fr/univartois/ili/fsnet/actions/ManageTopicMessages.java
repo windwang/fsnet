@@ -6,7 +6,6 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -37,6 +36,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         logger.info("create Message: ");
         EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
         DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String messageDescription = (String) dynaForm.get("messageDescription");
         int topicId = Integer.valueOf(Integer.parseInt(dynaForm.getString("topicId")));
@@ -46,12 +46,9 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
         SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
         TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
-        TopicMessage message = topicMessageFacade.createTopicMessage(messageDescription, SocialEntity, topic);
+        topicMessageFacade.createTopicMessage(messageDescription, SocialEntity, topic);
 
-        em.getTransaction().begin();
-        topic.getMessages().add(message);
         em.getTransaction().commit();
-
         em.close();
         return mapping.findForward("success");
     }
@@ -82,17 +79,14 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
     @Override
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
         int topicId = Integer.valueOf(request.getParameter("topicId"));
         TopicFacade topicFacade = new TopicFacade(em);
         Topic topic = topicFacade.getTopic(topicId);
         int messageId = Integer.valueOf(Integer.parseInt(request.getParameter("messageId")));
         TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
         TopicMessage message = topicMessageFacade.getTopicMessage(messageId);
-        em.getTransaction().begin();
-        Query query = em.createQuery("DELETE FROM TopicMessage message WHERE message.id = :messageId");
-        query.setParameter("messageId", messageId);
-        query.executeUpdate();
-
+        topicMessageFacade.deleteTopicMessage(messageId);
         topic.getMessages().remove(message);
         em.getTransaction().commit();
         em.close();
