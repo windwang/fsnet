@@ -32,6 +32,22 @@ public class InterestFacade {
 		em.persist(interest);
 		return interest;
 	}
+	
+	/**
+	 * create a new interest with parent interest
+	 * @param interestName the name of the interest
+	 * @param parentInterestId his parent id
+	 * @return the interest created
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public final Interest createInterest(String interestName, int parentInterestId){
+		Interest parentInterest = getInterest(parentInterestId);
+		if(interestName == null || parentInterest == null) throw new IllegalArgumentException();
+		Interest interest = new Interest(interestName, parentInterest);
+		em.persist(interest);
+		return interest;
+	}
 
 	/**
 	 * 
@@ -128,7 +144,6 @@ public class InterestFacade {
 			} else {
 				resultMap.get(interaction.getClass()).add(interaction);
 			}
-			System.out.println(interaction.getClass().getSimpleName());
 		}
 		return resultMap;
 	}
