@@ -184,17 +184,29 @@
     </definition>
 
     <!-- Private Messages -->
-    <definition name="DisplayPrivateMessages" extends=".defaultLayout">
+    <definition name="DisplayInbox" extends=".defaultLayout">
         <put name="title" value="pageTitle.14"/>
         <put name="currentMenu" value="Messages"/>
         <put name="left" value="/content/privatemessages/leftMenu.jsp" />
-        <put name="body-content" value="/content/privatemessages/DisplayMessages.jsp" />
+        <put name="body-content" value="/content/privatemessages/DisplayInbox.jsp" />
+    </definition>
+     <definition name="DisplayOutbox" extends=".defaultLayout">
+        <put name="title" value="pageTitle.14"/>
+        <put name="currentMenu" value="Messages"/>
+        <put name="left" value="/content/privatemessages/leftMenu.jsp" />
+        <put name="body-content" value="/content/privatemessages/DisplayOutbox.jsp" />
     </definition>
     <definition name="DisplayPrivateMessage" extends=".defaultLayout">
         <put name="title" value="pageTitle.14"/>
         <put name="currentMenu" value="Messages"/>
         <put name="left" value="/content/privatemessages/leftMenu.jsp" />
         <put name="body-content" value="/content/privatemessages/DisplayMessage.jsp" />
+    </definition>
+        <definition name="DisplaySentMessage" extends=".defaultLayout">
+        <put name="title" value="pageTitle.14"/>
+        <put name="currentMenu" value="Messages"/>
+        <put name="left" value="/content/privatemessages/leftMenu.jsp" />
+        <put name="body-content" value="/content/privatemessages/DisplaySentMessage.jsp" />
     </definition>
     <definition name="CreatePrivateMessage" extends=".defaultLayout">
         <put name="title" value="pageTitle.14"/>

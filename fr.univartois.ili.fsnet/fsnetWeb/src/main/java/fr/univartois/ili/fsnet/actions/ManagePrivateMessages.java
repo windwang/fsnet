@@ -85,12 +85,12 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
                 em.getTransaction().commit();
                 em.close();
                 return mapping.findForward("success");
-            } else {            	
-            	ActionErrors errors = new ActionErrors();
-            	errors.add("messageTo", new ActionMessage(("privatemessages.not.owner")));
+            } else {
+                ActionErrors errors = new ActionErrors();
+                errors.add("messageTo", new ActionMessage(("privatemessages.not.owner")));
                 saveErrors(request, errors);
-               
-                
+
+
             }
 
         } catch (NumberFormatException e) {
@@ -100,8 +100,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         return mapping.findForward("fail");
     }
 
-    @Override
-    public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+    public ActionForward inbox(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         EntityManager em = factory.createEntityManager();
         SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
         if (form == null) {
@@ -113,6 +112,25 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
             // TODO
         }
         return mapping.findForward("success");
+    }
+
+    public ActionForward outbox(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        EntityManager em = factory.createEntityManager();
+        SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
+        if (form == null) {
+            List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(authenticatedUser.getSentPrivateMessages());
+            Collections.reverse(userMessages);
+            request.setAttribute("messages", userMessages);
+
+        } else {
+            // TODO
+        }
+        return mapping.findForward("success");
+    }
+
+    @Override
+    public ActionForward search(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 
     @Override

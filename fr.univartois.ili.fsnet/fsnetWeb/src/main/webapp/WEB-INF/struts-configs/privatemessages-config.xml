@@ -21,14 +21,23 @@
     </global-forwards>
     <action-mappings>
         <action path="/Inbox" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                parameter="search">
-            <forward name="success" path="DisplayPrivateMessages" />
+                parameter="inbox">
+            <forward name="success" path="DisplayInbox" />
         </action>
 
+        <action path="/Outbox" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                parameter="outbox">
+            <forward name="success" path="DisplayOutbox" />
+        </action>
         <action path="/DisplayMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
                 name="DisplayPrivateMessageForm" validate="true" scope="request"
                 parameter="display">
             <forward name="success" path="DisplayPrivateMessage" />
+        </action>
+        <action path="/DisplayMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                name="DisplayPrivateMessageForm" validate="true" scope="request"
+                parameter="display">
+            <forward name="success" path="DisplaySentMessage" />
         </action>
 
         <action path="/DisplayCreatePrivateMessage" type="org.apache.struts.actions.ForwardAction"
@@ -39,7 +48,7 @@
                 parameter="create" name="CreatePrivateMessageForm" validate="true" input="CreatePrivateMessage" scope="request">
             <forward name="success" path="/Inbox.do" />
         </action>
-        
+
         <action path="/DeletePrivateMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
                 name="DisplayPrivateMessageForm" validate="true" scope="request"
                 parameter="delete">

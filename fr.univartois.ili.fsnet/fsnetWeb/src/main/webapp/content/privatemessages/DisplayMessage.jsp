@@ -39,14 +39,19 @@
             </td>
         </tr>
     </table>
+    <logic:notEqual parameter="noQuickResponse" value="true">
+        <a class="button" onclick="document.getElementById('quickResponse').style.display='table'">
+            <img src="images/quickResponse.png" style="vertical-align: bottom"/>
+            <bean:message key="privatemessages.Quickresponse"/>
+        </a>
+    </logic:notEqual>
 
-    <a class="button" onclick="document.getElementById('quickResponse').style.display='table'">
-        <img src="images/quickResponse.png" style="vertical-align: bottom"/><bean:message key="privatemessages.Quickresponse"/>
-    </a>
+    <!-- TODO factorise this code with createMessage.jsp -->
     <html:link action="/DeletePrivateMessage" styleClass="button" style="float: right">
         <html:param name="messageId" value="${theMessage.id}"/>
         <bean:message key="privatemessages.delete"/>
     </html:link>
+
     <html:form action="/CreatePrivateMessage">
         <html:hidden property="messageTo" value="${theMessage.from.email}"/>
         <table id="quickResponse" style="width: 100%; display : none ; margin-top : 10px;">
@@ -88,10 +93,9 @@
                         <bean:message key="privatemessages.send"/>
                     </html:submit>
                 </td>
-            </tr>        
-    </table>
-</html:form>
-
+            </tr>
+        </table>
+    </html:form>
 
 
 </logic:notEmpty>
