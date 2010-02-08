@@ -28,6 +28,14 @@
     </tr>
     <tr>
         <td  class="alignRight">
+                <html:link  action="/SubscribeEvent" styleClass="button">
+                    <html:param name="eventId" value="${event.id}"/>
+                	<bean:message key="events.17"/>
+                </html:link>
+        </td>
+    </tr>
+    <tr>
+        <td  class="alignRight">
             <c:if test="${user.id eq event.creator.id}">
                 <html:link  action="/DeleteEvent" styleClass="button">
                     <html:param name="eventId" value="${event.id}"/>
