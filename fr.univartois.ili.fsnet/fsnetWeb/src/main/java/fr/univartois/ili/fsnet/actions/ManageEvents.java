@@ -109,19 +109,19 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
     public ActionForward subscribe(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response){
     	DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
-    	String socialEntityId = (String) dynaForm.get("seId");
-    	String meetingId = (String) dynaForm.get("meetingId");
+    	String eventId = (String) dynaForm.get("eventId");
     	EntityManager em = factory.createEntityManager();
+    	SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
     	em.getTransaction().begin();
     	TypedQuery<Meeting> queryMeeting = em.createQuery(
-                "Select e from Meeting e where e.id = :meetingId",
+                "Select e from Meeting e where e.id = :eventId",
                 Meeting.class);
-        queryMeeting.setParameter("meetingId", Integer.parseInt(meetingId));
+        queryMeeting.setParameter("eventId", Integer.parseInt(eventId));
         
         TypedQuery<SocialEntity> querySE = em.createQuery(
                 "SELECT es FROM SocialEntity es WHERE es.id = :seId",
                 SocialEntity.class);
-        querySE.setParameter("seId", Integer.parseInt(socialEntityId));
+        querySE.setParameter("seId", member.getId());
         
         SocialEntity se = querySE.getSingleResult();
         Meeting meeting = queryMeeting.getSingleResult();
@@ -178,6 +178,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
                 Meeting.class);
         query.setParameter("eventId", Integer.parseInt(eventId));
         Meeting event = query.getSingleResult();
+        
+        // TODO a finir demain
+        //TypedQuery<SocialEntity> queryRole = em.createQuery("Select i from InterationRole i where ",SocialEntity.class);
         em.close();
 
         request.setAttribute("event", event);

@@ -23,6 +23,10 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="searchString" type="java.lang.String" />
         </form-bean>
+        <form-bean name="SubscribeEventForm"
+        			type="org.apache.struts.validator.DynaValidatorActionForm">
+        	<form-property name="eventId" type="java.lang.String"/>			
+        </form-bean>
     </form-beans>
     <action-mappings>
         <action path="/CreateEvent"
@@ -64,6 +68,15 @@
             	scope="request"
             	validate="true"
                 parameter="delete" >
+            <forward name="success" path="/Events.do" />
+        </action>
+        <action path="/SubscribeEvent"
+        		name="SubscribeEventForm"
+        		type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                input="Events"
+            	scope="request"
+            	validate="true"
+            	parameter="subscribe" >
             <forward name="success" path="/Events.do" />
         </action>
     </action-mappings>
