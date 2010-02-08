@@ -13,6 +13,6 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({AnnouncementTest.class, CommunityTest.class,
     SocialEntityTest.class, HubTest.class,
     InterestTest.class, MeetingTest.class,
-    ActivityReportTest.class, TopicTest.class})
+    TopicTest.class})
 public class AllTests {
 }
