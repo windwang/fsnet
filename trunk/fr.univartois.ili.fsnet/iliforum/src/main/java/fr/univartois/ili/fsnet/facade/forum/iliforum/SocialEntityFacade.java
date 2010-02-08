@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import java.util.HashMap;
 import java.util.List;
 
@@ -229,5 +230,19 @@ public class SocialEntityFacade {
             throw new IllegalArgumentException();
         }
         socialEntity.getFavoriteInteractions().remove(interaction);
+    }
+
+    /**
+     * Test if the email and password correspond to a member
+     * @param email
+     * @param password
+     * @return true if the member exists, false otherwise
+     */
+    public final boolean isMember(String email, String password) {
+        SocialEntity entity = this.findByEmail(email);
+        if (entity != null) {
+            return Encryption.testPassword(password, entity.getPassword());
+        }
+        return false;
     }
 }

@@ -1,55 +1,62 @@
-<?xml version='1.0' encoding='UTF-8'?><!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-12/14/2009 02:16 PM(ramkris)-. --><xs:schema xmlns:tns="http://webservice.fsnet.ili.univartois.fr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice.fsnet.ili.univartois.fr/">
+<!-- Published by JAX-WS RI at http://jax-ws.dev.java.net. RI's version is JAX-WS RI 2.2-12/14/2009 02:16 PM(ramkris)-. -->
+<xs:schema xmlns:tns="http://webservice.fsnet.ili.univartois.fr/" xmlns:xs="http://www.w3.org/2001/XMLSchema" version="1.0" targetNamespace="http://webservice.fsnet.ili.univartois.fr/">
 
-<xs:element name="getNewAnnouncementCount" type="tns:getNewAnnouncementCount" />
+    <xs:element name="getNewAnnouncementCount" type="tns:getNewAnnouncementCount" />
 
-<xs:element name="getNewAnnouncementCountResponse" type="tns:getNewAnnouncementCountResponse" />
+    <xs:element name="getNewAnnouncementCountResponse" type="tns:getNewAnnouncementCountResponse" />
 
-<xs:element name="getNewEventsCount" type="tns:getNewEventsCount" />
+    <xs:element name="getNewEventsCount" type="tns:getNewEventsCount" />
 
-<xs:element name="getNewEventsCountResponse" type="tns:getNewEventsCountResponse" />
+    <xs:element name="getNewEventsCountResponse" type="tns:getNewEventsCountResponse" />
 
-<xs:element name="getNewMessages" type="tns:getNewMessages" />
+    <xs:element name="getNewMessages" type="tns:getNewMessages" />
 
-<xs:element name="getNewMessagesResponse" type="tns:getNewMessagesResponse" />
+    <xs:element name="getNewMessagesResponse" type="tns:getNewMessagesResponse" />
 
-<xs:complexType name="getNewMessages">
-<xs:sequence>
-<xs:element name="login" type="xs:string" minOccurs="0" />
+    <xs:complexType name="getNewMessages">
+        <xs:sequence>
+            <xs:element name="login" type="xs:string" minOccurs="0" />
+            <xs:element name="password" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:element name="password" type="xs:string" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="getNewMessagesResponse">
+        <xs:sequence>
+            <xs:element name="return" type="tns:wsPrivateMessage" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="getNewMessagesResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:string" minOccurs="0" maxOccurs="unbounded" />
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="wsPrivateMessage">
+        <xs:sequence>
+            <xs:element name="from" type="xs:string" minOccurs="0" />
+            <xs:element name="messageId" type="xs:int" />
+            <xs:element name="subject" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="getNewAnnouncementCount">
-<xs:sequence>
-<xs:element name="login" type="xs:string" minOccurs="0" />
-<xs:element name="password" type="xs:string" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="getNewAnnouncementCount">
+        <xs:sequence>
+            <xs:element name="login" type="xs:string" minOccurs="0" />
+            <xs:element name="password" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="getNewAnnouncementCountResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="getNewAnnouncementCountResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:int" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="getNewEventsCount">
-<xs:sequence>
-<xs:element name="login" type="xs:string" minOccurs="0" />
-<xs:element name="password" type="xs:string" minOccurs="0" />
-</xs:sequence>
-</xs:complexType>
+    <xs:complexType name="getNewEventsCount">
+        <xs:sequence>
+            <xs:element name="login" type="xs:string" minOccurs="0" />
+            <xs:element name="password" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
 
-<xs:complexType name="getNewEventsCountResponse">
-<xs:sequence>
-<xs:element name="return" type="xs:int" minOccurs="0" />
-</xs:sequence>
-
-</xs:complexType>
+    <xs:complexType name="getNewEventsCountResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:int" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
 </xs:schema>

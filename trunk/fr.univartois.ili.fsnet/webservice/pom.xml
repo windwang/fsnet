@@ -61,7 +61,13 @@
             <artifactId>istack-commons-runtime</artifactId>
             <version>2.2</version>
         </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>iliforum</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
-    
+
 </project>
+
 
