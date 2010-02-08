@@ -43,15 +43,13 @@ public abstract class Interaction implements Serializable {
      */
     @ManyToOne
     private SocialEntity creator;
-    /**
-     * Report of activities, which included all interactions.
-     */
-    @ManyToOne
-    private ActivityReport report;
+
     @ManyToMany
     private Set<Interest> interests;
+    
     @Temporal(TemporalType.DATE)
     private Date creationDate;
+    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastModified;
     
@@ -116,23 +114,6 @@ public abstract class Interaction implements Serializable {
      */
     public void setCreator(SocialEntity createur) {
         this.creator = createur;
-    }
-
-    /**
-     *
-     * @return the report of activities.
-     */
-    public ActivityReport getReport() {
-        return report;
-    }
-
-    /**
-     * Gives a report of activities to the interaction.
-     *
-     * @param rapport
-     */
-    public void setReport(ActivityReport rapport) {
-        this.report = rapport;
     }
 
     /**
