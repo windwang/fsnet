@@ -2,12 +2,25 @@ package fr.univartois.ili.fsnet.trayDesktop;
 
 import com.sun.xml.ws.client.ClientTransportException;
 import fr.univartois.ili.fsnet.webservice.Info;
-import java.awt.*;
-import java.awt.event.*;
+import fr.univartois.ili.fsnet.webservice.WsPrivateMessage;
+import java.awt.CheckboxMenuItem;
+import java.awt.Desktop;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
+import java.awt.TrayIcon;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.rmi.RemoteException;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 import java.util.ResourceBundle;
@@ -106,6 +119,7 @@ public class FSNetTray {
                 }
             }
         });
+        
         tray.addMouseListener(new MouseAdapter() {
 
             @Override
@@ -143,7 +157,7 @@ public class FSNetTray {
      *
      * @return a formatted message
      */
-    private String getMessage(int announces, int events) {
+    private String getMessage(int announces, int events, List<WsPrivateMessage> messages) {
         build.delete(0, build.length());
 
         if (announces > 0) {
@@ -153,6 +167,11 @@ public class FSNetTray {
         if (events > 0) {
             build.append(trayi18n.getString("THEREIS")).append(" ").append(events).
                     append(" ").append(trayi18n.getString("NEWEVENTS"));
+        }
+        if (messages != null && messages.size() > 0) {
+            for (WsPrivateMessage message : messages) {
+                build.append(message.getFrom()).append(" : ").append(message.getSubject());
+            }
         }
 
         return build.toString();
@@ -180,12 +199,14 @@ public class FSNetTray {
         try {
             int announces = getNumberOfNewAnnonce();
             int events = getNumberOfNewEvents();
-            if (announces + events > 0) {
-                String message = getMessage(announces, events);
+            List<WsPrivateMessage> messages = ins.getNewMessages(Options.getLogin(), Options.getPassword());
+            System.out.println(messages);
+            if (announces + events + messages.size() > 0) {
+                String message = getMessage(announces, events, messages);
                 tray.displayMessage(
                         trayi18n.getString("NOTIFICATIONS"),
                         message,
-                        TrayIcon.MessageType.INFO);
+                        TrayIcon.MessageType.NONE);
             } else {
                 tray.displayMessage(
                         trayi18n.getString("NONEWEVENTS"),
@@ -198,13 +219,13 @@ public class FSNetTray {
             tray.displayMessage(
                     trayi18n.getString("NOCONNECTION"),
                     trayi18n.getString("NOCONNECTION"),
-                    TrayIcon.MessageType.INFO);
+                    TrayIcon.MessageType.ERROR);
             stopNotifications();
         } catch (ClientTransportException e2) {
             tray.displayMessage(
                     trayi18n.getString("NOCONNECTION"),
                     trayi18n.getString("NOCONNECTION"),
-                    TrayIcon.MessageType.INFO);
+                    TrayIcon.MessageType.ERROR);
         }
     }
 
