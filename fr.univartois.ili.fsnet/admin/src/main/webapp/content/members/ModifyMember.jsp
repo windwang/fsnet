@@ -95,7 +95,7 @@
 <bean:message key="members.herInterests"/>
 <br /><br />
 <table  class="inLineTable">
-        <c:forEach var="interest" items="${interests}">
+       <c:forEach var="interest" items="${interests}">
 
             <tr class="content">
                 <td>

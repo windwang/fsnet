@@ -168,11 +168,13 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		entityManager.close();
 		String adress = "";
-		if (member.getAddress() != null)
-			adress += member.getAddress().getAddress();
+		if (member.getAddress() != null) {
+			if (member.getAddress().getAddress() != null)adress += member.getAddress().getAddress();
+			
 
-		if (member.getAddress().getCity() != null)
-			adress += member.getAddress().getCity();
+			if (member.getAddress().getCity() != null)
+				adress += member.getAddress().getCity();
+		}
 		dynaForm.set("address", adress);
 		dynaForm.set("phone", member.getPhone());
 		dynaForm.set("sexe", member.getSex());
