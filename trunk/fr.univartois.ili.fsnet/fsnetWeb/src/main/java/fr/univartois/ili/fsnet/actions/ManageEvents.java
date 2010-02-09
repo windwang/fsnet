@@ -8,7 +8,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,10 +22,10 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
-import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.InteractionRole;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.MeetingFacade;
 
 /**
  * Execute CRUD Actions for the entity Event
@@ -35,155 +34,133 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  */
 public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
+	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
-    @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+	@Override
+	public ActionForward create(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
 
-        DynaActionForm dynaForm = (DynaActionForm) form; 							//NOSONAR
-        String eventName = (String) dynaForm.get("eventName");
-        String eventDescription = (String) dynaForm.get("eventDescription");
-        String eventDate = (String) dynaForm.get("eventDate");
+		DynaActionForm dynaForm = (DynaActionForm) form; 							//NOSONAR
+		String eventName = (String) dynaForm.get("eventName");
+		String eventDescription = (String) dynaForm.get("eventDescription");
+		String eventDate = (String) dynaForm.get("eventDate");
+		//TODO !!! recuperer l'adresse et la city !!!
+		String adress = "";
+		String city = "";
 
-        Date typedEventDate;
-        try {
-            typedEventDate = DateUtils.format(eventDate);
-        } catch (ParseException e) {
-            ActionErrors errors = new ActionErrors();
-            errors.add("eventDate", new ActionMessage(("event.date.errors")));
-            saveErrors(request, errors);
-            return mapping.getInputForward();
-        }
-        EntityManager em = factory.createEntityManager();
-        SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-        em.getTransaction().begin();
-        //member = em.find(SocialEntity.class, member.getId());
-        // TODO !!! date de fin et date de debut !!
-        Meeting event = new Meeting(member, eventName, eventDescription, typedEventDate, false, typedEventDate, new Address());
+		Date typedEventDate;
+		try {
+			typedEventDate = DateUtils.format(eventDate);
+		} catch (ParseException e) {
+			ActionErrors errors = new ActionErrors();
+			errors.add("eventDate", new ActionMessage(("event.date.errors")));
+			saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		EntityManager em = factory.createEntityManager();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		em.getTransaction().begin();
+		// TODO !!! date de fin et date de debut !!
 
-        member.getInteractions().add(event);
-        em.persist(event);
+		MeetingFacade meetingFacade = new MeetingFacade(em);
+		Meeting event = meetingFacade.createMeeting(member, eventName, eventDescription, typedEventDate, false, typedEventDate, adress, city);
 
-        em.getTransaction().commit();
-        em.close();
-        request.setAttribute("event", event);
-        return mapping.findForward("success");
-    }
+		em.getTransaction().commit();
+		em.close();
+		request.setAttribute("event", event);
+		return mapping.findForward("success");
+	}
 
-    @Override
-    public ActionForward modify(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        // TODO code pour la modification
+	@Override
+	public ActionForward modify(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		// TODO code pour la modification
 
-        return null;
-    }
+		return null;
+	}
 
-    @Override
-    public ActionForward delete(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
-        String eventId = (String) dynaForm.get("eventId");
+	@Override
+	public ActionForward delete(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
+		String eventId = (String) dynaForm.get("eventId");
 
-        EntityManager em = factory.createEntityManager();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		MeetingFacade meetingFacade = new MeetingFacade(em);
+		meetingFacade.deleteMeeting(Integer.parseInt(eventId));
 
-        em.getTransaction().begin();
-        TypedQuery<Meeting> query = em.createQuery(
-                "Select e from Meeting e where e.id = :eventId",
-                Meeting.class);
-        query.setParameter("eventId", Integer.parseInt(eventId));
-        Meeting event = query.getSingleResult();
-        em.remove(event);
-        em.flush();
-        em.getTransaction().commit();
-        em.close();
+		em.getTransaction().commit();
+		em.close();
 
-        request.setAttribute("event", event);
-        return mapping.findForward("success");
-    }
-    
+		return mapping.findForward("success");
+	}
 
-    public ActionForward subscribe(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response){
-    	DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
-    	String eventId = (String) dynaForm.get("eventId");
-    	EntityManager em = factory.createEntityManager();
-    	SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-    	em.getTransaction().begin();
-    	TypedQuery<Meeting> queryMeeting = em.createQuery(
-                "Select e from Meeting e where e.id = :eventId",
-                Meeting.class);
-        queryMeeting.setParameter("eventId", Integer.parseInt(eventId));
-        
-        TypedQuery<SocialEntity> querySE = em.createQuery(
-                "SELECT es FROM SocialEntity es WHERE es.id = :seId",
-                SocialEntity.class);
-        querySE.setParameter("seId", member.getId());
-        
-        SocialEntity se = querySE.getSingleResult();
-        Meeting meeting = queryMeeting.getSingleResult();
-        InteractionRole interactionRole = new InteractionRole();
-        interactionRole.setInteraction(meeting);
-        interactionRole.setSocialEntity(se);
-        interactionRole.setRole(InteractionRole.RoleName.SUBSCRIBER);
-        em.persist(interactionRole);
-        em.getTransaction().commit();
-        return mapping.findForward("success");
-    }
 
-    @Override
-    public ActionForward search(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm seaarchForm = (DynaActionForm) form; 							//NOSONAR
-        String searchString = (String) seaarchForm.get("searchString");
+	public ActionForward subscribe(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response){
+		DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
+		String eventId = (String) dynaForm.get("eventId");
+		EntityManager em = factory.createEntityManager();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		em.getTransaction().begin();
+		MeetingFacade meetingFacade = new MeetingFacade(em);
+		Meeting meeting = meetingFacade.getMeeting(Integer.parseInt(eventId));
 
-        EntityManager em = factory.createEntityManager();
-        List<Meeting> results;
-        final TypedQuery<Meeting> query;
-        // on empty search return all events
-        if ("".equals(searchString)) {
-            query = em.createQuery("SELECT e FROM Meeting e",
-                    Meeting.class);
-        } else {
-            query = em.createQuery("SELECT e FROM Meeting e "
-                    + "WHERE e.title LIKE :searchString "
-                    + "OR e.content LIKE :searchString ", Meeting.class);
-            query.setParameter("searchString", "%" + searchString + "%");
-        }
-        results = query.getResultList();
-        if (results.isEmpty()) {
-            ActionErrors errors = new ActionErrors();
-            errors.add("searchString", new ActionMessage("search.noResults"));
-            saveErrors(request, errors);
-        }
-        em.close();
-        request.setAttribute("events", results);
-        return mapping.findForward("success");
-    }
+		InteractionRole interactionRole = new InteractionRole();
+		interactionRole.setInteraction(meeting);
+		interactionRole.setSocialEntity(member);
+		interactionRole.setRole(InteractionRole.RoleName.SUBSCRIBER);
+		em.persist(interactionRole);
+		em.getTransaction().commit();
+		return mapping.findForward("success");
+	}
 
-    @Override
-    public ActionForward display(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
-        String eventId = (String) dynaForm.get("eventId");
+	@Override
+	public ActionForward search(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		DynaActionForm seaarchForm = (DynaActionForm) form; 							//NOSONAR
+		String searchString = (String) seaarchForm.get("searchString");
 
-        EntityManager em = factory.createEntityManager();
-        TypedQuery<Meeting> query = em.createQuery(
-                "Select e from Meeting e where e.id = :eventId",
-                Meeting.class);
-        query.setParameter("eventId", Integer.parseInt(eventId));
-        Meeting event = query.getSingleResult();
-        
-        // TODO a finir demain
-        //TypedQuery<SocialEntity> queryRole = em.createQuery("Select i from InterationRole i where ",SocialEntity.class);
-        em.close();
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		MeetingFacade meetingFacade = new MeetingFacade(em);
+		List<Meeting> results = meetingFacade.searchMeeting(searchString);
+		em.getTransaction().commit();
 
-        request.setAttribute("event", event);
-        return mapping.findForward("success");
-    }
+		if (results.isEmpty()) {
+			ActionErrors errors = new ActionErrors();
+			errors.add("searchString", new ActionMessage("search.noResults"));
+			saveErrors(request, errors);
+		}
+
+		em.close();
+		request.setAttribute("events", results);
+		return mapping.findForward("success");
+	}
+
+	@Override
+	public ActionForward display(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form;								//NOSONAR
+		String eventId = (String) dynaForm.get("eventId");
+
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		MeetingFacade meetingFacade = new MeetingFacade(em);
+		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
+
+		// TODO a finir demain
+		//TypedQuery<SocialEntity> queryRole = em.createQuery("Select i from InterationRole i where ",SocialEntity.class);
+		em.getTransaction().commit();
+		em.close();
+
+		request.setAttribute("event", event);
+		return mapping.findForward("success");
+	}
 }
