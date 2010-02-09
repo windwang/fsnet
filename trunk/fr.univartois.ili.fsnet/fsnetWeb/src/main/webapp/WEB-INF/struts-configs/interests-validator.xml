@@ -30,5 +30,8 @@
             <field property="nextPage" depends="required,integer"/>
             <field property="search" depends="required"/>
         </form>
+        <form name="/InterestInformations">
+            <field property="infoInterestId" depends="required,integer"/>
+        </form>
 	</formset>
 </form-validation>

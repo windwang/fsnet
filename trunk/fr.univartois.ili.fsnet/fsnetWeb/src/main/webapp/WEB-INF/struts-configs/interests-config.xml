@@ -27,6 +27,10 @@
             <form-property name="nextPage" type="java.lang.String" />
             <form-property name="search" type="java.lang.String" />
         </form-bean>
+        <form-bean name="InterestInformationsForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="infoInterestId" type="java.lang.String" />
+        </form-bean>
     </form-beans>
     <global-forwards>
 
@@ -108,8 +112,10 @@
         <action
             path="/InterestInformations"
             type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="InterestInformationsForm"
             input="/Interests.do"
             scope="request"
+            validate="true"
             parameter="informations">
             <forward name="success" path="InfoInterest" />
         </action>

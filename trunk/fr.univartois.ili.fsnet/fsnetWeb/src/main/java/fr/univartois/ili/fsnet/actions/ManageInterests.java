@@ -29,7 +29,6 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
-// TODO remove request.getParameter and replace with dynaForm validator
 // TODO replace all select=0 in jsp and add a box for null parent in create/modify
 // TODO modify in another jsp
 
@@ -56,7 +55,8 @@ public class ManageInterests extends MappingDispatchAction implements
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 		String interestName = (String) dynaForm.get("createdInterestName");
-		int parentInterestId = Integer.valueOf((String)dynaForm.get("parentInterestId"));
+		int parentInterestId = Integer.valueOf((String) dynaForm
+				.get("parentInterestId"));
 
 		logger.info("new interest: " + interestName);
 
@@ -67,7 +67,7 @@ public class ManageInterests extends MappingDispatchAction implements
 			} else {
 				facade.createInterest(interestName);
 			}
-			
+
 			em.getTransaction().commit();
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
@@ -113,17 +113,9 @@ public class ManageInterests extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
-
-		int interestId;
-
-		if (request.getParameterMap().containsKey("removedInterestId")) {
-			interestId = Integer.valueOf(request
-					.getParameter("removedInterestId"));
-		} else {
-			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-			interestId = Integer.valueOf((String) dynaForm
-					.get("removedInterestId"));
-		}
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		int interestId = Integer.valueOf((String) dynaForm
+				.get("removedInterestId"));
 
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
@@ -194,26 +186,22 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		String interestName = "";
-
-		if (request.getParameterMap().containsKey("search")) {
-			interestName = request.getParameter("search");
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		
+		if (dynaForm.get("searchInterestName") != null) {
+			interestName = (String) dynaForm.get("searchInterestName");
 		}
+		
 
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("advanced search interest: " + interestName);
+		
+		int page = Integer.valueOf((String) dynaForm.get("nextPage"));
 
-		int page = 0;
-
-		if (request.getParameterMap().containsKey("nextPage")) {
-			try {
-				page = Integer.valueOf(request.getParameter("nextPage"));
-			} catch (NumberFormatException e) {
-				page = 0;
-			}
-			if (page < 0) {
-				page = 0;
-			}
+		if (page < 0) {
+			page = 0;
 		}
+		
 
 		List<Interest> result = facade.advancedSearchInterest(interestName,
 				page * NB_RESULTS_RETURNED, NB_RESULTS_ON_DEMAND);
@@ -271,26 +259,23 @@ public class ManageInterests extends MappingDispatchAction implements
 		EntityManager em = factory.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("Displaying interest's informations");
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		
+		int interestId = Integer.valueOf((String) dynaForm.get("infoInterestId"));
+	
+		Interest interest = facade.getInterest(interestId);
+		HashMap<String, List<Interaction>> resultMap = facade
+				.getInteractions(interestId);
+		em.close();
 
-		int interestId;
-		if (request.getParameterMap().containsKey("interestId")) {
-			try {
-				interestId = Integer.valueOf(request.getParameter("interestId"));
-			} catch (NumberFormatException e) {
-				interestId = 0;
-			}
-
-			Interest interest = facade.getInterest(interestId);
-			HashMap<String, List<Interaction>> resultMap = facade.getInteractions(interestId);
-			em.close();
-			
-			if (interest != null) {
-				request.setAttribute("interest", interest);
-				for (String interactionClass : resultMap.keySet()) {
-					request.setAttribute(interactionClass, resultMap.get(interactionClass));
-				}
+		if (interest != null) {
+			request.setAttribute("interest", interest);
+			for (String interactionClass : resultMap.keySet()) {
+				request.setAttribute(interactionClass, resultMap
+						.get(interactionClass));
 			}
 		}
+
 		return mapping.findForward("success");
 	}
 }
