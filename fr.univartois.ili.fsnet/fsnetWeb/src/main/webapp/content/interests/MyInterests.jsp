@@ -12,7 +12,7 @@
 			<c:forEach var="interest" items="${requestScope.user.interests}">
 				<div>
 					<html:link action="/InterestInformations">
-						<html:param name="interestId" value="${interest.id}"/>
+						<html:param name="infoInterestId" value="${interest.id}"/>
 						${interest.name}
 					</html:link>
 					<html:link styleClass="button" action="/RemoveInterest">
