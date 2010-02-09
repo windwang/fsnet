@@ -190,7 +190,7 @@
         <put name="left" value="/content/privatemessages/leftMenu.jsp" />
         <put name="body-content" value="/content/privatemessages/DisplayInbox.jsp" />
     </definition>
-     <definition name="DisplayOutbox" extends=".defaultLayout">
+    <definition name="DisplayOutbox" extends=".defaultLayout">
         <put name="title" value="pageTitle.14"/>
         <put name="currentMenu" value="Messages"/>
         <put name="left" value="/content/privatemessages/leftMenu.jsp" />
@@ -202,7 +202,7 @@
         <put name="left" value="/content/privatemessages/leftMenu.jsp" />
         <put name="body-content" value="/content/privatemessages/DisplayMessage.jsp" />
     </definition>
-        <definition name="DisplaySentMessage" extends=".defaultLayout">
+    <definition name="DisplaySentMessage" extends=".defaultLayout">
         <put name="title" value="pageTitle.14"/>
         <put name="currentMenu" value="Messages"/>
         <put name="left" value="/content/privatemessages/leftMenu.jsp" />
@@ -214,7 +214,7 @@
         <put name="left" value="/content/privatemessages/leftMenu.jsp" />
         <put name="body-content" value="/content/privatemessages/CreateMessage.jsp" />
     </definition>
-    
+
     <!-- Communities -->
     <definition name="Communities" extends=".defaultLayout">
         <put name="title" value="pageTitle.15"/>
@@ -222,13 +222,13 @@
         <put name="left" value="/content/communities/leftMenu.jsp" />
         <put name="body-content" value="/content/communities/Communities.jsp" />
     </definition>
-      <definition name="DisplayCreateCommunity" extends=".defaultLayout">
+    <definition name="DisplayCreateCommunity" extends=".defaultLayout">
         <put name="title" value="pageTitle.15"/>
         <put name="currentMenu" value="Communities"/>
         <put name="left" value="/content/communities/leftMenu.jsp" />
         <put name="body-content" value="/content/communities/CreateCommunity.jsp" />
     </definition>
-      <definition name="DisplayCommunities" extends=".defaultLayout">
+    <definition name="DisplayCommunities" extends=".defaultLayout">
         <put name="title" value="pageTitle.15"/>
         <put name="currentMenu" value="Communities"/>
         <put name="left" value="/content/communities/leftMenu.jsp" />
