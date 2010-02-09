@@ -54,7 +54,7 @@ public class Authenticate extends HttpServlet {
                         SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			try {
                                 SocialEntity es = socialEntityFacade.findByEmail(memberMail);
-				//SocialEntity es = (SocialEntity) query.getSingleResult();
+				
 				// TODO : uncomment those lines to enable password verification
 				//if (Md5.testPassword(memberPass, es.getPassword())) {
 					authenticated = true;

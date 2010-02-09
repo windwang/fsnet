@@ -33,12 +33,11 @@ public class UserUtils {
     public static final SocialEntity getAuthenticatedUser(HttpServletRequest req, EntityManager em) {
         SocialEntity user = (SocialEntity) req.getSession().getAttribute(
                 Authenticate.AUTHENTICATED_USER);
+        SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
         if (em.getTransaction().isActive()) {
-            SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
             user = socialEntityFacade.getSocialEntity(user.getId());
         } else {
             em.getTransaction().begin();
-            SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
             user = socialEntityFacade.getSocialEntity(user.getId());
             em.getTransaction().commit();
         }
