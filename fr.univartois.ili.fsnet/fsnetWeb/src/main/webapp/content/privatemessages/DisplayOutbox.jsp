@@ -23,14 +23,14 @@
             </td>
             <td style="width: 25%">
                 <bean:message key="privatemessages.sentTO"/>
-                <html:link action="/DisplayMessage">
+                <html:link action="/DisplaySentMessage">
                     <html:param name="messageId" value="${message.id}"/>
                     ${message.to.firstName} ${message.to.name}
                 </html:link>
             </td>
             <td style="width: 50%">
 
-                <html:link action="/DisplayMessage">
+                <html:link action="/DisplaySentMessage">
                     <html:param name="messageId" value="${message.id}"/>
                     <span>${fn:substring(message.subject, 0,20)} : </span>
                     <span style="color: gray">${fn:escapeXml(fn:substring(message.body, 0, 20))}</span>
