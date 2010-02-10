@@ -66,8 +66,8 @@
 			<td><label for="sexe"> <bean:message key="members.sexe" />
 			</label></td>
 			<td><html:select property="sexe">
-				<html:option value="Man">Male</html:option>
-				<html:option value="Woman">Female</html:option>
+				<html:option value="male"><bean:message key="members.sexe.Male" /></html:option>
+				<html:option value="female"><bean:message key="members.sexe.Female" /></html:option>
 			</html:select></td>
 		</tr>
 
