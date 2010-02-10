@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
@@ -51,17 +52,16 @@ public class Authenticate extends HttpServlet {
 
 		if (memberMail != null && memberPass != null) {
 			EntityManager em = emf.createEntityManager();
-                        SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			try {
-                                SocialEntity es = socialEntityFacade.findByEmail(memberMail);
-				
-				// TODO : uncomment those lines to enable password verification
-				//if (Md5.testPassword(memberPass, es.getPassword())) {
+				SocialEntity es = socialEntityFacade.findByEmail(memberMail);
+
+				if (Encryption.testPassword(memberPass, es.getPassword())) {
 					authenticated = true;
 					req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
-				//} else {
-					//req.setAttribute("loginError", "login.error");
-				//}
+				} else {
+					req.setAttribute("loginError", "login.error");
+				}
 			} catch (NoResultException e) {
 				Logger.getAnonymousLogger()
 						.fine("Member authentication failed");
