@@ -1,11 +1,9 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -53,7 +51,6 @@ public class Authenticate extends HttpServlet {
 		if (memberMail != null && memberPass != null) {
 			EntityManager em = emf.createEntityManager();
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-			try {
 				SocialEntity es = socialEntityFacade.findByEmail(memberMail);
 				if (es != null
 						&& Encryption
@@ -63,14 +60,6 @@ public class Authenticate extends HttpServlet {
 				} else {
 					req.setAttribute("loginError", "login.error");
 				}
-			} catch (NoResultException e) {
-				Logger.getAnonymousLogger()
-						.fine("Member authentication failed");
-				Logger.getAnonymousLogger().fine("memberMail : " + memberMail);
-
-				// throw an error message to the request
-				req.setAttribute("loginMessage", "login.error");
-			}
 			em.close();
 		}
 
