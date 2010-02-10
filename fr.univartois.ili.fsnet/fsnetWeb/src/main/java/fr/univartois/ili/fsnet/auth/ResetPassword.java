@@ -1,6 +1,8 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -16,6 +18,7 @@ import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
 import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 public class ResetPassword extends HttpServlet {
 
@@ -27,7 +30,7 @@ public class ResetPassword extends HttpServlet {
 	public void resetPassword(SocialEntity se) {
 		String generatedPassword = Encryption.generateRandomPassword();
 		String message = createMessage(generatedPassword);
-		FSNetMailer mailer = FSNetMailer.getInstance(); 
+		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 		mail.addRecipient(se.getEmail());
 		mail.setContent(message);
@@ -39,32 +42,31 @@ public class ResetPassword extends HttpServlet {
 	private String createMessage(String password) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Bonjour, <br/><br/>");
-		sb.append("Suite à votre demande, un nouveau mot de passe vous a été attribué : ");
+		sb
+				.append("Suite à votre demande, un nouveau mot de passe vous a été attribué : ");
 		sb.append(password);
 		sb.append("<br/><br/>");
-		sb.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages.");
+		sb
+				.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages.");
 		sb.append("Merci de ne pas répondre à ce message.");
 		return sb.toString();
 	}
-	
+
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String memberMail = req.getParameter("memberMail");
 		EntityManager em = emf.createEntityManager();
+		SocialEntityFacade facade = new SocialEntityFacade(em);
 		if ((memberMail != null) && (!memberMail.isEmpty())) {
-			try {
-				em.getTransaction().begin();
-				Query query = em
-						.createQuery("Select es from SocialEntity es where es.email = :memberMail");
-				query.setParameter("memberMail", memberMail);
-				SocialEntity se = (SocialEntity) query.getSingleResult();
+			em.getTransaction().begin();
+			SocialEntity se = facade.findByEmail(memberMail);
+			if (se != null) {
 				resetPassword(se);
 				em.merge(se);
 				em.getTransaction().commit();
-			} catch (Exception e) {
+				Logger.getAnonymousLogger().severe("Exception ok");
 			}
-
 		}
 		em.close();
 		req.setAttribute("loginMessage", "login.3");
