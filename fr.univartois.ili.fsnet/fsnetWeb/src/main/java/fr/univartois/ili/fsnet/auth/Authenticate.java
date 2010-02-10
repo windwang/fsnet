@@ -55,8 +55,9 @@ public class Authenticate extends HttpServlet {
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			try {
 				SocialEntity es = socialEntityFacade.findByEmail(memberMail);
-
-				if (Encryption.testPassword(memberPass, es.getPassword())) {
+				if (es != null
+						&& Encryption
+								.testPassword(memberPass, es.getPassword())) {
 					authenticated = true;
 					req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
 				} else {
