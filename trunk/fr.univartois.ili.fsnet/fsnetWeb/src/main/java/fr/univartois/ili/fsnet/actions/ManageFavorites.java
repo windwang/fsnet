@@ -54,7 +54,7 @@ public class ManageFavorites extends MappingDispatchAction {
 
         if (interaction != null) {
             user.getFavoriteInteractions().remove(interaction);
-            interaction.getFollowingEntitys().remove(user);
+            em.flush();
         }
         em.getTransaction().commit();
         em.close();
