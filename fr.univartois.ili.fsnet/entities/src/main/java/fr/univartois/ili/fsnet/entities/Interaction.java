@@ -43,19 +43,14 @@ public abstract class Interaction implements Serializable {
      */
     @ManyToOne
     private SocialEntity creator;
-
     @ManyToMany
     private Set<Interest> interests;
-    
     @Temporal(TemporalType.DATE)
     private Date creationDate;
-    
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastModified;
-    
     @OneToMany(mappedBy = "interaction")
     private Set<InteractionRole> roles;
-    
     @ManyToMany(mappedBy = "favoriteInteractions")
     @JoinColumn(nullable = false)
     private Set<SocialEntity> followingEntitys;
@@ -79,6 +74,7 @@ public abstract class Interaction implements Serializable {
         this.creator = creator;
         this.interests = new HashSet<Interest>();
         this.roles = new HashSet<InteractionRole>();
+        this.followingEntitys = new HashSet<SocialEntity>();
         // this.report = rapport;
     }
 
@@ -204,17 +200,17 @@ public abstract class Interaction implements Serializable {
         return roles;
     }
 
-	/**
-	 * @param followingEntitys the followingEntitys to set
-	 */
-	public void setFollowingEntitys(Set<SocialEntity> followingEntitys) {
-		this.followingEntitys = followingEntitys;
-	}
+    /**
+     * @param followingEntitys the followingEntitys to set
+     */
+    public void setFollowingEntitys(Set<SocialEntity> followingEntitys) {
+        this.followingEntitys = followingEntitys;
+    }
 
-	/**
-	 * @return the followingEntitys
-	 */
-	public Set<SocialEntity> getFollowingEntitys() {
-		return followingEntitys;
-	}
+    /**
+     * @return the followingEntitys
+     */
+    public Set<SocialEntity> getFollowingEntitys() {
+        return followingEntitys;
+    }
 }
