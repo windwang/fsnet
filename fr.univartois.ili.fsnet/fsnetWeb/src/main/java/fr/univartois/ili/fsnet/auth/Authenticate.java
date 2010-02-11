@@ -58,7 +58,7 @@ public class Authenticate extends HttpServlet {
 					authenticated = true;
 					req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
 				} else {
-					req.setAttribute("loginError", "login.error");
+					req.setAttribute("loginMessage", "login.error");
 				}
 			em.close();
 		}
