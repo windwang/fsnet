@@ -7,6 +7,9 @@
             <field property="modifiedInterestId" depends="required,integer">
                 <arg key="error.interest.id.modified" />
             </field>
+            <field property="parentInterestId" depends="integer">
+                <arg key="error.interest.id.modified" />
+            </field>
             <field property="modifiedInterestName" depends="required">
                 <arg key="error.interest.name.modified" />
             </field>

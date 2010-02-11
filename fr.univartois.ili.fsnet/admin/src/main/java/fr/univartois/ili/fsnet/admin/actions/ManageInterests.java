@@ -80,7 +80,6 @@ public class ManageInterests extends MappingDispatchAction implements
 		int interestId = Integer.valueOf((String) dynaForm
 				.get("modifiedInterestId"));
 		String interestName = (String) dynaForm.get("modifiedInterestName");
-		int parentInterestId = Integer.valueOf((String) dynaForm.get("modifiedParentInterstId"));
 		InterestFacade facade = new InterestFacade(em);
 
 		Interest interest = facade.getInterest(interestId);
@@ -91,7 +90,11 @@ public class ManageInterests extends MappingDispatchAction implements
 
 			try {
 				em.getTransaction().begin();
-				facade.modifyInterest(interestName, interest);
+				if (dynaForm.get("parentInterestId") != null && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+					facade.modifyInterest(interestName, interest, Integer.valueOf(((String) dynaForm.get("parentInterestId"))));
+				} else {
+					facade.modifyInterest(interestName, interest);
+				}
 				em.getTransaction().commit();
 			} catch (DatabaseException ex) {
 				ActionErrors actionErrors = new ActionErrors();
