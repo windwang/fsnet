@@ -21,7 +21,15 @@
 				<html:option value="${interest.id}">${interest.name}</html:option>
 			</c:forEach>
 		</html:select>
-
+		<bean:message key="interests.15"/>
+		<html:select property="parentInterestId" styleClass="select">
+			<html:option value="">
+				<bean:message key="interests.8"/>
+			</html:option>
+			<c:forEach var="interest" items="${requestScope.allInterests}">
+				<html:option value="${interest.id}">${interest.name}</html:option>
+			</c:forEach>
+		</html:select>
 		<html:text property="modifiedInterestName" />
 
 		<html:submit styleClass="button" />
