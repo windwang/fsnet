@@ -254,6 +254,16 @@ input[type="text"][class="error"], textarea[class="error"] {
     margin-bottom: 10px;
 }
 
+.lastMessageOwner{
+	width: 100%;
+	color: #990000;
+	background-color: #E8F5FD;
+    border: 1px solid #8bcef8;
+    border-bottom: none;
+    vertical-align: text-top;
+    margin-top: 20px;
+}
+
 .inLineTable {
     width: 100%;
     border-collapse:collapse;

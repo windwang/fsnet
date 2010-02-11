@@ -1,6 +1,9 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -106,10 +109,20 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
     	logger.info("display Message: ");
        
         request.setAttribute("topicId", topicId);
-      
+        EntityManager em = factory.createEntityManager();
+        Topic currentTopic= em.find(Topic.class,Integer.valueOf(topicId));
+        List<TopicMessage> messages = currentTopic.getMessages(); 
+        List<TopicMessage> lastMessages;
+        if(messages.size()>3){
+        	lastMessages=messages.subList(messages.size()-3, messages.size());
+        }else{
+        	lastMessages=messages;
+        }
+        Collections.reverse(lastMessages);
+        request.setAttribute("lastMessages",lastMessages);
         if (request.getParameter("messageId")!=null) {
         	String messageId = (String) dynaForm.get("messageId");
-            EntityManager em = factory.createEntityManager();
+            
             TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
             TopicMessage message = topicMessageFacade.getTopicMessage(Integer.parseInt(messageId));
             request.setAttribute("message", message);
