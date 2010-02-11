@@ -29,8 +29,6 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
-// TODO replace all select=0 in jsp and add a box for null parent in create/modify
-// TODO modify in another jsp
 
 /**
  * Execute CRUD Actions (and more) for the entity interet
@@ -55,15 +53,14 @@ public class ManageInterests extends MappingDispatchAction implements
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 		String interestName = (String) dynaForm.get("createdInterestName");
-		int parentInterestId = Integer.valueOf((String) dynaForm
-				.get("parentInterestId"));
 
 		logger.info("new interest: " + interestName);
 
 		try {
 			em.getTransaction().begin();
-			if (parentInterestId != 0) {
-				facade.createInterest(interestName, parentInterestId);
+			if (dynaForm.get("parentInterestId") != null && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+				facade.createInterest(interestName, Integer.valueOf((String) dynaForm
+				.get("parentInterestId")));
 			} else {
 				facade.createInterest(interestName);
 			}
