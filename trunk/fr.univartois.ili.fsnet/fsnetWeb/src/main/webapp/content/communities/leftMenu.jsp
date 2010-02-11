@@ -2,17 +2,17 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <h2>
-	My Communities
+	<bean:message key="communities.communitiesLeftMenu"/>
 </h2>
 <ul>
     <li>
         <html:link action="/DisplayCreateCommunity">
-       Create a Community
+       		<bean:message key="communities.createLeftMenu"/>
         </html:link>
     </li>
     <li>
         <html:link action="/DisplayCommunities">
-			Manage your Communities
+			 <bean:message key="communities.manageLeftMenu"/>
         </html:link>
     </li>
 </ul>

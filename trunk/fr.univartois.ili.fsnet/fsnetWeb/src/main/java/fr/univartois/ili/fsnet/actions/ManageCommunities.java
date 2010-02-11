@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -131,6 +132,35 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
         }
         em.getTransaction().begin();
         result = communityFacade.searchCommunity(searchText);
+        em.getTransaction().commit();
+        em.close();
+
+
+        request.setAttribute("communitiesResult", result);
+        return mapping.findForward("success");
+    }
+    
+    public ActionForward searchYourCommunities(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+    	//TODO use facade
+        EntityManager em = factory.createEntityManager();
+        List<Community> result = null;
+        String pattern = "";
+        SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
+
+        if (form != null) {
+            DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+            pattern = (String) dynaForm.get("searchText");
+
+        }
+        em.getTransaction().begin();
+        
+        TypedQuery<Community> query = em.createQuery("SELECT community FROM Community community WHERE community.title LIKE :pattern AND community.creator= :creator", Community.class);
+        query.setParameter("pattern", "%" + pattern + "%");
+        query.setParameter("creator", creator);
+        result = query.getResultList();
+
         em.getTransaction().commit();
         em.close();
 

@@ -234,6 +234,12 @@
         <put name="left" value="/content/communities/leftMenu.jsp" />
         <put name="body-content" value="/content/communities/SearchCommunity.jsp" />
     </definition>
+     <definition name="DisplayYourCommunities" extends=".defaultLayout">
+        <put name="title" value="pageTitle.15"/>
+        <put name="currentMenu" value="Communities"/>
+        <put name="left" value="/content/communities/leftMenu.jsp" />
+        <put name="body-content" value="/content/communities/SearchYourCommunities.jsp" />
+    </definition>
 </tiles-definitions>
 
 
