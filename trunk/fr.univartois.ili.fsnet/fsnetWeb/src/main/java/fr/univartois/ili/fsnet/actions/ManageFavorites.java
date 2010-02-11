@@ -20,41 +20,51 @@ import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class ManageFavorites extends MappingDispatchAction {
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 
-	public ActionForward add(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		int interactionId = Integer.parseInt((String) dynaForm
-				.get("interactionId"));
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		Interaction interaction = em.find(Interaction.class, interactionId);
-		user.getFavoriteInteractions().add(interaction);
-		interaction.getFollowingEntitys().add(user);
-		em.getTransaction().commit();
-		System.out.println("Added bidule");
-		return null;
-	}
+    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
-	public ActionForward remove(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		int interactionId = Integer.parseInt((String) dynaForm
-				.get("interactionId"));
-		EntityManager em = factory.createEntityManager();
-		em.getTransaction().begin();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		Interaction interaction = em.find(Interaction.class, interactionId);
-		user.getFavoriteInteractions().remove(interaction);
-		interaction.getFollowingEntitys().remove(user);
-		em.getTransaction().commit();
-		System.out.println("removed bidule");
-		return null;
-	}
+    public ActionForward add(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        DynaActionForm dynaForm = (DynaActionForm) form;
+        int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+        Interaction interaction = em.find(Interaction.class, interactionId);
+        user.getFavoriteInteractions().add(interaction);
+        interaction.getFollowingEntitys().add(user);
+        em.getTransaction().commit();
+        return null;
+    }
 
+    public ActionForward remove(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        DynaActionForm dynaForm = (DynaActionForm) form;
+        int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
+        EntityManager em = factory.createEntityManager();
+        em.getTransaction().begin();
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+        Interaction interaction = em.find(Interaction.class, interactionId);
+        user.getFavoriteInteractions().remove(interaction);
+        interaction.getFollowingEntitys().remove(user);
+        em.getTransaction().commit();
+        return null;
+    }
+
+    public ActionForward display(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+        DynaActionForm dynaForm = (DynaActionForm) form;
+        int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
+        EntityManager em = factory.createEntityManager();
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+        Interaction interaction = em.find(Interaction.class, interactionId);
+        if (user.getFavoriteInteractions().contains(interaction)) {
+            request.setAttribute("isFavorite", true);
+        }
+        request.setAttribute("interactionId", interaction);
+        return mapping.findForward("success");
+    }
 }
