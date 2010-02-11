@@ -1,13 +1,10 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -42,12 +39,10 @@ public class ResetPassword extends HttpServlet {
 	private String createMessage(String password) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Bonjour, <br/><br/>");
-		sb
-				.append("Suite à votre demande, un nouveau mot de passe vous a été attribué : ");
+		sb.append("Suite à votre demande, un nouveau mot de passe vous a été attribué : ");
 		sb.append(password);
 		sb.append("<br/><br/>");
-		sb
-				.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages.");
+		sb.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages.");
 		sb.append("Merci de ne pas répondre à ce message.");
 		return sb.toString();
 	}
@@ -65,7 +60,6 @@ public class ResetPassword extends HttpServlet {
 				resetPassword(se);
 				em.merge(se);
 				em.getTransaction().commit();
-				Logger.getAnonymousLogger().severe("Exception ok");
 			}
 		}
 		em.close();
