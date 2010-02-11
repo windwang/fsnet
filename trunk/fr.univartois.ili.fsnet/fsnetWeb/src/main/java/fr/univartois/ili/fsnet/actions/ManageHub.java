@@ -48,7 +48,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String hubName = (String) dynaForm.get("hubName");
-		String communityId = (String) request.getParameter("communityId");
+		String communityId = (String) dynaForm.get("communityId");
 		EntityManager em = factory.createEntityManager();
 		Community community = em.find(Community.class, Integer.parseInt(communityId));
 	
