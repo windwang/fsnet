@@ -2,13 +2,13 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <h2>
-	My Hubs
+	<bean:message key="hubs.hubsLeftMenu"/>
 </h2>
 <ul>
     <li>
-       Create a Hub
+       <bean:message key="hubs.createLeftMenu"/>
     </li>
     <li>
-			Manage your Hubs
+		<bean:message key="hubs.manageLeftMenu"/>
     </li>
 </ul>
