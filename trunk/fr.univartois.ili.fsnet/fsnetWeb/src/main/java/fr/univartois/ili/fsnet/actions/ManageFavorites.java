@@ -32,9 +32,12 @@ public class ManageFavorites extends MappingDispatchAction {
         em.getTransaction().begin();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         Interaction interaction = em.find(Interaction.class, interactionId);
-        user.getFavoriteInteractions().add(interaction);
-        interaction.getFollowingEntitys().add(user);
+        if (interaction != null) {
+            user.getFavoriteInteractions().add(interaction);
+            interaction.getFollowingEntitys().add(user);
+        }
         em.getTransaction().commit();
+        em.close();
         return null;
     }
 
@@ -45,11 +48,16 @@ public class ManageFavorites extends MappingDispatchAction {
         int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
+
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         Interaction interaction = em.find(Interaction.class, interactionId);
-        user.getFavoriteInteractions().remove(interaction);
-        interaction.getFollowingEntitys().remove(user);
+
+        if (interaction != null) {
+            user.getFavoriteInteractions().remove(interaction);
+            interaction.getFollowingEntitys().remove(user);
+        }
         em.getTransaction().commit();
+        em.close();
         return null;
     }
 
@@ -62,9 +70,11 @@ public class ManageFavorites extends MappingDispatchAction {
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         Interaction interaction = em.find(Interaction.class, interactionId);
         if (user.getFavoriteInteractions().contains(interaction)) {
-            request.setAttribute("isFavorite", true);
+            request.setAttribute("isFavorite", "true");
+        } else {
+            request.setAttribute("isFavorite", "false");
         }
-        request.setAttribute("interactionId", interaction);
+        request.setAttribute("interactionId", interaction.getId());
         return mapping.findForward("success");
     }
 }
