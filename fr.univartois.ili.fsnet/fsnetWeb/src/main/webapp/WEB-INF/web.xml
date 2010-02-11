@@ -19,7 +19,8 @@
                 /WEB-INF/struts-configs/topics-config.xml,
                 /WEB-INF/struts-configs/members-config.xml,
                 /WEB-INF/struts-configs/privatemessages-config.xml,
-                /WEB-INF/struts-configs/communities-config.xml
+                /WEB-INF/struts-configs/communities-config.xml,
+                /WEB-INF/struts-configs/interactions-config.xml
             </param-value>
         </init-param>
 
