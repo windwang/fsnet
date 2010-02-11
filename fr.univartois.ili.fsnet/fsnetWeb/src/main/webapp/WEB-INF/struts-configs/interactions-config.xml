@@ -5,25 +5,32 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
     <form-beans>
-       <form-bean name="FavoriteForm"
-       			  type="org.apache.struts.validator.DynaValidatorActionForm">
-       		<form-property name="interactionId" type="java.lang.String"></form-property>
-       </form-bean>
+        <form-bean name="FavoriteForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="interactionId" type="java.lang.String"></form-property>
+        </form-bean>
     </form-beans>
     <action-mappings>
-       <action  path="/AddFavorite"
-       			type="fr.univartois.ili.fsnet.actions.ManageFavorites" 
-       			parameter="add"
-       			scope="request" validate="false"
-       			name="FavoriteForm"
-       			input="/Home.do">
-       </action>
-       <action  path="/RemoveFavorite"
-       			type="fr.univartois.ili.fsnet.actions.ManageFavorites" 
-       			parameter="remove"
-       			scope="request" validate="false"
-       			name="FavoriteForm"
-       			input="/Home.do">
-       </action>
+        <action  path="/AddFavorite"
+                 type="fr.univartois.ili.fsnet.actions.ManageFavorites"
+                 parameter="add"
+                 scope="request" validate="false"
+                 name="FavoriteForm"
+                 input="/Home.do">
+        </action>
+        <action  path="/RemoveFavorite"
+                 type="fr.univartois.ili.fsnet.actions.ManageFavorites"
+                 parameter="remove"
+                 scope="request" validate="false"
+                 name="FavoriteForm"
+                 input="/Home.do">
+        </action>
+        <action  path="/FavoriteFragment"
+                 type="fr.univartois.ili.fsnet.actions.ManageFavorites"
+                 parameter="display"
+                 scope="request" validate="false"
+                 name="FavoriteForm">
+            <forward name="success" path="/content/interactions/FavoriteFragment.jsp" />
+        </action>
     </action-mappings>
 </struts-config>
