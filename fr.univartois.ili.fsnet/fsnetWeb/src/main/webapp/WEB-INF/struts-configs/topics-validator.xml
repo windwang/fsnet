@@ -19,9 +19,6 @@
          <form name="/DisplayTopic">
             <field property="topicId" depends="integer,required"></field>
         </form>
-        <form name="/DisplayCreateTopicForm">
-            <field property="hubId" depends="integer,required"></field>
-        </form>
         <form name="/CreateTopicMessage">
             <field property="messageDescription" depends="required">
                 <arg key="topics.error.messageDescription" />

@@ -22,10 +22,6 @@
             <form-property name="topicSujetSearch" type="java.lang.String" />
             <form-property name="hubId" type="java.lang.String"/>
         </form-bean>
-        <form-bean name="DisplayCreateTopicForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="hubId" type="java.lang.String" />
-        </form-bean>
         <form-bean name="CreateTopicMessageForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="messageDescription" type="java.lang.String" />
@@ -62,7 +58,6 @@
         </action>
 
         <action path="/DisplayCreateTopic" type="org.apache.struts.actions.ForwardAction"
-        		name="DisplayCreateTopicForm" input="Home" scope="request" validate="true"
                 parameter="CreateTopic"/>
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
