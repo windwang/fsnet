@@ -36,7 +36,6 @@ public class ManageMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-    @SuppressWarnings("element-type-mismatch")
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
