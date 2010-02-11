@@ -29,5 +29,8 @@
                 <arg key="error.interest.create" />
             </field>
         </form>
+        <form name="/InterestInformations">
+            <field property="infoInterestId" depends="required,integer"/>
+        </form>
 	</formset>
 </form-validation>

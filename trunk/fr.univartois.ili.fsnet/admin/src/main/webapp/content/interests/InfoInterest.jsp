@@ -14,7 +14,7 @@
 			<div class="cloud">
 				<div>
 					<html:link action="/InterestInformations">
-						<html:param name="interestId" value="${interest.parentInterest.id}"/>
+						<html:param name="infoInterestId" value="${interest.parentInterest.id}"/>
 						${interest.parentInterest.name}
 					</html:link>
 				</div>
@@ -26,7 +26,7 @@
 				<c:forEach var="interestChild" items="${requestScope.interest.childrenInterests}">
 					<div>
 						<html:link action="/InterestInformations">
-							<html:param name="interestId" value="${interestChild.id}"/>
+							<html:param name="infoInterestId" value="${interestChild.id}"/>
 							${interestChild.name}								
 						</html:link>
 					</div>

@@ -14,7 +14,7 @@
 		<html:errors property="modifiedInterestName" />
 		<br />
 		<html:select property="modifiedInterestId" styleClass="select">
-			<html:option value="0">
+			<html:option value="">
 				<bean:message key="interests.1" />
 			</html:option>
 			<c:forEach var="interest" items="${requestScope.allInterests}">

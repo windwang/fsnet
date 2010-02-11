@@ -10,7 +10,7 @@
 <html:form action="/CreateInterest">
 	<bean:message key="interests.15"/>
 	<html:select property="parentInterestId" styleClass="select">
-		<html:option value="0"><bean:message key="interests.8"/></html:option>
+		<html:option value=""><bean:message key="interests.8"/></html:option>
 		<c:forEach var="interest" items="${requestScope.allInterests}">
 			<html:option value="${interest.id}">${interest.name}</html:option>
 		</c:forEach>

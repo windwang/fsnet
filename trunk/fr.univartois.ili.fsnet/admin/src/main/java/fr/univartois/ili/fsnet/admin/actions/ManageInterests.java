@@ -45,19 +45,19 @@ public class ManageInterests extends MappingDispatchAction implements
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		InterestFacade facade = new InterestFacade(em);
-
 		String interestName = (String) dynaForm.get("createdInterestName");
-		int parentInterestId = Integer.valueOf((String) dynaForm.get("parentInterestId"));
-		
+
 		logger.info("new interest: " + interestName);
 
 		try {
 			em.getTransaction().begin();
-			if (parentInterestId != 0) {
-				facade.createInterest(interestName, parentInterestId);
+			if (dynaForm.get("parentInterestId") != null && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+				facade.createInterest(interestName, Integer.valueOf((String) dynaForm
+				.get("parentInterestId")));
 			} else {
 				facade.createInterest(interestName);
 			}
+
 			em.getTransaction().commit();
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
@@ -181,26 +181,23 @@ public class ManageInterests extends MappingDispatchAction implements
 		EntityManager em = factory.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("Displaying interest's informations");
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		
+		int interestId = Integer.valueOf((String) dynaForm.get("infoInterestId"));
+	
+		Interest interest = facade.getInterest(interestId);
+		HashMap<String, List<Interaction>> resultMap = facade
+				.getInteractions(interestId);
+		em.close();
 
-		int interestId;
-		if (request.getParameterMap().containsKey("interestId")) {
-			try {
-				interestId = Integer.valueOf(request.getParameter("interestId"));
-			} catch (NumberFormatException e) {
-				interestId = 0;
-			}
-
-			Interest interest = facade.getInterest(interestId);
-			HashMap<String, List<Interaction>> resultMap = facade.getInteractions(interestId);
-			em.close();
-			
-			if (interest != null) {
-				request.setAttribute("interest", interest);
-				for (String interactionClass : resultMap.keySet()) {
-					request.setAttribute(interactionClass, resultMap.get(interactionClass));
-				}
+		if (interest != null) {
+			request.setAttribute("interest", interest);
+			for (String interactionClass : resultMap.keySet()) {
+				request.setAttribute(interactionClass, resultMap
+						.get(interactionClass));
 			}
 		}
+
 		return mapping.findForward("success");
 	}
 }
