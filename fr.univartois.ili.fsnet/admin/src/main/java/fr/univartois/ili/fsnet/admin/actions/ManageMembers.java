@@ -30,8 +30,8 @@ import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Address;
-import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 /**
@@ -43,13 +43,13 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
+	.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String name = (String) dynaForm.get("name");
 		String firstName = (String) dynaForm.get("firstName");
@@ -124,32 +124,32 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		message.append("Bonjour ").append(nom).append(" ").append(prenom);
 		message.append(",<br/><br/>");
 		message
-				.append("Vous venez d'être enregistré sur FSNet (Firm Social Network).<br/><br/>");
+		.append("Vous venez d'être enregistré sur FSNet (Firm Social Network).<br/><br/>");
 		message.append("Désormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
 		message.append("Un mot de passe a été généré automatiquement : <em>");
 		message.append(password);
 		message
-				.append("</em><br/><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
+		.append("</em><br/><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
 		return message.toString();
 	}
 
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		String entitySelected = request.getParameter("entitySelected");
 
 		logger.info("delete social entity: " + entitySelected);
 
 		EntityManager em = factory.createEntityManager();
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		em.getTransaction().begin();
-		em
-				.createQuery(
-						"DELETE FROM SocialEntity socialentity WHERE socialentity.id = :entitySelected ")
-				.setParameter("entitySelected",
-						Integer.parseInt(entitySelected)).executeUpdate();
+
+		SocialEntity se = socialEntityFacade.getSocialEntity(Integer.parseInt(entitySelected));
+		socialEntityFacade.deleteSocialEntity(se);
+
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
@@ -158,19 +158,20 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		EntityManager entityManager = factory.createEntityManager();
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(entityManager);
 
 		Integer idMember = Integer.valueOf(request.getParameter("idMember"));
 
-		SocialEntity member = entityManager.find(SocialEntity.class, idMember);
+		SocialEntity member = socialEntityFacade.getSocialEntity(idMember);
 
 		entityManager.close();
 		String adress = "";
 		if (member.getAddress() != null) {
 			if (member.getAddress().getAddress() != null)adress += member.getAddress().getAddress();
-			
+
 
 			if (member.getAddress().getCity() != null)
 				adress += member.getAddress().getCity();
@@ -193,7 +194,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 		String name = (String) formSocialENtity.get("name");
@@ -239,27 +240,24 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
 		TypedQuery<SocialEntity> query = null;
 		List<SocialEntity> resultOthers = null;
 
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String searchText = (String) dynaForm.get("searchText");
-
-			query = em
-					.createQuery(
-							"SELECT es FROM SocialEntity es WHERE (es.name LIKE :searchText"
-									+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText)",
-							SocialEntity.class);
-			query.setParameter("searchText", "%" + searchText + "%");
-
+			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+			resultOthers = socialEntityFacade.searchSocialEntity(searchText);
 		} else {
 			query = em.createQuery("SELECT es FROM SocialEntity es",
 					SocialEntity.class);
+			resultOthers = query.getResultList();
 		}
-		resultOthers = query.getResultList();
+
+		em.getTransaction().commit();
 		em.close();
 
 		request.setAttribute("membersResult", resultOthers);
@@ -289,9 +287,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		logger.info("delete interest social entity");
 		SocialEntityFacade ise = new SocialEntityFacade(em);
+		InterestFacade interestFacade = new InterestFacade(em);
 		em.getTransaction().begin();
-		ise.removeInterest(em.find(Interest.class, interestSelected), em.find(
-				SocialEntity.class, idSocialEntity));
+		ise.removeInterest(interestFacade.getInterest(interestSelected), ise.getSocialEntity(idSocialEntity));
 		em.getTransaction().commit();
 		em.close();
 
