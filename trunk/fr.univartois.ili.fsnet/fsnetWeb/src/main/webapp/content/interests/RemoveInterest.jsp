@@ -10,7 +10,7 @@
     <html:javascript formName="/RemoveInterest"/>
     <html:form action="/RemoveInterest">
         <html:select property="removedInterestId" styleClass="select">
-            <html:option value="0"><bean:message key="interests.1"/></html:option>
+            <html:option value=""><bean:message key="interests.1"/></html:option>
             <c:forEach var="interest" items="${requestScope.user.interests}">
                 <html:option value="${interest.id}">${interest.name}</html:option>
             </c:forEach>
