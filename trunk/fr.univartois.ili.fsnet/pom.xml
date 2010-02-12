@@ -21,7 +21,7 @@
 		<module>webservice</module>
 		<module>trayDesktop</module>
 		<module>commons</module>
-		<module>fakeDB</module>
+		<module>mockDB</module>
 	</modules>
 
 	<properties>
