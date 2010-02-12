@@ -2,12 +2,15 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,10 +22,13 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
@@ -138,6 +144,46 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("topic", result);
 
 		em.close();
+		return mapping.findForward("success");
+	}
+	
+	public ActionForward searchYourTopics(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		
+		EntityManager em = factory.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String pattern = (String) dynaForm.get("searchText");
+		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
+		 Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
+		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
+		Hub hub = em.find(Hub.class, hubId);
+	
+		if (pattern==null) {
+			pattern = "";
+		}
+		em.getTransaction().begin();
+		TypedQuery<Topic> query = em.createQuery("SELECT topic FROM Topic topic WHERE topic.title LIKE :pattern AND topic.hub = :hub AND topic.creator = :creator", Topic.class);
+	    query.setParameter("pattern", "%" + pattern + "%");
+	    query.setParameter("hub", hub);
+	    query.setParameter("creator", creator);
+	    List<Topic> topics = query.getResultList();
+	    
+	    for (Topic t : topics) {
+            List<TopicMessage> messages = t.getMessages();
+            Message lastMessage = null;
+            if (messages.size() > 0) {
+                lastMessage = messages.get(messages.size() - 1);
+            }
+            topicsLastMessage.put(t, lastMessage);
+        }
+	    
+	    em.getTransaction().commit();
+		
+		em.close();
+		request.setAttribute("hubResult", hub);
+		request.setAttribute("topicsLastMessage", topicsLastMessage);
+		
 		return mapping.findForward("success");
 	}
 }
