@@ -19,7 +19,7 @@
 <html:form action="/ModifyMember">
 	<table id="ModifyMember">
 		<tr>
-			<td COLSPAN="2"><html:errors /></td>
+			<td colspan="2"><html:errors /></td>
 
 		</tr>
 		<tr>
