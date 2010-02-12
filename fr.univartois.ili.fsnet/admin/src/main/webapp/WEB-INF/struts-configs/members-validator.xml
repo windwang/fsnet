@@ -53,6 +53,9 @@
 			        <var-value>^[0-9]+$</var-value>
 			    </var>
             </field> 
+            <field property="city" depends="">
+            	<arg key="members.error.city" />
+            </field>
         </form>
     </formset>
 </form-validation>

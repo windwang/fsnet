@@ -49,6 +49,12 @@
 			<td><html:textarea errorStyleClass="error" property="address"
 				styleId="address" /></td>
 		</tr>
+		<tr>
+			<td><label for="city"> <bean:message
+				key="members.city" /> </label></td>
+			<td><html:text errorStyleClass="error" property="city"
+				styleId="city" /></td>
+		</tr>
 		<c:set var="formatBirthDay">
 			<bean:write name="ModifyMemberForm" property="birthDay"
 				format="dd/MM/yyyy" />
