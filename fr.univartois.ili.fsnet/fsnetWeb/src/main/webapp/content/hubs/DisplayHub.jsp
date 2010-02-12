@@ -23,45 +23,6 @@
         </tr>
     </html:form>
 </table>
-<c:if test="${not empty resRearchTopics}">
-    <table class="inLineTable" style="margin-bottom: 20px;">
-        <c:forEach var="topic" items="${resRearchTopics}">
-            <tr>
-                <td>
-                    <jsp:include page="/FavoriteFragment.do">
-                        <jsp:param name="interactionId" value="${topic.id}"/>
-                    </jsp:include>
-                </td>
-                <td>
-                    <html:link action="/DisplayTopic">
-                        <html:param name="topicId" value="${topic.id}"/>
-                        ${topic.title}
-                    </html:link>
-                    <br/>
-                    <bean:message key="hubs.createdOn"/>
-                    <bean:write name="hubResult" property="creationDate" format="dd/MM/yyyy"/>
-                    <bean:message key="hubs.by"/>
-                    <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${topic.creator.id}"/>
-                        ${topic.creator.firstName} ${topic.creator.name}
-                    </html:link>
-                </td>
-
-
-                <c:if test="${sessionScope.user.id eq topic.creator.id}">
-                    <td class="tableButton">
-                        <html:link action="/DeleteTopic" styleClass="button">
-                            <html:param name="topicId" value="${topic.id}"/>
-                            <html:param name="hubId" value="${hubResult.id}"/>
-                            <bean:message key="hubs.deleteTopic"/>
-                        </html:link>
-                    </td>
-                </c:if>
-            </tr>
-        </c:forEach>
-    </table>
-</c:if>
-
 
 <h3><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="hubs.topics"/></h3>
 <logic:empty name="topicsLastMessage">
