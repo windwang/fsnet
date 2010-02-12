@@ -119,12 +119,25 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String topicSujet = (String) dynaForm.get("topicSujetSearch");
 		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
+		Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
 		HubFacade hubFacade = new HubFacade(em);
 		Hub hub = hubFacade.getHub(hubId);
 		TopicFacade topicFacade = new TopicFacade(em);
 		List<Topic> result = topicFacade.searchTopic(topicSujet, hub);
-		request.setAttribute("resRearchTopics", result);
+		
+		
+		 for (Topic t : result) {
+	            List<TopicMessage> messages = t.getMessages();
+	            Message lastMessage = null;
+	            if (messages.size() > 0) {
+	                lastMessage = messages.get(messages.size() - 1);
+	            }
+	            topicsLastMessage.put(t, lastMessage);
+	        }
+		
 		em.close();
+		request.setAttribute("hubResult", hub);
+		request.setAttribute("topicsLastMessage", topicsLastMessage);
 		return mapping.findForward("success");
 	}
 
