@@ -1,8 +1,8 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -51,9 +51,10 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		try {
 			em.getTransaction().begin();
-			if (dynaForm.get("parentInterestId") != null && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-				facade.createInterest(interestName, Integer.valueOf((String) dynaForm
-				.get("parentInterestId")));
+			if (dynaForm.get("parentInterestId") != null
+					&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+				facade.createInterest(interestName, Integer
+						.valueOf((String) dynaForm.get("parentInterestId")));
 			} else {
 				facade.createInterest(interestName);
 			}
@@ -84,14 +85,17 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		Interest interest = facade.getInterest(interestId);
 
-		
 		if (interest != null) {
 			logger.info("interest modification: " + interestName);
 
 			try {
 				em.getTransaction().begin();
-				if (dynaForm.get("parentInterestId") != null && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-					facade.modifyInterest(interestName, interest, Integer.valueOf(((String) dynaForm.get("parentInterestId"))));
+				if (dynaForm.get("parentInterestId") != null
+						&& !((String) dynaForm.get("parentInterestId"))
+								.isEmpty()) {
+					facade.modifyInterest(interestName, interest,
+							Integer.valueOf(((String) dynaForm
+									.get("parentInterestId"))));
 				} else {
 					facade.modifyInterest(interestName, interest);
 				}
@@ -177,7 +181,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		return mapping.findForward("success");
 	}
-	
+
 	public ActionForward informations(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -185,19 +189,21 @@ public class ManageInterests extends MappingDispatchAction implements
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("Displaying interest's informations");
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-		
-		int interestId = Integer.valueOf((String) dynaForm.get("infoInterestId"));
-	
+
+		int interestId = Integer.valueOf((String) dynaForm
+				.get("infoInterestId"));
+
 		Interest interest = facade.getInterest(interestId);
-		HashMap<String, List<Interaction>> resultMap = facade
+		Map<String, List<Interaction>> resultMap = facade
 				.getInteractions(interestId);
 		em.close();
 
 		if (interest != null) {
 			request.setAttribute("interest", interest);
-			for (String interactionClass : resultMap.keySet()) {
-				request.setAttribute(interactionClass, resultMap
-						.get(interactionClass));
+			for (Map.Entry<String, List<Interaction>> interactionClass : resultMap
+					.entrySet()) {
+				request.setAttribute(interactionClass.getKey(),
+						interactionClass.getValue());
 			}
 		}
 
