@@ -7,9 +7,14 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<h3>${event.title}</h3>
+<h3>
+    <jsp:include page="/FavoriteFragment.do">
+        <jsp:param name="interactionId" value="${event.id}"/>
+    </jsp:include>
+    ${event.title}
+</h3>
 
-<table id="DisplayEvent" style="border-left: 1px solid grey;">
+<table id="DisplayEvent" style="border-left: 1px solid gray;">
     <tr class="authorDate">
         <td>
             <bean:message key="events.5"/>
@@ -28,10 +33,10 @@
     </tr>
     <tr>
         <td  class="alignRight">
-                <html:link  action="/SubscribeEvent" styleClass="button">
-                    <html:param name="eventId" value="${event.id}"/>
-                	<bean:message key="events.17"/>
-                </html:link>
+            <html:link  action="/SubscribeEvent" styleClass="button">
+                <html:param name="eventId" value="${event.id}"/>
+                <bean:message key="events.17"/>
+            </html:link>
         </td>
     </tr>
     <tr>
@@ -39,7 +44,7 @@
             <c:if test="${user.id eq event.creator.id}">
                 <html:link  action="/DeleteEvent" styleClass="button">
                     <html:param name="eventId" value="${event.id}"/>
-                	<bean:message key="events.7"/>
+                    <bean:message key="events.7"/>
                 </html:link>
             </c:if>
         </td>

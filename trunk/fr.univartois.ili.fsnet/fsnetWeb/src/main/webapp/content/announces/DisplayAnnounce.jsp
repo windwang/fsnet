@@ -14,7 +14,13 @@
 <table id="DisplayAnnounce">
     <tr>
         <th>
-            <h3><bean:write name="announce" property="title" /></h3>
+
+            <h3>
+                <jsp:include page="/FavoriteFragment.do">
+                    <jsp:param name="interactionId" value="${announce.id}"/>
+                </jsp:include>
+                <bean:write name="announce" property="title" />
+            </h3>
         </th>
     </tr>
     <tr class="authorDate">
