@@ -1,9 +1,11 @@
-package fr.univartois.ili.fsnet.trayDesktop;
+package fr.univartois.ili.fsnet.trayDesktop.views;
 
 import com.jgoodies.forms.builder.PanelBuilder;
 import com.jgoodies.forms.layout.CellConstraints;
 import com.jgoodies.forms.layout.FormLayout;
-import fr.univartois.ili.fsnet.trayDesktop.Options.LANG;
+import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
+import fr.univartois.ili.fsnet.trayDesktop.model.Options;
+import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
 import java.util.ResourceBundle;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -121,7 +123,7 @@ public class ConfigurationPanel {
      *
      * @return the website url
      */
-    public String getFsnetUrl(){
+    public String getFsnetUrl() {
         return fsneturl.getText();
     }
 }

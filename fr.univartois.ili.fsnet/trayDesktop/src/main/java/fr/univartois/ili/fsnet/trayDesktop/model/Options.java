@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.trayDesktop;
+package fr.univartois.ili.fsnet.trayDesktop.model;
 
 import java.util.Locale;
 import java.util.logging.Level;
@@ -204,5 +204,9 @@ public final class Options {
         } catch (BackingStoreException ex) {
             Logger.getLogger(Options.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static boolean isValid(){
+        return false;
     }
 }

@@ -1,6 +1,10 @@
-package fr.univartois.ili.fsnet.trayDesktop;
+package fr.univartois.ili.fsnet.trayDesktop.views;
 
+import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 import com.sun.xml.ws.client.ClientTransportException;
+import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
+import fr.univartois.ili.fsnet.trayDesktop.model.WSListener;
+import fr.univartois.ili.fsnet.trayDesktop.model.WSMessage;
 import fr.univartois.ili.fsnet.webservice.Info;
 import fr.univartois.ili.fsnet.webservice.WsPrivateMessage;
 import java.awt.CheckboxMenuItem;
@@ -33,15 +37,10 @@ import java.util.logging.Logger;
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 // TODO when message from EntiteSociale to EntiteSociale will be implemented add personal messages here
-public class FSNetTray {
+public class FSNetTray implements WSListener{
 
     private final ResourceBundle trayi18n = TrayLauncher.getBundle();
     private TrayIcon tray;
-    private final Info ins;
-    private static Logger logger = Logger.getLogger(FSNetTray.class.getName());
-    private Timer timer;
-    private StringBuilder build;
-    private static final long MINUTES = 60000;
 
     /**
      *
@@ -53,8 +52,6 @@ public class FSNetTray {
             throw new IllegalArgumentException();
         }
         tray = new TrayIcon(image);
-        this.build = new StringBuilder();
-        this.ins = info;
         initTrayIcon();
     }
 
@@ -79,7 +76,7 @@ public class FSNetTray {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                new ConfigurationFrame().show();
+                TrayLauncher.showConfigFrame();
             }
         });
 
@@ -124,7 +121,7 @@ public class FSNetTray {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                displayMessage();
+                //displayMessage();
             }
         });
         // Add components to popup menu
@@ -134,107 +131,25 @@ public class FSNetTray {
         tray.setPopupMenu(popup);
     }
 
-    /**
-     *
-     * @return the number of new announces
-     * @throws RemoteException if the webservice is unreachable
-     */
-    private int getNumberOfNewAnnonce() throws RemoteException {
-        return ins.getNewAnnouncementCount(Options.getLogin(), Options.getPassword());
-
-    }
-
-    /**
-     *
-     * @return the number of new events
-     * @throws RemoteException if the webservice is unreachable
-     */
-    private int getNumberOfNewEvents() throws RemoteException {
-        return ins.getNewEventsCount(Options.getLogin(), Options.getPassword());
-    }
-
-    /**
-     *
-     * @return a formatted message
-     */
-    private String getMessage(int announces, int events, List<WsPrivateMessage> messages) {
-        build.delete(0, build.length());
-
-        if (announces > 0) {
-            build.append(trayi18n.getString("THEREIS")).append(" ").append(announces).
-                    append(" ").append(trayi18n.getString("NEWANNOUNCES"));
-        }
-        if (events > 0) {
-            build.append(trayi18n.getString("THEREIS")).append(" ").append(events).
-                    append(" ").append(trayi18n.getString("NEWEVENTS"));
-        }
-        if (messages != null && messages.size() > 0) {
-            for (WsPrivateMessage message : messages) {
-                build.append(message.getFrom()).append(" : ").append(message.getSubject());
-            }
-        }
-
-        return build.toString();
-    }
-
-    /**
-     * Start a timer which will display message regulary
-     * @param timeLag number of seconds between two requests
-     */
-    public void startNotifications(long timeLag) {
-        timer = new Timer();
-        timer.schedule(new TimerTask() {
-
-            @Override
-            public void run() {
-                displayMessage();
-            }
-        }, 0, MINUTES * Options.getLag());
-    }
-
-    /**
-     * Display a message with new alerts
-     */
-    private void displayMessage() {
-        try {
-            int announces = getNumberOfNewAnnonce();
-            int events = getNumberOfNewEvents();
-            List<WsPrivateMessage> messages = ins.getNewMessages(Options.getLogin(), Options.getPassword());
-            System.out.println(messages);
-            if (announces + events + messages.size() > 0) {
-                String message = getMessage(announces, events, messages);
-                tray.displayMessage(
+    @Override
+    public void onNewMessages(WSMessage message) {
+         tray.displayMessage(
                         trayi18n.getString("NOTIFICATIONS"),
-                        message,
+                        // TODO I18n
+                        message.getMessage() + "NewMessages",
                         TrayIcon.MessageType.NONE);
-            } else {
-                tray.displayMessage(
-                        trayi18n.getString("NONEWEVENTS"),
-                        trayi18n.getString("NONEWEVENTS"),
-                        TrayIcon.MessageType.INFO);
-            }
-        } catch (RemoteException e1) {
-            //logger.log(Level.SEVERE, e1.getLocalizedMessage());
-            System.out.println("prout");
-            tray.displayMessage(
-                    trayi18n.getString("NOCONNECTION"),
-                    trayi18n.getString("NOCONNECTION"),
-                    TrayIcon.MessageType.ERROR);
-            stopNotifications();
-        } catch (ClientTransportException e2) {
-            tray.displayMessage(
-                    trayi18n.getString("NOCONNECTION"),
-                    trayi18n.getString("NOCONNECTION"),
-                    TrayIcon.MessageType.ERROR);
-        }
     }
 
-    /**
-     * Stop tray notifications
-     */
-    public void stopNotifications() {
-        if (timer != null) {
-            timer.cancel();
-        }
+    @Override
+    public void onError(WSMessage message) {
+        tray.displayMessage(
+                    trayi18n.getString("NOCONNECTION"),
+                    trayi18n.getString("NOCONNECTION"),
+                    TrayIcon.MessageType.ERROR);
+    }
+
+    @Override
+    public void onConnection(WSMessage message) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

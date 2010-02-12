@@ -1,6 +1,9 @@
 package fr.univartois.ili.fsnet.trayDesktop;
 
-import fr.univartois.ili.fsnet.webservice.Info;
+import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
+import fr.univartois.ili.fsnet.trayDesktop.views.ConfigurationFrame;
+import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
+import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 import fr.univartois.ili.fsnet.webservice.InfoService;
 import java.awt.AWTException;
 import java.awt.SystemTray;
@@ -28,6 +31,11 @@ public class TrayLauncher {
     private static Logger logger = Logger.getLogger(TrayLauncher.class.getName());
     private static FSNetTray c;
 
+    public static void showConfigFrame() {
+        // TODO creer le model etc
+        new ConfigurationFrame(new WSControl(null));
+    }
+
     private TrayLauncher() {
     }
 
@@ -49,7 +57,7 @@ public class TrayLauncher {
      * @param path
      * @return the image to display in the tray
      */
-    static ImageIcon getImageIcon(String path) {
+    public static ImageIcon getImageIcon(String path) {
         URL imageURL = FSNetTray.class.getResource(path);
         if (imageURL == null) {
             logger.log(Level.SEVERE, "Resource not found: " + path);
@@ -64,7 +72,7 @@ public class TrayLauncher {
      */
     public static final void reload() {
         if (c != null) {
-            c.stopNotifications();
+            //c.stopNotifications();
             SystemTray.getSystemTray().remove(c.getTrayIcon());
         }
         SwingUtilities.invokeLater(new Runnable() {
@@ -81,9 +89,9 @@ public class TrayLauncher {
                             InfoService infoService = new InfoService(new URL(Options.getWSUrl()), new QName("http://webservice.fsnet.ili.univartois.fr/", "InfoService"));
                             c = new FSNetTray(icon.getImage(), infoService.getInfoPort());
                             SystemTray.getSystemTray().add(c.getTrayIcon());
-                            c.startNotifications(Options.getLag());
+                            //c.startNotifications(Options.getLag());
                         } catch (MalformedURLException ex) {
-                            new ConfigurationFrame().show();
+                            //new ConfigurationFrame().show();
                         }
                     } catch (AWTException ex) {
                         logger.log(Level.SEVERE, null, ex);
