@@ -34,9 +34,9 @@
     <c:forEach var="event" items="${events}">
         <tr>
             <th>
-                <jsp:include page="/FavoriteFragment.do">
-                    <jsp:param name="interactionId" value="${event.id}"/>
-                </jsp:include>
+                <c:import url="/FavoriteFragment.do">
+                    <c:param name="interactionId" value="${event.id}"/>
+                </c:import>
                 <html:link action="/DisplayEvent">
                     ${event.title}
                     <html:param name="eventId" value="${event.id}"/>
