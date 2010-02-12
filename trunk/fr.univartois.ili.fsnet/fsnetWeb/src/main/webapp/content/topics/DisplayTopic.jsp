@@ -8,12 +8,12 @@
          pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <h3>
-    <jsp:include page="/FavoriteFragment.do">
-        <jsp:param name="interactionId" value="${requestScope.topic.id}"/>
-    </jsp:include>
+    <c:import url="/FavoriteFragment.do">
+        <c:param name="interactionId" value="${requestScope.topic.id}"/>
+    </c:import>
     ${requestScope.topic.title} : Messages </h3>
     <c:forEach var="msg" items="${requestScope.topic.messages}">
 

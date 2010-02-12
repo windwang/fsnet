@@ -8,9 +8,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <h3>
-    <jsp:include page="/FavoriteFragment.do">
-        <jsp:param name="interactionId" value="${event.id}"/>
-    </jsp:include>
+    <c:import url="/FavoriteFragment.do">
+        <c:param name="interactionId" value="${event.id}"/>
+    </c:import>
     ${event.title}
 </h3>
 

@@ -19,9 +19,9 @@
             <c:forEach var="community" items="${communitiesResult}">
                 <tr class="content">
                     <td>
-                        <jsp:include page="/FavoriteFragment.do">
-                            <jsp:param name="interactionId" value="${community.id}"/>
-                        </jsp:include>
+                        <c:import url="/FavoriteFragment.do">
+                            <c:param name="interactionId" value="${community.id}"/>
+                        </c:import>
                         <html:link action="/DisplayCommunity">
                             <html:param name="communityId" value="${community.id}"/>
                             ${community.title}

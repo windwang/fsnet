@@ -10,15 +10,15 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <table id="DisplayAnnounce">
     <tr>
         <th>
 
             <h3>
-                <jsp:include page="/FavoriteFragment.do">
-                    <jsp:param name="interactionId" value="${announce.id}"/>
-                </jsp:include>
+                <c:import url="/FavoriteFragment.do">
+                    <c:param name="interactionId" value="${announce.id}"/>
+                </c:import>
                 <bean:write name="announce" property="title" />
             </h3>
         </th>

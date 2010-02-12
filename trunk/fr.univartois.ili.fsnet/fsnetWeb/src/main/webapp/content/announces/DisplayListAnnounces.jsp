@@ -3,6 +3,8 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <h3>
     <bean:message key="announce"/>s
 </h3>
@@ -17,9 +19,9 @@
             <tr>
                 <bean:define id="idAnnounce" name="announce" property="id" />
                 <th colspan="2">
-                    <jsp:include page="/FavoriteFragment.do">
+                    <c:import url="/FavoriteFragment.do">
                         <jsp:param name="interactionId" value="${announce.id}"/>
-                    </jsp:include>
+                    </c:import>
                     <html:link action="/DisplayAnnounce.do" paramId="idAnnounce" paramName="idAnnounce">
                         <bean:write name="announce" property="title" />
                     </html:link>

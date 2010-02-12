@@ -32,9 +32,9 @@
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
             <td>
-                <jsp:include page="/FavoriteFragment.do">
-                    <jsp:param name="interactionId" value="${couple.key.id}"/>
-                </jsp:include>
+                <c:import url="/FavoriteFragment.do">
+                    <c:param name="interactionId" value="${couple.key.id}"/>
+                </c:import>
             </td>
             <td>
                 <html:link action="/DisplayTopic">
