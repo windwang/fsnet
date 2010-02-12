@@ -103,14 +103,14 @@
     </definition>
 
     <definition name="DisplayHub" extends=".defaultLayout">
-        <put name="title" value="pageTitle.4"/>
+        <put name="title" value="pageTitle.16"/>
         <put name="currentMenu" value="Hubs"/>
-        <put name="left" value="/content/hubs/leftMenu.jsp" />
+        <put name="left" value="/content/topics/leftMenu.jsp" />
         <put name="body-content" value="/content/hubs/DisplayHub.jsp" />
     </definition>
     
     <definition name="DisplayYourHubs" extends=".defaultLayout">
-        <put name="title" value="pageTitle.15"/>
+        <put name="title" value="pageTitle.4"/>
         <put name="currentMenu" value="Hubs"/>
         <put name="left" value="/content/hubs/leftMenu.jsp" />
         <put name="body-content" value="/content/hubs/SearchYourHubs.jsp" />
@@ -131,24 +131,34 @@
 
     <!-- Topic -->
     <definition name="Topic" extends=".defaultLayout">
-        <put name="title" value="pageTitle.6"/>
+        <put name="title" value="pageTitle.7"/>
         <put name="currentMenu" value="Hub"/>
+        <put name="left" value="/content/topics/leftMenuMessages.jsp" />
         <put name="body-content" value="/content/topics/DisplayTopic.jsp" />
     </definition>
     <definition name="CreateTopic" extends=".defaultLayout">
-        <put name="title" value="pageTitle.6"/>
+        <put name="title" value="pageTitle.16"/>
         <put name="currentMenu" value="Hub"/>
+        <put name="left" value="/content/topics/leftMenu.jsp" />
         <put name="body-content" value="/content/topics/CreateTopic.jsp" />
     </definition>
     <definition name="CreateTopicMessage" extends=".defaultLayout">
         <put name="title" value="pageTitle.7"/>
         <put name="currentMenu" value="Hub"/>
+        <put name="left" value="/content/topics/leftMenuMessages.jsp" />
         <put name="body-content" value="/content/topics/CreateTopicMessage.jsp" />
     </definition>
     <definition name="ModifyTopicMessage" extends=".defaultLayout">
         <put name="title" value="pageTitle.7"/>
         <put name="currentMenu" value="Hub"/>
+        <put name="left" value="/content/topics/leftMenuMessages.jsp" />
         <put name="body-content" value="/content/topics/ModifyTopicMessage.jsp" />
+    </definition>
+    <definition name="DisplayYourTopics" extends=".defaultLayout">
+        <put name="title" value="pageTitle.16"/>
+        <put name="currentMenu" value="Hub"/>
+        <put name="left" value="/content/topics/leftMenu.jsp" />
+        <put name="body-content" value="/content/topics/SearchYourTopics.jsp" />
     </definition>
 
     <!-- Announces -->

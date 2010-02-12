@@ -46,6 +46,15 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="topicId" type="java.lang.String" />
         </form-bean>
+         <form-bean name="DisplayCreateTopicForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+        </form-bean>     
+         <form-bean name="SearchYourTopicsForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+            <form-property name="searchText" type="java.lang.String" />
+        </form-bean>      
     </form-beans>
     <global-forwards>
 
@@ -58,6 +67,7 @@
         </action>
 
         <action path="/DisplayCreateTopic" type="org.apache.struts.actions.ForwardAction"
+               	name="DisplayCreateTopicForm" input="Home" scope="request" validate="true"
                 parameter="CreateTopic"/>
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
@@ -113,5 +123,20 @@
             parameter="display">
             <forward name="success" path="/content/hubs/InterestCheckBoxes.jsp" />
         </action>
+         <action path="/DisplayYourTopics" type="fr.univartois.ili.fsnet.actions.ManageTopic"
+        		name="SearchYourTopicsForm" input="Home" scope="request" validate="true"
+                parameter="searchYourTopics">
+            <forward name="success" path="DisplayYourTopics" />
+        </action>
+         <action path="/SearchYourTopics" type="fr.univartois.ili.fsnet.actions.ManageTopic" 
+			name="SearchYourTopicsForm" input="Home" scope="request" validate="false"
+			parameter="searchYourTopics">
+			<forward name="success" path="DisplayYourTopics" />
+		</action>          
+		 <action path="/DeleteYourTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic" 
+			name="DeleteTopicForm" input="Home" scope="request" validate="true"
+			parameter="delete">
+			<forward name="success" path="/SearchYourTopics.do" />
+		</action>
     </action-mappings>
 </struts-config>

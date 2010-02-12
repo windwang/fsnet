@@ -36,5 +36,15 @@
         <form name="/DisplayCreateTopicMessage">
             <field property="topicId" depends="integer,required"></field>
         </form>
+         <form name="/DisplayCreateTopic">
+            <field property="hubId" depends="integer,required"></field>
+        </form>
+        <form name="/DisplayYourTopics">
+            <field property="hubId" depends="integer,required"></field>
+        </form>
+         <form name="/DeleteYourTopic">
+            <field property="topicId" depends="integer,required"></field>
+            <field property="hubId" depends="integer,required"></field>
+        </form>
     </formset>
 </form-validation>
