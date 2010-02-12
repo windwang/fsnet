@@ -157,7 +157,7 @@ public class InterestFacade {
 				list.add(interaction);
 				resultMap.put(interaction.getClass().getSimpleName(), list);
 			} else {
-				resultMap.get(interaction.getClass()).add(interaction);
+				resultMap.get(interaction.getClass().getSimpleName()).add(interaction);
 			}
 		}
 		return resultMap;
