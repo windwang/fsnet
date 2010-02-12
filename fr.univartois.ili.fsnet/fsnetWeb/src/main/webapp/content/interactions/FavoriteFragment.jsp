@@ -27,19 +27,19 @@
     }
 
     function switchFavorite(){
-        var div = document.getElementById("debug");
-        div.innerHTML += "<br/>";
-        div.innerHTML += "favorite = "+isFavorite+" <br/>";
+        //var div = document.getElementById("debug");
+        //div.innerHTML += "<br/>";
+       // div.innerHTML += "favorite = "+isFavorite+" <br/>";
         var xhr = getXhr();
         xhr.onreadystatechange = function() {
-            div.innerHTML += "changing state = "+xhr.readyState;
-            div.innerHTML += " status = "+xhr.status+" <br/>";
-            if(xhr.readyState == 4 && xhr.status == 500) {
-                div.innerHTML += "blem : "+xhr.responseText+" <br/>";
-            }
+            //div.innerHTML += "changing state = "+xhr.readyState;
+           // div.innerHTML += " status = "+xhr.status+" <br/>";
+           // if(xhr.readyState == 4 && xhr.status == 500) {
+           //     div.innerHTML += "blem : "+xhr.responseText+" <br/>";
+           // }
             if(xhr.readyState == 4 && xhr.status == 200) {
                 isFavorite = !isFavorite;
-                div.innerHTML += "over : "+isFavorite+" <br/>";
+              //  div.innerHTML += "over : "+isFavorite+" <br/>";
                 document.getElementById('favorite'+interactionId).src="images/"+(isFavorite ? "favorite.png" : "non-favorite.png");
             }
         }
@@ -47,18 +47,15 @@
             xhr.open("POST",'RemoveFavorite.do',true);
             xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
             xhr.send("interactionId="+interactionId);
-            div.innerHTML += "called : RemoveFavorite.do<br/>";
+           // div.innerHTML += "called : RemoveFavorite.do<br/>";
         }else {
             xhr.open("POST",'AddFavorite.do',true);
             xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
             xhr.send("interactionId="+interactionId);
-            div.innerHTML += "called : AddFavorite.do<br/>";
+          //  div.innerHTML += "called : AddFavorite.do<br/>";
         }
     }
 
 </script>
 
-<img id="favorite${interactionId}" src="images/${isFavorite ? "favorite.png" : "non-favorite.png"}" alt="Favorite" onclick="switchFavorite();" onmouseover="this.style.cursor='pointer'"/>
-<div id="debug">
-
-</div>
+<img id="favorite${interactionId}" src="images/${isFavorite ? "favorite.png" : "non-favorite.png"}" alt="Favorite" onclick="switchFavorite();" onmouseover="this.style.cursor='pointer'" style="vertical-align: middle"/>

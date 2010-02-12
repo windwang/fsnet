@@ -28,12 +28,15 @@
     <bean:message key="events.9"/>
 </h3>
 <logic:messagesPresent property="searchString">
-        <html:errors property="searchString"/>
+    <html:errors property="searchString"/>
 </logic:messagesPresent>
 <table  class="inLineTable">
     <c:forEach var="event" items="${events}">
         <tr>
             <th>
+                <jsp:include page="/FavoriteFragment.do">
+                    <jsp:param name="interactionId" value="${event.id}"/>
+                </jsp:include>
                 <html:link action="/DisplayEvent">
                     ${event.title}
                     <html:param name="eventId" value="${event.id}"/>

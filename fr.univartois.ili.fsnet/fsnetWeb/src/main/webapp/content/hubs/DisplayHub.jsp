@@ -22,29 +22,45 @@
             <td><html:submit styleClass="button"><bean:message key="hubs.searchTopic"/></html:submit></td>
         </tr>
     </html:form>
-    <c:if test="${not empty resRearchTopics}">
-        <tr>
-            <th><bean:message key="hubs.resultSearchTopic"/></th>
-        </tr>
+</table>
+<c:if test="${not empty resRearchTopics}">
+    <table class="inLineTable" style="margin-bottom: 20px;">
         <c:forEach var="topic" items="${resRearchTopics}">
             <tr>
-                <td> <html:link action="/DisplayTopic">
+                <td>
+                    <jsp:include page="/FavoriteFragment.do">
+                        <jsp:param name="interactionId" value="${topic.id}"/>
+                    </jsp:include>
+                </td>
+                <td>
+                    <html:link action="/DisplayTopic">
                         <html:param name="topicId" value="${topic.id}"/>
                         ${topic.title}
-                    </html:link></td>
-                <td>
-                    <c:if test="${sessionScope.user.id eq topic.creator.id}">
+                    </html:link>
+                    <br/>
+                    <bean:message key="hubs.createdOn"/>
+                    <bean:write name="hubResult" property="creationDate" format="dd/MM/yyyy"/>
+                    <bean:message key="hubs.by"/>
+                    <html:link action="/DisplayProfile">
+                        <html:param name="id" value="${topic.creator.id}"/>
+                        ${topic.creator.firstName} ${topic.creator.name}
+                    </html:link>
+                </td>
+
+
+                <c:if test="${sessionScope.user.id eq topic.creator.id}">
+                    <td class="tableButton">
                         <html:link action="/DeleteTopic" styleClass="button">
                             <html:param name="topicId" value="${topic.id}"/>
                             <html:param name="hubId" value="${hubResult.id}"/>
                             <bean:message key="hubs.deleteTopic"/>
                         </html:link>
-                    </c:if>
-                </td>
+                    </td>
+                </c:if>
             </tr>
         </c:forEach>
-    </c:if>
-</table>
+    </table>
+</c:if>
 
 
 <h3><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="hubs.topics"/></h3>
@@ -55,9 +71,9 @@
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
             <td>
-                <!-- TODO gerer les favoris -->
-                <img src="images/non-favorite.png" alt="Favorite" onclick="this.src='images/favorite.png';" onmouseover="this.style.cursor='pointer'"/>
-                <img src="images/message.png"/>
+                <jsp:include page="/FavoriteFragment.do">
+                    <jsp:param name="interactionId" value="${couple.key.id}"/>
+                </jsp:include>
             </td>
             <td>
                 <html:link action="/DisplayTopic">

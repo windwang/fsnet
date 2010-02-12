@@ -10,8 +10,12 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
-<h3>${requestScope.topic.title} : Messages </h3>
-<c:forEach var="msg" items="${requestScope.topic.messages}">
+<h3>
+    <jsp:include page="/FavoriteFragment.do">
+        <jsp:param name="interactionId" value="${requestScope.topic.id}"/>
+    </jsp:include>
+    ${requestScope.topic.title} : Messages </h3>
+    <c:forEach var="msg" items="${requestScope.topic.messages}">
 
     <table class="topicTable">
         <tr class="topicHeader">

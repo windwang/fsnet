@@ -17,6 +17,9 @@
             <tr>
                 <bean:define id="idAnnounce" name="announce" property="id" />
                 <th colspan="2">
+                    <jsp:include page="/FavoriteFragment.do">
+                        <jsp:param name="interactionId" value="${announce.id}"/>
+                    </jsp:include>
                     <html:link action="/DisplayAnnounce.do" paramId="idAnnounce" paramName="idAnnounce">
                         <bean:write name="announce" property="title" />
                     </html:link>
