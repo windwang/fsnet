@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 
+import fr.univartois.ili.fsnet.fakeDB.mocks.InterestsMock;
 import fr.univartois.ili.fsnet.fakeDB.mocks.SocialEntitiesMock;
 
 public class Instancier implements MockLocator {
@@ -28,20 +29,23 @@ public class Instancier implements MockLocator {
 			mocks.put(mock.getClass(), mock);
 		} catch (SecurityException e) {
 			logger.log(Level.SEVERE, "", e);
+			em.close();
 		} catch (InstantiationException e) {
 			logger.log(Level.SEVERE, "", e);
+			em.close();
 		} catch (IllegalAccessException e) {
 			logger.log(Level.SEVERE, "", e);
-		} finally {
 			em.close();
 		}
 	}
 
 	public void start() {
 		loadMock(SocialEntitiesMock.class);
+		loadMock(InterestsMock.class);
 		for (Mock mock: mocks.values()) {
 			mock.link(em, this);
 		}
+		em.close();
 	}
 
 	@Override
