@@ -20,9 +20,9 @@
     <c:forEach var="hub" items="${hubResults}">
         <tr>
             <th>
-                <jsp:include page="/FavoriteFragment.do">
-                    <jsp:param name="interactionId" value="${hub.id}"/>
-                </jsp:include>
+                <c:import url="/FavoriteFragment.do">
+                    <c:param name="interactionId" value="${hub.id}"/>
+                </c:import>
                 <html:link action="/DisplayHub">
                     <html:param name="hubId" value="${hub.id}"/>
                     ${hub.title}
