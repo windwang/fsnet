@@ -16,5 +16,9 @@
             <field property="communityId" depends="integer,required">
             </field>
         </form>
+         <form name="/DeleteYourCommunity">
+            <field property="communityId" depends="integer,required">
+            </field>
+        </form>
     </formset>
 </form-validation>
