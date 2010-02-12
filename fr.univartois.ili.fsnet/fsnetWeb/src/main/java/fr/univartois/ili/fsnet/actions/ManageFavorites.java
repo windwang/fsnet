@@ -26,7 +26,7 @@ public class ManageFavorites extends MappingDispatchAction {
     public ActionForward add(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
         int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -44,7 +44,7 @@ public class ManageFavorites extends MappingDispatchAction {
     public ActionForward remove(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
         int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
         EntityManager em = factory.createEntityManager();
         em.getTransaction().begin();
@@ -64,7 +64,7 @@ public class ManageFavorites extends MappingDispatchAction {
     public ActionForward display(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form;
+        DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
         int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
         EntityManager em = factory.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);

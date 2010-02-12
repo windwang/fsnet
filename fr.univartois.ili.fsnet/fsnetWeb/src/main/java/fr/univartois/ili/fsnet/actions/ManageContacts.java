@@ -180,13 +180,4 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		return mapping.findForward("success");
 	}
 
-	// TODO move in facade
-	private boolean notInRelation(SocialEntity user, SocialEntity entity) {
-		return !(user.getAsked().contains(entity)
-				|| user.getRequested().contains(entity)
-				|| user.getContacts().contains(entity)
-				|| entity.getAsked().contains(user)
-				|| entity.getRequested().contains(user)
-				|| entity.getContacts().contains(user));
-	}
 }
