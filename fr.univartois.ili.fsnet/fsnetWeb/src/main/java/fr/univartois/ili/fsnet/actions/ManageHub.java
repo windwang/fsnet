@@ -109,15 +109,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
 
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-			String hubName;
-			
-			String communityId = (String) request.getParameter("communityId");
-			
-			if (form == null) {
+			String communityId = (String) dynaForm.get("communityId");
+			String hubName = (String) dynaForm.get("hubName");
+					
+			if (hubName == null) {
 				hubName = "";
-			} else {
-				hubName = (String) dynaForm.get("hubName");
-			}
+			} 
 			logger.info("search hub: " + hubName);
 			EntityManager em = factory.createEntityManager();
 			Community community = em.find(Community.class, Integer.parseInt(communityId));
@@ -168,4 +165,36 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         request.setAttribute("Interests", listInterests);
         return mapping.findForward("success");
     }
+    
+    public ActionForward searchYourHubs(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+    		//TODO use facade
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			String pattern = (String) dynaForm.get("hubName");
+			String communityId = (String) dynaForm.get("communityId");
+			
+			if (pattern==null) {
+				pattern = "";
+			}
+			
+			logger.info("search hub: " + pattern);
+			
+			EntityManager em = factory.createEntityManager();
+			Community community = em.find(Community.class, Integer.parseInt(communityId));
+			SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
+			
+			em.getTransaction().begin();
+			List<Hub> hubs = em.createQuery("SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName AND hub.community = :com AND hub.creator = :creator",
+					Hub.class).setParameter("hubName", "%" + pattern + "%").setParameter("com", community).setParameter("creator", creator).getResultList();
+	
+			em.getTransaction().commit();
+			em.close();
+			request.setAttribute("hubResults", hubs);
+
+        return mapping.findForward("success");
+    }
+    
+    
+    
 }

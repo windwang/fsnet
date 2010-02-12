@@ -16,6 +16,16 @@
          <form name="/DisplayHub">
             <field property="hubId" depends="integer,required"></field>
         </form>
+         <form name="/DisplayCreateHub">
+            <field property="communityId" depends="integer,required"></field>
+        </form>
+         <form name="/DisplayYourHubs">
+            <field property="communityId" depends="integer,required"></field>
+        </form>
+         <form name="/DeleteYourHub">
+            <field property="hubId" depends="integer,required"> </field>
+            <field property="communityId" depends="integer,required"> </field>
+        </form>
     </formset>
 
 </form-validation>
