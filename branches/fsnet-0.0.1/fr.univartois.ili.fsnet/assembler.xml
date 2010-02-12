@@ -14,10 +14,12 @@
 			<includes>
 				<include>fr.univartois.ili.fsnet:admin</include>
 				<include>fr.univartois.ili.fsnet:fsnetWeb</include>
+				<include>fr.univartois.ili.fsnet:webservice</include>
 			</includes>
 			<binaries>
 				<dependencySets>
 					<dependencySet>
+						<scope>provided</scope>
 						<outputDirectory>libs/</outputDirectory>
 					</dependencySet>
 				</dependencySets>
