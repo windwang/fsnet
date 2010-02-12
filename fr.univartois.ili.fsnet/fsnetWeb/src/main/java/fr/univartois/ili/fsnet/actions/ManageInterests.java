@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -28,7 +29,6 @@ import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
-
 
 /**
  * Execute CRUD Actions (and more) for the entity interet
@@ -58,9 +58,10 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		try {
 			em.getTransaction().begin();
-			if (dynaForm.get("parentInterestId") != null && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-				facade.createInterest(interestName, Integer.valueOf((String) dynaForm
-				.get("parentInterestId")));
+			if (dynaForm.get("parentInterestId") != null
+					&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+				facade.createInterest(interestName, Integer
+						.valueOf((String) dynaForm.get("parentInterestId")));
 			} else {
 				facade.createInterest(interestName);
 			}
@@ -184,21 +185,19 @@ public class ManageInterests extends MappingDispatchAction implements
 		EntityManager em = factory.createEntityManager();
 		String interestName = "";
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-		
+
 		if (dynaForm.get("searchInterestName") != null) {
 			interestName = (String) dynaForm.get("searchInterestName");
 		}
-		
 
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("advanced search interest: " + interestName);
-		
+
 		int page = Integer.valueOf((String) dynaForm.get("nextPage"));
 
 		if (page < 0) {
 			page = 0;
 		}
-		
 
 		List<Interest> result = facade.advancedSearchInterest(interestName,
 				page * NB_RESULTS_RETURNED, NB_RESULTS_ON_DEMAND);
@@ -257,9 +256,10 @@ public class ManageInterests extends MappingDispatchAction implements
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("Displaying interest's informations");
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-		
-		int interestId = Integer.valueOf((String) dynaForm.get("infoInterestId"));
-	
+
+		int interestId = Integer.valueOf((String) dynaForm
+				.get("infoInterestId"));
+
 		Interest interest = facade.getInterest(interestId);
 		HashMap<String, List<Interaction>> resultMap = facade
 				.getInteractions(interestId);
@@ -267,9 +267,10 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		if (interest != null) {
 			request.setAttribute("interest", interest);
-			for (String interactionClass : resultMap.keySet()) {
-				request.setAttribute(interactionClass, resultMap
-						.get(interactionClass));
+			for (Map.Entry<String, List<Interaction>> interactionEntry : resultMap
+					.entrySet()) {
+				request.setAttribute(interactionEntry.getKey(),
+						interactionEntry.getValue());
 			}
 		}
 
