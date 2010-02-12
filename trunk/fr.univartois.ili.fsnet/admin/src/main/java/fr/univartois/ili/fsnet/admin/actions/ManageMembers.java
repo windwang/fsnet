@@ -169,14 +169,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		entityManager.close();
 		String adress = "";
+		String city = "";
 		if (member.getAddress() != null) {
-			if (member.getAddress().getAddress() != null)adress += member.getAddress().getAddress();
-
-
+			if (member.getAddress().getAddress() != null)
+				adress = member.getAddress().getAddress();
 			if (member.getAddress().getCity() != null)
-				adress += member.getAddress().getCity();
+				city= member.getAddress().getCity();
 		}
 		dynaForm.set("address", adress);
+		dynaForm.set("city", city );
 		dynaForm.set("phone", member.getPhone());
 		dynaForm.set("sexe", member.getSex());
 		dynaForm.set("job", member.getProfession());
@@ -202,6 +203,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String email = (String) formSocialENtity.get("email");
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");
+		String city = (String) formSocialENtity.get("city");
 		String phone = (String) formSocialENtity.get("phone");
 		String sexe = (String) formSocialENtity.get("sexe");
 		Date birthDay = null;
@@ -221,7 +223,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		member.setPrenom(firstName);
 		member.setName(name);
 		member.setEmail(email);
-		member.setAddress(new Address("", address));
+		member.setAddress(new Address(address, city));
 		member.setBirthDate(birthDay);
 		member.setPhone(phone);
 		member.setSex(sexe);

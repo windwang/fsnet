@@ -33,6 +33,7 @@
             <form-property name="sexe" type="java.lang.String" />
             <form-property name="job" type="java.lang.String" />
             <form-property name="phone" type="java.lang.String" />
+            <form-property name="city" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
 	<global-forwards>
