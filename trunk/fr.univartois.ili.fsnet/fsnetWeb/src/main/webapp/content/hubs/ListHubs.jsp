@@ -16,7 +16,6 @@
     <bean:message key="hubs.hubNotFound"/>
 </logic:empty>
 <table class="inLineTable">
-
     <c:forEach var="hub" items="${hubResults}">
         <tr>
             <th>
@@ -47,8 +46,5 @@
                 </c:if>
             </td>
         </tr>
-
     </c:forEach>
 </table>
-
-

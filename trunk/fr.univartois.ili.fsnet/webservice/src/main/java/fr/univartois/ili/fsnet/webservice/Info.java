@@ -89,4 +89,17 @@ public class Info {
         }
         return messages;
     }
+
+    /**
+     *
+     * @param login the login to check
+     * @param password the password corresponding to the login
+     * @return true if informations correspond to a member
+     */
+    public boolean isMember(
+            @WebParam(name = "login") final String login,
+            @WebParam(name = "password") final String password) {
+        SocialEntityFacade sef = new SocialEntityFacade(em);
+        return sef.isMember(login, password);
+    }
 }
