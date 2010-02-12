@@ -186,8 +186,8 @@ public class ManageInterests extends MappingDispatchAction implements
 		String interestName = "";
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 
-		if (dynaForm.get("searchInterestName") != null) {
-			interestName = (String) dynaForm.get("searchInterestName");
+		if (dynaForm.get("search") != null) {
+			interestName = (String) dynaForm.get("search");
 		}
 
 		InterestFacade facade = new InterestFacade(em);
