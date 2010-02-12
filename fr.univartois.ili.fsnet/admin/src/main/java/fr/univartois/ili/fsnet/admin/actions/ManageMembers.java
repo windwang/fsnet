@@ -124,14 +124,14 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		message.append("Bonjour ").append(nom).append(" ").append(prenom);
 		message.append(",<br/><br/>");
 		message
-		.append("Vous venez d'être enregistré sur FSNet (Firm Social Network).<br/><br/>");
-		message.append("Désormais vous pouvez vous connecter sur le site ");
+		.append("Vous venez d'&ecirc;tre enregistr&eacute; sur FSNet (Firm Social Network).<br/><br/>");
+		message.append("D&eacute;sormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
-		message.append("Un mot de passe a été généré automatiquement : <em>");
+		message.append("Un mot de passe a &eacute;t&eacute; gén&eacute;r&eacute; automatiquement : <em>");
 		message.append(password);
 		message
-		.append("</em><br/><br/>Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages. Merci de ne pas répondre à ce message.");
+		.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement à exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
 		return message.toString();
 	}
 
