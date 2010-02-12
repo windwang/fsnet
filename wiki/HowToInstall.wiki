@@ -14,23 +14,45 @@ You can find dependency librairies in fsnet-libs_d4.zip
 
  ===Theses explanations are for apache tomcat 6.x users :===
 
- # Download fsnet_d4.zip, fsnet-libs_d4.zip and fsnet-tray_d4.zip
- # Create a new user for mysql : username : *fsnet*, password : *fsnet*
- # Create a new database named *fsnet*
- # Unzip the fsnet-libs_d4.zip archive
- # Copy these dependencies in the tomcat/lib/ directory
- # unzip the fsnet_d4.zip
- # Copy the admin.war, fsnetWeb.war and webservice.war files in the tomcat/webapps
+ # Download fsnet-0.1.0.zip
+ # Unzip the fsnet-0.1.0.zip archive. you will find three folders : wars/ , tray/ and libs/
+ # Copy libs/mysql-connector-java-5.1.10.jar dependency in the tomcat/lib/ directory
+ # create a new user and a new database on mysql
+ # Copy the wars/admin.war, wars/fsnetWeb.war and wars/webservice.war files in the tomcat/webapps
  # In tomcat/conf/tomcat-users.xml,add :
+{{{
     <role rolename="fsnetadmin"/>
     <user username="admin" password="admin" roles="fsnetadmin"/>
+}}}
+ # In tomcat/conf/server.xml you have to configure a DataSource :
+{{{
+    <GlobalNamingResources>
+     ...
+      <Resource 
+          auth="Container" 
+          driverClassName="com.mysql.jdbc.Driver" 
+          maxActive="20" 
+          maxIdle="10" 
+          maxWait="-1" 
+          name="ds/fsnetDS" 
+          password="YOUR_PASSWORD" 
+          type="javax.sql.DataSource" 
+          url="jdbc:mysql://localhost/YOUR_DATABASE" 
+          username="YOUR_USER"/>
+       ...
+    </GlobalNamingResources>
+    ...
+}}}
  # Run Tomcat
  # Run the project in your web browser :
        * http://localhost:8080/admin for the administrator (with login & password)
        * http://localhost:8080/fsnetWeb for users
        * http://localhost:8080/webservice for the webservice used by tray
- # Unzip fsnet-tray_d4.zip
- # Run it using : java -jar trayDesktop.jar
+
+ # In order to run the tray application you will find the trayDesktop.jar in tray/ directory. So, to execute this application you have to run it using :
+{{{
+ java -jar trayDesktop.jar
+}}}
 
 = How to use FSNET =
 After you have installed FSNET, you have to join the admin part.
@@ -52,13 +74,9 @@ For example to configure SMTP server using a gmail account :
 = How to build from sources =
  # Checkout the last revision of fsnet using : svn checkout http://fsnet.googlecode.com/svn/trunk/ fsnet-read-only
  # cd fsnet-read-only/fr.univartois.ili.fsnet/
- # mvn package
+ # mvn package assemnly:assembly
  # wait for a while
- # you can take deliverables in : 
-   * admin/target/admin-0.1.war 
-   * fsnetWeb/target/fsnetWeb-0.1.war
-   * webservice/target/webservice-0.1.war
-   * trayDesktop/target/trayDesktop-0.1.jar
+ # you can take deliverables in target/fsnet-$version$.zip 
 
  If the build fails don't forget to take a look [http://fsnet-dev.opsas.net/hudson/ here]
  
