@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app id="WebApp_ID" version="2.5" xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-    <display-name>fr.univartois.ili.fsnet.fsnetWeb</display-name>
-    <welcome-file-list>
-        <welcome-file>Authenticate</welcome-file>
-    </welcome-file-list>
-    <servlet>
-        <servlet-name>action</servlet-name>
-        <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
-        <init-param>
-            <param-name>config</param-name>
-            <param-value>/WEB-INF/struts-config.xml,
+<web-app id="WebApp_ID" version="2.5"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:jsp="http://java.sun.com/xml/ns/javaee/jsp"
+	xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+	<display-name>fr.univartois.ili.fsnet.fsnetWeb</display-name>
+	<welcome-file-list>
+		<welcome-file>Authenticate</welcome-file>
+	</welcome-file-list>
+	<servlet>
+		<servlet-name>action</servlet-name>
+		<servlet-class>org.apache.struts.action.ActionServlet</servlet-class>
+		<init-param>
+			<param-name>config</param-name>
+			<param-value>/WEB-INF/struts-config.xml,
                 /WEB-INF/struts-configs/announces-config.xml,
                 /WEB-INF/struts-configs/contacts-config.xml,
                 /WEB-INF/struts-configs/events-config.xml,
@@ -22,15 +26,15 @@
                 /WEB-INF/struts-configs/communities-config.xml,
                 /WEB-INF/struts-configs/interactions-config.xml
             </param-value>
-        </init-param>
+		</init-param>
 
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>action</servlet-name>
-        <url-pattern>*.do</url-pattern>
-    </servlet-mapping>
-    
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>action</servlet-name>
+		<url-pattern>*.do</url-pattern>
+	</servlet-mapping>
+
 	<filter>
 		<filter-name>IsAuthenticatedFilter</filter-name>
 		<filter-class>fr.univartois.ili.fsnet.auth.IsAuthenticatedFilter</filter-class>
@@ -40,7 +44,7 @@
 		<filter-name>IsAuthenticatedFilter</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
-	
+
 	<filter>
 		<filter-name>encoding</filter-name>
 		<filter-class>fr.univartois.ili.fsnet.auth.SetCharacterEncodingFilter</filter-class>
@@ -53,12 +57,12 @@
 			<param-value>false</param-value>
 		</init-param>
 	</filter>
-	
+
 	<filter-mapping>
 		<filter-name>encoding</filter-name>
 		<url-pattern>*.do</url-pattern>
 	</filter-mapping>
-	
+
 	<servlet>
 		<servlet-name>ResetPassword</servlet-name>
 		<servlet-class>fr.univartois.ili.fsnet.auth.ResetPassword</servlet-class>
@@ -88,5 +92,12 @@
 		<servlet-name>Logout</servlet-name>
 		<url-pattern>/Logout</url-pattern>
 	</servlet-mapping>
+
+	<resource-ref>
+		<description>DB Connection</description>
+		<res-ref-name>ds/fsnetDS</res-ref-name>
+		<res-type>javax.sql.DataSource</res-type>
+		<res-auth>Container</res-auth>
+	</resource-ref>
 
 </web-app>
