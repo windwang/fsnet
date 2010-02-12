@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd ">
+    <persistence-unit name="fsnetjpa">
+        <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+        <class>fr.univartois.ili.fsnet.entities.ActivityReport</class>
+        <class>fr.univartois.ili.fsnet.entities.Announcement</class>
+        <class>fr.univartois.ili.fsnet.entities.Community</class>
+        <class>fr.univartois.ili.fsnet.entities.Hub</class>
+        <class>fr.univartois.ili.fsnet.entities.Interaction</class>
+        <class>fr.univartois.ili.fsnet.entities.InteractionRole</class>
+        <class>fr.univartois.ili.fsnet.entities.Interest</class>
+        <class>fr.univartois.ili.fsnet.entities.Meeting</class>
+        <class>fr.univartois.ili.fsnet.entities.Message</class>
+        <class>fr.univartois.ili.fsnet.entities.PrivateMessage</class>
+        <class>fr.univartois.ili.fsnet.entities.SocialEntity</class>
+        <class>fr.univartois.ili.fsnet.entities.Topic</class>
+        <class>fr.univartois.ili.fsnet.entities.TopicMessage</class>
+        <class>fr.univartois.ili.fsnet.entities.Configuration</class>
+        <class>fr.univartois.ili.fsnet.entities.Property</class>
+        <exclude-unlisted-classes>false</exclude-unlisted-classes>
+        <properties>
+            <property name="eclipselink.jdbc.driver" value="com.mysql.jdbc.Driver"/>
+            <property name="eclipselink.jdbc.url" value="jdbc:mysql://localhost/fsnet"/>
+            <!-- I work in this example without user / password.-->
+            <property name="eclipselink.jdbc.user" value="fsnet"/>
+            <property name="eclipselink.jdbc.password" value="fsnet"/>
+            <!-- EclipseLink should create the database schema automatically -->
+            <property name="eclipselink.ddl-generation" value="create-tables"/>
+            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
+            <property name="eclipselink.weaving" value="static"/>
+            <property name="eclipselink.logging.level" value="WARNING"/>
+        </properties>
+    </persistence-unit>
+</persistence>
