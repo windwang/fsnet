@@ -39,11 +39,11 @@ public class ResetPassword extends HttpServlet {
 	private String createMessage(String password) {
 		StringBuffer sb = new StringBuffer();
 		sb.append("Bonjour, <br/><br/>");
-		sb.append("Suite à votre demande, un nouveau mot de passe vous a été attribué : ");
+		sb.append("Suite &agrave; votre demande, un nouveau mot de passe vous a &eacute;t&eacute; attribu&eacute; : ");
 		sb.append(password);
 		sb.append("<br/><br/>");
-		sb.append("Cet e-mail vous a été envoyé d'une adresse servant uniquement à expédier des messages.");
-		sb.append("Merci de ne pas répondre à ce message.");
+		sb.append("Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages.");
+		sb.append("Merci de ne pas r&eacute;pondre &agrave; ce message.");
 		return sb.toString();
 	}
 
