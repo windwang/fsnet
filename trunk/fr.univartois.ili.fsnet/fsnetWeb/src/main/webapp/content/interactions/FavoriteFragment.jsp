@@ -8,8 +8,10 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <script type="text/javascript">
-    var isFavorite = ${isFavorite};
-    var interactionId = ${interactionId};
+    if(!isFavorite) var isFavorite = new Array();
+    
+    isFavorite[${interactionId}] = ${isFavorite};
+
     function getXhr() {
         var xhr;
         if(window.XMLHttpRequest) xhr = new XMLHttpRequest();
@@ -20,42 +22,34 @@
                 xhr = new ActiveXObject("Microsoft.XMLHTTP");
             }
         }
-        else {
-            xhr = null;
-        }
+        else xhr = null;
         return xhr;
     }
 
-    function switchFavorite(){
-        //var div = document.getElementById("debug");
-        //div.innerHTML += "<br/>";
-       // div.innerHTML += "favorite = "+isFavorite+" <br/>";
+    function switchFavorite(id){
         var xhr = getXhr();
         xhr.onreadystatechange = function() {
-            //div.innerHTML += "changing state = "+xhr.readyState;
-           // div.innerHTML += " status = "+xhr.status+" <br/>";
-           // if(xhr.readyState == 4 && xhr.status == 500) {
-           //     div.innerHTML += "blem : "+xhr.responseText+" <br/>";
-           // }
             if(xhr.readyState == 4 && xhr.status == 200) {
-                isFavorite = !isFavorite;
-              //  div.innerHTML += "over : "+isFavorite+" <br/>";
-                document.getElementById('favorite'+interactionId).src="images/"+(isFavorite ? "favorite.png" : "non-favorite.png");
+                isFavorite[id] = !isFavorite[id];
+                document.getElementById('favorite'+id).src="images/"+(isFavorite[id] ? "favorite.png" : "non-favorite.png");
             }
         }
-        if(isFavorite){
+        if(isFavorite[id]){
             xhr.open("POST",'RemoveFavorite.do',true);
             xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            xhr.send("interactionId="+interactionId);
-           // div.innerHTML += "called : RemoveFavorite.do<br/>";
+            xhr.send("interactionId="+id);
         }else {
             xhr.open("POST",'AddFavorite.do',true);
             xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');
-            xhr.send("interactionId="+interactionId);
-          //  div.innerHTML += "called : AddFavorite.do<br/>";
+            xhr.send("interactionId="+id);
         }
     }
 
 </script>
 
-<img id="favorite${interactionId}" src="images/${isFavorite ? "favorite.png" : "non-favorite.png"}" alt="Favorite" onclick="switchFavorite();" onmouseover="this.style.cursor='pointer'" style="vertical-align: middle"/>
+<img id="favorite${interactionId}"
+     src="images/${isFavorite ? "favorite.png" : "non-favorite.png"}"
+     alt="Favorite"
+     onclick="switchFavorite(${interactionId});"
+     onmouseover="this.style.cursor='pointer'"
+     style="vertical-align: middle"/>
