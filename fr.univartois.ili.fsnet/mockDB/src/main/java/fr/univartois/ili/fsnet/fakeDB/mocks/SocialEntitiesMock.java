@@ -17,7 +17,7 @@ public class SocialEntitiesMock extends Mock {
 	private EntityManager em;
 
 	private SocialEntityFacade seFacade;
-	
+
 	private List<SocialEntity> socialEntities;
 
 	private void init() {
@@ -37,6 +37,9 @@ public class SocialEntitiesMock extends Mock {
 				em.getTransaction().commit();
 				socialEntities.add(se);
 			} catch (Exception e) {
+				if (em.getTransaction().isActive()) {
+					em.getTransaction().rollback();
+				}
 				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
 		}
@@ -44,11 +47,11 @@ public class SocialEntitiesMock extends Mock {
 
 	@Override
 	public void link(EntityManager em, MockLocator locator) {
-		
+
 	}
 
 	public List<SocialEntity> getSocialEntities() {
 		return socialEntities;
 	}
-	
+
 }
