@@ -4,15 +4,12 @@
  */
 package fr.univartois.ili.fsnet.trayDesktop.model;
 
-import com.sun.xml.internal.ws.client.ClientTransportException;
 import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
 import fr.univartois.ili.fsnet.webservice.Info;
 import fr.univartois.ili.fsnet.webservice.InfoService;
 import fr.univartois.ili.fsnet.webservice.WsPrivateMessage;
-import java.awt.TrayIcon;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
