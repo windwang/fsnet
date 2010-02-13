@@ -28,7 +28,8 @@
                 </th>
                 <td>
                     <bean:message key="announce.by"/>
-                    <html:link action="/DisplayProfile" paramId="id" paramProperty="${announce.creator.id}">
+                    <html:link action="/DisplayProfile">
+                    <html:param name="id" value="${announce.creator.id}"/>
                         ${announce.creator.firstName} ${announce.creator.name}
                     </html:link>
                 </td>
