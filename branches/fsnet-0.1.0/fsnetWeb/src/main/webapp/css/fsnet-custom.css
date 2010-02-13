@@ -1,0 +1,284 @@
+#ui-datepicker-div {font-size: 80%;}
+
+#eventDescription_container .mceLayout {
+    border: 1px solid #505050;
+}
+
+#announceContent_container .mceLayout {
+    border: 1px solid #505050;
+}
+
+#messageDescription_container .mceLayout {
+    border: 1px solid #505050;
+}
+
+.errorMessage {
+    font-size: 120%;
+    text-align: center;
+    width: 80%;
+}
+
+#left li {
+    margin-top: 10px;
+    font-size: 120%;
+}
+
+#body-content {
+    float: left;
+    width: 75%;
+    margin-bottom: 50px;
+}
+
+
+
+#body-content h3 {
+    text-align: left;
+    border-bottom: 1px solid #505050;
+    font-size: 130%;
+    margin: 25px 0 20px 0;
+}
+
+
+.inLineTable td,th {
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 5px;
+    padding-bottom:5px;
+    /*border: 20px solid transparent;
+    border-spacing: 20px;*/
+}
+
+.inLineTable .tableButton {
+    text-align: right;
+}
+
+#menu {
+    float:left;
+    width: 79%;
+}
+
+#logout {
+    float: right;
+    margin: 20px;
+}
+
+#left ul {
+    margin-bottom: 20px;
+}
+
+.button {
+    border: 1px solid gray;
+    background-color: #505050;
+    color: #DDDDDD;
+    padding: 2px 6px 2px 6px;
+}
+
+.select{
+    color: #505050; 
+    padding: 2px 6px 2px 6px;
+}
+
+label {
+    font-size: 110%;
+}
+
+.button:hover {
+    color: #DDDDDD;
+}
+
+input[type=text], input[type=password], textarea {
+    border: 1px solid #808080;
+} 
+#CreateEvent {margin-left: 50px; width: 80%;}
+#CreateEvent label {width:100px; display:block;	float:left;}
+#CreateEvent #eventName {width: 100%;}
+#CreateEvent #eventDescription { width: 100%;}
+#CreateEvent #eventDate {width: 25%; color: black; margin-right: 8px;}
+#CreateEvent input[type=submit] {float: right;}
+
+#CreateAnnounce {margin-left: 50px; width: 80%;}
+#CreateAnnounce label {width:100px; display:block;	float:left;}
+#CreateAnnounce #announceTitle {width: 100%;}
+#CreateAnnounce #announceContent { width: 100%;}
+#CreateAnnounce #announceExpiryDate {width: 25%; color: black; margin-right: 8px;}
+#CreateAnnounce input[type=submit] {float: right;}
+
+#SearchEvent, #SearchAnnounce {margin-left: 190px;}
+#SearchEvent .button, #SearchAnnounce .button {margin-left: 15px;}
+
+#SearchHub {margin-left: 190px;}
+
+#EventList {width: 100%;}
+#EventList .header td {width: 20%;}
+#EventList .header th {color: #505050; font-size: 120%;background: url(../images/bg-message.png) repeat-x;}
+#EventList .content .left {background-color: #e9f5fd; width: 20%;}
+#EventList .content .right {padding: 15px;}
+#EventList .gap td {border-top: 1px solid #BBB;}
+#EventList .gap {height: 15px;}
+
+#DisplayEvent, #DisplayAnnounce {width: 100%}
+
+#ModifyProfile {margin-left: 120px;width: 60%;}
+#ModifyProfile td:first-child {width: 35%;}
+#ModifyProfile input[type="text"], 
+#ModifyProfile input[type="password"],
+#ModifyProfile  textarea {width: 100%;}
+#ModifyProfile input[type=submit] {float: right;}
+#ModifyProfile #dateOfBirth {width: 90%;margin-right: 6px; color: black;}
+
+#MemberList {width: 100%;}
+#MemberList td {width: 30%;}
+
+
+#login {
+    background: #505050 url(../images/footer.gif) no-repeat;
+    width: 90%;
+    height: 150px;
+    float:left;
+    margin-left: 5%;
+    border: 3px solid grey;
+}
+
+#login label {
+    color: white;
+    font-weight: bold;
+}
+
+#login input[type="text"], #login input[type="password"] {
+    height: 20px;
+    width: 100%;
+    border-color: #DDDDDD;
+    background-color: #CCCCCC;
+}
+
+#loginWrapper table {
+    margin-top: 20px;
+    margin-left: 260px;
+    height: 100px;
+    width: 320px;
+}
+#loginWrapper tr {
+    margin-top: 10px;
+}
+
+#login-title {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    text-align:center;
+    font-weight: bold;
+    font-size: 200%;
+}
+
+#login h3 {
+    text-align: center;
+    font-size: 150%;
+    color: white;
+}
+
+#login a {
+	color: white;
+	text-decoration: underline;
+}
+
+#login input[type=submit] {
+    border: 1px solid #DDDDDD;
+    background-color: #CCCCCC;
+    height: 25px;
+    padding: 0 15px;
+    float: right;
+}
+
+#resetPasswordWrapper a {
+	margin-top: 10px;
+}
+
+#resetPasswordWrapper {
+	width: 370px;
+	margin: 40px auto;	
+}
+#resetPasswordWrapper input[type="text"] {
+	width: 200px;
+}
+
+input[type="text"][class="error"], textarea[class="error"] {
+    border: 1px solid #AF1515;
+}
+
+.alignRight {
+    text-align: right;
+}
+
+.alignCenter {
+    text-align: center;
+}
+
+.authorDate {
+    font-style: italic;
+    font-weight: bold;
+    color : #656565;
+    background-color: #F2F2F2;
+}
+
+.mceTextArea{
+    width: 100%;
+    height: 300px;
+}
+
+.topicTable {
+    background-color: #E8F5FD;
+    border: 1px solid #8bcef8;
+    width: 100%;
+    margin-bottom: 5px;
+}
+.topicHeader {
+    background-color: #C7E5F8;
+    height: 30px;
+    border-collapse: collapse;
+}
+
+.topicOwner {
+    width: 20%;
+    text-align: center;
+}
+
+.topicMessage{
+    background-color: #E8F5FD;
+    border-left: 1px solid #8bcef8;
+    vertical-align: text-top;
+    padding: 5px
+}
+
+.topicButton{
+    float: right;
+    margin-bottom: 10px;
+}
+
+.lastMessageOwner{
+	width: 100%;
+	color: #990000;
+	background-color: #E8F5FD;
+    border: 1px solid #8bcef8;
+    border-bottom: none;
+    vertical-align: text-top;
+    margin-top: 20px;
+}
+
+.inLineTable {
+    width: 100%;
+    border-collapse:collapse;
+}
+.inLineTable tr{
+    background-color: #E8F5FD;
+    border: 5px solid #F7FCFF;
+}
+
+tr.notReed {
+    background-color: #cfecff;
+    font-weight: bold;
+}
+
+/* TODO Find a way to place more menu items */
+.wrap {
+    width: 1010px;
+}

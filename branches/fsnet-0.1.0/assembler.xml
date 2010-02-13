@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<assembly
+	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
+
+	<id>bin</id>
+	<formats>
+		<format>zip</format>
+	</formats>
+	<includeBaseDirectory>false</includeBaseDirectory>
+	<moduleSets>
+		<moduleSet>
+			<includes>
+				<include>fr.univartois.ili.fsnet:admin</include>
+				<include>fr.univartois.ili.fsnet:fsnetWeb</include>
+				<include>fr.univartois.ili.fsnet:webservice</include>
+			</includes>
+			<binaries>
+				<dependencySets>
+					<dependencySet>
+						<outputDirectory>libs/</outputDirectory>
+					</dependencySet>
+				</dependencySets>
+				<outputDirectory>wars/</outputDirectory>
+				<outputFileNameMapping>${module.artifactId}.war</outputFileNameMapping>
+				<unpack>false</unpack>
+			</binaries>
+		</moduleSet>
+		<moduleSet>
+			<includes>
+				<include>fr.univartois.ili.fsnet:trayDesktop</include>
+			</includes>
+			<binaries>
+				<outputDirectory>tray/</outputDirectory>
+				<outputFileNameMapping>${module.artifactId}.jar</outputFileNameMapping>
+				<unpack>false</unpack>
+			</binaries>
+		</moduleSet>
+	</moduleSets>
+</assembly>

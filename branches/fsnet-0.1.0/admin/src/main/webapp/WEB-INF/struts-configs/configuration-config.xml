@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean  name="MailConfigurationForm"
+					type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="SMTPHost" type="java.lang.String"/>
+			<form-property name="SMTPPort" type="java.lang.String"/>
+			<form-property name="SMTPUsername" type="java.lang.String"/>
+			<form-property name="SMTPPassword" type="java.lang.String"/>
+			<form-property name="MailFrom" type="java.lang.String"/>
+			<form-property name="enableAuthentication" type="java.lang.String"/>
+			<form-property name="enableTLS" type="java.lang.String"/>
+			<form-property name="enableSSL" type="java.lang.String"/>
+			<form-property name="FSNetWebURL" type="java.lang.String"/>
+			<form-property name="Recipient" type="java.lang.String"/>
+		</form-bean>
+	</form-beans>
+	<action-mappings>
+   		<action path="/SendTestMail"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				input="/EditConfiguration.do"
+				parameter="sendTestMail"
+				name="MailConfigurationForm"
+				validate="true"
+				scope="request">
+				
+			<forward name="success" path="/EditConfiguration.do"/>
+		</action>
+		<action path="/SaveMailConfiguration"
+				name="MailConfigurationForm"		
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				input="Configure"
+				parameter="saveMailConfiguration"
+				validate="true"
+				scope="request">
+			<forward name="success" path="/EditConfiguration.do"/>
+		</action>
+		<action path="/EditConfiguration"
+				name="MailConfigurationForm"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				parameter="editMailConfiguration"
+				validate="false"
+				scope="request">
+			<forward name="success" path="Configure"/>
+		</action>
+		</action-mappings>
+</struts-config>
