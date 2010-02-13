@@ -19,8 +19,12 @@
             </field>
         </form>
         <form name="/CreateInterest">
-            <field property="createdInterestName" depends="required">
-                <arg key="error.interest.create" />
+            <field property="createdInterestName" depends="required,mask">
+		        <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w]*$</var-value>
+		        </var>
+				<arg key="error.interest.create" />
             </field>
             <field property="parentInterestId" depends="integer">
                 <arg key="error.interest.parentId" />
