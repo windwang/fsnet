@@ -52,8 +52,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String name = (String) dynaForm.get("name");
+		dynaForm.set("name", "");
 		String firstName = (String) dynaForm.get("firstName");
+		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
+		dynaForm.set("email", "");
 
 		logger.info("#### New User : " + mail);
 		EntityManager em = factory.createEntityManager();
@@ -82,7 +85,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 		}
 		em.close();
-
+		
 		return mapping.findForward("success");
 	}
 
