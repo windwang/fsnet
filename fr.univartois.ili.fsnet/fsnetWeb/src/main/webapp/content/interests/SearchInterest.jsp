@@ -9,13 +9,11 @@
 <h3><bean:message key="interests.11"/></h3>
 <html:javascript formName="/SearchInterest"/>
 <html:form action="/SearchInterest">
-    <html:text property="searchInterestName"/>
-    <html:errors property="searchInterestName"/>
+    <html:text property="requestInput"/>
+    <html:errors property="requestInput"/>
     <html:submit styleClass="button">
     	<bean:message key="interests.search"/>
     </html:submit>
 </html:form>
 
-<logic:present name="interestResult" scope="request">
-	<jsp:include page="/content/interests/ResultInterest.jsp"/>
-</logic:present>
+<jsp:include page="/content/interests/ResultInterest.jsp"/>

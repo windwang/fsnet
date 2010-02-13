@@ -24,6 +24,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -42,8 +43,6 @@ public class ManageInterests extends MappingDispatchAction implements
 			.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
-	private static final int NB_RESULTS_ON_DEMAND = 6;
-	private static final int NB_RESULTS_RETURNED = NB_RESULTS_ON_DEMAND - 1;
 
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
@@ -158,31 +157,19 @@ public class ManageInterests extends MappingDispatchAction implements
 		InterestFacade facade = new InterestFacade(em);
 		
 		String interestName = "";
-		if (dynaForm.get("searchInterestName") != null) {
-			interestName = (String) dynaForm.get("searchInterestName");
+		if (dynaForm.get("requestInput") != null) {
+			interestName = (String) dynaForm.get("requestInput");
 		}
 		
-		int page = 0;
-		if (dynaForm.get("nextPage") != null && !((String)dynaForm.get("nextPage")).isEmpty()) {
-			page = Integer.valueOf((String) dynaForm.get("nextPage"));
-			if (page < 0) {
-				page = 0;
-			}
-		}
 		
-		logger.info("search interest: " + interestName + "page = "+page);
-
-		List<Interest> result = facade.advancedSearchInterest(interestName,
-				page * NB_RESULTS_RETURNED, NB_RESULTS_ON_DEMAND);
+		List<Interest> results = facade.searchInterest(interestName);
 		em.close();
+		
+		Paginator<Interest> paginator = new Paginator<Interest>(results, request);
+		
+		logger.info("search interest: " + interestName);
 
-		if (result.size() == NB_RESULTS_ON_DEMAND) {
-			result.remove(result.size() - 1);
-			request.setAttribute("hasnext", true);
-		}
-		request.setAttribute("interestResult", result);
-		request.setAttribute("currentPage", page);
-		request.setAttribute("currentSearch", interestName);
+		request.setAttribute("interestSearchPaginator", paginator);
 
 		return mapping.findForward("success");
 	}

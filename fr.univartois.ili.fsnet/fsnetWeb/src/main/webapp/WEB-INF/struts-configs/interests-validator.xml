@@ -14,10 +14,10 @@
             </field>
         </form>
         <form name="/SearchInterest">
-            <field property="searchInterestName" depends="">
+            <field property="requestInput" depends="">
                 <arg key="error.interest.search" />
             </field>
-            <field property="nextPage" depends="integer"/>
+            <field property="pageId" depends="integer"/>
         </form>
         <form name="/CreateInterest">
             <field property="createdInterestName" depends="required,mask">
