@@ -196,7 +196,7 @@ public class PaginatorTest {
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
 				.getResultList(), request, numResultPerPageFromDeveloper);
-		assertTrue(paginator.hasNextPage());
+		assertTrue(paginator.getHasNextPage());
 	}
 
 	/**
@@ -212,7 +212,7 @@ public class PaginatorTest {
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
 				.getResultList(), request, numResultPerPage);
-		assertFalse(paginator.hasNextPage());
+		assertFalse(paginator.getHasNextPage());
 	}
 
 	/**
@@ -227,7 +227,7 @@ public class PaginatorTest {
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
 				.getResultList(), request, numResultPerPage);
-		assertTrue(paginator.hasPreviousPage());
+		assertTrue(paginator.getHasPreviousPage());
 	}
 
 	/**
@@ -242,6 +242,6 @@ public class PaginatorTest {
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
 				.getResultList(), request, numResultPerPage);
-		assertFalse(paginator.hasPreviousPage());
+		assertFalse(paginator.getHasPreviousPage());
 	}
 }

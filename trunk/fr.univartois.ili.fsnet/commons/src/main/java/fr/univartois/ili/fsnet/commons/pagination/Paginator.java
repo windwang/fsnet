@@ -16,6 +16,13 @@ public class Paginator<T> {
 	 * The name of the parameter in the request to set the number of results
 	 */
 	public static final String NUM_RESULT_PER_PAGES = "numResults";
+	
+	/**
+	 * The name of the parameter in the request to save the request input
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public static final String REQUEST_INPUT = "requestInput";
 
 	/**
 	 * The default number of results if The user or developer has not set this
@@ -23,6 +30,13 @@ public class Paginator<T> {
 	 */
 	public static final int DEFAULT_NUM_RESULT_PER_PAGE = 15;
 
+	/**
+	 * The requested page id
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	private String requestInput;
+	
 	/**
 	 * The requested page id
 	 */
@@ -99,7 +113,7 @@ public class Paginator<T> {
 		numPages = (int) Math.ceil(allResults.size()
 				/ ((double) numResultsPerPage));
 		hasPreviousPage = (requestedPage != 0);
-		hasNextPage = (requestedPage < numPages);
+		hasNextPage = (requestedPage < numPages-1);
 		if (requestedPage < numPages) {
 			int toIndex = requestedPage * numResultsPerPage + numResultsPerPage;
 			if (toIndex > allResults.size()) {
@@ -112,7 +126,7 @@ public class Paginator<T> {
 		}
 	}
 
-	/*
+	/**
 	 * Parse the parameters from the request
 	 * @param request
 	 * @throws IllegalArgumentException
@@ -134,6 +148,11 @@ public class Paginator<T> {
 			}
 		} else {
 			this.numResultsPerPage = DEFAULT_NUM_RESULT_PER_PAGE;
+		}
+		if (request.getParameterMap().containsKey(REQUEST_INPUT)) {
+			requestInput = (String) request.getParameter(REQUEST_INPUT);
+		} else {
+			requestInput = "";
 		}
 	}
 
@@ -182,14 +201,52 @@ public class Paginator<T> {
 	 * 
 	 * @return true if there is a next page following input datas
 	 */
-	public boolean hasNextPage() {
+	public boolean getHasNextPage() {
 		return hasNextPage;
+	}
+	
+	/**
+	 * 
+	 * @return the next page if possible or the current one
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public int getNextPage() {
+		int nextPage = getRequestedPage();
+		if (getHasNextPage()) {
+			nextPage++;
+		}
+		return nextPage;
 	}
 
 	/**
 	 *@return true if there is a previous page following input datas
 	 */
-	public boolean hasPreviousPage() {
+	public boolean getHasPreviousPage() {
 		return hasPreviousPage;
+	}
+	
+	/**
+	 * 
+	 * @return the previous page if possible or the current one
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public int getPreviousPage() {
+		int previousPage = getRequestedPage();
+		if (getHasPreviousPage()) {
+			previousPage--;
+		}
+		return previousPage;
+	}
+	
+	/**
+	 * 
+	 * @return the request input
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public String getRequestInput() {
+		return requestInput;
 	}
 }
