@@ -155,49 +155,22 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-		String interestName = "";
 		InterestFacade facade = new InterestFacade(em);
-
+		
+		String interestName = "";
 		if (dynaForm.get("searchInterestName") != null) {
 			interestName = (String) dynaForm.get("searchInterestName");
 		}
-
-		logger.info("search interest: " + interestName);
-
-		List<Interest> result = facade.advancedSearchInterest(interestName, 0,
-				NB_RESULTS_ON_DEMAND);
-		em.close();
-
-		if (result.size() == NB_RESULTS_ON_DEMAND) {
-			result.remove(result.size() - 1);
-			request.setAttribute("hasnext", true);
+		
+		int page = 0;
+		if (dynaForm.get("nextPage") != null && !((String)dynaForm.get("nextPage")).isEmpty()) {
+			page = Integer.valueOf((String) dynaForm.get("nextPage"));
+			if (page < 0) {
+				page = 0;
+			}
 		}
-		request.setAttribute("interestResult", result);
-		request.setAttribute("currentPage", 0);
-		request.setAttribute("currentSearch", interestName);
-
-		return mapping.findForward("success");
-	}
-
-	public ActionForward advancedSearch(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
-		String interestName = "";
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-
-		if (dynaForm.get("search") != null) {
-			interestName = (String) dynaForm.get("search");
-		}
-
-		InterestFacade facade = new InterestFacade(em);
-		logger.info("advanced search interest: " + interestName);
-
-		int page = Integer.valueOf((String) dynaForm.get("nextPage"));
-
-		if (page < 0) {
-			page = 0;
-		}
+		
+		logger.info("search interest: " + interestName + "page = "+page);
 
 		List<Interest> result = facade.advancedSearchInterest(interestName,
 				page * NB_RESULTS_RETURNED, NB_RESULTS_ON_DEMAND);

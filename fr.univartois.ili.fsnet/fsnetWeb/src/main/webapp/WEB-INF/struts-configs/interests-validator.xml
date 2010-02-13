@@ -17,6 +17,7 @@
             <field property="searchInterestName" depends="">
                 <arg key="error.interest.search" />
             </field>
+            <field property="nextPage" depends="integer"/>
         </form>
         <form name="/CreateInterest">
             <field property="createdInterestName" depends="required,mask">
@@ -29,10 +30,6 @@
             <field property="parentInterestId" depends="integer">
                 <arg key="error.interest.parentId" />
             </field>
-        </form>
-        <form name="/AdvancedSearchInterest">
-            <field property="nextPage" depends="required,integer"/>
-            <field property="search" depends="required"/>
         </form>
         <form name="/InterestInformations">
             <field property="infoInterestId" depends="required,integer"/>
