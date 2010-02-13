@@ -15,8 +15,8 @@
         </form-bean>
         <form-bean name="SearchInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="searchInterestName" type="java.lang.String" />
-            <form-property name="nextPage" type="java.lang.String" />
+            <form-property name="requestInput" type="java.lang.String" />
+            <form-property name="pageId" type="java.lang.String" />
         </form-bean>
         <form-bean name="CreateInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
