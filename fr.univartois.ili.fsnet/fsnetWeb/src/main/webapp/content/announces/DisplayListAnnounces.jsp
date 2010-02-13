@@ -19,17 +19,16 @@
             <tr>
                 <bean:define id="idAnnounce" name="announce" property="id" />
                 <th colspan="2">
-                    <c:import url="/FavoriteFragment.do">
-                        <jsp:param name="interactionId" value="${announce.id}"/>
-                    </c:import>
+                  <c:import url="/FavoriteFragment.do">
+                        <c:param name="interactionId" value="${announce.id}"/>
+                    </c:import> 
                     <html:link action="/DisplayAnnounce.do" paramId="idAnnounce" paramName="idAnnounce">
                         <bean:write name="announce" property="title" />
                     </html:link>
                 </th>
                 <td>
                     <bean:message key="announce.by"/>
-                    <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${announce.creator.id}"/>
+                    <html:link action="/DisplayProfile" paramId="id" paramProperty="${announce.creator.id}">
                         ${announce.creator.firstName} ${announce.creator.name}
                     </html:link>
                 </td>
