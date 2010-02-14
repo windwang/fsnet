@@ -177,8 +177,8 @@ input[type=text], input[type=password], textarea {
 }
 
 #login a {
-	color: white;
-	text-decoration: underline;
+    color: white;
+    text-decoration: underline;
 }
 
 #login input[type=submit] {
@@ -190,15 +190,15 @@ input[type=text], input[type=password], textarea {
 }
 
 #resetPasswordWrapper a {
-	margin-top: 10px;
+    margin-top: 10px;
 }
 
 #resetPasswordWrapper {
-	width: 370px;
-	margin: 40px auto;	
+    width: 370px;
+    margin: 40px auto;
 }
 #resetPasswordWrapper input[type="text"] {
-	width: 200px;
+    width: 200px;
 }
 
 input[type="text"][class="error"], textarea[class="error"] {
@@ -240,6 +240,7 @@ input[type="text"][class="error"], textarea[class="error"] {
 .topicOwner {
     width: 20%;
     text-align: center;
+    vertical-align: top;
 }
 
 .topicMessage{
@@ -255,9 +256,9 @@ input[type="text"][class="error"], textarea[class="error"] {
 }
 
 .lastMessageOwner{
-	width: 100%;
-	color: #990000;
-	background-color: #E8F5FD;
+    width: 100%;
+    color: #990000;
+    background-color: #E8F5FD;
     border: 1px solid #8bcef8;
     border-bottom: none;
     vertical-align: text-top;
