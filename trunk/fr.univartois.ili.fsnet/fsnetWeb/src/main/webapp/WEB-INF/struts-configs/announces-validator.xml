@@ -13,8 +13,15 @@
             <field property="announceContent" depends="required">
                 <arg key="error.announceContent" />
             </field>
-            <field property="announceExpiryDate" depends="required">
+            <field property="announceExpiryDate" depends="required,date">
                 <arg key="error.announceExpiryDate" />
+                <arg position="0" key="error.announceExpiryDate" />
+				<msg name="date" key="date.error.invalid"/>
+				<var>
+					<var-name>datePattern</var-name>
+					<var-value>dd/MM/yyyy</var-value>
+				</var>
+			
             </field>
         </form>
         <form name="/ModifyAnnounce">
@@ -24,8 +31,9 @@
             <field property="announceContent" depends="required">
                 <arg key="error.announceContent" />
             </field>
-            <field property="announceExpiryDate" depends="required">
+            <field property="announceExpiryDate" depends="required,date">
                 <arg key="error.announceExpiryDate" />
+            
             </field>
         </form>
         <form name="/Announces">
