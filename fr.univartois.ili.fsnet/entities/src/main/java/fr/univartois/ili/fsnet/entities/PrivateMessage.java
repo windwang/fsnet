@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 
 import javax.persistence.Entity;
 import javax.persistence.Inheritance;
@@ -13,6 +14,7 @@ import javax.persistence.ManyToOne;
 public class PrivateMessage extends Message implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    @Column(length = 500)
     private String subject;
     @ManyToOne
     @JoinColumn(nullable = false)
