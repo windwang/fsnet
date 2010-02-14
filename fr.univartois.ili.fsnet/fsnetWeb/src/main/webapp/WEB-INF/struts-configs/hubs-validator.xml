@@ -3,29 +3,37 @@
 "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
 <form-validation>
 	<formset>
-        <form name="/CreateHub">
-            <field property="hubName" depends="required">
-                <arg key="hubs.error.name" />
-            </field>
-            <field property="communityId" depends="integer,required"></field>
-        </form>
-          <form name="/DeleteHub">
-            <field property="hubId" depends="integer,required"></field>
-            <field property="communityId" depends="integer,required"></field>
-        </form>
-         <form name="/DisplayHub">
-            <field property="hubId" depends="integer,required"></field>
-        </form>
-         <form name="/DisplayCreateHub">
-            <field property="communityId" depends="integer,required"></field>
-        </form>
-         <form name="/DisplayYourHubs">
-            <field property="communityId" depends="integer,required"></field>
-        </form>
-         <form name="/DeleteYourHub">
-            <field property="hubId" depends="integer,required"> </field>
-            <field property="communityId" depends="integer,required"> </field>
-        </form>
-    </formset>
+		<form name="/CreateHub">
+			<field property="hubName" depends="required,mask">
+				<arg key="hubs.error.name" />
+				<msg name="mask"
+                 	key="hubs.error.mask"/>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^\w+([\-\' ]\w+)*$</var-value>
+				</var>
+			</field>
+			<field property="communityId" depends="integer,required"></field>
+		</form>
+		<form name="/DeleteHub">
+			<field property="hubId" depends="integer,required"></field>
+			<field property="communityId" depends="integer,required"></field>
+		</form>
+		<form name="/DisplayHub">
+			<field property="hubId" depends="integer,required"></field>
+		</form>
+		<form name="/DisplayCreateHub">
+			<field property="communityId" depends="integer,required"></field>
+		</form>
+		<form name="/DisplayYourHubs">
+			<field property="communityId" depends="integer,required"></field>
+		</form>
+		<form name="/DeleteYourHub">
+			<field property="hubId" depends="integer,required">
+			</field>
+			<field property="communityId" depends="integer,required">
+			</field>
+		</form>
+	</formset>
 
 </form-validation>
