@@ -6,8 +6,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
 import javax.swing.JComboBox;

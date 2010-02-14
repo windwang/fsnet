@@ -17,7 +17,8 @@ import java.util.logging.Logger;
 import javax.xml.namespace.QName;
 
 /**
- *
+ * The model of the application.
+ * Communicate with the webservice and notify listeners of new events
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class WSConnector {
@@ -25,7 +26,6 @@ public class WSConnector {
     private final Set<WSListener> listeners = new HashSet<WSListener>();
     private Timer timer;
     private static Logger logger = Logger.getLogger(FSNetTray.class.getName());
-    private StringBuilder build;
     private static final long MINUTES = 60000;
     private Info infoPort;
 
@@ -37,6 +37,10 @@ public class WSConnector {
         }
     }
 
+    /**
+     * Notify listeneners and error occured.
+     * @param message
+     */
     private void fireError(String message) {
         WSMessage mes = new WSMessage(message);
         for (WSListener listener : listeners) {
@@ -44,6 +48,10 @@ public class WSConnector {
         }
     }
 
+    /**
+     * Notify listeners the connection is effective
+     * @param message
+     */
     private void fireConnection(String message) {
         WSMessage mes = new WSMessage(message);
         for (WSListener listener : listeners) {
@@ -51,6 +59,10 @@ public class WSConnector {
         }
     }
 
+    /**
+     * Notify listeners new messages have been received
+     * @param nbMessages
+     */
     private void fireNewMessages(int nbMessages) {
         WSMessage mes = new WSMessage(String.valueOf(nbMessages));
         for (WSListener listener : listeners) {
@@ -58,6 +70,10 @@ public class WSConnector {
         }
     }
 
+    /**
+     * Add a WSListener
+     * @param listener
+     */
     public void addListener(WSListener listener) {
         if (listener == null) {
             return;
@@ -65,10 +81,18 @@ public class WSConnector {
         listeners.add(listener);
     }
 
+    /**
+     * Remove a WSListener
+     * @param listener
+     */
     public void removeListener(WSListener listener) {
         listeners.remove(listener);
     }
 
+    /**
+     * Check if the config is valid
+     * @return
+     */
     private boolean verifConfig() {
         if (!Options.isConfigured()) {
             return false;
@@ -85,7 +109,16 @@ public class WSConnector {
         return false;
     }
 
-    public boolean changeConfig(String wSUrl, String fsnetUrl, String login, String password, LANG lang, int lag) {
+    /**
+     * Try to change the config and notify listeners with the result
+     * @param wSUrl
+     * @param fsnetUrl
+     * @param login
+     * @param password
+     * @param lang
+     * @param lag
+     */
+    public void changeConfig(String wSUrl, String fsnetUrl, String login, String password, LANG lang, int lag) {
         try {
             InfoService infoService = new InfoService(
                     new URL(wSUrl),
@@ -108,8 +141,6 @@ public class WSConnector {
             logger.log(Level.SEVERE, null, ex);
             fireError("NOCONNECTION");
         }
-
-        return false;
     }
 
     /**

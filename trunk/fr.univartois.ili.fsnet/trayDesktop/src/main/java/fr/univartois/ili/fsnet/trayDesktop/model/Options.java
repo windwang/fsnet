@@ -206,7 +206,4 @@ public final class Options {
         }
     }
 
-    public static boolean isValid(){
-        return false;
-    }
 }
