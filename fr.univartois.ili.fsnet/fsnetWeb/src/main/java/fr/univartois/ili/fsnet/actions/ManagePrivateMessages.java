@@ -140,7 +140,6 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         try {
             if (form != null) {
                 DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-                // NOSONAR
                 int messageId = Integer.parseInt(dynaForm.getString("messageId"));
                 SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
                 PrivateMessageFacade pmf = new PrivateMessageFacade(em);
@@ -148,9 +147,11 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
                 if (privateMessage != null
                         && (authenticatedUser.equals(privateMessage.getFrom())
                         || authenticatedUser.equals(privateMessage.getTo()))) {
-                    em.getTransaction().begin();
-                    privateMessage.setReed(true);
-                    em.getTransaction().commit();
+                    if (authenticatedUser.equals(privateMessage.getTo())) {
+                        em.getTransaction().begin();
+                        privateMessage.setReed(true);
+                        em.getTransaction().commit();
+                    }
                     em.close();
                     request.setAttribute("theMessage", privateMessage);
                     return mapping.findForward("success");
