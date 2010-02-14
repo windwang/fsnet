@@ -5,7 +5,7 @@ import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
 import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSListener;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSMessage;
-import fr.univartois.ili.fsnet.webservice.Info;
+
 import java.awt.CheckboxMenuItem;
 import java.awt.Desktop;
 import java.awt.Image;
@@ -18,7 +18,6 @@ import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -131,7 +130,7 @@ public class FSNetTray implements WSListener {
     public void onNewMessages(WSMessage message) {
         tray.displayMessage(
                 trayi18n.getString("NOTIFICATIONS"),
-                message.getMessage() + " "+trayi18n.getString("NEWMESSAGES"),
+                message.getMessage() + " " + trayi18n.getString("NEWMESSAGES"),
                 TrayIcon.MessageType.NONE);
     }
 
