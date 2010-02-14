@@ -25,14 +25,14 @@
     </build>
     <dependencies>
         <dependency>
-            <groupId>fr.univartois.ili.fsnet</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>entities</artifactId>
-            <version>0.1</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>fr.univartois.ili.fsnet</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>iliforum</artifactId>
-            <version>0.1</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -103,9 +103,9 @@
             <version>1.0.5</version>
         </dependency>
         <dependency>
-        	<groupId>fr.univartois.ili.fsnet</groupId>
+        	<groupId>${project.groupId}</groupId>
         	<artifactId>commons</artifactId>
-        	<version>0.1</version>
+        	<version>${project.version}</version>
         </dependency>
     </dependencies>
     

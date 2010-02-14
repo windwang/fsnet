@@ -32,9 +32,9 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>fr.univartois.ili.fsnet</groupId>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>iliforum</artifactId>
-			<version>0.1</version>
+			<version>${project.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
