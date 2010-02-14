@@ -2,13 +2,15 @@ package fr.univartois.ili.fsnet.trayDesktop.views;
 
 import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
 import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
-import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSListener;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSMessage;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
 
 import javax.swing.ImageIcon;
@@ -31,11 +33,17 @@ public class ConfigurationFrame implements WSListener {
     private final JLabel labelLoading;
     private JButton validateButton;
     private final WSControl control;
-    private boolean waitForValid;
+    private final KeyListener changeListener = new KeyAdapter() {
+
+        @Override
+        public void keyTyped(KeyEvent e) {
+            validateButton.setEnabled(false);
+        }
+    };
 
     public ConfigurationFrame(WSControl control) {
         frame = new JFrame(trayi18n.getString("CONFIGURATION"));
-        cpanel = new ConfigurationPanel();
+        cpanel = new ConfigurationPanel(changeListener);
         JPanel panel = new JPanel(new BorderLayout());
         panel.add(cpanel.getPanel(), BorderLayout.CENTER);
 
@@ -67,8 +75,13 @@ public class ConfigurationFrame implements WSListener {
 
             @Override
             public void run() {
-                //TODO Refactor please
-                control.testConfig();
+                control.changeConfig(
+                        cpanel.getWSUrl(),
+                        cpanel.getFsnetUrl(),
+                        cpanel.getLogin(),
+                        cpanel.getPassword(),
+                        cpanel.getLanguage(),
+                        cpanel.getLag());
             }
         }.start();
     }
@@ -93,16 +106,11 @@ public class ConfigurationFrame implements WSListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                Options.setWSUrl(cpanel.getWSUrl());
-                Options.setFsnetUrl(cpanel.getFsnetUrl());
-                Options.setLogin(cpanel.getLogin());
-                Options.setPassword(cpanel.getPassword());
-                Options.setLanguage(cpanel.getLanguage());
-                Options.setLag(cpanel.getLag());
-                tryValidate();
-
+                frame.dispose();
+                TrayLauncher.configurationValidated();
             }
         });
+        validateButton.setEnabled(false);
         return validateButton;
     }
 
@@ -112,6 +120,7 @@ public class ConfigurationFrame implements WSListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                TrayLauncher.configurationValidated();
                 frame.dispose();
             }
         });
@@ -124,7 +133,6 @@ public class ConfigurationFrame implements WSListener {
 
             @Override
             public void actionPerformed(ActionEvent e) {
-                waitForValid = true;
                 tryValidate();
             }
         });
@@ -143,31 +151,22 @@ public class ConfigurationFrame implements WSListener {
 
     @Override
     public void onNewMessages(WSMessage message) {
-        
     }
 
     @Override
     public void onError(WSMessage message) {
-        if (waitForValid) {
-            waitForValid = false;
-        }
         validateButton.setEnabled(false);
-        JOptionPane.showMessageDialog(frame, trayi18n.getString("NOCONNECTION"),
+        JOptionPane.showMessageDialog(frame, trayi18n.getString(message.getMessage()),
                 trayi18n.getString("ERROR"), JOptionPane.ERROR_MESSAGE);
         terminateValidation();
     }
 
     @Override
     public void onConnection(WSMessage message) {
-        if (waitForValid) {
-            waitForValid = false;
-            validateButton.setEnabled(true);
-            JOptionPane.showMessageDialog(frame, trayi18n.getString("VALIDCONFIGURATION"),
-                    trayi18n.getString("SUCCESS"), JOptionPane.INFORMATION_MESSAGE);
-            terminateValidation();
-        } else {
-            frame.dispose();
-            TrayLauncher.reload();
-        }
+
+        validateButton.setEnabled(true);
+        JOptionPane.showMessageDialog(frame, trayi18n.getString("VALIDCONFIGURATION"),
+                trayi18n.getString("SUCCESS"), JOptionPane.INFORMATION_MESSAGE);
+        terminateValidation();
     }
 }

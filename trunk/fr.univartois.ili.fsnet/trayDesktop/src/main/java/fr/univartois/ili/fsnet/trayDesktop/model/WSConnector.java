@@ -1,9 +1,6 @@
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package fr.univartois.ili.fsnet.trayDesktop.model;
 
+import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
 import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
 import fr.univartois.ili.fsnet.webservice.Info;
 import fr.univartois.ili.fsnet.webservice.InfoService;
@@ -33,14 +30,11 @@ public class WSConnector {
     private Info infoPort;
 
     public WSConnector() {
-
-        if (verifyConfig()) {
-            fireConnection("configuration success");
-            startNotifications(Options.getLag());
+        if (verifConfig()) {
+            startNotifications();
         } else {
             fireError("configuration failed");
         }
-
     }
 
     private void fireError(String message) {
@@ -64,7 +58,21 @@ public class WSConnector {
         }
     }
 
-    public boolean verifyConfig() {
+    public void addListener(WSListener listener) {
+        if (listener == null) {
+            return;
+        }
+        listeners.add(listener);
+    }
+
+    public void removeListener(WSListener listener) {
+        listeners.remove(listener);
+    }
+
+    private boolean verifConfig() {
+        if (!Options.isConfigured()) {
+            return false;
+        }
         try {
             InfoService infoService = new InfoService(
                     new URL(Options.getWSUrl()),
@@ -77,11 +85,38 @@ public class WSConnector {
         return false;
     }
 
+    public boolean changeConfig(String wSUrl, String fsnetUrl, String login, String password, LANG lang, int lag) {
+        try {
+            InfoService infoService = new InfoService(
+                    new URL(wSUrl),
+                    new QName("http://webservice.fsnet.ili.univartois.fr/", "InfoService"));
+            infoPort = infoService.getInfoPort();
+            if (infoPort.isMember(login, password)) {
+                Options.setWSUrl(wSUrl);
+                Options.setFsnetUrl(fsnetUrl);
+                Options.setLogin(login);
+                Options.setPassword(password);
+                Options.setLanguage(lang);
+                Options.setLag(lag);
+                Options.saveOptions();
+                startNotifications();
+                fireConnection("VALIDCONFIGURATION");
+            } else {
+                fireError("BADLOGIN");
+            }
+        } catch (MalformedURLException ex) {
+            logger.log(Level.SEVERE, null, ex);
+            fireError("NOCONNECTION");
+        }
+
+        return false;
+    }
+
     /**
      * Start a timer which will display message regulary
      * @param timeLag number of seconds between two requests
      */
-    public void startNotifications(long timeLag) {
+    public void startNotifications() {
         timer = new Timer();
         timer.schedule(new TimerTask() {
 
@@ -95,16 +130,22 @@ public class WSConnector {
     /**
      * Display a message with new alerts
      */
-    private void checkWS() {
-        try {
-            List<WsPrivateMessage> messages = infoPort.getNewMessages(Options.getLogin(), Options.getPassword());
-
-            if (messages != null && messages.size() > 0) {
-                fireNewMessages(messages.size());
-            }
-
-        } catch (Exception e) {
+    public void checkWS() {
+        if (infoPort == null) {
             fireError("No Connection");
+        } else {
+            try {
+
+                List<WsPrivateMessage> messages = infoPort.getNewMessages(Options.getLogin(), Options.getPassword());
+
+                if (messages != null && messages.size() > 0) {
+                    fireNewMessages(messages.size());
+                }
+
+            } catch (Exception e) {
+                e.printStackTrace();
+                fireError("No Connection");
+            }
         }
     }
 

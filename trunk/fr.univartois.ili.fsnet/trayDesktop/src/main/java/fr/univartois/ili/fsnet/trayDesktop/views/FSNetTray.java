@@ -1,12 +1,11 @@
 package fr.univartois.ili.fsnet.trayDesktop.views;
 
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
-import com.sun.xml.ws.client.ClientTransportException;
 import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
+import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSListener;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSMessage;
 import fr.univartois.ili.fsnet.webservice.Info;
-import fr.univartois.ili.fsnet.webservice.WsPrivateMessage;
 import java.awt.CheckboxMenuItem;
 import java.awt.Desktop;
 import java.awt.Image;
@@ -23,36 +22,33 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.rmi.RemoteException;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * The class FSnetTray has the responsibility to create a tray icon and
- * manage system notifications
+ * display system notifications
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-// TODO when message from EntiteSociale to EntiteSociale will be implemented add personal messages here
-public class FSNetTray implements WSListener{
+public class FSNetTray implements WSListener {
 
     private final ResourceBundle trayi18n = TrayLauncher.getBundle();
     private TrayIcon tray;
+    private final WSControl control;
 
     /**
      *
      * @param image the icon to display in system tray
      * @param infoService the webservice to invoke
      */
-    public FSNetTray(Image image, Info info) {
-        if (image == null || info == null) {
+    public FSNetTray(Image image, WSControl control) {
+        if (image == null || control == null) {
             throw new IllegalArgumentException();
         }
         tray = new TrayIcon(image);
         initTrayIcon();
+        this.control = control;
     }
 
     /**
@@ -116,12 +112,12 @@ public class FSNetTray implements WSListener{
                 }
             }
         });
-        
+
         tray.addMouseListener(new MouseAdapter() {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                //displayMessage();
+                control.checkWS();
             }
         });
         // Add components to popup menu
@@ -133,23 +129,21 @@ public class FSNetTray implements WSListener{
 
     @Override
     public void onNewMessages(WSMessage message) {
-         tray.displayMessage(
-                        trayi18n.getString("NOTIFICATIONS"),
-                        // TODO I18n
-                        message.getMessage() + "NewMessages",
-                        TrayIcon.MessageType.NONE);
+        tray.displayMessage(
+                trayi18n.getString("NOTIFICATIONS"),
+                message.getMessage() + " "+trayi18n.getString("NEWMESSAGES"),
+                TrayIcon.MessageType.NONE);
     }
 
     @Override
     public void onError(WSMessage message) {
         tray.displayMessage(
-                    trayi18n.getString("NOCONNECTION"),
-                    trayi18n.getString("NOCONNECTION"),
-                    TrayIcon.MessageType.ERROR);
+                trayi18n.getString("NOCONNECTION"),
+                trayi18n.getString("NOCONNECTION"),
+                TrayIcon.MessageType.ERROR);
     }
 
     @Override
     public void onConnection(WSMessage message) {
-        throw new UnsupportedOperationException("Not supported yet.");
     }
 }
