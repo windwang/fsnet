@@ -160,7 +160,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		SocialEntity profile = sef.getSocialEntity(id);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		request.setAttribute(EDITABLE_PROFILE_VARIABLE, profile.equals(user));
-		if(user.getBirthDate()!=null)
+		if(profile.getBirthDate()!=null)
 			request.setAttribute("birthDay", formatter.format(profile.getBirthDate()));
 		em.close();
 		return mapping.findForward("success");		
