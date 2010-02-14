@@ -166,8 +166,6 @@ public class ManageInterests extends MappingDispatchAction implements
 		em.close();
 		
 		Paginator<Interest> paginator = new Paginator<Interest>(results, request);
-		
-		logger.info("search interest: " + interestName);
 
 		request.setAttribute("interestSearchPaginator", paginator);
 
@@ -181,7 +179,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		EntityManager em = factory.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InterestFacade facade = new InterestFacade(em);
-		logger.info("Displaying interests");
+
 
 		List<Interest> listAllInterests = facade.getInterests();
 		em.close();
@@ -202,8 +200,10 @@ public class ManageInterests extends MappingDispatchAction implements
 			}
 		}
 
-		request.setAttribute("user", user);
+		Paginator<Interest> paginator = new Paginator<Interest>(user.getInterests(), request);
+		
 		request.setAttribute("allInterests", listAllInterests);
+		request.setAttribute("myInterestPaginator", paginator);
 		request.setAttribute("listInterests", finalList);
 
 		return mapping.findForward("success");
@@ -214,7 +214,6 @@ public class ManageInterests extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
-		logger.info("Displaying interest's informations");
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 
 		int interestId = Integer.valueOf((String) dynaForm
