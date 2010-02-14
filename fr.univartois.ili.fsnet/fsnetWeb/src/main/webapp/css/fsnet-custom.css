@@ -296,3 +296,34 @@ tr.notReed {
 .ajaxSearch .selected{
     background-color: #E8F5FD;
 }
+
+.tag {
+    padding : 2px;
+    margin-right: 5px;
+    border: #c1ffbb 2px dashed;
+    background-color: #e9ffe7;
+
+}
+.tag a {
+    color: green;
+}
+.tag img{
+    vertical-align: middle;
+}
+
+.otag {
+    padding : 2px;
+    vertical-align: middle;
+    margin-right: 5px;
+    border: #7fcaff 2px dashed;
+    background-color: #c6e8ff;
+
+}
+.otag a {
+    color: #4793c9;
+}
+
+.otag img{
+    margin-left: 2px;
+
+}
