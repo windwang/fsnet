@@ -14,6 +14,7 @@
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
+<script type="text/javascript" src="js/dmsAutoComplete.js"></script>
 
 
 
@@ -31,13 +32,16 @@
             <td>
                 <html:text  property="messageTo"
                             errorStyleClass="error"
-                            style="width: 100%"/>
+                            style="width: 100%"
+                            styleId="memberSearch"/>
                 <logic:messagesPresent property="messageTo">
                     <div class="errorMessage">
                         <html:errors property="messageTo"/>
                     </div>
                 </logic:messagesPresent>
+                <div id="searchDiv" class="ajaxSearch"></div>
             </td>
+
         </tr>
         <tr>
             <td>
@@ -58,7 +62,7 @@
         </tr>
         <tr>
             <td>
-               
+
             </td>
             <td>
                 <html:textarea
@@ -83,3 +87,9 @@
     </table>
 
 </html:form>
+
+<script type="text/javascript">
+    var AC = new dmsAutoComplete('memberSearch','searchDiv');
+    AC.clearField = false; 
+    AC.ajaxTarget = 'AjaxSearchMember.do';
+</script>

@@ -283,3 +283,16 @@ tr.notReed {
 .wrap {
     width: 1010px;
 }
+
+.ajaxSearch{
+    display: none;
+    width: 44%;
+    position: absolute;
+    z-index: 3;
+    background-color: white;
+    border : 1px solid gray;
+}
+
+.ajaxSearch .selected{
+    background-color: #E8F5FD;
+}
