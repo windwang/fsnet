@@ -23,7 +23,7 @@
             <field property="createdInterestName" depends="required,mask">
 		        <var>
 		        	<var-name>mask</var-name>
-		        	<var-value>^[\w]*$</var-value>
+		        	<var-value>^[\w]([\ |']?[\w]+)*$</var-value>
 		        </var>
 				<arg key="error.interest.create" />
             </field>
