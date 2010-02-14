@@ -1,5 +1,28 @@
 = ChangeLog of FSNet =
 
+== fsnet-0.1.1 ==
+Fixed issues :
+ * i18n improvements
+ * Issue 33:	Page numbering functionality
+ * Issue 41:	Launching the trayDesktop application causes a strack trace to appear on the console
+ * Issue 46:	Display previous messages when creating a new message in topic
+ * Issue 60:	Allow interests to include others interests
+ * Issue 62:	Email sent for providing a password no properly encoded
+ * Issue 65:	problem in editing profile
+ * Issue 67:	Announce page is empty
+ * Issue 68:	Defect on the «add member» form
+ * Issue 72:	Link in a name of interest
+ * Issue 77:	no limit text indicated on page message
+ * Issue 79:	Create event with a wikipedia text
+ * Issue 80:	Update profile with accents
+ * Issue 82:	Problem with contacts' informations
+ * Issue 83:	Redirection in part Annonces
+ * Issue 84:	Don't accept html tags in Hub's name
+ * Issue 87:	Create a new interest
+ * Issue 92:	Editing date event
+ * Issue 94:	Error description
+ * Issue 96:	Can't add date if javascript is enabled
+
 == fsnet-0.1.0 ==
 
  * Change of version numbering (Issue 40)
