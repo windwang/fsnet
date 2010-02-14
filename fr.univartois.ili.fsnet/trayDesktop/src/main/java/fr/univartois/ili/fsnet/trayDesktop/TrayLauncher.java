@@ -32,12 +32,18 @@ public class TrayLauncher {
     private static WSControl control;
     private static ConfigurationFrame confFrame;
 
+    /**
+     * Open a configuration frame
+     */
     public static void showConfigFrame() {
         confFrame = new ConfigurationFrame(control);
         connector.addListener(confFrame);
         confFrame.show();
     }
 
+    /**
+     * Called when the configuration is done
+     */
     public static final void configurationValidated() {
         connector.removeListener(confFrame);
         confFrame = null;

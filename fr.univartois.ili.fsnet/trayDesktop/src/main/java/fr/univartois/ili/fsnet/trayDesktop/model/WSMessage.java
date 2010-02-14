@@ -1,7 +1,7 @@
 package fr.univartois.ili.fsnet.trayDesktop.model;
 
 /**
- *
+ * Simple message class used in WSListener
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class WSMessage {
@@ -13,6 +13,10 @@ public class WSMessage {
     }
 
 
+    /**
+     *
+     * @return the message string
+     */
     public String getMessage() {
         return message;
     }

@@ -4,7 +4,7 @@ import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSConnector;
 
 /**
- *
+ * The controleur of the application
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class WSControl {
@@ -15,10 +15,22 @@ public class WSControl {
         this.model = model;
     }
 
-    public void changeConfig(String wSUrl, String fsnetUrl, String login, String password, LANG lANG, int language) {
-        model.changeConfig(wSUrl, fsnetUrl, login, password, lANG, language);
+    /**
+     * Change the configuration of the application.
+     * @param wsurl
+     * @param fsnetUrl
+     * @param login
+     * @param password
+     * @param lang
+     * @param lag
+     */
+    public void changeConfig(String wsurl, String fsnetUrl, String login, String password, LANG lang, int lag) {
+        model.changeConfig(wsurl, fsnetUrl, login, password, lang, lag);
     }
 
+    /**
+     * Ping the webservice to check if there are news.
+     */
     public void checkWS() {
         model.checkWS();
     }
