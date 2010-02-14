@@ -1,5 +1,17 @@
 = ChangeLog of FSNet =
 
+== fsnet-0.1.0 ==
+
+ * Change of version numbering (Issue 40)
+ * Community creation
+ * Interests can have a parent interest and children interests
+ * all interaction can now be attached to interests
+ * Hubs are now attached to a community
+ * private messaging is now accessible
+ * you can subscribe to an event
+ * some bug fixes
+
+
 == fsnet-d4 ==
 
  * Some UI improvements
