@@ -40,7 +40,7 @@
 			    <arg0 key="error.updateProfile.job"/>
 			    <var>
 			        <var-name>mask</var-name>
-			        <var-value>^[a-zA-Z]+([\-\' ][a-zA-Z]+)*$</var-value>
+			        <var-value>^[\w]+([\-\' ][\w]+)*$</var-value>
 			    </var>
             </field>  
             <field property="phone" depends="mask">

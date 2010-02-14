@@ -11,7 +11,7 @@
 			    <arg0 key="error.updateProfile.name"/>
 			    <var>
 			        <var-name>mask</var-name>
-			        <var-value>^[a-zA-Z]+([\-\' ][a-zA-Z]+)*$</var-value>
+			        <var-value>^[\w]+([\-\' ][\w]+)*$</var-value>
 			    </var>
             </field>
              <field property="firstName" depends="required,mask">
@@ -21,7 +21,7 @@
 			    <arg0 key="error.updateProfile.firstname"/>
 			    <var>
 			        <var-name>mask</var-name>
-			        <var-value>^[a-zA-Z]+([\-\' ][a-zA-Z]+)*$</var-value>
+			        <var-value>^[\w]+([\-\' ][\w]+)*$</var-value>
 			    </var>
             </field>    
             <field property="adresse" depends="">
@@ -43,7 +43,7 @@
 			    <arg0 key="error.updateProfile.job"/>
 			    <var>
 			        <var-name>mask</var-name>
-			        <var-value>^[a-zA-Z]+([\-\' ][a-zA-Z]+)*$</var-value>
+			        <var-value>^[\w]+([\-\' ][\w]+)*$</var-value>
 			    </var>
             </field>  
             <field property="phone" depends="mask">
