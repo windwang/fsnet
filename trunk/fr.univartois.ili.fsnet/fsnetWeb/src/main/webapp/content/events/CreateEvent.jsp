@@ -60,8 +60,7 @@
             </td>
             <td>
                 <html:text  property="eventDate" 
-                			styleId="eventDate" 
-                			readonly="true" 
+                			styleId="eventDate"  
                 			errorStyleClass="error"/>
 
                 <html:submit styleClass="button">
