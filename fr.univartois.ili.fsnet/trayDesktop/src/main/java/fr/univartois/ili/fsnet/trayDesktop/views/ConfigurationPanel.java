@@ -6,6 +6,9 @@ import com.jgoodies.forms.layout.FormLayout;
 import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
@@ -29,9 +32,10 @@ public class ConfigurationPanel {
     private JTextField fsneturl;
     private JComboBox language;
     private JSpinner lag;
+    private final KeyListener al;
 
-    public ConfigurationPanel() {
-
+    public ConfigurationPanel(KeyListener al) {
+        this.al = al;
         createFields();
         FormLayout layout = new FormLayout("right:max(40dlu;p), 4dlu, 90dlu",
                 "p, 4dlu, p, 2dlu, p, 2dlu, p, 4dlu, p, 2dlu, p, 2dlu, p, 4dlu, p, 2dlu, p, p");
@@ -70,9 +74,13 @@ public class ConfigurationPanel {
 
     private void createFields() {
         login = new JTextField(Options.getLogin());
+        login.addKeyListener(al);
         password = new JPasswordField(Options.getPassword());
+        password.addKeyListener(al);
         url = new JTextField(Options.getWSUrl());
+        url.addKeyListener(al);
         fsneturl = new JTextField(Options.getFsnetUrl());
+        fsneturl.addKeyListener(al);
         language = new JComboBox(LANG.values());
         language.setSelectedItem(Options.getLanguage());
         SpinnerModel model = new SpinnerNumberModel(Options.getLag(), 1, 120, 1);

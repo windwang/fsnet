@@ -4,11 +4,10 @@ import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
 import fr.univartois.ili.fsnet.trayDesktop.views.ConfigurationFrame;
 import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
-import fr.univartois.ili.fsnet.webservice.InfoService;
+import fr.univartois.ili.fsnet.trayDesktop.model.WSConnector;
 import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -17,7 +16,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import javax.xml.namespace.QName;
 
 /**
  * The class TrayLauncher creates an instance of the web service and an instance
@@ -29,11 +27,21 @@ public class TrayLauncher {
 
     private static ResourceBundle trayi18n;
     private static Logger logger = Logger.getLogger(TrayLauncher.class.getName());
-    private static FSNetTray c;
+    private static FSNetTray tray;
+    private static WSConnector connector;
+    private static WSControl control;
+    private static ConfigurationFrame confFrame;
 
     public static void showConfigFrame() {
-        // TODO creer le model etc
-        new ConfigurationFrame(new WSControl(null));
+        confFrame = new ConfigurationFrame(control);
+        connector.addListener(confFrame);
+        confFrame.show();
+    }
+
+    public static final void configurationValidated() {
+        connector.removeListener(confFrame);
+        confFrame = null;
+        reload();
     }
 
     private TrayLauncher() {
@@ -48,8 +56,53 @@ public class TrayLauncher {
             } catch (Exception e) {
                 logger.log(Level.INFO, "Unable to change L&F");
             }
+            Options.loadOptions();
+            connector = new WSConnector();
+            control = new WSControl(connector);
             reload();
         }
+    }
+
+    /**
+     * Load or reaload the tray
+     */
+    public static final void reload() {
+        if (tray != null) {
+            connector.removeListener(tray);
+            SystemTray.getSystemTray().remove(tray.getTrayIcon());
+        }
+
+        SwingUtilities.invokeLater(new Runnable() {
+
+            @Override
+            public void run() {
+
+
+                trayi18n = ResourceBundle.getBundle("ressources/Trayi18n", Options.getLocale());
+                if (!Options.isConfigured()) {
+                    showConfigFrame();
+                } else {
+                    ImageIcon icon = getImageIcon("/ressources/iconefsnet.png");
+                    if (icon != null) {
+                        try {
+                            tray = new FSNetTray(icon.getImage(), control);
+                            connector.addListener(tray);
+                            SystemTray.getSystemTray().add(tray.getTrayIcon());
+                        } catch (AWTException ex) {
+                            logger.log(Level.SEVERE, null, ex);
+                        }
+                    }
+                }
+            }
+        });
+    }
+
+    /**
+     *
+     * @return the i18n bundle
+     */
+    public static final ResourceBundle getBundle() {
+        return trayi18n;
     }
 
     /**
@@ -65,43 +118,5 @@ public class TrayLauncher {
         } else {
             return new ImageIcon(imageURL);
         }
-    }
-
-    /**
-     * Load or reaload the tray
-     */
-    public static final void reload() {
-        if (c != null) {
-            //c.stopNotifications();
-            SystemTray.getSystemTray().remove(c.getTrayIcon());
-        }
-        SwingUtilities.invokeLater(new Runnable() {
-
-            @Override
-            public void run() {
-                Options.loadOptions();
-
-                trayi18n = ResourceBundle.getBundle("ressources/Trayi18n", Options.getLocale());
-                ImageIcon icon = getImageIcon("/ressources/iconefsnet.png");
-                if (icon != null) {
-                    try {
-                        try {
-                            InfoService infoService = new InfoService(new URL(Options.getWSUrl()), new QName("http://webservice.fsnet.ili.univartois.fr/", "InfoService"));
-                            c = new FSNetTray(icon.getImage(), infoService.getInfoPort());
-                            SystemTray.getSystemTray().add(c.getTrayIcon());
-                            //c.startNotifications(Options.getLag());
-                        } catch (MalformedURLException ex) {
-                            //new ConfigurationFrame().show();
-                        }
-                    } catch (AWTException ex) {
-                        logger.log(Level.SEVERE, null, ex);
-                    }
-                }
-            }
-        });
-    }
-
-    public static final ResourceBundle getBundle() {
-        return trayi18n;
     }
 }
