@@ -27,6 +27,7 @@
 	<c:if test="${requestScope.interestSearchPaginator.hasPreviousPage}">
 		<html:link styleClass="button" action="/SearchInterest">
 			<html:param name="pageId" value="${requestScope.interestSearchPaginator.previousPage}"/>
+			<html:param name="tileId" value="search"/>
 		 	<html:param name="requestInput" value="${requestScope.interestSearchPaginator.requestInput}"/>
 			<bean:message key="interests.12"/>
 		</html:link>
@@ -35,6 +36,7 @@
 		<c:forEach var="page" begin="0" end="${requestScope.interestSearchPaginator.numPages-1}">
 			<html:link styleClass="button" action="/SearchInterest">
 				<html:param name="pageId" value="${page}"/>
+			 	<html:param name="tileId" value="search"/>
 			 	<html:param name="requestInput" value="${requestScope.interestSearchPaginator.requestInput}"/>
 				<c:choose>
 					<c:when test="${page == requestScope.interestSearchPaginator.requestedPage}">
@@ -50,6 +52,7 @@
 	<c:if test="${requestScope.interestSearchPaginator.hasNextPage}">
 		<html:link styleClass="button" action="/SearchInterest">
 			<html:param name="pageId" value="${requestScope.interestSearchPaginator.nextPage}"/>
+		 	<html:param name="tileId" value="search"/>
 		 	<html:param name="requestInput" value="${requestScope.interestSearchPaginator.requestInput}"/>
 			<bean:message key="interests.13"/>
 		</html:link>
