@@ -9,6 +9,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
 <h3>
@@ -52,7 +53,7 @@
                 </html:link>
             </td>
             <td  class="tableButton">
-                ${event.content}
+                <ili:substring beginIndex="0" endIndex="30"><ili:noxml>${event.content}</ili:noxml></ili:substring>
             </td>
         </tr>
     </c:forEach>
