@@ -90,14 +90,14 @@ label {
 input[type=text], input[type=password], textarea {
     border: 1px solid #808080;
 } 
-#CreateEvent {margin-left: 50px; width: 80%;}
+#CreateEvent {width: 80%;}
 #CreateEvent label {width:100px; display:block;	float:left;}
 #CreateEvent #eventName {width: 100%;}
 #CreateEvent #eventDescription { width: 100%;}
 #CreateEvent #eventDate {width: 25%; color: black; margin-right: 8px;}
 #CreateEvent input[type=submit] {float: right;}
 
-#CreateAnnounce {margin-left: 50px; width: 80%;}
+#CreateAnnounce {width: 80%;}
 #CreateAnnounce label {width:100px; display:block;	float:left;}
 #CreateAnnounce #announceTitle {width: 100%;}
 #CreateAnnounce #announceContent { width: 100%;}
