@@ -10,7 +10,7 @@
 				<msg name="mask" key="topics.error.mask" />
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w(]+([()\-\' ][\w()]+)*$</var-value>
+					<var-value>^[\w()\-\', ]+$</var-value>
 				</var>
 			</field>
 			<field property="messageDescription" depends="required">
