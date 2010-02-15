@@ -3,7 +3,9 @@ package fr.univartois.ili.fsnet.actions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -101,9 +103,14 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
         if (form == null) {
+        	Map<PrivateMessage, String> bodies = new HashMap<PrivateMessage, String>();
             List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(authenticatedUser.getReceivedPrivateMessages());
+            for (PrivateMessage privateMessage : userMessages) {
+            	bodies.put(privateMessage, privateMessage.getBody().replaceAll("<.*?>", ""));
+            }
             Collections.reverse(userMessages);
             request.setAttribute("messages", userMessages);
+            request.setAttribute("bodies", bodies);
 
         } else {
             // TODO

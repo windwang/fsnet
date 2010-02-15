@@ -32,7 +32,7 @@
                     <html:link action="/DisplayMessage">
                         <html:param name="messageId" value="${message.id}"/>
                         <span>${fn:substring(message.subject, 0,20)} : </span>
-                        <span style="color: gray">${fn:escapeXml(fn:substring(message.body, 0, 20))}</span>
+                        <span style="color: gray">${fn:substring(bodies[message], 0, 20)}</span>
                     </html:link>
                 </td>
             </c:if>
@@ -52,7 +52,7 @@
                     <html:link action="/DisplayMessage">
                         <html:param name="messageId" value="${message.id}"/>
                         <span>${fn:substring(message.subject, 0,20)} : </span>
-                        <span style="color: gray">${fn:escapeXml(fn:substring(message.body, 0, 20))}</span>
+                        <span style="color: gray">${fn:substring(bodies[message], 0, 20)}</span>
                     </html:link>
                 </td>
             </c:if>
