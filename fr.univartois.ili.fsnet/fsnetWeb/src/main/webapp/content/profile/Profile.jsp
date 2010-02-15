@@ -87,7 +87,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" readonly="true" styleId="dateOfBirth" property="dateOfBirth"  />
+                <html:text errorStyleClass="error" styleId="dateOfBirth" property="dateOfBirth"  />
             </td>
         </tr>
         <logic:messagesPresent property="dateOfBirth">
