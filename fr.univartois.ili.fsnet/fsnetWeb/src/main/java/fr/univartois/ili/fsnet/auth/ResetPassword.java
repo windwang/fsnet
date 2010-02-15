@@ -3,8 +3,6 @@ package fr.univartois.ili.fsnet.auth;
 import java.io.IOException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,15 +12,13 @@ import javax.servlet.http.HttpServletResponse;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
 import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 public class ResetPassword extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-
-	private static final EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 
 	public void resetPassword(SocialEntity se) {
 		String generatedPassword = Encryption.generateRandomPassword();
@@ -51,7 +47,7 @@ public class ResetPassword extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		String memberMail = req.getParameter("memberMail");
-		EntityManager em = emf.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade facade = new SocialEntityFacade(em);
 		if ((memberMail != null) && (!memberMail.isEmpty())) {
 			em.getTransaction().begin();

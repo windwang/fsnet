@@ -3,8 +3,6 @@ package fr.univartois.ili.fsnet.auth;
 import java.io.IOException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -12,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.commons.security.Encryption;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
@@ -35,8 +34,6 @@ public class Authenticate extends HttpServlet {
 	 * Authenticated user key in session scope
 	 */
 	public static final String AUTHENTICATED_USER = "user";
-	public static final EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 
 	/**
 	 * This method is called when an user user tries to sign in
@@ -49,7 +46,7 @@ public class Authenticate extends HttpServlet {
 		String memberPass = req.getParameter("memberPass");
 
 		if (memberMail != null && memberPass != null) {
-			EntityManager em = emf.createEntityManager();
+			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 				SocialEntity es = socialEntityFacade.findByEmail(memberMail);
 				if (es != null
