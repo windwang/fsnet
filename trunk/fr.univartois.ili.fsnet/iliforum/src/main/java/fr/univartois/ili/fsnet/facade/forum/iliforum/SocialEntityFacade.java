@@ -1,12 +1,12 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
-import fr.univartois.ili.fsnet.commons.security.Encryption;
 import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
