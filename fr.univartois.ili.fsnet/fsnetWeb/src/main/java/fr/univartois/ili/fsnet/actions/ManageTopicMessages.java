@@ -127,7 +127,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
             TopicMessage message = topicMessageFacade.getTopicMessage(Integer.parseInt(messageId));
             request.setAttribute("message", message);
         }
-
+        em.close();
         return mapping.findForward("success");
     }
 }

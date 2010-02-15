@@ -163,6 +163,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         InterestFacade fac = new InterestFacade(em);
         List<Interest> listInterests = fac.getInterests();
         request.setAttribute("Interests", listInterests);
+        em.close();
         return mapping.findForward("success");
     }
     
