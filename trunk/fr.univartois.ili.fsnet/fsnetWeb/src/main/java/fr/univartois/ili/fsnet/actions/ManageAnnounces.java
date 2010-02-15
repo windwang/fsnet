@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,6 +22,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -38,7 +37,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 public class ManageAnnounces extends MappingDispatchAction implements
         CrudAction {
 
-    private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
     /**
      * @return to announces view after persisting new announce
@@ -47,7 +45,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
     public ActionForward create(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        EntityManager entityManager = factory.createEntityManager();
+        EntityManager entityManager = PersistenceProvider.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request,
                 entityManager);
 
@@ -96,7 +94,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
     public ActionForward modify(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        EntityManager entityManager = factory.createEntityManager();
+        EntityManager entityManager = PersistenceProvider.createEntityManager();
         DynaActionForm formAnnounce = (DynaActionForm) form;// NOSONAR
         String title = (String) formAnnounce.get("announceTitle");
         String content = (String) formAnnounce.get("announceContent");
@@ -137,7 +135,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
     public ActionForward delete(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        EntityManager entityManager = factory.createEntityManager();
+        EntityManager entityManager = PersistenceProvider.createEntityManager();
         entityManager.getTransaction().begin();
         AnnouncementFacade announcementFacade = new AnnouncementFacade(entityManager);
         Integer idAnnounce = Integer.valueOf(request.getParameter("idAnnounce"));
@@ -161,7 +159,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
             throws IOException, ServletException {
         DynaActionForm seaarchForm = (DynaActionForm) form;// NOSONAR
         String textSearchAnnounce = (String) seaarchForm.get("textSearchAnnounce");
-        EntityManager entityManager = factory.createEntityManager();
+        EntityManager entityManager = PersistenceProvider.createEntityManager();
         entityManager.getTransaction().begin();
         AnnouncementFacade announcementFacade = new AnnouncementFacade(entityManager);
 
@@ -182,7 +180,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
     public ActionForward display(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        EntityManager entityManager = factory.createEntityManager();
+        EntityManager entityManager = PersistenceProvider.createEntityManager();
         entityManager.getTransaction().begin();
         SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request,
                 entityManager);
