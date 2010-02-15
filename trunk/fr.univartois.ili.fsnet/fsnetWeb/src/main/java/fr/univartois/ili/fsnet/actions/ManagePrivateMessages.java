@@ -103,15 +103,9 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
         if (form == null) {
-        	Map<PrivateMessage, String> bodies = new HashMap<PrivateMessage, String>();
             List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(authenticatedUser.getReceivedPrivateMessages());
-            for (PrivateMessage privateMessage : userMessages) {
-            	bodies.put(privateMessage, privateMessage.getBody().replaceAll("<.*?>", ""));
-            }
             Collections.reverse(userMessages);
             request.setAttribute("messages", userMessages);
-            request.setAttribute("bodies", bodies);
-
         } else {
             // TODO
         }
