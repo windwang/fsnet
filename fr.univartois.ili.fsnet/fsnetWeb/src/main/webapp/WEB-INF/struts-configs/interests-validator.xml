@@ -18,6 +18,11 @@
                 <arg key="error.interest.search" />
             </field>
             <field property="pageId" depends="integer"/>
+            <field property="tileId" depends=""/>
+        </form>
+        <form name="/DisplayInterests">
+            <field property="pageId" depends="integer"/>
+            <field property="tileId" depends=""/>
         </form>
         <form name="/CreateInterest">
             <field property="createdInterestName" depends="required,mask">

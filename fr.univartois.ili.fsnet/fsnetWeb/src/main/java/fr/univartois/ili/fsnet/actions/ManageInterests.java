@@ -162,7 +162,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		List<Interest> results = facade.searchInterest(interestName);
 		em.close();
 		
-		Paginator<Interest> paginator = new Paginator<Interest>(results, request);
+		Paginator<Interest> paginator = new Paginator<Interest>(results, request, "search");
 
 		request.setAttribute("interestSearchPaginator", paginator);
 
@@ -197,7 +197,7 @@ public class ManageInterests extends MappingDispatchAction implements
 			}
 		}
 
-		Paginator<Interest> paginator = new Paginator<Interest>(user.getInterests(), request);
+		Paginator<Interest> paginator = new Paginator<Interest>(user.getInterests(), request, "display");
 		
 		request.setAttribute("allInterests", listAllInterests);
 		request.setAttribute("myInterestPaginator", paginator);
