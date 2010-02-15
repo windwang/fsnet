@@ -22,6 +22,7 @@ import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.ContactFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
@@ -37,7 +38,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public static final String WATCHED_PROFILE_VARIABLE = "watchedProfile";
 	public static final String EDITABLE_PROFILE_VARIABLE = "edit";
 
-	
+
 	private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 	/**
@@ -82,7 +83,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;		//NOSONAR
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		Date birthday = null;
 		try {
 			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
@@ -122,7 +123,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		DynaActionForm dina = (DynaActionForm) form;			//NOSONAR
+		DynaActionForm dina = (DynaActionForm) form; // NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		request.setAttribute("currentUser", user);
 		dina.set("name", user.getName());
@@ -148,20 +149,31 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		DynaActionForm dyna = (DynaActionForm) form;		// NOSONAR 
-	    int id = -1;
+		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
+		Boolean alreadyInContact = false;
+
+		int id = -1;
 		try {
 			String idS = dyna.getString("id");
-			id = Integer.parseInt(idS);			
+			id = Integer.parseInt(idS);
 		} catch (NumberFormatException e) {
 			id = user.getId();
-		} 
+		}
 		SocialEntity profile = sef.getSocialEntity(id);
+		if (user.getContacts().contains(profile)
+				|| user.getAsked().contains(profile)
+				|| user.getRequested().contains(profile)
+				|| user.getRefused().contains(profile)) {
+			alreadyInContact = true;
+		}
+		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		request.setAttribute(EDITABLE_PROFILE_VARIABLE, profile.equals(user));
-		if(profile.getBirthDate()!=null)
-			request.setAttribute("birthDay", formatter.format(profile.getBirthDate()));
+		if (profile.getBirthDate() != null)
+			request.setAttribute("birthDay", formatter.format(profile
+					.getBirthDate()));
 		em.close();
-		return mapping.findForward("success");		
+		request.setAttribute("currentUser", user);
+		return mapping.findForward("success");
 	}
 }
