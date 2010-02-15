@@ -103,6 +103,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 						.getString("job")), dynaForm.getString("mail"),
 				dynaForm.getString("phone"));
 		em.getTransaction().commit();
+		em.close();
 		return mapping.findForward("success");
 	}
 
@@ -139,6 +140,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		dina.set("job", user.getProfession());
 		dina.set("mail", user.getEmail());
 		dina.set("phone", user.getPhone());
+		em.close();
 		return mapping.findForward("success");
 	}
 

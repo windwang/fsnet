@@ -111,6 +111,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         } else {
             // TODO
         }
+        em.close();
         return mapping.findForward("success");
     }
 
@@ -125,6 +126,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         } else {
             // TODO
         }
+        em.close();
         return mapping.findForward("success");
     }
 

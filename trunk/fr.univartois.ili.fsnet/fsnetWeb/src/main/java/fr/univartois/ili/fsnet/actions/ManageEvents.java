@@ -116,6 +116,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		interactionRole.setRole(InteractionRole.RoleName.SUBSCRIBER);
 		em.persist(interactionRole);
 		em.getTransaction().commit();
+		em.close();
 		return mapping.findForward("success");
 	}
 

@@ -74,6 +74,7 @@ public class ManageFavorites extends MappingDispatchAction {
         } else {
             request.setAttribute("isFavorite", "false");
         }
+        em.close();
         request.setAttribute("interactionId", interaction.getId());
         return mapping.findForward("success");
     }
