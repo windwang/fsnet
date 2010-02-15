@@ -63,7 +63,7 @@ public class SocialEntity implements Serializable {
     /**
      * The date of social entity's last connection
      */
-    @Temporal(TemporalType.DATE)
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastConnection;
     /**
      * The social entity sexe
