@@ -16,7 +16,7 @@ public class Paginator<T> {
 	 * The name of the parameter in the request to set the number of results
 	 */
 	public static final String NUM_RESULT_PER_PAGES = "numResults";
-	
+
 	/**
 	 * The name of the parameter in the request to save the request input
 	 * 
@@ -25,10 +25,22 @@ public class Paginator<T> {
 	public static final String REQUEST_INPUT = "requestInput";
 
 	/**
+	 * The identifier of the current tile
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public static final String TILE_ID = "tileId";
+
+	/**
 	 * The default number of results if The user or developer has not set this
 	 * parameter
 	 */
 	public static final int DEFAULT_NUM_RESULT_PER_PAGE = 15;
+
+	/**
+	 * The default id for tile identifier
+	 */
+	public static final String DEFAULT_TILE_ID = "default";
 
 	/**
 	 * The requested page id
@@ -36,7 +48,14 @@ public class Paginator<T> {
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
 	private String requestInput;
-	
+
+	/**
+	 * The tile identifier
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	private String identifier = "default";
+
 	/**
 	 * The requested page id
 	 */
@@ -107,13 +126,53 @@ public class Paginator<T> {
 	}
 
 	/**
+	 * This constructor allow developper to set the number of results, AND this
+	 * parameter is higher priority to HTTP parameter
+	 * 
+	 * @param results
+	 *            All results from a query from example
+	 * @param requestThe
+	 *            HTTPRequest that contains the proper parameters
+	 * @param numResultsPerPage
+	 *            the number of results per page
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public Paginator(List<T> results, HttpServletRequest request,
+			int numResultsPerPage, String identifier) {
+		this.allResults = results;
+		this.identifier = identifier;
+		parseRequest(request);
+		this.numResultsPerPage = numResultsPerPage;
+		init();
+	}
+
+	/**
+	 * Default constructor that allow user to set the number of result by
+	 * including the proper parameter in his request
+	 * 
+	 * @param results
+	 * @param request
+	 * @throws IllegalArgumentException
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public Paginator(List<T> results, HttpServletRequest request,
+			String identifier) throws IllegalArgumentException {
+		this.allResults = results;
+		this.identifier = identifier;
+		parseRequest(request);
+		init();
+	}
+
+	/**
 	 * Init the properties about this paginator
 	 */
 	private void init() {
 		numPages = (int) Math.ceil(allResults.size()
 				/ ((double) numResultsPerPage));
 		hasPreviousPage = (requestedPage != 0);
-		hasNextPage = (requestedPage < numPages-1);
+		hasNextPage = (requestedPage < numPages - 1);
 		if (requestedPage < numPages) {
 			int toIndex = requestedPage * numResultsPerPage + numResultsPerPage;
 			if (toIndex > allResults.size()) {
@@ -128,31 +187,38 @@ public class Paginator<T> {
 
 	/**
 	 * Parse the parameters from the request
+	 * 
 	 * @param request
 	 * @throws IllegalArgumentException
 	 */
 	private void parseRequest(HttpServletRequest request)
 			throws IllegalArgumentException {
-		if (request.getParameterMap().containsKey(PAGE_ID)) {
-			requestedPage = parseParameter(PAGE_ID, request);
-			if (requestedPage < 0) {
-				throw new IllegalArgumentException();
+		if (!request.getParameterMap().containsKey(TILE_ID)
+				|| ((String) request.getParameter(TILE_ID)).equals(identifier)
+				|| ((String) request.getParameter(TILE_ID))
+						.equals(DEFAULT_TILE_ID)) {
+			if (request.getParameterMap().containsKey(PAGE_ID)) {
+				requestedPage = parseParameter(PAGE_ID, request);
+				if (requestedPage < 0) {
+					throw new IllegalArgumentException();
+				}
+			} else {
+				requestedPage = 0;
 			}
-		} else {
-			requestedPage = 0;
-		}
-		if (request.getParameterMap().containsKey(NUM_RESULT_PER_PAGES)) {
-			numResultsPerPage = parseParameter(NUM_RESULT_PER_PAGES, request);
-			if (numResultsPerPage < 0) {
+			if (request.getParameterMap().containsKey(NUM_RESULT_PER_PAGES)) {
+				numResultsPerPage = parseParameter(NUM_RESULT_PER_PAGES,
+						request);
+				if (numResultsPerPage < 0) {
+					this.numResultsPerPage = DEFAULT_NUM_RESULT_PER_PAGE;
+				}
+			} else {
 				this.numResultsPerPage = DEFAULT_NUM_RESULT_PER_PAGE;
 			}
-		} else {
-			this.numResultsPerPage = DEFAULT_NUM_RESULT_PER_PAGE;
-		}
-		if (request.getParameterMap().containsKey(REQUEST_INPUT)) {
-			requestInput = (String) request.getParameter(REQUEST_INPUT);
-		} else {
-			requestInput = "";
+			if (request.getParameterMap().containsKey(REQUEST_INPUT)) {
+				requestInput = (String) request.getParameter(REQUEST_INPUT);
+			} else {
+				requestInput = "";
+			}
 		}
 	}
 
@@ -170,6 +236,7 @@ public class Paginator<T> {
 
 	/**
 	 * Return the splited result list
+	 * 
 	 * @return
 	 */
 	public List<T> getResultList() {
@@ -204,7 +271,7 @@ public class Paginator<T> {
 	public boolean getHasNextPage() {
 		return hasNextPage;
 	}
-	
+
 	/**
 	 * 
 	 * @return the next page if possible or the current one
@@ -225,7 +292,7 @@ public class Paginator<T> {
 	public boolean getHasPreviousPage() {
 		return hasPreviousPage;
 	}
-	
+
 	/**
 	 * 
 	 * @return the previous page if possible or the current one
@@ -239,7 +306,7 @@ public class Paginator<T> {
 		}
 		return previousPage;
 	}
-	
+
 	/**
 	 * 
 	 * @return the request input
