@@ -221,6 +221,10 @@ public class Paginator<T> {
 			} else {
 				requestInput = "";
 			}
+		} else {
+			requestedPage = 0;
+			this.numResultsPerPage = DEFAULT_NUM_RESULT_PER_PAGE;
+			requestInput = "";
 		}
 	}
 
