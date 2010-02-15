@@ -5,11 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +19,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.entities.Community;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Message;
@@ -41,14 +38,11 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicMessageFacade;
  */
 public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
-	private static EntityManagerFactory factory = Persistence
-	.createEntityManagerFactory("fsnetjpa");
-
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String topicSujet = (String) dynaForm.get("topicSubject"); 
@@ -95,7 +89,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
 		int topicId = Integer.valueOf((String) dynaForm.get("topicId"));
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 
 		HubFacade hubFacade = new HubFacade(em);
@@ -115,7 +109,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String topicSujet = (String) dynaForm.get("topicSujetSearch");
 		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
@@ -147,13 +141,10 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 	throws IOException, ServletException {
 		//TODO Use DynaForm to get topicId
 		int topicId = Integer.valueOf(request.getParameter("topicId"));
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic result = topicFacade.getTopic(topicId);
-		Logger.getAnonymousLogger().info(
-				"#############  topic messages = "
-				+ result.getMessages().size());
 		request.setAttribute("topic", result);
 
 		em.close();
@@ -164,7 +155,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String pattern = (String) dynaForm.get("searchText");
 		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
