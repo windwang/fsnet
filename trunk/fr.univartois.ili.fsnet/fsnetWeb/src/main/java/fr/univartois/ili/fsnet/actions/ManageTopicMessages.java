@@ -1,14 +1,11 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -20,6 +17,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
@@ -32,13 +30,12 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicMessageFacade;
  */
 public class ManageTopicMessages extends MappingDispatchAction implements CrudAction {
 
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
     private static final Logger logger = Logger.getAnonymousLogger();
 
     @Override
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         logger.info("create Message: ");
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         em.getTransaction().begin();
         DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String messageDescription = (String) dynaForm.get("messageDescription");
@@ -60,7 +57,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
     public ActionForward modify(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
         logger.info("modify Message ");
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String messageDescription = (String) dynaForm.get("messageDescription");
         int messageId = Integer.valueOf(Integer.parseInt(dynaForm.getString("messageId")));
@@ -81,7 +78,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
     @Override
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         em.getTransaction().begin();
         int topicId = Integer.valueOf(request.getParameter("topicId"));
         TopicFacade topicFacade = new TopicFacade(em);
@@ -109,7 +106,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
     	logger.info("display Message: ");
        
         request.setAttribute("topicId", topicId);
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         Topic currentTopic= em.find(Topic.class,Integer.valueOf(topicId));
         List<TopicMessage> messages = currentTopic.getMessages(); 
         List<TopicMessage> lastMessages;
