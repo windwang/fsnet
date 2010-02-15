@@ -1,11 +1,10 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,14 +16,12 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade.SearchResult;
-import java.util.HashMap;
 
 public class ManageMembers extends MappingDispatchAction {
-
-	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
 	/**
 	 *
@@ -39,7 +36,7 @@ public class ManageMembers extends MappingDispatchAction {
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
                 em.getTransaction().begin();
 		List<SocialEntity> resultOthers = null;
 		List<SocialEntity> resultContacts = null;

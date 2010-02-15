@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +19,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Interest;
@@ -38,7 +37,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
  */
 public class ManageHub extends MappingDispatchAction implements CrudAction {
 
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
     private static final Logger logger = Logger.getAnonymousLogger();
     
 	@Override
@@ -49,7 +47,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String hubName = (String) dynaForm.get("hubName");
 		String communityId = (String) dynaForm.get("communityId");
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		Community community = em.find(Community.class, Integer.parseInt(communityId));
 	
 		
@@ -93,7 +91,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
         logger.info("delete hub: " + hubId);
 
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         HubFacade hubFacade = new HubFacade(em);
         em.getTransaction().begin();
         hubFacade.delete(Integer.parseInt(hubId));
@@ -116,7 +114,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 				hubName = "";
 			} 
 			logger.info("search hub: " + hubName);
-			EntityManager em = factory.createEntityManager();
+			EntityManager em = PersistenceProvider.createEntityManager();
 			Community community = em.find(Community.class, Integer.parseInt(communityId));
 			HubFacade hubFacade = new HubFacade(em);
 			em.getTransaction().begin();
@@ -136,7 +134,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
         String hubId = (String) dynaForm.get("hubId");
         logger.info("display hub: " + hubId);
         Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         em.getTransaction().begin();
         HubFacade hubFacade = new HubFacade(em);
         Hub result = hubFacade.getHub(Integer.parseInt(hubId));
@@ -159,7 +157,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
     public ActionForward getAllInterest(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         InterestFacade fac = new InterestFacade(em);
         List<Interest> listInterests = fac.getInterests();
         request.setAttribute("Interests", listInterests);
@@ -181,7 +179,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 			
 			logger.info("search hub: " + pattern);
 			
-			EntityManager em = factory.createEntityManager();
+			EntityManager em = PersistenceProvider.createEntityManager();
 			Community community = em.find(Community.class, Integer.parseInt(communityId));
 			SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 			

@@ -6,8 +6,6 @@ import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +19,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.PrivateMessageFacade;
@@ -32,8 +31,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
  */
 public class ManagePrivateMessages extends MappingDispatchAction implements CrudAction {
 
-    private static final EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-
     @Override
     public ActionForward create(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -41,7 +38,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         String subject = dynaForm.getString("messageSubject");
         String body = dynaForm.getString("messageBody");
 
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         em.getTransaction().begin();
         SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
         SocialEntityFacade sef = new SocialEntityFacade(em);
@@ -70,7 +67,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
 
     @Override
     public ActionForward delete(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         try {
             if (form != null) {
                 DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -101,7 +98,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
     }
 
     public ActionForward inbox(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
         if (form == null) {
             List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(authenticatedUser.getReceivedPrivateMessages());
@@ -116,7 +113,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
     }
 
     public ActionForward outbox(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
         if (form == null) {
             List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(authenticatedUser.getSentPrivateMessages());
@@ -138,7 +135,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
     @Override
     public ActionForward display(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         try {
             if (form != null) {
                 DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
