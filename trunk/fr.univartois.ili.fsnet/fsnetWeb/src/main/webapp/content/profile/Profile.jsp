@@ -208,6 +208,11 @@
 </h3>
 
 <html:form action="/ChangePassword">
+	<c:if test="${PasswordChange != null}">
+		<p>
+			<bean:message key="updateProfile.passwd.change"/>
+		</p>
+	</c:if>
     <table align="center">
         <c:forTokens var="typePwd" items="oldPassword:newPassword:confirmNewPassword" delims=":">
             <tr>

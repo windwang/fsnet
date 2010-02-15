@@ -35,6 +35,7 @@ public class ChangePassword extends Action{
         pf.changePassword(user,cpf.getOldPassword() , cpf.getNewPassword());
         em.getTransaction().commit();
         em.close();
+        request.setAttribute("PasswordChange", "ok");
 		return mapping.findForward("success");
 	}
 	
