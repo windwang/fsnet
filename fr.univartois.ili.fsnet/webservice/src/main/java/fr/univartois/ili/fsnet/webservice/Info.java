@@ -1,12 +1,9 @@
 package fr.univartois.ili.fsnet.webservice;
 
-import fr.univartois.ili.fsnet.entities.Message;
-import fr.univartois.ili.fsnet.entities.PrivateMessage;
-import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -15,6 +12,10 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+
+import fr.univartois.ili.fsnet.entities.PrivateMessage;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 /**
  * This webservice is used by fsnet heavy clients to get informations
