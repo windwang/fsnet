@@ -298,8 +298,12 @@ tr.notReed {
 }
 
 .tag {
+    line-height: 250%;
+    display: inline;
     padding : 2px;
+    vertical-align: middle;
     margin-right: 5px;
+    margin-bottom: 5px;
     border: #c1ffbb 2px dashed;
     background-color: #e9ffe7;
 
@@ -312,18 +316,21 @@ tr.notReed {
 }
 
 .otag {
+    line-height: 250%;
+    display: inline;
     padding : 2px;
     vertical-align: middle;
     margin-right: 5px;
+    margin-bottom: 5px;
     border: #7fcaff 2px dashed;
     background-color: #c6e8ff;
-
 }
+
 .otag a {
     color: #4793c9;
 }
 
 .otag img{
     margin-left: 2px;
-
 }
+

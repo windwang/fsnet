@@ -9,18 +9,19 @@
 <c:choose>
     <c:when test="${not empty requestScope.listInterests}">
         <html:javascript formName="/AddInterest"/>
-        <c:forEach var="interest" items="${requestScope.listInterests}">
-            <span class="otag">
-                <html:link action="/AddInterest">
-                    <img src="images/add.png"/>
-                    <html:param name="addedInterestId" value="${interest.id}"/>
-                    ${interest.name}
-                </html:link>
+        <div class="cloud">
+            <c:forEach var="interest" items="${requestScope.listInterests}">
 
-            </span>
+                <span class="otag">
+                    <html:link action="/AddInterest">
+                        <img src="images/add.png"/>
+                        <html:param name="addedInterestId" value="${interest.id}"/>
+                        ${interest.name}
+                    </html:link>
+                </span>
 
-        </c:forEach>
-
+            </c:forEach>
+        </div>
         <html:errors property="addedInterestId"/>
     </c:when>
     <c:otherwise>
