@@ -12,13 +12,11 @@ import org.apache.struts.validator.ValidatorForm;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class ChangePasswordForm extends ValidatorForm {
 
-    /**
-     *
-     */
     private static final long serialVersionUID = -4883204887473399364L;
     private String oldPassword;
     private String newPassword;
@@ -47,12 +45,11 @@ public class ChangePasswordForm extends ValidatorForm {
     public void setConfirmNewPassword(String confirmNewPassword) {
         this.confirmNewPassword = confirmNewPassword;
     }
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
     @Override
     public ActionErrors validate(ActionMapping mapping,
             HttpServletRequest request) {
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         ActionErrors res = super.validate(mapping, request);
         String old = Encryption.getEncodedPassword(oldPassword);
