@@ -1,12 +1,10 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +17,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Interest;
@@ -27,7 +26,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
-import java.util.ArrayList;
 
 /**
  * Execute CRUD Actions (and more) for the entity community
@@ -36,18 +34,14 @@ import java.util.ArrayList;
  */
 public class ManageCommunities extends MappingDispatchAction implements CrudAction {
 
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-    private static final Logger logger = Logger.getAnonymousLogger();
-
     @Override
     public ActionForward create(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
         String name = (String) dynaForm.get("name");
-
-        logger.info("#### New Community : " + name);
-        EntityManager em = factory.createEntityManager();
+        
+        EntityManager em = PersistenceProvider.createEntityManager();
         CommunityFacade communityFacade = new CommunityFacade(em);
         SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
         em.getTransaction().begin();
@@ -75,9 +69,8 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
             throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
         String communityId = (String) dynaForm.get("communityId");
-        logger.info("display community: " + communityId);
-
-        EntityManager em = factory.createEntityManager();
+        
+        EntityManager em = PersistenceProvider.createEntityManager();
         em.getTransaction().begin();
         CommunityFacade communityFacade = new CommunityFacade(em);
         Community result = communityFacade.getCommunity(Integer.parseInt(communityId));
@@ -97,9 +90,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
         DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
         String communityId = (String) dynaForm.get("communityId");
 
-        logger.info("delete community: " + communityId);
-
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         CommunityFacade communityFacade = new CommunityFacade(em);
         em.getTransaction().begin();
         communityFacade.deleteCommunity(Integer.parseInt(communityId));
@@ -121,7 +112,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
     public ActionForward search(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         List<Community> result = null;
         String searchText = "";
         CommunityFacade communityFacade = new CommunityFacade(em);
@@ -144,7 +135,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
     	//TODO use facade
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         List<Community> result = null;
         String pattern = "";
         SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
