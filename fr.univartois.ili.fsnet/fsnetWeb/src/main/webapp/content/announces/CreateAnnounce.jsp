@@ -14,7 +14,9 @@
 
 
 <html:javascript formName="/CreateAnnounce" />
-<h3>Create Announce</h3>
+<h3>
+	<bean:message key="announce.create.title"/>
+</h3>
 <html:form action="/CreateAnnounce">
 	<table id="CreateAnnounce">
 		<tr>
