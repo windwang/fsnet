@@ -1,7 +1,11 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
+import java.util.Date;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -23,6 +27,9 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  */
 public class IsAuthenticatedFilter implements Filter {
 
+	private static final EntityManagerFactory factory = Persistence
+			.createEntityManagerFactory("fsnetjpa");
+
 	private ServletContext servletContext;
 
 	/**
@@ -35,7 +42,7 @@ public class IsAuthenticatedFilter implements Filter {
 		SocialEntity es;
 		RequestDispatcher dispatch;
 
-		session = ((HttpServletRequest) request).getSession();					//NOSONAR
+		session = ((HttpServletRequest) request).getSession(); // NOSONAR
 		es = (SocialEntity) session
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
 
@@ -44,6 +51,13 @@ public class IsAuthenticatedFilter implements Filter {
 					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatch.forward(request, response);
 		} else {
+			EntityManager em = factory.createEntityManager();
+			em.getTransaction().begin();
+			es = em.find(SocialEntity.class, es.getId());
+			es.setLastConnection(new Date());
+			em.merge(es);
+			em.getTransaction().commit();
+			em.close();
 			chain.doFilter(request, response);
 		}
 	}
