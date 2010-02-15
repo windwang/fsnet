@@ -10,7 +10,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <h3><bean:message key="privatemessages.inbox"/></h3>
 <logic:empty name="messages">
     <bean:message key="privatemessages.nomessages"/>
@@ -32,7 +32,9 @@
                     <html:link action="/DisplayMessage">
                         <html:param name="messageId" value="${message.id}"/>
                         <span>${fn:substring(message.subject, 0,20)} : </span>
-                        <span style="color: gray">${fn:substring(bodies[message], 0, 20)}</span>
+                        <span style="color: gray">
+                       		<ili:substring beginIndex="0" endIndex="20"><ili:noxml>${message.body}</ili:noxml></ili:substring>
+                        </span>
                     </html:link>
                 </td>
             </c:if>
@@ -52,7 +54,9 @@
                     <html:link action="/DisplayMessage">
                         <html:param name="messageId" value="${message.id}"/>
                         <span>${fn:substring(message.subject, 0,20)} : </span>
-                        <span style="color: gray">${fn:substring(bodies[message], 0, 20)}</span>
+                        <span style="color: gray">
+                       		<ili:substring beginIndex="0" endIndex="20"><ili:noxml>${message.body}</ili:noxml></ili:substring>
+                        </span>
                     </html:link>
                 </td>
             </c:if>
