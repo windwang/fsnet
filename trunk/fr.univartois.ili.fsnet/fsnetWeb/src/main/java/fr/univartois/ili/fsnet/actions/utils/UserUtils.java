@@ -1,11 +1,10 @@
 package fr.univartois.ili.fsnet.actions.utils;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 
 import fr.univartois.ili.fsnet.auth.Authenticate;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
@@ -17,13 +16,12 @@ public class UserUtils {
 
     private UserUtils() {
     }
-    private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
 
     public static final SocialEntity getAuthenticatedUser(HttpServletRequest req) {
         SocialEntity user = (SocialEntity) req.getSession().getAttribute(
                 Authenticate.AUTHENTICATED_USER);
 
-        EntityManager em = factory.createEntityManager();
+        EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
         user = socialEntityFacade.getSocialEntity(user.getId());
         em.close();

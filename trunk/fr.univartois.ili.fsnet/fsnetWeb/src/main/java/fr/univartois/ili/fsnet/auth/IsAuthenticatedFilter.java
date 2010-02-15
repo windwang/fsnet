@@ -4,8 +4,6 @@ import java.io.IOException;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -17,6 +15,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
@@ -26,9 +25,6 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
 public class IsAuthenticatedFilter implements Filter {
-
-	private static final EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 
 	private ServletContext servletContext;
 
@@ -51,7 +47,7 @@ public class IsAuthenticatedFilter implements Filter {
 					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatch.forward(request, response);
 		} else {
-			EntityManager em = factory.createEntityManager();
+			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
 			es = em.find(SocialEntity.class, es.getId());
 			es.setLastConnection(new Date());
