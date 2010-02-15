@@ -8,8 +8,6 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,6 +23,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -39,8 +38,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 public class ManageInterests extends MappingDispatchAction implements
 		CrudAction {
 
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
 
@@ -48,7 +45,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 		String interestName = (String) dynaForm.get("createdInterestName");
@@ -81,7 +78,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	public ActionForward add(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		int interestId = Integer.valueOf((String) dynaForm
 				.get("addedInterestId"));
@@ -109,7 +106,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	public ActionForward remove(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		int interestId = Integer.valueOf((String) dynaForm
 				.get("removedInterestId"));
@@ -152,7 +149,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 		
@@ -176,7 +173,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InterestFacade facade = new InterestFacade(em);
 
@@ -212,7 +209,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	public ActionForward informations(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 

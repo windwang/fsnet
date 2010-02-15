@@ -3,8 +3,6 @@ package fr.univartois.ili.fsnet.actions;
 import java.io.IOException;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +15,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.ContactFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
@@ -26,9 +25,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
  * @author Grioche Legrand
  */
 public class ManageContacts extends MappingDispatchAction implements CrudAction {
-
-	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("fsnetjpa");
-
 
 	/**
 	 * Submit a request contact to another social entity
@@ -45,7 +41,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		final String idString = (String) dynaForm.get("entitySelected");
@@ -80,7 +76,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		final String idString = (String) dynaForm.get("entityAccepted");
@@ -110,7 +106,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	throws IOException, ServletException {
 
 		DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		final String idString = (String) dynaForm.get("entityRefused");
@@ -143,7 +139,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		final String idString = (String) dynaForm.get("entityDeleted");
@@ -169,7 +165,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 	
 		user.getContacts();

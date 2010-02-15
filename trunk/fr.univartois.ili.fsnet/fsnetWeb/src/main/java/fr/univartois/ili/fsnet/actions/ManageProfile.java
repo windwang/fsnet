@@ -7,8 +7,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +19,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileFacade;
@@ -38,8 +37,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public static final String WATCHED_PROFILE_VARIABLE = "watchedProfile";
 	public static final String EDITABLE_PROFILE_VARIABLE = "edit";
 
-	private static final EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 	
 	private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -84,7 +81,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;		//NOSONAR
 		Date birthday = null;
 		try {
@@ -124,7 +121,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public ActionForward displayToModify(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dina = (DynaActionForm) form;			//NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		request.setAttribute("currentUser", user);
@@ -148,7 +145,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		DynaActionForm dyna = (DynaActionForm) form;		// NOSONAR 
