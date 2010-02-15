@@ -135,6 +135,7 @@ public class Paginator<T> {
 	 *            HTTPRequest that contains the proper parameters
 	 * @param numResultsPerPage
 	 *            the number of results per page
+	 * @param identifier the tile identifier 
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
@@ -153,6 +154,7 @@ public class Paginator<T> {
 	 * 
 	 * @param results
 	 * @param request
+	 * @param identifier the tile identifier
 	 * @throws IllegalArgumentException
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
