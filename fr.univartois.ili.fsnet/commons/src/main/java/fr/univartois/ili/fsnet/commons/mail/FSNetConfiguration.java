@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Property;
 
 public class FSNetConfiguration {
@@ -29,9 +30,6 @@ public class FSNetConfiguration {
 
 	private Properties properties = new Properties();
 
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
-
 	static {
 		instance = new FSNetConfiguration();
 	}
@@ -46,7 +44,7 @@ public class FSNetConfiguration {
 
 	public final void refreshConfiguration() {
 		properties.clear();
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		Property property;
 		property = em.find(Property.class,
 				ENABLE_AUTHENTICATION_KEY);
