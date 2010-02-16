@@ -47,14 +47,6 @@ public class IsAuthenticatedFilter implements Filter {
 					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatch.forward(request, response);
 		} else {
-			EntityManager em = PersistenceProvider.createEntityManager();
-			em.getTransaction().begin();
-			SocialEntity user;
-			user = em.find(SocialEntity.class, userId);
-			user.setLastConnection(new Date());
-			em.merge(user);
-			em.getTransaction().commit();
-			em.close();
 			chain.doFilter(request, response);
 		}
 	}

@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
@@ -9,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -47,9 +49,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
             PrivateMessageFacade pmf = new PrivateMessageFacade(em);
             pmf.sendPrivateMessage(body, authenticatedUser, subject, findByEmail);
             em.getTransaction().commit();
-
             em.close();
-
             return mapping.findForward("success");
         } else {
             ActionErrors errors = new ActionErrors();
@@ -104,9 +104,11 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
             List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(authenticatedUser.getReceivedPrivateMessages());
             Collections.reverse(userMessages);
             request.setAttribute("messages", userMessages);
+            storeNumNewMessages(request, userMessages);
         } else {
             // TODO
         }
+        storeNumNewMessages(request, em);
         em.close();
         return mapping.findForward("success");
     }
@@ -148,10 +150,11 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
                     if (authenticatedUser.equals(privateMessage.getTo())) {
                         em.getTransaction().begin();
                         privateMessage.setReed(true);
+                        storeNumNewMessages(request, em);
                         em.getTransaction().commit();
                     }
-                    em.close();
                     request.setAttribute("theMessage", privateMessage);
+                    em.close();
                     return mapping.findForward("success");
                 } else {
                     // TODO error try to display message but not owner 
@@ -163,4 +166,33 @@ public class ManagePrivateMessages extends MappingDispatchAction implements Crud
         // TODO errors
         return mapping.findForward("fail");
     }
+    
+    private static final int calculateNumNewMessage(Collection<PrivateMessage> messages) {
+    	int numNonReedPrivateMessages = 0;
+		for (PrivateMessage pm : messages) {
+			if (! pm.isReed()) {
+				numNonReedPrivateMessages++;
+			}
+		}
+		return numNonReedPrivateMessages;
+    }
+    
+    private static final void storeNumNewMessages(HttpServletRequest request, Collection<PrivateMessage> messages) {
+    	HttpSession session = request.getSession();
+		int numNonReedPrivateMessages = calculateNumNewMessage(messages);
+		session.setAttribute("numNonReedPrivateMessages", numNonReedPrivateMessages);
+    }
+    
+    /**
+     * Store the number of non reed private messages in the session
+     * @param request
+     * @param em
+     */
+    public static final void storeNumNewMessages(HttpServletRequest request, EntityManager em) {
+		HttpSession session = request.getSession();
+		SocialEntity se = UserUtils.getAuthenticatedUser(request, em);
+		int numNonReedPrivateMessages = calculateNumNewMessage(se.getReceivedPrivateMessages());
+		session.setAttribute("numNonReedPrivateMessages", numNonReedPrivateMessages);
+	}
+    
 }

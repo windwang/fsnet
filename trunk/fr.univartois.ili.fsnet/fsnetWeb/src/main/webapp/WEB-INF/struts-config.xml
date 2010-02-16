@@ -13,6 +13,10 @@
         <action path="/Home"
                 type="org.apache.struts.actions.ForwardAction"
                 parameter="Home"/>
+        <action path="/OnAuthenticationSuccess"
+         		type="fr.univartois.ili.fsnet.actions.OnAuthenticationSuccess">
+         		<forward name="success" path="/Home.do"></forward>
+        </action>
     </action-mappings>
 
     <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>

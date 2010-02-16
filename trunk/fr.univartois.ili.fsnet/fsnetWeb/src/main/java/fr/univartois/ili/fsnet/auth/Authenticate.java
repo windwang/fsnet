@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
+import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -25,7 +26,7 @@ public class Authenticate extends HttpServlet {
 	/**
 	 * Welcome page path when the user is authenticated
 	 */
-	private static final String WELCOME_AUTHENTICATED_PAGE = "Home.do";
+	private static final String WELCOME_AUTHENTICATED_PAGE = "OnAuthenticationSuccess.do";
 	/**
 	 * Welcome page path when the user is NOT authenticated
 	 */
@@ -44,11 +45,11 @@ public class Authenticate extends HttpServlet {
 		boolean authenticated = false;
 		String memberMail = req.getParameter("memberMail");
 		String memberPass = req.getParameter("memberPass");
-
+		EntityManager em = PersistenceProvider.createEntityManager();;
+		SocialEntity es = null;
 		if (memberMail != null && memberPass != null) {
-			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-			SocialEntity es = socialEntityFacade.findByEmail(memberMail);
+			es = socialEntityFacade.findByEmail(memberMail);
 			if (es != null
 					&& Encryption.testPassword(memberPass, es.getPassword())) {
 				authenticated = true;
@@ -57,18 +58,24 @@ public class Authenticate extends HttpServlet {
 			} else {
 				req.setAttribute("loginMessage", "login.error");
 			}
-			em.close();
 		}
 
 		if (authenticated) {
 			// the user is now authenticated
 			resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
+			em.getTransaction().begin();
+			SocialEntity user;
+			user = em.find(SocialEntity.class, es.getId());
+			user.setLastConnection(new Date());
+			em.merge(user);
+			em.getTransaction().commit();
 		} else {
 			// the user is not authenticated
 			RequestDispatcher dispatcher = req
 					.getRequestDispatcher(WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatcher.forward(req, resp);
 		}
+		em.close();
 	}
 
 	/**
