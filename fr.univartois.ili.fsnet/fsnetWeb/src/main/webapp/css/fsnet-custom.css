@@ -303,9 +303,8 @@ tr.notReed {
 
 /* Tags */
 .tag {
-    line-height: 250%;
-    display: inline;
     padding : 2px;
+    float : left;
     vertical-align: middle;
     margin-right: 5px;
     margin-bottom: 5px;
@@ -321,15 +320,16 @@ tr.notReed {
 }
 
 .otag {
-    line-height: 250%;
-    display: inline;
+    /*line-height: 250%;*/
     padding : 2px;
+    float : left;
     vertical-align: middle;
     margin-right: 5px;
     margin-bottom: 5px;
     border: #7fcaff 2px dashed;
     background-color: #c6e8ff;
 }
+
 
 .otag a {
     color: #4793c9;

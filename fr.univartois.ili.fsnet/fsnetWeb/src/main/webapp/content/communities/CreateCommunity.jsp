@@ -7,7 +7,7 @@
 
 
 <h3>
-  <bean:message key="communities.create"/>
+    <bean:message key="communities.create"/>
 </h3>
 
 <html:form action="/CreateCommunity">
@@ -20,18 +20,22 @@
             </td>
             <td>
                 <html:text property="name" styleId="name" errorStyleClass="error"/>
-                <c:import url="/InterestCheckBoxes.do"/>
+
             </td>
         </tr>
-       <tr class="errorMessage">
+        <tr class="errorMessage">
             <td>
                 <html:errors property="name"/>
             </td>
         </tr>
+        <tr>
+            
+            <td colspan="2"><c:import url="/InterestCheckBoxes.do"/></td>
+        </tr>
         <tr>        	
             <td colspan="2">
                 <html:submit styleClass="button">
-                   <bean:message key="communities.validate"/>
+                    <bean:message key="communities.validate"/>
                 </html:submit>
             </td>
         </tr>

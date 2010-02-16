@@ -13,7 +13,7 @@
             <div class="cloud">
                 <c:forEach var="interest" items="${requestScope.myInterestPaginator.resultList}">
 
-                <span class="tag">
+                    <span class="tag">
                         <html:link action="/RemoveInterest">
                             <html:param name="removedInterestId" value="${interest.id}"/>
                             <img src="images/mini-delete.png" />
@@ -23,9 +23,10 @@
                             ${interest.name}
                         </html:link>
 
-                </span>
+                    </span>
                 </c:forEach>
             </div>
+            <div style="clear : both;"/>
         </c:when>
         <c:otherwise>
             <bean:message key="interests.8"/>
@@ -57,7 +58,7 @@
     <c:if test="${requestScope.myInterestPaginator.hasNextPage}">
         <html:link styleClass="button" action="/DisplayInterests">
             <html:param name="pageId" value="${requestScope.myInterestPaginator.nextPage}"/>
-           <html:param name="tileId" value="display"/>
+            <html:param name="tileId" value="display"/>
             <bean:message key="interests.13"/>
         </html:link>
     </c:if>

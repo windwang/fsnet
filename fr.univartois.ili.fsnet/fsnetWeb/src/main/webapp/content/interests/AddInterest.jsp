@@ -11,9 +11,8 @@
 	<c:choose>
 	    <c:when test="${not empty requestScope.addInterestPaginator.resultList}">
 	        <html:javascript formName="/AddInterest"/>
-	        <div class="cloud">
 	            <c:forEach var="interest" items="${requestScope.addInterestPaginator.resultList}">
-	                <span class="otag">
+	                <div class="otag">
 	                    <html:link action="/AddInterest">
 	                        <img src="images/add.png"/>
 	                        <html:param name="addedInterestId" value="${interest.id}"/>
@@ -22,9 +21,9 @@
 	                        <html:param name="infoInterestId" value="${interest.id}"/>
 	                        ${interest.name}
 	                    </html:link>
-	                </span>
+	                </div>
 	            </c:forEach>
-	        </div>
+                    <div style="clear : both;"/>
 	        <html:errors property="addedInterestId"/>
 	    </c:when>
 	    <c:otherwise>
