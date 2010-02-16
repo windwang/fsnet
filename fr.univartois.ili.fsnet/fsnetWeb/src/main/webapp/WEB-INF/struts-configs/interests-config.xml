@@ -27,7 +27,7 @@
         <form-bean name="CreateInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="createdInterestName" type="java.lang.String" />
-        	<form-property name="parentInterestId" type="java.lang.String" />
+            <form-property name="parentInterestId" type="java.lang.String" />
         </form-bean>
         <form-bean name="InterestInformationsForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -101,7 +101,7 @@
             parameter="display">
             <forward name="success" path="Interests" />
         </action>
-        
+
         <action
             path="/InterestInformations"
             type="fr.univartois.ili.fsnet.actions.ManageInterests"
@@ -112,14 +112,14 @@
             parameter="informations">
             <forward name="success" path="InfoInterest" />
         </action>
-        
-         <action
+
+        <action
             path="/InterestCheckBoxes"
             type="fr.univartois.ili.fsnet.actions.ManageInterests"
             parameter="display">
-            <forward name="success" path="/content/hubs/InterestCheckBoxes.jsp" />
+            <forward name="success" path="/content/interests/InterestCheckBoxes.jsp" />
         </action>
-        
-        
+
+
     </action-mappings>
 </struts-config>

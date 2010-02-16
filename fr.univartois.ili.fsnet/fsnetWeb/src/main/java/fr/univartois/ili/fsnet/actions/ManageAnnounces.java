@@ -37,7 +37,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 public class ManageAnnounces extends MappingDispatchAction implements
         CrudAction {
 
-
     /**
      * @return to announces view after persisting new announce
      */
@@ -53,6 +52,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
         String title = (String) formAnnounce.get("announceTitle");
         String content = (String) formAnnounce.get("announceContent");
         String stringExpiryDate = (String) formAnnounce.get("announceExpiryDate");
+        String InterestsIds[] = (String[]) formAnnounce.get("selectedInterests");
+
         Announcement createdAnnounce;
 
         try {
@@ -61,6 +62,14 @@ public class ManageAnnounces extends MappingDispatchAction implements
                 AnnouncementFacade announcementFacade = new AnnouncementFacade(entityManager);
                 entityManager.getTransaction().begin();
                 createdAnnounce = announcementFacade.createAnnouncement(user, title, content, expiryDate, false);
+                InterestFacade fac = new InterestFacade(entityManager);
+                List<Interest> interests = new ArrayList<Interest>();
+                int currentId;
+                for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+                    interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
+                }
+                InteractionFacade ifacade = new InteractionFacade(entityManager);
+                ifacade.addInterests(createdAnnounce, interests);
                 entityManager.getTransaction().commit();
             } else {
                 ActionMessages errors = new ActionErrors();
@@ -74,15 +83,6 @@ public class ManageAnnounces extends MappingDispatchAction implements
             e.printStackTrace();
             return mapping.findForward("failer");
         }
-        String InterestsIds[] = (String[]) formAnnounce.get("selectedInterests");
-        InterestFacade fac = new InterestFacade(entityManager);
-        List<Interest> interests = new ArrayList<Interest>();
-        int currentId;
-        for (currentId = 0; currentId < InterestsIds.length; currentId++) {
-            interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
-        }
-        InteractionFacade ifacade = new InteractionFacade(entityManager);
-        ifacade.addInterests(createdAnnounce, interests);
         entityManager.close();
         return mapping.findForward("success");
     }
