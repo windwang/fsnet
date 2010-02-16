@@ -15,7 +15,7 @@
         <tr>
             <td>
                 <label for="name">
-                    <bean:message key="communities.name"/>
+                    <bean:message key="communities.name"/> :
                 </label>
             </td>
             <td>
