@@ -22,7 +22,7 @@
                 <input type="checkbox"/>
             </td>
             <td style="width: 25%">
-                <bean:message key="privatemessages.sentTO"/>
+                <bean:message key="privatemessages.sentTO"/> :
                 <html:link action="/DisplaySentMessage">
                     <html:param name="messageId" value="${message.id}"/>
                     ${message.to.firstName} ${message.to.name}
