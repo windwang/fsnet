@@ -9,36 +9,43 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 /**
- *
+ * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class UserUtils {
 
-    private UserUtils() {
-    }
+	private UserUtils() {
+	}
 
-    public static final SocialEntity getAuthenticatedUser(HttpServletRequest req) {
-        SocialEntity user = (SocialEntity) req.getSession().getAttribute(
-                Authenticate.AUTHENTICATED_USER);
+	public static final SocialEntity getAuthenticatedUser(
+			HttpServletRequest request) {
+		int id = getAuthenticatesUserId(request);
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+		SocialEntity user = socialEntityFacade.getSocialEntity(id);
+		em.close();
+		return user;
+	}
 
-        EntityManager em = PersistenceProvider.createEntityManager();
-        SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-        user = socialEntityFacade.getSocialEntity(user.getId());
-        em.close();
-        return user;
-    }
+	public static final Integer getAuthenticatesUserId(
+			HttpServletRequest request) {
+		return (Integer) request.getSession().getAttribute(
+				Authenticate.AUTHENTICATED_USER);
+	}
 
-    public static final SocialEntity getAuthenticatedUser(HttpServletRequest req, EntityManager em) {
-        SocialEntity user = (SocialEntity) req.getSession().getAttribute(
-                Authenticate.AUTHENTICATED_USER);
-        SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-        if (em.getTransaction().isActive()) {
-            user = socialEntityFacade.getSocialEntity(user.getId());
-        } else {
-            em.getTransaction().begin();
-            user = socialEntityFacade.getSocialEntity(user.getId());
-            em.getTransaction().commit();
-        }
-        return user;
-    }
+	public static final SocialEntity getAuthenticatedUser(
+			HttpServletRequest request, EntityManager em) {
+		int id = getAuthenticatesUserId(request);
+		SocialEntity user;
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+		if (em.getTransaction().isActive()) {
+			user = socialEntityFacade.getSocialEntity(id);
+		} else {
+			em.getTransaction().begin();
+			user = socialEntityFacade.getSocialEntity(id);
+			em.getTransaction().commit();
+		}
+		return user;
+	}
+
 }

@@ -33,7 +33,7 @@ public class Authenticate extends HttpServlet {
 	/**
 	 * Authenticated user key in session scope
 	 */
-	public static final String AUTHENTICATED_USER = "user";
+	public static final String AUTHENTICATED_USER = "userId";
 
 	/**
 	 * This method is called when an user user tries to sign in
@@ -48,15 +48,15 @@ public class Authenticate extends HttpServlet {
 		if (memberMail != null && memberPass != null) {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-				SocialEntity es = socialEntityFacade.findByEmail(memberMail);
-				if (es != null
-						&& Encryption
-								.testPassword(memberPass, es.getPassword())) {
-					authenticated = true;
-					req.getSession(true).setAttribute(AUTHENTICATED_USER, es);
-				} else {
-					req.setAttribute("loginMessage", "login.error");
-				}
+			SocialEntity es = socialEntityFacade.findByEmail(memberMail);
+			if (es != null
+					&& Encryption.testPassword(memberPass, es.getPassword())) {
+				authenticated = true;
+				req.getSession(true).setAttribute(AUTHENTICATED_USER,
+						es.getId());
+			} else {
+				req.setAttribute("loginMessage", "login.error");
+			}
 			em.close();
 		}
 

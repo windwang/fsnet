@@ -35,23 +35,24 @@ public class IsAuthenticatedFilter implements Filter {
 			final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 		HttpSession session;
-		SocialEntity es;
+		
 		RequestDispatcher dispatch;
 
 		session = ((HttpServletRequest) request).getSession(); // NOSONAR
-		es = (SocialEntity) session
+		Integer userId = (Integer) session
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
 
-		if (es == null) {
+		if (userId == null) {
 			dispatch = servletContext
 					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatch.forward(request, response);
 		} else {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
-			es = em.find(SocialEntity.class, es.getId());
-			es.setLastConnection(new Date());
-			em.merge(es);
+			SocialEntity user;
+			user = em.find(SocialEntity.class, userId);
+			user.setLastConnection(new Date());
+			em.merge(user);
 			em.getTransaction().commit();
 			em.close();
 			chain.doFilter(request, response);
@@ -66,6 +67,5 @@ public class IsAuthenticatedFilter implements Filter {
 	}
 
 	@Override
-	public void destroy() {
-	}
+	public void destroy() {}
 }
