@@ -16,12 +16,11 @@
 
 <h3><bean:message key="events.0"/></h3>
 <html:form action="/CreateEvent">
-    <c:import url="/InterestCheckBoxes.do"/>
     <table id="CreateEvent">
         <tr>
             <td>
                 <label for="eventName">
-                	<bean:message key="events.1"/>
+                    <bean:message key="events.1"/>
                 </label>
             </td>
             <td>
@@ -36,9 +35,15 @@
             </td>
         </tr>
         <tr>
+            <td></td>
+            <td >
+                <c:import url="/InterestCheckBoxes.do" />
+            </td>
+        </tr>
+        <tr>
             <td>
                 <label for="eventDescription">
-                	<bean:message key="events.2"/>
+                    <bean:message key="events.2"/>
                 </label>
             </td>
             <td>
@@ -57,16 +62,16 @@
         <tr>
             <td>
                 <label for="eventDate">
-                	<bean:message key="events.3"/>
+                    <bean:message key="events.3"/>
                 </label>
             </td>
             <td>
                 <html:text  property="eventDate" 
-                			styleId="eventDate"  
-                			errorStyleClass="error"/>
+                            styleId="eventDate"
+                            errorStyleClass="error"/>
 
                 <html:submit styleClass="button">
-                		<bean:message key="events.4"/>
+                    <bean:message key="events.4"/>
                 </html:submit>
                 <logic:messagesPresent property="eventDate">
                     <div class="errorMessage">
