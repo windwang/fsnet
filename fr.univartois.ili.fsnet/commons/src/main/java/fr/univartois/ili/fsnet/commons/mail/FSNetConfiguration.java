@@ -19,6 +19,7 @@ public class FSNetConfiguration {
 	public static final String SMTP_PORT_KEY = "mail.smtp.port";
 	public static final String SSL_KEY = "mail.smtp.socketFactory.class";
 	public static final String SSL_ENABLED_VALUE = "javax.net.ssl.SSLSocketFactory";
+	public static final String PICTURES_DIRECTORY_KEY = "pictures.dir";
 
 	private static final FSNetConfiguration instance;
 
@@ -87,6 +88,10 @@ public class FSNetConfiguration {
 		if (property != null) {
 			properties.put(SMTP_PORT_KEY, property.getValue());
 		}
+		property = em.find(Property.class, PICTURES_DIRECTORY_KEY);
+		if (property != null) {
+			properties.put(PICTURES_DIRECTORY_KEY, property.getValue());
+		}
 		em.close();
 	}
 
@@ -104,3 +109,4 @@ public class FSNetConfiguration {
 	}
 
 }
+
