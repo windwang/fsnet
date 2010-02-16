@@ -1,5 +1,10 @@
 #ui-datepicker-div {font-size: 80%;}
 
+.memberPhoto {
+	width: 100px;
+	height: 100px;
+}
+
 #eventDescription_container .mceLayout {
     border: 1px solid #505050;
 }

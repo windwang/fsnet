@@ -17,6 +17,10 @@
 			<form-property name="mail" type="java.lang.String" />
 			<form-property name="phone" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="ChangePhotoForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="photo" type="org.apache.struts.upload.FormFile" />
+		</form-bean>
 		<form-bean name="DisplayProfileForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="id" type="java.lang.String" />
@@ -26,6 +30,9 @@
 			<form-property name="oldPassword" type="java.lang.String" />
 			<form-property name="newPassword" type="java.lang.String" />
 			<form-property name="confirmNewPassword" type="java.lang.String" />
+		</form-bean>
+		<form-bean name="GetPhotoForm" 	type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="memberId" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
 	<global-forwards>
@@ -48,6 +55,14 @@
 		<action path="/ChangePassword" type="fr.univartois.ili.fsnet.actions.ChangePassword"
 			name="ChangePasswordForm" scope="request" validate="true" input="/Profile.do">
 			<forward name="success" path="/Profile.do" />
+		</action>
+		<action path="/ChangePhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+			name="ChangePhotoForm" parameter="changePhoto" input="/Profile.do"
+			scope="request" validate="true">
+			<forward name="success" path="/Profile.do" />
+		</action>
+		<action path="/GetPhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+			name="GetPhotoForm" parameter="getPhoto" validate="false">
 		</action>
 	</action-mappings>
 </struts-config>

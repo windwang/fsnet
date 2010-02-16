@@ -74,10 +74,6 @@ public class SocialEntity implements Serializable {
      */
     private String password;
     /**
-     * A picture of the social entity.
-     */
-    private String picture;
-    /**
      * The profession of the social entity.
      */
     private String profession;
@@ -97,6 +93,11 @@ public class SocialEntity implements Serializable {
     @Lob
     @Basic(fetch=FetchType.LAZY)
     private byte[] photo;
+    
+    /**
+     * The mime type of the picture
+     */
+    private String mimeType;
     /**
      * The interactions that the social entity created.
      */
@@ -326,26 +327,9 @@ public class SocialEntity implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
-    }
+    }    
 
-    /**
-     *
-     * @return the picture of the social entity.
-     */
-    public String getPicture() {
-        return picture;
-    }
-
-    /**
-     * Gives a picture to the social entity.
-     *
-     * @param picture
-     */
-    public void setPicture(String picture) {
-        this.picture = picture;
-    }
-
-    /**
+	/**
      *
      * @return the profession of the social entity.
      */
@@ -407,8 +391,23 @@ public class SocialEntity implements Serializable {
 	 * @param photo the photo of the entity to set
 	 */
 	public void setPhoto(byte[] photo) {
-		this.photo = photo;
+		this.photo = photo; 				//NOSONAR
 	}
+	
+    /**
+	 * @return the mime type of the photo
+	 */
+	public String getMimeType() {
+		return mimeType;
+	}
+
+	/**
+	 * @param mimeType the mime type of the photo to set
+	 */
+	public void setMimeType(String mimeType) {
+		this.mimeType = mimeType;
+	}
+
 
 	/**
      *
@@ -614,7 +613,6 @@ public class SocialEntity implements Serializable {
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result + ((picture == null) ? 0 : picture.hashCode());
 		result = prime * result
 				+ ((profession == null) ? 0 : profession.hashCode());
 		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
@@ -682,11 +680,6 @@ public class SocialEntity implements Serializable {
 			if (other.phone != null)
 				return false;
 		} else if (!phone.equals(other.phone))
-			return false;
-		if (picture == null) {
-			if (other.picture != null)
-				return false;
-		} else if (!picture.equals(other.picture))
 			return false;
 		if (profession == null) {
 			if (other.profession != null)

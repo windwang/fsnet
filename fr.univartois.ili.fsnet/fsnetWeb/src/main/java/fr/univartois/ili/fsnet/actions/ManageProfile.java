@@ -1,21 +1,29 @@
 package fr.univartois.ili.fsnet.actions;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.upload.FormFile;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
@@ -36,7 +44,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 */
 	public static final String WATCHED_PROFILE_VARIABLE = "watchedProfile";
 	public static final String EDITABLE_PROFILE_VARIABLE = "edit";
-
 
 	private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
@@ -174,5 +181,86 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		em.close();
 		request.setAttribute("currentUser", user);
 		return mapping.findForward("success");
+	}
+
+	public ActionForward changePhoto(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		FormFile file = (FormFile) dynaForm.get("photo");
+		String contentType = file.getContentType();
+		EntityManager em = PersistenceProvider.createEntityManager();
+		em.getTransaction().begin();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		if (file.getFileData().length != 0) {
+			if ("image/png".equals(contentType)
+					|| "image/jpg".equals(contentType)
+					|| "image/bmp".equals(contentType)) {
+				user.setMimeType(file.getContentType());
+				user.setPhoto(file.getFileData());
+			} else {
+				ActionErrors errors = new ActionErrors();
+				errors.add("photo", new ActionMessage("updateProfile.error.photo.type"));
+				saveErrors(request, errors);
+			}
+		} else {
+			user.setMimeType(null);
+			user.setPhoto(null);
+		}
+
+		em.merge(user);
+		em.getTransaction().commit();
+		em.close();
+		return mapping.findForward("success");
+	}
+
+	private void sendDefaultPhoto(HttpServletResponse response) {
+		try {
+			response.setContentType("image/png");
+			InputStream inputStream = getServlet().getServletContext()
+					.getResourceAsStream("/images/DefaultPhoto.png");
+			OutputStream out = response.getOutputStream();
+			byte[] datas = new byte[4096];
+			int numReaded = inputStream.read(datas);
+			while (numReaded != -1) {
+				out.write(datas, 0, numReaded);
+				numReaded = inputStream.read(datas);
+			}
+			inputStream.close();
+		} catch (FileNotFoundException e) {
+			Logger.getAnonymousLogger().log(Level.SEVERE,
+					"Default photo not found", e);
+		} catch (IOException e) {
+			Logger.getAnonymousLogger().log(Level.SEVERE,
+					"Default photo cannot be readed", e);
+		}
+	}
+
+	public ActionForward getPhoto(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		byte[] datas;
+		try {
+			int memberId = Integer.parseInt(dynaForm.getString("memberId"));
+
+			EntityManager em = PersistenceProvider.createEntityManager();
+			SocialEntityFacade facade = new SocialEntityFacade(em);
+			SocialEntity se = facade.getSocialEntity(memberId);
+
+			if ((se != null) && (se.getMimeType() != null)) {
+				response.setContentType(se.getMimeType());
+				datas = se.getPhoto();
+				OutputStream out = response.getOutputStream();
+				out.write(datas);
+			} else {
+				sendDefaultPhoto(response);
+			}
+
+			em.close();
+		} catch (NumberFormatException e) {
+			sendDefaultPhoto(response);
+		}
+		return null;
 	}
 }

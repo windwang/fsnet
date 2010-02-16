@@ -242,3 +242,19 @@
         </tr>
     </table>
 </html:form>
+
+<h3>
+    <bean:message key="updateProfile.changePhoto.title"/>
+</h3>
+<img class="memberPhoto" src="GetPhoto.do?memberId=${user.id}" style="float:right;"/>
+<html:form action="/ChangePhoto" enctype="multipart/form-data">
+	<div>
+		<html:file property="photo"></html:file>
+		<html:submit/>
+	</div>
+	<logic:messagesPresent property="photo">
+		<div class="error">
+			<html:errors property="photo"/>
+		</div>
+	</logic:messagesPresent>
+</html:form>
