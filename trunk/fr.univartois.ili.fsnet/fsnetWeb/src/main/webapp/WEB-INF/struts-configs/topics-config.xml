@@ -117,12 +117,6 @@
                 parameter="display">
             <forward name="success" path="ModifyTopicMessage" />
         </action>
-        <action
-            path="/InterestCheckBoxes"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            parameter="display">
-            <forward name="success" path="/content/hubs/InterestCheckBoxes.jsp" />
-        </action>
          <action path="/DisplayYourTopics" type="fr.univartois.ili.fsnet.actions.ManageTopic"
         		name="SearchYourTopicsForm" input="Home" scope="request" validate="true"
                 parameter="searchYourTopics">
