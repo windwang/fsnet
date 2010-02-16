@@ -30,7 +30,7 @@
                     ${msg.from.firstName} ${msg.from.name}
                 </html:link>
                 <br/>
-                <img src="images/emblem-personal.png">
+                <img class="memberPhoto" src="GetPhoto.do?memberId=${msg.from.id}">
             </td>
             <td class="topicMessage">
                 <c:if test="${not empty msg.body}">
