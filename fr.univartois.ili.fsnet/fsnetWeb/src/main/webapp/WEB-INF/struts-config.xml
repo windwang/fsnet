@@ -15,7 +15,7 @@
                 parameter="Home"/>
     </action-mappings>
 
-    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
+    <controller processorClass="org.apache.struts.tiles.TilesRequestProcessor"/>
 
     <message-resources parameter="FSneti18n" null="false"/>
 

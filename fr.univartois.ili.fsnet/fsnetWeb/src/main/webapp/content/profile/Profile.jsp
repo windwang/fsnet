@@ -246,7 +246,7 @@
 <h3>
     <bean:message key="updateProfile.changePhoto.title"/>
 </h3>
-<img class="memberPhoto" src="GetPhoto.do?memberId=${user.id}" style="float:right;"/>
+<img class="memberPhoto" src="GetPhoto.do?memberId=${userId}" style="float:right;"/>
 <html:form action="/ChangePhoto" enctype="multipart/form-data">
 	<div>
 		<html:file property="photo"></html:file>
