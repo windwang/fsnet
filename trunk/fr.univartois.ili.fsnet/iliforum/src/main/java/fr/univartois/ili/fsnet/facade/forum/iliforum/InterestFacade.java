@@ -28,7 +28,7 @@ public class InterestFacade {
 	 */
 	public final Interest createInterest(String interestName){
 		if(interestName == null) throw new IllegalArgumentException();
-		Interest interest = new Interest(interestName);
+		Interest interest = new Interest(interestName.toLowerCase());
 		em.persist(interest);
 		return interest;
 	}
@@ -44,7 +44,7 @@ public class InterestFacade {
 	public final Interest createInterest(String interestName, int parentInterestId){
 		Interest parentInterest = getInterest(parentInterestId);
 		if(interestName == null || parentInterest == null) throw new IllegalArgumentException();
-		Interest interest = new Interest(interestName, parentInterest);
+		Interest interest = new Interest(interestName.toLowerCase(), parentInterest);
 		em.persist(interest);
 		return interest;
 	}
