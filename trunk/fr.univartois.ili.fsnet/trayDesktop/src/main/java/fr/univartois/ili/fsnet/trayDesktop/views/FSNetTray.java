@@ -10,6 +10,7 @@ import java.awt.CheckboxMenuItem;
 import java.awt.Desktop;
 import java.awt.Image;
 import java.awt.MenuItem;
+import java.awt.Point;
 import java.awt.PopupMenu;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
@@ -117,6 +118,8 @@ public class FSNetTray implements WSListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 control.checkWS();
+                Point position =  e.getLocationOnScreen();
+                //NotificationFrame notframe = new NotificationFrame(position);
             }
         });
         // Add components to popup menu
