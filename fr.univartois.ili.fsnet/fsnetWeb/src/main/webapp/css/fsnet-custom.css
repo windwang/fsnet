@@ -60,12 +60,12 @@
 
 #menu {
     float:left;
-    width: 79%;
 }
 
 #logout {
     float: right;
-    margin: 20px;
+    margin: 8px;
+    background-color: #606060;
 }
 
 #left ul {
