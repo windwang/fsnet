@@ -20,15 +20,17 @@
                 <html:text property="hubName" styleId="hubName" />
 
             </td>
-            <c:import url="/InterestCheckBoxes.do"/>
+            
             <td>
                 <html:submit styleClass="button"><bean:message key="hubs.create"/></html:submit>
             </td>
         </tr>
+
         <tr class="errorMessage">
             <td>
                 <html:errors property="hubName"/>
             </td>
         </tr>
     </table>
+                <c:import url="/InterestCheckBoxes.do"/>
 </html:form>
