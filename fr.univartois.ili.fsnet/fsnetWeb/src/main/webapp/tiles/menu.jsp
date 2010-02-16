@@ -25,6 +25,9 @@
     <li>
         <html:link action="/Inbox" styleClass="${currentMenu == 'Messages' ? 'current' : ''}">
             <bean:message key="menu.8"/>
+            <c:if test="${sessionScope.numNonReedPrivateMessages gt 0}">
+            	(${sessionScope.numNonReedPrivateMessages})
+            </c:if>
         </html:link>
     </li>
     <li>
