@@ -314,13 +314,13 @@ tr.notReed {
 }
 .tag a {
     color: green;
+    text-decoration: underline;
 }
 .tag img{
     vertical-align: middle;
 }
 
 .otag {
-    /*line-height: 250%;*/
     padding : 2px;
     float : left;
     vertical-align: middle;
@@ -333,6 +333,7 @@ tr.notReed {
 
 .otag a {
     color: #4793c9;
+    text-decoration: underline;
 }
 
 .otag img{

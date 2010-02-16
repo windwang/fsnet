@@ -8,9 +8,9 @@
 <h3>
     <bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
 </h3>
-	
+
 <img class="memberPhoto" src="GetPhoto.do?memberId=${watchedProfile.id}" style="float: right;"/>
-	
+
 <table class="watchedProfile">
     <tr>
         <th><bean:message key="updateProfile.email"/></th>
@@ -55,21 +55,21 @@
                     <bean:message key="showProfile.edit"/>
                 </html:link>
             </td>
-            
+
         </tr>
     </c:if>
 </table>
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">	
-    	
-                    <html:link action="/ContactDemand" styleClass="button">
-                        <bean:message key="showProfile.ask"/>
-                        <html:param name="entitySelected" value="${watchedProfile.id}"/>
-                    </html:link>
+
+    <html:link action="/ContactDemand" styleClass="button">
+        <bean:message key="showProfile.ask"/>
+        <html:param name="entitySelected" value="${watchedProfile.id}"/>
+    </html:link>
 </c:if>
-                    <html:link action="/DisplayCreatePrivateMessage" styleClass="button">
-                        <bean:message key="showProfile.send"/>
-                        <html:param name="receiver" value="${watchedProfile.email}"/>
-                    </html:link>
+<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
+    <bean:message key="showProfile.send"/>
+    <html:param name="receiver" value="${watchedProfile.email}"/>
+</html:link>
 
 <h3>
     <bean:message key="showInterest.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
@@ -86,6 +86,7 @@
         </span>
     </c:forEach>
 </div>
+<div style="clear: both" ></div>
 
 <c:if test="${edit}">
     <br/>

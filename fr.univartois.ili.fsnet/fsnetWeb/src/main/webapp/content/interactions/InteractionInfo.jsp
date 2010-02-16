@@ -8,6 +8,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <div class="interactionInfo" >
     Owner :
@@ -19,23 +20,27 @@
     <div style="color: #aaaaaa">
 
 
-    X Subscribers
-    <br/>
-    Created on <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
-    <br/>
-    X Followers
-    <br/>
-    Visibility : public
-    <br/>
-    </div>
-    <div class="cloud">
-        <c:forEach var="interest" items="${theInteraction.interests}">
-            <span class="otag">
-                <html:link action="/InterestInformations">
-                    <html:param name="infoInterestId" value="${interest.id}"/>
-                    ${interest.name}
-                </html:link>
-            </span>
-        </c:forEach>
+        X Subscribers
+        <br/>
+        Created on <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
+        <br/>
+        X Followers
+        <br/>
+        Visibility : public
+        <br/>
+
+        <logic:notEmpty name="theInteraction" property="interests" >
+            Interets :
+            <div class="cloud">
+                <c:forEach var="interest" items="${theInteraction.interests}">
+                    <span class="otag">
+                        <html:link action="/InterestInformations">
+                            <html:param name="infoInterestId" value="${interest.id}"/>
+                            ${interest.name}
+                        </html:link>
+                    </span>
+                </c:forEach>
+            </div>
+        </logic:notEmpty>
     </div>
 </div>
