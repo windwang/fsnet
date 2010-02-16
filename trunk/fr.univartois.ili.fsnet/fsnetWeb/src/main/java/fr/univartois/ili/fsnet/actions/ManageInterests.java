@@ -197,11 +197,12 @@ public class ManageInterests extends MappingDispatchAction implements
 			}
 		}
 
-		Paginator<Interest> paginator = new Paginator<Interest>(user.getInterests(), request, "display");
+		Paginator<Interest> paginatorMy = new Paginator<Interest>(user.getInterests(), request, "display");
+		Paginator<Interest> paginatorAdd = new Paginator<Interest>(finalList, request, "addInterest");
 		
 		request.setAttribute("allInterests", listAllInterests);
-		request.setAttribute("myInterestPaginator", paginator);
-		request.setAttribute("listInterests", finalList);
+		request.setAttribute("myInterestPaginator", paginatorMy);
+		request.setAttribute("addInterestPaginator", paginatorAdd);
 
 		return mapping.findForward("success");
 	}
