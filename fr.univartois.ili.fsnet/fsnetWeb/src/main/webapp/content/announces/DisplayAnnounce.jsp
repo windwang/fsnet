@@ -11,51 +11,55 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<table id="DisplayAnnounce">
-    <tr>
-        <th>
 
-            <h3>
-                <c:import url="/FavoriteFragment.do">
-                    <c:param name="interactionId" value="${announce.id}"/>
-                </c:import>
-                <bean:write name="announce" property="title" />
-            </h3>
-        </th>
-    </tr>
-    <tr class="authorDate">
-        <td>
-            <bean:message  key="announce.createdBy"/>
-            <html:link action="/DisplayProfile">
-                <html:param name="id" value="${announce.creator.id}"/>
-                ${announce.creator.firstName} ${announce.creator.name}
-            </html:link>, 
-            <bean:message key="announce.expiryDate"/>
-            <bean:write name="announce" property="endDate" format="dd/MM/yyyy" />
-        </td>
-    </tr>
-    <tr>
-        <td >
-            ${announce.content}
-        </td>
-    </tr>
 
-    <tr>
-        <td colspan="2">
-            <html:messages id="message" />
-            <html:errors/>
-        </td>
-    </tr>
 
-    <tr>
-        <td  class="alignRight">
+<h3>
+    <c:import url="/FavoriteFragment.do">
+        <c:param name="interactionId" value="${announce.id}"/>
+    </c:import>
+    <bean:write name="announce" property="title" />
+</h3>
 
-            <logic:present name="owner">
-                <bean:define id="idAnnounce" name="announce" property="id" />
-                <html:link  action="/DisplayForModifyAnnounce"  paramId="idAnnounce" paramName="idAnnounce" styleClass="button"><bean:message key="announce.updateAnnounce"/> </html:link>
-                <html:link  action="/DeleteAnnounce"  paramId="idAnnounce" paramName="idAnnounce" styleClass="button"><bean:message key="announce.deleteAnnounce"/> </html:link>
-            </logic:present>
+<div class="interactionDisplay">
+    <table>
+        <tr class="authorDate">
+            <td>
+                <bean:message  key="announce.createdBy"/>
+                <html:link action="/DisplayProfile">
+                    <html:param name="id" value="${announce.creator.id}"/>
+                    ${announce.creator.firstName} ${announce.creator.name}
+                </html:link>,
+                <bean:message key="announce.expiryDate"/>
+                <bean:write name="announce" property="endDate" format="dd/MM/yyyy" />
+            </td>
+        </tr>
+        <tr>
+            <td >
+                ${announce.content}
+            </td>
+        </tr>
 
-        </td>
-    </tr>
-</table>
+        <tr>
+            <td colspan="2">
+                <html:messages id="message" />
+                <html:errors/>
+            </td>
+        </tr>
+
+        <tr>
+            <td  class="alignRight">
+
+                <logic:present name="owner">
+                    <bean:define id="idAnnounce" name="announce" property="id" />
+                    <html:link  action="/DisplayForModifyAnnounce"  paramId="idAnnounce" paramName="idAnnounce" styleClass="button"><bean:message key="announce.updateAnnounce"/> </html:link>
+                    <html:link  action="/DeleteAnnounce"  paramId="idAnnounce" paramName="idAnnounce" styleClass="button"><bean:message key="announce.deleteAnnounce"/> </html:link>
+                </logic:present>
+
+            </td>
+        </tr>
+    </table>
+</div>
+
+<c:set var="theInteraction" value="${announce}" scope="request"/>
+<jsp:include page="/content/interactions/InteractionInfo.jsp" />
