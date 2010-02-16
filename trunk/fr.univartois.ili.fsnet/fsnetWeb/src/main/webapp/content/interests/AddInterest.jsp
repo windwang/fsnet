@@ -23,7 +23,7 @@
 	                    </html:link>
 	                </div>
 	            </c:forEach>
-                    <div style="clear : both;"/>
+                    <div style="clear : both;"></div>
 	        <html:errors property="addedInterestId"/>
 	    </c:when>
 	    <c:otherwise>
