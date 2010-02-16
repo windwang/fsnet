@@ -212,7 +212,8 @@ public class ManageInterests extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		
 		int interestId = Integer.valueOf((String) dynaForm
 				.get("infoInterestId"));
 
@@ -223,6 +224,12 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		if (interest != null) {
 			request.setAttribute("interest", interest);
+			if (user.getInterests().contains(interest)) {
+				request.setAttribute("own", true);
+			} else {
+				request.setAttribute("own", false);
+			}
+			
 			for (Map.Entry<String, List<Interaction>> interactionEntry : resultMap
 					.entrySet()) {
 				request.setAttribute(interactionEntry.getKey(),

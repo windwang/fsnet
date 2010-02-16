@@ -8,7 +8,23 @@
 
 <c:choose>
 	<c:when test="${not empty requestScope.interest}">
-		<h2>${requestScope.interest.name}</h2>
+		<h2>
+			${requestScope.interest.name}
+			<c:choose>
+				<c:when test="${requestScope.own}">
+					<html:link action="/RemoveInterest">
+	                    <html:param name="removedInterestId" value="${requestScope.interest.id}"/>
+	                    <img src="images/mini-delete.png" />
+	                </html:link>
+				</c:when>
+				<c:otherwise>
+					<html:link action="/AddInterest">
+						<img src="images/add.png"/>
+						<html:param name="addedInterestId" value="${requestScope.interest.id}"/>
+					</html:link>
+				</c:otherwise>
+			</c:choose>
+		</h2>
 		
 		<h3><bean:message key="interests.15"/></h3>
 		<c:choose>
