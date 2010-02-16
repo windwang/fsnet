@@ -29,7 +29,8 @@
             <html:link action="/DisplayProfile">
                 <html:param name="id" value="${announce.creator.id}"/>
                 ${announce.creator.firstName} ${announce.creator.name}
-            </html:link><bean:message key="announce.expiryDate"/>
+            </html:link>, 
+            <bean:message key="announce.expiryDate"/>
             <bean:write name="announce" property="endDate" format="dd/MM/yyyy" />
         </td>
     </tr>
