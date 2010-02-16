@@ -250,7 +250,7 @@
 <html:form action="/ChangePhoto" enctype="multipart/form-data">
 	<div>
 		<html:file property="photo"></html:file>
-		<html:submit/>
+		<html:submit styleClass="button"/>
 	</div>
 	<logic:messagesPresent property="photo">
 		<div class="error">
