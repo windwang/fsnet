@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -10,9 +11,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -64,6 +67,8 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					.getProperty(FSNetConfiguration.SMTP_HOST_KEY));
 			dynaform.set("FSNetWebURL", properties
 					.getProperty(FSNetConfiguration.FSNET_WEB_ADDRESS_KEY));
+			dynaform.set("PicturesDirectory", properties
+					.getProperty(FSNetConfiguration.PICTURES_DIRECTORY_KEY));
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -115,6 +120,14 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		saveProperty(em, FSNetConfiguration.SMTP_PORT_KEY, SMTP_Port);
 		saveProperty(em, FSNetConfiguration.FSNET_WEB_ADDRESS_KEY,
 				(String) dynaform.get("FSNetWebURL"));
+		String dirName = (String) dynaform.get("PicturesDirectory");
+		if (isValidDirectory(dirName)) {
+			saveProperty(em, FSNetConfiguration.PICTURES_DIRECTORY_KEY, dirName);
+		} else {
+			ActionErrors errors = new ActionErrors();
+			errors.add("PicturesDirectory", new ActionMessage("configure.23"));
+			saveErrors(request, errors);
+		}
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
@@ -132,6 +145,17 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			property.setValue(value);
 			em.merge(property);
 		}
+	}
+
+	private boolean isValidDirectory(String dirName) {
+		boolean isValidDirectory;
+		File directory = new File(dirName);
+		if (directory.isDirectory()) {
+			isValidDirectory = true;
+		} else {
+			isValidDirectory = false;
+		}
+		return isValidDirectory;
 	}
 
 	public ActionForward sendTestMail(ActionMapping mapping, ActionForm form,

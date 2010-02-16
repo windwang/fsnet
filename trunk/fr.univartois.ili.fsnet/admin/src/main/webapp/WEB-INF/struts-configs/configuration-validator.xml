@@ -30,7 +30,9 @@
         			<var-value>((enableAuthentication == null) or (*this* != null))</var-value>
         		</var>
         	</field>
-        	
+        	<field property="PicturesDirectory" depends="required">
+        		<msg name="required" key="configure.21"/>
+        	</field>
         </form>
     </formset>
 </form-validation>

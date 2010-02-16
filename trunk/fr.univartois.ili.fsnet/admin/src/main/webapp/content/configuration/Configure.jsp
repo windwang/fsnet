@@ -164,6 +164,23 @@
 			</td>
 		</tr>
 	</logic:messagesPresent>
+		<tr>
+		<td>
+			<label for="PicturesDirectory">
+				<bean:message key="configure.22"/>
+			</label>
+		</td>
+		<td>
+			<html:text errorStyleClass="error" styleId="PicturesDirectory" property="PicturesDirectory"/>
+		</td>
+	</tr>
+	<logic:messagesPresent property="PicturesDirectory" >
+		<tr>
+			<td colspan="2">
+				<html:errors property="PicturesDirectory" />
+			</td>
+		</tr>
+	</logic:messagesPresent>
 	<tr>
 		<td colspan="2">
 			<html:submit styleClass="button">
