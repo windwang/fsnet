@@ -26,7 +26,7 @@
                     </span>
                 </c:forEach>
             </div>
-            <div style="clear : both;"/>
+            <div style="clear : both;"></div>
         </c:when>
         <c:otherwise>
             <bean:message key="interests.8"/>
