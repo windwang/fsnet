@@ -14,39 +14,54 @@
     ${event.title}
 </h3>
 
-<table id="DisplayEvent" style="border-left: 1px solid gray;">
-    <tr class="authorDate">
-        <td>
-            <bean:message key="events.5"/>
-            <html:link action="/DisplayProfile">
-                <html:param name="id" value="${event.creator.id}"/>
-                ${event.creator.firstName} ${event.creator.name}
-            </html:link>, 
-            <bean:message key="events.6"/> 
-            <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
-        </td>
-    </tr>
-    <tr>
-        <td>
-            ${event.content}
-        </td>
-    </tr>
-    <tr>
-        <td  class="alignRight">
-            <html:link  action="/SubscribeEvent" styleClass="button">
-                <html:param name="eventId" value="${event.id}"/>
-                <bean:message key="events.17"/>
-            </html:link>
-        </td>
-    </tr>
-    <tr>
-        <td  class="alignRight">
-            <c:if test="${user.id eq event.creator.id}">
-                <html:link  action="/DeleteEvent" styleClass="button">
+<div style="float: left;width: 80%">
+    <table style="width: 100%">
+        <tr class="authorDate">
+            <td>
+                <bean:message key="events.5"/>
+                <html:link action="/DisplayProfile">
+                    <html:param name="id" value="${event.creator.id}"/>
+                    ${event.creator.firstName} ${event.creator.name}
+                </html:link>,
+                <bean:message key="events.6"/>
+                <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
+            </td>
+        </tr>
+        <tr>
+            <td>
+                ${event.content}
+            </td>
+        </tr>
+        <tr>
+            <td  class="alignRight">
+                <html:link  action="/SubscribeEvent" styleClass="button">
                     <html:param name="eventId" value="${event.id}"/>
-                    <bean:message key="events.7"/>
+                    <bean:message key="events.17"/>
                 </html:link>
-            </c:if>
-        </td>
-    </tr>
-</table>
+            </td>
+        </tr>
+        <tr>
+            <td  class="alignRight">
+                <c:if test="${user.id eq event.creator.id}">
+                    <html:link  action="/DeleteEvent" styleClass="button">
+                        <html:param name="eventId" value="${event.id}"/>
+                        <bean:message key="events.7"/>
+                    </html:link>
+                </c:if>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<c:set var="theInteraction" value="${event}" scope="request"/>
+<div class="interactionInfo" style="width: 19%; text-align: left; float: right; border : solid black 1px;">
+    Owner : ${theInteraction.creator.firstName} ${theInteraction.creator.name}
+    <br/>
+    X Subscribers
+    <br/>
+    Created the <bean:write name="event" property="creationDate" format="dd/MM/yyyy" />
+    <br/>
+    X Followers
+    <br/>
+    Visibility : public
+</div>
