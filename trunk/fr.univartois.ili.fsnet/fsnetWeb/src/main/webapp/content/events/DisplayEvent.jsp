@@ -13,7 +13,7 @@
     ${event.title}
 </h3>
 
-<div style="float: left;width: 70%; background-color: #ecf8ff; padding: 3px;">
+<div class="interactionDisplay">
     <table style="width: 100%">
         <tr class="authorDate">
             <td>
@@ -55,30 +55,4 @@
 </div>
 
 <c:set var="theInteraction" value="${event}" scope="request"/>
-<div class="interactionInfo" style="width: 27%; text-align: left; float: left;
-     background-color: #ecf8ff; border: 2px solid #bcd3e0; padding: 3px;">
-    Owner :
-    <html:link action="/DisplayProfile">
-        <html:param name="id" value="${theInteraction.creator.id}"/>
-        ${theInteraction.creator.firstName} ${theInteraction.creator.name}
-    </html:link>
-    <br/>
-    X Subscribers
-    <br/>
-    Created on <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
-    <br/>
-    X Followers
-    <br/>
-    Visibility : public
-    <br/>
-    <div class="cloud">
-        <c:forEach var="interest" items="${theInteraction.interests}">
-            <span class="otag">
-                <html:link action="/InterestInformations">
-                    <html:param name="infoInterestId" value="${interest.id}"/>
-                    ${interest.name}
-                </html:link>
-            </span>
-        </c:forEach>
-    </div>
-</div>
+<jsp:include page="/content/interactions/InteractionInfo.jsp" />
