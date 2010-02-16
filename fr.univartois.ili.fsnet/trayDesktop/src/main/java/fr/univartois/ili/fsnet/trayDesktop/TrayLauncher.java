@@ -74,7 +74,7 @@ public class TrayLauncher {
      */
     public static final void reload() {
         if (tray != null) {
-            connector.removeListener(tray);
+            connector.removeListener(tray);            
             SystemTray.getSystemTray().remove(tray.getTrayIcon());
         }
 
