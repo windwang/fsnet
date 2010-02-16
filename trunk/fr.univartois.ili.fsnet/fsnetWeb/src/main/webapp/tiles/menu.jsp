@@ -54,5 +54,5 @@
     </li>
     
 </ul>
-
+	<a class="button" href="Logout" id="logout"><bean:message key="logout"/></a>
 <div class="clear"></div>
