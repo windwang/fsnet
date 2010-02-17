@@ -28,6 +28,10 @@
         			type="org.apache.struts.validator.DynaValidatorActionForm">
         	<form-property name="eventId" type="java.lang.String"/>			
         </form-bean>
+        <form-bean name="UnsubscribeEventForm"
+        			type="org.apache.struts.validator.DynaValidatorActionForm">
+        	<form-property name="eventId" type="java.lang.String"/>
+        </form-bean>
     </form-beans>
     <action-mappings>
         <action path="/CreateEvent"
@@ -78,7 +82,16 @@
             	scope="request"
             	validate="true"
             	parameter="subscribe" >
-            <forward name="success" path="/Events.do" />
+            <forward name="success" path="/DisplayEvent.do" />
+        </action>
+        <action path="/UnsubscribeEvent"
+        		name="UnsubscribeEventForm"
+        		type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                input="Events"
+            	scope="request"
+            	validate="true"
+            	parameter="unsubscribe" >
+            <forward name="success" path="/DisplayEvent.do" />
         </action>
     </action-mappings>
 </struts-config>
