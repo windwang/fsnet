@@ -41,7 +41,7 @@
 
     </table>
     <div class="topicButton">
-        <c:if test="${sessionScope.user.id eq msg.from.id}">
+        <c:if test="${sessionScope.userId eq msg.from.id}">
             <html:link action="/DisplayModifyTopicMessage" styleClass="button">
                 <html:param name="topicId" value="${topic.id}" />
                 <html:param name="messageId" value="${msg.id}" />
@@ -50,7 +50,7 @@
         </c:if>
 
         <!--
-        <c:if test="${sessionScope.user.id eq msg.from.id}">
+        <c:if test="${sessionScope.userId eq msg.from.id}">
             <html:link action="/DeleteTopicMessage" styleClass="button">
                 <html:param name="topicId" value="${topic.id}" />
                 <html:param name="messageId" value="${msg.id}" />

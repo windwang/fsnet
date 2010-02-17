@@ -56,7 +56,7 @@
                 </html:link>
             </td>
             <td class="tableButton">
-                <c:if test="${sessionScope.user.id eq hub.creator.id}">
+                <c:if test="${sessionScope.userId eq hub.creator.id}">
                     <html:link action="/DeleteYourHub" styleClass="button">
                         <html:param name="hubId" value="${hub.id}"/>
                         <html:param name="communityId" value="${hub.community.id}"/>
