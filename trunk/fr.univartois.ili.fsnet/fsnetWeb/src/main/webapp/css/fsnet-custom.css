@@ -1,5 +1,14 @@
 #ui-datepicker-div {font-size: 80%;}
 
+.profileLink {
+	font-size: 0.8em; 
+	float: right;
+}
+
+.link {
+	text-decoration:underline;
+}
+
 .miniatureContainer {
 	width: 25px;
 }

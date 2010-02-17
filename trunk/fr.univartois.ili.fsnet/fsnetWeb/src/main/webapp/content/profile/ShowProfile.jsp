@@ -7,6 +7,12 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <h3>
     <bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
+    <c:if test="${edit}">
+    	<html:link href="Profile.do" styleClass="profileLink link">
+        	<bean:message key="showProfile.edit"/>
+        </html:link>
+    </c:if>
+    
 </h3>
 
 <img src="GetPhoto.do?memberId=${watchedProfile.id}" style="float: right;"/>
@@ -48,16 +54,6 @@
         <th><bean:message key="updateProfile.phone"/></th>
         <td>${watchedProfile.phone}</td>
     </tr>
-    <c:if test="${edit}">
-        <tr>
-            <td colspan="2" align="right">
-                <html:link styleClass="button" href="Profile.do">
-                    <bean:message key="showProfile.edit"/>
-                </html:link>
-            </td>
-
-        </tr>
-    </c:if>
 </table>
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">	
 
@@ -74,6 +70,11 @@
 </c:if>
 <h3>
     <bean:message key="showInterest.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
+    <c:if test="${edit}">
+    	<html:link styleClass="profileLink link" action="/Interests">
+        	<bean:message key="showProfile.edit.interests"/>
+    	</html:link>
+</c:if>
 </h3>
 
 <div class="cloud" >
@@ -88,10 +89,3 @@
     </c:forEach>
 </div>
 <div style="clear: both" ></div>
-
-<c:if test="${edit}">
-    <br/>
-    <html:link styleClass="button" action="/Interests">
-        <bean:message key="showProfile.edit"/>
-    </html:link>
-</c:if>
