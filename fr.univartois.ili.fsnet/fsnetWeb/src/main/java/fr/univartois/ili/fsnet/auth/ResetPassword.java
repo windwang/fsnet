@@ -28,7 +28,7 @@ public class ResetPassword extends HttpServlet {
 		mail.addRecipient(se.getEmail());
 		mail.setContent(message);
 		se.setPassword(Encryption.getEncodedPassword(generatedPassword));
-		mail.setSubject("Génération d'un nouveau mot de passe pour FSNet");
+		mail.setSubject("G&eacute;n&eacute;ration d'un nouveau mot de passe pour FSNet");
 		mailer.sendMail(mail);
 	}
 
