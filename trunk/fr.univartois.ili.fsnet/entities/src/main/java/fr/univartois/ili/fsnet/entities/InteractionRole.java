@@ -30,6 +30,19 @@ public class InteractionRole implements Serializable {
     @Enumerated(value = EnumType.STRING)
     private RoleName rolename;
 
+    public InteractionRole(){
+    }
+
+    /**
+     * Constructor
+     * @param se
+     * @param i
+     */
+    public InteractionRole(SocialEntity se, Interaction i){
+        this.interaction = i;
+        this.socialEntity = se;
+    }
+
     /**
      * @return the rolename
      */
