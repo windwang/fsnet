@@ -1,8 +1,3 @@
-
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-
-
-<h1>
-    <a>FSNet</a>
-</h1>
-<h2 id="slogan">Social Networking</h2>
+<div id="logo2">
+	<img src="images/FSNET.png"/>
+</div>

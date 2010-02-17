@@ -369,3 +369,7 @@ tr.notReed {
 .interactionDisplay img {
     max-width: 100%;
 }
+
+#logo2 {
+	margin-left: -30px;
+}
