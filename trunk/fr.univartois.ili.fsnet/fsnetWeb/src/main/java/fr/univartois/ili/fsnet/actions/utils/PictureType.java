@@ -1,8 +1,8 @@
-package fr.univartois.ili.fsnet.actions;
+package fr.univartois.ili.fsnet.actions.utils;
 
 import java.awt.image.BufferedImage;
 
-public enum AllowedPictureType {
+public enum PictureType {
 
 	JPEG("image/jpeg", ".jpeg", BufferedImage.TYPE_BYTE_INDEXED), 
 	PNG( "image/png",  ".png",  BufferedImage.TYPE_INT_ARGB), 
@@ -14,7 +14,7 @@ public enum AllowedPictureType {
 
 	private int imageType;
 	
-	private AllowedPictureType(String mimeType, String suffix, int imageType) {
+	private PictureType(String mimeType, String suffix, int imageType) {
 		this.suffix = suffix;
 		this.mimeType = mimeType;
 		this.imageType = imageType;

@@ -16,7 +16,12 @@
 
         <c:forEach var="contact" items="${theUser.contacts}">
             <tr>
-                <td>${contact.firstName} ${contact.name}</td>
+               	<td class="miniatureContainer">
+            		<img src="GetMiniature.do?memberId=${contact.id}"/>
+            	</td>
+                <td>
+                	${contact.firstName} ${contact.name}
+                </td>
                 <td class="tableButton">
                 	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
     					<bean:message key="showProfile.send"/>
@@ -42,7 +47,12 @@
 
         <c:forEach var="contact" items="${theUser.asked}">
             <tr>
-                <td>${contact.firstName} ${contact.name}</td>
+                <td class="miniatureContainer">
+            		<img src="GetMiniature.do?memberId=${contact.id}"/>
+            	</td>
+                <td>
+                	${contact.firstName} ${contact.name}
+                </td>
                 <td class="tableButton">
                     <html:link action="/DisplayCreatePrivateMessage" styleClass="button">
     					<bean:message key="showProfile.send"/>
@@ -54,7 +64,8 @@
                     </html:link> <html:link action="/RefuseContact" styleClass="button">
                         <html:param name="entityRefused" value="${contact.id}" />
                         <bean:message key="contact.refuse" />
-                    </html:link></td>
+                    </html:link>
+				</td>
             </tr>
         </c:forEach>
 
@@ -66,7 +77,12 @@
     <table class="inLineTable">
             <c:forEach var="contact" items="${theUser.requested}">
             <tr>
-                <td>${contact.firstName} ${contact.name}</td>
+            	<td class="miniatureContainer">
+            		<img src="GetMiniature.do?memberId=${contact.id}"/>
+            	</td>
+                <td>
+                	${contact.firstName} ${contact.name}
+                </td>
                 <td class="tableButton">
                   	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
     					<bean:message key="showProfile.send"/>

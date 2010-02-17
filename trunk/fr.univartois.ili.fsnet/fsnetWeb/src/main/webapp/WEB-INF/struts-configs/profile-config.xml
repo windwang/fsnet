@@ -62,7 +62,11 @@
 			<forward name="success" path="/Profile.do" />
 		</action>
 		<action path="/GetPhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-			name="GetPhotoForm" parameter="getPhoto" validate="false">
+			name="GetPhotoForm" parameter="getPhoto" validate="true">
 		</action>
+		<action path="/GetMiniature" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+			name="GetPhotoForm" parameter="getMiniature" validate="true">
+		</action>
+		
 	</action-mappings>
 </struts-config>

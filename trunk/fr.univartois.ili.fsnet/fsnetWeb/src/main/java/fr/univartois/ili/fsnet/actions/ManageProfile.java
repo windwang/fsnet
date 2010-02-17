@@ -1,24 +1,12 @@
 package fr.univartois.ili.fsnet.actions;
 
-import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
-import java.awt.image.BufferedImage;
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
-import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -33,8 +21,9 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.apache.struts.upload.FormFile;
 
+import fr.univartois.ili.fsnet.actions.utils.ImageManager;
+import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
@@ -193,104 +182,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
-	/*
-	 * Return the path of the directory that receive pictures
-	 */
-	private String getStorageDirectory() {
-		String directory = FSNetConfiguration.getInstance()
-				.getFSNetConfiguration().getProperty(
-						FSNetConfiguration.PICTURES_DIRECTORY_KEY);
-		if (directory != null) {
-			if (!directory.endsWith("/")) {
-				directory = directory + "/";
-			}
-		}
-		return directory;
-	}
-
-	/*
-	 * install the picture in the proper directory
-	 * 
-	 * @param fileName The file name
-	 * 
-	 * @param suffix the file's sufix (.png, .bmp...)
-	 * 
-	 * @param datas the picture's datas
-	 */
-	private boolean installPicture(String fileName, AllowedPictureType pictureType,
-			BufferedImage image) {
-		boolean installed = true;
-		String directory = getStorageDirectory();
-		if (directory != null) {
-			removeOldPicture(directory + fileName);
-			String fileToCreate = directory + fileName + pictureType.getSuffix();
-			File imageFile = new File(fileToCreate);
-			try {
-				OutputStream out = new FileOutputStream(imageFile);
-				ImageIO.write(image, pictureType.getSuffix().substring(1), out);
-				out.flush();
-				out.close();
-			} catch (IOException e) {
-				installed = false;
-				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-			}
-		} else {
-			installed = false;
-			Logger.getAnonymousLogger().severe(
-					"Le répertoire de stockage des images n'est pas configuré");
-		}
-		return installed;
-	}
-
-	/*
-	 * Delete the picture currently installed on the file system
-	 */
-	private void removeOldPicture(String fileName) {
-		File oldPicture = searchPicture(fileName);
-		if (oldPicture != null) {
-			oldPicture.delete();
-		}
-	}
-
-	/*
-	 * return the java.io.File represented by filename on the file system
-	 * 
-	 * @param fileName the filename without suffix
-	 */
-	private File searchPicture(String fileName) {
-		for (AllowedPictureType pictureType : AllowedPictureType.values()) {
-			File f = new File(fileName + pictureType.getSuffix());
-			if (f.exists()) {
-				return f;
-			}
-		}
-		return null;
-	}
-	/*
-	 * The maximum width or height (ratio is preserved)
-	 */
-	private static final int MAX_WIDTH_OR_HEIGHT = 100;
-
-	public BufferedImage getImage(FormFile formFile, AllowedPictureType pictureType)
-			throws FileNotFoundException, IOException {
-		BufferedImage image = ImageIO.read(formFile.getInputStream());
-		image.flush();
-		AffineTransform tx = new AffineTransform();
-		double scaleValue;
-		if (image.getWidth() > image.getHeight()) {
-			scaleValue = MAX_WIDTH_OR_HEIGHT / (double) image.getWidth();
-		} else {
-			scaleValue = MAX_WIDTH_OR_HEIGHT / (double) image.getHeight();
-		}
-
-		tx.scale(scaleValue, scaleValue);
-		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
-		BufferedImage biNew = new BufferedImage(
-				(int) (image.getWidth() * scaleValue),
-				(int) (image.getHeight() * scaleValue),
-				pictureType.getImageType());
-		image = op.filter(image, biNew);
-		return image;
+	private void sendPictureError(HttpServletRequest request, String key) {
+		ActionErrors errors = new ActionErrors();
+		errors.add("photo", new ActionMessage(key));
+		saveErrors(request, errors);
 	}
 
 	public ActionForward changePhoto(ActionMapping mapping, ActionForm form,
@@ -299,94 +194,49 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("photo");
 		int userId = UserUtils.getAuthenticatesUserId(request);
-		String fileName = Integer.toString(userId);
-
 		if (file.getFileData().length != 0) {
-			AllowedPictureType pictureType = null;
-			for (AllowedPictureType pt : AllowedPictureType.values()) {
+			PictureType pictureType = null;
+			for (PictureType pt : PictureType.values()) {
 				if (pt.getMimeType().equals(file.getContentType())) {
 					pictureType = pt;
 					break;
 				}
 			}
-
 			if (pictureType != null) {
-				BufferedImage biNew = getImage(file, pictureType);
-				if (!installPicture(fileName, pictureType, biNew)) {
-					ActionErrors errors = new ActionErrors();
-					errors.add("photo", new ActionMessage(
-							"updateProfile.error.photo.fatal"));
-					saveErrors(request, errors);
+				try {
+					ImageManager.createPicturesForUser(userId, file
+							.getInputStream(), pictureType);
+				} catch (FileNotFoundException e) {
+					sendPictureError(request, "updateProfile.error.photo.fatal");
+				} catch (IOException e) {
+					sendPictureError(request, "updateProfile.error.photo.fatal");
+				} catch (IllegalStateException e) {
+					sendPictureError(request, "updateProfile.error.photo.fatal");
 				}
-
 			} else {
-				ActionErrors errors = new ActionErrors();
-				errors.add("photo", new ActionMessage(
-						"updateProfile.error.photo.type"));
-				saveErrors(request, errors);
+				sendPictureError(request, "updateProfile.error.photo.type");
 			}
 		} else {
-			String directory = getStorageDirectory();
-			if (directory != null) {
-				removeOldPicture(directory + fileName);
-			}
+			ImageManager.removeOldUserPicture(userId);
 		}
 		return mapping.findForward("success");
-	}
-
-	private void sendDefaultPhoto(HttpServletResponse response) {
-		try {
-			response.setContentType("image/png");
-			InputStream inputStream = getServlet().getServletContext()
-					.getResourceAsStream("/images/DefaultPhoto.png");
-			OutputStream out = response.getOutputStream();
-			byte[] datas = new byte[4096];
-			int numReaded = inputStream.read(datas);
-			while (numReaded != -1) {
-				out.write(datas, 0, numReaded);
-				numReaded = inputStream.read(datas);
-			}
-			inputStream.close();
-		} catch (FileNotFoundException e) {
-			Logger.getAnonymousLogger().log(Level.SEVERE,
-					"Default photo not found", e);
-		} catch (IOException e) {
-			Logger.getAnonymousLogger().log(Level.SEVERE,
-					"Default photo cannot be readed", e);
-		}
 	}
 
 	public ActionForward getPhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		byte[] datas = null;
-		String memberId = dynaForm.getString("memberId");
-		String directory = getStorageDirectory();
-		if (directory != null) {
-			File picture = searchPicture(directory + memberId);
-			if (picture != null) {
-				String contentType = null;
-				for (AllowedPictureType pictureType : AllowedPictureType
-						.values()) {
-					if (picture.getName().endsWith(pictureType.getSuffix())) {
-						contentType = pictureType.getMimeType();
-					}
-				}
-				response.setContentType(contentType);
-				response.setContentLength((int) picture.length());
-				datas = new byte[(int) picture.length()];
-				BufferedInputStream stream = new BufferedInputStream(
-						new FileInputStream(picture));
-				stream.read(datas);
-				OutputStream out = response.getOutputStream();
-				out.write(datas);
-			} else {
-				sendDefaultPhoto(response);
-			}
-		} else {
-			sendDefaultPhoto(response);
-		}
+		String userId = dynaForm.getString("memberId");
+		ImageManager.sendUserPicture(Integer.parseInt(userId), response);
+		return null;
+	}
+	
+	public ActionForward getMiniature(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String userId = dynaForm.getString("memberId");
+		ImageManager.sendUserMiniature(Integer.parseInt(userId), response);
 		return null;
 	}
 }

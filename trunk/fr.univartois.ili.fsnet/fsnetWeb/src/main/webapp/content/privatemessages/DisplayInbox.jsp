@@ -22,6 +22,9 @@
                 <td>
                     <input type="checkbox"/>
                 </td>
+                <td>
+            		<img src="GetMiniature.do?memberId=${message.from.id}"/>
+            	</td>
                 <td style="width: 25%">
                     <html:link action="/DisplayMessage">
                         <html:param name="messageId" value="${message.id}"/>
@@ -43,6 +46,9 @@
                 <td>
                     <input type="checkbox"/>
                 </td>
+                <td>
+            		<img src="GetMiniature.do?memberId=${message.from.id}"/>
+            	</td>
                 <td style="width: 25%">
                     <html:link action="/DisplayMessage">
                         <html:param name="messageId" value="${message.id}"/>

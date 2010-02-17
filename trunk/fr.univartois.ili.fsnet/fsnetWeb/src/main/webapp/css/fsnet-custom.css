@@ -1,5 +1,9 @@
 #ui-datepicker-div {font-size: 80%;}
 
+.miniatureContainer {
+	width: 25px;
+}
+
 #eventDescription_container .mceLayout {
     border: 1px solid #505050;
 }
