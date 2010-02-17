@@ -29,6 +29,7 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.MeetingFacade;
 import java.util.ArrayList;
+import javax.persistence.RollbackException;
 
 /**
  * Execute CRUD Actions for the entity Event
@@ -105,7 +106,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         MeetingFacade meetingFacade = new MeetingFacade(em);
         Meeting meeting = meetingFacade.getMeeting(Integer.parseInt(eventId));
         meetingFacade.deleteMeeting(meeting);
-        em.getTransaction().commit();
+        try{
+            em.getTransaction().commit();
+        }catch(RollbackException e){
+            e.printStackTrace();
+        }
         em.close();
 
         return mapping.findForward("success");
