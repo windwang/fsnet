@@ -15,10 +15,9 @@
 		<div class="clear"></div>
 		
 		<div id="logo">
-			<h1>
-				<a>FSNet</a>
-			</h1>
-			<h2 id="slogan">Firm Social Networking</h2>
+			<div id="logo">
+				<img src="images/FSNET.png"/>
+			</div>
 		</div>
 		
 		<div class="clear"></div>
