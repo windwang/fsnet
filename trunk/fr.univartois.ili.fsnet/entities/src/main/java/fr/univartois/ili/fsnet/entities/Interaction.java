@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PreRemove;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -76,6 +77,11 @@ public abstract class Interaction implements Serializable {
         this.roles = new HashSet<InteractionRole>();
         this.followingEntitys = new HashSet<SocialEntity>();
         // this.report = rapport;
+    }
+
+    @PreRemove
+    public void onPreRemove() {
+        interests.clear();
     }
 
     /**
