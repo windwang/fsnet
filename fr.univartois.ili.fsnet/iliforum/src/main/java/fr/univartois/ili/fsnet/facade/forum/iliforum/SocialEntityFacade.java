@@ -193,6 +193,7 @@ public class SocialEntityFacade {
         }
         if (!socialEntity.getInterests().contains(interest)) {
             socialEntity.getInterests().add(interest);
+            interest.getEntities().add(socialEntity);
         }
     }
 
