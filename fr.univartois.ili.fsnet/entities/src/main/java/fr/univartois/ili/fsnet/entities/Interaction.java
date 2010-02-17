@@ -62,7 +62,7 @@ public abstract class Interaction implements Serializable {
     public Interaction() {
     }
 
-    // TODO voir rapport d'activité
+    // TODO voir rapport d'activite
     // TODO !!! private
     public Interaction(SocialEntity creator, String title) {
         if (creator == null || title == null) {
