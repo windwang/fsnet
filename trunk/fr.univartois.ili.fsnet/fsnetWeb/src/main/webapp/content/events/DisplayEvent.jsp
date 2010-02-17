@@ -26,6 +26,7 @@
                 <bean:write name="event" property="startDate" format="dd/MM/yyyy hh:mm" />
                 <bean:message key="events.to"/>
                 <bean:write name="event" property="endDate" format="dd/MM/yyyy hh:mm" />
+                <c:if test="${subscriber}">,&nbsp;&nbsp;"<bean:message key="events.19"/>"</c:if>
             </td>
         </tr>
         <tr>
@@ -33,17 +34,24 @@
                 ${event.content}
             </td>
         </tr>
+        
         <tr>
             <td  class="alignRight">
+                <c:if test="${not subscriber}">
                 <html:link  action="/SubscribeEvent" styleClass="button">
                     <html:param name="eventId" value="${event.id}"/>
                     <bean:message key="events.17"/>
                 </html:link>
-            </td>
-        </tr>
-        <tr>
-            <td  class="alignRight">
-                <c:if test="${user.id eq event.creator.id}">
+            </c:if>
+
+            <c:if test="${subscriber}">
+                <html:link  action="/UnsubscribeEvent" styleClass="button">
+                    <html:param name="eventId" value="${event.id}"/>
+                    <bean:message key="events.18"/>
+                </html:link>
+            </c:if>
+                
+                <c:if test="${userId eq event.creator.id}">
                     <html:link  action="/DeleteEvent" styleClass="button">
                         <html:param name="eventId" value="${event.id}"/>
                         <bean:message key="events.7"/>
