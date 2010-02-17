@@ -9,7 +9,7 @@
     <bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
 </h3>
 
-<img class="memberPhoto" src="GetPhoto.do?memberId=${watchedProfile.id}" style="float: right;"/>
+<img src="GetPhoto.do?memberId=${watchedProfile.id}" style="float: right;"/>
 
 <table class="watchedProfile">
     <tr>
