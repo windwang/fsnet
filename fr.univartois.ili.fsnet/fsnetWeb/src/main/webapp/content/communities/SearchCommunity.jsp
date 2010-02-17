@@ -35,7 +35,7 @@
                         </html:link>
                     </td>
                     <td class="tableButton">
-                        <c:if test="${sessionScope.user.id eq community.creator.id}">
+                        <c:if test="${sessionScope.userId eq community.creator.id}">
                             <html:link action="/DeleteCommunity" styleClass="button" >
                                 <html:param name="communityId" value="${community.id}"/>
                                 <bean:message key="communities.delete"/>

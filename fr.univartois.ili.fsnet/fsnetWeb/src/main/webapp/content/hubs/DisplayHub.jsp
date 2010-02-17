@@ -62,7 +62,7 @@
                     <bean:message key="hubs.noMessage"/>
                 </logic:empty>
             </td>
-            <c:if test="${sessionScope.user.id eq couple.key.creator.id}">
+            <c:if test="${sessionScope.userId eq couple.key.creator.id}">
                 <td class="tableButton">
                     <html:link action="/DeleteTopic" styleClass="button">
                         <html:param name="topicId" value="${couple.key.id}"/>
