@@ -1,5 +1,8 @@
 package fr.univartois.ili.fsnet.actions;
 
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,6 +18,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import javax.imageio.ImageIO;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -206,20 +210,24 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
 	/*
 	 * install the picture in the proper directory
+	 * 
 	 * @param fileName The file name
+	 * 
 	 * @param suffix the file's sufix (.png, .bmp...)
-	 * @param datas the picture's datas 
+	 * 
+	 * @param datas the picture's datas
 	 */
-	private boolean installPicture(String fileName, String suffix, byte[] datas) {
+	private boolean installPicture(String fileName, AllowedPictureType pictureType,
+			BufferedImage image) {
 		boolean installed = true;
 		String directory = getStorageDirectory();
 		if (directory != null) {
 			removeOldPicture(directory + fileName);
-			String fileToCreate = directory + fileName + suffix;
-			File image = new File(fileToCreate);
+			String fileToCreate = directory + fileName + pictureType.getSuffix();
+			File imageFile = new File(fileToCreate);
 			try {
-				OutputStream out = new FileOutputStream(image);
-				out.write(datas);
+				OutputStream out = new FileOutputStream(imageFile);
+				ImageIO.write(image, pictureType.getSuffix().substring(1), out);
 				out.flush();
 				out.close();
 			} catch (IOException e) {
@@ -241,12 +249,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		File oldPicture = searchPicture(fileName);
 		if (oldPicture != null) {
 			oldPicture.delete();
-			Logger.getAnonymousLogger().severe("oldPicture == null");
 		}
 	}
 
 	/*
 	 * return the java.io.File represented by filename on the file system
+	 * 
 	 * @param fileName the filename without suffix
 	 */
 	private File searchPicture(String fileName) {
@@ -258,38 +266,65 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		}
 		return null;
 	}
+	/*
+	 * The maximum width or height (ratio is preserved)
+	 */
+	private static final int MAX_WIDTH_OR_HEIGHT = 100;
+
+	public BufferedImage getImage(FormFile formFile, AllowedPictureType pictureType)
+			throws FileNotFoundException, IOException {
+		BufferedImage image = ImageIO.read(formFile.getInputStream());
+		image.flush();
+		AffineTransform tx = new AffineTransform();
+		double scaleValue;
+		if (image.getWidth() > image.getHeight()) {
+			scaleValue = MAX_WIDTH_OR_HEIGHT / (double) image.getWidth();
+		} else {
+			scaleValue = MAX_WIDTH_OR_HEIGHT / (double) image.getHeight();
+		}
+
+		tx.scale(scaleValue, scaleValue);
+		AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BILINEAR);
+		BufferedImage biNew = new BufferedImage(
+				(int) (image.getWidth() * scaleValue),
+				(int) (image.getHeight() * scaleValue),
+				pictureType.getImageType());
+		image = op.filter(image, biNew);
+		return image;
+	}
 
 	public ActionForward changePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("photo");
-		
 		int userId = UserUtils.getAuthenticatesUserId(request);
 		String fileName = Integer.toString(userId);
-		
+
 		if (file.getFileData().length != 0) {
-			String suffix = null;
-			for (AllowedPictureType pictureType : AllowedPictureType.values()) {
-				if (pictureType.getMimeType().equals(file.getContentType())) {
-					suffix = pictureType.getSuffix();
+			AllowedPictureType pictureType = null;
+			for (AllowedPictureType pt : AllowedPictureType.values()) {
+				if (pt.getMimeType().equals(file.getContentType())) {
+					pictureType = pt;
+					break;
 				}
 			}
-			
-			if (suffix != null) {
-				if (!installPicture(fileName, suffix, file.getFileData())) {
+
+			if (pictureType != null) {
+				BufferedImage biNew = getImage(file, pictureType);
+				if (!installPicture(fileName, pictureType, biNew)) {
 					ActionErrors errors = new ActionErrors();
 					errors.add("photo", new ActionMessage(
 							"updateProfile.error.photo.fatal"));
 					saveErrors(request, errors);
 				}
-				
+
 			} else {
 				ActionErrors errors = new ActionErrors();
 				errors.add("photo", new ActionMessage(
 						"updateProfile.error.photo.type"));
 				saveErrors(request, errors);
-			}	
+			}
 		} else {
 			String directory = getStorageDirectory();
 			if (directory != null) {
@@ -340,8 +375,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				}
 				response.setContentType(contentType);
 				response.setContentLength((int) picture.length());
-				datas = new byte [(int) picture.length()];
-				BufferedInputStream stream = new BufferedInputStream(new FileInputStream(picture));
+				datas = new byte[(int) picture.length()];
+				BufferedInputStream stream = new BufferedInputStream(
+						new FileInputStream(picture));
 				stream.read(datas);
 				OutputStream out = response.getOutputStream();
 				out.write(datas);
