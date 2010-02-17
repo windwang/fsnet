@@ -218,6 +218,7 @@ public class SocialEntityFacade {
             throw new IllegalArgumentException();
         }
         socialEntity.getFavoriteInteractions().add(interaction);
+        interaction.getFollowingEntitys().add(socialEntity);
     }
 
     /**
@@ -230,6 +231,7 @@ public class SocialEntityFacade {
             throw new IllegalArgumentException();
         }
         socialEntity.getFavoriteInteractions().remove(interaction);
+        interaction.getFollowingEntitys().remove(socialEntity);
     }
 
     /**

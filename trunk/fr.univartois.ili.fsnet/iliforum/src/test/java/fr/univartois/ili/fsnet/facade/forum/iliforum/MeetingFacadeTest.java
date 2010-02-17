@@ -105,7 +105,7 @@ public class MeetingFacadeTest {
 
         em.getTransaction().begin();
 
-        mf.deleteMeeting(m2.getId());
+        mf.deleteMeeting(m2);
         em.getTransaction().commit();
         assertNull(em.find(Meeting.class, m2.getId()));
 
