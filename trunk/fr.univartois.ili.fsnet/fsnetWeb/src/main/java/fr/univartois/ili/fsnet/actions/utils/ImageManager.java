@@ -151,7 +151,7 @@ public class ImageManager {
 			}
 		} else {
 			Logger.getAnonymousLogger().severe(
-					"Le répertoire de stockage des images n'est pas configuré");
+					"The storage directory for pictures is not configured");
 			throw new IllegalStateException();
 		}
 	}
