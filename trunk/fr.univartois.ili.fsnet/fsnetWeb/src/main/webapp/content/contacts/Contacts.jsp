@@ -17,20 +17,22 @@
         <c:forEach var="contact" items="${theUser.contacts}">
             <tr>
                	<td class="miniatureContainer">
-            		<img src="GetMiniature.do?memberId=${contact.id}"/>
-            	</td>
+               	<html:link action="/DisplayProfile">
+               	    <html:param name="id" value="${contact.id}"/>
+               		<img src="GetMiniature.do?memberId=${contact.id}"/>
+               	</html:link>	
+               	</td>
                 <td>
-                	${contact.firstName} ${contact.name}
+                    <html:link action="/DisplayProfile">
+                    	${contact.firstName} ${contact.name}
+                    	<html:param name="id" value="${contact.id}" />
+                    </html:link> 
                 </td>
                 <td class="tableButton">
                 	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
     					<bean:message key="showProfile.send"/>
     					<html:param name="receiver" value="${contact.email}"/>
 					</html:link>
-                	<html:link action="/DisplayProfile" styleClass="button">
-                    	<bean:message key="contact.profil" />
-                    	<html:param name="id" value="${contact.id}" />
-                    </html:link> 
                     <html:link action="/DeleteContact" styleClass="button">
                         <bean:message key="contact.delete" />
                         <html:param name="entityDeleted" value="${contact.id}" />
@@ -48,10 +50,16 @@
         <c:forEach var="contact" items="${theUser.asked}">
             <tr>
                 <td class="miniatureContainer">
-            		<img src="GetMiniature.do?memberId=${contact.id}"/>
+            		<html:link action="/DisplayProfile">
+               	    	<html:param name="id" value="${contact.id}"/>
+               			<img src="GetMiniature.do?memberId=${contact.id}"/>
+               		</html:link>
             	</td>
                 <td>
-                	${contact.firstName} ${contact.name}
+                	<html:link action="/DisplayProfile">
+                    	${contact.firstName} ${contact.name}
+                    	<html:param name="id" value="${contact.id}" />
+                    </html:link>
                 </td>
                 <td class="tableButton">
                     <html:link action="/DisplayCreatePrivateMessage" styleClass="button">
@@ -78,10 +86,16 @@
             <c:forEach var="contact" items="${theUser.requested}">
             <tr>
             	<td class="miniatureContainer">
-            		<img src="GetMiniature.do?memberId=${contact.id}"/>
+            		<html:link action="/DisplayProfile">
+               	    	<html:param name="id" value="${contact.id}"/>
+               			<img src="GetMiniature.do?memberId=${contact.id}"/>
+               		</html:link>
             	</td>
                 <td>
-                	${contact.firstName} ${contact.name}
+                	<html:link action="/DisplayProfile">
+                    	${contact.firstName} ${contact.name}
+                    	<html:param name="id" value="${contact.id}" />
+                    </html:link>
                 </td>
                 <td class="tableButton">
                   	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">

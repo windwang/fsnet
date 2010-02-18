@@ -1,5 +1,23 @@
 #ui-datepicker-div {font-size: 80%;}
 
+#loggedUsers {width: 210px;}
+
+.miniature:hover {
+	border: 2px solid #808080;
+	margin:1px;
+}
+
+.miniature {
+	padding: 2px;
+	border: 1px solid #AAAAAA;
+	float:left;
+	margin: 2px;
+	text-align: center; 
+}
+.miniature img {
+	vertical-align:middle;
+}
+
 .profileLink {
 	font-size: 0.8em; 
 	float: right;

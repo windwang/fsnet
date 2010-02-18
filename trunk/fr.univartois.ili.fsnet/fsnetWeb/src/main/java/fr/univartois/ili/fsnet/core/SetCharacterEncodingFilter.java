@@ -15,7 +15,7 @@
 * limitations under the License.
 */
 
-package fr.univartois.ili.fsnet.auth;
+package fr.univartois.ili.fsnet.core;
 
 import java.io.IOException;
 
