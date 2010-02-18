@@ -12,6 +12,7 @@
         <put name="currentMenu" type="string"/>
         <put name="menu"   value="/tiles/menu.jsp" />
         <put name="logo"   value="/tiles/logo.jsp" />
+        <put name="loggedUsers" value="/tiles/loggedUsers.jsp" />
         <put name="high" value="/tiles/high.jsp"/>
         <put name="left" value="/tiles/left.jsp" />
         <put name="body-content"   value="" />

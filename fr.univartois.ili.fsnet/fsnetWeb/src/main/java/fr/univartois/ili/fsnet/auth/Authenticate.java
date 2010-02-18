@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.core.LoggedUsersContainer;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
@@ -69,6 +70,9 @@ public class Authenticate extends HttpServlet {
 			user.setLastConnection(new Date());
 			em.merge(user);
 			em.getTransaction().commit();
+			
+			String userName = user.getFirstName() + " " + user.getName();
+			LoggedUsersContainer.getInstance().addUser(user.getId(), userName);
 		} else {
 			// the user is not authenticated
 			RequestDispatcher dispatcher = req

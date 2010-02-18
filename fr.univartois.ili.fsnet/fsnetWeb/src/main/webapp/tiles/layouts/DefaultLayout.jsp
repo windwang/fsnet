@@ -23,7 +23,7 @@
         <div class="wrap background">
             <tiles:useAttribute name="currentMenu" scope="request" ignore="true"/>
             <tiles:insert attribute="menu"/>
-
+			
             <div style="float: left; width: 25%" >
                 <div id="logo" >
                     <tiles:insert attribute="logo"/>
@@ -33,7 +33,10 @@
                         <a><bean:message key="${pageTitle}"/></a>
                     </h2>
                     <tiles:insert attribute="left"/>
+                    <tiles:insert attribute="loggedUsers"/>
                 </div>
+
+                	
             </div>
             <div id="body-content" style="width:75%;">
                 <tiles:insert attribute="body-content"/>
