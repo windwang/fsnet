@@ -55,9 +55,16 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         Date typedEventDate;
         try {
             typedEventDate = DateUtils.format(eventDate);
+            
         } catch (ParseException e) {
             ActionErrors errors = new ActionErrors();
             errors.add("eventDate", new ActionMessage(("event.date.errors")));
+            saveErrors(request, errors);
+            return mapping.getInputForward();
+        }
+        if (typedEventDate.before(new Date())) {
+        	ActionErrors errors = new ActionErrors();
+            errors.add("eventDate", new ActionMessage(("date.error.invalid")));
             saveErrors(request, errors);
             return mapping.getInputForward();
         }
