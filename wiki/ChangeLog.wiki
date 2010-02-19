@@ -1,7 +1,46 @@
 = ChangeLog of FSNet =
 
+
+
+== fsnet-0.2.0 ==
+
+=== New features ===
+
+ * New logo for FSNet (Issue 109)
+ * Users are now able to upload a picture. (Issue 34)
+ * The admin is able to choose the directory to store pictures of users in the configuration section
+ * Users are now notified when they receive a new message (Issue 101)
+ * The avatar of logged users are now in the left menu
+ * Little UI changes
+ * You can add an user to your contacts simply by clicking on a button on his profle (Issue 97)
+
+=== Fixed issues ===
+
+ * i18n improvements
+ * Issue 65: problem in editing profil
+ * Issue 73: Register again into an event
+ * Issue 77: no limit text indicated on page message
+ * Issue 81: Error with a future event
+ * Issue 90: Editing date problem
+ * Issue 91: Just an ergonomy problem
+ * Issue 99: message html
+ * Issue 105: Editing profil date
+ * Issue 106: Password confirmation
+ * Issue 111: interest should be lower case
+ * Issue 114: comma (,) not allowed in topic title
+ * Issue 118: avatar problem
+ * Issue 119: Event with an old date
+ * Issue 121: Allow quick access to private messaging from contact list
+ * Issue 125: Quickview of sent messages does display html tags
+ * Issue 126: Birthday date and time paradox (futur date)
+ * Issue 128: Message without Subject
+
+
+
 == fsnet-0.1.1 ==
-Fixed issues :
+
+=== Fixed issues ===
+
  * i18n improvements
  * Issue 33:	Page numbering functionality
  * Issue 41:	Launching the trayDesktop application causes a strack trace to appear on the console
@@ -23,6 +62,8 @@ Fixed issues :
  * Issue 94:	Error description
  * Issue 96:	Can't add date if javascript is enabled
 
+
+
 == fsnet-0.1.0 ==
 
  * Change of version numbering (Issue 40)
@@ -35,6 +76,7 @@ Fixed issues :
  * some bug fixes
 
 
+
 == fsnet-d4 ==
 
  * Some UI improvements
@@ -44,6 +86,8 @@ Fixed issues :
  * findbugs critical violations has been dropped (issue 24) 
  * Entities (JPA) has been entirely rewritten, so the source code is now in English (issue 30)
  * many features have been added in the persistance layer, and they will be implemented in the presentation layer in near future (issue 30)
+
+
 
 == fsnet-d3 ==
 
