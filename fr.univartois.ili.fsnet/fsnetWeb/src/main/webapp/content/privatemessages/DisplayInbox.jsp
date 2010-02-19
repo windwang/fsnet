@@ -15,12 +15,14 @@
 <logic:empty name="messages">
     <bean:message key="privatemessages.nomessages"/>
 </logic:empty>
+<html:form action="/DeleteMultiMessages">
 <table class="inLineTable">
+	
     <c:forEach items="${requestScope.messages}" var="message">
         <c:if test="${not message.reed}">
             <tr class="notReed">
                 <td>
-                    <input type="checkbox"/>
+                	<html:multibox property="selectedMessages" value="${message.id}"/>
                 </td>
                 <td>
             		<img src="GetMiniature.do?memberId=${message.from.id}"/>
@@ -44,7 +46,7 @@
             <c:if test="${message.reed}">
             <tr>
                 <td>
-                    <input type="checkbox"/>
+                    <html:multibox property="selectedMessages" value="${message.id}"/>
                 </td>
                 <td>
             		<img src="GetMiniature.do?memberId=${message.from.id}"/>
@@ -72,3 +74,9 @@
         </tr>
     </c:forEach>
 </table>
+	<c:if test="${ ! empty requestScope.messages}">
+    <html:submit styleClass="button">
+     <bean:message key="privatemessages.delete"/>
+    </html:submit>
+    </c:if>
+</html:form>
