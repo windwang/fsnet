@@ -12,7 +12,8 @@
 	border: 1px solid #AAAAAA;
 	float:left;
 	margin: 2px;
-	text-align: center; 
+	text-align: center;
+	min-height: 25px;
 }
 .miniature img {
 	vertical-align:middle;
