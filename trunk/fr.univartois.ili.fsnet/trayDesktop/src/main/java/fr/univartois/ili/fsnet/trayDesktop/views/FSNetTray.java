@@ -117,9 +117,9 @@ public class FSNetTray implements WSListener {
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                control.checkWS();
-                Point position =  e.getLocationOnScreen();
-                //NotificationFrame notframe = new NotificationFrame(position);
+                //control.checkWS();
+                Point position =  e.getLocationOnScreen();    
+                control.check(position);
             }
         });
         // Add components to popup menu

@@ -12,10 +12,12 @@ public class NotificationFrame {
 	private JFrame frame;
 	private FlowLayout flow;
 	private Point point;
+	private Point position;
 	
 	
 	public NotificationFrame(Point position) {		
 		frame = new JFrame("Fsnet");
+		this.position=position;
 		init(position);
 	}
 	
@@ -23,12 +25,28 @@ public class NotificationFrame {
 		return frame;
 	}
 	
+	public void addPanelMessage(int nbMessage){
+		NotificationPanel panel = new NotificationPanel(nbMessage,"nouveaux messages");
+		this.frame.add(panel.getPanel());
+		this.frame.pack();
+		initPosition(position);
+		this.frame.setLocation(point.x,point.y);
+	}
+	
+	public void addPanelContact(int nbContact){
+		NotificationPanel panel = new NotificationPanel(nbContact,"nouvelles demandes de contacts");
+		this.frame.add(panel.getPanel());
+		this.frame.pack();
+		initPosition(position);
+		this.frame.setLocation(point.x,point.y);
+		
+	}
+	
 	public void init(Point position){		
 		this.frame.setUndecorated(true);
-		flow = new FlowLayout();this.frame.setVisible(true);
-		this.frame.setLayout(flow);	
-		NotificationPanel panel = new NotificationPanel(4);
-		this.frame.add(panel.getPanel());
+		flow = new FlowLayout();
+		this.frame.setVisible(true);
+		this.frame.setLayout(flow);				
 		this.frame.pack();
 		initPosition(position);
 		this.frame.setLocation(point.x,point.y);

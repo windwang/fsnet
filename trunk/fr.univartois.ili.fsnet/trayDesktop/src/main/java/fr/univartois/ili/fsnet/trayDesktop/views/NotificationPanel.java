@@ -13,17 +13,17 @@ public class NotificationPanel {
 	private JLabel label;
 	private BorderLayout border;	
 	
-	public NotificationPanel(int nb) {
+	public NotificationPanel(int nb,String message) {
 		this.panel = new JPanel();
-		init(nb);
+		init(nb,message);
 	}
 	
 	public JPanel getPanel() {
 		return panel;
 	}
 	
-	public void init(int nb){
-		this.label = new JLabel("Vous avez "+nb+" nouveau(x) message(s)");
+	public void init(int nb,String message){
+		this.label = new JLabel("Vous avez "+nb+" "+message);
 		border = new BorderLayout();
 		panel.setLayout(border);
 		this.panel.add(label, BorderLayout.WEST);		

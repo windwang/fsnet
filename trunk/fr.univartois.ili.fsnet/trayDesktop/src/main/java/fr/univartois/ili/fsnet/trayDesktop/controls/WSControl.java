@@ -1,5 +1,7 @@
 package fr.univartois.ili.fsnet.trayDesktop.controls;
 
+import java.awt.Point;
+
 import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSConnector;
 
@@ -33,5 +35,9 @@ public class WSControl {
      */
     public void checkWS() {
         model.checkWS();
+    }
+    
+    public void check(Point position){
+    	model.check(position);
     }
 }
