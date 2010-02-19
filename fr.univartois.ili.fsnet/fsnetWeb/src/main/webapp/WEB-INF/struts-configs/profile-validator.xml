@@ -27,6 +27,11 @@
 			</field>
 			<field property="dateOfBirth" depends="date">
 				<arg key="error.updateProfile.dateOfBirth" />
+				<msg name="date" key="date.error.invalid"/>
+				<var>
+					<var-name>datePattern</var-name>
+					<var-value>dd/MM/yyyy</var-value>
+				</var>
 			</field>
 			<field property="sexe" depends="required">
 				<arg key="error.updateProfile.sexe" />
