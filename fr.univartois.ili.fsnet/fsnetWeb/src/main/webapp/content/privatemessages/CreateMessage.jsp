@@ -31,12 +31,21 @@
                 </label>
             </td>
             <td>
-               
-                <html:text  property="messageTo"
-                            errorStyleClass="error"
-                            style="width: 100%"
-                            styleId="memberSearch"
-                            value="${param.receiver}"/>
+               	<c:choose>
+               		<c:when test="${! empty param.receiver}">
+               			<html:text  property="messageTo"
+                    		        errorStyleClass="error"
+                        		    style="width: 100%"
+                            		styleId="memberSearch"
+                            		value="${param.receiver}"/>
+                    </c:when>
+                    <c:otherwise>
+                    	<html:text  property="messageTo"
+                    		        errorStyleClass="error"
+                        		    style="width: 100%"
+                            		styleId="memberSearch"/>
+                    </c:otherwise>
+                </c:choose>
                 <logic:messagesPresent property="messageTo">
                     <div class="errorMessage">
                         <html:errors property="messageTo"/>
