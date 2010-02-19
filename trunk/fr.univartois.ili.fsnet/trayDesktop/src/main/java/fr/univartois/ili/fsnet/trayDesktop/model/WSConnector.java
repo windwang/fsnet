@@ -199,15 +199,20 @@ public class WSConnector {
 	}
 
 	public void check(Point position) {
-		int notif=0;
-		frame = new NotificationFrame(position);
-		if (getNbMessage() > 0) {
-			frame.addPanelMessage(getNbMessage());
-			notif++;
-		}
-		if(getNbDemandeC()>0){
-			frame.addPanelContact(getNbDemandeC());
-			notif++;
+		int notif = 0;
+		if (frame == null) {
+			frame = new NotificationFrame(position);
+			if (getNbMessage() > 0) {
+				frame.addPanelMessage(getNbMessage());
+				notif++;
+			}
+			if (getNbDemandeC() > 0) {
+				frame.addPanelContact(getNbDemandeC());
+				notif++;
+			}
+		} else {
+			frame.getFrame().dispose();
+			frame=null;
 		}
 
 	}
@@ -226,9 +231,9 @@ public class WSConnector {
 	}
 
 	public int getNbDemandeC() {
-		int nbC=0;
-		try {			
-			//nbC = infoPort.getNewDemandeCount();
+		int nbC = 0;
+		try {
+			// nbC = infoPort.getNewDemandeCount();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
