@@ -15,7 +15,7 @@
         <tr>
             <td>
                 <label for="name">
-                    <bean:message key="updateProfile.name"/>
+                    <bean:message key="updateProfile.name"/> :
                 </label>
             </td>
             <td>
@@ -32,7 +32,7 @@
         <tr>
             <td>
                 <label for="firstName">
-                    <bean:message key="updateProfile.firstname"/>
+                    <bean:message key="updateProfile.firstname"/> :
                 </label>
             </td>
             <td>
@@ -49,7 +49,7 @@
         <tr>
             <td>
                 <label for="adress">
-                    <bean:message key="updateProfile.adress"/>
+                    <bean:message key="updateProfile.adress"/> :
                 </label>
             </td>
             <td>
@@ -66,7 +66,7 @@
         <tr>
             <td>
                 <label for="city">
-                    <bean:message key="updateProfile.city"/>
+                    <bean:message key="updateProfile.city"/> :
                 </label>
             </td>
             <td>
@@ -83,7 +83,7 @@
         <tr>
             <td>
                 <label for="dateOfBirth">
-                    <bean:message key="updateProfile.dateOfBirth"/>
+                    <bean:message key="updateProfile.dateOfBirth"/> :
                 </label>
             </td>
             <td>
@@ -100,7 +100,7 @@
         <tr>
             <td>
                 <label for="sexe">
-                    <bean:message key="updateProfile.sexe"/>
+                    <bean:message key="updateProfile.sexe"/> :
                 </label>
             </td>
             <td>
@@ -125,7 +125,7 @@
         <tr>
             <td>
                 <label for="job">
-                    <bean:message key="updateProfile.job"/>
+                    <bean:message key="updateProfile.job"/> :
                 </label>
             </td>
             <td>
@@ -142,7 +142,7 @@
         <tr>
             <td>
                 <label for="mail">
-                    <bean:message key="updateProfile.email"/>
+                    <bean:message key="updateProfile.email"/> :
                 </label>
             </td>
             <td>
@@ -159,7 +159,7 @@
         <tr>
             <td>
                 <label for="phone">
-                    <bean:message key="updateProfile.phone"/>
+                    <bean:message key="updateProfile.phone"/> :
                 </label>
             </td>
             <td>

@@ -20,7 +20,7 @@
         <tr>
             <td>
                 <label for="eventName">
-                    <bean:message key="events.1"/>
+                    <bean:message key="events.1"/> :
                 </label>
             </td>
             <td>
@@ -43,7 +43,7 @@
         <tr>
             <td>
                 <label for="eventDescription">
-                    <bean:message key="events.2"/>
+                    <bean:message key="events.2"/> :
                 </label>
             </td>
             <td>
@@ -62,7 +62,7 @@
         <tr>
             <td>
                 <label for="eventDate">
-                    <bean:message key="events.3"/>
+                    <bean:message key="events.3"/> :
                 </label>
             </td>
             <td>
@@ -71,7 +71,7 @@
                             errorStyleClass="error"/>
 
                 <html:submit styleClass="button">
-                    <bean:message key="events.4"/>
+                    <bean:message key="events.4"/> :
                 </html:submit>
                 <logic:messagesPresent property="eventDate">
                     <div class="errorMessage">

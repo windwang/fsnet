@@ -26,7 +26,7 @@
 </html:form>
 
 <h3>
-    <bean:message key="events.9"/>
+    <bean:message key="events.9"/> :
 </h3>
 <logic:messagesPresent property="searchString">
     <html:errors property="searchString"/>
