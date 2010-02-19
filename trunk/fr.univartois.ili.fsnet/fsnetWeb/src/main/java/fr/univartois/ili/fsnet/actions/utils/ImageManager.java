@@ -67,14 +67,16 @@ public class ImageManager {
 		if (directory != null) {
 			File picture = searchPicture(directory + fileName);
 			if (picture != null) {
-				String contentType = null;
-				for (PictureType pictureType : PictureType.values()) {
-					if (picture.getName().endsWith(pictureType.getSuffix())) {
-						contentType = pictureType.getMimeType();
+				PictureType pictureType = null;
+				for (PictureType pt : PictureType.values()) {
+					if (picture.getName().endsWith(pt.getSuffix())) {
+						pictureType = pt;
 					}
 				}
-				response.setContentType(contentType);
+				response.setContentType(pictureType.getMimeType());
 				response.setContentLength((int) picture.length());
+				response.addHeader("Content-Disposition", "attachment; filename="
+				          + fileName + pictureType.getSuffix());
 				datas = new byte[(int) picture.length()];
 				BufferedInputStream stream;
 				try {
