@@ -16,7 +16,7 @@
 <h3><bean:message key="topics.createMessage"/></h3>
 <html:form action="/CreateTopicMessage">
     <html:hidden property="topicId" value="${topicId}"/>
-    <bean:message key="topics.description"/>
+    <bean:message key="topics.description"/> :
     <table style="width: 100%;">
         <tr>
             <td>
@@ -39,7 +39,7 @@
 
         </tr>
     </table>
-    <bean:message key="topics.lastmessages"/>
+    <bean:message key="topics.lastmessages"/> :
 	<c:forEach var="message" items="${lastMessages}">
 	
     <div class="lastMessageOwner">${message.from.name} ${message.from.firstName} </div><div class="topicTable"> ${message.body}

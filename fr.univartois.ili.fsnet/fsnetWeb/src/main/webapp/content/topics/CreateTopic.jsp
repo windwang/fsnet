@@ -42,7 +42,7 @@
         <tr>
             <td>
                 <label for="messageDescription">
-                    <bean:message key="topics.descriptionMessage"/>
+                    <bean:message key="topics.descriptionMessage"/> :
                 </label>
             </td>
             <td>

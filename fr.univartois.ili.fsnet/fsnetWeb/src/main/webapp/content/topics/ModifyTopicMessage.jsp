@@ -19,7 +19,7 @@
 <html:form action="/ModifyTopicMessage">
     <html:hidden property="topicId" value="${topicId}"/>
     <html:hidden property="messageId" value="${message.id}"/>
-    <bean:message key="topics.descriptionMessage"/>
+    <bean:message key="topics.descriptionMessage"/> :
     <table style="width: 100%;">
         <tr>
             <td>
