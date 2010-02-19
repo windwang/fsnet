@@ -1,0 +1,30 @@
+<!DOCTYPE form-validation PUBLIC
+"-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+"http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<form-validation>
+	<formset>
+		<form name="/CreateEvent">
+			<field property="eventName" depends="required">
+				<arg key="events.14" />
+			</field>
+			<field property="eventDescription" depends="required, maxlength">
+				<arg key="events.13" name="required" />
+				<arg0 key="events.12" name="maxlength" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5000</var-value>
+				</var>
+			</field>
+			<field property="eventDate" depends="required,date">
+				<arg key="events.15" />
+				<arg position="0" key="events.15" />
+				<msg name="date" key="date.error.invalid"/>
+				<var>
+					<var-name>datePattern</var-name>
+					<var-value>dd/MM/yyyy</var-value>
+				</var>
+			</field>
+		</form>
+	</formset>
+</form-validation>
