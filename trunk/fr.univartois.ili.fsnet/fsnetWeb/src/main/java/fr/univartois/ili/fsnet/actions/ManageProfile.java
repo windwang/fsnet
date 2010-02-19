@@ -90,6 +90,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Date birthday = null;
 		try {
 			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
+			if (birthday.after(new Date())) {
+				ActionErrors errors = new ActionErrors();
+				errors.add("dateOfBirth", new ActionMessage("date.error.invalid"));
+				saveErrors(request, errors);
+				return mapping.getInputForward();
+			}
 		} catch (ParseException e1) {
 			// DO NOTHING
 		}
