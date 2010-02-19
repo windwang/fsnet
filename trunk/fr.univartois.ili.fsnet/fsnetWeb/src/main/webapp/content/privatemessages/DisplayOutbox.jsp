@@ -15,11 +15,12 @@
 <logic:empty name="messages">
     <bean:message key="privatemessages.nomessages"/>
 </logic:empty>
+<html:form action="/DeleteMultiSentMessages">
 <table class="inLineTable">
     <c:forEach items="${requestScope.messages}" var="message">
         <tr>
             <td>
-                <input type="checkbox"/>
+                <html:multibox property="selectedMessages" value="${message.id}"/>
             </td>
             <td style="width: 25%">
                 <bean:message key="privatemessages.sentTO"/> :
@@ -42,3 +43,9 @@
         </tr>
     </c:forEach>
 </table>
+	<c:if test="${ ! empty requestScope.messages}">
+    <html:submit styleClass="button">
+     <bean:message key="privatemessages.delete"/>
+    </html:submit>
+    </c:if>
+</html:form>
