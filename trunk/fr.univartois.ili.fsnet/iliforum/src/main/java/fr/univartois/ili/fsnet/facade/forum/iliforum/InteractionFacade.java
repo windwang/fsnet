@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  *
@@ -59,5 +60,24 @@ public class InteractionFacade {
             throw new IllegalArgumentException();
         }
         interaction.getInterests().remove(interest);
+    }
+    
+    
+    /**
+     * delete an interaction, control if the deleter is the owner
+     * @param entity the entity who call the delete
+     * @param interaction the interaction who is deleted
+     * @return a boolean who display if entity is the owner or not
+     */
+    public final boolean deleteInteraction(SocialEntity entity,Interaction interaction){
+    	if(interaction == null || entity == null) {
+            throw new IllegalArgumentException();
+        }
+    	if(interaction.getCreator().equals(entity)){
+    		em.remove(interaction);
+    		return true;
+    	}
+    	
+    	return false;
     }
 }
