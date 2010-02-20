@@ -1,9 +1,7 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
-import java.util.Date;
 
-import javax.persistence.EntityManager;
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
 import javax.servlet.FilterConfig;
@@ -14,9 +12,6 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-
-import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
-import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  * This filter is used to make sure that the current request is made by an

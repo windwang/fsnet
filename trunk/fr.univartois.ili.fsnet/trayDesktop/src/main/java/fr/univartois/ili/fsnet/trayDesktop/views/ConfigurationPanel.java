@@ -1,13 +1,8 @@
 package fr.univartois.ili.fsnet.trayDesktop.views;
 
-import com.jgoodies.forms.builder.PanelBuilder;
-import com.jgoodies.forms.layout.CellConstraints;
-import com.jgoodies.forms.layout.FormLayout;
-import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
-import fr.univartois.ili.fsnet.trayDesktop.model.Options;
-import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
 import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
+
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -15,6 +10,14 @@ import javax.swing.JSpinner;
 import javax.swing.JTextField;
 import javax.swing.SpinnerModel;
 import javax.swing.SpinnerNumberModel;
+
+import com.jgoodies.forms.builder.PanelBuilder;
+import com.jgoodies.forms.layout.CellConstraints;
+import com.jgoodies.forms.layout.FormLayout;
+
+import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
+import fr.univartois.ili.fsnet.trayDesktop.model.Options;
+import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
 
 /**
  * Create and return a configuration panel for the trayIcon

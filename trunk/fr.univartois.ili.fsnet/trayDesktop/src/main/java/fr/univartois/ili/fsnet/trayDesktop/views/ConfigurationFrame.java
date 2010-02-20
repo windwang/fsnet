@@ -1,9 +1,5 @@
 package fr.univartois.ili.fsnet.trayDesktop.views;
 
-import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
-import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
-import fr.univartois.ili.fsnet.trayDesktop.model.WSListener;
-import fr.univartois.ili.fsnet.trayDesktop.model.WSMessage;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
@@ -20,6 +16,11 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
+
+import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
+import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
+import fr.univartois.ili.fsnet.trayDesktop.model.WSListener;
+import fr.univartois.ili.fsnet.trayDesktop.model.WSMessage;
 
 /**
  * Create the configuration frame

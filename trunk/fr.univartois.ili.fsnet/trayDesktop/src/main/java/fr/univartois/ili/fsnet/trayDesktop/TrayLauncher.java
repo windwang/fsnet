@@ -1,10 +1,5 @@
 package fr.univartois.ili.fsnet.trayDesktop;
 
-import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
-import fr.univartois.ili.fsnet.trayDesktop.views.ConfigurationFrame;
-import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
-import fr.univartois.ili.fsnet.trayDesktop.model.Options;
-import fr.univartois.ili.fsnet.trayDesktop.model.WSConnector;
 import java.awt.AWTException;
 import java.awt.SystemTray;
 import java.io.IOException;
@@ -12,10 +7,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+
+import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
+import fr.univartois.ili.fsnet.trayDesktop.model.Options;
+import fr.univartois.ili.fsnet.trayDesktop.model.WSConnector;
+import fr.univartois.ili.fsnet.trayDesktop.views.ConfigurationFrame;
+import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
 
 /**
  * The class TrayLauncher creates an instance of the web service and an instance
