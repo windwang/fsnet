@@ -18,7 +18,8 @@ public class OnAuthenticationSuccess extends Action {
 			HttpServletRequest request, HttpServletResponse response)
 			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		ManagePrivateMessages.storeNumNewMessages(request, em);
+		ManagePrivateMessages.refreshNumNewMessages(request, em);
+		ManageContacts.refreshNumNewContacts(request, em);
 		em.close();
 		return mapping.findForward("success");
 	}

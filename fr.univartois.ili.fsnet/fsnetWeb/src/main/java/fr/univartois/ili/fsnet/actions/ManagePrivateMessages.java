@@ -149,11 +149,11 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					authenticatedUser.getReceivedPrivateMessages());
 			Collections.reverse(userMessages);
 			request.setAttribute("messages", userMessages);
-			storeNumNewMessages(request, userMessages);
+			refreshNumNewMessages(request, userMessages);
 		} else {
 			// TODO
 		}
-		storeNumNewMessages(request, em);
+		refreshNumNewMessages(request, em);
 		em.close();
 		return mapping.findForward("success");
 	}
@@ -206,7 +206,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					if (authenticatedUser.equals(privateMessage.getTo())) {
 						em.getTransaction().begin();
 						privateMessage.setReed(true);
-						storeNumNewMessages(request, em);
+						refreshNumNewMessages(request, em);
 						em.getTransaction().commit();
 					}
 					request.setAttribute("theMessage", privateMessage);
@@ -234,7 +234,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		return numNonReedPrivateMessages;
 	}
 
-	private static final void storeNumNewMessages(HttpServletRequest request,
+	private static final void refreshNumNewMessages(HttpServletRequest request,
 			Collection<PrivateMessage> messages) {
 		HttpSession session = request.getSession();
 		int numNonReedPrivateMessages = calculateNumNewMessage(messages);
@@ -248,7 +248,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * @param request
 	 * @param em
 	 */
-	public static final void storeNumNewMessages(HttpServletRequest request,
+	public static final void refreshNumNewMessages(HttpServletRequest request,
 			EntityManager em) {
 		HttpSession session = request.getSession();
 		SocialEntity se = UserUtils.getAuthenticatedUser(request, em);
