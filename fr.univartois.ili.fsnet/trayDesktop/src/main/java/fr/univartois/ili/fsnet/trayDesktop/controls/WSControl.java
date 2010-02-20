@@ -2,8 +2,8 @@ package fr.univartois.ili.fsnet.trayDesktop.controls;
 
 import java.awt.Point;
 
-import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
 import fr.univartois.ili.fsnet.trayDesktop.model.WSConnector;
+import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
 
 /**
  * The controleur of the application

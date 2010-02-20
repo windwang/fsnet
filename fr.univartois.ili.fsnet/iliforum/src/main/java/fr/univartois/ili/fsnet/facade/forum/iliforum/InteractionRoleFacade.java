@@ -1,13 +1,14 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.InteractionRole;
 import fr.univartois.ili.fsnet.entities.InteractionRolePK;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Logger;
-import javax.persistence.EntityManager;
 
 /**
  *
@@ -16,7 +17,6 @@ import javax.persistence.EntityManager;
 public class InteractionRoleFacade {
 
     private final EntityManager em;
-    private static final Logger logger = Logger.getAnonymousLogger();
 
     public InteractionRoleFacade(EntityManager em){
         this.em = em;

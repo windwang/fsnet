@@ -4,18 +4,17 @@ import java.awt.Desktop;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Point;
-import java.net.URI;
-import java.net.URISyntaxException;
-import fr.univartois.ili.fsnet.trayDesktop.model.Options;
-
-
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
+
+import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 
 public class NotificationFrame {
 

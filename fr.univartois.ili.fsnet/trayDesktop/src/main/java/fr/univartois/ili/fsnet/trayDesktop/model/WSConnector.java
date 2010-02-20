@@ -1,12 +1,5 @@
 package fr.univartois.ili.fsnet.trayDesktop.model;
 
-import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
-import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
-import fr.univartois.ili.fsnet.trayDesktop.views.NotificationFrame;
-import fr.univartois.ili.fsnet.webservice.Info;
-import fr.univartois.ili.fsnet.webservice.InfoService;
-import fr.univartois.ili.fsnet.webservice.WsPrivateMessage;
-
 import java.awt.Point;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -17,7 +10,15 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javax.xml.namespace.QName;
+
+import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
+import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
+import fr.univartois.ili.fsnet.trayDesktop.views.NotificationFrame;
+import fr.univartois.ili.fsnet.webservice.Info;
+import fr.univartois.ili.fsnet.webservice.InfoService;
+import fr.univartois.ili.fsnet.webservice.WsPrivateMessage;
 
 /**
  * The model of the application. Communicate with the webservice and notify

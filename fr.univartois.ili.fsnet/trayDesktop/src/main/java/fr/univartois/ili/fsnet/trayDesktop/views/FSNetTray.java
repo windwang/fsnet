@@ -1,11 +1,5 @@
 package fr.univartois.ili.fsnet.trayDesktop.views;
 
-import fr.univartois.ili.fsnet.trayDesktop.model.Options;
-import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
-import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
-import fr.univartois.ili.fsnet.trayDesktop.model.WSListener;
-import fr.univartois.ili.fsnet.trayDesktop.model.WSMessage;
-
 import java.awt.CheckboxMenuItem;
 import java.awt.Desktop;
 import java.awt.Image;
@@ -25,6 +19,12 @@ import java.net.URISyntaxException;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
+import fr.univartois.ili.fsnet.trayDesktop.controls.WSControl;
+import fr.univartois.ili.fsnet.trayDesktop.model.Options;
+import fr.univartois.ili.fsnet.trayDesktop.model.WSListener;
+import fr.univartois.ili.fsnet.trayDesktop.model.WSMessage;
 
 /**
  * The class FSnetTray has the responsibility to create a tray icon and

@@ -2,10 +2,12 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,12 +26,10 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionRoleFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionRoleFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.MeetingFacade;
-import java.util.ArrayList;
-import javax.persistence.RollbackException;
 
 /**
  * Execute CRUD Actions for the entity Event
