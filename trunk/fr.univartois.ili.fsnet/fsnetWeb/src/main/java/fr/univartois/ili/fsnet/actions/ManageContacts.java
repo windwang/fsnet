@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -85,6 +86,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		SocialEntity entityAccepted = socialEntityFacade.getSocialEntity(id);
 		ContactFacade contactFacade = new ContactFacade(em);
 		contactFacade.acceptContact(user, entityAccepted);
+		refreshNumNewContacts(request, em);
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
@@ -176,4 +178,10 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		return mapping.findForward("success");
 	}
 
+	public static void refreshNumNewContacts(HttpServletRequest request, EntityManager em) {
+		HttpSession session = request.getSession();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		session.setAttribute("numNewContactsRequests", user.getAsked().size());
+	}
+	
 }

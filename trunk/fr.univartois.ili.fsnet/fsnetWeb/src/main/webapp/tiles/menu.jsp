@@ -33,6 +33,9 @@
     <li>
         <html:link action="/Contacts" styleClass="${currentMenu == 'Contacts' ? 'current' : ''}">
             <bean:message key="menu.1"/>
+      	     <c:if test="${sessionScope.numNewContactsRequests gt 0}">
+            	(${sessionScope.numNewContactsRequests})
+            </c:if>
         </html:link>
     </li>
     <li>
