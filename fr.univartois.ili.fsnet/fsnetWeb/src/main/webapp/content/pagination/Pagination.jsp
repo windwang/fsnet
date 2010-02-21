@@ -9,7 +9,7 @@
 	<html:link styleClass="button" action="${paginatorAction}">
 		<html:param name="pageId" value="${paginatorInstance.previousPage}"/>
 		<html:param name="tileId" value="${paginatorTile}"/>
-	 	<html:param name="requestInput" value="${paginatorInstance.requestInput}"/>
+	 	<html:param name="${paginatorInstance.requestInputName}" value="${paginatorInstance.requestInput}"/>
 		<bean:message key="interests.12"/>
 	</html:link>
 </c:if>
@@ -18,7 +18,7 @@
 		<html:link styleClass="button" action="${paginatorAction}">
 			<html:param name="pageId" value="${page}"/>
 		 	<html:param name="tileId" value="${paginatorTile}"/>
-		 	<html:param name="requestInput" value="${paginatorInstance.requestInput}"/>
+		 	<html:param name="${paginatorInstance.requestInputName}" value="${paginatorInstance.requestInput}"/>
 			<c:choose>
 				<c:when test="${page == paginatorInstance.requestedPage}">
 					<u>${page}</u>
@@ -34,7 +34,7 @@
 	<html:link styleClass="button" action="${paginatorAction}">
 		<html:param name="pageId" value="${paginatorInstance.nextPage}"/>
 	 	<html:param name="tileId" value="${paginatorTile}"/>
-	 	<html:param name="requestInput" value="${paginatorInstance.requestInput}"/>
+	 	<html:param name="${paginatorInstance.requestInputName}" value="${paginatorInstance.requestInput}"/>
 		<bean:message key="interests.13"/>
 	</html:link>
 </c:if>
