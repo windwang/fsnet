@@ -32,34 +32,8 @@
             <bean:message key="interests.8"/>
         </c:otherwise>
     </c:choose>
-    <c:if test="${requestScope.myInterestPaginator.hasPreviousPage}">
-        <html:link styleClass="button" action="/DisplayInterests">
-            <html:param name="pageId" value="${requestScope.myInterestPaginator.previousPage}"/>
-            <html:param name="tileId" value="display"/>
-            <bean:message key="interests.12"/>
-        </html:link>
-    </c:if>
-    <c:if test="${requestScope.myInterestPaginator.numPages > 1}">
-        <c:forEach var="page" begin="0" end="${requestScope.myInterestPaginator.numPages-1}">
-            <html:link styleClass="button" action="/DisplayInterests">
-                <html:param name="pageId" value="${page}"/>
-                <html:param name="tileId" value="display"/>
-                <c:choose>
-                    <c:when test="${page == requestScope.myInterestPaginator.requestedPage}">
-                        <u>${page}</u>
-                    </c:when>
-                    <c:otherwise>
-                        ${page}
-                    </c:otherwise>
-                </c:choose>
-            </html:link>
-        </c:forEach>
-    </c:if>
-    <c:if test="${requestScope.myInterestPaginator.hasNextPage}">
-        <html:link styleClass="button" action="/DisplayInterests">
-            <html:param name="pageId" value="${requestScope.myInterestPaginator.nextPage}"/>
-            <html:param name="tileId" value="display"/>
-            <bean:message key="interests.13"/>
-        </html:link>
-    </c:if>
+    <c:set var="paginatorInstance" value="${requestScope.myInterestPaginator}" scope="request"/>
+	<c:set var="paginatorAction" value="/DisplayInterests" scope="request"/>
+	<c:set var="paginatorTile" value="display" scope="request"/>
+	<c:import url="/content/pagination/Pagination.jsp"/>
 </logic:present>
