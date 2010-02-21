@@ -34,3 +34,4 @@
     </table>
                 <c:import url="/InterestCheckBoxes.do"/>
 </html:form>
+<div class="clear"></div>
