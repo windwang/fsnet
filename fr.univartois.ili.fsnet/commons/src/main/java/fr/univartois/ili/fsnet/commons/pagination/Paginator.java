@@ -22,7 +22,7 @@ public class Paginator<T> {
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
-	public static final String REQUEST_INPUT = "requestInput";
+	public static final String DEFAULT_REQUEST_INPUT_NAME = "requestInput";
 
 	/**
 	 * The identifier of the current tile
@@ -41,6 +41,13 @@ public class Paginator<T> {
 	 * The default id for tile identifier
 	 */
 	public static final String DEFAULT_TILE_ID = "default";
+
+	/**
+	 * The requested page id name
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	private String requestInputName;
 
 	/**
 	 * The requested page id
@@ -105,6 +112,7 @@ public class Paginator<T> {
 	public Paginator(List<T> results, HttpServletRequest request,
 			int numResultsPerPage) {
 		this.allResults = results;
+		this.requestInputName = DEFAULT_REQUEST_INPUT_NAME;
 		parseRequest(request);
 		this.numResultsPerPage = numResultsPerPage;
 		init();
@@ -121,7 +129,55 @@ public class Paginator<T> {
 	public Paginator(List<T> results, HttpServletRequest request)
 			throws IllegalArgumentException {
 		this.allResults = results;
+		this.requestInputName = DEFAULT_REQUEST_INPUT_NAME;
 		parseRequest(request);
+		init();
+	}
+
+	/**
+	 * Default constructor that allow user to set the number of result by
+	 * including the proper parameter in his request
+	 * 
+	 * @param results
+	 * @param request
+	 * @param identifier
+	 *            the tile identifier
+	 * @throws IllegalArgumentException
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public Paginator(List<T> results, HttpServletRequest request,
+			String identifier)
+			throws IllegalArgumentException {
+		this.allResults = results;
+		this.identifier = identifier;
+		this.requestInputName = DEFAULT_REQUEST_INPUT_NAME;
+		parseRequest(request);
+		init();
+	}
+	
+	/**
+	 * This constructor allow developper to set the number of results, AND this
+	 * parameter is higher priority to HTTP parameter
+	 * 
+	 * @param results
+	 *            All results from a query from example
+	 * @param requestThe
+	 *            HTTPRequest that contains the proper parameters
+	 * @param numResultsPerPage
+	 *            the number of results per page
+	 * @param identifier
+	 *            the tile identifier
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public Paginator(List<T> results, HttpServletRequest request,
+			int numResultsPerPage, String identifier) {
+		this.allResults = results;
+		this.identifier = identifier;
+		this.requestInputName = DEFAULT_REQUEST_INPUT_NAME;
+		parseRequest(request);
+		this.numResultsPerPage = numResultsPerPage;
 		init();
 	}
 
@@ -135,34 +191,41 @@ public class Paginator<T> {
 	 *            HTTPRequest that contains the proper parameters
 	 * @param numResultsPerPage
 	 *            the number of results per page
-	 * @param identifier the tile identifier 
+	 * @param identifier
+	 *            the tile identifier
+	 * @param requestInputName the requestInput name
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
 	public Paginator(List<T> results, HttpServletRequest request,
-			int numResultsPerPage, String identifier) {
+			int numResultsPerPage, String identifier, String requestInputName) {
 		this.allResults = results;
 		this.identifier = identifier;
+		this.requestInputName = requestInputName;
 		parseRequest(request);
 		this.numResultsPerPage = numResultsPerPage;
 		init();
 	}
-
+	
 	/**
 	 * Default constructor that allow user to set the number of result by
 	 * including the proper parameter in his request
 	 * 
 	 * @param results
 	 * @param request
-	 * @param identifier the tile identifier
+	 * @param identifier
+	 *            the tile identifier
+	 * @param requestInputName the requestInput name
 	 * @throws IllegalArgumentException
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
 	public Paginator(List<T> results, HttpServletRequest request,
-			String identifier) throws IllegalArgumentException {
+			String identifier, String requestInputName)
+			throws IllegalArgumentException {
 		this.allResults = results;
 		this.identifier = identifier;
+		this.requestInputName = requestInputName;
 		parseRequest(request);
 		init();
 	}
@@ -216,8 +279,8 @@ public class Paginator<T> {
 			} else {
 				this.numResultsPerPage = DEFAULT_NUM_RESULT_PER_PAGE;
 			}
-			if (request.getParameterMap().containsKey(REQUEST_INPUT)) {
-				requestInput = (String) request.getParameter(REQUEST_INPUT);
+			if (request.getParameterMap().containsKey(requestInputName)) {
+				requestInput = (String) request.getParameter(requestInputName);
 			} else {
 				requestInput = "";
 			}
@@ -321,5 +384,15 @@ public class Paginator<T> {
 	 */
 	public String getRequestInput() {
 		return requestInput;
+	}
+
+	/**
+	 * 
+	 * @return the request input name
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public String getRequestInputName() {
+		return requestInputName;
 	}
 }
