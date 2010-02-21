@@ -15,8 +15,8 @@
         <c:param name="interactionId" value="${requestScope.topic.id}"/>
     </c:import>
     ${requestScope.topic.title} : Messages </h3>
-    <c:forEach var="msg" items="${requestScope.topic.messages}">
 
+<c:forEach var="msg" items="${requestScope.topicMessageDisplayPaginator.resultList}">
     <table class="topicTable">
         <tr class="topicHeader">
             <td colspan="2">
@@ -61,7 +61,10 @@
         -->
     </div>
 </c:forEach>
-
+<c:set var="paginatorInstance" value="${requestScope.topicMessageDisplayPaginator}" scope="request"/>
+<c:set var="paginatorAction" value="/DisplayTopic" scope="request"/>
+<c:set var="paginatorTile" value="displayTopic" scope="request"/>
+<c:import url="/content/pagination/Pagination.jsp"/>
 
 <html:link action="/DisplayCreateTopicMessage" styleClass="button">
     <html:param name="topicId" value="${topic.id}" />

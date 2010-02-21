@@ -19,6 +19,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Interest;
@@ -145,6 +146,9 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic result = topicFacade.getTopic(topicId);
+		
+		Paginator<TopicMessage> paginator = new Paginator<TopicMessage>(result.getMessages(), request, "displayTopic", "topicId");
+		request.setAttribute("topicMessageDisplayPaginator", paginator);
 		request.setAttribute("topic", result);
 
 		em.close();
