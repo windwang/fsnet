@@ -29,6 +29,7 @@
         <tr class="errorMessage">
             <td>
                 <html:errors property="hubName"/>
+                 <html:errors property="createdHubName"/>
             </td>
         </tr>
     </table>

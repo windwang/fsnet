@@ -8,13 +8,17 @@ import java.util.Map;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -50,29 +54,38 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		Community community = em.find(Community.class, Integer.parseInt(communityId));
 	
+		try{
+		Hub hub = em.createQuery(
+				"SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName AND hub.community = :com",
+				Hub.class).setParameter("hubName", hubName ).setParameter("com", community ).getSingleResult();
 		
-        //
-        String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
-        InterestFacade fac = new InterestFacade(em);
-        List<Interest> interests = new ArrayList<Interest>();
-        int currentId;
-        for (currentId = 0; currentId < InterestsIds.length; currentId++) {
-            interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
-        }
-        //
-        
-    	HubFacade hubFacade = new HubFacade(em);
-		logger.info("new hub: " + hubName);
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		em.getTransaction().begin();
-		Hub createdHub = hubFacade.createHub(community, user, hubName);
-	
-        InteractionFacade ifacade = new InteractionFacade(em);
-        ifacade.addInterests(createdHub, interests);
-        em.getTransaction().commit();
-        em.close();
+			ActionErrors actionErrors = new ActionErrors();
+			ActionMessage msg = new ActionMessage("hubs.alreadyExists");
+			actionErrors.add("createdHubName", msg);
+			saveErrors(request, actionErrors);
+		
+		} catch (NoResultException e){
+	        String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+	        InterestFacade fac = new InterestFacade(em);
+	        List<Interest> interests = new ArrayList<Interest>();
+	        int currentId;
+	        for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+	            interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
+	        }
+	        
+	    	HubFacade hubFacade = new HubFacade(em);
+			logger.info("new hub: " + hubName);
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			em.getTransaction().begin();
+			Hub createdHub = hubFacade.createHub(community, user, hubName);
+		
+	        InteractionFacade ifacade = new InteractionFacade(em);
+	        ifacade.addInterests(createdHub, interests);
+	        em.getTransaction().commit();
+	        em.close();
 
-        return mapping.findForward("success");
+		}
+		 return mapping.findForward("success");
     }
 
     @Override
@@ -108,7 +121,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String communityId = (String) dynaForm.get("communityId");
-			String hubName = (String) dynaForm.get("hubName");
+			String hubName = (String) dynaForm.get("searchText");
 					
 			if (hubName == null) {
 				hubName = "";
