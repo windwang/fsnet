@@ -14,15 +14,10 @@
     <table id="SearchHub">
         <tr>
             <td>
-                <html:text property="hubName" styleId="hubName" />
+                <html:text property="searchText" styleId="hubName" />
             </td>
             <td>
                 <html:submit styleClass="button"><bean:message key="hubs.search"/></html:submit>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <html:errors/>
             </td>
         </tr>
     </table>

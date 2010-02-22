@@ -13,7 +13,7 @@
         </form-bean>
         <form-bean name="SearchHubForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="hubName" type="java.lang.String" />
+            <form-property name="searchText" type="java.lang.String" />
             <form-property name="communityId" type="java.lang.String" />
         </form-bean>
         <form-bean name="DeleteHubForm"
@@ -36,7 +36,7 @@
     </global-forwards>
     <action-mappings>
         <action path="/CreateHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
-                name="CreateHubForm" input="/DisplayCreateHub.do" scope="request" validate="true"
+                name="CreateHubForm" input="Hubs" scope="request" validate="true"
                 parameter="create">
             <forward name="success" path="/SearchHub.do" />
         </action>
