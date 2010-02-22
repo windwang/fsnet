@@ -14,7 +14,15 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class ChangePasswordForm extends ValidatorForm {
-
+	/**
+	 * Minimum size for a password
+	 */
+	public static final int PASSWORD_MIN_LENGTH=6;
+	/**
+	 * Maximum size for a password
+	 */
+	public static final int PASSWORD_MAX_LENGTH=30;
+	
     private static final long serialVersionUID = -4883204887473399364L;
     private String oldPassword;
     private String newPassword;
@@ -56,6 +64,9 @@ public class ChangePasswordForm extends ValidatorForm {
         }
         if (!newPassword.equals(confirmNewPassword)) {
             res.add("confirmNewPassword", new ActionMessage("error.updateProfile.confirmPwd.diff"));
+        }
+        if(newPassword.length()<PASSWORD_MIN_LENGTH || newPassword.length()>PASSWORD_MAX_LENGTH){
+        	res.add("newPassword",new ActionMessage("error.updateProfile.passwd.size"));
         }
         return res;
     }
