@@ -74,7 +74,7 @@ For example to configure SMTP server using a gmail account :
 = How to build from sources =
  # Checkout the last revision of fsnet using : svn checkout http://fsnet.googlecode.com/svn/trunk/ fsnet-read-only
  # cd fsnet-read-only/fr.univartois.ili.fsnet/
- # mvn package assemnly:assembly
+ # mvn package assembly:assembly
  # wait for a while
  # you can take deliverables in target/fsnet-$version$.zip 
 
