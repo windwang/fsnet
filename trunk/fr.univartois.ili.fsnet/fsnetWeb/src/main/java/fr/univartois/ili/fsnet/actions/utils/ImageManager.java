@@ -25,9 +25,12 @@ public class ImageManager {
 
 	public static void createPicturesForUser(int userId,
 			InputStream incommingPictureInputStream, PictureType pictureType)
-			throws FileNotFoundException, IOException {
+			throws FileNotFoundException, IOException, IllegalStateException {
 		BufferedImage incommingPicture = ImageIO
 				.read(incommingPictureInputStream);
+		if (incommingPicture == null) {
+			throw new IllegalStateException();
+		}
 		BufferedImage picture = getProperResizedImage(incommingPicture,
 				pictureType, PICTURE_MAX_WIDTH_OR_HEIGHT);
 		ImageManager.installPicture(Integer.toString(userId), pictureType,
