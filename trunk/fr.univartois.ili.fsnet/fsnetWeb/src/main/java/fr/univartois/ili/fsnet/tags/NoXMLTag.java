@@ -13,7 +13,6 @@ public class NoXMLTag extends SimpleTagSupport {
 		StringWriter writer = new StringWriter();
 		getJspBody().invoke(writer);
 		String content = writer.toString().replaceAll("<.*?>", "");
-		System.out.println(content);
 		getJspContext().getOut().print(content);
 	}
 	

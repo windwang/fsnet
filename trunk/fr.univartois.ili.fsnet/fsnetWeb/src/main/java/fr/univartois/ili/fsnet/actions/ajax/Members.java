@@ -29,7 +29,6 @@ public class Members extends Action {
 
             DynaActionForm theform = (DynaActionForm) form; // NOSONAR
             String searchText = (String) theform.get("searchText");
-            System.out.println("search text = " + searchText);
             EntityManager em = PersistenceProvider.createEntityManager();
             SocialEntityFacade sef = new SocialEntityFacade(em);
             List<SocialEntity> listSE = sef.searchSocialEntity(searchText);
