@@ -32,6 +32,7 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicMessageFacade;
+import javax.persistence.RollbackException;
 
 /**
  * 
@@ -86,7 +87,6 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		// TODO hubId not necessary
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
 		int topicId = Integer.valueOf((String) dynaForm.get("topicId"));
@@ -95,13 +95,15 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
 		HubFacade hubFacade = new HubFacade(em);
 		Hub hub = hubFacade.getHub(hubId);
-		if (request.getParameterMap().containsKey("topicId")) {
 			TopicFacade topicFacade = new TopicFacade(em);
 			Topic topic = topicFacade.getTopic(topicId);
 			hub.getTopics().remove(topic);
 			topicFacade.deleteTopic(topicId);
-		}
-		em.getTransaction().commit();
+                try{
+                    em.getTransaction().commit();
+                }catch(RollbackException e){
+                    e.printStackTrace();
+                }
 		em.close();
 		return mapping.findForward("success");
 	}
