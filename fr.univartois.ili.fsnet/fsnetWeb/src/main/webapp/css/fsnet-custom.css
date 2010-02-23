@@ -14,6 +14,7 @@
 	margin: 2px;
 	text-align: center;
 	min-height: 25px;
+	min-width: 25px;
 }
 .miniature img {
 	vertical-align:middle;
