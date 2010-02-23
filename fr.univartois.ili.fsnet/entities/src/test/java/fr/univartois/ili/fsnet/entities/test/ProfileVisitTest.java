@@ -32,7 +32,7 @@ public class ProfileVisitTest {
 	public void profileVisiteConstructorTest(){
 		assertSame(bobo,pv.getVisited());
 		assertSame(bibi,pv.getVisitor());
-		assert(new Date().after(pv.getLastVisite()));
+		assert(new Date().before(pv.getLastVisite()));
 	}
 	
 	@Test 
@@ -58,9 +58,9 @@ public class ProfileVisitTest {
 	public void visitAgainstTest(){
 		Date last = pv.getLastVisite();
 		Date d =new Date();
-		assertTrue(d.after(last)||d.equals(last));
+		assertTrue(d.before(last)||d.equals(last));
 		pv.visiteAgainst();
-		assertTrue(d.before(pv.getLastVisite())||d.equals(pv.getLastVisite()));
+		assertTrue(d.after(pv.getLastVisite())||d.equals(pv.getLastVisite()));
 	}
 	
 }
