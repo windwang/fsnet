@@ -69,7 +69,7 @@ public class ProfileFacade {
     public final void editProfile(SocialEntity socialEntity, String name, String firstName, Address address, Date dateOfBirth,
             String sexe, String job, String mail, String phone) {
         socialEntity.setName(name);
-        socialEntity.setPrenom(firstName);
+        socialEntity.setFisrtname(firstName);
         socialEntity.setAddress(address);
         socialEntity.setBirthDate(dateOfBirth);
         socialEntity.setSex(sexe);

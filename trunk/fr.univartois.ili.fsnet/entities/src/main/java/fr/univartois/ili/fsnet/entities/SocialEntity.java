@@ -141,6 +141,46 @@ public class SocialEntity implements Serializable {
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Interaction> favoriteInteractions; 
 
+    @OneToMany(mappedBy = "visited")
+    private List<ProfileVisite> haveBeenVisit;
+    
+
+	@OneToMany(mappedBy = "visitor")
+    private List<ProfileVisite> haveVisit;
+    
+    /**
+     * 
+     * @return the list of Profile visite where it's this social entity frofile whitch visit
+     */
+    public List<ProfileVisite> getHaveBeenVisit() {
+		return haveBeenVisit;
+	}
+
+    /**
+     * set the list of Profile visite where it's this social entity profile whitch visit
+     * @param haveBeenVisit
+     */
+	public void setHaveBeenVisit(List<ProfileVisite> haveBeenVisit) {
+		this.haveBeenVisit = haveBeenVisit;
+	}
+    /**
+     * 
+     * @return the list of Profile visite where the social entity is the visitor 
+     */
+	public List<ProfileVisite> getHaveVisit() {
+		return haveVisit;
+	}
+
+	/**
+	 * set the list of Profile visite where the social entity is the visitor 
+	 * @param haveVisit
+	 */
+	public void setHaveVisit(List<ProfileVisite> haveVisit) {
+		this.haveVisit = haveVisit;
+	}
+
+
+    
     /**
      * Constructor of the class SocialEntity.
      */
@@ -172,10 +212,14 @@ public class SocialEntity implements Serializable {
         requested = new ArrayList<SocialEntity>();
         rolesInInteractions = new ArrayList<InteractionRole>();
         topics = new ArrayList<Topic>();
-
+        haveBeenVisit = new ArrayList<ProfileVisite>();
+        haveVisit = new ArrayList<ProfileVisite>();
     }
 
-    /**
+    
+ 
+
+	/**
      *
      * @return the identifier.
      */
@@ -222,7 +266,7 @@ public class SocialEntity implements Serializable {
      *
      * @param firstName
      */
-    public void setPrenom(String firstName) {
+    public void setFisrtname(String firstName) {
         this.firstName = firstName;
     }
 
