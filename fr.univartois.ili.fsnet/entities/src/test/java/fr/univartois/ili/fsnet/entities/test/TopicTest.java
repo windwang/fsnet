@@ -50,7 +50,7 @@ public class TopicTest {
 
         SocialEntity es = new SocialEntity("Ragoût", "Mouton", "RagoûtMouton@toiaussitafaim.com");
         es.setName("Théophile");
-        es.setPrenom("Gautier");
+        es.setFisrtname("Gautier");
         final Community community = new Community(es, "macom");
         Hub hub = new Hub(community, es, "mon hub");
         Topic top = new Topic(hub, es, "mon topic");

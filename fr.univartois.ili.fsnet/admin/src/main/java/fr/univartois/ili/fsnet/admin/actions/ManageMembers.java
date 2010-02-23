@@ -223,7 +223,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialEntityFacade facadeSE = new SocialEntityFacade(entityManager);
 
 		SocialEntity member = facadeSE.getSocialEntity(idMember);
-		member.setPrenom(firstName);
+		member.setFisrtname(firstName);
 		member.setName(name);
 		member.setEmail(email);
 		member.setAddress(new Address(address, city));
