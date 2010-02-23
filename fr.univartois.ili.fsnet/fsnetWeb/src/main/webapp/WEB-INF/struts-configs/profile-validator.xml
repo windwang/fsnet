@@ -32,7 +32,7 @@
 					<var-value>30</var-value>
 				</var>
 			</field>
-			<field property="adresse" depends="maxlength">
+			<field property="adress" depends="maxlength">
 				<arg key="error.updateProfile.adress" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 				<var>
