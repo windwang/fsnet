@@ -45,8 +45,10 @@ public class TopicFacade {
     public final void deleteTopic(int id) {
         Topic c = getTopic(id);
         if (c != null) {
+            for(SocialEntity se : c.getFollowingEntitys()){
+                se.getFavoriteInteractions().remove(c);
+            }
             em.remove(c);
-            em.flush();
         }
     }
 
