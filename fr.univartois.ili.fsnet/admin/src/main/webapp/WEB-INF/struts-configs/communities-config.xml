@@ -8,6 +8,7 @@
 		<form-bean name="CreateCommunityForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="name" type="java.lang.String" />
+			<form-property name="socialEntityId" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="SearchCommunityForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -21,7 +22,7 @@
 	
 		<action path="/CreateCommunity"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageCommunities" name="CreateCommunityForm"
-			input="Communities" scope="request" validate="true" parameter="create">
+			input="/Communities.do" scope="request" validate="true" parameter="create">
 			<forward name="success" path="/Communities.do" />
 		</action>
 		<action path="/SearchCommunity"
