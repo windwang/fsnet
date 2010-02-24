@@ -26,16 +26,22 @@ public class ProfileVisitTest {
 		bobo = new SocialEntity("bobo","bobo","bobo@bobo.fr");
 		toto = new SocialEntity("toto","toto","toto@bobo.fr");
 		pv = new ProfileVisite(bobo,bibi);
+		try {
+			Thread.sleep(2);
+		} catch (InterruptedException e) {
+			fail();
+		}
+		
 	}
 	
-	//@Test
+	@Test
 	public void profileVisiteConstructorTest(){
 		assertSame(bobo,pv.getVisited());
 		assertSame(bibi,pv.getVisitor());
 		assert(new Date().before(pv.getLastVisite()));
 	}
 	
-	//@Test 
+	@Test 
 	public void setAndGetVisitorTest(){
 		pv.setVisitor(toto);
 		assertSame(toto,pv.getVisitor());
@@ -47,20 +53,30 @@ public class ProfileVisitTest {
 		assertSame(toto,pv.getVisited());
 	}
 	
-	//@Test 
+	@Test 
 	public void setAndGetLastVisiteTest(){
 		Date d =new Date();
 		pv.setLastVisite( d);
 		assertSame(pv.getLastVisite(),d);
 	}
 	
-	//@Test 
+	@Test 
 	public void visitAgainstTest(){
 		Date last = pv.getLastVisite();
 		Date d =new Date();
-		assertTrue(d.before(last)||d.equals(last));
+		try {
+			Thread.sleep(2);
+		} catch (InterruptedException e) {
+			fail();
+		}
+		assertTrue(d.after(last));
 		pv.visiteAgainst();
-		assertTrue(d.after(pv.getLastVisite())||d.equals(pv.getLastVisite()));
+		try {
+			Thread.sleep(2);
+		} catch (InterruptedException e) {
+			fail();
+		}
+		assertTrue(d.before(pv.getLastVisite()));
 	}
 	
 }
