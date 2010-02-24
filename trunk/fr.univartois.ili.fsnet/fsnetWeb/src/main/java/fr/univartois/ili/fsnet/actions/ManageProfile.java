@@ -29,6 +29,7 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileVisiteFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 /**
@@ -175,6 +176,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				|| user.getRequested().contains(profile)
 				|| user.getRefused().contains(profile)) {
 			alreadyInContact = true;
+		}
+		if(!profile.equals(user)){
+			ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
+			em.getTransaction().begin();
+			pvf.visite(user, profile);
+			em.getTransaction().commit();
 		}
 		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
