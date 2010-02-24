@@ -1,4 +1,0 @@
-<Context>
-	<ResourceLink name="ds/fsnetDS" global="ds/fsnetDS"
-		type="javax.sql.DataSource" />
-</Context>
