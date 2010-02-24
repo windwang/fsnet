@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 
@@ -17,8 +18,14 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
+import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.CommunityFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
 
 /**
  * Execute CRUD Actions (and more) for the entity community
@@ -35,7 +42,22 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet");
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+        String name = (String) dynaForm.get("name");
+        String socialEntityId = (String) dynaForm.get("socialEntityId");
+               
+        
+        EntityManager em = PersistenceProvider.createEntityManager();
+        SocialEntity creator = em.find(SocialEntity.class, Integer.parseInt(socialEntityId));
+        CommunityFacade communityFacade = new CommunityFacade(em);
+
+        em.getTransaction().begin();
+        communityFacade.createCommunity(creator, name);
+
+        em.getTransaction().commit();
+        em.close();
+
+        return mapping.findForward("success");
 	}
 	
 	@Override
@@ -77,19 +99,22 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		List<Community> result = null;
+		List<SocialEntity> allMembers = null;
 		String searchText = "";
 		CommunityFacade communityFacade = new CommunityFacade(em);
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			searchText = (String) dynaForm.get("searchText");
 			
 		}
 		em.getTransaction().begin();
+		allMembers = socialEntityFacade.searchSocialEntity("");
 		result = communityFacade.searchCommunity(searchText);
 		em.getTransaction().commit();
 		em.close();
 		
-
+		request.setAttribute("allMembers", allMembers);
 		request.setAttribute("communitiesResult", result);
 		return mapping.findForward("success");
 	}
