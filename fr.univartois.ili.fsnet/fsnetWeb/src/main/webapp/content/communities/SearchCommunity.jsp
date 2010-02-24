@@ -14,9 +14,9 @@
 <h3><bean:message key="communities.listCommunities"/></h3>
 
 <c:choose>
-    <c:when test="${! empty communitiesResult}">
+    <c:when test="${! empty requestScope.communitiesSearchPaginator.resultList}">
         <table  class="inLineTable">
-            <c:forEach var="community" items="${communitiesResult}">
+            <c:forEach var="community" items="${requestScope.communitiesSearchPaginator.resultList}">
                 <tr class="content">
                     <td>
                         <c:import url="/FavoriteFragment.do">
@@ -45,6 +45,10 @@
                 </tr>
             </c:forEach>
         </table>
+        <c:set var="paginatorInstance" value="${requestScope.communitiesSearchPaginator}" scope="request"/>
+		<c:set var="paginatorAction" value="/SearchCommunity" scope="request"/>
+		<c:set var="paginatorTile" value="searchCommunity" scope="request"/>
+		<c:import url="/content/pagination/Pagination.jsp"/>
     </c:when>
     <c:otherwise>
         <bean:message key="communities.noResult"/>
