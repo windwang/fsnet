@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException;
 
 public class CommunityFacadeTest {
 	private EntityManager em;
@@ -61,7 +62,7 @@ public class CommunityFacadeTest {
 	}
 
 	@Test
-	public void testDelete() {
+	public void testDelete1() {
 		em.getTransaction().begin();
 		SocialEntity creatorCommunity = sef.createSocialEntity("creatorDelete3",
 				"communnauteDelete3", "creatorCommunityDelete3@gmail.com");
@@ -72,5 +73,20 @@ public class CommunityFacadeTest {
 		interactionFacade.deleteInteraction(creatorCommunity, community);
 		em.getTransaction().commit();
 		assertNull(em.find(Community.class, community.getId()));
+	}
+	
+	@Test(expected=UnauthorizedOperationException.class)
+	public void testDelete2() {
+		em.getTransaction().begin();
+		SocialEntity notcreator = sef.createSocialEntity("creator",
+				"not", "notcreator@gmail.com");
+		SocialEntity creatorCommunity = sef.createSocialEntity("creatorDelete3",
+				"communnauteDelete3", "creatorCommunityDelete30@gmail.com");
+		Community community = cf.createCommunity(creatorCommunity,
+		"nameCommunityDelete3");
+		em.getTransaction().commit();
+		em.getTransaction().begin();
+		interactionFacade.deleteInteraction(notcreator, community);
+		em.getTransaction().commit();
 	}
 }

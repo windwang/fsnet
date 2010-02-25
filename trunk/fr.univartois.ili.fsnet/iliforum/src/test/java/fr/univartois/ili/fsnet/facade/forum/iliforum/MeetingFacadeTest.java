@@ -15,6 +15,7 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException;
 
 public class MeetingFacadeTest {
 
@@ -86,7 +87,7 @@ public class MeetingFacadeTest {
     }
 
     @Test
-    public void testDelete() {
+    public void testDelete1() {
         Date start = new Date();
         Date end = new Date();
         em.getTransaction().begin();
@@ -110,6 +111,31 @@ public class MeetingFacadeTest {
         interactionFacade.deleteInteraction(member2, m2);
         em.getTransaction().commit();
         assertNull(em.find(Meeting.class, m2.getId()));
+    }
+    
+    @Test(expected=UnauthorizedOperationException.class)
+    public void testDelete2() {
+        Date start = new Date();
+        Date end = new Date();
+        em.getTransaction().begin();
+        SocialEntity member = sef.createSocialEntity("zaza", "zaza",
+                "BuildBrokenizer40@gmail.com");
+        mf.createMeeting(member, "tata", "tete", end, false,
+                start, "address", "city");
+        SocialEntity member2 = sef.createSocialEntity("zaza", "zaza",
+                "BuildBrokenizer50@gmail.com");
+        Meeting m2 = mf.createMeeting(member2, "titi", "toto", end, false,
+                start, "address", "city");
+        SocialEntity member3 = sef.createSocialEntity("zaza", "zaza",
+                "BuildBrokenizer60@gmail.com");
+        mf.createMeeting(member3, "tutu", "tyty", end, false,
+                start, "address", "city");
 
+        em.getTransaction().commit();
+
+        em.getTransaction().begin();
+
+        interactionFacade.deleteInteraction(member, m2);
+        em.getTransaction().commit();
     }
 }

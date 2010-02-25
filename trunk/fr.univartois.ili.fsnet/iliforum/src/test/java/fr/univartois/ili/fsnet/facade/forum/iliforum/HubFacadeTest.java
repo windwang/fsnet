@@ -14,6 +14,7 @@ import org.junit.Test;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException;
 
 public class HubFacadeTest {
 
@@ -60,12 +61,21 @@ public class HubFacadeTest {
 	}
 
 	@Test
-	public void deleteHubTest() {
+	public void deleteHubTest1() {
 		em.getTransaction().begin();
 		Hub deletedHub = hf.createHub(com, creator, "deletedHub");
 		interactionFcade.deleteInteraction(creator, deletedHub);
 		em.getTransaction().commit();
 		List<Hub> resultSearch = hf.searchHub("delet");
 		assertEquals(0, resultSearch.size());
+	}
+	
+	@Test(expected=UnauthorizedOperationException.class)
+	public void deleteHubTest2() {
+		em.getTransaction().begin();
+		SocialEntity socialEntity = new SocialEntity("efefefe", "dede", "mefefe@email.com");
+		Hub deletedHub = hf.createHub(com, creator, "deletedHub");
+		interactionFcade.deleteInteraction(socialEntity, deletedHub);
+		em.getTransaction().commit();
 	}
 }
