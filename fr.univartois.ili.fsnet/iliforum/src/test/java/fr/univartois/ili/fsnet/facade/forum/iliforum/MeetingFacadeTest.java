@@ -21,6 +21,7 @@ public class MeetingFacadeTest {
     private EntityManager em;
     private MeetingFacade mf;
     private SocialEntityFacade sef;
+    private InteractionFacade interactionFacade;
 
     @Before
     public void setUp() {
@@ -28,6 +29,7 @@ public class MeetingFacadeTest {
         em = emf.createEntityManager();
         mf = new MeetingFacade(em);
         sef = new SocialEntityFacade(em);
+        interactionFacade = new InteractionFacade(em);
     }
 
     @Test
@@ -105,7 +107,7 @@ public class MeetingFacadeTest {
 
         em.getTransaction().begin();
 
-        mf.deleteMeeting(m2);
+        interactionFacade.deleteInteraction(member2, m2);
         em.getTransaction().commit();
         assertNull(em.find(Meeting.class, m2.getId()));
 
