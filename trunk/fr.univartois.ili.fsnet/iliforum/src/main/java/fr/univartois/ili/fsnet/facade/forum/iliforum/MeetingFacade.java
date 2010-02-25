@@ -2,7 +2,6 @@ package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -65,23 +64,6 @@ public class MeetingFacade {
         return em.find(Meeting.class, meetingId);
     }
 
-    /**
-     * Delete the Meeting
-     *
-     * @param meeting
-     */
-    public final void deleteMeeting(Meeting meeting) {
-        if (meeting == null) {
-            throw new IllegalArgumentException();
-        }
-        Set<SocialEntity> followingEntitys = meeting.getFollowingEntitys();
-        for(SocialEntity se : followingEntitys){
-            se.getFavoriteInteractions().remove(meeting);
-        }
-        InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(em);
-        interactionRoleFacade.unsubscribeAll(meeting);
-        em.remove(meeting);
-    }
 
     /**
      * Search the meeting with the param searchStr
