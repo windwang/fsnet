@@ -43,5 +43,12 @@
             </div>
         </div>
         <tiles:insert attribute="footer"/>
+        <script type="text/javascript">
+    function confirmDelete(action){
+        if(confirm("<bean:message key='confirmation.delete' />")){
+        	  window.location = action; 
+        }
+    }  
+</script> 
     </body>
 </html:html>
