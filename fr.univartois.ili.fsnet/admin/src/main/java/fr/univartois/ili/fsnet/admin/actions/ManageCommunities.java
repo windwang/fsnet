@@ -6,14 +6,17 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -43,18 +46,32 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		String name = (String) dynaForm.get("name");
 		String socialEntityId = (String) dynaForm.get("socialEntityId");
 
-
 		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialEntity creator = em.find(SocialEntity.class, Integer.parseInt(socialEntityId));
-		CommunityFacade communityFacade = new CommunityFacade(em);
+		
+		try{
+			em.createQuery(
+				"SELECT community FROM Community community WHERE community.title LIKE :communityName",
+				Community.class).setParameter("communityName", name ).getSingleResult();
+		
+			ActionErrors actionErrors = new ActionErrors();
+			ActionMessage msg = new ActionMessage("communities.alreadyExists");
+			actionErrors.add("createdCommunityName", msg);
+			saveErrors(request, actionErrors);
+		
+		} catch (NoResultException e){
+	        
+			SocialEntity creator = em.find(SocialEntity.class, Integer.parseInt(socialEntityId));
+			CommunityFacade communityFacade = new CommunityFacade(em);
 
-		em.getTransaction().begin();
-		communityFacade.createCommunity(creator, name);
+			em.getTransaction().begin();
+			communityFacade.createCommunity(creator, name);
 
-		em.getTransaction().commit();
-		em.close();
+			em.getTransaction().commit();
+			em.close();
 
+		}
 		return mapping.findForward("success");
+		
 	}
 
 	@Override
