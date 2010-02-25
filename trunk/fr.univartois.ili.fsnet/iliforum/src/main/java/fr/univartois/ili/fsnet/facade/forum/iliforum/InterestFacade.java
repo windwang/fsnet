@@ -145,11 +145,11 @@ public class InterestFacade {
 	 */
 	public final HashMap<String, List<Interaction>> getInteractions(int interestId){
 		HashMap<String, List<Interaction>> resultMap = new HashMap<String, List<Interaction>>();
-		List<Interaction> resultHub = em.createQuery(
+		List<Interaction> result = em.createQuery(
 				"SELECT interaction FROM Interaction interaction, IN(interaction.interests) interest "
 				+ "WHERE interest.id = :interestId",
 				Interaction.class).setParameter("interestId", interestId).getResultList();
-		for (Interaction interaction : resultHub) {
+		for (Interaction interaction : result) {
 			if (! resultMap.containsKey(interaction.getClass().getSimpleName())) {
 				List<Interaction> list = new ArrayList<Interaction>();
 				list.add(interaction);
