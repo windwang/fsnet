@@ -36,8 +36,7 @@
                     </td>
                     <td class="tableButton">
                         <c:if test="${sessionScope.userId eq community.creator.id}">
-                            <html:link action="/DeleteYourCommunity" styleClass="button" >
-                                <html:param name="communityId" value="${community.id}"/>
+                            <html:link action="/DisplayCommunities.do" styleClass="button" onclick="confirmDelete('DeleteCommunity.do?communityId='+${community.id})">
                                 <bean:message key="communities.delete"/>
                             </html:link>
                         </c:if>
