@@ -29,6 +29,7 @@ public class AnnouncementFacadeTest {
         em = emf.createEntityManager();
         af = new AnnouncementFacade(em);
         sef = new SocialEntityFacade(em);
+        interactionFcade = new InteractionFacade(em);
     }
 
     @Test
