@@ -26,6 +26,7 @@
         <tr class="errorMessage">
             <td>
                 <html:errors property="name"/>
+                <html:errors property="createdCommunityName"/>
             </td>
         </tr>
         <tr>

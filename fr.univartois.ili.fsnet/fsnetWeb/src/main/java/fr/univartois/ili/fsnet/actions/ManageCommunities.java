@@ -5,14 +5,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -43,24 +46,42 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
         String name = (String) dynaForm.get("name");
         
         EntityManager em = PersistenceProvider.createEntityManager();
-        CommunityFacade communityFacade = new CommunityFacade(em);
-        SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
-        em.getTransaction().begin();
-        Community createdCommunity = communityFacade.createCommunity(creator, name);
+     
+        
+        try{
+    			em.createQuery(
+    				"SELECT community FROM Community community WHERE community.title LIKE :communityName",
+    				Community.class).setParameter("communityName", name ).getSingleResult();
+    		
+    			ActionErrors actionErrors = new ActionErrors();
+    			ActionMessage msg = new ActionMessage("communities.alreadyExists");
+    			actionErrors.add("createdCommunityName", msg);
+    			saveErrors(request, actionErrors);
+    		
+    		} catch (NoResultException e){
+    			 String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+    		        InterestFacade fac = new InterestFacade(em);
+    		        List<Interest> interests = new ArrayList<Interest>();
+    		        int currentId;
+    		        for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+    		            interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
+    		        }
+    	        
+    		    CommunityFacade communityFacade = new CommunityFacade(em);
+    		    
+    		    SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
+    	        em.getTransaction().begin();
+    	        Community createdCommunity = communityFacade.createCommunity(creator, name);
+    			
+ 
+    		
+    			InteractionFacade ifacade = new InteractionFacade(em);
+    		    ifacade.addInterests(createdCommunity, interests);
 
-        String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
-        InterestFacade fac = new InterestFacade(em);
-        List<Interest> interests = new ArrayList<Interest>();
-        int currentId;
-        for (currentId = 0; currentId < InterestsIds.length; currentId++) {
-            interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
-        }
-        InteractionFacade ifacade = new InteractionFacade(em);
-        ifacade.addInterests(createdCommunity, interests);
+    	        em.getTransaction().commit();
+    	        em.close();
 
-        em.getTransaction().commit();
-        em.close();
-
+    		}
         return mapping.findForward("success");
     }
 
