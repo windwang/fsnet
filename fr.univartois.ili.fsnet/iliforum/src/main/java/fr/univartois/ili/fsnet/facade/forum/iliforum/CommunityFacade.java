@@ -33,16 +33,6 @@ public class CommunityFacade {
     }
 
     /**
-     * Delete the community with the given id
-     * @param id
-     */
-//    public final void deleteCommunity(int id){
-//        Community community = em.find(Community.class, id);
-//        em.remove(community);
-//        em.flush();
-//    }
-
-    /**
      *
      * @param id the id of the communty
      * @return the community with the given id

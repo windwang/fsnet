@@ -74,18 +74,6 @@ public class AnnouncementFacade {
 		return announce;
 	}
 
-	/**
-	 * Delete the Announcement with the id of the Announcement AnnouncementId
-	 * 
-	 * @param idAnnounce
-	 */
-//	public final void deleteAnnouncement(Announcement announce) {
-//		if(announce == null){
-//			throw new IllegalArgumentException();
-//		}
-//		em.remove(announce);
-//		em.flush();
-//	}
 
 	/**
 	 * Search the Announcement with the param textSearchAnnounce
