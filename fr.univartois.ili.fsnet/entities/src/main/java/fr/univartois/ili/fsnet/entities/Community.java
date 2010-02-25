@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.entities;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -17,10 +18,10 @@ public class Community extends Interaction {
 
     private static final long serialVersionUID = 1L;
     
-    @OneToMany
+    @OneToMany(cascade=CascadeType.ALL)
     private Set<Hub> hubs;
     
-    @OneToMany(mappedBy="parentCommunity")
+    @OneToMany(cascade=CascadeType.ALL,mappedBy="parentCommunity")
     private Set<Community> childrenCommunities;
     
     @ManyToOne
