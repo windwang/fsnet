@@ -1,5 +1,7 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 
@@ -89,5 +91,29 @@ public class InteractionFacade {
 			throw new IllegalArgumentException();
 		}
 		em.remove(interaction);
+	}
+	
+	/**
+	 * 
+	 * @param user the user connected
+	 * @return the list of interests having name like interestName
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public final HashMap<String, List<Interaction>> getLastInteractions(SocialEntity user){
+		HashMap<String, List<Interaction>> resultMap = new HashMap<String, List<Interaction>>();
+		List<Interaction> result = em.createQuery(
+				"SELECT interaction FROM Interaction interaction WHERE interaction.lastModified > :lastConnection",
+				Interaction.class).setParameter("lastConnection", user.getLastConnection()).getResultList();
+		for (Interaction interaction : result) {
+			if (! resultMap.containsKey(interaction.getClass().getSimpleName())) {
+				List<Interaction> list = new ArrayList<Interaction>();
+				list.add(interaction);
+				resultMap.put(interaction.getClass().getSimpleName(), list);
+			} else {
+				resultMap.get(interaction.getClass().getSimpleName()).add(interaction);
+			}
+		}
+		return resultMap;
 	}
 }
