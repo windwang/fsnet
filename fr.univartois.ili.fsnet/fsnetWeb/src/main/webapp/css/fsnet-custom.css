@@ -306,9 +306,25 @@ input[type="text"][class="error"], textarea[class="error"] {
     border: 5px solid #F7FCFF;
 }
 
+
+.inLineTableDashBoard {
+    width: 50%;
+    border-collapse:collapse;
+    margin-left:auto;
+	margin-right:auto;
+}
+.inLineTableDashBoard tr{
+    background-color: #E8F5FD;
+    border: 5px solid #F7FCFF;
+}
+
 tr.notReed {
     background-color: #cfecff;
     font-weight: bold;
+}
+
+#InboxTitle {
+	text-align: center;	
 }
 
 /* TODO Find a way to place more menu items */
