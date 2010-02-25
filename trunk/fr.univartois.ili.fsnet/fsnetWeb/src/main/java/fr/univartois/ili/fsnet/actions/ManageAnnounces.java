@@ -141,7 +141,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
         Integer idAnnounce = Integer.valueOf(request.getParameter("idAnnounce"));
         Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
         ActionMessages message = new ActionErrors();
-        announcementFacade.deleteAnnouncement(announce);
+        InteractionFacade interactionFacade = new InteractionFacade(entityManager);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, entityManager);
+        interactionFacade.deleteInteraction(user, announce);
         entityManager.getTransaction().commit();
         entityManager.close();
         message.add("message", new ActionMessage("success.deleteAnnounce"));

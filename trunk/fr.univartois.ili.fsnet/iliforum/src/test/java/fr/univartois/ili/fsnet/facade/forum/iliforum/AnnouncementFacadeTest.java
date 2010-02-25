@@ -20,6 +20,7 @@ public class AnnouncementFacadeTest {
 
     private EntityManager em;
     private AnnouncementFacade af;
+    private InteractionFacade interactionFcade;
     private SocialEntityFacade sef;
 
     @Before
@@ -93,7 +94,7 @@ public class AnnouncementFacadeTest {
 
 		em.getTransaction().begin();
 
-		af.deleteAnnouncement(ann2);
+		interactionFcade.deleteInteraction(member2, ann2);
 		em.getTransaction().commit();
 		assertNull(em.find(Announcement.class, ann2.getId()));
 

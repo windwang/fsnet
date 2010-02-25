@@ -79,13 +79,13 @@ public class AnnouncementFacade {
 	 * 
 	 * @param idAnnounce
 	 */
-	public final void deleteAnnouncement(Announcement announce) {
-		if(announce == null){
-			throw new IllegalArgumentException();
-		}
-		em.remove(announce);
-		em.flush();
-	}
+//	public final void deleteAnnouncement(Announcement announce) {
+//		if(announce == null){
+//			throw new IllegalArgumentException();
+//		}
+//		em.remove(announce);
+//		em.flush();
+//	}
 
 	/**
 	 * Search the Announcement with the param textSearchAnnounce
