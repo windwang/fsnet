@@ -14,8 +14,10 @@
 		</exception>
 	</global-exceptions>
 	<action-mappings>
-		<action path="/Home" type="org.apache.struts.actions.ForwardAction"
-			parameter="Home" />
+		<action path="/Home" type="fr.univartois.ili.fsnet.actions.Home"
+			parameter="doDashboard">
+			<forward name="success" path="Home"></forward>
+		</action>
 		<action path="/OnAuthenticationSuccess"
 			type="fr.univartois.ili.fsnet.actions.OnAuthenticationSuccess">
 			<forward name="success" path="/Home.do" redirect="true"></forward>
