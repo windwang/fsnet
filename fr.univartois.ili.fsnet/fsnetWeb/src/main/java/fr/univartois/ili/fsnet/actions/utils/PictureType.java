@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 public enum PictureType {
 
 	JPEG("image/jpeg", ".jpeg", BufferedImage.TYPE_BYTE_INDEXED), 
-	PNG( "image/png",  ".png",  BufferedImage.TYPE_INT_ARGB), 
+	PNG( "image/png",  ".png",  BufferedImage.TRANSLUCENT), 
 	BMP( "image/bmp",  ".bmp",  BufferedImage.TYPE_BYTE_INDEXED);
 
 	private String mimeType;
