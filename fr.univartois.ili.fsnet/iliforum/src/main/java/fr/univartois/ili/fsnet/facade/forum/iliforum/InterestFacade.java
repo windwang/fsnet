@@ -138,9 +138,7 @@ public class InterestFacade {
 	
 	/**
 	 * 
-	 * @param interestName the name of the interest we search
-	 * @param begin point of beginning for the research
-	 * @param number how many by result
+	 * @param interestId
 	 * @return the list of interests having name like interestName
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
