@@ -71,7 +71,7 @@
                             errorStyleClass="error"/>
 
                 <html:submit styleClass="button">
-                    <bean:message key="events.4"/> :
+                    <bean:message key="events.4"/>
                 </html:submit>
                 <logic:messagesPresent property="eventDate">
                     <div class="errorMessage">
