@@ -4,8 +4,14 @@
 <form-validation>
     <formset>
         <form name="/CreateCommunity">
-            <field property="name" depends="required">
+            <field property="name" depends="required,mask">
                 <arg key="communities.error.name" />
+                <msg name="mask"
+                 	key="communities.error.mask"/>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[\w, )(\.-]+$</var-value>
+				</var>
             </field>
         </form>
          <form name="/DeleteCommunity">
