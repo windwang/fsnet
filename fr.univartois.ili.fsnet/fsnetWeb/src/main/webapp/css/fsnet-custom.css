@@ -306,6 +306,29 @@ input[type="text"][class="error"], textarea[class="error"] {
     border: 5px solid #F7FCFF;
 }
 
+#dashboardMessages {
+	float: left;
+	width: 45%;
+}
+
+#dashboardMessages table {
+	width: 100%;
+}
+#dashboardMessages td {
+	vertical-align: middle;
+}
+
+#dashboardMessages .messagePhoto {
+	width: 30px;
+	padding: 2px 5px 0 5px;
+}
+
+#dashboardMessages caption {
+	text-align: left;
+	font-size: 120%;
+	margin-bottom: 10px;
+	border-bottom: 1px solid #505050;
+}
 
 .inLineTableDashBoard {
     width: 50%;
@@ -322,6 +345,8 @@ tr.notReed {
     background-color: #cfecff;
     font-weight: bold;
 }
+
+
 
 #InboxTitle {
 	text-align: center;	
