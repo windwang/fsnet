@@ -1,9 +1,9 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
@@ -50,15 +50,15 @@ public class ProfileVisiteFacade {
 	 * @param visited entite sociale dont le profil a été visité
 	 * @return the list of social entity who visit the profile
 	 */
-	public List<SocialEntity> getLastVisitor(SocialEntity visited){
-		//TODO 
-		 TypedQuery<SocialEntity> query = em.createNamedQuery(
-				"SELECT pv.visitor " +
-				"FROM ProfileVisite pv " +
-				"WHERE socialEntity = pv.visited "
-				,SocialEntity.class).setParameter("socialEntity", visited);
-		
-		return query.getResultList();		
+	public List<ProfileVisite> getLastVisitor(SocialEntity visited){
+		 return em.createQuery(
+				"SELECT pv " +
+				"FROM ProfileVisite pv "
+				+" WHERE :socialEntityId = pv.visited.id " +
+				"ORDER BY pv.lastVisite DESC"
+				,ProfileVisite.class)
+				.setParameter("socialEntityId", visited.getId())
+				.getResultList();
 	}
 	
 }

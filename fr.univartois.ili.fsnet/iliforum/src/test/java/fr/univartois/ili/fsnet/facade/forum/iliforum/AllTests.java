@@ -7,6 +7,8 @@ import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
 
+import fr.univartois.ili.fsnet.entities.ProfileVisite;
+
 /**
  *
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
@@ -24,7 +26,8 @@ import org.junit.runners.Suite;
     TopicMessageFacadeTest.class,
     TopicFacadeTest.class,
     CommunityFacadeTest.class,
-    ProfileFacadeTest.class
+    ProfileFacadeTest.class,
+    ProfileVisite.class
 })
 public class AllTests {
 
