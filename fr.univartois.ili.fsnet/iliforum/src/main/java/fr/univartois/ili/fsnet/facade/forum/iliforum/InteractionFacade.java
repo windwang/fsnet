@@ -8,6 +8,7 @@ import javax.persistence.EntityManager;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException;
 
 /**
  *
@@ -76,8 +77,8 @@ public class InteractionFacade {
     	if(interaction.getCreator().equals(entity)){
     		em.remove(interaction);
     		return true;
+    	}else{
+    		throw new UnauthorizedOperationException("key");
     	}
-    	
-    	return false;
     }
 }
