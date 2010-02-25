@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -42,9 +43,10 @@ public abstract class Interaction implements Serializable {
     /**
      * The creator of the interaction.
      */
-    @ManyToOne
+    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     private SocialEntity creator;
-    @ManyToMany
+    
+    @ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
     private Set<Interest> interests;
     @Temporal(TemporalType.DATE)
     private Date creationDate;

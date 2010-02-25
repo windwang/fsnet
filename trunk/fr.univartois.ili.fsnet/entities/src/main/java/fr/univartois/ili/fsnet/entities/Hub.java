@@ -20,8 +20,7 @@ public class Hub extends Interaction {
     /**
      * The list of topics of a hub.
      */
-    @OneToMany(mappedBy = "hub", cascade = {CascadeType.MERGE,
-        CascadeType.PERSIST, CascadeType.REFRESH})
+    @OneToMany(mappedBy = "hub", cascade = CascadeType.ALL)
     private List<Topic> topics;
     @ManyToOne
     private Community community;
