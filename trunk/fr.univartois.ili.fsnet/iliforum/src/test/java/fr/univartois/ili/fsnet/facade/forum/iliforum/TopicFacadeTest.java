@@ -16,6 +16,7 @@ import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException;
 
 public class TopicFacadeTest {
 	private EntityManager em;
@@ -23,6 +24,7 @@ public class TopicFacadeTest {
 	private TopicFacade tf;
 	private HubFacade hf;
 	private CommunityFacade cf;
+	private InteractionFacade interactionFacade;
 
 	@Before
 	public void setUp() {
@@ -33,6 +35,7 @@ public class TopicFacadeTest {
 		hf = new HubFacade(em);
 		cf = new CommunityFacade(em);
 		tf = new TopicFacade(em);
+		interactionFacade = new InteractionFacade(em);
 	}
 
 	@Test
@@ -101,7 +104,7 @@ public class TopicFacadeTest {
 	}
 	
 	@Test
-	public void testDelete() {
+	public void testDelete1() {
 		em.getTransaction().begin();
 		SocialEntity creatorCommunity = sef.createSocialEntity("creatorDelete2",
 				"communnauteDelete2", "creatorCommunityDelete2@gmail.com");
@@ -118,8 +121,30 @@ public class TopicFacadeTest {
 		em.getTransaction().commit();
 		em.getTransaction().begin();
 
-		tf.deleteTopic(topic.getId());
+		interactionFacade.deleteInteraction(creatorTopic, topic);
 		em.getTransaction().commit();
 		assertNull(em.find(Topic.class, topic.getId()));
+	}
+	
+	@Test(expected=UnauthorizedOperationException.class)
+	public void testDelete2() {
+		em.getTransaction().begin();
+		SocialEntity creatorCommunity = sef.createSocialEntity("creatorDelete2",
+				"communnauteDelete2", "creatorCommunityDelete20@gmail.com");
+		Community community = cf.createCommunity(creatorCommunity,
+				"nameCommunityDelete2");
+		SocialEntity creatorHub = sef.createSocialEntity("creatorDelete2",
+				"hubDelete2", "creatorHubDelete20@gmail.com");
+		Hub hub = hf.createHub(community, creatorHub, "nameHubDelete2");
+		SocialEntity creatorTopic = sef.createSocialEntity("creatorDelete2",
+				"TopicDelete2", "creatorTopicDelete20@gmail.com");
+		Topic topic = tf.createTopic(hub, creatorTopic, "titleTopicDelete2");
+		Hub hubbis = hf.createHub(community, creatorHub, "nameHubTitleHubbis2");
+		tf.createTopic(hubbis, creatorTopic, "titleTopicbisTitleHub2");
+		em.getTransaction().commit();
+		em.getTransaction().begin();
+
+		interactionFacade.deleteInteraction(creatorCommunity, topic);
+		em.getTransaction().commit();
 	}
 }
