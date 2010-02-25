@@ -23,6 +23,7 @@ public class HubFacadeTest {
 	private static SocialEntityFacade sef;
 	private static Community com;
 	private static SocialEntity creator;
+	private static InteractionFacade interactionFcade;
 
 	@BeforeClass
 	public static void setUp() {
@@ -34,6 +35,7 @@ public class HubFacadeTest {
 		cf = new CommunityFacade(em);
 		creator = sef.createSocialEntity("creator", "man", "hubman@gmail.com");
 		com = cf.createCommunity(creator, "community1");
+		interactionFcade = new InteractionFacade(em);
 	}
 
 	@Test
@@ -57,11 +59,11 @@ public class HubFacadeTest {
 
 	}
 
-	//@Test
+	@Test
 	public void deleteHubTest() {
 		em.getTransaction().begin();
 		Hub deletedHub = hf.createHub(com, creator, "deletedHub");
-		hf.delete(deletedHub.getId());
+		interactionFcade.deleteInteraction(creator, deletedHub);
 		em.getTransaction().commit();
 		List<Hub> resultSearch = hf.searchHub("delet");
 		assertEquals(0, resultSearch.size());

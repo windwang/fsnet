@@ -42,17 +42,6 @@ public class HubFacade {
 		return hub;
 	}
 
-	/**
-	 * Delete a Hub identified by id
-	 * 
-	 * @param id
-	 */
-	public final void delete(int id) {
-		Hub hub = em.find(Hub.class, id);
-		if (hub != null) {
-			em.remove(hub);
-		}
-	}
 
 	/**
 	 * 
