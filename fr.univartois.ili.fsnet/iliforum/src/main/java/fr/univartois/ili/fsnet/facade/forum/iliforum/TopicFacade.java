@@ -39,20 +39,6 @@ public class TopicFacade {
     }
 
     /**
-     * Delete a topic designed by the given id
-     * @param id
-     */
-    public final void deleteTopic(int id) {
-        Topic c = getTopic(id);
-        if (c != null) {
-            for(SocialEntity se : c.getFollowingEntitys()){
-                se.getFavoriteInteractions().remove(c);
-            }
-            em.remove(c);
-        }
-    }
-
-    /**
      *
      * @param id
      * @return the topic with the given id
