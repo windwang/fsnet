@@ -1,5 +1,9 @@
 package fr.univartois.ili.fsnet.actions.utils;
 
+import java.awt.Graphics2D;
+import java.awt.GraphicsConfiguration;
+import java.awt.GraphicsEnvironment;
+import java.awt.Transparency;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
@@ -30,6 +34,9 @@ public class ImageManager {
 				.read(incommingPictureInputStream);
 		if (incommingPicture == null) {
 			throw new IllegalStateException();
+		}
+		if (pictureType.equals(PictureType.PNG)) {
+			incommingPicture = convert(incommingPicture);
 		}
 		BufferedImage picture = getProperResizedImage(incommingPicture,
 				pictureType, PICTURE_MAX_WIDTH_OR_HEIGHT);
@@ -118,22 +125,34 @@ public class ImageManager {
 
 		tx.scale(scaleValue, scaleValue);
 		AffineTransformOp op = new AffineTransformOp(tx,
-				AffineTransformOp.TYPE_BILINEAR);
-		BufferedImage biNew = new BufferedImage((int) (incommingImage
+				AffineTransformOp.TYPE_BICUBIC);
+		BufferedImage properResized = new BufferedImage((int) (incommingImage
 				.getWidth() * scaleValue),
 				(int) (incommingImage.getHeight() * scaleValue), pictureType
 						.getImageType());
-		incommingImage = op.filter(incommingImage, biNew);
-		return incommingImage;
+		op.filter(incommingImage, properResized);
+		return properResized;
 	}
+	
+	public static BufferedImage convert(BufferedImage image) {
+        GraphicsConfiguration configuration = GraphicsEnvironment
+                .getLocalGraphicsEnvironment().getDefaultScreenDevice()
+                .getDefaultConfiguration();
+        BufferedImage img = configuration
+                .createCompatibleImage(image.getWidth(),
+                image.getHeight(),
+                Transparency.TRANSLUCENT);
+        Graphics2D g2 = (Graphics2D)img.getGraphics();
+        g2.drawImage(image, 0, 0, null);
+        g2.dispose();
+        return img;
+    }
 
 	/*
 	 * install the picture in the proper directory
 	 * 
 	 * @param fileName The file name
-	 * 
 	 * @param suffix the file's sufix (.png, .bmp...)
-	 * 
 	 * @param datas the picture's datas
 	 */
 	private static void installPicture(String fileName,
@@ -143,11 +162,11 @@ public class ImageManager {
 		if (directory != null) {
 			removeOldPicture(directory + fileName);
 			String fileToCreate = directory + fileName
-					+ pictureType.getSuffix();
+					+ PictureType.PNG.getSuffix();
 			File imageFile = new File(fileToCreate);
 			try {
 				OutputStream out = new FileOutputStream(imageFile);
-				ImageIO.write(image, pictureType.getSuffix().substring(1), out);
+				ImageIO.write(image, "png", out);
 				out.flush();
 				out.close();
 			} catch (IOException e) {
