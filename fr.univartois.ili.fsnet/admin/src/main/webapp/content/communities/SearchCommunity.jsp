@@ -28,8 +28,7 @@
 	                </html:link>
             	</td>
                 <td class="tableButton">
-                    <html:link action="/DeleteCommunity" styleClass="button">
-                        <html:param name="communityId" value="${community.id}"/>
+                    <html:link action="/Communities.do" styleClass="button" onclick="confirmDelete('DeleteCommunity.do?communityId='+${community.id})">
                         <bean:message key="communities.delete"/>
                     </html:link>
             	</td>

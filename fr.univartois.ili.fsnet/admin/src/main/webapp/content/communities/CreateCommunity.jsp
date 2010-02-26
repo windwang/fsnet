@@ -25,7 +25,7 @@
             </td>
         </tr>
         <tr class="errorMessage">
-            <td>
+            <td colspan="2">
                 <html:errors property="name"/>
                 <html:errors property="createdCommunityName"/>
             </td>
@@ -46,7 +46,7 @@
             </td>
          </tr>
          <tr class="errorMessage">
-            <td>
+            <td colspan="2">
                 <html:errors property="socialEntityId"/>
             </td>
         </tr>
