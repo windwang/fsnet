@@ -18,13 +18,19 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersContactsResult}">
             <tr class="content">
-                <td>${member.name} ${member.firstName}</td>
-                <td class="tableButton">
-                    <html:link action="/DisplayProfile" styleClass="button">
-                        <bean:message key="members.3"/>
-                        <html:param name="id" value="${member.id}"/>
-                    </html:link>
+            	<td class="miniatureContainer">
+	               	<html:link action="/DisplayProfile">
+	               	    <html:param name="id" value="${member.id}"/>
+	               		<img src="GetMiniature.do?memberId=${member.id}"/>
+	               	</html:link>	
+               	</td>
+               	<td>
+                    <html:link action="/DisplayProfile">
+                    	${member.name} ${member.firstName}
+                    	<html:param name="id" value="${member.id}" />
+                    </html:link> 
                 </td>
+              
             </tr>
         </c:forEach>
     </table>
@@ -35,13 +41,19 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersRequestedResult}">
             <tr class="content">
-                <td>${member.name} ${member.firstName}</td>
-                <td class="tableButton">
-                    <html:link action="/DisplayProfile" styleClass="button">
-                        <bean:message key="members.3"/>
-                        <html:param name="id" value="${member.id}"/>
-                    </html:link>
+            	<td class="miniatureContainer">
+	               	<html:link action="/DisplayProfile">
+	               	    <html:param name="id" value="${member.id}"/>
+	               		<img src="GetMiniature.do?memberId=${member.id}"/>
+	               	</html:link>	
+               	</td>
+                <td>
+                    <html:link action="/DisplayProfile">
+                    	${member.name} ${member.firstName}
+                    	<html:param name="id" value="${member.id}" />
+                    </html:link> 
                 </td>
+               
             </tr>
         </c:forEach>
     </table>
@@ -52,7 +64,18 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersAskedResult}">
             <tr class="content">
-                <td>${member.name} ${member.firstName}</td>
+            	<td class="miniatureContainer">
+	               	<html:link action="/DisplayProfile">
+	               	    <html:param name="id" value="${member.id}"/>
+	               		<img src="GetMiniature.do?memberId=${member.id}"/>
+	               	</html:link>	
+               	</td>
+                <td>
+                    <html:link action="/DisplayProfile">
+                    	${member.name} ${member.firstName}
+                    	<html:param name="id" value="${member.id}" />
+                    </html:link> 
+                </td>
                 <td class="tableButton">
                     <html:link action="/AcceptContact" styleClass="button">
                         <bean:message key="members.5"/>
@@ -74,7 +97,18 @@
     <table  class="inLineTable">
         <c:forEach var="member" items="${membersResult}">
             <tr class="content">
-                <td>${member.name} ${member.firstName}</td>
+            	<td class="miniatureContainer">
+	               	<html:link action="/DisplayProfile">
+	               	    <html:param name="id" value="${member.id}"/>
+	               		<img src="GetMiniature.do?memberId=${member.id}"/>
+	               	</html:link>	
+               	</td>
+                <td>
+                    <html:link action="/DisplayProfile">
+                    	${member.name} ${member.firstName}
+                    	<html:param name="id" value="${member.id}" />
+                    </html:link> 
+                </td>
                 <td class="tableButton">
                     <html:link action="/ContactDemand" styleClass="button">
                         <bean:message key="members.8"/>
