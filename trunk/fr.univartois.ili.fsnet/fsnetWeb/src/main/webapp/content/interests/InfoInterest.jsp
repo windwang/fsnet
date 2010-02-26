@@ -81,6 +81,25 @@
 			</c:otherwise>
 		</c:choose>
 		
+		<h3><bean:message key="pageTitle.15"/></h3>
+		<c:choose>
+			<c:when test="${not empty requestScope.Community}">
+				<div class="cloud">
+					<c:forEach var="community" items="${requestScope.Community}">
+						<div>
+							<html:link action="/DisplayCommunity">
+								<html:param name="communityId" value="${community.id}"/>
+								${community.title}								
+							</html:link>
+						</div>
+					</c:forEach>
+				</div>
+			</c:when>
+			<c:otherwise>
+				<bean:message key="interests.17"/>
+			</c:otherwise>
+		</c:choose>
+		
 		<h3><bean:message key="pageTitle.4"/></h3>
 		<c:choose>
 			<c:when test="${not empty requestScope.Hub}">
@@ -98,7 +117,7 @@
 			<c:otherwise>
 				<bean:message key="interests.17"/>
 			</c:otherwise>
-		</c:choose>		
+		</c:choose>
 		
 		<h3><bean:message key="pageTitle.6"/></h3>
 		<c:choose>
