@@ -1,0 +1,43 @@
+<!DOCTYPE form-validation PUBLIC
+"-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+"http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<form-validation>
+	<formset>		
+		<form name="/AddInterest">
+            <field property="addedInterestId" depends="required,integer">
+                <arg key="error.interest.add" />
+            </field>
+        </form>
+        <form name="/RemoveInterest">
+            <field property="removedInterestId" depends="required,integer">
+                <arg key="error.interest.remove" />
+            </field>
+        </form>
+        <form name="/SearchInterest">
+            <field property="requestInput" depends="">
+                <arg key="error.interest.search" />
+            </field>
+            <field property="pageId" depends="integer"/>
+            <field property="tileId" depends=""/>
+        </form>
+        <form name="/DisplayInterests">
+            <field property="pageId" depends="integer"/>
+            <field property="tileId" depends=""/>
+        </form>
+        <form name="/CreateInterest">
+            <field property="createdInterestName" depends="required,mask">
+		        <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w]([\ |']?[\w]+)*$</var-value>
+		        </var>
+				<arg key="error.interest.create" />
+            </field>
+            <field property="parentInterestId" depends="integer">
+                <arg key="error.interest.parentId" />
+            </field>
+        </form>
+        <form name="/InterestInformations">
+            <field property="infoInterestId" depends="required,integer"/>
+        </form>
+	</formset>
+</form-validation>
