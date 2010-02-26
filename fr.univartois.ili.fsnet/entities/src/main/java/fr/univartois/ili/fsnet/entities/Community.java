@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostRemove;
 
 /**
  * 
@@ -18,7 +19,7 @@ public class Community extends Interaction {
 
     private static final long serialVersionUID = 1L;
     
-    @OneToMany(cascade=CascadeType.ALL)
+    @OneToMany(cascade=CascadeType.ALL,mappedBy="community")
     private Set<Hub> hubs;
     
     @OneToMany(cascade=CascadeType.ALL,mappedBy="parentCommunity")
@@ -89,6 +90,4 @@ public class Community extends Interaction {
 	public void setParentCommunity(Community parentCommunity) {
 		this.parentCommunity = parentCommunity;
 	}
-    
-    
 }
