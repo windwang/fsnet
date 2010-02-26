@@ -16,6 +16,8 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 public class ProfileVisiteFacadeTest {
 

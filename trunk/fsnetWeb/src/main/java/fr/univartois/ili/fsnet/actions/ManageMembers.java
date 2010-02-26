@@ -18,8 +18,8 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade.SearchResult;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 
 public class ManageMembers extends MappingDispatchAction {
 

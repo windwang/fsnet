@@ -22,8 +22,8 @@ import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileVisiteFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
 
 public class Home extends MappingDispatchAction {
 

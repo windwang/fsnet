@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.forum.iliforum.security;
+package fr.univartois.ili.fsnet.facade.security;
 
 public class UnauthorizedOperationException extends RuntimeException {
 

@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.forum;
+package fr.univartois.ili.fsnet;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 

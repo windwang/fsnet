@@ -13,6 +13,8 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 public class SocialEntityFacadeTest {
 

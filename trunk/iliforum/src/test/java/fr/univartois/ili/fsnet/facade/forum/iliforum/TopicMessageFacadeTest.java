@@ -17,6 +17,11 @@ import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
+import fr.univartois.ili.fsnet.facade.CommunityFacade;
+import fr.univartois.ili.fsnet.facade.HubFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.TopicFacade;
+import fr.univartois.ili.fsnet.facade.TopicMessageFacade;
 
 public class TopicMessageFacadeTest {
 	private EntityManager em;

@@ -14,7 +14,10 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException;
+import fr.univartois.ili.fsnet.facade.CommunityFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 public class CommunityFacadeTest {
 	private EntityManager em;

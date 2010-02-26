@@ -24,7 +24,7 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
 
 /**
  * Execute CRUD Actions (and more) for the entity interet

@@ -9,7 +9,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 
 import fr.univartois.ili.fsnet.entities.Interest;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.fakeDB.Mock;
 import fr.univartois.ili.fsnet.fakeDB.MockLocator;
 
