@@ -28,38 +28,63 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileVisiteFacade;
 
 public class Home extends MappingDispatchAction {
 
+	private void lastVisits(ActionMapping mapping, HttpServletRequest request,
+			HttpServletResponse response, EntityManager em,
+			SocialEntity authenticatedUser) throws IOException,
+			ServletException {
+		ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
+		List<ProfileVisite> visitors = pvf.getLastVisitor(authenticatedUser);
+		request.setAttribute("visitors", visitors);
+	}
+
+	private void lastInteractions(ActionMapping mapping,
+			HttpServletRequest request, HttpServletResponse response,
+			EntityManager em, SocialEntity authenticatedUser)
+			throws IOException, ServletException {
+		InteractionFacade facade = new InteractionFacade(em);
+		// TODO possible de faire variable.class dans JSP ? trouver un moyen
+		// de trier par avance dans le cas contraire
+		HashMap<String, List<Interaction>> resultMap = facade
+				.getLastInteractions(authenticatedUser);
+
+		for (Map.Entry<String, List<Interaction>> interactionEntry : resultMap
+				.entrySet()) {
+			request.setAttribute(interactionEntry.getKey(), interactionEntry
+					.getValue());
+		}
+	}
+
+	private void lastMessages(ActionMapping mapping,
+			HttpServletRequest request, HttpServletResponse response,
+			EntityManager em, SocialEntity authenticatedUser)
+			throws IOException, ServletException {
+		List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
+				authenticatedUser.getReceivedPrivateMessages());
+		Collections.reverse(userMessages);
+		request.setAttribute("messages", userMessages);
+	}
+	
+	private void getPropsals(ActionMapping mapping,
+			HttpServletRequest request, HttpServletResponse response,
+			EntityManager em, SocialEntity authenticatedUser)
+			throws IOException, ServletException {
+		// TODO store in request scope some proposals
+	}
+
 	public ActionForward doDashboard(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
-				request, em);
-		InteractionFacade facade = new InteractionFacade(em);
-		ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
-		em.getTransaction().begin();
-		List<ProfileVisite> visitors = pvf.getLastVisitor(authenticatedUser);
-		em.getTransaction().commit();
-		request.setAttribute("visitors", visitors);
-		if (form == null) {
-			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
-					authenticatedUser.getReceivedPrivateMessages());
-			Collections.reverse(userMessages);
-			request.setAttribute("messages", userMessages);
 
-			
-			// TODO possible de faire variable.class dans JSP ? trouver un moyen  de trier par avance dans le cas contraire
-			HashMap<String, List<Interaction>> resultMap = facade
-					.getLastInteractions(authenticatedUser);
+		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
 
-			for (Map.Entry<String, List<Interaction>> interactionEntry : resultMap
-					.entrySet()) {
-				request.setAttribute(interactionEntry.getKey(),
-						interactionEntry.getValue());
-			}
-		} else {
-			// TODO
-		}
+		lastVisits(mapping, request, response, em, authenticatedUser);
+		lastInteractions(mapping, request, response, em, authenticatedUser);
+		lastMessages(mapping, request, response, em, authenticatedUser);
+		getPropsals(mapping, request, response, em, authenticatedUser);
+		
 		em.close();
+		
 		return mapping.findForward("success");
 	}
 
