@@ -6,6 +6,17 @@
 	text-align: center;
 }
 
+.homeGap {
+	float: left;
+	margin: 10px;	
+}
+
+#lastInteractions {
+	width: 100%;
+	padding-top: 15px;
+	float: left;	
+}
+
 .paginator a {
 	color: #505050;	
 }
