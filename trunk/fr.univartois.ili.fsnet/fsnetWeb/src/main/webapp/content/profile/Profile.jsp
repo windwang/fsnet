@@ -247,15 +247,20 @@
 <h3>
     <bean:message key="updateProfile.changePhoto.title"/>
 </h3>
-<img src="GetPhoto.do?memberId=${userId}" style="float:right;"/>
-<html:form action="/ChangePhoto" enctype="multipart/form-data">
+<html:form action="/ChangePhoto" enctype="multipart/form-data" style="float:left">
 	<div>
 		<html:file property="photo"></html:file>
 		<html:submit styleClass="button"/>
-	</div>
+	</div>	
 	<logic:messagesPresent property="photo">
 		<div class="error">
 			<html:errors property="photo"/>
 		</div>
 	</logic:messagesPresent>
 </html:form>
+
+<img src="GetPhoto.do?memberId=${userId}" style="float:right;"/>
+<div class="clear"></div>
+<html:link action="/DeletePhoto" style="float:right;">
+	<bean:message key="updateProfile.deletePhoto"/>
+</html:link>

@@ -252,4 +252,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		ImageManager.sendUserMiniature(Integer.parseInt(userId), response);
 		return null;
 	}
+	
+	public ActionForward deletePhoto(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		Integer userId = UserUtils.getAuthenticatesUserId(request);
+		ImageManager.removeOldUserPicture(userId);
+		return mapping.findForward("success");
+	}
 }

@@ -61,6 +61,10 @@
 			scope="request" validate="true">
 			<forward name="success" path="/Profile.do" />
 		</action>
+		<action path="/DeletePhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
+			name="DeletePhotoForm" parameter="deletePhoto" validate="false">
+			<forward name="success" path="/Profile.do" />
+		</action>
 		<action path="/GetPhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			name="GetPhotoForm" parameter="getPhoto" validate="true">
 		</action>
