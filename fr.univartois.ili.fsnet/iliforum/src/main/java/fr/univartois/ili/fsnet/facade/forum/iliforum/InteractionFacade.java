@@ -103,7 +103,7 @@ public class InteractionFacade {
 	 */
 	public final HashMap<Interaction, ArrayList<String>> getLastInteractions(){
 		List<Interaction> result = em.createQuery(
-				"SELECT interaction FROM Interaction interaction ORDER BY interaction.lastModified",
+				"SELECT interaction FROM Interaction interaction ORDER BY interaction.lastModified DESC",
 				Interaction.class).setMaxResults(3).getResultList();
 		HashMap<Interaction, ArrayList<String>> resultMap = new HashMap<Interaction, ArrayList<String>>();
 		
