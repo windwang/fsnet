@@ -78,27 +78,36 @@
 		</tr>
 	</c:forEach>
 </table>
+
+<div style="clear:both"/>
+
+
 <table id="lastInteractions" class="inLineTableDashBoard homeFrame">
 	<caption><bean:message key="lastInteractions.title"/></caption>
-	<logic:iterate id="iteraction" collection="${requestScope.lastInteractions}">
+	<logic:iterate id="interaction" collection="${requestScope.lastInteractions}">
 		<tr>
 			<td class="messagePhoto">
 				<html:link action="/DisplayProfile">
-               	    <html:param name="id" value="${iteraction.key.creator.id}"/>
-					<img src="GetMiniature.do?memberId=${iteraction.key.creator.id}"/>
+               	    <html:param name="id" value="${interaction.key.creator.id}"/>
+					<img src="GetMiniature.do?memberId=${interaction.key.creator.id}"/>
 				</html:link>
 			</td>
 			<td>
+				<bean:message key="events.16"/>
 				<html:link action="/DisplayProfile">
-					<html:param name="id" value="${iteraction.key.creator.id}"/>
-					${iteraction.key.creator.firstName} ${iteraction.key.creator.name} 
+					<html:param name="id" value="${interaction.key.creator.id}"/>
+					${interaction.key.creator.firstName} ${interaction.key.creator.name} 
 				</html:link>
 			</td>
 			<td>
-				<html:link action="${iteraction.value[1]}">
-					<html:param name="${iteraction.value[2]}" value="${iteraction.key.id}"/>
-					${iteraction.key.title}
+				<html:link action="${interaction.value[1]}">
+					<html:param name="${interaction.value[2]}" value="${interaction.key.id}"/>
+					${interaction.key.title}
 				</html:link>
+			</td>
+			<td class="tableButton">
+				<bean:define id="interkey" name="interaction" property="key"/>
+				<bean:write name="interkey" property="lastModified" format="dd/MM/yyyy" />
 			</td>
 		</tr>
 	</logic:iterate>
