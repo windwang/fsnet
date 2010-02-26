@@ -132,7 +132,7 @@ public class ImageManager {
 		return properResized;
 	}
 	
-	public static BufferedImage convert(BufferedImage image) {
+	private static BufferedImage convert(BufferedImage image) {
         BufferedImage img = new BufferedImage(image.getWidth(),
                 image.getHeight(),
                 Transparency.TRANSLUCENT);
