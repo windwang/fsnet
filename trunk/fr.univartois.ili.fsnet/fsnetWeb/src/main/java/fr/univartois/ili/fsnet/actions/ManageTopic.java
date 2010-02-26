@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
+import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -32,7 +33,6 @@ import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicFacade;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.TopicMessageFacade;
-import javax.persistence.RollbackException;
 
 /**
  * 
