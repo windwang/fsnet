@@ -57,4 +57,17 @@
 		</c:if>
 	</c:forEach>
 </table>
+<table class="inLineTableDashBoard">
+	<caption><bean:message key="visite.last.title"/></caption>
+	<c:forEach var="pv" items="${visitors}">
+		<tr>
+			<td>
+				<html:link action="/DisplayProfile">
+					<html:param name="id" value="${pv.visitor.id}"/>
+					${pv.visitor.firstName} ${pv.visitor.name} 
+				</html:link>
+			</td>
+		</tr>
+	</c:forEach>
+</table>
 </div>
