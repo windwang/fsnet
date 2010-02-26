@@ -21,8 +21,10 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
+import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.forum.iliforum.ProfileVisiteFacade;
 
 public class Home extends MappingDispatchAction {
 
@@ -33,7 +35,11 @@ public class Home extends MappingDispatchAction {
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 		InteractionFacade facade = new InteractionFacade(em);
-
+		ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
+		em.getTransaction().begin();
+		List<ProfileVisite> visitors = pvf.getLastVisitor(authenticatedUser);
+		em.getTransaction().commit();
+		request.setAttribute("visitors", visitors);
 		if (form == null) {
 			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 					authenticatedUser.getReceivedPrivateMessages());
