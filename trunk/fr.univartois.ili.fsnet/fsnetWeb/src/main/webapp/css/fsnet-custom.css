@@ -1,5 +1,18 @@
 #ui-datepicker-div {font-size: 80%;}
 
+.paginator {
+	font-size: 110%;
+	margin-top: 10px;
+	text-align: center;
+}
+
+.paginator a {
+	color: #505050;	
+}
+.paginator span {
+	color: #A0A0A0;
+}
+
 #userPicture {
 	margin: 15px 0 2px 50px;
 	float: left;
