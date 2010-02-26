@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -96,24 +97,39 @@ public class InteractionFacade {
 	/**
 	 * 
 	 * @param user the user connected
-	 * @return the list of interests having name like interestName
+	 * @return an HashMap with interaction as Key and his value contains his class and the associated action-parameter in an array
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
-	public final HashMap<String, List<Interaction>> getLastInteractions(SocialEntity user){
-		HashMap<String, List<Interaction>> resultMap = new HashMap<String, List<Interaction>>();
+	public final HashMap<Interaction, ArrayList<String>> getLastInteractions(){
 		List<Interaction> result = em.createQuery(
-				"SELECT interaction FROM Interaction interaction WHERE interaction.lastModified > :lastConnection",
-				Interaction.class).setParameter("lastConnection", user.getLastConnection()).getResultList();
+				"SELECT interaction FROM Interaction interaction ORDER BY interaction.lastModified",
+				Interaction.class).setMaxResults(3).getResultList();
+		HashMap<Interaction, ArrayList<String>> resultMap = new HashMap<Interaction, ArrayList<String>>();
+		
 		for (Interaction interaction : result) {
-			if (! resultMap.containsKey(interaction.getClass().getSimpleName())) {
-				List<Interaction> list = new ArrayList<Interaction>();
-				list.add(interaction);
-				resultMap.put(interaction.getClass().getSimpleName(), list);
-			} else {
-				resultMap.get(interaction.getClass().getSimpleName()).add(interaction);
+			ArrayList<String> array = new ArrayList<String>();
+			String clazz = interaction.getClass().getSimpleName(); 
+			array.add(clazz);
+			if ("Announcement".equals(clazz)) {
+				array.add("/DisplayAnnounce");
+				array.add("idAnnounce");
+			} else if ("Meeting".equals(clazz)) {
+				array.add("/DisplayEvent");
+				array.add("eventId");
+			} else if ("Topic".equals(clazz)) {
+				array.add("/Topic");
+				array.add("topicId");
+			} else if ("Hub".equals(clazz)) {
+				array.add("/DisplayHub");
+				array.add("hubId");
+			} else if ("Community".equals(clazz)) {
+				array.add("/DisplayCommunity");
+				array.add("communityId");
 			}
+			resultMap.put(interaction, array);
 		}
+		
 		return resultMap;
 	}
 }
