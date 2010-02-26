@@ -15,7 +15,7 @@ import org.apache.struts.action.DynaActionForm;
 
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 /**
  *

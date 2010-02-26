@@ -16,6 +16,8 @@ import static org.junit.Assert.assertTrue;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.ProfileFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 
 /**

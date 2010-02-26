@@ -27,10 +27,10 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionRoleFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.MeetingFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
 /**
  * Execute CRUD Actions for the entity Event

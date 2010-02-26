@@ -31,8 +31,8 @@ import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 /**
  * Execute CRUD Actions (and more) for the entity member

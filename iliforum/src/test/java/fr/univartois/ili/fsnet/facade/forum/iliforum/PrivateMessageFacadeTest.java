@@ -15,6 +15,8 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.PrivateMessageFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 /**
  *

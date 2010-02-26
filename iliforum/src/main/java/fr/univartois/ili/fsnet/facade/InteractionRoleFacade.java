@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.forum.iliforum;
+package fr.univartois.ili.fsnet.facade;
 
 import java.util.ArrayList;
 import java.util.List;

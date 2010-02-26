@@ -26,9 +26,9 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.AnnouncementFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
 
 /**
  * 

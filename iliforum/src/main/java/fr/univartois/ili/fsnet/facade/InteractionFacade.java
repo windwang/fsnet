@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.facade.forum.iliforum;
+package fr.univartois.ili.fsnet.facade;
 
 
 import java.util.ArrayList;
@@ -11,7 +11,7 @@ import javax.persistence.EntityManager;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
  *

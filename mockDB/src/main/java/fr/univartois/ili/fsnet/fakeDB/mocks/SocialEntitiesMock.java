@@ -8,7 +8,7 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.fakeDB.MockLocator;
 import fr.univartois.ili.fsnet.fakeDB.Mock;
 

@@ -30,9 +30,9 @@ import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import fr.univartois.ili.fsnet.facade.HubFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
 
 /**
  * 

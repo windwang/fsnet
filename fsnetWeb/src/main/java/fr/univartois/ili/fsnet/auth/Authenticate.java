@@ -14,7 +14,7 @@ import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.core.LoggedUsersContainer;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 /**
  * This class represents a servlet that is used in order to authenticate members

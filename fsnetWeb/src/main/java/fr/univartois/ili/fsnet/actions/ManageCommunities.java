@@ -26,10 +26,10 @@ import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.CommunityFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.HubFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InteractionFacade;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.InterestFacade;
+import fr.univartois.ili.fsnet.facade.CommunityFacade;
+import fr.univartois.ili.fsnet.facade.HubFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
 
 /**
  * Execute CRUD Actions (and more) for the entity community

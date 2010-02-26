@@ -15,7 +15,10 @@ import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.MeetingFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 public class MeetingFacadeTest {
 
