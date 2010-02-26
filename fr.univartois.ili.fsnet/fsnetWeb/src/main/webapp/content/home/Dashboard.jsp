@@ -39,7 +39,10 @@
 		<c:if test="${message.reed}">
 			<tr>
 				<td class="messagePhoto">
-					<img src="GetMiniature.do?memberId=${message.from.id}"/>
+					<html:link action="/DisplayProfile">
+               	    	<html:param name="id" value="${message.from.id}"/>
+						<img src="GetMiniature.do?memberId=${message.from.id}"/>
+					</html:link>
 				</td>
 				<td>
 					<html:link action="/DisplayMessage">
@@ -61,7 +64,10 @@
 	<c:forEach var="pv" items="${visitors}">
 		<tr>
 			<td class="messagePhoto">
-				<img src="GetMiniature.do?memberId=${pv.visitor.id}"/>
+				<html:link action="/DisplayProfile">
+               	    <html:param name="id" value="${pv.visitor.id}"/>
+					<img src="GetMiniature.do?memberId=${pv.visitor.id}"/>
+				</html:link>
 			</td>
 			<td>
 				<html:link action="/DisplayProfile">
