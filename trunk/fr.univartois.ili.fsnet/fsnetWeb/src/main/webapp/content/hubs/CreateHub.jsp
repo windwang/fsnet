@@ -27,7 +27,7 @@
         </tr>
 
         <tr class="errorMessage">
-            <td>
+            <td colspan="2">
                 <html:errors property="hubName"/>
                  <html:errors property="createdHubName"/>
             </td>
