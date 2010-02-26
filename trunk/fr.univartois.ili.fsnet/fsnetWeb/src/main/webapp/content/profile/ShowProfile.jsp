@@ -18,43 +18,58 @@
 <img src="GetPhoto.do?memberId=${watchedProfile.id}" style="float: right;"/>
 
 <table class="watchedProfile">
-    <tr>
-        <th><bean:message key="updateProfile.email"/></th>
-        <td>
-            <html:link href="mailto:${watchedProfile.email}">
-                ${watchedProfile.email}
-            </html:link>
-        </td>
-    </tr>
-    <tr>
-        <th><bean:message key="updateProfile.adress"/></th>
-        <td>${watchedProfile.address.address}</td>
-    </tr>
-    <tr>
-        <th><bean:message key="updateProfile.city"/></th>
-        <td>${watchedProfile.address.city}</td>
-    </tr>
-    <tr>
-        <th><bean:message key="updateProfile.dateOfBirth"/></th>
-        <td>${birthDay}</td>
-    </tr>
-    <tr>
-        <th><bean:message key="updateProfile.job"/></th>
-        <td>${watchedProfile.profession}</td>
-    </tr>
-    <tr>
-        <th><bean:message key="updateProfile.sexe"/></th>
-        <td>
-            <c:if test="${watchedProfile.sex != null }">
-                <bean:message key="updateProfile.sexe.${watchedProfile.sex}"/>
-            </c:if>
-        </td>
-    </tr>
-    <tr>
-        <th><bean:message key="updateProfile.phone"/></th>
-        <td>${watchedProfile.phone}</td>
-    </tr>
+	<c:if test="${watchedProfile.email != null && not empty watchedProfile.email }">
+	    <tr>
+	        <th><bean:message key="updateProfile.email"/></th>
+	        <td>
+	            <html:link href="mailto:${watchedProfile.email}">
+	                ${watchedProfile.email}
+	            </html:link>
+	        </td>
+	    </tr>
+    </c:if>
+    <c:if test="${watchedProfile.address.address != null && not empty watchedProfile.address.address }">
+	    <tr>
+	        <th><bean:message key="updateProfile.adress"/></th>
+	        <td>${watchedProfile.address.address}</td>
+	    </tr>
+    </c:if>
+    <c:if test="${watchedProfile.address.city != null &&  not empty watchedProfile.address.city}">
+	    <tr>
+	        <th><bean:message key="updateProfile.city"/></th>
+	        <td>${watchedProfile.address.city}</td>
+	    </tr>
+    </c:if>
+    <c:if test="${birthDay != null && not empty birthDay }">
+	    <tr>
+	        <th><bean:message key="updateProfile.dateOfBirth"/></th>
+	        <td>${birthDay}</td>
+	    </tr>
+    </c:if>
+    <c:if test="${watchedProfile.profession != null && not empty  watchedProfile.profession}">
+	    <tr>
+	        <th><bean:message key="updateProfile.job"/></th>
+	        <td>${watchedProfile.profession}</td>
+	    </tr>
+    </c:if>
+    <c:if test="${watchedProfile.sex != null && not empty  watchedProfile.sex}">
+	    <tr>
+	        <th><bean:message key="updateProfile.sexe"/></th>
+	        <td>
+	            <bean:message key="updateProfile.sexe.${watchedProfile.sex}"/>
+	        </td>
+	    </tr>
+    </c:if>
+    <c:if test="${watchedProfile.phone != null && not empty watchedProfile.phone}">	    
+	    <tr>
+	        <th><bean:message key="updateProfile.phone"/></th>
+	        <td>${watchedProfile.phone}</td>
+	    </tr>    
+    </c:if>
 </table>
+
+
+
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">	
 
     <html:link action="/ContactDemand" styleClass="button">
