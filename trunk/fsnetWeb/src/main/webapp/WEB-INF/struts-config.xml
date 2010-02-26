@@ -9,7 +9,7 @@
 
 	<global-exceptions>
 		<exception
-			type="fr.univartois.ili.fsnet.facade.forum.iliforum.security.UnauthorizedOperationException"
+			type="fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException"
 			path="/Home.do" key="test">
 		</exception>
 	</global-exceptions>
