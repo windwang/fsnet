@@ -16,7 +16,7 @@
 
 <h3>Welcome on FSNet, a Firm Social Network Project.</h3>
 <table id="dashboardMessages" class="inLineTableDashBoard homeFrame">
-<caption>Vos derniers messages</caption>
+	<caption>Vos derniers messages</caption>
 	<c:forEach items="${requestScope.messages}" var="message" begin="0" end="2">
 		<c:if test="${not message.reed}">
 			<tr class="notReed">
@@ -77,4 +77,29 @@
 			</td>
 		</tr>
 	</c:forEach>
+</table>
+<table id="lastInteractions" class="inLineTableDashBoard homeFrame">
+	<caption><bean:message key="lastInteractions.title"/></caption>
+	<logic:iterate id="iteraction" collection="${requestScope.lastInteractions}">
+		<tr>
+			<td class="messagePhoto">
+				<html:link action="/DisplayProfile">
+               	    <html:param name="id" value="${iteraction.key.creator.id}"/>
+					<img src="GetMiniature.do?memberId=${iteraction.key.creator.id}"/>
+				</html:link>
+			</td>
+			<td>
+				<html:link action="/DisplayProfile">
+					<html:param name="id" value="${iteraction.key.creator.id}"/>
+					${iteraction.key.creator.firstName} ${iteraction.key.creator.name} 
+				</html:link>
+			</td>
+			<td>
+				<html:link action="${iteraction.value[1]}">
+					<html:param name="${iteraction.value[2]}" value="${iteraction.key.id}"/>
+					${iteraction.key.title}
+				</html:link>
+			</td>
+		</tr>
+	</logic:iterate>
 </table>

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -39,19 +38,13 @@ public class Home extends MappingDispatchAction {
 
 	private void lastInteractions(ActionMapping mapping,
 			HttpServletRequest request, HttpServletResponse response,
-			EntityManager em, SocialEntity authenticatedUser)
+			EntityManager em)
 			throws IOException, ServletException {
 		InteractionFacade facade = new InteractionFacade(em);
-		// TODO possible de faire variable.class dans JSP ? trouver un moyen
-		// de trier par avance dans le cas contraire
-		HashMap<String, List<Interaction>> resultMap = facade
-				.getLastInteractions(authenticatedUser);
-
-		for (Map.Entry<String, List<Interaction>> interactionEntry : resultMap
-				.entrySet()) {
-			request.setAttribute(interactionEntry.getKey(), interactionEntry
-					.getValue());
-		}
+		HashMap<Interaction, ArrayList<String>> result = facade
+				.getLastInteractions();		
+		
+		request.setAttribute("lastInteractions", result);
 	}
 
 	private void lastMessages(ActionMapping mapping,
@@ -63,11 +56,11 @@ public class Home extends MappingDispatchAction {
 		Collections.reverse(userMessages);
 		request.setAttribute("messages", userMessages);
 	}
-	
-	private void getPropsals(ActionMapping mapping,
-			HttpServletRequest request, HttpServletResponse response,
-			EntityManager em, SocialEntity authenticatedUser)
-			throws IOException, ServletException {
+
+	private void getPropsals(ActionMapping mapping, HttpServletRequest request,
+			HttpServletResponse response, EntityManager em,
+			SocialEntity authenticatedUser) throws IOException,
+			ServletException {
 		// TODO store in request scope some proposals
 	}
 
@@ -76,15 +69,16 @@ public class Home extends MappingDispatchAction {
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
-		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
+		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+				request, em);
 
 		lastVisits(mapping, request, response, em, authenticatedUser);
-		lastInteractions(mapping, request, response, em, authenticatedUser);
+		lastInteractions(mapping, request, response, em);
 		lastMessages(mapping, request, response, em, authenticatedUser);
 		getPropsals(mapping, request, response, em, authenticatedUser);
-		
+
 		em.close();
-		
+
 		return mapping.findForward("success");
 	}
 
