@@ -11,10 +11,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
-    "http://www.w3.org/TR/html4/loose.dtd">
 
-<h3>Welcome on FSNet, a Firm Social Network Project.</h3>
 <table id="dashboardMessages" class="inLineTableDashBoard homeFrame">
 	<caption>Vos derniers messages</caption>
 	<c:forEach items="${requestScope.messages}" var="message" begin="0" end="2">
@@ -79,8 +76,7 @@
 	</c:forEach>
 </table>
 
-<div style="clear:both"/>
-
+<div class="clear homeGap"></div>
 
 <table id="lastInteractions" class="inLineTableDashBoard homeFrame">
 	<caption><bean:message key="lastInteractions.title"/></caption>
