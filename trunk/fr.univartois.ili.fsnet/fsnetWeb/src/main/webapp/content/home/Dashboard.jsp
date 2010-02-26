@@ -15,8 +15,7 @@
     "http://www.w3.org/TR/html4/loose.dtd">
 
 <h3>Welcome on FSNet, a Firm Social Network Project.</h3>
-<div id="dashboardMessages">
-<table id="dashboardMessages" class="inLineTableDashBoard">
+<table id="dashboardMessages" class="inLineTableDashBoard homeFrame">
 <caption>Vos derniers messages</caption>
 	<c:forEach items="${requestScope.messages}" var="message" begin="0" end="2">
 		<c:if test="${not message.reed}">
@@ -57,10 +56,13 @@
 		</c:if>
 	</c:forEach>
 </table>
-<table class="inLineTableDashBoard">
+<table id="lastVisits" class="inLineTableDashBoard homeFrame">
 	<caption><bean:message key="visite.last.title"/></caption>
 	<c:forEach var="pv" items="${visitors}">
 		<tr>
+			<td class="messagePhoto">
+				<img src="GetMiniature.do?memberId=${pv.visitor.id}"/>
+			</td>
 			<td>
 				<html:link action="/DisplayProfile">
 					<html:param name="id" value="${pv.visitor.id}"/>
@@ -70,4 +72,3 @@
 		</tr>
 	</c:forEach>
 </table>
-</div>
