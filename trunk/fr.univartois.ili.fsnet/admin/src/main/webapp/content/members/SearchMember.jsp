@@ -23,9 +23,8 @@
                 	</html:link>
                 </td>
                   <td class="tableButton">
-                    <html:link action="DeleteMember" styleClass="button">
+                    <html:link action="/Members.do" styleClass="button" onclick="confirmDelete('DeleteMember.do?entitySelected='+${member.id})">
                        <bean:message key="members.searchDelete"/>
-                       <html:param name="entitySelected" value="${member.id}"/>
                     </html:link>
                 </td>
             </tr>
