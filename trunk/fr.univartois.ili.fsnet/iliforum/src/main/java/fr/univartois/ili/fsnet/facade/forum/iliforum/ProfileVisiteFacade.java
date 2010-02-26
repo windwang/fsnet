@@ -1,10 +1,8 @@
 package fr.univartois.ili.fsnet.facade.forum.iliforum;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.ProfileVisitePK;
