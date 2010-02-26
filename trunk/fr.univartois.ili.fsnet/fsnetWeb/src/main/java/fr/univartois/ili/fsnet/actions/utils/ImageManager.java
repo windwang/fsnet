@@ -135,11 +135,7 @@ public class ImageManager {
 	}
 	
 	public static BufferedImage convert(BufferedImage image) {
-        GraphicsConfiguration configuration = GraphicsEnvironment
-                .getLocalGraphicsEnvironment().getDefaultScreenDevice()
-                .getDefaultConfiguration();
-        BufferedImage img = configuration
-                .createCompatibleImage(image.getWidth(),
+        BufferedImage img = new BufferedImage(image.getWidth(),
                 image.getHeight(),
                 Transparency.TRANSLUCENT);
         Graphics2D g2 = (Graphics2D)img.getGraphics();
