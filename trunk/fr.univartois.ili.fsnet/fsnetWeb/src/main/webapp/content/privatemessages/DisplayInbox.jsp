@@ -21,9 +21,14 @@
 		<c:forEach items="${requestScope.messages}" var="message">
 			<c:if test="${not message.reed}">
 				<tr class="notReed">
-					<td><html:multibox property="selectedMessages"
-						value="${message.id}" /></td>
-					<td><img src="GetMiniature.do?memberId=${message.from.id}" />
+					<td>
+						<html:multibox property="selectedMessages"value="${message.id}" />
+					</td>
+					<td>
+						<html:link action="/DisplayProfile">
+               	    		<html:param name="id" value="${message.from.id}"/>
+							<img src="GetMiniature.do?memberId=${message.from.id}" />
+						</html:link>
 					</td>
 					<td style="width: 25%"><html:link action="/DisplayMessage">
 						<html:param name="messageId" value="${message.id}" />
@@ -42,7 +47,11 @@
 				<tr>
 					<td><html:multibox property="selectedMessages"
 						value="${message.id}" /></td>
-					<td><img src="GetMiniature.do?memberId=${message.from.id}" />
+					<td>
+						<html:link action="/DisplayProfile">
+               	    		<html:param name="id" value="${message.from.id}"/>
+							<img src="GetMiniature.do?memberId=${message.from.id}" />
+						</html:link>
 					</td>
 					<td style="width: 25%"><html:link action="/DisplayMessage">
 						<html:param name="messageId" value="${message.id}" />
