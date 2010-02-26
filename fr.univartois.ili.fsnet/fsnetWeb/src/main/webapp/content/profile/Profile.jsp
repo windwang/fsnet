@@ -105,6 +105,7 @@
             </td>
             <td>
                 <html:select property="sexe" >
+                	<html:option value=""/>
                     <html:option value="male">
                     	<bean:message key="updateProfile.sexe.male"/>
                     </html:option>

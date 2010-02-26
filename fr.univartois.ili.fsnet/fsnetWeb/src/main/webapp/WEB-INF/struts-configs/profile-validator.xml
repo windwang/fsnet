@@ -48,7 +48,7 @@
 					<var-value>dd/MM/yyyy</var-value>
 				</var>
 			</field>
-			<field property="sexe" depends="required">
+			<field property="sexe" depends="">
 				<arg key="error.updateProfile.sexe" />
 			</field>
 			<field property="city" depends="maxlength">
