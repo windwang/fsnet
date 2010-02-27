@@ -68,28 +68,29 @@
     </c:if>
 </table>
 
-
-
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">	
-
     <html:link action="/ContactDemand" styleClass="button">
         <bean:message key="showProfile.ask"/>
         <html:param name="entitySelected" value="${watchedProfile.id}"/>
     </html:link>
 </c:if>
- <c:if test="${watchedProfile.id != currentUser.id}">
-<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
-    <bean:message key="showProfile.send"/>
-    <html:param name="receiver" value="${watchedProfile.email}"/>
-</html:link>
+
+<c:if test="${watchedProfile.id != currentUser.id}">
+	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
+    	<bean:message key="showProfile.send"/>
+    	<html:param name="receiver" value="${watchedProfile.email}"/>
+	</html:link>
 </c:if>
+
+<div class="clear"></div>
+
 <h3>
     <bean:message key="showInterest.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
     <c:if test="${edit}">
     	<html:link styleClass="profileLink link" action="/Interests">
         	<bean:message key="showProfile.edit.interests"/>
     	</html:link>
-</c:if>
+	</c:if>
 </h3>
 
 <div class="cloud" >
