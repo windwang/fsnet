@@ -132,4 +132,21 @@ public class InteractionFacade {
 		
 		return resultMap;
 	}
+	
+	/**
+	 * @author geoffrey boulay
+	 * 
+	 * get one user's interactions
+	 * @param user person you wish to recover interaction
+	 * @return
+	 */
+	public final List<Interaction> getIntetactionsByUser(SocialEntity user){
+		return em.createQuery(
+				"SELECT interaction " +
+				"FROM Interaction interaction " +
+				"WHERE interaction.creator.id = :userId " +
+				"ORDER BY interaction.lastModified DESC"
+				, Interaction.class).setParameter("userId", Integer.valueOf(user.getId())).getResultList() ;
+	}
+	
 }
