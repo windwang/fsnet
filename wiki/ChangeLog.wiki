@@ -5,8 +5,8 @@
 
 === New features ===
 
- * The home page now display informations about interactions
- * The admin can nominate an user responsible of a community
+ * The home page now displays informations about interactions
+ * The admin can nominate a user responsible of a community
 
 === Fixed issues ===
 
