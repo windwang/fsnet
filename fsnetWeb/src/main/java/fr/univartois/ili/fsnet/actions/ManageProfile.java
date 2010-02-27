@@ -6,6 +6,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -27,7 +28,9 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
+import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
@@ -162,7 +165,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		Boolean alreadyInContact = false;
-
 		int id = -1;
 		try {
 			String idS = dyna.getString("id");
@@ -190,6 +192,11 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			request.setAttribute("birthDay", formatter.format(profile
 					.getBirthDate()));
 		}
+		em.getTransaction().begin();
+		InteractionFacade intFac = new InteractionFacade(em);
+		List<Interaction> interactions = intFac.getIntetactionsByUser(profile);
+		request.setAttribute("interactions", interactions);
+		em.getTransaction().commit();
 		em.close();
 		request.setAttribute("currentUser", user);
 		return mapping.findForward("success");

@@ -104,4 +104,51 @@
         </span>
     </c:forEach>
 </div>
+
+<h3><bean:message key="profile.showInteraction.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/></h3>
+<div class="cloud">
+	<table>
+		<c:forEach var="inter" items="${interactions}">
+			<tr>
+				<td>
+					<bean:write name="inter" property="lastModified" format="dd/MM/yyyy" />
+				</td>
+				<td>
+					<c:choose>
+						<c:when test="${inter.class.simpleName eq 'Announcement'}">
+							<html:link action="/DisplayAnnounce">
+								<html:param name="idAnnounce" value="${inter.id}"/>
+								${inter.title}
+							</html:link>
+						</c:when>
+						<c:when test="${inter.class.simpleName eq 'Meeting'}">
+							<html:link action="/DisplayEvent">
+								<html:param name="eventId" value="${inter.id}"/>
+								${inter.title}
+							</html:link>
+						</c:when>
+						<c:when test="${inter.class.simpleName eq 'Topic'}">
+							<html:link action="/Topic">
+								<html:param name="topicId" value="${inter.id}"/>
+								${inter.title}
+							</html:link>
+						</c:when>
+						<c:when test="${inter.class.simpleName eq 'Hub'}">
+							<html:link action="/DisplayHub">
+								<html:param name="hubIdId" value="${inter.id}"/>
+								${inter.title}
+							</html:link>
+						</c:when>
+						<c:when test="${inter.class.simpleName eq 'Community'}">
+							<html:link action="/DisplayCommunity">
+								<html:param name="communityId" value="${inter.id}"/>
+								${inter.title}
+							</html:link>
+						</c:when>
+					</c:choose>
+				</td>
+			</tr>
+		</c:forEach>
+	</table>
+</div>
 <div style="clear: both" ></div>
