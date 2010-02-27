@@ -135,7 +135,7 @@
 						</c:when>
 						<c:when test="${inter.class.simpleName eq 'Hub'}">
 							<html:link action="/DisplayHub">
-								<html:param name="hubIdId" value="${inter.id}"/>
+								<html:param name="hubId" value="${inter.id}"/>
 								${inter.title}
 							</html:link>
 						</c:when>
