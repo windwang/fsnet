@@ -21,6 +21,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -147,7 +148,10 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 					authenticatedUser.getReceivedPrivateMessages());
 			Collections.reverse(userMessages);
-			request.setAttribute("messages", userMessages);
+			
+			Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(userMessages, request, "inboxMessages");
+			
+			request.setAttribute("inBoxMessagesPaginator", paginator);
 			refreshNumNewMessages(request, userMessages);
 		} else {
 			// TODO
