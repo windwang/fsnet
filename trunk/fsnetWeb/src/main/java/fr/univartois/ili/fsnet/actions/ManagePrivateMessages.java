@@ -171,7 +171,10 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 					authenticatedUser.getSentPrivateMessages());
 			Collections.reverse(userMessages);
-			request.setAttribute("messages", userMessages);
+	
+			Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(userMessages, request, "outboxMessages");
+			
+			request.setAttribute("outBoxMessagesPaginator", paginator);
 
 		} else {
 			// TODO
