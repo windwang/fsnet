@@ -74,10 +74,10 @@
 			<html:submit styleClass="button">
 				<bean:message key="privatemessages.delete" />
 			</html:submit>
-			<c:set var="paginatorInstance" value="${requestScope.inBoxMessagesPaginator}" scope="request"/>
-			<c:set var="paginatorAction" value="/Inbox" scope="request"/>
-			<c:set var="paginatorTile" value="inboxMessages" scope="request"/>
-			<c:import url="/content/pagination/Pagination.jsp"/>
 		</html:form>
+		<c:set var="paginatorInstance" value="${requestScope.inBoxMessagesPaginator}" scope="request"/>
+		<c:set var="paginatorAction" value="/Inbox" scope="request"/>
+		<c:set var="paginatorTile" value="inboxMessages" scope="request"/>
+		<c:import url="/content/pagination/Pagination.jsp"/>
 	</c:otherwise>
 </c:choose>
