@@ -126,7 +126,7 @@ public class ContactFacade {
     
     public final void cancelRequested(SocialEntity user,SocialEntity requested, EntityManager em){
     	user.getRequested().remove(requested);
-    	user.getAsked().remove(user);
+    	requested.getAsked().remove(user);
     	em.merge(requested);
     	em.merge(user);
     }
