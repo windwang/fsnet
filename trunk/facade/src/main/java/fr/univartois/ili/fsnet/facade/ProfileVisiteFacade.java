@@ -56,6 +56,7 @@ public class ProfileVisiteFacade {
 				"ORDER BY pv.lastVisite DESC"
 				,ProfileVisite.class)
 				.setParameter("socialEntityId", visited.getId())
+				.setMaxResults(3)
 				.getResultList();
 	}
 	
