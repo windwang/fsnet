@@ -199,6 +199,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		em.getTransaction().begin();
 		cf.cancelRequested(user, requested, em);
 		em.getTransaction().commit();
+		em.close();
 		return mapping.findForward("success");
 	}
 	
