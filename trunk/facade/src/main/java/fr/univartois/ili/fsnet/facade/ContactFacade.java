@@ -111,4 +111,25 @@ public class ContactFacade {
         removedEntity.getContacts().remove(member);
 
     }
+    
+    
+    /**
+     * 
+     * @author geoffrey boulay
+     * 
+     * Cancel a request for contacts
+     * 
+     * @param user current user
+     * @param requested user requested
+     * 
+     */
+    
+    public final void cancelRequested(SocialEntity user,SocialEntity requested, EntityManager em){
+    	user.getRequested().remove(requested);
+    	user.getAsked().remove(user);
+    	em.merge(requested);
+    	em.merge(user);
+    }
+    
+    
 }

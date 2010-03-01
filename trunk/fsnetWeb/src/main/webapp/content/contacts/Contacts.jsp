@@ -83,7 +83,7 @@
 <logic:notEmpty name="theUser" property="requested">
  <h3><bean:message key="contact.eff" /></h3>
     <table class="inLineTable">
-            <c:forEach var="contact" items="${theUser.requested}">
+        <c:forEach var="contact" items="${theUser.requested}">
             <tr>
             	<td class="miniatureContainer">
             		<html:link action="/DisplayProfile">
@@ -101,6 +101,12 @@
                   	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
     					<bean:message key="showProfile.send"/>
     					<html:param name="receiver" value="${contact.email}"/>
+					</html:link>
+				</td>
+				<td>
+					<html:link action="/CancelAskContact" styleClass="button">
+						<html:param name="id" value="${contact.id}"/>
+						<bean:message key="contacts.cancel"/>
 					</html:link>
 				</td>
             </tr>

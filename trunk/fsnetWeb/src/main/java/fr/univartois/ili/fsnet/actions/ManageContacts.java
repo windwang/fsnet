@@ -184,4 +184,22 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		session.setAttribute("numNewContactsRequests", user.getAsked().size());
 	}
 	
+
+	public  ActionForward cancelAsk(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response){
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntityFacade sef = new SocialEntityFacade(em); 
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		DynaActionForm dyna = (DynaActionForm) form;  //NOSONAR
+		int id = Integer.parseInt(dyna.getString("id"));
+		em.getTransaction().begin();
+		SocialEntity requested = sef.getSocialEntity(id);
+		em.getTransaction().commit();		
+		ContactFacade cf = new ContactFacade(em);
+		em.getTransaction().begin();
+		cf.cancelRequested(user, requested, em);
+		em.getTransaction().commit();
+		return mapping.findForward("success");
+	}
+	
 }
