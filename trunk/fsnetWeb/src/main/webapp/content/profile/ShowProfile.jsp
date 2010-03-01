@@ -104,7 +104,7 @@
         </span>
     </c:forEach>
 </div>
-
+<div class="clear"></div>
 <h3><bean:message key="profile.showInteraction.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/></h3>
 <div class="cloud">
 	<table>
