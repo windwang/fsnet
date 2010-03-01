@@ -5,6 +5,10 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
 	<form-beans>
+		<form-bean name="CancelAskContactForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="id" type="java.lang.String" />
+		</form-bean>
 		<form-bean name="DemandContactForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="entitySelected" type="java.lang.String" />
@@ -54,6 +58,11 @@
 
 		<action path="/DeleteContact" name="DeleteContactForm"
 			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="delete">
+			<forward name="success" path="/Contacts.do" redirect="true" />
+		</action>
+
+		<action path="/CancelAskContact" name="CancelAskContactForm"
+			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="cancelAsk">
 			<forward name="success" path="/Contacts.do" redirect="true" />
 		</action>
 
