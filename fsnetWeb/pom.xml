@@ -1,15 +1,14 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <artifactId>fsnet</artifactId>
         <groupId>fr.univartois.ili.fsnet</groupId>
-        <version>0.1</version>
+        <version>0.3.0</version>
     </parent>
     <groupId>fr.univartois.ili.fsnet</groupId>
     <artifactId>fsnetWeb</artifactId>
     <packaging>war</packaging>
-    <version>0.1</version>
+    <version>0.3.0</version>
     <name>FSNet public website</name>
     <build>
         <plugins>
@@ -103,22 +102,22 @@
             <version>1.0.5</version>
         </dependency>
         <dependency>
-        	<groupId>${project.groupId}</groupId>
-        	<artifactId>commons</artifactId>
-        	<version>${project.version}</version>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>commons</artifactId>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
-        	<groupId>commons-fileupload</groupId>
-        	<artifactId>commons-fileupload</artifactId>
-        	<version>1.2</version>
+            <groupId>commons-fileupload</groupId>
+            <artifactId>commons-fileupload</artifactId>
+            <version>1.2</version>
         </dependency>
         <dependency>
-        	<groupId>commons-io</groupId>
-        	<artifactId>commons-io</artifactId>
-        	<version>1.4</version>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>1.4</version>
         </dependency>
     </dependencies>
-    
+
 </project>
 
 
