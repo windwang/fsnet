@@ -92,7 +92,7 @@
         </tr>
         <tr>
             <td colspan="2" class="alignRight">
-                <html:submit styleClass="button" onclick="this.disabled=true; this.value='Sending…'; this.form.submit();">
+                <html:submit styleClass="button" onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();">
                     <bean:message key="privatemessages.send"/>
                 </html:submit>
             </td>
