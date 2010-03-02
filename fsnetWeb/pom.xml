@@ -11,6 +11,7 @@
     <version>0.3.2-SNAPSHOT</version>
     <name>FSNet public website</name>
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
