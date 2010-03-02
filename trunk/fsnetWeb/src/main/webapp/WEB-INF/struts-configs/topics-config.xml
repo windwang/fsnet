@@ -100,7 +100,7 @@
         <action path="/CreateTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
                 name="CreateTopicMessageForm" input="/DisplayCreateTopicMessage.do" scope="request" validate="true"
                 parameter="create">
-            <forward name="success" path="/DisplayTopic.do" />
+            <forward name="success" path="/DisplayTopic.do" redirect="true"/>
         </action>
         <action path="/DeleteTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
                 parameter="delete">

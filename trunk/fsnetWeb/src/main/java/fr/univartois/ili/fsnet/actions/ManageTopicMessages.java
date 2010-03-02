@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -50,7 +51,9 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
         em.getTransaction().commit();
         em.close();
-        return mapping.findForward("success");
+        ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+        redirect.addParameter("topicId", dynaForm.get("topicId"));
+        return redirect;
     }
 
     @Override
