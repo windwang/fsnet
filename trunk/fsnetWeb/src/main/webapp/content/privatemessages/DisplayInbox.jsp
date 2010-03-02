@@ -68,7 +68,7 @@
 							</html:link></td>
 					</c:if>
 					<td class="alignRight"><bean:write name="message"
-						property="creationDate" format="dd/MM/yyyy HH:mm" /></td>
+						property="creationDate" formatKey="date.format" /></td>
 				</c:forEach>
 			</table>
 			<html:submit styleClass="button">

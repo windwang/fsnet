@@ -73,7 +73,7 @@
 				</html:link>
 			</td>
 			<td>				
-				<bean:write name="pv" property="lastVisite" format="dd/MM/yyyy hh:mm:ss" />
+				<bean:write name="pv" property="lastVisite" formatKey="date.format" />
 			</td>
 		</tr>
 	</c:forEach>
