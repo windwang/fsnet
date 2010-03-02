@@ -29,7 +29,7 @@
                 </html:link>
                 ${theMessage.to.email}
                 <span style="float: right">
-                    <bean:write name="theMessage" property="creationDate" format="dd/MM/yyyy HH:mm"/>
+                    <bean:write name="theMessage" property="creationDate" formatKey="date.format"/>
                 </span>
             </td>
         </tr>
