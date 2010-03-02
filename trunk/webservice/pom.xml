@@ -3,12 +3,12 @@
     <parent>
         <artifactId>fsnet</artifactId>
         <groupId>fr.univartois.ili.fsnet</groupId>
-        <version>0.3.0</version>
+        <version>0.3.1</version>
     </parent>
     <groupId>fr.univartois.ili.fsnet</groupId>
     <artifactId>webservice</artifactId>
     <packaging>war</packaging>
-    <version>0.3.0</version>
+    <version>0.3.1</version>
     <name>webservice</name>
     <build>
         <plugins>
