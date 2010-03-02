@@ -37,7 +37,12 @@
                     </div>
                 </logic:messagesPresent>
             </td>
-            <c:import url="/InterestCheckBoxes.do"/>
+        </tr>
+        <tr>
+            <td></td>
+            <td >
+                <c:import url="/InterestCheckBoxes.do" />
+            </td>
         </tr>
         <tr>
             <td>
