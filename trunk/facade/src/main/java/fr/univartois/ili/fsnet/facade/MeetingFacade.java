@@ -79,7 +79,8 @@ public class MeetingFacade {
         final TypedQuery<Meeting> query;
         query = em.createQuery("SELECT e FROM Meeting e "
                 + "WHERE e.title LIKE :searchString "
-                + "OR e.content LIKE :searchString ", Meeting.class);
+                + "OR e.content LIKE :searchString " 
+                + "ORDER BY e.startDate ASC ", Meeting.class);
         query.setParameter("searchString", "%" + searchStr + "%");
         results = query.getResultList();
         return results;
