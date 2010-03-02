@@ -126,9 +126,11 @@ public class SocialEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "SOCIAL_ENTITY__ASKED_CONTACTS")
     private List<SocialEntity> asked;
-    @OneToMany(mappedBy = "to")
+    @OneToMany
+    @JoinTable(name = "PRIVATE_MESSAGE_RECEIVED")
     private List<PrivateMessage> receivedPrivateMessages;
-    @OneToMany(mappedBy = "from")
+    @OneToMany
+    @JoinTable(name = "PRIVATE_MESSAGE_SENT")
     private List<PrivateMessage> sentPrivateMessages;
     @OneToMany(mappedBy = "socialEntity")
     private List<InteractionRole> rolesInInteractions;
