@@ -9,7 +9,8 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="eventName" type="java.lang.String" />
             <form-property name="eventDescription" type="java.lang.String" />
-            <form-property name="eventDate" type="java.lang.String" />
+            <form-property name="eventBeginDate" type="java.lang.String" />
+            <form-property name="eventEndDate" type="java.lang.String" />
             <form-property name="selectedInterests" type="java.lang.String[]" />
         </form-bean>
         <form-bean  name="DisplayEventForm" 
