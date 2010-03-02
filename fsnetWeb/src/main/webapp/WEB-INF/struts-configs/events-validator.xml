@@ -16,7 +16,16 @@
 					<var-value>5000</var-value>
 				</var>
 			</field>
-			<field property="eventDate" depends="required,date">
+			<field property="eventBeginDate" depends="required,date">
+				<arg key="events.15" />
+				<arg position="0" key="events.15" />
+				<msg name="date" key="date.error.invalid"/>
+				<var>
+					<var-name>datePattern</var-name>
+					<var-value>dd/MM/yyyy</var-value>
+				</var>
+			</field>
+			<field property="eventEndDate" depends="required,date">
 				<arg key="events.15" />
 				<arg position="0" key="events.15" />
 				<msg name="date" key="date.error.invalid"/>

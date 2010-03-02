@@ -66,20 +66,39 @@
                 </label>
             </td>
             <td>
-                <html:text  property="eventDate" 
-                            styleId="eventDate"
+                <html:text  property="eventBeginDate" 
+                            styleId="eventBeginDate"
+                            errorStyleClass="error"/>
+                            
+                <logic:messagesPresent property="eventBeginDate">
+                    <div class="errorMessage">
+                        <html:errors property="eventBeginDate"/>
+                    </div>
+                </logic:messagesPresent>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="eventDate">
+                    <bean:message key="events.20"/> :
+                </label>
+            </td>
+            <td>
+                <html:text  property="eventEndDate" 
+                            styleId="eventEndDate"
                             errorStyleClass="error"/>
 
                 <html:submit styleClass="button">
                     <bean:message key="events.4"/>
                 </html:submit>
-                <logic:messagesPresent property="eventDate">
+                <logic:messagesPresent property="eventEndDate">
                     <div class="errorMessage">
-                        <html:errors property="eventDate"/>
+                        <html:errors property="eventEndDate"/>
                     </div>
                 </logic:messagesPresent>
             </td>
         </tr>
+        
     </table>
 </html:form>
 
@@ -97,6 +116,7 @@
             buttonImageOnly: true,
             showMonthAfterYear: false
         }));
-        $("#eventDate").datepicker($.datepicker.regional['fr']);
+        $("#eventBeginDate").datepicker($.datepicker.regional['fr']);
+        $("#eventEndDate").datepicker($.datepicker.regional['fr']);
     });
 </script> 

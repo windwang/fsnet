@@ -23,9 +23,9 @@
                     ${event.creator.firstName} ${event.creator.name}
                 </html:link>, 
                 <bean:message key="events.willoccur"/>
-                <bean:write name="event" property="startDate" format="dd/MM/yyyy hh:mm" />
+                <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
                 <bean:message key="events.to"/>
-                <bean:write name="event" property="endDate" format="dd/MM/yyyy hh:mm" />
+                <bean:write name="event" property="endDate" format="dd/MM/yyyy" />
                 <c:if test="${subscriber}">,&nbsp;&nbsp;"<bean:message key="events.19"/>"</c:if>
             </td>
         </tr>
