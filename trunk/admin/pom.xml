@@ -12,6 +12,7 @@
     <name>admin</name>
     <packaging>war</packaging>
     <build>
+        <finalName>${artifactId}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
