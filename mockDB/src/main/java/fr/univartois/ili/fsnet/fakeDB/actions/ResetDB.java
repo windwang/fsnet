@@ -17,7 +17,7 @@ public class ResetDB extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		DBUtils.cleanDB();
+		DBUtils.resetDB();
 		resp.sendRedirect("index.jsp");
 	}
 	
