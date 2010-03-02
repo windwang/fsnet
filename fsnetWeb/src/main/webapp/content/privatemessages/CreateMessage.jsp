@@ -32,18 +32,18 @@
             </td>
             <td>
                	<c:choose>
-               		<c:when test="${! empty param.receiver}">
-               			<html:text  property="messageTo"
-                    		        errorStyleClass="error"
-                        		    style="width: 100%"
-                            		styleId="memberSearch"
-                            		value="${param.receiver}"/>
+                    <c:when test="${! empty param.receiver}">
+                        <html:text  property="messageTo"
+                                    errorStyleClass="error"
+                                    style="width: 100%"
+                                    styleId="memberSearch"
+                                    value="${param.receiver}"/>
                     </c:when>
                     <c:otherwise>
-                    	<html:text  property="messageTo"
-                    		        errorStyleClass="error"
-                        		    style="width: 100%"
-                            		styleId="memberSearch"/>
+                        <html:text  property="messageTo"
+                                    errorStyleClass="error"
+                                    style="width: 100%"
+                                    styleId="memberSearch"/>
                     </c:otherwise>
                 </c:choose>
                 <logic:messagesPresent property="messageTo">
@@ -52,7 +52,7 @@
                     </div>
                 </logic:messagesPresent>
                 <div id="searchDiv" class="ajaxSearch"></div>
-                
+
             </td>
 
         </tr>
@@ -92,7 +92,7 @@
         </tr>
         <tr>
             <td colspan="2" class="alignRight">
-                <html:submit styleClass="button">
+                <html:submit styleClass="button" onclick="this.disabled=true; this.value='Sending…'; this.form.submit();">
                     <bean:message key="privatemessages.send"/>
                 </html:submit>
             </td>
