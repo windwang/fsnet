@@ -85,6 +85,28 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
+	private ActionErrors verified(DynaActionForm dynaForm, EntityManager em, HttpServletRequest request, Date birthday){
+		ActionErrors res = new ActionErrors();
+		try {
+			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
+			if (birthday.after(new Date())) {
+				res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
+			}
+		} catch (ParseException e1) {
+			// DO NOTHING
+		}
+		if(! UserUtils.getAuthenticatedUser(request, em).getEmail().equals(dynaForm.getString("mail"))){
+			SocialEntityFacade sef = new SocialEntityFacade(em);
+			em.getTransaction().begin();
+			SocialEntity se = sef.findByEmail(dynaForm.getString("mail"));
+			em.getTransaction().commit();
+			if(se == null){
+				res.add("mail", new ActionMessage("error.updateProfile.email.alwaysExist"));
+			}
+		}
+		return res;
+	}
+	
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -94,24 +116,23 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Date birthday = null;
 		try {
 			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
-			if (birthday.after(new Date())) {
-				ActionErrors errors = new ActionErrors();
-				errors.add("dateOfBirth", new ActionMessage("date.error.invalid"));
-				saveErrors(request, errors);
-				return mapping.getInputForward();
-			}
 		} catch (ParseException e1) {
 			// DO NOTHING
+		}
+		ActionErrors actionsErrors = verified(dynaForm, em, request, birthday);
+		if(! actionsErrors.isEmpty()){
+			saveErrors(request, actionsErrors);
+			em.close();
+			return mapping.getInputForward();
 		}
 		ProfileFacade pf = new ProfileFacade(em);
 		em.getTransaction().begin();
 		pf.editProfile(UserUtils.getAuthenticatedUser(request, em),
-				formatName(dynaForm.getString("name")), formatName(dynaForm
-						.getString("firstName")), new Address(dynaForm
-						.getString("adress"), formatName(dynaForm
-						.getString("city"))), birthday, dynaForm
-						.getString("sexe"), formatName(dynaForm
-						.getString("job")), dynaForm.getString("mail"),
+				formatName(dynaForm.getString("name")), 
+				formatName(dynaForm.getString("firstName")),
+				new Address(dynaForm.getString("adress"), formatName(dynaForm.getString("city"))),
+				birthday, dynaForm.getString("sexe"), formatName(dynaForm.getString("job")),
+				dynaForm.getString("mail"),
 				dynaForm.getString("phone"));
 		em.getTransaction().commit();
 		em.close();
