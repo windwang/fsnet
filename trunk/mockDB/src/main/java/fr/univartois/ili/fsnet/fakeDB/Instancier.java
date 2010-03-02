@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.fakeDB;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.logging.Level;
@@ -7,6 +8,8 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 
+import fr.univartois.ili.fsnet.fakeDB.mocks.CommunityMock;
+import fr.univartois.ili.fsnet.fakeDB.mocks.HubMock;
 import fr.univartois.ili.fsnet.fakeDB.mocks.InterestsMock;
 import fr.univartois.ili.fsnet.fakeDB.mocks.SocialEntitiesMock;
 
@@ -42,10 +45,13 @@ public class Instancier implements MockLocator {
 	public void start() {
 		loadMock(SocialEntitiesMock.class);
 		loadMock(InterestsMock.class);
-		for (Mock mock: mocks.values()) {
-			mock.link(em, this);
-		}
-		em.close();
+		loadMock(CommunityMock.class);
+		loadMock(HubMock.class);
+		locateMock(SocialEntitiesMock.class).link(em, this);
+		locateMock(InterestsMock.class).link(em, this);
+		locateMock(CommunityMock.class).link(em, this);
+		locateMock(HubMock.class).link(em, this);
+		
 	}
 
 	@Override

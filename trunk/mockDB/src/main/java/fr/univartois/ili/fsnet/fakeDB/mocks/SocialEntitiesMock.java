@@ -29,7 +29,7 @@ public class SocialEntitiesMock extends Mock {
 	public void create(EntityManager em) {
 		this.em = em;
 		init();
-		for (String identifier : generateIdentifiers(10, "mathieu")) {
+		for (String identifier : generateIdentifiers(5, "mathieu")) {
 			try {
 				em.getTransaction().begin();
 				SocialEntity se = seFacade.createSocialEntity(identifier,
