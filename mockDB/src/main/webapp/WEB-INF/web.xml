@@ -11,14 +11,45 @@
 
 	<servlet>
 		<servlet-name>PopulateDB</servlet-name>
-		<servlet-class>fr.univartois.ili.fsnet.fakeDB.PopulateDB</servlet-class>
+		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.PopulateDB</servlet-class>
 	</servlet>
 
 	<servlet-mapping>
 		<servlet-name>PopulateDB</servlet-name>
-		<url-pattern>/Populate</url-pattern>
+		<url-pattern>/PopulateDB</url-pattern>
 	</servlet-mapping>
 	
+	<servlet>
+		<servlet-name>DeleteDB</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.DeleteDB</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DeleteDB</servlet-name>
+		<url-pattern>/DeleteDB</url-pattern>
+	</servlet-mapping>
+	
+
+	<servlet>
+		<servlet-name>ResetDB</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.ResetDB</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>ResetDB</servlet-name>
+		<url-pattern>/ResetDB</url-pattern>
+	</servlet-mapping>
+	
+	<servlet>
+		<servlet-name>DeleteCommunities</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.DeleteCommunities</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DeleteCommunities</servlet-name>
+		<url-pattern>/DeleteCommunities</url-pattern>
+	</servlet-mapping>
+
 	<resource-ref>
 		<description>DB Connection</description>
 		<res-ref-name>ds/fsnetDS</res-ref-name>

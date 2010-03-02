@@ -22,18 +22,11 @@ public class InterestsMock extends Mock {
 	@Override
 	public void create(EntityManager em) {
 		facade = new InterestFacade(em);
-		for (String identifier : generateIdentifiers(15, "interest")) {
+		for (String identifier : generateIdentifiers(10, "interest")) {
 			try {
 				em.getTransaction().begin();
-				boolean fillParent = getRandomBoolean();
 				Interest interest;
-				if ((fillParent) && (interests.size() > 0)) {
-					int parentInterestId = getRandomInt() % interests.size();
-					interest = facade.createInterest(identifier, interests.get(
-							parentInterestId).getId());
-				} else {
-					interest = facade.createInterest(identifier);
-				}
+				interest = facade.createInterest(identifier);
 				interests.add(interest); 
 				em.getTransaction().commit();
 			} catch (RollbackException e) {
