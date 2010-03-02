@@ -25,9 +25,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class SocialEntity implements Serializable {
-	
-	private static final long serialVersionUID = 1L;
-	
+
+    private static final long serialVersionUID = 1L;
     /**
      * The identifier.
      */
@@ -83,7 +82,6 @@ public class SocialEntity implements Serializable {
      * The telephone number of the social entity.
      */
     private String phone;
-    
     /**
      * The interactions that the social entity created.
      */
@@ -128,59 +126,19 @@ public class SocialEntity implements Serializable {
     @OneToMany(cascade = CascadeType.ALL)
     @JoinTable(name = "SOCIAL_ENTITY__ASKED_CONTACTS")
     private List<SocialEntity> asked;
-    
     @OneToMany(mappedBy = "to")
     private List<PrivateMessage> receivedPrivateMessages;
-    
     @OneToMany(mappedBy = "from")
     private List<PrivateMessage> sentPrivateMessages;
-    
     @OneToMany(mappedBy = "socialEntity")
     private List<InteractionRole> rolesInInteractions;
-    
     @ManyToMany(cascade = {CascadeType.PERSIST})
-    private List<Interaction> favoriteInteractions; 
-
+    private List<Interaction> favoriteInteractions;
     @OneToMany(mappedBy = "visited")
     private List<ProfileVisite> haveBeenVisit;
-    
-
-	@OneToMany(mappedBy = "visitor")
+    @OneToMany(mappedBy = "visitor")
     private List<ProfileVisite> haveVisit;
-    
-    /**
-     * 
-     * @return the list of Profile visite where it's this social entity frofile whitch visit
-     */
-    public List<ProfileVisite> getHaveBeenVisit() {
-		return haveBeenVisit;
-	}
 
-    /**
-     * set the list of Profile visite where it's this social entity profile whitch visit
-     * @param haveBeenVisit
-     */
-	public void setHaveBeenVisit(List<ProfileVisite> haveBeenVisit) {
-		this.haveBeenVisit = haveBeenVisit;
-	}
-    /**
-     * 
-     * @return the list of Profile visite where the social entity is the visitor 
-     */
-	public List<ProfileVisite> getHaveVisit() {
-		return haveVisit;
-	}
-
-	/**
-	 * set the list of Profile visite where the social entity is the visitor 
-	 * @param haveVisit
-	 */
-	public void setHaveVisit(List<ProfileVisite> haveVisit) {
-		this.haveVisit = haveVisit;
-	}
-
-
-    
     /**
      * Constructor of the class SocialEntity.
      */
@@ -216,10 +174,7 @@ public class SocialEntity implements Serializable {
         haveVisit = new ArrayList<ProfileVisite>();
     }
 
-    
- 
-
-	/**
+    /**
      *
      * @return the identifier.
      */
@@ -357,9 +312,9 @@ public class SocialEntity implements Serializable {
      */
     public void setPassword(String password) {
         this.password = password;
-    }    
+    }
 
-	/**
+    /**
      *
      * @return the profession of the social entity.
      */
@@ -410,7 +365,7 @@ public class SocialEntity implements Serializable {
         this.phone = phone;
     }
 
-	/**
+    /**
      *
      * @return the list of interactions that the social entity created.
      */
@@ -427,7 +382,7 @@ public class SocialEntity implements Serializable {
         this.interactions = interactions;
     }
 
-	/**
+    /**
      *
      * @return the list of interest that the social entity informed.
      */
@@ -591,124 +546,111 @@ public class SocialEntity implements Serializable {
         this.rolesInInteractions = rolesInInteractions;
     }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result
-				+ ((birthDate == null) ? 0 : birthDate.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result
-				+ ((firstName == null) ? 0 : firstName.hashCode());
-		result = prime * result
-				+ ((inscritpionDate == null) ? 0 : inscritpionDate.hashCode());
-		result = prime * result
-				+ ((interests == null) ? 0 : interests.hashCode());
-		result = prime * result
-				+ ((lastConnection == null) ? 0 : lastConnection.hashCode());
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result
-				+ ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((phone == null) ? 0 : phone.hashCode());
-		result = prime * result
-				+ ((profession == null) ? 0 : profession.hashCode());
-		result = prime * result + ((sex == null) ? 0 : sex.hashCode());
-		return result;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final SocialEntity other = (SocialEntity) obj;
+        if ((this.name == null) ? (other.name != null) : !this.name.equals(other.name)) {
+            return false;
+        }
+        if ((this.firstName == null) ? (other.firstName != null) : !this.firstName.equals(other.firstName)) {
+            return false;
+        }
+        if (this.address != other.address && (this.address == null || !this.address.equals(other.address))) {
+            return false;
+        }
+        if (this.inscritpionDate != other.inscritpionDate && (this.inscritpionDate == null || !this.inscritpionDate.equals(other.inscritpionDate))) {
+            return false;
+        }
+        if (this.birthDate != other.birthDate && (this.birthDate == null || !this.birthDate.equals(other.birthDate))) {
+            return false;
+        }
+        if (this.lastConnection != other.lastConnection && (this.lastConnection == null || !this.lastConnection.equals(other.lastConnection))) {
+            return false;
+        }
+        if ((this.sex == null) ? (other.sex != null) : !this.sex.equals(other.sex)) {
+            return false;
+        }
+        if ((this.password == null) ? (other.password != null) : !this.password.equals(other.password)) {
+            return false;
+        }
+        if ((this.profession == null) ? (other.profession != null) : !this.profession.equals(other.profession)) {
+            return false;
+        }
+        if ((this.email == null) ? (other.email != null) : !this.email.equals(other.email)) {
+            return false;
+        }
+        if ((this.phone == null) ? (other.phone != null) : !this.phone.equals(other.phone)) {
+            return false;
+        }
+        return true;
+    }
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		SocialEntity other = (SocialEntity) obj;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (birthDate == null) {
-			if (other.birthDate != null)
-				return false;
-		} else if (!birthDate.equals(other.birthDate))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstName == null) {
-			if (other.firstName != null)
-				return false;
-		} else if (!firstName.equals(other.firstName))
-			return false;
-		if (inscritpionDate == null) {
-			if (other.inscritpionDate != null)
-				return false;
-		} else if (!inscritpionDate.equals(other.inscritpionDate))
-			return false;
-		if (interests == null) {
-			if (other.interests != null)
-				return false;
-		} else if (!interests.equals(other.interests))
-			return false;
-		if (lastConnection == null) {
-			if (other.lastConnection != null)
-				return false;
-		} else if (!lastConnection.equals(other.lastConnection))
-			return false;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (phone == null) {
-			if (other.phone != null)
-				return false;
-		} else if (!phone.equals(other.phone))
-			return false;
-		if (profession == null) {
-			if (other.profession != null)
-				return false;
-		} else if (!profession.equals(other.profession))
-			return false;
-		if (sex == null) {
-			if (other.sex != null)
-				return false;
-		} else if (!sex.equals(other.sex))
-			return false;
-		return true;
-	}
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 97 * hash + (this.name != null ? this.name.hashCode() : 0);
+        hash = 97 * hash + (this.firstName != null ? this.firstName.hashCode() : 0);
+        hash = 97 * hash + (this.address != null ? this.address.hashCode() : 0);
+        hash = 97 * hash + (this.inscritpionDate != null ? this.inscritpionDate.hashCode() : 0);
+        hash = 97 * hash + (this.birthDate != null ? this.birthDate.hashCode() : 0);
+        hash = 97 * hash + (this.lastConnection != null ? this.lastConnection.hashCode() : 0);
+        hash = 97 * hash + (this.sex != null ? this.sex.hashCode() : 0);
+        hash = 97 * hash + (this.password != null ? this.password.hashCode() : 0);
+        hash = 97 * hash + (this.profession != null ? this.profession.hashCode() : 0);
+        hash = 97 * hash + (this.email != null ? this.email.hashCode() : 0);
+        hash = 97 * hash + (this.phone != null ? this.phone.hashCode() : 0);
+        return hash;
+    }
 
-	/**
-	 * @param favoriteInteractions the favoriteInteractions to set
-	 */
-	public void setFavoriteInteractions(List<Interaction> favoriteInteractions) {
-		this.favoriteInteractions = favoriteInteractions;
-	}
+    /**
+     * @param favoriteInteractions the favoriteInteractions to set
+     */
+    public void setFavoriteInteractions(List<Interaction> favoriteInteractions) {
+        this.favoriteInteractions = favoriteInteractions;
+    }
 
-	/**
-	 * @return the favoriteInteractions
-	 */
-	public List<Interaction> getFavoriteInteractions() {
-		return favoriteInteractions;
-	}
+    /**
+     * @return the favoriteInteractions
+     */
+    public List<Interaction> getFavoriteInteractions() {
+        return favoriteInteractions;
+    }
 
-	
-    
+    /**
+     *
+     * @return the list of Profile visite where it's this social entity frofile whitch visit
+     */
+    public List<ProfileVisite> getHaveBeenVisit() {
+        return haveBeenVisit;
+    }
+
+    /**
+     * set the list of Profile visite where it's this social entity profile whitch visit
+     * @param haveBeenVisit
+     */
+    public void setHaveBeenVisit(List<ProfileVisite> haveBeenVisit) {
+        this.haveBeenVisit = haveBeenVisit;
+    }
+
+    /**
+     *
+     * @return the list of Profile visite where the social entity is the visitor
+     */
+    public List<ProfileVisite> getHaveVisit() {
+        return haveVisit;
+    }
+
+    /**
+     * set the list of Profile visite where the social entity is the visitor
+     * @param haveVisit
+     */
+    public void setHaveVisit(List<ProfileVisite> haveVisit) {
+        this.haveVisit = haveVisit;
+    }
 }
