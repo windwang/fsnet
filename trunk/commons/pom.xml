@@ -2,13 +2,13 @@
     <parent>
         <artifactId>fsnet</artifactId>
         <groupId>fr.univartois.ili.fsnet</groupId>
-        <version>0.3.1</version>
+        <version>0.3.2-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.univartois.ili.fsnet</groupId>
     <artifactId>commons</artifactId>
     <name>commons</name>
-    <version>0.3.1</version>
+    <version>0.3.2-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>
