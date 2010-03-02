@@ -38,6 +38,7 @@ public class HubFacade {
 			throw new IllegalArgumentException();
 		}
 		Hub hub = new Hub(community, creator, name);
+		community.getHubs().add(hub);
 		em.persist(hub);
 		return hub;
 	}
