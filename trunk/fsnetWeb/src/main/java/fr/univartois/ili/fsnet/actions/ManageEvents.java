@@ -39,19 +39,19 @@ import fr.univartois.ili.fsnet.facade.MeetingFacade;
  */
 public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
-	private Date validateDate(String eventDate, HttpServletRequest request) {
+	private Date validateDate(String eventDate, HttpServletRequest request, String propertyKey) {
 		Date typedEventDate;
 		try {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add("eventDate", new ActionMessage(("event.date.errors")));
+			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
 			saveErrors(request, errors);
 			return null;
 		}
 		if (typedEventDate.before(new Date())) {
 			ActionErrors errors = new ActionErrors();
-			errors.add("eventDate", new ActionMessage(("date.error.invalid")));
+			errors.add(propertyKey, new ActionMessage(("date.error.invalid")));
 			saveErrors(request, errors);
 			return null;
 		}
@@ -71,8 +71,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		// TODO !!! recuperer l'adresse et la city !!!
 		String adress = "";
 		String city = "";
-		Date typedEventBeginDate = validateDate(eventBeginDate, request);
-		Date typedEventEndDate = validateDate(eventEndDate, request);
+		Date typedEventBeginDate = validateDate(eventBeginDate, request, "eventBeginDate");
+		Date typedEventEndDate = validateDate(eventEndDate, request, "eventEndDate");
 		if (typedEventBeginDate == null || typedEventEndDate == null) {
 			return mapping.getInputForward();
 		}
