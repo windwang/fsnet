@@ -8,14 +8,12 @@
  * a servlet container (like Apache Tomcat)
  * a MySQL Database administration tool (like phpmyadmin)
 
-You can find dependency librairies in fsnet-libs_d4.zip
-
 = How to install FSNET =
 
  ===Theses explanations are for apache tomcat 6.x users :===
 
- # Download fsnet-0.1.1.zip
- # Unzip the fsnet-0.1.1.zip archive. you will find three folders : wars/ , tray/ and libs/
+ # Download fsnet-0.4.0-bin.zip
+ # Unzip the fsnet-0.4.0-bin.zip archive. you will find three folders : wars/ , tray/ and libs/
  # Copy libs/mysql-connector-java-5.1.10.jar dependency in the tomcat/lib/ directory
  # create a new user and a new database on mysql
  # Copy the wars/admin.war, wars/fsnetWeb.war and wars/webservice.war files in the tomcat/webapps
