@@ -25,6 +25,7 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <JPA.version>2.0.1</JPA.version>
     </properties>
 
     <licenses>
