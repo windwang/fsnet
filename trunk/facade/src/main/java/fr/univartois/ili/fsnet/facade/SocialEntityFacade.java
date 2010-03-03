@@ -86,15 +86,20 @@ public class SocialEntityFacade {
         for (SocialEntity contact : socialEntity.getContacts()) {
             contact.getContacts().remove(socialEntity);
         }
+        socialEntity.getContacts().clear();
         for (SocialEntity contact : socialEntity.getRefused()) {
             contact.getRefused().remove(socialEntity);
         }
+        socialEntity.getRefused().clear();
         for (SocialEntity contact : socialEntity.getRequested()) {
             contact.getRequested().remove(socialEntity);
         }
+        socialEntity.getRequested().clear();
         for (SocialEntity contact : socialEntity.getAsked()) {
             contact.getAsked().remove(socialEntity);
         }
+        socialEntity.getAsked().clear();
+
         em.remove(socialEntity);
         em.flush();
     }
