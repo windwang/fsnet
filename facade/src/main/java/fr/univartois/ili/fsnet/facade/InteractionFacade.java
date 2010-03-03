@@ -2,7 +2,6 @@ package fr.univartois.ili.fsnet.facade;
 
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -101,7 +100,7 @@ public class InteractionFacade {
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
-	public final HashMap<Interaction, ArrayList<String>> getLastInteractions(SocialEntity user){
+	public final List<Triple> getLastInteractions(SocialEntity user){
 
 		TypedQuery<Interaction> query = em.createQuery(
 				"SELECT inter FROM Interaction inter, SocialEntity se, IN(se.contacts) c " +
@@ -110,35 +109,56 @@ public class InteractionFacade {
 		query.setMaxResults(10);
 		
 		List<Interaction> result = query.getResultList();
-
-		HashMap<Interaction, ArrayList<String>> resultMap = new HashMap<Interaction, ArrayList<String>>();
-
+		List<Triple> triples = new ArrayList<Triple>();
+		
+		String path = null;
+		String id = null;
 		for (Interaction interaction : result) {
-			ArrayList<String> array = new ArrayList<String>();
 			String clazz = interaction.getClass().getSimpleName(); 
-			array.add(clazz);
 			if ("Announcement".equals(clazz)) {
-				array.add("/DisplayAnnounce");
-				array.add("idAnnounce");
+				path = "/DisplayAnnounce";
+				id ="idAnnounce";
 			} else if ("Meeting".equals(clazz)) {
-				array.add("/DisplayEvent");
-				array.add("eventId");
+				path = "/DisplayEvent";
+				id = "eventId";
 			} else if ("Topic".equals(clazz)) {
-				array.add("/Topic");
-				array.add("topicId");
+				path = "/Topic";
+				id = "topicId";
 			} else if ("Hub".equals(clazz)) {
-				array.add("/DisplayHub");
-				array.add("hubId");
+				path = "/DisplayHub";
+				id = "hubId";
 			} else if ("Community".equals(clazz)) {
-				array.add("/DisplayCommunity");
-				array.add("communityId");
+				path = "/DisplayCommunity";
+				id = "communityId";
 			}
-			resultMap.put(interaction, array);
+			triples.add(new Triple(interaction,path,id));
 		}
 
-		return resultMap;
+		return triples;
 	}
-
+	public static class Triple {
+		private Interaction inter;
+		private String path;
+		String id;
+		
+		public Triple(Interaction inter, String path, String id) {
+			this.inter = inter;
+			this.path = path;
+			this.id = id;
+		}
+		
+		public Interaction getInteraction() {
+			return inter;
+		}
+		
+		public String getPath() {
+			return path;
+		}
+		
+		public String getId() {
+			return id;
+		}
+	}
 	/**
 	 * @author geoffrey boulay
 	 * 

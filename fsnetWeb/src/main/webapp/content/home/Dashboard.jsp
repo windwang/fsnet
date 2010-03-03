@@ -111,29 +111,29 @@
     </logic:empty>
 
     <logic:notEmpty name="lastInteractions">
-        <logic:iterate id="interaction" collection="${requestScope.lastInteractions}">
+        <logic:iterate id="triple" collection="${requestScope.lastInteractions}">
             <tr>
                 <td class="messagePhoto">
                     <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${interaction.key.creator.id}"/>
-                        <img src="miniature/${interaction.key.creator.id}.png"/>
+                        <html:param name="id" value="${triple.interaction.creator.id}"/>
+                        <img src="miniature/${triple.interaction.creator.id}.png"/>
                     </html:link>
                 </td>
                 <td>
                     <bean:message key="events.16"/>
                     <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${interaction.key.creator.id}"/>
-                        ${interaction.key.creator.firstName} ${interaction.key.creator.name}
+                        <html:param name="id" value="${triple.interaction.creator.id}"/>
+                        ${triple.interaction.creator.firstName} ${triple.interaction.creator.name}
                     </html:link>
                 </td>
                 <td>
-                    <html:link action="${interaction.value[1]}">
-                        <html:param name="${interaction.value[2]}" value="${interaction.key.id}"/>
-                        ${interaction.key.title}
+                    <html:link action="${triple.path}">
+                        <html:param name="${triple.id}" value="${triple.interaction.id}"/>
+                        ${triple.interaction.title}
                     </html:link>
                 </td>
                 <td class="tableButton">
-                    <bean:define id="interkey" name="interaction" property="key"/>
+                    <bean:define id="interkey" name="triple" property="interaction"/>
                     <bean:write name="interkey" property="lastModified" format="dd/MM/yyyy" />
                 </td>
             </tr>

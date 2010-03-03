@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.actions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -18,12 +17,12 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
-import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade.Triple;
 
 public class Home extends MappingDispatchAction {
 
@@ -42,7 +41,7 @@ public class Home extends MappingDispatchAction {
 			throws IOException, ServletException {
 		SocialEntity connectedUser = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade facade = new InteractionFacade(em);
-		HashMap<Interaction, ArrayList<String>> result = facade
+		List<Triple> result = facade
 				.getLastInteractions(connectedUser);		
 		
 		request.setAttribute("lastInteractions", result);
