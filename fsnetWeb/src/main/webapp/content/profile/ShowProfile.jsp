@@ -159,4 +159,26 @@
         </c:forEach>
     </table>
 </div>
+
 <div style="clear: both" ></div>
+
+<h3>
+    <bean:message key="showProfile.contacts.title"/>
+</h3>
+<logic:empty name="watchedProfile" property="contacts"> 
+ <c:choose>
+ 	<c:when test="${edit}">
+ 		<bean:message key="showProfile.IHaveNoContacts"/>
+ 	</c:when>
+ 	<c:otherwise>
+ 		<bean:message key="showProfile.noContacts"/>
+ 	</c:otherwise>
+ </c:choose>    
+</logic:empty>
+<logic:iterate collection="${watchedProfile.contacts}" id="user">		
+	<html:link action="/DisplayProfile" styleClass="miniature">
+	    <html:param name="id" value="${user.id}"/>
+		<img src="miniature/${user.id}.png" title="${user.name} ${user.firstName}"></img>
+	</html:link>			
+</logic:iterate>
+
