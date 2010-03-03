@@ -100,7 +100,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().begin();
 			SocialEntity se = sef.findByEmail(dynaForm.getString("mail"));
 			em.getTransaction().commit();
-			if(se == null){
+			if(se != null){
 				res.add("mail", new ActionMessage("error.updateProfile.email.alwaysExist"));
 			}
 		}
