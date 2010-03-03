@@ -31,6 +31,7 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
+import org.apache.struts.action.ActionRedirect;
 
 /**
  * Execute CRUD Actions for the entity Event
@@ -172,7 +173,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		interactionRoleFacade.subscribe(member, meeting);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+                ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+                redirect.addParameter("eventId", dynaForm.get("eventId"));
+                return redirect;
 	}
 
 	/**
@@ -197,7 +200,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		interactionRoleFacade.unsubscribe(member, meeting);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+                ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+                redirect.addParameter("eventId", dynaForm.get("eventId"));
+                return redirect;
 	}
 
 	@Override
