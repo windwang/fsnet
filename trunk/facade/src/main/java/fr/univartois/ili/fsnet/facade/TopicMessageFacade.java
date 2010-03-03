@@ -86,4 +86,21 @@ public class TopicMessageFacade {
         query.setParameter("pattern", "%" + pattern + "%");
         return query.getResultList();
     }
+    
+    /**
+     * 
+     */
+    public final int getLastPageId(final int topicId, int paginatorCount) {
+    	long numMessages; 
+    	try {
+    		numMessages = em.createQuery("SELECT COUNT(message) FROM TopicMessage message WHERE message.topic.id = :topicId", long.class).setParameter("topicId", topicId).getSingleResult();
+    	} catch (Exception e) {
+			numMessages = 1;
+		}
+    	int numPages = (int) Math.ceil(numMessages
+				/ ((double) paginatorCount)) - 1;
+    	    	
+    	return numPages;
+    }
+    
 }
