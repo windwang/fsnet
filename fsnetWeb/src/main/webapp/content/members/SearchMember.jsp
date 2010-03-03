@@ -21,7 +21,7 @@
             	<td class="miniatureContainer">
 	               	<html:link action="/DisplayProfile">
 	               	    <html:param name="id" value="${member.id}"/>
-	               		<img src="GetMiniature.do?memberId=${member.id}"/>
+	               		<img src="miniature/${member.id}.png"/>
 	               	</html:link>	
                	</td>
                	<td>
@@ -44,7 +44,7 @@
             	<td class="miniatureContainer">
 	               	<html:link action="/DisplayProfile">
 	               	    <html:param name="id" value="${member.id}"/>
-	               		<img src="GetMiniature.do?memberId=${member.id}"/>
+	               		<img src="miniature/${member.id}.png"/>
 	               	</html:link>	
                	</td>
                 <td>
@@ -67,7 +67,7 @@
             	<td class="miniatureContainer">
 	               	<html:link action="/DisplayProfile">
 	               	    <html:param name="id" value="${member.id}"/>
-	               		<img src="GetMiniature.do?memberId=${member.id}"/>
+	               		<img src="miniature/${member.id}.png"/>
 	               	</html:link>	
                	</td>
                 <td>
@@ -100,7 +100,7 @@
             	<td class="miniatureContainer">
 	               	<html:link action="/DisplayProfile">
 	               	    <html:param name="id" value="${member.id}"/>
-	               		<img src="GetMiniature.do?memberId=${member.id}"/>
+	               		<img src="miniature/${member.id}.png"/>
 	               	</html:link>	
                	</td>
                 <td>

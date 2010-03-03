@@ -16,7 +16,7 @@
 
 </h3>
 
-<img src="GetPhoto.do?memberId=${watchedProfile.id}" style="float: right;"/>
+<img src="avatar/${watchedProfile.id}.png" style="float: right;"/>
 
 <table class="watchedProfile">
     <c:if test="${watchedProfile.email != null && not empty watchedProfile.email }">

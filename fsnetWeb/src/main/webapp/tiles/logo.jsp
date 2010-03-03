@@ -4,6 +4,6 @@
 	<img src="images/FSNET.png"/>
 </div>
 <html:link action="/DisplayProfile" styleId="userPicture">
-	<img src="GetPhoto.do?memberId=${sessionScope.userId}"/>
+	<img src="avatar/${sessionScope.userId}.png"/>
 </html:link>
  

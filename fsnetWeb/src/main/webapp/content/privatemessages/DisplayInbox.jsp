@@ -28,7 +28,7 @@
 							<td>
 								<html:link action="/DisplayProfile">
 		               	    		<html:param name="id" value="${message.from.id}"/>
-									<img src="GetMiniature.do?memberId=${message.from.id}" />
+									<img src="miniature/${message.from.id}.png" />
 								</html:link>
 							</td>
 							<td style="width: 25%"><html:link action="/DisplayMessage">
@@ -51,7 +51,7 @@
 							<td>
 								<html:link action="/DisplayProfile">
 		               	    		<html:param name="id" value="${message.from.id}"/>
-									<img src="GetMiniature.do?memberId=${message.from.id}" />
+									<img src="miniature/${message.from.id}.png" />
 								</html:link>
 							</td>
 							<td style="width: 25%"><html:link action="/DisplayMessage">

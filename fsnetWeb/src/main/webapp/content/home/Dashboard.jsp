@@ -26,7 +26,7 @@
             <c:if test="${not message.reed}">
                 <tr class="notReed">
                     <td class="messagePhoto">
-                        <img src="GetMiniature.do?memberId=${message.from.id}" />
+                        <img src="miniature/${message.from.id}.png" />
                     </td>
                     <td style="width: 0%">
                         <html:link action="/DisplayMessage">
@@ -46,7 +46,7 @@
                     <td class="messagePhoto">
                         <html:link action="/DisplayProfile">
                             <html:param name="id" value="${message.from.id}"/>
-                            <img src="GetMiniature.do?memberId=${message.from.id}"/>
+                            <img src="miniature/${message.from.id}"/>
                         </html:link>
                     </td>
                     <td>
@@ -80,7 +80,7 @@
                 <td class="messagePhoto">
                     <html:link action="/DisplayProfile">
                         <html:param name="id" value="${pv.visitor.id}"/>
-                        <img src="GetMiniature.do?memberId=${pv.visitor.id}"/>
+                        <img src="miniature/${pv.visitor.id}.png"/>
                     </html:link>
                 </td>
                 <td>
@@ -116,7 +116,7 @@
                 <td class="messagePhoto">
                     <html:link action="/DisplayProfile">
                         <html:param name="id" value="${interaction.key.creator.id}"/>
-                        <img src="GetMiniature.do?memberId=${interaction.key.creator.id}"/>
+                        <img src="miniature/${interaction.key.creator.id}.png"/>
                     </html:link>
                 </td>
                 <td>

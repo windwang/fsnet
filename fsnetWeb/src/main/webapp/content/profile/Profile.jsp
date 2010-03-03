@@ -259,7 +259,7 @@
 	</logic:messagesPresent>
 </html:form>
 
-<img src="GetPhoto.do?memberId=${userId}" style="float:right;"/>
+<img src="avatar/${userId}.png" style="float:right;"/>
 <div class="clear"></div>
 <html:link action="/DeletePhoto" style="float:right;">
 	<bean:message key="updateProfile.deletePhoto"/>
