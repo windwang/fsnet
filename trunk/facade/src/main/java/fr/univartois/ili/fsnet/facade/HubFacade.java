@@ -52,6 +52,21 @@ public class HubFacade {
 	public final Hub getHub(int id) {
 		return em.find(Hub.class, id);
 	}
+	
+	/**
+	 * 
+	 * @param id
+	 * @return the Hub identified by id
+	 */
+	public final Hub getHubByName(String name, Community community) {
+		if (name == null || community == null) {
+			throw new IllegalArgumentException();
+		}
+		Hub hub = em.createQuery(
+				"SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName AND hub.community = :com",
+				Hub.class).setParameter("hubName", name ).setParameter("com", community ).getSingleResult();
+		return hub;
+	}
 
 	/**
 	 * Search a Hub
