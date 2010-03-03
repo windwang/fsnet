@@ -55,8 +55,9 @@ public class HubFacade {
 	
 	/**
 	 * 
-	 * @param id
-	 * @return the Hub identified by id
+	 * @param name
+	 * @param community
+	 * @return the Hub identified by name and community
 	 */
 	public final Hub getHubByName(String name, Community community) {
 		if (name == null || community == null) {

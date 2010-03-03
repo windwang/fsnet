@@ -34,12 +34,27 @@ public class CommunityFacade {
 
     /**
      *
-     * @param id the id of the communty
+     * @param id the id of the community
      * @return the community with the given id
      */
     public final Community getCommunity(int id){
         return em.find(Community.class, id);
     }
+    
+    /**
+    *
+    * @param name the name of the community
+    * @return the community with the given name
+    */
+   public final Community getCommunityByName(String name){
+	   if (name == null) {
+           throw new IllegalArgumentException();
+       }
+	  Community community = em.createQuery(
+				"SELECT community FROM Community community WHERE community.title LIKE :communityName",
+				Community.class).setParameter("communityName", name ).getSingleResult();
+       return community;
+   }
 
     /**
      * Search a community responding to the given pattern

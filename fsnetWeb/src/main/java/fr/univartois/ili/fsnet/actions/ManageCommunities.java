@@ -39,52 +39,49 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
 public class ManageCommunities extends MappingDispatchAction implements CrudAction {
 
 
-    @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-        String name = (String) dynaForm.get("name");
-        
-        EntityManager em = PersistenceProvider.createEntityManager();
-     
-        
-        try{
-    			em.createQuery(
-    				"SELECT community FROM Community community WHERE community.title LIKE :communityName",
-    				Community.class).setParameter("communityName", name ).getSingleResult();
-    		
-    			ActionErrors actionErrors = new ActionErrors();
-    			ActionMessage msg = new ActionMessage("communities.alreadyExists");
-    			actionErrors.add("createdCommunityName", msg);
-    			saveErrors(request, actionErrors);
-    		
-    		} catch (NoResultException e){
-    			 String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
-    		        InterestFacade fac = new InterestFacade(em);
-    		        List<Interest> interests = new ArrayList<Interest>();
-    		        int currentId;
-    		        for (currentId = 0; currentId < InterestsIds.length; currentId++) {
-    		            interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
-    		        }
-    	        
-    		    CommunityFacade communityFacade = new CommunityFacade(em);
-    		    
-    		    SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
-    	        em.getTransaction().begin();
-    	        Community createdCommunity = communityFacade.createCommunity(creator, name);
-    			
- 
-    		
-    			InteractionFacade ifacade = new InteractionFacade(em);
-    		    ifacade.addInterests(createdCommunity, interests);
+	@Override
+	public ActionForward create(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String name = (String) dynaForm.get("name");
 
-    	        em.getTransaction().commit();
-    	        em.close();
+		EntityManager em = PersistenceProvider.createEntityManager();
+		CommunityFacade communityFacade = new CommunityFacade(em);
+		boolean doesNotExists = false;
+		try{
+			communityFacade.getCommunityByName(name);
 
-    		}
-        return mapping.findForward("success");
-    }
+		} catch (NoResultException e){
+			doesNotExists = true;
+
+		}
+		if (doesNotExists) {
+			String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+			InterestFacade fac = new InterestFacade(em);
+			List<Interest> interests = new ArrayList<Interest>();
+			int currentId;
+			for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+				interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
+			}
+			
+			SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
+			em.getTransaction().begin();
+			Community createdCommunity = communityFacade.createCommunity(creator, name);
+			InteractionFacade ifacade = new InteractionFacade(em);
+			ifacade.addInterests(createdCommunity, interests);
+			em.getTransaction().commit();
+			em.close();
+
+		}
+		else{
+			ActionErrors actionErrors = new ActionErrors();
+			ActionMessage msg = new ActionMessage("communities.alreadyExists");
+			actionErrors.add("createdCommunityName", msg);
+			saveErrors(request, actionErrors);
+		}
+		return mapping.findForward("success");
+	}
 
 
 	@Override
