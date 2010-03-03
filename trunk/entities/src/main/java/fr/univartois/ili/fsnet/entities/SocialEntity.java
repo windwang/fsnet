@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
@@ -91,6 +92,7 @@ public class SocialEntity implements Serializable {
      * The interest that the social entity informed.
      */
     @ManyToMany(cascade = {CascadeType.PERSIST})
+    @OrderBy(value="name")
     private List<Interest> interests = new ArrayList<Interest>();
     /**
      * The messages that the social entity created.

@@ -35,7 +35,7 @@ public class InteractionFacade {
 		if (interaction == null || interest == null) {
 			throw new IllegalArgumentException();
 		}
-		final Set<Interest> interests = interaction.getInterests();
+		final List<Interest> interests = interaction.getInterests();
 		if (!interests.contains(interest)) {
 			interests.add(interest);
 		}
@@ -50,7 +50,7 @@ public class InteractionFacade {
 		if (interaction == null || interests == null) {
 			throw new IllegalArgumentException();
 		}
-		final Set<Interest> interactionInterests = interaction.getInterests();
+		final List<Interest> interactionInterests = interaction.getInterests();
 		interactionInterests.addAll(interests);
 	}
 

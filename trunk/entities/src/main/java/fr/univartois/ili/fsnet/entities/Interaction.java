@@ -1,8 +1,10 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -18,6 +20,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.PostRemove;
 import javax.persistence.PreRemove;
 import javax.persistence.Temporal;
@@ -55,7 +58,8 @@ public abstract class Interaction implements Serializable {
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REFRESH })
-	private Set<Interest> interests;
+	@OrderBy(value="name")
+	private List<Interest> interests;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationDate;
@@ -87,7 +91,7 @@ public abstract class Interaction implements Serializable {
 		this.creationDate = date;
 		this.lastModified = date;
 		this.creator = creator;
-		this.interests = new HashSet<Interest>();
+		this.interests = new ArrayList<Interest>();
 		this.roles = new HashSet<InteractionRole>();
 		this.followingEntitys = new HashSet<SocialEntity>();
 		// this.report = rapport;
@@ -136,7 +140,7 @@ public abstract class Interaction implements Serializable {
 	 * 
 	 * @return the list of interests
 	 */
-	public Set<Interest> getInterests() {
+	public List<Interest> getInterests() {
 		return interests;
 	}
 
@@ -145,7 +149,7 @@ public abstract class Interaction implements Serializable {
 	 * @param interests
 	 *            the list of interests
 	 */
-	public void setInterests(Set<Interest> interests) {
+	public void setInterests(List<Interest> interests) {
 		this.interests = interests;
 	}
 
