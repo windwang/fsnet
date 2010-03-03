@@ -18,6 +18,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
@@ -50,9 +51,13 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
         topicMessageFacade.createTopicMessage(messageDescription, SocialEntity, topic);
 
         em.getTransaction().commit();
+        
+        int pageId = topicMessageFacade.getLastPageId(topicId, Paginator.DEFAULT_NUM_RESULT_PER_PAGE);
+        
         em.close();
         ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
         redirect.addParameter("topicId", dynaForm.get("topicId"));
+        redirect.addParameter("pageId", pageId);
         return redirect;
     }
 
