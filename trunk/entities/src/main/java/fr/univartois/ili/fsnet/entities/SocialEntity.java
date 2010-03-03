@@ -107,39 +107,45 @@ public class SocialEntity implements Serializable {
     /**
      * The contact list
      */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinTable(name = "SOCIAL_ENTITY__CONTACTS")
     private List<SocialEntity> contacts;
     /**
      * list of refused contacts
      */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinTable(name = "SOCIAL_ENTITY__REFUSED_CONTACTS")
     private List<SocialEntity> refused;
     /**
      * List of requested contacts
      */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinTable(name = "SOCIAL_ENTITY__REQUESTED_CONTACTS")
     private List<SocialEntity> requested;
     /**
      * Received demands list
      */
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany
     @JoinTable(name = "SOCIAL_ENTITY__ASKED_CONTACTS")
     private List<SocialEntity> asked;
+    
     @OneToMany
     @JoinTable(name = "PRIVATE_MESSAGE_RECEIVED")
     private List<PrivateMessage> receivedPrivateMessages;
+    
     @OneToMany
     @JoinTable(name = "PRIVATE_MESSAGE_SENT")
     private List<PrivateMessage> sentPrivateMessages;
+  
     @OneToMany(mappedBy = "socialEntity")
     private List<InteractionRole> rolesInInteractions;
+    
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Interaction> favoriteInteractions;
+    
     @OneToMany(mappedBy = "visited")
     private List<ProfileVisite> visitesOnProfile;
+    
     @OneToMany(mappedBy = "visitor")
     private List<ProfileVisite> visitedProlfiles;
 
