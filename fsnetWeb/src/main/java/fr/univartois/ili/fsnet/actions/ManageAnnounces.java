@@ -75,6 +75,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
                 ActionMessages errors = new ActionErrors();
                 errors.add("message", new ActionMessage("dateBelowDateToday"));
                 saveErrors(request, errors);
+                entityManager.close();
                 return mapping.findForward("failer");
             }
         } catch (ParseException e) {
@@ -121,6 +122,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
         } catch (ParseException e) {
             servlet.log("class:ManageAnnounces methode:create exception whene formatying date ");
             e.printStackTrace();
+            entityManager.close();
             return mapping.findForward("failer");
         } finally {
             entityManager.close();

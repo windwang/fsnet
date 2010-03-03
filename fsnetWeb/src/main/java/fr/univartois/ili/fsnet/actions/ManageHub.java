@@ -81,9 +81,8 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 			InteractionFacade ifacade = new InteractionFacade(em);
 			ifacade.addInterests(createdHub, interests);
 			em.getTransaction().commit();
-			em.close();
-
 		}
+		em.close();
 		return mapping.findForward("success");
 	}
 

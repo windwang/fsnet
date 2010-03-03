@@ -135,6 +135,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			}
 			} catch (NumberFormatException e) {
 		}
+		em.close();
 		return mapping.findForward("success");
 	}
 

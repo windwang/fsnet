@@ -143,7 +143,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		try {
 			em.getTransaction().commit();
 		} catch (RollbackException e) {
-			e.printStackTrace();
+			servlet.log("no commit", e);
 		}
 		em.close();
 
@@ -171,6 +171,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				em);
 		interactionRoleFacade.subscribe(member, meeting);
 		em.getTransaction().commit();
+		em.close();
 		return mapping.findForward("success");
 	}
 
@@ -195,6 +196,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				em);
 		interactionRoleFacade.unsubscribe(member, meeting);
 		em.getTransaction().commit();
+		em.close();
 		return mapping.findForward("success");
 	}
 
