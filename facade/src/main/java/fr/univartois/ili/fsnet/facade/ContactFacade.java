@@ -109,7 +109,8 @@ public class ContactFacade {
         }
         member.getContacts().remove(removedEntity);
         removedEntity.getContacts().remove(member);
-
+        em.merge(member);
+        em.merge(removedEntity);
     }
     
     
