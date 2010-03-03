@@ -254,6 +254,13 @@
         <put name="left" value="/content/communities/leftMenu.jsp" />
         <put name="body-content" value="/content/communities/SearchYourCommunities.jsp" />
     </definition>
+    
+    <!-- UnauthorizedOperationException -->
+    <definition name="UnauthorizedOperationException" extends=".defaultLayout">
+        <put name="title" value="pageTitle.17"/>
+        <put name="currentMenu" value="UnauthorizedOperationException"/>
+        <put name="body-content" value="/content/exception/UnauthorizedOperationException.jsp" />
+    </definition>
 </tiles-definitions>
 
 
