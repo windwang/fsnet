@@ -4,6 +4,8 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -16,6 +18,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostRemove;
 import javax.persistence.PreRemove;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -29,196 +32,219 @@ import javax.persistence.TemporalType;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Interaction implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    /**
-     * The identifier.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
-    /**
-     * The community name.
-     */
-    private String title;
-    /**
-     * The creator of the interaction.
-     */
-    @ManyToOne(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
-    private SocialEntity creator;
-    
-    @ManyToMany(cascade={CascadeType.PERSIST,CascadeType.MERGE,CascadeType.REFRESH})
-    private Set<Interest> interests;
-    @Temporal(TemporalType.DATE)
-    private Date creationDate;
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Date lastModified;
-    @OneToMany(mappedBy = "interaction")
-    private Set<InteractionRole> roles;
-    @ManyToMany(mappedBy = "favoriteInteractions")
-    @JoinColumn(nullable = false)
-    private Set<SocialEntity> followingEntitys;
+	private static final long serialVersionUID = 1L;
+	/**
+	 * The identifier.
+	 */
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private int id;
+	
+	/**
+	 * The community name.
+	 */
+	private String title;
+	
+	/**
+	 * The creator of the interaction.
+	 */
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private SocialEntity creator;
 
-    /**
-     * Constructor of the class Interaction.
-     */
-    public Interaction() {
-    }
+	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
+			CascadeType.REFRESH })
+	private Set<Interest> interests;
 
-    // TODO voir rapport d'activite
-    // TODO !!! private
-    public Interaction(SocialEntity creator, String title) {
-        if (creator == null || title == null) {
-            throw new IllegalArgumentException();
-        }
-        Date date = new Date();
-        this.title = title;
-        this.creationDate = date;
-        this.lastModified = date;
-        this.creator = creator;
-        this.interests = new HashSet<Interest>();
-        this.roles = new HashSet<InteractionRole>();
-        this.followingEntitys = new HashSet<SocialEntity>();
-        // this.report = rapport;
-    }
+	@Temporal(TemporalType.TIMESTAMP)
+	private Date creationDate;
 
-    @PreRemove
-    public void onPreRemove() {
-        interests.clear();
-    }
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date lastModified;
 
-    /**
-     *
-     * @return the identifier.
-     */
-    public int getId() {
-        return id;
-    }
+	@OneToMany(mappedBy = "interaction", cascade=CascadeType.ALL)
+	private Set<InteractionRole> roles;
 
-    /**
-     * Gives an identifier to the interaction.
-     *
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+	@ManyToMany(mappedBy = "favoriteInteractions")
+	@JoinColumn(nullable = false)
+	private Set<SocialEntity> followingEntitys;
 
-    /**
-     *
-     * @return the creator of the interaction.
-     */
-    public SocialEntity getCreator() {
-        return creator;
-    }
+	/**
+	 * Constructor of the class Interaction.
+	 */
+	public Interaction() {
+	}
 
-    /**
-     * Set the creator of the interaction.
-     *
-     * @param creator
-     */
-    public void setCreator(SocialEntity createur) {
-        this.creator = createur;
-    }
+	// TODO voir rapport d'activite
+	// TODO !!! private
+	public Interaction(SocialEntity creator, String title) {
+		if (creator == null || title == null) {
+			throw new IllegalArgumentException();
+		}
+		Date date = new Date();
+		this.title = title;
+		this.creationDate = date;
+		this.lastModified = date;
+		this.creator = creator;
+		this.interests = new HashSet<Interest>();
+		this.roles = new HashSet<InteractionRole>();
+		this.followingEntitys = new HashSet<SocialEntity>();
+		// this.report = rapport;
+	}
 
-    /**
-     *
-     * @return the list of interests
-     */
-    public Set<Interest> getInterests() {
-        return interests;
-    }
+	@PreRemove
+	public void onPreRemove() {
+		interests.clear();
+	}
 
-    /**
-     *
-     * @param interests
-     *            the list of interests
-     */
-    public void setInterests(Set<Interest> interests) {
-        this.interests = interests;
-    }
+	/**
+	 * 
+	 * @return the identifier.
+	 */
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * Get the value of createDate
-     *
-     * @return the value of createDate
-     */
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	/**
+	 * Gives an identifier to the interaction.
+	 * 
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    /**
-     * Set the value of createDate
-     *
-     * @param createDate
-     *            new value of createDate
-     */
-    public void setCreationDate(Date createDate) {
-        this.creationDate = createDate;
-    }
+	/**
+	 * 
+	 * @return the creator of the interaction.
+	 */
+	public SocialEntity getCreator() {
+		return creator;
+	}
 
-    /**
-     * Get the value of lastModified
-     *
-     * @return the value of lastModified
-     */
-    public Date getLastModified() {
-        return lastModified;
-    }
+	/**
+	 * Set the creator of the interaction.
+	 * 
+	 * @param creator
+	 */
+	public void setCreator(SocialEntity createur) {
+		this.creator = createur;
+	}
 
-    /**
-     * Set the value of lastModified
-     *
-     * @param lastModified
-     *            new value of lastModified
-     */
-    public void setLastModified(Date lastModified) {
-        this.lastModified = lastModified;
-    }
+	/**
+	 * 
+	 * @return the list of interests
+	 */
+	public Set<Interest> getInterests() {
+		return interests;
+	}
 
-    /**
-     *
-     * @return the community name.
-     */
-    public String getTitle() {
-        return title;
-    }
+	/**
+	 * 
+	 * @param interests
+	 *            the list of interests
+	 */
+	public void setInterests(Set<Interest> interests) {
+		this.interests = interests;
+	}
 
-    /**
-     * Gives a name to the community.
-     *
-     * @param title
-     *            .
-     */
-    public void setTitle(String name) {
-        this.title = name;
-    }
+	/**
+	 * Get the value of createDate
+	 * 
+	 * @return the value of createDate
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
 
-    /**
-     * @param roles
-     *            the social entities's roles to set with this interaction
-     */
-    public void setRoles(Set<InteractionRole> roles) {
-        this.roles = roles;
-    }
+	/**
+	 * Set the value of createDate
+	 * 
+	 * @param createDate
+	 *            new value of createDate
+	 */
+	public void setCreationDate(Date createDate) {
+		this.creationDate = createDate;
+	}
 
-    /**
-     * @return the social entities's roles to associate with this interaction
-     */
-    public Set<InteractionRole> getRoles() {
-        return roles;
-    }
+	/**
+	 * Get the value of lastModified
+	 * 
+	 * @return the value of lastModified
+	 */
+	public Date getLastModified() {
+		return lastModified;
+	}
 
-    /**
-     * @param followingEntitys the followingEntitys to set
-     */
-    public void setFollowingEntitys(Set<SocialEntity> followingEntitys) {
-        this.followingEntitys = followingEntitys;
-    }
+	/**
+	 * Set the value of lastModified
+	 * 
+	 * @param lastModified
+	 *            new value of lastModified
+	 */
+	public void setLastModified(Date lastModified) {
+		this.lastModified = lastModified;
+	}
 
-    /**
-     * @return the followingEntitys
-     */
-    public Set<SocialEntity> getFollowingEntitys() {
-        return followingEntitys;
-    }
+	/**
+	 * 
+	 * @return the community name.
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * Gives a name to the community.
+	 * 
+	 * @param title
+	 *            .
+	 */
+	public void setTitle(String name) {
+		this.title = name;
+	}
+
+	/**
+	 * @param roles
+	 *            the social entities's roles to set with this interaction
+	 */
+	public void setRoles(Set<InteractionRole> roles) {
+		this.roles = roles;
+	}
+
+	/**
+	 * @return the social entities's roles to associate with this interaction
+	 */
+	public Set<InteractionRole> getRoles() {
+		return roles;
+	}
+
+	/**
+	 * @param followingEntitys
+	 *            the followingEntitys to set
+	 */
+	public void setFollowingEntitys(Set<SocialEntity> followingEntitys) {
+		this.followingEntitys = followingEntitys;
+	}
+
+	/**
+	 * @return the followingEntitys
+	 */
+	public Set<SocialEntity> getFollowingEntitys() {
+		return followingEntitys;
+	}
+
+	@PostRemove
+	public void onInteractionRemove() {
+		Logger.getAnonymousLogger().log(Level.INFO, "Interaction.onInteractionRemove("+getId()+")");
+		for (SocialEntity socialEntity : getFollowingEntitys()) {
+    		socialEntity.getFavoriteInteractions().remove(this);
+    	}
+		if (getCreator() != null) {
+			getCreator().getInteractions().remove(this);
+			setCreator(null);
+		}
+		interests.clear();
+	}
 }

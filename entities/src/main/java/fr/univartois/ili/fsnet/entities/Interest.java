@@ -3,6 +3,8 @@ package fr.univartois.ili.fsnet.entities;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostRemove;
 
 /**
  * 
@@ -23,12 +26,14 @@ import javax.persistence.OneToMany;
 public class Interest implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     /**
      * The identifier.
      */
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+    
     /**
      * The list of social entities that are affected by this interest.
      */
@@ -191,6 +196,14 @@ public class Interest implements Serializable {
 		} else if (!name.equals(other.name))
 			return false;
 		return true;
-	}	
+	}
+	
+	@PostRemove
+	public void onRemove() {
+		Logger.getAnonymousLogger().log(Level.INFO, "Interest.onInterestRemove("+getId()+")");
+		for (SocialEntity entity : entities) {
+			entity.getInterests().remove(this);
+		}
+	}
     
 }

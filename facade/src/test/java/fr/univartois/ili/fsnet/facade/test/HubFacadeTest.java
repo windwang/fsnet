@@ -3,6 +3,8 @@ package fr.univartois.ili.fsnet.facade.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -28,7 +30,7 @@ public class HubFacadeTest {
 	private static SocialEntityFacade sef;
 	private static Community com;
 	private static SocialEntity creator;
-	private static InteractionFacade interactionFcade;
+	private static InteractionFacade interactionFacade;
 
 	@BeforeClass
 	public static void setUp() {
@@ -40,7 +42,7 @@ public class HubFacadeTest {
 		cf = new CommunityFacade(em);
 		creator = sef.createSocialEntity("creator", "man", "hubman@gmail.com");
 		com = cf.createCommunity(creator, "community1");
-		interactionFcade = new InteractionFacade(em);
+		interactionFacade = new InteractionFacade(em);
 	}
 
 	@Test
@@ -54,21 +56,21 @@ public class HubFacadeTest {
 
 	@Test
 	public void searchHubTest() {
-
 		em.getTransaction().begin();
 		hf.createHub(com, creator, "javahub1");
 		hf.createHub(com, creator, "c#hub1");
 		em.getTransaction().commit();
 		List<Hub> resultSearch = hf.searchHub("java");
 		assertEquals(1, resultSearch.size());
-
 	}
 
 	@Test
 	public void deleteHubTest1() {
 		em.getTransaction().begin();
 		Hub deletedHub = hf.createHub(com, creator, "deletedHub");
-		interactionFcade.deleteInteraction(creator, deletedHub);
+		Logger.getAnonymousLogger().log(Level.SEVERE, "deleteHuTest1");
+		em.flush();
+		interactionFacade.deleteInteraction(creator, deletedHub);
 		em.getTransaction().commit();
 		List<Hub> resultSearch = hf.searchHub("delet");
 		assertEquals(0, resultSearch.size());
@@ -79,7 +81,7 @@ public class HubFacadeTest {
 		em.getTransaction().begin();
 		SocialEntity socialEntity = new SocialEntity("efefefe", "dede", "mefefe@email.com");
 		Hub deletedHub = hf.createHub(com, creator, "deletedHub");
-		interactionFcade.deleteInteraction(socialEntity, deletedHub);
+		interactionFacade.deleteInteraction(socialEntity, deletedHub);
 		em.getTransaction().commit();
 	}
 }
