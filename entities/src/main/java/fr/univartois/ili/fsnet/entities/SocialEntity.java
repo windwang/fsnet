@@ -636,6 +636,7 @@ public class SocialEntity implements Serializable {
      * set the list of Profile visite where it's this social entity profile whitch visit
      * @param haveBeenVisit
      */
+    // TODO @jojo change name to visitesOnProfile
     public void setHaveBeenVisit(List<ProfileVisite> haveBeenVisit) {
         this.haveBeenVisit = haveBeenVisit;
     }
@@ -652,6 +653,8 @@ public class SocialEntity implements Serializable {
      * set the list of Profile visite where the social entity is the visitor
      * @param haveVisit
      */
+
+    // TODO @jojo change name to visitedProfiles
     public void setHaveVisit(List<ProfileVisite> haveVisit) {
         this.haveVisit = haveVisit;
     }
