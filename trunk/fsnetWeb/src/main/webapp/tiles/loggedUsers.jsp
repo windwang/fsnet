@@ -14,7 +14,7 @@
 	<logic:iterate collection="${applicationScope.loggedUsers.users}" id="user">		
 		<html:link action="/DisplayProfile" styleClass="miniature">
 		    <html:param name="id" value="${user.key}"/>
-			<img src="GetMiniature.do?memberId=${user.key}" title="${user.value}"></img>
+			<img src="miniature/${user.key}.png" title="${user.value}"></img>
 		</html:link>			
 	</logic:iterate>
 </div>

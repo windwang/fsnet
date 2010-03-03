@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
@@ -55,20 +56,20 @@ public class ImageManager {
 		}
 	}
 
-	public static void sendUserMiniature(int userId,
+	public static void sendUserMiniature(int userId,  HttpServletRequest request, 
 			HttpServletResponse response) throws IOException {
-		sendPicture(userId + MINIATURE_SUFFIX, response,
-				"images/DefaultMiniature.png");
+		sendPicture(userId + MINIATURE_SUFFIX, request, response,
+				request.getContextPath() + "/images/DefaultMiniature.png");
 	}
 
-	public static void sendUserPicture(int userId, HttpServletResponse response)
+	public static void sendUserPicture(int userId, HttpServletRequest request, HttpServletResponse response)
 			throws IOException {
-		sendPicture(Integer.toString(userId), response,
-				"images/DefaultPhoto.png");
+		sendPicture(Integer.toString(userId), request, response,
+				request.getContextPath() +  "/images/DefaultPhoto.png");
 	}
 
 	private static void sendPicture(String fileName,
-			HttpServletResponse response, String defaultPicture)
+			HttpServletRequest request, HttpServletResponse response, String defaultPicture)
 			throws IOException {
 		String directory = getStorageDirectory();
 		byte[] datas = null;
@@ -81,10 +82,7 @@ public class ImageManager {
 						pictureType = pt;
 					}
 				}
-				response.setContentType(pictureType.getMimeType());
-				response.setContentLength((int) picture.length());
-				response.addHeader("Content-Disposition", "attachment; filename="
-				          + fileName + pictureType.getSuffix());
+				response.setContentType("image/png");
 				datas = new byte[(int) picture.length()];
 				BufferedInputStream stream;
 				try {

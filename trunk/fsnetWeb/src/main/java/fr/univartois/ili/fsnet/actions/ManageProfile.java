@@ -268,7 +268,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String userId = dynaForm.getString("memberId");
-		ImageManager.sendUserPicture(Integer.parseInt(userId), response);
+		ImageManager.sendUserPicture(Integer.parseInt(userId), request, response);
 		return null;
 	}
 	
@@ -277,7 +277,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String userId = dynaForm.getString("memberId");
-		ImageManager.sendUserMiniature(Integer.parseInt(userId), response);
+		ImageManager.sendUserMiniature(Integer.parseInt(userId), request, response);
 		return null;
 	}
 	
