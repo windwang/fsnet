@@ -23,7 +23,7 @@ public class CleanEntity extends HttpServlet {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		Query q = em.createQuery("Select o From "+ entityName + " o" );
-		List<Object> objects = q.getResultList();
+		List<Object> objects = q.getResultList(); //NOSONAR
 		for (Object o : objects)  {
 			em.remove(o);
 		}

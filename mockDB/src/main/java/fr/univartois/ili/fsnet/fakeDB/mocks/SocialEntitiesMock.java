@@ -9,8 +9,8 @@ import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
-import fr.univartois.ili.fsnet.fakeDB.MockLocator;
 import fr.univartois.ili.fsnet.fakeDB.Mock;
+import fr.univartois.ili.fsnet.fakeDB.MockLocator;
 
 public class SocialEntitiesMock extends Mock {
 
