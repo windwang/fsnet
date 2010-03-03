@@ -2,11 +2,14 @@ package fr.univartois.ili.fsnet.entities;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostRemove;
 
 /**
  * 
@@ -75,5 +78,14 @@ public class Hub extends Interaction {
      */
     public void setCommunity(Community community) {
         this.community = community;
+    }
+    
+    @PostRemove
+	public void onHubRemove() {
+    	Logger.getAnonymousLogger().log(Level.INFO, "Hub.onHubRemove("+getId()+")");
+    	getInterests().clear();
+    	for (Topic topic : topics) {
+    		topic.setHub(null);
+    	}
     }
 }
