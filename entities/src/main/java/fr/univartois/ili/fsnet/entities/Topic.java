@@ -7,6 +7,7 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.PostRemove;
 
 /**
  * 
@@ -75,5 +76,10 @@ public class Topic extends Interaction {
      */
     public void setHub(Hub hub) {
         this.hub = hub;
+    }
+    
+    @PostRemove
+	public void onTopicRemove() {
+    	setHub(null);
     }
 }

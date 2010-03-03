@@ -132,7 +132,7 @@ public class InterestFacade {
 	 */
 	public final List<Interest> getInterests(){
 		List<Interest> listAllInterests = em.createQuery(
-				"SELECT interest FROM Interest interest", Interest.class).getResultList();
+				"SELECT interest FROM Interest interest ORDER BY interest.name ASC", Interest.class).getResultList();
 		return listAllInterests;
 	}
 	

@@ -82,10 +82,7 @@ public class Hub extends Interaction {
     
     @PostRemove
 	public void onHubRemove() {
-    	Logger.getAnonymousLogger().log(Level.INFO, "Hub.onHubRemove("+getId()+")");
-    	getInterests().clear();
-    	for (Topic topic : topics) {
-    		topic.setHub(null);
-    	}
+    	setCommunity(null);
+    	topics.clear();
     }
 }
