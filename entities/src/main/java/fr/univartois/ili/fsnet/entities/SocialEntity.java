@@ -137,9 +137,9 @@ public class SocialEntity implements Serializable {
     @ManyToMany(cascade = {CascadeType.PERSIST})
     private List<Interaction> favoriteInteractions;
     @OneToMany(mappedBy = "visited")
-    private List<ProfileVisite> haveBeenVisit;
+    private List<ProfileVisite> visitesOnProfile;
     @OneToMany(mappedBy = "visitor")
-    private List<ProfileVisite> haveVisit;
+    private List<ProfileVisite> visitedProlfiles;
 
     /**
      * Constructor of the class SocialEntity.
@@ -172,8 +172,8 @@ public class SocialEntity implements Serializable {
         requested = new ArrayList<SocialEntity>();
         rolesInInteractions = new ArrayList<InteractionRole>();
         topics = new ArrayList<Topic>();
-        haveBeenVisit = new ArrayList<ProfileVisite>();
-        haveVisit = new ArrayList<ProfileVisite>();
+        visitesOnProfile = new ArrayList<ProfileVisite>();
+        visitedProlfiles = new ArrayList<ProfileVisite>();
     }
 
     /**
@@ -628,25 +628,25 @@ public class SocialEntity implements Serializable {
      *
      * @return the list of Profile visite where it's this social entity frofile whitch visit
      */
-    public List<ProfileVisite> getHaveBeenVisit() {
-        return haveBeenVisit;
+    public List<ProfileVisite> getVisitesOnProfile() {
+        return visitesOnProfile;
     }
 
     /**
      * set the list of Profile visite where it's this social entity profile whitch visit
      * @param haveBeenVisit
      */
-    // TODO @jojo change name to visitesOnProfile
-    public void setHaveBeenVisit(List<ProfileVisite> haveBeenVisit) {
-        this.haveBeenVisit = haveBeenVisit;
+
+    public void setVisitesOnProfiles(List<ProfileVisite> haveBeenVisit) {
+        this.visitesOnProfile = haveBeenVisit;
     }
 
     /**
      *
      * @return the list of Profile visite where the social entity is the visitor
      */
-    public List<ProfileVisite> getHaveVisit() {
-        return haveVisit;
+    public List<ProfileVisite> getVisitedProfiles() {
+        return visitedProlfiles;
     }
 
     /**
@@ -654,8 +654,8 @@ public class SocialEntity implements Serializable {
      * @param haveVisit
      */
 
-    // TODO @jojo change name to visitedProfiles
-    public void setHaveVisit(List<ProfileVisite> haveVisit) {
-        this.haveVisit = haveVisit;
+
+    public void setVisitedProfiles(List<ProfileVisite> haveVisit) {
+        this.visitedProlfiles = haveVisit;
     }
 }
