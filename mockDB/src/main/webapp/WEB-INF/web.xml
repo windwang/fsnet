@@ -9,6 +9,28 @@
 		<welcome-file>index.jsp</welcome-file>
 	</welcome-file-list>
 
+<servlet>
+		<servlet-name>CleanEntity</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.CleanEntity</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>CleanEntity</servlet-name>
+		<url-pattern>/CleanEntity</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet>
+		<servlet-name>DisplayEntities</servlet-name>
+		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.DisplayEntities</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>DisplayEntities</servlet-name>
+		<url-pattern>/DisplayEntities</url-pattern>
+	</servlet-mapping>
+
+
 	<servlet>
 		<servlet-name>PopulateDB</servlet-name>
 		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.PopulateDB</servlet-class>
@@ -18,7 +40,7 @@
 		<servlet-name>PopulateDB</servlet-name>
 		<url-pattern>/PopulateDB</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>DeleteDB</servlet-name>
 		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.DeleteDB</servlet-class>
@@ -28,7 +50,7 @@
 		<servlet-name>DeleteDB</servlet-name>
 		<url-pattern>/DeleteDB</url-pattern>
 	</servlet-mapping>
-	
+
 
 	<servlet>
 		<servlet-name>ResetDB</servlet-name>
@@ -39,7 +61,7 @@
 		<servlet-name>ResetDB</servlet-name>
 		<url-pattern>/ResetDB</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>DeleteCommunities</servlet-name>
 		<servlet-class>fr.univartois.ili.fsnet.fakeDB.actions.DeleteCommunities</servlet-class>
@@ -56,7 +78,7 @@
 		<res-type>javax.sql.DataSource</res-type>
 		<res-auth>Container</res-auth>
 	</resource-ref>
-	
+
 
 </web-app>
  

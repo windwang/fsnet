@@ -5,7 +5,6 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.Community;
-import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.HubFacade;
 import fr.univartois.ili.fsnet.fakeDB.Mock;
@@ -30,8 +29,9 @@ public class HubMock extends Mock {
 		for (Community c : communities) {	
 			for (int i = 0 ; i < 5 ; i++) {
 				em.getTransaction().begin();
-				Hub h = hf.createHub(c, owner, baseName + i);
-				c.getHubs().add(h);
+				em.refresh(c);
+				hf.createHub(c, owner, baseName + i);
+				em.merge(c);
 				em.getTransaction().commit();
 			}
 		}
