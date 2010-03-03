@@ -4,9 +4,9 @@ package fr.univartois.ili.fsnet.facade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
@@ -93,7 +93,7 @@ public class InteractionFacade {
 		}
 		em.remove(interaction);
 	}
-	
+
 	/**
 	 * 
 	 * @param user the user connected
@@ -101,12 +101,18 @@ public class InteractionFacade {
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
-	public final HashMap<Interaction, ArrayList<String>> getLastInteractions(){
-		List<Interaction> result = em.createQuery(
-				"SELECT interaction FROM Interaction interaction ORDER BY interaction.lastModified DESC",
-				Interaction.class).setMaxResults(10).getResultList();
-		HashMap<Interaction, ArrayList<String>> resultMap = new HashMap<Interaction, ArrayList<String>>();
+	public final HashMap<Interaction, ArrayList<String>> getLastInteractions(SocialEntity user){
+
+		TypedQuery<Interaction> query = em.createQuery(
+				"SELECT inter FROM Interaction inter, SocialEntity se, IN(se.contacts) c " +
+				"WHERE inter.creator= c AND se = :user ORDER BY inter.lastModified DESC",Interaction.class);
+		query.setParameter("user", user);
+		query.setMaxResults(10);
 		
+		List<Interaction> result = query.getResultList();
+
+		HashMap<Interaction, ArrayList<String>> resultMap = new HashMap<Interaction, ArrayList<String>>();
+
 		for (Interaction interaction : result) {
 			ArrayList<String> array = new ArrayList<String>();
 			String clazz = interaction.getClass().getSimpleName(); 
@@ -129,10 +135,10 @@ public class InteractionFacade {
 			}
 			resultMap.put(interaction, array);
 		}
-		
+
 		return resultMap;
 	}
-	
+
 	/**
 	 * @author geoffrey boulay
 	 * 
@@ -148,5 +154,5 @@ public class InteractionFacade {
 				"ORDER BY interaction.lastModified DESC"
 				, Interaction.class).setParameter("userId", Integer.valueOf(user.getId())).getResultList() ;
 	}
-	
+
 }

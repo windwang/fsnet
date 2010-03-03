@@ -40,9 +40,10 @@ public class Home extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response,
 			EntityManager em)
 			throws IOException, ServletException {
+		SocialEntity connectedUser = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade facade = new InteractionFacade(em);
 		HashMap<Interaction, ArrayList<String>> result = facade
-				.getLastInteractions();		
+				.getLastInteractions(connectedUser);		
 		
 		request.setAttribute("lastInteractions", result);
 	}
