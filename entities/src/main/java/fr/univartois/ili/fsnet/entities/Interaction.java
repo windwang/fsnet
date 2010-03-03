@@ -80,6 +80,9 @@ public abstract class Interaction implements Serializable {
 	
 	@Transient
 	private int numSubscriber = 0;
+	
+	@Transient
+	private int numFollowers = 0;
 
 	/**
 	 * Constructor of the class Interaction.
@@ -102,23 +105,6 @@ public abstract class Interaction implements Serializable {
 		this.roles = new HashSet<InteractionRole>();
 		this.followingEntitys = new HashSet<SocialEntity>();
 		// this.report = rapport;
-	}
-
-	@PreRemove
-	public void onPreRemove() {
-		interests.clear();
-	}
-
-	@PostUpdate
-	@PostLoad
-	@PostPersist
-	public void onLoad() {
-		numSubscriber = 0;
-		for (InteractionRole interactionRole : getRoles()) {
-			if (InteractionRole.RoleName.SUBSCRIBER.equals(interactionRole.getRole())) {
-				numSubscriber++;
-			}
-		}
 	}
 
 	/**
@@ -262,6 +248,10 @@ public abstract class Interaction implements Serializable {
 		return numSubscriber;
 	}
 
+	public int getNumFollowers() {
+		return numFollowers;
+	}
+
 	@PostRemove
 	public void onInteractionRemove() {
 		Logger.getAnonymousLogger().log(Level.INFO, "Interaction.onInteractionRemove("+getId()+")");
@@ -274,4 +264,18 @@ public abstract class Interaction implements Serializable {
 		}
 		interests.clear();
 	}
+
+	@PostUpdate
+	@PostLoad
+	@PostPersist
+	public void onLoad() {
+		numSubscriber = 0;
+		for (InteractionRole interactionRole : getRoles()) {
+			if (InteractionRole.RoleName.SUBSCRIBER.equals(interactionRole.getRole())) {
+				numSubscriber++;
+			}
+		}
+		numFollowers = getFollowingEntitys().size();
+	}
+
 }

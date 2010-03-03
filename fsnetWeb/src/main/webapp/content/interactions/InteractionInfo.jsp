@@ -17,14 +17,13 @@
         ${theInteraction.creator.firstName} ${theInteraction.creator.name}
     </html:link>
     <br/>
-    <div style="color: #aaaaaa">
-
+    <div style="color: #808080">
 
         ${theInteraction.numSubscriber} Subscribers
         <br/>
         Created on <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
         <br/>
-        X Followers
+        ${theInteraction.numFollowers} Followers
         <br/>
         Visibility : public
         <br/>
