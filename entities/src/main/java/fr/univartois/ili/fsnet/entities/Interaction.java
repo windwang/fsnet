@@ -21,10 +21,14 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
+import javax.persistence.PostLoad;
+import javax.persistence.PostPersist;
 import javax.persistence.PostRemove;
+import javax.persistence.PostUpdate;
 import javax.persistence.PreRemove;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * 
@@ -73,6 +77,9 @@ public abstract class Interaction implements Serializable {
 	@ManyToMany(mappedBy = "favoriteInteractions")
 	@JoinColumn(nullable = false)
 	private Set<SocialEntity> followingEntitys;
+	
+	@Transient
+	private int numSubscriber = 0;
 
 	/**
 	 * Constructor of the class Interaction.
@@ -100,6 +107,18 @@ public abstract class Interaction implements Serializable {
 	@PreRemove
 	public void onPreRemove() {
 		interests.clear();
+	}
+
+	@PostUpdate
+	@PostLoad
+	@PostPersist
+	public void onLoad() {
+		numSubscriber = 0;
+		for (InteractionRole interactionRole : getRoles()) {
+			if (InteractionRole.RoleName.SUBSCRIBER.equals(interactionRole.getRole())) {
+				numSubscriber++;
+			}
+		}
 	}
 
 	/**
@@ -237,6 +256,10 @@ public abstract class Interaction implements Serializable {
 	 */
 	public Set<SocialEntity> getFollowingEntitys() {
 		return followingEntitys;
+	}
+
+	public int getNumSubscriber() {
+		return numSubscriber;
 	}
 
 	@PostRemove
