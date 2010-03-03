@@ -77,7 +77,7 @@ public class InteractionFacade {
 			throw new IllegalArgumentException();
 		}
 		if(!interaction.getCreator().equals(entity)){
-			throw new UnauthorizedOperationException("unauthorizedOperation");
+			throw new UnauthorizedOperationException("exception.message");
 		}else{
 			deleteInteraction(interaction);
 		}

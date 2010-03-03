@@ -9,6 +9,7 @@ public class UnauthorizedOperationException extends RuntimeException {
 	 * @param key the resource bundle key that represents the message to show to an user
 	 */
 	public UnauthorizedOperationException(String key) {
+		
 	}
 
 }

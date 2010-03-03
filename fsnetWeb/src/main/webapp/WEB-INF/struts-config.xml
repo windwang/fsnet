@@ -10,7 +10,7 @@
 	<global-exceptions>
 		<exception
 			type="fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException"
-			path="/Home.do" key="test">
+			path="UnauthorizedOperationException" key="test">
 		</exception>
 	</global-exceptions>
 	<action-mappings>
