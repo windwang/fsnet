@@ -81,7 +81,6 @@ public class ManageAnnounces extends MappingDispatchAction implements
         } catch (ParseException e) {
             servlet.log(getClass().getName()
                     + " methode:create exception when formating date ");
-            e.printStackTrace();
             return mapping.findForward("failer");
         }
         entityManager.close();
@@ -121,8 +120,6 @@ public class ManageAnnounces extends MappingDispatchAction implements
             request.setAttribute("owner", true);
         } catch (ParseException e) {
             servlet.log("class:ManageAnnounces methode:create exception whene formatying date ");
-            e.printStackTrace();
-            entityManager.close();
             return mapping.findForward("failer");
         } finally {
             entityManager.close();
