@@ -107,7 +107,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		try{
 			em.getTransaction().commit();
 		}catch(RollbackException e){
-			e.printStackTrace();
+			servlet.log("commit error", e);
 		}
 		em.close();
 		return mapping.findForward("success");
