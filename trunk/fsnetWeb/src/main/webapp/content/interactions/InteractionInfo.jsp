@@ -20,7 +20,7 @@
     <div style="color: #aaaaaa">
 
 
-        X Subscribers
+        ${theInteraction.numSubscriber} Subscribers
         <br/>
         Created on <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
         <br/>
