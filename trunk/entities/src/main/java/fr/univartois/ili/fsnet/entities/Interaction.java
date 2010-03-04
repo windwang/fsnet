@@ -265,9 +265,9 @@ public abstract class Interaction implements Serializable {
 		interests.clear();
 	}
 
-	@PostUpdate
-	@PostLoad
-	@PostPersist
+	//@PostUpdate
+	//@PostLoad
+	//@PostPersist
 	public void onLoad() {
 		numSubscriber = 0;
 		for (InteractionRole interactionRole : getRoles()) {
