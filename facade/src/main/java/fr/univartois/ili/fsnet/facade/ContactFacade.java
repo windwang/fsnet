@@ -59,7 +59,6 @@ public class ContactFacade {
                 || member.getRequested().contains(refused)
                 || !refused.getRequested().contains(member)
                 || refused.getContacts().contains(member)
-                || refused.getRefused().contains(member)
                 || refused.getAsked().contains(member)) {
             throw new IllegalStateException();
         }
