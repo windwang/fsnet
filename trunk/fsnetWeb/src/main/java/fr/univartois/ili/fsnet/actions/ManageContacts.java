@@ -117,6 +117,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		SocialEntity entityRefused = socialEntityFacade.getSocialEntity(id);
 		ContactFacade contactFacade = new ContactFacade(em);
 		contactFacade.refuseContact(user, entityRefused);
+		refreshNumNewContacts(request, em);
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
