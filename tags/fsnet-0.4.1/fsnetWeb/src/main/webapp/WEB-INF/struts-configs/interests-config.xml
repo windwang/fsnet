@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+        <form-bean name="AddInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="addedInterestId" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="RemoveInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="removedInterestId" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="DisplayInterestsForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="pageId" type="java.lang.String" />
+            <form-property name="tileId" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="SearchInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="requestInput" type="java.lang.String" />
+            <form-property name="pageId" type="java.lang.String" />
+            <form-property name="tileId" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="CreateInterestForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="createdInterestName" type="java.lang.String" />
+            <form-property name="parentInterestId" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="InterestInformationsForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="infoInterestId" type="java.lang.String" />
+        </form-bean>
+    </form-beans>
+    <global-forwards>
+
+    </global-forwards>
+    <action-mappings>
+        <action
+            path="/DisplayInterests"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="DisplayInterestsForm"
+            input="/Interests.do"
+            scope="request"
+            validate="true"
+            parameter="display">
+            <forward name="success" path="Interests" />
+        </action>
+
+        <action
+            path="/AddInterest"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="AddInterestForm"
+            input="/Interests.do"
+            scope="request"
+            validate="true"
+            parameter="add">
+            <forward name="success" path="/Interests.do" />
+        </action>
+
+        <action
+            path="/RemoveInterest"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="RemoveInterestForm"
+            input="/Interests.do"
+            scope="request"
+            validate="true"
+            parameter="remove">
+            <forward name="success" path="/Interests.do" />
+        </action>
+
+        <action
+            path="/SearchInterest"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="SearchInterestForm"
+            input="/Interests.do"
+            scope="request"
+            validate="true"
+            parameter="search">
+            <forward name="success" path="/Interests.do" />
+        </action>
+
+        <action
+            path="/CreateInterest"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="CreateInterestForm"
+            input="/Interests.do"
+            scope="request"
+            validate="true"
+            parameter="create">
+            <forward name="success" path="/Interests.do" />
+        </action>
+
+        <action
+            path="/Interests"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            input="/Interests.do"
+            scope="request"
+            parameter="display">
+            <forward name="success" path="Interests" />
+        </action>
+
+        <action
+            path="/InterestInformations"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="InterestInformationsForm"
+            input="/Interests.do"
+            scope="request"
+            validate="true"
+            parameter="informations">
+            <forward name="success" path="InfoInterest" />
+        </action>
+
+        <action
+            path="/InterestCheckBoxes"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            parameter="display">
+            <forward name="success" path="/content/interests/InterestCheckBoxes.jsp" />
+        </action>
+
+
+    </action-mappings>
+</struts-config>
