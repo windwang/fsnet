@@ -179,10 +179,14 @@
  	</c:otherwise>
  </c:choose>    
 </logic:empty>
-<logic:iterate collection="${watchedProfile.contacts}" id="user">		
+<logic:iterate collection="${requestScope.contactsPaginator.resultList}" id="user">		
 	<html:link action="/DisplayProfile" styleClass="miniature">
 	    <html:param name="id" value="${user.id}"/>
 		<img src="miniature/${user.id}.png" title="${user.name} ${user.firstName}"></img>
 	</html:link>			
 </logic:iterate>
+<c:set var="paginatorInstance" value="${requestScope.contactsPaginator}" scope="request"/>
+<c:set var="paginatorAction" value="/DisplayProfile" scope="request"/>
+<c:set var="paginatorTile" value="profileContacts" scope="request"/>
+<c:import url="/content/pagination/Pagination.jsp"/>
 

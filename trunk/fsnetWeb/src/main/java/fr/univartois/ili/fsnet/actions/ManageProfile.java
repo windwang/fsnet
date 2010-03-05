@@ -212,6 +212,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		Paginator<Interest> paginatorInterest = new Paginator<Interest>(profile.getInterests(), request, "profileInterests", "id");
 		request.setAttribute("interestPaginator", paginatorInterest);
+		Paginator<SocialEntity> paginatorContact = new Paginator<SocialEntity>(profile.getContacts(), request, "profileContacts", "id");
+		request.setAttribute("contactsPaginator", paginatorContact);
 		request.setAttribute(EDITABLE_PROFILE_VARIABLE, profile.equals(user));
 		if (profile.getBirthDate() != null) {
 			request.setAttribute("birthDay", formatter.format(profile
