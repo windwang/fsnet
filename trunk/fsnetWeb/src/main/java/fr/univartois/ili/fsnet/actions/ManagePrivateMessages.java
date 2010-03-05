@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
+import java.util.StringTokenizer;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -43,28 +44,33 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		String to = dynaForm.getString("messageTo");
 		String subject = dynaForm.getString("messageSubject");
 		String body = dynaForm.getString("messageBody");
-
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 		SocialEntityFacade sef = new SocialEntityFacade(em);
-		SocialEntity findByEmail = sef.findByEmail(to);
-		if (findByEmail != null) {
-			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-			pmf.sendPrivateMessage(body, authenticatedUser, subject,
-					findByEmail);
-			em.getTransaction().commit();
-			em.close();
-			return mapping.findForward("success");
-		} else {
-			ActionErrors errors = new ActionErrors();
-			errors.add("messageTo", new ActionMessage(
-					("privatemessages.to.error")));
-			saveErrors(request, errors);
-			em.close();
-			return mapping.getInputForward();
+		StringTokenizer stk = new StringTokenizer(to,",");
+		List<SocialEntity> receivers = new ArrayList<SocialEntity>();
+		while(stk.hasMoreTokens()){
+			String email = stk.nextToken();
+			SocialEntity findByEmail = sef.findByEmail(email);
+			if (findByEmail == null) {
+				ActionErrors errors = new ActionErrors();
+				errors.add("messageTo", new ActionMessage("privatemessages.to.error",email));
+				saveErrors(request, errors);
+				em.getTransaction().commit();
+				em.close();
+				return mapping.getInputForward();
+			}
+			receivers.add(findByEmail);
 		}
+		for (SocialEntity se : receivers  ) {
+			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+			pmf.sendPrivateMessage(body, authenticatedUser, subject,se);
+		} 			
+		em.getTransaction().commit();
+		em.close();
+		return mapping.findForward("success");
 	}
 
 	@Override

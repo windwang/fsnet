@@ -28,18 +28,26 @@ public class Members extends Action {
         if (form != null) {
 
             DynaActionForm theform = (DynaActionForm) form; // NOSONAR
-            String searchText = (String) theform.get("searchText");
+            String actualText = (String) theform.get("searchText");
+            int index = actualText.lastIndexOf(",");
+            String completeUser = (index==-1) ? ("") : (actualText.substring(0, index+1));
+            String searchText = (index==-1) ? (actualText) : (actualText.substring(index+1));
             EntityManager em = PersistenceProvider.createEntityManager();
             SocialEntityFacade sef = new SocialEntityFacade(em);
             List<SocialEntity> listSE = sef.searchSocialEntity(searchText);
-
+            em.close();
             Writer out = response.getWriter();
             response.setContentType("text/xml");
 
             out.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>");
             out.append("<root>");
             for (SocialEntity se : listSE) {
-                out.append("<item id='" + se.getId() + "' label='" + se.getEmail() + "'/>");
+                out.append("<item id='");
+                out.append(""+se.getId());
+                out.append("' label='"); 
+                out.append(completeUser);
+                out.append(se.getEmail());
+                out.append( "'/>");
             }
             out.append("</root>");
             out.flush();
