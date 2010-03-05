@@ -25,10 +25,12 @@ import org.apache.struts.upload.FormFile;
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
 import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
@@ -208,6 +210,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		}
 		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
+		Paginator<Interest> paginatorInterest = new Paginator<Interest>(profile.getInterests(), request, "profileInterests", "id");
+		request.setAttribute("interestPaginator", paginatorInterest);
 		request.setAttribute(EDITABLE_PROFILE_VARIABLE, profile.equals(user));
 		if (profile.getBirthDate() != null) {
 			request.setAttribute("birthDay", formatter.format(profile
