@@ -185,6 +185,7 @@
 		<img src="miniature/${user.id}.png" title="${user.name} ${user.firstName}"></img>
 	</html:link>			
 </logic:iterate>
+<div style="clear: both" ></div>
 <c:set var="paginatorInstance" value="${requestScope.contactsPaginator}" scope="request"/>
 <c:set var="paginatorAction" value="/DisplayProfile" scope="request"/>
 <c:set var="paginatorTile" value="profileContacts" scope="request"/>
