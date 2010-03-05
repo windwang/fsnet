@@ -3,12 +3,12 @@
     <parent>
         <artifactId>fsnet</artifactId>
         <groupId>fr.univartois.ili.fsnet</groupId>
-        <version>0.4.1-SNAPSHOT</version>
+        <version>0.4.1</version>
     </parent>
     <groupId>fr.univartois.ili.fsnet</groupId>
     <artifactId>trayDesktop</artifactId>
     <packaging>jar</packaging>
-    <version>0.4.1-SNAPSHOT</version>
+    <version>0.4.1</version>
     <name>trayDesktop</name>
 
     <build>
