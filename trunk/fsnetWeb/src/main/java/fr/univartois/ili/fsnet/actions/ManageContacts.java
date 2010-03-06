@@ -16,6 +16,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.ContactFacade;
@@ -171,11 +172,16 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 	
-		user.getContacts();
-		user.getAsked();
-		user.getRequested();
-		request.setAttribute("theUser", user);
+		Paginator<SocialEntity> paginatorContacts = new Paginator<SocialEntity>(user.getContacts(), request, "contacts");
+		Paginator<SocialEntity> paginatorAsked = new Paginator<SocialEntity>(user.getAsked(), request, "asked");
+		Paginator<SocialEntity> paginatorRequested = new Paginator<SocialEntity>(user.getRequested(), request, "requested");
+		
 		em.close();
+		
+		request.setAttribute("paginatorContacts", paginatorContacts);
+		request.setAttribute("paginatorAsked", paginatorAsked);
+		request.setAttribute("paginatorRequested", paginatorRequested);
+		
 		return mapping.findForward("success");
 	}
 
