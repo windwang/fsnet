@@ -10,38 +10,6 @@
     <h3><bean:message key="contact.conts" /></h3>
     <bean:message key="contact.noContact" />
 </c:if>
-<logic:notEmpty name="theUser" property="contacts">
-    <h3><bean:message key="contact.listContact" /></h3>
-    <table class="inLineTable">
-
-        <c:forEach var="contact" items="${theUser.contacts}">
-            <tr>
-               	<td class="miniatureContainer">
-               	<html:link action="/DisplayProfile">
-               	    <html:param name="id" value="${contact.id}"/>
-               		<img src="miniature/${contact.id}.png"/>
-               	</html:link>	
-               	</td>
-                <td>
-                    <html:link action="/DisplayProfile">
-                    	${contact.firstName} ${contact.name}
-                    	<html:param name="id" value="${contact.id}" />
-                    </html:link> 
-                </td>
-                <td class="tableButton">
-                	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
-    					<bean:message key="showProfile.send"/>
-    					<html:param name="receiver" value="${contact.email}"/>
-					</html:link>
-                    <html:link action="/DeleteContact" styleClass="button">
-                        <bean:message key="contact.delete" />
-                        <html:param name="entityDeleted" value="${contact.id}" />
-                    </html:link></td>
-            </tr>
-        </c:forEach>
-
-    </table>
-</logic:notEmpty>
 
 <logic:notEmpty name="theUser" property="asked">
     <h3><bean:message key="contact.re" /></h3>
@@ -74,6 +42,39 @@
                         <bean:message key="contact.refuse" />
                     </html:link>
 				</td>
+            </tr>
+        </c:forEach>
+
+    </table>
+</logic:notEmpty>
+
+<logic:notEmpty name="theUser" property="contacts">
+    <h3><bean:message key="contact.listContact" /></h3>
+    <table class="inLineTable">
+
+        <c:forEach var="contact" items="${theUser.contacts}">
+            <tr>
+               	<td class="miniatureContainer">
+               	<html:link action="/DisplayProfile">
+               	    <html:param name="id" value="${contact.id}"/>
+               		<img src="miniature/${contact.id}.png"/>
+               	</html:link>	
+               	</td>
+                <td>
+                    <html:link action="/DisplayProfile">
+                    	${contact.firstName} ${contact.name}
+                    	<html:param name="id" value="${contact.id}" />
+                    </html:link> 
+                </td>
+                <td class="tableButton">
+                	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
+    					<bean:message key="showProfile.send"/>
+    					<html:param name="receiver" value="${contact.email}"/>
+					</html:link>
+                    <html:link action="/DeleteContact" styleClass="button">
+                        <bean:message key="contact.delete" />
+                        <html:param name="entityDeleted" value="${contact.id}" />
+                    </html:link></td>
             </tr>
         </c:forEach>
 
