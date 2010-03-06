@@ -164,7 +164,7 @@
     </table>
 </div>
 
-<div style="clear: both" ></div>
+<div class="clear"></div>
 
 <h3>
     <bean:message key="showProfile.contacts.title"/>
@@ -185,7 +185,7 @@
 		<img src="miniature/${user.id}.png" title="${user.name} ${user.firstName}"></img>
 	</html:link>			
 </logic:iterate>
-<div style="clear: both" ></div>
+<div class="clear"></div>
 <c:set var="paginatorInstance" value="${requestScope.contactsPaginator}" scope="request"/>
 <c:set var="paginatorAction" value="/DisplayProfile" scope="request"/>
 <c:set var="paginatorTile" value="profileContacts" scope="request"/>
