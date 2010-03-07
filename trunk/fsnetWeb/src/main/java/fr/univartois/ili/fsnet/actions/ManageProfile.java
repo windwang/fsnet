@@ -269,24 +269,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
-	public ActionForward getPhoto(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String userId = dynaForm.getString("memberId");
-		ImageManager.sendUserPicture(Integer.parseInt(userId), request, response);
-		return null;
-	}
-	
-	public ActionForward getMiniature(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String userId = dynaForm.getString("memberId");
-		ImageManager.sendUserMiniature(Integer.parseInt(userId), request, response);
-		return null;
-	}
-	
 	public ActionForward deletePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
