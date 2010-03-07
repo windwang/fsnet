@@ -18,8 +18,11 @@ public class MiniatureFetcher extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		String path = request.getPathInfo().split("\\.")[0].substring(1);
-		ImageManager
-				.sendUserMiniature(Integer.valueOf(path), request, response);
+		response.setHeader("Pragma", "No-cache");
+		response.setHeader("Cache-Control", "no-cache");
+		response.setDateHeader("Expires", 1);
+		ImageManager.sendUserMiniature(Integer.valueOf(path), request,
+				response, getServletContext());
 	}
 
 }

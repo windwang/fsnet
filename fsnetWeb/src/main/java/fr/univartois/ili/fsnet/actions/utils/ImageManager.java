@@ -17,13 +17,14 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.imageio.ImageIO;
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 
 public class ImageManager {
-	
+
 	private static final String MINIATURE_SUFFIX = ".miniature";
 
 	public static void createPicturesForUser(int userId,
@@ -44,61 +45,88 @@ public class ImageManager {
 
 		BufferedImage miniature = getProperResizedImage(incommingPicture,
 				pictureType, MINIATURE_MAX_WIDTH_OR_HEIGHT);
-		ImageManager.installPicture(Integer.toString(userId) + MINIATURE_SUFFIX,
-				pictureType, miniature);
+		ImageManager.installPicture(
+				Integer.toString(userId) + MINIATURE_SUFFIX, pictureType,
+				miniature);
 	}
 
 	public static void removeOldUserPicture(int userId) {
 		String directory = getStorageDirectory();
 		if (directory != null) {
-			removeOldPicture(directory + userId);
-			removeOldPicture(directory + userId + MINIATURE_SUFFIX);
+			removeOldPicture(directory + userId + ".png");
+			removeOldPicture(directory + userId + MINIATURE_SUFFIX + ".png");
 		}
 	}
 
-	public static void sendUserMiniature(int userId,  HttpServletRequest request, 
-			HttpServletResponse response) throws IOException {
-		sendPicture(userId + MINIATURE_SUFFIX, request, response,
-				request.getContextPath() + "/images/DefaultMiniature.png");
-	}
-
-	public static void sendUserPicture(int userId, HttpServletRequest request, HttpServletResponse response)
-			throws IOException {
-		sendPicture(Integer.toString(userId), request, response,
-				request.getContextPath() +  "/images/DefaultPhoto.png");
-	}
-
-	private static void sendPicture(String fileName,
-			HttpServletRequest request, HttpServletResponse response, String defaultPicture)
+	public static void sendUserMiniature(int userId,
+			HttpServletRequest request, HttpServletResponse response, ServletContext servletContext)
 			throws IOException {
 		String directory = getStorageDirectory();
-		byte[] datas = null;
+		String fileName;
 		if (directory != null) {
-			File picture = searchPicture(directory + fileName);
-			if (picture != null) {
-				PictureType pictureType = null;
-				for (PictureType pt : PictureType.values()) {
-					if (picture.getName().endsWith(pt.getSuffix())) {
-						pictureType = pt;
-					}
-				}
-				response.setContentType("image/png");
-				datas = new byte[(int) picture.length()];
-				BufferedInputStream stream;
-				try {
-					stream = new BufferedInputStream(new FileInputStream(
-							picture));
-					stream.read(datas);
-					OutputStream out = response.getOutputStream();
-					out.write(datas);
-				} catch (FileNotFoundException e) {
-					response.sendRedirect(defaultPicture);
-				}
+			fileName = directory + Integer.toString(userId) + MINIATURE_SUFFIX
+					+ ".png";
+			File pictureFile = new File(fileName);
+			if (pictureFile.exists()) {
+				sendPicture(pictureFile, response);	
 			} else {
-				response.sendRedirect(defaultPicture);
+				sendDefaultMiniature(response, servletContext);
 			}
 		} else {
-			response.sendRedirect(defaultPicture);
+			sendDefaultMiniature(response, servletContext);
+		}
+	}
+
+	public static void sendUserPicture(int userId, HttpServletRequest request,
+			HttpServletResponse response, ServletContext context) throws IOException {
+		String directory = getStorageDirectory();
+		String fileName;
+		if (directory != null) {
+			fileName = directory + Integer.toString(userId) + ".png";
+			File pictureFile = new File(fileName);
+			if (pictureFile.exists()) {
+				sendPicture(pictureFile, response);	
+			} else {
+				sendDefaultPicture(response, context);			
+			}
+		} else {
+			sendDefaultPicture(response, context);
+		}
+	}
+	
+	private static void sendDefaultMiniature(HttpServletResponse response,
+			ServletContext context) throws IOException {
+		InputStream stream = context.getResourceAsStream("/images/DefaultMiniature.png");
+		sendPicture(stream, response);
+	}
+	private static void sendDefaultPicture(HttpServletResponse response, ServletContext context) throws IOException {
+		InputStream stream = context.getResourceAsStream("/images/DefaultPhoto.png");
+		sendPicture(stream, response);
+	}
+	
+	private static final int BUFFER_SIZE = 4096;
+
+	private static void sendPicture(InputStream stream,
+			HttpServletResponse response) throws IOException {
+		byte[] datas = new byte[BUFFER_SIZE];
+		int numRead = stream.read(datas);
+		OutputStream out = response.getOutputStream();
+		while (numRead != -1) {
+			out.write(datas, 0 , numRead);
+			numRead = stream.read(datas);
+		}
+		stream.close();
+		out.flush();
+	}
+	
+	private static void sendPicture(File picture,
+			HttpServletResponse response) throws IOException {
+		BufferedInputStream stream;
+		try {
+			stream = new BufferedInputStream(new FileInputStream(picture));
+			sendPicture(stream, response);
+		} catch (FileNotFoundException e) {
+			
 		}
 	}
 
@@ -129,22 +157,23 @@ public class ImageManager {
 		op.filter(incommingImage, properResized);
 		return properResized;
 	}
-	
+
 	private static BufferedImage convert(BufferedImage image) {
-        BufferedImage img = new BufferedImage(image.getWidth(),
-                image.getHeight(),
-                Transparency.TRANSLUCENT);
-        Graphics2D g2 = (Graphics2D)img.getGraphics();
-        g2.drawImage(image, 0, 0, null);
-        g2.dispose();
-        return img;
-    }
+		BufferedImage img = new BufferedImage(image.getWidth(), image
+				.getHeight(), Transparency.TRANSLUCENT);
+		Graphics2D g2 = (Graphics2D) img.getGraphics();
+		g2.drawImage(image, 0, 0, null);
+		g2.dispose();
+		return img;
+	}
 
 	/*
 	 * install the picture in the proper directory
 	 * 
 	 * @param fileName The file name
+	 * 
 	 * @param suffix the file's sufix (.png, .bmp...)
+	 * 
 	 * @param datas the picture's datas
 	 */
 	private static void installPicture(String fileName,
@@ -191,25 +220,10 @@ public class ImageManager {
 	 * Delete the picture currently installed on the file system
 	 */
 	private static void removeOldPicture(String fileName) {
-		File oldPicture = searchPicture(fileName);
+		File oldPicture = new File(fileName);
 		if (oldPicture != null) {
 			oldPicture.delete();
 		}
-	}
-
-	/*
-	 * return the java.io.File represented by filename on the file system
-	 * 
-	 * @param fileName the filename without suffix
-	 */
-	private static File searchPicture(String fileName) {
-		for (PictureType pictureType : PictureType.values()) {
-			File f = new File(fileName + pictureType.getSuffix());
-			if (f.exists()) {
-				return f;
-			}
-		}
-		return null;
 	}
 
 }
