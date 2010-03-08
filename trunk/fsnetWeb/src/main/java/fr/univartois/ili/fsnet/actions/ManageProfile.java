@@ -50,38 +50,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public static final String EDITABLE_PROFILE_VARIABLE = "edit";
 	private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-	/**
-	 * format a name exemple : entry : le BerrE return Le Berre
-	 * 
-	 * @param name
-	 *            string to format
-	 * @return format string
-	 */
-	public static final String formatName(String name) {
-		StringBuffer buf = new StringBuffer();
-		boolean upperCase = true;
-		for (int i = 0; i < name.length(); i++) {
-			char c = name.charAt(i);
-			switch (c) {
-			case '\'':
-				;
-			case ' ':
-				;
-			case '-':
-				buf.append(c);
-				upperCase = true;
-				break;
-			default:
-				buf.append((upperCase) ? (Character.toUpperCase(c))
-						: (Character.toLowerCase(c)));
-				upperCase = false;
-			}
-		}
-		return buf.toString();
-	}
+
 
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public final ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
@@ -110,7 +82,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	}
 	
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public final ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -130,10 +102,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		ProfileFacade pf = new ProfileFacade(em);
 		em.getTransaction().begin();
 		pf.editProfile(UserUtils.getAuthenticatedUser(request, em),
-				formatName(dynaForm.getString("name")), 
-				formatName(dynaForm.getString("firstName")),
-				new Address(dynaForm.getString("adress"), formatName(dynaForm.getString("city"))),
-				birthday, dynaForm.getString("sexe"), formatName(dynaForm.getString("job")),
+				dynaForm.getString("name"), 
+				dynaForm.getString("firstName"),
+				new Address(dynaForm.getString("adress"),
+				dynaForm.getString("city")),
+				birthday, dynaForm.getString("sexe"),
+				dynaForm.getString("job"),
 				dynaForm.getString("mail"),
 				dynaForm.getString("phone"));
 		em.getTransaction().commit();
@@ -142,20 +116,20 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	}
 
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public final ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public final ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	public ActionForward displayToModify(ActionMapping mapping,
+	public final ActionForward displayToModify(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -180,7 +154,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	}
 
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public final ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -235,7 +209,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		saveErrors(request, errors);
 	}
 
-	public ActionForward changePhoto(ActionMapping mapping, ActionForm form,
+	public final ActionForward changePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -269,7 +243,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
-	public ActionForward deletePhoto(ActionMapping mapping, ActionForm form,
+	public final ActionForward deletePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		Integer userId = UserUtils.getAuthenticatesUserId(request);
