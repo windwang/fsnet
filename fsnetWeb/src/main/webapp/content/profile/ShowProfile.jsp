@@ -94,7 +94,7 @@
     </c:if>
 </h3>
 <logic:empty name="watchedProfile" property="interests">
-    No interests yet.
+    <bean:message key="Profile.noInterests"/>.
 </logic:empty>
 
 <div class="cloud" >
@@ -116,7 +116,7 @@
 <c:import url="/content/pagination/Pagination.jsp"/>
 <h3><bean:message key="profile.showInteraction.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/></h3>
 <logic:empty name="watchedProfile" property="interests">
-    No interactions yet.
+    <bean:message key="Profile.noInteractions"/>.
 </logic:empty>
 <div class="cloud">
     <table>
