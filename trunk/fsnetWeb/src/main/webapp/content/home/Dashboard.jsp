@@ -13,11 +13,11 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <table id="dashboardMessages" class="inLineTableDashBoard homeFrame">
-    <caption>Vos derniers messages</caption>
+    <caption><bean:message key="DashBoard.lastMes"/></caption>
     <logic:empty name="messages">
         <tr>
             <td>
-                No messages yet.
+            <bean:message key="DashBoard.noMes"/>.
             </td>
         </tr>
     </logic:empty>
@@ -70,7 +70,7 @@
     <logic:empty name="visitors">
         <tr>
             <td>
-                No visites yet.
+                <bean:message key="DashBoard.noVis"/>.
             </td>
         </tr>
     </logic:empty>
@@ -105,7 +105,7 @@
     <logic:empty name="lastInteractions">
         <tr>
             <td>
-                No new interactions.
+                <bean:message key="DashBoard.noNewInt"/>.
             </td>
         </tr>
     </logic:empty>
