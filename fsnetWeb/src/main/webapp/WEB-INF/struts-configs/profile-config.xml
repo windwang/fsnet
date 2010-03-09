@@ -42,6 +42,7 @@
 			parameter="display" name="DisplayProfileForm" scope="request"
 			validate="true">
 			<forward name="success" path="ShowProfile" />
+			<forward name="fail" path="ProfileNotFound" />			
 		</action>
 		<action path="/ModifyProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			name="profileForm" scope="request" validate="true" parameter="modify"
