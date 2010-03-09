@@ -1,6 +1,9 @@
 package fr.univartois.ili.fsnet.actions;
 
+import java.io.IOException;
+
 import javax.persistence.EntityManager;
+import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -24,9 +27,8 @@ import fr.univartois.ili.fsnet.form.ChangePasswordForm;
 public class ChangePassword extends Action{
 	 
 	@Override
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+	public final ActionForward execute(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ProfileFacade pf = new ProfileFacade(em);
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
