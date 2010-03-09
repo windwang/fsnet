@@ -36,6 +36,7 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
  * 
@@ -172,7 +173,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		SocialEntity profile = sef.getSocialEntity(id);
 		if(profile==null){
 			em.close();
-			return mapping.findForward("fail");
+			throw new UnauthorizedOperationException("The profile id is not defined");
 		}
 		if (user.getContacts().contains(profile)
 				|| user.getAsked().contains(profile)

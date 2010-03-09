@@ -126,12 +126,6 @@
         <put name="body-content" value="/content/profile/ShowProfile.jsp" />
     </definition>
 
-    <definition name="ProfileNotFound" extends=".defaultLayout">
-        <put name="title" value="pageTitle.5"/>
-        <put name="currentMenu" value="Profile"/>
-        <put name="body-content" value="/content/profile/ProfileNotFound.jsp" />
-    </definition>
-
     <!-- Topic -->
     <definition name="Topic" extends=".defaultLayout">
         <put name="title" value="pageTitle.7"/>
