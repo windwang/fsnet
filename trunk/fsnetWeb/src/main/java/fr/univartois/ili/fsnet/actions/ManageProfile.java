@@ -170,6 +170,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			id = user.getId();
 		}
 		SocialEntity profile = sef.getSocialEntity(id);
+		if(profile==null){
+			em.close();
+			return mapping.findForward("fail");
+		}
 		if (user.getContacts().contains(profile)
 				|| user.getAsked().contains(profile)
 				|| user.getRequested().contains(profile)
