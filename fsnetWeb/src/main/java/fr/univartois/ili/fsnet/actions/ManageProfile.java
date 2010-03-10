@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -64,11 +65,18 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		ActionErrors res = new ActionErrors();
 		try {
 			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
-			if (birthday.after(new Date())) {
+			Date actualDate = new Date();
+			if (birthday.after(actualDate)) {
+				res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
+			}
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR)-100);
+			Date lastedDate = cal.getTime();
+			if (birthday.before(lastedDate)) {
 				res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
 			}
 		} catch (ParseException e1) {
-			// DO NOTHING
+			res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
 		}
 		if(! UserUtils.getAuthenticatedUser(request, em).getEmail().equals(dynaForm.getString("mail"))){
 			SocialEntityFacade sef = new SocialEntityFacade(em);
