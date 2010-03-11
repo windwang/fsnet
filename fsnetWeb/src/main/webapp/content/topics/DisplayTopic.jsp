@@ -19,9 +19,18 @@
 <c:forEach var="msg" items="${requestScope.topicMessageDisplayPaginator.resultList}">
     <table class="topicTable">
         <tr class="topicHeader">
-            <td colspan="2">
-                <bean:write name="msg" property="creationDate" format="dd/MM/yyyy HH:mm"/>
-            </td>
+            <td>
+                <bean:write name="msg" property="creationDate" format="dd/MM/yyyy HH:mm"/> 
+        	</td>
+        	<td style="text-align:right;">
+	        	<c:if test="${sessionScope.userId eq msg.from.id}">
+				            <html:link action="/DisplayModifyTopicMessage" styleClass="button">
+				                <html:param name="topicId" value="${topic.id}" />
+				                <html:param name="messageId" value="${msg.id}" />
+				                <bean:message key="topics.modifyMsg"/>
+				            </html:link>      
+		        	</c:if>
+        	</td>
         </tr>
         <tr>
             <td class="topicOwner">
@@ -40,14 +49,7 @@
         </tr>
 
     </table>
-    <div class="topicButton">
-        <c:if test="${sessionScope.userId eq msg.from.id}">
-            <html:link action="/DisplayModifyTopicMessage" styleClass="button">
-                <html:param name="topicId" value="${topic.id}" />
-                <html:param name="messageId" value="${msg.id}" />
-                <bean:message key="topics.modifyMsg"/>
-            </html:link>
-        </c:if>
+
 
         <!--
         <c:if test="${sessionScope.userId eq msg.from.id}">
@@ -58,8 +60,9 @@
             </html:link>
         </c:if>
 
-        -->
-    </div>
+        
+    -->
+    
 </c:forEach>
 <c:set var="paginatorInstance" value="${requestScope.topicMessageDisplayPaginator}" scope="request"/>
 <c:set var="paginatorAction" value="/DisplayTopic" scope="request"/>
