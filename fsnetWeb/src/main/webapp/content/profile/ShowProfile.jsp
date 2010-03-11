@@ -114,13 +114,15 @@
 <c:set var="paginatorAction" value="/DisplayProfile" scope="request"/>
 <c:set var="paginatorTile" value="profileInterests" scope="request"/>
 <c:import url="/content/pagination/Pagination.jsp"/>
+
 <h3><bean:message key="profile.showInteraction.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/></h3>
-<logic:empty name="watchedProfile" property="interests">
-    <bean:message key="Profile.noInteractions"/>.
-</logic:empty>
+<c:if test="${empty requestScope.interactionPaginator.resultList}">
+	<bean:message key="Profile.noInteractions"/>.
+</c:if>
+
 <div class="cloud">
     <table>
-        <c:forEach var="inter" items="${interactions}">
+        <c:forEach var="inter" items="${requestScope.interactionPaginator.resultList}">
             <tr>
                 <td>
                     <bean:write name="inter" property="lastModified" format="dd/MM/yyyy" />
@@ -163,8 +165,11 @@
         </c:forEach>
     </table>
 </div>
-
 <div class="clear"></div>
+<c:set var="paginatorInstance" value="${requestScope.interactionPaginator}" scope="request"/>
+<c:set var="paginatorAction" value="/DisplayProfile" scope="request"/>
+<c:set var="paginatorTile" value="profileInteractions" scope="request"/>
+<c:import url="/content/pagination/Pagination.jsp"/>
 
 <h3>
     <bean:message key="showProfile.contacts.title"/>
