@@ -25,6 +25,7 @@ import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
 import fr.univartois.ili.fsnet.facade.TopicFacade;
 import fr.univartois.ili.fsnet.facade.TopicMessageFacade;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
  *
@@ -66,12 +67,19 @@ public class ManageTopicMessages extends MappingDispatchAction implements CrudAc
 
         logger.info("modify Message ");
         EntityManager em = PersistenceProvider.createEntityManager();
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         DynaActionForm dynaForm = (DynaActionForm) form;						//NOSONAR
         String messageDescription = (String) dynaForm.get("messageDescription");
         int messageId = Integer.valueOf(Integer.parseInt(dynaForm.getString("messageId")));
         TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
         TopicMessage message = topicMessageFacade.getTopicMessage(messageId);
+        
+        if(!message.getFrom().equals(user)){
+			throw new UnauthorizedOperationException("exception.message");
+		}
+        
         message.setBody(messageDescription);
+        
         int topicId = Integer.valueOf(Integer.parseInt(dynaForm.getString("topicId")));
         TopicFacade topicFacade = new TopicFacade(em);
         Topic topic = topicFacade.getTopic(topicId);

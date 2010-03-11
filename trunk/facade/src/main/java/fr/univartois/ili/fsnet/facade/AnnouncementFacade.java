@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
  * @author mickael watrelot - micgamers@gmail.com
@@ -58,7 +59,7 @@ public class AnnouncementFacade {
 	 * @param endDate
 	 * @return the Announcement modify
 	 */
-	public final Announcement modifyAnnouncement(int idAnnounce,
+	public final Announcement modifyAnnouncement(SocialEntity user, int idAnnounce,
 			String annName, String annDescription, Date endDate) {
 		if (annName == null || annDescription == null || endDate == null) {
 			throw new IllegalArgumentException();
@@ -67,6 +68,11 @@ public class AnnouncementFacade {
 		if (announce == null) {
 			throw new IllegalArgumentException();
 		}
+		
+		if(!announce.getCreator().equals(user)){
+			throw new UnauthorizedOperationException("exception.message");
+		}
+		
 		announce.setTitle(annName);
 		announce.setContent(annDescription);
 		announce.setEndDate(endDate);

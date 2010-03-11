@@ -95,6 +95,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         EntityManager entityManager = PersistenceProvider.createEntityManager();
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, entityManager);
         DynaActionForm formAnnounce = (DynaActionForm) form;// NOSONAR
         String title = (String) formAnnounce.get("announceTitle");
         String content = (String) formAnnounce.get("announceContent");
@@ -107,7 +108,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
             Date expiryDate = DateUtils.format(stringExpiryDate);
             if (0 > DateUtils.compareToToday(expiryDate)) {
                 entityManager.getTransaction().begin();
-                announcementFacade.modifyAnnouncement(idAnnounce, title, content, expiryDate);
+                announcementFacade.modifyAnnouncement(user,idAnnounce, title, content, expiryDate);
                 entityManager.getTransaction().commit();
 
             } else {
