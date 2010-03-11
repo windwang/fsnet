@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -249,23 +250,25 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
 		TypedQuery<SocialEntity> query = null;
-		List<SocialEntity> resultOthers = null;
+		Set<SocialEntity> resultOthers = null;
 
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String searchText = (String) dynaForm.get("searchText");
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			resultOthers = socialEntityFacade.searchSocialEntity(searchText);
+			em.getTransaction().commit();
+			em.close();
+			request.setAttribute("membersResult", resultOthers);
 		} else {
 			query = em.createQuery("SELECT es FROM SocialEntity es",
 					SocialEntity.class);
-			resultOthers = query.getResultList();
+			List<SocialEntity> resultOthersList = query.getResultList();
+			em.getTransaction().commit();
+			em.close();
+			request.setAttribute("membersResult", resultOthersList);
 		}
 
-		em.getTransaction().commit();
-		em.close();
-
-		request.setAttribute("membersResult", resultOthers);
 		return mapping.findForward("success");
 	}
 

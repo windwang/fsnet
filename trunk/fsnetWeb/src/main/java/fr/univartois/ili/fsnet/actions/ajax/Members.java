@@ -1,7 +1,7 @@
 package fr.univartois.ili.fsnet.actions.ajax;
 
 import java.io.Writer;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +34,7 @@ public class Members extends Action {
             String searchText = (index==-1) ? (actualText) : (actualText.substring(index+1));
             EntityManager em = PersistenceProvider.createEntityManager();
             SocialEntityFacade sef = new SocialEntityFacade(em);
-            List<SocialEntity> listSE = sef.searchSocialEntity(searchText);
+            Set<SocialEntity> listSE = sef.searchSocialEntity(searchText);
             em.close();
             Writer out = response.getWriter();
             response.setContentType("text/xml");
