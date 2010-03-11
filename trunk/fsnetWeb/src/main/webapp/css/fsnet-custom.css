@@ -423,6 +423,42 @@ tr.notReed {
     vertical-align: middle;
 }
 
+.tagSE {
+    padding : 2px;
+    float : left;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: #FBDFE6 2px dashed;
+    background-color: #FEF2F5;
+
+}
+
+.tagSE a {
+    color: black;
+}
+.tagSE img{
+    vertical-align: middle;
+}
+
+.tagInteraction {
+    padding : 2px;
+    float : left;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: #F0CBD5 2px dashed;
+    background-color: #E9DDE0;
+
+}
+
+.tagInteraction a {
+    color: black;
+}
+.tagInteraction img{
+    vertical-align: middle;
+}
+
 .otag {
     padding : 2px;
     float : left;
