@@ -197,7 +197,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		}
 		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
-		Paginator<Interest> paginatorInterest = new Paginator<Interest>(profile.getInterests(), request, "profileInterests", "id");
+		Paginator<Interest> paginatorInterest = new Paginator<Interest>(profile.getInterests(), request, 25, "profileInterests", "id");
 		request.setAttribute("interestPaginator", paginatorInterest);
 		Paginator<SocialEntity> paginatorContact = new Paginator<SocialEntity>(profile.getContacts(), request, "profileContacts", "id");
 		request.setAttribute("contactsPaginator", paginatorContact);
