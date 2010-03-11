@@ -2,7 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -38,10 +38,10 @@ public class ManageMembers extends MappingDispatchAction {
 	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
                 em.getTransaction().begin();
-		List<SocialEntity> resultOthers = null;
-		List<SocialEntity> resultContacts = null;
-		List<SocialEntity> resultRequested = null;
-		List<SocialEntity> resultAsked = null;
+		Set<SocialEntity> resultOthers = null;
+		Set<SocialEntity> resultContacts = null;
+		Set<SocialEntity> resultRequested = null;
+		Set<SocialEntity> resultAsked = null;
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 	
@@ -49,7 +49,7 @@ public class ManageMembers extends MappingDispatchAction {
 		String searchText = (String) dynaForm.get("searchText");
            
                 SocialEntityFacade sef = new SocialEntityFacade(em);
-                HashMap<SearchResult, List<SocialEntity>> results = sef.searchSocialEntity(searchText, member);	
+                HashMap<SearchResult, Set<SocialEntity>> results = sef.searchSocialEntity(searchText, member);	
                 resultContacts = results.get(SearchResult.Contacts);
 		resultRequested = results.get(SearchResult.Requested);
 		resultAsked = results.get(SearchResult.Asked);

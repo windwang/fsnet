@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -115,7 +116,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 	throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		List<Community> result = null;
-		List<SocialEntity> allMembers = null;
+		Set<SocialEntity> allMembers = null;
 		String searchText = "";
 		CommunityFacade communityFacade = new CommunityFacade(em);
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
