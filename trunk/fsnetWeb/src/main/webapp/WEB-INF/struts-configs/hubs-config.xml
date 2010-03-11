@@ -46,12 +46,12 @@
             <forward name="success" path="Hubs" />
         </action>
         <action path="/DeleteHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
-                name="DeleteHubForm" input="Home" scope="request" validate="true"
+                name="DeleteHubForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="delete">
             <forward name="success" path="/SearchHub.do" />
         </action>
         <action path="/DisplayHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
-                name="DisplayHubForm" input="Home" scope="request" validate="true"
+                name="DisplayHubForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="display">
             <forward name="success" path="DisplayHub" />
         </action>
@@ -60,21 +60,21 @@
             <forward name="success" path="Hubs" />
         </action>
         <action path="/DisplayCreateHub" type="org.apache.struts.actions.ForwardAction"
-                name="DisplayCreateHubForm" input="Home" scope="request" validate="true"
+                name="DisplayCreateHubForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="CreateHub">
         </action>
         <action path="/DisplayYourHubs" type="fr.univartois.ili.fsnet.actions.ManageHub"
-                name="SearchYourHubsForm" input="Home" scope="request" validate="true"
+                name="SearchYourHubsForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="searchYourHubs">
             <forward name="success" path="DisplayYourHubs" />
         </action>
         <action path="/SearchYourHubs" type="fr.univartois.ili.fsnet.actions.ManageHub"
-                name="SearchYourHubsForm" input="Home" scope="request" validate="false"
+                name="SearchYourHubsForm" input="UnauthorizedOperationException" scope="request" validate="false"
                 parameter="searchYourHubs">
             <forward name="success" path="DisplayYourHubs" />
         </action>
         <action path="/DeleteYourHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
-                name="DeleteHubForm" input="Home" scope="request" validate="true"
+                name="DeleteHubForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="delete">
             <forward name="success" path="/SearchYourHubs.do" />
         </action>

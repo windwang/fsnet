@@ -67,17 +67,17 @@
         </action>
 
         <action path="/DisplayCreateTopic" type="org.apache.struts.actions.ForwardAction"
-               	name="DisplayCreateTopicForm" input="Home" scope="request" validate="true"
+               	name="DisplayCreateTopicForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="CreateTopic"/>
 
         <action path="/DeleteTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-       			name="DeleteTopicForm" input="Home" scope="request" validate="true"
+       			name="DeleteTopicForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="delete">
             <forward name="success" path="/DisplayHub.do" />
         </action>
 
         <action path="/DisplayTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-        		name="DisplayTopicForm" input="Home" scope="request" validate="true"
+        		name="DisplayTopicForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="display">
             <forward name="success" path="/Topic.do" />
         </action>
@@ -108,27 +108,27 @@
         </action>
 
         <action path="/DisplayCreateTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
-                name="DisplayCreateTopicMessageForm" input="Home" scope="request" validate="true"
+                name="DisplayCreateTopicMessageForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="display">
             <forward name="success" path="CreateTopicMessage" />
         </action>
         <action path="/DisplayModifyTopicMessage" type="fr.univartois.ili.fsnet.actions.ManageTopicMessages"
-        		name="DisplayModifyTopicMessageForm" input="Home" scope="request" validate="true"
+        		name="DisplayModifyTopicMessageForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="display">
             <forward name="success" path="ModifyTopicMessage" />
         </action>
          <action path="/DisplayYourTopics" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-        		name="SearchYourTopicsForm" input="Home" scope="request" validate="true"
+        		name="SearchYourTopicsForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="searchYourTopics">
             <forward name="success" path="DisplayYourTopics" />
         </action>
          <action path="/SearchYourTopics" type="fr.univartois.ili.fsnet.actions.ManageTopic" 
-			name="SearchYourTopicsForm" input="Home" scope="request" validate="false"
+			name="SearchYourTopicsForm" input="UnauthorizedOperationException" scope="request" validate="false"
 			parameter="searchYourTopics">
 			<forward name="success" path="DisplayYourTopics" />
 		</action>          
 		 <action path="/DeleteYourTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic" 
-			name="DeleteTopicForm" input="Home" scope="request" validate="true"
+			name="DeleteTopicForm" input="UnauthorizedOperationException" scope="request" validate="true"
 			parameter="delete">
 			<forward name="success" path="/SearchYourTopics.do" />
 		</action>

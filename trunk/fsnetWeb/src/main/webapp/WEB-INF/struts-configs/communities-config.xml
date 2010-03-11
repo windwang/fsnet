@@ -46,7 +46,7 @@
 		</action>
 		<action path="/DeleteCommunity" 
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
-			name="DeleteCommunityForm" input="Home" scope="request" validate="true" 
+			name="DeleteCommunityForm" input="UnauthorizedOperationException" scope="request" validate="true" 
 			parameter="delete">
 			<forward name="success" path="/SearchCommunity.do" />
 		</action>
@@ -56,7 +56,7 @@
 		</action>
 		<action path="/DisplayCommunity" 
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities"
-			name="DisplayCommunityForm" input="Home" scope="request" validate="true"
+			name="DisplayCommunityForm" input="UnauthorizedOperationException" scope="request" validate="true"
 			parameter="display">
 			<forward name="success" path="Hubs" />
 		</action>
@@ -67,13 +67,13 @@
 		</action>
 		<action path="/SearchYourCommunities" 
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
-			name="SearchYourCommunitiesForm" input="Home" scope="request" validate="false"
+			name="SearchYourCommunitiesForm" input="UnauthorizedOperationException" scope="request" validate="false"
 			parameter="searchYourCommunities">
 			<forward name="success" path="DisplayYourCommunities" />
 		</action>
 		<action path="/DeleteYourCommunity" 
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
-			name="DeleteCommunityForm" input="Home" scope="request" validate="true" 
+			name="DeleteCommunityForm" input="UnauthorizedOperationException" scope="request" validate="true" 
 			parameter="delete">
 			<forward name="success" path="/SearchYourCommunities.do" />
 		</action>
