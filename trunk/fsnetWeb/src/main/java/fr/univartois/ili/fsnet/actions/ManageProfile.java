@@ -208,8 +208,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		}
 		em.getTransaction().begin();
 		InteractionFacade intFac = new InteractionFacade(em);
-		List<Interaction> interactions = intFac.getIntetactionsByUser(profile);
-		request.setAttribute("interactions", interactions);
+		Paginator<Interaction> interactionPaginator = new Paginator<Interaction>(intFac.getIntetactionsByUser(profile), request, "profileInteractions", "id");
+		
+		request.setAttribute("interactionPaginator", interactionPaginator);
 		em.getTransaction().commit();
 		em.close();
 		request.setAttribute("currentUser", user);
