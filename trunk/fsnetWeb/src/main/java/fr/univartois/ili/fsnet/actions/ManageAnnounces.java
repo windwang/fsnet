@@ -29,6 +29,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
  * 
@@ -93,7 +94,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
     @Override
     public ActionForward modify(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+            throws IOException, ServletException, UnauthorizedOperationException {
         EntityManager entityManager = PersistenceProvider.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, entityManager);
         DynaActionForm formAnnounce = (DynaActionForm) form;// NOSONAR
@@ -105,10 +106,15 @@ public class ManageAnnounces extends MappingDispatchAction implements
         Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
 
         try {
+        	
+        	if(!announce.getCreator().equals(user)){
+    			throw new UnauthorizedOperationException("exception.message");
+    		}
+        	
             Date expiryDate = DateUtils.format(stringExpiryDate);
             if (0 > DateUtils.compareToToday(expiryDate)) {
                 entityManager.getTransaction().begin();
-                announcementFacade.modifyAnnouncement(user,idAnnounce, title, content, expiryDate);
+                announcementFacade.modifyAnnouncement(idAnnounce, title, content, expiryDate);
                 entityManager.getTransaction().commit();
 
             } else {
