@@ -99,42 +99,6 @@ public class Paginator<T> {
 	private List<T> results;
 
 	/**
-	 * This constructor allow developper to set the number of results, AND this
-	 * parameter is higher priority to HTTP parameter
-	 * 
-	 * @param results
-	 *            All results from a query from example
-	 * @param requestThe
-	 *            HTTPRequest that contains the proper parameters
-	 * @param numResultsPerPage
-	 *            the number of results per page
-	 */
-	public Paginator(List<T> results, HttpServletRequest request,
-			int numResultsPerPage) {
-		this.allResults = results;
-		this.requestInputName = DEFAULT_REQUEST_INPUT_NAME;
-		parseRequest(request);
-		this.numResultsPerPage = numResultsPerPage;
-		init();
-	}
-
-	/**
-	 * Default constructor that allow user to set the number of result by
-	 * including the proper parameter in his request
-	 * 
-	 * @param results
-	 * @param request
-	 * @throws IllegalArgumentException
-	 */
-	public Paginator(List<T> results, HttpServletRequest request)
-			throws IllegalArgumentException {
-		this.allResults = results;
-		this.requestInputName = DEFAULT_REQUEST_INPUT_NAME;
-		parseRequest(request);
-		init();
-	}
-
-	/**
 	 * Default constructor that allow user to set the number of result by
 	 * including the proper parameter in his request
 	 * 

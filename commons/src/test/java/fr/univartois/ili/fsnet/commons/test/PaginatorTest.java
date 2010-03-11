@@ -50,7 +50,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request);
+				.getResultList(), request, "myId");
 		assertEquals(Paginator.DEFAULT_NUM_RESULT_PER_PAGE, paginator
 				.getResultList().size());
 	}
@@ -66,7 +66,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request, numRecords - 10);
+				.getResultList(), request, numRecords - 10, "myId");
 		assertEquals(10, paginator.getResultList().size());
 	}
 
@@ -82,7 +82,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request, numResultPerPage);
+				.getResultList(), request, numResultPerPage, "myId");
 		assertEquals(numResultPerPage, paginator.getResultList().size());
 	}
 
@@ -100,7 +100,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request);
+				.getResultList(), request, "myId");
 		assertEquals(numResultPerPage, paginator.getResultList().size());
 	}
 
@@ -115,7 +115,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request);
+				.getResultList(), request, "myId");
 		assertEquals(0, paginator.getResultList().size());
 	}
 
@@ -129,7 +129,7 @@ public class PaginatorTest {
 		request.addParameter(Paginator.PAGE_ID, "-1");
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
-		new Paginator<SocialEntity>(query.getResultList(), request);
+		new Paginator<SocialEntity>(query.getResultList(), request, "myId");
 	}
 
 	/**
@@ -144,7 +144,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request);
+				.getResultList(), request, "myId");
 		assertEquals(Paginator.DEFAULT_NUM_RESULT_PER_PAGE, paginator
 				.getResultList().size());
 	}
@@ -164,7 +164,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request, numResultPerPageFromDeveloper);
+				.getResultList(), request, numResultPerPageFromDeveloper, "myId");
 		assertEquals(numResultPerPageFromDeveloper, paginator.getResultList()
 				.size());
 	}
@@ -180,7 +180,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request, numResultPerPageFromDeveloper);
+				.getResultList(), request, numResultPerPageFromDeveloper, "myId");
 		assertEquals("name0", paginator.getResultList().get(0).getName());
 	}
 
@@ -195,7 +195,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request, numResultPerPageFromDeveloper);
+				.getResultList(), request, numResultPerPageFromDeveloper, "myId");
 		assertTrue(paginator.getHasNextPage());
 	}
 
@@ -211,7 +211,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request, numResultPerPage);
+				.getResultList(), request, numResultPerPage, "myId");
 		assertFalse(paginator.getHasNextPage());
 	}
 
@@ -226,7 +226,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request, numResultPerPage);
+				.getResultList(), request, numResultPerPage, "myId");
 		assertTrue(paginator.getHasPreviousPage());
 	}
 
@@ -241,7 +241,7 @@ public class PaginatorTest {
 		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
 				SocialEntity.class);
 		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
-				.getResultList(), request, numResultPerPage);
+				.getResultList(), request, numResultPerPage, "myId");
 		assertFalse(paginator.getHasPreviousPage());
 	}
 }
