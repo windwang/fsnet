@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
 
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://struts.apache.org/tags-html"     prefix="html"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean"     prefix="bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-logic"    prefix="logic"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core"      prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <h3>
     <c:import url="/FavoriteFragment.do">
@@ -64,19 +65,21 @@
 <c:set var="theInteraction" value="${event}" scope="request"/>
 <jsp:include page="/content/interactions/InteractionInfo.jsp" />
 <div class="clear"></div>
+
+<c:if test="${fn:length(subscribers) gt 0}">
 <h3>
 	<bean:message key="events.22"/> : 
 </h3>
-    <logic:iterate id="subscriber" collection="${subscribers}"> 
-		<span class="tagSE"> 
-			<html:link action="/DisplayProfile">
-            	<html:param name="id" value="${subscriber.id}"/>
-                <img src="miniature/${subscriber.id}.png"/>
-            </html:link>
-			<html:link action="/DisplayProfile">
-				<html:param name="id" value="${subscriber.id}" />
-				${subscriber.firstName} ${subscriber.name}								
-			</html:link> 
-		</span> 
-    </logic:iterate>
-
+<logic:iterate id="subscriber" collection="${subscribers}"> 
+	<span class="tagSE"> 
+		<html:link action="/DisplayProfile">
+           	<html:param name="id" value="${subscriber.id}"/>
+               <img src="miniature/${subscriber.id}.png"/>
+           </html:link>
+		<html:link action="/DisplayProfile">
+			<html:param name="id" value="${subscriber.id}" />
+			${subscriber.firstName} ${subscriber.name}								
+		</html:link> 
+	</span> 
+</logic:iterate>
+</c:if>
