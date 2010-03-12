@@ -208,7 +208,7 @@ public class InterestFacade {
 	public final List<Interest> getNonAssicatedInterests(SocialEntity entity) {
 		List<Interest> interestsList = em
 				.createQuery(
-						"SELECT DISTINCT interest FROM Interest interest, SocialEntity entity WHERE entity <> :entity AND entity NOT MEMBER OF interest.entities ORDER BY interest.name",
+						"SELECT DISTINCT interest FROM Interest interest, SocialEntity entity WHERE entity = :entity AND entity NOT MEMBER OF interest.entities ORDER BY interest.name",
 						Interest.class).setParameter("entity", entity)
 				.getResultList();
 		return interestsList;
