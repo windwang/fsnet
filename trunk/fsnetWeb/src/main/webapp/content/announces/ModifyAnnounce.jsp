@@ -21,7 +21,7 @@
 <h3><bean:message key="announce.modifyAnnounce" /></h3>
 <html:form action="/ModifyAnnounce">
 
-	<html:hidden property="idAnnounce" value="${announce.id}" />
+	<html:hidden property="idAnnounce"/>
 	<table id="CreateAnnounce">
 		<tr>
 			<td colspan="2"><html:messages id="message" /> <html:errors />
@@ -31,22 +31,21 @@
 			<td><label for="announceTitle"><bean:message
 				key="announce.title" /></label></td>
 			<td><html:text property="announceTitle"
-				value="${announce.title}" styleId="announceTitle" /></td>
+				styleId="announceTitle" /></td>
 		</tr>
 		<tr>
 			<td><label for="announceContent"><bean:message
 				key="announce.content" /> </label></td>
 			<td><html:textarea cols="40" rows="8"
-				value="${announce.content}" property="announceContent"
+				property="announceContent"
 				styleId="announceContent" styleClass="mceTextArea"
 				style="width: 100%;" /></td>
 		</tr>
 		<tr>
 			<td><label for="announceExpiryDate">Date :</label></td>
-			<td><c:set var="formattedDate">
-				<bean:write name="announce" property="endDate" format="dd/MM/yyyy" />
-			</c:set> <html:text property="announceExpiryDate"
-				styleId="announceExpiryDate" value="${formattedDate}" /> <html:submit
+			<td>
+			 <html:text property="announceExpiryDate"
+				styleId="announceExpiryDate" /> <html:submit
 				styleClass="button">
 				<bean:message key="announce.modifyAnnounce" />
 			</html:submit></td>

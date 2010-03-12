@@ -104,7 +104,6 @@ public class ManageAnnounces extends MappingDispatchAction implements
         Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
         AnnouncementFacade announcementFacade = new AnnouncementFacade(entityManager);
         Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
-
         try {
         	
         	if(!announce.getCreator().equals(user)){
@@ -207,6 +206,27 @@ public class ManageAnnounces extends MappingDispatchAction implements
             request.setAttribute("owner", true);
         }
 
+        return mapping.findForward("success");
+    }
+    
+    /**
+     * @return announce in request
+     */
+    public ActionForward displayForModify(ActionMapping mapping, ActionForm form,
+            HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException {
+    	DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
+        EntityManager em = PersistenceProvider.createEntityManager();
+        em.getTransaction().begin();
+        Integer idAnnounce = Integer.valueOf(request.getParameter("idAnnounce"));
+        AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
+        Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
+        em.getTransaction().commit();
+        em.close();
+        dynaForm.set("idAnnounce", announce.getId());
+        dynaForm.set("announceTitle", announce.getTitle());
+        dynaForm.set("announceContent", announce.getContent());
+        dynaForm.set("announceExpiryDate", DateUtils.renderDate(announce.getEndDate()));
         return mapping.findForward("success");
     }
 }

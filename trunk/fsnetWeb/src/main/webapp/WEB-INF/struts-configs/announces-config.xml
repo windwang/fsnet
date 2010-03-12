@@ -47,7 +47,7 @@
         </action>
         <action path="/DisplayForModifyAnnounce" name="AnnounceForm"
                 scope="request" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
-                parameter="display">
+                parameter="displayForModify">
             <forward name="success" path="DisplayForModifyAnnounce" />
         </action>
 
