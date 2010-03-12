@@ -61,6 +61,20 @@
         </tr>
     </table>
 </div>
-
 <c:set var="theInteraction" value="${event}" scope="request"/>
 <jsp:include page="/content/interactions/InteractionInfo.jsp" />
+<div class="clear"></div>
+<h3>Ils participeront à l'événement : </h3>
+    <logic:iterate id="subscriber" collection="${subscribers}"> 
+		<span class="tagSE"> 
+			<html:link action="/DisplayProfile">
+            	<html:param name="id" value="${subscriber.id}"/>
+                <img src="miniature/${subscriber.id}.png"/>
+            </html:link>
+			<html:link action="/DisplayProfile">
+				<html:param name="id" value="${subscriber.id}" />
+				${subscriber.firstName} ${subscriber.name}								
+			</html:link> 
+		</span> 
+    </logic:iterate>
+
