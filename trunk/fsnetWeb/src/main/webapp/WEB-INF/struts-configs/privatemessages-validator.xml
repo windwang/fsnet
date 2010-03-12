@@ -7,10 +7,17 @@
             <field property="messageTo" depends="required">
                 <arg key="privatemessages.recipient" />
             </field>
-            <field property="messageSubject" depends="required,maxlength" >
-                <arg key="privatemessages.subject" />
-                <arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
-                <var><var-name>maxlength</var-name><var-value>500</var-value></var>
+            <field property="messageSubject" depends="required,mask,maxlength" >
+                <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>80</var-value>
+		        </var>
+				<arg0 key="privatemessages.subject" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
             </field>
             <field property="messageBody" depends="required,maxlength">
                 <arg key="privatemessages.body" />

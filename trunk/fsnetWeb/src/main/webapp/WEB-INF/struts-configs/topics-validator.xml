@@ -5,13 +5,18 @@
 	<formset>
 		<form name="/CreateTopic">
 			<field property="hubId" depends="integer,required"></field>
-			<field property="topicSubject" depends="required,mask">
-				<arg key="topics.error.topicSubjet" />
-				<msg name="mask" key="topics.error.mask" />
-				<var>
-					<var-name>mask</var-name>
-					<var-value>^[\w()\-\', ]+$</var-value>
-				</var>
+			<field property="topicSubject" depends="required,mask,maxlength">
+				<arg0 key="topics.error.topicSubjet" />
+				<msg name="mask" key="topics.error.mask" />				
+				 <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>80</var-value>
+		        </var>
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 			</field>
 			<field property="messageDescription" depends="required,maxlength">
 				<arg key="topics.error.messageDescription" />
@@ -30,13 +35,23 @@
 			<field property="topicId" depends="integer,required"></field>
 		</form>
 		<form name="/CreateTopicMessage">
-			<field property="messageDescription" depends="required">
+			<field property="messageDescription" depends="required,maxlength">
 				<arg key="topics.error.messageDescription" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5000</var-value>
+				</var>
 			</field>
 		</form>
 		<form name="/ModifyTopicMessage">
-			<field property="messageDescription" depends="required">
+			<field property="messageDescription" depends="required,maxlength">
 				<arg key="topics.error.messageDescription" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5000</var-value>
+				</var>
 			</field>
 		</form>
 		<form name="/DisplayModifyTopicMessage">

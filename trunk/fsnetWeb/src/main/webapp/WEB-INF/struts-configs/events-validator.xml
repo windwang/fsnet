@@ -4,8 +4,17 @@
 <form-validation>
 	<formset>
 		<form name="/CreateEvent">
-			<field property="eventName" depends="required">
-				<arg key="events.14" />
+			<field property="eventName" depends="required,mask,maxlength">
+				<var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>80</var-value>
+		        </var>
+				<arg0 key="events.14" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 			</field>
 			<field property="eventDescription" depends="required, maxlength">
 				<arg key="events.13" name="required" />
