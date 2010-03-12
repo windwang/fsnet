@@ -26,8 +26,12 @@
             </field>
         </form>
         <form name="/DisplayMessage">
-        	<field property="messageId" depends="required,integer">
-        	</field>
+        	<field property="messageId" depends="required,integer"/>
         </form>
+    </formset>
+    <formset>
+    	<form name="/DeletePrivateMessage">
+    		<field property="messageId" depends="required,integer"/>
+    	</form>
     </formset>
 </form-validation>
