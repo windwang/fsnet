@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -99,8 +100,9 @@ public class ManageInterests extends MappingDispatchAction implements
 			em.getTransaction().commit();
 		}
 		em.close();
-
-		return mapping.findForward("success");
+		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		redirect.addParameter("infoInterestId", interestId);
+		return redirect;
 	}
 
 	public ActionForward remove(ActionMapping mapping, ActionForm form,
@@ -127,8 +129,9 @@ public class ManageInterests extends MappingDispatchAction implements
 			em.getTransaction().commit();
 		}
 		em.close();
-
-		return mapping.findForward("success");
+		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		redirect.addParameter("infoInterestId", interestId);
+		return redirect;
 	}
 
 	@Override

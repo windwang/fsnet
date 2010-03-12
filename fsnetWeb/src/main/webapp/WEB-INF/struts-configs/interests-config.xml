@@ -57,7 +57,7 @@
             scope="request"
             validate="true"
             parameter="add">
-            <forward name="success" path="/Interests.do" />
+            <forward name="success" path="/Interests.do" redirect="true"/>
         </action>
 
         <action
@@ -68,7 +68,7 @@
             scope="request"
             validate="true"
             parameter="remove">
-            <forward name="success" path="/Interests.do" />
+            <forward name="success" path="/Interests.do" redirect="true"/>
         </action>
 
         <action
@@ -111,6 +111,28 @@
             validate="true"
             parameter="informations">
             <forward name="success" path="InfoInterest" />
+        </action>
+        
+        <action
+            path="/AddInterestFromInterestInformations"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="AddInterestForm"
+            input="/InterestInformations.do"
+            scope="request"
+            validate="true"
+            parameter="add">
+            <forward name="success" path="/InterestInformations.do" redirect="true"/>
+        </action>
+        
+        <action
+            path="/DeleteInterestFromInterestInformations"
+            type="fr.univartois.ili.fsnet.actions.ManageInterests"
+            name="RemoveInterestForm"
+            input="/InterestInformations.do"
+            scope="request"
+            validate="true"
+            parameter="remove">
+            <forward name="success" path="/InterestInformations.do" redirect="true"/>
         </action>
 
         <action
