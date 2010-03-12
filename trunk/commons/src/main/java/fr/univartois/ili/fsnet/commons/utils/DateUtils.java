@@ -38,5 +38,22 @@ public class DateUtils {
 		Date today = new Date();
 		return today.compareTo(date);
 	}
+	
+	private static final DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy"); 
+	private static final DateFormat formatterWithHours = new SimpleDateFormat("dd/MM/yyyy hh:mm");
 
+	/**
+	 * Return a string representation of the date in parameter
+	 */
+	public static String renderDate(Date date) {	
+		return formatter.format(date);
+	}
+	
+	/**
+	 * Return a string representation of the date with hours in parameter
+	 * 
+	 */
+	public static String renderDateWithHours(Date date) {	
+		return formatterWithHours.format(date);
+	}
 }
