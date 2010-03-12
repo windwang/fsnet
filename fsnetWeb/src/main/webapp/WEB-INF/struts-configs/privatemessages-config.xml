@@ -52,7 +52,7 @@
 
         <action path="/DeletePrivateMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
                 name="DisplayPrivateMessageForm" validate="true" scope="request"
-                parameter="delete">
+                parameter="delete" input="UnauthorizedOperationException">
             <forward name="success" path="/Inbox.do" />
         </action>
         

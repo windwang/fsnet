@@ -87,34 +87,27 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
-			if (form != null) {
-				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-				// NOSONAR
-				int messageId = Integer.parseInt(dynaForm
-						.getString("messageId"));
-				SocialEntity authenticatedUser = UserUtils
-						.getAuthenticatedUser(request, em);
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			int messageId = Integer.parseInt(dynaForm
+					.getString("messageId"));
+			SocialEntity authenticatedUser = UserUtils
+					.getAuthenticatedUser(request, em);
 
-				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-				PrivateMessage privateMessage = pmf
-						.getPrivateMessage(messageId);
-				em.getTransaction().begin();
-				pmf.deletePrivateMessage(authenticatedUser, privateMessage);
-				em.getTransaction().commit();
+			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+			PrivateMessage privateMessage = pmf.getPrivateMessage(messageId);
+			if(privateMessage == null){
 				em.close();
-				return mapping.findForward("success");
-			} else {
-				ActionErrors errors = new ActionErrors();
-				errors.add("messageTo", new ActionMessage(
-						("privatemessages.not.owner")));
-				saveErrors(request, errors);
-
-			}
-
+				throw new UnauthorizedOperationException("");
+			}	
+			em.getTransaction().begin();
+			pmf.deletePrivateMessage(authenticatedUser, privateMessage);
+			em.getTransaction().commit();
+			em.close();
+			return mapping.findForward("success");
 		} catch (NumberFormatException e) {
+			servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS",e);
 		}
 		em.close();
-		// TODO errors
 		return mapping.findForward("fail");
 	}
 
@@ -123,7 +116,6 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
-			if (form != null) {
 				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
 				String[] selectedMessages = (String[]) dynaForm
@@ -139,7 +131,6 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				}
 				em.flush();
 				em.getTransaction().commit();
-			}
 			} catch (NumberFormatException e) {
 		}
 		em.close();
@@ -152,7 +143,6 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		if (form == null) {
 			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 					authenticatedUser.getReceivedPrivateMessages());
 			Collections.reverse(userMessages);
@@ -161,9 +151,6 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			
 			request.setAttribute("inBoxMessagesPaginator", paginator);
 			refreshNumNewMessages(request, userMessages);
-		} else {
-			// TODO
-		}
 		refreshNumNewMessages(request, em);
 		em.close();
 		return mapping.findForward("success");
@@ -185,7 +172,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			request.setAttribute("outBoxMessagesPaginator", paginator);
 
 		} else {
-			// TODO
+			servlet.log("ManagePrivateMessage.display must be not ask");
 		}
 		em.close();
 		return mapping.findForward("success");

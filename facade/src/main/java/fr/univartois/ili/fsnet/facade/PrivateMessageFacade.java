@@ -45,7 +45,6 @@ public class PrivateMessageFacade {
         if (entity == null || message == null) {
             throw new IllegalArgumentException();
         }
-        // TODO implement equals or error when detached
         if (message.getFrom().equals(entity)) {
             entity.getSentPrivateMessages().remove(message);
         }
