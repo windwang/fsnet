@@ -68,10 +68,14 @@ public class Home extends MappingDispatchAction {
 			ServletException {
 		InterestFacade facade = new InterestFacade(em);
 		List<Interest> interestProposals = facade.getOtherInterests(authenticatedUser);
+		if(interestProposals.size()==0){
+			interestProposals = facade.getNonAssicatedInterests(authenticatedUser);
+			Collections.shuffle(interestProposals);
+		}
 		if(interestProposals.size()>5){
 			interestProposals = interestProposals.subList(0,5);
 		}
-		
+				
 		request.setAttribute("interests", interestProposals);
 	
 	}
