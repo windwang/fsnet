@@ -10,7 +10,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <h3><bean:message key="announce.searchAnnounce" /> </h3>
-<html:form action="/Announces">
+<html:form action="/Announces" method="GET">
 	<div id="SearchAnnounce">
     	<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
 

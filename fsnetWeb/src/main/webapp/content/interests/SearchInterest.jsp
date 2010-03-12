@@ -8,7 +8,7 @@
 
 <h3><bean:message key="interests.11"/></h3>
 <html:javascript formName="/SearchInterest"/>
-<html:form action="/SearchInterest">
+<html:form action="/SearchInterest" method="GET">
     <html:text property="requestInput"/>
     <html:errors property="requestInput"/>
     <html:submit styleClass="button">

@@ -9,7 +9,7 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
 <h3><bean:message key="hubs.search"/></h3>
-<html:form action="/SearchHub">
+<html:form action="/SearchHub" method="GET">
 	<html:hidden property="communityId" value="${param.communityId}"/>
     <table id="SearchHub">
         <tr>
