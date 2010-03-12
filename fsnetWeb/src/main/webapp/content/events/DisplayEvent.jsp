@@ -64,7 +64,9 @@
 <c:set var="theInteraction" value="${event}" scope="request"/>
 <jsp:include page="/content/interactions/InteractionInfo.jsp" />
 <div class="clear"></div>
-<h3>Ils participeront à l'événement : </h3>
+<h3>
+	<bean:message key=""/> : 
+</h3>
     <logic:iterate id="subscriber" collection="${subscribers}"> 
 		<span class="tagSE"> 
 			<html:link action="/DisplayProfile">
