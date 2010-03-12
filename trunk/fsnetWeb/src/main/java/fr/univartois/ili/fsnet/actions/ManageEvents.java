@@ -107,8 +107,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		ifacade.addInterests(event, interests);
 		em.getTransaction().commit();
 		em.close();
-		request.setAttribute("event", event);
-		return mapping.findForward("success");
+		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		redirect.addParameter("eventId", event.getId());
+		return redirect;
 	}
 
 	@Override

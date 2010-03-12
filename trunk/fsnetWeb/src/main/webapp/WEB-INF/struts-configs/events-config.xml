@@ -42,7 +42,7 @@
             	scope="request"
             	validate="true"
             	parameter="create">
-            <forward name="success" path="DisplayEvent" />
+            <forward name="success" path="/DisplayEvent.do" />
         </action>
 
         <action path="/DisplayCreateEvent"
