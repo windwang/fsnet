@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.facade;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -193,6 +194,26 @@ public class SocialEntityFacade {
 
 		return results;
 	}
+    
+//    /**
+//     * Return the social Entities
+//     * @param socialEntity the Social Entity who is on line
+//     * @return the list of Social Entities 
+//     */
+//    public final List<SocialEntity> getSocialEntities(SocialEntity socialEntity) {
+//        if (socialEntity == null) {
+//            throw new IllegalArgumentException();
+//        }
+//        TypedQuery<SocialEntity> query = null;
+//        List<SocialEntity> results = null;
+//
+//        query = em.createQuery(
+//                "SELECT es FROM SocialEntity es WHERE es.id <> :id", SocialEntity.class);
+//        query.setParameter("id", socialEntity.getId() );
+//        results = query.getResultList();
+//
+//        return results;
+//    }
 
 	/**
 	 * add interest in SocialEntity interests

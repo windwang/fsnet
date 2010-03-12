@@ -100,6 +100,74 @@
 
 <div class="clear homeGap"></div>
 
+<table id="contactProposals" class="inLineTableDashBoard homeFrame">
+    <caption><bean:message key="DashBoard.contactProposals.title"/></caption>
+    <logic:empty name="contacts">
+        <tr>
+            <td>
+                <bean:message key="DashBoard.noContacts"/>.
+            </td>
+        </tr>
+    </logic:empty>
+    <logic:notEmpty name="contacts">
+        <c:forEach var="contact" items="${contacts}">
+            <tr>
+                <td class="messagePhoto">
+                    <html:link action="/DisplayProfile">
+                        <html:param name="id" value="${contact.id}"/>
+                        <img src="miniature/${contact.id}.png"/>
+                    </html:link>
+                </td>
+                <td>
+                    <html:link action="/DisplayProfile">
+                        <html:param name="id" value="${contact.id}"/>
+                        ${contact.firstName} ${contact.name}
+                    </html:link>
+                </td>
+                <td class="tableButton"> 
+                    <html:link action="/ContactDemand" styleClass="button">
+                   	 	<html:param name="entitySelected" value="${contact.id}"/>
+                    	<bean:message key="DashBoard.askContact"/>
+                	</html:link>
+                </td>
+            </tr>
+        </c:forEach>
+
+    </logic:notEmpty>
+</table>
+
+<table id="interestProposals" class="inLineTableDashBoard homeFrame">
+    <caption><bean:message key="DashBoard.interestProposals.title"/></caption>
+    <logic:empty name="interests">
+        <tr>
+            <td>
+                <bean:message key="DashBoard.noInterest"/>.
+            </td>
+        </tr>
+    </logic:empty>
+    <logic:notEmpty name="interests">
+        <c:forEach var="interest" items="${interests}">
+            <tr>
+                <td>
+                    <html:link action="/InterestInformations">
+                        <html:param name="infoInterestId" value="${interest.id}"/>
+                        ${interest.name}
+                    </html:link>
+                </td>
+               <td class="tableButton"> 
+                 	<html:link action="/AddInterest">
+	                     <img src="images/add.png"/>
+	                     <html:param name="addedInterestId" value="${interest.id}"/>
+	                </html:link>    
+                </td>
+            </tr>
+        </c:forEach>
+
+    </logic:notEmpty>
+</table>
+
+<div class="clear homeGap"></div>
+
 <table id="lastInteractions" class="inLineTableDashBoard homeFrame">
     <caption><bean:message key="lastInteractions.title"/></caption>
     <logic:empty name="lastInteractions">
