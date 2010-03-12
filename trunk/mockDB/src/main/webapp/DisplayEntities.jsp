@@ -9,11 +9,12 @@
 </head>
 <body>
 	<jsp:include page="/WEB-INF/jspf/globalActions.jsp"/>
+	
 	<div class="clear"></div>
 	
 	<c:forEach var="entity" items="${entities}">
 		<div class="entity">
-			<div class="entityHeader">
+		<div class="entityHeader">
 				<div class="entityHeader">
 					<span class="entityName">${entity.name}</span> 
 					<a href="CleanEntity?entity=${entity.name}" class="actionButton"> 
@@ -21,14 +22,15 @@
 					</a>
 				</div>
 			</div>
+			<c:set var="tmp" value=""></c:set>
 			<c:forEach var="attribute" items="${entity.declaredAttributes}">
-				<div class="attribute">
-					<span class="attributeName">${attribute.name}</span> : 
-					<span class="attributeType">${attribute.javaType}</span>
-				</div>
+					<c:set var="tmp">${tmp}${attribute.name} : ${attribute.javaType.simpleName};</c:set>
 			</c:forEach>
+			<c:set var="tmp">${tmp}{bg:orange}]</c:set>
+			<a href="DisplayEntity?entityName=${entity.name}">
+				<img src="http://yuml.me/diagram/class/[${entity.name}|${tmp}"></img>
+			</a> 
 		</div>
 	</c:forEach>
-	
 </body>
 </html>

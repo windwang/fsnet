@@ -3,6 +3,10 @@
 	border: 4px inset red;
 }
 
+img {
+	border: 0;	
+}
+
 #globalActions a {
 	margin: 10px;
 	float: left;
