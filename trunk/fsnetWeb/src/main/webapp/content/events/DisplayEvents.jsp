@@ -16,7 +16,7 @@
     <bean:message key="events.8"/>
 </h3>
 
-<html:form action="/Events">
+<html:form action="/Events" method="GET">
     <div id="SearchEvent">
         <html:text property="searchString" />
         <html:submit styleClass="button" >

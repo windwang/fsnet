@@ -14,7 +14,7 @@
 
 <h3><bean:message key="hubs.searchTopic"/></h3>
 <table>
-    <html:form action="/SearchYourTopics">
+    <html:form action="/SearchYourTopics" method="GET">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/></label></td>
             <td><html:text property="searchText" styleId="topicSujet" /></td>

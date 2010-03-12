@@ -8,7 +8,7 @@
 </c:set>
 
 <div id="search">
-    <html:form action="/SearchMember">
+    <html:form action="/SearchMember" method="GET">
         <fieldset>
             <html:text styleClass="field" property="searchText" onclick="this.value=''" value="${inputTextContent}"/>
             <html:submit styleClass="searchButton" value=" "/>

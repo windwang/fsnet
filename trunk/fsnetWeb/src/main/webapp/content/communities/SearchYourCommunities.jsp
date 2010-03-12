@@ -4,7 +4,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 
 <h3><bean:message key="communities.searchYourCommunities"/></h3>
-<html:form action="SearchYourCommunities">
+<html:form action="SearchYourCommunities" method="GET">
     <div id="SearchCommunity">
         <html:text property="searchText" />
         <html:submit styleClass="button"><bean:message key="communities.searchButton"/></html:submit>
