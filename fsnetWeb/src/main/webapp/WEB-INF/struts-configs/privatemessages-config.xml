@@ -32,12 +32,12 @@
         </action>
         <action path="/DisplayMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
                 name="DisplayPrivateMessageForm" validate="true" scope="request"
-                parameter="display">
+                parameter="display" input="UnauthorizedOperationException">
             <forward name="success" path="DisplayPrivateMessage" />
         </action>
         <action path="/DisplaySentMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
                 name="DisplayPrivateMessageForm" validate="true" scope="request"
-                parameter="display">
+                parameter="display" input="UnauthorizedOperationException">
             <forward name="success" path="DisplaySentMessage" />
         </action>
 
