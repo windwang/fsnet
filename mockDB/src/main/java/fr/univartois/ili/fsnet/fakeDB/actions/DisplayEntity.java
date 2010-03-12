@@ -60,12 +60,10 @@ public class DisplayEntity extends HttpServlet {
 			}
 		}
 		if (selectedEntity == null) {
-			System.out.println("going to DisplayEntities.jsp");
 			RequestDispatcher rd = request
 					.getRequestDispatcher("/DisplayEntities");
 			rd.forward(request, response);
 		} else {
-			System.out.println("going to DisplayEntity.jsp");
 			RequestDispatcher rd = request
 					.getRequestDispatcher("/DisplayEntity.jsp");
 			rd.forward(request, response);
