@@ -25,5 +25,9 @@
                 <var><var-name>maxlength</var-name><var-value>5000</var-value></var>
             </field>
         </form>
+        <form name="/DisplayMessage">
+        	<field property="messageId" depends="required,integer">
+        	</field>
+        </form>
     </formset>
 </form-validation>

@@ -28,6 +28,7 @@ import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.PrivateMessageFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
  * 
@@ -226,14 +227,14 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					em.close();
 					return mapping.findForward("success");
 				} else {
-					// TODO error try to display message but not owner
+					em.close();
+					throw new UnauthorizedOperationException("Must be the owner of message");
 				}
 			}
 		} catch (NumberFormatException e) {
 		}
-		em.close();
-		// TODO errors
-		return mapping.findForward("fail");
+		// NEVER HAPPEND
+		return null;
 	}
 
 	private static final int calculateNumNewMessage(
