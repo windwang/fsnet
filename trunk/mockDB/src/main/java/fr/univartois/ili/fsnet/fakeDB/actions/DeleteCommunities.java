@@ -28,7 +28,6 @@ public class DeleteCommunities extends HttpServlet {
 		communities = q.getResultList();
 		
 		for (Community c : communities) {
-			System.out.println("c.getHubs() = "+ c.getHubs());
 			c.getHubs();
 			em.remove(c);
 			em.flush();
