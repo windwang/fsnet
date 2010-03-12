@@ -238,15 +238,20 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
+		
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
-		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
-				em);
-		boolean subscriber = interactionRoleFacade.isSubsriber(member, event);
+		
+		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(em);
+		boolean isSubscriber = interactionRoleFacade.isSubsriber(member, event);
+		Set<SocialEntity> subscribers = interactionRoleFacade.getSubscribers(event);
+		
 		em.getTransaction().commit();
 		em.close();
-		request.setAttribute("subscriber", subscriber);
+		request.setAttribute("subscribers", subscribers);
+		request.setAttribute("subscriber", isSubscriber);
 		request.setAttribute("event", event);
 		return mapping.findForward("success");
 	}

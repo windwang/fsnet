@@ -1,7 +1,9 @@
 package fr.univartois.ili.fsnet.facade;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 
@@ -89,7 +91,22 @@ public class InteractionRoleFacade {
         }
         return false;
     }
-
+    
+    /**
+     * Return the subscribers that have subscribed to the given interaction 
+     */
+    public final Set<SocialEntity> getSubscribers(Interaction i) {
+    	if (i == null) {
+    		throw new IllegalArgumentException();
+    	}
+    	Set<SocialEntity> subscribers = new HashSet<SocialEntity>();
+    	for (InteractionRole ir : i.getRoles()) {
+    		if (ir.getRole().equals(InteractionRole.RoleName.SUBSCRIBER)) {
+    			subscribers.add(ir.getSocialEntity());
+    		}
+    	}
+    	return subscribers;
+    }
     /**
      *
      * @param se
