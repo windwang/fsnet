@@ -10,14 +10,14 @@
 	<c:when test="${not empty requestScope.interest}">
 		<h2>${requestScope.interest.name} <c:choose>
 			<c:when test="${requestScope.own}">
-				<html:link action="/RemoveInterest">
+				<html:link action="/DeleteInterestFromInterestInformations">
 					<html:param name="removedInterestId"
 						value="${requestScope.interest.id}" />
 					<img src="images/mini-delete.png" />
 				</html:link>
 			</c:when>
 			<c:otherwise>
-				<html:link action="/AddInterest">
+				<html:link action="/AddInterestFromInterestInformations">
 					<img src="images/add.png" />
 					<html:param name="addedInterestId"
 						value="${requestScope.interest.id}" />

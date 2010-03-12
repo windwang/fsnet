@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -85,7 +86,9 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, actionErrors);
 		}
 		em.close();
-		return mapping.findForward("success");
+		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		redirect.addParameter("communityId", communityId);
+		return redirect;
 	}
 
 	@Override
@@ -138,8 +141,9 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 		request.setAttribute("hubResults", result);
-
-		return mapping.findForward("success");
+		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		redirect.addParameter("communityId", communityId);
+		return redirect;
 	}
 
 	@Override

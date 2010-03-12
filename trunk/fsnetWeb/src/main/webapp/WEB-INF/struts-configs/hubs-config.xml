@@ -38,12 +38,12 @@
         <action path="/CreateHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
                 name="CreateHubForm" input="Hubs" scope="request" validate="true"
                 parameter="create">
-            <forward name="success" path="/SearchHub.do" />
+            <forward name="success" path="/DisplayCommunity.do" />
         </action>
         <action path="/SearchHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
                 name="SearchHubForm" input="Hubs" scope="request" validate="false"
                 parameter="search">
-            <forward name="success" path="Hubs" />
+            <forward name="success" path="/DisplayCommunity.do" />
         </action>
         <action path="/DeleteHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
                 name="DeleteHubForm" input="UnauthorizedOperationException" scope="request" validate="true"
