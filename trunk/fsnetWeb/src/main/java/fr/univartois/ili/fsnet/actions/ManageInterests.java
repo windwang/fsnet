@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -182,26 +181,11 @@ public class ManageInterests extends MappingDispatchAction implements
 
 
 		List<Interest> listAllInterests = facade.getInterests();
-		em.close();
-
-		// TODO remplacer avec une vraie requete si possible
-
-		List<Interest> finalList = new ArrayList<Interest>();
-		boolean dirtyIsOK;
-		for (Interest interest : listAllInterests) {
-			dirtyIsOK = true;
-			for (Interest interestEntity : user.getInterests()) {
-				if (interestEntity.getId() == interest.getId()) {
-					dirtyIsOK = false;
-				}
-			}
-			if (dirtyIsOK) {
-				finalList.add(interest);
-			}
-		}
+		List<Interest> listNonAssociatedInterests = facade.getNonAssicatedInterests(user);
+		em.close();		
 
 		Paginator<Interest> paginatorMy = new Paginator<Interest>(user.getInterests(), request, 25, "display");
-		Paginator<Interest> paginatorAdd = new Paginator<Interest>(finalList, request, 25, "addInterest");
+		Paginator<Interest> paginatorAdd = new Paginator<Interest>(listNonAssociatedInterests, request, 25, "addInterest");
 		
 		request.setAttribute("allInterests", listAllInterests);
 		request.setAttribute("myInterestPaginator", paginatorMy);
