@@ -49,7 +49,7 @@
 				<arg key="error.updateProfile.dateOfBirth" />
 				<msg name="date" key="date.error.invalid"/>
 				<var>
-					<var-name>datePattern</var-name>
+					<var-name>datePatternStrict</var-name>
 					<var-value>dd/MM/yyyy</var-value>
 				</var>
 			</field>

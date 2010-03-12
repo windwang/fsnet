@@ -21,7 +21,7 @@
 				<arg position="0" key="events.15" />
 				<msg name="date" key="date.error.invalid"/>
 				<var>
-					<var-name>datePattern</var-name>
+					<var-name>datePatternStrict</var-name>
 					<var-value>dd/MM/yyyy</var-value>
 				</var>
 			</field>
@@ -30,7 +30,7 @@
 				<arg position="0" key="events.15" />
 				<msg name="date" key="date.error.invalid"/>
 				<var>
-					<var-name>datePattern</var-name>
+					<var-name>datePatternStrict</var-name>
 					<var-value>dd/MM/yyyy</var-value>
 				</var>
 			</field>

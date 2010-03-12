@@ -51,7 +51,11 @@
             </field>
             <field property="announceExpiryDate" depends="required,date">
                 <arg key="error.announceExpiryDate" />
-            
+            	<msg name="date" key="date.error.invalid"/>
+				<var>
+					<var-name>datePatternStrict</var-name>
+					<var-value>dd/MM/yyyy</var-value>
+				</var>
             </field>
         </form>
         <form name="/Announces">
