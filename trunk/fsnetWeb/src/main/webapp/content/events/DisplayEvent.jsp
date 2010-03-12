@@ -65,7 +65,7 @@
 <jsp:include page="/content/interactions/InteractionInfo.jsp" />
 <div class="clear"></div>
 <h3>
-	<bean:message key=""/> : 
+	<bean:message key="events.22"/> : 
 </h3>
     <logic:iterate id="subscriber" collection="${subscribers}"> 
 		<span class="tagSE"> 
