@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-jsptaglibrary_2_0.xsd"
+	version="2.0">
+	<display-name>ILI taglib</display-name>
+	<tlib-version>1.0</tlib-version>
+	<short-name>ili</short-name>
+	<tag>
+		<description>remove all XML tags from a string</description>
+		<display-name>noxml</display-name>
+		<name>noxml</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.NoXMLTag</tag-class>
+		<body-content>scriptless</body-content>
+	</tag>
+	<tag>
+		<description>troncat the body like java.lang.String.substring(int, int)</description>
+		<display-name>substring</display-name>
+		<name>substring</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.SubstringTag</tag-class>
+		<body-content>scriptless</body-content>
+		<attribute>
+			<name>beginIndex</name>
+			<required>true</required>
+		</attribute>
+		<attribute>
+			<name>endIndex</name>
+			<required>true</required>
+		</attribute>
+	</tag>
+</taglib>

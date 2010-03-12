@@ -1,0 +1,116 @@
+package fr.univartois.ili.fsnet.actions;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
+
+import javax.persistence.EntityManager;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.MappingDispatchAction;
+
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.PrivateMessage;
+import fr.univartois.ili.fsnet.entities.ProfileVisite;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade.Triple;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
+
+public class Home extends MappingDispatchAction {
+
+	private void lastVisits(ActionMapping mapping, HttpServletRequest request,
+			HttpServletResponse response, EntityManager em,
+			SocialEntity authenticatedUser) throws IOException,
+			ServletException {
+		ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
+		List<ProfileVisite> visitors = pvf.getLastVisitor(authenticatedUser);
+		request.setAttribute("visitors", visitors);
+	}
+
+	private void lastInteractions(ActionMapping mapping,
+			HttpServletRequest request, HttpServletResponse response,
+			EntityManager em)
+			throws IOException, ServletException {
+		SocialEntity connectedUser = UserUtils.getAuthenticatedUser(request, em);
+		InteractionFacade facade = new InteractionFacade(em);
+		List<Triple> result = facade
+				.getLastInteractions(connectedUser);		
+		
+		request.setAttribute("lastInteractions", result);
+	}
+
+	private void lastMessages(ActionMapping mapping,
+			HttpServletRequest request, HttpServletResponse response,
+			EntityManager em, SocialEntity authenticatedUser)
+			throws IOException, ServletException {
+		List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
+				authenticatedUser.getReceivedPrivateMessages());
+		Collections.reverse(userMessages);
+		request.setAttribute("messages", userMessages);
+	}
+
+	private void getInterestProposals(ActionMapping mapping, HttpServletRequest request,
+			HttpServletResponse response, EntityManager em,
+			SocialEntity authenticatedUser) throws IOException,
+			ServletException {
+		InterestFacade facade = new InterestFacade(em);
+		List<Interest> interestProposals = facade.getOtherInterests(authenticatedUser);
+		if(interestProposals.size()==0){
+			interestProposals = facade.getNonAssicatedInterests(authenticatedUser);
+			Collections.shuffle(interestProposals);
+		}
+		if(interestProposals.size()>5){
+			interestProposals = interestProposals.subList(0,5);
+		}
+				
+		request.setAttribute("interests", interestProposals);
+	
+	}
+	
+	private void getContactProposals(ActionMapping mapping, HttpServletRequest request,
+			HttpServletResponse response, EntityManager em,
+			SocialEntity authenticatedUser) throws IOException,
+			ServletException {
+		SocialEntityFacade facade = new SocialEntityFacade(em);
+		Set<SocialEntity> setContacts = facade.searchSocialEntity("",authenticatedUser).get(SearchResult.Others);
+		List<SocialEntity> contacts = new ArrayList<SocialEntity>( setContacts );
+		Collections.shuffle(contacts);
+		if(contacts.size()>5){
+			contacts = contacts.subList(0,5);
+		}
+		request.setAttribute("contacts", contacts);
+	}
+
+	public ActionForward doDashboard(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+
+		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+				request, em);
+
+		lastVisits(mapping, request, response, em, authenticatedUser);
+		lastInteractions(mapping, request, response, em);
+		lastMessages(mapping, request, response, em, authenticatedUser);
+		getContactProposals(mapping, request, response, em, authenticatedUser);
+		getInterestProposals(mapping, request, response, em, authenticatedUser);
+
+		em.close();
+
+		return mapping.findForward("success");
+	}
+
+}
