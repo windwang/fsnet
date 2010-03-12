@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.facade;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -198,6 +199,29 @@ public class InterestFacade {
 		return resultMap;
 	}
 
+	
+	/**
+	 * 
+	 * @param socialEntity
+	 * @return the list of all interests of social entity's contacts that the social entity does not own
+	 */
+	public final List<Interest> getOtherInterests(SocialEntity socialEntity){
+		
+		List whole = em.createQuery(
+				"SELECT interest, COUNT(contact) AS nbContacts " +
+				"FROM SocialEntity soc, IN(soc.contacts) contact, " +
+				"IN(contact.interests) interest " +
+				"WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests " +
+				"GROUP BY interest ORDER BY nbContacts DESC")
+				.setParameter("socialEntity", socialEntity).getResultList();
+		List<Interest> listAllInterests = new ArrayList<Interest>(whole.size());
+		for (Iterator it = whole.iterator() ; it.hasNext(); ) {
+			listAllInterests.add((Interest) ((Object[])it.next())[0]);
+		}
+		return listAllInterests;
+	}
+
+
 	/**
 	 * 
 	 * @param entity
@@ -213,4 +237,5 @@ public class InterestFacade {
 				.getResultList();
 		return interestsList;
 	}
+
 }

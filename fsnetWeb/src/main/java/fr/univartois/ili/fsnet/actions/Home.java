@@ -18,6 +18,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -61,15 +62,21 @@ public class Home extends MappingDispatchAction {
 		request.setAttribute("messages", userMessages);
 	}
 
-	private void getContactProposals(ActionMapping mapping, HttpServletRequest request,
+	private void getInterestProposals(ActionMapping mapping, HttpServletRequest request,
 			HttpServletResponse response, EntityManager em,
 			SocialEntity authenticatedUser) throws IOException,
 			ServletException {
 		InterestFacade facade = new InterestFacade(em);
+		List<Interest> interestProposals = facade.getOtherInterests(authenticatedUser);
+		if(interestProposals.size()>5){
+			interestProposals = interestProposals.subList(0,5);
+		}
+		
+		request.setAttribute("interests", interestProposals);
 	
 	}
 	
-	private void getInterestProposals(ActionMapping mapping, HttpServletRequest request,
+	private void getContactProposals(ActionMapping mapping, HttpServletRequest request,
 			HttpServletResponse response, EntityManager em,
 			SocialEntity authenticatedUser) throws IOException,
 			ServletException {
