@@ -38,18 +38,18 @@
         <tr>
             <td  class="alignRight">
                 <c:if test="${not subscriber}">
-                <html:link  action="/SubscribeEvent" styleClass="button">
-                    <html:param name="eventId" value="${event.id}"/>
-                    <bean:message key="events.17"/>
-                </html:link>
-            </c:if>
+	                <html:link  action="/SubscribeEvent" styleClass="button">
+	                    <html:param name="eventId" value="${event.id}"/>
+	                    <bean:message key="events.17"/>
+	                </html:link>
+            	</c:if>
 
-            <c:if test="${subscriber}">
-                <html:link  action="/UnsubscribeEvent" styleClass="button">
-                    <html:param name="eventId" value="${event.id}"/>
-                    <bean:message key="events.18"/>
-                </html:link>
-            </c:if>
+            	<c:if test="${subscriber}">
+                	<html:link  action="/UnsubscribeEvent" styleClass="button">
+                    	<html:param name="eventId" value="${event.id}"/>
+                    	<bean:message key="events.18"/>
+                	</html:link>
+            	</c:if>
                 
                 <c:if test="${userId eq event.creator.id}">
                     <html:link  action="/DeleteEvent" styleClass="button">

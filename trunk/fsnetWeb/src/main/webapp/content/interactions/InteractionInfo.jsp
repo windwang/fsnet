@@ -9,6 +9,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib prefix='fn' uri='http://java.sun.com/jsp/jstl/functions' %>
 
 <div class="interactionInfo" >
     Owner :
@@ -18,12 +19,13 @@
     </html:link>
     <br/>
     <div style="color: #808080">
-
-        ${theInteraction.numSubscriber} Subscribers
-        <br/>
+		<c:if test="${not empty subscribers}">		
+        	${fn:length(subscribers)} Subscribers
+        	<br/>
+        </c:if>
         Created on <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
         <br/>
-        ${theInteraction.numFollowers} Followers
+        ${fn:length(theInteraction.followingEntitys)} Followers
         <br/>
         Visibility : public
         <br/>
