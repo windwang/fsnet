@@ -7,7 +7,7 @@
 }
 
 .homeGap {
-	float: left;
+	clear : both;
 	margin: 10px;	
 }
 
@@ -118,6 +118,10 @@
 
 .inLineTable .tableButton {
     text-align: right;
+}
+
+.tableButton{
+	text-align: right;
 }
 
 #menu {
@@ -380,7 +384,22 @@ tr.notReed {
     font-weight: bold;
 }
 
+#contactProposals {
+	float: left;
+	width: 48%;
+}
 
+#contactProposals table {
+	width: 100%;
+}
+#contactProposals td {
+	vertical-align: middle;
+}
+
+#interestProposals {
+	float: right;
+	width: 48%;
+}
 
 #InboxTitle {
 	text-align: center;	

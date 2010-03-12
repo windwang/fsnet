@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -21,8 +22,11 @@ import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade.Triple;
+import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 
 public class Home extends MappingDispatchAction {
 
@@ -57,11 +61,26 @@ public class Home extends MappingDispatchAction {
 		request.setAttribute("messages", userMessages);
 	}
 
-	private void getPropsals(ActionMapping mapping, HttpServletRequest request,
+	private void getContactProposals(ActionMapping mapping, HttpServletRequest request,
 			HttpServletResponse response, EntityManager em,
 			SocialEntity authenticatedUser) throws IOException,
 			ServletException {
-		// TODO store in request scope some proposals
+		InterestFacade facade = new InterestFacade(em);
+	
+	}
+	
+	private void getInterestProposals(ActionMapping mapping, HttpServletRequest request,
+			HttpServletResponse response, EntityManager em,
+			SocialEntity authenticatedUser) throws IOException,
+			ServletException {
+		SocialEntityFacade facade = new SocialEntityFacade(em);
+		Set<SocialEntity> setContacts = facade.searchSocialEntity("",authenticatedUser).get(SearchResult.Others);
+		List<SocialEntity> contacts = new ArrayList<SocialEntity>( setContacts );
+		Collections.shuffle(contacts);
+		if(contacts.size()>5){
+			contacts = contacts.subList(0,5);
+		}
+		request.setAttribute("contacts", contacts);
 	}
 
 	public ActionForward doDashboard(ActionMapping mapping, ActionForm form,
@@ -75,7 +94,8 @@ public class Home extends MappingDispatchAction {
 		lastVisits(mapping, request, response, em, authenticatedUser);
 		lastInteractions(mapping, request, response, em);
 		lastMessages(mapping, request, response, em, authenticatedUser);
-		getPropsals(mapping, request, response, em, authenticatedUser);
+		getContactProposals(mapping, request, response, em, authenticatedUser);
+		getInterestProposals(mapping, request, response, em, authenticatedUser);
 
 		em.close();
 
