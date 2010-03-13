@@ -1,5 +1,29 @@
 = ChangeLog of FSNet =
 
+== fsnet-0.5.0 ==
+
+== New features ==
+ * Added generated proposals on the home page
+ * Added the list of subscriber to an announcement
+ * Enhanced UI
+
+== Fixed Issues ==
+ * Issue 29: DB problem for mappedby Interet.lesEntites
+ * Issue 63: Delete in cascade doesn't work
+ * Issue 70: left menu problems
+ * Issue 86: No owning verification while deleting or editing interactions
+ * Issue 98: Exception in updating Annonce
+ * Issue 140: Summary of the last message received
+ * Issue 144: Several recipients in the e-mails
+ * Issue 150: can't search a member with his name AND firstname
+ * Issue 152: can't delete image on profil
+ * Issue 164: error topic
+ * Issue 166: profile
+ * Issue 167: CSS in topic post
+ * Issue 168: Improve mask validator for interest
+ * Issue 169: Error on announce modification
+ * Issue 172: validator mask for all fields of FSNet
+ * Issue 169: Error on announce modification
 
 == fsnet-0.3.0 ==
 
