@@ -229,7 +229,7 @@ public class InterestFacade {
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
-	public final List<Interest> getNonAssicatedInterests(SocialEntity entity) {
+	public final List<Interest> getNonAssociatedInterests(SocialEntity entity) {
 		List<Interest> interestsList = em
 				.createQuery(
 						"SELECT DISTINCT interest FROM Interest interest, SocialEntity entity WHERE entity = :entity AND entity NOT MEMBER OF interest.entities ORDER BY interest.name",

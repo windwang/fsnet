@@ -69,7 +69,7 @@ public class Home extends MappingDispatchAction {
 		InterestFacade facade = new InterestFacade(em);
 		List<Interest> interestProposals = facade.getOtherInterests(authenticatedUser);
 		if(interestProposals.size()==0){
-			interestProposals = facade.getNonAssicatedInterests(authenticatedUser);
+			interestProposals = facade.getNonAssociatedInterests(authenticatedUser);
 			Collections.shuffle(interestProposals);
 		}
 		if(interestProposals.size()>5){

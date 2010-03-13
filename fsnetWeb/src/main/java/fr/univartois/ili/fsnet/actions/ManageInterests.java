@@ -181,7 +181,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 
 		List<Interest> listAllInterests = facade.getInterests();
-		List<Interest> listNonAssociatedInterests = facade.getNonAssicatedInterests(user);
+		List<Interest> listNonAssociatedInterests = facade.getNonAssociatedInterests(user);
 		em.close();		
 
 		Paginator<Interest> paginatorMy = new Paginator<Interest>(user.getInterests(), request, 25, "display");
