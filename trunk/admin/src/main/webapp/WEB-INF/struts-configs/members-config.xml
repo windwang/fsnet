@@ -63,11 +63,9 @@
 			input="Members" scope="request" validate="true" parameter="create">
 			<forward name="success" path="/Members.do" />
 		</action>
-
-
-
-		<action path="/DeleteMember" scope="request"
-			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" parameter="delete">
+		
+		<action path="/SwitchState" scope="request"
+			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" parameter="switchState">
 			<forward name="success" path="/Members.do" />
 		</action>
 

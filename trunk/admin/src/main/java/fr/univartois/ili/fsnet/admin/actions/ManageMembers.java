@@ -143,17 +143,20 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
+		throw new UnsupportedOperationException();
+	}
+	
+	public ActionForward switchState(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
 		String entitySelected = request.getParameter("entitySelected");
-
-		logger.info("delete social entity: " + entitySelected);
-
 		EntityManager em = factory.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		em.getTransaction().begin();
 
-		SocialEntity se = socialEntityFacade.getSocialEntity(Integer.parseInt(entitySelected));
-		socialEntityFacade.deleteSocialEntity(se);
-
+		int socialEntityId = Integer.parseInt(entitySelected);
+		socialEntityFacade.switchState(socialEntityId);
+		System.out.println("OKKKKKKKKKKK");
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
