@@ -153,10 +153,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		EntityManager em = factory.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		em.getTransaction().begin();
-
 		int socialEntityId = Integer.parseInt(entitySelected);
 		socialEntityFacade.switchState(socialEntityId);
-		System.out.println("OKKKKKKKKKKK");
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");

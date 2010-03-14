@@ -2,10 +2,7 @@ package fr.univartois.ili.fsnet.entities.test;
 
 import static org.junit.Assert.assertEquals;
 
-import java.text.DateFormat;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -35,8 +32,6 @@ public class HubTest {
 
     @Test
     public void testPersist() throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-        Date date = (Date) formatter.parse("29/01/02");
         final SocialEntity socialEntity = new SocialEntity("ktest6", "test6", "test6d@test.com");
         final Community community = new Community(socialEntity, "Ma comm");
         Hub hub = new Hub(community, socialEntity, "mon hub");

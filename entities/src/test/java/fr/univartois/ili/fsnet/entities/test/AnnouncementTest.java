@@ -39,8 +39,6 @@ public class AnnouncementTest {
 
     @Test
     public void testPersist() throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-        Date date = (Date) formatter.parse("29/01/02");
         final SocialEntity socialEntity = new SocialEntity("test", "test", "test@test.com");
         Announcement annonce = new Announcement(socialEntity, "test Announcement", "HEHEHEHEHE", new Date(), false);
         em.getTransaction().begin();
@@ -54,16 +52,12 @@ public class AnnouncementTest {
 
     @Test
     public void testPersistTwo() throws ParseException {
-        String nom = "UserIli";
-        String contenu = "content";
-        String visible = "visible";
         SocialEntity es = new SocialEntity("name", "prenom", "mailannonce@mail.com");
         em.getTransaction().begin();
         em.persist(es);
         em.getTransaction().commit();
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
-        Date dateFin = (Date) formatter.parse("29/03/02");
         Announcement annonce = new Announcement(es, "TITLE", "content", date, true);
         em.getTransaction().begin();
         em.persist(annonce);
@@ -78,8 +72,6 @@ public class AnnouncementTest {
 
     @Test
     public void testGeneratedValueId() throws ParseException {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-        Date date = (Date) formatter.parse("29/01/02");
         final SocialEntity socialEntity = new SocialEntity("test2", "test2", "test2@test.com");
         Announcement annonce = new Announcement(socialEntity, "test2 Announcement", "HEHEHEHEHE2", new Date(), false);
         em.getTransaction().begin();
