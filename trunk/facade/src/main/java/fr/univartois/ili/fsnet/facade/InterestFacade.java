@@ -2,10 +2,10 @@ package fr.univartois.ili.fsnet.facade;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
@@ -182,7 +182,8 @@ public class InterestFacade {
 		HashMap<String, List<Interaction>> resultMap = new HashMap<String, List<Interaction>>();
 		List<Interaction> result = em
 				.createQuery(
-						"SELECT interaction FROM Interaction interaction, IN(interaction.interests) interest "
+						"SELECT interaction "
+								+ "FROM Interaction interaction, IN(interaction.interests) interest "
 								+ "WHERE interest.id = :interestId",
 						Interaction.class).setParameter("interestId",
 						interestId).getResultList();
@@ -199,28 +200,24 @@ public class InterestFacade {
 		return resultMap;
 	}
 
-	
 	/**
 	 * 
 	 * @param socialEntity
-	 * @return the list of all interests of social entity's contacts that the social entity does not own
+	 * @return the list of all interests of social entity's contacts that the
+	 *         social entity does not own
 	 */
-	public final List<Interest> getOtherInterests(SocialEntity socialEntity){
-		
-		List whole = em.createQuery(
-				"SELECT interest, COUNT(contact) AS nbContacts " +
-				"FROM SocialEntity soc, IN(soc.contacts) contact, " +
-				"IN(contact.interests) interest " +
-				"WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests " +
-				"GROUP BY interest ORDER BY nbContacts DESC")
-				.setParameter("socialEntity", socialEntity).getResultList();
-		List<Interest> listAllInterests = new ArrayList<Interest>(whole.size());
-		for (Iterator it = whole.iterator() ; it.hasNext(); ) {
-			listAllInterests.add((Interest) ((Object[])it.next())[0]);
-		}
-		return listAllInterests;
+	public final List<Interest> getOtherInterests(SocialEntity socialEntity) {
+		TypedQuery<Interest> query = em
+				.createQuery(
+						"SELECT interest, COUNT(contact) AS nbContacts "
+								+ "FROM SocialEntity soc, IN(soc.contacts) contact, "
+								+ "IN(contact.interests) interest "
+								+ "WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests "
+								+ "GROUP BY interest ORDER BY nbContacts DESC",
+						Interest.class);
+		query.setParameter("socialEntity", socialEntity);
+		return query.getResultList();
 	}
-
 
 	/**
 	 * 
@@ -230,12 +227,14 @@ public class InterestFacade {
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
 	public final List<Interest> getNonAssociatedInterests(SocialEntity entity) {
-		List<Interest> interestsList = em
+		TypedQuery<Interest> query = em
 				.createQuery(
-						"SELECT DISTINCT interest FROM Interest interest, SocialEntity entity WHERE entity = :entity AND entity NOT MEMBER OF interest.entities ORDER BY interest.name",
-						Interest.class).setParameter("entity", entity)
-				.getResultList();
-		return interestsList;
+						"SELECT DISTINCT interest "
+								+ "FROM Interest interest, SocialEntity entity "
+								+ "WHERE entity = :entity AND entity NOT MEMBER OF interest.entities "
+								+ "ORDER BY interest.name", Interest.class);
+		query.setParameter("entity", entity);
+		return query.getResultList();
 	}
 
 }

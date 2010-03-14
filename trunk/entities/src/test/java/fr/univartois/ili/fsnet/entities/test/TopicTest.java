@@ -1,12 +1,5 @@
 package fr.univartois.ili.fsnet.entities.test;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -40,14 +33,6 @@ public class TopicTest {
      */
     @Test
     public void testPersist() {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
-        Date date = null;
-        try {
-            date = (Date) formatter.parse("29/01/02");
-        } catch (ParseException e) {
-            Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-        }
-
         SocialEntity es = new SocialEntity("Ragoût", "Mouton", "RagoûtMouton@toiaussitafaim.com");
         es.setName("Théophile");
         es.setFisrtname("Gautier");

@@ -9,7 +9,6 @@ import javax.persistence.Persistence;
 import javax.persistence.metamodel.Attribute;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.IdentifiableType;
-import javax.persistence.metamodel.ListAttribute;
 import javax.persistence.metamodel.Metamodel;
 import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
@@ -50,7 +49,6 @@ public class DisplayEntity extends HttpServlet {
 
 	public static String buildUrl(Metamodel metamodel, EntityType<?> entity) {
 		StringBuilder url = new StringBuilder("http://yuml.me/diagram/class/");
-		boolean found = false;
 		IdentifiableType<?> superEntity = entity.getSupertype();
 		IdentifiableType<?> subEntity = entity;
 		url.append(getEntityDescription(metamodel, entity.getJavaType(), "orange"));
@@ -65,35 +63,24 @@ public class DisplayEntity extends HttpServlet {
 			url.append(", ");
 			subEntity = superEntity;
 			superEntity = subEntity.getSupertype();
-			found = true;
 		}
 		for (PluralAttribute<?, ?, ?> pluralAttribute : entity
 				.getDeclaredPluralAttributes()) {
 			url.append(getEntityDescription(metamodel, entity.getJavaType(), "orange"));
-			System.out.println(pluralAttribute.getPersistentAttributeType());
 			url.append(buildRelation(pluralAttribute.getPersistentAttributeType()));
 				
 			url.append(getEntityDescription(metamodel, pluralAttribute
 					.getElementType().getJavaType(), null));
 			url.append(", ");
-
-			found = true;
 		}
-		System.out.println(entity.getDeclaredSingularAttributes());
 		for (SingularAttribute<?, ?> singularAttribute : entity.getDeclaredSingularAttributes()) {
 			if (singularAttribute.getType().getPersistenceType().equals(PersistenceType.ENTITY)) {
-				System.out.println(singularAttribute);
 				url.append(getEntityDescription(metamodel, entity.getJavaType(), "orange"));
-				System.out.println(singularAttribute.getPersistentAttributeType());
 				url.append(buildRelation(singularAttribute.getPersistentAttributeType()));
 				url.append(getEntityDescription(metamodel, singularAttribute.getType().getJavaType(), null));
 				url.append(", ");
 			}
 		}
-		/*if (found) {
-			url.deleteCharAt(url.length() - 1);
-			found = false;
-		}*/
 		return url.toString();
 	}
 	
