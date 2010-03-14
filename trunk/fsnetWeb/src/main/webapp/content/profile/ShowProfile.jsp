@@ -186,11 +186,8 @@
  	</c:otherwise>
  </c:choose>    
 </logic:empty>
-<logic:iterate collection="${requestScope.contactsPaginator.resultList}" id="user">		
-	<html:link action="/DisplayProfile" styleClass="miniature">
-	    <html:param name="id" value="${user.id}"/>
-		<img src="miniature/${user.id}.png"></img>
-	</html:link>			
+<logic:iterate collection="${requestScope.contactsPaginator.resultList}" id="user">
+	<ili:getMiniature socialEntity="${user}"/>		
 </logic:iterate>
 <div class="clear"></div>
 <c:set var="paginatorInstance" value="${requestScope.contactsPaginator}" scope="request"/>

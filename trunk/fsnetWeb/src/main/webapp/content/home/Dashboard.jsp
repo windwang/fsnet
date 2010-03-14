@@ -11,7 +11,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-
 <table id="dashboardMessages" class="inLineTableDashBoard homeFrame">
     <caption><bean:message key="DashBoard.lastMes"/></caption>
     <logic:empty name="messages">
@@ -26,7 +25,7 @@
             <c:if test="${not message.reed}">
                 <tr class="notReed">
                     <td class="messagePhoto">
-                        <img src="miniature/${message.from.id}.png" />
+                    	<ili:getMiniature socialEntity="${message.from}"/>
                     </td>
                     <td style="width: 0%">
                         <html:link action="/DisplayMessage">
@@ -44,10 +43,7 @@
             <c:if test="${message.reed}">
                 <tr>
                     <td class="messagePhoto">
-                        <html:link action="/DisplayProfile">
-                            <html:param name="id" value="${message.from.id}"/>
-                            <img src="miniature/${message.from.id}"/>
-                        </html:link>
+                    	<ili:getMiniature socialEntity="${message.from}"/>
                     </td>
                     <td>
                         <html:link action="/DisplayMessage">
@@ -78,10 +74,7 @@
         <c:forEach var="pv" items="${visitors}">
             <tr>
                 <td class="messagePhoto">
-                    <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${pv.visitor.id}"/>
-                        <img src="miniature/${pv.visitor.id}.png"/>
-                    </html:link>
+                	<ili:getMiniature socialEntity="${pv.visitor}"/>
                 </td>
                 <td>
                     <ili:getSocialEntityInfos socialEntity="${pv.visitor}"/>
@@ -110,10 +103,7 @@
         <c:forEach var="contact" items="${contacts}">
             <tr>
                 <td class="messagePhoto">
-                    <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${contact.id}"/>
-                        <img src="miniature/${contact.id}.png"/>
-                    </html:link>
+                	<ili:getMiniature socialEntity="${contact}"/>
                 </td>
                 <td>
 					<ili:getSocialEntityInfos socialEntity="${contact}"/>
@@ -176,10 +166,7 @@
         <logic:iterate id="triple" collection="${requestScope.lastInteractions}">
             <tr>
                 <td class="messagePhoto">
-                    <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${triple.interaction.creator.id}"/>
-                        <img src="miniature/${triple.interaction.creator.id}.png"/>
-                    </html:link>
+                	<ili:getMiniature socialEntity="${triple.interaction.creator}"/>
                 </td>
                 <td>
                     <bean:message key="events.16"/>
