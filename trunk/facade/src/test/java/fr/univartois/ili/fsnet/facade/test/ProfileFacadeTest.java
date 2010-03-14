@@ -66,6 +66,7 @@ public class ProfileFacadeTest {
 	@After
 	public void delete(){
 		em.getTransaction().begin();
+		em.remove(toto);
 		em.getTransaction().commit();
 	}
 	
