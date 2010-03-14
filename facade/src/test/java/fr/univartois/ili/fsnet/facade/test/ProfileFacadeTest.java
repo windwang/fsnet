@@ -1,5 +1,9 @@
 package fr.univartois.ili.fsnet.facade.test;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+
 import java.util.Date;
 
 import javax.persistence.EntityManager;
@@ -9,9 +13,6 @@ import javax.persistence.Persistence;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.entities.Address;
@@ -65,7 +66,6 @@ public class ProfileFacadeTest {
 	@After
 	public void delete(){
 		em.getTransaction().begin();
-		sef.deleteSocialEntity(toto);
 		em.getTransaction().commit();
 	}
 	

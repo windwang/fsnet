@@ -18,14 +18,23 @@
 	<table  class="inLineTable">
         <c:forEach var="member" items="${membersResult}">
             <tr class="content">
-                <td><html:link action="/DisplayMember">${member.name} ${member.firstName}
+                <td>
+                	<html:link action="/DisplayMember">${member.name} ${member.firstName}
                 		<html:param name="idMember" value="${member.id}"/>
                 	</html:link>
                 </td>
                   <td class="tableButton">
-                    <html:link action="/Members.do" styleClass="button" onclick="confirmDelete('DeleteMember.do?entitySelected='+${member.id})">
-                       <bean:message key="members.searchDelete"/>
-                    </html:link>
+                  	<html:link action="/SwitchState" styleClass="button">
+                  		<html:param name="entitySelected" value="${member.id}"/>
+                  	    <c:choose>
+                  			<c:when test="${member.isEnabled}">
+                  				<bean:message key="members.searchDisable"/>
+	                   		</c:when>
+    	               		<c:otherwise>
+                				<bean:message key="members.searchEnable"/>
+	                    	</c:otherwise>
+    	                </c:choose>
+                  	 </html:link>            	
                 </td>
             </tr>
         </c:forEach>

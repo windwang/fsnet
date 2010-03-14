@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.facade.test;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
@@ -51,19 +50,7 @@ public class SocialEntityFacadeTest {
 		em.getTransaction().commit();
 		assertEquals(es, esp);
 	}
-
-	@Test
-	public void testDeleteSocialEntity(){
-		String name = "cc";
-		String firstName = "dd";
-		String email = "cd@email.com";
-		em.getTransaction().begin();
-		SocialEntity es = sef.createSocialEntity(name, firstName, email);
-		sef.deleteSocialEntity(es);
-		em.getTransaction().commit();
-		assertNull(em.find(SocialEntity.class, es.getId()));
-	}
-
+	
 	@Test
 	public void testSearchSocialEntity(){
 		//TODO test the SerachSocialEntity method

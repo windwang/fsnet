@@ -1,6 +1,6 @@
 package fr.univartois.ili.fsnet.facade.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -62,28 +62,6 @@ public class ContactFacadeTest {
         em.getTransaction().commit();
         cf.askContact(se1, se2);
         cf.askContact(se2, se1);
-    }
-
-    
-    /**
-     * delete a SocialEntity and control that she have been remove from
-     * the contact list of the other members
-     */
-    @Test
-    public void deleteCascadeTest() {
-        em.getTransaction().begin();
-        ContactFacade cf = new ContactFacade(em);
-        SocialEntityFacade sef = new SocialEntityFacade(em);
-        SocialEntity se1 = sef.createSocialEntity("toto", "titi", "teitei@gmail.com");
-        SocialEntity se2 = sef.createSocialEntity("tata", "titi", "teyteygmail.com");
-        em.persist(se1);
-        em.persist(se2);
-        cf.askContact(se1, se2);
-        cf.acceptContact(se2, se1);
-
-        sef.deleteSocialEntity(se2);
-        em.getTransaction().commit();
-        assertFalse(se1.getContacts().contains(se2));
     }
 
     /**

@@ -2,7 +2,6 @@ package fr.univartois.ili.fsnet.facade;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -77,35 +76,7 @@ public class SocialEntityFacade {
 		return null;
 	}
 
-	/**
-	 * delete a Social Entity
-	 * @param socialEntityId the id of the Social Entity to delete
-	 */
-	public final void deleteSocialEntity(SocialEntity socialEntity) {
-		if (socialEntity == null) {
-			throw new IllegalArgumentException();
-		}
-		for (SocialEntity contact : socialEntity.getContacts()) {
-			contact.getContacts().remove(socialEntity);
-		}
-		socialEntity.getContacts().clear();
-		for (SocialEntity contact : socialEntity.getRefused()) {
-			contact.getRefused().remove(socialEntity);
-		}
-		socialEntity.getRefused().clear();
-		for (SocialEntity contact : socialEntity.getRequested()) {
-			contact.getRequested().remove(socialEntity);
-		}
-		socialEntity.getRequested().clear();
-		for (SocialEntity contact : socialEntity.getAsked()) {
-			contact.getAsked().remove(socialEntity);
-		}
-		socialEntity.getAsked().clear();
-
-		em.remove(socialEntity);
-		em.flush();
-	}
-
+	
 	/**
 	 * search Social Entitys having Name Or FirstName Or Email like inputText
 	 * @param searchText the search text
@@ -281,4 +252,12 @@ public class SocialEntityFacade {
 		}
 		return false;
 	}
+	
+	public final void switchState(int socialEntityId) {
+		SocialEntity se = getSocialEntity(socialEntityId);
+		se.setIsEnabled(!se.getIsEnabled());
+		em.merge(se);
+		em.flush();
+	}
+	
 }
