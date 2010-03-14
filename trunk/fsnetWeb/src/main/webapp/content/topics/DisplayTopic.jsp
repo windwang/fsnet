@@ -9,6 +9,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3>
     <c:import url="/FavoriteFragment.do">
@@ -34,10 +35,7 @@
         </tr>
         <tr>
             <td class="topicOwner">
-                <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${msg.from.id}"/>
-                    ${msg.from.firstName} ${msg.from.name}
-                </html:link>
+            	<ili:getSocialEntityInfos socialEntity="${msg.from}"/>
                 <br/>
                 <img src="avatar/${msg.from.id}.png">
             </td>

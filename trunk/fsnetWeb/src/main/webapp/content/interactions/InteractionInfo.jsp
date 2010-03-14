@@ -10,13 +10,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <div class="interactionInfo" >
     Owner :
-    <html:link action="/DisplayProfile">
-        <html:param name="id" value="${theInteraction.creator.id}"/>
-        ${theInteraction.creator.firstName} ${theInteraction.creator.name}
-    </html:link>
+    <ili:getSocialEntityInfos socialEntity="${theInteraction.creator}"/>
     <br/>
     <div style="color: #808080">
 		<c:if test="${not empty subscribers}">		

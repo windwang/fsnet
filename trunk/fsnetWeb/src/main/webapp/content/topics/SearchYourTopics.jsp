@@ -9,6 +9,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
 
@@ -46,10 +47,7 @@
                 <bean:message key="hubs.createdOn"/>
                 <bean:write name="hubResult" property="creationDate" format="dd/MM/yyyy"/>
                 <bean:message key="hubs.by"/>
-                <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${couple.key.creator.id}"/>
-                    ${couple.key.creator.firstName} ${couple.key.creator.name}
-                </html:link>
+                <ili:getSocialEntityInfos socialEntity="${couple.key.creator}"/>
             </td>
 
             <td style="background-color: #C7E5F8;">

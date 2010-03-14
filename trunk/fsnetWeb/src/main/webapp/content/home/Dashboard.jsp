@@ -84,10 +84,7 @@
                     </html:link>
                 </td>
                 <td>
-                    <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${pv.visitor.id}"/>
-                        ${pv.visitor.firstName} ${pv.visitor.name}
-                    </html:link>
+                    <ili:getSocialEntityInfos socialEntity="${pv.visitor}"/>
                 </td>
                 <td>
                     <bean:write name="pv" property="lastVisite" formatKey="date.format" />
@@ -119,10 +116,7 @@
                     </html:link>
                 </td>
                 <td>
-                    <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${contact.id}"/>
-                        ${contact.firstName} ${contact.name}
-                    </html:link>
+					<ili:getSocialEntityInfos socialEntity="${contact}"/>
                 </td>
                 <td class="tableButton"> 
                     <html:link action="/ContactDemand" styleClass="button">
@@ -189,10 +183,7 @@
                 </td>
                 <td>
                     <bean:message key="events.16"/>
-                    <html:link action="/DisplayProfile">
-                        <html:param name="id" value="${triple.interaction.creator.id}"/>
-                        ${triple.interaction.creator.firstName} ${triple.interaction.creator.name}
-                    </html:link>
+                    <ili:getSocialEntityInfos socialEntity="${triple.interaction.creator}"/>
                 </td>
                 <td>
                     <html:link action="${triple.path}">

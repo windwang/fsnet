@@ -8,6 +8,7 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
@@ -23,10 +24,7 @@
         <tr class="topicHeader">
             <td>
                 <bean:message key="privatemessages.from"/> :
-                <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${theMessage.from.id}"/>
-                    ${theMessage.from.firstName} ${theMessage.from.name}
-                </html:link>
+                <ili:getSocialEntityInfos socialEntity="${theMessage.from}"/>
                 ${theMessage.from.email}
                 <span style="float: right">
                     <bean:write name="theMessage" property="creationDate" format="dd/MM/yyyy HH:mm"/>

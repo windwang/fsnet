@@ -6,6 +6,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic"    prefix="logic"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core"      prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3>
     <c:import url="/FavoriteFragment.do">
@@ -19,10 +20,7 @@
         <tr class="authorDate">
             <td>
                 <bean:message key="events.5"/>
-                <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${event.creator.id}"/>
-                    ${event.creator.firstName} ${event.creator.name}
-                </html:link>, 
+                , 
                 <bean:message key="events.willoccur"/>
                 <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
                 <bean:message key="events.to"/>
@@ -75,11 +73,8 @@
 		<html:link action="/DisplayProfile">
            	<html:param name="id" value="${subscriber.id}"/>
                <img src="miniature/${subscriber.id}.png"/>
-           </html:link>
-		<html:link action="/DisplayProfile">
-			<html:param name="id" value="${subscriber.id}" />
-			${subscriber.firstName} ${subscriber.name}								
-		</html:link> 
+           	</html:link>
+	       	<ili:getSocialEntityInfos socialEntity="${subscriber}"/>
 	</span> 
 </logic:iterate>
 </c:if>

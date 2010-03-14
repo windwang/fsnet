@@ -5,6 +5,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <c:choose>
 	<c:when test="${not empty requestScope.interest}">
@@ -74,10 +75,7 @@
 	                       		<html:param name="id" value="${socialEntities.id}"/>
 	                       		<img src="miniature/${socialEntities.id}.png"/>
 	                   		</html:link>
-							<html:link action="/DisplayProfile">
-								<html:param name="id" value="${socialEntities.id}" />
-								${socialEntities.firstName} ${socialEntities.name}								
-							</html:link> 
+	                   		<ili:getSocialEntityInfos socialEntity="${socialEntities}"/>
 						</span>
 					</c:forEach>
 				</div>

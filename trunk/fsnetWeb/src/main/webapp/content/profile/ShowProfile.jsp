@@ -6,6 +6,8 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://struts.apache.org/tags-logic"  prefix="logic"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+
 <h3>
     <bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
     <c:if test="${edit}">
@@ -187,7 +189,7 @@
 <logic:iterate collection="${requestScope.contactsPaginator.resultList}" id="user">		
 	<html:link action="/DisplayProfile" styleClass="miniature">
 	    <html:param name="id" value="${user.id}"/>
-		<img src="miniature/${user.id}.png" title="${user.name} ${user.firstName}"></img>
+		<img src="miniature/${user.id}.png"></img>
 	</html:link>			
 </logic:iterate>
 <div class="clear"></div>
