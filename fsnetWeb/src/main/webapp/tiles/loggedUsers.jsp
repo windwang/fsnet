@@ -12,6 +12,9 @@
 
 <div id="loggedUsers">
 	<logic:iterate collection="${applicationScope.loggedUsers.users}" id="user">
-		<ili:getMiniature socialEntity="${user}"/>	
+		<html:link action="/DisplayProfile" styleClass="miniature">
+		    <html:param name="id" value="${user.key}"/>
+			<img src="miniature/${user.key}.png" title="${user.value}"></img>
+		</html:link>
 	</logic:iterate>
 </div>
