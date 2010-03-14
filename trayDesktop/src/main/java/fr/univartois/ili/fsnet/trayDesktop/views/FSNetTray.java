@@ -118,7 +118,7 @@ public class FSNetTray implements WSListener {
             @Override
             public void mouseClicked(MouseEvent e) {
                 //control.checkWS();
-                Point position =  e.getLocationOnScreen();    
+                Point position = e.getLocationOnScreen();
                 control.check(position);
             }
         });
