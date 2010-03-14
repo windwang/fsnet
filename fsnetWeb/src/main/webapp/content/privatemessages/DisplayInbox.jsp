@@ -26,10 +26,7 @@
 								<html:multibox property="selectedMessages"value="${message.id}" />
 							</td>
 							<td>
-								<html:link action="/DisplayProfile">
-		               	    		<html:param name="id" value="${message.from.id}"/>
-									<img src="miniature/${message.from.id}.png" />
-								</html:link>
+								<ili:getMiniature socialEntity="${message.from}"/>
 							</td>
 							<td style="width: 25%">
 								<ili:getSocialEntityInfos socialEntity="${message.from}"/>
@@ -48,10 +45,7 @@
 							<td><html:multibox property="selectedMessages"
 								value="${message.id}" /></td>
 							<td>
-								<html:link action="/DisplayProfile">
-		               	    		<html:param name="id" value="${message.from.id}"/>
-									<img src="miniature/${message.from.id}.png" />
-								</html:link>
+								<ili:getMiniature socialEntity="${message.from}"/>
 							</td>
 							<td style="width: 25%">
 								<ili:getSocialEntityInfos socialEntity="${message.from}"/>

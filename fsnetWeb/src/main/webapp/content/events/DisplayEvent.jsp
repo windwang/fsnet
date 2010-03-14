@@ -20,6 +20,7 @@
         <tr class="authorDate">
             <td>
                 <bean:message key="events.5"/>
+                <ili:getSocialEntityInfos socialEntity="${event.creator}"/>
                 , 
                 <bean:message key="events.willoccur"/>
                 <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
@@ -70,11 +71,8 @@
 </h3>
 <logic:iterate id="subscriber" collection="${subscribers}"> 
 	<span class="tagSE"> 
-		<html:link action="/DisplayProfile">
-           	<html:param name="id" value="${subscriber.id}"/>
-               <img src="miniature/${subscriber.id}.png"/>
-           	</html:link>
-	       	<ili:getSocialEntityInfos socialEntity="${subscriber}"/>
+		<ili:getMiniature socialEntity="${subscriber}"/>
+	    <ili:getSocialEntityInfos socialEntity="${subscriber}"/>
 	</span> 
 </logic:iterate>
 </c:if>

@@ -20,10 +20,7 @@
         <c:forEach var="member" items="${membersContactsResult}">
             <tr class="content">
             	<td class="miniatureContainer">
-	               	<html:link action="/DisplayProfile">
-	               	    <html:param name="id" value="${member.id}"/>
-	               		<img src="miniature/${member.id}.png"/>
-	               	</html:link>	
+	               	<ili:getMiniature socialEntity="${member}"/>
                	</td>
                	<td>
                		<ili:getSocialEntityInfos socialEntity="${member}"/>
@@ -39,10 +36,7 @@
         <c:forEach var="member" items="${membersRequestedResult}">
             <tr class="content">
             	<td class="miniatureContainer">
-	               	<html:link action="/DisplayProfile">
-	               	    <html:param name="id" value="${member.id}"/>
-	               		<img src="miniature/${member.id}.png"/>
-	               	</html:link>	
+            		<ili:getMiniature socialEntity="${member}"/>
                	</td>
                 <td>
                 	<ili:getSocialEntityInfos socialEntity="${member}"/>
@@ -58,10 +52,7 @@
         <c:forEach var="member" items="${membersAskedResult}">
             <tr class="content">
             	<td class="miniatureContainer">
-	               	<html:link action="/DisplayProfile">
-	               	    <html:param name="id" value="${member.id}"/>
-	               		<img src="miniature/${member.id}.png"/>
-	               	</html:link>	
+            		<ili:getMiniature socialEntity="${member}"/>
                	</td>
                 <td>
                    <ili:getSocialEntityInfos socialEntity="${member}"/>
@@ -88,10 +79,7 @@
         <c:forEach var="member" items="${membersResult}">
             <tr class="content">
             	<td class="miniatureContainer">
-	               	<html:link action="/DisplayProfile">
-	               	    <html:param name="id" value="${member.id}"/>
-	               		<img src="miniature/${member.id}.png"/>
-	               	</html:link>	
+            		<ili:getMiniature socialEntity="${member}"/>
                	</td>
                 <td>
                 	<ili:getSocialEntityInfos socialEntity="${member}"/>

@@ -71,10 +71,7 @@
 					<c:forEach 	var="socialEntities"
 								items="${requestScope.interest.entities}">
 						<span class="tagSE"> 
-							<html:link action="/DisplayProfile">
-	                       		<html:param name="id" value="${socialEntities.id}"/>
-	                       		<img src="miniature/${socialEntities.id}.png"/>
-	                   		</html:link>
+							<ili:getMiniature socialEntity="${socialEntities}"/>
 	                   		<ili:getSocialEntityInfos socialEntity="${socialEntities}"/>
 						</span>
 					</c:forEach>
