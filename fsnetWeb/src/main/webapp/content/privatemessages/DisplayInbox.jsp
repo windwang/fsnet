@@ -31,10 +31,9 @@
 									<img src="miniature/${message.from.id}.png" />
 								</html:link>
 							</td>
-							<td style="width: 25%"><html:link action="/DisplayMessage">
-								<html:param name="messageId" value="${message.id}" />
-		                        ${message.from.firstName} ${message.from.name}
-		                    </html:link></td>
+							<td style="width: 25%">
+								<ili:getSocialEntityInfos socialEntity="${message.from}"/>
+		                    </td>
 							<td style="width: 50%"><html:link action="/DisplayMessage">
 								<html:param name="messageId" value="${message.id}" />
 								<span>${fn:substring(message.subject, 0,20)} : </span>
@@ -54,10 +53,9 @@
 									<img src="miniature/${message.from.id}.png" />
 								</html:link>
 							</td>
-							<td style="width: 25%"><html:link action="/DisplayMessage">
-								<html:param name="messageId" value="${message.id}" />
-		                        ${message.from.firstName} ${message.from.name}
-		                    </html:link></td>
+							<td style="width: 25%">
+								<ili:getSocialEntityInfos socialEntity="${message.from}"/>
+		                    </td>
 							<td style="width: 50%"><html:link action="/DisplayMessage">
 								<html:param name="messageId" value="${message.id}" />
 								<span>${fn:substring(message.subject, 0,20)} : </span>

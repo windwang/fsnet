@@ -47,10 +47,7 @@
                 <bean:message key="events.10"/>
                 <bean:write name="event" property="startDate" format="dd/MM/yyyy"/>,
                 <bean:message key="events.16"/>
-                <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${event.creator.id}"/>
-                    ${event.creator.firstName} ${event.creator.name}
-                </html:link>
+				<ili:getSocialEntityInfos socialEntity="${event.creator}"/>
             </td>
             <td  class="tableButton">
                 <ili:substring beginIndex="0" endIndex="30"><ili:noxml>${event.content}</ili:noxml></ili:substring>

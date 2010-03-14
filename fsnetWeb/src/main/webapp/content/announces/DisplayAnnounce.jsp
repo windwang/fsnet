@@ -11,7 +11,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
 <h3>
@@ -26,10 +26,7 @@
         <tr class="authorDate">
             <td>
                 <bean:message  key="announce.createdBy"/>
-                <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${announce.creator.id}"/>
-                    ${announce.creator.firstName} ${announce.creator.name}
-                </html:link>,
+				<ili:getSocialEntityInfos socialEntity="${announce.creator}"/>,
                 <bean:message key="announce.expiryDate"/>
                 <bean:write name="announce" property="endDate" format="dd/MM/yyyy" />
             </td>

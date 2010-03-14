@@ -8,6 +8,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
 <h3><bean:message key="hubs.hubs"/></h3>
@@ -31,10 +32,7 @@
                 <bean:message key="hubs.createdOn"/>
                 <bean:write name="hub" property="creationDate" format="dd/MM/yyyy"/>
                 <bean:message key="hubs.by"/>
-                <html:link action="/DisplayProfile">
-                    <html:param name="id" value="${hub.creator.id}"/>
-                    ${hub.creator.firstName} ${hub.creator.name}
-                </html:link>
+                <ili:getSocialEntityInfos socialEntity="${hub.creator}"/>
             </td>
             <td class="tableButton">
                 <c:if test="${sessionScope.userId eq hub.creator.id}">

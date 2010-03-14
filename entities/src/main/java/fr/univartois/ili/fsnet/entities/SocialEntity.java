@@ -34,6 +34,11 @@ public class SocialEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
+    
+    /**
+     * The social entity state
+     */
+    private boolean isEnabled;
     /**
      * The social entity name.
      */
@@ -166,6 +171,7 @@ public class SocialEntity implements Serializable {
         if (name == null || firstName == null || email == null) {
             throw new IllegalArgumentException();
         }
+        this.isEnabled = true;
         this.name = name;
         this.firstName = firstName;
         this.email = email;
@@ -200,8 +206,24 @@ public class SocialEntity implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+    
+    /**
+     * Return true if the social entity is enabled 
+     * @return true if the social entity is enabled
+     */
+    public boolean getIsEnabled() {
+		return isEnabled;
+	}
 
     /**
+     * Set the social entity as enabled or disabled
+     * @param isEnabled
+     */
+	public void setIsEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
+
+	/**
      *
      * @return the social entity name.
      */

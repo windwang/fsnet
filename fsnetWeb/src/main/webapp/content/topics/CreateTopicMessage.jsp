@@ -10,6 +10,8 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
@@ -42,7 +44,11 @@
     <bean:message key="topics.lastmessages"/> :
 	<c:forEach var="message" items="${lastMessages}">
 	
-    <div class="lastMessageOwner">${message.from.name} ${message.from.firstName} </div><div class="topicTable"> ${message.body}
+    <div class="lastMessageOwner">
+    	<ili:getSocialEntityInfos socialEntity="${message.from}"/>
+    </div>
+    <div class="topicTable"> 
+    	${message.body}
     </div>
     </c:forEach>
 

@@ -6,6 +6,30 @@
 	<tlib-version>1.0</tlib-version>
 	<short-name>ili</short-name>
 	<tag>
+		<description>Display the entity miniature</description>
+		<display-name>noxml</display-name>
+		<name>getMiniature</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.GetMiniatureTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>socialEntity</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+		<tag>
+		<description>Display the entity name and firstname</description>
+		<display-name>noxml</display-name>
+		<name>getSocialEntityInfos</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.GetSocialEntityInfosTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>socialEntity</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
 		<description>remove all XML tags from a string</description>
 		<display-name>noxml</display-name>
 		<name>noxml</name>

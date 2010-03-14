@@ -1,9 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+
 
 <c:if
     test="${empty requestScope.paginatorContacts.resultList && empty requestScope.paginatorAsked.resultList && empty requestScope.paginatorRequested.resultList}">
@@ -18,16 +21,10 @@
         <c:forEach var="contact" items="${requestScope.paginatorAsked.resultList}">
             <tr>
                 <td class="miniatureContainer">
-            		<html:link action="/DisplayProfile">
-               	    	<html:param name="id" value="${contact.id}"/>
-               			<img src="miniature/${contact.id}.png"/>
-               		</html:link>
+            		<ili:getMiniature socialEntity="${contact}"/>
             	</td>
                 <td>
-                	<html:link action="/DisplayProfile">
-                    	${contact.firstName} ${contact.name}
-                    	<html:param name="id" value="${contact.id}" />
-                    </html:link>
+                	<ili:getSocialEntityInfos socialEntity="${contact}"/>
                 </td>
                 <td class="tableButton">
                     <html:link action="/DisplayCreatePrivateMessage" styleClass="button">
@@ -59,16 +56,10 @@
         <c:forEach var="contact" items="${requestScope.paginatorContacts.resultList}">
             <tr>
                	<td class="miniatureContainer">
-               	<html:link action="/DisplayProfile">
-               	    <html:param name="id" value="${contact.id}"/>
-               		<img src="miniature/${contact.id}.png"/>
-               	</html:link>	
+               		<ili:getMiniature socialEntity="${contact}"/>
                	</td>
                 <td>
-                    <html:link action="/DisplayProfile">
-                    	${contact.firstName} ${contact.name}
-                    	<html:param name="id" value="${contact.id}" />
-                    </html:link> 
+					<ili:getSocialEntityInfos socialEntity="${contact}"/>
                 </td>
                 <td class="tableButton">
                 	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
@@ -95,16 +86,10 @@
         <c:forEach var="contact" items="${requestScope.paginatorRequested.resultList}">
             <tr>
             	<td class="miniatureContainer">
-            		<html:link action="/DisplayProfile">
-               	    	<html:param name="id" value="${contact.id}"/>
-               			<img src="miniature/${contact.id}.png"/>
-               		</html:link>
+            		<ili:getMiniature socialEntity="${contact}"/>
             	</td>
                 <td>
-                	<html:link action="/DisplayProfile">
-                    	${contact.firstName} ${contact.name}
-                    	<html:param name="id" value="${contact.id}" />
-                    </html:link>
+                	<ili:getSocialEntityInfos socialEntity="${contact}"/>
                 </td>
                 <td class="tableButton">
                   	<html:link action="/DisplayCreatePrivateMessage" styleClass="button">

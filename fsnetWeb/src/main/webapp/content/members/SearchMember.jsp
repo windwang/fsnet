@@ -2,6 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3><bean:message key="members.0"/></h3>
 <html:form action="SearchMember" method="GET">
@@ -25,12 +26,8 @@
 	               	</html:link>	
                	</td>
                	<td>
-                    <html:link action="/DisplayProfile">
-                    	${member.name} ${member.firstName}
-                    	<html:param name="id" value="${member.id}" />
-                    </html:link> 
+               		<ili:getSocialEntityInfos socialEntity="${member}"/>
                 </td>
-              
             </tr>
         </c:forEach>
     </table>
@@ -48,12 +45,8 @@
 	               	</html:link>	
                	</td>
                 <td>
-                    <html:link action="/DisplayProfile">
-                    	${member.name} ${member.firstName}
-                    	<html:param name="id" value="${member.id}" />
-                    </html:link> 
+                	<ili:getSocialEntityInfos socialEntity="${member}"/>
                 </td>
-               
             </tr>
         </c:forEach>
     </table>
@@ -71,10 +64,7 @@
 	               	</html:link>	
                	</td>
                 <td>
-                    <html:link action="/DisplayProfile">
-                    	${member.name} ${member.firstName}
-                    	<html:param name="id" value="${member.id}" />
-                    </html:link> 
+                   <ili:getSocialEntityInfos socialEntity="${member}"/>
                 </td>
                 <td class="tableButton">
                     <html:link action="/AcceptContact" styleClass="button">
@@ -104,10 +94,7 @@
 	               	</html:link>	
                	</td>
                 <td>
-                    <html:link action="/DisplayProfile">
-                    	${member.name} ${member.firstName}
-                    	<html:param name="id" value="${member.id}" />
-                    </html:link> 
+                	<ili:getSocialEntityInfos socialEntity="${member}"/>
                 </td>
                 <td class="tableButton">
                     <html:link action="/ContactDemand" styleClass="button">
