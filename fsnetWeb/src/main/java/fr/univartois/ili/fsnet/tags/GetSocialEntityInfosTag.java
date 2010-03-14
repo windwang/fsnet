@@ -16,7 +16,7 @@ public class GetSocialEntityInfosTag extends SimpleTagSupport {
 	public void doTag() throws JspException, IOException {
 		JspWriter out = getJspContext().getOut();
 		if (socialEntity.getIsEnabled()) {
-			out.print("<a href=\"DisplayProfile.do?id=/");
+			out.print("<a href=\"DisplayProfile.do?id=");
 			out.print(socialEntity.getId());
 			out.print("\">");
 		}
