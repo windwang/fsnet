@@ -31,6 +31,10 @@
 
 #loggedUsers {width: 210px;}
 
+#contactsAsked {
+	float: left;	
+}
+
 #lastVisits {
 	float: right;
 	width: 48%;	

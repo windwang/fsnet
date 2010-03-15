@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -84,14 +85,29 @@ public class Home extends MappingDispatchAction {
 			HttpServletResponse response, EntityManager em,
 			SocialEntity authenticatedUser) throws IOException,
 			ServletException {
-		SocialEntityFacade facade = new SocialEntityFacade(em);
-		Set<SocialEntity> setContacts = facade.searchSocialEntity("",authenticatedUser).get(SearchResult.Others);
-		List<SocialEntity> contacts = new ArrayList<SocialEntity>( setContacts );
-		Collections.shuffle(contacts);
-		if(contacts.size()>5){
-			contacts = contacts.subList(0,5);
+		HttpSession session = request.getSession();
+		int numNewContactRequests = (Integer) session.getAttribute("numNewContactsRequests");
+		if (numNewContactRequests > 0) {
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			List<SocialEntity> socialEntities;
+			if (user.getAsked().size() > 5) {
+				socialEntities = new ArrayList<SocialEntity>(5);
+				socialEntities = user.getAsked().subList(0, 5);
+			} else {
+				socialEntities = user.getAsked();
+			}
+			session.setAttribute("contactsAsked", socialEntities);
+		} else {
+			SocialEntityFacade facade = new SocialEntityFacade(em);
+			Set<SocialEntity> setContacts = facade.searchSocialEntity("",authenticatedUser).get(SearchResult.Others);
+			List<SocialEntity> contacts = new ArrayList<SocialEntity>( setContacts );
+			Collections.shuffle(contacts);
+			if(contacts.size()>5){
+				contacts = contacts.subList(0,5);
+			}
+			request.setAttribute("contacts", contacts);
 		}
-		request.setAttribute("contacts", contacts);
+		
 	}
 
 	public ActionForward doDashboard(ActionMapping mapping, ActionForm form,
