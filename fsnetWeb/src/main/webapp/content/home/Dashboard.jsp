@@ -89,37 +89,63 @@
 </table>
 
 <div class="clear homeGap"></div>
-
-<table id="contactProposals" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="DashBoard.contactProposals.title"/></caption>
-    <logic:empty name="contacts">
-        <tr>
-            <td>
-                <bean:message key="DashBoard.noContacts"/>.
-            </td>
-        </tr>
-    </logic:empty>
-    <logic:notEmpty name="contacts">
-        <c:forEach var="contact" items="${contacts}">
+<c:choose>
+	<c:when test="${sessionScope.numNewContactsRequests gt 0}">
+		<table id="contactsAsked" class="inLineTableDashBoard homeFrame">
+	    <caption><bean:message key="DashBoard.contactsAsked.title"/></caption>
+        <c:forEach var="contact" items="${contactsAsked}">
             <tr>
-                <td class="messagePhoto">
-                	<ili:getMiniature socialEntity="${contact}"/>
-                </td>
+                <td class="miniatureContainer">
+            		<ili:getMiniature socialEntity="${contact}"/>
+            	</td>
                 <td>
-					<ili:getSocialEntityInfos socialEntity="${contact}"/>
+                	<ili:getSocialEntityInfos socialEntity="${contact}"/>
                 </td>
-                <td class="tableButton"> 
-                    <html:link action="/ContactDemand" styleClass="button">
-                   	 	<html:param name="entitySelected" value="${contact.id}"/>
-                    	<bean:message key="DashBoard.askContact"/>
-                	</html:link>
-                </td>
+                <td class="tableButton">
+                	<html:link action="/AcceptContact" styleClass="button">
+                        <html:param name="entityAccepted" value="${contact.id}" />
+                        <bean:message key="contact.accept" />
+                    </html:link> <html:link action="/RefuseContact" styleClass="button">
+                        <html:param name="entityRefused" value="${contact.id}" />
+                        <bean:message key="contact.refuse" />
+                    </html:link>
+				</td>
             </tr>
         </c:forEach>
 
-    </logic:notEmpty>
-</table>
-
+    </table>
+	</c:when>
+	<c:otherwise>
+		<table id="contactProposals" class="inLineTableDashBoard homeFrame">
+		    <caption><bean:message key="DashBoard.contactProposals.title"/></caption>
+		    <logic:empty name="contacts">
+		        <tr>
+		            <td>
+		                <bean:message key="DashBoard.noContacts"/>.
+		            </td>
+		        </tr>
+		    </logic:empty>
+		    <logic:notEmpty name="contacts">
+		        <c:forEach var="contact" items="${contacts}">
+		            <tr>
+		                <td class="messagePhoto">
+		                	<ili:getMiniature socialEntity="${contact}"/>
+		                </td>
+		                <td>
+							<ili:getSocialEntityInfos socialEntity="${contact}"/>
+		                </td>
+		                <td class="tableButton"> 
+		                    <html:link action="/ContactDemand" styleClass="button">
+		                   	 	<html:param name="entitySelected" value="${contact.id}"/>
+		                    	<bean:message key="DashBoard.askContact"/>
+		                	</html:link>
+		                </td>
+		            </tr>
+		        </c:forEach>
+		    </logic:notEmpty>
+		</table>
+	</c:otherwise>
+</c:choose>
 <table id="interestProposals" class="inLineTableDashBoard homeFrame">
     <caption><bean:message key="DashBoard.interestProposals.title"/></caption>
     <logic:empty name="interests">
