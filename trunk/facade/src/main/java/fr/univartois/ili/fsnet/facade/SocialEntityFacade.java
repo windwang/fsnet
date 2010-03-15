@@ -103,28 +103,28 @@ public class SocialEntityFacade {
 
 			query = em.createQuery(
 					"SELECT es FROM SocialEntity es WHERE (es.name LIKE :searchText"
-					+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText) AND es.id <> :id", SocialEntity.class);
+					+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText) AND es.id <> :id AND es.isEnabled = true", SocialEntity.class);
 			query.setParameter("searchText", "%" + searchText + "%");
 			query.setParameter("id", socialEntity.getId());
 			resultOthers.addAll(query.getResultList());
 
 			queryContacts = em.createQuery(
 					"SELECT e FROM SocialEntity e JOIN e.contacts c WHERE c.id = :id AND (e.name LIKE :searchText"
-					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
+					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
 			queryContacts.setParameter("searchText", "%" + searchText + "%");
 			queryContacts.setParameter("id", socialEntity.getId());
 			resultContacts.addAll(queryContacts.getResultList());
 
 			queryRequested = em.createQuery(
 					"SELECT e FROM SocialEntity e JOIN e.asked r WHERE r.id = :id AND (e.name LIKE :searchText"
-					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
+					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
 			queryRequested.setParameter("searchText", "%" + searchText + "%");
 			queryRequested.setParameter("id", socialEntity.getId());
 			resultRequested.addAll(queryRequested.getResultList());
 
 			queryAsked = em.createQuery(
 					"SELECT e FROM SocialEntity e JOIN e.requested r WHERE r.id = :id AND (e.name LIKE :searchText"
-					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText)", SocialEntity.class);
+					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
 			queryAsked.setParameter("searchText", "%" + searchText + "%");
 			queryAsked.setParameter("id", socialEntity.getId());
 			resultAsked.addAll(queryAsked.getResultList());
