@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.facade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -207,15 +208,17 @@ public class InterestFacade {
 	 *         social entity does not own
 	 */
 	public final List<Interest> getOtherInterests(SocialEntity socialEntity) {
+		Logger.getAnonymousLogger().info("Entering GET OTHER INTEREST");
 		TypedQuery<Interest> query = em
 				.createQuery(
 						"SELECT interest, COUNT(contact) AS nbContacts "
-								+ "FROM SocialEntity soc, IN(soc.contacts) contact, "
+								+ "FROM SocialEntity soc LEFT JOIN FETCH soc.interests, IN(soc.contacts) contact, "
 								+ "IN(contact.interests) interest "
 								+ "WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests "
 								+ "GROUP BY interest ORDER BY nbContacts DESC",
 						Interest.class);
 		query.setParameter("socialEntity", socialEntity);
+		Logger.getAnonymousLogger().info("Quiting GET OTHER INTEREST with "+query.getResultList());
 		return query.getResultList();
 	}
 
