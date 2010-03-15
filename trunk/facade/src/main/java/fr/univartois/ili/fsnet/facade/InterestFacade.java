@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.facade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -207,19 +206,31 @@ public class InterestFacade {
 	 * @return the list of all interests of social entity's contacts that the
 	 *         social entity does not own
 	 */
-	public final List<Interest> getOtherInterests(SocialEntity socialEntity) {
-		Logger.getAnonymousLogger().info("Entering GET OTHER INTEREST");
-		TypedQuery<Interest> query = em
-				.createQuery(
-						"SELECT interest, COUNT(contact) AS nbContacts "
-								+ "FROM SocialEntity soc LEFT JOIN FETCH soc.interests, IN(soc.contacts) contact, "
-								+ "IN(contact.interests) interest "
-								+ "WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests "
-								+ "GROUP BY interest ORDER BY nbContacts DESC",
-						Interest.class);
-		query.setParameter("socialEntity", socialEntity);
-		Logger.getAnonymousLogger().info("Quiting GET OTHER INTEREST with "+query.getResultList());
-		return query.getResultList();
+	public final List<Interest> getOtherInterests(SocialEntity socialEntity){
+		List<Pair> whole = em.createQuery(
+				"SELECT interest, COUNT(contact) AS nbContacts " +
+				"FROM SocialEntity soc LEFT JOIN FETCH soc.interests, IN(soc.contacts) contact, " +
+				"IN(contact.interests) interest " +
+				"WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests " +
+				"GROUP BY interest ORDER BY nbContacts DESC",Pair.class)
+				.setParameter("socialEntity", socialEntity).getResultList();
+		List<Interest> listAllInterests = new ArrayList<Interest>(whole.size());
+		for (Object pair : whole) {
+			listAllInterests.add((Interest)((Object[])pair)[0]);
+		}
+		return listAllInterests;
+	}
+
+	class Pair {
+		public final Interest interest;
+		public final long count;
+		public Pair(Interest interest,long count) {
+			this.interest = interest;
+			this.count = count;
+		}
+		public long getCount() {
+			return count;
+		}
 	}
 
 	/**
