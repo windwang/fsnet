@@ -46,18 +46,20 @@ public class FSNetConfiguration {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		Property property;
 		property = em.find(Property.class, ENABLE_AUTHENTICATION_KEY);
-		if (property != null && Boolean.valueOf(property.getValue())) {
+		if (property != null) {
 			properties.put(ENABLE_AUTHENTICATION_KEY, property.getValue());
-			property = em.find(Property.class, SMTP_USER_KEY);
-			if (property == null) {
-				throw new IllegalStateException();
+			if (Boolean.valueOf(property.getValue())) {
+				property = em.find(Property.class, SMTP_USER_KEY);
+				if (property == null) {
+					throw new IllegalStateException();
+				}
+				properties.put(SMTP_USER_KEY, property.getValue());
+				property = em.find(Property.class, SMTP_PASSWORD_KEY);
+				if (property == null) {
+					throw new IllegalStateException();
+				}
+				properties.put(SMTP_PASSWORD_KEY, property.getValue());
 			}
-			properties.put(SMTP_USER_KEY, property.getValue());
-			property = em.find(Property.class, SMTP_PASSWORD_KEY);
-			if (property == null) {
-				throw new IllegalStateException();
-			}
-			properties.put(SMTP_PASSWORD_KEY, property.getValue());
 		}
 		property = em.find(Property.class, MAIL_FROM_KEY);
 		if (property != null) {
