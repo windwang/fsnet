@@ -94,7 +94,7 @@
 		<table id="contactsAsked" class="inLineTableDashBoard homeFrame">
 	    <caption><bean:message key="DashBoard.contactsAsked.title"/></caption>
         <c:forEach var="contact" items="${contactsAsked}">
-            <tr>
+            <tr class="notReed">
                 <td class="miniatureContainer">
             		<ili:getMiniature socialEntity="${contact}"/>
             	</td>

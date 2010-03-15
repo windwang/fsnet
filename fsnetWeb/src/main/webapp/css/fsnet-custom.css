@@ -147,6 +147,8 @@
     background-color: #505050;
     color: #DDDDDD;
     padding: 2px 6px 2px 6px;
+    font-weight: normal;
+    font-style: normal;
 }
 
 .select{
