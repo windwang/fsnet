@@ -174,7 +174,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-			pattern = (String) dynaForm.get("searchText");
+			pattern = (String) dynaForm.get("searchCommunityText");
 
 		}
 		em.getTransaction().begin();
