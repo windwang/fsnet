@@ -28,9 +28,9 @@
 	                </html:link>
             	</td>
                 <td class="tableButton">
-                    <html:link action="/Communities.do" styleClass="button" onclick="confirmDelete('DeleteCommunity.do?communityId='+${community.id})">
+                    <a class="button" onclick="confirmDelete('DeleteCommunity.do?communityId='+${community.id})">
                         <bean:message key="communities.delete"/>
-                    </html:link>
+                    </a>
             	</td>
             </tr>
         </c:forEach>
