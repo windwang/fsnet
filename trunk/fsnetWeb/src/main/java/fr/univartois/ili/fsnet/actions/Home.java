@@ -86,8 +86,8 @@ public class Home extends MappingDispatchAction {
 			SocialEntity authenticatedUser) throws IOException,
 			ServletException {
 		HttpSession session = request.getSession();
-		int numNewContactRequests = (Integer) session.getAttribute("numNewContactsRequests");
-		if (numNewContactRequests > 0) {
+		Integer numNewContactRequests = (Integer) session.getAttribute("numNewContactsRequests");
+		if (numNewContactRequests!=null && numNewContactRequests > 0) {
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 			List<SocialEntity> socialEntities;
 			if (user.getAsked().size() > 5) {
