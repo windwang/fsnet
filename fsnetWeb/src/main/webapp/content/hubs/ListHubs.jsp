@@ -31,7 +31,7 @@
                 <c:import url="/FavoriteFragment.do">
                     <c:param name="interactionId" value="${hub.id}"/>
                 </c:import>
-                <html:link action="/DisplayHub">
+                <html:link action="/DisplayHub" title="${empty hub.interests?\"\":hub.interests}">
                     <html:param name="hubId" value="${hub.id}"/>
                     ${hub.title}
                 </html:link>
