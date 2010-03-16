@@ -31,13 +31,13 @@ public class WSControl {
     }
 
     /**
-     * Ping the webservice to check if there are news.
+     * Ping the webservice to checkWS if there are news.
      */
     public void checkWS() {
         model.checkWS();
     }
     
     public void check(Point position){
-    	model.check(position);
+    	model.checkWS(position);
     }
 }
