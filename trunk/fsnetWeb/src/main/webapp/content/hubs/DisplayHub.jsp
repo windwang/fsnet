@@ -12,6 +12,17 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
+<h3>
+    <c:import url="/FavoriteFragment.do">
+        <c:param name="interactionId" value="${hubResult.id}"/>
+    </c:import>
+
+    <bean:write name="hubResult" property="title" />
+</h3>
+
+<c:set var="theInteraction" value="${hubResult}" scope="request"/>
+<jsp:include page="/content/interactions/LargeInteractionInfo.jsp" />
+<div class="clear"></div>
 
 <h3><bean:message key="hubs.searchTopic"/></h3>
 <table>
@@ -26,17 +37,17 @@
 </table>
 
 <h3>
-	<html:link action="/DisplayCommunity">
-		<html:param name="communityId" value="${hubResult.community.id}"/>
-		${hubResult.community.title}
-	</html:link>
+    <html:link action="/DisplayCommunity">
+        <html:param name="communityId" value="${hubResult.community.id}"/>
+        ${hubResult.community.title}
+    </html:link>
 	-&gt;
-	<html:link action="/DisplayHub">
+    <html:link action="/DisplayHub">
         <html:param name="hubId" value="${hubResult.id}"/>
         ${hubResult.title}
     </html:link>
 	-&gt;
-	<bean:message key="hubs.topics"/>
+    <bean:message key="hubs.topics"/>
 </h3>
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
