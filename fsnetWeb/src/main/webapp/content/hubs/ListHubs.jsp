@@ -9,6 +9,7 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <h3>
@@ -31,10 +32,12 @@
                 <c:import url="/FavoriteFragment.do">
                     <c:param name="interactionId" value="${hub.id}"/>
                 </c:import>
-                <html:link action="/DisplayHub" title="${empty hub.interests?\"\":hub.interests}">
+                <html:link action="/DisplayHub" title='${empty hub.interests? "" : hub.interests}'>
                     <html:param name="hubId" value="${hub.id}"/>
                     ${hub.title}
                 </html:link>
+
+                (${fn:length(hub.topics)} topics)
             </th>
             <td>
                 <bean:message key="hubs.createdOn"/>

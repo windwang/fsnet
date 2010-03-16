@@ -3,6 +3,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <h3><bean:message key="communities.listYourCommunities"/></h3>
 
@@ -19,6 +20,7 @@
                             <html:param name="communityId" value="${community.id}"/>
                             ${community.title}
                         </html:link>
+                        (${fn:length(community.hubs)} hubs)
                     </td>
                     <td>
                         <bean:message key="communities.by"/>
