@@ -15,7 +15,7 @@
                         <c:import url="/FavoriteFragment.do">
                             <c:param name="interactionId" value="${community.id}"/>
                         </c:import>
-                        <html:link action="/DisplayCommunity">
+                        <html:link action="/DisplayCommunity" title="${empty community.interests?\"\":community.interests}">
                             <html:param name="communityId" value="${community.id}"/>
                             ${community.title}
                         </html:link>
