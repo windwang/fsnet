@@ -65,7 +65,7 @@ public class CommunityFacade {
         if (pattern == null) {
             throw new IllegalArgumentException();
         }
-        TypedQuery<Community> query = em.createQuery("SELECT community FROM Community community LEFT JOIN FETCH community.interests WHERE community.title LIKE :pattern", Community.class);
+        TypedQuery<Community> query = em.createQuery("SELECT community FROM Community community WHERE community.title LIKE :pattern", Community.class);
         query.setParameter("pattern", "%" + pattern + "%");
         return query.getResultList();
     }
