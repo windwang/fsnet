@@ -11,7 +11,16 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<h3><bean:message key="hubs.hubs"/></h3>
+<h3>
+	<c:if test="${not empty requestScope.Community}">
+		<html:link action="/DisplayCommunity">
+			<html:param name="communityId" value="${requestScope.Community.id}"/>
+			${requestScope.Community.title}
+		</html:link>
+	</c:if>
+	-&gt;
+	<bean:message key="hubs.hubs"/>
+</h3>
 <c:if test="${empty requestScope.listHubPaginator.resultList}">
     <bean:message key="hubs.hubNotFound"/>
 </c:if>

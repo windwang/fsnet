@@ -106,6 +106,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		Paginator<Hub> paginator = new Paginator<Hub>(resultHubs, request, "hubList", "communityId");
 		
 		request.setAttribute("listHubPaginator", paginator);
+		request.setAttribute("Community", result);
 		return mapping.findForward("success");
 	}
 

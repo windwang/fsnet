@@ -15,7 +15,23 @@
     <c:import url="/FavoriteFragment.do">
         <c:param name="interactionId" value="${requestScope.topic.id}"/>
     </c:import>
-    ${requestScope.topic.title} : Messages </h3>
+    <html:link action="/DisplayCommunity">
+		<html:param name="communityId" value="${requestScope.topic.hub.community.id}"/>
+		${requestScope.topic.hub.community.title}
+	</html:link>
+	-&gt;
+	<html:link action="/DisplayHub">
+        <html:param name="hubId" value="${requestScope.topic.hub.id}"/>
+        ${requestScope.topic.hub.title}
+    </html:link>
+	-&gt;
+	<html:link action="/DisplayTopic">
+		<html:param name="topicId" value="${requestScope.topic.id}"/>
+		${requestScope.topic.title}
+	</html:link>
+	-&gt;
+	Messages
+</h3>
 
 <c:forEach var="msg" items="${requestScope.topicMessageDisplayPaginator.resultList}">
     <table class="topicTable">

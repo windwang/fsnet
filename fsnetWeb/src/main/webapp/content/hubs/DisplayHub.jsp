@@ -25,7 +25,19 @@
     </html:form>
 </table>
 
-<h3><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="hubs.topics"/></h3>
+<h3>
+	<html:link action="/DisplayCommunity">
+		<html:param name="communityId" value="${hubResult.community.id}"/>
+		${hubResult.community.title}
+	</html:link>
+	-&gt;
+	<html:link action="/DisplayHub">
+        <html:param name="hubId" value="${hubResult.id}"/>
+        ${hubResult.title}
+    </html:link>
+	-&gt;
+	<bean:message key="hubs.topics"/>
+</h3>
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
 </logic:empty>
