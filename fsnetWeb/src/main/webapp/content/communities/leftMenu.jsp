@@ -6,11 +6,6 @@
 </h2>
 <ul>
     <li>
-        <html:link action="/DisplayCreateCommunity">
-       		<bean:message key="communities.createLeftMenu"/>
-        </html:link>
-    </li>
-    <li>
         <html:link action="/DisplayCommunities">
 			 <bean:message key="communities.manageLeftMenu"/>
         </html:link>

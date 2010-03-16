@@ -25,7 +25,7 @@
 		</form-bean>
 		<form-bean name="SearchYourCommunitiesForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="searchText" type="java.lang.String" />
+			<form-property name="searchCommunityText" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
 	<global-forwards>
@@ -69,7 +69,7 @@
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
 			name="SearchYourCommunitiesForm" input="UnauthorizedOperationException" scope="request" validate="false"
 			parameter="searchYourCommunities">
-			<forward name="success" path="DisplayYourCommunities" />
+			<forward name="success" path="Communities" />
 		</action>
 		<action path="/DeleteYourCommunity" 
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
@@ -80,7 +80,12 @@
 		<action path="/Communities"
 				type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
 				parameter="search">
-			<forward name="success" path="Communities" />		
+			<forward name="success" path="/YourCommunities.do" />		
 		</action>	
+		<action path="/YourCommunities"
+				type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
+				parameter="searchYourCommunities">
+			<forward name="success" path="Communities" />		
+		</action>
 	</action-mappings>
 </struts-config>
