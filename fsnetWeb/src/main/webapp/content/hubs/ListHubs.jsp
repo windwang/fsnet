@@ -12,10 +12,9 @@
 
 
 <h3><bean:message key="hubs.hubs"/></h3>
-<c:set var="hub" value="${requestScope.listHubPaginator.resultList}"/>
-<logic:empty name="hub">
+<c:if test="${empty requestScope.listHubPaginator.resultList}">
     <bean:message key="hubs.hubNotFound"/>
-</logic:empty>
+</c:if>
 <table class="inLineTable">
     <c:forEach var="hub" items="${requestScope.listHubPaginator.resultList}">
         <tr>
