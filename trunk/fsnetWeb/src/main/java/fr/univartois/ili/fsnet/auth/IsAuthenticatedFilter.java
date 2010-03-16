@@ -26,18 +26,24 @@ public class IsAuthenticatedFilter implements Filter {
 	/**
 	 * Verify if the current user is authenticated
 	 */
-	public void doFilter(final ServletRequest request,
+	public void doFilter(final ServletRequest req,
 			final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 		HttpSession session;
 		
 		RequestDispatcher dispatch;
-
-		session = ((HttpServletRequest) request).getSession(); // NOSONAR
+		HttpServletRequest request = (HttpServletRequest) req;
+		session = request.getSession(); // NOSONAR
 		Integer userId = (Integer) session
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
 
 		if (userId == null) {
+			//Reconstruct the requested url and store it in the session 
+			StringBuffer requestedURL = ((HttpServletRequest)request).getRequestURL();
+			requestedURL.append('?');
+			requestedURL.append(request.getQueryString());
+			session.setAttribute("requestedURL", requestedURL.toString());
+			
 			dispatch = servletContext
 					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatch.forward(request, response);
