@@ -10,11 +10,12 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <h3><bean:message key="hubs.search"/></h3>
 <html:form action="/SearchYourHubs" method="GET">
-	<html:hidden property="communityId" value="${param.communityId}"/>
+    <html:hidden property="communityId" value="${param.communityId}"/>
     <table id="SearchHub">
         <tr>
             <td>
@@ -46,6 +47,7 @@
                     <html:param name="hubId" value="${hub.id}"/>
                     ${hub.title}
                 </html:link>
+                (${fn:length(hub.topics)} topics)
             </th>
             <td>
                 <bean:message key="hubs.createdOn"/>

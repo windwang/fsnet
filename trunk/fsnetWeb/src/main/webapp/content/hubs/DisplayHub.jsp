@@ -10,6 +10,7 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <h3>
@@ -54,17 +55,19 @@
 </logic:empty>
 <table class="inLineTable" style="margin-bottom: 20px;">
     <c:forEach var="couple" items="${topicsLastMessage}">
+        <c:set var="theTopic" value="${couple.key}"/>
         <tr>
             <td>
                 <c:import url="/FavoriteFragment.do">
-                    <c:param name="interactionId" value="${couple.key.id}"/>
+                    <c:param name="interactionId" value="${theTopic.id}"/>
                 </c:import>
             </td>
             <td>
                 <html:link action="/DisplayTopic">
-                    <html:param name="topicId" value="${couple.key.id}"/>
-                    ${couple.key.title}
+                    <html:param name="topicId" value="${theTopic.id}"/>
+                    ${theTopic.title}
                 </html:link>
+                (${fn:length(theTopic.messages)} messages)
                 <br/>
                 <bean:message key="hubs.createdOn"/>
                 <bean:write name="hubResult" property="creationDate" format="dd/MM/yyyy"/>
