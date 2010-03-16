@@ -102,7 +102,10 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		List<Hub> resultHubs = hubFacade.searchHub("", result);
 		em.getTransaction().commit();
 		em.close();
-		request.setAttribute("hubResults", resultHubs);
+		
+		Paginator<Hub> paginator = new Paginator<Hub>(resultHubs, request, "hubList", "communityId");
+		
+		request.setAttribute("listHubPaginator", paginator);
 		return mapping.findForward("success");
 	}
 
