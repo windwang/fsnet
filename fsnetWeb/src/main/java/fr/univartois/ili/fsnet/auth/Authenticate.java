@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -63,7 +64,14 @@ public class Authenticate extends HttpServlet {
 
 		if (authenticated) {
 			// the user is now authenticated
-			resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
+			HttpSession session = req.getSession(true);
+			String lastRequestedURL = (String) session.getAttribute("requestedURL");
+			if (lastRequestedURL != null) {
+				resp.sendRedirect(lastRequestedURL);
+				session.removeAttribute("requestedURL");
+			} else {
+				resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);	
+			}
 			em.getTransaction().begin();
 			SocialEntity user;
 			user = em.find(SocialEntity.class, es.getId());
