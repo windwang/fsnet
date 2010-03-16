@@ -71,6 +71,9 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 			em.close();
 
 		}
+		
+		dynaForm.set("name", "");
+		
 		return mapping.findForward("success");
 		
 	}

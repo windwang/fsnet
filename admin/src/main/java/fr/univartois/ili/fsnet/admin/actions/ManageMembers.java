@@ -87,6 +87,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		}
 		em.close();
 		
+		dynaForm.set("name", "");
+		dynaForm.set("firstName", "");
+		dynaForm.set("email", "");
+		
 		return mapping.findForward("success");
 	}
 
