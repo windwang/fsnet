@@ -23,6 +23,16 @@
     font-size: 120%;
 }
 
+.otag {
+    padding : 2px;
+    float : left;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: #AF1515 2px dashed;
+    background-color: #FF9E9E;
+}
+
 #body-content {
     float: left;
     width: 75%;

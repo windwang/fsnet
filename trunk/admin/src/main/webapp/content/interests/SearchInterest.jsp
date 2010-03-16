@@ -14,6 +14,6 @@
       <html:submit styleClass="button"/>
 </html:form>
 
-<logic:present name="interestResult" scope="request">
+<logic:present name="interestSearchPaginator" scope="request">
 	<jsp:include page="/content/interests/ResultInterest.jsp"/>
 </logic:present>

@@ -22,6 +22,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
@@ -162,7 +163,9 @@ public class ManageInterests extends MappingDispatchAction implements
 		List<Interest> result = facade.searchInterest(interestName);
 		em.close();
 
-		request.setAttribute("interestResult", result);
+		Paginator<Interest> paginator = new Paginator<Interest>(result, request, 25, "search");
+		
+		request.setAttribute("interestSearchPaginator", paginator);
 
 		return mapping.findForward("success");
 	}
@@ -177,8 +180,12 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		List<Interest> listAllInterests = facade.getInterests();
 		em.close();
-		request.setAttribute("allInterests", listAllInterests);
-
+		
+		Paginator<Interest> paginator = new Paginator<Interest>(listAllInterests, request, 25, "search");
+		
+		request.setAttribute("interestSearchPaginator", paginator);
+		request.setAttribute("allInterests", listAllInterests);		
+		
 		return mapping.findForward("success");
 	}
 
