@@ -12,12 +12,12 @@
 
 
 <h3><bean:message key="hubs.hubs"/></h3>
-<c:set var="hub" value="${hubResults}"/>
+<c:set var="hub" value="${requestScope.listHubPaginator.resultList}"/>
 <logic:empty name="hub">
     <bean:message key="hubs.hubNotFound"/>
 </logic:empty>
 <table class="inLineTable">
-    <c:forEach var="hub" items="${hubResults}">
+    <c:forEach var="hub" items="${requestScope.listHubPaginator.resultList}">
         <tr>
             <th>
                 <c:import url="/FavoriteFragment.do">
@@ -44,3 +44,7 @@
         </tr>
     </c:forEach>
 </table>
+<c:set var="paginatorInstance" value="${requestScope.listHubPaginator}" scope="request"/>
+<c:set var="paginatorAction" value="/DisplayCommunity" scope="request"/>
+<c:set var="paginatorTile" value="hubList" scope="request"/>
+<c:import url="/content/pagination/Pagination.jsp"/>
