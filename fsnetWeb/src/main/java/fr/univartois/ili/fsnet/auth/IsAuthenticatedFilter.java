@@ -30,7 +30,7 @@ public class IsAuthenticatedFilter implements Filter {
 			final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
 		HttpSession session;
-		
+
 		RequestDispatcher dispatch;
 		HttpServletRequest request = (HttpServletRequest) req;
 		session = request.getSession(); // NOSONAR
@@ -38,12 +38,15 @@ public class IsAuthenticatedFilter implements Filter {
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
 
 		if (userId == null) {
-			//Reconstruct the requested url and store it in the session 
-			StringBuffer requestedURL = ((HttpServletRequest)request).getRequestURL();
-			requestedURL.append('?');
-			requestedURL.append(request.getQueryString());
+			// Reconstruct the requested url and store it in the session
+			StringBuffer requestedURL = ((HttpServletRequest) request)
+					.getRequestURL();
+			if (request.getQueryString() != null) {
+				requestedURL.append('?');
+				requestedURL.append(request.getQueryString());
+			}
 			session.setAttribute("requestedURL", requestedURL.toString());
-			
+
 			dispatch = servletContext
 					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatch.forward(request, response);
@@ -60,5 +63,6 @@ public class IsAuthenticatedFilter implements Filter {
 	}
 
 	@Override
-	public void destroy() {}
+	public void destroy() {
+	}
 }
