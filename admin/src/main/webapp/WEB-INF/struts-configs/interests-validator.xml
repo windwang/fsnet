@@ -10,10 +10,14 @@
             <field property="parentInterestId" depends="integer">
                 <arg key="error.interest.id.modified" />
             </field>
-            <field property="modifiedInterestName" depends="required,mask">
+            <field property="modifiedInterestName" depends="required,mask,maxlength">
 		        <var>
 		        	<var-name>mask</var-name>
-		        	<var-value>^[\w]([\ |']?[\w]+)*$</var-value>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>30</var-value>
 		        </var>
 				<arg key="error.interest.name.modified" />
             </field>
@@ -24,10 +28,14 @@
             </field>
         </form>
         <form name="/CreateInterest">
-            <field property="createdInterestName" depends="required,mask">
+            <field property="createdInterestName" depends="required,mask,maxlength">
 		        <var>
 		        	<var-name>mask</var-name>
-		        	<var-value>^[\w]([\ |']?[\w]+)*$</var-value>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>30</var-value>
 		        </var>
 				<arg key="error.interest.create" />
             </field>

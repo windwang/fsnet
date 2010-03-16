@@ -9,11 +9,27 @@
             </field>
         </form>
         <form name="/CreateMember">
-            <field property="name" depends="required">
+            <field property="name" depends="required,mask,maxlength">
                 <arg key="members.error.name" />
+                <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>30</var-value>
+		        </var>
             </field>
-              <field property="firstName" depends="required">
+              <field property="firstName" depends="required,mask,maxlength">
                 <arg key="members.error.firstName" />
+                <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>30</var-value>
+		        </var>
             </field>
               <field property="email" depends="required,email">
                 <arg key="members.error.mail" />
@@ -21,11 +37,27 @@
         </form>
         
         <form name="/ModifyMember">
-            <field property="name" depends="required">
+            <field property="name" depends="required,mask,maxlength">
                 <arg key="members.error.name" />
+                <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>30</var-value>
+		        </var>
             </field>
-              <field property="firstName" depends="required">
+              <field property="firstName" depends="required,mask,maxlength">
                 <arg key="members.error.firstName" />
+                <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>30</var-value>
+		        </var>
             </field>
               <field property="email" depends="required,email">
                 <arg key="members.error.mail" />
@@ -33,15 +65,19 @@
             <field property="sexe" depends="">
                 <arg key="error.updateProfile.sexe" />
             </field>  
-            <field property="job" depends="mask">
+            <field property="job" depends="mask,maxlength">
                 <arg key="error.updateProfile.job" />
                 <msg name="mask"
                  	key="error.updateProfile.maskword"/>
 			    <arg0 key="error.updateProfile.job"/>
 			    <var>
-			        <var-name>mask</var-name>
-			        <var-value>^[\w]+([\-\' ][\w]+)*$</var-value>
-			    </var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>30</var-value>
+		        </var>
             </field>  
             <field property="phone" depends="mask">
                 <arg key="error.updateProfile.phone" />
@@ -53,8 +89,16 @@
 			        <var-value>^[0-9]+$</var-value>
 			    </var>
             </field> 
-            <field property="city" depends="">
+            <field property="city" depends="mask,maxlength">
             	<arg key="members.error.city" />
+            	<var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>30</var-value>
+		        </var>
             </field>
         </form>
     </formset>
