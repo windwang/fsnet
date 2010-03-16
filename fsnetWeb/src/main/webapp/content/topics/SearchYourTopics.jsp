@@ -63,10 +63,9 @@
             </td>
             <c:if test="${sessionScope.userId eq couple.key.creator.id}">
                 <td class="tableButton">
-                    <html:link action="/DisplayYourTopics" styleClass="button" onclick="confirmDelete('DeleteYourTopic.do?topicId='+${couple.key.id}+'&hubId='+${hubResult.id})">
-                        <html:param name="hubId" value="${hubResult.id}"/>
+                    <a class="button" onclick="confirmDelete('DeleteYourTopic.do?topicId='+${couple.key.id}+'&hubId='+${hubResult.id})">
                         <bean:message key="hubs.deleteTopic"/>
-                    </html:link>
+                    </a>
                 </td>
             </c:if>
         </tr>
