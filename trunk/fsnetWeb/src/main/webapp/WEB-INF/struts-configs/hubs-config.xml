@@ -41,9 +41,9 @@
             <forward name="success" path="/DisplayCommunity.do" />
         </action>
         <action path="/SearchHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
-                name="SearchHubForm" input="Hubs" scope="request" validate="false"
+                name="SearchHubForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="search">
-            <forward name="success" path="/DisplayCommunity.do" />
+            <forward name="success" path="Hubs" />
         </action>
         <action path="/DeleteHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
                 name="DeleteHubForm" input="UnauthorizedOperationException" scope="request" validate="true"
@@ -69,7 +69,7 @@
             <forward name="success" path="DisplayYourHubs" />
         </action>
         <action path="/SearchYourHubs" type="fr.univartois.ili.fsnet.actions.ManageHub"
-                name="SearchYourHubsForm" input="UnauthorizedOperationException" scope="request" validate="false"
+                name="SearchYourHubsForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="searchYourHubs">
             <forward name="success" path="DisplayYourHubs" />
         </action>

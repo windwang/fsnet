@@ -91,23 +91,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String communityId = (String) dynaForm.get("communityId");
-
-		EntityManager em = PersistenceProvider.createEntityManager();
-		em.getTransaction().begin();
-		CommunityFacade communityFacade = new CommunityFacade(em);
-		Community result = communityFacade.getCommunity(Integer.parseInt(communityId));
-		HubFacade hubFacade = new HubFacade(em);
-		List<Hub> resultHubs = hubFacade.searchHub("", result);
-		em.getTransaction().commit();
-		em.close();
-		
-		Paginator<Hub> paginator = new Paginator<Hub>(resultHubs, request, "hubList", "communityId");
-		
-		request.setAttribute("listHubPaginator", paginator);
-		request.setAttribute("Community", result);
-		return mapping.findForward("success");
+		throw new UnsupportedOperationException("Not supported yet");
 	}
 
 	@Override

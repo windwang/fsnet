@@ -23,6 +23,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
@@ -140,10 +141,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		List<Hub> result = hubFacade.searchHub(hubName,community);
 		em.getTransaction().commit();
 		em.close();
+		Paginator<Hub> paginator = new Paginator<Hub>(result, request, "hubList", "communityId");
+		
+		request.setAttribute("listHubPaginator", paginator);
+		request.setAttribute("Community", community);
 		request.setAttribute("hubResults", result);
-		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
-		redirect.addParameter("communityId", communityId);
-		return redirect;
+		return mapping.findForward("success");
 	}
 
 	@Override
