@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import fr.univartois.ili.fsnet.actions.ManageContacts;
+import fr.univartois.ili.fsnet.actions.ManagePrivateMessages;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.core.LoggedUsersContainer;
@@ -28,7 +30,7 @@ public class Authenticate extends HttpServlet {
 	/**
 	 * Welcome page path when the user is authenticated
 	 */
-	private static final String WELCOME_AUTHENTICATED_PAGE = "OnAuthenticationSuccess.do";
+	private static final String WELCOME_AUTHENTICATED_PAGE = "Home.do";
 	/**
 	 * Welcome page path when the user is NOT authenticated
 	 */
@@ -57,6 +59,8 @@ public class Authenticate extends HttpServlet {
 				authenticated = true;
 				req.getSession(true).setAttribute(AUTHENTICATED_USER,
 						es.getId());
+				ManagePrivateMessages.refreshNumNewMessages(req, em);
+				ManageContacts.refreshNumNewContacts(req, em);
 			} else {
 				req.setAttribute("loginMessage", "login.error");
 			}

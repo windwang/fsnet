@@ -18,10 +18,6 @@
 			parameter="doDashboard">
 			<forward name="success" path="Home"></forward>
 		</action>
-		<action path="/OnAuthenticationSuccess"
-			type="fr.univartois.ili.fsnet.actions.OnAuthenticationSuccess">
-			<forward name="success" path="/Home.do" redirect="true"></forward>
-		</action>
 	</action-mappings>
 
 	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
