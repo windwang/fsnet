@@ -71,5 +71,11 @@
 			<field property="topicId" depends="integer,required"></field>
 			<field property="hubId" depends="integer,required"></field>
 		</form>
+		<form name="/SearchTopic">
+			<field property="hubId" depends="integer,required"></field>
+		</form>
+		<form name="/SearchYourTopics">
+			<field property="hubId" depends="integer,required"></field>
+		</form>
 	</formset>
 </form-validation>

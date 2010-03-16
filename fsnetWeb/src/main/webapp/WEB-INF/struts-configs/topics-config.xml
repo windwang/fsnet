@@ -83,7 +83,7 @@
         </action>
 
         <action path="/SearchTopic" type="fr.univartois.ili.fsnet.actions.ManageTopic"
-                name="SearchTopicForm" scope="request" parameter="search">
+                name="SearchTopicForm" input="UnauthorizedOperationException" scope="request" parameter="search" validate="true">
             <forward name="success" path="DisplayHub" />
         </action>
 
@@ -123,7 +123,7 @@
             <forward name="success" path="DisplayYourTopics" />
         </action>
          <action path="/SearchYourTopics" type="fr.univartois.ili.fsnet.actions.ManageTopic" 
-			name="SearchYourTopicsForm" input="UnauthorizedOperationException" scope="request" validate="false"
+			name="SearchYourTopicsForm" input="UnauthorizedOperationException" scope="request" validate="true"
 			parameter="searchYourTopics">
 			<forward name="success" path="DisplayYourTopics" />
 		</action>          

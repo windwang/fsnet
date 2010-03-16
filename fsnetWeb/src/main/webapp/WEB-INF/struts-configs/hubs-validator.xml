@@ -37,6 +37,14 @@
 			<field property="communityId" depends="integer,required">
 			</field>
 		</form>
+		<form name="/SearchHub">
+			<field property="communityId" depends="integer,required">
+			</field>
+		</form>
+		<form name="/SearchYourHubs">
+			<field property="communityId" depends="integer,required">
+			</field>
+		</form>
 	</formset>
 
 </form-validation>
