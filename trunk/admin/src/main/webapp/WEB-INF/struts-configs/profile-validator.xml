@@ -4,25 +4,33 @@
 <form-validation>
 	<formset>
         <form name="/ModifyProfile">
-            <field property="name" depends="required,mask">
+            <field property="name" depends="required,mask,maxlength">
                 <arg key="error.updateProfile.name" />
                 <msg name="mask"
                  	key="error.updateProfile.maskword"/>
 			    <arg0 key="error.updateProfile.name"/>
 			    <var>
-			        <var-name>mask</var-name>
-			        <var-value>^[\w]+([\-\' ][\w]+)*$</var-value>
-			    </var>
+					<var-name>mask</var-name>
+					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>30</var-value>
+				</var>
             </field>
-             <field property="firstName" depends="required,mask">
+             <field property="firstName" depends="required,mask,maxlength">
                 <arg key="error.updateProfile.firstname" />
                 <msg name="mask"
                  	key="error.updateProfile.maskword"/>
 			    <arg0 key="error.updateProfile.firstname"/>
-			    <var>
-			        <var-name>mask</var-name>
-			        <var-value>^[\w]+([\-\' ][\w]+)*$</var-value>
-			    </var>
+			     <var>
+					<var-name>mask</var-name>
+					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>30</var-value>
+				</var>
             </field>    
             <field property="adresse" depends="">
                 <arg key="error.updateProfile.adress" />
@@ -33,15 +41,19 @@
             <field property="sexe" depends="required">
                 <arg key="error.updateProfile.sexe" />
             </field>  
-            <field property="job" depends="mask">
+            <field property="job" depends="mask,maxlength">
                 <arg key="error.updateProfile.job" />
                 <msg name="mask"
                  	key="error.updateProfile.maskword"/>
 			    <arg0 key="error.updateProfile.job"/>
 			    <var>
-			        <var-name>mask</var-name>
-			        <var-value>^[\w]+([\-\' ][\w]+)*$</var-value>
-			    </var>
+					<var-name>mask</var-name>
+					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>30</var-value>
+				</var>
             </field>  
             <field property="phone" depends="mask">
                 <arg key="error.updateProfile.phone" />

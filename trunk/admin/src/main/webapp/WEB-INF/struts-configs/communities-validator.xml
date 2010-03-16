@@ -4,8 +4,17 @@
 <form-validation>
     <formset>
         <form name="/CreateCommunity">
-            <field property="name" depends="required">
-                <arg key="communities.error.name" />
+            <field property="name" depends="required,mask,maxlength">
+                <var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>80</var-value>
+		        </var>
+				<arg0 key="communities.error.name" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
             </field>
             <field property="socialEntityId" depends="required,integer">
                 <arg key="communities.error.socialEntityId" />
