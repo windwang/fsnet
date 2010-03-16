@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -57,7 +58,7 @@ public abstract class Interaction implements Serializable {
 	private SocialEntity creator;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REFRESH })
+			CascadeType.REFRESH },fetch=FetchType.EAGER)
 	@OrderBy(value="name")
 	private List<Interest> interests;
 
