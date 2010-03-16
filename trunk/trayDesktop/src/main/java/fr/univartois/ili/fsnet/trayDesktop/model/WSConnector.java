@@ -8,8 +8,6 @@ import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ExecutionException;
-import java.util.concurrent.TimeoutException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,7 +20,6 @@ import fr.univartois.ili.fsnet.webservice.Info;
 import fr.univartois.ili.fsnet.webservice.InfoService;
 import fr.univartois.ili.fsnet.webservice.WsPrivateMessage;
 import java.util.concurrent.Callable;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
@@ -215,14 +212,12 @@ public class WSConnector {
             fireError("No Connection");
         } else {
             try {
-
                 List<WsPrivateMessage> messages = infoPort.getNewMessages(
                         Options.getLogin(), Options.getPassword());
 
                 if (messages != null && messages.size() > 0) {
                     fireNewMessages(messages.size());
                 }
-
             } catch (Exception e) {
                 e.printStackTrace();
                 fireError("No Connection");
@@ -230,17 +225,14 @@ public class WSConnector {
         }
     }
 
-    public void check(Point position) {
-        int notif = 0;
+    public void checkWS(Point position) {
         if (frame == null) {
             frame = new NotificationFrame(position);
             if (getNbMessage() > 0) {
                 frame.addPanelMessage(getNbMessage());
-                notif++;
             }
             if (getNbDemandeC() > 0) {
                 frame.addPanelContact(getNbDemandeC());
-                notif++;
             }
         } else {
             frame.getFrame().dispose();
@@ -253,7 +245,6 @@ public class WSConnector {
         try {
             List<WsPrivateMessage> messages = infoPort.getNewMessages(Options.getLogin(), Options.getPassword());
             if (messages != null && messages.size() > 0) {
-                System.out.println(messages.get(1).getSubject());
                 return messages.size();
             }
         } catch (Exception e) {

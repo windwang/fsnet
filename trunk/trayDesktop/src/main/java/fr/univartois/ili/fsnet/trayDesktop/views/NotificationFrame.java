@@ -15,6 +15,9 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
+import java.awt.MouseInfo;
+import java.awt.Robot;
+import java.awt.Toolkit;
 
 public class NotificationFrame {
 
@@ -34,6 +37,7 @@ public class NotificationFrame {
     }
 
     public void addPanelMessage(int nbMessage) {
+        System.out.println("new panel with " + nbMessage + " messages");
         NotificationPanel panel = new NotificationPanel(nbMessage,
                 "nouveaux messages");
         this.frame.add(panel.getPanel());
@@ -45,15 +49,16 @@ public class NotificationFrame {
             @Override
             public void mouseClicked(MouseEvent e) {
                 try {
-                    Desktop.getDesktop().browse(new URI(Options.getFsnetUrl()));
+                    Desktop.getDesktop().browse(new URI(Options.getFsnetUrl()+"/Inbox.do"));
+
                 } catch (URISyntaxException ex) {
                     Logger.getLogger(FSNetTray.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (IOException ex) {
                     Logger.getLogger(FSNetTray.class.getName()).log(Level.SEVERE, null, ex);
                 }
-                //frame.dispose();
+                frame.dispose();
             }
-        });
+        });        
     }
 
     public void addPanelContact(int nbContact) {
