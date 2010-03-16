@@ -80,6 +80,9 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 			actionErrors.add("createdCommunityName", msg);
 			saveErrors(request, actionErrors);
 		}
+		
+		dynaForm.set("name", "");
+		
 		return mapping.findForward("success");
 	}
 
