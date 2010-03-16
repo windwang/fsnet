@@ -110,7 +110,15 @@ public class ManageInterests extends MappingDispatchAction implements
 		}
 
 		em.close();
-
+		
+		dynaForm.set("modifiedInterestId", "");
+		dynaForm.set("modifiedInterestName", "");
+		if (dynaForm.get("parentInterestId") != null
+				&& !((String) dynaForm.get("parentInterestId"))
+						.isEmpty()) {
+			dynaForm.set("parentInterestId", "");
+		}
+		
 		return mapping.findForward("success");
 	}
 
