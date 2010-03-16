@@ -207,5 +207,11 @@ public class Interest implements Serializable {
 			entity.getInterests().remove(this);
 		}
 	}
+
+	@Override
+	public String toString() {
+		return name;
+	}
     
+	
 }
