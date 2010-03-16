@@ -15,20 +15,29 @@
     <c:import url="/FavoriteFragment.do">
         <c:param name="interactionId" value="${requestScope.topic.id}"/>
     </c:import>
+    ${requestScope.topic.title}
+</h3>
+
+<c:set var="theInteraction" value="${topic}" scope="request"/>
+<jsp:include page="/content/interactions/LargeInteractionInfo.jsp" />
+<div class="clear"></div>
+
+<h3>
+
     <html:link action="/DisplayCommunity">
-		<html:param name="communityId" value="${requestScope.topic.hub.community.id}"/>
-		${requestScope.topic.hub.community.title}
-	</html:link>
+        <html:param name="communityId" value="${requestScope.topic.hub.community.id}"/>
+        ${requestScope.topic.hub.community.title}
+    </html:link>
 	-&gt;
-	<html:link action="/DisplayHub">
+    <html:link action="/DisplayHub">
         <html:param name="hubId" value="${requestScope.topic.hub.id}"/>
         ${requestScope.topic.hub.title}
     </html:link>
 	-&gt;
-	<html:link action="/DisplayTopic">
-		<html:param name="topicId" value="${requestScope.topic.id}"/>
-		${requestScope.topic.title}
-	</html:link>
+    <html:link action="/DisplayTopic">
+        <html:param name="topicId" value="${requestScope.topic.id}"/>
+        ${requestScope.topic.title}
+    </html:link>
 	-&gt;
 	Messages
 </h3>
@@ -38,20 +47,20 @@
         <tr class="topicHeader">
             <td>
                 <bean:write name="msg" property="creationDate" format="dd/MM/yyyy HH:mm"/> 
-        	</td>
-        	<td style="text-align:right;">
-	        	<c:if test="${sessionScope.userId eq msg.from.id}">
-				            <html:link action="/DisplayModifyTopicMessage" styleClass="button">
-				                <html:param name="topicId" value="${topic.id}" />
-				                <html:param name="messageId" value="${msg.id}" />
-				                <bean:message key="topics.modifyMsg"/>
-				            </html:link>      
-		        	</c:if>
-        	</td>
+            </td>
+            <td style="text-align:right;">
+                <c:if test="${sessionScope.userId eq msg.from.id}">
+                    <html:link action="/DisplayModifyTopicMessage" styleClass="button">
+                        <html:param name="topicId" value="${topic.id}" />
+                        <html:param name="messageId" value="${msg.id}" />
+                        <bean:message key="topics.modifyMsg"/>
+                    </html:link>
+                </c:if>
+            </td>
         </tr>
         <tr>
             <td class="topicOwner">
-            	<ili:getSocialEntityInfos socialEntity="${msg.from}"/>
+                <ili:getSocialEntityInfos socialEntity="${msg.from}"/>
                 <br/>
                 <img src="avatar/${msg.from.id}.png">
             </td>
@@ -65,18 +74,18 @@
     </table>
 
 
-        <!--
-        <c:if test="${sessionScope.userId eq msg.from.id}">
-            <html:link action="/DeleteTopicMessage" styleClass="button">
-                <html:param name="topicId" value="${topic.id}" />
-                <html:param name="messageId" value="${msg.id}" />
-                <bean:message key="topics.deleteMsg"/>
-            </html:link>
-        </c:if>
+    <!--
+    <c:if test="${sessionScope.userId eq msg.from.id}">
+        <html:link action="/DeleteTopicMessage" styleClass="button">
+            <html:param name="topicId" value="${topic.id}" />
+            <html:param name="messageId" value="${msg.id}" />
+            <bean:message key="topics.deleteMsg"/>
+        </html:link>
+    </c:if>
 
-        
+
     -->
-    
+
 </c:forEach>
 <c:set var="paginatorInstance" value="${requestScope.topicMessageDisplayPaginator}" scope="request"/>
 <c:set var="paginatorAction" value="/DisplayTopic" scope="request"/>
