@@ -69,7 +69,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		}
 
 		em.close();
-
+		dynaForm.set("createdInterestName","");
 		return mapping.findForward("success");
 	}
 
