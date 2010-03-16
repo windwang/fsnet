@@ -119,17 +119,17 @@
 
 <h3><bean:message key="profile.showInteraction.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/></h3>
 <c:if test="${empty requestScope.interactionPaginator.resultList}">
-	<bean:message key="Profile.noInteractions"/>.
+    <bean:message key="Profile.noInteractions"/>.
 </c:if>
 
 <div class="cloud">
-    <table>
+    <table class="inLineTable">
         <c:forEach var="inter" items="${requestScope.interactionPaginator.resultList}">
             <tr>
                 <td>
-                    <bean:write name="inter" property="lastModified" format="dd/MM/yyyy" />
-                </td>
-                <td>
+                    <c:import url="/FavoriteFragment.do">
+                        <c:param name="interactionId" value="${inter.id}"/>
+                    </c:import>
                     <c:choose>
                         <c:when test="${inter.class.simpleName eq 'Announcement'}">
                             <html:link action="/DisplayAnnounce">
@@ -163,6 +163,10 @@
                         </c:when>
                     </c:choose>
                 </td>
+                <td class="tableButton">
+                    <bean:message key="interaction.lastModif"/> 
+                    <bean:write name="inter" property="lastModified" format="dd/MM/yyyy" />
+                </td>
             </tr>
         </c:forEach>
     </table>
@@ -177,17 +181,17 @@
     <bean:message key="showProfile.contacts.title"/>
 </h3>
 <logic:empty name="watchedProfile" property="contacts"> 
- <c:choose>
- 	<c:when test="${edit}">
- 		<bean:message key="showProfile.IHaveNoContacts"/>
- 	</c:when>
- 	<c:otherwise>
- 		<bean:message key="showProfile.noContacts"/>
- 	</c:otherwise>
- </c:choose>    
+    <c:choose>
+        <c:when test="${edit}">
+            <bean:message key="showProfile.IHaveNoContacts"/>
+        </c:when>
+        <c:otherwise>
+            <bean:message key="showProfile.noContacts"/>
+        </c:otherwise>
+    </c:choose>
 </logic:empty>
 <logic:iterate collection="${requestScope.contactsPaginator.resultList}" id="user">
-	<ili:getMiniature socialEntity="${user}"/>		
+    <ili:getMiniature socialEntity="${user}"/>
 </logic:iterate>
 <div class="clear"></div>
 <c:set var="paginatorInstance" value="${requestScope.contactsPaginator}" scope="request"/>
