@@ -13,11 +13,11 @@
 		        	<var-name>maxlength</var-name>
 		        	<var-value>80</var-value>
 		        </var>
-				<arg0 key="events.14" />
+				<arg0 key="events.13" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 			</field>
 			<field property="eventDescription" depends="required, maxlength">
-				<arg key="events.13" name="required" />
+				<arg key="events.14" name="required" />
 				<arg0 key="events.12" name="maxlength" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
