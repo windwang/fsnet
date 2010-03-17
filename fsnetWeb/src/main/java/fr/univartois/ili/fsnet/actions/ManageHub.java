@@ -172,6 +172,9 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		}
 		em.getTransaction().commit();
 		em.close();
+		
+		// TODO modify paginator for accepting HasMap
+		
 		request.setAttribute("hubResult", result);
 		request.setAttribute("topicsLastMessage", topicsLastMessage);
 		return mapping.findForward("success");

@@ -138,6 +138,9 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		}
 
 		em.close();
+		
+		// TODO modify paginator for accepting HasMap
+		
 		request.setAttribute("hubResult", hub);
 		request.setAttribute("topicsLastMessage", topicsLastMessage);
 		return mapping.findForward("success");
