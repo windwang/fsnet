@@ -28,30 +28,38 @@
 <h3>
     <bean:message key="events.9"/> :
 </h3>
-<logic:messagesPresent property="searchString">
-    <html:errors property="searchString"/>
-</logic:messagesPresent>
-<table  class="inLineTable">
-    <c:forEach var="event" items="${events}">
-        <tr>
-            <th>
-                <c:import url="/FavoriteFragment.do">
-                    <c:param name="interactionId" value="${event.id}"/>
-                </c:import>
-                <html:link action="/DisplayEvent">
-                    ${event.title}
-                    <html:param name="eventId" value="${event.id}"/>
-                </html:link>
-            </th>
-            <td class="left">
-                <bean:message key="events.10"/>
-                <bean:write name="event" property="startDate" format="dd/MM/yyyy"/>,
-                <bean:message key="events.16"/>
-				<ili:getSocialEntityInfos socialEntity="${event.creator}"/>
-            </td>
-            <td  class="tableButton">
-                <ili:substring beginIndex="0" endIndex="30"><ili:noxml>${event.content}</ili:noxml></ili:substring>
-            </td>
-        </tr>
-    </c:forEach>
-</table>
+<c:choose>
+<c:when test="${empty requestScope.eventsListPaginator.resultList}">
+    <bean:message key="search.noResults"/>
+</c:when>
+	<c:otherwise>
+		<table  class="inLineTable">
+		    <c:forEach var="event" items="${requestScope.eventsListPaginator.resultList}">
+		        <tr>
+		            <th>
+		                <c:import url="/FavoriteFragment.do">
+		                    <c:param name="interactionId" value="${event.id}"/>
+		                </c:import>
+		                <html:link action="/DisplayEvent">
+		                    ${event.title}
+		                    <html:param name="eventId" value="${event.id}"/>
+		                </html:link>
+		            </th>
+		            <td class="left">
+		                <bean:message key="events.10"/>
+		                <bean:write name="event" property="startDate" format="dd/MM/yyyy"/>,
+		                <bean:message key="events.16"/>
+						<ili:getSocialEntityInfos socialEntity="${event.creator}"/>
+		            </td>
+		            <td  class="tableButton">
+		                <ili:substring beginIndex="0" endIndex="30"><ili:noxml>${event.content}</ili:noxml></ili:substring>
+		            </td>
+		        </tr>
+		    </c:forEach>
+		</table>
+		<c:set var="paginatorInstance" value="${requestScope.eventsListPaginator}" scope="request"/>
+		<c:set var="paginatorAction" value="/Events" scope="request"/>
+		<c:set var="paginatorTile" value="eventsLists" scope="request"/>
+		<c:import url="/content/pagination/Pagination.jsp"/>
+	</c:otherwise>
+</c:choose>

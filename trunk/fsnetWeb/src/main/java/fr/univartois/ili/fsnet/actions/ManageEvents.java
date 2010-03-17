@@ -23,7 +23,10 @@ import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import antlr.debug.Event;
+
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Interest;
@@ -221,23 +224,19 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm seaarchForm = (DynaActionForm) form; // NOSONAR
-		String searchString = (String) seaarchForm.get("searchString");
+		DynaActionForm searchForm = (DynaActionForm) form; // NOSONAR
+		String searchString = (String) searchForm.get("searchString");
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		List<Meeting> results = meetingFacade.searchMeeting(searchString);
 		em.getTransaction().commit();
-
-		if (results.isEmpty()) {
-			ActionErrors errors = new ActionErrors();
-			errors.add("searchString", new ActionMessage("search.noResults"));
-			saveErrors(request, errors);
-		}
-
 		em.close();
-		request.setAttribute("events", results);
+		
+		Paginator<Meeting> paginator = new Paginator<Meeting>(results, request, "eventsLists");
+		
+		request.setAttribute("eventsListPaginator", paginator);
 		return mapping.findForward("success");
 	}
 
