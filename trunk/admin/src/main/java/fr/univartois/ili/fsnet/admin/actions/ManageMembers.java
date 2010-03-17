@@ -285,7 +285,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			List<SocialEntity> resultOthersList = query.getResultList();
 			em.getTransaction().commit();
 			em.close();
-			request.setAttribute("membersResult", resultOthersList);
+			
+			Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(resultOthersList, request, "membersList");
+			
+			request.setAttribute("membersListPaginator", paginator);
 		}
 
 		return mapping.findForward("success");

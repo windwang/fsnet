@@ -14,9 +14,9 @@
 <h3><bean:message key="members.listMembers"/></h3>
 
 <c:choose>
-<c:when test="${! empty membersResult}">
+<c:when test="${not empty requestScope.membersListPaginator.resultList}">
 	<table  class="inLineTable">
-        <c:forEach var="member" items="${membersResult}">
+        <c:forEach var="member" items="${requestScope.membersListPaginator.resultList}">
             <tr class="content">
                 <td>
                 	<html:link action="/DisplayMember">${member.name} ${member.firstName}
@@ -39,6 +39,10 @@
             </tr>
         </c:forEach>
     </table>
+    <c:set var="paginatorInstance" value="${requestScope.membersListPaginator}" scope="request"/>
+	<c:set var="paginatorAction" value="/Members" scope="request"/>
+	<c:set var="paginatorTile" value="membersList" scope="request"/>
+	<c:import url="/content/pagination/Pagination.jsp"/>
 </c:when>
 <c:otherwise>
 	<bean:message key="members.noResult"/>
