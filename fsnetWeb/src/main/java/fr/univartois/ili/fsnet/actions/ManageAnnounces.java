@@ -21,6 +21,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
@@ -173,7 +174,10 @@ public class ManageAnnounces extends MappingDispatchAction implements
         List<Announcement> listAnnounces = announcementFacade.searchAnnouncement(textSearchAnnounce);
         entityManager.getTransaction().commit();
         entityManager.close();
-        request.setAttribute("listAnnounces", listAnnounces);
+        
+        Paginator<Announcement> paginator = new Paginator<Announcement>(listAnnounces, request, "listAnnounces");
+        
+        request.setAttribute("annoucesListPaginator", paginator);
         return mapping.findForward("success");
     }
 
