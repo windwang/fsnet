@@ -9,11 +9,13 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.swing.JFrame;
 
+import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 import javax.swing.BoxLayout;
 
@@ -22,6 +24,7 @@ public class NotificationFrame {
 	private JFrame frame;
 	private Point point;
 	private Point position;
+	private final ResourceBundle trayi18n = TrayLauncher.getBundle();
 
 	public NotificationFrame(Point position) {
 		frame = new JFrame("Fsnet");
@@ -35,9 +38,12 @@ public class NotificationFrame {
 
 	public void addPanelMessage(int nbMessage) {
         final NotificationPanel panel = new NotificationPanel(nbMessage,
-                "nouveaux messages");
+        		trayi18n.getString("NEWMESSAGES"));
         this.frame.add(panel.getPanel());
         this.frame.pack();
+        Dimension dim = this.frame.getSize();
+        Dimension test = new Dimension(dim.width+10, dim.height);
+        this.frame.setMinimumSize(test);
         initPosition(position);
         this.frame.setLocation(point.x, point.y);
         final Color normalColor = panel.getPanel().getBackground();
@@ -78,9 +84,12 @@ public class NotificationFrame {
 
 	public void addPanelContact(int nbContact) {
 		final NotificationPanel panel = new NotificationPanel(nbContact,
-				"nouvelles demandes de contacts");
+				trayi18n.getString("NEWCONTACT"));
 		this.frame.add(panel.getPanel());
 		this.frame.pack();
+		Dimension dim = this.frame.getSize();
+        Dimension test = new Dimension(dim.width+10, dim.height);
+        this.frame.setMinimumSize(test);
 		initPosition(position);
 		this.frame.setLocation(point.x, point.y);
 		final Color normalColor = panel.getPanel().getBackground();
