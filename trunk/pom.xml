@@ -185,6 +185,16 @@
             <organization>univ-artois.fr</organization>
             <timezone>+1</timezone>
         </developer>
+        <developer>
+            <id>zrhurey</id>
+            <name>Rui Zhu</name>
+            <email>zrhurey@gmail.com</email>
+            <roles>
+                <role>Committer</role>
+            </roles>
+            <organization>univ-artois.fr</organization>
+            <timezone>+1</timezone>
+        </developer>
     </developers>
 
     <scm>

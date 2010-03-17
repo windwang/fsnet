@@ -11,7 +11,6 @@
 	<packaging>war</packaging>
 	<name>mockDB</name>
 	<version>0.6.1-SNAPSHOT</version>
-	<url>http://maven.apache.org</url>
 	<build>
 		<finalName>${artifactId}</finalName>
 		<plugins>
