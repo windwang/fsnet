@@ -210,6 +210,7 @@ public class SocialEntityFacade {
 		if (interest == null || socialEntity == null) {
 			throw new IllegalArgumentException();
 		}
+		interest.getEntities().remove(socialEntity);
 		socialEntity.getInterests().remove(interest);
 	}
 
