@@ -60,7 +60,7 @@ public class PrivateMessageFacadeTest {
         PrivateMessage result = instance.sendPrivateMessage(body, from, subject, to);
         em.getTransaction().commit();
         PrivateMessage pmfound = em.find(PrivateMessage.class, 1);
-        // TODO assertSame because equals method not implement
+
         assertSame(from.getSentPrivateMessages().get(0), to.getReceivedPrivateMessages().get(0));
         assertSame(result, pmfound);
     }
