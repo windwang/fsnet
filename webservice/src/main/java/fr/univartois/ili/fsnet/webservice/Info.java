@@ -86,7 +86,7 @@ public class Info {
 		Query ql1 = null;
 		if (sef.isMember(login, password)) {
 			SocialEntity se = sef.findByEmail(login);
-			ql1 = em.createQuery("SELECT asked FROM SocialEntity where id=:member ");
+			ql1 = em.createQuery("SELECT s.asked FROM SocialEntity s  where s.id=:member ");
 			ql1.setParameter("member", se.getId());
 		}
 		return ql1.getResultList().size();
