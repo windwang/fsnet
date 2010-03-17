@@ -264,6 +264,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		em.getTransaction().commit();
 		em.close();
+		
+		// TODO find a solution to paginate a Set
+		
 		request.setAttribute("subscribers", subscribers);
 		request.setAttribute("subscriber", isSubscriber);
 		request.setAttribute("event", event);
