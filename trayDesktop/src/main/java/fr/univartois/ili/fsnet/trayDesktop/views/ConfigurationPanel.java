@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.trayDesktop.views;
 
+import java.awt.event.FocusEvent;
 import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
 
@@ -18,6 +19,10 @@ import com.jgoodies.forms.layout.FormLayout;
 import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
+import java.awt.event.FocusAdapter;
+import java.awt.event.MouseAdapter;
+import javax.swing.event.CaretEvent;
+import javax.swing.event.CaretListener;
 
 /**
  * Create and return a configuration panel for the trayIcon
@@ -29,7 +34,7 @@ public class ConfigurationPanel {
     private final JPanel panel;
     private JTextField login;
     private JTextField password;
-    private JTextField url;
+    private JTextField wsurl;
     private JTextField fsneturl;
     private JComboBox language;
     private JSpinner lag;
@@ -51,10 +56,10 @@ public class ConfigurationPanel {
         builder.add(password, cc.xy(3, 5));
 
         builder.addSeparator(trayi18n.getString("FSNET"), cc.xyw(1, 7, 3));
-        builder.addLabel(trayi18n.getString("WSADRESSE"), cc.xy(1, 9));
-        builder.add(url, cc.xy(3, 9));
-        builder.addLabel(trayi18n.getString("FSNETADRESSE"), cc.xy(1, 11));
-        builder.add(fsneturl, cc.xy(3, 11));
+        builder.addLabel(trayi18n.getString("FSNETADRESSE"), cc.xy(1, 9));
+        builder.add(fsneturl, cc.xy(3, 9));
+        builder.addLabel(trayi18n.getString("WSADRESSE"), cc.xy(1, 11));
+        builder.add(wsurl, cc.xy(3, 11));
 
         builder.addSeparator(trayi18n.getString("MISC"), cc.xyw(1, 13, 3));
         builder.addLabel(trayi18n.getString("LANGUAGE"), cc.xy(1, 15));
@@ -78,14 +83,26 @@ public class ConfigurationPanel {
         login.addKeyListener(al);
         password = new JPasswordField(Options.getPassword());
         password.addKeyListener(al);
-        url = new JTextField(Options.getWSUrl());
-        url.addKeyListener(al);
+        wsurl = new JTextField(Options.getWSUrl());
+        wsurl.addKeyListener(al);
         fsneturl = new JTextField(Options.getFsnetUrl());
         fsneturl.addKeyListener(al);
         language = new JComboBox(LANG.values());
         language.setSelectedItem(Options.getLanguage());
         SpinnerModel model = new SpinnerNumberModel(Options.getLag(), 1, 120, 1);
         lag = new JSpinner(model);
+
+        wsurl.addFocusListener(new FocusAdapter() {
+
+            @Override
+            public void focusGained(FocusEvent e) {
+                if (wsurl.getText().equals("")) {
+                    if (fsneturl.getText().matches("http://[^/]+/[^/]+[^/]+/")) {
+                        wsurl.setText(fsneturl.getText().replaceFirst("[^/]+/$", "webservice/"));
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -117,7 +134,7 @@ public class ConfigurationPanel {
      * @return the input url
      */
     public String getWSUrl() {
-        return url.getText();
+        return wsurl.getText();
     }
 
     /**
