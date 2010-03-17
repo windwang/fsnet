@@ -63,7 +63,7 @@
                 </c:import>
             </td>
             <td>
-                <html:link action="/DisplayTopic">
+                <html:link action="/DisplayTopic" title='${empty theTopic.interests? "" : theTopic.interests}'>
                     <html:param name="topicId" value="${theTopic.id}"/>
                     ${theTopic.title}
                 </html:link>

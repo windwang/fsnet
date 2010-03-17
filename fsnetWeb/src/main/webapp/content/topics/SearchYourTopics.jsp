@@ -39,7 +39,7 @@
                 <img src="images/message.png"/>
             </td>
             <td>
-                <html:link action="/DisplayTopic">
+                <html:link action="/DisplayTopic" title='${empty couple.key.interests? "" : couple.key.interests}'>
                     <html:param name="topicId" value="${couple.key.id}"/>
                     ${couple.key.title}
                 </html:link>
