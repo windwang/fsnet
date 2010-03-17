@@ -77,12 +77,13 @@ public class NotificationFrame {
     }
 
 	public void addPanelContact(int nbContact) {
-		NotificationPanel panel = new NotificationPanel(nbContact,
+		final NotificationPanel panel = new NotificationPanel(nbContact,
 				"nouvelles demandes de contacts");
 		this.frame.add(panel.getPanel());
 		this.frame.pack();
 		initPosition(position);
 		this.frame.setLocation(point.x, point.y);
+		final Color normalColor = panel.getPanel().getBackground();
 		panel.getLabel().addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -100,6 +101,19 @@ public class NotificationFrame {
 				}
 				frame.dispose();
 			}
+			
+		    @Override
+            public void mouseEntered(MouseEvent e) {
+            	// TODO Auto-generated method stub
+            	panel.getPanel().setBackground(new Color(0xc6c2bf));            	
+            }
+            
+            @Override
+            public void mouseExited(MouseEvent e) {
+            	// TODO Auto-generated method stub
+            	panel.getPanel().setBackground(normalColor);  
+            }
+			
 		});
 	}
 
