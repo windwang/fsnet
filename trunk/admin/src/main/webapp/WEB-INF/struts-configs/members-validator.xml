@@ -13,7 +13,7 @@
 				<arg key="members.error.name" />
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
@@ -24,7 +24,7 @@
 				<arg key="members.error.firstName" />
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
@@ -77,7 +77,7 @@
 				<arg key="members.error.firstName" />
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
@@ -96,7 +96,7 @@
 				<arg0 key="error.updateProfile.job" />
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
@@ -116,7 +116,7 @@
 				<arg key="members.error.city" />
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
