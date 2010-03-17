@@ -226,17 +226,25 @@ public class WSConnector {
     }
 
     public void checkWS(Point position) {
-        if (frame == null) {
-            frame = new NotificationFrame(position);
-            if (getNbMessage() > 0) {
-                frame.addPanelMessage(getNbMessage());
+        if (infoPort == null) {
+            fireError("No Connection");
+        }
+        try {
+            if (frame == null) {
+                frame = new NotificationFrame(position);
+                if (getNbMessage() > 0) {
+                    frame.addPanelMessage(getNbMessage());
+                }
+                if (getNbDemandeC() > 0) {
+                    frame.addPanelContact(getNbDemandeC());
+                }
+            } else {
+                frame.getFrame().dispose();
+                frame = null;
             }
-            if (getNbDemandeC() > 0) {
-                frame.addPanelContact(getNbDemandeC());
-            }
-        } else {
-            frame.getFrame().dispose();
-            frame = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+            fireError("No Connection");
         }
 
     }
@@ -256,7 +264,7 @@ public class WSConnector {
     public int getNbDemandeC() {
         int nbC = 0;
         try {
-           nbC = infoPort.getNewDemandeCount(Options.getLogin(), Options.getPassword());
+            nbC = infoPort.getNewDemandeCount(Options.getLogin(), Options.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }
