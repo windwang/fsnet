@@ -136,10 +136,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		message.append("D&eacute;sormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
-		message.append("Un mot de passe a &eacute;t&eacute; gén&eacute;r&eacute; automatiquement : <em>");
+		message.append("Un mot de passe a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; automatiquement : <em>");
 		message.append(password);
 		message
-		.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement à exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
+		.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
 		return message.toString();
 	}
 
