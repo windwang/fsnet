@@ -65,7 +65,21 @@ public class NotificationFrame {
         this.frame.pack();
         initPosition(position);
         this.frame.setLocation(point.x, point.y);
+        	  panel.getLabel().addMouseListener(new MouseAdapter() {
 
+                  @Override
+                  public void mouseClicked(MouseEvent e) {
+                      try {
+                          Desktop.getDesktop().browse(new URI(Options.getFsnetUrl()+"/Contacts.do"));
+
+                      } catch (URISyntaxException ex) {
+                          Logger.getLogger(FSNetTray.class.getName()).log(Level.SEVERE, null, ex);
+                      } catch (IOException ex) {
+                          Logger.getLogger(FSNetTray.class.getName()).log(Level.SEVERE, null, ex);
+                      }
+                      frame.dispose();
+                  }
+              }); 	
     }
 
     public void init(Point position) {
