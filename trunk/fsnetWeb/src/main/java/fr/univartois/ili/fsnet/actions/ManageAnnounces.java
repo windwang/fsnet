@@ -169,10 +169,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
         EntityManager entityManager = PersistenceProvider.createEntityManager();
         entityManager.getTransaction().begin();
         AnnouncementFacade announcementFacade = new AnnouncementFacade(entityManager);
-
-        // TODO warning
-        servlet.log("search");
-
+        
         List<Announcement> listAnnounces = announcementFacade.searchAnnouncement(textSearchAnnounce);
         entityManager.getTransaction().commit();
         entityManager.close();
