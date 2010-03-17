@@ -163,17 +163,20 @@
         <put name="title" value="pageTitle.8"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/Announces.jsp" />
+        <put name="left" value="/content/announces/leftMenu.jsp" />
     </definition>
 
     <definition name="DisplayCreateAnnounce" extends=".defaultLayout">
         <put name="title" value="pageTitle.9"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
+        <put name="left" value="/content/announces/leftMenu.jsp" />
     </definition>
     <definition name="CreateAnnounce" extends=".defaultLayout">
         <put name="title" value="pageTitle.9"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
+        
     </definition>
     <definition name="ModifyAnnounce" extends=".defaultLayout">
         <put name="title" value="pageTitle.10"/>
@@ -184,11 +187,13 @@
         <put name="title" value="pageTitle.10"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
+        <put name="left" value="/content/announces/leftMenu.jsp" />
     </definition>
     <definition name="DisplayAnnounce" extends=".defaultLayout">
         <put name="title" value="pageTitle.11"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
+        <put name="left" value="/content/announces/leftMenu.jsp" />
     </definition>
 
     <!-- Members -->
