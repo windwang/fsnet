@@ -7,6 +7,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="http://struts.apache.org/tags-logic"  prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <h3>
     <bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
@@ -147,19 +148,23 @@
                             <html:link action="/Topic">
                                 <html:param name="topicId" value="${inter.id}"/>
                                 ${inter.title}
+                                 
                             </html:link>
+                            (${fn:length(inter.messages)} messages)
                         </c:when>
                         <c:when test="${inter.class.simpleName eq 'Hub'}">
                             <html:link action="/DisplayHub">
                                 <html:param name="hubId" value="${inter.id}"/>
                                 ${inter.title}
                             </html:link>
+                            (${fn:length(inter.topics)} topics)
                         </c:when>
                         <c:when test="${inter.class.simpleName eq 'Community'}">
                             <html:link action="/DisplayCommunity">
                                 <html:param name="communityId" value="${inter.id}"/>
                                 ${inter.title}
                             </html:link>
+                            (${fn:length(inter.hubs)} hubs)
                         </c:when>
                     </c:choose>
                 </td>
