@@ -90,7 +90,7 @@ public class AnnouncementFacade {
 		listAnnounces = em
 		.createQuery(
 				"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
-				+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ORDER BY a.datePublication ",
+				+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ORDER BY a.creationDate ",
 				Announcement.class).setParameter("textSearchAnnounce",
 						"%" + textSearchAnnounce + "%").getResultList();
 		return listAnnounces;
