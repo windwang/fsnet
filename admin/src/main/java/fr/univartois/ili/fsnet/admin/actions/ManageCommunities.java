@@ -21,6 +21,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -134,8 +135,10 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		em.getTransaction().commit();
 		em.close();
 
+		Paginator<Community> paginator = new Paginator<Community>(result, request, "communities");		
+		
 		request.setAttribute("allMembers", allMembers);
-		request.setAttribute("communitiesResult", result);
+		request.setAttribute("communitiesListPaginator", paginator);
 		return mapping.findForward("success");
 	}
 }
