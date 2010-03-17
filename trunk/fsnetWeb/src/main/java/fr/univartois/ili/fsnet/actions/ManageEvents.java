@@ -1,8 +1,10 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -40,7 +42,8 @@ import org.apache.struts.action.ActionRedirect;
  */
 public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
-	private Date validateDate(String eventDate, HttpServletRequest request, String propertyKey) {
+	private Date validateDate(String eventDate, HttpServletRequest request,
+			String propertyKey) {
 		Date typedEventDate;
 		try {
 			typedEventDate = DateUtils.format(eventDate);
@@ -50,7 +53,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 			return null;
 		}
-		if (typedEventDate.before(new Date())) {
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+				calendar.get(Calendar.DAY_OF_MONTH), 0, 0, -1);
+		Date today = calendar.getTime();
+		if (typedEventDate.before(today)) {
 			ActionErrors errors = new ActionErrors();
 			errors.add(propertyKey, new ActionMessage(("date.error.invalid")));
 			saveErrors(request, errors);
@@ -72,8 +79,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		// TODO !!! recuperer l'adresse et la city !!!
 		String adress = "";
 		String city = "";
-		Date typedEventBeginDate = validateDate(eventBeginDate, request, "eventBeginDate");
-		Date typedEventEndDate = validateDate(eventEndDate, request, "eventEndDate");
+		Date typedEventBeginDate = validateDate(eventBeginDate, request,
+				"eventBeginDate");
+		Date typedEventEndDate = validateDate(eventEndDate, request,
+				"eventEndDate");
 		if (typedEventBeginDate == null || typedEventEndDate == null) {
 			return mapping.getInputForward();
 		}
@@ -107,7 +116,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		ifacade.addInterests(event, interests);
 		em.getTransaction().commit();
 		em.close();
-		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		ActionRedirect redirect = new ActionRedirect(mapping
+				.findForward("success"));
 		redirect.addParameter("eventId", event.getId());
 		return redirect;
 	}
@@ -174,9 +184,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		interactionRoleFacade.subscribe(member, meeting);
 		em.getTransaction().commit();
 		em.close();
-                ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
-                redirect.addParameter("eventId", dynaForm.get("eventId"));
-                return redirect;
+		ActionRedirect redirect = new ActionRedirect(mapping
+				.findForward("success"));
+		redirect.addParameter("eventId", dynaForm.get("eventId"));
+		return redirect;
 	}
 
 	/**
@@ -201,9 +212,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		interactionRoleFacade.unsubscribe(member, meeting);
 		em.getTransaction().commit();
 		em.close();
-                ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
-                redirect.addParameter("eventId", dynaForm.get("eventId"));
-                return redirect;
+		ActionRedirect redirect = new ActionRedirect(mapping
+				.findForward("success"));
+		redirect.addParameter("eventId", dynaForm.get("eventId"));
+		return redirect;
 	}
 
 	@Override
@@ -239,16 +251,18 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		
+
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		
+
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
-		
-		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(em);
+
+		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
+				em);
 		boolean isSubscriber = interactionRoleFacade.isSubsriber(member, event);
-		Set<SocialEntity> subscribers = interactionRoleFacade.getSubscribers(event);
-		
+		Set<SocialEntity> subscribers = interactionRoleFacade
+				.getSubscribers(event);
+
 		em.getTransaction().commit();
 		em.close();
 		request.setAttribute("subscribers", subscribers);
