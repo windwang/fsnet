@@ -5,16 +5,9 @@
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib uri="../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
 	<bean:message key="loggedUsers.title"/>
 </h2>
 
-<div id="loggedUsers">
-	<logic:iterate collection="${applicationScope.loggedUsers.users}" id="user">
-		<html:link action="/DisplayProfile" styleClass="miniature">
-		    <html:param name="id" value="${user.key}"/>
-			<img src="miniature/${user.key}.png" title="${user.value}"></img>
-		</html:link>
-	</logic:iterate>
-</div>
+<div id="loggedUsers"></div>

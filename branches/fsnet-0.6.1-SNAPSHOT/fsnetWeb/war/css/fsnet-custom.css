@@ -2,6 +2,24 @@
 .interestDashboardContainer {
 	height: 26px;	
 }
+
+.loggedUserMiniature:hover {
+    border: 2px solid #808080;
+    margin:1px;
+}
+
+.loggedUserMiniature {
+    padding: 2px;
+    border: 1px solid #AAAAAA;
+    float:left;
+    margin: 2px;
+    text-align: center;
+    min-height: 25px;
+    min-width: 25px;
+    vertical-align:middle;
+    cursor: pointer;
+}
+
 .paginator {
     font-size: 110%;
     margin-top: 10px;
@@ -40,24 +58,6 @@
 #lastVisits {
     float: right;
     width: 48%;
-}
-
-.miniature:hover {
-    border: 2px solid #808080;
-    margin:1px;
-}
-
-.miniature {
-    padding: 2px;
-    border: 1px solid #AAAAAA;
-    float:left;
-    margin: 2px;
-    text-align: center;
-    min-height: 25px;
-    min-width: 25px;
-}
-.miniature img {
-    vertical-align:middle;
 }
 
 .profileLink {

@@ -4,6 +4,17 @@
   <welcome-file-list>
     <welcome-file>Authenticate</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+    <servlet-name>greetServlet</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.chat.gwt.server.ChatServiceImpl</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+    <servlet-name>greetServlet</servlet-name>
+    <url-pattern>/chat/chat</url-pattern>
+  </servlet-mapping>
+  
   <servlet>
     <servlet-name>action</servlet-name>
     <servlet-class>org.apache.struts.action.ActionServlet</servlet-class>

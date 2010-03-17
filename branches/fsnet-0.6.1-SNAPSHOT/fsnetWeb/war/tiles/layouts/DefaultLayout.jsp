@@ -20,6 +20,8 @@
 <title><bean:message key="${pageTitle}" /></title>
 <link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css"
 	rel="stylesheet" />
+	<script type="text/javascript" language="javascript" src="chat/chat.nocache.js"></script>
+	
 </head>
 <body>
 <div class="wrap background"><tiles:useAttribute

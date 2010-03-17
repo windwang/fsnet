@@ -20,6 +20,7 @@ public class LoggedUsersContainer {
 	 * private constructor of this class
 	 */
 	private LoggedUsersContainer() {
+		loggedUsers.put(1, "Mathieu Boniface");
 	}
 
 	/*
@@ -34,7 +35,7 @@ public class LoggedUsersContainer {
 	 * name as a value
 	 */
 	private final Map<Integer, String> loggedUsers = new ConcurrentHashMap<Integer, String>();
-
+	
 	/**
 	 * Notify that an user is connected
 	 * 
