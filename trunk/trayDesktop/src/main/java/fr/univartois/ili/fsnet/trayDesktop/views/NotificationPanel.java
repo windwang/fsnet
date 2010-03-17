@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.trayDesktop.views;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.util.ResourceBundle;
 
 import javax.swing.JLabel;
@@ -26,7 +27,9 @@ public class NotificationPanel {
     }
 
     public void init(int nb, String message) {
+    	Font font = new Font("Arial", Font.PLAIN, 16);
         this.label = new JLabel(" "+trayi18n.getString("YOU")+" "+ nb + " " + message);
+        this.label.setFont(font);
         border = new BorderLayout();
         panel.setLayout(border);
         panel.setMinimumSize(new Dimension(0,30));
