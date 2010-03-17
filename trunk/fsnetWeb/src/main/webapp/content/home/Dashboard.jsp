@@ -135,9 +135,9 @@
                             <ili:getSocialEntityInfos socialEntity="${contact}"/>
                         </td>
                         <td class="tableButton">
-                            <html:link action="/ContactDemand" styleClass="button">
+                            <html:link action="/ContactDemand">            
+                            	<img src="images/add.png" alt="<bean:message key='DashBoard.addContactButtonAlt'/>" title="<bean:message key='DashBoard.addContactButton'/> ${contact.firstName} ${contact.name}" />
                                 <html:param name="entitySelected" value="${contact.id}"/>
-                                <bean:message key="DashBoard.askContact"/>
                             </html:link>
                         </td>
                     </tr>
@@ -157,7 +157,7 @@
     </logic:empty>
     <logic:notEmpty name="interests">
         <c:forEach var="interest" items="${interests}">
-            <tr>
+            <tr class="interestDashboardContainer">
                 <td>
                     <html:link action="/InterestInformations">
                         <html:param name="infoInterestId" value="${interest.id}"/>
@@ -166,7 +166,7 @@
                 </td>
                 <td class="tableButton">
                     <html:link action="/AddInterest">
-                        <img src="images/add.png"/>
+                        <img src="images/add.png" alt="<bean:message key='DashBoard.addInterestButtonAlt'/>" title="<bean:message key='DashBoard.addInterestButton'/> ${interest.name}" />
                         <html:param name="addedInterestId" value="${interest.id}"/>
                     </html:link>
                 </td>

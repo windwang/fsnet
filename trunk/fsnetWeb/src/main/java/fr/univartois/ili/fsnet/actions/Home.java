@@ -73,8 +73,8 @@ public class Home extends MappingDispatchAction {
 			interestProposals = facade.getNonAssociatedInterests(authenticatedUser);
 			Collections.shuffle(interestProposals);
 		}
-		if(interestProposals.size()>5){
-			interestProposals = interestProposals.subList(0,5);
+		if(interestProposals.size()>7){
+			interestProposals = interestProposals.subList(0,7);
 		}
 				
 		request.setAttribute("interests", interestProposals);

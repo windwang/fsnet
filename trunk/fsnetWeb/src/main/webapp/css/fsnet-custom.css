@@ -1,5 +1,7 @@
 #ui-datepicker-div {font-size: 80%;}
-
+.interestDashboardContainer {
+	height: 26px;	
+}
 .paginator {
     font-size: 110%;
     margin-top: 10px;
