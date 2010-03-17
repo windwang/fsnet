@@ -23,6 +23,7 @@
     <definition name="Home" extends=".defaultLayout">
         <put name="title" value="pageTitle.0"/>
         <put name="currentMenu" value="Home"/>
+        <put name="left" value="/content/home/leftMenu.jsp" />
         <put name="body-content" value="/content/home/Dashboard.jsp" />
     </definition>
 
