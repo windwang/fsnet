@@ -15,7 +15,6 @@ import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.crypto.dsig.keyinfo.PGPData;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -47,13 +46,13 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 	private static EntityManagerFactory factory = Persistence
-	.createEntityManagerFactory("fsnetjpa");
+			.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String name = (String) dynaForm.get("name");
 		dynaForm.set("name", "");
@@ -61,24 +60,30 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
 		dynaForm.set("email", "");
+		String password = (String) dynaForm.get("password");
 
-		logger.info("#### New User : " + mail);
 		EntityManager em = factory.createEntityManager();
 
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 		SocialEntity socialEntity = facadeSE.createSocialEntity(name,
 				firstName, mail);
-
-		String generatedPassword = null;
 		try {
-			generatedPassword = Encryption.generateRandomPassword();
-			logger.info("#### Password : " + generatedPassword);
-			socialEntity.setPassword(Encryption
-					.getEncodedPassword(generatedPassword));
+			String definedPassword = null;
+			String encryptedPassword = null;
+			if (password == null || "".equals(password)) {
+				definedPassword = Encryption.generateRandomPassword();
+				
+				logger.info("#### Generated Password : " + definedPassword);
+				encryptedPassword = Encryption.getEncodedPassword(definedPassword);
+			} else {
+				logger.info("#### Defined Password : " + password);
+				encryptedPassword = Encryption.getEncodedPassword(password);
+			}
+			socialEntity.setPassword(encryptedPassword);
 			em.getTransaction().begin();
 			em.persist(socialEntity);
 			em.getTransaction().commit();
-			sendConfirmationMail(socialEntity, generatedPassword);
+			sendConfirmationMail(socialEntity, definedPassword);
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
 			errors.add("email", new ActionMessage("members.user.exists"));
@@ -89,11 +94,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 		}
 		em.close();
-		
+
 		dynaForm.set("name", "");
 		dynaForm.set("firstName", "");
 		dynaForm.set("email", "");
-		
+
 		return mapping.findForward("success");
 	}
 
@@ -135,10 +140,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		message.append("Bonjour ").append(nom).append(" ").append(prenom);
 		message.append(",<br/><br/>");
 		message
-		.append("Vous venez d'&ecirc;tre enregistr&eacute; sur FSNet (Firm Social Network).<br/><br/>");
-		message.append("D&eacute;sormais vous pouvez vous connecter sur le site ");
+				.append("Vous venez d'&ecirc;tre enregistr&eacute; sur FSNet (Firm Social Network).<br/><br/>");
+		message
+				.append("D&eacute;sormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
+
 		message.append("Un mot de passe a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; automatiquement : <em>");
 		message.append(password);
 		message
@@ -149,13 +156,13 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		throw new UnsupportedOperationException();
 	}
-	
+
 	public ActionForward switchState(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		String entitySelected = request.getParameter("entitySelected");
 		EntityManager em = factory.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
@@ -170,10 +177,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		EntityManager entityManager = factory.createEntityManager();
-		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(entityManager);
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(
+				entityManager);
 
 		Integer idMember = Integer.valueOf(request.getParameter("idMember"));
 
@@ -186,10 +194,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			if (member.getAddress().getAddress() != null)
 				adress = member.getAddress().getAddress();
 			if (member.getAddress().getCity() != null)
-				city= member.getAddress().getCity();
+				city = member.getAddress().getCity();
 		}
 		dynaForm.set("address", adress);
-		dynaForm.set("city", city );
+		dynaForm.set("city", city);
 		dynaForm.set("phone", member.getPhone());
 		dynaForm.set("sexe", member.getSex());
 		dynaForm.set("job", member.getProfession());
@@ -210,7 +218,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		EntityManager entityManager = factory.createEntityManager();
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 		String name = (String) formSocialENtity.get("name");
@@ -257,7 +265,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		EntityManager em = factory.createEntityManager();
 		em.getTransaction().begin();
 		TypedQuery<SocialEntity> query = null;
@@ -308,7 +316,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialEntityFacade ise = new SocialEntityFacade(em);
 		InterestFacade interestFacade = new InterestFacade(em);
 		em.getTransaction().begin();
-		ise.removeInterest(interestFacade.getInterest(interestSelected), ise.getSocialEntity(idSocialEntity));
+		ise.removeInterest(interestFacade.getInterest(interestSelected), ise
+				.getSocialEntity(idSocialEntity));
 		em.getTransaction().commit();
 		em.close();
 
