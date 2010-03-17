@@ -2,13 +2,13 @@
     <parent>
         <artifactId>fsnet</artifactId>
         <groupId>fr.univartois.ili.fsnet</groupId>
-        <version>0.6.0</version>
+        <version>0.6.1-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <groupId>fr.univartois.ili.fsnet</groupId>
     <artifactId>commons</artifactId>
     <name>commons</name>
-    <version>0.6.0</version>
+    <version>0.6.1-SNAPSHOT</version>
     <build>
         <plugins>
             <plugin>
@@ -30,7 +30,7 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>entities</artifactId>
-            <version>0.6.0</version>
+            <version>0.6.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>javax.servlet</groupId>
