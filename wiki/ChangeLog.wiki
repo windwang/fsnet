@@ -1,4 +1,49 @@
+#labels Featured
 = ChangeLog of FSNet =
+
+== fsnet-0.6.0 ==
+
+== New features ==
+ * User are allowed to add interests on a hub or a 
+ * Meta informations are displayed on each interaction
+ * Navigation in comminuty hubs topics etc ... (Issue 165)
+ * Admin can now create a new user with a defined password (Issue 187)
+ * The number of hub and topics is now displayed on communities lists and hubs lists
+ * Lot of UI Improvements
+ * Improved the accessibility of the application
+ * Heavy client (trayDesktop) has been largely improved by adding some new notifications (like new contacts) (Issue 12)
+
+== Fixed Issues == 
+
+ * Issue 29:	DB problem for mappedby Interet.lesEntites
+ * Issue 35:	Improve the left menu
+ * Issue 62:	Email sent for providing a password no properly encoded
+ * Issue 110:	Use a consistent approach for tagging social entities with interests
+ * Issue 113:	Announce enhancement
+ * Issue 136:	Pagination for FSNET
+ * Issue 147:	create an event whitch finish today
+ * Issue 158:	Need i18n on dashboard and profile
+ * Issue 162:	community cannot be deleted on specific browsers (Chrome,Opera)
+ * Issue 165:	Navigation in comminuty hubs topics etc ...
+ * Issue 170:	Subscribe to event
+ * Issue 163:	Interests are not displayed for communities and hubs
+ * Issue 174:	Cannot delete user in admin app
+ * Issue 175:	Managing interests in Admin part should be improved
+ * Issue 176:	Contact requests do not appear on the dashboard
+ * Issue 177:	Admin config does not work
+ * Issue 178:	No way for a user to access easily its communities on the dashboard
+ * Issue 181:	Contact proposals display disabled SocialEnity
+ * Issue 182:	problem with the character ":" in private messages subject
+ * Issue 183:	Clear field after submiting new interest/interaction
+ * Issue 184:	add new mask validator for admin section
+ * Issue 188:	Redirect to requested page after connection
+ * Issue 190:	Add the number of hubs available in each community
+ * Issue 191:	Pagination : previous next display
+ * Issue 192:	Typo: hub/hubs
+ * Issue 195:	Error date in announce page
+ * Issue 196:	Propose 8 interests instead of 5
+ * Issue 198:	Paginator numbering should start at 1, no 0
+ * Issue 199:	Change contact proposal buttons and add accessibility
 
 == fsnet-0.5.0 ==
 
