@@ -31,10 +31,10 @@
                 <html:param name="${paginatorInstance.requestInputName}" value="${paginatorInstance.requestInput}"/>
                 <c:choose>
                     <c:when test="${page == paginatorInstance.requestedPage}">
-                        <u>${page}</u>
+                        <u>${page+1}</u>
                     </c:when>
                     <c:otherwise>
-                        ${page}
+                        ${page+1}
                     </c:otherwise>
                 </c:choose>
             </html:link>
