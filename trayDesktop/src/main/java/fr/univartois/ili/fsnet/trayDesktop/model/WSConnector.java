@@ -220,11 +220,11 @@ public class WSConnector {
 			fireError("No Connection");
 		} else {
 			try {
-				List<WsPrivateMessage> messages = infoPort.getNewMessages(
-						Options.getLogin(), Options.getPassword());
-
-				if (messages != null && messages.size() > 0) {
-					fireNewMessages(messages.size());
+				if (getNbMessage() > 0 || getNbDemandeC() > 0) {
+					if (getNbMessage() > 0) {
+						fireNewMessages(getNbMessage());
+					}
+				} else {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -238,17 +238,19 @@ public class WSConnector {
 			fireError("No Connection");
 		} else {
 			try {
-				if (frame == null) {
-					frame = new NotificationFrame(position);
-					if (getNbMessage() > 0) {
-						frame.addPanelMessage(getNbMessage());
+				if (getNbMessage() > 0 || getNbDemandeC() > 0) {
+					if (frame == null) {
+						frame = new NotificationFrame(position);
+						if (getNbMessage() > 0) {
+							frame.addPanelMessage(getNbMessage());
+						}
+						if (getNbDemandeC() > 0) {
+							frame.addPanelContact(getNbDemandeC());
+						}
+					} else {
+						frame.getFrame().dispose();
+						frame = null;
 					}
-					if (getNbDemandeC() > 0) {
-						frame.addPanelContact(getNbDemandeC());
-					}
-				} else {
-					frame.getFrame().dispose();
-					frame = null;
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
