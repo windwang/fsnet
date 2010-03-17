@@ -11,12 +11,6 @@
 
 <h3>
     <bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
-    <c:if test="${edit}">
-        <html:link href="Profile.do" styleClass="profileLink link">
-            <bean:message key="showProfile.edit"/>
-        </html:link>
-    </c:if>
-
 </h3>
 
 <img src="avatar/${watchedProfile.id}.png" style="float: right;"/>
@@ -90,11 +84,6 @@
 
 <h3>
     <bean:message key="showInterest.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}"/>
-    <c:if test="${edit}">
-        <html:link styleClass="profileLink link" action="/Interests">
-            <bean:message key="showProfile.edit.interests"/>
-        </html:link>
-    </c:if>
 </h3>
 <logic:empty name="watchedProfile" property="interests">
     <bean:message key="Profile.noInterests"/>.
