@@ -10,7 +10,7 @@
             <field property="announceTitle" depends="required,mask,maxlength">
                 <var>
 		        	<var-name>mask</var-name>
-		        	<var-value>^[\w, \.!?+*;:\(\)\[\]-]+$</var-value>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 		        </var>
 		        <var>
 		        	<var-name>maxlength</var-name>
@@ -37,7 +37,7 @@
             <field property="announceTitle" depends="required,mask,maxlength">
                 <var>
 		        	<var-name>mask</var-name>
-		        	<var-value>^[\w]([\ |']?[\w]+)*$</var-value>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 		        </var>
 		        <var>
 		        	<var-name>maxlength</var-name>

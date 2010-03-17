@@ -10,7 +10,7 @@
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
@@ -23,7 +23,7 @@
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
@@ -40,7 +40,7 @@
 				</var>
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>				
 			</field>
 			<field property="dateOfBirth" depends="date">
@@ -63,7 +63,7 @@
 				</var>
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>	
 			</field>
 			<field property="job" depends="mask,maxlength">
@@ -72,7 +72,7 @@
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
