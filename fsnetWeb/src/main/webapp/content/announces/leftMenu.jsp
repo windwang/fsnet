@@ -2,7 +2,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <h2>
-    <bean:message key="communities.communitiesLeftMenu"/>
+    <bean:message key="announce.leftMenu"/>
 </h2>
 <ul>
     <li>
