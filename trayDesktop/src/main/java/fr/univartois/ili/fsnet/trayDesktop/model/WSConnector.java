@@ -256,7 +256,7 @@ public class WSConnector {
     public int getNbDemandeC() {
         int nbC = 0;
         try {
-            // nbC = infoPort.getNewDemandeCount();
+           nbC = infoPort.getNewDemandeCount(Options.getLogin(), Options.getPassword());
         } catch (Exception e) {
             e.printStackTrace();
         }

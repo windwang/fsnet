@@ -15,14 +15,11 @@ import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
-import java.awt.MouseInfo;
-import java.awt.Robot;
-import java.awt.Toolkit;
+import javax.swing.BoxLayout;
 
 public class NotificationFrame {
 
     private JFrame frame;
-    private FlowLayout flow;
     private Point point;
     private Point position;
 
@@ -73,7 +70,7 @@ public class NotificationFrame {
 
     public void init(Point position) {
         this.frame.setUndecorated(true);
-        flow = new FlowLayout();
+        BoxLayout flow = new BoxLayout(frame.getContentPane(), BoxLayout.PAGE_AXIS);
         this.frame.setVisible(true);
         this.frame.setLayout(flow);
         this.frame.pack();
