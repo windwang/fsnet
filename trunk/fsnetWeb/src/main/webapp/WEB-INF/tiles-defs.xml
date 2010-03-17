@@ -119,12 +119,14 @@
     <definition name="Profile" extends=".defaultLayout">
         <put name="title" value="pageTitle.5"/>
         <put name="currentMenu" value="Profile"/>
+        <put name="left" value="/content/profile/leftMenu.jsp" />
         <put name="body-content" value="/content/profile/Profile.jsp" />
     </definition>
 
     <definition name="ShowProfile" extends=".defaultLayout">
         <put name="title" value="pageTitle.5"/>
         <put name="currentMenu" value="Profile"/>
+        <put name="left" value="/content/profile/leftMenu.jsp" />
         <put name="body-content" value="/content/profile/ShowProfile.jsp" />
     </definition>
 
