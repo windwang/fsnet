@@ -38,6 +38,7 @@
         <put name="title" value="pageTitle.1"/>
         <put name="body-content" value="/content/events/DisplayEvents.jsp" />
         <put name="currentMenu" value="Events"/>
+        <put name="left" value="/content/events/leftMenu.jsp" />
     </definition>
 
     <definition name="DisplayEvent" extends=".defaultLayout">
