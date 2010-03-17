@@ -22,7 +22,8 @@ public class GetMiniatureTag extends SimpleTagSupport {
 		}
 		out.print("<img src=\"miniature/");
 		out.print(socialEntity.getId());
-		out.print(".png\"></img>");
+		out.print(".png\" ");
+                out.print("title='"+socialEntity.getFirstName()+" " + socialEntity.getName()+"'></img>");
 		if (socialEntity.getIsEnabled()) {
 			out.print("</a>");
 		}
