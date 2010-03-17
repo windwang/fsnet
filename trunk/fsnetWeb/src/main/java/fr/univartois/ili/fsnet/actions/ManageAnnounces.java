@@ -74,7 +74,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
                 entityManager.getTransaction().commit();
             } else {
                 ActionMessages errors = new ActionErrors();
-                errors.add("message", new ActionMessage("dateBelowDateToday"));
+                errors.add("message", new ActionMessage("error.dateBelowDateToday"));
                 saveErrors(request, errors);
                 entityManager.close();
                 return mapping.findForward("failer");
@@ -119,7 +119,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
             } else {
                 ActionMessages errors = new ActionMessages();
                 errors.add("message", new ActionMessage(
-                        "errors.dateBelowDateToday"));
+                        "error.dateBelowDateToday"));
                 saveErrors(request, errors);
             }
             request.setAttribute("announce", announce);
