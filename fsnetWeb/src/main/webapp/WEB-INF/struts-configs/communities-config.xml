@@ -70,7 +70,7 @@
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
 			name="SearchYourCommunitiesForm" input="UnauthorizedOperationException" scope="request" validate="false"
 			parameter="searchYourCommunities">
-			<forward name="success" path="Communities" />
+			<forward name="success" path="DisplayYourCommunities" />
 		</action>
 		<action path="/DeleteYourCommunity" 
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
