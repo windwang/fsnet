@@ -8,6 +8,10 @@
         <html:multibox
             property="selectedInterests"
             value="${interest.id}"
-            />${interest.name}
+            />
+        <html:link action="/InterestInformations">
+            <html:param name="infoInterestId" value="${interest.id}"/>
+            ${interest.name}
+        </html:link>
     </span>
 </c:forEach>
