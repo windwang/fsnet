@@ -14,9 +14,9 @@
 <h3><bean:message key="communities.listCommunities"/></h3>
 
 <c:choose>
-<c:when test="${! empty communitiesResult}">
+<c:when test="${not empty requestScope.communitiesListPaginator.resultList}">
 	<table  class="inLineTable">
-        <c:forEach var="community" items="${communitiesResult}">
+        <c:forEach var="community" items="${requestScope.communitiesListPaginator.resultList}">
             <tr class="content">
                 <td>${community.title}      
                 </td>
@@ -35,6 +35,10 @@
             </tr>
         </c:forEach>
     </table>
+    <c:set var="paginatorInstance" value="${requestScope.communitiesListPaginator}" scope="request"/>
+	<c:set var="paginatorAction" value="/Communities" scope="request"/>
+	<c:set var="paginatorTile" value="communities" scope="request"/>
+	<c:import url="/content/pagination/Pagination.jsp"/>
 </c:when>
 <c:otherwise>
 	<bean:message key="communities.noResult"/>
