@@ -29,8 +29,18 @@
                         <html:link action="/DisplayCommunity" title='${empty community.interests ? "" : community.interests}'>
                             <html:param name="communityId" value="${community.id}"/>
                             ${community.title}
-                        </html:link>
-                         (${fn:length(community.hubs)} hubs)
+                        </html:link> 
+                         <c:choose>
+                         	<c:when test="${fn:length(community.hubs) eq 0}">
+                         		(<bean:message key="communities.notany.hubs"/> hub)
+                         	</c:when>
+                         	<c:when test="${fn:length(community.hubs) eq 1}">
+                         		(1 hub)
+                         	</c:when>
+                         	<c:when test="${fn:length(community.hubs) gt 1}">
+                         		(${fn:length(community.hubs)} hubs)
+                         	</c:when>
+                         </c:choose>
                     </td>
                     <td>
                         <bean:message key="communities.by"/>
