@@ -29,26 +29,4 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-	<tag>
-		<description>remove all XML tags from a string</description>
-		<display-name>noxml</display-name>
-		<name>noxml</name>
-		<tag-class>fr.univartois.ili.fsnet.tags.NoXMLTag</tag-class>
-		<body-content>scriptless</body-content>
-	</tag>
-	<tag>
-		<description>troncat the body like java.lang.String.substring(int, int)</description>
-		<display-name>substring</display-name>
-		<name>substring</name>
-		<tag-class>fr.univartois.ili.fsnet.tags.SubstringTag</tag-class>
-		<body-content>scriptless</body-content>
-		<attribute>
-			<name>beginIndex</name>
-			<required>true</required>
-		</attribute>
-		<attribute>
-			<name>endIndex</name>
-			<required>true</required>
-		</attribute>
-	</tag>
 </taglib>
