@@ -169,8 +169,9 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		em.getTransaction().commit();
 		em.close();
 
+		Paginator<Community> paginator = new Paginator<Community>(result, request, 5, "myCommunities");
 
-		request.setAttribute("communitiesResult", result);
+		request.setAttribute("myCommunitiesPaginator", paginator);
 		return mapping.findForward("success");
 	}
 }
