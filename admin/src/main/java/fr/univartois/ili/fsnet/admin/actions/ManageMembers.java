@@ -15,6 +15,7 @@ import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.dsig.keyinfo.PGPData;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -28,9 +29,11 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
 import fr.univartois.ili.fsnet.commons.mail.Mail;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Address;
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
@@ -195,7 +198,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("email", member.getEmail());
 		dynaForm.set("firstName", member.getFirstName());
 		dynaForm.set("id", member.getId());
-		request.setAttribute("interests", member.getInterests());
+		
+		Paginator<Interest> paginator = new Paginator<Interest>(member.getInterests(), request, "interestsMember", "idMember");
+		
+		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
 
 		return mapping.findForward("success");

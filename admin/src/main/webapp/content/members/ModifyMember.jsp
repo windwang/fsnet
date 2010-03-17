@@ -97,27 +97,35 @@
 		</tr>
 	</table>
 </html:form>
-<hr />
-<bean:message key="members.herInterests"/>
-<br /><br />
-<table  class="inLineTable">
-       <c:forEach var="interest" items="${interests}">
 
-            <tr class="content">
-                <td>
-                ${interest.name}
-                </td>
-                  <td class="tableButton">
-                    <html:link action="DeleteInterestMember" styleClass="button">
-                       <bean:message key="members.deleteInterest"/>
-                       <html:param name="interestSelected" value="${interest.id}"/>
-                       <html:param name="idMember" value="${id}"/>
-                    </html:link>
-                </td>
-            </tr>
-            
-        </c:forEach>
-    </table>
+<h3><bean:message key="members.herInterests"/></h3>
+<c:choose>
+<c:when test="${empty requestScope.interestsMemberPaginator.resultList}">
+	<bean:message key="interests.17"/>
+</c:when>
+	<c:otherwise>
+		<table  class="inLineTable">
+			<c:forEach var="interest" items="${requestScope.interestsMemberPaginator.resultList}">
+			    <tr class="content">
+		    	    <td>
+		        	    ${interest.name}
+		            </td>
+		              <td class="tableButton">
+		                <html:link action="DeleteInterestMember" styleClass="button">
+		                   <bean:message key="members.deleteInterest"/>
+		                   <html:param name="interestSelected" value="${interest.id}"/>
+		                   <html:param name="idMember" value="${id}"/>
+		                </html:link>
+		            </td>
+		        </tr>
+		    </c:forEach>
+		</table>
+		<c:set var="paginatorInstance" value="${requestScope.interestsMemberPaginator}" scope="request"/>
+		<c:set var="paginatorAction" value="/DisplayMember" scope="request"/>
+		<c:set var="paginatorTile" value="interestsMember" scope="request"/>
+		<c:import url="/content/pagination/Pagination.jsp"/>
+	</c:otherwise>
+</c:choose>
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
