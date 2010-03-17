@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.trayDesktop.views;
 
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -24,6 +25,7 @@ public class NotificationPanel {
         this.label = new JLabel("Vous avez " + nb + " " + message);
         border = new BorderLayout();
         panel.setLayout(border);
+        panel.setMinimumSize(new Dimension(0,30));
         this.panel.add(label, BorderLayout.WEST);
     }
 
