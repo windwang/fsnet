@@ -13,23 +13,23 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <div class="interactionInfo" >
-    Owner :
+    <bean:message key="interactions.owner"/> :
     <ili:getSocialEntityInfos socialEntity="${theInteraction.creator}"/>
     <br/>
     <div style="color: #808080">
 		<c:if test="${not empty subscribers}">		
-        	${fn:length(subscribers)} Subscribers
+        	${fn:length(subscribers)} <bean:message key="interactions.subscribers"/>
         	<br/>
         </c:if>
-        Created on <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
+        <bean:message key="interactions.created"/> <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
         <br/>
-        ${fn:length(theInteraction.followingEntitys)} Followers
+        ${fn:length(theInteraction.followingEntitys)} <bean:message key="interactions.followers"/>
         <br/>
-        Visibility : public
+        <bean:message key="interactions.visibility"/>
         <br/>
 
         <logic:notEmpty name="theInteraction" property="interests" >
-            Interets :
+            <bean:message key="interactions.interest"/> :
             <div class="cloud">
                 <c:forEach var="interest" items="${theInteraction.interests}">
                     <span class="otag">
