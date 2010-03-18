@@ -60,10 +60,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
-	private ActionErrors verified(DynaActionForm dynaForm, EntityManager em, HttpServletRequest request, Date birthday){
+	private ActionErrors verified(DynaActionForm dynaForm, EntityManager em, HttpServletRequest request){
 		ActionErrors res = new ActionErrors();
 		try {
-			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
+			Date birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
 			Date actualDate = new Date();
 			if (birthday.after(actualDate)) {
 				res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
@@ -75,7 +75,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
 			}
 		} catch (ParseException e1) {
-			res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
+			//DO NOTHING EMPTY DATE
 		}
 		if(! UserUtils.getAuthenticatedUser(request, em).getEmail().equals(dynaForm.getString("mail"))){
 			SocialEntityFacade sef = new SocialEntityFacade(em);
@@ -98,10 +98,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Date birthday = null;
 		try {
 			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
-		} catch (ParseException e1) {
-			// DO NOTHING
+		} catch (ParseException e) {
+			// DO NOTHING EMPTY DATE
 		}
-		ActionErrors actionsErrors = verified(dynaForm, em, request, birthday);
+		ActionErrors actionsErrors = verified(dynaForm, em, request);
 		if(! actionsErrors.isEmpty()){
 			saveErrors(request, actionsErrors);
 			em.close();
