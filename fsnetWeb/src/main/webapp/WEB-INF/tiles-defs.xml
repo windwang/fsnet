@@ -52,6 +52,7 @@
         <put name="title" value="pageTitle.2"/>
         <put name="currentMenu" value="Contacts"/>
         <put name="body-content" value="/content/contacts/Contacts.jsp" />
+       	<put name="left" value="" />
     </definition>
     <definition name="AskContact" extends=".defaultLayout">
         <put name="title" value="pageTitle.3"/>
