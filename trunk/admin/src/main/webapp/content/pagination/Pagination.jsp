@@ -25,7 +25,7 @@
 
     <c:if test="${paginatorInstance.numPages > 1}">
         <c:forEach var="page" begin="0" end="${paginatorInstance.numPages-1}">
-            <html:link styleClass="paginatorPageId" action="${paginatorAction}" title="page ${page}">
+            <html:link styleClass="paginatorPageId" action="${paginatorAction}" title="page ${page+1}">
                 <html:param name="pageId" value="${page}"/>
                 <html:param name="tileId" value="${paginatorTile}"/>
                 <html:param name="${paginatorInstance.requestInputName}" value="${paginatorInstance.requestInput}"/>
