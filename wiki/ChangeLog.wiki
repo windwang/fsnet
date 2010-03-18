@@ -4,7 +4,7 @@
 == fsnet-0.6.0 ==
 
 == New features ==
- * User are allowed to add interests on a hub or a 
+ * User are allowed to add interests on a hub or a community
  * Meta informations are displayed on each interaction
  * Navigation in comminuty hubs topics etc ... (Issue 165)
  * Admin can now create a new user with a defined password (Issue 187)
