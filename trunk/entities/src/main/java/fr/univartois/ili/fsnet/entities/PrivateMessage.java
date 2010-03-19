@@ -13,7 +13,6 @@ import javax.persistence.ManyToOne;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public class PrivateMessage extends Message implements Serializable {
 
-    private static final long serialVersionUID = 1L;
     @Column(length = 500)
     private String subject;
     @ManyToOne

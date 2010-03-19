@@ -21,9 +21,6 @@ import javax.persistence.TemporalType;
 @IdClass(value=ProfileVisitePK.class)
 @Entity
 public class ProfileVisite implements Serializable{
-
-
-	private static final long serialVersionUID = 15465464L;
 	
 	@ManyToOne
 	@Id

@@ -14,9 +14,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 public class Announcement extends Interaction {
-
-    private static final long serialVersionUID = 1L;
-    
+	
     @Column(length=5000)
     private String content;
     /**

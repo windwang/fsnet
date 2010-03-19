@@ -17,7 +17,6 @@ import javax.persistence.PostRemove;
 @Entity
 public class Hub extends Interaction {
 
-    private static final long serialVersionUID = 1L;
     /**
      * The list of topics of a hub.
      */

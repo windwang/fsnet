@@ -27,8 +27,7 @@ import javax.persistence.TemporalType;
 @Entity
 public class SocialEntity implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-    /**
+	/**
      * The identifier.
      */
     @Id

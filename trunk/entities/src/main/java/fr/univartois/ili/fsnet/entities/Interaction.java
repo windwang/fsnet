@@ -36,7 +36,6 @@ import javax.persistence.Transient;
 @Inheritance(strategy = InheritanceType.JOINED)
 public abstract class Interaction implements Serializable {
 
-	private static final long serialVersionUID = 1L;
 	/**
 	 * The identifier.
 	 */

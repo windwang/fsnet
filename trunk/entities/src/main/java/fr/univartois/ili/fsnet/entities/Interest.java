@@ -25,8 +25,6 @@ import javax.persistence.PostRemove;
  */
 @Entity
 public class Interest implements Serializable {
-
-    private static final long serialVersionUID = 1L;
     
     /**
      * The identifier.
