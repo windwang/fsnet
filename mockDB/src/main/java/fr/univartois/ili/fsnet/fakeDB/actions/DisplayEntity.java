@@ -25,8 +25,6 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DisplayEntity extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-
 	private static final EntityManagerFactory factory = Persistence
 			.createEntityManagerFactory("fsnetjpa");
 

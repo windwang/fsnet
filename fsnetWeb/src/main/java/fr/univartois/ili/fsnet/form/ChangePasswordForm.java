@@ -23,7 +23,6 @@ public class ChangePasswordForm extends ValidatorForm {
 	 */
 	public static final int PASSWORD_MAX_LENGTH=30;
 	
-    private static final long serialVersionUID = -4883204887473399364L;
     private String oldPassword;
     private String newPassword;
     private String confirmNewPassword;

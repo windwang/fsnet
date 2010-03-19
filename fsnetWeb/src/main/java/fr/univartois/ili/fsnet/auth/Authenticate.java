@@ -26,7 +26,6 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
  */
 public class Authenticate extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
 	/**
 	 * Welcome page path when the user is authenticated
 	 */
