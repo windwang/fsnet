@@ -60,7 +60,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
 		dynaForm.set("email", "");
-		String password = (String) dynaForm.get("password");
+		String inputPassword = (String) dynaForm.get("password");
 
 		EntityManager em = factory.createEntityManager();
 
@@ -70,14 +70,14 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		try {
 			String definedPassword = null;
 			String encryptedPassword = null;
-			if (password == null || "".equals(password)) {
+			if (inputPassword == null || "".equals(inputPassword)) {
 				definedPassword = Encryption.generateRandomPassword();
-				
 				logger.info("#### Generated Password : " + definedPassword);
 				encryptedPassword = Encryption.getEncodedPassword(definedPassword);
 			} else {
-				logger.info("#### Defined Password : " + password);
-				encryptedPassword = Encryption.getEncodedPassword(password);
+				definedPassword = inputPassword;
+				logger.info("#### Defined Password : " + inputPassword);
+				encryptedPassword = Encryption.getEncodedPassword(inputPassword);
 			}
 			socialEntity.setPassword(encryptedPassword);
 			em.getTransaction().begin();
