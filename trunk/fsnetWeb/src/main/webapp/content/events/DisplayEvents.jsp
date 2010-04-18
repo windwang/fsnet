@@ -28,10 +28,13 @@
 <h3>
     <bean:message key="events.9"/> :
 </h3>
+
 <c:choose>
-<c:when test="${empty requestScope.eventsListPaginator.resultList}">
-    <bean:message key="search.noResults"/>
-</c:when>
+
+	<c:when test="${empty requestScope.eventsListPaginator.resultList}">
+	    <bean:message key="search.noResults"/>
+	</c:when>
+	
 	<c:otherwise>
 		<table  class="inLineTable">
 		    <c:forEach var="event" items="${requestScope.eventsListPaginator.resultList}">

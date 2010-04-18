@@ -98,7 +98,6 @@
                 </logic:messagesPresent>
             </td>
         </tr>
-        
     </table>
 </html:form>
 

@@ -38,7 +38,6 @@
             <td colspan="2" class="alignRight">
                 <html:submit styleClass="button"><bean:message key="topics.createMessage"/></html:submit>
             </td>              
-
         </tr>
     </table>
     <bean:message key="topics.lastmessages"/> :

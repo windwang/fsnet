@@ -20,7 +20,6 @@
             </td>
             <td>
                 <html:text property="name" styleId="name" errorStyleClass="error"/>
-
             </td>
         </tr>
         <tr class="errorMessage">
