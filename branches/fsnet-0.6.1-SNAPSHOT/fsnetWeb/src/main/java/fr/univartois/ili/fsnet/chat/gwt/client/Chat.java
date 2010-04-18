@@ -40,7 +40,7 @@ public class Chat implements EntryPoint {
 				});
 			}
 		};
-		GWT.log("schedullleee");
 		timer.scheduleRepeating(1500);
+		timer.run();
 	}
 }

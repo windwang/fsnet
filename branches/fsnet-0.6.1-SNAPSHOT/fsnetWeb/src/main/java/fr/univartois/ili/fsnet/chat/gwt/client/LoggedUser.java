@@ -1,17 +1,22 @@
 package fr.univartois.ili.fsnet.chat.gwt.client;
 
 public class LoggedUser {
-	
+
 	private int id;
-	
+
 	private String name;
-	
-	private UserMiniature userMiniature;
-	
-	public LoggedUser(int id, String name) {
-		this.id = id;
+
+	private UserInfosPanel infoPanel;
+
+	private UserPicture userMiniature;
+	private UserPicture userAvatar;
+
+	public LoggedUser(int userId, String name) {
+		this.id = userId;
 		this.name = name;
-		userMiniature = new UserMiniature(id, name);
+		infoPanel = new UserInfosPanel(name, userId);
+		userMiniature = new UserPicture(userId, name, true);
+		userAvatar = new UserPicture(userId, name, false);
 	}
 
 	public int getId() {
@@ -30,8 +35,16 @@ public class LoggedUser {
 		this.name = name;
 	}
 
-	public UserMiniature getUserMiniature() {
+	public UserPicture getUserMiniature() {
 		return userMiniature;
 	}
-	
+
+	public UserPicture getUserAvatar() {
+		return userAvatar;
+	}
+
+	public UserInfosPanel getInfoPanel() {
+		return infoPanel;
+	}
+
 }
