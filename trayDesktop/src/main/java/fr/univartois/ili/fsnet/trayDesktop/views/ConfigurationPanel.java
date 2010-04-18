@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.trayDesktop.views;
 
+import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.awt.event.KeyListener;
 import java.util.ResourceBundle;
@@ -19,10 +20,6 @@ import com.jgoodies.forms.layout.FormLayout;
 import fr.univartois.ili.fsnet.trayDesktop.TrayLauncher;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options;
 import fr.univartois.ili.fsnet.trayDesktop.model.Options.LANG;
-import java.awt.event.FocusAdapter;
-import java.awt.event.MouseAdapter;
-import javax.swing.event.CaretEvent;
-import javax.swing.event.CaretListener;
 
 /**
  * Create and return a configuration panel for the trayIcon

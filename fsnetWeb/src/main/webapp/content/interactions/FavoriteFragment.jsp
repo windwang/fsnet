@@ -48,7 +48,7 @@
 </script>
 
 <img id="favorite${interactionId}"
-     src="images/${isFavorite ? "favorite.png" : "non-favorite.png"}"
+     src="images/${isFavorite ? 'favorite.png' : 'non-favorite.png'}"
      alt="Favorite"
      onclick="switchFavorite(${interactionId});"
      onmouseover="this.style.cursor='pointer'"
