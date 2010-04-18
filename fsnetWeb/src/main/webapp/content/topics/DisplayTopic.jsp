@@ -50,11 +50,19 @@
             </td>
             <td style="text-align:right;">
                 <c:if test="${sessionScope.userId eq msg.from.id}">
+           
+			        <html:link action="/DeleteTopicMessage" styleClass="button">
+			            <html:param name="topicId" value="${topic.id}" />
+			            <html:param name="messageId" value="${msg.id}" />
+			            <bean:message key="topics.deleteMsg"/>
+			        </html:link>
+			        
                     <html:link action="/DisplayModifyTopicMessage" styleClass="button">
                         <html:param name="topicId" value="${topic.id}" />
                         <html:param name="messageId" value="${msg.id}" />
                         <bean:message key="topics.modifyMsg"/>
                     </html:link>
+                    
                 </c:if>
             </td>
         </tr>
@@ -70,21 +78,7 @@
                 </c:if>
             </td>
         </tr>
-
     </table>
-
-
-    <!--
-    <c:if test="${sessionScope.userId eq msg.from.id}">
-        <html:link action="/DeleteTopicMessage" styleClass="button">
-            <html:param name="topicId" value="${topic.id}" />
-            <html:param name="messageId" value="${msg.id}" />
-            <bean:message key="topics.deleteMsg"/>
-        </html:link>
-    </c:if>
-
-
-    -->
 
 </c:forEach>
 <c:set var="paginatorInstance" value="${requestScope.topicMessageDisplayPaginator}" scope="request"/>

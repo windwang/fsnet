@@ -7,8 +7,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:if test="${param.searchText == null}">
-<jsp:include page="/content/communities/YourCommunities.jsp"/>
+	<jsp:include page="/content/communities/YourCommunities.jsp"/>
 </c:if>
+
 <c:if test="${param.searchCommunityText == null}">
-<jsp:include page="/content/communities/SearchCommunity.jsp"/>
+	<jsp:include page="/content/communities/SearchCommunity.jsp"/>
 </c:if>

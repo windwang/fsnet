@@ -25,7 +25,6 @@
                 <html:submit styleClass="button"><bean:message key="hubs.create"/></html:submit>
             </td>
         </tr>
-
         <tr class="errorMessage">
             <td colspan="2">
                 <html:errors property="hubName"/>
