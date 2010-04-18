@@ -1,8 +1,6 @@
 package fr.univartois.ili.fsnet.chat.gwt.client;
 
 
-import com.gargoylesoftware.htmlunit.html.DomText;
-import com.google.gwt.user.client.DOM;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.Composite;
 import com.google.gwt.user.client.ui.HTML;
