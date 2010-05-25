@@ -5,7 +5,7 @@
 <%@taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib uri="../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
 	<bean:message key="loggedUsers.title"/>
 </h2>
