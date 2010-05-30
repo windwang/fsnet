@@ -41,3 +41,6 @@ As you can see in the source repository there is no specific IDE files in. The m
   * Click on finish
 
 Now you should be ready to develop on fsnet.
+
+= Using Netbeans 6.x =
+TODO...
