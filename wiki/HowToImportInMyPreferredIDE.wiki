@@ -25,7 +25,7 @@ As you can see in the source repository there is no specific IDE files in. The m
   * Perform a right click in the project explorer view
   * Choose Import -> maven -> Check out maven project from SCM
   * Choose "svn" for the select input.
-  * Copy/paste in the text filed this url : https://fsnet.googlecode.com/svn/trunk/
+  * Copy/paste in the text field this url : https://fsnet.googlecode.com/svn/trunk/
     Note : if you're not a team member you can checkout using http instead of https
   * Click on finish and wait for a while (maven is downloading all the dependencies for you :-))
 
