@@ -48,7 +48,7 @@ As you can see in the source repository there is no specific IDE files in. The m
 
 Now you should be ready to develop on fsnet.
 
-= Using Netbeans 6.x =
+= Using Netbeans 6.x (Noobs only) =
 Download the latest version of Netbeans Java on http://www.netbeans.org
 While installing, check Tomcat in the server list. 
 
