@@ -32,7 +32,7 @@ As you can see in the source repository there is no specific IDE files in. The m
   * Click on finish and wait for a while (maven is downloading all the dependencies for you :-))
   * Perform a right click on the trayDesktop project
   * Select Run as -> Maven generate-sources
-  * Perform again aright click on this project
+  * Perform again a right click on this project
   * Select Maven -> update project configuration (m2eclipse should add the target/generated-sources/ directory to your build path)
 
 == Install tomcat in Eclipse ==
