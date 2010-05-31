@@ -8,7 +8,7 @@
 	<version>0.6.1-SNAPSHOT</version>
 	<name>Firm Social Network</name>
 	<url>http://code.google.com/p/fsnet/</url>
-	
+
 	<description>
 		The aim of this project is to develop a social network
 		application in
@@ -89,6 +89,15 @@
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>jaxws-maven-plugin</artifactId>
 					<version>1.10</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-plugin</artifactId>
+					<configuration>
+						<excludes>
+							<exclude>**/AllTests.java</exclude>
+						</excludes>
+					</configuration>
 				</plugin>
 			</plugins>
 		</pluginManagement>

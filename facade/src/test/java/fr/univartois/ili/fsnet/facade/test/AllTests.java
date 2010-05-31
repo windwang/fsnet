@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
-    AnnouncementFacadeTest.class,
+	AnnouncementFacadeTest.class,
     CommunityFacadeTest.class,
     ContactFacadeTest.class,
     HubFacadeTest.class,
@@ -21,6 +21,6 @@ import org.junit.runners.Suite;
     ProfileVisiteFacadeTest.class,
     SocialEntityFacadeTest.class,
     TopicMessageFacadeTest.class,
-    TopicFacadeTest.class,
+    TopicFacadeTest.class    
 })
 public class AllTests {}
