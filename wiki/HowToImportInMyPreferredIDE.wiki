@@ -14,11 +14,13 @@ As you can see in the source repository there is no specific IDE files in. The m
     WARNING : Currently, m2eclipse project is divided in two different update sites ! You MUST install each one.
     * From m2eclipse core update site : 
       * Maven integration for eclipse
+      * Restart eclipse...
     * From m2eclipse extras update site :
       * Maven integration for WTP
       * Maven handler for Subclipse
       * Maven SCM integration 
       * Project configurators for commonly used maven plugins
+      * Restart eclipse...
 
 == Check out sources ==
 
@@ -28,6 +30,10 @@ As you can see in the source repository there is no specific IDE files in. The m
   * Copy/paste in the text field this url : https://fsnet.googlecode.com/svn/trunk/
     Note : if you're not a team member you can checkout using http instead of https
   * Click on finish and wait for a while (maven is downloading all the dependencies for you :-))
+  * Perform a right click on the trayDesktop project
+  * Select Run as -> Maven generate-sources
+  * Perform again aright click on this project
+  * Select Maven -> update project configuration (m2eclipse should add the target/generated-sources/ directory to your build path)
 
 == Install tomcat in Eclipse ==
 
