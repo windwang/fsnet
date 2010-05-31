@@ -49,7 +49,7 @@ While installing, check Tomcat in the server list.
 Launch Netbeans, select Team -> Subversion -> Checkout in the menu.
 Enter the following URL : https://fsnet.googlecode.com/svn/trunk/ and click next and finish. 
 
-Netbeans asks you if you want to open checked out projects, click yes, select the parent project and check the Open required box.
-Right click on the parent project named "Firm Social Network" and select _Clean and Build_.
+Netbeans asks you if you want to open checked out projects, click yes, select the parent project and check the Open required box then click Finish.
+In the project view, right click on the parent project named "Firm Social Network" and select _Clean and Build_.
 
 That's all folks ! Now you can follow the tutorial on http://code.google.com/p/fsnet/wiki/HowToInstall
