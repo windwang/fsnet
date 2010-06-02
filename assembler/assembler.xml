@@ -3,43 +3,35 @@
 	xmlns="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/plugins/maven-assembly-plugin/assembly/1.1.0 http://maven.apache.org/xsd/assembly-1.1.0.xsd">
-
 	<id>bin</id>
 	<formats>
 		<format>zip</format>
 	</formats>
 	<includeBaseDirectory>false</includeBaseDirectory>
-	<moduleSets>
-		<moduleSet>
+	<dependencySets>
+		<dependencySet>
 			<includes>
 				<include>fr.univartois.ili.fsnet:admin</include>
 				<include>fr.univartois.ili.fsnet:fsnetWeb</include>
 				<include>fr.univartois.ili.fsnet:webservice</include>
 			</includes>
-			<binaries>
-				<dependencySets>
-					<dependencySet>
-						<includes>
-							<include>mysql:mysql-connector-java</include>
-						</includes>
-						<outputDirectory>libs/</outputDirectory>
-					</dependencySet>
-				</dependencySets>
-				<outputDirectory>wars/</outputDirectory>
-				<outputFileNameMapping>${module.artifactId}.war</outputFileNameMapping>
-				<unpack>false</unpack>
-			</binaries>
-		</moduleSet>
-		<moduleSet>
+			<outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+			<outputDirectory>wars/</outputDirectory>
+		</dependencySet>
+		<dependencySet>
 			<includes>
 				<include>fr.univartois.ili.fsnet:trayDesktop</include>
 			</includes>
-			<binaries>
-				<includeDependencies>false</includeDependencies>
-				<outputDirectory>tray/</outputDirectory>
-				<outputFileNameMapping>${module.artifactId}.jar</outputFileNameMapping>
-				<unpack>false</unpack>
-			</binaries>
-		</moduleSet>
-	</moduleSets>
+			<outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
+			<outputDirectory>tray/</outputDirectory>
+			<unpack>false</unpack>
+		</dependencySet>
+		<dependencySet>
+			<includes>
+				<include>mysql:mysql-connector-java:jar</include>
+			</includes>
+			<outputDirectory>lib/</outputDirectory>
+			<unpack>false</unpack>
+		</dependencySet>
+	</dependencySets>
 </assembly>
