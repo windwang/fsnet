@@ -26,6 +26,7 @@
 		<module>trayDesktop</module>
 		<module>commons</module>
 		<module>mockDB</module>
+		<module>assembler</module>
 	</modules>
 
 	<properties>
@@ -54,14 +55,18 @@
 	<build>
 		<plugins>
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-assembly-plugin</artifactId>
-				<version>2.2-beta-5</version>
-				<configuration>
-					<descriptors>
-						<descriptor>assembler.xml</descriptor>
-					</descriptors>
-				</configuration>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>versions-maven-plugin</artifactId>
+				<version>1.2</version>
+				<executions>
+					<execution>
+						<id>verify-dependebcy-updates</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>display-dependency-updates</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 		<pluginManagement>
@@ -299,12 +304,12 @@
 			<dependency>
 				<groupId>org.apache.derby</groupId>
 				<artifactId>derby</artifactId>
-				<version>10.5.3.0_1</version>
+				<version>10.6.1.0</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.7</version>
+				<version>4.8.1</version>
 			</dependency>
 			<dependency>
 				<groupId>mysql</groupId>
