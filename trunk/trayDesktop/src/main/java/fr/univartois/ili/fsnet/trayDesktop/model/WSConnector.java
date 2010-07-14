@@ -224,7 +224,6 @@ public class WSConnector {
 					if (getNbMessage() > 0) {
 						fireNewMessages(getNbMessage());
 					}
-				} else {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
