@@ -92,7 +92,7 @@ public class DisplayEntity extends HttpServlet {
 		} else if (PersistentAttributeType.ONE_TO_ONE.equals(attributeType)) {
 			return "<1-1>";
 		} else if (PersistentAttributeType.EMBEDDED.equals(attributeType)) {
-			
+			return "<1-1>";
 		}
 		return null;
 	}
