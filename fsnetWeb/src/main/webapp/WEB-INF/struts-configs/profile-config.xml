@@ -26,7 +26,7 @@
 			<form-property name="id" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="ChangePasswordForm"
-			type="fr.univartois.ili.fsnet.form.ChangePasswordForm">
+			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="oldPassword" type="java.lang.String" />
 			<form-property name="newPassword" type="java.lang.String" />
 			<form-property name="confirmNewPassword" type="java.lang.String" />
