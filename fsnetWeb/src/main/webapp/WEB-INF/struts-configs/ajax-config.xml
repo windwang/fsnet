@@ -16,6 +16,7 @@
 
         <action path="/AjaxSearchMember" name="SearchMemberForm" scope="request"
                 type="fr.univartois.ili.fsnet.actions.ajax.Members">
+                <forward name="success" path="AjaxAutocompleteRecipients"/>
         </action>
 
     </action-mappings>

@@ -264,7 +264,9 @@
         <put name="left" value="/content/communities/leftMenu.jsp" />
         <put name="body-content" value="/content/communities/SearchYourCommunities.jsp" />
     </definition>
-    
+    <!-- Ajax -->
+    <definition name="AjaxAutocompleteRecipients" path="/content/ajax/AutocompleteRecipients.jsp"/>
+
     <!-- UnauthorizedOperationException -->
     <definition name="UnauthorizedOperationException" extends=".defaultLayout">
         <put name="title" value="pageTitle.17"/>
