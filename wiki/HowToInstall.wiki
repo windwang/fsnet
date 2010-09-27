@@ -5,8 +5,8 @@
 
 ===In order to use FSNET, you will have to install :===
  * A java 6 compliant JVM
- * a servlet container (like Apache Tomcat)
- * a MySQL Database administration tool (like phpmyadmin)
+ * A servlet container (like Apache Tomcat)
+ * A MySQL Database administration tool (like phpmyadmin)
 
 = How to install FSNET =
 
@@ -70,11 +70,16 @@ For example to configure SMTP server using a gmail account :
 
 
 = How to build from sources =
+
+In order to build fsnet you must install :
+ * Apache Maven = 3.0-beta3 (due to site-plugin compatibility we use 3.0-beta3)
+
+Instructions : 
+
  # Checkout the last revision of fsnet using : svn checkout http://fsnet.googlecode.com/svn/trunk/ fsnet-read-only
  # cd fsnet-read-only/fr.univartois.ili.fsnet/
  # mvn package assembly:assembly
  # wait for a while
  # you can take deliverables in target/fsnet-$version$.zip 
 
- If the build fails don't forget to take a look [http://fsnet-dev.opsas.net/hudson/ here]
  
