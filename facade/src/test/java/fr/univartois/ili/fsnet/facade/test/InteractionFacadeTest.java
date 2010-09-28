@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.facade.test;
 
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
+
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -22,6 +23,7 @@ public class InteractionFacadeTest {
 	private EntityManager em;
 	private InteractionFacade interactionFacade;
 	private SocialEntityFacade sef;
+	private CommunityFacade cf;
 
 	@Before
 	public void setUp() {
@@ -29,6 +31,7 @@ public class InteractionFacadeTest {
 		em = emf.createEntityManager();
 		interactionFacade = new InteractionFacade(em);
 		sef= new SocialEntityFacade(em);
+		cf = new CommunityFacade(em);
 	}
 
 	@Test
@@ -47,6 +50,22 @@ public class InteractionFacadeTest {
 		Community community=cf.createCommunity(entity, "com2");
 		SocialEntity entity2=sef.createSocialEntity("entity2", "entity2", "entity20mail.com");
 		interactionFacade.deleteInteraction(entity2, community);
+	}
+	
+	@Test
+	public void getInteraction() {
+		em.getTransaction().begin();
+		SocialEntity entity=sef.createSocialEntity("e", "e", "e@e.com");
+		Interaction interaction = cf.createCommunity(entity, "An Interaction");
+		em.getTransaction().commit();
+		int generatedInteractionId = interaction.getId();
+		
+		em.getTransaction().begin();
+		interaction = interactionFacade.getInteraction(interaction.getId());
+		em.getTransaction().commit();
+		
+		assertNotNull(interaction);
+		assertEquals(generatedInteractionId, interaction.getId());
 	}
 
 }

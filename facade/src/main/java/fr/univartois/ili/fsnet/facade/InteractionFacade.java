@@ -175,4 +175,8 @@ public class InteractionFacade {
 				, Interaction.class).setParameter("userId", Integer.valueOf(user.getId())).getResultList() ;
 	}
 
+	public Interaction getInteraction(int id) {
+		return em.find(Interaction.class, id);
+	}
+
 }
