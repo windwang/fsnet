@@ -9,7 +9,7 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="name" type="java.lang.String" />
 			<form-property name="communityId" type="java.lang.String" />
-                        <form-property name="selectedInterests" type="java.lang.String[]" />
+           	<form-property name="selectedInterests" type="java.lang.String[]" />
 		</form-bean>
 		<form-bean name="SearchCommunityForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -56,9 +56,12 @@
 			parameter="DisplayCreateCommunity">
 		</action>
 		<action path="/DisplayCommunity" 
-			type="fr.univartois.ili.fsnet.actions.ManageHub"
-			name="DisplayCommunityForm" input="UnauthorizedOperationException" scope="request" validate="true"
-			parameter="search">
+				type="fr.univartois.ili.fsnet.actions.ManageHub"
+				name="DisplayCommunityForm" 
+				input="UnauthorizedOperationException" 
+				scope="request" 
+				validate="true"
+				parameter="search">
 			<forward name="success" path="Hubs" />
 		</action>
 		<action path="/DisplayCommunities" 

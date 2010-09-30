@@ -7,7 +7,12 @@
     <form-beans>
         <form-bean name="FavoriteForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="interactionId" type="java.lang.String"></form-property>
+            <form-property name="interactionId" type="java.lang.String"/>
+        </form-bean>
+        <form-bean  name="ManageInterestInteractionForm"
+          			type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="interactionId" type="java.lang.String"/>
+            <form-property name="interestId" type="java.lang.String"/>
         </form-bean>
     </form-beans>
     <action-mappings>
@@ -30,6 +35,14 @@
                  parameter="display"
                  scope="request" validate="false"
                  name="FavoriteForm">
+            <forward name="success" path="/content/interactions/FavoriteFragment.jsp" />
+        </action>
+        <action  path="/RemoveInterestOfInteraction"
+                 type="fr.univartois.ili.fsnet.actions.ManageInteractions"
+                 parameter="removeInterest"
+                 scope="request" 
+                 validate="false"
+                 name="ManageInterestInteractionForm">
             <forward name="success" path="/content/interactions/FavoriteFragment.jsp" />
         </action>
     </action-mappings>
