@@ -10,7 +10,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <div class="largeInteractionInfo" >
     <bean:message key="interactions.owner"/> :
@@ -21,7 +21,8 @@
         	${fn:length(subscribers)} <bean:message key="interactions.subscribers"/>
         	<br/>
         </c:if>
-        <bean:message key="interactions.created"/> <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
+        <bean:message key="interactions.created"/> 
+        <bean:write name="theInteraction" property="creationDate" format="dd/MM/yyyy" />
         <br/>
         ${fn:length(theInteraction.followingEntitys)} <bean:message key="interactions.followers"/>
         <br/>
@@ -37,6 +38,13 @@
                             <html:param name="infoInterestId" value="${interest.id}"/>
                             ${interest.name}
                         </html:link>
+                        <c:if test="${sessionScope.userId eq theInteraction.creator.id}">
+	                        <html:link action="/RemoveInterestOfInteraction">
+								<html:param name="interactionId" value="${theInteraction.id}" />
+								<html:param name="interestId" value="${interest.id}" />
+								<img src="images/mini-delete.png" />
+							</html:link>
+						</c:if>
                     </span>
                 </c:forEach>
             </div>

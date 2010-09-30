@@ -11,12 +11,14 @@
     <c:import url="/FavoriteFragment.do">
         <c:param name="interactionId" value="${requestScope.Community.id}"/>
     </c:import>
-
+    
     <bean:write name="Community" property="title" />
 </h3>
 
 <c:set var="theInteraction" value="${Community}" scope="request"/>
 <jsp:include page="/content/interactions/LargeInteractionInfo.jsp" />
+
 <div class="clear"></div>
+
 <jsp:include page="/content/hubs/SearchHub.jsp"/>
 <jsp:include page="/content/hubs/ListHubs.jsp"/>

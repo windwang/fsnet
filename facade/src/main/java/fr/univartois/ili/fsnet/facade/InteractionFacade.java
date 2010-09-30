@@ -58,11 +58,13 @@ public class InteractionFacade {
 	 * @param interaction the interaction to remove the interest from
 	 * @param interests the interest to remove from the interaction
 	 */
-	public final void removeInterest(Interaction interaction, Interest interest) {
+	public final void removeInterest(SocialEntity member, Interaction interaction, Interest interest) {
 		if (interaction == null || interest == null) {
 			throw new IllegalArgumentException();
 		}
-		interaction.getInterests().remove(interest);
+		if (member.equals(interaction.getCreator())) {
+			interaction.getInterests().remove(interest);	
+		}
 	}
 
 
