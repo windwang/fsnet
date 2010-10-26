@@ -309,12 +309,12 @@
 			<dependency>
 				<groupId>org.apache.derby</groupId>
 				<artifactId>derby</artifactId>
-				<version>10.6.1.0</version>
+				<version>10.6.2.1</version>
 			</dependency>
 			<dependency>
 				<groupId>junit</groupId>
 				<artifactId>junit</artifactId>
-				<version>4.8.1</version>
+				<version>4.8.2</version>
 			</dependency>
 			<dependency>
 				<groupId>mysql</groupId>
