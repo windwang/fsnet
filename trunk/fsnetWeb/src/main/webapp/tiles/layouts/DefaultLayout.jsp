@@ -15,6 +15,7 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
 		<title><bean:message key="${pageTitle}" /></title>
 		<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
+		<script type="text/javascript" src="js/functions.js"></script>
 	</head>
 	<body>
 		<div class="wrap background">
