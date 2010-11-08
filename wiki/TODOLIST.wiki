@@ -1,4 +1,4 @@
-# Things to do for the next release of FSNET
+#Things to do for the next release of FSNET
 
 = Proposals =
 
