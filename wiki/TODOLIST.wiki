@@ -6,6 +6,10 @@ Add your feature requests here.
 
 ==Functional requests==
 
+* Improved installation experience (embedded DB if none installed)
+* Introduce authorisation management
+* Android-based client?
+
 ==Technical requests==
 
 = Accepted features =
