@@ -4,6 +4,10 @@
 
 Add your feature requests here.
 
+==Functional requests==
+
+==Technical requests==
+
 = Accepted features =
 
 Things that will be for sure in the next release of FSNET.
