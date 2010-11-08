@@ -1,0 +1,9 @@
+#Things to do for the next release of FSNET
+
+= Proposals =
+
+Add your feature requests here.
+
+= Accepted features =
+
+Things that will be for sure in the next release of FSNET.
