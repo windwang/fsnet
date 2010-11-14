@@ -7,10 +7,14 @@ Add your feature requests here.
 ==Functional requests==
 
   * Improved installation experience (embedded DB if none installed)
-  * Introduce authorisation management
+  * Introduce authorization management
   * Android-based client?
+  * Mobile version (iphone)
+  * Multi firms online version
 
 ==Technical requests==
+
+  
 
 = Accepted features =
 
