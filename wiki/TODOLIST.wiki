@@ -13,7 +13,7 @@ Add your feature requests here.
 
 ==Technical requests==
 
-  * New module dedicated to mobiles client that expose restful+json services
+  * New module dedicated to mobile clients that expose restful+json services
   
 
 = Accepted features =
