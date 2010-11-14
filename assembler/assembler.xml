@@ -29,6 +29,7 @@
 		<dependencySet>
 			<includes>
 				<include>mysql:mysql-connector-java:jar</include>
+				<include>org.apache.derby:derby:jar</include>
 			</includes>
 			<outputDirectory>lib/</outputDirectory>
 			<unpack>false</unpack>
