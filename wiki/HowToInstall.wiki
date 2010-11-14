@@ -6,7 +6,6 @@
 ===In order to use FSNET, you will have to install :===
  * A java 6 compliant JVM
  * A servlet container (like Apache Tomcat)
- * A MySQL Database administration tool (like phpmyadmin)
 
 = How to install FSNET =
 
@@ -14,8 +13,7 @@
 
  # Download fsnet-0.6.0-bin.zip
  # Unzip the fsnet-0.6.0-bin.zip archive. you will find three folders : wars/ , tray/ and libs/
- # Copy libs/mysql-connector-java-5.1.10.jar dependency in the tomcat/lib/ directory
- # create a new user and a new database on mysql
+ # Copy libs/derby-`*`.jar dependency in the tomcat/lib/ directory
  # Copy the wars/admin.war, wars/fsnetWeb.war and wars/webservice.war files in the tomcat/webapps
  # In tomcat/conf/tomcat-users.xml,add :
 {{{
@@ -23,6 +21,40 @@
     <user username="admin" password="admin" roles="fsnetadmin"/>
 }}}
  # In tomcat/conf/server.xml you have to configure a DataSource :
+{{{
+    <GlobalNamingResources>
+     ...
+      <Resource 
+          auth="Container" 
+          driverClassName="org.apache.derby.jdbc.EmbeddedDriver" 
+          maxActive="20" 
+          maxIdle="10" 
+          maxWait="-1" 
+          name="ds/fsnetDS" 
+          type="javax.sql.DataSource" 
+          url="jdbc:derby:memory:fsnetDB;create=true" 
+      />
+       ...
+    </GlobalNamingResources>
+    ...
+}}}
+ # Run Tomcat
+ # Run the project in your web browser :
+       * http://localhost:8080/admin for the administrator (with login & password)
+       * http://localhost:8080/fsnetWeb for users
+       * http://localhost:8080/webservice for the webservice used by tray
+
+ # In order to run the tray application you will find the trayDesktop.jar in tray/ directory. So, to execute this application you have to run it using :
+{{{
+ java -jar trayDesktop.jar
+}}}
+
+ === Note ===
+
+The previous explanation show how to configure fsnet to use an embedded DB (derby)
+You can easily configure fsnet to use a mySQL instance :
+ * In the 3rd step above, copy mysql-connector-java-`*`.jar instead of derby-*.jar
+ * In 7th step above, configure your server.xml using this template : 
 {{{
     <GlobalNamingResources>
      ...
@@ -40,16 +72,6 @@
        ...
     </GlobalNamingResources>
     ...
-}}}
- # Run Tomcat
- # Run the project in your web browser :
-       * http://localhost:8080/admin for the administrator (with login & password)
-       * http://localhost:8080/fsnetWeb for users
-       * http://localhost:8080/webservice for the webservice used by tray
-
- # In order to run the tray application you will find the trayDesktop.jar in tray/ directory. So, to execute this application you have to run it using :
-{{{
- java -jar trayDesktop.jar
 }}}
 
 = How to use FSNET =
