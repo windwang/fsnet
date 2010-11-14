@@ -8,12 +8,12 @@ Add your feature requests here.
 
   * Improved installation experience (embedded DB if none installed)
   * Introduce authorization management
-  * Android-based client?
-  * Mobile version (iphone)
+  * Mobile clients (Android and iPhone support)
   * Multi firms online version
 
 ==Technical requests==
 
+  * New module dedicated to mobiles client that expose restful+json services
   
 
 = Accepted features =
