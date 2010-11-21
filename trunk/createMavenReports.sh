@@ -25,8 +25,10 @@ echo "ANALIZING GIF FILES"
 find . -name "*.gif" -exec svn propset svn:mime-type image/gif {} \;
 echo "ANALIZING PNG FILES"
 find . -name "*.png" -exec svn propset svn:mime-type image/png {} \;
- echo "ANALIZING HTML FILES"
+echo "ANALIZING HTML FILES"
 find . -name "*.html" -exec svn propset svn:mime-type text/html {} \;
+echo "ANALIZING GIF FILES"
+find . -name "*.gif" -exec svn propset svn:mime-type image/gif {} \;
 
 # Return to the previous directory
 popd
