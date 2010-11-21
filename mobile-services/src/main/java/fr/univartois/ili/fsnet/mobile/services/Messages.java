@@ -22,7 +22,7 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.mobile.services.model.AuthInfo;
 import fr.univartois.ili.fsnet.mobile.services.model.RestPrivateMessage;
 @Resource
-@Path("/fsnet")
+@Path("/messages")
 public class Messages {
 
 	private EntityManagerFactory factory;
@@ -41,7 +41,7 @@ public class Messages {
 	 * @return
 	 */
 	@POST
-	@Path("/NewMessages")
+	@Path("/unread")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
 	public GenericEntity<List<RestPrivateMessage>> getNewMessages(AuthInfo authInfo) {
