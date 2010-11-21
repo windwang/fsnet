@@ -34,7 +34,7 @@ public class Messages {
 	}
 
 	/**
-	 * Return the number of unread personal messages
+	 * Return the unread personal messages
 	 * 
 	 * @param login
 	 * @param password
