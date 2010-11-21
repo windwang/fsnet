@@ -44,6 +44,11 @@
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
+			<artifactId>mobile-services</artifactId>
+			<version>0.6.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>${project.groupId}</groupId>
 			<artifactId>entities</artifactId>
 			<version>0.6.1-SNAPSHOT</version>
 		</dependency>
