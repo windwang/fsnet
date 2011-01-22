@@ -80,14 +80,14 @@ At this time, you should configure the SMTP server access because when you add
 a new user, a password is generated and sent in the confirmation email.
 
 For example to configure SMTP server using a gmail account :
- * SMTP Server : mail.gmail.com
+ * SMTP Server : smtp.gmail.com
  * Port : 465
  * Sender : yourname@gmail.com
  * Enable TLS : checked
  * Enable SSL : checked
  * Enable authentication : checked
  * Username : yourname
- * Password : ******
+ * Password : `******`
  * Fsnet address : the address of fsnet's public part that will be sent in the confirmation mail
 
 
