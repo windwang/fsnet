@@ -94,14 +94,14 @@ For example to configure SMTP server using a gmail account :
 = How to build from sources =
 
 In order to build fsnet you must install :
- * Apache Maven = 3.0-beta3 (due to site-plugin compatibility we use 3.0-beta3)
+ * Apache Maven = 3.0.2
 
 Instructions : 
 
  # Checkout the last revision of fsnet using : svn checkout http://fsnet.googlecode.com/svn/trunk/ fsnet-read-only
  # cd fsnet-read-only/fr.univartois.ili.fsnet/
- # mvn package assembly:assembly
+ # mvn package
  # wait for a while
- # you can take deliverables in target/fsnet-$version$.zip 
+ # you can take deliverables in assembler/target/FSnet-$version$-bin.zip 
 
  
