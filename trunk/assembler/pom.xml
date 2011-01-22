@@ -11,6 +11,7 @@
 	<version>0.6.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<build>
+		<finalName>FSnet-${project.version}</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
