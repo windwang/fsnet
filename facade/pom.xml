@@ -12,7 +12,7 @@
 	<packaging>jar</packaging>
 	<version>0.6.1-SNAPSHOT</version>
 	<name>facade</name>
-
+	<description>This module represents the business tier of fsnet. It provides a facade that helps developers by working with a high level API.</description>
 	<build>
 		<plugins>
 			<plugin>

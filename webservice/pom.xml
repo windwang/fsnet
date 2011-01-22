@@ -11,6 +11,8 @@
 	<packaging>war</packaging>
 	<version>0.6.1-SNAPSHOT</version>
 	<name>webservice</name>
+	<description>This module is used by trayDesktop to retrive user data</description>
+	
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>

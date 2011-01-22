@@ -11,6 +11,7 @@
 	<packaging>jar</packaging>
 	<version>0.6.1-SNAPSHOT</version>
 	<name>trayDesktop</name>
+	<description>This module is a portable desktop client that notify fsnet users when they receive new notifications/messages</description>
 
 	<build>
 		<plugins>

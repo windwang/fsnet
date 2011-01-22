@@ -10,6 +10,7 @@
 	<artifactId>assembler</artifactId>
 	<version>0.6.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
+	<description>This module is used to create binary distribution of fsnet on each build</description>
 	<build>
 		<finalName>FSnet-${project.version}</finalName>
 		<plugins>

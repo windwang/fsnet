@@ -12,7 +12,8 @@
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>mobile-services-model</artifactId>
 	<version>0.6.1-SNAPSHOT</version>
-
+	<description>This module represents the data model of mobil-services module</description>
+	
 	<build>
 		<finalName>mobile-services</finalName>
 		<plugins>
