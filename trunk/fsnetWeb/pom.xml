@@ -11,6 +11,7 @@
 	<packaging>war</packaging>
 	<version>0.6.1-SNAPSHOT</version>
 	<name>FSNet public website</name>
+	<description>This module is a web module that conatins the public part of fsnet</description>
 	<build>
 		<finalName>${project.artifactId}</finalName>
 		<plugins>

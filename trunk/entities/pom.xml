@@ -10,6 +10,7 @@
     <artifactId>entities</artifactId>
     <version>0.6.1-SNAPSHOT</version>
     <name>entities</name>
+    <description>This module contain the JPA entities of fsnet.</description>
     <build>
         <plugins>
             <plugin>

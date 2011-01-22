@@ -11,6 +11,7 @@
 	<artifactId>admin</artifactId>
 	<version>0.6.1-SNAPSHOT</version>
 	<name>admin</name>
+	<description>This module contain the administration part of fsnet</description>
 	<packaging>war</packaging>
 	<build>
 		<finalName>${project.artifactId}</finalName>

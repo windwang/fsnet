@@ -10,6 +10,7 @@
 	<artifactId>commons</artifactId>
 	<name>commons</name>
 	<version>0.6.1-SNAPSHOT</version>
+	<description>This module is an utility module, it contains the code used by many other modules of fsnet project</description>
 	<build>
 		<plugins>
 			<plugin>
