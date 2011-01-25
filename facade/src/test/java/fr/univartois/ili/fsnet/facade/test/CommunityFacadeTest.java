@@ -37,11 +37,16 @@ public class CommunityFacadeTest {
 
 	@Test
 	public void testCreate() {
+		em.getTransaction().begin();
+		
 		SocialEntity creatorCommunity = sef.createSocialEntity(
 				"creatorcreateCommCreate", "communnautecreateCommCreate",
 		"creatorCommunitycreateCommCreate@gmail.com");
 		Community community = cf.createCommunity(creatorCommunity,
 		"nameCommunitycreateCommCreate");
+		
+		em.getTransaction().commit();
+		
 		Community compare = em.find(Community.class, community.getId());
 		assertEquals(community.getCreator(), compare.getCreator());
 		assertEquals(community.getTitle(), compare.getTitle());

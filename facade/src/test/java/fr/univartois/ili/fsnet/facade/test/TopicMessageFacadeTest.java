@@ -46,19 +46,25 @@ public class TopicMessageFacadeTest {
 	@Test
 	public void testCreate() {
 		String body = "body";
+		
+		em.getTransaction().begin();
+		
 		SocialEntity from = sef.createSocialEntity("topic", "message",
 				"topicmess1@gmail.com");
 		SocialEntity creatorCommunity = sef.createSocialEntity("creator",
-				"communnaute", "creatorCommunity@gmail.com");
+				"communnaute", "creatorCommunity1@gmail.com");
 		Community community = cf.createCommunity(creatorCommunity,
 				"nameCommunity");
 		SocialEntity creatorHub = sef.createSocialEntity("creator", "hub",
-				"creatorHub@gmail.com");
+				"creatorHub1@gmail.com");
 		Hub hub = hf.createHub(community, creatorHub, "nameHub");
 		SocialEntity creatorTopic = sef.createSocialEntity("creator", "Topic",
-				"creatorTopic@gmail.com");
+				"creatorTopic2@gmail.com");
 		Topic topic = tf.createTopic(hub, creatorTopic, "titleTopic");
 		TopicMessage message = tmf.createTopicMessage(body, from, topic);
+		
+		em.getTransaction().commit();
+		
 		TopicMessage compare = em.find(TopicMessage.class, message.getId());
 		assertEquals(message.getBody(), compare.getBody());
 		assertEquals(message.getFrom(), message.getFrom());
@@ -68,19 +74,21 @@ public class TopicMessageFacadeTest {
 	
 	@Test
 	public void testSearchBody() {
+		String body = "YYY ABody YYY";
+		
 		em.getTransaction().begin();
-		String body = "body";
+		
 		SocialEntity from = sef.createSocialEntity("topic", "message",
-				"topicmess1@gmail.com");
+				"topicmess12@gmail.com");
 		SocialEntity creatorCommunity = sef.createSocialEntity("creator",
-				"communnaute", "creatorCommunity@gmail.com");
+				"communnaute", "creatorCommunity2@gmail.com");
 		Community community = cf.createCommunity(creatorCommunity,
 				"nameCommunity");
 		SocialEntity creatorHub = sef.createSocialEntity("creator", "hub",
-				"creatorHub@gmail.com");
+				"creatorHub2@gmail.com");
 		Hub hub = hf.createHub(community, creatorHub, "nameHub");
 		SocialEntity creatorTopic = sef.createSocialEntity("creator", "Topic",
-				"creatorTopic@gmail.com");
+				"creatorTopic1@gmail.com");
 		Topic topic = tf.createTopic(hub, creatorTopic, "titleTopic");
 		TopicMessage message = tmf.createTopicMessage(body, from, topic);
 		body = "test";
@@ -88,10 +96,15 @@ public class TopicMessageFacadeTest {
 		"topicmessbis@gmail.com");
 		Topic topicbis = tf.createTopic(hub, creatorTopic, "titleTopicbis");
 		tmf.createTopicMessage(body, from, topicbis);
+		
 		em.getTransaction().commit();
-		String pattern = "body";
+		
+		String pattern = "ABody";
+		
 		List<TopicMessage> results = tmf.searchTopic(pattern);
 		TopicMessage tmRes = results.get(0);
+		
+		assertEquals(1, results.size());
 		assertEquals(message.getBody(), tmRes.getBody());
 		assertEquals(message.getFrom(), tmRes.getFrom());
 		assertEquals(message.getTopic(), tmRes.getTopic());
@@ -100,7 +113,7 @@ public class TopicMessageFacadeTest {
 	@Test
 	public void testSearchBodyAndTopic() {
 		em.getTransaction().begin();
-		String body = "body3";
+		String body = "YYY SpecialBody YYY";
 		SocialEntity from = sef.createSocialEntity("topic3", "message3",
 				"topicmess2@gmail.com");
 		SocialEntity creatorCommunity = sef.createSocialEntity("creator3",
@@ -122,7 +135,7 @@ public class TopicMessageFacadeTest {
 		tmf.createTopicMessage(body, from, topicbis);
 		em.getTransaction().commit();
 		
-		String pattern = "body3";
+		String pattern = "SpecialBody";
 		List<TopicMessage> results = tmf.searchTopic(pattern,topic);
 		TopicMessage tmRes = results.get(0);
 		assertEquals(message.getBody(), tmRes.getBody());

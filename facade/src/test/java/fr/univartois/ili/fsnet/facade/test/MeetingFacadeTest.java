@@ -48,8 +48,13 @@ public class MeetingFacadeTest {
         String address = "address";
         String city = "city";
 
+        em.getTransaction().begin();
+        
         Meeting es = mf.createMeeting(member, eventName, eventDescription,
                 endDate, isPrivate, startDate, address, city);
+        
+        em.getTransaction().commit();
+        
         Meeting esp = em.find(Meeting.class, es.getId());
         assertEquals(esp.getCreator(), es.getCreator());
         assertEquals(esp.getTitle(), es.getTitle());

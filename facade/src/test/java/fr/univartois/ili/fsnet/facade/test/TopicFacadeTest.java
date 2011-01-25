@@ -45,6 +45,8 @@ public class TopicFacadeTest {
 
 	@Test
 	public void testCreate() {
+		em.getTransaction().begin();
+		
 		SocialEntity creatorCommunity = sef.createSocialEntity("creatorcreate",
 				"communnautecreate", "creatorCommunitycreate@gmail.com");
 		Community community = cf.createCommunity(creatorCommunity,
@@ -55,6 +57,9 @@ public class TopicFacadeTest {
 		SocialEntity creatorTopic = sef.createSocialEntity("creatorcreate",
 				"Topiccreate", "creatorTopiccreate@gmail.com");
 		Topic topic = tf.createTopic(hub, creatorTopic, "titleTopiccreate");
+		
+		em.getTransaction().commit();
+		
 		Topic compare = em.find(Topic.class, topic.getId());
 		assertEquals(topic.getCreator(), compare.getCreator());
 		assertEquals(topic.getHub(), compare.getHub());

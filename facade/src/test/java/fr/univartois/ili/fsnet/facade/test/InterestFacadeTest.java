@@ -45,8 +45,8 @@ public class InterestFacadeTest {
 		String interestName = "Musique";
 		em.getTransaction().begin();
 		Interest interest = interestFacade.createInterest(interestName);
-		Interest interestBis = interestFacade.getInterest(interest.getId());
 		em.getTransaction().commit();
+		Interest interestBis = interestFacade.getInterest(interest.getId());
 		assertTrue(interest.equals(interestBis));
 		em.getTransaction().begin();
 		interestFacade.deleteInterest(interest);
@@ -56,12 +56,15 @@ public class InterestFacadeTest {
 	@Test
 	public void testModifyInterest(){
 		String interestName = "Java";
+		
 		em.getTransaction().begin();
 		Interest interest = interestFacade.createInterest(interestName);
 		interestFacade.modifyInterest("Java6", interest);
-		Interest interestBis = interestFacade.getInterest(interest.getId());
 		em.getTransaction().commit();
+		
+		Interest interestBis = interestFacade.getInterest(interest.getId());
 		assertEquals("Java6", interestBis.getName());
+		
 		em.getTransaction().begin();
 		interestFacade.deleteInterest(interest);
 		em.getTransaction().commit();

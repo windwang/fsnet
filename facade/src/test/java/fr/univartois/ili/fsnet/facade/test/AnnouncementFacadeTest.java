@@ -39,15 +39,21 @@ public class AnnouncementFacadeTest {
     @Test
     public void testCreate() {
         SocialEntity member = sef.createSocialEntity("zaza", "zaza",
-                "zaza@gmail.com");
+                "zaza1@gmail.com");
         String eventName = "eventName";
         String eventDescription = "eventDescription";
         Date endDate = new Date();
         Boolean isPrivate = false;
-
+        
+        em.getTransaction().begin();
+        
 		Announcement ann = af.createAnnouncement(member, eventName,
 				eventDescription, endDate, isPrivate);
+		
+		em.getTransaction().commit();
+		
 		Announcement annp = em.find(Announcement.class, ann.getId());
+		
 		assertEquals(annp.getCreator(), ann.getCreator());
 		assertEquals(annp.getTitle(), ann.getTitle());
 		assertEquals(annp.getContent(), ann.getContent());
@@ -59,17 +65,17 @@ public class AnnouncementFacadeTest {
 		Date end = new Date();
 		em.getTransaction().begin();
 		SocialEntity member3 = sef.createSocialEntity("zaza", "zaza",
-				"zaza1@gmail.com");
+				"zaza2@gmail.com");
 		af.createAnnouncement(member3, "tata", "tete", end,
 				false);
 
 		SocialEntity member2 = sef.createSocialEntity("zaza", "zaza",
-				"zaza2@gmail.com");
+				"zaza3@gmail.com");
 		Announcement ann2 = af.createAnnouncement(member2, "titi", "toto", end,
 				false);
 
 		SocialEntity member = sef.createSocialEntity("zaza", "zaza",
-				"zaza3@gmail.com");
+				"zaza4@gmail.com");
 		af.createAnnouncement(member, "tutu", "tyty", end,
 				false);
 
@@ -86,13 +92,13 @@ public class AnnouncementFacadeTest {
 		Date end = new Date();
 		em.getTransaction().begin();
 		SocialEntity member = sef.createSocialEntity("zaza", "zaza",
-				"zaza4@gmail.com");
+				"zaza5@gmail.com");
 		af.createAnnouncement(member, "tata", "tete", end, false);
 		SocialEntity member2 = sef.createSocialEntity("zaza", "zaza",
-				"zaza5@gmail.com");
+				"zaza6@gmail.com");
 		Announcement ann2 = af.createAnnouncement(member2, "titi", "toto", end, false);
 		SocialEntity member3 = sef.createSocialEntity("zaza", "zaza",
-				"zaza6@gmail.com");
+				"zaza7@gmail.com");
 		af.createAnnouncement(member3, "tutu", "tyty", end, false);
 
 		em.getTransaction().commit();
@@ -109,13 +115,13 @@ public class AnnouncementFacadeTest {
 		Date end = new Date();
 		em.getTransaction().begin();
 		SocialEntity member = sef.createSocialEntity("zaza", "zaza",
-				"zaza40@gmail.com");
+				"zaza8@gmail.com");
 		af.createAnnouncement(member, "tata", "tete", end, false);
 		SocialEntity member2 = sef.createSocialEntity("zaza", "zaza",
-				"zaza50@gmail.com");
+				"zaza9@gmail.com");
 		Announcement ann2 = af.createAnnouncement(member2, "titi", "toto", end, false);
 		SocialEntity member3 = sef.createSocialEntity("zaza", "zaza",
-				"zaza60@gmail.com");
+				"zaza10@gmail.com");
 		af.createAnnouncement(member3, "tutu", "tyty", end, false);
 
 		em.getTransaction().commit();

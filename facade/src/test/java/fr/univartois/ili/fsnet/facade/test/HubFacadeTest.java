@@ -48,10 +48,13 @@ public class HubFacadeTest {
 	@Test
 	public void createAndGetHubTest() {
 
+		em.getTransaction().begin();
 		Hub createdHub = hf.createHub(com, creator, "testhub");
+		em.getTransaction().commit();
+		
 		Hub resultGet = hf.getHub(createdHub.getId());
+		
 		assertEquals(createdHub, resultGet);
-
 	}
 
 	@Test

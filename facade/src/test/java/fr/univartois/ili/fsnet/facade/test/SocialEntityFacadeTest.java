@@ -34,8 +34,8 @@ public class SocialEntityFacadeTest {
 		String email = "email@email.com";
 		em.getTransaction().begin();
 		SocialEntity es = sef.createSocialEntity(name, firstName, email);
-		SocialEntity esp = em.find(SocialEntity.class, es.getId());
 		em.getTransaction().commit();
+		SocialEntity esp = em.find(SocialEntity.class, es.getId());
 		assertEquals(es, esp);
 	}
 
@@ -44,10 +44,15 @@ public class SocialEntityFacadeTest {
 		String name = "aaaaa";
 		String firstName = "bbbbbb";
 		String email = "ab@email.com";
+		
 		em.getTransaction().begin();
+		
 		SocialEntity es = sef.createSocialEntity(name, firstName, email);
-		SocialEntity esp = sef.getSocialEntity(es.getId());
+		
 		em.getTransaction().commit();
+		
+		SocialEntity esp = sef.getSocialEntity(es.getId());
+		
 		assertEquals(es, esp);
 	}
 	
