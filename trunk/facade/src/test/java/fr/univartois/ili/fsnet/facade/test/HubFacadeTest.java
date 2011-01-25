@@ -70,12 +70,17 @@ public class HubFacadeTest {
 	@Test
 	public void deleteHubTest1() {
 		em.getTransaction().begin();
-		Hub deletedHub = hf.createHub(com, creator, "deletedHub");
-		Logger.getAnonymousLogger().log(Level.SEVERE, "deleteHuTest1");
-		em.flush();
+		Hub deletedHub = hf.createHub(com, creator, "XyvhYuj");
+		em.getTransaction().commit();
+		
+		List<Hub> resultSearch = hf.searchHub("XyvhYuj");
+		assertEquals(1, resultSearch.size());
+		
+		em.getTransaction().begin();
 		interactionFacade.deleteInteraction(creator, deletedHub);
 		em.getTransaction().commit();
-		List<Hub> resultSearch = hf.searchHub("delet");
+		
+		resultSearch = hf.searchHub("XyvhYuj");
 		assertEquals(0, resultSearch.size());
 	}
 	
