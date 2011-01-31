@@ -32,7 +32,7 @@
           maxWait="-1" 
           name="ds/fsnetDS" 
           type="javax.sql.DataSource" 
-          url="jdbc:derby:memory:fsnetDB;create=true" 
+          url="jdbc:derby:fsnetDB;create=true" 
       />
        ...
     </GlobalNamingResources>
