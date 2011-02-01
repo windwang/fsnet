@@ -20,3 +20,5 @@
 	# - Available Package : Refresh : Install all the available components
 	# - Install Selected -> Install
 	# - Restart Eclipse
+
+For more informations : http://developer.android.com/sdk/installing.html
