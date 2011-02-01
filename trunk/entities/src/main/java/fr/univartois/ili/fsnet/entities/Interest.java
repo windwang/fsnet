@@ -89,6 +89,7 @@ public class Interest implements Serializable {
         this.name = name;
         this.entities = new HashSet<SocialEntity>();
         this.parentInterest = parentInterest;
+        this.parentInterest.getChildrenInterests().add(this);
     }
 
     /**
