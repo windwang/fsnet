@@ -3,5 +3,5 @@
    <endpoint
       name="Info"
       implementation="fr.univartois.ili.fsnet.webservice.Info"
-      url-pattern="/"/>
+      url-pattern="/jaxws"/>
    </endpoints>
