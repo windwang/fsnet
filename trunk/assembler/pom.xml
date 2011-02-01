@@ -1,14 +1,13 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.6.1-SNAPSHOT</version>
+		<version>0.6.1</version>
 	</parent>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>assembler</artifactId>
-	<version>0.6.1-SNAPSHOT</version>
+	<version>0.6.1</version>
 	<packaging>pom</packaging>
 	<description>This module is used to create binary distribution of fsnet on each build</description>
 	<build>
@@ -39,25 +38,25 @@
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>fsnetWeb</artifactId>
-			<version>0.6.1-SNAPSHOT</version>
+			<version>0.6.1</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>webservice</artifactId>
-			<version>0.6.1-SNAPSHOT</version>
+			<version>0.6.1</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>admin</artifactId>
-			<version>0.6.1-SNAPSHOT</version>
+			<version>0.6.1</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>trayDesktop</artifactId>
-			<version>0.6.1-SNAPSHOT</version>
+			<version>0.6.1</version>
 			<type>jar</type>
 		</dependency>
 		<dependency>
