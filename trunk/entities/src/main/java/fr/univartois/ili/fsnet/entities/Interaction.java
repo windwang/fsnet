@@ -39,16 +39,16 @@ public abstract class Interaction implements Serializable {
 	/**
 	 * The identifier.
 	 */
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private int id;
-	
+
 	/**
 	 * The community name.
 	 */
 	private String title;
-	
+
 	/**
 	 * The creator of the interaction.
 	 */
@@ -57,8 +57,8 @@ public abstract class Interaction implements Serializable {
 	private SocialEntity creator;
 
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REFRESH },fetch=FetchType.EAGER)
-	@OrderBy(value="name")
+			CascadeType.REFRESH }, fetch = FetchType.EAGER)
+	@OrderBy(value = "name")
 	private List<Interest> interests;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -67,16 +67,16 @@ public abstract class Interaction implements Serializable {
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date lastModified;
 
-	@OneToMany(mappedBy = "interaction", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy = "interaction", cascade = CascadeType.ALL)
 	private Set<InteractionRole> roles;
 
 	@ManyToMany(mappedBy = "favoriteInteractions")
 	@JoinColumn(nullable = false)
 	private Set<SocialEntity> followingEntitys;
-	
+
 	@Transient
 	private int numSubscriber = 0;
-	
+
 	@Transient
 	private int numFollowers = 0;
 
@@ -250,10 +250,11 @@ public abstract class Interaction implements Serializable {
 
 	@PostRemove
 	public void onInteractionRemove() {
-		Logger.getAnonymousLogger().log(Level.INFO, "Interaction.onInteractionRemove("+getId()+")");
+		Logger.getAnonymousLogger().log(Level.INFO,
+				"Interaction.onInteractionRemove(" + getId() + ")");
 		for (SocialEntity socialEntity : getFollowingEntitys()) {
-    		socialEntity.getFavoriteInteractions().remove(this);
-    	}
+			socialEntity.getFavoriteInteractions().remove(this);
+		}
 		if (getCreator() != null) {
 			getCreator().getInteractions().remove(this);
 			setCreator(null);
@@ -261,17 +262,22 @@ public abstract class Interaction implements Serializable {
 		interests.clear();
 	}
 
-	//@PostUpdate
-	//@PostLoad
-	//@PostPersist
+	// @PostUpdate
+	// @PostLoad
+	// @PostPersist
 	public void onLoad() {
 		numSubscriber = 0;
 		for (InteractionRole interactionRole : getRoles()) {
-			if (InteractionRole.RoleName.SUBSCRIBER.equals(interactionRole.getRole())) {
+			if (InteractionRole.RoleName.SUBSCRIBER.equals(interactionRole
+					.getRole())) {
 				numSubscriber++;
 			}
 		}
 		numFollowers = getFollowingEntitys().size();
+	}
+
+	public String getSimpleClassName() {
+		return getClass().getSimpleName();
 	}
 
 }
