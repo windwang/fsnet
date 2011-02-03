@@ -23,7 +23,7 @@
 					<c:if test="${not message.reed}">
 						<tr class="notReed">
 							<td>
-								<html:multibox property="selectedMessages"value="${message.id}" />
+								<html:multibox property="selectedMessages" value="${message.id}" />
 							</td>
 							<td>
 								<ili:getMiniature socialEntity="${message.from}"/>
