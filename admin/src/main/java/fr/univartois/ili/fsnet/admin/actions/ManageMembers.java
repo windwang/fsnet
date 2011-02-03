@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -278,7 +279,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			resultOthers = socialEntityFacade.searchSocialEntity(searchText);
 			em.getTransaction().commit();
 			em.close();
-			request.setAttribute("membersResult", resultOthers);
+			if(resultOthers!=null){
+				List<SocialEntity> resultOthersList = new ArrayList<SocialEntity>(resultOthers);
+				Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(resultOthersList, request, "membersList");
+				request.setAttribute("membersListPaginator", paginator);
+			}else request.setAttribute("membersListPaginator", null);
 		} else {
 			query = em.createQuery("SELECT es FROM SocialEntity es",
 					SocialEntity.class);
