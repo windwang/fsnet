@@ -121,19 +121,19 @@
                         <c:param name="interactionId" value="${inter.id}"/>
                     </c:import>
                     <c:choose>
-                        <c:when test="${inter.class.simpleName eq 'Announcement'}">
+                        <c:when test="${inter.simpleClassName eq 'Announcement'}">
                             <html:link action="/DisplayAnnounce">
                                 <html:param name="idAnnounce" value="${inter.id}"/>
                                 ${inter.title}
                             </html:link>
                         </c:when>
-                        <c:when test="${inter.class.simpleName eq 'Meeting'}">
+                        <c:when test="${inter.simpleClassName eq 'Meeting'}">
                             <html:link action="/DisplayEvent">
                                 <html:param name="eventId" value="${inter.id}"/>
                                 ${inter.title}
                             </html:link>
                         </c:when>
-                        <c:when test="${inter.class.simpleName eq 'Topic'}">
+                        <c:when test="${inter.simpleClassName eq 'Topic'}">
                             <html:link action="/Topic">
                                 <html:param name="topicId" value="${inter.id}"/>
                                 ${inter.title}
@@ -141,14 +141,14 @@
                             </html:link>
                             (${fn:length(inter.messages)} messages)
                         </c:when>
-                        <c:when test="${inter.class.simpleName eq 'Hub'}">
+                        <c:when test="${inter.simpleClassName eq 'Hub'}">
                             <html:link action="/DisplayHub">
                                 <html:param name="hubId" value="${inter.id}"/>
                                 ${inter.title}
                             </html:link>
                             (${fn:length(inter.topics)} topics)
                         </c:when>
-                        <c:when test="${inter.class.simpleName eq 'Community'}">
+                        <c:when test="${inter.simpleClassName eq 'Community'}">
                             <html:link action="/DisplayCommunity">
                                 <html:param name="communityId" value="${inter.id}"/>
                                 ${inter.title}
