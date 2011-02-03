@@ -99,7 +99,7 @@ In order to build fsnet you must install :
 Instructions : 
 
  # Checkout the last revision of fsnet using : svn checkout http://fsnet.googlecode.com/svn/trunk/ fsnet-read-only
- # cd fsnet-read-only/fr.univartois.ili.fsnet/
+ # cd fsnet-read-only/
  # mvn package
  # wait for a while
  # you can take deliverables in assembler/target/FSnet-$version$-bin.zip 
