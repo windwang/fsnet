@@ -58,7 +58,12 @@
             <bean:message key="menu.9"/>
         </html:link>
     </li>
-    
+<!--    <li>-->
+<!--        <html:link action="/Consultations" styleClass="${currentMenu == 'Consultations' ? 'current' : ''}">-->
+<!--            <bean:message key="menu.10"/>-->
+<!--        </html:link>-->
+<!--    </li>-->
+<!--    -->
 </ul>
 	<a class="button" href="Logout" id="logout"><bean:message key="logout"/></a>
 <div class="clear"></div>

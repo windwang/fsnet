@@ -264,6 +264,14 @@
         <put name="left" value="/content/communities/leftMenu.jsp" />
         <put name="body-content" value="/content/communities/SearchYourCommunities.jsp" />
     </definition>
+    
+    <!--  Consultations -->
+    <definition name="CreateConsultation" extends=".defaultLayout">
+ 	    <put name="title" value="pageTitle.0"/>
+        <put name="currentMenu" value="Consultations"/>
+        <put name="left" value="/content/consultations/leftMenu.jsp" />
+    </definition>
+   
     <!-- Ajax -->
     <definition name="AjaxAutocompleteRecipients" path="/content/ajax/AutocompleteRecipients.jsp"/>
 

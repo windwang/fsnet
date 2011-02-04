@@ -17,7 +17,7 @@
 		<action path="/Home" type="fr.univartois.ili.fsnet.actions.Home"
 			parameter="doDashboard">
 			<forward name="success" path="Home"></forward>
-		</action>
+		</action>		
 	</action-mappings>
 
 	<controller processorClass="org.apache.struts.tiles.TilesRequestProcessor" />
@@ -42,7 +42,8 @@
                       /WEB-INF/struts-configs/members-validator.xml,
                       /WEB-INF/struts-configs/communities-validator.xml,
                       /WEB-INF/struts-configs/privatemessages-validator.xml,
-                      /WEB-INF/struts-configs/interactions-validator.xml" />
+                      /WEB-INF/struts-configs/interactions-validator.xml,
+                      /WEB-INF/struts-configs/consultations-validator.xml" />
 	</plug-in>
 
 	<!--

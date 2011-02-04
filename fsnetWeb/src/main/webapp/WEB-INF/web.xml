@@ -21,7 +21,8 @@
                 /WEB-INF/struts-configs/privatemessages-config.xml,
                 /WEB-INF/struts-configs/communities-config.xml,
                 /WEB-INF/struts-configs/interactions-config.xml,
-                /WEB-INF/struts-configs/ajax-config.xml
+                /WEB-INF/struts-configs/ajax-config.xml,
+                /WEB-INF/struts-configs/consultations-config.xml
             </param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
