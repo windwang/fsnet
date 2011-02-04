@@ -32,6 +32,7 @@ import fr.univartois.ili.fsnet.entities.Message;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.Topic;
 import fr.univartois.ili.fsnet.entities.TopicMessage;
+import fr.univartois.ili.fsnet.facade.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.HubFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
@@ -104,16 +105,24 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String hubId = (String) dynaForm.get("hubId");
-
+		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
+		int communityId = Integer.valueOf((String) dynaForm.get("communityId"));
+		
 		logger.info("delete hub: " + hubId);
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		HubFacade hubFacade = new HubFacade(em);
+		CommunityFacade communityFacade = new CommunityFacade(em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		em.getTransaction().begin();
-		Hub hub = hubFacade.getHub(Integer.parseInt(hubId));
+		
+		Hub hub = hubFacade.getHub(hubId);
+		Community community = communityFacade.getCommunity(communityId);
+		community.getHubs().remove(hub);
+		for(SocialEntity se : hub.getFollowingEntitys()){
+			se.getFavoriteInteractions().remove(hub);
+		}
 		interactionFacade.deleteInteraction(user, hub);
 		em.getTransaction().commit();
 		em.close();
