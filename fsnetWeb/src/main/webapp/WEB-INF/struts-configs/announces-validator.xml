@@ -22,7 +22,7 @@
 			<field property="announceContent" depends="required,maxlength">
 				<var>
 					<var-name>maxlength</var-name>
-					<var-value>2000</var-value>
+					<var-value>5000</var-value>
 				</var>
 				<arg key="error.announceContent" />
 
@@ -51,7 +51,11 @@
 				<arg0 key="error.announceTitle" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
-			<field property="announceContent" depends="required">
+			<field property="announceContent" depends="required,maxlength">
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5000</var-value>
+				</var>
 				<arg key="error.announceContent" />
 			</field>
 			<field property="announceExpiryDate" depends="required,date">
