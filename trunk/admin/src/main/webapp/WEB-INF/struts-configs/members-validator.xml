@@ -59,6 +59,14 @@
 					<var-value>(((*this* == null) and (password == null)) or (password == *this*))</var-value>
 				</var>
 			</field>
+			<field property="message" depends="maxlength">
+				<arg key="members.error.message" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>500</var-value>
+				</var>
+			</field>
+			
 		</form>
 
 		<form name="/ModifyMember">

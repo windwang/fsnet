@@ -61,6 +61,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
 		dynaForm.set("email", "");
+		String personalizedMessage = (String) dynaForm.get("message");
+		dynaForm.set("message", "");
 		String inputPassword = (String) dynaForm.get("password");
 
 		EntityManager em = factory.createEntityManager();
@@ -84,7 +86,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().begin();
 			em.persist(socialEntity);
 			em.getTransaction().commit();
-			sendConfirmationMail(socialEntity, definedPassword);
+			sendConfirmationMail(socialEntity, definedPassword, personalizedMessage);
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
 			errors.add("email", new ActionMessage("members.user.exists"));
@@ -108,15 +110,22 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 * 
 	 * @param socialEntity
 	 *            the new EntiteSociale
+	 * @param password the password of the {@link SocialEntity}        
+	 * @param personalizedMessage message that will be send to the person to inform it that it has been registered     
 	 * @return true if success false if fail
 	 * 
 	 * @author Mathieu Boniface < mat.boniface {At} gmail.com >
+	 * @author stephane Gronowski
 	 */
-	private void sendConfirmationMail(SocialEntity socialEntity, String password) {
+	private void sendConfirmationMail(SocialEntity socialEntity, String password, String personalizedMessage) {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		String fsnetAddress = conf.getFSNetConfiguration().getProperty(
 				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
-		String message = createMessageRegistration(socialEntity.getName(),
+		String message;
+		if(personalizedMessage != null && !personalizedMessage.isEmpty())
+			message = createPersonalizedMessage(fsnetAddress, password, personalizedMessage);
+		else
+			message = createMessageRegistration(socialEntity.getName(),
 				socialEntity.getFirstName(), fsnetAddress, password);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
@@ -124,15 +133,43 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		mail.setSubject("Inscription FSNet");
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
+		
+		//TODO a suppr
+		System.out.println("message envoye "+message);
 		mailer.sendMail(mail);
+	}
+
+	/**
+	 * Method that creates an personalized welcome message to FSNet.
+	 * 
+	 * @param addressFsnet url of the FSnet application
+	 * @param password the password of the {@link SocialEntity}
+	 * @param personalizedMessage message that will be send to the person to inform it that it has been registered     
+	 * @return the message .
+	 * @author stephane Gronowski
+	 */
+	private String createPersonalizedMessage(String addressFsnet, String password, String personalizedMessage) {
+		StringBuilder message = new StringBuilder();
+		
+		message.append(personalizedMessage);
+		message.append("<br/><br/>D&eacute;sormais vous pouvez vous connecter sur le site ");
+		message.append(addressFsnet);
+		message.append(" .<br/><br/>");
+
+		message.append("Un mot de passe a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; automatiquement : <em>");
+		message.append(password);
+		message
+		.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
+		return message.toString();
 	}
 
 	/**
 	 * Method that creates an welcome message to FSNet.
 	 * 
-	 * @param nom
-	 * @param prenom
-	 * @param email
+	 * @param nom the name of the {@link SocialEntity}
+	 * @param prenom the first name of the {@link SocialEntity}
+	 * @param addressFsnet url of the FSnet application
+	 * @param password the password of the {@link SocialEntity}
 	 * @return the message .
 	 */
 	private String createMessageRegistration(String nom, String prenom,
