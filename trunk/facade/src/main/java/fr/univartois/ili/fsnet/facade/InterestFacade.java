@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.facade;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -209,17 +210,17 @@ public class InterestFacade {
      * @param socialEntity
      * @return the list of all interests of social entity's contacts that the
      *         social entity does not own
+     *         
      */
     public final List<Interest> getOtherInterests(SocialEntity socialEntity) {
         List whole = em.createQuery(
-                "SELECT interest, COUNT(contact) AS nbContacts "
-                + "FROM SocialEntity soc LEFT JOIN FETCH soc.interests, IN(soc.contacts) contact, "
+                "SELECT interest "
+                + "FROM SocialEntity soc, IN(soc.contacts) contact, "
                 + "IN(contact.interests) interest "
-                + "WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests "
-                + "GROUP BY interest ORDER BY nbContacts DESC").setParameter("socialEntity", socialEntity).getResultList();
+                + "WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests").setParameter("socialEntity", socialEntity).getResultList();
         List<Interest> listAllInterests = new ArrayList<Interest>(whole.size());
         for (Object pair : whole) {
-            listAllInterests.add((Interest) ((Object[]) pair)[0]);
+            listAllInterests.add((Interest)pair);
         }
         return listAllInterests;
     }
