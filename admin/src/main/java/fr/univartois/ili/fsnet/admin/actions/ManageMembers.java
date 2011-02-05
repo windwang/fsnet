@@ -134,8 +134,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
 		
-		//TODO a suppr
-		System.out.println("message envoye "+message);
 		mailer.sendMail(mail);
 	}
 
