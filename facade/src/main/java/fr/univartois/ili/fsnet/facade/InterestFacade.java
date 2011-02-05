@@ -213,16 +213,11 @@ public class InterestFacade {
      *         
      */
     public final List<Interest> getOtherInterests(SocialEntity socialEntity) {
-        List whole = em.createQuery(
+        return em.createQuery(
                 "SELECT interest "
                 + "FROM SocialEntity soc, IN(soc.contacts) contact, "
                 + "IN(contact.interests) interest "
-                + "WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests").setParameter("socialEntity", socialEntity).getResultList();
-        List<Interest> listAllInterests = new ArrayList<Interest>(whole.size());
-        for (Object pair : whole) {
-            listAllInterests.add((Interest)pair);
-        }
-        return listAllInterests;
+                + "WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests",Interest.class).setParameter("socialEntity", socialEntity).getResultList();
     }
 
     /**
