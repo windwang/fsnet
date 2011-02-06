@@ -1,8 +1,10 @@
 package fr.univartois.ili.fsnet.entities;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -31,7 +33,7 @@ public class Consultation extends Interaction {
 	/**
 	 * The list of choices available for this consultation
 	 */
-	@OneToMany(mappedBy = "consultation")
+	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
 	private List<ConsultationChoice> choices;
 
 	private String description;
@@ -66,6 +68,7 @@ public class Consultation extends Interaction {
 	public Consultation(SocialEntity creator, String title, String description) {
 		super(creator, title);
 		this.description = description;
+		this.choices = new ArrayList<ConsultationChoice>();
 	}
 
 	public String getDescription() {
