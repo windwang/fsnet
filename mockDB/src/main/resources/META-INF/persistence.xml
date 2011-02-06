@@ -20,6 +20,8 @@
         <class>fr.univartois.ili.fsnet.entities.ProfileVisite</class>
         <class>fr.univartois.ili.fsnet.entities.Consultation</class>
 		<class>fr.univartois.ili.fsnet.entities.ConsultationChoice</class>
+		<class>fr.univartois.ili.fsnet.entities.ConsultationChoiceVote</class>
+        <class>fr.univartois.ili.fsnet.entities.ConsultationVote</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <!-- <property name="eclipselink.ddl-generation" value="create-tables"/> -->
