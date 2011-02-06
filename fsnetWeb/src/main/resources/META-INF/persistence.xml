@@ -21,6 +21,8 @@
 		<class>fr.univartois.ili.fsnet.entities.Configuration</class>
 		<class>fr.univartois.ili.fsnet.entities.Property</class>
 		<class>fr.univartois.ili.fsnet.entities.ProfileVisite</class>
+		<class>fr.univartois.ili.fsnet.entities.Consultation</class>
+		<class>fr.univartois.ili.fsnet.entities.ConsultationChoice</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="create-tables" />

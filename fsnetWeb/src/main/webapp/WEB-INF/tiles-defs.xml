@@ -267,8 +267,9 @@
     
     <!--  Consultations -->
     <definition name="CreateConsultation" extends=".defaultLayout">
- 	    <put name="title" value="pageTitle.0"/>
+ 	    <put name="title" value="pageTitle.18"/>
         <put name="currentMenu" value="Consultations"/>
+        <put name="body-content" value="/content/consultations/CreateConsultation.jsp" />
         <put name="left" value="/content/consultations/leftMenu.jsp" />
     </definition>
    
