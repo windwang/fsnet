@@ -25,9 +25,18 @@ public class ConsultationChoiceVote implements Serializable {
 	@ManyToOne
 	private ConsultationVote vote;
 
+	@ManyToOne
+	private ConsultationChoice choice;
+
 	private boolean ifNecessary;
 
 	public ConsultationChoiceVote() {
+	}
+
+	public ConsultationChoiceVote(ConsultationVote consultationVote,
+			ConsultationChoice choice) {
+		this.vote = consultationVote;
+		this.choice = choice;
 	}
 
 	public int getId() {
@@ -52,6 +61,14 @@ public class ConsultationChoiceVote implements Serializable {
 
 	public void setIfNecessary(boolean ifNecessary) {
 		this.ifNecessary = ifNecessary;
+	}
+
+	public ConsultationChoice getChoice() {
+		return choice;
+	}
+
+	public void setChoice(ConsultationChoice choice) {
+		this.choice = choice;
 	}
 
 }

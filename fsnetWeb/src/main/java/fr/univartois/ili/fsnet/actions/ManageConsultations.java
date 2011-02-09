@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -41,5 +42,26 @@ public class ManageConsultations extends MappingDispatchAction {
 				.findForward("success"));
 		return redirect;
 	}
+	
+	public ActionForward vote(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+	throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; 
+		String voteComment = (String) dynaForm.get("voteComment");	
+		Integer idConsultation = (Integer) dynaForm.get("idConsultation");
+		String[] voteChoices  = dynaForm.getStrings("voteChoice");
+		EntityManager em = PersistenceProvider.createEntityManager();
+
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		em.getTransaction().begin();
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		consultationFacade.voteForConsultation(member, idConsultation, voteComment, "", Arrays.asList(voteChoices));
+		em.getTransaction().commit();
+		em.close();
+		ActionRedirect redirect = new ActionRedirect(mapping
+				.findForward("success"));
+		return redirect;
+	}
+	
 
 }
