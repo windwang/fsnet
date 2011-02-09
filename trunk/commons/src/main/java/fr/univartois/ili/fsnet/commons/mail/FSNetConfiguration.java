@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.commons.mail;
 
+import java.io.File;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
@@ -20,6 +21,10 @@ public class FSNetConfiguration {
 	public static final String SSL_KEY = "mail.smtp.socketFactory.class";
 	public static final String SSL_ENABLED_VALUE = "javax.net.ssl.SSLSocketFactory";
 	public static final String PICTURES_DIRECTORY_KEY = "pictures.dir";
+
+	private static final String USER_HOME = "user.home";
+	private static final String FSNET_DIRECTORY = ".fsnet";
+	private static final String PICTURES_DIRECTORY = "uploaded-images";
 
 	private static final FSNetConfiguration instance;
 
@@ -90,7 +95,13 @@ public class FSNetConfiguration {
 		property = em.find(Property.class, PICTURES_DIRECTORY_KEY);
 		if (property != null) {
 			properties.put(PICTURES_DIRECTORY_KEY, property.getValue());
+		} else {
+			if (createDefaultImagesDirectory()) {
+				properties.put(PICTURES_DIRECTORY_KEY,
+						buildDefaultNameOfPicturesDirectory());
+			}
 		}
+
 		em.close();
 	}
 
@@ -105,6 +116,24 @@ public class FSNetConfiguration {
 	public boolean isAuthenticationEnabled() {
 		return "true".equalsIgnoreCase(properties
 				.getProperty(ENABLE_AUTHENTICATION_KEY));
+	}
+
+	/**
+	 * Create the default directory for the uploaded images.
+	 * 
+	 * @return true if the directory is create or it already exist.
+	 */
+	private boolean createDefaultImagesDirectory() {
+		String path = buildDefaultNameOfPicturesDirectory();
+		File folder = new File(path);
+
+		return folder.mkdirs() || folder.isDirectory();
+	}
+
+	private String buildDefaultNameOfPicturesDirectory() {
+		String path = System.getProperty(USER_HOME) + File.separator
+				+ FSNET_DIRECTORY + File.separator + PICTURES_DIRECTORY;
+		return path;
 	}
 
 }
