@@ -4,7 +4,10 @@ import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import java.util.Set;
 import java.util.logging.Logger;
 
@@ -76,17 +79,20 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			if (inputPassword == null || "".equals(inputPassword)) {
 				definedPassword = Encryption.generateRandomPassword();
 				logger.info("#### Generated Password : " + definedPassword);
-				encryptedPassword = Encryption.getEncodedPassword(definedPassword);
+				encryptedPassword = Encryption
+						.getEncodedPassword(definedPassword);
 			} else {
 				definedPassword = inputPassword;
 				logger.info("#### Defined Password : " + inputPassword);
-				encryptedPassword = Encryption.getEncodedPassword(inputPassword);
+				encryptedPassword = Encryption
+						.getEncodedPassword(inputPassword);
 			}
 			socialEntity.setPassword(encryptedPassword);
 			em.getTransaction().begin();
 			em.persist(socialEntity);
 			em.getTransaction().commit();
-			sendConfirmationMail(socialEntity, definedPassword, personalizedMessage);
+			sendConfirmationMail(socialEntity, definedPassword,
+					personalizedMessage);
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
 			errors.add("email", new ActionMessage("members.user.exists"));
@@ -106,49 +112,152 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	}
 
 	/**
+	 * 
+	 * Same as create but for multiple entity. Create multiple
+	 * {@link SocialEntity} and persist them in database. Format : one entity
+	 * per line using the following pattern : name/firstname/email
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward createMultiple(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+
+		String formInput = (String) dynaForm.get("multipleMember");
+		dynaForm.set("multipleMember", "");
+		String personalizedMessage = (String) dynaForm.get("message");
+		dynaForm.set("message", "");
+
+		EntityManager em = factory.createEntityManager();
+		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
+
+		String[] formSocialEntities = formInput.split("\n");
+		Map<SocialEntity, String> socialEntities = new HashMap<SocialEntity, String>();
+
+		em.getTransaction().begin();
+
+		for (String formSocialEntitie : formSocialEntities) {
+			formSocialEntitie = formSocialEntitie.replaceAll("\r", "");
+			String[] socialEntitieInput = formSocialEntitie.split("/");
+
+			SocialEntity socialEntity = facadeSE.createSocialEntity(
+					socialEntitieInput[0], socialEntitieInput[1],
+					socialEntitieInput[2]);
+
+			String definedPassword = Encryption.generateRandomPassword();
+			logger.info("#### Defined Password : " + definedPassword);
+			String encryptedPassword = Encryption
+					.getEncodedPassword(definedPassword);
+			socialEntity.setPassword(encryptedPassword);
+
+			socialEntities.put(socialEntity, definedPassword);
+			em.persist(socialEntity);
+		}
+
+		try {
+			em.getTransaction().commit();
+		}
+		// I'm not really sure about the exception, so I took the same as in the
+		// create methode
+		catch (RollbackException e) {
+			e.printStackTrace();
+			ActionErrors errors = new ActionErrors();
+			errors.add("email", new ActionMessage("members.user.exists"));
+			saveErrors(request, errors);
+		} catch (Exception e) {
+			e.printStackTrace();
+			ActionErrors errors = new ActionErrors();
+			errors.add("email", new ActionMessage("members.error.on.create"));
+			saveErrors(request, errors);
+		}
+
+		em.close();
+
+		for (Entry<SocialEntity, String> entry : socialEntities.entrySet()) {
+			try {
+				sendConfirmationMail(entry.getKey(), entry.getValue(),
+						personalizedMessage);
+			}
+			// I'm not really sure about the exception, so I took the same as in
+			// the create methode
+			catch (RollbackException e) {
+				e.printStackTrace();
+				ActionErrors errors = new ActionErrors();
+				errors.add("email", new ActionMessage("members.user.exists"));
+				saveErrors(request, errors);
+			} catch (Exception e) {
+				e.printStackTrace();
+				ActionErrors errors = new ActionErrors();
+				errors.add("email",
+						new ActionMessage("members.error.on.create"));
+				saveErrors(request, errors);
+			}
+
+		}
+		return mapping.findForward("success");
+	}
+
+	/**
 	 * Send mails to a list of recipient.
 	 * 
 	 * @param socialEntity
 	 *            the new EntiteSociale
-	 * @param password the password of the {@link SocialEntity}        
-	 * @param personalizedMessage message that will be send to the person to inform it that it has been registered     
+	 * @param password
+	 *            the password of the {@link SocialEntity}
+	 * @param personalizedMessage
+	 *            message that will be send to the person to inform it that it
+	 *            has been registered
 	 * @return true if success false if fail
 	 * 
 	 * @author Mathieu Boniface < mat.boniface {At} gmail.com >
 	 * @author stephane Gronowski
 	 */
-	private void sendConfirmationMail(SocialEntity socialEntity, String password, String personalizedMessage) {
+	private void sendConfirmationMail(SocialEntity socialEntity,
+			String password, String personalizedMessage) {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		String fsnetAddress = conf.getFSNetConfiguration().getProperty(
 				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
 		String message;
-		if(personalizedMessage != null && !personalizedMessage.isEmpty())
-			message = createPersonalizedMessage(fsnetAddress, password, personalizedMessage);
+		if (personalizedMessage != null && !personalizedMessage.isEmpty())
+			message = createPersonalizedMessage(fsnetAddress, password,
+					personalizedMessage);
 		else
 			message = createMessageRegistration(socialEntity.getName(),
-				socialEntity.getFirstName(), fsnetAddress, password);
+					socialEntity.getFirstName(), fsnetAddress, password);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 		mail.setSubject("Inscription FSNet");
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
-		
+
 		mailer.sendMail(mail);
 	}
 
 	/**
 	 * Method that creates an personalized welcome message to FSNet.
 	 * 
-	 * @param addressFsnet url of the FSnet application
-	 * @param password the password of the {@link SocialEntity}
-	 * @param personalizedMessage message that will be send to the person to inform it that it has been registered     
+	 * @param addressFsnet
+	 *            url of the FSnet application
+	 * @param password
+	 *            the password of the {@link SocialEntity}
+	 * @param personalizedMessage
+	 *            message that will be send to the person to inform it that it
+	 *            has been registered
 	 * @return the message .
 	 * @author stephane Gronowski
 	 */
-	private String createPersonalizedMessage(String addressFsnet, String password, String personalizedMessage) {
+	private String createPersonalizedMessage(String addressFsnet,
+			String password, String personalizedMessage) {
 		StringBuilder message = new StringBuilder();
-		
+
 		message.append(personalizedMessage);
 		message.append("<br/><br/>D&eacute;sormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
@@ -156,18 +265,21 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		message.append("Un mot de passe a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; automatiquement : <em>");
 		message.append(password);
-		message
-		.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
+		message.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
 		return message.toString();
 	}
 
 	/**
 	 * Method that creates an welcome message to FSNet.
 	 * 
-	 * @param nom the name of the {@link SocialEntity}
-	 * @param prenom the first name of the {@link SocialEntity}
-	 * @param addressFsnet url of the FSnet application
-	 * @param password the password of the {@link SocialEntity}
+	 * @param nom
+	 *            the name of the {@link SocialEntity}
+	 * @param prenom
+	 *            the first name of the {@link SocialEntity}
+	 * @param addressFsnet
+	 *            url of the FSnet application
+	 * @param password
+	 *            the password of the {@link SocialEntity}
 	 * @return the message .
 	 */
 	private String createMessageRegistration(String nom, String prenom,
@@ -175,17 +287,14 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		StringBuilder message = new StringBuilder();
 		message.append("Bonjour ").append(nom).append(" ").append(prenom);
 		message.append(",<br/><br/>");
-		message
-				.append("Vous venez d'&ecirc;tre enregistr&eacute; sur FSNet (Firm Social Network).<br/><br/>");
-		message
-				.append("D&eacute;sormais vous pouvez vous connecter sur le site ");
+		message.append("Vous venez d'&ecirc;tre enregistr&eacute; sur FSNet (Firm Social Network).<br/><br/>");
+		message.append("D&eacute;sormais vous pouvez vous connecter sur le site ");
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
 
 		message.append("Un mot de passe a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; automatiquement : <em>");
 		message.append(password);
-		message
-		.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
+		message.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
 		return message.toString();
 	}
 
@@ -242,9 +351,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("email", member.getEmail());
 		dynaForm.set("firstName", member.getFirstName());
 		dynaForm.set("id", member.getId());
-		
-		Paginator<Interest> paginator = new Paginator<Interest>(member.getInterests(), request, "interestsMember", "idMember");
-		
+
+		Paginator<Interest> paginator = new Paginator<Interest>(
+				member.getInterests(), request, "interestsMember", "idMember");
+
 		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
 
@@ -314,20 +424,24 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			resultOthers = socialEntityFacade.searchSocialEntity(searchText);
 			em.getTransaction().commit();
 			em.close();
-			if(resultOthers!=null){
-				List<SocialEntity> resultOthersList = new ArrayList<SocialEntity>(resultOthers);
-				Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(resultOthersList, request, "membersList");
+			if (resultOthers != null) {
+				List<SocialEntity> resultOthersList = new ArrayList<SocialEntity>(
+						resultOthers);
+				Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
+						resultOthersList, request, "membersList");
 				request.setAttribute("membersListPaginator", paginator);
-			}else request.setAttribute("membersListPaginator", null);
+			} else
+				request.setAttribute("membersListPaginator", null);
 		} else {
 			query = em.createQuery("SELECT es FROM SocialEntity es",
 					SocialEntity.class);
 			List<SocialEntity> resultOthersList = query.getResultList();
 			em.getTransaction().commit();
 			em.close();
-			
-			Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(resultOthersList, request, "membersList");
-			
+
+			Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
+					resultOthersList, request, "membersList");
+
 			request.setAttribute("membersListPaginator", paginator);
 		}
 
@@ -359,8 +473,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialEntityFacade ise = new SocialEntityFacade(em);
 		InterestFacade interestFacade = new InterestFacade(em);
 		em.getTransaction().begin();
-		ise.removeInterest(interestFacade.getInterest(interestSelected), ise
-				.getSocialEntity(idSocialEntity));
+		ise.removeInterest(interestFacade.getInterest(interestSelected),
+				ise.getSocialEntity(idSocialEntity));
 		em.getTransaction().commit();
 		em.close();
 
