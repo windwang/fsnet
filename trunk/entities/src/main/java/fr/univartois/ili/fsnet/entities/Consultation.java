@@ -36,6 +36,9 @@ public class Consultation extends Interaction {
 	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
 	private List<ConsultationChoice> choices;
 
+	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
+	private List<ConsultationVote> consultationVotes;
+
 	private String description;
 	private boolean limitParticipantsPerChoice;
 	private boolean limitChoicesPerParticipant;
@@ -211,6 +214,14 @@ public class Consultation extends Interaction {
 
 	public void addChoice(ConsultationChoice consultationChoice) {
 		this.choices.add(consultationChoice);
+	}
+
+	public List<ConsultationVote> getConsultationVotes() {
+		return consultationVotes;
+	}
+
+	public void setConsultationVotes(List<ConsultationVote> consultationVotes) {
+		this.consultationVotes = consultationVotes;
 	}
 
 }

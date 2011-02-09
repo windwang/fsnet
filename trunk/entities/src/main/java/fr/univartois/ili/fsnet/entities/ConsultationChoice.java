@@ -1,12 +1,15 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class ConsultationChoice implements Serializable {
@@ -37,6 +40,9 @@ public class ConsultationChoice implements Serializable {
 	 */
 	@ManyToOne
 	private Consultation consultation;
+
+	@OneToMany(mappedBy = "choice", cascade = CascadeType.ALL)
+	private List<ConsultationChoiceVote> consultationChoiceVotes;
 
 	public ConsultationChoice() {
 	}
@@ -75,6 +81,15 @@ public class ConsultationChoice implements Serializable {
 
 	public void setConsultation(Consultation consultation) {
 		this.consultation = consultation;
+	}
+
+	public List<ConsultationChoiceVote> getConsultationChoiceVotes() {
+		return consultationChoiceVotes;
+	}
+
+	public void setConsultationChoiceVotes(
+			List<ConsultationChoiceVote> consultationChoiceVotes) {
+		this.consultationChoiceVotes = consultationChoiceVotes;
 	}
 
 }
