@@ -8,6 +8,27 @@
 				<arg key="error.searchText" />
 			</field>
 		</form>
+		<form name="/CreateMultipleMember">
+			<field property="multipleMember" depends="required,mask,maxlength">
+				<arg key="members.error.multiple" />
+			 	<var>
+					<var-name>mask</var-name>
+					<var-value>^([\w, \.!?+*;\(\)\[\]'-]{1,30}/[\w,\.!?+*;\(\)\[\]'-]{1,30}/[\da-zA-Z\._\-]{1,50}@[a-zA-Z\d\-]{1,20}\.[a-zA-Z]{1,10}(\r\n)?)+$</var-value>
+				</var> 
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>5000</var-value>
+				</var>
+			</field>
+			<field property="message" depends="maxlength">
+				<arg key="members.error.message" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>500</var-value>
+				</var>
+			</field>
+		</form>
+		
 		<form name="/CreateMember">
 			<field property="name" depends="required,mask,maxlength">
 				<arg key="members.error.name" />
