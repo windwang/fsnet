@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Arrays;
 
 import javax.persistence.EntityManager;
@@ -16,7 +17,9 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.ConsultationFacade;
 
@@ -43,13 +46,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		return redirect;
 	}
 	
+	
 	public ActionForward vote(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; 
 		String voteComment = (String) dynaForm.get("voteComment");	
-		Integer idConsultation = (Integer) dynaForm.get("idConsultation");
+		Integer idConsultation = (Integer) dynaForm.get("id");
 		String[] voteChoices  = dynaForm.getStrings("voteChoice");
+		System.out.println("ManageConsultation: "+voteChoices.length);
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -58,10 +63,38 @@ public class ManageConsultations extends MappingDispatchAction {
 		consultationFacade.voteForConsultation(member, idConsultation, voteComment, "", Arrays.asList(voteChoices));
 		em.getTransaction().commit();
 		em.close();
-		ActionRedirect redirect = new ActionRedirect(mapping
-				.findForward("success"));
-		return redirect;
+		
+		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 	
 
+	public ActionForward searchYourConsultations(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+		throws IOException, ServletException {
+		System.out.println("** ManageConsultations.searchYourConsultations **");
+		EntityManager em = PersistenceProvider.createEntityManager();
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		List<Consultation> listConsultations = consultationFacade.getUserConsultations(member);
+		Paginator<Consultation> paginator = new Paginator<Consultation>(listConsultations, request, "listConsultations");
+		request.setAttribute("consultationsListPaginator", paginator);
+		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		return redirect;
+	}
+	
+	public ActionForward displayAConsultation(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response){
+		System.out.println("** ManageConsultations.displayAConsultation");
+		String idConsultation = request.getParameter("id");
+		if (idConsultation != null){
+			EntityManager em = PersistenceProvider.createEntityManager();
+			ConsultationFacade consultationFacade = new ConsultationFacade(em);
+			Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
+			em.close();
+			request.setAttribute("consultation", consultation);
+		}
+		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		return redirect;
+	}
+	
 }
