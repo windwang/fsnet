@@ -8,7 +8,6 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -34,10 +33,10 @@ public class Consultation extends Interaction {
 	/**
 	 * The list of choices available for this consultation
 	 */
-	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
 	private List<ConsultationChoice> choices;
 
-	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
 	private List<ConsultationVote> consultationVotes;
 
 	private String description;

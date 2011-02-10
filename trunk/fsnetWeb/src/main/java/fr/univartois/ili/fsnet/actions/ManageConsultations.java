@@ -54,9 +54,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		String voteComment = (String) dynaForm.get("voteComment");	
 		Integer idConsultation = (Integer) dynaForm.get("id");
 		String[] voteChoices  = dynaForm.getStrings("voteChoice");
-		System.out.println("ManageConsultation: "+voteChoices.length);
 		EntityManager em = PersistenceProvider.createEntityManager();
-
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
@@ -71,7 +69,6 @@ public class ManageConsultations extends MappingDispatchAction {
 	public ActionForward searchYourConsultations(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
-		System.out.println("** ManageConsultations.searchYourConsultations **");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -84,7 +81,6 @@ public class ManageConsultations extends MappingDispatchAction {
 	
 	public ActionForward displayAConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
-		System.out.println("** ManageConsultations.displayAConsultation");
 		String idConsultation = request.getParameter("id");
 		if (idConsultation != null){
 			EntityManager em = PersistenceProvider.createEntityManager();

@@ -22,7 +22,7 @@ public class ConsultationFacade {
 	public final Consultation createConsultation(SocialEntity creator, String title, String description, String [] choices){
 		Consultation consultation = new Consultation(creator, title, description);
 		for (String s : choices){
-			consultation.addChoice(new ConsultationChoice(s));
+			consultation.addChoice(new ConsultationChoice(consultation,s));
 		}
 		em.persist(consultation);
 		return consultation;
@@ -30,8 +30,7 @@ public class ConsultationFacade {
 	
 	public final Consultation getConsultation(int consultationId) {
 		Consultation cons = em.find(Consultation.class, consultationId);
-		System.out.println("consultationFacade "+ cons.getChoices());
-        return em.find(Consultation.class, consultationId);
+        return cons;
     }
 
 	public List<Consultation> getUserConsultations(SocialEntity member) {
@@ -50,7 +49,7 @@ public class ConsultationFacade {
 			consultationVote.setConsultation(consultation);
 		}
 		for(ConsultationChoice choice : consultation.getChoices()){
-			if(choices.contains("idChoix"+choice.getId())){
+			if(choices.contains(String.valueOf(choice.getId()))){
 				consultationVote.getChoices().add(new ConsultationChoiceVote(consultationVote,choice));
 			}
 		}
