@@ -7,6 +7,9 @@
 			<field property="consultationTitle" depends="required">
 				<arg key="consultation.title" name="required"/>
 			</field>
+			<field property="consultationChoice" depends="required">
+				<arg key="consultation.choice" name="required"/>
+			</field>
 		</form>
 	</formset>
 </form-validation>
