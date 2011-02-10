@@ -47,7 +47,8 @@ public class ConsultationChoice implements Serializable {
 	public ConsultationChoice() {
 	}
 
-	public ConsultationChoice(String choice) {
+	public ConsultationChoice(Consultation consultation, String choice) {
+		this.consultation = consultation;
 		intituled = choice;
 	}
 
