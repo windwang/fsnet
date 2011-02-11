@@ -36,6 +36,7 @@ public class ConsultationChoiceVote implements Serializable {
 	public ConsultationChoiceVote(ConsultationVote consultationVote,
 			ConsultationChoice choice) {
 		this.vote = consultationVote;
+		this.ifNecessary = false;
 		this.choice = choice;
 	}
 

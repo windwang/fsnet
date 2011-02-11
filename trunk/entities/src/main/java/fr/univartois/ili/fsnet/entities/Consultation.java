@@ -11,6 +11,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
 
 /**
  * 
@@ -40,22 +41,37 @@ public class Consultation extends Interaction {
 	private List<ConsultationVote> consultationVotes;
 
 	private String description;
-	private boolean limitParticipantsPerChoice;
-	private boolean limitChoicesPerParticipant;
+
+	private String limitParticipantsPerChoice;
+
+	private String limitChoicesPerParticipant;
+
 	private int limitChoicesPerParticipantMin;
+
 	private int limitChoicesPerParticipantMax;
+
 	@Enumerated(value = EnumType.STRING)
 	private TypeConsultation type;
+
 	private double ifNecessaryWeight;
-	private boolean showBeforeAnswer;
-	private boolean showBeforeClosing;
-	private boolean allowAllToModify;
-	private boolean closingAtDate;
+
+	private String showBeforeAnswer;
+
+	private String showBeforeClosing;
+
+	private String allowAllToModify;
+
+	private String closingAtDate;
+
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date maxDate;
-	private boolean closingAtMaxVoters;
+
+	private String closingAtMaxVoters;
+
 	private int maxVoters;
-	private boolean opened;
+
+	private String opened;
+
 	private int currentVoters;
 
 	public Consultation() {
@@ -71,6 +87,14 @@ public class Consultation extends Interaction {
 	public Consultation(SocialEntity creator, String title, String description) {
 		super(creator, title);
 		this.description = description;
+		limitChoicesPerParticipant = "F";
+		closingAtDate = "F";
+		closingAtMaxVoters = "F";
+		limitParticipantsPerChoice = "F";
+		showBeforeAnswer = "F";
+		showBeforeClosing = "F";
+		allowAllToModify = "F";
+		opened = "F";
 		this.choices = new ArrayList<ConsultationChoice>();
 	}
 
@@ -88,22 +112,6 @@ public class Consultation extends Interaction {
 
 	public void setChoices(List<ConsultationChoice> choices) {
 		this.choices = choices;
-	}
-
-	public boolean isLimitParticipantsPerChoice() {
-		return limitParticipantsPerChoice;
-	}
-
-	public void setLimitParticipantsPerChoice(boolean limitParticipantsPerChoice) {
-		this.limitParticipantsPerChoice = limitParticipantsPerChoice;
-	}
-
-	public boolean isLimitChoicesPerParticipant() {
-		return limitChoicesPerParticipant;
-	}
-
-	public void setLimitChoicesPerParticipant(boolean limitChoicesPerParticipant) {
-		this.limitChoicesPerParticipant = limitChoicesPerParticipant;
 	}
 
 	public int getLimitChoicesPerParticipantMin() {
@@ -140,38 +148,6 @@ public class Consultation extends Interaction {
 		this.ifNecessaryWeight = ifNecessaryWeight;
 	}
 
-	public boolean isShowBeforeAnswer() {
-		return showBeforeAnswer;
-	}
-
-	public void setShowBeforeAnswer(boolean showBeforeAnswer) {
-		this.showBeforeAnswer = showBeforeAnswer;
-	}
-
-	public boolean isShowBeforeClosing() {
-		return showBeforeClosing;
-	}
-
-	public void setShowBeforeClosing(boolean showBeforeClosing) {
-		this.showBeforeClosing = showBeforeClosing;
-	}
-
-	public boolean isAllowAllToModify() {
-		return allowAllToModify;
-	}
-
-	public void setAllowAllToModify(boolean allowAllToModify) {
-		this.allowAllToModify = allowAllToModify;
-	}
-
-	public boolean isClosingAtDate() {
-		return closingAtDate;
-	}
-
-	public void setClosingAtDate(boolean closingAtDate) {
-		this.closingAtDate = closingAtDate;
-	}
-
 	public Date getMaxDate() {
 		return maxDate;
 	}
@@ -180,28 +156,12 @@ public class Consultation extends Interaction {
 		this.maxDate = maxDate;
 	}
 
-	public boolean isClosingAtMaxVoters() {
-		return closingAtMaxVoters;
-	}
-
-	public void setClosingAtMaxVoters(boolean closingAtMaxVoters) {
-		this.closingAtMaxVoters = closingAtMaxVoters;
-	}
-
 	public int getMaxVoters() {
 		return maxVoters;
 	}
 
 	public void setMaxVoters(int maxVoters) {
 		this.maxVoters = maxVoters;
-	}
-
-	public boolean isOpened() {
-		return opened;
-	}
-
-	public void setOpened(boolean current) {
-		this.opened = current;
 	}
 
 	public int getCurrentVoters() {
@@ -222,6 +182,166 @@ public class Consultation extends Interaction {
 
 	public void setConsultationVotes(List<ConsultationVote> consultationVotes) {
 		this.consultationVotes = consultationVotes;
+	}
+
+	public String getLimitParticipantsPerChoice() {
+		return limitParticipantsPerChoice;
+	}
+
+	public void setLimitParticipantsPerChoice(String limitParticipantsPerChoice) {
+		this.limitParticipantsPerChoice = limitParticipantsPerChoice;
+	}
+
+	@Transient
+	public boolean isLimitParticipantsPerChoice() {
+		return "T".equals(limitParticipantsPerChoice);
+	}
+
+	public void setLimitParticipantPerChoice(boolean limitParticipantsPerChoice) {
+		if (limitParticipantsPerChoice)
+			this.limitParticipantsPerChoice = "T";
+		else
+			this.limitParticipantsPerChoice = "F";
+	}
+
+	public String getLimitChoicesPerParticipant() {
+		return limitChoicesPerParticipant;
+	}
+
+	public void setLimitChoicesPerParticipant(String limitChoicesPerParticipant) {
+		this.limitChoicesPerParticipant = limitChoicesPerParticipant;
+	}
+
+	@Transient
+	public boolean isLimitChoicesPerParticipant() {
+		return "T".equals(limitChoicesPerParticipant);
+	}
+
+	public void setLimitChoicesPerParticipant(boolean limitChoicesPerParticipant) {
+		if (limitChoicesPerParticipant) {
+			this.limitChoicesPerParticipant = "T";
+		} else
+			this.limitChoicesPerParticipant = "F";
+	}
+
+	public String getShowBeforeAnswer() {
+		return showBeforeAnswer;
+	}
+
+	public void setShowBeforeAnswer(String showBeforeAnswer) {
+		this.showBeforeAnswer = showBeforeAnswer;
+	}
+
+	@Transient
+	public boolean isShowBeforeAnswer() {
+		return "T".equals(showBeforeAnswer);
+	}
+
+	public void setShowBeforeAnswer(boolean showBeforeAnswer) {
+		if (showBeforeAnswer)
+			this.showBeforeAnswer = "T";
+		else
+			this.showBeforeAnswer = "F";
+	}
+
+	public String getShowBeforeClosing() {
+		return showBeforeClosing;
+	}
+
+	public void setShowBeforeClosing(String showBeforeClosing) {
+		this.showBeforeClosing = showBeforeClosing;
+	}
+
+	@Transient
+	public boolean isShowBeforeClosing() {
+		return "T".equals(showBeforeClosing);
+	}
+
+	public void setShowBeforeClosing(boolean showBeforeClosing) {
+		if (showBeforeClosing)
+			this.showBeforeClosing = "T";
+		else
+			this.showBeforeClosing = "F";
+	}
+
+	public String getAllowAllToModify() {
+		return allowAllToModify;
+	}
+
+	public void setAllowAllToModify(String allowAllToModify) {
+		this.allowAllToModify = allowAllToModify;
+	}
+
+	@Transient
+	public boolean isAllowAllToModify() {
+		return "T".equals(allowAllToModify);
+	}
+
+	public void setAllowAllToModify(boolean allowAllToModify) {
+		if (allowAllToModify)
+			this.allowAllToModify = "T";
+		else
+			this.allowAllToModify = "F";
+	}
+
+	public String getClosingAtDate() {
+		return closingAtDate;
+	}
+
+	public void setClosingAtDate(String closingAtDate) {
+		this.closingAtDate = closingAtDate;
+	}
+
+	@Transient
+	public boolean isClosingAtDate() {
+		return "T".equals(closingAtDate);
+	}
+
+	public void setClosingAtDate(boolean closingAtDate) {
+		if (closingAtDate)
+			this.closingAtDate = "T";
+		else
+			this.closingAtDate = "F";
+	}
+
+	public String getClosingAtMaxVoters() {
+		return closingAtMaxVoters;
+	}
+
+	public void setClosingAtMaxVoters(String closingAtMaxVoters) {
+		this.closingAtMaxVoters = closingAtMaxVoters;
+	}
+
+	@Transient
+	public boolean isClosingAtMaxVoters() {
+		return "T".equals(closingAtMaxVoters);
+	}
+
+	public void setClosingAtMaxVoters(boolean closingAtMaxVoters) {
+		if (closingAtMaxVoters)
+			this.closingAtMaxVoters = "T";
+		else
+			this.closingAtMaxVoters = "F";
+	}
+
+	public String getOpened() {
+		return opened;
+	}
+
+	public void setOpened(String opened) {
+		this.opened = opened;
+	}
+
+	@Transient
+	public boolean isOpened() {
+		return "T".equals(opened);
+	}
+
+	public void setOpened(boolean opened) {
+		if (opened)
+			this.opened = "T";
+		else
+			this.opened = "F";
 	}
 
 }

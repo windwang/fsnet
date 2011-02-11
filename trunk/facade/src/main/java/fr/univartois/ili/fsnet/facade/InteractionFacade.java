@@ -132,6 +132,9 @@ public class InteractionFacade {
 			} else if ("Community".equals(clazz)) {
 				path = "/DisplayCommunity";
 				id = "communityId";
+			}else if ("Consultation".equals(clazz)){
+				path = "/DisplayAConsultation";
+				id = "id";
 			}
 			triples.add(new Triple(interaction,path,id));
 		}
