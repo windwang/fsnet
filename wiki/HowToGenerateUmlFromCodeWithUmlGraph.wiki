@@ -23,6 +23,7 @@
 	{{{
            java -classpath '/path/to/UmlGraph.5.4.jar:/path/to/tools.jar'
  org.umlgraph.doclet.UmlGraph -all -private yourfile1.java
+        }}}
 	For more options, http://www.umlgraph.org/doc/cd-opt.html
 	2./ To convert the file (.dot) into an image :
 	 	dot -Tpng -ograph.png graph.dot
