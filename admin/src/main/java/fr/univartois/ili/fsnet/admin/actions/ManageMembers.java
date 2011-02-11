@@ -67,8 +67,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String mail = (String) dynaForm.get("email");
 		dynaForm.set("email", "");
 		String personalizedMessage = (String) dynaForm.get("message");
-		dynaForm.set("message", "");
 		String inputPassword = (String) dynaForm.get("password");
+		dynaForm.set("password", "");
+		dynaForm.set("passwordConfirmation", "");
 
 		EntityManager em = factory.createEntityManager();
 
@@ -138,7 +139,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String formInput = (String) dynaForm.get("multipleMember");
 		dynaForm.set("multipleMember", "");
 		String personalizedMessage = (String) dynaForm.get("message");
-		dynaForm.set("message", "");
 
 		EntityManager em = factory.createEntityManager();
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
