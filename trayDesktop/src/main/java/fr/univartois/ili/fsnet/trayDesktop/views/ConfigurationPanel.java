@@ -118,6 +118,10 @@ public class ConfigurationPanel {
 			return fsneturl.getText().replaceFirst("[^/]+/$",
 					"webservice/jaxws");
 		}
+		if (fsneturl.getText().matches("http://[^/]+/[^/]+[^/]")) {
+			return fsneturl.getText()
+					.replaceFirst("[^/]+$", "webservice/jaxws");
+		}
 		return "";
 	}
 
