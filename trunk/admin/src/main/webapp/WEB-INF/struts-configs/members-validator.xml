@@ -20,7 +20,7 @@
 					<var-value>5000</var-value>
 				</var>
 			</field>
-			<field property="message" depends="maxlength">
+			<field property="message" depends="required,maxlength">
 				<arg key="members.error.message" />
 				<var>
 					<var-name>maxlength</var-name>
@@ -80,7 +80,7 @@
 					<var-value>(((*this* == null) and (password == null)) or (password == *this*))</var-value>
 				</var>
 			</field>
-			<field property="message" depends="maxlength">
+			<field property="message" depends="required,maxlength">
 				<arg key="members.error.message" />
 				<var>
 					<var-name>maxlength</var-name>

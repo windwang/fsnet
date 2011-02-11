@@ -236,12 +236,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
 		String message;
 
-		if (personalizedMessage != null && !personalizedMessage.isEmpty())
-			message = createPersonalizedMessage(fsnetAddress, password,
-					personalizedMessage, locale);
-		else
-			message = createMessageRegistration(socialEntity.getName(),
-					socialEntity.getFirstName(), fsnetAddress, password, locale);
+		message = createPersonalizedMessage(socialEntity.getName(),
+				socialEntity.getFirstName(), fsnetAddress, password,
+				personalizedMessage, locale);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
@@ -258,8 +255,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	}
 
 	/**
-	 * Method that creates an personalized welcome message to FSNet.
+	 * Method that creates an personalized "welcome to FSNet" message.
 	 * 
+	 * @param nom
+	 *            the name of the {@link SocialEntity}
+	 * @param prenom
+	 *            the first name of the {@link SocialEntity}
 	 * @param addressFsnet
 	 *            url of the FSnet application
 	 * @param password
@@ -272,69 +273,30 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 * @return the message .
 	 * @author stephane Gronowski
 	 */
-	private String createPersonalizedMessage(String addressFsnet,
-			String password, String personalizedMessage, Locale locale) {
+	private String createPersonalizedMessage(String nom, String prenom,
+			String addressFsnet, String password, String personalizedMessage,
+			Locale locale) {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder message = new StringBuilder();
 
-		message.append(personalizedMessage);
-		message.append(bundle.getMessage(locale,
-				"members.welcomeMessage.footer"));
-		message.append(addressFsnet);
-		message.append(" .<br/><br/>");
-
-		message.append(
-				bundle.getMessage(locale,
-						"members.welcomeMessage.passwordBegin")).append("<em>");
-		message.append(password);
-		message.append("</em><br/><br/>")
-				.append(bundle.getMessage(locale,
-						"members.welcomeMessage.passwordEnd"));
-		return message.toString();
-	}
-
-	/**
-	 * Method that creates an welcome message to FSNet.
-	 * 
-	 * @param nom
-	 *            the name of the {@link SocialEntity}
-	 * @param prenom
-	 *            the first name of the {@link SocialEntity}
-	 * @param addressFsnet
-	 *            url of the FSnet application
-	 * @param password
-	 *            the password of the {@link SocialEntity}
-	 * @param locale
-	 *            the current {@link Locale}
-	 * @return the message .
-	 */
-	private String createMessageRegistration(String nom, String prenom,
-			String addressFsnet, String password, Locale locale) {
-
-		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-
-		StringBuilder message = new StringBuilder();
 		message.append(
 				bundle.getMessage(locale, "members.welcomeMessage.welcome"))
 				.append(nom).append(" ").append(prenom);
 		message.append(",<br/><br/>");
-		message.append(bundle.getMessage(locale, "members.welcomeMessage.main"))
-				.append("<br/><br/>");
-		message.append(bundle.getMessage(locale,
-				"members.welcomeMessage.footer"));
+		message.append(personalizedMessage);
+		message.append("<br/><br/>");
+		message.append(bundle.getMessage(locale, "members.welcomeMessage.url"));
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
 
 		message.append(
-				bundle.getMessage(locale,
-						"members.welcomeMessage.passwordBegin")).append("<em>");
+				bundle.getMessage(locale, "members.welcomeMessage.password"))
+				.append("<em>");
 		message.append(password);
-		message.append("</em><br/><br/>")
-				.append(bundle.getMessage(locale,
-						"members.welcomeMessage.passwordEnd"));
+		message.append("</em><br/><br/>").append(
+				bundle.getMessage(locale, "members.welcomeMessage.donotreply"));
 		return message.toString();
 	}
 
