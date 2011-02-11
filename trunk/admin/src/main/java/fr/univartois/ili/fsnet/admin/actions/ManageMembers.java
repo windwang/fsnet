@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
@@ -28,6 +29,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
@@ -91,8 +93,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().begin();
 			em.persist(socialEntity);
 			em.getTransaction().commit();
+
+			Locale currentLocale = request.getLocale();
 			sendConfirmationMail(socialEntity, definedPassword,
-					personalizedMessage);
+					personalizedMessage, currentLocale);
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
 			errors.add("email", new ActionMessage("members.user.exists"));
@@ -124,6 +128,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 * @return
 	 * @throws IOException
 	 * @throws ServletException
+	 * @author stephane Gronowski
 	 */
 	public ActionForward createMultiple(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -171,19 +176,22 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			ActionErrors errors = new ActionErrors();
 			errors.add("email", new ActionMessage("members.user.exists"));
 			saveErrors(request, errors);
+			return mapping.getInputForward();
 		} catch (Exception e) {
 			e.printStackTrace();
 			ActionErrors errors = new ActionErrors();
 			errors.add("email", new ActionMessage("members.error.on.create"));
 			saveErrors(request, errors);
+			return mapping.getInputForward();
 		}
 
 		em.close();
 
+		Locale currentLocale = request.getLocale();
 		for (Entry<SocialEntity, String> entry : socialEntities.entrySet()) {
 			try {
 				sendConfirmationMail(entry.getKey(), entry.getValue(),
-						personalizedMessage);
+						personalizedMessage, currentLocale);
 			}
 			// I'm not really sure about the exception, so I took the same as in
 			// the create methode
@@ -214,27 +222,35 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 * @param personalizedMessage
 	 *            message that will be send to the person to inform it that it
 	 *            has been registered
+	 * @param locale
+	 *            the current {@link Locale}
 	 * @return true if success false if fail
 	 * 
 	 * @author Mathieu Boniface < mat.boniface {At} gmail.com >
 	 * @author stephane Gronowski
 	 */
 	private void sendConfirmationMail(SocialEntity socialEntity,
-			String password, String personalizedMessage) {
+			String password, String personalizedMessage, Locale locale) {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		String fsnetAddress = conf.getFSNetConfiguration().getProperty(
 				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
 		String message;
+
 		if (personalizedMessage != null && !personalizedMessage.isEmpty())
 			message = createPersonalizedMessage(fsnetAddress, password,
-					personalizedMessage);
+					personalizedMessage, locale);
 		else
 			message = createMessageRegistration(socialEntity.getName(),
-					socialEntity.getFirstName(), fsnetAddress, password);
+					socialEntity.getFirstName(), fsnetAddress, password, locale);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
-		mail.setSubject("Inscription FSNet");
+
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+
+		mail.setSubject(bundle.getMessage(locale,
+				"members.welcomeMessage.subject"));
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
 
@@ -251,21 +267,31 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 * @param personalizedMessage
 	 *            message that will be send to the person to inform it that it
 	 *            has been registered
+	 * @param locale
+	 *            the current {@link Locale}
 	 * @return the message .
 	 * @author stephane Gronowski
 	 */
 	private String createPersonalizedMessage(String addressFsnet,
-			String password, String personalizedMessage) {
+			String password, String personalizedMessage, Locale locale) {
+
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
 		StringBuilder message = new StringBuilder();
 
 		message.append(personalizedMessage);
-		message.append("<br/><br/>D&eacute;sormais vous pouvez vous connecter sur le site ");
+		message.append(bundle.getMessage(locale,
+				"members.welcomeMessage.footer"));
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
 
-		message.append("Un mot de passe a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; automatiquement : <em>");
+		message.append(
+				bundle.getMessage(locale,
+						"members.welcomeMessage.passwordBegin")).append("<em>");
 		message.append(password);
-		message.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
+		message.append("</em><br/><br/>")
+				.append(bundle.getMessage(locale,
+						"members.welcomeMessage.passwordEnd"));
 		return message.toString();
 	}
 
@@ -280,21 +306,35 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 *            url of the FSnet application
 	 * @param password
 	 *            the password of the {@link SocialEntity}
+	 * @param locale
+	 *            the current {@link Locale}
 	 * @return the message .
 	 */
 	private String createMessageRegistration(String nom, String prenom,
-			String addressFsnet, String password) {
+			String addressFsnet, String password, Locale locale) {
+
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+
 		StringBuilder message = new StringBuilder();
-		message.append("Bonjour ").append(nom).append(" ").append(prenom);
+		message.append(
+				bundle.getMessage(locale, "members.welcomeMessage.welcome"))
+				.append(nom).append(" ").append(prenom);
 		message.append(",<br/><br/>");
-		message.append("Vous venez d'&ecirc;tre enregistr&eacute; sur FSNet (Firm Social Network).<br/><br/>");
-		message.append("D&eacute;sormais vous pouvez vous connecter sur le site ");
+		message.append(bundle.getMessage(locale, "members.welcomeMessage.main"))
+				.append("<br/><br/>");
+		message.append(bundle.getMessage(locale,
+				"members.welcomeMessage.footer"));
 		message.append(addressFsnet);
 		message.append(" .<br/><br/>");
 
-		message.append("Un mot de passe a &eacute;t&eacute; g&eacute;n&eacute;r&eacute; automatiquement : <em>");
+		message.append(
+				bundle.getMessage(locale,
+						"members.welcomeMessage.passwordBegin")).append("<em>");
 		message.append(password);
-		message.append("</em><br/><br/>Cet e-mail vous a &eacute;t&eacute; envoy&eacute; d'une adresse servant uniquement &agrave; exp&eacute;dier des messages. Merci de ne pas r&eacute;pondre &agrave; ce message.");
+		message.append("</em><br/><br/>")
+				.append(bundle.getMessage(locale,
+						"members.welcomeMessage.passwordEnd"));
 		return message.toString();
 	}
 
