@@ -25,6 +25,7 @@
 		<td><label for="radioButtonText"><bean:message key="consultation.textAlternative"></bean:message></label> <input type="radio"  class="alternativeRadio" name="alternativeRadio" id="radioButtonText" checked="checked"/></td><td><label for="radioButtonDate"><bean:message key="consultation.dateAlternative"></bean:message></label><input type="radio" class="alternativeRadio" name="alternativeRadio" id="radioButtonDate" /></td>
 	</tr>
 	</table>
+	<c:if test="${errorChoice }"><p><bean:message key="consultation.errorChoice"/></p></c:if>
 	<table id="choicesTab">
 	<c:forEach begin="1" end="3" var="i">
 		<tr>

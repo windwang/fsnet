@@ -8,7 +8,7 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="consultationTitle" type="java.lang.String" />
             <form-property name="consultationDescription" type="java.lang.String" />
-            <form-property name="consultationChoice" type="java.lang.String[]"></form-property>
+            <form-property name="consultationChoice" type="java.lang.String[]" />
         </form-bean>
         <form-bean name="VoteConsultationForm" 
         			type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -25,11 +25,15 @@
 	            	scope="request"
 	            	validate="true"
 	            	parameter="create">
-	            <forward name="success" path="Consultations.do" />
+	            <forward name="error" path="CreateConsultation" />
+	            <forward name="success" path="DisplayAConsultation" />
 	        </action>
-	        <action path="/Consultations"
+	        <action path="/CreateConsultationMenu"
 	        		type="org.apache.struts.actions.ForwardAction"
                 	parameter="CreateConsultation"/>
+	        <action path="/Consultations"
+	        		type="org.apache.struts.actions.ForwardAction"
+                	parameter="/DisplayConsultations.do"/>
                 	
 	        <action path="/DisplayConsultations" 
 				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
