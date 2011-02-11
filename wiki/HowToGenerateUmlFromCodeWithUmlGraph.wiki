@@ -260,7 +260,7 @@ The UMLGraph class diagrams allows you to model
  * implementation relationships (specified using the Java implements declaration) 
  * generalization relationships (specified using the Java extends     declaration or (for multiple inheritance) the javadoc @extends tag) 
  * association relationships (specified using the javadoc @assoc tag) 
-navigatable (directed) association relationships (specified using the javadoc @navassoc tag) 
+ * navigatable (directed) association relationships (specified using the javadoc @navassoc tag) 
  * aggregation relationships (specified using the javadoc @has tag) 
  * composition relationships (specified using the javadoc @composed tag) 
  * dependency relationships (specified using the javadoc @depend tag) 
