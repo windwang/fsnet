@@ -47,6 +47,7 @@ public class ConsultationFacade {
 		Consultation consultation = getConsultation(idConsultation);
 		if(consultation != null){
 			consultationVote.setConsultation(consultation);
+			consultation.getConsultationVotes().add(consultationVote);
 		}
 		for(ConsultationChoice choice : consultation.getChoices()){
 			if(choices.contains(String.valueOf(choice.getId()))){

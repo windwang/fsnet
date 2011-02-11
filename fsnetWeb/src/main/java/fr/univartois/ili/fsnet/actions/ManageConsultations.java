@@ -33,17 +33,22 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationTitle = (String) dynaForm.get("consultationTitle");
 		String consultationDescription = (String) dynaForm.get("consultationDescription");	
 		String[] consultationChoices  = dynaForm.getStrings("consultationChoice");
+		for (String cs : consultationChoices){
+			if ("".equals(cs)){
+				request.setAttribute("errorChoice", true);
+				return new ActionRedirect(mapping.findForward("error"));
+			}
+		}
+	
 		EntityManager em = PersistenceProvider.createEntityManager();
-
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-		consultationFacade.createConsultation(member,consultationTitle,consultationDescription,consultationChoices);
+		Consultation consultation = consultationFacade.createConsultation(member,consultationTitle,consultationDescription,consultationChoices);
 		em.getTransaction().commit();
 		em.close();
-		ActionRedirect redirect = new ActionRedirect(mapping
-				.findForward("success"));
-		return redirect;
+		request.setAttribute("id", consultation.getId());
+		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 	
 	
@@ -61,7 +66,6 @@ public class ManageConsultations extends MappingDispatchAction {
 		consultationFacade.voteForConsultation(member, idConsultation, voteComment, "", Arrays.asList(voteChoices));
 		em.getTransaction().commit();
 		em.close();
-		
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 	
@@ -82,6 +86,9 @@ public class ManageConsultations extends MappingDispatchAction {
 	public ActionForward displayAConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
 		String idConsultation = request.getParameter("id");
+		if (idConsultation == null || "".equals(idConsultation)){
+			idConsultation = String.valueOf(request.getAttribute("id"));
+		} 
 		if (idConsultation != null){
 			EntityManager em = PersistenceProvider.createEntityManager();
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
