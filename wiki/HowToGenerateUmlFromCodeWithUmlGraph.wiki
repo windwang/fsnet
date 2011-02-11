@@ -14,25 +14,25 @@
       apt-get install graphviz.
     }}}
 ===  Running Java :===
-   *There are two ways to use UMLGraph which generates a file (.dot):
-      #If the UmlGraph.jar file is in the directory that also contains the Java SDK tools.java.
+   * There are two ways to use UMLGraph which generates a file (.dot):
+      # If the UmlGraph.jar file is in the directory that also contains the Java SDK tools.java.
         {{{
 	   java -jar /path/to/UmlGraph.jar -all -private yourfile1.java
         }}}
-      #In a general case, we can use that :
+      # In a general case, we can use that :
 	{{{
            java -classpath '/path/to/UmlGraph.5.4.jar:/path/to/tools.jar'
  org.umlgraph.doclet.UmlGraph -all -private yourfile1.java
         }}}
-	For more options, http://www.umlgraph.org/doc/cd-opt.html
-	2./ To convert the file (.dot) into an image :
+	For more options, [http://www.umlgraph.org/doc/cd-opt.html]
+    * To convert the file (.dot) into an image :
 	 	dot -Tpng -ograph.png graph.dot
 	In this example, the generated file is “graph.png”.
  
 ===  Running Ant: ===
 There are two ways to generate UML diagrams :
- *just generate the diagram uml,
- * or generate diagram uml with javadoc
+ * Just generate the diagram uml,
+ * Or generate diagram uml with javadoc
 
 To run the UMLGraph doclet from ant, use a rule, like the following(Only UML class). 
 
@@ -251,19 +251,19 @@ public class Pet {
 
 After the use of previous orders, we have this class diagram :
 
-[/homelocal/mohamed/image.png]
+[http://img156.imageshack.us/img156/3485/imagewl.png]
 
 
 The UMLGraph class diagrams allows you to model 
- *stereotypes (using the @stereotype name tag) 
- *tagged values (using the @tagvalue name value tag) 
- *implementation relationships (specified using the Java implements declaration) 
- *generalization relationships (specified using the Java extends     declaration or (for multiple inheritance) the javadoc @extends tag) 
- *association relationships (specified using the javadoc @assoc tag) 
+ * stereotypes (using the @stereotype name tag) 
+ * tagged values (using the @tagvalue name value tag) 
+ * implementation relationships (specified using the Java implements declaration) 
+ * generalization relationships (specified using the Java extends     declaration or (for multiple inheritance) the javadoc @extends tag) 
+ * association relationships (specified using the javadoc @assoc tag) 
 navigatable (directed) association relationships (specified using the javadoc @navassoc tag) 
- *aggregation relationships (specified using the javadoc @has tag) 
- *composition relationships (specified using the javadoc @composed tag) 
- *dependency relationships (specified using the javadoc @depend tag) 
+ * aggregation relationships (specified using the javadoc @has tag) 
+ * composition relationships (specified using the javadoc @composed tag) 
+ * dependency relationships (specified using the javadoc @depend tag) 
 
 
 
