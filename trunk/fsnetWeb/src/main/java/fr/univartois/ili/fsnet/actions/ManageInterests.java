@@ -52,15 +52,20 @@ public class ManageInterests extends MappingDispatchAction implements
         logger.info("new interest: " + interestName);
 
         try {
+        	Interest interest=null;
             em.getTransaction().begin();
             if (dynaForm.get("parentInterestId") != null
                     && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
                 facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
             } else {
-                facade.createInterest(interestName);
+            	interest=facade.createInterest(interestName); 
             }
-
-            em.getTransaction().commit();
+            em.getTransaction().commit();    
+            
+            if(interest!=null){
+            	addInterestToCurrentUser(request, em, interest.getId());
+            }
+            
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
             ActionMessage msg = new ActionMessage("interest.alreadyExists");
@@ -82,10 +87,24 @@ public class ManageInterests extends MappingDispatchAction implements
         DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
         int interestId = Integer.valueOf((String) dynaForm.get("addedInterestId"));
 
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+        addInterestToCurrentUser(request, em, interestId);
+        em.close();
+        ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+        redirect.addParameter("infoInterestId", interestId);
+        return redirect;
+    }
 
-        SocialEntityFacade facadeSE = new SocialEntityFacade(em);
+    /**
+     * Add the interest corresponding to the id specified to the current user.
+     * 
+     * @param request the HttpServletRequest
+     * @param em the entity manager (You need close it after the function)
+     * @param interestId of the interest to add to the current user.
+     */
+	private void addInterestToCurrentUser(HttpServletRequest request, EntityManager em, int interestId) {
+		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
         InterestFacade facadeInterest = new InterestFacade(em);
+        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
         Interest interest = facadeInterest.getInterest(interestId);
         if (interest != null) {
@@ -97,11 +116,7 @@ public class ManageInterests extends MappingDispatchAction implements
             facadeSE.addInterest(interest, user);
             em.getTransaction().commit();
         }
-        em.close();
-        ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
-        redirect.addParameter("infoInterestId", interestId);
-        return redirect;
-    }
+	}
 
     public ActionForward remove(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
