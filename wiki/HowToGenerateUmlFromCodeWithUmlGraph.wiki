@@ -1,4 +1,4 @@
-= UmlGraph =
+=UmlGraph=
 
 == Needs : ==
 
@@ -15,7 +15,7 @@
     }}}
 ===  Running Java :===
    * There are two ways to use UMLGraph which generates a file (.dot):
-      # If the UmlGraph.jar file is in the directory that also contains the Java SDK tools.java.
+      # If the umlGraph.jar file is in the directory that also contains the Java SDK tools.java.
         {{{
 	   java -jar /path/to/UmlGraph.jar -all -private yourfile1.java
         }}}
@@ -70,7 +70,7 @@ In build.xml
 }}}
 
 
-To run the UmlGraphDoc doclet from ant, use a rule, like the following (UMLClass and JavaDoc). 
+To run the umlGraphDoc doclet from ant, use a rule, like the following (UMLClass and javaDoc). 
 
 {{{
 <target name="javadocs" depends="compile">
