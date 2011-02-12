@@ -20,9 +20,14 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<html:textarea property="message" styleId="message"  errorStyleClass="error" rows="5" cols="50">
-				</html:textarea>
-				
+				<c:set var="welcomeMain"><bean:message key="members.welcomeMessage.main" /></c:set>
+				<c:if test="${!empty CreateMemberForm.map.message}">
+					<c:set var="welcomeMain">${CreateMemberForm.map.message}</c:set>
+				</c:if>	
+				<c:if test="${!empty CreateMultipleMemberForm.map.message}">
+					<c:set var="welcomeMain">${CreateMultipleMemberForm.map.message}</c:set>
+				</c:if>	
+				<html:textarea property="message" styleId="message"  errorStyleClass="error" value="${welcomeMain}" rows="5" cols="50"/>
 			</td>
 		</tr>
 		<tr>
