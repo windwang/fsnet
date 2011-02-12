@@ -13,11 +13,17 @@
 <h3><bean:message key="members.createMultiple" /></h3>
 
 <html:form action="/CreateMultipleMember">
-	<bean:message key="members.createMultipleIndications" />
-	<bean:message key="members.createMultipleFormat" />
 	<table>
-	
-	
+	<tr>
+		<td colspan="2">
+			<bean:message key="members.createMultipleIndications" />
+		</td>
+	</tr>
+	<tr>
+		<td colspan="2">
+			<bean:message key="members.createMultipleFormat" />
+		</td>
+	</tr>
 	<tr class="errorMessage">
 		<td colspan="2">
 			<html:errors property="multipleMember" />
