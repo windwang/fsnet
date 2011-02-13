@@ -30,10 +30,10 @@ public class DropConsultationDatabase extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		em.createNativeQuery("DROP TABLE Consultation").executeUpdate();
-		em.createNativeQuery("DROP TABLE ConsultationChoice").executeUpdate();
 		em.createNativeQuery("DROP TABLE ConsultationChoiceVote").executeUpdate();
+		em.createNativeQuery("DROP TABLE ConsultationChoice").executeUpdate();
 		em.createNativeQuery("DROP TABLE ConsultationVote").executeUpdate();
+		em.createNativeQuery("DROP TABLE Consultation").executeUpdate();
 		em.getTransaction().commit();
 		em.close();
 	}
