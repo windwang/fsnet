@@ -64,7 +64,7 @@
 		<action path="/SearchMember"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" name="SearchMemberForm"
 			input="Members" scope="request" validate="false" parameter="search">
-			<forward name="success" path="Members" />
+			<forward name="success" path="MemberList" />
 		</action>
 
 		<action path="/CreateMultipleMember"
@@ -82,7 +82,7 @@
 
 		<action path="/SwitchState" scope="request"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" parameter="switchState">
-			<forward name="success" path="/Members.do" />
+			<forward name="success" path="/MemberList.do" />
 		</action>
 
 		<action path="/Members" scope="request"
@@ -90,6 +90,11 @@
 			<forward name="success" path="Members" />
 		</action>
 
+		<action path="/MemberList" scope="request"
+			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" parameter="search">
+			<forward name="success" path="MemberList" />
+		</action>
+		
 		<action path="/DeleteInterestMember" scope="request"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" parameter="deleteInterestMember">
 			<forward name="success" path="/DisplayMember.do" />

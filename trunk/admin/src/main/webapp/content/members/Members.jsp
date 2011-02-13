@@ -24,7 +24,6 @@
 
 <jsp:include page="/content/members/CreateMember.jsp"/>
 <jsp:include page="/content/members/CreateMultipleMember.jsp"/>
-<jsp:include page="/content/members/SearchMember.jsp"/>
 
 <script>
 	function changeSimpleOrMultiple()
