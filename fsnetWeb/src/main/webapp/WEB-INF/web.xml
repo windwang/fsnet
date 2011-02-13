@@ -112,4 +112,14 @@
     <servlet-name>MiniatureFetcher</servlet-name>
     <url-pattern>/miniature/*</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>DropConsultationDatabase</display-name>
+    <servlet-name>DropConsultationDatabase</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.auth.DropConsultationDatabase</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>DropConsultationDatabase</servlet-name>
+    <url-pattern>/DropConsultationDatabase</url-pattern>
+  </servlet-mapping>
 </web-app>
