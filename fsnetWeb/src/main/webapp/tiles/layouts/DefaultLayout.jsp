@@ -16,6 +16,9 @@
 		<title><bean:message key="${pageTitle}" /></title>
 		<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
 		<script type="text/javascript" src="js/functions.js"></script>
+		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
+		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+		<script type="text/javascript" src="js/geolocalisation.js"></script>
 	</head>
 	<body>
 		<div class="wrap background">

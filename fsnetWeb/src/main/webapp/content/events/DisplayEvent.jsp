@@ -26,6 +26,12 @@
                 <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
                 <bean:message key="events.to"/>
                 <bean:write name="event" property="endDate" format="dd/MM/yyyy" />
+                
+                <c:if test="${not empty event.address.address or not empty event.address.city}">
+                	<bean:message key="events.in"/>
+                	${event.address.address} ${event.address.city}
+                </c:if>
+                
                 <c:if test="${subscriber}">,&nbsp;&nbsp;"<bean:message key="events.19"/>"</c:if>
             </td>
         </tr>
@@ -34,7 +40,6 @@
                 ${event.content}
             </td>
         </tr>
-        
         <tr>
             <td  class="alignRight">
                 <c:if test="${not subscriber}">
@@ -63,7 +68,11 @@
 </div>
 <c:set var="theInteraction" value="${event}" scope="request"/>
 <jsp:include page="/content/interactions/InteractionInfo.jsp" />
+<c:if test="${not empty event.address.city}">
+	<jsp:include page="/content/events/Geolocalisation.jsp" />
+</c:if>
 <div class="clear"></div>
+
 
 <c:if test="${fn:length(subscribers) gt 0}">
 <h3>

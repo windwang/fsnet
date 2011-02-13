@@ -43,6 +43,22 @@
 					<var-value>dd/MM/yyyy</var-value>
 				</var>
 			</field>
+			<field property="eventAddress" depends="maxlength">
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>200</var-value>
+		        </var>
+				<arg0 key="events.23" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+			</field>
+			<field property="eventCity" depends="maxlength">
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>80</var-value>
+		        </var>
+				<arg0 key="events.24" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+			</field>
 		</form>
 	</formset>
 </form-validation>
