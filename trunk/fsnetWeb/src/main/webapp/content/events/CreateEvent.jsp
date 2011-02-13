@@ -61,6 +61,40 @@
         </tr>
         <tr>
             <td>
+                <label for="eventAddress">
+                    <bean:message key="events.23"/> :
+                </label>
+            </td>
+            <td>
+                <html:text  property="eventAddress"
+                            styleId="eventAddress"
+                            errorStyleClass="error" />
+                <logic:messagesPresent property="eventAddress">
+                    <div class="errorMessage">
+                        <html:errors property="eventAddress"/>
+                    </div>
+                </logic:messagesPresent>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <label for="eventCity">
+                    <bean:message key="events.24"/> :
+                </label>
+            </td>
+            <td>
+                <html:text  property="eventCity"
+                            styleId="eventCity"
+                            errorStyleClass="error" />
+                <logic:messagesPresent property="eventCity">
+                    <div class="errorMessage">
+                        <html:errors property="eventCity"/>
+                    </div>
+                </logic:messagesPresent>
+            </td>
+        </tr>
+        <tr>
+            <td>
                 <label for="eventDate">
                     <bean:message key="events.3"/> :
                 </label>

@@ -539,3 +539,15 @@ tr.notReed {
     border: 2px solid #bcd3e0;
     padding: 3px;
 }
+
+.mapCanvas {
+	height: 250px;
+	width:  100%;
+}
+
+.geolocalisationInfo{
+	width: 27%;
+    text-align: left;
+    float: right;
+    padding: 3px;
+}

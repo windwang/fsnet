@@ -76,9 +76,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		String eventDescription = (String) dynaForm.get("eventDescription");
 		String eventBeginDate = (String) dynaForm.get("eventBeginDate");
 		String eventEndDate = (String) dynaForm.get("eventEndDate");
-		// TODO !!! recuperer l'adresse et la city !!!
-		String adress = "";
-		String city = "";
+		String adress = (String) dynaForm.get("eventAddress");
+		String city = (String) dynaForm.get("eventCity");
 		Date typedEventBeginDate = validateDate(eventBeginDate, request,
 				"eventBeginDate");
 		Date typedEventEndDate = validateDate(eventEndDate, request,

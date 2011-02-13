@@ -11,6 +11,8 @@
             <form-property name="eventDescription" type="java.lang.String" />
             <form-property name="eventBeginDate" type="java.lang.String" />
             <form-property name="eventEndDate" type="java.lang.String" />
+            <form-property name="eventAddress" type="java.lang.String" />
+            <form-property name="eventCity" type="java.lang.String" />
             <form-property name="selectedInterests" type="java.lang.String[]" />
         </form-bean>
         <form-bean  name="DisplayEventForm" 
