@@ -543,6 +543,8 @@ tr.notReed {
 .mapCanvas {
 	height: 250px;
 	width:  100%;
+	visibility: hidden;
+	
 }
 
 .geolocalisationInfo{
