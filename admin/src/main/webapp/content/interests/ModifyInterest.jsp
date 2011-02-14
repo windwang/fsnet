@@ -32,6 +32,8 @@
 		</html:select>
 		<html:text property="modifiedInterestName" />
 
-		<html:submit styleClass="button" />
+		<html:submit styleClass="button" >
+      		<bean:message key="interest.validate"/>
+      	</html:submit>
 	</html:form>
 </c:if>

@@ -11,7 +11,9 @@
 <html:form action="/SearchInterest">
  		<html:errors property="searchInterestName"/>
     	<html:text property="searchInterestName"/>
-      <html:submit styleClass="button"/>
+      <html:submit styleClass="button" >
+      	<bean:message key="interest.validate"/>
+      </html:submit>
 </html:form>
 
 <logic:present name="interestSearchPaginator" scope="request">
