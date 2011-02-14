@@ -155,6 +155,12 @@
                             </html:link>
                             (${fn:length(inter.hubs)} hubs)
                         </c:when>
+                        <c:when test="${inter.simpleClassName eq 'Consultation'}">
+                            <html:link action="/DisplayAConsultation">
+                                <html:param name="id" value="${inter.id}"/>
+                                ${inter.title}
+                            </html:link>
+                        </c:when>
                     </c:choose>
                 </td>
                 <td class="tableButton">
