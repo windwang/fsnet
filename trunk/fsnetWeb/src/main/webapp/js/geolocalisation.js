@@ -45,8 +45,11 @@ function putOnMapEvent(addr) {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(leadVisitorToEvent);
 			}
+		
+			document.getElementById("mapCanvas").style.visibility = "visible"; 
 		} else {
-			document.getElementById("mapCanvas").style.display = "none";
+	
+			document.getElementById("mapCanvas").style.visibility = "hidden"; 
 		}
 	});
 }
