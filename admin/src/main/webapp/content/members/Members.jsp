@@ -10,7 +10,7 @@
 
 <style type="text/css">
   #divChooseSimpleMember {
-		display: none;
+		display: block;
     }
   #divChooseMultipleMember {
 		display: none;
@@ -20,7 +20,7 @@
 	<bean:message key="members.simpleMember" />  
 </label>
 
-<input type="radio" name="chooseSimpleOrMultiple" id="simpleMember" value="simpleChoose" onchange="changeSimpleOrMultiple()"/>
+<input type="radio" name="chooseSimpleOrMultiple" checked="checked" id="simpleMember" value="simpleChoose" onchange="changeSimpleOrMultiple()"/>
 <label for="multipleMember"> 
 	<bean:message key="members.multipleMember" />  
 </label>
