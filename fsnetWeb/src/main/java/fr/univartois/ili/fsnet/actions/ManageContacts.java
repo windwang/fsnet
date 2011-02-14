@@ -1,6 +1,8 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -11,6 +13,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -20,12 +23,16 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.ContactFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
  * 
  * @author Grioche Legrand
  */
 public class ManageContacts extends MappingDispatchAction implements CrudAction {
+	
+	
+	private static final Logger LOGGER = Logger.getLogger(ManageContacts.class.getName());
 
 	/**
 	 * Submit a request contact to another social entity
@@ -46,7 +53,14 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		em.getTransaction().begin();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		final String idString = (String) dynaForm.get("entitySelected");
-		int entitySelected = Integer.parseInt(idString);
+		int entitySelected = 0;
+		try {
+			entitySelected = Integer.parseInt(idString);
+		} catch (NumberFormatException nfe) {
+			LOGGER.log(Level.WARNING, "Unable to parse the contact id as an integer", nfe);
+			request.setAttribute("errorChoice", true);
+			throw new UnauthorizedOperationException("exception.message");
+		}
 		
 		// TODO changer les listes en set sur les entites sociales pour eviter
 		// les doublons
