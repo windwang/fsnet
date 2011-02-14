@@ -58,7 +58,6 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			entitySelected = Integer.parseInt(idString);
 		} catch (NumberFormatException nfe) {
 			LOGGER.log(Level.WARNING, "Unable to parse the contact id as an integer", nfe);
-			request.setAttribute("errorChoice", true);
 			throw new UnauthorizedOperationException("exception.message");
 		}
 		
