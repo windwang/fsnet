@@ -40,7 +40,7 @@
         </c:forEach>
     </table>
     <c:set var="paginatorInstance" value="${requestScope.membersListPaginator}" scope="request"/>
-	<c:set var="paginatorAction" value="/Members" scope="request"/>
+	<c:set var="paginatorAction" value="/MemberList" scope="request"/>
 	<c:set var="paginatorTile" value="membersList" scope="request"/>
 	<c:import url="/content/pagination/Pagination.jsp"/>
 </c:when>
