@@ -17,5 +17,7 @@
 	</html:select>
     <html:text property="createdInterestName"/>
     <html:errors property="createdInterestName"/>
-    <html:submit styleClass="button"/>
+     <html:submit styleClass="button" >
+      	<bean:message key="interest.validate"/>
+      </html:submit>
 </html:form>
