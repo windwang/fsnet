@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -42,8 +43,10 @@ public class Consultation extends Interaction {
 
 	private String description;
 
+	@Column(length = 1)
 	private String limitParticipantsPerChoice;
 
+	@Column(length = 1)
 	private String limitChoicesPerParticipant;
 
 	private int limitChoicesPerParticipantMin;
@@ -55,21 +58,27 @@ public class Consultation extends Interaction {
 
 	private double ifNecessaryWeight;
 
+	@Column(length = 1)
 	private String showBeforeAnswer;
 
+	@Column(length = 1)
 	private String showBeforeClosing;
 
+	@Column(length = 1)
 	private String allowAllToModify;
 
+	@Column(length = 1)
 	private String closingAtDate;
 
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date maxDate;
 
+	@Column(length = 1)
 	private String closingAtMaxVoters;
 
 	private int maxVoters;
 
+	@Column(length = 1)
 	private String opened;
 
 	private int currentVoters;
