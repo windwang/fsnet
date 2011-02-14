@@ -116,7 +116,7 @@ public class InteractionFacade {
 		String path = null;
 		String id = null;
 		for (Interaction interaction : result) {
-			String clazz = interaction.getClass().getSimpleName(); 
+			String clazz = interaction.getSimpleClassName();
 			if ("Announcement".equals(clazz)) {
 				path = "/DisplayAnnounce";
 				id ="idAnnounce";
