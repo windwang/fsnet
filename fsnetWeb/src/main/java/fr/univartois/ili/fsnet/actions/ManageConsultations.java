@@ -20,6 +20,7 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Consultation;
+import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.ConsultationFacade;
 
@@ -33,13 +34,13 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationTitle = (String) dynaForm.get("consultationTitle");
 		String consultationDescription = (String) dynaForm.get("consultationDescription");	
 		String[] consultationChoices  = dynaForm.getStrings("consultationChoice");
+		// TODO chercher le moyen de valider les choix avec struts
 		for (String cs : consultationChoices){
 			if ("".equals(cs)){
 				request.setAttribute("errorChoice", true);
 				return new ActionRedirect(mapping.findForward("error"));
 			}
 		}
-	
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
@@ -69,6 +70,26 @@ public class ManageConsultations extends MappingDispatchAction {
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 	
+	public ActionForward deleteVote(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response){
+		String idConsultation = request.getParameter("consultation");
+		String idVote = request.getParameter("vote");
+		if (!"".equals(idConsultation)){
+			request.setAttribute("id", idConsultation);
+			if (!"".equals(idVote)){
+				EntityManager em = PersistenceProvider.createEntityManager();
+				SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+				ConsultationFacade consultationFacade = new ConsultationFacade(em);
+				Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
+				ConsultationVote vote = consultationFacade.getVote(Integer.valueOf(idVote));
+				em.getTransaction().begin();
+				consultationFacade.deleteVote(consultation,member,vote);
+				em.getTransaction().commit();
+				em.close();
+			}
+		}
+		return displayAConsultation(mapping, form, request, response);
+	}
 
 	public ActionForward searchYourConsultations(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -91,6 +112,8 @@ public class ManageConsultations extends MappingDispatchAction {
 		} 
 		if (idConsultation != null){
 			EntityManager em = PersistenceProvider.createEntityManager();
+			SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+			request.setAttribute("member", member);
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
 			em.close();

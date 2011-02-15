@@ -11,6 +11,7 @@ import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
 import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 public class ConsultationFacade {
 	private final EntityManager em;
@@ -32,7 +33,30 @@ public class ConsultationFacade {
 		Consultation cons = em.find(Consultation.class, consultationId);
         return cons;
     }
+	
+	public ConsultationVote getVote(int voteId) {
+		return em.find(ConsultationVote.class, voteId);
+	}
+	
+	public void deleteVote(Consultation consultation, SocialEntity entity,ConsultationVote vote){
+		if(vote == null || entity == null) {
+			throw new UnauthorizedOperationException("exception.message");
+		}
+		if(!vote.getVoter().equals(entity)){
+			throw new UnauthorizedOperationException("exception.message");
+		}else{
+			consultation.getConsultationVotes().remove(vote);
+			deleteVote(vote);
+		}
+	}
 
+	public void deleteVote(ConsultationVote vote){
+		if(vote== null) {
+			throw new IllegalArgumentException();
+		}
+		em.remove(vote);
+	}
+	
 	public List<Consultation> getUserConsultations(SocialEntity member) {
 		if (member == null) {
             throw new IllegalArgumentException();
@@ -57,7 +81,7 @@ public class ConsultationFacade {
 		em.persist(consultationVote);
 		return consultationVote;
 	}
-	
+
 	
 	
 }

@@ -10,6 +10,7 @@
 <h3>${consultation.title }</h3>
 <table>
 	<tr>
+		<td></td>
 		<td class="consultationPerticipant"><bean:message key="consultation.voter" /></td>
 		<c:forEach var="choice" items="${consultation.choices }">
 			<td class="consultationResultChoice">${choice.intituled }</td>
@@ -18,6 +19,7 @@
 	</tr>
 	<c:forEach var="vote" items="${consultation.consultationVotes }">
 		<tr>
+		<td><c:if test="${member.id eq vote.voter.id }"><html:link action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}"><img src="images/delete.png" alt="<bean:message key="consultation.delete" />"/></html:link></c:if></td>
 		<td class="consultationPerticipant"><ili:getSocialEntityInfos socialEntity="${vote.voter }" /></td>
 		<c:forEach var="choice" items="${consultation.choices }">
 			<c:set var="isVoted" value="false"/>
@@ -31,14 +33,14 @@
 		</tr>
 	</c:forEach>
 	<tr>
-		<td></td>
+		<td colspan="2"></td>
 		<ili:consultationResults consultation="${consultation}" number="number" percent="percent" maximum="max">
 			<td class="${max?'consultationResultMax':'consultationResult' }">${number}<br />${percent }%</td>
 		</ili:consultationResults>
 	<tr>
 	<html:form action="/VoteConsultation" method="post">
 		<tr>
-			<td></td>
+			<td colspan="2"></td>
 			<c:forEach var="choice" items="${consultation.choices }">
 				<td class="consultationFormChoices"><html:multibox property="voteChoice" value="${choice.id}" /></td>
 			</c:forEach>
