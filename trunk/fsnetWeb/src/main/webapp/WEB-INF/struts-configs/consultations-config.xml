@@ -54,5 +54,12 @@
 	            parameter="vote">
 	            <forward name="success" path="DisplayAConsultation" />
 			</action>
+			<action path="/DeleteVoteConsultation"
+				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
+				input="DisplayAConsultation"
+	            scope="request"
+	            parameter="deleteVote">
+	            <forward name="success" path="DisplayAConsultation" />
+			</action>
 	 </action-mappings>
 </struts-config>
