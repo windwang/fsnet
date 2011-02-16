@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.core;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.logging.Logger;
 
 /**
  * This singleton stores the logged in users. The unique instance is stored in
@@ -10,6 +11,8 @@ import java.util.concurrent.ConcurrentHashMap;
  * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
 public class LoggedUsersContainer {
+	
+	private static final Logger LOGGER = Logger.getLogger(LogoutListener.class.getSimpleName());
 
 	/*
 	 * Sole instance of this class
@@ -55,6 +58,10 @@ public class LoggedUsersContainer {
 	 * @param userId
 	 */
 	public void removeUser(Integer userId) {
+		if (userId == null) {
+			LOGGER.warning("The userId should not be null");
+			return;
+		}
 		loggedUsers.remove(userId);
 	}
 
