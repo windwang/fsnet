@@ -68,11 +68,15 @@
     </definition>
     <definition name="DisplayForModifyGroup" extends=".defaultLayout">
         <put name="title" value="pageTitle.17"/>
-        <put name="body-content" value="/content/members/ModifyGroup.jsp" />
+        <put name="body-content" value="/content/groups/ModifyGroup.jsp" />
     </definition>
   	<definition name="ModifyGroup" extends=".defaultLayout">
         <put name="title" value="pageTitle.17"/>
-        <put name="body-content" value="/content/members/ModifyGroup.jsp" />
+        <put name="body-content" value="/content/groups/ModifyGroup.jsp" />
+    </definition>
+    <definition name="CreateGroup" extends=".defaultLayout">
+        <put name="title" value="pageTitle.17"/>
+        <put name="body-content" value="/content/groups/CreateGroup.jsp" />
     </definition>
     
   

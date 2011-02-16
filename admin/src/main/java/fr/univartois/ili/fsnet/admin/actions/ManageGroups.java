@@ -18,7 +18,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
-		return null;
+		return mapping.findForward("success");
 	}
 
 	@Override
