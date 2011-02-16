@@ -13,6 +13,7 @@
         <form-bean name="VoteConsultationForm" 
         			type="org.apache.struts.validator.DynaValidatorActionForm">
         	<form-property name="voteComment" type="java.lang.String" />
+        	<form-property name="voteOther" type="java.lang.String" />
         	<form-property name="voteChoice" type="java.lang.String[]"/>
         	<form-property name="id" type="java.lang.Integer"/>
         </form-bean>

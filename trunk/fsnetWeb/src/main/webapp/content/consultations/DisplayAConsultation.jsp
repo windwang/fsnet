@@ -8,6 +8,11 @@
 
 <c:if test="${consultation ne null }">
 <h3>${consultation.title }</h3>
+<ul>
+	<li><bean:message key="consultation.creator" /> : ${consultation.creator.name }</li>
+	<c:if test="${consultation.description ne '' }"><li><bean:message key="consultation.description" /> : ${consultation.description }</li></c:if>
+	<li>${consultation.type }</li>
+</ul>
 <table>
 	<tr>
 		<td></td>
@@ -15,11 +20,17 @@
 		<c:forEach var="choice" items="${consultation.choices }">
 			<td class="consultationResultChoice">${choice.intituled }</td>
 		</c:forEach>
+		<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td class="consultationResultChoice"><bean:message key="consultation.other" /></td></c:if>
 		<td class="consultationComment"><bean:message key="consultation.comment" /></td>
 	</tr>
 	<c:forEach var="vote" items="${consultation.consultationVotes }">
 		<tr>
-		<td><c:if test="${member.id eq vote.voter.id }"><html:link action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}"><img src="images/delete.png" alt="<bean:message key="consultation.delete" />"/></html:link></c:if></td>
+		<td><c:if test="${member.id eq vote.voter.id }">
+			<html:link action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}">
+<!--				<img src="images/delete.png" alt="<bean:message key="consultation.delete" />"/>-->
+				<html:image src="images/delete.png" alt="consultation.delete" styleClass="consultation.delete"/>
+			</html:link>
+		</c:if></td>
 		<td class="consultationPerticipant"><ili:getSocialEntityInfos socialEntity="${vote.voter }" /></td>
 		<c:forEach var="choice" items="${consultation.choices }">
 			<c:set var="isVoted" value="false"/>
@@ -29,6 +40,7 @@
 			<td <c:if test="${isVoted}">class="consultationIsVoted"</c:if>
 			<c:if test="${not isVoted}">class="consultationIsNotVoted"</c:if> /></td>
 		</c:forEach>
+		<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td class="consultationOther">${vote.other}</td></c:if>
 		<td class="consultationComment">${vote.comment}</td>
 		</tr>
 	</c:forEach>
@@ -44,6 +56,7 @@
 			<c:forEach var="choice" items="${consultation.choices }">
 				<td class="consultationFormChoices"><html:multibox property="voteChoice" value="${choice.id}" /></td>
 			</c:forEach>
+			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td><html:text property="voteOther"/></td></c:if>
 			<td><html:text property="voteComment"/></td>
 			<html:hidden property="id" value="${consultation.id }"/>
 			<td><html:submit styleClass="button"><bean:message key="consultation.vote" /></html:submit></td>
