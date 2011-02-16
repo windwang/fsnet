@@ -9,6 +9,12 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="searchText" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="CreateGroupForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="name" type="java.lang.String" />
+			<form-property name="owner" type="java.lang.String" />
+			
+		</form-bean>
     </form-beans>
     <global-forwards>
 
@@ -29,6 +35,13 @@
 		<action path="/Groups" scope="request"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" parameter="search">
 			<forward name="success" path="Groups" />
+		</action>
+		
+		<action path="/CreateGroup"
+			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" name="CreateGroupForm"
+			input="CreateGroup" scope="request" validate="false" parameter="create">
+			
+			<forward name="success" path="CreateGroup" />
 		</action>
     </action-mappings>
 </struts-config>
