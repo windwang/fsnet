@@ -20,7 +20,8 @@
                 /WEB-INF/struts-configs/profile-config.xml,
                 /WEB-INF/struts-configs/members-config.xml,
                 /WEB-INF/struts-configs/communities-config.xml,
-                /WEB-INF/struts-configs/configuration-config.xml
+                /WEB-INF/struts-configs/configuration-config.xml,
+                /WEB-INF/struts-configs/groups-config.xml
             </param-value>
 		</init-param>
 		<load-on-startup>1</load-on-startup>
