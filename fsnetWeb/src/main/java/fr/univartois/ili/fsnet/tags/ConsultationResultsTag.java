@@ -81,7 +81,6 @@ public class ConsultationResultsTag extends TagSupport {
 		int i=0;
 		while (choices.hasNext()){
 			choice = choices.next();
-			
 			votes = consultation.getConsultationVotes().iterator();
 			while (votes.hasNext()){
 				vote = votes.next();
@@ -96,6 +95,19 @@ public class ConsultationResultsTag extends TagSupport {
 				}
 			}
 			i++;
+		}
+		if (consultation.getType() == Consultation.TypeConsultation.YES_NO_OTHER){
+			votes=consultation.getConsultationVotes().iterator();
+			nb.add(0);
+			while (votes.hasNext()){
+				vote = votes.next();
+				if (!"".equals(vote.getOther())){
+					nb.set(i, nb.get(i)+1);
+					if (max < nb.get(i))
+						max = nb.get(i);
+					total++;
+				}
+			}
 		}
 	}
 	

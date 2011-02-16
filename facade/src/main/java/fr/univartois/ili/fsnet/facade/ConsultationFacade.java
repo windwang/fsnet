@@ -20,8 +20,8 @@ public class ConsultationFacade {
 		this.em = em;
 	}
 	
-	public final Consultation createConsultation(SocialEntity creator, String title, String description, String [] choices){
-		Consultation consultation = new Consultation(creator, title, description);
+	public final Consultation createConsultation(SocialEntity creator, String title, String description, String [] choices, Consultation.TypeConsultation type){
+		Consultation consultation = new Consultation(creator, title, description, type);
 		for (String s : choices){
 			consultation.addChoice(new ConsultationChoice(consultation,s));
 		}
