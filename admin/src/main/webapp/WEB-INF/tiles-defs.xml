@@ -53,6 +53,28 @@
         <put name="body-content" value="/content/interests/InfoInterest.jsp" />
     </definition>
 
+	<!-- Groups -->
+	<definition name="SearchGroups" extends=".defaultLayout">
+        <put name="title" value="pageTitle.12"/>
+        <put name="body-content" value="/content/groups/SearchGroup.jsp" />
+    </definition>
+  	<definition name="Groups" extends=".defaultLayout">
+  		<put name="title" value="pageTitle.17"/>
+  		<put name="body-content" value="/content/groups/Groups.jsp" />
+  	</definition>
+  	<definition name="GroupList" extends=".defaultLayout">
+        <put name="title" value="pageTitle.18"/>
+        <put name="body-content" value="/content/groups/SearchGroup.jsp" />
+    </definition>
+    <definition name="DisplayForModifyGroup" extends=".defaultLayout">
+        <put name="title" value="pageTitle.17"/>
+        <put name="body-content" value="/content/members/ModifyGroup.jsp" />
+    </definition>
+  	<definition name="ModifyGroup" extends=".defaultLayout">
+        <put name="title" value="pageTitle.17"/>
+        <put name="body-content" value="/content/members/ModifyGroup.jsp" />
+    </definition>
+    
   
     <!-- Members -->
     <definition name="SearchMembers" extends=".defaultLayout">
