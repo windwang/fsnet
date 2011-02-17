@@ -25,6 +25,8 @@
 		<class>fr.univartois.ili.fsnet.entities.ConsultationChoice</class>
 		<class>fr.univartois.ili.fsnet.entities.ConsultationChoiceVote</class>
 		<class>fr.univartois.ili.fsnet.entities.ConsultationVote</class>
+	    <class>fr.univartois.ili.fsnet.entities.SocialElement</class>
+    	<class>fr.univartois.ili.fsnet.entities.SocialGroup</class>
 		<exclude-unlisted-classes>false</exclude-unlisted-classes>
 		<properties>
 			<property name="eclipselink.ddl-generation" value="create-tables" />

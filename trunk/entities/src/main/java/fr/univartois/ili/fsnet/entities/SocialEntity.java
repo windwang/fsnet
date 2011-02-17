@@ -7,11 +7,9 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -25,14 +23,8 @@ import javax.persistence.TemporalType;
  * 
  */
 @Entity
+@DiscriminatorValue("E")
 public class SocialEntity extends SocialElement implements Serializable {
-
-	/**
-	 * The identifier.
-	 */
-	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
-	private int id;
 
 	/**
 	 * The social entity state
@@ -187,25 +179,6 @@ public class SocialEntity extends SocialElement implements Serializable {
 		topics = new ArrayList<Topic>();
 		visitesOnProfile = new ArrayList<ProfileVisite>();
 		visitedProlfiles = new ArrayList<ProfileVisite>();
-	}
-
-	/**
-	 * 
-	 * @return the identifier.
-	 */
-	@Override
-	public int getId() {
-		return id;
-	}
-
-	/**
-	 * Gives an identifier to the social entity.
-	 * 
-	 * @param id
-	 */
-	@Override
-	public void setId(int id) {
-		this.id = id;
 	}
 
 	/**

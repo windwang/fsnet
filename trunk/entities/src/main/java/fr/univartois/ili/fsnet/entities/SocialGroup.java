@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
@@ -16,6 +17,7 @@ import javax.persistence.OneToMany;
  * @author JFlamen
  */
 @Entity
+@DiscriminatorValue("G")
 public class SocialGroup extends SocialElement implements Serializable {
 
 	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
@@ -39,6 +41,11 @@ public class SocialGroup extends SocialElement implements Serializable {
 	private String description;
 
 	/**
+	 * The social group state
+	 */
+	private boolean isEnabled;
+
+	/**
 	 * Constructor of the class SocialElement
 	 */
 
@@ -51,6 +58,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 		if (creator == null || masterGroup == null || description == null) {
 			throw new IllegalArgumentException();
 		}
+		this.isEnabled = true;
 		this.creator = creator;
 		this.masterGroup = masterGroup;
 		this.description = description;
@@ -88,6 +96,14 @@ public class SocialGroup extends SocialElement implements Serializable {
 
 	public void setCreator(SocialEntity creator) {
 		this.creator = creator;
+	}
+
+	public boolean isEnabled() {
+		return isEnabled;
+	}
+
+	public void setEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
 	}
 
 }
