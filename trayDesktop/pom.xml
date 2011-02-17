@@ -73,6 +73,7 @@
 							<goal>unpack-dependencies</goal>
 						</goals>
 						<configuration>
+							<excludes>**/junit/**</excludes>
 							<includes>**/*.class</includes>
 							<outputDirectory>${project.build.outputDirectory}</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
