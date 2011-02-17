@@ -9,7 +9,7 @@
         </html:link>
     </li>
     <li>
-        <html:link action="/CreateGroup">
+        <html:link action="/Groups">
 			<bean:message key="left.4"/>
         </html:link>
     </li>
