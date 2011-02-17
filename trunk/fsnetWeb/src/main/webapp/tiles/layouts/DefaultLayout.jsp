@@ -50,6 +50,11 @@
 		        	  document.location = action; 
 		        }
 		    }
-		</script> 
+		    function confirmDelete2(formid) {
+				if(confirm("<bean:message key='confirmation.delete' />")) {
+					document.getElementById(formid).submit();
+				}
+		    }
+		    		</script> 
     </body>
 </html:html>
