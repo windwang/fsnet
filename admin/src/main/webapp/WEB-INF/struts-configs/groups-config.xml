@@ -35,16 +35,15 @@
 			input="Groups" scope="request" validate="false" parameter="search">
 			<forward name="success" path="GroupList" />
 		</action>
-		<action path="/Groups" scope="request"
-			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" parameter="search">
-			<forward name="success" path="Groups" />
+		<action path="/Groups"
+			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" parameter="create" >
+			<forward name="success" path="CreateGroup" />
 		</action>
 		
 		<action path="/CreateGroup"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" name="CreateGroupForm"
-			input="CreateGroup" scope="request" validate="false" parameter="create">
-			
-			<forward name="success" path="CreateGroup" />
+			 parameter="create" validate="true" input="CreateGroup">
+			<forward name="success" path="GroupList" />
 		</action>
     </action-mappings>
 </struts-config>
