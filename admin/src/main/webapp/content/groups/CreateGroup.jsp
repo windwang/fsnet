@@ -74,7 +74,7 @@
 				</html:select>
             </td>
             
-            <td size="5">
+            <td>
 				
 				<html:button property="" onclick="Deplacer(this.form.memberListLeft,this.form.memberListRight)">
 				    <bean:message key="groups.addMembers" />
@@ -125,7 +125,7 @@
 				</html:select>
             </td>
             
-            <td size="5">
+            <td>
 				
 				<html:button property="" onclick="Deplacer(this.form.groupListLeft,this.form.groupListRight)">
 				    <bean:message key="groups.addGroups" />
@@ -178,25 +178,17 @@
 
 function Deplacer(l1,l2) {
 	
-if (l1.options.selectedIndex>=0)
-	for (var i = l1.options.length-1; i >=0 ; i--) {
-		if (l1.options[ i ].selected){
+  if(l1.options.selectedIndex>=0)
+	 for (var i = l1.options.length-1; i >=0 ; i--) {
+	     if(l1.options[ i ].selected){
 			o=new Option(l1.options[i].text,l1.options[i].value);
 			l2.options[l2.options.length]=o;
 			l1.options[i]=null;
 		}
-	}
-else{
+  }
+  else{
 	alert("Aucun membre sélectionnée");
+  }
 }
-	
-/* if (l1.options.selectedIndex>=0) {
-	 
-  o=new Option(l1.options[l1.options.selectedIndex].text,l1.options[l1.options.selectedIndex].value);
-  l2.options[l2.options.length]=o;
-  l1.options[l1.options.selectedIndex]=null;
- }*/
-}
-
 	
 </script>
