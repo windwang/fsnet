@@ -36,13 +36,17 @@
                         <bean:message key="communities.by"/>
                       	<ili:getSocialEntityInfos socialEntity="${community.creator}"/>
                     </td>
-                    <td class="tableButton">
-                        <c:if test="${sessionScope.userId eq community.creator.id}">
-                            <html:link action="/DisplayCommunities.do" styleClass="button" onclick="confirmDelete('DeleteCommunity.do?communityId='+${community.id})">
-                                <bean:message key="communities.delete"/>
-                            </html:link>
-                        </c:if>
-                    </td>
+                    <td class="tableButton" onclick="confirmDelete2('deleteid${community.id}')"><c:if
+						test="${sessionScope.userId eq community.creator.id}">
+						<form action="DeleteCommunity.do" id="deleteid${community.id}" method="post"><input
+							type="hidden" name="communityId" value="${community.id}" />
+						</form>
+						<span class="button">
+						    <bean:message
+							    key="communities.delete"/>
+						</span>
+					</c:if>
+					</td>
                 </tr>
             </c:forEach>
         </table>
