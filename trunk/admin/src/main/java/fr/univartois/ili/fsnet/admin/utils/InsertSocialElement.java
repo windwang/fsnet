@@ -31,7 +31,7 @@ public class InsertSocialElement extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		em.createNativeQuery("INSERT INTO SOCIALELEMENT SELECT ID, 'E', NULL from SOCIALENTITY").executeUpdate();
+		em.createNativeQuery("INSERT INTO SOCIALELEMENT(ID,DTYPE) SELECT ID, 'E' from SOCIALENTITY").executeUpdate();
 		em.getTransaction().commit();
 		em.close();
 	}
