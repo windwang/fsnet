@@ -17,6 +17,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -92,7 +93,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			return mapping.findForward("failer");
 		}
 		entityManager.close();
-		return mapping.findForward("success");
+		return new ActionRedirect(mapping.findForward("success"));
 	}
 
 	/**
