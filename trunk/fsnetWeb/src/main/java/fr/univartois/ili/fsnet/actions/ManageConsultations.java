@@ -34,6 +34,8 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationTitle = (String) dynaForm.get("consultationTitle");
 		String consultationDescription = (String) dynaForm.get("consultationDescription");	
 		String[] consultationChoices  = dynaForm.getStrings("consultationChoice");
+		String consultationType = dynaForm.getString("consultationType");
+		
 		// TODO chercher le moyen de valider les choix avec struts
 		for (String cs : consultationChoices){
 			if ("".equals(cs)){
@@ -45,7 +47,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-		Consultation consultation = consultationFacade.createConsultation(member,consultationTitle,consultationDescription,consultationChoices, Consultation.TypeConsultation.YES_NO_OTHER);
+		Consultation consultation = consultationFacade.createConsultation(member,consultationTitle,consultationDescription,consultationChoices,Consultation.TypeConsultation.valueOf(consultationType));
 		em.getTransaction().commit();
 		em.close();
 		request.setAttribute("id", consultation.getId());
@@ -57,7 +59,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; 
-		String voteComment = (String) dynaForm.get("voteComment");	
+		String voteComment = (String) dynaForm.get("voteComment");
 		String voteOther = (String) dynaForm.get("voteOther");
 		Integer idConsultation = (Integer) dynaForm.get("id");
 		String[] voteChoices  = dynaForm.getStrings("voteChoice");
