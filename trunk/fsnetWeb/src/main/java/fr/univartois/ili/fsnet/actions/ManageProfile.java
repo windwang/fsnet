@@ -44,6 +44,7 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  */
 public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
+	private static final int MAX_PICTURE_SIZE = 500000;
 	/**
 	 * watched profile variable session name
 	 */
@@ -236,7 +237,14 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 					break;
 				}
 			}
-			if (pictureType != null) {
+			if (pictureType != null) {		
+				
+				
+				if(file.getFileSize()>MAX_PICTURE_SIZE){
+					sendPictureError(request, "updateProfile.error.photo.masize");
+					return mapping.findForward("success");
+				}
+				
 				try {
 					ImageManager.createPicturesForUser(userId, file
 							.getInputStream(), pictureType);
