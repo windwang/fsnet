@@ -47,9 +47,6 @@ public class ManageMembers extends MappingDispatchAction {
 
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		String searchText = (String) dynaForm.getString("searchText");
-		searchText = searchText.replaceAll("Ã©", "é").replaceAll("Ã¨", "è")
-				.replaceAll("Ã ", "à").replaceAll("Ã¹", "ù")
-				.replaceAll("Ã¯", "ï").replaceAll("Ã§", "ç");
 
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		HashMap<SearchResult, Set<SocialEntity>> results = sef

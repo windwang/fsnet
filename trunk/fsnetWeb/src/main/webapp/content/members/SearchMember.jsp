@@ -5,7 +5,7 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3><bean:message key="members.0"/></h3>
-<html:form action="SearchMember" method="GET">
+<html:form action="SearchMember" method="POST">
     <div id="SearchMember">
         <html:text property="searchText" />
         <html:submit styleClass="button" />
