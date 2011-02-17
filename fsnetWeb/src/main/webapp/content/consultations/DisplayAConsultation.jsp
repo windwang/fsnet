@@ -9,9 +9,8 @@
 <c:if test="${consultation ne null }">
 <h3>${consultation.title }</h3>
 <ul>
-	<li><bean:message key="consultation.creator" /> : ${consultation.creator.name }</li>
+	<li><bean:message key="consultation.creator" /> : <ili:getSocialEntityInfos socialEntity="${consultation.creator }" /></li>
 	<c:if test="${consultation.description ne '' }"><li><bean:message key="consultation.description" /> : ${consultation.description }</li></c:if>
-	<li>${consultation.type }</li>
 </ul>
 <table>
 	<tr>

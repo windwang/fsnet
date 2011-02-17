@@ -35,6 +35,14 @@
 	</c:forEach>
     </table>
     <input type="button" value=" - " onclick="removeChoice()"/><input type="button" value=" + " onclick="addChoice()"/><br />
+  	
+  	<table>
+  		<tr><td colspan="2"><bean:message key="consultation.typeConsultation"/></td></tr>
+  		<tr><td><html:radio  property="consultationType" value="YES_NO" styleId="YES_NO" /> </td><td><label for="YES_NO"><bean:message key="consultation.typeYesNo"/></label></td></tr> 
+	  	<tr><td><html:radio property="consultationType" value="YES_NO_OTHER" styleId="YES_NO_OTHER"/></td><td><label for="YES_NO_OTHER"><bean:message key="consultation.typeYesNoOther"/></label></td></tr>
+	  	<tr><td><html:radio property="consultationType" value="YES_NO_IFNECESSARY" styleId="YES_NO_IFNECESSARY" disabled="true" /></td><td><label for="YES_NO_IFNECESSARY"><bean:message key="consultation.typeYesNoIfNecessary"/></label></td></tr>
+	  	<tr><td><html:radio property="consultationType" value="PREFERENCE_ORDER" styleId="PREFERENCE_ORDER" disabled="true"/></td><td><label for="PREFERENCE_ORDER"><bean:message key="consultation.typePreferenceOrder"/></label></td></tr>
+  	</table>
     <html:submit styleClass="button"><bean:message key="consultation.create"/></html:submit>
     
 </html:form>
