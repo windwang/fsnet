@@ -251,6 +251,7 @@
     <bean:message key="updateProfile.changePhoto.title"/>
 </h3>
 <html:form action="/ChangePhoto" enctype="multipart/form-data" style="float:left">
+		<bean:message key="updateProfile.picturesize"/>
 	<div>
 		<html:file property="photo"></html:file>
 		<html:submit styleClass="button"/>
