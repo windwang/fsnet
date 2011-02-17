@@ -70,6 +70,7 @@
 			</field>
 			<field property="passwordConfirmation" depends="minlength,validwhen">
 				<msg name="validwhen" key="members.twofields"/>
+				<arg0 key="members.password" />
 				<arg1 name="minlength" key="${var:minlength}" resource="false"/>
 				<var>
 					<var-name>minlength</var-name>
