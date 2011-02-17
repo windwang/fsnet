@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +39,32 @@ public class Authenticate extends HttpServlet {
 	 * Authenticated user key in session scope
 	 */
 	public static final String AUTHENTICATED_USER = "userId";
+	/**
+	 * Name of the cookie containing the login
+	 */
+	public static final String LOGIN_COOKIE = "login";
+	/**
+	 * Name of the cookie containing the password
+	 */
+	public static final String PSSWD_COOKIE = "password";
 
+	/**
+	 * Set the cookies for automatic login
+	 * @param rep the {@link HttpServletResponse}
+	 * @param login the login email
+	 * @param passwd the password
+	 */
+	private void setCookies(HttpServletResponse rep, String login, String passwd){
+		Cookie logCookie = new Cookie(LOGIN_COOKIE, login);
+		Cookie passwdCookie = new Cookie(PSSWD_COOKIE, passwd);
+		
+		logCookie.setMaxAge(Integer.MAX_VALUE);
+		passwdCookie.setMaxAge(Integer.MAX_VALUE);
+		
+		rep.addCookie(logCookie);
+		rep.addCookie(passwdCookie);
+	}
+	
 	/**
 	 * This method is called when an user user tries to sign in
 	 */
@@ -48,6 +74,28 @@ public class Authenticate extends HttpServlet {
 		boolean authenticated = false;
 		String memberMail = req.getParameter("memberMail");
 		String memberPass = req.getParameter("memberPass");
+		
+		if (memberMail == null && memberPass == null){
+			if(req.getCookies() != null)
+				
+			for(Cookie c:req.getCookies())
+			{	
+				if(c.getName().equals(LOGIN_COOKIE))
+					{
+					memberMail = c.getValue();
+					if(memberPass != null)
+						break;
+					}
+				else
+					if(c.getName().equals(PSSWD_COOKIE))
+						{
+						memberPass = c.getValue();
+						if(memberMail != null)
+							break;
+						}
+				}
+		}
+		
 		EntityManager em = PersistenceProvider.createEntityManager();;
 		SocialEntity es = null;
 		if (memberMail != null && memberPass != null) {
@@ -67,6 +115,7 @@ public class Authenticate extends HttpServlet {
 
 		if (authenticated) {
 			// the user is now authenticated
+			setCookies(resp, memberMail, memberPass);
 			HttpSession session = req.getSession(true);
 			String lastRequestedURL = (String) session.getAttribute("requestedURL");
 			if (lastRequestedURL != null) {
@@ -84,6 +133,8 @@ public class Authenticate extends HttpServlet {
 			
 			String userName = user.getFirstName() + " " + user.getName();
 			LoggedUsersContainer.getInstance().addUser(user.getId(), userName);
+			
+			
 		} else {
 			// the user is not authenticated
 			RequestDispatcher dispatcher = req
