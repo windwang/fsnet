@@ -7,9 +7,40 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3>
-    <bean:message key="updateProfile.title"/>
+    <bean:message key="updateProfile.importData.title"/>
 </h3>
 
+<div id="fb-root"></div>
+	<script src="http://connect.facebook.net/fr_FR/all.js"></script>
+	<script src="js/facebook.js"></script>
+
+<div class="box">
+	<div id="social_networks">
+		<div id="facebook_button_box">
+			<fb:login-button show-faces="true" width="450" perms="email,user_birthday,user_location"></fb:login-button>
+		</div>
+	</div>
+	<div id="social_networks_profiles">
+		<div id="facebook_profile" style="display:none;">
+			<div id="facebook_profile_image">
+
+				
+			</div>
+			<div id="facebook_profile_text">
+				
+			</div>
+			<div class="clear"></div>
+			<ul id="facebook_user_data">
+				
+			</ul>
+		</div>
+		<div class="clear"></div>
+	</div>
+	</div>
+
+<h3>
+    <bean:message key="updateProfile.title"/>
+</h3>
 
 <html:form action="/ModifyProfile">
     <table id="ModifyProfile">
@@ -71,7 +102,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="city" styleId="adress"/>
+                <html:text errorStyleClass="error" property="city" styleId="city"/>
             </td>
         </tr>
         <logic:messagesPresent property="city">
@@ -105,7 +136,7 @@
                 </label>
             </td>
             <td>
-                <html:select property="sexe" >
+                <html:select property="sexe" styleId="sexe">
                 	<html:option value=""/>
                     <html:option value="male">
                     	<bean:message key="updateProfile.sexe.male"/>
@@ -148,7 +179,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="mail"  />
+                <html:text errorStyleClass="error" property="mail" styleId="mail" />
             </td>
         </tr>
         <logic:messagesPresent property="mail">
@@ -165,7 +196,7 @@
                 </label>
             </td>
             <td>
-                <html:text errorStyleClass="error" property="phone" />
+                <html:text errorStyleClass="error" property="phone" styleId="phone" />
             </td>
         </tr>
         <logic:messagesPresent property="phone">
