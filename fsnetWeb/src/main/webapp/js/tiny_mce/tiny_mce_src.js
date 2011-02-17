@@ -1,5 +1,5 @@
 (function(win) {
-	var whiteSpaceRe = /^\s*|\s*$/g,
+	var whiteSpaceRe = /^\s*|\s*$/g;
 		undefined, isRegExpBroken = 'B'.replace(/A(.)|B/, '$1') === '$1';
 
 	var tinymce = {
@@ -6816,7 +6816,7 @@ window.tinymce.dom.Sizzle = Sizzle;
 			queue = [],
 			scriptLoadedCallbacks = {},
 			queueLoadedCallbacks = [],
-			loading = 0,
+			loading = 0;
 			undefined;
 
 		function loadScript(url, callback) {
@@ -6918,7 +6918,7 @@ window.tinymce.dom.Sizzle = Sizzle;
 					scriptLoadedCallbacks[url] = [];
 
 				scriptLoadedCallbacks[url].push({
-					func : callback,
+					func : callback ,
 					scope : scope || this
 				});
 			}
@@ -8839,7 +8839,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 		DOM = tinymce.DOM, Event = tinymce.dom.Event,
 		ThemeManager = tinymce.ThemeManager, PluginManager = tinymce.PluginManager,
 		explode = tinymce.explode,
-		Dispatcher = tinymce.util.Dispatcher, undefined, instanceCounter = 0;
+		Dispatcher = tinymce.util.Dispatcher; undefined, instanceCounter = 0;
 
 	// Setup some URLs where the editor API is located and where the document is
 	tinymce.documentBaseURL = window.location.href.replace(/[\?#].*$/, '').replace(/[\/\\][^\/]+$/, '');
@@ -11053,7 +11053,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 
 (function(tinymce) {
 	// Added for compression purposes
-	var each = tinymce.each, undefined, TRUE = true, FALSE = false;
+	var each = tinymce.each; undefined, TRUE = true, FALSE = false;
 
 	tinymce.EditorCommands = function(editor) {
 		var dom = editor.dom,
@@ -12843,7 +12843,7 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 			INVISIBLE_CHAR = '\uFEFF',
 			MCE_ATTR_RE = /^(src|href|style)$/,
 			FALSE = false,
-			TRUE = true,
+			TRUE = true;
 			undefined,
 			pendingFormats = {apply : [], remove : []};
 
@@ -12917,7 +12917,6 @@ tinymce.create('tinymce.ui.Toolbar:tinymce.ui.Container', {
 				if (container.nodeType == 1 || container.nodeValue === "") {
 					container = container.nodeType == 1 ? container.childNodes[offset] : container;
 
-					// Might fail if the offset is behind the last element in it's container
 					if (container) {
 						walker = new TreeWalker(container, container.parentNode);
 						for (node = walker.current(); node; node = walker.next()) {
