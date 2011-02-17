@@ -1,5 +1,5 @@
  FB.init({
-	        appId  : '193403670688830',
+	        appId  : '179930958716765',
 	        status : true, // verifie le statut de la connexion
 	        cookie : true, // active les cookies pour que le serveur puisse accéder à la session
 	        xfbml  : true  // active le XFBML (HTML de Facebook)
