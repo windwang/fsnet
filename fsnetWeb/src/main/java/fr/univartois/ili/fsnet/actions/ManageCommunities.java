@@ -107,6 +107,11 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		em.getTransaction().begin();
 		Community community = communityFacade.getCommunity(Integer.parseInt(communityId));
 		interactionFacade.deleteInteraction(user, community);
+		community.getCreator().getInteractions().remove(community);
+		if (community.getParentCommunity() != null) {
+			community.getParentCommunity().getChildrenCommunities()
+					.remove(community);
+		}
 		em.getTransaction().commit();
 		em.close();
 
