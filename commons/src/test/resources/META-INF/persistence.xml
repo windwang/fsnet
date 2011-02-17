@@ -16,6 +16,8 @@
     <class>fr.univartois.ili.fsnet.entities.TopicMessage</class>
     <class>fr.univartois.ili.fsnet.entities.PrivateMessage</class>
     <class>fr.univartois.ili.fsnet.entities.ProfileVisite</class>
+    <class>fr.univartois.ili.fsnet.entities.SocialElement</class>
+   	<class>fr.univartois.ili.fsnet.entities.SocialGroup</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:myDbFSNET;create=true"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
