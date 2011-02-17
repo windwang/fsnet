@@ -24,7 +24,7 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 public class ManageMembers extends MappingDispatchAction {
 
 	/**
-	 *
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -35,26 +35,30 @@ public class ManageMembers extends MappingDispatchAction {
 	 */
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-                em.getTransaction().begin();
+		em.getTransaction().begin();
 		Set<SocialEntity> resultOthers = null;
 		Set<SocialEntity> resultContacts = null;
 		Set<SocialEntity> resultRequested = null;
 		Set<SocialEntity> resultAsked = null;
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-	
-                DynaActionForm dynaForm = (DynaActionForm) form;//NOSONAR
-		String searchText = (String) dynaForm.get("searchText");
-           
-                SocialEntityFacade sef = new SocialEntityFacade(em);
-                HashMap<SearchResult, Set<SocialEntity>> results = sef.searchSocialEntity(searchText, member);	
-                resultContacts = results.get(SearchResult.Contacts);
+
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		String searchText = (String) dynaForm.getString("searchText");
+		searchText = searchText.replaceAll("Ã©", "é").replaceAll("Ã¨", "è")
+				.replaceAll("Ã ", "à").replaceAll("Ã¹", "ù")
+				.replaceAll("Ã¯", "ï").replaceAll("Ã§", "ç");
+
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		HashMap<SearchResult, Set<SocialEntity>> results = sef
+				.searchSocialEntity(searchText, member);
+		resultContacts = results.get(SearchResult.Contacts);
 		resultRequested = results.get(SearchResult.Requested);
 		resultAsked = results.get(SearchResult.Asked);
 		resultOthers = results.get(SearchResult.Others);
-                em.getTransaction().commit();
+		em.getTransaction().commit();
 		em.close();
 
 		request.setAttribute("membersResult", resultOthers);
