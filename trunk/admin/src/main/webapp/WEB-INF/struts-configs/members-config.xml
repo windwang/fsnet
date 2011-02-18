@@ -18,7 +18,11 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="multipleMember" type="java.lang.String" />
 			<form-property name="message" type="java.lang.String" />
-			
+		</form-bean>
+		<form-bean name="CreateMultipleMemberFileForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="fileMultipleMember" type="java.lang.String" />
+			<form-property name="message" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="CreateMemberForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -72,7 +76,11 @@
 			input="Members" scope="request" validate="true" parameter="createMultiple">
 			<forward name="success" path="/Members.do" />
 		</action>
-		
+		<action path="/CreateMultipleMemberFile"
+			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" name="CreateMultipleMemberFileForm"
+			input="Members" scope="request" validate="true" parameter="createMultipleFile">
+			<forward name="success" path="/Members.do" />
+		</action>
 
 		<action path="/CreateMember"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" name="CreateMemberForm"

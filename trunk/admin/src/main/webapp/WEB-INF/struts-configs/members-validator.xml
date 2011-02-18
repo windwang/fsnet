@@ -8,6 +8,15 @@
 				<arg key="error.searchText" />
 			</field>
 		</form>
+		<form name="/CreateMultipleMemberFile">
+			<field property="message" depends="required,maxlength">
+				<arg key="members.error.message" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>500</var-value>
+				</var>
+			</field>
+		</form>
 		<form name="/CreateMultipleMember">
 			<field property="multipleMember" depends="required,mask,maxlength">
 				<arg key="members.error.multiple" />
