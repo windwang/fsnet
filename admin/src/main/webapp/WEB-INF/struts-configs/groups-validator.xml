@@ -6,7 +6,6 @@
 		<form name="/CreateGroup">
 			<field property="name" depends="required,maxlength">
 				<arg key="groups.error.name" />
-
 				<var>
 					<var-name>maxlength</var-name>
 					<var-value>30</var-value>
