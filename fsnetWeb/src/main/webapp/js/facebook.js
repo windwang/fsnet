@@ -1,10 +1,12 @@
- FB.init({
-	        appId  : '179930958716765',
+ function initFacebook(key){
+	 FB.init({
+	        appId  : key,
 	        status : true, // verifie le statut de la connexion
 	        cookie : true, // active les cookies pour que le serveur puisse accéder à la session
 	        xfbml  : true  // active le XFBML (HTML de Facebook)
-	    });
-
+	    }); 
+} 
+ 
  function recupInfos(response){
 	 	var url = 'http://graph.facebook.com/' + response.id + '/picture';
 	 	if(response.birthday!=undefined){

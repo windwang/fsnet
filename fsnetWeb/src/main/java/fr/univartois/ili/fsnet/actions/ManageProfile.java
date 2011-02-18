@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Properties;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -22,9 +23,11 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.apache.struts.upload.FormFile;
 
+import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
 import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -123,6 +126,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		em.close();
 		return mapping.findForward("success");
 	}
+	
+	private void addKeyFacebookInRequest(HttpServletRequest request, HttpServletResponse response){
+		request.setAttribute("KEY_FACEBOOK", FacebookKeyManager.getKeyFacebook());
+	}
 
 	@Override
 	public final ActionForward delete(ActionMapping mapping, ActionForm form,
@@ -141,6 +148,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public final ActionForward displayToModify(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
+		addKeyFacebookInRequest( request,response);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -166,6 +174,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public final ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		addKeyFacebookInRequest(request,  response);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
