@@ -11,7 +11,11 @@
 <ul>
 	<li><bean:message key="consultation.creator" /> : <ili:getSocialEntityInfos socialEntity="${consultation.creator }" /></li>
 	<c:if test="${consultation.description ne '' }"><li><bean:message key="consultation.description" /> : ${consultation.description }</li></c:if>
+	<li><bean:message key="consultation.createdAtDate" /> <bean:write name="consultation" property="creationDate" format="dd/MM/yyyy" />
+		<bean:message key="consultation.createdAtHour" /> <bean:write name="consultation" property="creationDate" format="HH:mm" />
+		</li>
 </ul>
+<br />
 <table>
 	<tr>
 		<td></td>
@@ -26,8 +30,7 @@
 		<tr>
 		<td><c:if test="${member.id eq vote.voter.id }">
 			<html:link action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}">
-<!--				<img src="images/delete.png" alt="<bean:message key="consultation.delete" />"/>-->
-				<html:image src="images/delete.png" alt="consultation.delete" styleClass="consultation.delete"/>
+				<html:img src="images/mini-delete.png" altKey="consultation.delete" />
 			</html:link>
 		</c:if></td>
 		<td class="consultationPerticipant"><ili:getSocialEntityInfos socialEntity="${vote.voter }" /></td>

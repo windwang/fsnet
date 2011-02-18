@@ -39,14 +39,13 @@ public class ConsultationFacade {
 	}
 	
 	public void deleteVote(Consultation consultation, SocialEntity entity,ConsultationVote vote){
-		if(vote == null || entity == null) {
-			throw new UnauthorizedOperationException("exception.message");
-		}
-		if(!vote.getVoter().equals(entity)){
-			throw new UnauthorizedOperationException("exception.message");
-		}else{
-			consultation.getConsultationVotes().remove(vote);
-			deleteVote(vote);
+		if(vote != null && entity != null) {
+			if(!vote.getVoter().equals(entity)){
+				throw new UnauthorizedOperationException("exception.message");
+			}else{
+				consultation.getConsultationVotes().remove(vote);
+				deleteVote(vote);
+			}
 		}
 	}
 
