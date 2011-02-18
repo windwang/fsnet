@@ -4,7 +4,7 @@
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>fsnet</artifactId>
 	<packaging>pom</packaging>
-	<version>0.7.0</version>
+	<version>0.7.1-SNAPSHOT</version>
 	<name>Firm Social Network</name>
 	<url>http://code.google.com/p/fsnet/</url>
 
@@ -262,9 +262,9 @@
 	</developers>
 
 	<scm>
-		<connection>scm:svn:https://fsnet.googlecode.com/svn/tags/fsnet-0.7.0</connection>
-		<developerConnection>scm:svn:https://fsnet.googlecode.com/svn/tags/fsnet-0.7.0</developerConnection>
-		<url>http://fsnet.googlecode.com/svn/tags/fsnet-0.7.0</url>
+		<connection>scm:svn:https://fsnet.googlecode.com/svn/trunk</connection>
+		<developerConnection>scm:svn:https://fsnet.googlecode.com/svn/trunk</developerConnection>
+		<url>http://fsnet.googlecode.com/svn/trunk</url>
 	</scm>
 
 	<reporting>
