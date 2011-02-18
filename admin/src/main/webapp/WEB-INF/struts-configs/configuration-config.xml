@@ -18,6 +18,7 @@
 			<form-property name="FSNetWebURL" type="java.lang.String"/>
 			<form-property name="Recipient" type="java.lang.String"/>
 			<form-property name="PicturesDirectory" type="java.lang.String"/>
+			<form-property name="KeyFacebook" type="java.lang.String"/>
 		</form-bean>
 	</form-beans>
 	<action-mappings>

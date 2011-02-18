@@ -164,7 +164,7 @@
 			</td>
 		</tr>
 	</logic:messagesPresent>
-		<tr>
+	<tr>
 		<td>
 			<label for="PicturesDirectory">
 				<bean:message key="configure.22"/>
@@ -181,6 +181,32 @@
 			</td>
 		</tr>
 	</logic:messagesPresent>
+	<tr>
+		<td colspan="2">
+			<html:errors property="KeyFacebook" />
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="KeyFacebook">
+				<bean:message key="configure.8"/>
+			</label>
+		</td>
+		<td>
+			<html:text errorStyleClass="error" styleId="FSNetWebURL" property="FSNetWebURL"/>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<label for="KeyFacebook">
+				<bean:message key="configure.24"/>
+			</label>
+		</td>
+		<td>
+			<html:text errorStyleClass="error" styleId="KeyFacebook" property="KeyFacebook"/>
+		</td>
+		
+	</tr>
 	<tr>
 		<td colspan="2">
 			<html:submit styleClass="button">
