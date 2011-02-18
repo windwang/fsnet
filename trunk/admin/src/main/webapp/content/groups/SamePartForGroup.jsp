@@ -22,6 +22,19 @@
 			</td>
 		</tr>
 		
+		<tr>
+			<td>
+				<label for="description"> 
+					<bean:message key="groups.description" />
+				</label>
+			</td>
+			<td colspan="3">
+				<c:set var="welcomeMain"><bean:message key="groups.description.message" /></c:set>
+				<html:textarea property="description" styleId="description" errorStyleClass="error" cols="26" rows="6" value="${welcomeMain}">
+				</html:textarea>
+			</td>
+		</tr>
+		
 		<tr class="errorMessage">
 			<td colspan="2">
 				<html:errors property="name" />
@@ -59,11 +72,8 @@
 			</td>
 			
 			<td ROWSPAN="2">
-				<html:select property="memberListLeft" styleClass="select" size="5" multiple="multiple">
-					<html:option value="" disabled="true"><bean:message key="groups.listMember"/></html:option >
-					<html:option value="" ><bean:message key="groups.listMember"/>4</html:option>
-					<html:option value=""><bean:message key="groups.listMember"/>5</html:option>
-					<html:option value=""><bean:message key="groups.listMember"/>6</html:option>
+				<div><bean:message key="groups.members.refused"/></div>
+				<html:select property="memberListLeft" styleClass="select" size="5" multiple="multiple" >
 					<c:forEach var="socialEntity" items="${allMembers}">
 						<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
 					</c:forEach>
@@ -80,11 +90,8 @@
 			</td>	
 			
 			<td ROWSPAN="2">
+				<div><bean:message key="groups.members.accepted"/></div>
 				<html:select property="memberListRight" styleClass="select" size="5" multiple="multiple">
-					<html:option value="" disabled="true"><bean:message key="groups.listMember"/></html:option>
-					<html:option value=""><bean:message key="groups.listMember"/>1</html:option>
-					<html:option value=""><bean:message key="groups.listMember"/>2</html:option>
-					<html:option value=""><bean:message key="groups.listMember"/>3</html:option>
 					<c:forEach var="socialEntity" items="${allMembers}">
 						<html:option value="">  </html:option>
 					</c:forEach>
@@ -110,11 +117,8 @@
 			</td>
 			
 			<td ROWSPAN="2">
+				<div><bean:message key="groups.groups.refused"/></div>
 				<html:select property="groupListLeft" styleClass="select" size="5" multiple="multiple">
-					<html:option value="" disabled="true"><bean:message key="groups.listGroup"/></html:option>
-					<html:option value=""><bean:message key="groups.listGroup"/>4</html:option>
-					<html:option value=""><bean:message key="groups.listGroup"/>5</html:option>
-					<html:option value=""><bean:message key="groups.listGroup"/>6</html:option>
 					<c:forEach var="socialEntity" items="${allMembers}">
 						<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
 					</c:forEach>
@@ -131,11 +135,8 @@
 			</td>	
 			
 			<td ROWSPAN="2">
+				<div><bean:message key="groups.groups.accepted"/></div>
 				<html:select property="groupListRight" styleClass="select" size="5" multiple="multiple">
-					<html:option value="" disabled="true"><bean:message key="groups.listGroup"/></html:option>
-					<html:option value=""><bean:message key="groups.listGroup"/>1</html:option>
-					<html:option value=""><bean:message key="groups.listGroup"/>2</html:option>
-					<html:option value=""><bean:message key="groups.listGroup"/>3</html:option>
 					<c:forEach var="socialEntity" items="${allMembers}">
 						<html:option value="">  </html:option>
 					</c:forEach>
@@ -164,7 +165,14 @@
 		</tr>
 		
 	</table>
-	<script type="text/javascript">
+	
+<style>
+	select {
+		min-width:200px; 
+	}
+</style>
+
+<script type="text/javascript">
 
 function Deplacer(l1,l2) {
 	
