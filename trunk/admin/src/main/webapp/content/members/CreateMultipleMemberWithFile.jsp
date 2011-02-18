@@ -30,7 +30,7 @@
 	</tr>
 	<tr>
 		<td colspan="2">
-			<html:text property="fileMultipleMember" size="60" styleId="multipleMember" errorStyleClass="error"/>
+			<html:file property="fileMultipleMember" size="60" styleId="multipleMember" errorStyleClass="error"/>
 		</td>
 	<jsp:include page="/content/members/SamePartForMember.jsp"/>
 	</table>
