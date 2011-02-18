@@ -21,6 +21,7 @@ public class FSNetConfiguration {
 	public static final String SSL_KEY = "mail.smtp.socketFactory.class";
 	public static final String SSL_ENABLED_VALUE = "javax.net.ssl.SSLSocketFactory";
 	public static final String PICTURES_DIRECTORY_KEY = "pictures.dir";
+	public static final String KEY_FACEBOOK = "keyfacebook";
 
 	private static final String USER_HOME = "user.home";
 	private static final String FSNET_DIRECTORY = ".fsnet";
@@ -100,6 +101,10 @@ public class FSNetConfiguration {
 				properties.put(PICTURES_DIRECTORY_KEY,
 						buildDefaultNameOfPicturesDirectory());
 			}
+		}
+		property = em.find(Property.class, KEY_FACEBOOK);
+		if (property != null) {
+			properties.put(KEY_FACEBOOK, property.getValue());
 		}
 
 		em.close();
