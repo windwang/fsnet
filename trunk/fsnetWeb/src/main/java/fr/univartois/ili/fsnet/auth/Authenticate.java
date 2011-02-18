@@ -115,7 +115,10 @@ public class Authenticate extends HttpServlet {
 
 		if (authenticated) {
 			// the user is now authenticated
-			setCookies(resp, memberMail, memberPass);
+			String remember = req.getParameter("remember");
+			if(remember != null && remember.equals("on"))
+				setCookies(resp, memberMail, memberPass);
+			
 			HttpSession session = req.getSession(true);
 			String lastRequestedURL = (String) session.getAttribute("requestedURL");
 			if (lastRequestedURL != null) {

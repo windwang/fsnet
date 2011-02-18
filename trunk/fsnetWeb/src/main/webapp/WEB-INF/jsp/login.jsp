@@ -48,6 +48,16 @@
 							</td>
 						</tr>
 						<tr>
+							<td>
+								<label for="remember">
+									<bean:message key="login.5"/>
+								</label>
+							</td>
+							<td>
+								<input type="checkbox" name="remember"/>
+							</td>
+						</tr>
+						<tr>
 							<td colspan="2">
 								<a onclick="showResetPasswordForm();">
 									<bean:message key="login.2"/>
