@@ -33,6 +33,10 @@
         	<field property="PicturesDirectory" depends="required">
         		<msg name="required" key="configure.21"/>
         	</field>
+        	<field property="KeyFacebook">
+        		
+        	
+        	</field>
         </form>
     </formset>
 </form-validation>

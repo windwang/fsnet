@@ -67,8 +67,13 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					.getProperty(FSNetConfiguration.SMTP_HOST_KEY));
 			dynaform.set("FSNetWebURL", properties
 					.getProperty(FSNetConfiguration.FSNET_WEB_ADDRESS_KEY));
+			dynaform.set("FSNetWebURL", properties
+					.getProperty(FSNetConfiguration.FSNET_WEB_ADDRESS_KEY));
+			
 			dynaform.set("PicturesDirectory", properties
 					.getProperty(FSNetConfiguration.PICTURES_DIRECTORY_KEY));
+			dynaform.set("KeyFacebook", properties
+					.getProperty(FSNetConfiguration.KEY_FACEBOOK));
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -128,6 +133,10 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			errors.add("PicturesDirectory", new ActionMessage("configure.23"));
 			saveErrors(request, errors);
 		}
+		
+		saveProperty(em, FSNetConfiguration.KEY_FACEBOOK, (String) dynaform
+				.get("KeyFacebook"));
+		
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
