@@ -24,7 +24,8 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @DiscriminatorValue("E")
-public class SocialEntity extends SocialElement implements Serializable {
+public class SocialEntity extends SocialElement implements Serializable,
+		Comparable<SocialEntity> {
 
 	/**
 	 * The social entity state
@@ -692,5 +693,21 @@ public class SocialEntity extends SocialElement implements Serializable {
 
 	public void setVisitedProfiles(List<ProfileVisite> haveVisit) {
 		this.visitedProlfiles = haveVisit;
+	}
+
+	@Override
+	public int compareTo(SocialEntity o) {
+		// TODO Auto-generated method stub
+		if (this.getName().compareTo(o.getName()) > 0) {
+			return 1;
+		} else if (this.getName().equals(o.getName())) {
+			if (this.getFirstName().compareTo(o.getFirstName()) > 0) {
+				return 1;
+			} else if (this.getFirstName().equals(o.getFirstName())) {
+				return 0;
+			}
+			return -1;
+		}
+		return -1;
 	}
 }
