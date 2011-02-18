@@ -3,12 +3,12 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.0</version>
+		<version>0.7.1-SNAPSHOT</version>
 	</parent>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>fsnetWeb</artifactId>
 	<packaging>war</packaging>
-	<version>0.7.0</version>
+	<version>0.7.1-SNAPSHOT</version>
 	<name>FSNet public website</name>
 	<description>This module is a web module that conatins the public part of fsnet</description>
 	<build>
@@ -30,12 +30,12 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>entities</artifactId>
-			<version>0.7.0</version>
+			<version>0.7.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>facade</artifactId>
-			<version>0.7.0</version>
+			<version>0.7.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.servlet</groupId>
@@ -91,7 +91,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>commons</artifactId>
-			<version>0.7.0</version>
+			<version>0.7.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-fileupload</groupId>
