@@ -378,6 +378,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String phone = (String) formSocialENtity.get("phone");
 		String sexe = (String) formSocialENtity.get("sexe");
 		Date birthDay = null;
+		formSocialENtity.set("birthDay", null);
 		try {
 			birthDay = DateUtils.format((String) formSocialENtity
 					.get("formatBirthDay"));
