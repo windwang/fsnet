@@ -32,10 +32,10 @@
 </label>
 <br/>
 
-<input type="radio" name="chooseSimpleOrMultiple" id="multipleMemberFile" value="multipleFileChoose" onchange="changeSimpleOrMultiple()"/>
-<label for="multipleMemberFile"> 
-	<bean:message key="members.multipleWithFile" />  
-</label>
+<!--<input type="radio" name="chooseSimpleOrMultiple" id="multipleMemberFile" value="multipleFileChoose" onchange="changeSimpleOrMultiple()"/>-->
+<!--<label for="multipleMemberFile"> -->
+<!--	<bean:message key="members.multipleWithFile" />  -->
+<!--</label>-->
 
 <div id="divChooseSimpleMember">
 <jsp:include page="/content/members/CreateMember.jsp"/>
