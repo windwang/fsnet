@@ -54,12 +54,6 @@
 			<type>war</type>
 		</dependency>
 		<dependency>
-			<groupId>fr.univartois.ili.fsnet</groupId>
-			<artifactId>trayDesktop</artifactId>
-			<version>0.7.0-SNAPSHOT</version>
-			<type>jar</type>
-		</dependency>
-		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
