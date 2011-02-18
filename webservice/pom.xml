@@ -3,12 +3,12 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.0-SNAPSHOT</version>
+		<version>0.7.0</version>
 	</parent>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>webservice</artifactId>
 	<packaging>war</packaging>
-	<version>0.7.0-SNAPSHOT</version>
+	<version>0.7.0</version>
 	<name>webservice</name>
 	<description>This module is used by trayDesktop to retrive user data</description>
 	
@@ -41,17 +41,17 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>facade</artifactId>
-			<version>0.7.0-SNAPSHOT</version>
+			<version>0.7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>mobile-services</artifactId>
-			<version>0.7.0-SNAPSHOT</version>
+			<version>0.7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>entities</artifactId>
-			<version>0.7.0-SNAPSHOT</version>
+			<version>0.7.0</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
