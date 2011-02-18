@@ -32,7 +32,7 @@
 </label>
 <br/>
 
-<input type="radio" name="chooseSimpleOrMultiple" id="multipleMember" value="multipleFileChoose" onchange="changeSimpleOrMultiple()"/>
+<input type="radio" name="chooseSimpleOrMultiple" id="multipleMemberFile" value="multipleFileChoose" onchange="changeSimpleOrMultiple()"/>
 <label for="multipleMemberFile"> 
 	<bean:message key="members.multipleWithFile" />  
 </label>
