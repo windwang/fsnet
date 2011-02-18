@@ -10,33 +10,40 @@
     <bean:message key="updateProfile.importData.title"/>
 </h3>
 
+
+<c:if test="${not empty KEY_FACEBOOK}">
 <div id="fb-root"></div>
 	<script src="http://connect.facebook.net/fr_FR/all.js"></script>
 	<script src="js/facebook.js"></script>
-
+	<script type="text/javascript">
+		initFacebook(${KEY_FACEBOOK});
+	</script>
 <div class="box">
 	<div id="social_networks">
-		<div id="facebook_button_box">
-			<fb:login-button show-faces="true" width="450" perms="email,user_birthday,user_location"></fb:login-button>
-		</div>
+	<div id="facebook_button_box">
+		<fb:login-button show-faces="true" width="450" perms="email,user_birthday,user_location"></fb:login-button>
 	</div>
-	<div id="social_networks_profiles">
-		<div id="facebook_profile" style="display:none;">
-			<div id="facebook_profile_image">
+</div>
+<div id="social_networks_profiles">
+	<div id="facebook_profile" style="display:none;">
+		<div id="facebook_profile_image">
 
-				
-			</div>
-			<div id="facebook_profile_text">
-				
-			</div>
-			<div class="clear"></div>
-			<ul id="facebook_user_data">
-				
-			</ul>
+			
+		</div>
+		<div id="facebook_profile_text">
+			
 		</div>
 		<div class="clear"></div>
+		<ul id="facebook_user_data">
+			
+		</ul>
 	</div>
-	</div>
+	<div class="clear"></div>
+</div>
+</div>
+</c:if>
+	
+
 
 <h3>
     <bean:message key="updateProfile.title"/>
