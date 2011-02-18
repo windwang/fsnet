@@ -53,6 +53,10 @@ public class ChangePassword extends Action{
         em.close();
         errors.add("passwordChange",new ActionMessage("updateProfile.passwd.change"));
         this.saveErrors(request, errors);
+        
+        cpf.set("oldPassword", "");
+        cpf.set("newPassword", "");
+        cpf.set("confirmNewPassword", "");
 		return mapping.findForward("success");
 	}
 	
