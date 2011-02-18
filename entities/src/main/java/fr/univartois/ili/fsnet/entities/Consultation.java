@@ -93,10 +93,11 @@ public class Consultation extends Interaction {
 	 * @param title
 	 * @param description
 	 */
-	public Consultation(SocialEntity creator, String title, String description,TypeConsultation type) {
+	public Consultation(SocialEntity creator, String title, String description,
+			TypeConsultation type) {
 		super(creator, title);
 		this.description = description;
-		this.type=type;
+		this.type = type;
 		limitChoicesPerParticipant = "F";
 		closingAtDate = "F";
 		closingAtMaxVoters = "F";
