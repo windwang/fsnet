@@ -92,12 +92,8 @@ public class ManageConsultations extends MappingDispatchAction {
 			}
 		}
 		
-		System.out.println("je vais retourner success !!");
 		ActionForward test = mapping.findForward("success");
-		System.out.println("path: "+test.getPath());
 		return displayAConsultation(mapping, form, request, response);
-//		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
-//		return redirect;
 	}
 
 	public ActionForward searchYourConsultations(ActionMapping mapping, ActionForm form,
@@ -115,7 +111,6 @@ public class ManageConsultations extends MappingDispatchAction {
 	
 	public ActionForward displayAConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
-		System.out.println("displayAconsultation debut");
 		String idConsultation = request.getParameter("id");
 		if (idConsultation == null || "".equals(idConsultation)){
 			idConsultation = String.valueOf(request.getAttribute("id"));
@@ -129,7 +124,6 @@ public class ManageConsultations extends MappingDispatchAction {
 			em.close();
 			request.setAttribute("consultation", consultation);
 		}
-		System.out.println("displayAConsultation fin : redirect vers "+mapping.findForward("success").getPath());
 		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
 		return redirect;
 	}
