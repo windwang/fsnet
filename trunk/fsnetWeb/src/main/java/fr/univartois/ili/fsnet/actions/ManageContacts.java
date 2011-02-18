@@ -1,6 +1,8 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.Collections;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -182,7 +184,12 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-	
+		
+		
+		Collections.sort(user.getContacts());		
+		Collections.sort(user.getAsked());
+		Collections.sort(user.getRequested());
+		
 		Paginator<SocialEntity> paginatorContacts = new Paginator<SocialEntity>(user.getContacts(), request, "contacts");
 		Paginator<SocialEntity> paginatorAsked = new Paginator<SocialEntity>(user.getAsked(), request, "asked");
 		Paginator<SocialEntity> paginatorRequested = new Paginator<SocialEntity>(user.getRequested(), request, "requested");
