@@ -5,6 +5,8 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -459,6 +461,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("firstName", member.getFirstName());
 		dynaForm.set("id", member.getId());
 
+		
 		Paginator<Interest> paginator = new Paginator<Interest>(
 				member.getInterests(), request, "interestsMember", "idMember");
 
@@ -535,13 +538,14 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			if (resultOthers != null) {
 				List<SocialEntity> resultOthersList = new ArrayList<SocialEntity>(
 						resultOthers);
+				
 				Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
 						resultOthersList, request, "membersList");
 				request.setAttribute("membersListPaginator", paginator);
 			} else
 				request.setAttribute("membersListPaginator", null);
 		} else {
-			query = em.createQuery("SELECT es FROM SocialEntity es",
+			query = em.createQuery("SELECT es FROM SocialEntity es ORDER BY es.name,es.firstName",
 					SocialEntity.class);
 			List<SocialEntity> resultOthersList = query.getResultList();
 			em.getTransaction().commit();
