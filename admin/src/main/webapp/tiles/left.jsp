@@ -8,9 +8,19 @@
 			<bean:message key="left.2"/>
         </html:link>
     </li>
-<!--    <li>-->
-<!--        <html:link action="/Groups">-->
-<!--			<bean:message key="left.4"/>-->
-<!--        </html:link>-->
-<!--    </li>-->
+    
+    
+    
+    <li>
+        <html:link action="/Groups">
+			<bean:message key="left.4"/>
+        </html:link>
+    </li>
+    
+    <li>
+        <html:link action="/DisplayForModifyGroup">
+			<bean:message key="left.test"/>
+        </html:link>
+    </li>
+    
 </ul>
