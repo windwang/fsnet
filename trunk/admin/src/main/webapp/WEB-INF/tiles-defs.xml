@@ -74,11 +74,7 @@
         <put name="currentMenu" value="Groups"/>
         <put name="body-content" value="/content/groups/SearchGroup.jsp" />
     </definition>
-    <definition name="DisplayForModifyGroup" extends=".defaultLayout">
-        <put name="title" value="pageTitle.17"/>
-        <put name="currentMenu" value="Groups"/>
-        <put name="body-content" value="/content/groups/ModifyGroup.jsp" />
-    </definition>
+  
   	<definition name="ModifyGroup" extends=".defaultLayout">
         <put name="title" value="pageTitle.17"/>
         <put name="currentMenu" value="Groups"/>

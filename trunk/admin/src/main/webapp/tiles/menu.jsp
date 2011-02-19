@@ -34,11 +34,11 @@
     	</html:link>
     </li>
     
-<!--    <li>-->
-<!--    	<html:link action="/GroupList" styleClass="${currentMenu == 'Groups' ? 'current' : ''}">-->
-<!--    		<bean:message key="menu.10"/>-->
-<!--    	</html:link>-->
-<!--    </li>-->
+    <li>
+    	<html:link action="/GroupList" styleClass="${currentMenu == 'Groups' ? 'current' : ''}">
+    		<bean:message key="menu.10"/>
+    	</html:link>
+    </li>
     
     <li>
     	<html:link action="/Interests" styleClass="${currentMenu == 'Interests' ? 'current' : ''}">
