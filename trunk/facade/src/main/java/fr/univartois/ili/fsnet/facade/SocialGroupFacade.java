@@ -142,6 +142,14 @@ public class SocialGroupFacade {
 		return results;
 	}
 	
+	/**
+	 * Get all social group
+	 * @return the Set of all Social Groups
+	 */
+	public final List<SocialGroup> getAllSocialEntity() {
+		TypedQuery<SocialGroup> query = em.createQuery("SELECT gs FROM SocialGroup gs", SocialGroup.class);
+		return query.getResultList();
+	}
 	
 	
 	public final void switchState(int socialGroupId) {
