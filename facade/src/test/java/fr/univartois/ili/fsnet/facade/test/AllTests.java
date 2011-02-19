@@ -6,6 +6,7 @@ import org.junit.runners.Suite;
 /**
  *
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
+ * @author SAID Mohamed <simo.said09 at gmail.com>
  */
 @RunWith(Suite.class)
 @Suite.SuiteClasses({
@@ -20,6 +21,7 @@ import org.junit.runners.Suite;
     ProfileFacadeTest.class,
     ProfileVisiteFacadeTest.class,
     SocialEntityFacadeTest.class,
+    SocialGroupFacadeTest.class,
     TopicMessageFacadeTest.class,
     TopicFacadeTest.class    
 })
