@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.facade;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -164,6 +165,15 @@ public class SocialEntityFacade {
 		}
 
 		return results;
+	}
+	
+	/**
+	 * Get all social Entity
+	 * @return the Set of all Social Entities
+	 */
+	public final List<SocialEntity> getAllSocialEntity() {
+		TypedQuery<SocialEntity> query = em.createQuery("SELECT es FROM SocialEntity es", SocialEntity.class);
+		return query.getResultList();
 	}
     
 //    /**

@@ -13,6 +13,6 @@
 
 
 
-<html:form action="/CreateGroup">
+<html:form action="/CreateGroup" onsubmit="Valider(this.form.memberListLeft,this.form.groupListLeft)">
 	<jsp:include page="/content/groups/SamePartForGroup.jsp"/>
 </html:form>

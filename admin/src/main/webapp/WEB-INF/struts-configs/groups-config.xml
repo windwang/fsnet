@@ -40,17 +40,20 @@
 
 		<action path="/CreateGroup"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" name="CreateGroupForm"
-			parameter="create" validate="true" input="CreateGroup">
+			parameter="create" validate="true" input="/ErrorGroups.do">
 			<forward name="success" path="GroupList" />
+			<forward name="errors" path="CreateGroup" />
 		</action>
-
 		
-		<!-- <action path="/Groups"
+		<action path="/Groups"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" parameter="create">
 			<forward name="success" path="CreateGroup" />
-		</action> -->
-		<action path="/Groups" parameter="CreateGroup"
-			type="org.apache.struts.actions.ForwardAction" />
+		</action>
+		
+		<action path="/ErrorGroups"
+			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" parameter="create">
+			<forward name="success" path="CreateGroup" />
+		</action>
 		
 		<action path="/DisplayForModifyGroup" parameter="ModifyGroup"
 			type="org.apache.struts.actions.ForwardAction" />
