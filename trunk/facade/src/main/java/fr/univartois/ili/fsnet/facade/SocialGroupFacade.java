@@ -1,11 +1,13 @@
 package fr.univartois.ili.fsnet.facade;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+
 import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
@@ -95,8 +97,6 @@ public class SocialGroupFacade {
 		socialGroup.getSocialElements().remove(socialElement);
 	}
 
-
-
 	/**
 	 * Find a SocialGroup by its name
 	 * 
@@ -119,9 +119,12 @@ public class SocialGroupFacade {
 		}
 
 	}
+
 	/**
-	 * search a Social Group having Name  Or description like searchText
-	 * @param searchText the search text
+	 * search a Social Group having Name Or description like searchText
+	 * 
+	 * @param searchText
+	 *            the search text
 	 * @return the Set of Social Groups matching with the search text
 	 */
 	public final Set<SocialGroup> searchGroup(String inputText) {
@@ -130,28 +133,60 @@ public class SocialGroupFacade {
 		}
 		TypedQuery<SocialGroup> query = null;
 		Set<SocialGroup> results = new HashSet<SocialGroup>();
-		
-		for(String searchText : inputText.split(" ")){
+
+		for (String searchText : inputText.split(" ")) {
 			query = em.createQuery(
 					"SELECT gs FROM SocialGroup gs WHERE gs.name LIKE :searchText"
-					+ " OR gs.description LIKE :searchText", SocialGroup.class);
+							+ " OR gs.description LIKE :searchText",
+					SocialGroup.class);
 			query.setParameter("searchText", "%" + searchText + "%");
 			results.addAll(query.getResultList());
 		}
 
 		return results;
 	}
-	
+
 	/**
 	 * Get all social group
+	 * 
 	 * @return the Set of all Social Groups
 	 */
 	public final List<SocialGroup> getAllSocialEntity() {
-		TypedQuery<SocialGroup> query = em.createQuery("SELECT gs FROM SocialGroup gs", SocialGroup.class);
+		TypedQuery<SocialGroup> query = em.createQuery(
+				"SELECT gs FROM SocialGroup gs", SocialGroup.class);
 		return query.getResultList();
 	}
-	
-	
+
+	public List<SocialGroup> getAcceptedSocialGroup(SocialGroup socialGroup) {
+		if (socialGroup == null) {
+			throw new IllegalArgumentException();
+		}
+		List<SocialGroup> groups = new ArrayList<SocialGroup>();
+		List<SocialElement> socialElements = socialGroup.getSocialElements();
+		for (SocialElement socialElement : socialElements) {
+			if (socialElement instanceof SocialGroup)
+				groups.add((SocialGroup) socialElement);
+		}
+		return groups;
+	}
+
+	public List<SocialEntity> getAcceptedSocialEntity(SocialGroup socialGroup) {
+		if (socialGroup == null) {
+			throw new IllegalArgumentException();
+		}
+		List<SocialEntity> members = new ArrayList<SocialEntity>();
+		List<SocialElement> socialElements = socialGroup.getSocialElements();
+		for (SocialElement socialElement : socialElements) {
+
+			if (socialElement instanceof SocialEntity) {
+
+				members.add((SocialEntity) socialElement);
+
+			}
+		}
+		return members;
+	}
+
 	public final void switchState(int socialGroupId) {
 		SocialGroup sg = getSocialGroup(socialGroupId);
 		sg.setEnabled(!sg.isEnabled());

@@ -55,16 +55,18 @@
 			<forward name="success" path="CreateGroup" />
 		</action>
 		
-		<action path="/DisplayForModifyGroup" parameter="ModifyGroup"
-			type="org.apache.struts.actions.ForwardAction" />
+		<action path="/DisplayGroup"
+			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" name="CreateGroupForm"
+			scope="request" parameter="display">
+			<forward name="success" path="DisplayForModifyGroup" />
+		</action>
 
 		<action path="/ModifyGroup"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" name="CreateGroupForm"
-			parameter="modify" validate="true" input="ModifyGroup">
+			parameter="modify" validate="true" input="ModifyGroup" scope="request">
 			<forward name="success" path="GroupList" />
 		</action>
-
-
+		
 
 	</action-mappings>
 </struts-config>
