@@ -180,9 +180,13 @@ if (l1.options.selectedIndex>=0)
 	}
 else{
 	alert("Aucun membre sélectionnée");
+}	
 }
-
-function Valider(memberListLeft,groupListLeft){
+</script>
+<script type="text/javascript">
+function Valider(){
+	var memberListLeft = document.getElementsByName('memberListRight').item(0);
+	var groupListLeft = document.getElementsByName('groupListRight').item(0);
 	for ( var i = 0; i < memberListLeft.options.length; i++) {
 		memberListLeft.options[ i ].selected = "true";
 	}
@@ -192,9 +196,4 @@ function Valider(memberListLeft,groupListLeft){
 	}
 	return true;
 }
-
-	
-}
-
-	
 </script>
