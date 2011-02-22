@@ -3,11 +3,13 @@ package fr.univartois.ili.fsnet.admin.actions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +23,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
@@ -31,7 +34,6 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * Execute CRUD Actions (and more) for the entity SocialGroup
  * 
  * @author Bouragba mohamed
- * @author SAID Mohamed
  */
 public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	private static EntityManagerFactory factory = Persistence
@@ -97,7 +99,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		return mapping.findForward("success");
 	}
-
+	/** 
+	 * @author SAID Mohamed
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -176,15 +180,70 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
+	/** 
+	 * @author SAID Mohamed
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
+		EntityManager em = factory.createEntityManager();
+		em.getTransaction().begin();
+		TypedQuery<SocialGroup> query = null;
+		Set<SocialGroup> resultOthers = null;
+
+		if (form != null) {
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			String searchText = (String) dynaForm.get("searchText");
+			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+			resultOthers = socialGroupFacade.searchGroup(searchText);
+			em.getTransaction().commit();
+			em.close();
+			if (resultOthers != null) {
+				
+				List<SocialGroup> resultOthersList = new ArrayList<SocialGroup>( resultOthers);
+				//Collections.sort(resultOthersList);
+				Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
+						resultOthersList, request, "groupsList");
+				request.setAttribute("groupsListPaginator", paginator);
+			} else
+				request.setAttribute("groupsListPaginator", null);
+		} else {
+			query = em.createQuery("SELECT gs FROM SocialGroup gs ORDER BY gs.name,gs.description",
+					SocialGroup.class);
+			List<SocialGroup> resultOthersList = query.getResultList();
+			em.getTransaction().commit();
+			em.close();
+
+			Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
+					resultOthersList, request, "groupsList");
+
+			request.setAttribute("groupsListPaginator", paginator);
+		}
+
 		return mapping.findForward("success");
 	}
+	/** 
+	 * @author SAID Mohamed
+	 */
+	public ActionForward switchState(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
+		String GroupSelected = request.getParameter("groupSelected");
+		EntityManager em = factory.createEntityManager();
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+		em.getTransaction().begin();
+		int socialGroupId = Integer.parseInt(GroupSelected);
+		socialGroupFacade.switchState(socialGroupId);
+		em.getTransaction().commit();
+		em.close();
+
+		return mapping.findForward("success");
+	}
+	/** 
+	 * @author SAID Mohamed
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
