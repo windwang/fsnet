@@ -135,8 +135,8 @@ public class SocialGroupFacadeTest {
 		String description = "description";
 		em.getTransaction().begin();
 
-		SocialEntity masterGroup = sef.createSocialEntity("aaajgcfvjaa", "bjhvgbhjbbbbb",
-				"anjklnmb@email.com");
+		SocialEntity masterGroup = sef.createSocialEntity("aaajgcfvjaa",
+				"bjhvgbhjbbbbb", "anjklnmb@email.com");
 
 		em.getTransaction().commit();
 
@@ -150,6 +150,33 @@ public class SocialGroupFacadeTest {
 		assertNotNull(sg);
 
 		SocialGroup sgp = sgf.getSocialGroup(sg.getId());
+
+		assertNotNull(sgp);
+		assertEquals(sg, sgp);
+	}
+
+	@Test
+	public void testGetSocialGroupByName() {
+
+		String name = "ngdfgdnname4";
+		String description = "defgdgscription";
+		em.getTransaction().begin();
+
+		SocialEntity masterGroup = sef.createSocialEntity("aaajgcfgsdgdffgvjaa",
+				"bjhvgbhjbbgsdgdbgdfbb", "anjfgdfghsdklnmb@email.com");
+
+		em.getTransaction().commit();
+
+		em.getTransaction().begin();
+
+		SocialGroup sg = sgf.createSocialGroup(masterGroup, name, description,
+				new ArrayList<SocialElement>());
+
+		em.getTransaction().commit();
+
+		assertNotNull(sg);
+
+		SocialGroup sgp = sgf.findByName(name);
 
 		assertNotNull(sgp);
 		assertEquals(sg, sgp);
@@ -199,16 +226,16 @@ public class SocialGroupFacadeTest {
 
 		assertEquals(sg.getSocialElements().size(), 4);
 		assertEquals(sg, sgp);
-		
-		//suppression
-		
+
+		// suppression
+
 		em.getTransaction().begin();
 		for (SocialElement socialElement : socialElements) {
 			sgf.removeSocialElement(socialElement, sg);
 		}
 		sgp = em.find(SocialGroup.class, sg.getId());
 		em.getTransaction().commit();
-		
+
 		assertEquals(sg.getSocialElements().size(), 2);
 		assertEquals(sg, sgp);
 	}
@@ -228,8 +255,8 @@ public class SocialGroupFacadeTest {
 				"abc@email.com");
 		SocialGroup sg = sgf.createSocialGroup(masterGroup, name, description,
 				new ArrayList<SocialElement>());
-		SocialGroup sg2 = sgf.createSocialGroup(masterGroup, name2, description2,
-				new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(masterGroup, name2,
+				description2, new ArrayList<SocialElement>());
 		em.getTransaction().commit();
 
 		em.getTransaction().begin();
@@ -244,57 +271,10 @@ public class SocialGroupFacadeTest {
 		assertEquals(result2.size(), 1);
 		assertTrue(result2.contains(sg2));
 		assertNotNull(result3);
-		assert(result3.size() > 1 );
+		assert (result3.size() > 1);
 		assertTrue(result3.contains(sg));
 		assertTrue(result3.contains(sg2));
 
 	}
-
-	@Test
-	public void testSearchSocialEntitys() {
-		// TODO test the SerachSocialEntitys method
-	}
-	// @Test
-	// public void testAddInterest() {
-	// InterestFacade interestFacade = new InterestFacade(em);
-	// String interestName = "interest";
-	// String name = "ss";
-	// String firstName = "zz";
-	// String email = "sz@email.com";
-	// em.getTransaction().begin();
-	// SocialEntity es = sef.createSocialEntity(name, firstName, email);
-	// Interest interest = interestFacade.createInterest(interestName);
-	// sef.addInterest(interest, es);
-	// em.getTransaction().commit();
-	// assertEquals(1, es.getInterests().size());
-	// assertTrue(es.getInterests().contains(interest));
-	// }
-	//
-	// @Test
-	// public void testRemoveInterest() {
-	// InterestFacade interestFacade = new InterestFacade(em);
-	// String interestName = "fun";
-	// String name = "gg";
-	// String firstName = "kk";
-	// String email = "gk@email.com";
-	// em.getTransaction().begin();
-	// SocialEntity es = sef.createSocialEntity(name, firstName, email);
-	// Interest interest = interestFacade.createInterest(interestName);
-	// sef.addInterest(interest, es);
-	// sef.removeInterest(interest, es);
-	// em.getTransaction().commit();
-	// assertEquals(0, es.getInterests().size());
-	// assertTrue(!es.getInterests().contains(interest));
-	// }
-	//
-	// @Test
-	// public void testAddFavoriteInteraction() {
-	// // TODO test the SerachSocialEntitys method
-	// }
-	//
-	// @Test
-	// public void testRemoveFavoriteInteraction() {
-	// // TODO test the SerachSocialEntitys method
-	// }
 
 }

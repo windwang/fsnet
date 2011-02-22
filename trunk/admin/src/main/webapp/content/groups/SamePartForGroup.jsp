@@ -15,7 +15,7 @@
 		<td><label for="name"> <bean:message key="groups.name" />
 		</label></td>
 		<td colspan="3"><html:text property="name" styleId="name"
-			errorStyleClass="error" /></td>
+			errorStyleClass="error" /><html:hidden property="id" styleId="id" /></td>
 	</tr>
 
 	<tr class="errorMessage">
