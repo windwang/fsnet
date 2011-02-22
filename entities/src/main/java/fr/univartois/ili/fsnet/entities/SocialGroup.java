@@ -158,9 +158,10 @@ public class SocialGroup extends SocialElement implements Serializable {
 
 			return false;
 		}
-		if (!this.socialElements.equals(other.socialElements)) {
+		if (this.socialElements.size() != other.socialElements.size()) {
 			return false;
 		}
+		
 		return true;
 	}
 }
