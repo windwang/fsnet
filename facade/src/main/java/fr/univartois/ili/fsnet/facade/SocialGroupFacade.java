@@ -187,6 +187,27 @@ public class SocialGroupFacade {
 		return members;
 	}
 
+	public List<SocialGroup> AllParent(SocialGroup socialGroup) {
+
+		if (socialGroup == null) {
+			throw new IllegalArgumentException();
+		}
+		List<SocialGroup> groups = new ArrayList<SocialGroup>();
+		return getAllParent(socialGroup, groups);
+	}
+
+	private List<SocialGroup> getAllParent(SocialGroup socialGroup,
+			List<SocialGroup> groups) {
+
+		if (socialGroup.getGroup() == null) {
+			return groups;
+		} else {
+			groups.add(socialGroup.getGroup());
+			return getAllParent(socialGroup.getGroup(), groups);
+		}
+
+	}
+
 	public final void switchState(int socialGroupId) {
 		SocialGroup sg = getSocialGroup(socialGroupId);
 		sg.setEnabled(!sg.isEnabled());

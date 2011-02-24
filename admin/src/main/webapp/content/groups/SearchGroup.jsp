@@ -28,7 +28,7 @@
                 	</html:link>
                 </td>
                   <td class="tableButton">
-                  	<html:link action="/SwitchState" styleClass="button">
+                  	<html:link action="/SwitchStateGroup" styleClass="button">
                   		<html:param name="groupSelected" value="${group.id}"/>
                   	    <c:choose>
                   			<c:when test="${group.isEnabled}">

@@ -27,11 +27,9 @@
 			key="groups.description" /> </label></td>
 		<td colspan="3"><c:set var="welcomeMain">
 			<bean:message key="groups.description.message" />
-		</c:set>
-				<html:textarea property="description" styleId="description"
-					errorStyleClass="error" cols="36" rows="6">
-				</html:textarea>
-			</td>
+		</c:set> <html:textarea property="description" styleId="description"
+			errorStyleClass="error" cols="36" rows="6">
+		</html:textarea></td>
 	</tr>
 
 	<tr class="errorMessage">
@@ -65,7 +63,9 @@
 		<html:select property="memberListLeft" styleClass="select" size="5"
 			multiple="multiple">
 			<c:forEach var="socialEntity" items="${refusedMembers}">
+			<c:if test="${socialEntity.isEnabled}">
 				<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
+				</c:if>
 			</c:forEach>
 		</html:select></td>
 
@@ -101,7 +101,11 @@
 		<html:select property="groupListLeft" styleClass="select" size="5"
 			multiple="multiple">
 			<c:forEach var="socialGroup" items="${refusedGroups}">
-				<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
+
+				<c:if test="${socialGroup.isEnabled}">
+					<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
+				</c:if>
+
 			</c:forEach>
 		</html:select></td>
 
@@ -143,33 +147,34 @@ select {
 </style>
 
 <script type="text/javascript">
+	function Deplacer(l1, l2) {
 
-function Deplacer(l1,l2) {
-	
-if (l1.options.selectedIndex>=0)
-	for (var i = l1.options.length-1; i >=0 ; i--) {
-		if (l1.options[ i ].selected){
-			o=new Option(l1.options[i].text,l1.options[i].value);
-			l2.options[l2.options.length]=o;
-			l1.options[i]=null;
+		if (l1.options.selectedIndex >= 0)
+			for ( var i = l1.options.length - 1; i >= 0; i--) {
+				if (l1.options[i].selected) {
+					o = new Option(l1.options[i].text, l1.options[i].value);
+					l2.options[l2.options.length] = o;
+					l1.options[i] = null;
+				}
+			}
+		else {
+			alert("Aucun membre sélectionnée");
 		}
 	}
-else{
-	alert("Aucun membre sélectionnée");
-}	
-}
 </script>
 <script type="text/javascript">
-function Valider(){
-	var memberListLeft = document.getElementsByName('memberListRight').item(0);
-	var groupListLeft = document.getElementsByName('groupListRight').item(0);
-	for ( var i = 0; i < memberListLeft.options.length; i++) {
-		memberListLeft.options[ i ].selected = "true";
+	function Valider() {
+		var memberListLeft = document.getElementsByName('memberListRight')
+				.item(0);
+		var groupListLeft = document.getElementsByName('groupListRight')
+				.item(0);
+		for ( var i = 0; i < memberListLeft.options.length; i++) {
+			memberListLeft.options[i].selected = "true";
+		}
+
+		for ( var i = 0; i < groupListLeft.options.length; i++) {
+			groupListLeft.options[i].selected = "true";
+		}
+		return true;
 	}
-	
-	for ( var i = 0; i < groupListLeft.options.length; i++) {
-		groupListLeft.options[ i ].selected = "true";
-	}
-	return true;
-}
 </script>
