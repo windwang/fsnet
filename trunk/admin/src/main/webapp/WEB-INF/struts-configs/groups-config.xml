@@ -87,7 +87,7 @@
 			<forward name="errors" path="/ErrorModifyGroup.do" />
 		</action>
 
-		<action path="/SwitchState" scope="request"
+		<action path="/SwitchStateGroup" scope="request"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageGroups" parameter="switchState">
 			<forward name="success" path="/GroupList.do" />
 		</action>

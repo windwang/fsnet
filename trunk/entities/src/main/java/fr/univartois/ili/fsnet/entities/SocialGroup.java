@@ -75,13 +75,12 @@ public class SocialGroup extends SocialElement implements Serializable {
 
 	}
 
-	// public SocialGroup(SocialEntity masterGroup, SocialEntity creator,
 	public SocialGroup(SocialEntity masterGroup, String name, String description) {
 		if (masterGroup == null || name == null) {
 			throw new IllegalArgumentException();
 		}
 		this.isEnabled = true;
-		// this.creator = creator;
+
 		this.masterGroup = masterGroup;
 		this.name = name;
 		this.description = description;
@@ -94,7 +93,26 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	public void setSocialElements(List<SocialElement> socialElements) {
+		for (SocialElement socialElement : this.socialElements) {
+			socialElement.setGroup(null);
+		}
+		for (SocialElement socialElement : socialElements)
+			socialElement.setGroup(this);
 		this.socialElements = socialElements;
+	}
+
+	public void addSocialElements(SocialElement socialElement) {
+		if (!this.socialElements.contains(socialElement)) {
+			socialElement.setGroup(this);
+			this.socialElements.add(socialElement);
+		}
+	}
+
+	public void removeSocialElements(SocialElement socialElement) {
+		if (this.socialElements.contains(socialElement)) {
+			socialElement.setGroup(null);
+			this.socialElements.remove(socialElement);
+		}
 	}
 
 	public SocialEntity getMasterGroup() {
@@ -161,7 +179,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 		if (this.socialElements.size() != other.socialElements.size()) {
 			return false;
 		}
-		
+
 		return true;
 	}
 }
