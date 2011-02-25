@@ -42,7 +42,7 @@ public class InfoTest {
 		WebResource webResource = client.resource(ENDPOINT + "/messages/unread");
 		
 		List<RestPrivateMessage> messages = webResource.accept(MediaType.APPLICATION_JSON) //
-				.entity(new AuthInfo(LOGIN, PASSWORD), MediaType.APPLICATION_JSON)//
+				.entity(new AuthInfo(LOGIN, PASSWORD,10), MediaType.APPLICATION_JSON)//
 				.type(MediaType.APPLICATION_JSON)//
 				.post(new GenericType<List<RestPrivateMessage>>(){});
 		
@@ -58,7 +58,7 @@ public class InfoTest {
 		WebResource webResource = client.resource(ENDPOINT + "/meetings/new");
 		
 		List<RestAnnouncement> meetings = webResource.accept(MediaType.APPLICATION_JSON) //
-				.entity(new AuthInfo(LOGIN, PASSWORD), MediaType.APPLICATION_JSON)//
+				.entity(new AuthInfo(LOGIN, PASSWORD,10), MediaType.APPLICATION_JSON)//
 				.type(MediaType.APPLICATION_JSON)//
 				.post(new GenericType<List<RestAnnouncement>>(){});
 		System.out.println("Nouveaux meetings :"+meetings.size());
@@ -77,7 +77,7 @@ public class InfoTest {
 		WebResource webResource = client.resource(ENDPOINT + "/announcements/new");
 		
 		List<RestAnnouncement> meetings = webResource.accept(MediaType.APPLICATION_JSON) //
-				.entity(new AuthInfo(LOGIN, PASSWORD), MediaType.APPLICATION_JSON)//
+				.entity(new AuthInfo(LOGIN, PASSWORD,10), MediaType.APPLICATION_JSON)//
 				.type(MediaType.APPLICATION_JSON)//
 				.post(new GenericType<List<RestAnnouncement>>(){});
 		System.out.println("Nouvelles annonces:"+meetings.size());
