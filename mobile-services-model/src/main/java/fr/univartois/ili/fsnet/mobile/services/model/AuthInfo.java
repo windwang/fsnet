@@ -10,11 +10,14 @@ public class AuthInfo {
 	
 	private String password;
 	
+	private int delay;
+	
 	public AuthInfo() {}
 	
-	public AuthInfo(String login, String password) {
+	public AuthInfo(String login, String password, int delay) {
 		this.login = login;
 		this.password = password;
+		this.setDelay(delay);
 	}
 
 	public String getLogin() {
@@ -36,6 +39,14 @@ public class AuthInfo {
 	@Override
 	public String toString() {
 		return "AuthInfo [login=" + login + ", password=" + password + "]";
+	}
+
+	public void setDelay(int delay) {
+		this.delay = delay;
+	}
+
+	public int getDelay() {
+		return delay;
 	}
 	
 }

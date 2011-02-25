@@ -47,7 +47,7 @@ public class Announcements {
 	@Produces(MediaType.APPLICATION_JSON)
 	public GenericEntity<List<RestAnnouncement>> getNewAnnouncements(AuthInfo authInfo) {
 		Logger.getAnonymousLogger().info(authInfo.toString());
-		int decalage = 10;
+		int decalage = authInfo.getDelay();
 		Date d = new Date();
 		Date e = new Date(d.getTime()- decalage*60000);
 		List<RestAnnouncement> announcements = new ArrayList<RestAnnouncement>();
