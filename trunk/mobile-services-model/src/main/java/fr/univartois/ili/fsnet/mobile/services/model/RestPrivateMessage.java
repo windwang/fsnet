@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.mobile.services.model;
 
-import fr.univartois.ili.fsnet.entities.PrivateMessage;
 
 public class RestPrivateMessage {
 
@@ -9,13 +8,6 @@ public class RestPrivateMessage {
 	private int messageId;
 
 	public RestPrivateMessage() {
-	}
-
-	public RestPrivateMessage(PrivateMessage message) {
-		this.subject = message.getSubject();
-		this.from = message.getFrom().getName() + " "
-				+ message.getFrom().getFirstName();
-		this.messageId = message.getId();
 	}
 
 	public void setFrom(String from) {
