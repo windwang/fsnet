@@ -28,6 +28,7 @@
 		<module>mockDB</module>
 		<module>assembler</module>
 		<module>mobile-services-model</module>
+		<module>mobile-services-client</module>
 	</modules>
 
 	<properties>
