@@ -59,7 +59,15 @@ public class Announcements {
 							Announcement.class);
 			announceQuery.setParameter(1, e);
 			for (Announcement announce : announceQuery.getResultList()) {
-				announcements.add(new RestAnnouncement(announce));
+				
+				RestAnnouncement restAnnouncement = new RestAnnouncement();
+				
+				String from = announce.getCreator().getName() + " " + announce.getCreator().getFirstName();
+				restAnnouncement.setFrom(from);
+				restAnnouncement.setMeetingId(announce.getId());
+				restAnnouncement.setTitle(announce.getTitle());
+				
+				announcements.add(restAnnouncement);
 			}
 		}
 		return new GenericEntity<List<RestAnnouncement>>(announcements){};

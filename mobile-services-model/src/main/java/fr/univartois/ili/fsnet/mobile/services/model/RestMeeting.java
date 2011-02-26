@@ -2,13 +2,13 @@ package fr.univartois.ili.fsnet.mobile.services.model;
 
 
 
-public class RestAnnouncement {
+public class RestMeeting {
 
 	private String title;
 	private String from;
 	private int meetingId;
 
-	public RestAnnouncement() {
+	public RestMeeting() {
 	}
 
 	@Override

@@ -21,6 +21,7 @@ import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.mobile.services.model.AuthInfo;
 import fr.univartois.ili.fsnet.mobile.services.model.RestAnnouncement;
+import fr.univartois.ili.fsnet.mobile.services.model.RestMeeting;
 
 @Resource
 @Path("/meetings")
@@ -45,12 +46,12 @@ public class Meetings {
 	@Path("/new")
 	@Consumes(MediaType.APPLICATION_JSON)
 	@Produces(MediaType.APPLICATION_JSON)
-	public GenericEntity<List<RestAnnouncement>> getNewEvents(AuthInfo authInfo) {
+	public GenericEntity<List<RestMeeting>> getNewEvents(AuthInfo authInfo) {
 		Logger.getAnonymousLogger().info(authInfo.toString());
 		int decalage = authInfo.getDelay();
 		Date d = new Date();
 		Date e = new Date(d.getTime()- decalage*60000);
-		List<RestAnnouncement> meetings = new ArrayList<RestAnnouncement>();
+		List<RestMeeting> meetings = new ArrayList<RestMeeting>();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		if (sef.isMember(authInfo.getLogin(), authInfo.getPassword())) {
 			TypedQuery<Meeting> meetingQuery = em
@@ -59,9 +60,17 @@ public class Meetings {
 							Meeting.class);
 			meetingQuery.setParameter(1, e);
 			for (Meeting meeting : meetingQuery.getResultList()) {
-				meetings.add(new RestAnnouncement(meeting));
+				
+				RestMeeting restMeeting = new RestMeeting();
+				
+				String from = meeting.getCreator().getName() + " " + meeting.getCreator().getFirstName();
+				restMeeting.setFrom(from);
+				restMeeting.setMeetingId(meeting.getId());
+				restMeeting.setTitle(meeting.getTitle());
+				
+				meetings.add(restMeeting);
 			}
 		}
-		return new GenericEntity<List<RestAnnouncement>>(meetings){};
+		return new GenericEntity<List<RestMeeting>>(meetings){};
 	}
 }

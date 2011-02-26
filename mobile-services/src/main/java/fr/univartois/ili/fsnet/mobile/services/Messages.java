@@ -56,7 +56,14 @@ public class Messages {
 							PrivateMessage.class);
 			messageQuery.setParameter("member", se);
 			for (PrivateMessage message : messageQuery.getResultList()) {
-				messages.add(new RestPrivateMessage(message));
+				RestPrivateMessage restPrivateMessage = new RestPrivateMessage();
+				
+				String from = message.getFrom().getName() + " " + message.getFrom().getFirstName();
+				restPrivateMessage.setFrom(from);
+				restPrivateMessage.setMessageId(restPrivateMessage.getMessageId());
+				restPrivateMessage.setSubject(message.getSubject());
+				
+				messages.add(restPrivateMessage);
 			}
 		}
 		return new GenericEntity<List<RestPrivateMessage>>(messages){};
