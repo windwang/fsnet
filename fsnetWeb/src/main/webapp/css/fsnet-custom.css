@@ -540,16 +540,16 @@ tr.notReed {
     padding: 3px;
 }
 
-.mapCanvas {
+#mapCanvas {
 	height: 250px;
 	width:  100%;
-	visibility: hidden;
-	
 }
 
-.geolocalisationInfo{
-	width: 27%;
+#geolocalisation {
+	width: 212px;
     text-align: left;
     float: right;
     padding: 3px;
+    visibility: hidden;
 }
+

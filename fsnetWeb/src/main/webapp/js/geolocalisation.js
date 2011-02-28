@@ -1,4 +1,6 @@
-/* variables globales */
+/* need jquery*/
+
+/* global variables */
 var directionDisplay;
 var directionsService;
 var map;
@@ -45,13 +47,35 @@ function putOnMapEvent(addr) {
 			if (navigator.geolocation) {
 				navigator.geolocation.getCurrentPosition(leadVisitorToEvent);
 			}
-		
-			document.getElementById("mapCanvas").style.visibility = "visible"; 
+			document.getElementById("geolocalisation").style.visibility = "visible"; 
+			changeLinkToGoogleMapWithAddr(addr);
 		} else {
-	
-			document.getElementById("mapCanvas").style.visibility = "hidden"; 
+			document.getElementById("geolocalisation").style.visibility = "hidden"; 
 		}
 	});
+}
+
+/* */
+function changeLinkToGoogleMapWithAddr(addr){
+	var link = "http://maps.google.fr/maps?q="+addr.trim();
+	link=link.replace(/ /g,"%20" );
+	
+	if ($('a[name="linktogooglemap"]')) {
+		$('a[name="linktogooglemap"]').attr('href', link);
+	}
+}
+
+/* */
+function changeLinkToGoogleMapWithRoute(startLat, startLng, endAddr){
+	var link = "http://maps.google.fr/maps?";
+	var start="f=d&source=s_d&saddr="+startLat+","+startLng;
+	var end = "&daddr="+endAddr.trim();
+	link+=start+end;
+	link=link.replace(/ /g,"%20" );
+	
+	if ($('a[name="linktogooglemap"]')) {
+		$('a[name="linktogooglemap"]').attr('href', link);
+	}
 }
 
 /* */
@@ -72,7 +96,17 @@ function leadVisitorToEvent(position) {
 	};
 	directionsService.route(requeteItineraire, function(response, status) {
 		if (status == google.maps.DirectionsStatus.OK) {
-			directionsDisplay.setDirections(response);
+			directionsDisplay.setDirections(response);	
+			changeLinkToGoogleMapWithRoute(position.coords.latitude, position.coords.longitude, end);
+		}else{
+			var coordinates = new google.maps.LatLng(
+					position.coords.latitude,
+					position.coords.longitude);
+			var marker = new google.maps.Marker({
+				position : coordinates
+			});
+			marker.setMap(map);
+			map.setZoom(0);
 		}
 	});
 }
