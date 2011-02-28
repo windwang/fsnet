@@ -19,13 +19,17 @@ public class GeolocalisationTag extends SimpleTagSupport {
 		String addr = address.getAddress();
 		String city = address.getCity();
 
-		out.println("<div id='mapCanvas' class='mapCanvas'></div>");
+		out.println("<div id='geolocalisation' >");
+		out.println("<div id='mapCanvas'></div>");
 		String value = "";
 		if (addr.isEmpty() == false || city.isEmpty() == false) {
 			value += addr + " " + city;
 		}
 		out.println("<input id='address' type='hidden' value=' " + value
-				+ "'></div>");
+				+ "'></input>");
+		
+		out.println("<a name='linktogooglemap' href=''>google map</a>");
+		out.println("</div>");
 
 		out.println("<script type='text/javascript'> document.onload = initializeGeolocalisation(); </script>");
 
