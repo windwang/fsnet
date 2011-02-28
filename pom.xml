@@ -19,6 +19,7 @@
 	<modules>
 		<module>entities</module>
 		<module>admin</module>
+		<module>androidDesktop</module>
 		<module>facade</module>
 		<module>fsnetWeb</module>
 		<module>webservice</module>
