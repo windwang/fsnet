@@ -49,7 +49,7 @@
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
 			name="DeleteCommunityForm" input="UnauthorizedOperationException" scope="request" validate="true" 
 			parameter="delete">
-			<forward name="success" path="/SearchCommunity.do" />
+			<forward name="success" path="/Communities.do" />
 		</action>
 		<action path="/DisplayCreateCommunity"
 			type="org.apache.struts.actions.ForwardAction" 
