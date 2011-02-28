@@ -6,12 +6,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
+
+<c:if test="${not empty KEY_FACEBOOK}">
 <h3>
     <bean:message key="updateProfile.importData.title"/>
 </h3>
-
-
-<c:if test="${not empty KEY_FACEBOOK}">
 <div id="fb-root"></div>
 	<script src="http://connect.facebook.net/fr_FR/all.js"></script>
 	<script src="js/facebook.js"></script>
