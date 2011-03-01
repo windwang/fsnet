@@ -12,8 +12,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <table id="CreateGroup">
 	<tr>
-		<td><label for="name"> <bean:message key="groups.name" />
-		</label></td>
+		<td>
+			<label for="name"> <bean:message key="groups.name" /> :
+			</label>
+		</td>
 		<td colspan="3"><html:text property="name" styleId="name"
 			errorStyleClass="error" /><html:hidden property="id" styleId="id" /></td>
 	</tr>
@@ -23,13 +25,17 @@
 	</tr>
 
 	<tr>
-		<td><label for="description"> <bean:message
-			key="groups.description" /> </label></td>
-		<td colspan="3"><c:set var="welcomeMain">
-			<bean:message key="groups.description.message" />
-		</c:set> <html:textarea property="description" styleId="description"
-			errorStyleClass="error" cols="36" rows="6">
-		</html:textarea></td>
+		<td>
+			<label for="description"> <bean:message	key="groups.description" /> :</label>
+		</td>
+		<td colspan="3">
+			<c:set var="welcomeMain">
+				<bean:message key="groups.description.message" /> :
+			</c:set> 
+			<html:textarea property="description" styleId="description"
+				errorStyleClass="error" cols="36" rows="6">
+			</html:textarea>
+		</td>
 	</tr>
 
 	<tr class="errorMessage">
@@ -37,8 +43,10 @@
 	</tr>
 
 	<tr>
-		<td><label for="socialEntityId"> <bean:message
-			key="groups.owner" /> </label></td>
+		<td>
+			<label for="socialEntityId"> <bean:message key="groups.owner" /> : 
+			</label>
+		</td>
 		<td colspan="3"><html:select property="socialEntityId"
 			styleClass="select" value="${ masterGroup.id }">
 			<html:option value="" disabled="true">

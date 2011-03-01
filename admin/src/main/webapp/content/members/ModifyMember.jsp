@@ -23,77 +23,103 @@
 
 		</tr>
 		<tr>
-			<td><label for="name"> <bean:message key="members.name" />
-			</label> <html:hidden property="id" /></td>
-			<td><html:text property="name" styleId="name"
-				errorStyleClass="error" /></td>
+			<td>
+				<label for="name"> <bean:message key="members.name" /> :
+				</label> 
+				<html:hidden property="id" />
+			</td>
+			<td>
+				<html:text property="name" styleId="name" errorStyleClass="error" />
+			</td>
 		</tr>
 
 		<tr>
-			<td><label for="firstName"> <bean:message
-				key="members.firstName" /> </label></td>
-			<td><html:text property="firstName" styleId="firstName"
-				errorStyleClass="error" /></td>
+			<td>
+				<label for="firstName"> <bean:message key="members.firstName" /> :</label>
+			</td>
+			<td>
+				<html:text property="firstName" styleId="firstName"	errorStyleClass="error" />
+			</td>
 		</tr>
 
 		<tr>
-			<td><label for="email"> <bean:message
-				key="members.email" /> </label></td>
-			<td><html:text property="email" styleId="email"
-				errorStyleClass="error" /></td>
+			<td>
+				<label for="email"> <bean:message key="members.email" /> :</label>
+			</td>
+			<td>
+				<html:text property="email" styleId="email" errorStyleClass="error" />
+			</td>
 		</tr>
 
 		<tr>
-			<td><label for="address"> <bean:message
-				key="members.address" /> </label></td>
-			<td><html:textarea errorStyleClass="error" property="address"
-				styleId="address" /></td>
+			<td>
+				<label for="address"> <bean:message	key="members.address" /> :</label>
+			</td>
+			<td>
+				<html:textarea errorStyleClass="error" property="address" styleId="address" />
+			</td>
 		</tr>
 		<tr>
-			<td><label for="city"> <bean:message
-				key="members.city" /> </label></td>
+			<td>
+				<label for="city"> <bean:message key="members.city" /> :</label>
+			</td>
 			<td><html:text errorStyleClass="error" property="city"
-				styleId="city" /></td>
+				styleId="city" />
+			</td>
 		</tr>
 		<c:set var="formatBirthDay">
 			<bean:write name="ModifyMemberForm" property="birthDay"
 				format="dd/MM/yyyy" />
 		</c:set>
 		<tr>
-			<td><label for="birthDay"> <bean:message
-				key="members.birthDay" /> </label></td>
-			<td><html:text errorStyleClass="error" styleId="birthDay"
-				property="formatBirthDay" value="${formatBirthDay}">
-			</html:text></td>
+			<td>
+				<label for="birthDay"> <bean:message key="members.birthDay" /> :</label>
+			</td>
+			<td>
+				<html:text errorStyleClass="error" styleId="birthDay" property="formatBirthDay" value="${formatBirthDay}">
+				</html:text>
+			</td>
 		</tr>
 
 
 		<tr>
-			<td><label for="sexe"> <bean:message key="members.sexe" />
-			</label></td>
-			<td><html:select property="sexe">
+			<td>
+				<label for="sexe"> <bean:message key="members.sexe" /> :
+				</label>
+			</td>
+			<td>
+				<html:select property="sexe">
 				<html:option value="male"><bean:message key="members.sexe.Male" /></html:option>
 				<html:option value="female"><bean:message key="members.sexe.Female" /></html:option>
 			</html:select></td>
 		</tr>
 
 		<tr>
-			<td><label for="job"> <bean:message key="members.job" />
-			</label></td>
-			<td><html:text errorStyleClass="error" property="job"
-				styleId="job" /></td>
+			<td>
+				<label for="job"> <bean:message key="members.job" /> :
+				</label>
+			</td>
+			<td>
+				<html:text errorStyleClass="error" property="job"
+				styleId="job" />
+			</td>
 		</tr>
 
 		<tr>
-			<td><label for="phone"> <bean:message
-				key="members.phone" /> </label></td>
-			<td><html:text errorStyleClass="error" property="phone" /></td>
+			<td>
+				<label for="phone"> <bean:message key="members.phone" /> :</label>
+			</td>
+			<td>
+				<html:text errorStyleClass="error" property="phone" />
+			</td>
 		</tr>
 
 		<tr>
-			<td colspan="2"><html:submit styleClass="button">
-				<bean:message key="members.modifyUpdate" />
-			</html:submit></td>
+			<td colspan="2">
+				<html:submit styleClass="button">
+					<bean:message key="members.modifyUpdate" />
+				</html:submit>
+			</td>
 		</tr>
 	</table>
 </html:form>

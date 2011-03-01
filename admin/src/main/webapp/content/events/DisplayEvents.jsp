@@ -25,7 +25,7 @@
 </html:form>
 
 <h3>
-    <bean:message key="events.9"/> :
+    <bean:message key="events.9"/>
 </h3>
 
 <c:choose>
