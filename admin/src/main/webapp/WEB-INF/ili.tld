@@ -29,4 +29,15 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<description>Add some tag to display a google map</description>
+		<name>map</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.GeolocalisationTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>address</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

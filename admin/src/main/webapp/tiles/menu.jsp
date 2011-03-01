@@ -44,6 +44,11 @@
         </html:link>
     </li>
     <li>
+        <html:link action="/Events" styleClass="${currentMenu == 'Events' ? 'current' : ''}">
+            <bean:message key="menu.5"/>
+        </html:link>
+    </li>
+    <li>
     	<html:link action="/Interests" styleClass="${currentMenu == 'Interests' ? 'current' : ''}">
     		<bean:message key="menu.2"/>
     	</html:link>
