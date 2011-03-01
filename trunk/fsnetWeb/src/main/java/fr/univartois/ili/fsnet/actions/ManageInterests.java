@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -21,6 +22,7 @@ import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -39,7 +41,23 @@ public class ManageInterests extends MappingDispatchAction implements
         CrudAction {
 
     private static final Logger logger = Logger.getAnonymousLogger();
+    
+    public Interest creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,Interest interest,EntityManager em,HttpServletRequest request){
+        if (dynaForm.get("parentInterestId") != null
+                && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+            interest=facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
+        } else {
+        	interest=facade.createInterest(interestName); 
+        }
 
+        return interest;
+        
+    }
+    
+    private void addKeyFacebookInRequest(HttpServletRequest request, HttpServletResponse response){
+		request.setAttribute("KEY_FACEBOOK", FacebookKeyManager.getKeyFacebook());
+	}
+    
     @Override
     public ActionForward create(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
@@ -48,23 +66,36 @@ public class ManageInterests extends MappingDispatchAction implements
         DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
         InterestFacade facade = new InterestFacade(em);
         String interestName = (String) dynaForm.get("createdInterestName");
+        String interestNameTmp[];
+        List<Interest> mesInterets=new LinkedList<Interest>();
 
         logger.info("new interest: " + interestName);
 
         try {
         	Interest interest=null;
-            em.getTransaction().begin();
-            if (dynaForm.get("parentInterestId") != null
-                    && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-                facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
-            } else {
-            	interest=facade.createInterest(interestName); 
+        	em.getTransaction().begin();
+            if(interestName.contains(";")){
+            	interestNameTmp=interestName.split(";");
+            	for(String myInterestName : interestNameTmp){
+                	interest=null;
+            		interest=creation(dynaForm,facade,myInterestName,interest,em,request);
+                	mesInterets.add(interest);
+            	}
+            }else{
+            	interest=creation(dynaForm,facade,interestName,interest,em,request);
             }
             em.getTransaction().commit();    
-            
-            if(interest!=null){
-            	addInterestToCurrentUser(request, em, interest.getId());
+        	em.getTransaction().begin();
+            if(interestName.contains(";")){
+            	for(Interest unInteret : mesInterets){
+            		addInterestToCurrentUser(request, em, unInteret.getId());
+            	}
+            }else{
+            	if(interest!=null){
+            		addInterestToCurrentUser(request, em, interest.getId());
+            	}
             }
+            em.getTransaction().commit();    
             
         } catch (RollbackException ex) {
             ActionErrors actionErrors = new ActionErrors();
@@ -86,8 +117,9 @@ public class ManageInterests extends MappingDispatchAction implements
         EntityManager em = PersistenceProvider.createEntityManager();
         DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
         int interestId = Integer.valueOf((String) dynaForm.get("addedInterestId"));
-
+        em.getTransaction().begin();
         addInterestToCurrentUser(request, em, interestId);
+        em.getTransaction().commit();
         em.close();
         ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
         redirect.addParameter("infoInterestId", interestId);
@@ -112,9 +144,7 @@ public class ManageInterests extends MappingDispatchAction implements
                     + user.getName() + " " + user.getFirstName() + " "
                     + user.getId());
 
-            em.getTransaction().begin();
             facadeSE.addInterest(interest, user);
-            em.getTransaction().commit();
         }
 	}
 
@@ -191,7 +221,8 @@ public class ManageInterests extends MappingDispatchAction implements
         EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         InterestFacade facade = new InterestFacade(em);
-
+        
+		addKeyFacebookInRequest( request,response);
 
         List<Interest> listAllInterests = facade.getInterests();
         List<Interest> listNonAssociatedInterests = facade.getNonAssociatedInterests(user);

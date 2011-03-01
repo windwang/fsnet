@@ -25,14 +25,10 @@
             <field property="tileId" depends=""/>
         </form>
         <form name="/CreateInterest">
-            <field property="createdInterestName" depends="required,mask,maxlength">
+            <field property="createdInterestName" depends="required,mask">
 		        <var>
 		        	<var-name>mask</var-name>
-		        	<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
-		        </var>
-		        <var>
-		        	<var-name>maxlength</var-name>
-		        	<var-value>30</var-value>
+		        	<var-value>^[\w, \.!:?+*;\(\)\[\]'-]+$</var-value>
 		        </var>
 				<arg0 key="error.interest.create" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
