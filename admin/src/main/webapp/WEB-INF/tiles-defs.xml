@@ -139,6 +139,19 @@
 		<put name="currentMenu" value="Configuration" />
 		<put name="body-content" value="/content/configuration/Configure.jsp" />
 	</definition>
+	
+	<!-- Announces -->
+    <definition name="Announces" extends=".defaultLayout">
+        <put name="title" value="pageTitle.8"/>
+        <put name="currentMenu" value="Announces"/>
+        <put name="body-content" value="/content/announces/Announces.jsp" />
+    </definition>
+    <definition name="DisplayAnnounce" extends=".defaultLayout">
+        <put name="title" value="pageTitle.11"/>
+        <put name="currentMenu" value="Announces"/>
+        <put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
+    </definition>
+	
 
 
 </tiles-definitions>

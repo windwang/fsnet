@@ -24,7 +24,8 @@
 	-->
 	<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
 		<set-property property="pathnames"
-			value="/org/apache/struts/validator/validator-rules.xml,                      
+			value="/org/apache/struts/validator/validator-rules.xml,
+											/WEB-INF/struts-configs/announces-validator.xml,                    
                       /WEB-INF/struts-configs/interests-validator.xml,
                       /WEB-INF/struts-configs/profile-validator.xml,                     
                       /WEB-INF/struts-configs/members-validator.xml,

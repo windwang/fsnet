@@ -213,3 +213,16 @@ input[type="text"][class="error"], textarea[class="error"] {
     background: url(../images/menu2.gif) no-repeat center bottom;
 }
 
+/*interaction display*/
+.interactionDisplay {
+    float: left;
+    width: 68%;
+    background-color: #ecf8ff;
+    padding: 3px;
+    margin-right: 10px;
+}
+
+.interactionDisplay img {
+    max-width: 100%;
+}
+
