@@ -34,7 +34,7 @@
 		</div>
 		<div class="clear"></div>
 		<ul id="facebook_user_data">
-			
+
 		</ul>
 	</div>
 	<div class="clear"></div>
@@ -88,7 +88,7 @@
             <td>
                 <label for="adress">
                     <bean:message key="updateProfile.adress"/> :
-                </label>
+                </label>j'ai ajouté le : dans les caractères autorisés
             </td>
             <td>
                 <html:text errorStyleClass="error" property="adress"  styleId="adress"/>
