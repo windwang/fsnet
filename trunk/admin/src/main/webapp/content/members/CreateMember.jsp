@@ -13,7 +13,7 @@
 		<tr>
 			<td>
 				<label for="name"> 
-					<bean:message key="members.name" />
+					<bean:message key="members.name" /> :
 				</label>
 			</td>
 			<td>
@@ -28,7 +28,7 @@
 		<tr>
 			<td>
 				<label for="firstName"> 
-					<bean:message key="members.firstName" /> 
+					<bean:message key="members.firstName" /> : 
 				</label>
 			</td>
 			<td>
@@ -43,7 +43,7 @@
 		<tr>
 			<td>
 				<label for="email"> 
-					<bean:message key="members.email" /> 
+					<bean:message key="members.email" /> :
 				</label>
 			</td>
 			<td>
@@ -58,7 +58,7 @@
 		<tr>
 			<td>
 				<label for="generatePassword"> 
-					<bean:message key="members.generatePassword" /> 
+					<bean:message key="members.generatePassword" /> :
 				</label>
 			</td>
 			<td>
@@ -68,7 +68,7 @@
 		<tr>
 			<td>
 				<label for="definePassword"> 
-					<bean:message key="members.definePassword" />  
+					<bean:message key="members.definePassword" /> :  
 				</label>
 			</td>
 			<td>
