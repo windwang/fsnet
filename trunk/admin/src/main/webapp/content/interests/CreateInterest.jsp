@@ -8,6 +8,7 @@
 <h3><bean:message key="interests.3"/></h3>
 <html:javascript formName="/CreateInterest"/>
 <html:form action="/CreateInterest">
+	<bean:message key="interests.18"/><br/>
 	<bean:message key="interests.15"/>
 	<html:select property="parentInterestId" styleClass="select">
 		<html:option value=""><bean:message key="interests.8"/></html:option>

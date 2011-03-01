@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -23,6 +24,7 @@ import org.apache.struts.actions.MappingDispatchAction;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
@@ -39,6 +41,16 @@ public class ManageInterests extends MappingDispatchAction implements
 			.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
+	 public void creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,EntityManager em,HttpServletRequest request){
+	        if (dynaForm.get("parentInterestId") != null
+	                && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+	            facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
+	        } else {
+	        	facade.createInterest(interestName); 
+	        }
+
+	    }
+	
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -47,26 +59,28 @@ public class ManageInterests extends MappingDispatchAction implements
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 		String interestName = (String) dynaForm.get("createdInterestName");
-
+		String[] interestNameTmp;
+		
 		logger.info("new interest: " + interestName);
 
 		try {
-			em.getTransaction().begin();
-			if (dynaForm.get("parentInterestId") != null
-					&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-				facade.createInterest(interestName, Integer
-						.valueOf((String) dynaForm.get("parentInterestId")));
-			} else {
-				facade.createInterest(interestName);
-			}
-
-			em.getTransaction().commit();
-		} catch (RollbackException ex) {
-			ActionErrors actionErrors = new ActionErrors();
-			ActionMessage msg = new ActionMessage("interest.alreadyExists");
-			actionErrors.add("createdInterestName", msg);
-			saveErrors(request, actionErrors);
-		}
+        	em.getTransaction().begin();
+            if(interestName.contains(";")){
+            	interestNameTmp=interestName.split(";");
+            	for(String myInterestName : interestNameTmp){
+            		creation(dynaForm,facade,myInterestName,em,request);
+            	}
+            }else{
+            	creation(dynaForm,facade,interestName,em,request);
+            }
+            em.getTransaction().commit();    
+            
+        } catch (RollbackException ex) {
+            ActionErrors actionErrors = new ActionErrors();
+            ActionMessage msg = new ActionMessage("interest.alreadyExists");
+            actionErrors.add("createdInterestName", msg);
+            saveErrors(request, actionErrors);
+        }
 
 		em.close();
 		dynaForm.set("createdInterestName","");
