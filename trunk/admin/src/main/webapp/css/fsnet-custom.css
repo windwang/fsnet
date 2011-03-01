@@ -226,3 +226,15 @@ input[type="text"][class="error"], textarea[class="error"] {
     max-width: 100%;
 }
 
+#mapCanvas {
+	height: 250px;
+	width:  100%;
+}
+
+#geolocalisation {
+	width: 193px;
+    text-align: left;
+    float: right;
+    padding: 3px;
+    visibility: hidden;
+}

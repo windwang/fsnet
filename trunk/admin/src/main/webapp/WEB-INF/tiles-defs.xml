@@ -152,6 +152,16 @@
         <put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
     </definition>
 	
-
-
+	<!-- Events -->
+    <definition name="Events" extends=".defaultLayout">
+        <put name="title" value="pageTitle.1"/>
+        <put name="body-content" value="/content/events/DisplayEvents.jsp" />
+        <put name="currentMenu" value="Events"/>
+    </definition>
+    <definition name="DisplayEvent" extends=".defaultLayout">
+        <put name="title" value="pageTitle.1"/>
+        <put name="currentMenu" value="Events"/>
+        <put name="body-content" value="/content/events/DisplayEvent.jsp" />
+    </definition>
+	
 </tiles-definitions>
