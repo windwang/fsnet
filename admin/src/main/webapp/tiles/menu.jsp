@@ -33,13 +33,16 @@
     		<bean:message key="menu.1"/>
     	</html:link>
     </li>
-    
     <li>
     	<html:link action="/GroupList" styleClass="${currentMenu == 'Groups' ? 'current' : ''}">
     		<bean:message key="menu.10"/>
     	</html:link>
     </li>
-    
+    <li>
+        <html:link action="/Announces" styleClass="${currentMenu == 'Announces' ? 'current' : ''}">
+            <bean:message key="menu.4"/>
+        </html:link>
+    </li>
     <li>
     	<html:link action="/Interests" styleClass="${currentMenu == 'Interests' ? 'current' : ''}">
     		<bean:message key="menu.2"/>
