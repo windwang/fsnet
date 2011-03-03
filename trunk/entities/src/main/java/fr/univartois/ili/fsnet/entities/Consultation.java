@@ -99,6 +99,8 @@ public class Consultation extends Interaction {
 		this.description = description;
 		this.type = type;
 		limitChoicesPerParticipant = "F";
+		limitChoicesPerParticipantMin = 1;
+		limitChoicesPerParticipantMax = 1;
 		closingAtDate = "F";
 		closingAtMaxVoters = "F";
 		limitParticipantsPerChoice = "F";

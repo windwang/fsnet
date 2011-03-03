@@ -30,8 +30,11 @@ public class ConsultationVote implements Serializable {
 	@ManyToOne
 	private Consultation consultation;
 
+	@ManyToOne
 	private SocialEntity voter;
+
 	private String comment;
+
 	private String other;
 
 	@OneToMany(mappedBy = "vote", cascade = CascadeType.ALL)
