@@ -71,6 +71,7 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 
 .consultationIsVoted { border: solid 1px #33ff33; background: #b6ffae url(../images/tick.png) center no-repeat; height:25px;}
 .consultationIsNotVoted {background-color:#ffbbbb; border: solid 1px #ff5555; height:25px;}
+.consultationIsIfNecessary { border: solid 1px #ff8207; background-color: #ffcfa1; height:25px;}
 .consultationResult { border: solid 1px #aaaaaa; background-color: #eeeeee; text-align:center;}
 .consultationResultMax {border: solid 1px #9fa4f5; background-color: #b0f9ff; text-align:center;}
 .consultationResultChoice { border: solid 1px #aaaaaa; background-color: #eeeeee; text-align:center; padding: 0 5px;}

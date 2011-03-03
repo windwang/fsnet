@@ -8,6 +8,7 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
 
 import fr.univartois.ili.fsnet.entities.Consultation;
+import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
 import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
 import fr.univartois.ili.fsnet.entities.ConsultationVote;
@@ -24,10 +25,10 @@ public class ConsultationResultsTag extends TagSupport {
 	private String percent;
 	private String maximum;
 	
-	private List<Integer> nb;
-	private Iterator<Integer> currentNb;
-	private int total;
-	private int max;
+	private List<Double> nb;
+	private Iterator<Double> currentNb;
+	private double total;
+	private double max;
 	
 	@Override
 	public int doStartTag() throws JspException {
@@ -58,18 +59,23 @@ public class ConsultationResultsTag extends TagSupport {
 	}
 	
 	public void setAttributes(){
-		int nbVotes = currentNb.next();
-		if (!"".equals(number)) pageContext.getRequest().setAttribute(number, nbVotes);
-		if (!"".equals(percent)) pageContext.getRequest().setAttribute(percent, Math.round(Float.valueOf(nbVotes*100)/total));
+		double nbVotes = currentNb.next();
+		if (!"".equals(number)) {
+			if (consultation.getType() == TypeConsultation.YES_NO_IFNECESSARY)
+				pageContext.getRequest().setAttribute(number, Double.valueOf(Math.round(nbVotes*10))/10);
+			else 
+				pageContext.getRequest().setAttribute(number, Math.round(nbVotes));
+		}
+		if (!"".equals(percent)) pageContext.getRequest().setAttribute(percent, Math.round(nbVotes*100/total));
 		if (!"".endsWith(maximum)) pageContext.getRequest().setAttribute(maximum, nbVotes == max);
 	}
 	
 	public void init(){
 		Iterator<ConsultationChoice> choices = consultation.getChoices().iterator();
-		nb = new ArrayList<Integer>();
+		nb = new ArrayList<Double>();
 		while (choices.hasNext()){
 			choices.next();
-			nb.add(0);
+			nb.add(0.0);
 		}
 		choices = consultation.getChoices().iterator();
 		ConsultationChoice choice;
@@ -86,8 +92,15 @@ public class ConsultationResultsTag extends TagSupport {
 				vote = votes.next();
 				voteChoices = vote.getChoices().iterator();
 				while (voteChoices.hasNext()){
-					if (choice.getId() == voteChoices.next().getChoice().getId()){
-						nb.set(i, nb.get(i)+1);
+					ConsultationChoiceVote voteChoice = voteChoices.next();
+					if (choice.getId() == voteChoice.getChoice().getId()){
+						if (voteChoice.isIfNecessary()){
+							System.out.println("poids "+consultation.getIfNecessaryWeight());
+							nb.set(i, nb.get(i)+consultation.getIfNecessaryWeight());
+						}
+						else {
+							nb.set(i, nb.get(i)+1);
+						}
 						if (max < nb.get(i))
 							max = nb.get(i);
 						total++;
@@ -98,7 +111,7 @@ public class ConsultationResultsTag extends TagSupport {
 		}
 		if (consultation.getType() == Consultation.TypeConsultation.YES_NO_OTHER){
 			votes=consultation.getConsultationVotes().iterator();
-			nb.add(0);
+			nb.add(0.0);
 			while (votes.hasNext()){
 				vote = votes.next();
 				if (!"".equals(vote.getOther())){
