@@ -69,7 +69,7 @@
 <c:set var="theInteraction" value="${event}" scope="request"/>
 <jsp:include page="/content/interactions/InteractionInfo.jsp" />
 <c:if test="${not empty event.address.city}">
-    <ili:map address="${event.address}"/>
+   <jsp:include page="/content/geolocalisation/GeolocalisationWidget.jsp" />
 </c:if>
 <div class="clear"></div>
 

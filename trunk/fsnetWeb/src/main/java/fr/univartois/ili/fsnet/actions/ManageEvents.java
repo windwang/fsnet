@@ -23,6 +23,7 @@ import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
@@ -248,6 +249,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().begin();
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		request.setAttribute("member", member);
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
