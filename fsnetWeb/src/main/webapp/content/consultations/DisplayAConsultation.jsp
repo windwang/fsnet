@@ -36,10 +36,15 @@
 		<td class="consultationPerticipant"><ili:getSocialEntityInfos socialEntity="${vote.voter }" /></td>
 		<c:forEach var="choice" items="${consultation.choices }">
 			<c:set var="isVoted" value="false"/>
+			<c:set var="isIfNecessary" value="false"/>
 			<c:forEach var="choiceVote" items="${vote.choices }">
-				<c:if test="${choice.id eq choiceVote.choice.id }"><c:set var="isVoted" value="true"/></c:if>
+				<c:if test="${choice.id eq choiceVote.choice.id }">
+					<c:set var="isVoted" value="true"/>
+					<c:if test="${choiceVote.ifNecessary }"><c:set var="isIfNecessary" value="true"/></c:if>
+				</c:if>
 			</c:forEach>
-			<td <c:if test="${isVoted}">class="consultationIsVoted"</c:if>
+			<td <c:if test="${isVoted and not isIfNecessary}">class="consultationIsVoted"</c:if>
+			<c:if test="${isIfNecessary}">class="consultationIsIfNecessary"</c:if>
 			<c:if test="${not isVoted}">class="consultationIsNotVoted"</c:if> /></td>
 		</c:forEach>
 		<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td class="consultationOther">${vote.other}</td></c:if>
@@ -56,7 +61,20 @@
 		<tr>
 			<td colspan="2"></td>
 			<c:forEach var="choice" items="${consultation.choices }">
-				<td class="consultationFormChoices"><html:multibox property="voteChoice" value="${choice.id}" /></td>
+				<td class="consultationFormChoices">
+					<c:choose>
+						<c:when test="${consultation.type eq 'YES_NO_IFNECESSARY' }">
+							<html:select property="voteChoice">
+								<html:option value="no${choice.id}"><bean:message key="consultation.choiceNo" /></html:option>
+								<html:option value="yes${choice.id}"><bean:message key="consultation.choiceYes" /></html:option>
+								<html:option value="ifNecessary${choice.id}"><bean:message key="consultation.choiceIfNecessary" /></html:option>
+							</html:select>
+						</c:when>
+						<c:otherwise>
+							<html:multibox property="voteChoice" value="${choice.id}" />
+						</c:otherwise>
+					</c:choose>
+				</td>
 			</c:forEach>
 			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td><html:text property="voteOther"/></td></c:if>
 			<td><html:text property="voteComment"/></td>

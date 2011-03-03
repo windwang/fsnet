@@ -73,9 +73,34 @@ public class ConsultationFacade {
 			consultationVote.setConsultation(consultation);
 			consultation.getConsultationVotes().add(consultationVote);
 		}
-		for(ConsultationChoice choice : consultation.getChoices()){
-			if(choices.contains(String.valueOf(choice.getId()))){
-				consultationVote.getChoices().add(new ConsultationChoiceVote(consultationVote,choice));
+		if (consultation.getType() != Consultation.TypeConsultation.YES_NO_IFNECESSARY)
+			for(ConsultationChoice choice : consultation.getChoices()){
+				if(choices.contains(String.valueOf(choice.getId()))){
+					consultationVote.getChoices().add(new ConsultationChoiceVote(consultationVote,choice));
+				}
+			}
+		else {
+			for (String choice : choices){
+				if (!choice.startsWith("no")){
+					boolean ifNecessary;
+					Integer id;
+					if (choice.startsWith("ifNecessary")){
+						id = Integer.valueOf(choice.replaceAll("ifNecessary", ""));
+						ifNecessary = true;
+					}
+					else {
+						id = Integer.valueOf(choice.replaceAll("yes", ""));
+						ifNecessary = false;
+					}
+					for(ConsultationChoice choiceCons : consultation.getChoices()){
+						if (choiceCons.getId() == id){
+							ConsultationChoiceVote vote = new ConsultationChoiceVote(consultationVote, choiceCons);
+							if (ifNecessary)
+								vote.setIfNecessary(true);
+							consultationVote.getChoices().add(vote);
+						}
+					}
+				}
 			}
 		}
 		em.persist(consultationVote);
