@@ -553,3 +553,7 @@ tr.notReed {
     visibility: hidden;
 }
 
+#errorGeo{
+	visibility: hidden;	
+}	
+
