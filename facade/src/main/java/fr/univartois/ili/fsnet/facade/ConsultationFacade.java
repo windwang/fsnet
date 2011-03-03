@@ -44,6 +44,7 @@ public class ConsultationFacade {
 				throw new UnauthorizedOperationException("exception.message");
 			}else{
 				consultation.getConsultationVotes().remove(vote);
+				entity.getVotes().remove(vote);
 				deleteVote(vote);
 			}
 		}
@@ -79,6 +80,15 @@ public class ConsultationFacade {
 		}
 		em.persist(consultationVote);
 		return consultationVote;
+	}
+
+	public void deleteConsultation(Consultation consultation,
+			SocialEntity member) {
+		if(consultation != null && member != null){
+			member.getInteractions().remove(consultation);
+			em.remove(consultation);
+		}
+		
 	}
 
 	

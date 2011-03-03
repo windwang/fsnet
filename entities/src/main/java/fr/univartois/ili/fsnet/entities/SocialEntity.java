@@ -85,6 +85,10 @@ public class SocialEntity extends SocialElement implements Serializable,
 	 */
 	@OneToMany(mappedBy = "creator")
 	private List<Interaction> interactions;
+
+	@OneToMany(mappedBy = "voter")
+	private List<ConsultationVote> votes;
+
 	/**
 	 * The interest that the social entity informed.
 	 */
@@ -695,6 +699,14 @@ public class SocialEntity extends SocialElement implements Serializable,
 		this.visitedProlfiles = haveVisit;
 	}
 
+	public List<ConsultationVote> getVotes() {
+		return votes;
+	}
+
+	public void setVotes(List<ConsultationVote> votes) {
+		this.votes = votes;
+	}
+	
 	@Override
 	public int compareTo(SocialEntity o) {
 		// TODO Auto-generated method stub
@@ -710,4 +722,5 @@ public class SocialEntity extends SocialElement implements Serializable,
 		}
 		return -1;
 	}
+
 }

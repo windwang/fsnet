@@ -8,8 +8,19 @@
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="consultationTitle" type="java.lang.String" />
             <form-property name="consultationDescription" type="java.lang.String" />
-            <form-property name="consultationChoice" type="java.lang.String[]" />
-            <form-property name="consultationType" type="java.lang.String" initial="YES_NO"></form-property>
+            <form-property name="consultationChoice" type="java.lang.String[]"  />
+            <form-property name="consultationType" type="java.lang.String" initial="YES_NO" />
+            <form-property name="consultationIfNecessaryWeight" type="java.lang.String" />
+<!--            <form-property name="nbVotersPerChoiceBox" type="java.lang.String" />-->
+<!--            <form-property name="nbVotersPerChoice" type="java.lang.String" />-->
+<!--            <form-property name="maxVoters" type="java.lang.String[]" />-->
+<!--            <form-property name="limitChoicesPerVoter" type="java.lang.String" />-->
+<!--            <form-property name="minChoicesVoter" type="java.lang.String" />-->
+<!--            <form-property name="maxChoicesVoter" type="java.lang.String" />-->
+<!--            <form-property name="showBeforeAnswer" type="java.lang.String" />-->
+<!--            <form-property name="showBeforeClosing" type="java.lang.String" />-->
+<!--            <form-property name="closingAtMaxVoters" type="java.lang.String" />-->
+<!--            <form-property name="deadline" type="java.lang.String" />-->
         </form-bean>
         <form-bean name="VoteConsultationForm" 
         			type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -43,7 +54,7 @@
 				<forward name="success" path="DisplayYourConsultations" />
 			</action>
 			<action path="/DisplayAConsultation" 
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
+				type="fr.univartois.ili.fsnet.actions.ManageConsultations"
 				parameter="displayAConsultation">
 				<forward name="success" path="DisplayAConsultation" />
 			</action>
@@ -59,9 +70,16 @@
 			<action path="/DeleteVoteConsultation"
 				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
 				input="DisplayAConsultation"
-	            scope="request"
+				scope="request"
 	            parameter="deleteVote">
 	            <forward name="success" path="DisplayAConsultation" />
+			</action>
+			<action path="/DeleteAConsultation"
+				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
+				input="/DisplayConsultations.do"
+				scope="request"
+	            parameter="deleteConsultation">
+	            <forward name="success" path="/DisplayConsultations.do" />
 			</action>
 	 </action-mappings>
 </struts-config>

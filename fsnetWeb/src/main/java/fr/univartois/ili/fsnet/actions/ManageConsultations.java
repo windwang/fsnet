@@ -1,14 +1,19 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.List;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -34,7 +39,17 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationTitle = (String) dynaForm.get("consultationTitle");
 		String consultationDescription = (String) dynaForm.get("consultationDescription");	
 		String[] consultationChoices  = dynaForm.getStrings("consultationChoice");
+//		String[] maxVoters = dynaForm.getStrings("maxVoters");
 		String consultationType = dynaForm.getString("consultationType");
+		String consultationIfNecessaryWeight = dynaForm.getString("consultationIfNecessaryWeight");
+//		String nbVotersPerChoiceBox = dynaForm.getString("nbVotersPerChoiceBox");
+//		String limitChoicesPerVoter = dynaForm.getString("limitChoicesPerVoter");
+//		String minChoicesVoter = dynaForm.getString("minChoicesVoter");
+//		String maxChoicesVoter = dynaForm.getString("maxChoicesVoter");
+//		String showBeforeClosing = dynaForm.getString("showBeforeClosing");
+//		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
+//		String deadline = dynaForm.getString("deadline");
+//		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
 		
 		// TODO chercher le moyen de valider les choix avec struts
 		for (String cs : consultationChoices){
@@ -43,11 +58,62 @@ public class ManageConsultations extends MappingDispatchAction {
 				return new ActionRedirect(mapping.findForward("error"));
 			}
 		}
+//		for(int i = 0;i<maxVoters.length;i++){
+//			if("".equals(maxVoters[i]))
+//				maxVoters[i] = "-1"; // Unlimited
+//			else if(!IntegerValidator.getInstance().isValid(maxVoters[i])){
+//				request.setAttribute("errorMaxVotersPerChoice", true);
+//				return new ActionRedirect(mapping.findForward("error"));
+//			}
+//		}
+		//END TODO
+		
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		Consultation consultation = consultationFacade.createConsultation(member,consultationTitle,consultationDescription,consultationChoices,Consultation.TypeConsultation.valueOf(consultationType));
+//		for(int i = 0; i < maxVoters.length; i++)
+//			consultation.getChoices().get(i).setMaxVoters(Integer.valueOf(maxVoters[i]));
+//		if(!"".equals(nbVotersPerChoiceBox))
+//			consultation.setLimitParticipantPerChoice(true);
+//		
+//		if(!"".equals(showBeforeAnswer))
+//			consultation.setShowBeforeAnswer(false);
+//		
+//		if(!"".equals(showBeforeClosing))
+//			consultation.setShowBeforeClosing(false);
+//		
+//		if(!"".equals(deadline)){
+//			consultation.setClosingAtDate(true);
+//			try {
+//				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//				consultation.setMaxDate(dateFormat.parse(deadline));
+//			} catch (ParseException e) {
+//				e.printStackTrace();
+//			}
+//		}
+//		
+//		if(!"".equals(closingAtMaxVoters)){
+//			consultation.setClosingAtMaxVoters(true);
+//			consultation.setMaxVoters(Integer.valueOf(closingAtMaxVoters));
+//		}
+//		
+		if(!"".equals(consultationIfNecessaryWeight)){
+			consultation.setIfNecessaryWeight(Double.valueOf(consultationIfNecessaryWeight));
+		}
+				
+		
+//		if(!"".equals(limitChoicesPerVoter)){
+//			consultation.setLimitChoicesPerParticipant(true);
+//			if(!"".equals(maxChoicesVoter)){
+//				consultation.setLimitChoicesPerParticipantMax(Integer.valueOf(maxChoicesVoter));
+//			}
+//			if(!"".equals(minChoicesVoter)){
+//				consultation.setLimitChoicesPerParticipantMin(Integer.valueOf(minChoicesVoter));
+//			}
+//		}
+		
 		em.getTransaction().commit();
 		em.close();
 		request.setAttribute("id", consultation.getId());
@@ -91,8 +157,6 @@ public class ManageConsultations extends MappingDispatchAction {
 				em.close();
 			}
 		}
-		
-		ActionForward test = mapping.findForward("success");
 		return displayAConsultation(mapping, form, request, response);
 	}
 
@@ -123,6 +187,24 @@ public class ManageConsultations extends MappingDispatchAction {
 			Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
 			em.close();
 			request.setAttribute("consultation", consultation);
+		}
+		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+		return redirect;
+	}
+	
+	public ActionForward deleteConsultation(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+		throws IOException, ServletException {
+		String idConsultation = request.getParameter("id");
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
+		if(member.equals(consultation.getCreator())){
+			em.getTransaction().begin();
+			consultationFacade.deleteConsultation(consultation,member);
+			em.getTransaction().commit();
+			em.close();		
 		}
 		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
 		return redirect;

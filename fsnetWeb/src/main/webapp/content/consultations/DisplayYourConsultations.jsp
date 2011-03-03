@@ -13,6 +13,7 @@
 				<html:link action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
 				(<bean:message key="consultation.createdAtDate" /> <bean:write name="consultation" property="creationDate" format="dd/MM/yyyy" />
 				<bean:message key="consultation.createdAtHour" /> <bean:write name="consultation" property="creationDate" format="HH:mm" />)
+				- <html:link action="/DeleteAConsultation?id=${consultation.id}"><bean:message key="consultation.delete" /></html:link>
 			</li>
 			</c:forEach>
 		</ul>
