@@ -95,15 +95,15 @@ public class ConsultationResultsTag extends TagSupport {
 					ConsultationChoiceVote voteChoice = voteChoices.next();
 					if (choice.getId() == voteChoice.getChoice().getId()){
 						if (voteChoice.isIfNecessary()){
-							System.out.println("poids "+consultation.getIfNecessaryWeight());
 							nb.set(i, nb.get(i)+consultation.getIfNecessaryWeight());
+							total+=consultation.getIfNecessaryWeight();
 						}
 						else {
 							nb.set(i, nb.get(i)+1);
+							total+=1;
 						}
 						if (max < nb.get(i))
 							max = nb.get(i);
-						total++;
 					}
 				}
 			}
