@@ -24,9 +24,12 @@ public class ConsultationResultsTag extends TagSupport {
 	private String number;
 	private String percent;
 	private String maximum;
+	private String choice;
 	
 	private List<Double> nb;
 	private Iterator<Double> currentNb;
+	private List<String> choices;
+	private Iterator<String> currentChoice;
 	private double total;
 	private double max;
 	
@@ -36,6 +39,7 @@ public class ConsultationResultsTag extends TagSupport {
 			return SKIP_BODY;
 		init();
 		currentNb = nb.iterator();
+		currentChoice = choices.iterator();
 		if (!currentNb.hasNext()){
 			return SKIP_BODY;			
 		}
@@ -53,26 +57,30 @@ public class ConsultationResultsTag extends TagSupport {
 	
 	@Override
 	public int doEndTag() throws JspException {
-		pageContext.getRequest().removeAttribute(number);
-		pageContext.getRequest().removeAttribute(percent);
+		if (number != null) pageContext.getRequest().removeAttribute(number);
+		if (percent != null) pageContext.getRequest().removeAttribute(percent);
+		if (maximum != null) pageContext.getRequest().removeAttribute(maximum);
+		if (choice != null) pageContext.getRequest().removeAttribute(choice);
 		return super.doEndTag();
 	}
 	
 	public void setAttributes(){
 		double nbVotes = currentNb.next();
-		if (!"".equals(number)) {
+		if (number != null && !"".equals(number)) {
 			if (consultation.getType() == TypeConsultation.YES_NO_IFNECESSARY)
 				pageContext.getRequest().setAttribute(number, Double.valueOf(Math.round(nbVotes*10))/10);
 			else 
 				pageContext.getRequest().setAttribute(number, Math.round(nbVotes));
 		}
-		if (!"".equals(percent)) pageContext.getRequest().setAttribute(percent, Math.round(nbVotes*100/total));
-		if (!"".endsWith(maximum)) pageContext.getRequest().setAttribute(maximum, nbVotes == max);
+		if (percent != null && !"".equals(percent)) pageContext.getRequest().setAttribute(percent, Math.round(nbVotes*100/total));
+		if (maximum != null && !"".equals(maximum)) pageContext.getRequest().setAttribute(maximum, nbVotes == max);
+		if (choice != null && !"".equals(choice)) pageContext.getRequest().setAttribute(choice, currentChoice.next());
 	}
 	
 	public void init(){
 		Iterator<ConsultationChoice> choices = consultation.getChoices().iterator();
 		nb = new ArrayList<Double>();
+		this.choices = new ArrayList<String>();
 		while (choices.hasNext()){
 			choices.next();
 			nb.add(0.0);
@@ -87,6 +95,7 @@ public class ConsultationResultsTag extends TagSupport {
 		int i=0;
 		while (choices.hasNext()){
 			choice = choices.next();
+			this.choices.add(choice.getIntituled());
 			votes = consultation.getConsultationVotes().iterator();
 			while (votes.hasNext()){
 				vote = votes.next();
@@ -149,6 +158,14 @@ public class ConsultationResultsTag extends TagSupport {
 
 	public void setMaximum(String maximum) {
 		this.maximum = maximum;
+	}
+
+	public String getChoice() {
+		return choice;
+	}
+
+	public void setChoice(String choice) {
+		this.choice = choice;
 	}
 	
 	
