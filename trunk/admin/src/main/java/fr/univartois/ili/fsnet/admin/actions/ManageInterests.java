@@ -40,6 +40,8 @@ public class ManageInterests extends MappingDispatchAction implements
 	private static EntityManagerFactory factory = Persistence
 			.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final String SEPARATOR_PARENT_CHILD = "=";
+	private static final String SEPARATOR_MAP = ";";
 
 	 public void creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,EntityManager em,HttpServletRequest request){
 	        if (dynaForm.get("parentInterestId") != null
@@ -201,12 +203,14 @@ public class ManageInterests extends MappingDispatchAction implements
 		logger.info("Displaying interests");
 
 		List<Interest> listAllInterests = facade.getInterests();
+		String allInterestsId = concatInterest(listAllInterests);
 		em.close();
 		
 		Paginator<Interest> paginator = new Paginator<Interest>(listAllInterests, request, 25, "search");
 		
 		request.setAttribute("interestSearchPaginator", paginator);
 		request.setAttribute("allInterests", listAllInterests);		
+		request.setAttribute("allInterestsId", allInterestsId);
 		
 		return mapping.findForward("success");
 	}
@@ -237,5 +241,26 @@ public class ManageInterests extends MappingDispatchAction implements
 		}
 
 		return mapping.findForward("success");
+	}
+	
+	private String concatInterest(List<Interest> listAllInterests){
+		String ids = "";
+		if(listAllInterests == null)
+			return "";
+		for(Interest interest : listAllInterests){
+			Interest parent = interest.getParentInterest();
+			String id = String.valueOf( interest.getId() );
+			String idParent;
+			String tmp = "";
+			if(parent == null)
+				idParent = "-1";
+			else idParent = String.valueOf( parent.getId() );
+			tmp = tmp.concat( id );
+			tmp = tmp.concat( SEPARATOR_PARENT_CHILD );
+			tmp = tmp.concat( idParent );
+			ids = ids.concat( tmp );
+			ids = ids.concat( SEPARATOR_MAP);
+		}
+		return ids;
 	}
 }

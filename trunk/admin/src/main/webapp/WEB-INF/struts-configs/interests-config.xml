@@ -19,6 +19,7 @@
             <form-property name="modifiedInterestName" type="java.lang.String" />
             <form-property name="modifiedInterestId" type="java.lang.String" />
             <form-property name="parentInterestId" type="java.lang.String" />
+            <form-property name="allInterestsId" type="java.lang.String" />
         </form-bean>
         <form-bean name="DeleteInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
