@@ -207,6 +207,27 @@ public class SocialGroupFacade {
 		}
 
 	}
+	public List<SocialGroup> AllGroupChild(SocialGroup socialGroup) {
+
+		if (socialGroup == null) {
+			throw new IllegalArgumentException();
+		}
+		
+		return getAllGroupChild(socialGroup);
+	}
+
+	private List<SocialGroup> getAllGroupChild(SocialGroup socialGroup) {
+		List<SocialGroup> groups = new ArrayList<SocialGroup>();
+		groups.add(socialGroup);
+		for (SocialElement socialElement : socialGroup.getSocialElements()) {
+			if (socialElement instanceof SocialGroup) {
+				groups.addAll(getAllGroupChild((SocialGroup)socialElement));
+			}
+		}
+		
+		return groups;
+
+	}
 
 	public final void switchState(int socialGroupId) {
 		SocialGroup sg = getSocialGroup(socialGroupId);

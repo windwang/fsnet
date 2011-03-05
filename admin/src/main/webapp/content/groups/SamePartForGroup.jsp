@@ -195,11 +195,7 @@ select {
 </script>
 <script type="text/javascript">
 	function showGroup(idParent, idGroup) {
-		alert(idGroup);
-		//if (str == "") {
-		//	document.getElementById("txtHint").innerHTML = "";
-		//	return;
-		//}
+		
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();
 		} else {// code for IE6, IE5
@@ -213,7 +209,7 @@ select {
 		}
 		xmlhttp.open("GET", "/admin/ListGroups?idGroup=" + idGroup
 				+ "&idParent=" + idParent, true);
-		alert("jtm");
+		
 		xmlhttp.send();
 	}
 </script>
