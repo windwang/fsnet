@@ -17,6 +17,7 @@ import javax.persistence.OneToMany;
  * 
  * @author JFlamen
  * @author SAID Mohamed <simo.said09 at gmail.com>
+ * @author stephane gronowski
  */
 @Entity
 @DiscriminatorValue("G")
@@ -86,6 +87,37 @@ public class SocialGroup extends SocialElement implements Serializable {
 		this.description = description;
 		this.socialElements = new ArrayList<SocialElement>();
 
+	}
+
+	/**
+	 * Determine if the group is the specific {@link Right}
+	 * 
+	 * @param right
+	 *            the specific {@link Right}
+	 * @return true if it has this {@link Right}
+	 */
+	public boolean isAuthorized(Right right) {
+		throw new UnsupportedOperationException("not implemented yet");
+	}
+
+	/**
+	 * Add a {@link Right} to the {@link SocialGroup}
+	 * 
+	 * @param right
+	 *            the specific {@link Right}
+	 */
+	public void addRight(Right right) {
+		throw new UnsupportedOperationException("not implemented yet");
+	}
+
+	/**
+	 * Remove a {@link Right} to the {@link SocialGroup}
+	 * 
+	 * @param right
+	 *            the specific {@link Right}
+	 */
+	public void removeRight(Right right) {
+		throw new UnsupportedOperationException("not implemented yet");
 	}
 
 	public List<SocialElement> getSocialElements() {
