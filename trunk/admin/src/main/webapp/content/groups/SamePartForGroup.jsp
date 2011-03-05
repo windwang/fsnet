@@ -12,10 +12,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <table id="CreateGroup">
 	<tr>
-		<td>
-			<label for="name"> <bean:message key="groups.name" /> :
-			</label>
-		</td>
+		<td><label for="name"> <bean:message key="groups.name" />
+		: </label></td>
 		<td colspan="3"><html:text property="name" styleId="name"
 			errorStyleClass="error" /><html:hidden property="id" styleId="id" /></td>
 	</tr>
@@ -25,17 +23,13 @@
 	</tr>
 
 	<tr>
-		<td>
-			<label for="description"> <bean:message	key="groups.description" /> :</label>
-		</td>
-		<td colspan="3">
-			<c:set var="welcomeMain">
-				<bean:message key="groups.description.message" /> :
-			</c:set> 
-			<html:textarea property="description" styleId="description"
-				errorStyleClass="error" cols="36" rows="6">
-			</html:textarea>
-		</td>
+		<td><label for="description"> <bean:message
+			key="groups.description" /> :</label></td>
+		<td colspan="3"><c:set var="welcomeMain">
+			<bean:message key="groups.description.message" /> :
+			</c:set> <html:textarea property="description" styleId="description"
+			errorStyleClass="error" cols="36" rows="6">
+		</html:textarea></td>
 	</tr>
 
 	<tr class="errorMessage">
@@ -43,10 +37,23 @@
 	</tr>
 
 	<tr>
-		<td>
-			<label for="socialEntityId"> <bean:message key="groups.owner" /> : 
-			</label>
-		</td>
+		<td><label for="parentId"> <bean:message
+			key="groups.parent" /> : </label></td>
+		<td colspan="3"><html:select property="parentId"
+			styleClass="select" value="${ parentGroup.id }"
+			onchange="showGroup(this.value,document.getElementById('id').value)">
+			<html:option value="">
+				<bean:message key="groups.listParent" />
+			</html:option>
+			<c:forEach var="socialGroup" items="${allGroups}">
+				<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
+			</c:forEach>
+		</html:select></td>
+	</tr>
+
+	<tr>
+		<td><label for="socialEntityId"> <bean:message
+			key="groups.owner" /> : </label></td>
 		<td colspan="3"><html:select property="socialEntityId"
 			styleClass="select" value="${ masterGroup.id }">
 			<html:option value="" disabled="true">
@@ -71,8 +78,8 @@
 		<html:select property="memberListLeft" styleClass="select" size="5"
 			multiple="multiple">
 			<c:forEach var="socialEntity" items="${refusedMembers}">
-			<c:if test="${socialEntity.isEnabled}">
-				<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
+				<c:if test="${socialEntity.isEnabled}">
+					<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
 				</c:if>
 			</c:forEach>
 		</html:select></td>
@@ -107,7 +114,7 @@
 		<td ROWSPAN="2">
 		<div><bean:message key="groups.groups.refused" /></div>
 		<html:select property="groupListLeft" styleClass="select" size="5"
-			multiple="multiple">
+			multiple="multiple" styleId="txtHint">
 			<c:forEach var="socialGroup" items="${refusedGroups}">
 
 				<c:if test="${socialGroup.isEnabled}">
@@ -184,5 +191,29 @@ select {
 			groupListLeft.options[i].selected = "true";
 		}
 		return true;
+	}
+</script>
+<script type="text/javascript">
+	function showGroup(idParent, idGroup) {
+		alert(idGroup);
+		//if (str == "") {
+		//	document.getElementById("txtHint").innerHTML = "";
+		//	return;
+		//}
+		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
+			xmlhttp = new XMLHttpRequest();
+		} else {// code for IE6, IE5
+			xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		xmlhttp.onreadystatechange = function() {
+			if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+				document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+
+			}
+		}
+		xmlhttp.open("GET", "/admin/ListGroups?idGroup=" + idGroup
+				+ "&idParent=" + idParent, true);
+		alert("jtm");
+		xmlhttp.send();
 	}
 </script>
