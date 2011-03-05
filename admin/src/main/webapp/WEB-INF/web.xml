@@ -75,4 +75,14 @@
     <servlet-name>InsertSocialElement</servlet-name>
     <url-pattern>/InsertSocialElement</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ListGroups</display-name>
+    <servlet-name>ListGroups</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.admin.ajax.ListGroups</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ListGroups</servlet-name>
+    <url-pattern>/ListGroups</url-pattern>
+  </servlet-mapping>
 </web-app>
