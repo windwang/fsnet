@@ -6,6 +6,9 @@ public class RestMessagesList {
 
 	private List<RestPrivateMessage> messages;
 	
+	public RestMessagesList(){
+	}
+	
 	public RestMessagesList(List<RestPrivateMessage> messages){
 		this.setMessages(messages);
 	}
