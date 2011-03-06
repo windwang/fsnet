@@ -2,12 +2,17 @@ package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -23,10 +28,11 @@ import javax.persistence.OneToMany;
 @DiscriminatorValue("G")
 public class SocialGroup extends SocialElement implements Serializable {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+
+	@ElementCollection(targetClass = Right.class)
+	@Enumerated(EnumType.STRING)
+	private Set<Right> rights = new HashSet<Right>();
 
 	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
 	private List<SocialElement> socialElements;
@@ -34,7 +40,6 @@ public class SocialGroup extends SocialElement implements Serializable {
 	/**
 	 * the master of the group
 	 */
-
 	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
 			CascadeType.REFRESH })
 	private SocialEntity masterGroup;
@@ -90,14 +95,21 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	/**
-	 * Determine if the group is the specific {@link Right}
+	 * Determine if the group has the specific {@link Right}
 	 * 
 	 * @param right
 	 *            the specific {@link Right}
 	 * @return true if it has this {@link Right}
 	 */
 	public boolean isAuthorized(Right right) {
-		throw new UnsupportedOperationException("not implemented yet");
+		if (rights.contains(right))
+			return true;
+
+		SocialGroup father = getGroup();
+		if (father != null)
+			return father.isAuthorized(right);
+
+		return false;
 	}
 
 	/**
@@ -107,7 +119,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 	 *            the specific {@link Right}
 	 */
 	public void addRight(Right right) {
-		throw new UnsupportedOperationException("not implemented yet");
+		rights.add(right);
 	}
 
 	/**
@@ -117,7 +129,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 	 *            the specific {@link Right}
 	 */
 	public void removeRight(Right right) {
-		throw new UnsupportedOperationException("not implemented yet");
+		rights.remove(right);
 	}
 
 	public List<SocialElement> getSocialElements() {
