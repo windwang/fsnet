@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -81,10 +80,13 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			try {
 				SocialGroup socialGroup = socialGroupFacade.createSocialGroup(
 						masterGroup, name, description, socialElements);
-				parentGroup.addSocialElements(socialGroup);
+
 				em.getTransaction().begin();
 				em.persist(socialGroup);
-				em.merge(parentGroup);
+				if (parentGroup != null) {
+					parentGroup.addSocialElements(socialGroup);
+					em.merge(parentGroup);
+				}
 				em.getTransaction().commit();
 			} catch (RollbackException e) {
 				ActionErrors errors = new ActionErrors();
@@ -296,7 +298,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		SocialGroup parentGroup = group.getGroup();
 		allGroups = socialGroupFacade.getAllSocialEntity();
 		allGroups.removeAll(socialGroupFacade.AllGroupChild(group));
-		//allGroups.removeAll(socialGroupFacade.AllParent(parentGroup));
+		// allGroups.removeAll(socialGroupFacade.AllParent(parentGroup));
 		allMembers = socialEntityFacade.getAllSocialEntity();
 		acceptedGroups = socialGroupFacade.getAcceptedSocialGroup(group);
 		acceptedMembers = socialGroupFacade.getAcceptedSocialEntity(group);
