@@ -66,9 +66,8 @@ public class ConsultationFacade {
         return query.getResultList();
 	}
 	
-	public final ConsultationVote voteForConsultation(SocialEntity voter, Integer idConsultation, String comment,String other,List<String> choices){
+	public final ConsultationVote voteForConsultation(SocialEntity voter, Consultation consultation, String comment,String other,List<String> choices){
 		ConsultationVote consultationVote = new ConsultationVote(voter,comment,other);
-		Consultation consultation = getConsultation(idConsultation);
 		if(consultation != null){
 			consultationVote.setConsultation(consultation);
 			consultation.getConsultationVotes().add(consultationVote);
@@ -114,6 +113,20 @@ public class ConsultationFacade {
 			em.remove(consultation);
 		}
 		
+	}
+
+	public void closeConsultation(Consultation consultation) {
+		if (consultation != null){
+			consultation.setOpened(false);
+			em.merge(consultation);
+		}
+	}
+
+	public void openConsultation(Consultation consultation) {
+		if (consultation != null){
+			consultation.setOpened(true);
+			em.merge(consultation);
+		}
 	}
 
 	

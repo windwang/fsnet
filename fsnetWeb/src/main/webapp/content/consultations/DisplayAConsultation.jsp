@@ -13,7 +13,33 @@
 	<c:if test="${consultation.description ne '' }"><li><bean:message key="consultation.description" /> : ${consultation.description }</li></c:if>
 	<li><bean:message key="consultation.createdAtDate" /> <bean:write name="consultation" property="creationDate" format="dd/MM/yyyy" />
 		<bean:message key="consultation.createdAtHour" /> <bean:write name="consultation" property="creationDate" format="HH:mm" />
-		</li>
+	</li>
+	<li><bean:message key="consultation.typeConsultation" /> : 
+		<c:choose>
+			<c:when test="${consultation.type eq 'YES_NO'}"><bean:message key="consultation.typeYesNo" /></c:when>
+			<c:when test="${consultation.type eq 'YES_NO_OTHER'}"><bean:message key="consultation.typeYesNoOther" /></c:when>
+			<c:when test="${consultation.type eq 'YES_NO_IFNECESSARY'}"><bean:message key="consultation.typeYesNoIfNecessary" /></c:when>
+			<c:when test="${consultation.type eq 'PREFERENCE_ORDER'}"><bean:message key="consultation.typePreferenceOrder" /></c:when>
+		</c:choose>
+	</li>
+	<li>
+		<bean:message key="consultation.state" /> : 
+		<c:choose>
+			<c:when test="${consultation.opened }">
+				<bean:message key="consultation.opened" />
+				<c:if test="${member eq consultation.creator }">
+					(<html:link action="/CloseConsultation?id=${consultation.id}"><bean:message key="consultation.close" /></html:link>)
+				</c:if>
+			</c:when>
+			<c:when test="${not consultation.opened }">
+				<bean:message key="consultation.closed" />
+				<c:if test="${member eq consultation.creator }">
+					(<html:link action="/OpenConsultation?id=${consultation.id}"><bean:message key="consultation.open" /></html:link>)
+				</c:if>
+			</c:when>	
+		</c:choose>
+		
+	</li>
 </ul>
 <br />
 <table>
@@ -57,6 +83,7 @@
 			<td class="${max?'consultationResultMax':'consultationResult' }">${number}<br />${percent }%</td>
 		</ili:consultationResults>
 	<tr>
+	<c:if test="${allowedToVote }">
 	<html:form action="/VoteConsultation" method="post">
 		<tr>
 			<td colspan="2"></td>
@@ -82,6 +109,7 @@
 			<td><html:submit styleClass="button"><bean:message key="consultation.vote" /></html:submit></td>
 		</tr>
 	</html:form>
+	</c:if>
 </table>
 
 <h3><bean:message key="consultation.histogramme" /></h3>

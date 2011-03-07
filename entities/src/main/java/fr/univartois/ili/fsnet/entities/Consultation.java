@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.entities;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -355,6 +356,15 @@ public class Consultation extends Interaction {
 			this.opened = "T";
 		else
 			this.opened = "F";
+	}
+
+	public boolean isVoted(SocialEntity member) {
+		Iterator<ConsultationVote> it = consultationVotes.iterator();
+		while (it.hasNext()) {
+			if (it.next().getVoter().equals(member))
+				return true;
+		}
+		return false;
 	}
 
 }
