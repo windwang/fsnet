@@ -88,7 +88,7 @@
             <td>
                 <label for="adress">
                     <bean:message key="updateProfile.adress"/> :
-                </label>j'ai ajouté le : dans les caractères autorisés
+                </label>
             </td>
             <td>
                 <html:text errorStyleClass="error" property="adress"  styleId="adress"/>
