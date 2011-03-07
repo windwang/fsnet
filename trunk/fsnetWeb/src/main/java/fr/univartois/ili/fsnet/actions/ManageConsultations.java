@@ -1,19 +1,14 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -133,8 +128,11 @@ public class ManageConsultations extends MappingDispatchAction {
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-		consultationFacade.voteForConsultation(member, idConsultation, voteComment, voteOther, Arrays.asList(voteChoices));
-		em.getTransaction().commit();
+		Consultation consultation = consultationFacade.getConsultation(idConsultation);
+		if (isAllowedToVote(consultation, member)){
+			consultationFacade.voteForConsultation(member, consultation, voteComment, voteOther, Arrays.asList(voteChoices));
+			em.getTransaction().commit();
+		}
 		em.close();
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
@@ -187,9 +185,45 @@ public class ManageConsultations extends MappingDispatchAction {
 			Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
 			em.close();
 			request.setAttribute("consultation", consultation);
+			if (isAllowedToVote(consultation, member))
+				request.setAttribute("allowedToVote", true);
+			else
+				request.setAttribute("allowedToVote", false);
 		}
 		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
 		return redirect;
+	}
+	
+	public ActionForward closeConsultation(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response){
+		String idConsultation = request.getParameter("id");
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
+		if(member.equals(consultation.getCreator())){
+			em.getTransaction().begin();
+			consultationFacade.closeConsultation(consultation);
+			em.getTransaction().commit();
+			em.close();		
+		}
+		return displayAConsultation(mapping, form, request, response);
+	}
+	
+	public ActionForward openConsultation(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response){
+		String idConsultation = request.getParameter("id");
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
+		if(member.equals(consultation.getCreator())){
+			em.getTransaction().begin();
+			consultationFacade.openConsultation(consultation);
+			em.getTransaction().commit();
+			em.close();		
+		}
+		return displayAConsultation(mapping, form, request, response);
 	}
 	
 	public ActionForward deleteConsultation(ActionMapping mapping, ActionForm form,
@@ -208,6 +242,10 @@ public class ManageConsultations extends MappingDispatchAction {
 		}
 		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
 		return redirect;
+	}
+	
+	public boolean isAllowedToVote(Consultation consultation, SocialEntity member) {
+		return consultation.isOpened() && !consultation.isVoted(member);
 	}
 	
 }

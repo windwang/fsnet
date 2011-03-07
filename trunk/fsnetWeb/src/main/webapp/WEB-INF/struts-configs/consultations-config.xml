@@ -58,6 +58,16 @@
 				parameter="displayAConsultation">
 				<forward name="success" path="DisplayAConsultation" />
 			</action>
+			<action path="/CloseConsultation" 
+				type="fr.univartois.ili.fsnet.actions.ManageConsultations"
+				parameter="closeConsultation">
+				<forward name="success" path="DisplayAConsultation" />
+			</action>
+			<action path="/OpenConsultation" 
+				type="fr.univartois.ili.fsnet.actions.ManageConsultations"
+				parameter="openConsultation">
+				<forward name="success" path="DisplayAConsultation" />
+			</action>
 			<action path="/VoteConsultation"
 				name="VoteConsultationForm"
 				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
