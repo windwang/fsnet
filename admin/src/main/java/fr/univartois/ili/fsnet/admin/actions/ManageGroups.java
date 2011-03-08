@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
@@ -24,6 +22,7 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
@@ -37,9 +36,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * @author Bouragba mohamed
  */
 public class ManageGroups extends MappingDispatchAction implements CrudAction {
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
-
+	
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -51,7 +48,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialGroup> allGroups = null;
 		List<SocialGroup> refusedGroups = null;
 		SocialGroup parentGroup = null;
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 
@@ -122,7 +119,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialGroup newParentGroup = null;
@@ -206,7 +203,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		TypedQuery<SocialGroup> query = null;
 		Set<SocialGroup> resultOthers = null;
@@ -254,7 +251,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 
 		String GroupSelected = request.getParameter("groupSelected");
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		em.getTransaction().begin();
 		int socialGroupId = Integer.parseInt(GroupSelected);
@@ -273,7 +270,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;
 
 		List<SocialGroup> allGroups = null;
