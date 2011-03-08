@@ -54,7 +54,7 @@
 	</tr>
 	<c:forEach var="vote" items="${consultation.consultationVotes }">
 		<tr>
-		<td><c:if test="${member.id eq vote.voter.id }">
+		<td><c:if test="${consultation.opened and member.id eq vote.voter.id }">
 			<html:link action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}">
 				<html:img src="images/mini-delete.png" altKey="consultation.delete" />
 			</html:link>
