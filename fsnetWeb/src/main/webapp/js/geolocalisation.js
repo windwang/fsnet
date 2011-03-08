@@ -150,7 +150,7 @@ function checkUserAdressNotEmpty() {
 
 /* */
 function buildRouteFromGeolocalisation() {
-	initializeGeolocalisation();
+	initializeMap();
 	document.getElementById("errorGeo").style.visibility = "hidden";
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(leadVisitorToEvent);
@@ -159,7 +159,7 @@ function buildRouteFromGeolocalisation() {
 
 /* */
 function buildRouteFromHome() {
-	initializeGeolocalisation();
+	initializeMap();
 	document.getElementById("errorGeo").style.visibility = "hidden";
 	var start = $.trim($('input[id="userAddress"]').val());
 	var end = getDestinationAddresse();
