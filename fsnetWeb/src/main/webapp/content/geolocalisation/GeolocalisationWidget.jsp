@@ -12,8 +12,8 @@
 	<input id='userAddress' type='hidden' value="${member.address.address} ${member.address.city}"></input>
 	<ul id="choices">
 		<li id="errorGeo"><bean:message key="geolocalisation.error" /><li>
-		<li><button id="workRouteGeo" name="workRouteGeo" onclick="buildRouteFromGeolocalisation()"><bean:message key="geolocalisation.workRouteGeo" /></button></li>
-		<li><button id="workRouteHome" name="workRouteHome" onclick="buildRouteFromHome()"><bean:message key="geolocalisation.workRouteHome" /></button></li>
+		<li><button id="workRouteGeo" name="workRouteGeo" class="button" onclick="buildRouteFromGeolocalisation()"><bean:message key="geolocalisation.workRouteGeo" /></button></li>
+		<li><button id="workRouteHome" name="workRouteHome" class="button" onclick="buildRouteFromHome()"><bean:message key="geolocalisation.workRouteHome" /></button></li>
 	</ul>
 </div>
 <script type='text/javascript'> document.onload = initializeGeolocalisation(); </script>
