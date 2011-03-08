@@ -149,9 +149,11 @@ public class ManageConsultations extends MappingDispatchAction {
 				ConsultationFacade consultationFacade = new ConsultationFacade(em);
 				Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
 				ConsultationVote vote = consultationFacade.getVote(Integer.valueOf(idVote));
-				em.getTransaction().begin();
-				consultationFacade.deleteVote(consultation,member,vote);
-				em.getTransaction().commit();
+				if (consultation.isOpened()){ // TODO max date 
+					em.getTransaction().begin();
+					consultationFacade.deleteVote(consultation,member,vote);
+					em.getTransaction().commit();
+				}
 				em.close();
 			}
 		}
