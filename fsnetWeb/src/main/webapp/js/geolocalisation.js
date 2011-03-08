@@ -20,8 +20,12 @@ function initializeGeolocalisation() {
 	initializeMap();
 	initializeActions();
 
-	var destinationAddresse = getDestinationAddresse();
+	putDestinationOnMap();
+}
 
+/* */
+function putDestinationOnMap(){
+	var destinationAddresse = getDestinationAddresse();
 	if (destinationAddresse != null) {
 		putOnMapEvent(destinationAddresse);
 
@@ -93,7 +97,6 @@ function changeLinkToGoogleMapWithRoute(startAddr, endAddr) {
 
 /* */
 function leadVisitorToEvent(position) {
-
 	if (position == null) {
 		return;
 	}
@@ -123,7 +126,6 @@ function initializeMap() {
 
 /* */
 function initializeActions() {
-
 	checkUserAdressNotEmpty();
 	checkEnableGeolocalisation();
 
@@ -140,7 +142,6 @@ function checkEnableGeolocalisation() {
 
 /* */
 function checkUserAdressNotEmpty() {
-
 	if ($.trim($('input[id="userAddress"]').val()).length == 0) {
 		$('button[name="workRouteHome"]').remove();
 		return false;
@@ -151,6 +152,7 @@ function checkUserAdressNotEmpty() {
 /* */
 function buildRouteFromGeolocalisation() {
 	initializeMap();
+	putDestinationOnMap();
 	document.getElementById("errorGeo").style.visibility = "hidden";
 	if (navigator.geolocation) {
 		navigator.geolocation.getCurrentPosition(leadVisitorToEvent);
@@ -160,6 +162,7 @@ function buildRouteFromGeolocalisation() {
 /* */
 function buildRouteFromHome() {
 	initializeMap();
+	putDestinationOnMap();
 	document.getElementById("errorGeo").style.visibility = "hidden";
 	var start = $.trim($('input[id="userAddress"]').val());
 	var end = getDestinationAddresse();
@@ -181,10 +184,8 @@ function buildRoute(start, end) {
 		if (status == google.maps.DirectionsStatus.OK) {
 			directionsDisplay.setDirections(response);
 		}else if(status == google.maps.DirectionsStatus.ZERO_RESULTS){
-			var coordinates = new google.maps.LatLng(position.coords.latitude,
-					position.coords.longitude);
 			var marker = new google.maps.Marker({
-				position : coordinates
+				position : start
 			});
 			marker.setMap(map);
 			map.setZoom(0);
@@ -196,7 +197,6 @@ function buildRoute(start, end) {
 
 /* */
 function buildRouteAddrr(start, end){
-	
 	directionsDisplay.setMap(map);
 	var requeteItineraire = {
 		origin : start,
