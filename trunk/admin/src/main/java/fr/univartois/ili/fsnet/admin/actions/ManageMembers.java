@@ -16,8 +16,6 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
@@ -40,6 +38,7 @@ import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -54,8 +53,6 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
  */
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
 	@Override
@@ -74,7 +71,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("password", "");
 		dynaForm.set("passwordConfirmation", "");
 
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 		SocialEntity socialEntity = facadeSE.createSocialEntity(name,
@@ -145,7 +142,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String formInput=readFileLinePerLine((String)dynaForm.get("fileMultipleMember"));
 		String personalizedMessage = (String) dynaForm.get("message");
 		if(formInput!=null){
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 
 		String[] formSocialEntities = formInput.split("\n");
@@ -246,7 +243,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("multipleMember", "");
 		String personalizedMessage = (String) dynaForm.get("message");
 
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 
 		String[] formSocialEntities = formInput.split("\n");
@@ -417,7 +414,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String entitySelected = request.getParameter("entitySelected");
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		em.getTransaction().begin();
 		int socialEntityId = Integer.parseInt(entitySelected);
@@ -432,7 +429,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		EntityManager entityManager = factory.createEntityManager();
+		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(
 				entityManager);
 
@@ -474,7 +471,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager entityManager = factory.createEntityManager();
+		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
@@ -522,7 +519,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		TypedQuery<SocialEntity> query = null;
 		Set<SocialEntity> resultOthers = null;
@@ -579,7 +576,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		Integer idSocialEntity = Integer.valueOf(request
 				.getParameter("idMember"));
 
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 
 		logger.info("delete interest social entity");
 		SocialEntityFacade ise = new SocialEntityFacade(em);

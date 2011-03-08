@@ -6,13 +6,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
@@ -36,9 +35,7 @@ public class ListGroups extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		EntityManagerFactory factory = Persistence
-				.createEntityManagerFactory("fsnetjpa");
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		String idGroup = request.getParameter("idGroup");
 
 		String idParent = request.getParameter("idParent");

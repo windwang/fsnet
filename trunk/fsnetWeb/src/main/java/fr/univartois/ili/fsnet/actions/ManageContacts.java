@@ -2,7 +2,6 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.Collections;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -15,7 +14,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 

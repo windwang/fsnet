@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,14 +20,12 @@ import org.apache.struts.actions.MappingDispatchAction;
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
 import fr.univartois.ili.fsnet.commons.mail.Mail;
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Property;
 
 public class ConfigureFSNet extends MappingDispatchAction {
 
 	private static final String DEFAULT_SMTP_PORT = "25";
-
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 
 	public ActionForward editMailConfiguration(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
@@ -85,7 +81,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		if ("".equals(dynaform.get("enableTLS"))) {
 			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY, Boolean.FALSE

@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.Properties;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -27,7 +26,6 @@ import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
 import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;

@@ -1,40 +1,28 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
 import java.io.IOException;
-import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
-import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
-import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
-import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
 /**
@@ -43,8 +31,6 @@ import fr.univartois.ili.fsnet.facade.MeetingFacade;
  * @author Mohamed Bouragba
  */
 public class ManageEvents extends MappingDispatchAction implements CrudAction {
-	private static EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
 	@Override
@@ -69,7 +55,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventId = (String) dynaForm.get("eventId");
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		// SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		MeetingFacade meetingFacade = new MeetingFacade(em);

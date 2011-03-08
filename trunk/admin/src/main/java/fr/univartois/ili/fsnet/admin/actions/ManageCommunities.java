@@ -6,9 +6,7 @@ import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -36,8 +34,6 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
  */
 public class ManageCommunities extends MappingDispatchAction implements CrudAction {
 
-	private static EntityManagerFactory factory = Persistence
-	.createEntityManagerFactory("fsnetjpa");
 	private static final Logger logger = Logger.getAnonymousLogger();
 
 	@Override
@@ -87,7 +83,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 
 		logger.info("delete community: " + communityId);
 
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		CommunityFacade communityFacade = new CommunityFacade(em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		em.getTransaction().begin();
@@ -118,7 +114,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		List<Community> result = null;
 		Set<SocialEntity> allMembers = null;
 		String searchText = "";

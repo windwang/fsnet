@@ -7,8 +7,6 @@ import java.util.logging.Logger;
 
 import javax.annotation.Resource;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.TypedQuery;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -18,6 +16,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.mobile.services.model.RestMeeting;
@@ -26,12 +25,10 @@ import fr.univartois.ili.fsnet.mobile.services.model.RestMeeting;
 @Path("/meetings")
 public class Meetings {
 
-	private EntityManagerFactory factory;
 	private EntityManager em;
 
 	public Meetings() {
-		factory = Persistence.createEntityManagerFactory("fsnetjpa");
-		em = factory.createEntityManager();
+		em = PersistenceProvider.createEntityManager();
 	}
 
 	/**

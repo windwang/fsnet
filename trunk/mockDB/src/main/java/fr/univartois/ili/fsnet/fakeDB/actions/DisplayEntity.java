@@ -4,15 +4,13 @@ import java.io.IOException;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.metamodel.Attribute;
+import javax.persistence.metamodel.Attribute.PersistentAttributeType;
 import javax.persistence.metamodel.EntityType;
 import javax.persistence.metamodel.IdentifiableType;
 import javax.persistence.metamodel.Metamodel;
 import javax.persistence.metamodel.PluralAttribute;
 import javax.persistence.metamodel.SingularAttribute;
-import javax.persistence.metamodel.Attribute.PersistentAttributeType;
 import javax.persistence.metamodel.Type.PersistenceType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -20,19 +18,23 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+
 /**
  * Servlet implementation class DisplayEntity
  */
 public class DisplayEntity extends HttpServlet {
 
-	private static final EntityManagerFactory factory = Persistence
-			.createEntityManagerFactory("fsnetjpa");
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5002366756126849965L;
 
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = PersistenceProvider.createEntityManager();
 		em.close();
-		Metamodel metamodel = factory.getMetamodel();
+		Metamodel metamodel = PersistenceProvider.getMetamodel();
 		String requestedEntity = request.getParameter("entityName");
 		if ((metamodel != null) && (requestedEntity != null)) {
 			EntityType<?> selectedEntity = getEntityFromClassName(metamodel,

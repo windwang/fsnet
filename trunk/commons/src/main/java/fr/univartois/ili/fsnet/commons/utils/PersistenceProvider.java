@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.metamodel.Metamodel;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 
@@ -20,6 +21,10 @@ public class PersistenceProvider {
 
 	public static EntityManager createEntityManager() {
 		return factory.createEntityManager();
+	}
+
+	public static Metamodel getMetamodel() {
+		return factory.getMetamodel();
 	}
 
 }

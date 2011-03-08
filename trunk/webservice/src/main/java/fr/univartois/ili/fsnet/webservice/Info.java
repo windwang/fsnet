@@ -8,11 +8,10 @@ import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
+import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
@@ -26,13 +25,11 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 @WebService()
 public class Info {
 
-    private EntityManagerFactory factory;
     private EntityManager em;
     private Date dt;
 
     public Info() {
-        factory = Persistence.createEntityManagerFactory("fsnetjpa");
-        em = factory.createEntityManager();
+        em = PersistenceProvider.createEntityManager();
         this.dt = new Date();
     }
 
