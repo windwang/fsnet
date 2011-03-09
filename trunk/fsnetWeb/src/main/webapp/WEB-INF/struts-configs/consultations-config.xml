@@ -108,5 +108,13 @@
 	            parameter="searchConsultation">
 	            <forward name="success" path="/DisplayConsultations.do" />
 			</action>
+			<action path="/AutocompleteOther"
+					name="VoteConsultationForm"
+					type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
+					input="/DisplayConsultations.do"
+					scope="request"
+		            parameter="autocompleteOther">
+				<forward name="success" path="AutocompleteOtherChoice" />
+			</action>
 	 </action-mappings>
 </struts-config>

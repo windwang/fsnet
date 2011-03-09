@@ -84,7 +84,7 @@
 		</ili:consultationResults>
 	<tr>
 	<c:if test="${allowedToVote }">
-	<html:form action="/VoteConsultation" method="post">
+	<html:form action="/VoteConsultation" method="post" styleId="voteForm">
 		<tr>
 			<td colspan="2"></td>
 			<c:forEach var="choice" items="${consultation.choices }">
@@ -103,8 +103,10 @@
 					</c:choose>
 				</td>
 			</c:forEach>
-			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td><html:text property="voteOther"/></td></c:if>
+			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td><input type="text" name="voteOther" id="voteOther" autocomplete="off"  />
+			<div id="autoCompleteList"><jsp:include page="autocompleteOtherChoice.jsp" /></div></td></c:if>
 			<td><html:text property="voteComment"/></td>
+			
 			<html:hidden property="id" value="${consultation.id }"/>
 			<td><html:submit styleClass="button"><bean:message key="consultation.vote" /></html:submit></td>
 		</tr>
@@ -125,3 +127,30 @@
 
 
 </c:if>
+
+<script type="text/javascript">
+$(function() 
+{
+	
+	
+	$("#voteOther").keyup(function(e){
+		
+		var datas = $("#voteForm").serialize();
+		$.ajax({
+	         type: 'POST',      // envoi des données en POST
+	         url: 'AutocompleteOther.do',    
+	         data: datas,     // sélection des champs à envoyer
+	         success: function(data) { 
+	        	$("#autoCompleteList").html(data);
+	        	$(".autoCompleteListMember").click(function(e){
+	        		$("#voteOther").val($(this).text());
+	        		$("#autoCompleteList").html("");
+	        	});
+	         }
+	    });
+	   
+	});
+	
+	
+});
+</script>

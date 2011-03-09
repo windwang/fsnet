@@ -264,8 +264,20 @@ public class ManageConsultations extends MappingDispatchAction {
 		return redirect;
 	}
 	
+	public ActionForward autocompleteOther(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+		throws IOException, ServletException {
+		String consultationId = request.getParameter("id");
+		String voteOther = request.getParameter("voteOther");
+		EntityManager em = PersistenceProvider.createEntityManager();
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		request.setAttribute("autocompleteChoices", consultationFacade.getOtherChoice(Integer.valueOf(consultationId),voteOther));
+		return mapping.findForward("success");
+	}
+	
+	
 	public boolean isAllowedToVote(Consultation consultation, SocialEntity member) {
-		return consultation.isOpened();// && !consultation.isVoted(member); // TODO a remettre ! 
+		return consultation.isOpened() && !consultation.isVoted(member);
 	}
 	
 }
