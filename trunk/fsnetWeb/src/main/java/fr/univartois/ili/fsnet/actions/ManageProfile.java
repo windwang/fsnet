@@ -44,6 +44,7 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 /**
  * 
  * @author Geoffrey Boulay
+ * @author SAID Mohamed
  */
 public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
@@ -206,12 +207,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			pvf.visite(user, profile);
 			em.getTransaction().commit();
 		}
-		//////////////////
-		boolean isMasterGroup;
-		if (true) {
 			
-		}
-		/////////////////////:
+		request.setAttribute("isMasterGroup", socialGroupFacade.isMasterGroup(user));
 		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		Paginator<Interest> paginatorInterest = new Paginator<Interest>(profile.getInterests(), request, 25, "profileInterests", "id");
