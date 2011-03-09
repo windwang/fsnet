@@ -16,6 +16,7 @@
 				var child = parentChildInterest[0];
 				var parent = parentChildInterest[1];
 				if(child == selectedId){
+					
 					if(parent == "-1"){
 						parentToModify = parentInterests.children("option[value=''] ");
 					}else{
@@ -24,6 +25,6 @@
 				}
 			}
 		}
-		$("div#modify select[name=modifiedInterestId] option:selected").removeAttr('selected');
+		
 		parentToModify.attr('selected','selected');
 	}
