@@ -22,7 +22,7 @@
 		
 		<div class="clear"></div>
 		
-		<h2 id="login-title">Welcome on FSNet !</h2>
+		<h2 id="login-title"><bean:message key="welcome.message"/></h2>
 		<div id="login">
 			<div id="loginWrapper">
 				<form action="Authenticate" method="post">
