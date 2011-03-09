@@ -296,6 +296,9 @@
         <put name="currentMenu" value="UnauthorizedOperationException"/>
         <put name="body-content" value="/content/exception/UnauthorizedOperationException.jsp" />
     </definition>
+    <definition name="AutocompleteOtherChoice" path="/content/ajax/EmptyRecipient.jsp" >
+    	<put name="content" value="/content/consultations/autocompleteOtherChoice.jsp" />
+    </definition>
 </tiles-definitions>
 
 
