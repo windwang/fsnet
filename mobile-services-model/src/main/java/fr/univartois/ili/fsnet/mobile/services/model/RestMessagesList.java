@@ -10,7 +10,7 @@ public class RestMessagesList {
 	}
 	
 	public RestMessagesList(List<RestPrivateMessage> messages){
-		this.setMessages(messages);
+		this.messages = messages;
 	}
 
 	public void setMessages(List<RestPrivateMessage> messages) {
