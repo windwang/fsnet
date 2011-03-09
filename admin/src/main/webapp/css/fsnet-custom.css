@@ -238,3 +238,21 @@ input[type="text"][class="error"], textarea[class="error"] {
     padding: 3px;
     visibility: hidden;
 }
+
+.tag {
+    padding : 2px;
+    float : left;
+    vertical-align: middle;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    border: #c1ffbb 2px dashed;
+    background-color: #e9ffe7;
+	height: 25px;
+}
+.tag a {
+    color: green;
+    text-decoration: underline;
+}
+.tag img{
+    vertical-align: middle;
+}
