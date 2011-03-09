@@ -187,17 +187,18 @@ public class SocialGroupFacade {
 		}
 		return members;
 	}
+
 	public String TreeParentName(SocialEntity member) {
 
 		if (member == null) {
 			throw new IllegalArgumentException();
 		}
 		List<SocialGroup> socialGroups = AllParent(member.getGroup());
-		String tree ="";
+		String tree = "";
 		for (SocialGroup socialGroup2 : socialGroups) {
-			tree = (socialGroup2.getName()+">")+tree;
+			tree = (socialGroup2.getName() + ">") + tree;
 		}
-		return tree+member.getGroup().getName();
+		return tree + member.getGroup().getName();
 	}
 
 	public List<SocialGroup> AllParent(SocialGroup socialGroup) {
@@ -220,13 +221,13 @@ public class SocialGroupFacade {
 		}
 
 	}
-	
+
 	public List<SocialGroup> AllGroupChild(SocialGroup socialGroup) {
 
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		return getAllGroupChild(socialGroup);
 	}
 
@@ -235,10 +236,10 @@ public class SocialGroupFacade {
 		groups.add(socialGroup);
 		for (SocialElement socialElement : socialGroup.getSocialElements()) {
 			if (socialElement instanceof SocialGroup) {
-				groups.addAll(getAllGroupChild((SocialGroup)socialElement));
+				groups.addAll(getAllGroupChild((SocialGroup) socialElement));
 			}
 		}
-		
+
 		return groups;
 
 	}
@@ -249,23 +250,36 @@ public class SocialGroupFacade {
 		em.merge(sg);
 		em.flush();
 	}
-	
-	
+
 	/**
 	 * Return the parents {@link Right} of a {@link SocialGroup}
-	 * @param group the {@link SocialGroup}
+	 * 
+	 * @param group
+	 *            the {@link SocialGroup}
 	 * @return the parents {@link Right} of a {@link SocialGroup}
 	 */
-	public Set<Right> getParentsRights(SocialGroup group){
+	public Set<Right> getParentsRights(SocialGroup group) {
 		Set<Right> rights = new HashSet<Right>();
 		SocialGroup parent = group.getGroup();
-		while(parent != null)
-		{
+		while (parent != null) {
 			rights.addAll(parent.getrights());
 			parent = parent.getGroup();
 		}
-		
+
 		return rights;
 	}
-	
+
+	public boolean isMasterGroup(SocialEntity member) {
+		boolean resultat = false;
+		TypedQuery<Long> query = em
+				.createQuery(
+						"SELECT count(sg) FROM SocialGroup sg WHERE sg.masterGroup.id=:id",
+						Long.class);
+		query.setParameter("id", member.getId());
+		Long count = query.getSingleResult();
+		if (count > 0)
+			resultat = true;
+		return resultat;
+	}
+
 }
