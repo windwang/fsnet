@@ -201,7 +201,7 @@
 	<li>${groupTree}</li>
 </ul>
 
-<c:if test="">
+<c:if test="${requestScope.isMasterGroup }">
 	<h3><bean:message key="showProfile.groups" /></h3>
 	<ul>
 		<li><html:link action="">

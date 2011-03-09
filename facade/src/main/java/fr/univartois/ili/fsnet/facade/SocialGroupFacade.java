@@ -193,12 +193,17 @@ public class SocialGroupFacade {
 		if (member == null) {
 			throw new IllegalArgumentException();
 		}
-		List<SocialGroup> socialGroups = AllParent(member.getGroup());
 		String tree = "";
-		for (SocialGroup socialGroup2 : socialGroups) {
-			tree = (socialGroup2.getName() + ">") + tree;
-		}
-		return tree + member.getGroup().getName();
+		if (member.getGroup() != null) {
+			List<SocialGroup> socialGroups = AllParent(member.getGroup());
+
+			for (SocialGroup socialGroup2 : socialGroups) {
+				tree = (socialGroup2.getName() + ">") + tree;
+			}
+			tree = tree + member.getGroup().getName();
+		} else
+			tree = ">";
+		return tree;
 	}
 
 	public List<SocialGroup> AllParent(SocialGroup socialGroup) {
