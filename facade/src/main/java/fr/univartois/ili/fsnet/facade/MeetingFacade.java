@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.Address;
+import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
@@ -85,4 +86,25 @@ public class MeetingFacade {
         results = query.getResultList();
         return results;
     }
+    
+    /**
+	 * Get the new meetings for the last user's connection
+	 * @param user
+	 * @return a list of Meeting
+	 */
+	public final List<Meeting> getLastMeetingForTheLastUserConnexion(SocialEntity user) {
+		if (user== null) {
+			throw new IllegalArgumentException();
+		}
+		List<Meeting> listMeeting;
+		listMeeting = em
+		.createQuery(
+				"SELECT m FROM Meeting m WHERE  TYPE(m) IN(Meeting) AND "
+				+ "(m.creationDate >= :lastConnection) ORDER BY m.creationDate ",
+				Meeting.class).setParameter("lastConnection",
+						user.getLastConnection()).getResultList();
+		
+		return listMeeting;
+	}
+    
 }
