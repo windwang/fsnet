@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
@@ -68,6 +69,7 @@ public class ConsultationFacade {
 	
 	public final ConsultationVote voteForConsultation(SocialEntity voter, Consultation consultation, String comment,String other,List<String> choices){
 		ConsultationVote consultationVote = new ConsultationVote(voter,comment,other);
+		voter.getVotes().add(consultationVote);
 		if(consultation != null){
 			consultationVote.setConsultation(consultation);
 			consultation.getConsultationVotes().add(consultationVote);
@@ -129,6 +131,11 @@ public class ConsultationFacade {
 		}
 	}
 
+	public List<Consultation> getConsultationsContaining(String searchText) {
+		TypedQuery<Consultation> query = em.createQuery("SELECT consultation FROM Consultation consultation WHERE consultation.title LIKE :pattern", Consultation.class);
+        query.setParameter("pattern", "%" + searchText + "%");
+        return query.getResultList();
+	}
 	
 	
 }
