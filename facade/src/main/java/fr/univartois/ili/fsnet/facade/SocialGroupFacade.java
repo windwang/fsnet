@@ -250,32 +250,6 @@ public class SocialGroupFacade {
 		em.flush();
 	}
 	
-	/**
-	 * Add a {@link Right}
-	 * @param group the {@link SocialGroup}
-	 * @param right the {@link Right} to add
-	 */
-	public void addRight(SocialGroup group,Right right){
-		group.addRight(right);
-	}
-	
-	/**
-	 * Add a set of {@link Right}s
-	 * @param group the {@link SocialGroup}
-	 * @param right the {@link Right}s to add
-	 */
-	public void addRights(SocialGroup group,Set<Right> rights){
-		group.addRights(rights);
-	}
-	
-	/**
-	 * remove a {@link Right}
-	 * @param group the {@link SocialGroup}
-	 * @param right the {@link Right} to remove
-	 */
-	public void removeRight(SocialGroup group,Right right){
-		group.removeRight(right);
-	}
 	
 	/**
 	 * Return the parents {@link Right} of a {@link SocialGroup}
