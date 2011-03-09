@@ -58,8 +58,7 @@ public class Messages {
 				String from = message.getFrom().getName() + " "
 						+ message.getFrom().getFirstName();
 				restPrivateMessage.setFrom(from);
-				restPrivateMessage.setMessageId(restPrivateMessage
-						.getMessageId());
+				restPrivateMessage.setMessageId(message.getId());
 				restPrivateMessage.setSubject(message.getSubject());
 
 				messages.add(restPrivateMessage);
@@ -76,7 +75,6 @@ public class Messages {
 	public Integer getCountMessages( //
 			@QueryParam("login") String login, //
 			@QueryParam("pwd") String password) {
-		Logger.getAnonymousLogger().info(login);
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		if (sef.isMember(login, password)) {
 			SocialEntity se = sef.findByEmail(login);
