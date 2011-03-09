@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.activation.FileTypeMap;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -12,9 +13,14 @@ import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
+import fr.univartois.ili.fsnet.facade.MeetingFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
  * This webservice is used by fsnet heavy clients to get informations on new
@@ -27,6 +33,8 @@ public class Info {
 
     private EntityManager em;
     private Date dt;
+    
+    private SocialEntityFacade socialEntityFacade;
 
     public Info() {
         em = PersistenceProvider.createEntityManager();
@@ -45,13 +53,19 @@ public class Info {
     public Integer getNewEventsCount(
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
-        Query ql = em.createQuery("SELECT m FROM Meeting m where m.creationDate=?1 ");
-        ql.setParameter(1, dt);
-        return ql.getResultList().size();
+    	SocialEntityFacade sef = new SocialEntityFacade(em);
+    	MeetingFacade mf = new MeetingFacade(em);
+        if (sef.isMember(login, password)) {
+       		SocialEntity user = sef.getSocialEntityByEmail(login);
+       		if(user!=null){
+       			return mf.getLastMeetingForTheLastUserConnexion(user).size();
+       		}
+        }
+        return 0;
     }
 
     /**
-     * Return the number of unread announcement
+     * Return the number of unread announcement since the last user's connection
      *
      * @param login
      * @param password
@@ -61,10 +75,20 @@ public class Info {
     public Integer getNewAnnouncementCount(
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
-        Query ql1 = em.createQuery("SELECT m FROM Announcement m where type(m) in (Announcement) and m.creationDate=?1 ");
-        ql1.setParameter(1, dt);
-        return ql1.getResultList().size();
+    	
+    	
+    	 SocialEntityFacade sef = new SocialEntityFacade(em);
+    	 AnnouncementFacade af = new AnnouncementFacade(em);
+         if (sef.isMember(login, password)) {
+        		SocialEntity user = sef.getSocialEntityByEmail(login);
+        		if(user!=null){
+        			List<Announcement> listAnnoun = af.getLastAnnouncementForTheLastUserConnexion(user);
+        			return listAnnoun.size();
+        		}
+         }
+         return 0;
     }
+  
 
     /**
      * Return the number of new demande contact

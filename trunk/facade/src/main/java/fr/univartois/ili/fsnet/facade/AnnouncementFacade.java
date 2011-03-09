@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
@@ -95,5 +96,26 @@ public class AnnouncementFacade {
 						"%" + textSearchAnnounce + "%").getResultList();
 		return listAnnounces;
 
+	}
+	
+
+	/**
+	 * Get the new announcements from the last user's connection
+	 * @param user
+	 * @return a list of Announcement
+	 */
+	public final List<Announcement> getLastAnnouncementForTheLastUserConnexion(SocialEntity user) {
+		if (user== null) {
+			throw new IllegalArgumentException();
+		}
+		List<Announcement> listAnnounces;
+		listAnnounces = em
+		.createQuery(
+				"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
+				+ "(a.creationDate >= :lastConnection) ORDER BY a.creationDate ",
+				Announcement.class).setParameter("lastConnection",
+						user.getLastConnection()).getResultList();
+		
+		return listAnnounces;
 	}
 }

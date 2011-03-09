@@ -175,6 +175,17 @@ public class SocialEntityFacade {
 		TypedQuery<SocialEntity> query = em.createQuery("SELECT es FROM SocialEntity es", SocialEntity.class);
 		return query.getResultList();
 	}
+	
+	/**
+	 * Get the user corresponding to the email
+	 * @param email
+	 * @return the user or null
+	 */
+	public final SocialEntity getSocialEntityByEmail(String email){
+		TypedQuery<SocialEntity> query = em.createQuery("SELECT es FROM SocialEntity es WHERE es.email LIKE :mail", SocialEntity.class);
+		query.setParameter("mail", email);
+		return query.getSingleResult();
+	}
     
 //    /**
 //     * Return the social Entities
