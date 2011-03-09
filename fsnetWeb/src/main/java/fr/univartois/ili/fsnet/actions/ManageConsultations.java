@@ -265,7 +265,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	}
 	
 	public boolean isAllowedToVote(Consultation consultation, SocialEntity member) {
-		return consultation.isOpened() && !consultation.isVoted(member);
+		return consultation.isOpened();// && !consultation.isVoted(member); // TODO a remettre ! 
 	}
 	
 }

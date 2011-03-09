@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.tags;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -25,6 +26,7 @@ public class ConsultationResultsTag extends TagSupport {
 	private String percent;
 	private String maximum;
 	private String choice;
+	private String histogram;
 	
 	private List<Double> nb;
 	private Iterator<Double> currentNb;
@@ -120,14 +122,35 @@ public class ConsultationResultsTag extends TagSupport {
 		}
 		if (consultation.getType() == Consultation.TypeConsultation.YES_NO_OTHER){
 			votes=consultation.getConsultationVotes().iterator();
-			nb.add(0.0);
-			while (votes.hasNext()){
-				vote = votes.next();
-				if (!"".equals(vote.getOther())){
-					nb.set(i, nb.get(i)+1);
-					if (max < nb.get(i))
-						max = nb.get(i);
-					total++;
+			if (histogram != null && "yes".equals(histogram)){
+				int iChoice;
+				while (votes.hasNext()){
+					vote = votes.next();
+					if (!"".equals(vote.getOther())){
+						if (this.choices.contains(vote.getOther())){
+							iChoice=this.choices.indexOf(vote.getOther());
+							nb.set(iChoice, nb.get(iChoice)+1);
+						}
+						else {
+							iChoice=nb.size();
+							nb.add(1.0);
+							this.choices.add(vote.getOther());
+						}
+						total++;
+					}
+				}
+			}
+			else {
+				nb.add(0.0);
+				this.choices.add(ResourceBundle.getBundle("FSneti18n", pageContext.getRequest().getLocale()).getString("consultation.other"));
+				while (votes.hasNext()){
+					vote = votes.next();
+					if (!"".equals(vote.getOther())){
+						nb.set(i, nb.get(i)+1);
+						if (max < nb.get(i))
+							max = nb.get(i);
+						total++;
+					}
 				}
 			}
 		}
@@ -167,7 +190,13 @@ public class ConsultationResultsTag extends TagSupport {
 	public void setChoice(String choice) {
 		this.choice = choice;
 	}
-	
-	
-	
+
+	public String getHistogram() {
+		return histogram;
+	}
+
+	public void setHistogram(String histogram) {
+		this.histogram = histogram;
+	}
+		
 }

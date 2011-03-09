@@ -114,16 +114,11 @@
 
 <h3><bean:message key="consultation.histogramme" /></h3>
 
-<div style="float:right; text-align:right;">
-	<c:forEach var="choice" items="${consultation.choices }">
-		<div class="consultationHistoIndication">${choice.intituled}</div>
-	</c:forEach>
-</div>
-
 <div>
-	<ili:consultationResults consultation="${consultation}" percent="percent">
+	<ili:consultationResults consultation="${consultation}" percent="percent" number="number" choice="choice" histogram="yes">
+	<span class="consultationHistoPercent">${choice} ${percent}% (${number})</span>
 		<div class="consultationHistoStick" style="width:${percent}%;">
-			<div class="consultationHistoPercent">${percent}%</div>
+			
 		</div>
 	</ili:consultationResults>
 </div>
