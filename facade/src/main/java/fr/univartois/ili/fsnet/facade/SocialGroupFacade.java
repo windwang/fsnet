@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
@@ -248,4 +249,49 @@ public class SocialGroupFacade {
 		em.merge(sg);
 		em.flush();
 	}
+	
+	/**
+	 * Add a {@link Right}
+	 * @param group the {@link SocialGroup}
+	 * @param right the {@link Right} to add
+	 */
+	public void addRight(SocialGroup group,Right right){
+		group.addRight(right);
+	}
+	
+	/**
+	 * Add a set of {@link Right}s
+	 * @param group the {@link SocialGroup}
+	 * @param right the {@link Right}s to add
+	 */
+	public void addRights(SocialGroup group,Set<Right> rights){
+		group.addRights(rights);
+	}
+	
+	/**
+	 * remove a {@link Right}
+	 * @param group the {@link SocialGroup}
+	 * @param right the {@link Right} to remove
+	 */
+	public void removeRight(SocialGroup group,Right right){
+		group.removeRight(right);
+	}
+	
+	/**
+	 * Return the parents {@link Right} of a {@link SocialGroup}
+	 * @param group the {@link SocialGroup}
+	 * @return the parents {@link Right} of a {@link SocialGroup}
+	 */
+	public Set<Right> getParentsRights(SocialGroup group){
+		Set<Right> rights = new HashSet<Right>();
+		SocialGroup parent = group.getGroup();
+		while(parent != null)
+		{
+			rights.addAll(parent.getrights());
+			parent = parent.getGroup();
+		}
+		
+		return rights;
+	}
+	
 }
