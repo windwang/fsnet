@@ -37,6 +37,7 @@ public class FSNetTray implements WSListener {
 	private final ResourceBundle trayi18n = TrayLauncher.getBundle();
 	private TrayIcon tray;
 	private final WSControl control;
+	private boolean newMessage, newContact, newEvent, newAnnounce;
 
 	/**
 	 * 
@@ -52,6 +53,10 @@ public class FSNetTray implements WSListener {
 		tray = new TrayIcon(image);
 		initTrayIcon();
 		this.control = control;
+		newMessage = false;
+		newContact = false;
+		newEvent = false;
+		newAnnounce = false;
 	}
 
 	/**
@@ -108,7 +113,23 @@ public class FSNetTray implements WSListener {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Desktop.getDesktop().browse(new URI(Options.getFsnetUrl()));
+					if (newMessage)
+						Desktop.getDesktop().browse(
+								new URI(Options.getFsnetUrl() + "/Inbox.do"));
+					else if (newContact)
+						Desktop.getDesktop()
+								.browse(new URI(Options.getFsnetUrl()
+										+ "/Contacts.do"));
+					else if (newAnnounce)
+						Desktop.getDesktop()
+								.browse(new URI(Options.getFsnetUrl()
+										+ "/Announces.do"));
+					else if (newEvent)
+						Desktop.getDesktop().browse(
+								new URI(Options.getFsnetUrl() + "/Events.do"));
+					else
+						Desktop.getDesktop().browse(
+								new URI(Options.getFsnetUrl()));
 				} catch (URISyntaxException ex) {
 					Logger.getLogger(FSNetTray.class.getName()).log(
 							Level.SEVERE, null, ex);
@@ -137,9 +158,49 @@ public class FSNetTray implements WSListener {
 
 	@Override
 	public void onNewMessages(WSMessage message) {
+		newMessage = true;
+		newContact = newAnnounce = newEvent = false;
 		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
 				message.getMessage() + " " + trayi18n.getString("NEWMESSAGES"),
 				TrayIcon.MessageType.NONE);
+
+	}
+
+	@Override
+	public void onNewEvent(WSMessage message) {
+		newEvent = true;
+		newContact = newAnnounce = newMessage = false;
+		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+				message.getMessage() + " " + trayi18n.getString("NEWEVENT"),
+				TrayIcon.MessageType.NONE);
+	}
+
+	@Override
+	public void onNewContact(WSMessage mes) {
+		newContact = true;
+		newMessage = newAnnounce = newEvent = false;
+		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+				mes.getMessage() + " " + trayi18n.getString("NEWCONTACT"),
+				TrayIcon.MessageType.NONE);
+
+	}
+
+	@Override
+	public void onNewAnnouncement(WSMessage mes) {
+		newAnnounce = true;
+		newContact = newMessage = newEvent = false;
+		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+				mes.getMessage() + " " + trayi18n.getString("NEWANNOUNCEMENT"),
+				TrayIcon.MessageType.NONE);
+	}
+
+	@Override
+	public void onNewNotification(WSMessage mes) {
+		newContact = newAnnounce = newEvent = newMessage = false;
+		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+				mes.getMessage() + " " + trayi18n.getString("NEWNOTIFICATION"),
+				TrayIcon.MessageType.NONE);
+
 	}
 
 	@Override

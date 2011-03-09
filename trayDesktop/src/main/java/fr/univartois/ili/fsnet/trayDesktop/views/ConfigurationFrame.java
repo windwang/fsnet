@@ -145,11 +145,31 @@ public class ConfigurationFrame implements WSListener {
 		frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		frame.pack();
 		frame.setLocationRelativeTo(null);
+		frame.setResizable(false);
 		frame.setVisible(true);
 	}
 
 	@Override
 	public void onNewMessages(WSMessage message) {
+	}
+
+	@Override
+	public void onNewEvent(WSMessage message) {
+	}
+
+	@Override
+	public void onNewContact(WSMessage mes) {
+
+	}
+
+	@Override
+	public void onNewAnnouncement(WSMessage mes) {
+
+	}
+
+	@Override
+	public void onNewNotification(WSMessage mes) {
+
 	}
 
 	@Override
