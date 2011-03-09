@@ -45,7 +45,7 @@ public class SocialGroupTest {
 		final String mail = "simo.said09@gmail.com";
 		SocialEntity ent = new SocialEntity(lastName, firstName, mail);
 		SocialGroup sg = new SocialGroup(ent, groupName, "descrption");
-		sg.addRight(Right.ADD_ADMIN_GROUP);
+		sg.addRight(Right.ADD_ANNOUNCE);
 		sg.addRight(Right.MODIFY_PROFIL);
 		em.getTransaction().begin();
 		em.persist(ent);
@@ -60,7 +60,7 @@ public class SocialGroupTest {
 		assertEquals(sg2.getMasterGroup().getFirstName(), firstName);
 		assertEquals(sg2.getMasterGroup().getEmail(), mail);
 		assertTrue("right is not persisted correctly",
-				sg2.isAuthorized(Right.ADD_ADMIN_GROUP));
+				sg2.isAuthorized(Right.ADD_ANNOUNCE));
 		assertTrue("right is not persisted correctly",
 				sg2.isAuthorized(Right.MODIFY_PROFIL));
 
@@ -80,11 +80,11 @@ public class SocialGroupTest {
 		em.getTransaction().commit();
 		assertEquals(sg.getName(), "ATOS2");
 		assertEquals(sg.getMasterGroup(), masterGroup);
-		assertFalse("no right actually", sg.isAuthorized(Right.ADD_ADMIN_GROUP));
+		assertFalse("no right actually", sg.isAuthorized(Right.ADD_ANNOUNCE));
 
 		sg.setName("ATOS22");
 		sg.setMasterGroup(masterGroup2);
-		sg.addRight(Right.ADD_ADMIN_GROUP);
+		sg.addRight(Right.ADD_ANNOUNCE);
 		em.getTransaction().begin();
 		em.merge(sg);
 		em.getTransaction().commit();
@@ -93,7 +93,7 @@ public class SocialGroupTest {
 		assertNotNull(sg);
 		assertEquals(sg.getName(), "ATOS22");
 		assertEquals(sg.getMasterGroup(), masterGroup2);
-		assertTrue("right not update", sg.isAuthorized(Right.ADD_ADMIN_GROUP));
+		assertTrue("right not update", sg.isAuthorized(Right.ADD_ANNOUNCE));
 	}
 
 	@Test
@@ -175,12 +175,11 @@ public class SocialGroupTest {
 				"mailvbjkgc1@gmail.com");
 		SocialGroup sg = new SocialGroup(masterGroup, "G", "descrption");
 
-		sg.addRight(Right.ADD_ADMIN_GROUP);
+		sg.addRight(Right.ADD_ANNOUNCE);
 		sg.addRight(Right.ADD_EVENT);
 		sg.addRight(Right.MODIFY_PICTURE);
 
-		assertTrue("should be authorized",
-				sg.isAuthorized(Right.ADD_ADMIN_GROUP));
+		assertTrue("should be authorized", sg.isAuthorized(Right.ADD_ANNOUNCE));
 		assertTrue("should be authorized", sg.isAuthorized(Right.ADD_EVENT));
 		assertTrue("should be authorized",
 				sg.isAuthorized(Right.MODIFY_PICTURE));
@@ -192,17 +191,17 @@ public class SocialGroupTest {
 				"mailvbjkgc1@gmail.com");
 		SocialGroup sg = new SocialGroup(masterGroup, "G", "descrption");
 
-		sg.addRight(Right.ADD_ADMIN_GROUP);
+		sg.addRight(Right.ADD_ANNOUNCE);
 		sg.addRight(Right.ADD_EVENT);
 		sg.addRight(Right.MODIFY_PICTURE);
 		sg.addRight(Right.RECEIVED_MESSAGE);
 		sg.addRight(Right.ANSWER_MESSAGE);
 
-		sg.removeRight(Right.ADD_ADMIN_GROUP);
+		sg.removeRight(Right.ADD_ANNOUNCE);
 		sg.removeRight(Right.MODIFY_PICTURE);
 
 		assertFalse("should'nt be authorized",
-				sg.isAuthorized(Right.ADD_ADMIN_GROUP));
+				sg.isAuthorized(Right.ADD_ANNOUNCE));
 		assertTrue("should be authorized",
 				sg.isAuthorized(Right.ANSWER_MESSAGE));
 		assertFalse("should'nt be authorized",
@@ -216,7 +215,7 @@ public class SocialGroupTest {
 		SocialGroup sg = new SocialGroup(masterGroup, "G", "descrption");
 		SocialGroup father = new SocialGroup(masterGroup, "G", "descrption");
 
-		sg.addRight(Right.ADD_ADMIN_GROUP);
+		sg.addRight(Right.ADD_ANNOUNCE);
 		sg.addRight(Right.ADD_EVENT);
 		sg.addRight(Right.MODIFY_PICTURE);
 		father.addRight(Right.RECEIVED_MESSAGE);
@@ -225,9 +224,8 @@ public class SocialGroupTest {
 		sg.setGroup(father);
 
 		assertFalse("father is not authorized",
-				father.isAuthorized(Right.ADD_ADMIN_GROUP));
-		assertTrue("should be authorized",
-				sg.isAuthorized(Right.ADD_ADMIN_GROUP));
+				father.isAuthorized(Right.ADD_ANNOUNCE));
+		assertTrue("should be authorized", sg.isAuthorized(Right.ADD_ANNOUNCE));
 		assertTrue("should be authorized, has the right of the father",
 				sg.isAuthorized(Right.ANSWER_MESSAGE));
 

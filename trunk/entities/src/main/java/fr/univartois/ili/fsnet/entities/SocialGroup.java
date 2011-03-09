@@ -113,6 +113,15 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	/**
+	 * Return the {@link Right}s of the {@link SocialGroup}
+	 * 
+	 * @return the {@link Right}s of the {@link SocialGroup}
+	 */
+	public Set<Right> getrights() {
+		return rights;
+	}
+
+	/**
 	 * Add a {@link Right} to the {@link SocialGroup}
 	 * 
 	 * @param right
@@ -120,6 +129,16 @@ public class SocialGroup extends SocialElement implements Serializable {
 	 */
 	public void addRight(Right right) {
 		rights.add(right);
+	}
+
+	/**
+	 * Add a set of {@link Right} to the {@link SocialGroup}
+	 * 
+	 * @param rights
+	 *            the specific {@link Right}s
+	 */
+	public void addRights(Set<Right> rights) {
+		rights.addAll(rights);
 	}
 
 	/**
