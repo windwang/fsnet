@@ -38,9 +38,9 @@
                     </td>
                     <td class="tableButton" onclick="confirmDelete2('deleteid${community.id}')"><c:if
 						test="${sessionScope.userId eq community.creator.id}">
-						<form action="DeleteCommunity.do" id="deleteid${community.id}" method="post"><input
-							type="hidden" name="communityId" value="${community.id}" />
-						</form>
+						<html:form action="DeleteCommunity.do" styleId="deleteid${community.id}" method="post">
+							<html:hidden property="communityId" value="${community.id}" />
+						</html:form>
 						<span class="button">
 						    <bean:message
 							    key="communities.delete"/>
