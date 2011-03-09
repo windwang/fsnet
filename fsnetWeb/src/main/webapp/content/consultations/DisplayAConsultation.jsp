@@ -85,7 +85,7 @@
 	<tr>
 	<c:if test="${allowedToVote }">
 	<html:form action="/VoteConsultation" method="post" styleId="voteForm">
-		<tr>
+		<tr class="consultationVote">
 			<td colspan="2"></td>
 			<c:forEach var="choice" items="${consultation.choices }">
 				<td class="consultationFormChoices">
@@ -104,7 +104,7 @@
 				</td>
 			</c:forEach>
 			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td><input type="text" name="voteOther" id="voteOther" autocomplete="off"  />
-			<div id="autoCompleteList"><jsp:include page="autocompleteOtherChoice.jsp" /></div></td></c:if>
+			<div class="consultationAutoCompleteList" id="autoCompleteList"><jsp:include page="autocompleteOtherChoice.jsp" /></div></td></c:if>
 			<td><html:text property="voteComment"/></td>
 			
 			<html:hidden property="id" value="${consultation.id }"/>
@@ -131,10 +131,7 @@
 <script type="text/javascript">
 $(function() 
 {
-	
-	
 	$("#voteOther").keyup(function(e){
-		
 		var datas = $("#voteForm").serialize();
 		$.ajax({
 	         type: 'POST',      // envoi des données en POST
@@ -146,11 +143,11 @@ $(function()
 	        		$("#voteOther").val($(this).text());
 	        		$("#autoCompleteList").html("");
 	        	});
+	        	$("body").click(function(){
+	        		$("#autoCompleteList").html("");
+	        	});
 	         }
 	    });
-	   
-	});
-	
-	
+	});	
 });
 </script>
