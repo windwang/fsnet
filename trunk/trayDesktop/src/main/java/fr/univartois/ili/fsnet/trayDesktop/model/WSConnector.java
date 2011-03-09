@@ -84,6 +84,34 @@ public class WSConnector {
 		}
 	}
 
+	private void fireNewEvent(int nbEvent) {
+		WSMessage mes = new WSMessage("" + nbEvent);
+		for (WSListener listener : listeners) {
+			listener.onNewEvent(mes);
+		}
+	}
+
+	private void fireNewContact(int nbContact) {
+		WSMessage mes = new WSMessage("" + nbContact);
+		for (WSListener listener : listeners) {
+			listener.onNewContact(mes);
+		}
+	}
+
+	private void fireNewAnnouncement(int nbAnnouncement) {
+		WSMessage mes = new WSMessage("" + nbAnnouncement);
+		for (WSListener listener : listeners) {
+			listener.onNewAnnouncement(mes);
+		}
+	}
+
+	private void fireNewNotification(int nbNotifications) {
+		WSMessage mes = new WSMessage("" + nbNotifications);
+		for (WSListener listener : listeners) {
+			listener.onNewNotification(mes);
+		}
+	}
+
 	/**
 	 * Add a WSListener
 	 * 
@@ -220,10 +248,27 @@ public class WSConnector {
 			fireError("No Connection");
 		} else {
 			try {
-				if (getNbMessage() > 0 || getNbDemandeC() > 0) {
-					if (getNbMessage() > 0) {
-						fireNewMessages(getNbMessage());
-					}
+				boolean newMessage, newContact, newAnnounce, newEvent;
+
+				newMessage = getNbMessage() > 0;
+				newContact = getNbDemandeC() > 0;
+				newAnnounce = getNbAnnouncement() > 0;
+				newEvent = getNbEvent() > 0;
+
+				if (newMessage && !newContact && !newAnnounce && !newEvent) {
+					fireNewMessages(getNbMessage());
+				} else if (!newMessage && newContact && !newAnnounce
+						&& !newEvent) {
+					fireNewContact(getNbDemandeC());
+				} else if (!newMessage && !newContact && newAnnounce
+						&& !newEvent) {
+					fireNewAnnouncement(getNbAnnouncement());
+				} else if (!newMessage && !newContact && !newAnnounce
+						&& newEvent) {
+					fireNewEvent(getNbEvent());
+				} else if (newMessage || newContact || newAnnounce || newEvent) {
+					fireNewNotification(getNbMessage() + getNbDemandeC()
+							+ getNbAnnouncement() + getNbEvent());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

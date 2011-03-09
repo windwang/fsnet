@@ -15,8 +15,34 @@ public interface WSListener {
 	 */
 	void onNewMessages(WSMessage message);
 
-	// void onNewEvent(WsPrivateMessage message);
-	// void onNewEvent(WsPrivateMessage message);
+	/**
+	 * Called when a new Event is created
+	 * 
+	 * @param message
+	 */
+	void onNewEvent(WSMessage message);
+
+	/**
+	 * Called when a new Contact add you
+	 * 
+	 * @param message
+	 */
+	void onNewContact(WSMessage mes);
+
+	/**
+	 * Called when a new Annoucement is created
+	 * 
+	 * @param message
+	 */
+	void onNewAnnouncement(WSMessage mes);
+
+	/**
+	 * Called when you receive more than one kind of notification (new message,
+	 * new contact, new event , new announce)
+	 * 
+	 * @param message
+	 */
+	void onNewNotification(WSMessage mes);
 
 	/**
 	 * Called when the system encountred an error
