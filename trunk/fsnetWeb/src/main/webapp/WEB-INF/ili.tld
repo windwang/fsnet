@@ -82,4 +82,20 @@
 			<rtexprvalue>false</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<description>Filter interactions by group membership</description>
+		<name>interactionFilter</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.InteractionsFilter</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>right</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>user</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>
