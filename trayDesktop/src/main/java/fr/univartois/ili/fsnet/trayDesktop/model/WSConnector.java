@@ -8,6 +8,11 @@ import java.util.List;
 import java.util.Set;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,11 +24,6 @@ import fr.univartois.ili.fsnet.trayDesktop.views.NotificationFrame;
 import fr.univartois.ili.fsnet.webservice.Info;
 import fr.univartois.ili.fsnet.webservice.InfoService;
 import fr.univartois.ili.fsnet.webservice.WsPrivateMessage;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
-import java.util.concurrent.TimeUnit;
 
 /**
  * The model of the application. Communicate with the webservice and notify
@@ -126,8 +126,8 @@ public class WSConnector {
 							"http://webservice.fsnet.ili.univartois.fr/",
 							"InfoService"));
 					infoPort = infoService.getInfoPort();
-					return infoPort.isMember(Options.getLogin(), Options
-							.getPassword());
+					return infoPort.isMember(Options.getLogin(),
+							Options.getPassword());
 				} catch (MalformedURLException ex) {
 					Logger.getLogger(WSConnector.class.getName()).log(
 							Level.SEVERE, null, ex);
@@ -237,7 +237,8 @@ public class WSConnector {
 			fireError("No Connection");
 		} else {
 			try {
-				if (getNbMessage() > 0 || getNbDemandeC() > 0) {
+				if (getNbMessage() > 0 || getNbDemandeC() > 0
+						|| getNbAnnouncement() > 0) {
 					if (frame == null) {
 						frame = new NotificationFrame(position);
 						if (getNbMessage() > 0) {
@@ -245,6 +246,12 @@ public class WSConnector {
 						}
 						if (getNbDemandeC() > 0) {
 							frame.addPanelContact(getNbDemandeC());
+						}
+						if (getNbAnnouncement() > 0) {
+							frame.addPanelAnnouncement(getNbAnnouncement());
+						}
+						if (getNbEvent() > 0) {
+							frame.addPanelEvent(getNbEvent());
 						}
 					} else {
 						frame.getFrame().dispose();
@@ -261,8 +268,8 @@ public class WSConnector {
 
 	public int getNbMessage() {
 		try {
-			List<WsPrivateMessage> messages = infoPort.getNewMessages(Options
-					.getLogin(), Options.getPassword());
+			List<WsPrivateMessage> messages = infoPort.getNewMessages(
+					Options.getLogin(), Options.getPassword());
 			if (messages != null && messages.size() > 0) {
 				return messages.size();
 			}
@@ -275,12 +282,32 @@ public class WSConnector {
 	public int getNbDemandeC() {
 		int nbC = 0;
 		try {
-			nbC = infoPort.getNewDemandeCount(Options.getLogin(), Options
-					.getPassword());
+			nbC = infoPort.getNewDemandeCount(Options.getLogin(),
+					Options.getPassword());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return nbC;
+	}
+
+	public int getNbAnnouncement() {
+		try {
+			return infoPort.getNewAnnouncementCount(Options.getLogin(),
+					Options.getPassword());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	public int getNbEvent() {
+		try {
+			return infoPort.getNewEventsCount(Options.getLogin(),
+					Options.getPassword());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
 	}
 
 	/**
