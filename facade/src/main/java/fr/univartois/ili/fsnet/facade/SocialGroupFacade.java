@@ -186,6 +186,18 @@ public class SocialGroupFacade {
 		}
 		return members;
 	}
+	public String TreeParentName(SocialEntity member) {
+
+		if (member == null) {
+			throw new IllegalArgumentException();
+		}
+		List<SocialGroup> socialGroups = AllParent(member.getGroup());
+		String tree ="";
+		for (SocialGroup socialGroup2 : socialGroups) {
+			tree = (socialGroup2.getName()+">")+tree;
+		}
+		return tree+member.getGroup().getName();
+	}
 
 	public List<SocialGroup> AllParent(SocialGroup socialGroup) {
 
@@ -207,6 +219,7 @@ public class SocialGroupFacade {
 		}
 
 	}
+	
 	public List<SocialGroup> AllGroupChild(SocialGroup socialGroup) {
 
 		if (socialGroup == null) {
