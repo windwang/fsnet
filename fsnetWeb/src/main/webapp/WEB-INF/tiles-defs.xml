@@ -273,10 +273,10 @@
         <put name="left" value="/content/consultations/leftMenu.jsp" />
     </definition>
     
-    <definition name="DisplayYourConsultations" extends=".defaultLayout">
+    <definition name="DisplayConsultations" extends=".defaultLayout">
     	<put name="title" value="pageTitle.18" />
     	<put name="currentMenu" value="Consultations"/>
-    	<put name="body-content" value="/content/consultations/DisplayYourConsultations.jsp"/>
+    	<put name="body-content" value="/content/consultations/Consultations.jsp"/>
     	<put name="left" value="/content/consultations/leftMenu.jsp"></put>
     </definition>
     

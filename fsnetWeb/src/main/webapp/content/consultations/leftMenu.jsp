@@ -6,11 +6,6 @@
 </h2>
 <ul>
     <li>
-        <html:link action="/DisplayConsultations">
-            <bean:message key="consultations.manageLeftMenu"/>
-        </html:link>
-    </li>
-    <li>
         <html:link action="/CreateConsultationMenu">
             <bean:message key="consultations.createLeftMenu"/>
         </html:link>

@@ -173,6 +173,24 @@ public class ManageConsultations extends MappingDispatchAction {
 		return redirect;
 	}
 	
+	public ActionForward searchConsultation(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+		throws IOException, ServletException {
+		String searchText = "";
+		EntityManager em = PersistenceProvider.createEntityManager();
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		if(form != null){
+			DynaActionForm dynaForm = (DynaActionForm) form;
+			searchText = (String) dynaForm.get("searchText");
+		}
+		List<Consultation> searchConsultations = consultationFacade.getConsultationsContaining(searchText);
+		Paginator<Consultation> paginator = new Paginator<Consultation>(searchConsultations, request, "searchConsultation");
+		request.setAttribute("consultationsSearchListPaginator", paginator);
+		return mapping.findForward("success");
+		
+	}
+	
+	
 	public ActionForward displayAConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
 		String idConsultation = request.getParameter("id");
