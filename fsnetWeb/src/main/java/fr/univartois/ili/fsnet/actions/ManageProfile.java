@@ -33,10 +33,12 @@ import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
@@ -175,9 +177,11 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		addKeyFacebookInRequest(request,  response);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		Boolean alreadyInContact = false;
+		String groupTree;
 		int id = -1;
 		try {
 			String idS = dyna.getString("id");
@@ -202,6 +206,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			pvf.visite(user, profile);
 			em.getTransaction().commit();
 		}
+		//////////////////
+		boolean isMasterGroup;
+		if (true) {
+			
+		}
+		/////////////////////:
 		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		Paginator<Interest> paginatorInterest = new Paginator<Interest>(profile.getInterests(), request, 25, "profileInterests", "id");
@@ -221,6 +231,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 		request.setAttribute("currentUser", user);
+		groupTree = socialGroupFacade.TreeParentName(user);
+		request.setAttribute("groupTree",groupTree);
 		return mapping.findForward("success");
 	}
 
