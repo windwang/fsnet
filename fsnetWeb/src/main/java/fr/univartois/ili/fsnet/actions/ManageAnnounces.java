@@ -33,6 +33,7 @@ import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
+import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
  * 
@@ -196,6 +197,13 @@ public class ManageAnnounces extends MappingDispatchAction implements
 
 		List<Announcement> listAnnounces = announcementFacade
 				.searchAnnouncement(textSearchAnnounce);
+		/* filter list announce */
+		if(listAnnounces !=null && !listAnnounces.isEmpty()) {
+			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(entityManager);
+			SocialEntity se = UserUtils.getAuthenticatedUser(request);
+			listAnnounces = filter.filterInteraction(se, listAnnounces);
+		}
+		
 		addRightToRequest(request);
 		entityManager.getTransaction().commit();
 		entityManager.close();
