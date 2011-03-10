@@ -130,6 +130,19 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			saveErrors(request, errors);
 		}
 		
+		em.getTransaction().commit();
+		em.close();
+		FSNetConfiguration.getInstance().refreshConfiguration();
+		return mapping.findForward("success");
+	}
+	
+	public ActionForward saveFacebookId(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
+		EntityManager em = PersistenceProvider.createEntityManager();
+		em.getTransaction().begin();
+		
 		saveProperty(em, FSNetConfiguration.KEY_FACEBOOK, (String) dynaform
 				.get("KeyFacebook"));
 		
@@ -138,7 +151,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		FSNetConfiguration.getInstance().refreshConfiguration();
 		return mapping.findForward("success");
 	}
-
+	
 	private void saveProperty(EntityManager em, String key, String value) {
 		Property property = em.find(Property.class, key);
 		if (property == null) {

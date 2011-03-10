@@ -5,7 +5,7 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
 	<form-beans>
-		<form-bean  name="MailConfigurationForm"
+		<form-bean name="MailConfigurationForm"
 					type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="SMTPHost" type="java.lang.String"/>
 			<form-property name="SMTPPort" type="java.lang.String"/>
@@ -29,7 +29,15 @@
 				name="MailConfigurationForm"
 				validate="true"
 				scope="request">
-				
+			<forward name="success" path="/EditConfiguration.do"/>
+		</action>
+		<action path="/SaveFacebookId"
+				name="MailConfigurationForm"		
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				input="/EditConfiguration.do"
+				parameter="saveFacebookId"
+				validate="true"
+				scope="request">
 			<forward name="success" path="/EditConfiguration.do"/>
 		</action>
 		<action path="/SaveMailConfiguration"
