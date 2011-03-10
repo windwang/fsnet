@@ -115,110 +115,116 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		return mapping.findForward("success");
 	}
-	public String readFileLinePerLine(String filePath)
-	{
-		String allString="";
-		try{
-		BufferedReader buff = new BufferedReader(new FileReader(filePath));
+
+	public String readFileLinePerLine(String filePath) {
+		String allString = "";
 		try {
-			String line;
-			while ((line = buff.readLine()) != null) {
-				if(line.matches("^[A-Za-z0-9 -.]{1,30}/[A-Za-z0-9 -.]{1,30}/[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$"))
-					allString=allString.concat(line+"\n");
+			BufferedReader buff = new BufferedReader(new FileReader(filePath));
+			try {
+				String line;
+				while ((line = buff.readLine()) != null) {
+					if (line.matches("^[A-Za-z0-9 -.]{1,30}/[A-Za-z0-9 -.]{1,30}/[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$"))
+						allString = allString.concat(line + "\n");
+				}
+			} finally {
+				buff.close();
 			}
-		} finally {
-			buff.close();
-		}
 		} catch (IOException ioe) {
 			System.out.println("Erreur --" + ioe.toString());
 			return null;
 		}
 		return allString;
 	}
-	public ActionForward createMultipleFile(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+
+	public ActionForward createMultipleFile(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR;
-		String formInput=readFileLinePerLine((String)dynaForm.get("fileMultipleMember"));
+		String formInput = readFileLinePerLine((String) dynaForm
+				.get("fileMultipleMember"));
 		String personalizedMessage = (String) dynaForm.get("message");
-		if(formInput!=null){
-		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
+		if (formInput != null) {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 
-		String[] formSocialEntities = formInput.split("\n");
-		Map<SocialEntity, String> socialEntities = new HashMap<SocialEntity, String>();
+			String[] formSocialEntities = formInput.split("\n");
+			Map<SocialEntity, String> socialEntities = new HashMap<SocialEntity, String>();
 
-		em.getTransaction().begin();
+			em.getTransaction().begin();
 
-		for (String formSocialEntitie : formSocialEntities) {
-			formSocialEntitie = formSocialEntitie.replaceAll("\r", "");
-			String[] socialEntitieInput = formSocialEntitie.split("/");
-			
-			SocialEntity socialEntity = facadeSE.createSocialEntity(
-					socialEntitieInput[0], socialEntitieInput[1],
-					socialEntitieInput[2]);
+			for (String formSocialEntitie : formSocialEntities) {
+				formSocialEntitie = formSocialEntitie.replaceAll("\r", "");
+				String[] socialEntitieInput = formSocialEntitie.split("/");
 
-			String definedPassword = Encryption.generateRandomPassword();
-			logger.info("#### Defined Password : " + definedPassword);
-			String encryptedPassword = Encryption
-					.getEncodedPassword(definedPassword);
-			socialEntity.setPassword(encryptedPassword);
+				SocialEntity socialEntity = facadeSE.createSocialEntity(
+						socialEntitieInput[0], socialEntitieInput[1],
+						socialEntitieInput[2]);
 
-			socialEntities.put(socialEntity, definedPassword);
-			em.persist(socialEntity);
-		}
+				String definedPassword = Encryption.generateRandomPassword();
+				logger.info("#### Defined Password : " + definedPassword);
+				String encryptedPassword = Encryption
+						.getEncodedPassword(definedPassword);
+				socialEntity.setPassword(encryptedPassword);
 
-		try {
-			em.getTransaction().commit();
-		}
-		// I'm not really sure about the exception, so I took the same as in the
-		// create methode
-		catch (RollbackException e) {
-			e.printStackTrace();
-			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.user.exists"));
-			saveErrors(request, errors);
-			return mapping.getInputForward();
-		} catch (Exception e) {
-			e.printStackTrace();
-			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.error.on.create"));
-			saveErrors(request, errors);
-			return mapping.getInputForward();
-		}
+				socialEntities.put(socialEntity, definedPassword);
+				em.persist(socialEntity);
+			}
 
-		em.close();
-
-		Locale currentLocale = request.getLocale();
-		for (Entry<SocialEntity, String> entry : socialEntities.entrySet()) {
 			try {
-				sendConfirmationMail(entry.getKey(), entry.getValue(),
-						personalizedMessage, currentLocale);
+				em.getTransaction().commit();
 			}
 			// I'm not really sure about the exception, so I took the same as in
-			// the create methode
+			// the
+			// create methode
 			catch (RollbackException e) {
 				e.printStackTrace();
 				ActionErrors errors = new ActionErrors();
 				errors.add("email", new ActionMessage("members.user.exists"));
 				saveErrors(request, errors);
+				return mapping.getInputForward();
 			} catch (Exception e) {
 				e.printStackTrace();
 				ActionErrors errors = new ActionErrors();
 				errors.add("email",
 						new ActionMessage("members.error.on.create"));
 				saveErrors(request, errors);
+				return mapping.getInputForward();
 			}
-		}
-		}
-		else{
+
+			em.close();
+
+			Locale currentLocale = request.getLocale();
+			for (Entry<SocialEntity, String> entry : socialEntities.entrySet()) {
+				try {
+					sendConfirmationMail(entry.getKey(), entry.getValue(),
+							personalizedMessage, currentLocale);
+				}
+				// I'm not really sure about the exception, so I took the same
+				// as in
+				// the create methode
+				catch (RollbackException e) {
+					e.printStackTrace();
+					ActionErrors errors = new ActionErrors();
+					errors.add("email",
+							new ActionMessage("members.user.exists"));
+					saveErrors(request, errors);
+				} catch (Exception e) {
+					e.printStackTrace();
+					ActionErrors errors = new ActionErrors();
+					errors.add("email", new ActionMessage(
+							"members.error.on.create"));
+					saveErrors(request, errors);
+				}
+			}
+		} else {
 			ActionErrors errors = new ActionErrors();
-			errors.add("fileMultipleMember", new ActionMessage("members.error.file"));
+			errors.add("fileMultipleMember", new ActionMessage(
+					"members.error.file"));
 			saveErrors(request, errors);
 		}
 		return mapping.findForward("success");
 	}
-	
+
 	/**
 	 * 
 	 * Same as create but for multiple entity. Create multiple
@@ -457,7 +463,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("firstName", member.getFirstName());
 		dynaForm.set("id", member.getId());
 
-		
 		Paginator<Interest> paginator = new Paginator<Interest>(
 				member.getInterests(), request, "interestsMember", "idMember");
 
@@ -481,15 +486,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String city = (String) formSocialENtity.get("city");
 		String phone = (String) formSocialENtity.get("phone");
 		String sexe = (String) formSocialENtity.get("sexe");
+
 		Date birthDay = null;
-		formSocialENtity.set("birthDay", null);
 		try {
 			birthDay = DateUtils.format((String) formSocialENtity
 					.get("formatBirthDay"));
-			formSocialENtity.set("birthDay", birthDay);
 		} catch (ParseException e) {
-			e.printStackTrace();
+			// Date Format is invalid or empty. Do nothing.
 		}
+		formSocialENtity.set("birthDay", birthDay);
 
 		Integer idMember = (Integer) formSocialENtity.get("id");
 
@@ -532,7 +537,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 			em.close();
 			if (resultOthers != null) {
-				
+
 				List<SocialEntity> resultOthersList = new ArrayList<SocialEntity>(
 						resultOthers);
 				Collections.sort(resultOthersList);
@@ -542,8 +547,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			} else
 				request.setAttribute("membersListPaginator", null);
 		} else {
-			query = em.createQuery("SELECT es FROM SocialEntity es ORDER BY es.name,es.firstName",
-					SocialEntity.class);
+			query = em
+					.createQuery(
+							"SELECT es FROM SocialEntity es ORDER BY es.name,es.firstName",
+							SocialEntity.class);
 			List<SocialEntity> resultOthersList = query.getResultList();
 			em.getTransaction().commit();
 			em.close();
