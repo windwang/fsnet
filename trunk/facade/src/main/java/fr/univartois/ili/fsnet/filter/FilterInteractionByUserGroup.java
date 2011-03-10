@@ -31,7 +31,7 @@ public class FilterInteractionByUserGroup {
 	
 	
 	
-	public final List<Interaction> filterInteraction(SocialEntity se, List<Interaction> listInteraction) {
+	public final <T>List  filterInteraction(SocialEntity se, List<? extends  Interaction> listInteraction) {
 		/* load group user */
 		SocialGroup socialGroupUser = se.getGroup();
 		/* list of user */
