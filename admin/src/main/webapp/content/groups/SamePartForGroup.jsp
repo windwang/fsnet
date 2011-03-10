@@ -146,9 +146,67 @@
 		</html:button></td>
 	</tr>
 
+
+
+
+
+
+
+
+
+
+
+	<tr>
+		<td ROWSPAN="2"><label for="groups"> <bean:message
+			key="groups.right" /> </label></td>
+
+		<td ROWSPAN="2">
+		<div><bean:message key="groups.right.notGranted" /></div>
+		<html:select property="rigthListLeft" styleClass="select" size="5"
+			multiple="multiple">
+			<c:forEach var="rigth" items="${refusedRigths}">
+				<html:option value="${rigth}">${rigth}</html:option>
+			</c:forEach>
+		</html:select></td>
+
+		<td><html:button property=""
+			onclick="Deplacer(this.form.rigthListLeft,this.form.rigthListRight)">
+			<bean:message key="groups.addGroups" />
+		</html:button></td>
+
+		<td ROWSPAN="2">
+		<div><bean:message key="groups.right.Granted" /></div>
+		<html:select property="rigthListRight" styleClass="select" size="5"
+			multiple="multiple">
+			
+			<c:forEach var="rigth" items="${acceptedRigths}">
+				<html:option value="${rigth}">${rigth}</html:option>
+			</c:forEach>
+		</html:select></td>
+	</tr>
+
+	<tr>
+		<td><html:button property=""
+			onclick="Deplacer(this.form.rigthListRight,this.form.rigthListLeft)">
+			<bean:message key="groups.removeGroups" />
+		</html:button></td>
+	</tr>
+
+
+
+
+
+
+
+
+
+
+
+
+
 	<tr>
 		<td colspan="2"><html:submit styleClass="button"
-			onclick="Valider(this.form.memberListRight,this.form.groupListRight);">
+			onclick="Valider();">
 			<bean:message key="groups.validate" />
 		</html:submit></td>
 	</tr>
@@ -183,6 +241,8 @@ select {
 				.item(0);
 		var groupListLeft = document.getElementsByName('groupListRight')
 				.item(0);
+		var rigthListLeft = document.getElementsByName('rigthListRight')
+		.item(0);
 		for ( var i = 0; i < memberListLeft.options.length; i++) {
 			memberListLeft.options[i].selected = "true";
 		}
@@ -190,12 +250,15 @@ select {
 		for ( var i = 0; i < groupListLeft.options.length; i++) {
 			groupListLeft.options[i].selected = "true";
 		}
+		for ( var i = 0; i < rigthListLeft.options.length; i++) {
+			rigthListLeft.options[i].selected = "true";
+		}
 		return true;
 	}
 </script>
 <script type="text/javascript">
 	function showGroup(idParent, idGroup) {
-		
+
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari
 			xmlhttp = new XMLHttpRequest();
 		} else {// code for IE6, IE5
@@ -209,7 +272,7 @@ select {
 		}
 		xmlhttp.open("GET", "/admin/ListGroups?idGroup=" + idGroup
 				+ "&idParent=" + idParent, true);
-		
+
 		xmlhttp.send();
 	}
 </script>

@@ -20,6 +20,9 @@
 			<form-property name="memberListRight" type="java.lang.String[]" />
 			<form-property name="groupListLeft" type="java.lang.String[]" />
 			<form-property name="groupListRight" type="java.lang.String[]" />
+			<form-property name="rigthListLeft" type="java.lang.String[]" />
+			<form-property name="rigthListRight" type="java.lang.String[]" />
+			
 		</form-bean>
 		<form-bean name="ModifyGroupForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -32,6 +35,9 @@
 			<form-property name="memberListRight" type="java.lang.String[]" />
 			<form-property name="groupListLeft" type="java.lang.String[]" />
 			<form-property name="groupListRight" type="java.lang.String[]" />
+			<form-property name="rigthListLeft" type="java.lang.String[]" />
+			<form-property name="rigthListRight" type="java.lang.String[]" />
+			
 		</form-bean>
 	</form-beans>
 	<global-forwards>
