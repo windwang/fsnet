@@ -267,7 +267,7 @@ public class SocialGroupFacade {
 		Set<Right> rights = new HashSet<Right>();
 		SocialGroup parent = group.getGroup();
 		while (parent != null) {
-			rights.addAll(parent.getrights());
+			rights.addAll(parent.getRights());
 			parent = parent.getGroup();
 		}
 
