@@ -96,7 +96,6 @@ public class MeetingFacade {
 		if (user== null) {
 			throw new IllegalArgumentException();
 		}
-		System.out.println("test");
 		List<Meeting> listMeeting;
 		listMeeting = em
 		.createQuery(
