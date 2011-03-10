@@ -16,7 +16,7 @@
 </h3>
 
 <div class="interactionDisplay">
-    <table style="width: 100%">
+    <table>
         <tr class="authorDate">
             <td>
                 <bean:message key="events.5"/>
