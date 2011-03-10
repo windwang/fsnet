@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -74,6 +75,10 @@ public abstract class Interaction implements Serializable {
 	@JoinColumn(nullable = false)
 	private Set<SocialEntity> followingEntitys;
 
+	@ManyToMany(cascade = { CascadeType.PERSIST })
+	@OrderBy(value = "id")
+	private List<SocialEntity> readers;
+
 	@Transient
 	private int numSubscriber = 0;
 
@@ -100,6 +105,7 @@ public abstract class Interaction implements Serializable {
 		this.interests = new ArrayList<Interest>();
 		this.roles = new HashSet<InteractionRole>();
 		this.followingEntitys = new HashSet<SocialEntity>();
+		this.readers = new ArrayList<SocialEntity>();
 		// this.report = rapport;
 	}
 
@@ -278,6 +284,32 @@ public abstract class Interaction implements Serializable {
 
 	public String getSimpleClassName() {
 		return getClass().getSimpleName();
+	}
+
+	public List<SocialEntity> getReaders() {
+		return readers;
+	}
+
+	public void setReaders(List<SocialEntity> readers) {
+		this.readers = readers;
+	}
+
+	public void addReader(SocialEntity socialEntity) {
+		if (!this.readers.contains(socialEntity)) {
+			this.readers.add(socialEntity);
+			socialEntity.addInteractionRead(this);
+		}
+	}
+
+	public static <T> Collection<T> filter(List<T> list,
+			Class<? extends T> clazz) {
+		Collection<T> col = new ArrayList<T>();
+		for (T t : list) {
+			if (t.getClass().equals(clazz)) {
+				col.add(t);
+			}
+		}
+		return col;
 	}
 
 }

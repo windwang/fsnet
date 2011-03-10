@@ -183,5 +183,20 @@ public class InteractionFacade {
 	public Interaction getInteraction(int id) {
 		return em.find(Interaction.class, id);
 	}
+	
+	public final List<Interaction> getUnreadInteractionsForSocialEntity(SocialEntity se){
+		if (se== null) {
+			throw new IllegalArgumentException();
+		}
+		
+		List<Interaction> list;
+		list = em
+		.createQuery(
+				"SELECT i FROM Interaction i, SocialEntity se WHERE "
+				+ "se.id = :userId AND i NOT MEMBER OF se.interactionsRead " + " ORDER BY i.creationDate DESC",
+				Interaction.class).setParameter("userId",
+						se.getId()).getResultList();
+		return list;
+	}
 
 }
