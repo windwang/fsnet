@@ -33,7 +33,6 @@ import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
@@ -209,6 +208,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		}
 			
 		request.setAttribute("isMasterGroup", socialGroupFacade.isMasterGroup(user));
+		if(user.getGroup() != null)
+			request.setAttribute("groupId", user.getGroup().getId());
 		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		Paginator<Interest> paginatorInterest = new Paginator<Interest>(profile.getInterests(), request, 25, "profileInterests", "id");
