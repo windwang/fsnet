@@ -138,7 +138,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 	 *            the specific {@link Right}s
 	 */
 	public void addRights(Set<Right> rights) {
-		rights.addAll(rights);
+		this.rights.addAll(rights);
 	}
 
 	/**
