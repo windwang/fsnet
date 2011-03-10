@@ -27,6 +27,7 @@ import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
@@ -60,6 +61,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				.get("selectedInterests");
 
 		Announcement createdAnnounce;
+		addRightToRequest(request);
 
 		try {
 			Date expiryDate = DateUtils.format(stringExpiryDate);
@@ -116,6 +118,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(
 				entityManager);
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
+		addRightToRequest(request);
 		try {
 
 			if (!announce.getCreator().equals(user)) {
@@ -165,6 +168,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				entityManager);
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
+		addRightToRequest(request);
 		if (announce != null)
 			interactionFacade.deleteInteraction(user, announce);
 		entityManager.getTransaction().commit();
@@ -192,6 +196,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 
 		List<Announcement> listAnnounces = announcementFacade
 				.searchAnnouncement(textSearchAnnounce);
+		addRightToRequest(request);
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
@@ -222,6 +227,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				.createQuery(
 						"SELECT es FROM SocialEntity es,IN(es.interactions) e WHERE e = :announce")
 				.setParameter("announce", announce).getSingleResult();
+		addRightToRequest(request);
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
@@ -231,7 +237,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		if (SocialEntity.getId() == SocialEntityOwner.getId()) {
 			request.setAttribute("owner", true);
 		}
-
+		
 		return mapping.findForward("success");
 	}
 
@@ -248,6 +254,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				.valueOf(request.getParameter("idAnnounce"));
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
+		addRightToRequest(request);
 		em.getTransaction().commit();
 		em.close();
 		dynaForm.set("idAnnounce", announce.getId());
@@ -256,5 +263,12 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		dynaForm.set("announceExpiryDate",
 				DateUtils.renderDate(announce.getEndDate()));
 		return mapping.findForward("success");
+	}
+	
+	private void addRightToRequest(HttpServletRequest request){
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
+		Right rightAddAnnounce = Right.ADD_ANNOUNCE;
+		request.setAttribute("rightAddAnnounce", rightAddAnnounce);
+		request.setAttribute("socialEntity",socialEntity);
 	}
 }
