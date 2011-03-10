@@ -53,9 +53,11 @@ public class InteractionRoleFacade {
         interactionRolePK.setInteractionId(i.getId());
         interactionRolePK.setSocialEntityId(se.getId());
         InteractionRole interactionRole = em.find(InteractionRole.class, interactionRolePK);
-        se.getRolesInInteractions().remove(interactionRole);
-        i.getRoles().remove(interactionRole);
-        em.remove(interactionRole);
+        if(interactionRole != null){
+	        se.getRolesInInteractions().remove(interactionRole);
+	        i.getRoles().remove(interactionRole);
+	        em.remove(interactionRole);
+        }
     }
 
     /**
