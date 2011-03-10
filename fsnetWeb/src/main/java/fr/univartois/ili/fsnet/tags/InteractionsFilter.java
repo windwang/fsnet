@@ -10,7 +10,7 @@ import fr.univartois.ili.fsnet.entities.SocialGroup;
 /**
  * 
  * @author Bouragba Mohamed
- * Verifie si on a le droit
+ * Check if you have the right
  * 
  */
 public class InteractionsFilter extends TagSupport {
@@ -41,6 +41,8 @@ public class InteractionsFilter extends TagSupport {
 		if(user == null || right == null)
 			return SKIP_BODY;
 		socialGroup = user.getGroup();
+		if(socialGroup == null)
+			return SKIP_BODY;
 		isAuthorized = socialGroup.isAuthorized(right);
 		if(!isAuthorized)
 			return SKIP_BODY;
@@ -52,6 +54,7 @@ public class InteractionsFilter extends TagSupport {
 	}
 
 	public void setUser(SocialElement user) {
+		System.out.println("InteractionsFilter.setUser()");
 		this.user = user;
 	}
 
@@ -60,6 +63,7 @@ public class InteractionsFilter extends TagSupport {
 	}
 
 	public void setRight(Right right) {
+		System.out.println("InteractionsFilter.setRight()");
 		this.right = right;
 	}
 
