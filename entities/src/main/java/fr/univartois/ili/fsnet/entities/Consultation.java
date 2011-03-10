@@ -371,4 +371,8 @@ public class Consultation extends Interaction {
 		return "T".equals(closingAtMaxVoters)
 				&& consultationVotes.size() >= maxVoters;
 	}
+
+	public boolean isDeadlineReached() {
+		return "T".equals(closingAtDate) && maxDate.before(new Date());
+	}
 }
