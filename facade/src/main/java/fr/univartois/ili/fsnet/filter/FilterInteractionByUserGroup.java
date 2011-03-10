@@ -53,12 +53,14 @@ public class FilterInteractionByUserGroup {
 		}
 		/* user is not attached on group, alone */
 		listSocialEntity.add(se);
+		List<Interaction> listFilterInteraction = new ArrayList<Interaction>();
 		/* filter interaction */
 		for (Interaction interaction : listInteraction) {
-			if(!listSocialEntity.contains(interaction.getCreator()))
-				listInteraction.remove(interaction);
+			SocialEntity socialEntity = interaction.getCreator();
+			if(listSocialEntity.contains(socialEntity))
+				listFilterInteraction.add(interaction);
 		}
-		return listInteraction;
+		return listFilterInteraction;
 		
 	}
 	
