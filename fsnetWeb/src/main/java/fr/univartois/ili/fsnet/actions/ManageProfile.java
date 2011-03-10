@@ -32,6 +32,7 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
@@ -100,6 +101,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		Date birthday = null;
+		addRightToRequest(request);
 		try {
 			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
 		} catch (ParseException e) {
@@ -152,6 +154,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		addRightToRequest(request);
 		request.setAttribute("currentUser", user);
 		dyna.set("name", user.getName());
 		dyna.set("firstName", user.getFirstName());
@@ -183,6 +186,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Boolean alreadyInContact = false;
 		String groupTree;
 		int id = -1;
+		addRightToRequest(request);
 		try {
 			String idS = dyna.getString("id");
 			id = Integer.parseInt(idS);
@@ -246,6 +250,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("photo");
 		int userId = UserUtils.getAuthenticatesUserId(request);
+		addRightToRequest(request);
 		if (file.getFileData().length != 0) {
 			PictureType pictureType = null;
 			for (PictureType pt : PictureType.values()) {
@@ -286,6 +291,14 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	throws IOException, ServletException {
 		Integer userId = UserUtils.getAuthenticatesUserId(request);
 		ImageManager.removeOldUserPicture(userId);
+		addRightToRequest(request);
 		return mapping.findForward("success");
+	}
+	
+	private void addRightToRequest(HttpServletRequest request){
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
+		Right rightModifyProfil = Right.MODIFY_PROFIL;
+		request.setAttribute("rightModifyProfil", rightModifyProfil);
+		request.setAttribute("socialEntity",socialEntity);
 	}
 }
