@@ -29,6 +29,7 @@ import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
@@ -82,6 +83,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				"eventBeginDate");
 		Date typedEventEndDate = validateDate(eventEndDate, request,
 				"eventEndDate");
+		addRightToRequest(request);
 		if (typedEventBeginDate == null || typedEventEndDate == null) {
 			return mapping.getInputForward();
 		}
@@ -140,7 +142,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		MeetingFacade meetingFacade = new MeetingFacade(em);
-
+		addRightToRequest(request);
 		em.getTransaction().begin();
 		Meeting meeting = meetingFacade.getMeeting(Integer.parseInt(eventId));
 		Set<SocialEntity> followingEntitys = meeting.getFollowingEntitys();
@@ -175,6 +177,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		String eventId = (String) dynaForm.get("eventId");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		addRightToRequest(request);
 		try{
 			em.getTransaction().begin();
 			MeetingFacade meetingFacade = new MeetingFacade(em);
@@ -207,6 +210,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		String eventId = (String) dynaForm.get("eventId");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		addRightToRequest(request);
 		em.getTransaction().begin();
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting meeting = meetingFacade.getMeeting(Integer.parseInt(eventId));
@@ -229,6 +233,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		String searchString = (String) searchForm.get("searchString");
 
 		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
 		em.getTransaction().begin();
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		List<Meeting> results = meetingFacade.searchMeeting(searchString);
@@ -249,6 +254,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		String eventId = (String) dynaForm.get("eventId");
 
 		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
 		em.getTransaction().begin();
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -274,5 +280,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("subscriber", isSubscriber);
 		request.setAttribute("event", event);
 		return mapping.findForward("success");
+	}
+	
+	private void addRightToRequest(HttpServletRequest request){
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
+		Right rightAddEvent = Right.ADD_EVENT;
+		request.setAttribute("rightAddEvent", rightAddEvent);
+		request.setAttribute("socialEntity",socialEntity);
 	}
 }
