@@ -117,8 +117,17 @@ public class SocialGroup extends SocialElement implements Serializable {
 	 * 
 	 * @return the {@link Right}s of the {@link SocialGroup}
 	 */
-	public Set<Right> getrights() {
+	public Set<Right> getRights() {
 		return rights;
+	}
+
+	/**
+	 * @author Mohamed SAID
+	 * 
+	 * @return the {@link Right}s of the {@link SocialGroup}
+	 */
+	public void setRights(Set<Right> rights) {
+		this.rights = rights;
 	}
 
 	/**
