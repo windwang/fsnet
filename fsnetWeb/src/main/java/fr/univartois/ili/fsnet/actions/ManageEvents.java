@@ -175,13 +175,17 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		String eventId = (String) dynaForm.get("eventId");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		em.getTransaction().begin();
-		MeetingFacade meetingFacade = new MeetingFacade(em);
-		Meeting meeting = meetingFacade.getMeeting(Integer.parseInt(eventId));
-		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
-				em);
-		interactionRoleFacade.subscribe(member, meeting);
-		em.getTransaction().commit();
+		try{
+			em.getTransaction().begin();
+			MeetingFacade meetingFacade = new MeetingFacade(em);
+			Meeting meeting = meetingFacade.getMeeting(Integer.parseInt(eventId));
+			InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
+					em);
+			interactionRoleFacade.subscribe(member, meeting);
+			em.getTransaction().commit();
+		}catch(RollbackException e){
+			e.printStackTrace();
+		}
 		em.close();
 		ActionRedirect redirect = new ActionRedirect(mapping
 				.findForward("success"));

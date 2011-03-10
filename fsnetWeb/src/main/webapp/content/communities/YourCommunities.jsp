@@ -38,13 +38,14 @@
                     </td>
                     <td class="tableButton" onclick="confirmDelete2('deleteid${community.id}')"><c:if
 						test="${sessionScope.userId eq community.creator.id}">
-						<html:form action="DeleteCommunity.do" styleId="deleteid${community.id}" method="post">
+						<html:form action="DeleteCommunity.do" styleId="deleteid${community.id}" method="post" styleClass="cursorPointer">
 							<html:hidden property="communityId" value="${community.id}" />
+								<span class="button">
+							    <bean:message
+								    key="communities.delete"/>
+							</span>
 						</html:form>
-						<span class="button">
-						    <bean:message
-							    key="communities.delete"/>
-						</span>
+						
 					</c:if>
 					</td>
                 </tr>
