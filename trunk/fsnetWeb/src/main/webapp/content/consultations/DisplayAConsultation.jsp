@@ -41,10 +41,15 @@
 		
 	</li>
 	<c:if test="${consultation.closingAtMaxVoters}">
-		<bean:message key="consultation.closingAtMaxVoters" /> : ${consultation.maxVoters}
+		<li>
+			<bean:message key="consultation.closingAtMaxVoters" /> : ${consultation.maxVoters}
+		</li>
 	</c:if>
-	<li>
-	</li>
+	<c:if test="${consultation.closingAtDate}">
+		<li>
+			<bean:message key="consultation.deadline" /> : <bean:write name="consultation" property="maxDate" format="dd/MM/yyyy" />
+		</li>
+	</c:if>
 </ul>
 <br />
 <table>

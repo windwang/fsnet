@@ -27,10 +27,10 @@
 			<field property="closingAtMaxVoters" depends="integer" >
 				<arg key="consultation.maxChoicesVoter"/>
 			</field>
-<!--			<field property="deadline" depends="date">-->
-<!--		        <arg0 key="consultation.deadline"/>-->
-<!--		        <var><var-name>datePattern</var-name><var-value>dd/MM/yyyy</var-value></var>-->
-<!--		    </field>-->
+			<field property="deadline" depends="date">
+		        <arg0 key="consultation.deadline"/>
+		        <var><var-name>datePattern</var-name><var-value>dd/MM/yyyy</var-value></var>
+		    </field>
 			
 		</form>
 	</formset>

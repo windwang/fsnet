@@ -63,11 +63,11 @@
 		<tr><td>
 			<html:checkbox property="showBeforeClosing" styleId="showBeforeClosing" /> </td><td>
 			<label for="showBeforeClosing"><bean:message key="consultation.showBeforeClosing" /></label>
-		</td></tr>
+		</td></tr>--%>
 		<tr><td>
 			<label for="deadline"><bean:message key="consultation.deadline" /> : </label></td><td>
 			<html:text property="deadline" styleId="deadline" /></td>
-		</tr> --%>
+		</tr> 
 		<tr><td><label for="closingAtMaxVoters"><bean:message key="consultation.closingAtMaxVoters" /> : </label></td>
 			<td><html:text styleId="closingAtMaxVoters" property="closingAtMaxVoters"  /></td>
 		</tr>

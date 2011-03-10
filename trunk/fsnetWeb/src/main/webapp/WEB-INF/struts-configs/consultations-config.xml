@@ -20,7 +20,7 @@
 <!--            <form-property name="showBeforeAnswer" type="java.lang.String" />-->
 <!--            <form-property name="showBeforeClosing" type="java.lang.String" />-->
             <form-property name="closingAtMaxVoters" type="java.lang.String" />
-<!--            <form-property name="deadline" type="java.lang.String" />-->
+            <form-property name="deadline" type="java.lang.String" />
         </form-bean>
         <form-bean name="VoteConsultationForm" 
         			type="org.apache.struts.validator.DynaValidatorActionForm">

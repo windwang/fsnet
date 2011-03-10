@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 
@@ -27,6 +28,9 @@ import fr.univartois.ili.fsnet.facade.ConsultationFacade;
 public class ManageConsultations extends MappingDispatchAction {
 	
 	
+	private static final String DEADLINE_TIME = ":23:59:59";
+
+
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -43,7 +47,7 @@ public class ManageConsultations extends MappingDispatchAction {
 //		String maxChoicesVoter = dynaForm.getString("maxChoicesVoter");
 //		String showBeforeClosing = dynaForm.getString("showBeforeClosing");
 //		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
-//		String deadline = dynaForm.getString("deadline");
+		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
 		
 		// TODO chercher le moyen de valider les choix avec struts
@@ -79,16 +83,16 @@ public class ManageConsultations extends MappingDispatchAction {
 //		if(!"".equals(showBeforeClosing))
 //			consultation.setShowBeforeClosing(false);
 //		
-//		if(!"".equals(deadline)){
-//			consultation.setClosingAtDate(true);
-//			try {
-//				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-//				consultation.setMaxDate(dateFormat.parse(deadline));
-//			} catch (ParseException e) {
-//				e.printStackTrace();
-//			}
-//		}
-//		
+		if(!"".equals(deadline)){
+			consultation.setClosingAtDate(true);
+			try {
+				SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy:hh:mm:ss");
+				consultation.setMaxDate(dateFormat.parse(deadline+DEADLINE_TIME));
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		
 		if(!"".equals(closingAtMaxVoters)){
 			consultation.setClosingAtMaxVoters(true);
 			consultation.setMaxVoters(Integer.valueOf(closingAtMaxVoters));
@@ -149,7 +153,7 @@ public class ManageConsultations extends MappingDispatchAction {
 				ConsultationFacade consultationFacade = new ConsultationFacade(em);
 				Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
 				ConsultationVote vote = consultationFacade.getVote(Integer.valueOf(idVote));
-				if (consultation.isOpened()){ // TODO max date 
+				if (consultation.isOpened()){  
 					em.getTransaction().begin();
 					consultationFacade.deleteVote(consultation,member,vote);
 					em.getTransaction().commit();
@@ -277,7 +281,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	
 	
 	public boolean isAllowedToVote(Consultation consultation, SocialEntity member) {
-		return consultation.isOpened() && !consultation.isVoted(member) && !consultation.isMaximumVoterReached();
+		return consultation.isOpened() && !consultation.isVoted(member) && !consultation.isMaximumVoterReached() && !consultation.isDeadlineReached();
 	}
 	
 }
