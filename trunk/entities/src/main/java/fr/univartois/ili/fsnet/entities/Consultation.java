@@ -367,4 +367,8 @@ public class Consultation extends Interaction {
 		return false;
 	}
 
+	public boolean isMaximumVoterReached() {
+		return "T".equals(closingAtMaxVoters)
+				&& consultationVotes.size() >= maxVoters;
+	}
 }
