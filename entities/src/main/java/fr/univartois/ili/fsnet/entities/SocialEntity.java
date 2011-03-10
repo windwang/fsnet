@@ -10,6 +10,7 @@ import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -150,6 +151,11 @@ public class SocialEntity extends SocialElement implements Serializable,
 	@OneToMany(mappedBy = "visitor", cascade = CascadeType.ALL)
 	private List<ProfileVisite> visitedProlfiles;
 
+	@ManyToMany(cascade = { CascadeType.PERSIST }, mappedBy = "readers")
+	@JoinColumn(nullable = false)
+	@OrderBy(value = "creationDate")
+	private List<Interaction> interactionsRead;
+
 	/**
 	 * Constructor of the class SocialEntity.
 	 */
@@ -184,6 +190,7 @@ public class SocialEntity extends SocialElement implements Serializable,
 		topics = new ArrayList<Topic>();
 		visitesOnProfile = new ArrayList<ProfileVisite>();
 		visitedProlfiles = new ArrayList<ProfileVisite>();
+		interactionsRead = new ArrayList<Interaction>();
 	}
 
 	/**
@@ -706,7 +713,7 @@ public class SocialEntity extends SocialElement implements Serializable,
 	public void setVotes(List<ConsultationVote> votes) {
 		this.votes = votes;
 	}
-	
+
 	@Override
 	public int compareTo(SocialEntity o) {
 		// TODO Auto-generated method stub
@@ -721,6 +728,21 @@ public class SocialEntity extends SocialElement implements Serializable,
 			return -1;
 		}
 		return -1;
+	}
+
+	public List<Interaction> getInteractionsRead() {
+		return interactionsRead;
+	}
+
+	public void setInteractionsRead(List<Interaction> interactionsRead) {
+		this.interactionsRead = interactionsRead;
+	}
+
+	public void addInteractionRead(Interaction interaction) {
+		if (!this.interactionsRead.contains(interaction)) {
+			this.interactionsRead.add(interaction);
+			interaction.addReader(this);
+		}
 	}
 
 }

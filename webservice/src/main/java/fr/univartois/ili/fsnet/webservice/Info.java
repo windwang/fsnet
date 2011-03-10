@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import javax.activation.FileTypeMap;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
 import javax.jws.WebService;
@@ -15,9 +14,10 @@ import javax.persistence.TypedQuery;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
@@ -53,12 +53,16 @@ public class Info {
     public Integer getNewEventsCount(
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
+    	
     	SocialEntityFacade sef = new SocialEntityFacade(em);
-    	MeetingFacade mf = new MeetingFacade(em);
+        InteractionFacade inf = new InteractionFacade(em);
+        FilterInteractionByUserGroup filterGroup= new FilterInteractionByUserGroup(em);
         if (sef.isMember(login, password)) {
        		SocialEntity user = sef.getSocialEntityByEmail(login);
        		if(user!=null){
-       			return mf.getLastMeetingForTheLastUserConnexion(user).size();
+       			List<Interaction> list = inf.getUnreadInteractionsForSocialEntity(user);
+       			list=filterGroup.filterInteraction(user, list);
+       			return Interaction.filter(list, Meeting.class).size();
        		}
         }
         return 0;
@@ -76,14 +80,15 @@ public class Info {
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
     	
-    	
     	 SocialEntityFacade sef = new SocialEntityFacade(em);
-    	 AnnouncementFacade af = new AnnouncementFacade(em);
+    	 InteractionFacade inf = new InteractionFacade(em);
+    	 FilterInteractionByUserGroup filterGroup= new FilterInteractionByUserGroup(em);
          if (sef.isMember(login, password)) {
         		SocialEntity user = sef.getSocialEntityByEmail(login);
         		if(user!=null){
-        			List<Announcement> listAnnoun = af.getLastAnnouncementForTheLastUserConnexion(user);
-        			return listAnnoun.size();
+        			List<Interaction> list = inf.getUnreadInteractionsForSocialEntity(user);
+        			list=filterGroup.filterInteraction(user, list);
+        			return Interaction.filter(list, Announcement.class).size();
         		}
          }
          return 0;
