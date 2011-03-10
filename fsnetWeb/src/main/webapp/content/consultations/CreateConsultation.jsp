@@ -53,8 +53,9 @@
 			<td><label for="minChoicesVoter">Min : </label></td><td><html:text property="minChoicesVoter"  styleId="minChoicesVoter" value="1"/>
 			<label for="maxChoicesVoter">Max : </label><html:text property="maxChoicesVoter" styleId="maxChoicesVoter" value="1" /></td>
 		</tr>
-	</table>
+	</table> --%>
 	<table>
+		<%--
 		<tr><td>
 			<html:checkbox property="showBeforeAnswer" styleId="showBeforeAnswer" /> </td><td>
 			<label for="showBeforeAnswer"><bean:message key="consultation.showBeforeAnswer" /></label>
@@ -66,11 +67,11 @@
 		<tr><td>
 			<label for="deadline"><bean:message key="consultation.deadline" /> : </label></td><td>
 			<html:text property="deadline" styleId="deadline" /></td>
-		</tr>
+		</tr> --%>
 		<tr><td><label for="closingAtMaxVoters"><bean:message key="consultation.closingAtMaxVoters" /> : </label></td>
 			<td><html:text styleId="closingAtMaxVoters" property="closingAtMaxVoters"  /></td>
 		</tr>
-  	</table> --%>
+  	</table>
     <html:submit styleClass="button"><bean:message key="consultation.create"/></html:submit>
     
 </html:form>

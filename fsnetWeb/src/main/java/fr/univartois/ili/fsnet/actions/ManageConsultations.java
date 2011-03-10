@@ -44,7 +44,7 @@ public class ManageConsultations extends MappingDispatchAction {
 //		String showBeforeClosing = dynaForm.getString("showBeforeClosing");
 //		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
 //		String deadline = dynaForm.getString("deadline");
-//		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
+		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
 		
 		// TODO chercher le moyen de valider les choix avec struts
 		for (String cs : consultationChoices){
@@ -89,11 +89,11 @@ public class ManageConsultations extends MappingDispatchAction {
 //			}
 //		}
 //		
-//		if(!"".equals(closingAtMaxVoters)){
-//			consultation.setClosingAtMaxVoters(true);
-//			consultation.setMaxVoters(Integer.valueOf(closingAtMaxVoters));
-//		}
-//		
+		if(!"".equals(closingAtMaxVoters)){
+			consultation.setClosingAtMaxVoters(true);
+			consultation.setMaxVoters(Integer.valueOf(closingAtMaxVoters));
+		}
+		
 		if(!"".equals(consultationIfNecessaryWeight)){
 			consultation.setIfNecessaryWeight(Double.valueOf(consultationIfNecessaryWeight));
 		}
@@ -277,7 +277,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	
 	
 	public boolean isAllowedToVote(Consultation consultation, SocialEntity member) {
-		return consultation.isOpened() && !consultation.isVoted(member);
+		return consultation.isOpened() && !consultation.isVoted(member) && !consultation.isMaximumVoterReached();
 	}
 	
 }

@@ -40,6 +40,11 @@
 		</c:choose>
 		
 	</li>
+	<c:if test="${consultation.closingAtMaxVoters}">
+		<bean:message key="consultation.closingAtMaxVoters" /> : ${consultation.maxVoters}
+	</c:if>
+	<li>
+	</li>
 </ul>
 <br />
 <table>
