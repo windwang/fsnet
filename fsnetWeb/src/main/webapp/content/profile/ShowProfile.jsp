@@ -206,9 +206,11 @@
 	<ul>
 		<li><html:link action="">
 			<bean:message key="showProfile.edit.group" />
-		</html:link></li>
+			<html:param name="id" value="${requestScope.groupId}" />
+      </html:link></li>
 		<li><html:link action="">
 			<bean:message key="showProfile.edit.group.right" />
+			<html:param name="id" value="${requestScope.groupId}" />
 		</html:link></li>
 
 	</ul>
