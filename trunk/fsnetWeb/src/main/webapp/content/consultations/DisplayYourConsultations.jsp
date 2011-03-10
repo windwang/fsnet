@@ -25,12 +25,13 @@
                    	<ili:getSocialEntityInfos socialEntity="${consultation.creator}"/>
                  </td>
 				 <td class="tableButton" onclick="confirmDelete2(${consultation.id}	)">
-				 	<html:form action="/DeleteAConsultation" method="post" styleId="${consultation.id}">
+				 	<html:form action="/DeleteAConsultation" method="post" styleId="${consultation.id}" styleClass="cursorPointer">
 				 		<html:hidden property="id" value="${consultation.id}" />
-				 	</html:form>
-			  		<span class="button">
-					    <bean:message key="consultation.delete" />
-					</span>
+					 	
+				  		<span class="button">
+						    <bean:message key="consultation.delete" />
+						</span>
+					</html:form>
 				 </td>
 			</tr>
 			</c:forEach>

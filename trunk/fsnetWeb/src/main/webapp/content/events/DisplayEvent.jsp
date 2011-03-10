@@ -48,19 +48,19 @@
 	                    <bean:message key="events.17"/>
 	                </html:link>
             	</c:if>
-
             	<c:if test="${subscriber}">
                 	<html:link  action="/UnsubscribeEvent" styleClass="button">
                     	<html:param name="eventId" value="${event.id}"/>
                     	<bean:message key="events.18"/>
                 	</html:link>
             	</c:if>
-                
                 <c:if test="${userId eq event.creator.id}">
-                    <html:link  action="/DeleteEvent" styleClass="button">
-                        <html:param name="eventId" value="${event.id}"/>
-                        <bean:message key="events.7"/>
-                    </html:link>
+                    <html:form  action="/DeleteEvent" method="post" styleId="eventid${event.id}" styleClass="deleteEventForm" >
+                        <html:hidden property="eventId" value="${event.id}"/>
+                        <span class="button" onclick="confirmDelete2('eventid${event.id}')">
+                        	<bean:message key="events.7"/>
+                        </span>
+                    </html:form>
                 </c:if>
             </td>
         </tr>

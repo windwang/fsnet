@@ -153,6 +153,14 @@
     font-style: normal;
 }
 
+.deleteEventForm{
+	display: inline;
+}
+
+.cursorPointer{
+	cursor: pointer;
+}
+
 .select{
     color: #505050; 
     padding: 2px 6px 2px 6px;
