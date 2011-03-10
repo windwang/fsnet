@@ -54,7 +54,6 @@ public class InteractionsFilter extends TagSupport {
 	}
 
 	public void setUser(SocialElement user) {
-		System.out.println("InteractionsFilter.setUser()");
 		this.user = user;
 	}
 
@@ -63,7 +62,6 @@ public class InteractionsFilter extends TagSupport {
 	}
 
 	public void setRight(Right right) {
-		System.out.println("InteractionsFilter.setRight()");
 		this.right = right;
 	}
 
