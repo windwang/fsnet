@@ -138,7 +138,7 @@ public class ConsultationFacade {
 	}
 
 	public List<String> getOtherChoice(int idConsultation, String voteOther) {
-		TypedQuery<String> query = em.createQuery("SELECT DISTINCT vote.other FROM ConsultationVote vote WHERE vote.consultation.id = :idConsultation AND vote.other LIKE :pattern ORDER BY other", String.class);
+		TypedQuery<String> query = em.createQuery("SELECT DISTINCT vote.other FROM ConsultationVote vote WHERE vote.consultation.id = :idConsultation AND vote.other LIKE :pattern ORDER BY vote.other", String.class);
         query.setParameter("pattern", "%" + voteOther + "%");
         query.setParameter("idConsultation", idConsultation);
         return query.getResultList();
