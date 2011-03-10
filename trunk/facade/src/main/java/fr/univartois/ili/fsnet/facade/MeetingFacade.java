@@ -81,7 +81,7 @@ public class MeetingFacade {
         query = em.createQuery("SELECT e FROM Meeting e "
                 + "WHERE e.title LIKE :searchString "
                 + "OR e.content LIKE :searchString " 
-                + "ORDER BY e.startDate ASC ", Meeting.class);
+                + "ORDER BY e.startDate DESC ", Meeting.class);
         query.setParameter("searchString", "%" + searchStr + "%");
         results = query.getResultList();
         return results;
@@ -96,11 +96,12 @@ public class MeetingFacade {
 		if (user== null) {
 			throw new IllegalArgumentException();
 		}
+		System.out.println("test");
 		List<Meeting> listMeeting;
 		listMeeting = em
 		.createQuery(
 				"SELECT m FROM Meeting m WHERE  TYPE(m) IN(Meeting) AND "
-				+ "(m.creationDate >= :lastConnection) ORDER BY m.creationDate ",
+				+ "(m.creationDate >= :lastConnection) ORDER BY m.startDate DESC",
 				Meeting.class).setParameter("lastConnection",
 						user.getLastConnection()).getResultList();
 		

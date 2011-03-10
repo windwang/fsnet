@@ -62,7 +62,7 @@ public class ConsultationFacade {
 		if (member == null) {
             throw new IllegalArgumentException();
         }
-        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.creator = :member", Consultation.class);
+        TypedQuery<Consultation> query = em.createQuery("SELECT c FROM Consultation c WHERE c.creator = :member ORDER BY c.creationDate DESC", Consultation.class);
         query.setParameter("member", member);
         return query.getResultList();
 	}
@@ -132,13 +132,13 @@ public class ConsultationFacade {
 	}
 
 	public List<Consultation> getConsultationsContaining(String searchText) {
-		TypedQuery<Consultation> query = em.createQuery("SELECT consultation FROM Consultation consultation WHERE consultation.title LIKE :pattern", Consultation.class);
+		TypedQuery<Consultation> query = em.createQuery("SELECT consultation FROM Consultation consultation WHERE consultation.title LIKE :pattern ORDER BY consultation.creationDate DESC", Consultation.class);
         query.setParameter("pattern", "%" + searchText + "%");
         return query.getResultList();
 	}
 
 	public List<String> getOtherChoice(int idConsultation, String voteOther) {
-		TypedQuery<String> query = em.createQuery("SELECT DISTINCT vote.other FROM ConsultationVote vote WHERE vote.consultation.id = :idConsultation AND vote.other LIKE :pattern", String.class);
+		TypedQuery<String> query = em.createQuery("SELECT DISTINCT vote.other FROM ConsultationVote vote WHERE vote.consultation.id = :idConsultation AND vote.other LIKE :pattern ORDER BY other", String.class);
         query.setParameter("pattern", "%" + voteOther + "%");
         query.setParameter("idConsultation", idConsultation);
         return query.getResultList();

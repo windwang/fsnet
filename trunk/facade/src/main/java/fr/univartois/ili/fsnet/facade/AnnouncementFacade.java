@@ -91,7 +91,7 @@ public class AnnouncementFacade {
 		listAnnounces = em
 		.createQuery(
 				"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
-				+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ORDER BY a.creationDate ",
+				+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ORDER BY a.endDate DESC",
 				Announcement.class).setParameter("textSearchAnnounce",
 						"%" + textSearchAnnounce + "%").getResultList();
 		return listAnnounces;
@@ -112,7 +112,7 @@ public class AnnouncementFacade {
 		listAnnounces = em
 		.createQuery(
 				"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
-				+ "(a.creationDate >= :lastConnection) ORDER BY a.creationDate ",
+				+ "(a.creationDate >= :lastConnection) ORDER BY a.endDate DESC",
 				Announcement.class).setParameter("lastConnection",
 						user.getLastConnection()).getResultList();
 		
