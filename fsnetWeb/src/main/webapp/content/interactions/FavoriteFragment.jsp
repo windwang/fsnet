@@ -13,7 +13,7 @@
     	var isFavorite = new Array();
     } 
     
-    isFavorite['${InteractionId}'] = ${isFavorite};
+    isFavorite['${interactionId}'] = ${isFavorite};
     
 </script>
 

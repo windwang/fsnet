@@ -68,9 +68,9 @@ public class ManageFavorites extends MappingDispatchAction {
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         Interaction interaction = em.find(Interaction.class, interactionId);
         if (user.getFavoriteInteractions().contains(interaction)) {
-            request.setAttribute("isFavorite", "true");
+            request.setAttribute("isFavorite", true);
         } else {
-            request.setAttribute("isFavorite", "false");
+            request.setAttribute("isFavorite", false);
         }
         em.close();
         request.setAttribute("interactionId", interaction.getId());
