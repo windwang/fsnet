@@ -53,7 +53,6 @@
 				<version>2.6.0</version>
 				<configuration>
 					<sdk>
-						<!--  ${ANDROID_HOME} -->
 						<path>${ANDROID_HOME}</path>
 						<platform>8</platform>
 					</sdk>
