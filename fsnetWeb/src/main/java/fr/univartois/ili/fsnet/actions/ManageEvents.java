@@ -35,6 +35,7 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
+import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
  * Execute CRUD Actions for the entity Event
@@ -234,9 +235,18 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
+				
 		em.getTransaction().begin();
+		
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		List<Meeting> results = meetingFacade.searchMeeting(searchString);
+		
+		if(results !=null && !results.isEmpty()) {
+			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(em);
+			SocialEntity se = UserUtils.getAuthenticatedUser(request);
+			results = filter.filterInteraction(se, results);
+		}
+		
 		em.getTransaction().commit();
 		em.close();
 		
