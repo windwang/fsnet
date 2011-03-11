@@ -8,10 +8,12 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
+import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -137,7 +139,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		SocialEntity masterGroup = socialEntityFacade.getSocialEntity(Integer
 				.valueOf(owner));
-
+		SocialGroup oldParentGrouoOfMasterGroup = masterGroup.getGroup();
 		List<SocialElement> socialElements = createSocialElement(em,
 				membersAccepted, masterGroup, null);
 		try {
@@ -148,11 +150,12 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			socialGroup.setName(name);
 			socialGroup.setDescription(description);
 			socialGroup.setMasterGroup(masterGroup);
-			// socialGroup.setSocialElements(new ArrayList<SocialElement>());
+			
 			socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
 			socialGroup.setSocialElements(socialElements);
-
+			oldParentGrouoOfMasterGroup.removeSocialElements(masterGroup);
 			em.getTransaction().begin();
+			em.merge(oldParentGrouoOfMasterGroup);
 			em.merge(socialGroup);
 			em.getTransaction().commit();
 
@@ -253,7 +256,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		request.setAttribute("acceptedMembers", acceptedMembers);
 		request.setAttribute("allMembers",
-				socialEntityFacade.getAllSocialEntity());
+				getSimpleMember(em, socialGroupFacade, group));
 
 		request.setAttribute("refusedMembers", refusedMembers);
 
@@ -351,5 +354,20 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("groupsListPaginator", paginator);
 		return mapping.findForward("success");
 	}
+	public List<SocialEntity> getSimpleMember(EntityManager em,
+			SocialGroupFacade sgf, SocialGroup socialGroup) {
+		TypedQuery<SocialEntity> query = null;
+		query = em.createQuery("SELECT g.masterGroup FROM SocialGroup g WHERE g.id !=:id ",
+				SocialEntity.class);
+		query.setParameter("id", socialGroup.getId());
+		List<SocialEntity> mastersGroup = query.getResultList();
+		mastersGroup.remove(socialGroup.getMasterGroup());
+		List<SocialEntity> allMembers = sgf.allMembersChild(socialGroup);
+		allMembers.removeAll(mastersGroup);
+		allMembers.add(socialGroup.getMasterGroup());
+		
+		return allMembers;
+	}
+
 
 }

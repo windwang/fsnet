@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -285,6 +286,29 @@ public class SocialGroupFacade {
 		if (count > 0)
 			resultat = true;
 		return resultat;
+	}
+
+	public List<SocialEntity> allMembersChild(SocialGroup socialGroupUser) {
+		if (socialGroupUser == null) {
+			throw new IllegalArgumentException();
+		}
+		List<SocialEntity> listSocialEntity = new ArrayList<SocialEntity>();
+		if (socialGroupUser != null) {
+
+			List<SocialGroup> listSocialGroup = AllGroupChild(socialGroupUser);
+
+			for (SocialGroup socialGroup : listSocialGroup) {
+				List<SocialElement> socialElements = socialGroup
+						.getSocialElements();
+				for (SocialElement socialElement : socialElements) {
+					if (socialElement instanceof SocialEntity) {
+						listSocialEntity.add((SocialEntity) socialElement);
+					}
+				}
+			}
+		}
+		
+		return listSocialEntity;
 	}
 
 }
