@@ -21,6 +21,7 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Consultation;
+import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
 import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.ConsultationFacade;
@@ -29,6 +30,8 @@ public class ManageConsultations extends MappingDispatchAction {
 	
 	
 	private static final String DEADLINE_TIME = ":23:59:59";
+	
+	private static final String NO_ANSWER = "no";
 
 
 	public ActionForward create(ActionMapping mapping, ActionForm form,
@@ -42,20 +45,25 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationType = dynaForm.getString("consultationType");
 		String consultationIfNecessaryWeight = dynaForm.getString("consultationIfNecessaryWeight");
 //		String nbVotersPerChoiceBox = dynaForm.getString("nbVotersPerChoiceBox");
-//		String limitChoicesPerVoter = dynaForm.getString("limitChoicesPerVoter");
-//		String minChoicesVoter = dynaForm.getString("minChoicesVoter");
-//		String maxChoicesVoter = dynaForm.getString("maxChoicesVoter");
+		String limitChoicesPerVoter = dynaForm.getString("limitChoicesPerVoter");
+		String minChoicesVoter = dynaForm.getString("minChoicesVoter");
+		String maxChoicesVoter = dynaForm.getString("maxChoicesVoter");
 //		String showBeforeClosing = dynaForm.getString("showBeforeClosing");
 //		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
 		
-		// TODO chercher le moyen de valider les choix avec struts
+		// TODO chercher le moyen de valider ce qui suit avec struts...
 		for (String cs : consultationChoices){
 			if ("".equals(cs)){
 				request.setAttribute("errorChoice", true);
 				return new ActionRedirect(mapping.findForward("error"));
 			}
+		}
+		
+		if(Integer.valueOf(minChoicesVoter) > Integer.valueOf(maxChoicesVoter)){
+			request.setAttribute("errorChoicesVoter", true);
+			return new ActionRedirect(mapping.findForwardConfig("error"));
 		}
 //		for(int i = 0;i<maxVoters.length;i++){
 //			if("".equals(maxVoters[i]))
@@ -103,15 +111,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		}
 				
 		
-//		if(!"".equals(limitChoicesPerVoter)){
-//			consultation.setLimitChoicesPerParticipant(true);
-//			if(!"".equals(maxChoicesVoter)){
-//				consultation.setLimitChoicesPerParticipantMax(Integer.valueOf(maxChoicesVoter));
-//			}
-//			if(!"".equals(minChoicesVoter)){
-//				consultation.setLimitChoicesPerParticipantMin(Integer.valueOf(minChoicesVoter));
-//			}
-//		}
+		if(!"".equals(limitChoicesPerVoter)){
+			consultation.setLimitChoicesPerParticipant(true);
+			if(!"".equals(maxChoicesVoter)){
+				consultation.setLimitChoicesPerParticipantMax(Integer.valueOf(maxChoicesVoter));
+			}
+			if(!"".equals(minChoicesVoter)){
+				consultation.setLimitChoicesPerParticipantMin(Integer.valueOf(minChoicesVoter));
+			}
+		}
 		
 		em.getTransaction().commit();
 		em.close();
@@ -130,9 +138,29 @@ public class ManageConsultations extends MappingDispatchAction {
 		String[] voteChoices  = dynaForm.getStrings("voteChoice");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		Consultation consultation = consultationFacade.getConsultation(idConsultation);
+		if(consultation.isLimitChoicesPerParticipant()){
+			int answersNumber = 0;
+			if(TypeConsultation.YES_NO_IFNECESSARY.equals(consultation.getType())){
+				for(String s : voteChoices){
+					System.out.println(s);
+					if(!s.startsWith(NO_ANSWER))
+						answersNumber++;
+				}
+			}else if(TypeConsultation.YES_NO_OTHER.equals(consultation.getType())){
+				answersNumber = voteChoices.length + ("".equals(voteOther)?0:1);
+			}else{
+				answersNumber = voteChoices.length;
+			}
+			System.out.println(answersNumber);
+			if(answersNumber < consultation.getLimitChoicesPerParticipantMin() || answersNumber > consultation.getLimitChoicesPerParticipantMax()){
+				
+				request.setAttribute("errorChoicesPerParticipant",true);
+				return displayAConsultation(mapping, dynaForm, request, response);
+			}
+		}
+		em.getTransaction().begin();
 		if (isAllowedToVote(consultation, member)){
 			consultationFacade.voteForConsultation(member, consultation, voteComment, voteOther, Arrays.asList(voteChoices));
 			em.getTransaction().commit();
