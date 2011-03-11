@@ -45,7 +45,15 @@
 		</dependency>	
 	</dependencies>
 	<build>
-		<sourceDirectory>src</sourceDirectory>
+     <sourceDirectory>src</sourceDirectory>
+     <resources>
+         <resource>
+             <directory>src</directory>
+         </resource>
+         <resource>
+             <directory>gen</directory>
+         </resource>
+     </resources>
 		<plugins>
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
