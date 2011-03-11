@@ -295,7 +295,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	private void addRightToRequest(HttpServletRequest request){
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		Right rightAddEvent = Right.ADD_EVENT;
+		Right rightRegisterEvent = Right.REGISTER_EVENT;
 		request.setAttribute("rightAddEvent", rightAddEvent);
+		request.setAttribute("rightRegisterEvent",rightRegisterEvent);
 		request.setAttribute("socialEntity",socialEntity);
 	}
 }

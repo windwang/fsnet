@@ -42,18 +42,20 @@
         </tr>
         <tr>
             <td  class="alignRight">
-                <c:if test="${not subscriber}">
-	                <html:link  action="/SubscribeEvent" styleClass="button">
-	                    <html:param name="eventId" value="${event.id}"/>
-	                    <bean:message key="events.17"/>
-	                </html:link>
-            	</c:if>
-            	<c:if test="${subscriber}">
-                	<html:link  action="/UnsubscribeEvent" styleClass="button">
-                    	<html:param name="eventId" value="${event.id}"/>
-                    	<bean:message key="events.18"/>
-                	</html:link>
-            	</c:if>
+            	<ili:interactionFilter user="${ socialEntity }" right="${ rightRegisterEvent }">
+               	 	<c:if test="${not subscriber}">
+	                	<html:link  action="/SubscribeEvent" styleClass="button">
+	                    	<html:param name="eventId" value="${event.id}"/>
+	                    	<bean:message key="events.17"/>
+	                	</html:link>
+            		</c:if>
+            		<c:if test="${subscriber}">
+                		<html:link  action="/UnsubscribeEvent" styleClass="button">
+                    		<html:param name="eventId" value="${event.id}"/>
+                    		<bean:message key="events.18"/>
+                		</html:link>
+            		</c:if>
+            	</ili:interactionFilter>
                 <c:if test="${userId eq event.creator.id}">
                     <html:form  action="/DeleteEvent" method="post" styleId="eventid${event.id}" styleClass="deleteEventForm" >
                         <html:hidden property="eventId" value="${event.id}"/>
