@@ -144,7 +144,6 @@ public class ManageConsultations extends MappingDispatchAction {
 			int answersNumber = 0;
 			if(TypeConsultation.YES_NO_IFNECESSARY.equals(consultation.getType())){
 				for(String s : voteChoices){
-					System.out.println(s);
 					if(!s.startsWith(NO_ANSWER))
 						answersNumber++;
 				}
@@ -153,7 +152,6 @@ public class ManageConsultations extends MappingDispatchAction {
 			}else{
 				answersNumber = voteChoices.length;
 			}
-			System.out.println(answersNumber);
 			if(answersNumber < consultation.getLimitChoicesPerParticipantMin() || answersNumber > consultation.getLimitChoicesPerParticipantMax()){
 				
 				request.setAttribute("errorChoicesPerParticipant",true);
