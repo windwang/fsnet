@@ -55,6 +55,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		
 		// TODO chercher le moyen de valider ce qui suit avec struts...
 		for (String cs : consultationChoices){
+			System.out.println(cs);
 			if ("".equals(cs)){
 				request.setAttribute("errorChoice", true);
 				return new ActionRedirect(mapping.findForward("error"));
@@ -108,6 +109,8 @@ public class ManageConsultations extends MappingDispatchAction {
 		
 		if(!"".equals(consultationIfNecessaryWeight)){
 			consultation.setIfNecessaryWeight(Double.valueOf(consultationIfNecessaryWeight));
+		}else{
+			consultation.setIfNecessaryWeight(0.5);
 		}
 				
 		

@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.Transient;
@@ -37,9 +38,11 @@ public class Consultation extends Interaction {
 	 * The list of choices available for this consultation
 	 */
 	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
+	@OrderBy(value = "intituled")
 	private List<ConsultationChoice> choices;
 
 	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
+	@OrderBy(value = "id")
 	private List<ConsultationVote> consultationVotes;
 
 	private String description;
