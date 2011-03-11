@@ -29,6 +29,7 @@ import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade.Triple;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 public class Home extends MappingDispatchAction {
 
@@ -114,7 +115,7 @@ public class Home extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-
+		SocialGroupFacade sgf = new SocialGroupFacade(em);
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 
@@ -123,6 +124,8 @@ public class Home extends MappingDispatchAction {
 		lastMessages(mapping, request, response, em, authenticatedUser);
 		getContactProposals(mapping, request, response, em, authenticatedUser);
 		getInterestProposals(mapping, request, response, em, authenticatedUser);
+		
+		request.getSession().setAttribute("isMasterGroup",sgf.isMasterGroup(authenticatedUser));
 
 		em.close();
 

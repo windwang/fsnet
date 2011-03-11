@@ -1,3 +1,4 @@
+<!-- SAID Mohamed <simo.said09 at gmail.com> -->
 <%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
@@ -5,14 +6,15 @@
     <bean:message key="groups.leftMenu"/>
 </h2>
 <ul>
-    <li>
-        <html:link action="">
-            <bean:message key="groups.manageRights"/>
-        </html:link>
-    </li>
-    <li>
+<li>
         <html:link action="/SearchGroup">
-            <bean:message key="groups.manageGroups"/>
+            <bean:message key="group.listGroups"/>
         </html:link>
     </li>
+    <li>
+        <html:link action="/Groups.do">
+            <bean:message key="groups.createGroup"/>
+        </html:link>
+    </li>
+   
 </ul>

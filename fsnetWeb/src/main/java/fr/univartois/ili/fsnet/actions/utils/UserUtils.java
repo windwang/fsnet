@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 /**
@@ -25,6 +26,12 @@ public class UserUtils {
 		SocialEntity user = socialEntityFacade.getSocialEntity(id);
 		em.close();
 		return user;
+	}
+
+	public static final SocialGroup getHisGroup(HttpServletRequest request) {
+		SocialEntity socialEntity = getAuthenticatedUser(request);
+
+		return socialEntity.getGroup();
 	}
 
 	public static final Integer getAuthenticatesUserId(

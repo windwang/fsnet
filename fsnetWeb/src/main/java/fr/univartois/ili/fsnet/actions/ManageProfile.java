@@ -211,7 +211,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 		}
 			
-		request.setAttribute("isMasterGroup", socialGroupFacade.isMasterGroup(user));
+		//request.setAttribute("isMasterGroup", socialGroupFacade.isMasterGroup(user));
 		if(user.getGroup() != null)
 			request.setAttribute("groupId", user.getGroup().getId());
 		request.setAttribute("alreadyInContact", alreadyInContact);
