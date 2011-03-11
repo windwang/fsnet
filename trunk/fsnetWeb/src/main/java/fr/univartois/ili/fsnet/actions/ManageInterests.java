@@ -78,8 +78,11 @@ public class ManageInterests extends MappingDispatchAction implements
             	interestNameTmp=interestName.split(";");
             	for(String myInterestName : interestNameTmp){
                 	interest=null;
-            		interest=creation(dynaForm,facade,myInterestName,interest,em,request);
-                	mesInterets.add(interest);
+                	myInterestName=myInterestName.trim();
+                	if(!myInterestName.isEmpty()){
+                		interest=creation(dynaForm,facade,myInterestName,interest,em,request);
+                	   	mesInterets.add(interest);
+                	}
             	}
             }else{
             	interest=creation(dynaForm,facade,interestName,interest,em,request);
