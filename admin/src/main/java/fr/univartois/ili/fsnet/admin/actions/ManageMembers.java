@@ -505,20 +505,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 
-		ActionErrors actionsErrors = verified(formSocialENtity);
-		Date birthDay = null;
-		try {
-			birthDay = DateUtils.format((String) formSocialENtity
-					.get("formatBirthDay"));
-		} catch (ParseException e) {
-			// Date Format is invalid or empty. Do nothing.
-		}
-		if (!actionsErrors.isEmpty()) {
-			saveErrors(request, actionsErrors);
-			return mapping.getInputForward();
-		}
-		formSocialENtity.set("birthDay", birthDay);
-		
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
@@ -527,8 +513,22 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String city = (String) formSocialENtity.get("city");
 		String phone = (String) formSocialENtity.get("phone");
 		String sexe = (String) formSocialENtity.get("sexe");
-
 		Integer idMember = (Integer) formSocialENtity.get("id");
+
+		ActionErrors errors = verified(formSocialENtity);
+		if (!errors.isEmpty()) {
+			saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+
+		Date birthDay = null;
+		try {
+			birthDay = DateUtils.format((String) formSocialENtity
+					.get("formatBirthDay"));
+		} catch (ParseException e) {
+			// Date Format is invalid or empty. Do nothing.
+		}
+		formSocialENtity.set("birthDay", birthDay);
 
 		SocialEntityFacade facadeSE = new SocialEntityFacade(entityManager);
 
@@ -544,9 +544,13 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		entityManager.getTransaction().begin();
 		entityManager.merge(member);
 		entityManager.getTransaction().commit();
-		request.setAttribute("member", member);
 
-		ActionMessages errors = new ActionErrors();
+		request.setAttribute("member", member);
+		request.setAttribute("id", member.getId());
+		Paginator<Interest> paginator = new Paginator<Interest>(
+				member.getInterests(), request, "interestsMember", "idMember");
+		request.setAttribute("interestsMemberPaginator", paginator);
+
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
 		return mapping.findForward("success");
