@@ -13,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import javax.swing.JOptionPane;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -227,7 +226,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 				List<SocialGroup> resultOthersList = new ArrayList<SocialGroup>(
 						resultOthers);
-				// Collections.sort(resultOthersList);
 				Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
 						resultOthersList, request, "groupsList");
 				request.setAttribute("groupsListPaginator", paginator);
