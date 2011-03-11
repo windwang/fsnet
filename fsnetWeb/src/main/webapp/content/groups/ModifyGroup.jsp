@@ -174,21 +174,21 @@ select {
 </script>
 <script type="text/javascript">
 	function Valider() {
-		var memberListLeft = document.getElementsByName('memberListRight')
+		var memberListRight= document.getElementsByName('memberListRight')
 				.item(0);
-		//var groupListLeft = document.getElementsByName('groupListRight')
-		//.item(0);
-		var rigthListLeft = document.getElementsByName('rigthListRight')
+		var memberListLeft = document.getElementsByName('memberListLeft')
+		.item(0);
+		var rigthListRight = document.getElementsByName('rigthListRight')
 				.item(0);
 		for ( var i = 0; i < memberListLeft.options.length; i++) {
 			memberListLeft.options[i].selected = "true";
 		}
 
-		/*for ( var i = 0; i < groupListLeft.options.length; i++) {
-			groupListLeft.options[i].selected = "true";
-		}*/
+		for ( var i = 0; i < memberListRight.options.length; i++) {
+			memberListRight.options[i].selected = "true";
+		}
 		for ( var i = 0; i < rigthListLeft.options.length; i++) {
-			rigthListLeft.options[i].selected = "true";
+			rigthListRight.options[i].selected = "true";
 		}
 		return true;
 	}

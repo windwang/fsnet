@@ -87,7 +87,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 				em.getTransaction().begin();
 				em.persist(socialGroup);
 				if (parentGroup != null) {
-					parentGroup.addSocialElements(socialGroup);
+					parentGroup.addSocialElement(socialGroup);
 					em.merge(parentGroup);
 				}
 				em.getTransaction().commit();
@@ -166,17 +166,17 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			socialGroup.setSocialElements(new ArrayList<SocialElement>());
 			socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
 			oldParentGroup = socialGroup.getGroup();
-			oldParentGrouoOfMasterGroup.removeSocialElements(masterGroup);
+			oldParentGrouoOfMasterGroup.removeSocialElement(masterGroup);
 			em.getTransaction().begin();
 
 			em.merge(socialGroup);
 			socialGroup.setSocialElements(socialElements);
 			if (oldParentGroup != null) {
-				oldParentGroup.removeSocialElements(socialGroup);
+				oldParentGroup.removeSocialElement(socialGroup);
 				em.merge(oldParentGroup);
 			}
 			if (newParentGroup != null) {
-				newParentGroup.addSocialElements(socialGroup);
+				newParentGroup.addSocialElement(socialGroup);
 				em.merge(newParentGroup);
 			}
 			em.merge(oldParentGrouoOfMasterGroup);

@@ -71,6 +71,8 @@
 			type="fr.univartois.ili.fsnet.actions.ManageGroups" name="ModifyGroupForm"
 			parameter="modify" validate="true" input="/ErrorModifyGroup.do"
 			scope="request">
+			
+			<forward name="toHome" path="/Home.do" />
 			<forward name="success" path="/SearchGroup.do" />
 			<forward name="errors" path="/ErrorModifyGroup.do" />
 		</action>
@@ -83,6 +85,7 @@
 		<action path="/SearchGroup" scope="request"
 			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="search">
 			<forward name="success" path="SearchGroups"></forward>
+			<forward name="toHome" path="/Home.do" />
 		</action>
 
 	</action-mappings>

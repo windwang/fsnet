@@ -12,10 +12,10 @@
 				items="${requestScope.groupsListPaginator.resultList}">
 				<tr>
 					<td>
-					<!--<html:link action="/DisplayGroup">${group.name} 
+					<html:link action="/DisplayGroup">${group.name} 
                 			<html:param name="idGroup" value="${group.id}" />
-					</html:link>-->
-						${group.name}
+					</html:link>
+						<!--${group.name}-->
 					</td>
 					<td class="tableButton"><html:link action="/SwitchStateGroup"
 						styleClass="button">
