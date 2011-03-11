@@ -40,6 +40,9 @@
 		</c:choose>
 		
 	</li>
+	<c:if test="${consultation.limitChoicesPerParticipant}">
+		<li><bean:message key="consultation.limitChoicesPerVoter" /> - min : ${consultation.limitChoicesPerParticipantMin }, max : ${consultation.limitChoicesPerParticipantMax}</li>
+	</c:if>
 	<c:if test="${consultation.closingAtMaxVoters}">
 		<li>
 			<bean:message key="consultation.closingAtMaxVoters" /> : ${consultation.maxVoters}
@@ -52,6 +55,7 @@
 	</c:if>
 </ul>
 <br />
+<c:if test="${errorChoicesPerParticipant}"><bean:message key="consultation.errorChoicesPerParticipant"/></c:if>
 <table>
 	<tr>
 		<td></td>
@@ -113,7 +117,7 @@
 					</c:choose>
 				</td>
 			</c:forEach>
-			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td><input type="text" name="voteOther" id="voteOther" autocomplete="off"  />
+			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td><html:text property="voteOther" styleId="voteOther"  />
 			<div class="consultationAutoCompleteList" id="autoCompleteList"><jsp:include page="autocompleteOtherChoice.jsp" /></div></td></c:if>
 			<td><html:text property="voteComment"/></td>
 			
@@ -141,6 +145,7 @@
 <script type="text/javascript">
 $(function() 
 {
+	$("#voteOther").attr("autocomplete","off");
 	$("#voteOther").keyup(function(e){
 		var datas = $("#voteForm").serialize();
 		$.ajax({

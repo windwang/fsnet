@@ -45,7 +45,8 @@
 	  	<tr><td><html:radio property="consultationType" value="YES_NO_IFNECESSARY" styleId="YES_NO_IFNECESSARY" /></td><td><label for="YES_NO_IFNECESSARY"><bean:message key="consultation.typeYesNoIfNecessary"/></label><label for="consultationIfNecessaryWeight"> <bean:message key="consultation.IfNecessaryWeight"/></label><html:text property="consultationIfNecessaryWeight" styleId="consultationIfNecessaryWeight" disabled="true" /></td></tr>
 <%--	  	<tr><td><html:radio property="consultationType" value="PREFERENCE_ORDER" styleId="PREFERENCE_ORDER" /></td><td><label for="PREFERENCE_ORDER"><bean:message key="consultation.typePreferenceOrder"/></label></td></tr>--%>
 	 </table>
-<%--		<table>
+	 <c:if test="${errorChoicesVoter}"><p><bean:message key="consultation.errorChoicesVoter"/></p></c:if>
+     <table>
 	  	<tr><td>
 			<html:checkbox  property="limitChoicesPerVoter" styleId="limitChoicesPerVoter" /></td><td><label for="limitChoicesPerVoter"><bean:message key="consultation.limitChoicesPerVoter" /> </label>
 		</td></tr> 
@@ -53,7 +54,7 @@
 			<td><label for="minChoicesVoter">Min : </label></td><td><html:text property="minChoicesVoter"  styleId="minChoicesVoter" value="1"/>
 			<label for="maxChoicesVoter">Max : </label><html:text property="maxChoicesVoter" styleId="maxChoicesVoter" value="1" /></td>
 		</tr>
-	</table> --%>
+	</table>
 	<table>
 		<%--
 		<tr><td>
