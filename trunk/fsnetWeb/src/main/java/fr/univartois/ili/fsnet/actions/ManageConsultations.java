@@ -61,7 +61,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			}
 		}
 		
-		if(Integer.valueOf(minChoicesVoter) > Integer.valueOf(maxChoicesVoter)){
+		if(!"".equals(limitChoicesPerVoter) && Integer.valueOf(minChoicesVoter) > Integer.valueOf(maxChoicesVoter)){
 			request.setAttribute("errorChoicesVoter", true);
 			return new ActionRedirect(mapping.findForwardConfig("error"));
 		}
