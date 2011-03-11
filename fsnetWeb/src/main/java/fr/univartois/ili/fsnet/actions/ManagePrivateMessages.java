@@ -53,6 +53,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		StringTokenizer stk = new StringTokenizer(to,",");
 		List<SocialEntity> receivers = new ArrayList<SocialEntity>();
+		addRightToRequest(request);
 		while(stk.hasMoreTokens()){
 			String email = stk.nextToken();
 			SocialEntity findByEmail = sef.findByEmail(email);
@@ -87,6 +88,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
 		try {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			int messageId = Integer.parseInt(dynaForm
@@ -116,6 +118,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
 		try {
 				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
@@ -144,6 +147,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
+		addRightToRequest(request);
 			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 					authenticatedUser.getReceivedPrivateMessages());
 			Collections.reverse(userMessages);
@@ -163,6 +167,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
+		addRightToRequest(request);
 		if (form == null) {
 			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 					authenticatedUser.getSentPrivateMessages());
@@ -264,7 +269,9 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	private void addRightToRequest(HttpServletRequest request){
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		Right rightAnswerMessage = Right.ANSWER_MESSAGE;
+		Right rightSendMessage = Right.SEND_MESSAGE;
 		request.setAttribute("rightAnswerMessage", rightAnswerMessage);
+		request.setAttribute("rightSendMessage", rightSendMessage);
 		request.setAttribute("socialEntity",socialEntity);
 	}
 
