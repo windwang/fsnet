@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingLeft="10dip" android:paddingTop="10dip"
+    android:background="@drawable/bg">
+    <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/imageFsnet" android:src="@drawable/fsnet"></ImageView>
+	<ListView android:id="@+id/listAnnouncements" 
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textColor="#0000F0"
+    	android:cacheColorHint="#DFF2FF"
+		android:background="@drawable/bg">
+	</ListView>
+	
+</LinearLayout>
