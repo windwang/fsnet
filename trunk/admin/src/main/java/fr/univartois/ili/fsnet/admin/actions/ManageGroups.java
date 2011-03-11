@@ -14,6 +14,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -149,21 +150,23 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		SocialEntity masterGroup = socialEntityFacade.getSocialEntity(Integer
 				.valueOf(owner));
+		SocialGroup oldParentGrouoOfMasterGroup = masterGroup.getGroup();
 
 		List<SocialElement> socialElements = createSocialElement(em,
 				membersAccepted, groupsAccepted, masterGroup, newParentGroup);
+		
 		try {
 
 			SocialGroup socialGroup = socialGroupFacade
 					.getSocialGroup(socialGroupId);
-
+			
 			socialGroup.setName(name);
 			socialGroup.setDescription(description);
 			socialGroup.setMasterGroup(masterGroup);
 			socialGroup.setSocialElements(new ArrayList<SocialElement>());
-            socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
+			socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
 			oldParentGroup = socialGroup.getGroup();
-
+			oldParentGrouoOfMasterGroup.removeSocialElements(masterGroup);
 			em.getTransaction().begin();
 
 			em.merge(socialGroup);
@@ -176,6 +179,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 				newParentGroup.addSocialElements(socialGroup);
 				em.merge(newParentGroup);
 			}
+			em.merge(oldParentGrouoOfMasterGroup);
 			em.merge(socialGroup);
 			em.getTransaction().commit();
 			request.getSession(true).removeAttribute("idGroup");
@@ -326,7 +330,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("acceptedGroups", acceptedGroups);
 		request.setAttribute("acceptedMembers", acceptedMembers);
 		request.setAttribute("allMembers",
-				socialEntityFacade.getAllSocialEntity());
+				getSimpleMember(em, socialGroupFacade, group));
 		request.setAttribute("allGroups", allGroups);
 		request.setAttribute("refusedMembers", refusedMembers);
 		request.setAttribute("refusedGroups", refusedGroups);
@@ -405,6 +409,19 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		}
 
 		return resulGroups;
+	}
+
+	public List<SocialEntity> getSimpleMember(EntityManager em,
+			SocialGroupFacade sgf, SocialGroup socialGroup) {
+		TypedQuery<SocialEntity> query = null;
+		query = em.createQuery("SELECT g.masterGroup FROM SocialGroup g",
+				SocialEntity.class);
+		List<SocialEntity> mastersGroup = query.getResultList();
+		mastersGroup.remove(socialGroup.getMasterGroup());
+		List<SocialEntity> allMembers = sgf.allMembersChild(socialGroup);
+		allMembers.removeAll(mastersGroup);
+		
+		return allMembers;
 	}
 
 }
