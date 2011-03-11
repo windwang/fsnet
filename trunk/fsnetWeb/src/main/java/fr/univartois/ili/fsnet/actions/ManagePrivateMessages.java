@@ -25,6 +25,7 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.PrivateMessageFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
@@ -191,6 +192,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
 		try {
 			if (form != null) {
 				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -257,6 +259,13 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				.getReceivedPrivateMessages());
 		session.setAttribute("numNonReedPrivateMessages",
 				numNonReedPrivateMessages);
+	}
+	
+	private void addRightToRequest(HttpServletRequest request){
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
+		Right rightAnswerMessage = Right.ANSWER_MESSAGE;
+		request.setAttribute("rightAnswerMessage", rightAnswerMessage);
+		request.setAttribute("socialEntity",socialEntity);
 	}
 
 }

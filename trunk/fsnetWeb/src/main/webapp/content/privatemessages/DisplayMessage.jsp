@@ -37,10 +37,12 @@
             </td>
         </tr>
     </table>
-    <a class="button" onclick="document.getElementById('quickResponse').style.display='table'">
-        <img src="images/quickResponse.png" style="vertical-align: bottom"/>
-        <bean:message key="privatemessages.Quickresponse"/>
-    </a>
+    <ili:interactionFilter user="${ socialEntity }" right="${ rightAnswerMessage }">
+   		<a class="button" onclick="document.getElementById('quickResponse').style.display='table'">
+        	<img src="images/quickResponse.png" style="vertical-align: bottom"/>
+        	<bean:message key="privatemessages.Quickresponse"/>
+    	</a>
+    </ili:interactionFilter>
 
     <!-- TODO factorise this code with createMessage.jsp -->
     <html:link action="/DeletePrivateMessage" styleClass="button" style="float: right">
@@ -83,6 +85,7 @@
                     </html:textarea>
                 </td>
             </tr>
+            
             <tr>
                 <td colspan="2" class="alignRight">
                     <html:submit styleClass="button" onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();">
@@ -92,6 +95,4 @@
             </tr>
         </table>
     </html:form>
-
-
 </logic:notEmpty>
