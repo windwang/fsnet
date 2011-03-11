@@ -12,4 +12,6 @@
         <html:submit styleClass="button"><bean:message key="communities.searchButton"/></html:submit>
     </div>
 </html:form>
-<jsp:include page="/content/communities/CreateCommunity.jsp"/>
+<ili:interactionFilter user="${ socialEntity }" right="${ rightCreateCommunity }">
+	<jsp:include page="/content/communities/CreateCommunity.jsp"/>
+</ili:interactionFilter>

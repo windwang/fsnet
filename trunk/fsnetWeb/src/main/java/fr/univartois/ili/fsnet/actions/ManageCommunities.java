@@ -24,6 +24,7 @@ import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
@@ -47,6 +48,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		EntityManager em = PersistenceProvider.createEntityManager();
 		CommunityFacade communityFacade = new CommunityFacade(em);
 		boolean doesNotExists = false;
+		addRightToRequest(request);
 		try{
 			communityFacade.getCommunityByName(name);
 
@@ -99,7 +101,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String communityId = (String) dynaForm.get("communityId");
-
+		addRightToRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		CommunityFacade communityFacade = new CommunityFacade(em);
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -134,6 +136,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		List<Community> result = null;
 		String searchText = "";
 		CommunityFacade communityFacade = new CommunityFacade(em);
+		addRightToRequest(request);
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			searchText = (String) dynaForm.get("searchText");
@@ -158,7 +161,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		List<Community> result = null;
 		String pattern = "";
 		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
-
+		addRightToRequest(request);
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			pattern = (String) dynaForm.get("searchCommunityText");
@@ -178,5 +181,12 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 
 		request.setAttribute("myCommunitiesPaginator", paginator);
 		return mapping.findForward("success");
+	}
+	
+	private void addRightToRequest(HttpServletRequest request){
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
+		Right rightCreateCommunity = Right.CREATE_COMMUNITY;
+		request.setAttribute("rightCreateCommunity", rightCreateCommunity);
+		request.setAttribute("socialEntity",socialEntity);
 	}
 }
