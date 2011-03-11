@@ -31,7 +31,7 @@ public class FilterInteractionByUserGroup {
 	
 	
 	
-	public final <T>List  filterInteraction(SocialEntity se, List<? extends  Interaction> listInteraction) {
+	public final <T> List<T>  filterInteraction(SocialEntity se, List<? extends  Interaction> listInteraction) {
 		/* load group user */
 		SocialGroup socialGroupUser = se.getGroup();
 		/* list of user */
@@ -53,12 +53,12 @@ public class FilterInteractionByUserGroup {
 		}
 		/* user is not attached on group, alone */
 		listSocialEntity.add(se);
-		List<Interaction> listFilterInteraction = new ArrayList<Interaction>();
+		List<T> listFilterInteraction = new ArrayList<T>();
 		/* filter interaction */
 		for (Interaction interaction : listInteraction) {
 			SocialEntity socialEntity = interaction.getCreator();
 			if(listSocialEntity.contains(socialEntity))
-				listFilterInteraction.add(interaction);
+				listFilterInteraction.add((T) interaction);
 		}
 		return listFilterInteraction;
 		
