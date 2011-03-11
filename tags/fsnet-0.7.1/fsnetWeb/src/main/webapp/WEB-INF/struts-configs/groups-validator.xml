@@ -1,0 +1,44 @@
+<!DOCTYPE form-validation PUBLIC
+"-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+"http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<!-- SAID Mohamed <simo.said09 at gmail.com> -->
+<form-validation>
+	<formset>
+		<form name="/CreateGroup">
+			<field property="name" depends="required,maxlength">
+				<arg key="groups.error.name" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>30</var-value>
+				</var>
+			</field>
+			
+			<field property="parentId" depends="required">
+				<arg key="groups.error.master.group" />
+
+
+			</field>
+			<field property="socialEntityId" depends="required">
+				<arg key="groups.error.owner" />
+
+
+			</field>
+
+		</form>
+		<form name="/ModifyGroup">
+			<field property="name" depends="required,maxlength">
+				<arg key="groups.error.name" />
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>30</var-value>
+				</var>
+			</field>
+			<field property="socialEntityId" depends="required">
+				<arg key="groups.error.owner" />
+
+
+			</field>
+
+		</form>
+	</formset>
+</form-validation>
