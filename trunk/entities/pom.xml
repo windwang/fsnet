@@ -4,11 +4,11 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.1-SNAPSHOT</version>
+		<version>0.7.1</version>
 	</parent>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>entities</artifactId>
-	<version>0.7.1-SNAPSHOT</version>
+	<version>0.7.1</version>
 	<name>entities</name>
 	<description>This module contain the JPA entities of fsnet.</description>
 	<build>
