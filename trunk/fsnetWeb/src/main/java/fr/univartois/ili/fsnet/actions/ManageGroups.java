@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -82,7 +83,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 				em.getTransaction().begin();
 				em.persist(socialGroup);
 				if (parentGroup != null) {
-					parentGroup.addSocialElements(socialGroup);
+					parentGroup.addSocialElement(socialGroup);
 					em.merge(parentGroup);
 				}
 				em.getTransaction().commit();
@@ -134,32 +135,47 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("socialEntityId", "");
 
 		String[] membersAccepted = (String[]) dynaForm.get("memberListRight");
-
+		String[] membersRefused = (String[]) dynaForm.get("memberListLeft");
 		String[] rigthsAccepted = (String[]) dynaForm.get("rigthListRight");
+
+		SocialGroup socialGroup = socialGroupFacade
+				.getSocialGroup(socialGroupId);
 
 		SocialEntity masterGroup = socialEntityFacade.getSocialEntity(Integer
 				.valueOf(owner));
-		SocialGroup oldParentGrouoOfMasterGroup = masterGroup.getGroup();
-		List<SocialElement> socialElements = createSocialElement(em,
-				membersAccepted, masterGroup, null);
-		try {
+		SocialEntity oldMasterGroup = socialGroup.getMasterGroup();
 
-			SocialGroup socialGroup = socialGroupFacade
-					.getSocialGroup(socialGroupId);
+		List<SocialElement> acceptedSocialEntity = createObjectSocialEntity(em,
+				membersAccepted);
+
+		List<SocialElement> refusedSocialEntity = createObjectSocialEntity(em,
+				membersRefused);
+
+		try {
 
 			socialGroup.setName(name);
 			socialGroup.setDescription(description);
 			socialGroup.setMasterGroup(masterGroup);
-			
+
 			socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
-			socialGroup.setSocialElements(socialElements);
-			oldParentGrouoOfMasterGroup.removeSocialElements(masterGroup);
+			
+
+			socialGroup.addAllSocialElements(acceptedSocialEntity);
+			socialGroup.removeAllSocialElements(refusedSocialEntity);
+			if (!socialGroup.getSocialElements().contains(masterGroup))
+				socialGroup.getSocialElements().add(masterGroup);
+
 			em.getTransaction().begin();
-			em.merge(oldParentGrouoOfMasterGroup);
+			deleteMasterGroupFromOldGroup(em, masterGroup, socialGroup);
 			em.merge(socialGroup);
 			em.getTransaction().commit();
 
 			request.getSession(true).removeAttribute("idGroup");
+			if (!oldMasterGroup.equals(masterGroup)) {
+				request.getSession().setAttribute("isMasterGroup", false);
+				return mapping.findForward("toHome");
+			}
+
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
 			errors.add("name", new ActionMessage("groups.name.exists"));
@@ -174,6 +190,15 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		return mapping.findForward("success");
 
+	}
+
+	private void deleteMasterGroupFromOldGroup(EntityManager em,
+			SocialEntity masterGroup, SocialGroup socialGroup) {
+		SocialGroup oldParentGrouoOfMasterGroup = masterGroup.getGroup();
+		if (!oldParentGrouoOfMasterGroup.equals(socialGroup)) {
+			oldParentGrouoOfMasterGroup.removeSocialElement(masterGroup);
+			em.merge(oldParentGrouoOfMasterGroup);
+		}
 	}
 
 	@Override
@@ -295,6 +320,18 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		return socialElements;
 	}
 
+	private List<SocialElement> createObjectSocialEntity(EntityManager em,
+			String[] members) {
+
+		List<SocialElement> socialElements = new ArrayList<SocialElement>();
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+
+		for (String member : members)
+			socialElements.add(socialEntityFacade.getSocialEntity(Integer
+					.valueOf(member)));
+		return socialElements;
+	}
+
 	public List<SocialEntity> getRefusedSocialMember(SocialGroupFacade sgf,
 			List<SocialEntity> allMembers, SocialGroup socialGroup) {
 		if (sgf == null) {
@@ -342,22 +379,28 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+		SocialGroup socialGroup;
+		try {
+			socialGroup = UserUtils.getHisGroup(request);
+			List<SocialGroup> resultOthersList = socialGroupFacade
+					.AllGroupChild(socialGroup);
 
-		SocialGroup socialGroup = UserUtils.getHisGroup(request);
+			Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
+					resultOthersList, request, "groupsList");
 
-		List<SocialGroup> resultOthersList = socialGroupFacade
-				.AllGroupChild(socialGroup);
+			request.setAttribute("groupsListPaginator", paginator);
+			return mapping.findForward("success");
+		} catch (NullPointerException e) {
+			return mapping.findForward("toHome");
+		}
 
-		Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
-				resultOthersList, request, "groupsList");
-        
-		request.setAttribute("groupsListPaginator", paginator);
-		return mapping.findForward("success");
 	}
+
 	public List<SocialEntity> getSimpleMember(EntityManager em,
 			SocialGroupFacade sgf, SocialGroup socialGroup) {
 		TypedQuery<SocialEntity> query = null;
-		query = em.createQuery("SELECT g.masterGroup FROM SocialGroup g WHERE g.id !=:id ",
+		query = em.createQuery(
+				"SELECT g.masterGroup FROM SocialGroup g WHERE g.id !=:id ",
 				SocialEntity.class);
 		query.setParameter("id", socialGroup.getId());
 		List<SocialEntity> mastersGroup = query.getResultList();
@@ -365,9 +408,8 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialEntity> allMembers = sgf.allMembersChild(socialGroup);
 		allMembers.removeAll(mastersGroup);
 		allMembers.add(socialGroup.getMasterGroup());
-		
+
 		return allMembers;
 	}
-
 
 }

@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -173,17 +174,29 @@ public class SocialGroup extends SocialElement implements Serializable {
 		this.socialElements = socialElements;
 	}
 
-	public void addSocialElements(SocialElement socialElement) {
+	public void addSocialElement(SocialElement socialElement) {
 		if (!this.socialElements.contains(socialElement)) {
 			socialElement.setGroup(this);
 			this.socialElements.add(socialElement);
 		}
 	}
 
-	public void removeSocialElements(SocialElement socialElement) {
+	public void addAllSocialElements(Collection<SocialElement> socialElements) {
+		for (SocialElement socialElement : socialElements) {
+			addSocialElement(socialElement);
+		}
+	}
+
+	public void removeSocialElement(SocialElement socialElement) {
 		if (this.socialElements.contains(socialElement)) {
 			socialElement.setGroup(null);
 			this.socialElements.remove(socialElement);
+		}
+	}
+
+	public void removeAllSocialElements(Collection<SocialElement> socialElements) {
+		for (SocialElement socialElement : socialElements) {
+			removeSocialElement(socialElement);
 		}
 	}
 
