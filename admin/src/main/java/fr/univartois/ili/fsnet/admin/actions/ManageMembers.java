@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -472,12 +473,52 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
+	private ActionErrors verified(DynaActionForm dynaForm) {
+		ActionErrors res = new ActionErrors();
+		try {
+			Date birthday = DateUtils.format(dynaForm
+					.getString("formatBirthDay"));
+			if (birthday.after(new Date())) {
+				res.add("formatBirthDay", new ActionMessage(
+						"date.error.invalid"));
+			}
+			Calendar cal = Calendar.getInstance();
+			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 100);
+			if (birthday.before(cal.getTime())) {
+				res.add("formatBirthDay", new ActionMessage(
+						"date.error.invalid"));
+			}
+		} catch (ParseException e1) {
+			if (!dynaForm.getString("formatBirthDay").isEmpty()) {
+				res.add("formatBirthDay", new ActionMessage(
+						"date.error.invalid"));
+			}
+			// Date Format is empty. Do nothing.
+		}
+		return res;
+	}
+
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
+
+		ActionErrors actionsErrors = verified(formSocialENtity);
+		Date birthDay = null;
+		try {
+			birthDay = DateUtils.format((String) formSocialENtity
+					.get("formatBirthDay"));
+		} catch (ParseException e) {
+			// Date Format is invalid or empty. Do nothing.
+		}
+		if (!actionsErrors.isEmpty()) {
+			saveErrors(request, actionsErrors);
+			return mapping.getInputForward();
+		}
+		formSocialENtity.set("birthDay", birthDay);
+		
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
@@ -486,15 +527,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String city = (String) formSocialENtity.get("city");
 		String phone = (String) formSocialENtity.get("phone");
 		String sexe = (String) formSocialENtity.get("sexe");
-
-		Date birthDay = null;
-		try {
-			birthDay = DateUtils.format((String) formSocialENtity
-					.get("formatBirthDay"));
-		} catch (ParseException e) {
-			// Date Format is invalid or empty. Do nothing.
-		}
-		formSocialENtity.set("birthDay", birthDay);
 
 		Integer idMember = (Integer) formSocialENtity.get("id");
 
