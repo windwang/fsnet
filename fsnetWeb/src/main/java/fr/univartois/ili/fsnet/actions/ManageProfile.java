@@ -297,8 +297,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	
 	private void addRightToRequest(HttpServletRequest request){
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
-		Right rightModifyProfil = Right.MODIFY_PROFIL;
-		request.setAttribute("rightModifyProfil", rightModifyProfil);
+//		Right rightModifyProfil = Right.MODIFY_PROFIL;
+//		Right rightModifyPicture = Right.MODIFY_PICTURE;
+//		request.setAttribute("rightModifyProfil", rightModifyProfil);
+//		request.setAttribute("rightModifyPicture", rightModifyPicture);
 		request.setAttribute("socialEntity",socialEntity);
 	}
 }
