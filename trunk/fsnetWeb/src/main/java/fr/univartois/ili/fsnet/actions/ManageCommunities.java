@@ -29,6 +29,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
  * Execute CRUD Actions (and more) for the entity community
@@ -144,6 +145,12 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		}
 		em.getTransaction().begin();
 		result = communityFacade.searchCommunity(searchText);
+		/* filter list communities */
+		if(result !=null && !result.isEmpty()) {
+			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(em);
+			SocialEntity se = UserUtils.getAuthenticatedUser(request);
+			result = filter.filterInteraction(se, result);
+		}
 		em.getTransaction().commit();
 		em.close();
 
