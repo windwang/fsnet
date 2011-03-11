@@ -11,9 +11,12 @@
 			<c:forEach var="group"
 				items="${requestScope.groupsListPaginator.resultList}">
 				<tr>
-					<td><html:link action="/DisplayGroup">${group.name} 
+					<td>
+					<!--<html:link action="/DisplayGroup">${group.name} 
                 			<html:param name="idGroup" value="${group.id}" />
-					</html:link></td>
+					</html:link>-->
+						${group.name}
+					</td>
 					<td class="tableButton"><html:link action="/SwitchStateGroup"
 						styleClass="button">
 						<html:param name="groupSelected" value="${group.id}" />
