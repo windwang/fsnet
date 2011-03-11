@@ -112,7 +112,7 @@
 			<html:select property="rigthListLeft" styleClass="select" size="5"
 				multiple="multiple">
 				<c:forEach var="rigth" items="${refusedRigths}">
-					<html:option value="${rigth}">${rigth}</html:option>
+					<html:option value="${rigth}"><bean:message key="groups.rights.${rigth}" /></html:option>
 				</c:forEach>
 			</html:select></td>
 
@@ -127,7 +127,7 @@
 				multiple="multiple">
 
 				<c:forEach var="rigth" items="${acceptedRigths}">
-					<html:option value="${rigth}">${rigth}</html:option>
+					<html:option value="${rigth}"><bean:message key="groups.rights.${rigth}" /></html:option>
 				</c:forEach>
 			</html:select></td>
 		</tr>
