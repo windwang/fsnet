@@ -7,11 +7,9 @@
 </h2>
 <ul>
     <li>
-    	<ili:interactionFilter user="${ socialEntity }" right="${ rightModifyProfil }">
-        	<html:link action="Profile.do">
-            	<bean:message key="showProfile.edit"/>
-        	</html:link>
-        </ili:interactionFilter>
+        <html:link action="Profile.do">
+            <bean:message key="showProfile.edit"/>
+        </html:link>
     </li>
     <li>
     	<html:link action="/Interests">
