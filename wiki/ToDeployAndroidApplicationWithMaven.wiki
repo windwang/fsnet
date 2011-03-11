@@ -6,7 +6,7 @@ To deploy android application with maven  :  <br/>
 = Details =
 
 -> Install android sdk. <br/>
--> Set a variable ANDROID_HOME with the path from android-sdk
+-> Set a variable ANDROID_HOME with the path from android-sdk <br/>
 -> In the directory /platforms-tools , copy the file "adb" . <br/>
 -> Go to the directory /tools and paste the file.  <br/>
  <br/>
