@@ -45,7 +45,7 @@
     </table>
     <c:set var="paginatorInstance" value="${requestScope.groupsListPaginator}" scope="request"/>
 	<c:set var="paginatorAction" value="/GroupList" scope="request"/>
-	<c:set var="paginatorTile" value="GroupsList" scope="request"/>
+	<c:set var="paginatorTile" value="groupsList" scope="request"/>
 	<c:import url="/content/pagination/Pagination.jsp"/>
 </c:when>
 <c:otherwise>

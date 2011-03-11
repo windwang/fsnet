@@ -32,13 +32,19 @@
 			</c:forEach>
 		</table>
 
+		
+		<c:set var="paginatorInstance"
+			value="${requestScope.groupsListPaginator}" scope="request" />
+		
+		<c:set var="paginatorAction" value="/SearchGroup" scope="request" />
+		<c:set var="paginatorTile" value="groupsList" scope="request" />
+		<c:import url="/content/pagination/Pagination.jsp" />
 
-		<!-- To be continued
-        
-        <c:set var="paginatorInstance" value="${requestScope.groupListPaginator.resultList}" scope="request"/>
-        <c:set var="paginatorAction" value="/DisplayConsultations" scope="request"/>
-		<c:set var="paginatorTile" value="searchConsultation" scope="request"/>
-		<c:import url="/content/pagination/Pagination.jsp"/>-->
+
+
+
+
+
 	</c:when>
 	<c:otherwise>
 		<p><bean:message key="group.noResult" />.</p>

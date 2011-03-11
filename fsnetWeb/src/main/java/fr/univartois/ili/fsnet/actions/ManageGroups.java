@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -33,9 +32,9 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 public class ManageGroups extends MappingDispatchAction implements CrudAction {
-/**
- * @author SAID Mohamed
- */
+	/**
+	 * @author SAID Mohamed
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -343,11 +342,12 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		SocialGroup socialGroup = UserUtils.getHisGroup(request);
 
-		List<SocialGroup> socialGroups = socialGroupFacade
+		List<SocialGroup> resultOthersList = socialGroupFacade
 				.AllGroupChild(socialGroup);
 
 		Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
-				socialGroups, request, "searchGroups");
+				resultOthersList, request, "groupsList");
+        
 		request.setAttribute("groupsListPaginator", paginator);
 		return mapping.findForward("success");
 	}
