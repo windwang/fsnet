@@ -1,0 +1,20 @@
+#summary One-sentence summary of this page.
+
+= Introduction =
+
+To deploy android application with maven  : 
+
+
+= Details =
+
+-> Install android sdk. 
+-> In the directory /platforms-tools , copy the file "adb" .
+-> Go to the directory /tools and paste the file. 
+
+
+To launch the application (from line of command): 
+mvn clean install
+mvn android:deploy
+
+
+(Don't forget to launch the android emulator before deploy the application)
