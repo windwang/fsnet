@@ -35,10 +35,8 @@ import fr.univartois.ili.fsnet.mobile.services.client.rest.RestMessagesList;
 
 
 /**
- * 
- * 
  * @author alexandre thery
- *
+ * this class is the main of android application
  */
 public class FsnetMobile extends Activity {
 
@@ -63,22 +61,50 @@ public class FsnetMobile extends Activity {
         infosBDD = new InfoSettingsBDD(this);
         setContentView(R.layout.main);
         setStartOrStopButtonNotificationEnabled(true);
-        if(!checkConnection())
-        {
-        	new SimplePopUp(this,"NetWork problem","Your network is not available, please turn the mobile/wireless network on");
-        }
-     }
-    public boolean checkConnection()
+        checkUserHasAConnection();
+    }
+    
+    /**
+     * Check if the user has a connection network : wireless or 3G
+     * @return true if he has one
+     */
+    public boolean checkUserHasAConnection()
     {
         ConnectivityManager connec =  (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
         State mobileNetwork= connec.getNetworkInfo(0).getState();
         State wirelessNetwork= connec.getNetworkInfo(1).getState();
         if ( mobileNetwork == NetworkInfo.State.CONNECTED ||  mobileNetwork == NetworkInfo.State.CONNECTING)
         	return true;
-        if ( wirelessNetwork == NetworkInfo.State.CONNECTED ||  wirelessNetwork == NetworkInfo.State.CONNECTING)
+        else if ( wirelessNetwork == NetworkInfo.State.CONNECTED ||  wirelessNetwork == NetworkInfo.State.CONNECTING)
         	return true;
-        return false;
+        else {
+        	new SimplePopUp(this,"NetWork problem","Your network is not available, please turn the mobile/wireless network on");
+        	return false;
+        }
     }
+    
+    /**
+     * Called when user click on test button of settings
+     * A pop up tell user if his login, password and fsnet url exists or not
+     */
+    public void testConnectionToWebService(View view){
+   		InfoSettings infos = new InfoSettings();
+	    infos.setServerUrl(getTextByEditText(R.id.fsnetAdress));
+	    infos.setLogin(getTextByEditText(R.id.login));
+	    infos.setPassword(getTextByEditText(R.id.password));
+	    TestConnectionResourcesProvider provider = 
+			new TestConnectionResourcesProvider(infos);
+		boolean isUser = provider.isUser();
+		if(!checkUserHasAConnection())
+			;
+		else if(isUser)
+			new SimplePopUp(this,"Test","Your configuration works ! (don't forget to save your settings)");
+		else new SimplePopUp(this,"Test","Configuration doesn't work");
+    }
+    
+    /**
+     * @return the number of unread messages
+     */
     public int getNbMessages()
     {
     	infosBDD.open();
@@ -93,15 +119,16 @@ public class FsnetMobile extends Activity {
     	}
 		return 0;
     }
+    
+    /**
+     * Called when user clicks on announcements in the home page
+     */
     public void seeAnnouncements(View view){
     	infosBDD.open();
         
-    	if(!checkConnection())
-        {
-        	new SimplePopUp(this,"NetWork problem","Your network is not available, please turn the mobile/wireless network on");
-        }
-        else if(infosBDD!=null && infosBDD.getLastElement()!=0)
+        if(infosBDD!=null && infosBDD.getLastElement()!=0)
     	{
+        	if(!checkUserHasAConnection()) return;
 			AnnouncementsResourcesProvider provider = 
 				new AnnouncementsResourcesProvider(infosBDD.getInfoSettings(1));
 			urlServer = infosBDD.getInfoSettings(1).getServerUrl();
@@ -112,7 +139,8 @@ public class FsnetMobile extends Activity {
 			}
 			else 
 			{
-				new SimpleToast(FsnetMobile.this, "Unread announcements : "+announcementList.size());
+				new SimpleToast(FsnetMobile.this, announcementList.size()+" unread announcement(s)"+"\n"+
+						"last "+infosBDD.getInfoSettings(1).getMinutes() +" minutes");
 				String[] mStrings = new String[announcementList.size()];
 				final int[] idMeetings = new int[announcementList.size()];
 				for(int i = 0;i<announcementList.size();i++){
@@ -144,14 +172,14 @@ public class FsnetMobile extends Activity {
     	else new SimplePopUp(this,"Error","Configure your settings first");
     	infosBDD.close();
     }
+    /**
+     * Called when user clicks on meetings in the home page
+     */
     public void seeMeetings(View view){
     	infosBDD.open();
-        if(!checkConnection())
-        {
-        	new SimplePopUp(this,"NetWork problem","Your network is not available, please turn the mobile/wireless network on");
-        }
-        else if(infosBDD!=null && infosBDD.getLastElement()!=0)
+        if(infosBDD!=null && infosBDD.getLastElement()!=0)
     	{
+        	if(!checkUserHasAConnection()) return;
 			MeetingsResourcesProvider provider = 
 				new MeetingsResourcesProvider(infosBDD.getInfoSettings(1));
 			urlServer = infosBDD.getInfoSettings(1).getServerUrl();
@@ -162,7 +190,8 @@ public class FsnetMobile extends Activity {
 			}
 			else 
 			{
-				new SimpleToast(FsnetMobile.this, "Unread meetings : "+meetingsList.size());
+				new SimpleToast(FsnetMobile.this, meetingsList.size()+" unread meeting(s)"+"\n"+
+						"last "+infosBDD.getInfoSettings(1).getMinutes() +" minutes");
 				String[] mStrings = new String[meetingsList.size()];
 				final int[] idMeetings = new int[meetingsList.size()];
 				for(int i = 0;i<meetingsList.size();i++){
@@ -186,44 +215,22 @@ public class FsnetMobile extends Activity {
 						i.setAction(Intent.ACTION_VIEW);
 						i.setData(Uri.parse(urlServer+MEETINGS_URL+idMeetings[arg2]));
 						startActivity(i);
-
 					}
-		        	
 				});
 			}
     	}
     	else new SimplePopUp(this,"Error","Configure your settings first");
     	infosBDD.close();
     }
-    public void testConnectionToWebService(View view){
-    	if(!checkConnection())
-    		new SimplePopUp(this,"NetWork problem","Your network is not available, please turn the mobile/wireless network on");
-    	else {
-    		InfoSettings infos = new InfoSettings();
-	        infos.setServerUrl(getTextByEditTextId(R.id.fsnetAdress));
-	        infos.setLogin(getTextByEditTextId(R.id.login));
-	        infos.setPassword(getTextByEditTextId(R.id.password));
-	    	TestConnectionResourcesProvider provider = 
-				new TestConnectionResourcesProvider(infos);
-			boolean isUser = provider.isUser();
-			if(isUser)
-				new SimplePopUp(this,"Test","Your configuration works ! (don't forget to save your settings)");
-			else new SimplePopUp(this,"Test","Configuration doesn't work :");
-    	}
-    }
-    public boolean checkServerUrl(String serverUrl)
-    {
-    	return serverUrl.matches("http://.*/fsnetWeb/");
-    }
+    /**
+     * Called when user clicks on messages in the home page
+     */
     public void seeMessages(View view)
     {
     	infosBDD.open();
-        if(!checkConnection())
-        {
-        	new SimplePopUp(this,"NetWork problem","Your network is not available, please turn the mobile/wireless network on");
-        }
-        else if(infosBDD!=null && infosBDD.getLastElement()!=0)
+        if(infosBDD!=null && infosBDD.getLastElement()!=0)
     	{
+        	if(!checkUserHasAConnection()) return;
 			MessagesResourcesProvider provider = 
 				new MessagesResourcesProvider(infosBDD.getInfoSettings(1));
 			RestMessagesList messagesList = provider.unreadPrivateMessages();
@@ -254,16 +261,10 @@ public class FsnetMobile extends Activity {
 					@Override
 					public void onItemClick(AdapterView<?> arg0, View arg1,
 							int arg2, long arg3) {
-						if(infosBDD!=null)
-						{
-							infosBDD.open();
-							Intent i = new Intent();
-							i.setAction(Intent.ACTION_VIEW);
-							i.setData(Uri.parse(urlServer+MESSAGES_URL+idMessages[arg2]));
-							startActivity(i);
-							infosBDD.close();
-						}
-
+						Intent i = new Intent();
+						i.setAction(Intent.ACTION_VIEW);
+						i.setData(Uri.parse(urlServer+MESSAGES_URL+idMessages[arg2]));
+						startActivity(i);
 					}
 		        	
 				});
@@ -272,26 +273,45 @@ public class FsnetMobile extends Activity {
     	else new SimplePopUp(this,"Error","Configure your settings first");
     	infosBDD.close();
     }
-    public void updateEditText(int idEditText,String string)
+    
+    /**
+     * Update one edit text
+     * @param idEditText
+     * 				the id of editText
+     * @param newText
+     * 				the new text
+     */
+    public void updateEditText(int idEditText,String newText)
     {
   	  	EditText et = (EditText)findViewById(idEditText);
-  	  	et.setText(string);
+  	  	et.setText(newText);
     }
-    public String getTextByEditTextId(int id)
+    
+    /**
+     * Get the text of one editText
+     * @param textId
+     * 		the id of editText
+     * @return
+     * 		the text of the editText
+     */
+    public String getTextByEditText(int textId)
     {
-    	EditText vw = (EditText)findViewById(id);
+    	EditText vw = (EditText)findViewById(textId);
         Spannable str = vw.getText();
         return str.toString();
     }
-
+    
+    /**
+     * Called when user wants to save his settings
+     */ 
     public void submitSettings(View view) {
-        info.setServerUrl(getTextByEditTextId(R.id.fsnetAdress));
-        info.setLogin(getTextByEditTextId(R.id.login));
-        info.setPassword(getTextByEditTextId(R.id.password));
-        if(getTextByEditTextId(R.id.time).matches("[0-9]+"))
-        	info.setMinutes(Integer.parseInt(getTextByEditTextId(R.id.time)));
+        info.setServerUrl(getTextByEditText(R.id.fsnetAdress));
+        info.setLogin(getTextByEditText(R.id.login));
+        info.setPassword(getTextByEditText(R.id.password));
+        if(getTextByEditText(R.id.time).matches("[0-9]+"))
+        	info.setMinutes(Integer.parseInt(getTextByEditText(R.id.time)));
         else info.setMinutes(10);
-        if(info.getServerUrl()!=null && checkServerUrl(info.getServerUrl())){
+        if(info.getServerUrl()!=null && info.getServerUrl().matches("http://.*/fsnetWeb/")){
             infosBDD.open();
             if(infosBDD.getLastElement()==0)
             	infosBDD.insertInfo(info);
@@ -301,10 +321,12 @@ public class FsnetMobile extends Activity {
             new SimpleToast(FsnetMobile.this, "Configuration saved");
             infosBDD.close();
         }
-        
         else new SimplePopUp(FsnetMobile.this, "Error", "Url problem\nA good one is like\nhttp://.../fsnetWeb/");
     }
     
+    /**
+     * Called when user wants to delete his settings
+     */
     public void deleteSettings(View view) {
         
         infosBDD.open();
@@ -317,6 +339,12 @@ public class FsnetMobile extends Activity {
         new SimpleToast(FsnetMobile.this, "Configuration deleted");
         infosBDD.close();
     }
+    
+    /**
+     * Called when user starts or stops notification
+     * @param startButtonValue
+     * 					the value of start button
+     */
     public void setStartOrStopButtonNotificationEnabled(boolean startButtonValue)
     {
 		Button buttonStartNotification = (Button) findViewById(R.id.startNotification);
@@ -324,26 +352,25 @@ public class FsnetMobile extends Activity {
 		Button buttonStopNotification = (Button) findViewById(R.id.stopNotification);
 		buttonStopNotification.setEnabled(!startButtonValue);
     }
-    public void stopNotification(View view){
-    	new SimpleToast(this, "Stop notification");
-    	setStartOrStopButtonNotificationEnabled(true);
-    	if(notificationOk)
-    		notificationStop=true;
-    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
 
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.layout.menu, menu);
         return true;
-     }
+    }
+    
+    /**
+     * Called when user starts notification
+     */
     public void startNotification(View view) {
-    	if(!checkConnection())
-    		new SimplePopUp(this,"NetWork problem","Your network is not available, please turn the mobile/wireless network on");
-    	else if(infosBDD!=null)
+    	
+    	if(infosBDD!=null)
     	{
-    	new SimpleToast(this, "Start notification");	
-    	setStartOrStopButtonNotificationEnabled(false);
-	    Runnable r = new Runnable(){
+    		if(!checkUserHasAConnection()) return;
+    		new SimpleToast(this, "Start notification");	
+    		setStartOrStopButtonNotificationEnabled(false);
+    		Runnable r = new Runnable(){
 	
 	    	public void run() {
 	    		int nbMessages=0;
@@ -378,13 +405,22 @@ public class FsnetMobile extends Activity {
     	}
     	else new SimplePopUp(this,"Error","Configure your settings first");
     }
-    
-    
-    
-      public boolean onOptionsItemSelected(MenuItem item) {
-         switch (item.getItemId()) {
-            case R.id.settings:
-            	new SimpleToast(FsnetMobile.this, "Settings");
+    /**
+     * Called when user stops notification
+     */
+    public void stopNotification(View view){
+    	new SimpleToast(this, "Stop notification");
+    	setStartOrStopButtonNotificationEnabled(true);
+    	if(notificationOk)
+    		notificationStop=true;
+    }
+    /**
+     * onOptionsItemSelected is called when user choose one item of menu
+     */
+    public boolean onOptionsItemSelected(MenuItem item) {
+    	switch (item.getItemId()) {
+        	case R.id.settings:{
+        		new SimpleToast(FsnetMobile.this, "Settings");
                 setContentView(R.layout.settings); 
     	    	updateEditText(R.id.fsnetAdress,WEB_SERVICE_ADRESS);
                 infosBDD.open();
@@ -400,16 +436,19 @@ public class FsnetMobile extends Activity {
         	    	else et.setText(""+10);
                 }
             	infosBDD.close();
-               return true;
-           case R.id.exit:
-        	   notificationStop=true;
-               finish();
-               return true;
-           case R.id.home:
+            	return true;
+            }
+        	case R.id.exit:{
+        		notificationStop=true;
+        		finish();
+        		return true;
+           }
+           case R.id.home:{
         	   new SimpleToast(FsnetMobile.this, "Home");
                setContentView(R.layout.main); 
                setStartOrStopButtonNotificationEnabled(!notificationOk);
                return true;
+           }
          }
          return false;
       }

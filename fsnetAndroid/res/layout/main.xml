@@ -17,19 +17,19 @@
    	<ScrollView android:id="@+id/scrollView2" android:layout_height="wrap_content" android:layout_width="fill_parent">
    		<LinearLayout android:gravity="center_vertical|center_horizontal|left" android:layout_width="fill_parent" android:id="@+id/linearLayout2" android:layout_height="fill_parent">
    			<ImageView android:id="@+id/buttonMessages" android:minHeight="40px" android:src="@drawable/messages" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeMessages" android:clickable="true"></ImageView>
-   			<TextView android:textColor="#0000F0" android:text="Messages" android:id="@+id/labelMessages" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+   			<TextView android:textColor="#0000F0" android:text="Messages" android:id="@+id/labelMessages" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeMessages" android:clickable="true"></TextView>
 		</LinearLayout>
    	</ScrollView>
    	<ScrollView android:id="@+id/scrollView3" android:layout_height="wrap_content" android:layout_width="fill_parent">
    		<LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout4" android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal|left">
    			<ImageView android:id="@+id/buttonMeeting" android:minHeight="40px" android:src="@drawable/meetings" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeMeetings" android:clickable="true"></ImageView>
-   			<TextView android:textColor="#0000F0" android:text="Meetings" android:id="@+id/labelMeetings" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+   			<TextView android:textColor="#0000F0" android:text="Meetings" android:id="@+id/labelMeetings" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeMeetings" android:clickable="true"></TextView>
 		</LinearLayout>
    	</ScrollView>
    	<ScrollView android:id="@+id/scrollView4" android:layout_height="wrap_content" android:layout_width="fill_parent">
    		<LinearLayout android:gravity="center_vertical|center_horizontal|left" android:layout_width="fill_parent" android:id="@+id/linearLayout4" android:layout_height="fill_parent">
    			<ImageView android:id="@+id/buttonAnnouncement" android:minHeight="40px" android:src="@drawable/announcements" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeAnnouncements" android:clickable="true"></ImageView>
-   			<TextView android:textColor="#0000F0" android:text="Announcements" android:id="@+id/labelAnnouncements" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+   			<TextView android:textColor="#0000F0" android:text="Announcements" android:id="@+id/labelAnnouncements" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeAnnouncements" android:clickable="true"></TextView>
 		</LinearLayout>
    	</ScrollView>
 </LinearLayout>
