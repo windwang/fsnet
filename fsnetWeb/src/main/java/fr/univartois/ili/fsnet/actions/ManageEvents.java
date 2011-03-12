@@ -13,6 +13,7 @@ import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -27,6 +28,8 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.Right;
@@ -247,12 +250,18 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			results = filter.filterInteraction(se, results);
 		}
 		
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		InteractionFacade interactionFacade = new InteractionFacade(em);
+		List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
+		refreshNumNewEvents(request, em);
+		
 		em.getTransaction().commit();
 		em.close();
 		
 		Paginator<Meeting> paginator = new Paginator<Meeting>(results, request, "eventsLists");
 		
 		request.setAttribute("eventsListPaginator", paginator);
+		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 		return mapping.findForward("success");
 	}
 
@@ -281,6 +290,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		Set<SocialEntity> subscribers = interactionRoleFacade
 				.getSubscribers(event);
 
+		refreshNumNewEvents(request, em);
 		em.getTransaction().commit();
 		em.close();
 		
@@ -300,4 +310,26 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("rightRegisterEvent",rightRegisterEvent);
 		request.setAttribute("socialEntity",socialEntity);
 	}
+	
+	/**
+	 * Store the number of non reed events
+	 * 
+	 * @param request
+	 * @param em
+	 */
+	public static final void refreshNumNewEvents(HttpServletRequest request,
+			EntityManager em) {
+		HttpSession session = request.getSession();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(em);
+		InteractionFacade inf = new InteractionFacade(em);
+		List<Interaction> list = inf .getUnreadInteractionsForSocialEntity(user);
+		
+		list=filterGroup .filterInteraction(user, list);
+		int numNonReedEvents =Interaction.filter(list, Meeting.class).size();
+		session.setAttribute("numNonReedEvents",
+				numNonReedEvents);
+	}
+	
+	
 }
