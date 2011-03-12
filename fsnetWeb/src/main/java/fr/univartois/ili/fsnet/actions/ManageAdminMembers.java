@@ -52,7 +52,8 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * 
  * @author SAID Mohamed
  */
-public class ManageAdminMembers extends MappingDispatchAction implements CrudAction {
+public class ManageAdminMembers extends MappingDispatchAction implements
+		CrudAction {
 
 	private static final Logger logger = Logger.getAnonymousLogger();
 
@@ -65,8 +66,13 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 		dynaForm.set("name", "");
 		String firstName = (String) dynaForm.get("firstName");
 		dynaForm.set("firstName", "");
+
 		String mail = (String) dynaForm.get("email");
 		dynaForm.set("email", "");
+
+		String parentId = (String) dynaForm.get("parentId");
+		dynaForm.set("parentId", "");
+
 		String personalizedMessage = (String) dynaForm.get("message");
 		String inputPassword = (String) dynaForm.get("password");
 		dynaForm.set("password", "");
@@ -74,9 +80,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 		SocialEntity socialEntity = facadeSE.createSocialEntity(name,
 				firstName, mail);
+		SocialGroup socialGroup = socialGroupFacade.getSocialGroup(Integer
+				.parseInt(parentId));
 		try {
 			String definedPassword = null;
 			String encryptedPassword = null;
@@ -93,7 +102,9 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 			}
 			socialEntity.setPassword(encryptedPassword);
 			em.getTransaction().begin();
-			em.persist(socialEntity);
+			socialGroup.addSocialElement(socialEntity);
+			em.persist(socialGroup);
+
 			em.getTransaction().commit();
 
 			Locale currentLocale = request.getLocale();
@@ -113,6 +124,8 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 		dynaForm.set("name", "");
 		dynaForm.set("firstName", "");
 		dynaForm.set("email", "");
+		dynaForm.set("parentId", "");
+		cleanSession(request);
 
 		return mapping.findForward("success");
 	}
@@ -444,7 +457,6 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 
 		SocialEntity member = socialEntityFacade.getSocialEntity(idMember);
 
-		entityManager.close();
 		String adress = "";
 		String city = "";
 		if (member.getAddress() != null) {
@@ -463,13 +475,29 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 		dynaForm.set("email", member.getEmail());
 		dynaForm.set("firstName", member.getFirstName());
 		dynaForm.set("id", member.getId());
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
+				entityManager);
+		List<SocialGroup> socialGroups = socialGroupFacade
+				.AllGroupChild(UserUtils.getHisGroup(request));
 
 		Paginator<Interest> paginator = new Paginator<Interest>(
 				member.getInterests(), request, "interestsMember", "idMember");
 
 		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
+		List<SocialEntity> allMastersGroup = socialGroupFacade
+				.getAllMasterGroupes();
 
+		cleanSession(request);
+
+		if (allMastersGroup.contains(member))
+			request.getSession(true).setAttribute("master", true);
+		else
+			request.getSession(true).setAttribute("master", false);
+
+		request.getSession(true).setAttribute("group", member.getGroup());
+		request.getSession(true).setAttribute("allGroups", socialGroups);
+		entityManager.close();
 		return mapping.findForward("success");
 	}
 
@@ -503,19 +531,23 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
+				entityManager);
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
+		Integer idGroup = Integer.parseInt((String) formSocialENtity
+				.get("parentId"));
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");
 		String city = (String) formSocialENtity.get("city");
 		String phone = (String) formSocialENtity.get("phone");
 		String sexe = (String) formSocialENtity.get("sexe");
 		Integer idMember = (Integer) formSocialENtity.get("id");
-
 		ActionErrors errors = verified(formSocialENtity);
+
 		if (!errors.isEmpty()) {
 			saveErrors(request, errors);
 			return mapping.getInputForward();
@@ -533,6 +565,11 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 		SocialEntityFacade facadeSE = new SocialEntityFacade(entityManager);
 
 		SocialEntity member = facadeSE.getSocialEntity(idMember);
+		SocialGroup oldGroup = member.getGroup();
+		SocialGroup newGroup = socialGroupFacade.getSocialGroup(idGroup);
+		oldGroup.removeSocialElement(member);
+		newGroup.addSocialElement(member);
+
 		member.setFisrtname(firstName);
 		member.setName(name);
 		member.setEmail(email);
@@ -542,7 +579,8 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 		member.setSex(sexe);
 		member.setProfession(job);
 		entityManager.getTransaction().begin();
-		entityManager.merge(member);
+		entityManager.merge(oldGroup);
+		entityManager.merge(newGroup);
 		entityManager.getTransaction().commit();
 
 		request.setAttribute("member", member);
@@ -553,7 +591,14 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
+		cleanSession(request);
 		return mapping.findForward("success");
+	}
+
+	private void cleanSession(HttpServletRequest request) {
+		request.getSession(true).setAttribute("master", false);
+		request.getSession(true).removeAttribute("group");
+		request.getSession(true).removeAttribute("allGroups");
 	}
 
 	@Override
@@ -562,11 +607,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		
+
 		Set<SocialEntity> resultOthers = null;
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialGroup socialGroupUser = UserUtils.getHisGroup(request);
-		List<SocialEntity> resultOthersList = socialGroupFacade.allMembersChild(socialGroupUser);	
+		List<SocialEntity> resultOthersList = socialGroupFacade
+				.allMembersChild(socialGroupUser);
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String searchText = (String) dynaForm.get("searchText");
@@ -574,19 +620,22 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 			resultOthers = socialEntityFacade.searchSocialEntity(searchText);
 			em.getTransaction().commit();
 			em.close();
+
 			if (resultOthers != null) {
-                resultOthers.retainAll(resultOthersList);
-				resultOthersList = new ArrayList<SocialEntity>(
-						resultOthers);
+				resultOthers.retainAll(resultOthersList);
+				resultOthersList = new ArrayList<SocialEntity>(resultOthers);
 				Collections.sort(resultOthersList);
 				Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
 						resultOthersList, request, "membersList");
 				request.setAttribute("membersListPaginator", paginator);
-			} else
+
+			} else {
 				request.setAttribute("membersListPaginator", null);
+
+			}
+
 		} else {
-			
-			
+
 			em.getTransaction().commit();
 			em.close();
 
@@ -594,6 +643,10 @@ public class ManageAdminMembers extends MappingDispatchAction implements CrudAct
 					resultOthersList, request, "membersList");
 
 			request.setAttribute("membersListPaginator", paginator);
+			List<SocialGroup> socialGroups = socialGroupFacade
+					.AllGroupChild(UserUtils.getHisGroup(request));
+			cleanSession(request);
+			request.getSession(true).setAttribute("allGroups", socialGroups);
 		}
 
 		return mapping.findForward("success");

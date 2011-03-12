@@ -6,7 +6,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html"  prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean"  prefix="bean"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 
 <h3><bean:message key="members.create" /></h3>
@@ -57,6 +57,23 @@
 			<td colspan="2">
 				<html:errors property="email" />
 			</td>
+		</tr>
+		<tr>
+			<td><label for="parentId"> <bean:message
+				key="groups.parent" /> : </label></td>
+			<td colspan="3"><html:select property="parentId"
+				styleClass="select">
+
+				<html:option value="" disabled="true">
+					<bean:message key="groups.listGroup" />
+				</html:option>
+				<c:forEach var="socialGroup" items="${sessionScope.allGroups}">
+					<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
+				</c:forEach>
+			</html:select></td>
+		</tr>
+		<tr class="errorMessage">
+			<td colspan="2"><html:errors property="parentId" /></td>
 		</tr>
 		<tr>
 			<td>
