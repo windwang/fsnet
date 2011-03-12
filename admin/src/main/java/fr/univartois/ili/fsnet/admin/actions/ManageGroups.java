@@ -150,7 +150,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		SocialEntity masterGroup = socialEntityFacade.getSocialEntity(Integer
 				.valueOf(owner));
-		SocialGroup oldParentGrouoOfMasterGroup = masterGroup.getGroup();
+		//SocialGroup oldParentGrouoOfMasterGroup = masterGroup.getGroup();
 
 		List<SocialElement> socialElements = createSocialElement(em,
 				membersAccepted, groupsAccepted, masterGroup, newParentGroup);
@@ -166,10 +166,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			socialGroup.setSocialElements(new ArrayList<SocialElement>());
 			socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
 			oldParentGroup = socialGroup.getGroup();
-			oldParentGrouoOfMasterGroup.removeSocialElement(masterGroup);
+			//oldParentGrouoOfMasterGroup.removeSocialElement(masterGroup);
 			em.getTransaction().begin();
 
-			em.merge(socialGroup);
+			//em.merge(socialGroup);
 			socialGroup.setSocialElements(socialElements);
 			if (oldParentGroup != null) {
 				oldParentGroup.removeSocialElement(socialGroup);
@@ -179,7 +179,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 				newParentGroup.addSocialElement(socialGroup);
 				em.merge(newParentGroup);
 			}
-			em.merge(oldParentGrouoOfMasterGroup);
+			//em.merge(oldParentGrouoOfMasterGroup);
 			em.merge(socialGroup);
 			em.getTransaction().commit();
 			request.getSession(true).removeAttribute("idGroup");
@@ -218,7 +218,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().begin();
 		TypedQuery<SocialGroup> query = null;
 		Set<SocialGroup> resultOthers = null;
-
+		
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String searchText = (String) dynaForm.get("searchText");
@@ -281,8 +281,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		HttpSession session = request.getSession(true);
 		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		DynaActionForm dynaForm = (DynaActionForm) form;
 
+		
 		List<SocialGroup> allGroups = null;
 		List<SocialEntity> allMembers = null;
 		List<SocialEntity> refusedMembers = null;
@@ -292,8 +295,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		Set<Right> acceptedRigths = null;
 		Set<Right> refusedRigths = new HashSet<Right>();
 
-		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+		
 
 		String id = request.getParameter("idGroup");
 
@@ -413,13 +415,16 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 	public List<SocialEntity> getSimpleMember(EntityManager em,
 			SocialGroupFacade sgf, SocialGroup socialGroup) {
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		TypedQuery<SocialEntity> query = null;
 		query = em.createQuery("SELECT g.masterGroup FROM SocialGroup g",
 				SocialEntity.class);
+		List<SocialEntity> allOrphanMembers = socialEntityFacade.getAllOrphanMembers();
 		List<SocialEntity> mastersGroup = query.getResultList();
 		mastersGroup.remove(socialGroup.getMasterGroup());
 		List<SocialEntity> allMembers = sgf.allMembersChild(socialGroup);
 		allMembers.removeAll(mastersGroup);
+		allMembers.addAll(allOrphanMembers);
 		
 		return allMembers;
 	}

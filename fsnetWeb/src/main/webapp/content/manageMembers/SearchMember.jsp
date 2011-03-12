@@ -40,8 +40,11 @@
 								</c:choose>
 							</html:link>
 						</c:when>
+						<c:when test="${ member.group.isEnabled == false }">
+							<bean:message key="members.groupDisable" />
+						</c:when>
 						<c:otherwise>
-							<bean:message key="members.searchEnable" />
+							<bean:message key="members.groupNull" />
 						</c:otherwise>
 					</c:choose></td>
 				</tr>

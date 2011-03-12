@@ -282,4 +282,10 @@ public class SocialEntityFacade {
 		em.flush();
 	}
 	
+	public final List<SocialEntity> getAllOrphanMembers() {
+		TypedQuery<SocialEntity> query = em.createQuery(
+				"SELECT se FROM SocialEntity se WHERE se.group IS null", SocialEntity.class);
+		return query.getResultList();
+	}
+	
 }

@@ -207,6 +207,10 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	public void setMasterGroup(SocialEntity masterGroup) {
+		SocialGroup oldSocialGroup = masterGroup.getGroup();
+		if (!this.equals(oldSocialGroup) && oldSocialGroup != null)
+			oldSocialGroup.removeSocialElement(masterGroup);
+		this.addSocialElement(masterGroup);
 		this.masterGroup = masterGroup;
 	}
 

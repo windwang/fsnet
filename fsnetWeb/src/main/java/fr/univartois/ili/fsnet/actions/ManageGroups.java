@@ -403,18 +403,23 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 	public List<SocialEntity> getSimpleMember(EntityManager em,
 			SocialGroupFacade sgf, SocialGroup socialGroup) {
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		TypedQuery<SocialEntity> query = null;
-		query = em.createQuery(
-				"SELECT g.masterGroup FROM SocialGroup g WHERE g.id !=:id ",
-				SocialEntity.class);
-		query.setParameter("id", socialGroup.getId());
-		List<SocialEntity> mastersGroup = query.getResultList();
-		mastersGroup.remove(socialGroup.getMasterGroup());
-		List<SocialEntity> allMembers = sgf.allMembersChild(socialGroup);
-		allMembers.removeAll(mastersGroup);
-		allMembers.add(socialGroup.getMasterGroup());
+		query = em.createQuery("SELECT g.masterGroup FROM SocialGroup g ",SocialEntity.class);
+		
+		List<SocialEntity> allMastersGroup = query.getResultList();
+		
+		List<SocialEntity> allOrphanMembers = socialEntityFacade.getAllOrphanMembers();
+		
+		List<SocialEntity> allSocialchildEntity = socialGroupFacade.allMembersChild(socialGroup);
+		
+		
+		allSocialchildEntity.removeAll(allMastersGroup);
+		allSocialchildEntity.add(socialGroup.getMasterGroup());
+		allSocialchildEntity.addAll(allOrphanMembers);
 
-		return allMembers;
+		return allSocialchildEntity;
 	}
 
 }
