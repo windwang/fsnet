@@ -29,6 +29,8 @@
 			<form-property name="name" type="java.lang.String" />
 			<form-property name="firstName" type="java.lang.String" />
 			<form-property name="email" type="java.lang.String" />
+			<!-- ici  -->
+			<form-property name="parentId" type="java.lang.String" />
 			<form-property name="password" type="java.lang.String" />
 			<form-property name="passwordConfirmation" type="java.lang.String" />
 			<form-property name="message" type="java.lang.String" />
@@ -40,6 +42,8 @@
 			<form-property name="name" type="java.lang.String" />
 			<form-property name="firstName" type="java.lang.String" />
 			<form-property name="email" type="java.lang.String" />
+			<!-- ici  -->
+			<form-property name="parentId" type="java.lang.String" />
 			<form-property name="address" type="java.lang.String" />
 			<form-property name="birthDay" type="java.util.Date" />
 			<form-property name="formatBirthDay" type="java.lang.String" />
@@ -62,7 +66,7 @@
 		<action path="/ModifyMember"
 			type="fr.univartois.ili.fsnet.admin.actions.ManageMembers" name="ModifyMemberForm"
 			input="ModifyMember" scope="request" validate="true" parameter="modify">
-			<forward name="success" path="ModifyMember" />
+			<forward name="success" path="/MemberList.do" />
 		</action>
 
 		<action path="/SearchMember"
