@@ -28,7 +28,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.apache.struts.util.MessageResources;
@@ -43,14 +42,16 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 /**
  * Execute CRUD Actions (and more) for the entity member
  * 
  * @author Audrey Ruellan and Cerelia Besnainou
- * @author Mehdi Benzaghar
+ * @author Mehdi Benzaghar Modified by Morad Lyamen
  */
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
@@ -67,6 +68,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
 		dynaForm.set("email", "");
+		// ici
+		String parentId = (String) dynaForm.get("parentId");
+		dynaForm.set("parentId", "");
 		String personalizedMessage = (String) dynaForm.get("message");
 		String inputPassword = (String) dynaForm.get("password");
 		dynaForm.set("password", "");
@@ -74,9 +78,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 		SocialEntity socialEntity = facadeSE.createSocialEntity(name,
 				firstName, mail);
+
 		try {
 			String definedPassword = null;
 			String encryptedPassword = null;
@@ -92,8 +98,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						.getEncodedPassword(inputPassword);
 			}
 			socialEntity.setPassword(encryptedPassword);
+
 			em.getTransaction().begin();
-			em.persist(socialEntity);
+			if (!parentId.equals("")) {
+				SocialGroup socialGroup = socialGroupFacade
+						.getSocialGroup(Integer.parseInt(parentId));
+				socialGroup.addSocialElement(socialEntity);
+				em.persist(socialGroup);
+			} else
+				em.persist(socialEntity);
 			em.getTransaction().commit();
 
 			Locale currentLocale = request.getLocale();
@@ -113,6 +126,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("name", "");
 		dynaForm.set("firstName", "");
 		dynaForm.set("email", "");
+		dynaForm.set("parentId", "");
+		cleanSession(request);
 
 		return mapping.findForward("success");
 	}
@@ -444,7 +459,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		SocialEntity member = socialEntityFacade.getSocialEntity(idMember);
 
-		entityManager.close();
 		String adress = "";
 		String city = "";
 		if (member.getAddress() != null) {
@@ -466,11 +480,43 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		Paginator<Interest> paginator = new Paginator<Interest>(
 				member.getInterests(), request, "interestsMember", "idMember");
-
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
+				entityManager);
+		List<SocialGroup> socialGroups = socialGroupFacade.getAllSocialEntity();
 		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
-
+		List<SocialEntity> allMasterGroups = socialGroupFacade.getAllMasterGroupes();
+		
+		cleanSession(request);
+		
+		initializeSession(request, member, socialGroups, allMasterGroups);
+		
+		entityManager.close();
 		return mapping.findForward("success");
+	}
+
+	private void initializeSession(HttpServletRequest request,
+			SocialEntity member, List<SocialGroup> socialGroups,
+			List<SocialEntity> allMasterGroups) {
+		if(allMasterGroups.contains(member))
+			request.getSession(true).setAttribute("master2",true);
+		else
+			request.getSession(true).setAttribute("master2",false);
+		
+		if (member.getGroup() != null)
+			request.getSession(true).setAttribute("group2",
+					member.getGroup());
+		else
+			if (member.getGroup() != null)
+				request.getSession(true).setAttribute("group2",
+						member.getGroup());
+		request.getSession(true).setAttribute("allGroups2", socialGroups);
+	}
+
+	private void cleanSession(HttpServletRequest request) {
+		request.getSession(true).setAttribute("master2",false);
+		request.getSession(true).removeAttribute("group2");
+		request.getSession(true).removeAttribute("allGroups2");
 	}
 
 	private ActionErrors verified(DynaActionForm dynaForm) {
@@ -503,11 +549,14 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
+				entityManager);
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
+		String parentId = (String) formSocialENtity.get("parentId");
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");
 		String city = (String) formSocialENtity.get("city");
@@ -533,6 +582,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialEntityFacade facadeSE = new SocialEntityFacade(entityManager);
 
 		SocialEntity member = facadeSE.getSocialEntity(idMember);
+
+		SocialGroup oldGroup = member.getGroup();
+		SocialGroup newGroup = null;
+
 		member.setFisrtname(firstName);
 		member.setName(name);
 		member.setEmail(email);
@@ -542,9 +595,20 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		member.setSex(sexe);
 		member.setProfession(job);
 		entityManager.getTransaction().begin();
-		entityManager.merge(member);
+		if (oldGroup != null) {
+			oldGroup.removeSocialElement(member);
+			entityManager.persist(oldGroup);
+		}
+		if (!"".equals(parentId)) {
+			Integer idGroup = Integer.parseInt(parentId);
+			newGroup = socialGroupFacade.getSocialGroup(idGroup);
+			newGroup.addSocialElement(member);
+			entityManager.persist(newGroup);
+		}
+		if (oldGroup == null && newGroup == null) {
+			entityManager.merge(member);
+		}
 		entityManager.getTransaction().commit();
-
 		request.setAttribute("member", member);
 		request.setAttribute("id", member.getId());
 		Paginator<Interest> paginator = new Paginator<Interest>(
@@ -553,6 +617,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
+		cleanSession(request);
 		return mapping.findForward("success");
 	}
 
@@ -560,11 +625,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		TypedQuery<SocialEntity> query = null;
 		Set<SocialEntity> resultOthers = null;
-
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String searchText = (String) dynaForm.get("searchText");
@@ -589,12 +655,16 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 							SocialEntity.class);
 			List<SocialEntity> resultOthersList = query.getResultList();
 			em.getTransaction().commit();
-			em.close();
 
 			Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
 					resultOthersList, request, "membersList");
 
 			request.setAttribute("membersListPaginator", paginator);
+			List<SocialGroup> socialGroups = socialGroupFacade
+					.getAllSocialEntity();
+			cleanSession(request);
+			request.getSession(true).setAttribute("allGroups2", socialGroups);
+			em.close();
 		}
 
 		return mapping.findForward("success");
