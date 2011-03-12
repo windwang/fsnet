@@ -278,6 +278,14 @@ public class SocialGroupFacade {
 		return socialElements;
 	}
 
+	public List<SocialEntity> getAllMasterGroupes() {
+		TypedQuery<SocialEntity> query = null;
+		query = em.createQuery("SELECT g.masterGroup FROM SocialGroup g ",
+				SocialEntity.class);
+
+		return query.getResultList();
+	}
+
 	/**
 	 * Return the parents {@link Right} of a {@link SocialGroup}
 	 * 
@@ -285,6 +293,7 @@ public class SocialGroupFacade {
 	 *            the {@link SocialGroup}
 	 * @return the parents {@link Right} of a {@link SocialGroup}
 	 */
+
 	public Set<Right> getParentsRights(SocialGroup group) {
 		Set<Right> rights = new HashSet<Right>();
 		SocialGroup parent = group.getGroup();
