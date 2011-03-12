@@ -64,6 +64,11 @@
 			<field property="email" depends="required,email">
 				<arg key="members.error.mail" />
 			</field>
+						<!--		ici	-->
+			<field property="parentId" depends="required">
+
+				<arg key="members.error.group" />
+			</field>
 			<field property="password" depends="minlength,validwhen">
 				<msg name="validwhen" key="members.twofields"/>
 				<arg0 key="members.password" />
@@ -102,7 +107,7 @@
 
 		<form name="/ModifyMember">
 			<field property="name" depends="required,mask,maxlength">
-				<arg key="members.error.name" />
+				<arg key="members.error.group" />
 				<var>
 					<var-name>mask</var-name>
 					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
@@ -125,6 +130,10 @@
 			</field>
 			<field property="email" depends="required,email">
 				<arg key="members.error.mail" />
+			</field>
+						<!--		ici	-->
+			<field property="parentId" depends="required">
+				<arg key="members.error.name" />
 			</field>
 			<field property="sexe" depends="">
 				<arg key="error.updateProfile.sexe" />

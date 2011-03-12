@@ -8,7 +8,6 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
-import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -405,10 +404,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			SocialGroupFacade sgf, SocialGroup socialGroup) {
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-		TypedQuery<SocialEntity> query = null;
-		query = em.createQuery("SELECT g.masterGroup FROM SocialGroup g ",SocialEntity.class);
 		
-		List<SocialEntity> allMastersGroup = query.getResultList();
+		
+		List<SocialEntity> allMastersGroup = socialGroupFacade.getAllMasterGroupes();
 		
 		List<SocialEntity> allOrphanMembers = socialEntityFacade.getAllOrphanMembers();
 		
