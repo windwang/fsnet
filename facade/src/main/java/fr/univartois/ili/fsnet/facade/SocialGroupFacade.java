@@ -8,7 +8,6 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -252,9 +251,31 @@ public class SocialGroupFacade {
 
 	public final void switchState(int socialGroupId) {
 		SocialGroup sg = getSocialGroup(socialGroupId);
-		sg.setEnabled(!sg.isEnabled());
-		em.merge(sg);
+		List<SocialElement> socialElements = allChildSocialElement(sg);
+
+		if (sg.getIsEnabled()) {
+			for (SocialElement socialElement : socialElements) {
+				socialElement.setIsEnabled(false);
+				em.merge(socialElement);
+			}
+
+		} else {
+			for (SocialElement socialElement : socialElements) {
+				socialElement.setIsEnabled(true);
+				em.merge(socialElement);
+			}
+		}
+
 		em.flush();
+	}
+
+	private List<SocialElement> allChildSocialElement(SocialGroup sg) {
+		List<SocialEntity> entities = allMembersChild(sg);
+		List<SocialGroup> groups = AllGroupChild(sg);
+		List<SocialElement> socialElements = new ArrayList<SocialElement>();
+		socialElements.addAll(groups);
+		socialElements.addAll(entities);
+		return socialElements;
 	}
 
 	/**
@@ -307,7 +328,7 @@ public class SocialGroupFacade {
 				}
 			}
 		}
-		
+
 		return listSocialEntity;
 	}
 

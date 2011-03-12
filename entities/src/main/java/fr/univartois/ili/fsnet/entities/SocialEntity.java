@@ -29,6 +29,10 @@ public class SocialEntity extends SocialElement implements Serializable,
 		Comparable<SocialEntity> {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	/**
 	 * The social entity state
 	 */
 	private boolean isEnabled;
@@ -198,6 +202,7 @@ public class SocialEntity extends SocialElement implements Serializable,
 	 * 
 	 * @return true if the social entity is enabled
 	 */
+	@Override
 	public boolean getIsEnabled() {
 		return isEnabled;
 	}
@@ -207,6 +212,7 @@ public class SocialEntity extends SocialElement implements Serializable,
 	 * 
 	 * @param isEnabled
 	 */
+	@Override
 	public void setIsEnabled(boolean isEnabled) {
 		this.isEnabled = isEnabled;
 	}

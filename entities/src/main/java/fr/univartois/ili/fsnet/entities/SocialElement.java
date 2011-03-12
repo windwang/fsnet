@@ -22,6 +22,11 @@ import javax.persistence.ManyToOne;
 public abstract class SocialElement implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The identifier.
 	 */
 
@@ -64,5 +69,9 @@ public abstract class SocialElement implements Serializable {
 	public void setGroup(SocialGroup group) {
 		this.group = group;
 	}
+
+	public abstract boolean getIsEnabled();
+
+	public abstract void setIsEnabled(boolean isEnabled);
 
 }
