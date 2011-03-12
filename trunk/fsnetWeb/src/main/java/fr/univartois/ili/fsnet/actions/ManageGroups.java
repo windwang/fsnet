@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.actions;
 
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,7 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -158,7 +156,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			socialGroup.setMasterGroup(masterGroup);
 
 			socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
-			
 
 			socialGroup.addAllSocialElements(acceptedSocialEntity);
 			socialGroup.removeAllSocialElements(refusedSocialEntity);
@@ -255,42 +252,50 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			id = (String) session.getAttribute("idGroup");
 		else
 			session.setAttribute("idGroup", id);
-		Integer idGroup = Integer.valueOf(id);
-		SocialGroup group = socialGroupFacade.getSocialGroup(idGroup);
-		SocialEntity masterGroup = group.getMasterGroup();
-		SocialGroup parentGroup = group.getGroup();
 
-		allMembers = socialEntityFacade.getAllSocialEntity();
+		try {
+			Integer idGroup;
+			idGroup = Integer.valueOf(id);
+			SocialGroup group = socialGroupFacade.getSocialGroup(idGroup);
+			SocialEntity masterGroup = group.getMasterGroup();
+			SocialGroup parentGroup = group.getGroup();
 
-		acceptedMembers = socialGroupFacade.getAcceptedSocialEntity(group);
-		refusedMembers = getRefusedSocialMember(socialGroupFacade, allMembers,
-				group);
-		acceptedRigths = group.getRights();
-		for (Right right : Right.values()) {
-			refusedRigths.add(right);
+			allMembers = socialEntityFacade.getAllSocialEntity();
+
+			acceptedMembers = socialGroupFacade.getAcceptedSocialEntity(group);
+			refusedMembers = getRefusedSocialMember(socialGroupFacade,
+					allMembers, group);
+			acceptedRigths = group.getRights();
+			for (Right right : Right.values()) {
+				refusedRigths.add(right);
+			}
+
+			refusedRigths.removeAll(acceptedRigths);
+
+			dynaForm.set("id", id);
+			dynaForm.set("name", group.getName());
+			dynaForm.set("description", group.getDescription());
+			if (parentGroup != null)
+				request.setAttribute("nameParent", parentGroup.getName());
+			request.setAttribute("masterGroup", masterGroup);
+
+			request.setAttribute("acceptedMembers", acceptedMembers);
+			request.setAttribute("allMembers",
+					getSimpleMember(em, socialGroupFacade, group));
+
+			request.setAttribute("refusedMembers", refusedMembers);
+
+			request.setAttribute("refusedRigths", refusedRigths);
+			request.setAttribute("acceptedRigths", acceptedRigths);
+
+			em.close();
+
+			return mapping.findForward("success");
+
+		} catch (Exception e) {
+			return mapping.findForward("toHome");
 		}
 
-		refusedRigths.removeAll(acceptedRigths);
-
-		dynaForm.set("id", id);
-		dynaForm.set("name", group.getName());
-		dynaForm.set("description", group.getDescription());
-		if (parentGroup != null)
-			request.setAttribute("nameParent", parentGroup.getName());
-		request.setAttribute("masterGroup", masterGroup);
-
-		request.setAttribute("acceptedMembers", acceptedMembers);
-		request.setAttribute("allMembers",
-				getSimpleMember(em, socialGroupFacade, group));
-
-		request.setAttribute("refusedMembers", refusedMembers);
-
-		request.setAttribute("refusedRigths", refusedRigths);
-		request.setAttribute("acceptedRigths", acceptedRigths);
-
-		em.close();
-
-		return mapping.findForward("success");
 	}
 
 	private Set<Right> getAcceptedRigth(String[] groupsAccepted) {

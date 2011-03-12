@@ -61,18 +61,20 @@ public class SocialGroup extends SocialElement implements Serializable {
 		this.description = description;
 	}
 
-	public Boolean getIsEnabled() {
-		return isEnabled;
-	}
-
-	public void setIsEnabled(Boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
-
 	/**
 	 * The social group state
 	 */
 	private Boolean isEnabled;
+
+	@Override
+	public boolean getIsEnabled() {
+		return isEnabled;
+	}
+
+	@Override
+	public void setIsEnabled(boolean isEnabled) {
+		this.isEnabled = isEnabled;
+	}
 
 	/**
 	 * Constructor of the class SocialElement
@@ -221,14 +223,6 @@ public class SocialGroup extends SocialElement implements Serializable {
 	 * 
 	 * public void setCreator(SocialEntity creator) { this.creator = creator; }
 	 */
-
-	public boolean isEnabled() {
-		return isEnabled;
-	}
-
-	public void setEnabled(boolean isEnabled) {
-		this.isEnabled = isEnabled;
-	}
 
 	@Override
 	public boolean equals(Object obj) {
