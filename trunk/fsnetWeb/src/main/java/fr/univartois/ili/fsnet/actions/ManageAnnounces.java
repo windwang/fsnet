@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -26,6 +27,7 @@ import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -205,6 +207,11 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		}
 		
 		addRightToRequest(request);
+		
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, entityManager);
+		InteractionFacade interactionFacade = new InteractionFacade(entityManager);
+		List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
+		refreshNumNewAnnonces(request, entityManager);
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
@@ -212,6 +219,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				listAnnounces, request, "listAnnounces");
 
 		request.setAttribute("annoucesListPaginator", paginator);
+		
+		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
+		
 		return mapping.findForward("success");
 	}
 
@@ -239,7 +249,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, entityManager);
 		member.addInteractionRead(announce);
-		
+		refreshNumNewAnnonces(request, entityManager);
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
@@ -283,4 +293,26 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		request.setAttribute("rightAddAnnounce", rightAddAnnounce);
 		request.setAttribute("socialEntity",socialEntity);
 	}
+	
+	
+	/**
+	 * Store the number of non reed  announces
+	 * 
+	 * @param request
+	 * @param em
+	 */
+	public static final void refreshNumNewAnnonces(HttpServletRequest request,
+			EntityManager em) {
+		HttpSession session = request.getSession();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(em);
+		InteractionFacade inf = new InteractionFacade(em);
+		List<Interaction> list = inf .getUnreadInteractionsForSocialEntity(user);
+		
+		list=filterGroup .filterInteraction(user, list);
+		int numNonReedAnnounces =Interaction.filter(list, Announcement.class).size();
+		session.setAttribute("numNonReedAnnounces",
+				numNonReedAnnounces);
+	}
+	
 }

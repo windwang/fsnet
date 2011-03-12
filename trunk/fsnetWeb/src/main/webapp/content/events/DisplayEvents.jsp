@@ -38,7 +38,7 @@
 	<c:otherwise>
 		<table  class="inLineTable">
 		    <c:forEach var="event" items="${requestScope.eventsListPaginator.resultList}">
-		        <tr>
+		    	<ili:interactionRow unreadInteractionsId="${requestScope.unreadInteractionsId}" currentInteractionId="${event.id}">
 		            <th>
 		                <c:import url="/FavoriteFragment.do">
 		                    <c:param name="interactionId" value="${event.id}"/>
@@ -57,7 +57,7 @@
 		            <td  class="tableButton">
 		                <ili:substring beginIndex="0" endIndex="30"><ili:noxml>${event.content}</ili:noxml></ili:substring>
 		            </td>
-		        </tr>
+		        </ili:interactionRow>
 		    </c:forEach>
 		</table>
 		<c:set var="paginatorInstance" value="${requestScope.eventsListPaginator}" scope="request"/>

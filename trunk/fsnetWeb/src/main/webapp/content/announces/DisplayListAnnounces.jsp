@@ -17,7 +17,7 @@
 	    <table class="inLineTable">
 	
 	        <c:forEach var="announce" items="${requestScope.annoucesListPaginator.resultList}">
-	        	<tr>
+	        	<ili:interactionRow unreadInteractionsId="${requestScope.unreadInteractionsId}" currentInteractionId="${announce.id}">
 	                <bean:define id="idAnnounce" name="announce" property="id" />
 	                <th colspan="2">
 	                  <c:import url="/FavoriteFragment.do">
@@ -35,7 +35,7 @@
 	                    <bean:message key="announce.expiryDate"/>
 	                    <bean:write name="announce" property="endDate" format="dd/MM/yyyy"/>
 	                </td>
-	            </tr>
+	            </ili:interactionRow>
 	        </c:forEach>
 	    </table>
 	    <c:set var="paginatorInstance" value="${requestScope.annoucesListPaginator}" scope="request"/>

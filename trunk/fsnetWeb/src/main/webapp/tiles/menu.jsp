@@ -51,11 +51,17 @@
     <li>
         <html:link action="/Announces" styleClass="${currentMenu == 'Announces' ? 'current' : ''}">
             <bean:message key="menu.4"/>
+            <c:if test="${sessionScope.numNonReedAnnounces gt 0}">
+            	(${sessionScope.numNonReedAnnounces})
+            </c:if>
         </html:link>
     </li>
     <li>
         <html:link action="/Events" styleClass="${currentMenu == 'Events' ? 'current' : ''}">
             <bean:message key="menu.5"/>
+             <c:if test="${sessionScope.numNonReedEvents gt 0}">
+            	(${sessionScope.numNonReedEvents })
+            </c:if>
         </html:link>
     </li>
     <c:if test="${sessionScope.isMasterGroup }">

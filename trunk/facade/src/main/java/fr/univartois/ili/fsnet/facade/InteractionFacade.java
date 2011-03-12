@@ -198,5 +198,22 @@ public class InteractionFacade {
 						se.getId()).getResultList();
 		return list;
 	}
+	
+	public final List<Integer> getUnreadInteractionsIdForSocialEntity(SocialEntity se){
+		if (se== null) {
+			throw new IllegalArgumentException();
+		}
+		
+		List<Integer> list= new ArrayList<Integer>();
+		List<Interaction> interactionsList = getUnreadInteractionsForSocialEntity(se);
+		
+		for(Interaction interaction : interactionsList){
+			list.add(interaction.getId());
+		}
+		
+		return list;
+	}
+	
+	
 
 }
