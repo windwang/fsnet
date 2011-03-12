@@ -51,9 +51,9 @@ public class FsnetMobile extends Activity {
 	private SimpleMessagesNotification messagesNotification;
 	private Boolean notificationOk=false;
 	private Boolean notificationStop=false;
-	private MessagesList messagesListAdapter;
-	private MeetingsList meetingsListAdapter;
-	private AnnouncementsList announcementsListAdapter;
+	private EventsList messagesListAdapter;
+	private EventsList meetingsListAdapter;
+	private EventsList announcementsListAdapter;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -151,7 +151,7 @@ public class FsnetMobile extends Activity {
 					idMeetings[i] = (announcementList.get(i).getMeetingId());
 				}
 				setContentView(R.layout.announcements);
-				announcementsListAdapter = new AnnouncementsList(this, R.layout.rowlayoutannouncements,R.id.labelAnnouncements, mStrings);
+				announcementsListAdapter = new EventsList(this, R.layout.rowlayoutannouncements,R.id.labelAnnouncements, mStrings);
 				ListView listViewAnnouncements = (ListView)findViewById(R.id.listAnnouncements);
 				listViewAnnouncements.setAdapter(announcementsListAdapter);
 				listViewAnnouncements.setTextFilterEnabled(true);
@@ -202,7 +202,7 @@ public class FsnetMobile extends Activity {
 					idMeetings[i] = (meetingsList.get(i).getMeetingId());
 				}
 				setContentView(R.layout.meetings);
-				meetingsListAdapter = new MeetingsList(this, R.layout.rowlayoutmeetings,R.id.labelMeetings, mStrings);
+				meetingsListAdapter = new EventsList(this, R.layout.rowlayoutmeetings,R.id.labelMeetings, mStrings);
 				ListView listViewMeetings = (ListView)findViewById(R.id.listMeetings);
 				listViewMeetings.setAdapter(meetingsListAdapter);
 				listViewMeetings.setTextFilterEnabled(true);
@@ -252,7 +252,7 @@ public class FsnetMobile extends Activity {
 					idMessages[i] = (messagesList.get(i).getMessageId());
 				}
 				setContentView(R.layout.messages);
-				messagesListAdapter = new MessagesList(this, R.layout.rowlayoutmessages,R.id.label, mStrings);
+				messagesListAdapter = new EventsList(this, R.layout.rowlayoutmessages,R.id.label, mStrings);
 				ListView listViewMessages = (ListView)findViewById(R.id.listMm);
 				listViewMessages.setAdapter(messagesListAdapter);
 				listViewMessages.setTextFilterEnabled(true);
@@ -458,16 +458,16 @@ public class FsnetMobile extends Activity {
 	public SimpleMessagesNotification getMessagesNotification() {
 		return messagesNotification;
 	}
-	public void setMeetingsListAdapter(MeetingsList meetingsListAdapter) {
+	public void setMeetingsListAdapter(EventsList meetingsListAdapter) {
 		this.meetingsListAdapter = meetingsListAdapter;
 	}
-	public MeetingsList getMeetingsListAdapter() {
+	public EventsList getMeetingsListAdapter() {
 		return meetingsListAdapter;
 	}
-	public void setAnnouncementsListAdapter(AnnouncementsList announcementsListAdapter) {
+	public void setAnnouncementsListAdapter(EventsList announcementsListAdapter) {
 		this.announcementsListAdapter = announcementsListAdapter;
 	}
-	public AnnouncementsList getAnnouncementsListAdapter() {
+	public EventsList getAnnouncementsListAdapter() {
 		return announcementsListAdapter;
 	}
 

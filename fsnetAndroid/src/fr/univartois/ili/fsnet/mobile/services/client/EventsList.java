@@ -10,9 +10,9 @@ import android.widget.ArrayAdapter;
  * @author alexandre thery
  *
  */
-public class MessagesList extends ArrayAdapter<String>{
+public class EventsList extends ArrayAdapter<String>{
 
-	public MessagesList(Context context, int resource, int textViewResourceId,
+	public EventsList(Context context, int resource, int textViewResourceId,
 			Object[] objects) {
 		super(context, resource, textViewResourceId, (String[]) objects);
 	}
