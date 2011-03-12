@@ -60,6 +60,11 @@
     </li>
     <c:if test="${sessionScope.isMasterGroup }">
     <li>
+    	<html:link action="/MemberList" styleClass="${currentMenu == 'MemberList' ? 'current' : ''}">
+    		<bean:message key="menu.12"/>
+    	</html:link>
+    </li>
+    <li>
     	<html:link action="/SearchGroup.do" styleClass="${currentMenu == 'Groups' ? 'current' : ''}">
     		<bean:message key="menu.11"/>
     	</html:link>

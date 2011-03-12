@@ -206,7 +206,8 @@
 		<put name="title" value="pageTitle.12" />
 		<put name="body-content" value="/content/members/SearchMember.jsp" />
 	</definition>
-
+	
+	
 	<!-- Private Messages -->
 	<definition name="DisplayInbox" extends=".defaultLayout">
 		<put name="title" value="pageTitle.14" />
@@ -313,6 +314,42 @@
 		<put name="currentMenu" value="Group" />
 		<put name="left" value="/content/groups/leftMenu.jsp" />
 		<put name="body-content" value="/content/groups/ModifyGroup.jsp" />
+	</definition>
+	
+		<!-- Members -->
+	<definition name="DisplayMembers" extends=".defaultLayout">
+		<put name="title" value="pageTitle.12" />
+		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put name="currentMenu" value="Members" />
+		<put name="body-content" value="/content/manageMembers/SearchMember.jsp" />
+	</definition>
+	<definition name="Members" extends=".defaultLayout">
+		<put name="title" value="pageTitle.12" />
+		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put name="currentMenu" value="Members" />
+		<put name="body-content" value="/content/manageMembers/Members.jsp" />
+	</definition>
+
+	<!-- MemberList -->
+	<definition name="MemberList" extends=".defaultLayout">
+		<put name="title" value="pageTitle.12" />
+		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put name="currentMenu" value="MemberList" />
+		<put name="body-content" value="/content/manageMembers/SearchMember.jsp" />
+	</definition>
+
+	<definition name="DisplayForModifyMember" extends=".defaultLayout">
+		<put name="title" value="pageTitle.12" />
+		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put name="currentMenu" value="MemberList" />
+		<put name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
+	</definition>
+
+	<definition name="ModifyMember" extends=".defaultLayout">
+		<put name="title" value="pageTitle.12" />
+		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put name="currentMenu" value="MemberList" />
+		<put name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
 	</definition>
 
 	<!-- Ajax -->
