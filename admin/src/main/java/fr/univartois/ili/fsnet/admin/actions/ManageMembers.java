@@ -482,7 +482,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 				member.getInterests(), request, "interestsMember", "idMember");
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
 				entityManager);
-		List<SocialGroup> socialGroups = socialGroupFacade.getAllSocialEntity();
+		List<SocialGroup> socialGroups = socialGroupFacade.getAllSocialGroups();
 		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
 		List<SocialEntity> allMasterGroups = socialGroupFacade.getAllMasterGroupes();
@@ -661,7 +661,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 			request.setAttribute("membersListPaginator", paginator);
 			List<SocialGroup> socialGroups = socialGroupFacade
-					.getAllSocialEntity();
+					.getAllSocialGroups();
 			cleanSession(request);
 			request.getSession(true).setAttribute("allGroups2", socialGroups);
 			em.close();

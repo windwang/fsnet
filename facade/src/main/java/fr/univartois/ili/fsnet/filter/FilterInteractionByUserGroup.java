@@ -39,7 +39,7 @@ public class FilterInteractionByUserGroup {
 		if(socialGroupUser != null) {
 			/* load group of group */
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-			List<SocialGroup> listSocialGroup = socialGroupFacade.AllGroupChild(socialGroupUser);
+			List<SocialGroup> listSocialGroup = socialGroupFacade.getAllChildGroups(socialGroupUser);
 			/* add socialGroup of user */
 			listSocialGroup.add(socialGroupUser);
 			for (SocialGroup socialGroup : listSocialGroup) {

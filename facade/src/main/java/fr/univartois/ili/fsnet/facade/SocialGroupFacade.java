@@ -43,8 +43,7 @@ public class SocialGroupFacade {
 	 *            SocialElement list (group or member)
 	 * @return the created SocialGroup
 	 */
-	// public final SocialGroup createSocialGroup(SocialEntity masterGroup,
-	// SocialEntity creator,
+
 	public final SocialGroup createSocialGroup(SocialEntity masterGroup,
 			String name, String description, List<SocialElement> socialElements) {
 		SocialGroup sg = new SocialGroup(masterGroup, name, description);
@@ -152,13 +151,13 @@ public class SocialGroupFacade {
 	 * 
 	 * @return the Set of all Social Groups
 	 */
-	public final List<SocialGroup> getAllSocialEntity() {
+	public final List<SocialGroup> getAllSocialGroups() {
 		TypedQuery<SocialGroup> query = em.createQuery(
 				"SELECT gs FROM SocialGroup gs", SocialGroup.class);
 		return query.getResultList();
 	}
 
-	public List<SocialGroup> getAcceptedSocialGroup(SocialGroup socialGroup) {
+	public List<SocialGroup> getAcceptedSocialGroups(SocialGroup socialGroup) {
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
 		}
@@ -171,7 +170,7 @@ public class SocialGroupFacade {
 		return groups;
 	}
 
-	public List<SocialEntity> getAcceptedSocialEntity(SocialGroup socialGroup) {
+	public List<SocialEntity> getAcceptedSocialEntities(SocialGroup socialGroup) {
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
 		}
@@ -195,7 +194,7 @@ public class SocialGroupFacade {
 		}
 		String tree = "";
 		if (member.getGroup() != null) {
-			List<SocialGroup> socialGroups = AllParent(member.getGroup());
+			List<SocialGroup> socialGroups = getAllAntecedentSocialGroups(member.getGroup());
 
 			for (SocialGroup socialGroup2 : socialGroups) {
 				tree = (socialGroup2.getName() + ">") + tree;
@@ -206,7 +205,7 @@ public class SocialGroupFacade {
 		return tree;
 	}
 
-	public List<SocialGroup> AllParent(SocialGroup socialGroup) {
+	public List<SocialGroup> getAllAntecedentSocialGroups(SocialGroup socialGroup) {
 
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
@@ -227,21 +226,21 @@ public class SocialGroupFacade {
 
 	}
 
-	public List<SocialGroup> AllGroupChild(SocialGroup socialGroup) {
+	public List<SocialGroup> getAllChildGroups(SocialGroup socialGroup) {
 
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
 		}
 
-		return getAllGroupChild(socialGroup);
+		return allGroupChild(socialGroup);
 	}
 
-	private List<SocialGroup> getAllGroupChild(SocialGroup socialGroup) {
+	private List<SocialGroup> allGroupChild(SocialGroup socialGroup) {
 		List<SocialGroup> groups = new ArrayList<SocialGroup>();
 		groups.add(socialGroup);
 		for (SocialElement socialElement : socialGroup.getSocialElements()) {
 			if (socialElement instanceof SocialGroup) {
-				groups.addAll(getAllGroupChild((SocialGroup) socialElement));
+				groups.addAll(allGroupChild((SocialGroup) socialElement));
 			}
 		}
 
@@ -251,7 +250,7 @@ public class SocialGroupFacade {
 
 	public final void switchState(int socialGroupId) {
 		SocialGroup sg = getSocialGroup(socialGroupId);
-		List<SocialElement> socialElements = allChildSocialElement(sg);
+		List<SocialElement> socialElements = getAllChildSocialElements(sg);
 
 		if (sg.getIsEnabled()) {
 			for (SocialElement socialElement : socialElements) {
@@ -269,9 +268,9 @@ public class SocialGroupFacade {
 		em.flush();
 	}
 
-	private List<SocialElement> allChildSocialElement(SocialGroup sg) {
-		List<SocialEntity> entities = allMembersChild(sg);
-		List<SocialGroup> groups = AllGroupChild(sg);
+	private List<SocialElement> getAllChildSocialElements(SocialGroup sg) {
+		List<SocialEntity> entities = getAllChildMembers(sg);
+		List<SocialGroup> groups = getAllChildGroups(sg);
 		List<SocialElement> socialElements = new ArrayList<SocialElement>();
 		socialElements.addAll(groups);
 		socialElements.addAll(entities);
@@ -318,14 +317,14 @@ public class SocialGroupFacade {
 		return resultat;
 	}
 
-	public List<SocialEntity> allMembersChild(SocialGroup socialGroupUser) {
+	public List<SocialEntity> getAllChildMembers(SocialGroup socialGroupUser) {
 		if (socialGroupUser == null) {
 			throw new IllegalArgumentException();
 		}
 		List<SocialEntity> listSocialEntity = new ArrayList<SocialEntity>();
 		if (socialGroupUser != null) {
 
-			List<SocialGroup> listSocialGroup = AllGroupChild(socialGroupUser);
+			List<SocialGroup> listSocialGroup = getAllChildGroups(socialGroupUser);
 
 			for (SocialGroup socialGroup : listSocialGroup) {
 				List<SocialElement> socialElements = socialGroup

@@ -478,7 +478,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
 				entityManager);
 		List<SocialGroup> socialGroups = socialGroupFacade
-				.AllGroupChild(UserUtils.getHisGroup(request));
+				.getAllChildGroups(UserUtils.getHisGroup(request));
 
 		Paginator<Interest> paginator = new Paginator<Interest>(
 				member.getInterests(), request, "interestsMember", "idMember");
@@ -612,7 +612,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialGroup socialGroupUser = UserUtils.getHisGroup(request);
 		List<SocialEntity> resultOthersList = socialGroupFacade
-				.allMembersChild(socialGroupUser);
+				.getAllChildMembers(socialGroupUser);
 		if (form != null) {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String searchText = (String) dynaForm.get("searchText");
@@ -644,7 +644,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 			request.setAttribute("membersListPaginator", paginator);
 			List<SocialGroup> socialGroups = socialGroupFacade
-					.AllGroupChild(UserUtils.getHisGroup(request));
+					.getAllChildGroups(UserUtils.getHisGroup(request));
 			cleanSession(request);
 			request.getSession(true).setAttribute("allGroups", socialGroups);
 		}
