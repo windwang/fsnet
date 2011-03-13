@@ -43,7 +43,7 @@
 </c:if>
 	
 
-
+<ili:interactionFilter user="${ socialEntity }" right="${ rightModifyProfil }">      
 <h3>
     <bean:message key="updateProfile.title"/>
 </h3>
@@ -221,6 +221,7 @@
         </tr>
     </table>
 </html:form>
+</ili:interactionFilter>
 
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
@@ -284,6 +285,7 @@
     </table>
 </html:form>
 
+<ili:interactionFilter user="${ socialEntity }" right="${ rightModifyPicture }">      
 <h3>
     <bean:message key="updateProfile.changePhoto.title"/>
 </h3>
@@ -299,6 +301,7 @@
 		</div>
 	</logic:messagesPresent>
 </html:form>
+</ili:interactionFilter>
 
 <img src="avatar/${userId}.png" style="float:right;"/>
 <div class="clear"></div>

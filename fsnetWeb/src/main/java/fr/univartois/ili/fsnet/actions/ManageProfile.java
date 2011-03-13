@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.apache.struts.upload.FormFile;
@@ -32,6 +33,7 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
@@ -97,6 +99,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
+		if(!UserUtils.getAuthenticatedUser(request, em).getGroup().isAuthorized(Right.MODIFY_PROFIL))
+		{
+			em.close();
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
+		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		Date birthday = null;
 		addRightToRequest(request);
@@ -244,6 +252,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public final ActionForward changePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		if(!UserUtils.getAuthenticatedUser(request).getGroup().isAuthorized(Right.MODIFY_PICTURE))
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("photo");
 		int userId = UserUtils.getAuthenticatesUserId(request);
@@ -287,6 +298,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		Integer userId = UserUtils.getAuthenticatesUserId(request);
+		if(!UserUtils.getAuthenticatedUser(request).getGroup().isAuthorized(Right.MODIFY_PICTURE))
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		
+		
 		ImageManager.removeOldUserPicture(userId);
 		addRightToRequest(request);
 		return mapping.findForward("success");
@@ -294,10 +309,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	
 	private void addRightToRequest(HttpServletRequest request){
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
-//		Right rightModifyProfil = Right.MODIFY_PROFIL;
-//		Right rightModifyPicture = Right.MODIFY_PICTURE;
-//		request.setAttribute("rightModifyProfil", rightModifyProfil);
-//		request.setAttribute("rightModifyPicture", rightModifyPicture);
+		Right rightModifyProfil = Right.MODIFY_PROFIL;
+		Right rightModifyPicture = Right.MODIFY_PICTURE;
+		request.setAttribute("rightModifyProfil", rightModifyProfil);
+		request.setAttribute("rightModifyPicture", rightModifyPicture);
 		request.setAttribute("socialEntity",socialEntity);
 	}
 }
