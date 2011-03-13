@@ -45,11 +45,16 @@
             	validate="true"
             	parameter="create">
             <forward name="success" path="/DisplayEvent.do" />
+            <forward name="unauthorized" path="/Events.do" />
         </action>
 
         <action path="/DisplayCreateEvent"
-                type="org.apache.struts.actions.ForwardAction"
-                parameter="CreateEvent"/>
+                type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                parameter="displayCreateEvent"
+                validate="false">
+                <forward name="success" path="CreateEvent" />
+            	<forward name="unauthorized" path="/Events.do" />
+         </action>
 
         <action path="/Events"
         		name="SearchEventForm"

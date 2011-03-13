@@ -76,6 +76,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		if(!member.getGroup().isAuthorized(Right.ADD_ANNOUNCE))
+		{
+			em.close();
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
+		
+		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventName = (String) dynaForm.get("eventName");
 		String eventDescription = (String) dynaForm.get("eventDescription");
@@ -99,9 +108,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			return mapping.getInputForward();
 		}
 
-		EntityManager em = PersistenceProvider.createEntityManager();
-
-		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
@@ -331,5 +337,29 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				numNonReedEvents);
 	}
 	
+	/**
+	 * @author stephane gronowski
+	 * Access to the jsp to create an {@link Meeting}.
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward displayCreateEvent(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager entityManager = PersistenceProvider.createEntityManager();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request,
+				entityManager);
+		entityManager.close();
+		if(!user.getGroup().isAuthorized(Right.ADD_EVENT))
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		
+		return new ActionRedirect(mapping.findForward("success"));
+	}
+
 	
 }
