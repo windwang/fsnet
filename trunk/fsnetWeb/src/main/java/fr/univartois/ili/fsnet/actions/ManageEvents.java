@@ -84,7 +84,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 		
-		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventName = (String) dynaForm.get("eventName");
 		String eventDescription = (String) dynaForm.get("eventDescription");
@@ -183,11 +182,16 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 */
 	public ActionForward subscribe(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String eventId = (String) dynaForm.get("eventId");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		addRightToRequest(request);
+		if(!member.getGroup().isAuthorized(Right.REGISTER_EVENT))
+		{
+			em.close();
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String eventId = (String) dynaForm.get("eventId");
 		try{
 			em.getTransaction().begin();
 			MeetingFacade meetingFacade = new MeetingFacade(em);
@@ -216,11 +220,16 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 */
 	public ActionForward unsubscribe(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String eventId = (String) dynaForm.get("eventId");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		addRightToRequest(request);
+		if(!member.getGroup().isAuthorized(Right.REGISTER_EVENT))
+		{
+			em.close();
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String eventId = (String) dynaForm.get("eventId");
 		em.getTransaction().begin();
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting meeting = meetingFacade.getMeeting(Integer.parseInt(eventId));

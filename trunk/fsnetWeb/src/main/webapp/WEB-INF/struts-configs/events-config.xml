@@ -90,6 +90,7 @@
             	scope="request"
             	validate="true"
             	parameter="subscribe" >
+            <forward name="unauthorized" path="/Events.do" />
             <forward name="success" path="/DisplayEvent.do" />
         </action>
         <action path="/UnsubscribeEvent"
@@ -99,6 +100,7 @@
             	scope="request"
             	validate="true"
             	parameter="unsubscribe" >
+            <forward name="unauthorized" path="/Events.do" />
             <forward name="success" path="/DisplayEvent.do" />
         </action>
     </action-mappings>
