@@ -54,7 +54,12 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
-
+		if(!user.getGroup().isAuthorized(Right.ADD_ANNOUNCE))
+		{
+			entityManager.close();
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
+		
 		DynaActionForm formAnnounce = (DynaActionForm) form; // NOSONAR
 		String title = (String) formAnnounce.get("announceTitle");
 		String content = (String) formAnnounce.get("announceContent");
@@ -314,5 +319,30 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		session.setAttribute("numNonReedAnnounces",
 				numNonReedAnnounces);
 	}
+
+	/**
+	 * @author stephane gronowski
+	 * Access to the jsp to create an {@link Announcement}.
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward displayCreateAnnounce(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager entityManager = PersistenceProvider.createEntityManager();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request,
+				entityManager);
+		entityManager.close();
+		if(!user.getGroup().isAuthorized(Right.ADD_ANNOUNCE))
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		
+		return new ActionRedirect(mapping.findForward("success"));
+	}
+
 	
 }
