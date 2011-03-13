@@ -11,34 +11,42 @@
 			<c:forEach var="group"
 				items="${requestScope.groupsListPaginator.resultList}">
 				<tr>
-					<td>
-					<html:link action="/DisplayGroup">${group.name} 
+					<td><html:link action="/DisplayGroup">${group.name} 
                 			<html:param name="idGroup" value="${group.id}" />
-					</html:link>
-						<!--${group.name}-->
-					</td>
-					<td class="tableButton"><html:link action="/SwitchStateGroup"
-						styleClass="button">
-						<html:param name="groupSelected" value="${group.id}" />
-						<c:choose>
-							<c:when test="${group.isEnabled}">
-								<bean:message key="members.searchDisable" />
-							</c:when>
-							<c:otherwise>
-								<bean:message key="members.searchEnable" />
-							</c:otherwise>
-						</c:choose>
-					</html:link></td>
+					</html:link> <!--${group.name}--></td>
+
 					<td><bean:message key="groups.by" /> <ili:getSocialEntityInfos
 						socialEntity="${group.masterGroup}" /></td>
+					<c:choose>
+						<c:when test="${ group.group.isEnabled == false }">
+							<td class="tableButton">
+									<bean:message key="members.groupDisable" />
+							</td>
+						</c:when>
+						<c:otherwise>	
+							<td class="tableButton">
+								<html:link action="/SwitchStateGroup" styleClass="button">
+									<html:param name="groupSelected" value="${group.id}" />
+									<c:choose>
+										<c:when test="${group.isEnabled}">
+											<bean:message key="members.searchDisable" />
+										</c:when>
+										<c:otherwise>
+											<bean:message key="members.searchEnable" />
+										</c:otherwise>
+									</c:choose>
+								</html:link>
+							</td>
+						</c:otherwise>
+					</c:choose>
 				</tr>
 			</c:forEach>
 		</table>
 
-		
+
 		<c:set var="paginatorInstance"
 			value="${requestScope.groupsListPaginator}" scope="request" />
-		
+
 		<c:set var="paginatorAction" value="/SearchGroup" scope="request" />
 		<c:set var="paginatorTile" value="groupsList" scope="request" />
 		<c:import url="/content/pagination/Pagination.jsp" />
