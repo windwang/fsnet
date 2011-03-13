@@ -62,7 +62,7 @@ public class ListGroups extends HttpServlet {
 		for (SocialGroup socialGroup : socialGroups) {
 			out.print("<option value='" + socialGroup.getId() + "'>"
 					+ socialGroup.getName() + "</option>");
-			socialGroupFacade.AllGroupChild(socialGroup);
+			socialGroupFacade.getAllChildGroups(socialGroup);
 		}
 
 		out.close();
@@ -74,16 +74,16 @@ public class ListGroups extends HttpServlet {
 			throw new IllegalArgumentException();
 		}
 		List<SocialGroup> resulGroups = new ArrayList<SocialGroup>();
-		List<SocialGroup> allGroups = sgf.getAllSocialEntity();
+		List<SocialGroup> allGroups = sgf.getAllSocialGroups();
 
 		if (socialGroup != null) {
-			List<SocialGroup> groups = sgf.getAcceptedSocialGroup(socialGroup);
+			List<SocialGroup> groups = sgf.getAcceptedSocialGroups(socialGroup);
 			allGroups.removeAll(groups);
-			allGroups.removeAll(sgf.AllParent(socialGroup));
+			allGroups.removeAll(sgf.getAllAntecedentSocialGroups(socialGroup));
 		}
 		if (parentGroup != null) {
 			allGroups.remove(parentGroup);
-			allGroups.removeAll(sgf.AllParent(parentGroup));
+			allGroups.removeAll(sgf.getAllAntecedentSocialGroups(parentGroup));
 		}
 
 		for (SocialGroup sg : allGroups) {

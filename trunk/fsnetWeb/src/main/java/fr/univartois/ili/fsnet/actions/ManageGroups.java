@@ -101,7 +101,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			request.setAttribute("allMembers", allMembers);
 			request.setAttribute("refusedMembers", allMembers);
 			request.setAttribute("refusedRigths", Right.values());
-			allGroups = socialGroupFacade.AllGroupChild(UserUtils
+			allGroups = socialGroupFacade.getAllChildGroups(UserUtils
 					.getHisGroup(request));
 			request.setAttribute("allGroups", allGroups);
 		}
@@ -261,7 +261,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 			allMembers = socialEntityFacade.getAllSocialEntity();
 
-			acceptedMembers = socialGroupFacade.getAcceptedSocialEntity(group);
+			acceptedMembers = socialGroupFacade.getAcceptedSocialEntities(group);
 			refusedMembers = getRefusedSocialMember(socialGroupFacade,
 					allMembers, group);
 			acceptedRigths = group.getRights();
@@ -344,7 +344,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialEntity> resulEntities = new ArrayList<SocialEntity>();
 		List<SocialEntity> members = allMembers;
 		if (socialGroup != null) {
-			members.removeAll(sgf.getAcceptedSocialEntity(socialGroup));
+			members.removeAll(sgf.getAcceptedSocialEntities(socialGroup));
 		}
 		for (SocialEntity se : allMembers) {
 			if (se.getGroup() == null)
@@ -360,12 +360,12 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			throw new IllegalArgumentException();
 		}
 		List<SocialGroup> resulGroups = new ArrayList<SocialGroup>();
-		List<SocialGroup> allGroups = sgf.getAllSocialEntity();
+		List<SocialGroup> allGroups = sgf.getAllSocialGroups();
 
 		if (socialGroup != null) {
-			List<SocialGroup> groups = sgf.getAcceptedSocialGroup(socialGroup);
+			List<SocialGroup> groups = sgf.getAcceptedSocialGroups(socialGroup);
 			allGroups.removeAll(groups);
-			allGroups.removeAll(sgf.AllParent(socialGroup));
+			allGroups.removeAll(sgf.getAllAntecedentSocialGroups(socialGroup));
 		}
 
 		for (SocialGroup sg : allGroups) {
@@ -387,7 +387,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		try {
 			socialGroup = UserUtils.getHisGroup(request);
 			List<SocialGroup> resultOthersList = socialGroupFacade
-					.AllGroupChild(socialGroup);
+					.getAllChildGroups(socialGroup);
 
 			Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
 					resultOthersList, request, "groupsList");
@@ -410,7 +410,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		
 		List<SocialEntity> allOrphanMembers = socialEntityFacade.getAllOrphanMembers();
 		
-		List<SocialEntity> allSocialchildEntity = socialGroupFacade.allMembersChild(socialGroup);
+		List<SocialEntity> allSocialchildEntity = socialGroupFacade.getAllChildMembers(socialGroup);
 		
 		
 		allSocialchildEntity.removeAll(allMastersGroup);
