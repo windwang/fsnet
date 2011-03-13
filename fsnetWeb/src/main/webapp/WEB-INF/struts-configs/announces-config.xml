@@ -36,7 +36,7 @@
                 parameter="create">
             <forward name="success" path="/Announces.do" />
             <forward name="failer" path="/DisplayCreateAnnounce.do" />
-
+			<forward name="unauthorized" path="/Announces.do" />
         </action>
 
         <action path="/ModifyAnnounce" name="AnnounceForm" scope="request"
@@ -62,9 +62,12 @@
             <forward name="success" path="/Announces.do"></forward>
         </action>
 
-        <action path="/DisplayCreateAnnounce" type="org.apache.struts.actions.ForwardAction"
-                parameter="DisplayCreateAnnounce" >
+        <action path="/DisplayCreateAnnounce" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+                parameter="displayCreateAnnounce" >
+        	<forward name="success" path="DisplayCreateAnnounce" />
+            <forward name="unauthorized" path="/Announces.do" />
         </action>
+		
     </action-mappings>
 
 </struts-config>
