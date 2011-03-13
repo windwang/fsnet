@@ -124,7 +124,10 @@ public class Home extends MappingDispatchAction {
 		lastMessages(mapping, request, response, em, authenticatedUser);
 		getContactProposals(mapping, request, response, em, authenticatedUser);
 		getInterestProposals(mapping, request, response, em, authenticatedUser);
-		
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+		String groupTree = socialGroupFacade.TreeParentName(authenticatedUser);
+		request.getSession().setAttribute("groupTree",groupTree);
+		request.getSession().setAttribute("hisGroup",UserUtils.getHisGroup(request));
 		request.getSession().setAttribute("isMasterGroup",sgf.isMasterGroup(authenticatedUser));
 
 		em.close();

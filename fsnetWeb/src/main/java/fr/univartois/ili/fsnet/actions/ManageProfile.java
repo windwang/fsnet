@@ -37,7 +37,6 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
-import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
@@ -179,11 +178,11 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		addKeyFacebookInRequest(request,  response);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
-		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+		
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		Boolean alreadyInContact = false;
-		String groupTree;
+		
 		int id = -1;
 		addRightToRequest(request);
 		try {
@@ -232,8 +231,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 		request.setAttribute("currentUser", user);
-		groupTree = socialGroupFacade.TreeParentName(user);
-		request.setAttribute("groupTree",groupTree);
+		
 		return mapping.findForward("success");
 	}
 
