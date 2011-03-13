@@ -7,9 +7,10 @@
 </h2>
 <ul>
     <li>
-        <html:link action="Profile.do">
-            <bean:message key="showProfile.edit"/>
-        </html:link>
+    		<html:link action="Profile.do">
+            	<bean:message key="showProfile.edit"/>
+        	</html:link>
+        
     </li>
     <li>
     	<html:link action="/Interests">

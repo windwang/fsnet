@@ -47,6 +47,7 @@
 			name="profileForm" scope="request" validate="true" parameter="modify"
 			input="Profile">
 			<forward name="success" path="/DisplayProfile.do" />
+			<forward name="unauthorized" path="/Profile.do" />
 		</action>
 		<action path="/Profile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			scope="request" parameter="displayToModify" validate="true" name="profileForm">
@@ -59,11 +60,13 @@
 		<action path="/ChangePhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			name="ChangePhotoForm" parameter="changePhoto" input="/Profile.do"
 			scope="request" validate="true">
+			<forward name="unauthorized" path="/Profile.do" />
 			<forward name="success" path="/Profile.do" />
 		</action>
 		<action path="/DeletePhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			name="DeletePhotoForm" parameter="deletePhoto" validate="false">
 			<forward name="success" path="/Profile.do" />
+			<forward name="unauthorized" path="/Profile.do" />
 		</action>
 	</action-mappings>
 </struts-config>
