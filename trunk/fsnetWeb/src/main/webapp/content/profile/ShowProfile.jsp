@@ -198,8 +198,8 @@
 
 <h3><bean:message key="showProfile.groups.tree" /></h3>
 <ul>
-	<li>${groupTree}</li>
-</ul>
+		<li>${sessionScope.groupTree}</li>
+	</ul>
 
 <!--<c:if test="${requestScope.isMasterGroup }">
 	<h3><bean:message key="showProfile.groups" /></h3>
