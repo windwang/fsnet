@@ -68,7 +68,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
 		dynaForm.set("email", "");
-		// ici
 		String parentId = (String) dynaForm.get("parentId");
 		dynaForm.set("parentId", "");
 		String personalizedMessage = (String) dynaForm.get("message");
