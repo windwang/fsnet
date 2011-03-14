@@ -7,6 +7,16 @@
 </h2>
 <ul>
 <li>
+        <html:link action="/SearchGroup">
+            <bean:message key="group.listGroups"/>
+        </html:link>
+    </li>
+    <li>
+        <html:link action="/Groups.do">
+            <bean:message key="groups.createGroup"/>
+        </html:link>
+    </li>
+<li>
         <html:link action="/MemberList">
             <bean:message key="members.listMembers"/>
         </html:link>

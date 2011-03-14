@@ -206,8 +206,8 @@
 		<put name="title" value="pageTitle.12" />
 		<put name="body-content" value="/content/members/SearchMember.jsp" />
 	</definition>
-	
-	
+
+
 	<!-- Private Messages -->
 	<definition name="DisplayInbox" extends=".defaultLayout">
 		<put name="title" value="pageTitle.14" />
@@ -291,32 +291,32 @@
 	<!-- Groups -->
 	<definition name="SearchGroups" extends=".defaultLayout">
 		<put name="title" value="pageTitle.19" />
-		<put name="currentMenu" value="Group" />
+
 		<put name="body-content" value="/content/groups/SearchGroups.jsp" />
 		<put name="left" value="/content/groups/leftMenu.jsp" />
 	</definition>
 	<definition name="CreateGroup" extends=".defaultLayout">
 		<put name="title" value="pageTitle.19" />
-		<put name="currentMenu" value="Group" />
+
 		<put name="left" value="/content/groups/leftMenu.jsp" />
 		<put name="body-content" value="/content/groups/CreateGroup.jsp" />
 	</definition>
 
 	<definition name="DisplayForModifyGroup" extends=".defaultLayout">
 		<put name="title" value="pageTitle.19" />
-		<put name="currentMenu" value="Group" />
-		<put name="left" value="/content/groups/leftMenu.jsp" /><put name="body-content" value="/content/groups/ModifyGroup.jsp" />
+
+		<put name="left" value="/content/groups/leftMenu.jsp" />
 		<put name="body-content" value="/content/groups/ModifyGroup.jsp" />
 	</definition>
 
 	<definition name="ModifyGroup" extends=".defaultLayout">
 		<put name="title" value="pageTitle.19" />
-		<put name="currentMenu" value="Group" />
+
 		<put name="left" value="/content/groups/leftMenu.jsp" />
 		<put name="body-content" value="/content/groups/ModifyGroup.jsp" />
 	</definition>
-	
-		<!-- Members -->
+
+	<!-- Members -->
 	<definition name="DisplayMembers" extends=".defaultLayout">
 		<put name="title" value="pageTitle.12" />
 		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
@@ -334,21 +334,18 @@
 	<definition name="MemberList" extends=".defaultLayout">
 		<put name="title" value="pageTitle.12" />
 		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
-		<put name="currentMenu" value="MemberList" />
 		<put name="body-content" value="/content/manageMembers/SearchMember.jsp" />
 	</definition>
 
 	<definition name="DisplayForModifyMember" extends=".defaultLayout">
 		<put name="title" value="pageTitle.12" />
 		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
-		<put name="currentMenu" value="MemberList" />
 		<put name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
 	</definition>
 
 	<definition name="ModifyMember" extends=".defaultLayout">
 		<put name="title" value="pageTitle.12" />
 		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
-		<put name="currentMenu" value="MemberList" />
 		<put name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
 	</definition>
 
