@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -42,14 +43,21 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+				request, em);
+		if(!authenticatedUser.getGroup().isAuthorized(Right.SEND_MESSAGE))
+		{
+			em.close();
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
+		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String to = dynaForm.getString("messageTo");
 		String subject = dynaForm.getString("messageSubject");
 		String body = dynaForm.getString("messageBody");
-		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
-				request, em);
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		StringTokenizer stk = new StringTokenizer(to,",");
 		List<SocialEntity> receivers = new ArrayList<SocialEntity>();

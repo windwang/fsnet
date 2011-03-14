@@ -48,6 +48,7 @@
         <action path="/CreatePrivateMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
                 parameter="create" name="CreatePrivateMessageForm" validate="true" input="CreatePrivateMessage" scope="request">
             <forward name="success" path="/Inbox.do" />
+            <forward name="unauthorized" path="/Inbox.do" />
         </action>
 
         <action path="/DeletePrivateMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
