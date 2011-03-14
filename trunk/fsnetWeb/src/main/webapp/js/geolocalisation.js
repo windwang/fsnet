@@ -28,6 +28,7 @@ function putDestinationOnMap(){
 	var destinationAddresse = getDestinationAddresse();
 	if (destinationAddresse != null) {
 		putOnMapEvent(destinationAddresse);
+		changeLinkToGoogleMapWithAddr(destinationAddresse);
 
 	}
 }
@@ -52,7 +53,6 @@ function putOnMapEvent(addr) {
 							marker.setMap(map);
 							map.setCenter(coordinates);
 							document.getElementById("geolocalisation").style.visibility = "visible";
-							changeLinkToGoogleMapWithAddr(addr);
 						} else {
 							document.getElementById("geolocalisation").style.visibility = "hidden";
 						}
@@ -63,7 +63,6 @@ function putOnMapEvent(addr) {
 function changeLinkToGoogleMapWithAddr(addr) {
 	var link = "http://maps.google.fr/maps?q=" + addr.trim();
 	link = link.replace(/ /g, "%20");
-
 	if ($('a[name="linktogooglemap"]')) {
 		$('a[name="linktogooglemap"]').attr('href', link);
 	}
@@ -76,7 +75,6 @@ function changeLinkToGoogleMapWithRoutePosition(startLat, startLng, endAddr) {
 	var end = "&daddr=" + endAddr.trim();
 	link += start + end;
 	link = link.replace(/ /g, "%20");
-
 	if ($('a[name="linktogooglemap"]')) {
 		$('a[name="linktogooglemap"]').attr('href', link);
 	}
@@ -89,7 +87,6 @@ function changeLinkToGoogleMapWithRoute(startAddr, endAddr) {
 	var end = "&daddr=" + endAddr.trim();
 	link += start + end;
 	link = link.replace(/ /g, "%20");
-
 	if ($('a[name="linktogooglemap"]')) {
 		$('a[name="linktogooglemap"]').attr('href', link);
 	}
@@ -230,3 +227,4 @@ function displayErrorIfNotExist(addr) {
 		}
 	});
 }
+
