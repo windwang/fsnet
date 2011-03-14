@@ -17,8 +17,8 @@
             <form-property name="limitChoicesPerVoter" type="java.lang.String" />
             <form-property name="minChoicesVoter" type="java.lang.String" />
             <form-property name="maxChoicesVoter" type="java.lang.String" />
-<!--            <form-property name="showBeforeAnswer" type="java.lang.String" />-->
-<!--            <form-property name="showBeforeClosing" type="java.lang.String" />-->
+            <form-property name="showBeforeAnswer" type="java.lang.String" />
+            <form-property name="showBeforeClosing" type="java.lang.String" />
             <form-property name="closingAtMaxVoters" type="java.lang.String" />
             <form-property name="deadline" type="java.lang.String" />
         </form-bean>

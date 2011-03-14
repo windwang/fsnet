@@ -56,8 +56,8 @@ public class ManageConsultations extends MappingDispatchAction {
 		String limitChoicesPerVoter = dynaForm.getString("limitChoicesPerVoter");
 		String minChoicesVoter = dynaForm.getString("minChoicesVoter");
 		String maxChoicesVoter = dynaForm.getString("maxChoicesVoter");
-//		String showBeforeClosing = dynaForm.getString("showBeforeClosing");
-//		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
+		String showBeforeClosing = dynaForm.getString("showBeforeClosing");
+		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
 		
@@ -93,12 +93,12 @@ public class ManageConsultations extends MappingDispatchAction {
 //		if(!"".equals(nbVotersPerChoiceBox))
 //			consultation.setLimitParticipantPerChoice(true);
 //		
-//		if(!"".equals(showBeforeAnswer))
-//			consultation.setShowBeforeAnswer(false);
-//		
-//		if(!"".equals(showBeforeClosing))
-//			consultation.setShowBeforeClosing(false);
-//		
+		if(!"".equals(showBeforeAnswer))
+			consultation.setShowBeforeAnswer(false);
+		
+		if(!"".equals(showBeforeClosing))
+			consultation.setShowBeforeClosing(false);
+		
 		if(!"".equals(deadline)){
 			consultation.setClosingAtDate(true);
 			try {
@@ -331,10 +331,12 @@ public class ManageConsultations extends MappingDispatchAction {
 				request.setAttribute("allowedToVote", true);
 			else
 				request.setAttribute("allowedToVote", false);
+			request.setAttribute("allowedToShowResults", isAllowedToShowResults(consultation, member));
 		}
 		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
 		return redirect;
 	}
+	
 	
 	public ActionForward closeConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
@@ -400,6 +402,11 @@ public class ManageConsultations extends MappingDispatchAction {
 	
 	public boolean isAllowedToVote(Consultation consultation, SocialEntity member) {
 		return consultation.isOpened() && !consultation.isVoted(member) && !consultation.isMaximumVoterReached() && !consultation.isDeadlineReached();
+	}
+	
+	public boolean isAllowedToShowResults(Consultation consultation, SocialEntity member){
+		return (consultation.isShowBeforeAnswer() || consultation.isVoted(member)) 
+		&& (consultation.isShowBeforeClosing() || !consultation.isOpened() || consultation.isMaximumVoterReached() || consultation.isDeadlineReached());
 	}
 	
 	/**

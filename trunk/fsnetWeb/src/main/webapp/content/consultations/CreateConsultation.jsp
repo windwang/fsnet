@@ -56,7 +56,6 @@
 		</tr>
 	</table>
 	<table>
-		<%--
 		<tr><td>
 			<html:checkbox property="showBeforeAnswer" styleId="showBeforeAnswer" /> </td><td>
 			<label for="showBeforeAnswer"><bean:message key="consultation.showBeforeAnswer" /></label>
@@ -64,7 +63,9 @@
 		<tr><td>
 			<html:checkbox property="showBeforeClosing" styleId="showBeforeClosing" /> </td><td>
 			<label for="showBeforeClosing"><bean:message key="consultation.showBeforeClosing" /></label>
-		</td></tr>--%>
+		</td></tr>
+	</table>
+	<table>
 		<tr><td>
 			<label for="deadline"><bean:message key="consultation.deadline" /> : </label></td><td>
 			<html:text property="deadline" styleId="deadline" /></td>
