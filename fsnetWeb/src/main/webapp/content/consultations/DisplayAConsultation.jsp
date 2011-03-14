@@ -68,57 +68,62 @@
 		<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td class="consultationResultChoice"><bean:message key="consultation.other" /></td></c:if>
 		<td class="consultationComment"><bean:message key="consultation.comment" /></td>
 	</tr>
+
 	<c:forEach var="vote" items="${consultation.consultationVotes }">
+		<c:if test="${allowedToShowResults or vote.voter eq member}">
+			<tr>
+			<td><c:if test="${consultation.opened and member.id eq vote.voter.id }">
+				<html:link action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}">
+					<html:img src="images/mini-delete.png" altKey="consultation.delete" />
+				</html:link>
+			</c:if></td>
+			<td class="consultationPerticipant"><ili:getSocialEntityInfos socialEntity="${vote.voter }" /></td>
+			<c:forEach var="choice" items="${consultation.choices }">
+				<c:choose>
+					<c:when test="${consultation.type eq 'PREFERENCE_ORDER'}">
+						<c:forEach var="choiceVote" items="${vote.choices }">
+							<c:if test="${choice.id eq choiceVote.choice.id }">
+								<td class="consultationPreferenceOrder">${choiceVote.preferenceOrder}</td>
+							</c:if>
+						</c:forEach>
+					</c:when>
+					<c:otherwise>
+						<c:set var="isVoted" value="false"/>
+						<c:set var="isIfNecessary" value="false"/>
+						<c:forEach var="choiceVote" items="${vote.choices }">
+							<c:if test="${choice.id eq choiceVote.choice.id }">
+								<c:set var="isVoted" value="true"/>
+								<c:if test="${choiceVote.ifNecessary }"><c:set var="isIfNecessary" value="true"/></c:if>
+							</c:if>
+						</c:forEach>
+						<td <c:if test="${isVoted and not isIfNecessary}">class="consultationIsVoted"</c:if>
+						<c:if test="${isIfNecessary}">class="consultationIsIfNecessary"</c:if>
+						<c:if test="${not isVoted}">class="consultationIsNotVoted"</c:if> /></td>
+					</c:otherwise>
+				</c:choose>
+			</c:forEach>
+			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td class="consultationOther">${vote.other}</td></c:if>
+			<td class="consultationComment">${vote.comment}</td>
+			</tr>
+		</c:if>
+	</c:forEach>
+	<c:if test="${allowedToShowResults}">
 		<tr>
-		<td><c:if test="${consultation.opened and member.id eq vote.voter.id }">
-			<html:link action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}">
-				<html:img src="images/mini-delete.png" altKey="consultation.delete" />
-			</html:link>
-		</c:if></td>
-		<td class="consultationPerticipant"><ili:getSocialEntityInfos socialEntity="${vote.voter }" /></td>
-		<c:forEach var="choice" items="${consultation.choices }">
+			<td colspan="2"></td>
 			<c:choose>
-				<c:when test="${consultation.type eq 'PREFERENCE_ORDER'}">
-					<c:forEach var="choiceVote" items="${vote.choices }">
-						<c:if test="${choice.id eq choiceVote.choice.id }">
-							<td class="consultationPreferenceOrder">${choiceVote.preferenceOrder}</td>
-						</c:if>
-					</c:forEach>
+				<c:when test="${consultation.type eq 'PREFERENCE_ORDER' }">
+					<ili:consultationResults consultation="${consultation}" number="number">
+						<td class="${number eq 1?'consultationResultMax':'consultationResult' }">${number}</td>
+					</ili:consultationResults>
 				</c:when>
 				<c:otherwise>
-					<c:set var="isVoted" value="false"/>
-					<c:set var="isIfNecessary" value="false"/>
-					<c:forEach var="choiceVote" items="${vote.choices }">
-						<c:if test="${choice.id eq choiceVote.choice.id }">
-							<c:set var="isVoted" value="true"/>
-							<c:if test="${choiceVote.ifNecessary }"><c:set var="isIfNecessary" value="true"/></c:if>
-						</c:if>
-					</c:forEach>
-					<td <c:if test="${isVoted and not isIfNecessary}">class="consultationIsVoted"</c:if>
-					<c:if test="${isIfNecessary}">class="consultationIsIfNecessary"</c:if>
-					<c:if test="${not isVoted}">class="consultationIsNotVoted"</c:if> /></td>
+					<ili:consultationResults consultation="${consultation}" number="number" percent="percent" maximum="max">
+						<td class="${max?'consultationResultMax':'consultationResult' }">${number}<br />${percent }%</td>
+					</ili:consultationResults>
 				</c:otherwise>
 			</c:choose>
-		</c:forEach>
-		<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td class="consultationOther">${vote.other}</td></c:if>
-		<td class="consultationComment">${vote.comment}</td>
-		</tr>
-	</c:forEach>
-	<tr>
-		<td colspan="2"></td>
-		<c:choose>
-			<c:when test="${consultation.type eq 'PREFERENCE_ORDER' }">
-				<ili:consultationResults consultation="${consultation}" number="number">
-					<td class="${number eq 1?'consultationResultMax':'consultationResult' }">${number}</td>
-				</ili:consultationResults>
-			</c:when>
-			<c:otherwise>
-				<ili:consultationResults consultation="${consultation}" number="number" percent="percent" maximum="max">
-					<td class="${max?'consultationResultMax':'consultationResult' }">${number}<br />${percent }%</td>
-				</ili:consultationResults>
-			</c:otherwise>
-		</c:choose>
-	<tr>
+		<tr>
+	</c:if>
 	<c:if test="${allowedToVote }">
 	<html:form action="/VoteConsultation" method="post" styleId="voteForm">
 		<tr class="consultationVote">
@@ -157,7 +162,7 @@
 	</c:if>
 </table>
 
-<c:if test="${consultation.type ne 'PREFERENCE_ORDER' }">
+<c:if test="${ allowedToShowResults and consultation.type ne 'PREFERENCE_ORDER' }">
 	<h3><bean:message key="consultation.histogramme" /></h3>
 	
 	<div>
