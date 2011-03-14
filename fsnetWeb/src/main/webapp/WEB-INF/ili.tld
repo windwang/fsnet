@@ -17,7 +17,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-		<tag>
+	<tag>
 		<description>Display the entity name and firstname</description>
 		<display-name>noxml</display-name>
 		<name>getSocialEntityInfos</name>
@@ -25,6 +25,18 @@
 		<body-content>empty</body-content>
 		<attribute>
 			<name>socialEntity</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>Display the group name</description>
+		<display-name>noxml</display-name>
+		<name>getSocialGroupInfos</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.GetSocialGroupInfosTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>socialGroup</name>
 			<required>true</required>
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>

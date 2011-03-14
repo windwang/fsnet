@@ -5,6 +5,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3><bean:message key="members.search" /></h3>
 <html:form action="SearchMember">
@@ -26,6 +27,8 @@
 					<td><html:link action="/DisplayMember">${member.name} ${member.firstName}
                 		<html:param name="idMember" value="${member.id}" />
 					</html:link></td>
+					<td><bean:message key="group.group" /> <ili:getSocialGroupInfos
+						socialGroup="${member.group}" /></td>
 					<td class="tableButton"><c:choose>
 						<c:when test="${member.group.isEnabled}">
 							<html:link action="/SwitchState" styleClass="button">
