@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,6 +22,8 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Consultation;
+import fr.univartois.ili.fsnet.entities.ConsultationChoice;
+import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
 import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
 import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -137,7 +140,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		String voteComment = (String) dynaForm.get("voteComment");
 		String voteOther = (String) dynaForm.get("voteOther");
 		Integer idConsultation = (Integer) dynaForm.get("id");
-		String[] voteChoices  = dynaForm.getStrings("voteChoice");
+		List<String> voteChoices  = Arrays.asList(dynaForm.getStrings("voteChoice"));
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
@@ -150,9 +153,9 @@ public class ManageConsultations extends MappingDispatchAction {
 						answersNumber++;
 				}
 			}else if(TypeConsultation.YES_NO_OTHER.equals(consultation.getType())){
-				answersNumber = voteChoices.length + ("".equals(voteOther)?0:1);
+				answersNumber = voteChoices.size() + ("".equals(voteOther)?0:1);
 			}else{
-				answersNumber = voteChoices.length;
+				answersNumber = voteChoices.size();
 			}
 			if(answersNumber < consultation.getLimitChoicesPerParticipantMin() || answersNumber > consultation.getLimitChoicesPerParticipantMax()){
 				
@@ -162,13 +165,78 @@ public class ManageConsultations extends MappingDispatchAction {
 		}
 		em.getTransaction().begin();
 		if (isAllowedToVote(consultation, member)){
-			consultationFacade.voteForConsultation(member, consultation, voteComment, voteOther, Arrays.asList(voteChoices));
-			em.getTransaction().commit();
+			ConsultationVote vote = new ConsultationVote(member, voteComment, voteOther);
+			boolean voteOk=true;
+			switch (consultation.getType()){
+			case PREFERENCE_ORDER:
+				voteOk=votePreferenceOrder(consultation, vote, voteChoices);
+				break;
+			case YES_NO_IFNECESSARY:
+				voteOk=voteIfNecessary(consultation, vote, voteChoices);
+				break;
+			default:
+				for(ConsultationChoice choice : consultation.getChoices()){
+					if(voteChoices.contains(String.valueOf(choice.getId()))){
+						vote.getChoices().add(new ConsultationChoiceVote(vote,choice));
+					}
+				}
+			}
+			if (voteOk){
+				consultationFacade.voteForConsultation(consultation, vote);
+				em.getTransaction().commit();
+			}
 		}
 		em.close();
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 	
+	private boolean voteIfNecessary(Consultation consultation, ConsultationVote vote, List<String> choices) {
+		for (String choice : choices){
+			if (!choice.startsWith("no")){
+				boolean ifNecessary;
+				Integer id;
+				if (choice.startsWith("ifNecessary")){
+					id = Integer.valueOf(choice.replaceAll("ifNecessary", ""));
+					ifNecessary = true;
+				}
+				else {
+					id = Integer.valueOf(choice.replaceAll("yes", ""));
+					ifNecessary = false;
+				}
+				for(ConsultationChoice choiceCons : consultation.getChoices()){
+					if (choiceCons.getId() == id){
+						ConsultationChoiceVote choiceVote = new ConsultationChoiceVote(vote, choiceCons);
+						if (ifNecessary)
+							choiceVote.setIfNecessary(true);
+						vote.getChoices().add(choiceVote);
+					}
+				}
+			}
+		}
+		return true;
+	}
+
+
+	private boolean votePreferenceOrder(Consultation consultation, ConsultationVote vote, List<String> choices) {
+		//List<ConsultationChoiceVote> votes = new ArrayList<ConsultationChoiceVote>();
+		List<Integer> marks = new ArrayList<Integer>();
+		for (String choice : choices){
+			for (ConsultationChoice consChoice : consultation.getChoices()){
+				String[] choiceValues = choice.split("_");
+				if (consChoice.getId() == Integer.valueOf(choiceValues[0])){
+					ConsultationChoiceVote choiceVote = new ConsultationChoiceVote(vote, consChoice);
+					choiceVote.setPreferenceOrder(Integer.valueOf(choiceValues[1]));
+					vote.getChoices().add(choiceVote);
+					if (marks.contains(Integer.valueOf(choiceValues[1])))
+						return false;
+					marks.add(Integer.valueOf(choiceValues[1]));
+				}
+			}
+		}
+		return true;
+	}
+
+
 	public ActionForward deleteVote(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
 		String idConsultation = request.getParameter("consultation");

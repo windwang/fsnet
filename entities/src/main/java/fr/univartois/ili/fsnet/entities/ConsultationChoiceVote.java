@@ -30,6 +30,8 @@ public class ConsultationChoiceVote implements Serializable {
 
 	private boolean ifNecessary;
 
+	private int preferenceOrder;
+
 	public ConsultationChoiceVote() {
 	}
 
@@ -70,6 +72,14 @@ public class ConsultationChoiceVote implements Serializable {
 
 	public void setChoice(ConsultationChoice choice) {
 		this.choice = choice;
+	}
+
+	public int getPreferenceOrder() {
+		return preferenceOrder;
+	}
+
+	public void setPreferenceOrder(int preferenceOrder) {
+		this.preferenceOrder = preferenceOrder;
 	}
 
 }

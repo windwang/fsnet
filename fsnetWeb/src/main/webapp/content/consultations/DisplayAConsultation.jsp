@@ -1,4 +1,5 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
@@ -75,17 +76,28 @@
 		</c:if></td>
 		<td class="consultationPerticipant"><ili:getSocialEntityInfos socialEntity="${vote.voter }" /></td>
 		<c:forEach var="choice" items="${consultation.choices }">
-			<c:set var="isVoted" value="false"/>
-			<c:set var="isIfNecessary" value="false"/>
-			<c:forEach var="choiceVote" items="${vote.choices }">
-				<c:if test="${choice.id eq choiceVote.choice.id }">
-					<c:set var="isVoted" value="true"/>
-					<c:if test="${choiceVote.ifNecessary }"><c:set var="isIfNecessary" value="true"/></c:if>
-				</c:if>
-			</c:forEach>
-			<td <c:if test="${isVoted and not isIfNecessary}">class="consultationIsVoted"</c:if>
-			<c:if test="${isIfNecessary}">class="consultationIsIfNecessary"</c:if>
-			<c:if test="${not isVoted}">class="consultationIsNotVoted"</c:if> /></td>
+			<c:choose>
+				<c:when test="${consultation.type eq 'PREFERENCE_ORDER'}">
+					<c:forEach var="choiceVote" items="${vote.choices }">
+						<c:if test="${choice.id eq choiceVote.choice.id }">
+							<td class="consultationPreferenceOrder">${choiceVote.preferenceOrder}</td>
+						</c:if>
+					</c:forEach>
+				</c:when>
+				<c:otherwise>
+					<c:set var="isVoted" value="false"/>
+					<c:set var="isIfNecessary" value="false"/>
+					<c:forEach var="choiceVote" items="${vote.choices }">
+						<c:if test="${choice.id eq choiceVote.choice.id }">
+							<c:set var="isVoted" value="true"/>
+							<c:if test="${choiceVote.ifNecessary }"><c:set var="isIfNecessary" value="true"/></c:if>
+						</c:if>
+					</c:forEach>
+					<td <c:if test="${isVoted and not isIfNecessary}">class="consultationIsVoted"</c:if>
+					<c:if test="${isIfNecessary}">class="consultationIsIfNecessary"</c:if>
+					<c:if test="${not isVoted}">class="consultationIsNotVoted"</c:if> /></td>
+				</c:otherwise>
+			</c:choose>
 		</c:forEach>
 		<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td class="consultationOther">${vote.other}</td></c:if>
 		<td class="consultationComment">${vote.comment}</td>
@@ -93,9 +105,18 @@
 	</c:forEach>
 	<tr>
 		<td colspan="2"></td>
-		<ili:consultationResults consultation="${consultation}" number="number" percent="percent" maximum="max">
-			<td class="${max?'consultationResultMax':'consultationResult' }">${number}<br />${percent }%</td>
-		</ili:consultationResults>
+		<c:choose>
+			<c:when test="${consultation.type eq 'PREFERENCE_ORDER' }">
+				<ili:consultationResults consultation="${consultation}" number="number">
+					<td class="${number eq 1?'consultationResultMax':'consultationResult' }">${number}</td>
+				</ili:consultationResults>
+			</c:when>
+			<c:otherwise>
+				<ili:consultationResults consultation="${consultation}" number="number" percent="percent" maximum="max">
+					<td class="${max?'consultationResultMax':'consultationResult' }">${number}<br />${percent }%</td>
+				</ili:consultationResults>
+			</c:otherwise>
+		</c:choose>
 	<tr>
 	<c:if test="${allowedToVote }">
 	<html:form action="/VoteConsultation" method="post" styleId="voteForm">
@@ -109,6 +130,13 @@
 								<html:option value="no${choice.id}"><bean:message key="consultation.choiceNo" /></html:option>
 								<html:option value="yes${choice.id}"><bean:message key="consultation.choiceYes" /></html:option>
 								<html:option value="ifNecessary${choice.id}"><bean:message key="consultation.choiceIfNecessary" /></html:option>
+							</html:select>
+						</c:when>
+						<c:when test="${consultation.type eq 'PREFERENCE_ORDER'}">
+							<html:select property="voteChoice">
+								<c:forEach var="index" begin="1" end="${fn:length(consultation.choices) }">
+									<html:option value="${choice.id}_${index}">${index }</html:option>
+								</c:forEach>
 							</html:select>
 						</c:when>
 						<c:otherwise>
@@ -128,17 +156,18 @@
 	</c:if>
 </table>
 
-<h3><bean:message key="consultation.histogramme" /></h3>
-
-<div>
-	<ili:consultationResults consultation="${consultation}" percent="percent" number="number" choice="choice" histogram="yes">
-	<span class="consultationHistoPercent">${choice} ${percent}% (${number})</span>
-		<div class="consultationHistoStick" style="width:${percent}%;">
-			
-		</div>
-	</ili:consultationResults>
-</div>
-
+<c:if test="${consultation.type ne 'PREFERENCE_ORDER' }">
+	<h3><bean:message key="consultation.histogramme" /></h3>
+	
+	<div>
+		<ili:consultationResults consultation="${consultation}" percent="percent" number="number" choice="choice" histogram="yes">
+		<span class="consultationHistoPercent">${choice} ${percent}% (${number})</span>
+			<div class="consultationHistoStick" style="width:${percent}%;">
+				
+			</div>
+		</ili:consultationResults>
+	</div>
+</c:if>
 
 </c:if>
 
