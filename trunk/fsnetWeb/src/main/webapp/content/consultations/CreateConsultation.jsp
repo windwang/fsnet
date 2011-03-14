@@ -43,7 +43,7 @@
   		<tr><td><html:radio property="consultationType" value="YES_NO" styleId="YES_NO" /> </td><td><label for="YES_NO"><bean:message key="consultation.typeYesNo"/></label></td></tr> 
 	  	<tr><td><html:radio property="consultationType" value="YES_NO_OTHER" styleId="YES_NO_OTHER"/></td><td><label for="YES_NO_OTHER"><bean:message key="consultation.typeYesNoOther"/></label></td></tr>
 	  	<tr><td><html:radio property="consultationType" value="YES_NO_IFNECESSARY" styleId="YES_NO_IFNECESSARY" /></td><td><label for="YES_NO_IFNECESSARY"><bean:message key="consultation.typeYesNoIfNecessary"/></label><label for="consultationIfNecessaryWeight"> <bean:message key="consultation.IfNecessaryWeight"/></label><html:text property="consultationIfNecessaryWeight" styleId="consultationIfNecessaryWeight" disabled="true" /></td></tr>
-<%--	  	<tr><td><html:radio property="consultationType" value="PREFERENCE_ORDER" styleId="PREFERENCE_ORDER" /></td><td><label for="PREFERENCE_ORDER"><bean:message key="consultation.typePreferenceOrder"/></label></td></tr>--%>
+	  	<tr><td><html:radio property="consultationType" value="PREFERENCE_ORDER" styleId="PREFERENCE_ORDER" /></td><td><label for="PREFERENCE_ORDER"><bean:message key="consultation.typePreferenceOrder"/></label></td></tr>
 	 </table>
 	 <c:if test="${errorChoicesVoter}"><p><bean:message key="consultation.errorChoicesVoter"/></p></c:if>
      <table>

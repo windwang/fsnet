@@ -1,12 +1,12 @@
 package fr.univartois.ili.fsnet.facade;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
-import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
@@ -67,6 +67,15 @@ public class ConsultationFacade {
         return query.getResultList();
 	}
 	
+	public final void voteForConsultation(Consultation consultation, ConsultationVote vote){
+		if(consultation != null && vote != null){
+			vote.getVoter().getVotes().add(vote);
+			vote.setConsultation(consultation);
+			consultation.getConsultationVotes().add(vote);
+			em.persist(vote);
+		}
+	}
+	
 	public final ConsultationVote voteForConsultation(SocialEntity voter, Consultation consultation, String comment,String other,List<String> choices){
 		ConsultationVote consultationVote = new ConsultationVote(voter,comment,other);
 		voter.getVotes().add(consultationVote);
@@ -74,13 +83,8 @@ public class ConsultationFacade {
 			consultationVote.setConsultation(consultation);
 			consultation.getConsultationVotes().add(consultationVote);
 		}
-		if (consultation.getType() != Consultation.TypeConsultation.YES_NO_IFNECESSARY)
-			for(ConsultationChoice choice : consultation.getChoices()){
-				if(choices.contains(String.valueOf(choice.getId()))){
-					consultationVote.getChoices().add(new ConsultationChoiceVote(consultationVote,choice));
-				}
-			}
-		else {
+		switch (consultation.getType()){
+		case YES_NO_IFNECESSARY :
 			for (String choice : choices){
 				if (!choice.startsWith("no")){
 					boolean ifNecessary;
@@ -101,6 +105,33 @@ public class ConsultationFacade {
 							consultationVote.getChoices().add(vote);
 						}
 					}
+				}
+			}
+			break;
+		case PREFERENCE_ORDER :
+			List<ConsultationChoiceVote> votes = new ArrayList<ConsultationChoiceVote>();
+			List<Integer> marks = new ArrayList<Integer>();
+			for (String choice : choices){
+				for (ConsultationChoice consChoice : consultation.getChoices()){
+					String[] choiceValues = choice.split("_");
+					if (consChoice.getId() == Integer.valueOf(choiceValues[0])){
+						ConsultationChoiceVote vote = new ConsultationChoiceVote(consultationVote, consChoice);
+						vote.setPreferenceOrder(Integer.valueOf(choiceValues[1]));
+						votes.add(vote);
+						if (marks.contains(Integer.valueOf(choiceValues[1])))
+							return null;
+						marks.add(Integer.valueOf(choiceValues[1]));
+					}
+				}
+			}
+			for (ConsultationChoiceVote vote : votes){
+				consultationVote.getChoices().add(vote);
+			}
+			break;
+		default:
+			for(ConsultationChoice choice : consultation.getChoices()){
+				if(choices.contains(String.valueOf(choice.getId()))){
+					consultationVote.getChoices().add(new ConsultationChoiceVote(consultationVote,choice));
 				}
 			}
 		}

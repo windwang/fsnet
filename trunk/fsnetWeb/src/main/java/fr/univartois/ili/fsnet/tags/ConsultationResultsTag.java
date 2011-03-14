@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.tagext.TagSupport;
@@ -80,6 +82,11 @@ public class ConsultationResultsTag extends TagSupport {
 	}
 	
 	public void init(){
+		ConsultationChoice choice;
+		Iterator<ConsultationVote> votes;
+		ConsultationVote vote;
+		Iterator<ConsultationChoiceVote> voteChoices;
+		ConsultationChoiceVote voteChoice;
 		Iterator<ConsultationChoice> choices = consultation.getChoices().iterator();
 		nb = new ArrayList<Double>();
 		this.choices = new ArrayList<String>();
@@ -88,10 +95,6 @@ public class ConsultationResultsTag extends TagSupport {
 			nb.add(0.0);
 		}
 		choices = consultation.getChoices().iterator();
-		ConsultationChoice choice;
-		Iterator<ConsultationVote> votes;
-		ConsultationVote vote;
-		Iterator<ConsultationChoiceVote> voteChoices;
 		total = 0;
 		max = 0;
 		int i=0;
@@ -103,15 +106,20 @@ public class ConsultationResultsTag extends TagSupport {
 				vote = votes.next();
 				voteChoices = vote.getChoices().iterator();
 				while (voteChoices.hasNext()){
-					ConsultationChoiceVote voteChoice = voteChoices.next();
+					voteChoice = voteChoices.next();
 					if (choice.getId() == voteChoice.getChoice().getId()){
 						if (voteChoice.isIfNecessary()){
 							nb.set(i, nb.get(i)+consultation.getIfNecessaryWeight());
 							total+=consultation.getIfNecessaryWeight();
 						}
 						else {
-							nb.set(i, nb.get(i)+1);
-							total+=1;
+							if (consultation.getType() == TypeConsultation.PREFERENCE_ORDER){
+								nb.set(i, nb.get(i)+voteChoice.getPreferenceOrder());
+							}
+							else {
+								nb.set(i, nb.get(i)+1);
+								total+=1;
+							}
 						}
 						if (max < nb.get(i))
 							max = nb.get(i);
@@ -121,40 +129,96 @@ public class ConsultationResultsTag extends TagSupport {
 			i++;
 		}
 		if (consultation.getType() == Consultation.TypeConsultation.YES_NO_OTHER){
-			votes=consultation.getConsultationVotes().iterator();
-			if (histogram != null && "yes".equals(histogram)){
-				int iChoice;
-				while (votes.hasNext()){
-					vote = votes.next();
-					if (!"".equals(vote.getOther())){
-						if (this.choices.contains(vote.getOther())){
-							iChoice=this.choices.indexOf(vote.getOther());
-							nb.set(iChoice, nb.get(iChoice)+1);
-						}
-						else {
-							iChoice=nb.size();
-							nb.add(1.0);
-							this.choices.add(vote.getOther());
-						}
-						total++;
+			initOther();
+		}
+		if (consultation.getType() == TypeConsultation.PREFERENCE_ORDER){
+			initPreferenceOrder();
+		}
+	}
+	
+	public void initOther(){
+		Iterator<ConsultationVote> votes=consultation.getConsultationVotes().iterator();
+		ConsultationVote vote;
+		int i = nb.size();
+		if (histogram != null && "yes".equals(histogram)){
+			int iChoice;
+			while (votes.hasNext()){
+				vote = votes.next();
+				if (!"".equals(vote.getOther())){
+					if (this.choices.contains(vote.getOther())){
+						iChoice=this.choices.indexOf(vote.getOther());
+						nb.set(iChoice, nb.get(iChoice)+1);
 					}
+					else {
+						iChoice=nb.size();
+						nb.add(1.0);
+						this.choices.add(vote.getOther());
+					}
+					total++;
 				}
 			}
-			else {
-				nb.add(0.0);
-				this.choices.add(ResourceBundle.getBundle("FSneti18n", pageContext.getRequest().getLocale()).getString("consultation.other"));
-				while (votes.hasNext()){
-					vote = votes.next();
-					if (!"".equals(vote.getOther())){
-						nb.set(i, nb.get(i)+1);
-						if (max < nb.get(i))
-							max = nb.get(i);
-						total++;
-					}
+		}
+		else {
+			nb.add(0.0);
+			this.choices.add(ResourceBundle.getBundle("FSneti18n", pageContext.getRequest().getLocale()).getString("consultation.other"));
+			while (votes.hasNext()){
+				vote = votes.next();
+				if (!"".equals(vote.getOther())){
+					nb.set(i, nb.get(i)+1);
+					if (max < nb.get(i))
+						max = nb.get(i);
+					total++;
 				}
 			}
 		}
 	}
+	
+	public void initPreferenceOrder(){
+		SortedSet <Double>marks = new TreeSet<Double>();
+		marks.addAll(nb);
+		
+		for (int i=0,j=0 ; i<nb.size() ; j=0,i++){
+			for (Double mark : marks){
+				j++;
+				if (mark.equals(nb.get(i)))
+					nb.set(i, Double.valueOf(j));
+			}
+		}
+	}
+	
+//	public void initPreferenceOrder(){
+//		int i;
+//		SortedSet<Integer> marks = new TreeSet<Integer>();
+//		for (Double mark : nb){
+//			marks.add(mark.intValue());
+//		}
+//		
+//		for (int j=0 ; j<nb.size() ; j++){
+//			i=0;
+//			for (Integer mark : marks){
+//				System.out.println("nb: "+nb.get(i)+"  mark: "+mark);
+//				if (mark.equals(nb.get(j).intValue())){
+//					nb.set(j, Double.valueOf(j+1));
+//				}
+//			}
+//		}
+////		for (Double number : nb){
+////			i=0;
+////			for (Integer mark : marks){
+////				System.out.println("mark:"+mark+"  number:"+number);
+////				if (mark.equals(number.intValue())){
+////					number = Double.valueOf(i+1);
+////					System.out.println("plop: "+number);
+////				}
+////				i++;
+////			}
+////		}
+////		
+//		for (Double number : nb){
+//			System.out.println("hey:"+number);
+//		}
+//		
+//	}
 	
 	public Consultation getConsultation() {
 		return consultation;
