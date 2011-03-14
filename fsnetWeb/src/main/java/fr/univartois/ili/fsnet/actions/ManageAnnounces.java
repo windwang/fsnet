@@ -310,11 +310,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			EntityManager em) {
 		HttpSession session = request.getSession();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(em);
 		InteractionFacade inf = new InteractionFacade(em);
 		List<Interaction> list = inf .getUnreadInteractionsForSocialEntity(user);
-		
-		list=filterGroup .filterInteraction(user, list);
 		int numNonReedAnnounces =Interaction.filter(list, Announcement.class).size();
 		session.setAttribute("numNonReedAnnounces",
 				numNonReedAnnounces);

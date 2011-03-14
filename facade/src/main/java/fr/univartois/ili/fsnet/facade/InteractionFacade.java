@@ -11,6 +11,7 @@ import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
+import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
  *
@@ -19,9 +20,12 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 public class InteractionFacade {
 
 	private final EntityManager em;
+	
+	private FilterInteractionByUserGroup filterGroup;
 
 	public InteractionFacade(EntityManager em) {
 		this.em = em;
+		filterGroup=new FilterInteractionByUserGroup(em);
 
 	}
 
@@ -196,6 +200,8 @@ public class InteractionFacade {
 				+ "se.id = :userId AND i NOT MEMBER OF se.interactionsRead " + " ORDER BY i.creationDate DESC",
 				Interaction.class).setParameter("userId",
 						se.getId()).getResultList();
+		list= filterGroup.filterInteraction(se, list);
+		
 		return list;
 	}
 	

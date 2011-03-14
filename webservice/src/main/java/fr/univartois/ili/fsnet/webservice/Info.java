@@ -13,6 +13,7 @@ import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
@@ -56,12 +57,10 @@ public class Info {
     	
     	SocialEntityFacade sef = new SocialEntityFacade(em);
         InteractionFacade inf = new InteractionFacade(em);
-        FilterInteractionByUserGroup filterGroup= new FilterInteractionByUserGroup(em);
         if (sef.isMember(login, password)) {
        		SocialEntity user = sef.getSocialEntityByEmail(login);
        		if(user!=null){
        			List<Interaction> list = inf.getUnreadInteractionsForSocialEntity(user);
-       			list=filterGroup.filterInteraction(user, list);
        			return Interaction.filter(list, Meeting.class).size();
        		}
         }
@@ -82,13 +81,35 @@ public class Info {
     	
     	 SocialEntityFacade sef = new SocialEntityFacade(em);
     	 InteractionFacade inf = new InteractionFacade(em);
-    	 FilterInteractionByUserGroup filterGroup= new FilterInteractionByUserGroup(em);
          if (sef.isMember(login, password)) {
         		SocialEntity user = sef.getSocialEntityByEmail(login);
         		if(user!=null){
         			List<Interaction> list = inf.getUnreadInteractionsForSocialEntity(user);
-        			list=filterGroup.filterInteraction(user, list);
         			return Interaction.filter(list, Announcement.class).size();
+        		}
+         }
+         return 0;
+    }
+    
+    /**
+     * Return the number of unread consultations since the last user's connection
+     *
+     * @param login
+     * @param password
+     * @return
+     */
+    @WebMethod(operationName = "getNewConsultationCount")
+    public Integer getNewConsultationCount(
+            @WebParam(name = "login") final String login,
+            @WebParam(name = "password") final String password) {
+    	
+    	 SocialEntityFacade sef = new SocialEntityFacade(em);
+    	 InteractionFacade inf = new InteractionFacade(em);
+         if (sef.isMember(login, password)) {
+        		SocialEntity user = sef.getSocialEntityByEmail(login);
+        		if(user!=null){
+        			List<Interaction> list = inf.getUnreadInteractionsForSocialEntity(user);
+        			return Interaction.filter(list, Consultation.class).size();
         		}
          }
          return 0;
