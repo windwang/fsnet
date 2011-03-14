@@ -131,9 +131,9 @@ public class FsnetMobile extends Activity {
      * Called when user clicks on announcements in the home page
      */
     public void seeAnnouncements(View view){
+    	try{
     	infosBDD.open();
-        
-        if(infosBDD!=null && infosBDD.getLastElement()!=0)
+        if(infosBDD.getLastElement()!=0)
     	{
         	if(!checkUserHasAConnection()) return;
 			AnnouncementsResourcesProvider provider = 
@@ -178,13 +178,18 @@ public class FsnetMobile extends Activity {
     	}
     	else new SimplePopUp(this,"Error","Configure your settings first");
     	infosBDD.close();
+    	}catch(Exception e)
+    	{
+    		new SimplePopUp(this,"Error","Configure your settings first");
+    	}
     }
     /**
      * Called when user clicks on meetings in the home page
      */
     public void seeMeetings(View view){
+    	try{
     	infosBDD.open();
-        if(infosBDD!=null && infosBDD.getLastElement()!=0)
+        if(infosBDD.getLastElement()!=0)
     	{
         	if(!checkUserHasAConnection()) return;
 			MeetingsResourcesProvider provider = 
@@ -228,14 +233,19 @@ public class FsnetMobile extends Activity {
     	}
     	else new SimplePopUp(this,"Error","Configure your settings first");
     	infosBDD.close();
+    	}catch(Exception e)
+    	{
+    		new SimplePopUp(this,"Error","Configure your settings first");
+    	}
     }
     /**
      * Called when user clicks on messages in the home page
      */
     public void seeMessages(View view)
     {
+    	try{
     	infosBDD.open();
-        if(infosBDD!=null && infosBDD.getLastElement()!=0)
+        if(infosBDD.getLastElement()!=0)
     	{
         	if(!checkUserHasAConnection()) return;
 			MessagesResourcesProvider provider = 
@@ -279,6 +289,10 @@ public class FsnetMobile extends Activity {
     	}
     	else new SimplePopUp(this,"Error","Configure your settings first");
     	infosBDD.close();
+    	}catch(Exception e)
+    	{
+    		new SimplePopUp(this,"Error","Configure your settings first");
+    	}
     }
     
     /**
@@ -325,26 +339,41 @@ public class FsnetMobile extends Activity {
             else{
             	infosBDD.updateInfo(1, info);
             }
-            new SimpleToast(FsnetMobile.this, "Configuration saved");
+	    	if(notificationOk)
+	    		new SimpleToast(FsnetMobile.this, "Configuration changed, Notification is stopped");
+	    	else new SimpleToast(FsnetMobile.this, "Configuration changed");
+	        notificationStop=true;
+	        notificationOk=false;
             infosBDD.close();
         }
-        else new SimplePopUp(FsnetMobile.this, "Error", "Url problem\nA good one is like\nhttp://.../fsnetWeb/");
+        else new SimplePopUp(FsnetMobile.this, "Url problem", "\nA good one is like\nhttp://.../fsnetWeb/");
     }
     
     /**
      * Called when user wants to delete his settings
      */
     public void deleteSettings(View view) {
-        
-        infosBDD.open();
-        if(infosBDD.getLastElement()==0)
-        	infosBDD.insertInfo(new InfoSettings());
-        else{
-        	infosBDD.updateInfo(1, new InfoSettings());
+        try{
+	        infosBDD.open();
+	        if(infosBDD.getLastElement()==0)
+	        	infosBDD.insertInfo(new InfoSettings("","",10,WEB_SERVICE_ADRESS));
+	        else{
+	        	infosBDD.updateInfo(1, new InfoSettings("","",10,WEB_SERVICE_ADRESS));
+	        }
+	        setContentView(R.layout.settings);
+	    	updateEditText(R.id.fsnetAdress,WEB_SERVICE_ADRESS);
+	    	if(notificationOk)
+	    		new SimpleToast(FsnetMobile.this, "Configuration deleted, Notification is stopped");
+	    	else new SimpleToast(FsnetMobile.this, "Configuration deleted");
+	        notificationStop=true;
+	        notificationOk=false;
+	        infosBDD.close();
         }
-        setContentView(R.layout.settings);
-        new SimpleToast(FsnetMobile.this, "Configuration deleted");
-        infosBDD.close();
+        catch(Exception e)
+        {
+        	
+        }
+        
     }
     
     /**
@@ -384,8 +413,9 @@ public class FsnetMobile extends Activity {
 	    		while(true){
 	    			try {
 		    			if((nbMessages=getNbMessages())>0){
+		    				if(notificationStop) break;
 		    				notificationOk = true;
-		    				int delay=0;
+		    				int delay=10;
 		    				if(infosBDD!=null){
 		    					infosBDD.open();
 		    					delay=infosBDD.getInfoSettings(1).getMinutes();

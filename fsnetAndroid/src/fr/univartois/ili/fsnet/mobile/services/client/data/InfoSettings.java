@@ -10,6 +10,18 @@ public class InfoSettings {
 	private String password;
 	private int minutes;
 	private String serverUrl;
+	
+	public InfoSettings()
+	{
+		
+	}
+	public InfoSettings(String login,String password,int minutes,String serverUrl)
+	{
+		this.login=login;
+		this.password=password;
+		this.minutes=minutes;
+		this.serverUrl=serverUrl;
+	}
 	public void setLogin(String login) {
 		this.login = login;
 	}
