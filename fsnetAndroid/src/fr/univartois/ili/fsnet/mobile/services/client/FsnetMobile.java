@@ -112,15 +112,17 @@ public class FsnetMobile extends Activity {
      */
     public int getNbMessages()
     {
-    	infosBDD.open();
-    	if(infosBDD!=null && infosBDD.getLastElement()!=0)
-    	{
+    	try{
+	    	infosBDD.open();
 			MessagesResourcesProvider provider = 
 				new MessagesResourcesProvider(infosBDD.getInfoSettings(1));
 			RestMessagesList messagesList = provider.unreadPrivateMessages();
 			infosBDD.close();
 			if(messagesList!=null)
 				return messagesList.size();
+    	}catch(Exception e)
+    	{
+    		return 0;
     	}
 		return 0;
     }
@@ -370,7 +372,7 @@ public class FsnetMobile extends Activity {
      */
     public void startNotification(View view) {
     	
-    	if(infosBDD!=null)
+    	try
     	{
     		if(!checkUserHasAConnection()) return;
     		new SimpleToast(this, "Start notification");	
@@ -408,7 +410,7 @@ public class FsnetMobile extends Activity {
 	    	thread_for_notification_messages = new Thread(r);
 	    	thread_for_notification_messages.start();
     	}
-    	else new SimplePopUp(this,"Error","Configure your settings first");
+    	catch (Exception e) { new SimplePopUp(this,"Error","Configure your settings first"); }
     }
     /**
      * Called when user stops notification
