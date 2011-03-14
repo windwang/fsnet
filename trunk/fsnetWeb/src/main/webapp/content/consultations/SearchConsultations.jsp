@@ -17,7 +17,7 @@
     <c:when test="${! empty requestScope.consultationsSearchListPaginator.resultList}">
         <table  class="inLineTable">
             <c:forEach var="consultation" items="${requestScope.consultationsSearchListPaginator.resultList}">
-               	<tr>
+               	<ili:interactionRow unreadInteractionsId="${requestScope.unreadInteractionsId}" currentInteractionId="${consultation.id}">
 					<td>
 						<c:import url="/FavoriteFragment.do">
 		                     <c:param name="interactionId" value="${consultation.id}"/>
@@ -42,7 +42,7 @@
 							</html:form>
 						</c:if>
 					 </td>
-				</tr>
+				</ili:interactionRow>
             </c:forEach>
         </table>
         						

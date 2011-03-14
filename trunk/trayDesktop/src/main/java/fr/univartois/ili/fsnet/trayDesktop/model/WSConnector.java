@@ -298,6 +298,9 @@ public class WSConnector {
 						if (getNbEvent() > 0) {
 							frame.addPanelEvent(getNbEvent());
 						}
+						if (getNbConsultation() > 0) {
+							frame.addPanelConsultation(getNbConsultation());
+						}
 					} else {
 						frame.getFrame().dispose();
 						frame = null;
@@ -348,6 +351,16 @@ public class WSConnector {
 	public int getNbEvent() {
 		try {
 			return infoPort.getNewEventsCount(Options.getLogin(),
+					Options.getPassword());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+
+	private int getNbConsultation() {
+		try {
+			return infoPort.getNewConsultationCount(Options.getLogin(),
 					Options.getPassword());
 		} catch (Exception e) {
 			e.printStackTrace();

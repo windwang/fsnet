@@ -10,6 +10,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -24,10 +25,14 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
+import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
 import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.ConsultationFacade;
+import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 public class ManageConsultations extends MappingDispatchAction {
 	
@@ -270,6 +275,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		List<Consultation> listConsultations = consultationFacade.getUserConsultations(member);
 		Paginator<Consultation> paginator = new Paginator<Consultation>(listConsultations, request, "listConsultations");
 		request.setAttribute("consultationsListPaginator", paginator);
+		InteractionFacade interactionFacade = new InteractionFacade(em);
+		List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
+		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
 		return redirect;
 	}
@@ -287,8 +295,17 @@ public class ManageConsultations extends MappingDispatchAction {
 		List<Consultation> searchConsultations = consultationFacade.getConsultationsContaining(searchText);
 		Paginator<Consultation> paginator = new Paginator<Consultation>(searchConsultations, request, "searchConsultation");
 		request.setAttribute("consultationsSearchListPaginator", paginator);
-		return mapping.findForward("success");
 		
+		em.getTransaction().begin();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		InteractionFacade interactionFacade = new InteractionFacade(em);
+		List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
+		refreshNumNewConsultations(request, em);
+		em.getTransaction().commit();
+		em.close();
+		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
+		
+		return mapping.findForward("success");
 	}
 	
 	
@@ -304,6 +321,10 @@ public class ManageConsultations extends MappingDispatchAction {
 			request.setAttribute("member", member);
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
+			em.getTransaction().begin();
+			member.addInteractionRead(consultation);
+			refreshNumNewConsultations(request, em);
+			em.getTransaction().commit();
 			em.close();
 			request.setAttribute("consultation", consultation);
 			if (isAllowedToVote(consultation, member))
@@ -379,6 +400,24 @@ public class ManageConsultations extends MappingDispatchAction {
 	
 	public boolean isAllowedToVote(Consultation consultation, SocialEntity member) {
 		return consultation.isOpened() && !consultation.isVoted(member) && !consultation.isMaximumVoterReached() && !consultation.isDeadlineReached();
+	}
+	
+	/**
+	 * Store the number of non reed Consultations
+	 * 
+	 * @param request
+	 * @param em
+	 */
+	public static final void refreshNumNewConsultations(HttpServletRequest request,
+			EntityManager em) {
+		HttpSession session = request.getSession();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		InteractionFacade inf = new InteractionFacade(em);
+		List<Interaction> list = inf.getUnreadInteractionsForSocialEntity(user);
+
+		int numNonReedConsultations =Interaction.filter(list, Consultation.class).size();
+		session.setAttribute("numNonReedConsultations",
+				numNonReedConsultations);
 	}
 	
 }

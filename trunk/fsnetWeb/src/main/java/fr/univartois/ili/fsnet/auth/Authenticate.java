@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import fr.univartois.ili.fsnet.actions.ManageAnnounces;
+import fr.univartois.ili.fsnet.actions.ManageConsultations;
 import fr.univartois.ili.fsnet.actions.ManageContacts;
 import fr.univartois.ili.fsnet.actions.ManageEvents;
 import fr.univartois.ili.fsnet.actions.ManagePrivateMessages;
@@ -112,6 +113,7 @@ public class Authenticate extends HttpServlet {
 				ManageContacts.refreshNumNewContacts(req, em);
 				ManageAnnounces.refreshNumNewAnnonces(req, em);
 				ManageEvents.refreshNumNewEvents(req, em);
+				ManageConsultations.refreshNumNewConsultations(req, em);
 			} else {
 				req.setAttribute("loginMessage", "login.error");
 			}
