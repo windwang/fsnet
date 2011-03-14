@@ -16,5 +16,15 @@
             <bean:message key="groups.createGroup"/>
         </html:link>
     </li>
+    <li>
+        <html:link action="/MemberList">
+            <bean:message key="members.listMembers"/>
+        </html:link>
+    </li>
+    <li>
+        <html:link action="/Members.do">
+            <bean:message key="members.create"/>
+        </html:link>
+    </li>
    
 </ul>

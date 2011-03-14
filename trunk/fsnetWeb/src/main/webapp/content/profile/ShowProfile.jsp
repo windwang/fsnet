@@ -199,19 +199,8 @@
 <h3><bean:message key="showProfile.groups.tree" /></h3>
 <ul>
 		<li>${requestScope.treeGroupProfile}</li>
-	</ul>
+</ul>
 
-<!--<c:if test="${requestScope.isMasterGroup }">
-	<h3><bean:message key="showProfile.groups" /></h3>
-	<ul>
-		<li><html:link action="/SearchGroup">
-			<bean:message key="showProfile.edit.group" />
-			<html:param name="id" value="${requestScope.groupId}" />
-      </html:link></li>
-		<li>
-			<html:link action="">
-				<bean:message key="showProfile.edit.group.right" />
-			</html:link>
-		</li>
-	</ul>
-</c:if>-->
+
+
+

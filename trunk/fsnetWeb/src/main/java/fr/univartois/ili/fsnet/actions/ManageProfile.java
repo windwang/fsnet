@@ -41,7 +41,6 @@ import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
-import fr.univartois.ili.fsnet.facade.test.SocialGroupFacadeTest;
 
 /**
  * 
@@ -240,9 +239,14 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		
 		request.setAttribute("interactionPaginator", interactionPaginator);
 		em.getTransaction().commit();
-		em.close();
+		
 		request.setAttribute("currentUser", user);
 		request.setAttribute("treeGroupProfile", sgf.TreeParentName(profile));
+		if(profile.equals(user) && sgf.isMasterGroup(profile))
+			request.setAttribute("isMasterGroup", true);
+		else 
+			request.setAttribute("isMasterGroup", false);
+		em.close();
 		return mapping.findForward("success");
 	}
 
