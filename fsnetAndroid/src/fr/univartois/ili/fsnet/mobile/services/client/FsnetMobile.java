@@ -92,6 +92,7 @@ public class FsnetMobile extends Activity {
 	    infos.setServerUrl(getTextByEditText(R.id.fsnetAdress));
 	    infos.setLogin(getTextByEditText(R.id.login));
 	    infos.setPassword(getTextByEditText(R.id.password));
+	    try{
 	    TestConnectionResourcesProvider provider = 
 			new TestConnectionResourcesProvider(infos);
 		boolean isUser = provider.isUser();
@@ -100,6 +101,10 @@ public class FsnetMobile extends Activity {
 		else if(isUser)
 			new SimplePopUp(this,"Test","Your configuration works ! (don't forget to save your settings)");
 		else new SimplePopUp(this,"Test","Configuration doesn't work");
+	    }
+	    catch (Exception e){
+	    	new SimplePopUp(this,"Error","Configure your settings first");
+	    }
     }
     
     /**
