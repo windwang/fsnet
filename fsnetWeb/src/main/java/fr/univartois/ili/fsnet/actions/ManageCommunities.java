@@ -16,6 +16,7 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -47,9 +48,17 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		String name = (String) dynaForm.get("name");
 
 		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
+		
+		addRightToRequest(request);
+		if(!creator.getGroup().isAuthorized(Right.CREATE_COMMUNITY))
+		{
+			em.close();
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
+				
 		CommunityFacade communityFacade = new CommunityFacade(em);
 		boolean doesNotExists = false;
-		addRightToRequest(request);
 		try{
 			communityFacade.getCommunityByName(name);
 
@@ -66,7 +75,6 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 				interests.add(fac.getInterest(Integer.valueOf(InterestsIds[currentId])));
 			}
 			
-			SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 			em.getTransaction().begin();
 			Community createdCommunity = communityFacade.createCommunity(creator, name);
 			InteractionFacade ifacade = new InteractionFacade(em);
