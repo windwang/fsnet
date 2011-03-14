@@ -161,6 +161,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		SocialGroupFacade sgf = new SocialGroupFacade(em);
 		addRightToRequest(request);
 		request.setAttribute("currentUser", user);
 		dyna.set("name", user.getName());
@@ -176,6 +177,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		dyna.set("job", user.getProfession());
 		dyna.set("mail", user.getEmail());
 		dyna.set("phone", user.getPhone());
+		if(sgf.isMasterGroup(user))
+			request.setAttribute("isMasterGroup", true);
+		else 
+			request.setAttribute("isMasterGroup", false);
 		em.close();
 		return mapping.findForward("success");
 	}
@@ -242,7 +247,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		
 		request.setAttribute("currentUser", user);
 		request.setAttribute("treeGroupProfile", sgf.TreeParentName(profile));
-		if(profile.equals(user) && sgf.isMasterGroup(profile))
+		if(sgf.isMasterGroup(user))
 			request.setAttribute("isMasterGroup", true);
 		else 
 			request.setAttribute("isMasterGroup", false);
