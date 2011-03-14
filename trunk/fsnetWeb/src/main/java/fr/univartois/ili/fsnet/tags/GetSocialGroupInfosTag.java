@@ -16,7 +16,7 @@ public class GetSocialGroupInfosTag extends SimpleTagSupport {
 	public void doTag() throws JspException, IOException {
 		JspWriter out = getJspContext().getOut();
 
-		out.print("<a href=\"DisplayGroup.do?idGroup");
+		out.print("<a href=\"DisplayGroup.do?idGroup=");
 		out.print(socialGroup.getId());
 		out.print("\">");
 		out.print(socialGroup.getName());
