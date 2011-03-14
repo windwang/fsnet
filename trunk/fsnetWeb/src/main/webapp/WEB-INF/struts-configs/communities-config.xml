@@ -38,6 +38,7 @@
 			name="CreateCommunityForm" input="Communities" scope="request" validate="true" 
 			parameter="create">
 			<forward name="success" path="/Communities.do" />
+			<forward name="unauthorized" path="/Communities.do" />
 		</action>
 		<action path="/SearchCommunity"
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities"
