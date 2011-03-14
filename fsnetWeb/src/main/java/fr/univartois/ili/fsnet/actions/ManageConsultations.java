@@ -169,7 +169,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			boolean voteOk=true;
 			switch (consultation.getType()){
 			case PREFERENCE_ORDER:
-				voteOk=votePreferenceOrder(consultation, vote, voteChoices);
+				voteOk=votePreferenceOrder(request, consultation, vote, voteChoices);
 				break;
 			case YES_NO_IFNECESSARY:
 				voteOk=voteIfNecessary(consultation, vote, voteChoices);
@@ -217,8 +217,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	}
 
 
-	private boolean votePreferenceOrder(Consultation consultation, ConsultationVote vote, List<String> choices) {
-		//List<ConsultationChoiceVote> votes = new ArrayList<ConsultationChoiceVote>();
+	private boolean votePreferenceOrder(HttpServletRequest request, Consultation consultation, ConsultationVote vote, List<String> choices) {
 		List<Integer> marks = new ArrayList<Integer>();
 		for (String choice : choices){
 			for (ConsultationChoice consChoice : consultation.getChoices()){
@@ -227,8 +226,10 @@ public class ManageConsultations extends MappingDispatchAction {
 					ConsultationChoiceVote choiceVote = new ConsultationChoiceVote(vote, consChoice);
 					choiceVote.setPreferenceOrder(Integer.valueOf(choiceValues[1]));
 					vote.getChoices().add(choiceVote);
-					if (marks.contains(Integer.valueOf(choiceValues[1])))
+					if (marks.contains(Integer.valueOf(choiceValues[1]))){
+						request.setAttribute("errorPreferenceOrderDistinct", true);
 						return false;
+					}
 					marks.add(Integer.valueOf(choiceValues[1]));
 				}
 			}

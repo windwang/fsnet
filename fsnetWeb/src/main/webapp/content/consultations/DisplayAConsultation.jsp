@@ -56,7 +56,8 @@
 	</c:if>
 </ul>
 <br />
-<c:if test="${errorChoicesPerParticipant}"><bean:message key="consultation.errorChoicesPerParticipant"/></c:if>
+<c:if test="${errorChoicesPerParticipant}"><p><bean:message key="consultation.errorChoicesPerParticipant"/></p></c:if>
+<c:if test="${errorPreferenceOrderDistinct}"><p><bean:message key="consultation.errorPreferenceOrderDistinct"/></p></c:if>
 <table>
 	<tr>
 		<td></td>
