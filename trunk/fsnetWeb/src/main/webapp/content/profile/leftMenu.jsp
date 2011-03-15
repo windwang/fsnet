@@ -20,7 +20,7 @@
     </li>
 </ul>
 
-<c:if test="${requestScope.isMasterGroup }">
+<c:if test="${sessionScope.isMasterGroup }">
 <h2>
     <bean:message key="profile.LeftMenuManage"/>
 </h2>
@@ -37,4 +37,5 @@
 		</li>
 	</ul>
 </c:if>
+<h1>dcfzrfer</h1>
 

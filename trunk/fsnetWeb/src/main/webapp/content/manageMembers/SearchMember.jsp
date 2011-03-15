@@ -8,7 +8,7 @@
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3><bean:message key="members.search" /></h3>
-<html:form action="SearchMember">
+<html:form action="SearchMemberAdmin">
 	<div id="SearchMember"><html:text property="searchText" /> <html:submit
 		styleClass="button">
 		<bean:message key="members.searchButton" />
