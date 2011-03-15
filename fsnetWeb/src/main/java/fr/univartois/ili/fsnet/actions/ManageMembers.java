@@ -19,6 +19,7 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 
 public class ManageMembers extends MappingDispatchAction {
@@ -56,13 +57,19 @@ public class ManageMembers extends MappingDispatchAction {
 		resultAsked = results.get(SearchResult.Asked);
 		resultOthers = results.get(SearchResult.Others);
 		em.getTransaction().commit();
+		SocialGroupFacade sgf = new SocialGroupFacade(em);
+		if(sgf.isMasterGroup(member))
+			request.getSession(true).setAttribute("isMasterGroup", true);
+		else 
+			request.getSession(true).setAttribute("isMasterGroup", false);
 		em.close();
+	
 
 		request.setAttribute("membersResult", resultOthers);
 		request.setAttribute("membersContactsResult", resultContacts);
 		request.setAttribute("membersRequestedResult", resultRequested);
 		request.setAttribute("membersAskedResult", resultAsked);
-
+		
 		return mapping.findForward("success");
 	}
 }

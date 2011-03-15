@@ -178,9 +178,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		dyna.set("mail", user.getEmail());
 		dyna.set("phone", user.getPhone());
 		if(sgf.isMasterGroup(user))
-			request.setAttribute("isMasterGroup", true);
+			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 
-			request.setAttribute("isMasterGroup", false);
+			request.getSession(true).setAttribute("isMasterGroup", false);
 		em.close();
 		return mapping.findForward("success");
 	}
@@ -248,9 +248,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("currentUser", user);
 		request.setAttribute("treeGroupProfile", sgf.TreeParentName(profile));
 		if(sgf.isMasterGroup(user))
-			request.setAttribute("isMasterGroup", true);
+			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 
-			request.setAttribute("isMasterGroup", false);
+			request.getSession(true).setAttribute("isMasterGroup", false);
 		em.close();
 		return mapping.findForward("success");
 	}
