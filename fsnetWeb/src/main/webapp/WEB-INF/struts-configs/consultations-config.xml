@@ -11,9 +11,9 @@
             <form-property name="consultationChoice" type="java.lang.String[]"  />
             <form-property name="consultationType" type="java.lang.String" initial="YES_NO" />
             <form-property name="consultationIfNecessaryWeight" type="java.lang.String" />
-<!--            <form-property name="nbVotersPerChoiceBox" type="java.lang.String" />-->
-<!--            <form-property name="nbVotersPerChoice" type="java.lang.String" />-->
-<!--            <form-property name="maxVoters" type="java.lang.String[]" />-->
+            <form-property name="nbVotersPerChoiceBox" type="java.lang.String" />
+            <form-property name="nbVotersPerChoice" type="java.lang.String" />
+            <form-property name="maxVoters" type="java.lang.String[]" />
             <form-property name="limitChoicesPerVoter" type="java.lang.String" />
             <form-property name="minChoicesVoter" type="java.lang.String" />
             <form-property name="maxChoicesVoter" type="java.lang.String" />
@@ -46,6 +46,8 @@
 	            	parameter="create">
 	            <forward name="error" path="CreateConsultation" />
 	            <forward name="success" path="DisplayAConsultation" />
+	            <forward name="unauthorized" path="/SearchConsultation.do" />
+	            
 	        </action>
 	        
 	        <action path="/CreateConsultationMenu"
@@ -65,6 +67,7 @@
 				type="fr.univartois.ili.fsnet.actions.ManageConsultations"
 				parameter="displayAConsultation">
 				<forward name="success" path="DisplayAConsultation" />
+				<forward name="unauthorized" path="/SearchConsultation.do" />
 			</action>
 			<action path="/CloseConsultation" 
 				type="fr.univartois.ili.fsnet.actions.ManageConsultations"
@@ -84,6 +87,7 @@
 	            validate="true"
 	            parameter="vote">
 	            <forward name="success" path="DisplayAConsultation" />
+	            <forward name="unauthorized" path="/SearchConsultation.do" />
 			</action>
 			<action path="/DeleteVoteConsultation"
 				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 

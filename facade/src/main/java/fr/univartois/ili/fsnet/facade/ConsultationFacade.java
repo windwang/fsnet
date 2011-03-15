@@ -76,68 +76,6 @@ public class ConsultationFacade {
 		}
 	}
 	
-	public final ConsultationVote voteForConsultation(SocialEntity voter, Consultation consultation, String comment,String other,List<String> choices){
-		ConsultationVote consultationVote = new ConsultationVote(voter,comment,other);
-		voter.getVotes().add(consultationVote);
-		if(consultation != null){
-			consultationVote.setConsultation(consultation);
-			consultation.getConsultationVotes().add(consultationVote);
-		}
-		switch (consultation.getType()){
-		case YES_NO_IFNECESSARY :
-			for (String choice : choices){
-				if (!choice.startsWith("no")){
-					boolean ifNecessary;
-					Integer id;
-					if (choice.startsWith("ifNecessary")){
-						id = Integer.valueOf(choice.replaceAll("ifNecessary", ""));
-						ifNecessary = true;
-					}
-					else {
-						id = Integer.valueOf(choice.replaceAll("yes", ""));
-						ifNecessary = false;
-					}
-					for(ConsultationChoice choiceCons : consultation.getChoices()){
-						if (choiceCons.getId() == id){
-							ConsultationChoiceVote vote = new ConsultationChoiceVote(consultationVote, choiceCons);
-							if (ifNecessary)
-								vote.setIfNecessary(true);
-							consultationVote.getChoices().add(vote);
-						}
-					}
-				}
-			}
-			break;
-		case PREFERENCE_ORDER :
-			List<ConsultationChoiceVote> votes = new ArrayList<ConsultationChoiceVote>();
-			List<Integer> marks = new ArrayList<Integer>();
-			for (String choice : choices){
-				for (ConsultationChoice consChoice : consultation.getChoices()){
-					String[] choiceValues = choice.split("_");
-					if (consChoice.getId() == Integer.valueOf(choiceValues[0])){
-						ConsultationChoiceVote vote = new ConsultationChoiceVote(consultationVote, consChoice);
-						vote.setPreferenceOrder(Integer.valueOf(choiceValues[1]));
-						votes.add(vote);
-						if (marks.contains(Integer.valueOf(choiceValues[1])))
-							return null;
-						marks.add(Integer.valueOf(choiceValues[1]));
-					}
-				}
-			}
-			for (ConsultationChoiceVote vote : votes){
-				consultationVote.getChoices().add(vote);
-			}
-			break;
-		default:
-			for(ConsultationChoice choice : consultation.getChoices()){
-				if(choices.contains(String.valueOf(choice.getId()))){
-					consultationVote.getChoices().add(new ConsultationChoiceVote(consultationVote,choice));
-				}
-			}
-		}
-		em.persist(consultationVote);
-		return consultationVote;
-	}
 
 	public void deleteConsultation(Consultation consultation,
 			SocialEntity member) {
@@ -172,6 +110,12 @@ public class ConsultationFacade {
 		TypedQuery<String> query = em.createQuery("SELECT DISTINCT vote.other FROM ConsultationVote vote WHERE vote.consultation.id = :idConsultation AND vote.other LIKE :pattern ORDER BY vote.other", String.class);
         query.setParameter("pattern", "%" + voteOther + "%");
         query.setParameter("idConsultation", idConsultation);
+        return query.getResultList();
+	}
+
+	public List<ConsultationChoiceVote> getChoicesVote(int id) {
+		TypedQuery<ConsultationChoiceVote> query = em.createQuery("SELECT DISTINCT voteChoice FROM ConsultationChoiceVote voteChoice WHERE voteChoice.choice.id = :idChoice ", ConsultationChoiceVote.class);
+        query.setParameter("idChoice", id);
         return query.getResultList();
 	}
 	

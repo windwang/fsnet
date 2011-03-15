@@ -3,6 +3,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <c:if test="${consultation eq null }"><p><bean:message key="consultation.unavailable" /></p></c:if>
@@ -128,11 +129,12 @@
 	<html:form action="/VoteConsultation" method="post" styleId="voteForm">
 		<tr class="consultationVote">
 			<td colspan="2"></td>
+			<c:set var="i" value="0" />
 			<c:forEach var="choice" items="${consultation.choices }">
 				<td class="consultationFormChoices">
 					<c:choose>
 						<c:when test="${consultation.type eq 'YES_NO_IFNECESSARY' }">
-							<html:select property="voteChoice">
+							<html:select property="voteChoice" disabled="${disabledList[i]}">
 								<html:option value="no${choice.id}"><bean:message key="consultation.choiceNo" /></html:option>
 								<html:option value="yes${choice.id}"><bean:message key="consultation.choiceYes" /></html:option>
 								<html:option value="ifNecessary${choice.id}"><bean:message key="consultation.choiceIfNecessary" /></html:option>
@@ -146,10 +148,13 @@
 							</html:select>
 						</c:when>
 						<c:otherwise>
-							<html:multibox property="voteChoice" value="${choice.id}" />
+							<html:multibox property="voteChoice" value="${choice.id}"  disabled="${disabledList[i]}"/>
+							
 						</c:otherwise>
+						
 					</c:choose>
 				</td>
+				<c:set var="i" value="${i + 1}" />
 			</c:forEach>
 			<c:if test="${consultation.type eq 'YES_NO_OTHER' }"><td><html:text property="voteOther" styleId="voteOther"  />
 			<div class="consultationAutoCompleteList" id="autoCompleteList"><jsp:include page="autocompleteOtherChoice.jsp" /></div></td></c:if>
