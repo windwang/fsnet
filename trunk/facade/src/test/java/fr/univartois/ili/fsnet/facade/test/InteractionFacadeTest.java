@@ -102,7 +102,7 @@ public class InteractionFacadeTest {
 		
 
 		em.getTransaction().begin();
-		assertEquals(nbInteraction+2, interactionFacade.getUnreadInteractionsForSocialEntity(userLoad).size());
+		assertEquals(nbInteraction+2, interactionFacade.getUnreadInteractionsForSocialEntityWithoutFilter(userLoad).size());
 		em.getTransaction().commit();
 		
 		em.getTransaction().begin();
@@ -112,7 +112,7 @@ public class InteractionFacadeTest {
 		em.getTransaction().commit();
 		
 		em.getTransaction().begin();
-		assertEquals(nbInteraction+1, interactionFacade.getUnreadInteractionsForSocialEntity(userLoad).size());
+		assertEquals(nbInteraction+1, interactionFacade.getUnreadInteractionsForSocialEntityWithoutFilter(userLoad).size());
 		em.getTransaction().commit();
 		
 	}

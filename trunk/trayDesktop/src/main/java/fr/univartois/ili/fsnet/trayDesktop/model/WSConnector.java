@@ -299,7 +299,7 @@ public class WSConnector {
 							frame.addPanelEvent(getNbEvent());
 						}
 						if (getNbConsultation() > 0) {
-							frame.addPanelConsultation(getNbConsultation());
+							// frame.addPanelConsultation(getNbConsultation());
 						}
 					} else {
 						frame.getFrame().dispose();
@@ -360,8 +360,8 @@ public class WSConnector {
 
 	private int getNbConsultation() {
 		try {
-			return infoPort.getNewConsultationCount(Options.getLogin(),
-					Options.getPassword());
+			// return infoPort.getNewConsultationCount(Options.getLogin(),
+			// Options.getPassword());
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
