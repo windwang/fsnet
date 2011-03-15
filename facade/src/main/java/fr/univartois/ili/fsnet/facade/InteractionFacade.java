@@ -188,7 +188,7 @@ public class InteractionFacade {
 		return em.find(Interaction.class, id);
 	}
 	
-	public final List<Interaction> getUnreadInteractionsForSocialEntity(SocialEntity se){
+	public final List<Interaction> getUnreadInteractionsForSocialEntityWithoutFilter(SocialEntity se){
 		if (se== null) {
 			throw new IllegalArgumentException();
 		}
@@ -200,9 +200,14 @@ public class InteractionFacade {
 				+ "se.id = :userId AND i NOT MEMBER OF se.interactionsRead " + " ORDER BY i.creationDate DESC",
 				Interaction.class).setParameter("userId",
 						se.getId()).getResultList();
-		list= filterGroup.filterInteraction(se, list);
+		
 		
 		return list;
+	}
+	
+	public final List<Interaction> getUnreadInteractionsForSocialEntity(SocialEntity se){
+		
+		return filterGroup.filterInteraction(se, getUnreadInteractionsForSocialEntityWithoutFilter(se));
 	}
 	
 	public final List<Integer> getUnreadInteractionsIdForSocialEntity(SocialEntity se){

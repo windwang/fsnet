@@ -50,7 +50,7 @@ public class Info {
      * @param password
      * @return
      */
-    @WebMethod(operationName = "getNewEventsCount")
+    @WebMethod
     public Integer getNewEventsCount(
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
@@ -74,7 +74,7 @@ public class Info {
      * @param password
      * @return
      */
-    @WebMethod(operationName = "getNewAnnouncementCount")
+    @WebMethod
     public Integer getNewAnnouncementCount(
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
@@ -98,7 +98,7 @@ public class Info {
      * @param password
      * @return
      */
-    @WebMethod(operationName = "getNewConsultationCount")
+    @WebMethod
     public Integer getNewConsultationCount(
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
@@ -123,7 +123,7 @@ public class Info {
      * @param password
      * @return
      */
-    @WebMethod(operationName = "getNewDemandeCount")
+    @WebMethod
     public Integer getNewDemandeCount(
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
@@ -144,7 +144,7 @@ public class Info {
      * @param password
      * @return
      */
-    @WebMethod(operationName = "getNewMessages")
+    @WebMethod
     public List<WsPrivateMessage> getNewMessages(
             @WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
@@ -171,6 +171,7 @@ public class Info {
      *            the password corresponding to the login
      * @return true if informations correspond to a member
      */
+    @WebMethod
     public boolean isMember(@WebParam(name = "login") final String login,
             @WebParam(name = "password") final String password) {
         SocialEntityFacade sef = new SocialEntityFacade(em);
