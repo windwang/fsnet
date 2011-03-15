@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -23,12 +24,12 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Consultation;
+import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
 import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
-import fr.univartois.ili.fsnet.entities.Interaction;
-import fr.univartois.ili.fsnet.entities.Meeting;
-import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
 import fr.univartois.ili.fsnet.entities.ConsultationVote;
+import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.ConsultationFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
@@ -45,14 +46,15 @@ public class ManageConsultations extends MappingDispatchAction {
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
 		DynaActionForm dynaForm = (DynaActionForm) form; 
 		String consultationTitle = (String) dynaForm.get("consultationTitle");
 		String consultationDescription = (String) dynaForm.get("consultationDescription");	
 		String[] consultationChoices  = dynaForm.getStrings("consultationChoice");
-//		String[] maxVoters = dynaForm.getStrings("maxVoters");
+		String[] maxVoters = dynaForm.getStrings("maxVoters");
 		String consultationType = dynaForm.getString("consultationType");
 		String consultationIfNecessaryWeight = dynaForm.getString("consultationIfNecessaryWeight");
-//		String nbVotersPerChoiceBox = dynaForm.getString("nbVotersPerChoiceBox");
+		String nbVotersPerChoiceBox = dynaForm.getString("nbVotersPerChoiceBox");
 		String limitChoicesPerVoter = dynaForm.getString("limitChoicesPerVoter");
 		String minChoicesVoter = dynaForm.getString("minChoicesVoter");
 		String maxChoicesVoter = dynaForm.getString("maxChoicesVoter");
@@ -60,7 +62,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
-		
+		addRightToRequest(request);
 		// TODO chercher le moyen de valider ce qui suit avec struts...
 		for (String cs : consultationChoices){
 			if ("".equals(cs)){
@@ -73,26 +75,30 @@ public class ManageConsultations extends MappingDispatchAction {
 			request.setAttribute("errorChoicesVoter", true);
 			return new ActionRedirect(mapping.findForwardConfig("error"));
 		}
-//		for(int i = 0;i<maxVoters.length;i++){
-//			if("".equals(maxVoters[i]))
-//				maxVoters[i] = "-1"; // Unlimited
-//			else if(!IntegerValidator.getInstance().isValid(maxVoters[i])){
-//				request.setAttribute("errorMaxVotersPerChoice", true);
-//				return new ActionRedirect(mapping.findForward("error"));
-//			}
-//		}
+		for(int i = 0;i<maxVoters.length;i++){
+			if("".equals(maxVoters[i]))
+				maxVoters[i] = "-1"; // Unlimited
+			else if(!IntegerValidator.getInstance().isValid(maxVoters[i]) || Integer.valueOf(maxVoters[i])<1){
+				request.setAttribute("errorMaxVotersPerChoice", true);
+				return new ActionRedirect(mapping.findForward("error"));
+			}
+		}
 		//END TODO
 		
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		if(!member.getGroup().isAuthorized(Right.ADD_CONSULTATION))
+			return new ActionRedirect(mapping.findForward("unauthorized"));
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		Consultation consultation = consultationFacade.createConsultation(member,consultationTitle,consultationDescription,consultationChoices,Consultation.TypeConsultation.valueOf(consultationType));
-//		for(int i = 0; i < maxVoters.length; i++)
-//			consultation.getChoices().get(i).setMaxVoters(Integer.valueOf(maxVoters[i]));
-//		if(!"".equals(nbVotersPerChoiceBox))
-//			consultation.setLimitParticipantPerChoice(true);
-//		
+		
+		if(!"".equals(nbVotersPerChoiceBox)){
+			consultation.setLimitParticipantPerChoice(true);
+			for(int i = 0; i < maxVoters.length; i++){
+				consultation.getChoices().get(i).setMaxVoters(Integer.valueOf(maxVoters[i]));
+			}
+		}
 		if(!"".equals(showBeforeAnswer))
 			consultation.setShowBeforeAnswer(false);
 		
@@ -146,10 +152,14 @@ public class ManageConsultations extends MappingDispatchAction {
 		String voteOther = (String) dynaForm.get("voteOther");
 		Integer idConsultation = (Integer) dynaForm.get("id");
 		List<String> voteChoices  = Arrays.asList(dynaForm.getStrings("voteChoice"));
+		addRightToRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		Consultation consultation = consultationFacade.getConsultation(idConsultation);
+		if(!consultation.getCreator().getGroup().equals(member.getGroup())){
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
 		if(consultation.isLimitChoicesPerParticipant()){
 			int answersNumber = 0;
 			if(TypeConsultation.YES_NO_IFNECESSARY.equals(consultation.getType())){
@@ -184,6 +194,19 @@ public class ManageConsultations extends MappingDispatchAction {
 					if(voteChoices.contains(String.valueOf(choice.getId()))){
 						vote.getChoices().add(new ConsultationChoiceVote(vote,choice));
 					}
+				}
+			}
+			if(consultation.getType()!= Consultation.TypeConsultation.PREFERENCE_ORDER && consultation.isLimitParticipantsPerChoice()){
+				for(ConsultationChoice choice : consultation.getChoices()){
+					int nbVotes = 0;
+					for (ConsultationVote cv : consultation.getConsultationVotes()){
+						for(ConsultationChoiceVote ccv : cv.getChoices())
+							if(ccv.getChoice().equals(choice))
+								nbVotes++;
+					}
+					if(nbVotes > choice.getMaxVoters()){
+						return displayAConsultation(mapping, dynaForm, request, response);
+					}					
 				}
 			}
 			if (voteOk){
@@ -269,6 +292,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	public ActionForward searchYourConsultations(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
+		addRightToRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -285,6 +309,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	public ActionForward searchConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
+		addRightToRequest(request);
 		String searchText = "";
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
@@ -293,6 +318,11 @@ public class ManageConsultations extends MappingDispatchAction {
 			searchText = (String) dynaForm.get("searchText");
 		}
 		List<Consultation> searchConsultations = consultationFacade.getConsultationsContaining(searchText);
+		if(searchConsultations !=null && !searchConsultations.isEmpty()) {
+			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(em);
+			SocialEntity se = UserUtils.getAuthenticatedUser(request);
+			searchConsultations = filter.filterInteraction(se, searchConsultations);
+		}
 		Paginator<Consultation> paginator = new Paginator<Consultation>(searchConsultations, request, "searchConsultation");
 		request.setAttribute("consultationsSearchListPaginator", paginator);
 		
@@ -311,6 +341,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	
 	public ActionForward displayAConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
+		addRightToRequest(request);
 		String idConsultation = request.getParameter("id");
 		if (idConsultation == null || "".equals(idConsultation)){
 			idConsultation = String.valueOf(request.getAttribute("id"));
@@ -321,18 +352,34 @@ public class ManageConsultations extends MappingDispatchAction {
 			request.setAttribute("member", member);
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
+			if(!consultation.getCreator().getGroup().equals(member.getGroup())){
+				return new ActionRedirect(mapping.findForward("unauthorized"));
+			}
 			em.getTransaction().begin();
 			member.addInteractionRead(consultation);
 			refreshNumNewConsultations(request, em);
 			em.getTransaction().commit();
-			em.close();
+			
 			request.setAttribute("consultation", consultation);
 			if (isAllowedToVote(consultation, member))
 				request.setAttribute("allowedToVote", true);
 			else
 				request.setAttribute("allowedToVote", false);
 			request.setAttribute("allowedToShowResults", isAllowedToShowResults(consultation, member));
+			if(consultation.isLimitParticipantsPerChoice()){
+				List<String> disabledList = new ArrayList<String>();
+				for(ConsultationChoice choice : consultation.getChoices()){
+					int nbVotes = consultationFacade.getChoicesVote(choice.getId()).size();
+					if(nbVotes >= choice.getMaxVoters())
+						disabledList.add("true");
+					else
+						disabledList.add("false");
+				}
+				request.setAttribute("disabledList", disabledList);
+			}
+			em.close();
 		}
+		
 		ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
 		return redirect;
 	}
@@ -373,6 +420,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	public ActionForward deleteConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 		throws IOException, ServletException {
+		addRightToRequest(request);
 		String idConsultation = request.getParameter("id");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -425,6 +473,13 @@ public class ManageConsultations extends MappingDispatchAction {
 		int numNonReedConsultations =Interaction.filter(list, Consultation.class).size();
 		session.setAttribute("numNonReedConsultations",
 				numNonReedConsultations);
+	}
+	
+	private void addRightToRequest(HttpServletRequest request){
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
+		Right rightAddConsultation = Right.ADD_CONSULTATION;
+		request.setAttribute("rightAddConsultation", rightAddConsultation);
+		request.setAttribute("socialEntity",socialEntity);
 	}
 	
 }

@@ -21,12 +21,12 @@
 	</tr>
 	</table>
 	
-<%-- html:checkbox  onclick="displayChoicesOption(true)" property="nbVotersPerChoiceBox" styleId="nbVotersPerChoiceBox" /> 
-							<label for="nbVotersPerChoice"><bean:message key="consultationLimitVotersNumberPerChoice" /></label> 
-							<html:text styleId="nbVotersPerChoice" onkeyup="updateMaxVoters()" property="nbVotersPerChoice" /> --%>
+ <html:checkbox  onclick="displayChoicesOption(true)" property="nbVotersPerChoiceBox" styleId="nbVotersPerChoiceBox" /> 
+							<label for="nbVotersPerChoiceBox"><bean:message key="consultationLimitVotersNumberPerChoice" /></label> 
+							<html:text styleId="nbVotersPerChoice" onkeyup="updateMaxVoters()" property="nbVotersPerChoice" />
 	
 	<c:if test="${errorChoice}"><p><bean:message key="consultation.errorChoice"/></p></c:if>
-<%--	<c:if test="${errorMaxVotersPerChoice}"><p><bean:message key="consultation.errorMaxVotersPerChoice"/></p></c:if> --%>
+	<c:if test="${errorMaxVotersPerChoice}"><p><bean:message key="consultation.errorMaxVotersPerChoice"/></p></c:if> 
 	
 	<table id="choicesTab">
 	<c:forEach begin="1" end="3" var="i">
