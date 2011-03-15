@@ -216,6 +216,13 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 				PrivateMessage privateMessage = pmf
 						.getPrivateMessage(messageId);
+				
+				
+				List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
+						pmf.getConversation(privateMessage.getFrom(), 
+								privateMessage.getSubject(),privateMessage.getTo() ));
+				Collections.reverse(userMessages);
+				
 				if (privateMessage != null
 						&& (authenticatedUser.equals(privateMessage.getFrom()) || authenticatedUser
 								.equals(privateMessage.getTo()))) {
@@ -225,6 +232,11 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 						refreshNumNewMessages(request, em);
 						em.getTransaction().commit();
 					}
+					
+					Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>
+					(userMessages, request, "conversationMessages");
+					
+					request.setAttribute("conversationMessages", paginator);
 					request.setAttribute("theMessage", privateMessage);
 					em.close();
 					return mapping.findForward("success");
