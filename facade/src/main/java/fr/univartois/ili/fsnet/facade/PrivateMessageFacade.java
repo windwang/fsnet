@@ -95,4 +95,34 @@ public class PrivateMessageFacade {
     public final PrivateMessage getPrivateMessage(int id) {
         return em.find(PrivateMessage.class, id);
     }
+    
+    /**
+     * 
+     * @param from the author of the message
+     * @param subject the subject of the message
+     * @param to the recipient of the message
+     */
+    public final List<PrivateMessage> getConversation(SocialEntity from, String subject, SocialEntity to){
+    	 if (from == null || subject == null|| to==null) {
+             throw new IllegalArgumentException();
+         }
+    	 while(subject.startsWith("RE: ")){
+        	 subject=subject.substring(4);
+         }
+         TypedQuery<PrivateMessage> query = em.createQuery(
+                 "SELECT message FROM PrivateMessage message WHERE  message.subject LIKE :pattern " +
+                 " AND (message.to = :to " +
+                 "AND message.from = :from )" +
+                 "OR (message.to = :from " +
+                 "AND message.from = :to )" +
+                 "AND message.subject LIKE :pattern ", PrivateMessage.class);
+         
+         
+         query.setParameter("pattern", "%"+subject);
+         query.setParameter("to", to);
+         query.setParameter("from", from);
+        
+         return query.getResultList();
+    }
+    
 }
