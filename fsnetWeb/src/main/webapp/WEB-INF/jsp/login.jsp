@@ -44,7 +44,7 @@
 								</label>
 							</td>
 							<td>
-								<input type="password" name="memberPass"/>
+								<input type="password" id="memberPass" name="memberPass"/>
 							</td>
 						</tr>
 						<tr>
@@ -54,7 +54,7 @@
 								</label>
 							</td>
 							<td>
-								<input type="checkbox" name="remember"/>
+								<input type="checkbox"  id="remember" name="remember"/>
 							</td>
 						</tr>
 						<tr>
