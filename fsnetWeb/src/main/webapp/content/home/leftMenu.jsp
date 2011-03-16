@@ -1,20 +1,25 @@
 <%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
 	<bean:message key="left.2"/>
 </h2>
 <ul>
-    <li>
-        <html:link action="/DisplayCreateAnnounce">
-			<bean:message key="left.3"/> 
-        </html:link>
-    </li>
-    <li>
-        <html:link action="/DisplayCreateEvent">
-			<bean:message key="left.4"/>
-        </html:link>
-    </li>
+    <ili:interactionFilter user="${ socialEntity }" right="${ rightAddAnnounce }">
+	    <li>
+	        <html:link action="/DisplayCreateAnnounce">
+				<bean:message key="left.3"/> 
+	        </html:link>
+	    </li>
+	</ili:interactionFilter>
+    <ili:interactionFilter user="${ socialEntity }" right="${ rightAddEvent }">
+        <li>
+	        <html:link action="/DisplayCreateEvent">
+				<bean:message key="left.4"/>
+	        </html:link>
+	    </li>
+	</ili:interactionFilter>
     <li>
         <html:link action="/DisplayCommunities">
             <bean:message key="communities.manageLeftMenu"/>
