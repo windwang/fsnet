@@ -25,7 +25,7 @@
 		
 	</c:when>
 	<c:otherwise>
-	<html:form action="/DeleteMultiMessages">
+	<html:form action="/DeleteMultiMessages2">
 	<table class="topicTable">
 	<c:forEach items="${requestScope.conversationMessages.resultList}" var="message">
 		<tr class="topicHeader" ="2">
@@ -35,7 +35,7 @@
             <td>
                 <bean:message key="privatemessages.from"/> :
                 |<ili:getSocialEntityInfos socialEntity="${message.from}"/>|
-                ${message.from.email}
+               
                 <span style="float: right">
                     <bean:write name="message" property="creationDate" format="dd/MM/yyyy HH:mm"/>
                 </span>
@@ -49,9 +49,9 @@
         </tr>
 	</c:forEach>	
 	</table>
-	<!--<html:submit styleClass="button">
+	<html:submit styleClass="button">
 				<bean:message key="privatemessages.delete" />
-	</html:submit>-->
+	</html:submit>
 		</html:form>
 		
 	<ili:interactionFilter user="${ socialEntity }" right="${ rightAnswerMessage }">
@@ -74,9 +74,11 @@
                     </label>
                 </td>
                 <td>
+                
                     <html:text  property="messageTo"
+                    			disabled="true"
                                 errorStyleClass="error"
-                                value="${theMessage.from.email}"
+                                value="${theMessage.from.name} ${theMessage.from.firstName}"
                                 readonly="true"/>
                 </td>
             </tr>
@@ -87,7 +89,9 @@
                     </label>
                 </td>
                 <td>
-                    <html:text  property="messageSubject" errorStyleClass="error" value="RE: ${theMessage.subject}"/>
+                    <html:text  property="messageSubject" 
+                    errorStyleClass="error" 
+                    value="RE: ${theMessage.subject}"/>
                 </td>
             </tr>
             <tr>
