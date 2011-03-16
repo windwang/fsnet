@@ -30,6 +30,7 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 public class Home extends MappingDispatchAction {
 
@@ -102,10 +103,16 @@ public class Home extends MappingDispatchAction {
 			session.setAttribute("contactsAsked", socialEntities);
 		} else {
 			SocialEntityFacade facade = new SocialEntityFacade(em);
+
+			SocialGroupFacade sgf = new SocialGroupFacade(em);
 			Set<SocialEntity> setContacts = facade.searchSocialEntity("",
 					authenticatedUser).get(SearchResult.Others);
 			List<SocialEntity> contacts = new ArrayList<SocialEntity>(
 					setContacts);
+
+			List<SocialEntity> personsWithWhoCurrentUserCanInteract = sgf
+					.getPersonsWithWhoMemberCanInteract(authenticatedUser);
+			contacts.retainAll(personsWithWhoCurrentUserCanInteract);
 			Collections.shuffle(contacts);
 			if (contacts.size() > 5) {
 				contacts = contacts.subList(0, 5);
@@ -127,13 +134,13 @@ public class Home extends MappingDispatchAction {
 		lastMessages(mapping, request, response, em, authenticatedUser);
 		getContactProposals(mapping, request, response, em, authenticatedUser);
 		getInterestProposals(mapping, request, response, em, authenticatedUser);
-		
-		//RIGHT
+
+		// RIGHT
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		request.setAttribute("rightAddEvent", Right.ADD_EVENT);
-		request.setAttribute("socialEntity",socialEntity);
+		request.setAttribute("socialEntity", socialEntity);
 		request.setAttribute("rightAddAnnounce", Right.ADD_ANNOUNCE);
-		
+
 		em.close();
 
 		return mapping.findForward("success");

@@ -131,4 +131,25 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<description>Display the logged members whit whom the user can interact</description>
+		<name>loggedUsers</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.LoggedUsersTag</tag-class>
+		<body-content>JSP</body-content>
+		<attribute>
+			<name>loggedUsers</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>userId</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>var</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

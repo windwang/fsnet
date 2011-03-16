@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.actions.ajax;
 
 
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -13,9 +14,11 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.DynaActionForm;
 
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 
 /**
@@ -35,8 +38,12 @@ public class Members extends Action {
             String searchText = (index==-1) ? (actualText) : (actualText.substring(index+1));
             EntityManager em = PersistenceProvider.createEntityManager();
             SocialEntityFacade sef = new SocialEntityFacade(em);
+            SocialGroupFacade sgf = new SocialGroupFacade(em);
             Set<SocialEntity> listSE = sef.searchSocialEntity(searchText);
+            SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+            List<SocialEntity> membersWithCurrentMemberCanInteract = sgf.getPersonsWithWhoMemberCanInteract(member);
             em.close();
+            listSE.retainAll(membersWithCurrentMemberCanInteract);
             request.setAttribute("matchesSocialEntity", listSE);
             request.setAttribute("completeUsers", completeUser);
             res = mapping.findForward("success");
