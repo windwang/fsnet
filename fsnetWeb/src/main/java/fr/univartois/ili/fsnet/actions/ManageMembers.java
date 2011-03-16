@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -50,14 +51,19 @@ public class ManageMembers extends MappingDispatchAction {
 		String searchText = (String) dynaForm.getString("searchText");
 
 		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialGroupFacade sgf = new SocialGroupFacade(em);
+		List<SocialEntity> membersVisibleByCurrentMember = sgf.getPersonsWithWhoMemberCanInteract(member);
 		HashMap<SearchResult, Set<SocialEntity>> results = sef
 				.searchSocialEntity(searchText, member);
 		resultContacts = results.get(SearchResult.Contacts);
+		resultContacts.retainAll(membersVisibleByCurrentMember);
 		resultRequested = results.get(SearchResult.Requested);
+		resultRequested.retainAll(membersVisibleByCurrentMember);
 		resultAsked = results.get(SearchResult.Asked);
+		resultAsked.retainAll(membersVisibleByCurrentMember);
 		resultOthers = results.get(SearchResult.Others);
+		resultOthers.retainAll(membersVisibleByCurrentMember);
 		em.getTransaction().commit();
-		SocialGroupFacade sgf = new SocialGroupFacade(em);
 		if(sgf.isMasterGroup(member))
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 

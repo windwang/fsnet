@@ -11,10 +11,10 @@
 </h2>
 
 <div id="loggedUsers">
-	<logic:iterate collection="${applicationScope.loggedUsers.users}" id="user">
+	<ili:loggedUsers var="user" userId="${sessionScope.currentUserId}" loggedUsers="${applicationScope.loggedUsers}">
 		<html:link action="/DisplayProfile" styleClass="miniature">
-		    <html:param name="id" value="${user.key}"/>
-			<img src="miniature/${user.key}.png" title="${user.value}"></img>
+		    <html:param name="id" value="${user.id}"/>
+			<img src="miniature/${user.id}.png" title="${user.name}"></img>
 		</html:link>
-	</logic:iterate>
+	</ili:loggedUsers>
 </div>

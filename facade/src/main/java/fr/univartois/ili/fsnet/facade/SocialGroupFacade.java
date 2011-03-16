@@ -195,7 +195,8 @@ public class SocialGroupFacade {
 		}
 		String tree = "";
 		if (member.getGroup() != null) {
-			List<SocialGroup> socialGroups = getAllAntecedentSocialGroups(member.getGroup());
+			List<SocialGroup> socialGroups = getAllAntecedentSocialGroups(member
+					.getGroup());
 
 			for (SocialGroup socialGroup2 : socialGroups) {
 				tree = (socialGroup2.getName() + ">") + tree;
@@ -206,7 +207,8 @@ public class SocialGroupFacade {
 		return tree;
 	}
 
-	public List<SocialGroup> getAllAntecedentSocialGroups(SocialGroup socialGroup) {
+	public List<SocialGroup> getAllAntecedentSocialGroups(
+			SocialGroup socialGroup) {
 
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
@@ -342,6 +344,58 @@ public class SocialGroupFacade {
 	}
 
 
+	public List<SocialEntity> getMembersFromGroup(SocialGroup socialGroup) {
+		List<SocialEntity> members = new ArrayList<SocialEntity>();
+
+		if (socialGroup != null) {
+			List<SocialElement> socialElements = socialGroup
+					.getSocialElements();
+			for (SocialElement socialElement : socialElements) {
+				if (socialElement instanceof SocialEntity) {
+					members.add((SocialEntity) socialElement);
+				}
+			}
+		}
+		return members;
+	}
+
+	public List<SocialEntity> getMastersFromGroupAndChildGroups(
+			SocialGroup socialGroup) {
+		List<SocialEntity> masters = new ArrayList<SocialEntity>();
+		if (socialGroup != null) {
+			masters.add(socialGroup.getMasterGroup());
+			for (SocialGroup element : getAllChildGroups(socialGroup)) {
+				masters.add(element.getMasterGroup());
+			}
+		}
+		return masters;
+	}
+
+	public List<SocialEntity> getPersonsWithWhoMemberCanInteract(
+			SocialEntity socialEntity) {
+		List<SocialEntity> persons = new ArrayList<SocialEntity>();
+
+		if (socialEntity.getGroup() != null) {
+			persons = getAllChildMembers(socialEntity.getGroup());
+		}
+		return persons;
+	}
+
+	public List<Integer> getIdOfThePersonsWithWhoMemberCanInteract(
+			SocialEntity socialEntity) {
+		List<Integer> personsIds = new ArrayList<Integer>();
+
+		if (socialEntity.getGroup() != null) {
+			List<SocialEntity> persons = getPersonsWithWhoMemberCanInteract(socialEntity);
+			for (SocialEntity se : persons) {
+				personsIds.add(se.getId());
+			}
+		}
+		return personsIds;
+	}
+
+
+
 	/**
 	 * Check if the {@link SocialEntity} have the specified {@link Right}
 	 * @param member the {@link SocialEntity}
@@ -363,4 +417,5 @@ public class SocialGroupFacade {
 		return socialGroup.isAuthorized(right);
 			
 	}
+	
 }

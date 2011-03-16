@@ -59,21 +59,25 @@ public class Authenticate extends HttpServlet {
 
 	/**
 	 * Set the cookies for automatic login
-	 * @param rep the {@link HttpServletResponse}
-	 * @param login the login email
-	 * @param passwd the password
+	 * 
+	 * @param rep
+	 *            the {@link HttpServletResponse}
+	 * @param login
+	 *            the login email
+	 * @param passwd
+	 *            the password
 	 */
-	private void setCookies(HttpServletResponse rep, String login, String passwd){
+	private void setCookies(HttpServletResponse rep, String login, String passwd) {
 		Cookie logCookie = new Cookie(LOGIN_COOKIE, login);
 		Cookie passwdCookie = new Cookie(PSSWD_COOKIE, passwd);
-		
+
 		logCookie.setMaxAge(Integer.MAX_VALUE);
 		passwdCookie.setMaxAge(Integer.MAX_VALUE);
-		
+
 		rep.addCookie(logCookie);
 		rep.addCookie(passwdCookie);
 	}
-	
+
 	/**
 	 * This method is called when an user user tries to sign in
 	 */
@@ -83,29 +87,25 @@ public class Authenticate extends HttpServlet {
 		boolean authenticated = false;
 		String memberMail = req.getParameter("memberMail");
 		String memberPass = req.getParameter("memberPass");
-		
-		if (memberMail == null && memberPass == null){
-			if(req.getCookies() != null)
-				
-			for(Cookie c:req.getCookies())
-			{	
-				if(c.getName().equals(LOGIN_COOKIE))
-					{
-					memberMail = c.getValue();
-					if(memberPass != null)
-						break;
-					}
-				else
-					if(c.getName().equals(PSSWD_COOKIE))
-						{
-						memberPass = c.getValue();
-						if(memberMail != null)
+
+		if (memberMail == null && memberPass == null) {
+			if (req.getCookies() != null)
+
+				for (Cookie c : req.getCookies()) {
+					if (c.getName().equals(LOGIN_COOKIE)) {
+						memberMail = c.getValue();
+						if (memberPass != null)
 							break;
-						}
+					} else if (c.getName().equals(PSSWD_COOKIE)) {
+						memberPass = c.getValue();
+						if (memberMail != null)
+							break;
+					}
 				}
 		}
-		
-		EntityManager em = PersistenceProvider.createEntityManager();;
+
+		EntityManager em = PersistenceProvider.createEntityManager();
+		;
 		SocialEntity es = null;
 		if (memberMail != null && memberPass != null) {
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
@@ -128,16 +128,17 @@ public class Authenticate extends HttpServlet {
 		if (authenticated) {
 			// the user is now authenticated
 			String remember = req.getParameter("remember");
-			if(remember != null && remember.equals("on"))
+			if (remember != null && remember.equals("on"))
 				setCookies(resp, memberMail, memberPass);
-			
+
 			HttpSession session = req.getSession(true);
-			String lastRequestedURL = (String) session.getAttribute("requestedURL");
+			String lastRequestedURL = (String) session
+					.getAttribute("requestedURL");
 			if (lastRequestedURL != null) {
 				resp.sendRedirect(lastRequestedURL);
 				session.removeAttribute("requestedURL");
 			} else {
-				resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);	
+				resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
 			}
 			em.getTransaction().begin();
 			SocialEntity user;
@@ -145,17 +146,19 @@ public class Authenticate extends HttpServlet {
 			user.setLastConnection(new Date());
 			em.merge(user);
 			em.getTransaction().commit();
-			
+
 			String userName = user.getFirstName() + " " + user.getName();
 			LoggedUsersContainer.getInstance().addUser(user.getId(), userName);
-			
+
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 			String groupTree = socialGroupFacade.TreeParentName(user);
-			req.getSession().setAttribute("groupTree",groupTree);
-			req.getSession().setAttribute("hisGroup",UserUtils.getHisGroup(req));
-			req.getSession().setAttribute("isMasterGroup",socialGroupFacade.isMasterGroup(user));
-			
-			
+			req.getSession().setAttribute("groupTree", groupTree);
+			req.getSession().setAttribute("hisGroup",
+					UserUtils.getHisGroup(req));
+			req.getSession().setAttribute("isMasterGroup",
+					socialGroupFacade.isMasterGroup(user));
+			req.getSession().setAttribute("currentUserId", user.getId());
+
 		} else {
 			// the user is not authenticated
 			RequestDispatcher dispatcher = req
