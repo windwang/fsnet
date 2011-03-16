@@ -241,6 +241,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.getTransaction().begin();
 		SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request,
 				entityManager);
+		try{
 		Integer idAnnounce = Integer
 				.valueOf(request.getParameter("idAnnounce"));
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(
@@ -263,6 +264,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		servlet.log(SocialEntityOwner.toString() + SocialEntityOwner.getName());
 		if (SocialEntity.getId() == SocialEntityOwner.getId()) {
 			request.setAttribute("owner", true);
+		}
+		}catch(NumberFormatException e){
 		}
 		
 		return mapping.findForward("success");
