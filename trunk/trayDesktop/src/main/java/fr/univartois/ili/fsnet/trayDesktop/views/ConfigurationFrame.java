@@ -173,6 +173,11 @@ public class ConfigurationFrame implements WSListener {
 	}
 
 	@Override
+	public void onNewConsultation(WSMessage mes) {
+
+	}
+
+	@Override
 	public void onError(WSMessage message) {
 		validateButton.setEnabled(false);
 		JOptionPane.showMessageDialog(frame,

@@ -105,6 +105,13 @@ public class WSConnector {
 		}
 	}
 
+	private void fireNewConsultation(int nbConsultation) {
+		WSMessage mes = new WSMessage("" + nbConsultation);
+		for (WSListener listener : listeners) {
+			listener.onNewConsultation(mes);
+		}
+	}
+
 	private void fireNewNotification(int nbNotifications) {
 		WSMessage mes = new WSMessage("" + nbNotifications);
 		for (WSListener listener : listeners) {
@@ -248,25 +255,31 @@ public class WSConnector {
 			fireError("No Connection");
 		} else {
 			try {
-				boolean newMessage, newContact, newAnnounce, newEvent;
+				boolean newMessage, newContact, newAnnounce, newEvent, newConsultation;
 
 				newMessage = getNbMessage() > 0;
 				newContact = getNbDemandeC() > 0;
 				newAnnounce = getNbAnnouncement() > 0;
 				newEvent = getNbEvent() > 0;
+				newConsultation = getNbConsultation() > 0;
 
-				if (newMessage && !newContact && !newAnnounce && !newEvent) {
+				if (newMessage && !newContact && !newAnnounce && !newEvent
+						&& !newConsultation) {
 					fireNewMessages(getNbMessage());
 				} else if (!newMessage && newContact && !newAnnounce
-						&& !newEvent) {
+						&& !newEvent && !newConsultation) {
 					fireNewContact(getNbDemandeC());
 				} else if (!newMessage && !newContact && newAnnounce
-						&& !newEvent) {
+						&& !newEvent && !newConsultation) {
 					fireNewAnnouncement(getNbAnnouncement());
 				} else if (!newMessage && !newContact && !newAnnounce
-						&& newEvent) {
+						&& newEvent && !newConsultation) {
 					fireNewEvent(getNbEvent());
-				} else if (newMessage || newContact || newAnnounce || newEvent) {
+				} else if (!newMessage && !newContact && !newAnnounce
+						&& !newEvent && newConsultation) {
+					fireNewConsultation(getNbConsultation());
+				} else if (newMessage || newContact || newAnnounce || newEvent
+						|| newConsultation) {
 					fireNewNotification(getNbMessage() + getNbDemandeC()
 							+ getNbAnnouncement() + getNbEvent());
 				}
