@@ -52,6 +52,7 @@
             validate="true"
             parameter="modify">
             <forward name="success" path="/Interests.do" />
+            <forward name="failed" path="/Interests.do" />
         </action>
 
         <action

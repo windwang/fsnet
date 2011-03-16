@@ -32,54 +32,54 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
  * @author Alexandre Lohez <alexandre.lohez at gmail.com>
  */
 public class ManageInterests extends MappingDispatchAction implements
-		CrudAction {
+CrudAction {
 	private static final Logger logger = Logger.getAnonymousLogger();
 	private static final String SEPARATOR_PARENT_CHILD = "=";
 	private static final String SEPARATOR_MAP = ";";
 
-	 public void creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,EntityManager em,HttpServletRequest request){
-	        if (dynaForm.get("parentInterestId") != null
-	                && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-	            facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
-	        } else {
-	        	facade.createInterest(interestName); 
-	        }
+	public void creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,EntityManager em,HttpServletRequest request){
+		if (dynaForm.get("parentInterestId") != null
+				&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+			facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
+		} else {
+			facade.createInterest(interestName); 
+		}
 
-	    }
-	
+	}
+
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 		String interestName = (String) dynaForm.get("createdInterestName");
 		String[] interestNameTmp;
-		
+
 		logger.info("new interest: " + interestName);
 
 		try {
-        	em.getTransaction().begin();
-            if(interestName.contains(";")){
-            	interestNameTmp=interestName.split(";");
-            	for(String myInterestName : interestNameTmp){
-            		myInterestName=myInterestName.trim();
-            		if(!myInterestName.isEmpty()){
-            			creation(dynaForm,facade,myInterestName,em,request);
-            		}
-            	}
-            }else{
-            	creation(dynaForm,facade,interestName,em,request);
-            }
-            em.getTransaction().commit();    
-            
-        } catch (RollbackException ex) {
-            ActionErrors actionErrors = new ActionErrors();
-            ActionMessage msg = new ActionMessage("interest.alreadyExists");
-            actionErrors.add("createdInterestName", msg);
-            saveErrors(request, actionErrors);
-        }
+			em.getTransaction().begin();
+			if(interestName.contains(";")){
+				interestNameTmp=interestName.split(";");
+				for(String myInterestName : interestNameTmp){
+					myInterestName=myInterestName.trim();
+					if(!myInterestName.isEmpty()){
+						creation(dynaForm,facade,myInterestName,em,request);
+					}
+				}
+			}else{
+				creation(dynaForm,facade,interestName,em,request);
+			}
+			em.getTransaction().commit();    
+
+		} catch (RollbackException ex) {
+			ActionErrors actionErrors = new ActionErrors();
+			ActionMessage msg = new ActionMessage("interest.alreadyExists");
+			actionErrors.add("createdInterestName", msg);
+			saveErrors(request, actionErrors);
+		}
 
 		em.close();
 		dynaForm.set("createdInterestName","");
@@ -89,7 +89,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		int interestId = Integer.valueOf((String) dynaForm
@@ -106,10 +106,20 @@ public class ManageInterests extends MappingDispatchAction implements
 				em.getTransaction().begin();
 				if (dynaForm.get("parentInterestId") != null
 						&& !((String) dynaForm.get("parentInterestId"))
-								.isEmpty()) {
-					facade.modifyInterest(interestName, interest,
-							Integer.valueOf(((String) dynaForm
-									.get("parentInterestId"))));
+						.isEmpty()) {
+					if(Integer.valueOf(((String) dynaForm
+							.get("parentInterestId")))!=interestId){
+							facade.modifyInterest(interestName, interest,
+									Integer.valueOf(((String) dynaForm
+											.get("parentInterestId"))));
+					}else{
+						ActionErrors actionErrors = new ActionErrors();
+						ActionMessage msg = new ActionMessage("interest.invalideParent");
+						actionErrors.add("modifiedInterestId", msg);
+						saveErrors(request, actionErrors);
+						em.close();
+						return mapping.findForward("failed");
+					}
 				} else {
 					facade.modifyInterest(interestName, interest);
 				}
@@ -119,26 +129,30 @@ public class ManageInterests extends MappingDispatchAction implements
 				ActionMessage msg = new ActionMessage("interest.alreadyExists");
 				actionErrors.add("modifiedInterestName", msg);
 				saveErrors(request, actionErrors);
+			} catch (RollbackException exc){
+				ActionErrors actionErrors = new ActionErrors();
+				ActionMessage msg = new ActionMessage("interest.alreadyExists");
+				actionErrors.add("modifiedInterestId", msg);
+				saveErrors(request, actionErrors);
 			}
+			em.close();
 		}
 
-		em.close();
-		
 		dynaForm.set("modifiedInterestId", "");
 		dynaForm.set("modifiedInterestName", "");
 		if (dynaForm.get("parentInterestId") != null
 				&& !((String) dynaForm.get("parentInterestId"))
-						.isEmpty()) {
+				.isEmpty()) {
 			dynaForm.set("parentInterestId", "");
 		}
-		
+
 		return mapping.findForward("success");
 	}
 
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		// TODO verify if user has the right to do delete
@@ -170,7 +184,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		String interestName = "";
@@ -185,7 +199,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		em.close();
 
 		Paginator<Interest> paginator = new Paginator<Interest>(result, request, 25, "search");
-		
+
 		request.setAttribute("interestSearchPaginator", paginator);
 
 		return mapping.findForward("success");
@@ -194,7 +208,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("Displaying interests");
@@ -202,19 +216,19 @@ public class ManageInterests extends MappingDispatchAction implements
 		List<Interest> listAllInterests = facade.getInterests();
 		String allInterestsId = concatInterest(listAllInterests);
 		em.close();
-		
+
 		Paginator<Interest> paginator = new Paginator<Interest>(listAllInterests, request, 25, "search");
-		
+
 		request.setAttribute("interestSearchPaginator", paginator);
 		request.setAttribute("allInterests", listAllInterests);		
 		request.setAttribute("allInterestsId", allInterestsId);
-		
+
 		return mapping.findForward("success");
 	}
 
 	public ActionForward informations(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
 		logger.info("Displaying interest's informations");
@@ -225,7 +239,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		Interest interest = facade.getInterest(interestId);
 		Map<String, List<Interaction>> resultMap = facade
-				.getInteractions(interestId);
+		.getInteractions(interestId);
 		em.close();
 
 		if (interest != null) {
@@ -239,7 +253,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		return mapping.findForward("success");
 	}
-	
+
 	private String concatInterest(List<Interest> listAllInterests){
 		String ids = "";
 		if(listAllInterests == null)
