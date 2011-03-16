@@ -10,7 +10,15 @@
 	<img src="avatar/${sessionScope.userId}.png" />
 </html:link>
 
-<div class="group"><bean:message key="avatar.groups" /> ${sessionScope.hisGroup.name}
+<div class="group">
+	<c:choose>
+	<c:when test="${sessionScope.hisGroup != null}">
+	<bean:message key="avatar.groups" /> ${sessionScope.hisGroup.name}
+	</c:when>
+	<c:otherwise>
+		<bean:message key="avatar.member.no.group" /> 
+	</c:otherwise>
+	</c:choose>
 <br>
 <c:if test="${isMasterGroup}">
 <html:link action="DisplayProfile.do" styleId="">
@@ -21,7 +29,9 @@
 
 <style>
 .group {
-	float : left;
+	float : left;	
+	clear: left ;
+
 }
 </style>
 
