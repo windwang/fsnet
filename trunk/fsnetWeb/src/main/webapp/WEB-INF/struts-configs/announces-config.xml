@@ -49,6 +49,8 @@
                 scope="request" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
                 parameter="displayForModify">
             <forward name="success" path="DisplayForModifyAnnounce" />
+            <forward name="failer" path="DisplayAnnounce" />
+            
         </action>
 
 
