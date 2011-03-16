@@ -33,6 +33,7 @@ import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.ConsultationFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 public class ManageConsultations extends MappingDispatchAction {
@@ -87,7 +88,8 @@ public class ManageConsultations extends MappingDispatchAction {
 		
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		if(!member.getGroup().isAuthorized(Right.ADD_CONSULTATION))
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(member, Right.ADD_CONSULTATION))
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
