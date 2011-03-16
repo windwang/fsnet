@@ -395,7 +395,22 @@ public class SocialGroupFacade {
 	}
 
 
+	/**
+	 * Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup}
+	 * @param socialGroup the {@link SocialGroup}
+	 * @return Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup}
+	 */
+	public List<SocialGroup> getAllAntecedentSocialGroupsSelfInclude(SocialGroup socialGroup) {
 
+		if (socialGroup == null) {
+			throw new IllegalArgumentException();
+		}
+		List<SocialGroup> groups = new ArrayList<SocialGroup>();
+		groups.add(socialGroup);
+		return getAllParent(socialGroup, groups);
+	}
+
+	
 	/**
 	 * Check if the {@link SocialEntity} have the specified {@link Right}
 	 * @param member the {@link SocialEntity}
@@ -411,11 +426,23 @@ public class SocialGroupFacade {
 		if(socialGroup == null)
 			return false;
 		//super admin
-		if(socialGroup.getGroup() == null && socialGroup.getMasterGroup().equals(member))
+		if(isSuperAdmin(member))
 			return true;
 		//regular rights
 		return socialGroup.isAuthorized(right);
 			
 	}
 	
+	/**
+	 * Return if the {@link SocialEntity} is a super admin
+	 * @param member the {@link SocialEntity}
+	 * @return if the {@link SocialEntity} is a super admin
+	 */
+	public boolean isSuperAdmin(SocialEntity member){
+		SocialGroup socialGroup = member.getGroup();
+		
+		if(socialGroup.getGroup() == null && socialGroup.getMasterGroup().equals(member))
+				return true;
+		return false;
+	}
 }
