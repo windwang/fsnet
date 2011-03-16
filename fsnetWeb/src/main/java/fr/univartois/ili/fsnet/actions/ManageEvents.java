@@ -284,9 +284,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventId = (String) dynaForm.get("eventId");
-
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		em.getTransaction().begin();
@@ -295,8 +295,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("member", member);
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
+		try{
 		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
-
 		member.addInteractionRead(event);
 		
 		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
@@ -307,6 +307,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		refreshNumNewEvents(request, em);
 		em.getTransaction().commit();
+
 		em.close();
 		
 		// TODO find a solution to paginate a Set
@@ -314,7 +315,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("subscribers", subscribers);
 		request.setAttribute("subscriber", isSubscriber);
 		request.setAttribute("event", event);
+		}catch(NumberFormatException e){
+		}
 		return mapping.findForward("success");
+
 	}
 	
 	private void addRightToRequest(HttpServletRequest request){
