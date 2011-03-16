@@ -10,7 +10,8 @@ import fr.univartois.ili.fsnet.entities.SocialGroup;
 /**
  * 
  * @author Bouragba Mohamed
- * Check if you have the right
+ * @author stephane gronowski
+ * Check if the specified user have the specified right
  * 
  */
 public class InteractionsFilter extends TagSupport {
@@ -24,29 +25,32 @@ public class InteractionsFilter extends TagSupport {
 
 	@Override
 	public int doAfterBody() throws JspException {
-		// TODO Auto-generated method stub
 		return super.doAfterBody();
 	}
 
 	@Override
 	public int doEndTag() throws JspException {
-		// TODO Auto-generated method stub
 		return super.doEndTag();
 	}
 
 	@Override
 	public int doStartTag() throws JspException {
 		SocialGroup socialGroup;
-		boolean isAuthorized;
 		if(user == null || right == null)
 			return SKIP_BODY;
+		
 		socialGroup = user.getGroup();
+		//no group, no rights
 		if(socialGroup == null)
 			return SKIP_BODY;
-		isAuthorized = socialGroup.isAuthorized(right);
-		if(!isAuthorized)
-			return SKIP_BODY;
-		return EVAL_BODY_INCLUDE;
+		//super admin
+		if(socialGroup.getGroup() == null && socialGroup.getMasterGroup().equals(user))
+			return EVAL_BODY_INCLUDE;
+		//regular rights
+		if(socialGroup.isAuthorized(right))
+			return EVAL_BODY_INCLUDE;
+		
+		return SKIP_BODY;
 	}
 
 	public SocialElement getUser() {
