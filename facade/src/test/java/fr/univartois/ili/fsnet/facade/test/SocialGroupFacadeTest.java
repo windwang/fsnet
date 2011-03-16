@@ -1,7 +1,9 @@
 package fr.univartois.ili.fsnet.facade.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import javax.persistence.Persistence;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
@@ -276,5 +279,89 @@ public class SocialGroupFacadeTest {
 		assertTrue(result3.contains(sg2));
 
 	}
+	
+	@Test
+	public void testIsAuthorizedSuperAdmin() {
+
+		SocialEntity masterGroup = sef.createSocialEntity("aaargrerjgcfvjaa",
+				"bjhvgbhjbbdedbbb", "anjrererreklnmb@email.com");
+			
+		SocialGroup sg = sgf.createSocialGroup(masterGroup, "kjhrerkj", "hjrerekhkj",
+				new ArrayList<SocialElement>());
+		sg.addSocialElement(masterGroup);		
+		
+		assertTrue(sg.getSocialElements().contains(masterGroup));
+		assertTrue(sg.getMasterGroup().equals(masterGroup));
+		assertTrue(masterGroup.getGroup().equals(sg));
+		assertNull(sg.getGroup());
+		
+		for(Right right:Right.values())
+			assertTrue("super admin have all the rights", sgf.isAuthorized(masterGroup, right));
+	}
+
+	@Test
+	public void testIsAuthorizedNoParent() {
+
+		SocialEntity masterGroup = sef.createSocialEntity("aaajgcfvjaa",
+				"bjhvgbhjbbbbb", "anjklnmb@email.com");
+
+		for(Right right:Right.values())
+			assertFalse("simple user have no rights", sgf.isAuthorized(masterGroup, right));
+	}
+
+	@Test
+	public void testIsAuthorized() {
+
+		SocialEntity masterGroup = sef.createSocialEntity("aaajgcfvjaa",
+				"bjhvgbhjbbbbb", "anjklnmb@email.com");
+		SocialEntity user = sef.createSocialEntity("aaajeegcfvjaa",
+				"bjhvgbhejbbbbb", "anjkeelnmb@email.com");
+			
+		SocialGroup sg = sgf.createSocialGroup(masterGroup, "kjhkj", "hjkhkj",
+				new ArrayList<SocialElement>());
+		sg.addSocialElement(user);
+		
+		sg.addRight(Right.ADD_ANNOUNCE);
+		sg.addRight(Right.ADD_CONSULTATION);
+		
+		for(Right right:Right.values())
+			if(right!=Right.ADD_ANNOUNCE && right!=Right.ADD_CONSULTATION)
+				assertFalse("user don't have this right", sgf.isAuthorized(user, right));
+		assertTrue("user have this right", sgf.isAuthorized(user, Right.ADD_ANNOUNCE));
+		assertTrue("user have this right", sgf.isAuthorized(user, Right.ADD_CONSULTATION));
+	}
+
+	@Test
+	public void testIsAuthorizedWithRightFromParents() {
+
+		SocialEntity masterGroup = sef.createSocialEntity("aaajgcfvjaa",
+				"bjhvgbhjbbbbb", "anjklnmb@email.com");
+		SocialEntity masterGroup2 = sef.createSocialEntity("aaajgcf",
+				"bjhvgbhjbbb", "annmb@email.com");
+		
+		SocialEntity user = sef.createSocialEntity("aaajeegcfvjaa",
+				"bjhvgbhejbbbbb", "anjkeelnmb@email.com");
+			
+		SocialGroup sg = sgf.createSocialGroup(masterGroup, "kjhkj", "hjkhkj",
+				new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(masterGroup2, "kjdshkj", "ddhjkhkj",
+				new ArrayList<SocialElement>());
+		sg2.setGroup(sg);
+		sg2.addSocialElement(user);
+		
+		sg.addRight(Right.ADD_ANNOUNCE);
+		sg.addRight(Right.ADD_CONSULTATION);
+		sg2.addRight(Right.ADD_CONTACT_GROUP);
+		
+		
+		for(Right right:Right.values())
+			if(right!=Right.ADD_ANNOUNCE && right!=Right.ADD_CONSULTATION && right!=Right.ADD_CONTACT_GROUP)
+				assertFalse("user don't have this right", sgf.isAuthorized(user, right));
+		assertTrue("user have this right", sgf.isAuthorized(user, Right.ADD_ANNOUNCE));
+		assertTrue("user have this right", sgf.isAuthorized(user, Right.ADD_CONSULTATION));
+		assertTrue("user have this right", sgf.isAuthorized(user, Right.ADD_CONTACT_GROUP));
+	}
+
+
 
 }

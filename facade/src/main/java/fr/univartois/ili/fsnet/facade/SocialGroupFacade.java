@@ -18,6 +18,7 @@ import fr.univartois.ili.fsnet.entities.SocialGroup;
  * 
  * @author J FLAMEN
  * @author SAID Mohamed <simo.said09 at gmail.com>
+ * @author stephane gronowski
  */
 public class SocialGroupFacade {
 	private final EntityManager em;
@@ -340,4 +341,26 @@ public class SocialGroupFacade {
 		return listSocialEntity;
 	}
 
+
+	/**
+	 * Check if the {@link SocialEntity} have the specified {@link Right}
+	 * @param member the {@link SocialEntity}
+	 * @param right the specified {@link Right}
+	 * @return if the {@link SocialEntity} have the specified {@link Right}
+	 */
+	public boolean isAuthorized(SocialEntity member, Right right){
+		if(member == null || right == null)
+			return false;
+		
+		SocialGroup socialGroup = member.getGroup();
+		//no group, no rights
+		if(socialGroup == null)
+			return false;
+		//super admin
+		if(socialGroup.getGroup() == null && socialGroup.getMasterGroup().equals(member))
+			return true;
+		//regular rights
+		return socialGroup.isAuthorized(right);
+			
+	}
 }
