@@ -115,7 +115,8 @@ public class PrivateMessageFacade {
                  "AND message.from = :from )" +
                  "OR (message.to = :from " +
                  "AND message.from = :to )" +
-                 "AND message.subject LIKE :pattern ", PrivateMessage.class);
+                 "AND message.subject LIKE :pattern " +
+                 "ORDER BY message.creationDate", PrivateMessage.class);
          
          
          query.setParameter("pattern", "%"+subject);
