@@ -52,10 +52,6 @@
         </tr>
     </table>
 </div>
-<c:set var="theInteraction" value="${event}" scope="request"/>
-<c:if test="${not empty event.address.city}">
-    <ili:map address="${event.address}"/>
-</c:if>
 <div class="clear"></div>
 
 
