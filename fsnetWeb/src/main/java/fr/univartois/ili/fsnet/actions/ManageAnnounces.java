@@ -282,6 +282,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		em.getTransaction().begin();
 		Integer idAnnounce = Integer
 				.valueOf(request.getParameter("idAnnounce"));
+		try{
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
 		addRightToRequest(request);
@@ -292,6 +293,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		dynaForm.set("announceContent", announce.getContent());
 		dynaForm.set("announceExpiryDate",
 				DateUtils.renderDate(announce.getEndDate()));
+		}catch(NullPointerException e){
+			return mapping.findForward("failer");
+		}
 		return mapping.findForward("success");
 	}
 	
