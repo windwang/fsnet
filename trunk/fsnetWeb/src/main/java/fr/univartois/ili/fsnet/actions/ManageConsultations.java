@@ -159,7 +159,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		Consultation consultation = consultationFacade.getConsultation(idConsultation);
-		if(!consultation.getCreator().getGroup().equals(member.getGroup())){
+		
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isSuperAdmin(member) && !fascade.getAllAntecedentSocialGroupsSelfInclude(member.getGroup()).contains(consultation.getCreator().getGroup())){
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 		if(consultation.isLimitChoicesPerParticipant()){
@@ -354,7 +356,8 @@ public class ManageConsultations extends MappingDispatchAction {
 			request.setAttribute("member", member);
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
-			if(!consultation.getCreator().getGroup().equals(member.getGroup())){
+			SocialGroupFacade fascade = new SocialGroupFacade(em);
+			if(!fascade.isSuperAdmin(member) && !fascade.getAllAntecedentSocialGroupsSelfInclude(member.getGroup()).contains(consultation.getCreator().getGroup())){
 				return new ActionRedirect(mapping.findForward("unauthorized"));
 			}
 			em.getTransaction().begin();
