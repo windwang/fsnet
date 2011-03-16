@@ -149,6 +149,37 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		return mapping.findForward("success");
 	}
 
+	public ActionForward deleteMulti2(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		
+		
+		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
+		try {
+				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+
+				String[] selectedMessages = (String[]) dynaForm
+						.get("selectedMessages");
+				SocialEntity authenticatedUser = UserUtils
+						.getAuthenticatedUser(request, em);
+				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+				em.getTransaction().begin();
+				for (int i = 0; i < selectedMessages.length; i++) {
+					PrivateMessage m = pmf.getPrivateMessage(Integer
+							.valueOf(selectedMessages[i]));
+					pmf.deletePrivateMessage(authenticatedUser, m);
+				}
+				em.flush();
+				em.getTransaction().commit();
+			} catch (NumberFormatException e) {
+		}
+				
+		em.close();
+		return mapping.findForward("success");
+	}
+	
+	
 	public ActionForward inbox(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {

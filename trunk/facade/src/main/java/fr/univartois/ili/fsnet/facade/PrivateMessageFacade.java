@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.facade;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -42,15 +43,22 @@ public class PrivateMessageFacade {
      * @param message the message to delete
      */
     public final void deletePrivateMessage(SocialEntity entity, PrivateMessage message) {
+    	System.out.println("delete debut");
         if (entity == null || message == null) {
             throw new IllegalArgumentException();
         }
         if (message.getFrom().equals(entity)) {
+        	if(entity.getSentPrivateMessages()==null)
+        		System.out.println("null");
+        	else
+        		System.out.println(entity.getSentPrivateMessages().size());
             entity.getSentPrivateMessages().remove(message);
+            System.out.println(entity.getSentPrivateMessages().size());
         }
         if (message.getTo().equals(entity)) {
             entity.getReceivedPrivateMessages().remove(message);
         }
+        
     }
 
     /**
@@ -103,6 +111,8 @@ public class PrivateMessageFacade {
      * @param to the recipient of the message
      */
     public final List<PrivateMessage> getConversation(SocialEntity from, String subject, SocialEntity to){
+    	
+    	
     	 if (from == null || subject == null|| to==null) {
              throw new IllegalArgumentException();
          }
@@ -110,19 +120,20 @@ public class PrivateMessageFacade {
         	 subject=subject.substring(4);
          }
          TypedQuery<PrivateMessage> query = em.createQuery(
-                 "SELECT message FROM PrivateMessage message WHERE  message.subject LIKE :pattern " +
-                 " AND (message.to = :to " +
+                 "SELECT DISTINCT message FROM PrivateMessage message WHERE  message.subject LIKE :pattern " +
+                 " AND ((message.to = :to " +
                  "AND message.from = :from )" +
                  "OR (message.to = :from " +
-                 "AND message.from = :to )" +
-                 "AND message.subject LIKE :pattern " +
+                 "AND message.from = :to ))" +
+                 "AND ((message MEMBER OF message.to.receivedPrivateMessages)" +
+                 "OR (message MEMBER OF message.to.sentPrivateMessages))" +
                  "ORDER BY message.creationDate", PrivateMessage.class);
          
          
          query.setParameter("pattern", "%"+subject);
          query.setParameter("to", to);
          query.setParameter("from", from);
-        
+
          return query.getResultList();
     }
     

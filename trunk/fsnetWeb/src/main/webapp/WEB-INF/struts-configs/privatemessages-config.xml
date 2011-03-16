@@ -16,6 +16,11 @@
             <form-property name="messageId" type="java.lang.String" />
             <form-property name="selectedMessages" type="java.lang.String[]" />
         </form-bean>
+        <form-bean name="DisplayPrivateMessageForm2"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="messageId" type="java.lang.String" />
+            <form-property name="selectedMessages" type="java.lang.String[]" />
+        </form-bean>
     </form-beans>
     <global-forwards>
 
@@ -60,6 +65,12 @@
         <action path="/DeleteMultiMessages" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
                 name="DisplayPrivateMessageForm" validate="false" scope="request"
                 parameter="deleteMulti">
+            <forward name="success" path="/Inbox.do" />
+        </action>
+        
+        <action path="/DeleteMultiMessages2" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                name="DisplayPrivateMessageForm" validate="false" scope="request"
+                parameter="deleteMulti2">
             <forward name="success" path="/Inbox.do" />
         </action>
         
