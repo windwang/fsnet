@@ -281,7 +281,8 @@ public class WSConnector {
 				} else if (newMessage || newContact || newAnnounce || newEvent
 						|| newConsultation) {
 					fireNewNotification(getNbMessage() + getNbDemandeC()
-							+ getNbAnnouncement() + getNbEvent());
+							+ getNbAnnouncement() + getNbEvent()
+							+ getNbConsultation());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
