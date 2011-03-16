@@ -17,11 +17,13 @@ import fr.univartois.ili.fsnet.actions.ManageConsultations;
 import fr.univartois.ili.fsnet.actions.ManageContacts;
 import fr.univartois.ili.fsnet.actions.ManageEvents;
 import fr.univartois.ili.fsnet.actions.ManagePrivateMessages;
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.core.LoggedUsersContainer;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 /**
  * This class represents a servlet that is used in order to authenticate members
@@ -30,6 +32,10 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
  */
 public class Authenticate extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * Welcome page path when the user is authenticated
 	 */
@@ -142,6 +148,12 @@ public class Authenticate extends HttpServlet {
 			
 			String userName = user.getFirstName() + " " + user.getName();
 			LoggedUsersContainer.getInstance().addUser(user.getId(), userName);
+			
+			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+			String groupTree = socialGroupFacade.TreeParentName(user);
+			req.getSession().setAttribute("groupTree",groupTree);
+			req.getSession().setAttribute("hisGroup",UserUtils.getHisGroup(req));
+			req.getSession().setAttribute("isMasterGroup",socialGroupFacade.isMasterGroup(user));
 			
 			
 		} else {

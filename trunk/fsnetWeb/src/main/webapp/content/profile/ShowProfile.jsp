@@ -198,7 +198,14 @@
 
 <h3><bean:message key="showProfile.groups.tree" /></h3>
 <ul>
+        <c:choose>
+        <c:when test="${requestScope.treeGroupProfile eq '' }">
 		<li>${requestScope.treeGroupProfile}</li>
+		</c:when>
+		<c:otherwise>
+		<bean:message key="avatar.member.no.group" />
+		</c:otherwise>
+		</c:choose>
 </ul>
 
 
