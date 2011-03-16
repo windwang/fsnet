@@ -30,6 +30,7 @@ import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.PrivateMessageFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 /**
@@ -47,7 +48,8 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		if(!authenticatedUser.getGroup().isAuthorized(Right.SEND_MESSAGE))
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(authenticatedUser, Right.SEND_MESSAGE))
 		{
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));

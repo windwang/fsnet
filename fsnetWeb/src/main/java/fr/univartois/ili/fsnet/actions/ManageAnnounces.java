@@ -34,6 +34,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
@@ -54,7 +55,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
-		if(!user.getGroup().isAuthorized(Right.ADD_ANNOUNCE))
+		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
+		if(!fascade.isAuthorized(user, Right.ADD_ANNOUNCE))
 		{
 			entityManager.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -342,7 +344,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 		entityManager.close();
-		if(!user.getGroup().isAuthorized(Right.ADD_ANNOUNCE))
+		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
+		if(!fascade.isAuthorized(user, Right.ADD_ANNOUNCE))
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		
 		return new ActionRedirect(mapping.findForward("success"));

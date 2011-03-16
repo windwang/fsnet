@@ -30,6 +30,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
@@ -51,7 +52,8 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 		
 		addRightToRequest(request);
-		if(!creator.getGroup().isAuthorized(Right.CREATE_COMMUNITY))
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(creator, Right.CREATE_COMMUNITY))
 		{
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));

@@ -38,6 +38,7 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
@@ -78,7 +79,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		if(!member.getGroup().isAuthorized(Right.ADD_ANNOUNCE))
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(member, Right.ADD_ANNOUNCE))
 		{
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -185,7 +187,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		addRightToRequest(request);
-		if(!member.getGroup().isAuthorized(Right.REGISTER_EVENT))
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(member, Right.REGISTER_EVENT))
 		{
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -223,7 +226,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		addRightToRequest(request);
-		if(!member.getGroup().isAuthorized(Right.REGISTER_EVENT))
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(member, Right.REGISTER_EVENT))
 		{
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -364,9 +368,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
-		entityManager.close();
-		if(!user.getGroup().isAuthorized(Right.ADD_EVENT))
+		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
+		if(!fascade.isAuthorized(user, Right.ADD_EVENT))
+		{
+			entityManager.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
+		entityManager.close();
 		
 		return new ActionRedirect(mapping.findForward("success"));
 	}

@@ -100,7 +100,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		if(!UserUtils.getAuthenticatedUser(request, em).getGroup().isAuthorized(Right.MODIFY_PROFIL))
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),Right.MODIFY_PROFIL))
 		{
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -264,7 +265,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public final ActionForward changePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		if(!UserUtils.getAuthenticatedUser(request).getGroup().isAuthorized(Right.MODIFY_PICTURE))
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),Right.MODIFY_PICTURE))
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -310,7 +313,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
 		Integer userId = UserUtils.getAuthenticatesUserId(request);
-		if(!UserUtils.getAuthenticatedUser(request).getGroup().isAuthorized(Right.MODIFY_PICTURE))
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),Right.MODIFY_PICTURE))
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		
 		
