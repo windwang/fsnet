@@ -7,13 +7,11 @@
 
 <c:if test="${not empty requestScope.allInterests}">
 	<h3><bean:message key="interests.5" /></h3>
-	<html:javascript formName="/ModifyInterest" />
+	<html:javascript formName="/ModifyInterest"/>
 	<div id="modify">
 	<html:form action="/ModifyInterest">
 		<html:errors property="modifiedInterestId" />
-		<br />
-		<html:errors property="modifiedInterestName" />
-		<br />
+		<bean:message key="error.interest.create"/>
 		<html:select property="modifiedInterestId" styleClass="select" onchange="updateParentInterest()">
 			<html:option value="">
 				<bean:message key="interests.1" />
@@ -30,7 +28,9 @@
 			<c:forEach var="interest" items="${requestScope.allInterests}">
 				<html:option value="${interest.id}">${interest.name}</html:option>
 			</c:forEach>
-		</html:select>
+		</html:select><br/>
+		<html:errors property="modifiedInterestName" />
+		<bean:message key="error.interest.name.modified"/>
 		<html:text property="modifiedInterestName" />
 		<html:hidden property="allInterestsId" value="${ allInterestsId }"/>
 		<html:submit styleClass="button" >
