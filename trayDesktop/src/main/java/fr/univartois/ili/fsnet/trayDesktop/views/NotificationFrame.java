@@ -67,13 +67,11 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 				panel.getPanel().setBackground(new Color(0xc6c2bf));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
 				panel.getPanel().setBackground(normalColor);
 			}
 
@@ -111,13 +109,11 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 				panel.getPanel().setBackground(new Color(0xc6c2bf));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
 				panel.getPanel().setBackground(normalColor);
 			}
 		});
@@ -154,13 +150,11 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 				panel.getPanel().setBackground(new Color(0xc6c2bf));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
 				panel.getPanel().setBackground(normalColor);
 			}
 		});
@@ -197,13 +191,54 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				// TODO Auto-generated method stub
 				panel.getPanel().setBackground(new Color(0xc6c2bf));
 			}
 
 			@Override
 			public void mouseExited(MouseEvent e) {
-				// TODO Auto-generated method stub
+				panel.getPanel().setBackground(normalColor);
+			}
+		});
+	}
+
+	public void addPanelConsultation(int nbConsultation) {
+
+		final NotificationPanel panel = new NotificationPanel(nbConsultation,
+				trayi18n.getString("NEWCONSULTATION"));
+		this.frame.add(panel.getPanel());
+		this.frame.pack();
+		Dimension dim = this.frame.getSize();
+		Dimension test = new Dimension(dim.width + 10, dim.height);
+		this.frame.setMinimumSize(test);
+		initPosition(position);
+		this.frame.setLocation(point.x, point.y);
+		final Color normalColor = panel.getPanel().getBackground();
+		panel.getLabel().addMouseListener(new MouseAdapter() {
+
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				try {
+					Desktop.getDesktop()
+							.browse(new URI(Options.getFsnetUrl()
+									+ "/Consultations.do"));
+
+				} catch (URISyntaxException ex) {
+					Logger.getLogger(FSNetTray.class.getName()).log(
+							Level.SEVERE, null, ex);
+				} catch (IOException ex) {
+					Logger.getLogger(FSNetTray.class.getName()).log(
+							Level.SEVERE, null, ex);
+				}
+				frame.dispose();
+			}
+
+			@Override
+			public void mouseEntered(MouseEvent e) {
+				panel.getPanel().setBackground(new Color(0xc6c2bf));
+			}
+
+			@Override
+			public void mouseExited(MouseEvent e) {
 				panel.getPanel().setBackground(normalColor);
 			}
 		});
@@ -237,4 +272,5 @@ public class NotificationFrame {
 			point.y = position.y - (frameheight + position.y - screenheight);
 		}
 	}
+
 }

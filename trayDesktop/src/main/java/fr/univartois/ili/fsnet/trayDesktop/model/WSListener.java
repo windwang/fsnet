@@ -45,6 +45,13 @@ public interface WSListener {
 	void onNewNotification(WSMessage mes);
 
 	/**
+	 * Called when a new Consultation is created
+	 * 
+	 * @param message
+	 */
+	void onNewConsultation(WSMessage mes);
+
+	/**
 	 * Called when the system encountred an error
 	 * 
 	 * @param message
