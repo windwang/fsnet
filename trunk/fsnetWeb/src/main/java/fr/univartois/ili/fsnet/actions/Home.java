@@ -22,6 +22,7 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade.Triple;
@@ -126,7 +127,13 @@ public class Home extends MappingDispatchAction {
 		lastMessages(mapping, request, response, em, authenticatedUser);
 		getContactProposals(mapping, request, response, em, authenticatedUser);
 		getInterestProposals(mapping, request, response, em, authenticatedUser);
-
+		
+		//RIGHT
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
+		request.setAttribute("rightAddEvent", Right.ADD_EVENT);
+		request.setAttribute("socialEntity",socialEntity);
+		request.setAttribute("rightAddAnnounce", Right.ADD_ANNOUNCE);
+		
 		em.close();
 
 		return mapping.findForward("success");
