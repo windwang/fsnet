@@ -14,7 +14,7 @@
 	<ili:loggedUsers var="user" userId="${sessionScope.currentUserId}" loggedUsers="${applicationScope.loggedUsers}">
 		<html:link action="/DisplayProfile" styleClass="miniature">
 		    <html:param name="id" value="${user.id}"/>
-			<img src="miniature/${user.id}.png" title="${user.name}"></img>
+			<img src="miniature/${user.id}.png" title="${user.name} ${user.firstName}"></img>
 		</html:link>
 	</ili:loggedUsers>
 </div>
