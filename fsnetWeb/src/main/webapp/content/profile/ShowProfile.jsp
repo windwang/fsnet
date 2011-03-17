@@ -199,7 +199,7 @@
 <h3><bean:message key="showProfile.groups.tree" /></h3>
 <ul>
         <c:choose>
-        <c:when test="${requestScope.treeGroupProfile eq '' }">
+        <c:when test="${requestScope.treeGroupProfile != null }">
 		<li>${requestScope.treeGroupProfile}</li>
 		</c:when>
 		<c:otherwise>
