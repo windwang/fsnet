@@ -3,6 +3,10 @@
     <xs:element name="getNewAnnouncementCount" type="tns:getNewAnnouncementCount" />
 
     <xs:element name="getNewAnnouncementCountResponse" type="tns:getNewAnnouncementCountResponse" />
+    
+    <xs:element name="getNewConsultationCount" type="tns:getNewConsultationCount" />
+
+    <xs:element name="getNewConsultationCountResponse" type="tns:getNewConsultationCountResponse" />
 
     <xs:element name="getNewDemandeCount" type="tns:getNewDemandeCount" />
 
@@ -49,6 +53,19 @@
     </xs:complexType>
 
     <xs:complexType name="getNewAnnouncementCountResponse">
+        <xs:sequence>
+            <xs:element name="return" type="xs:int" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+    
+    <xs:complexType name="getNewConsultationCount">
+        <xs:sequence>
+            <xs:element name="login" type="xs:string" minOccurs="0" />
+            <xs:element name="password" type="xs:string" minOccurs="0" />
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="getNewConsultationCountResponse">
         <xs:sequence>
             <xs:element name="return" type="xs:int" minOccurs="0" />
         </xs:sequence>
