@@ -396,11 +396,26 @@ public class SocialGroupFacade {
 
 
 	/**
-	 * Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup}
+	 * Same as getAllChildGroups but include the specified {@link SocialGroup} included
 	 * @param socialGroup the {@link SocialGroup}
-	 * @return Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup}
+	 * @return Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup} included
 	 */
-	public List<SocialGroup> getAllAntecedentSocialGroupsSelfInclude(SocialGroup socialGroup) {
+	public List<SocialGroup> getAllGroupsChildSelfInclude(SocialGroup socialGroup) {
+
+		if (socialGroup == null) {
+			throw new IllegalArgumentException();
+		}
+		List<SocialGroup> groups = getAllChildGroups(socialGroup);
+		groups.add(socialGroup);
+		return groups;
+	}
+	
+	/**
+	 * Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup} included
+	 * @param socialGroup the {@link SocialGroup}
+	 * @return Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup} included
+	 */
+	public List<SocialGroup> getAllAnecedentSocialGroupsSelfInclude(SocialGroup socialGroup) {
 
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
