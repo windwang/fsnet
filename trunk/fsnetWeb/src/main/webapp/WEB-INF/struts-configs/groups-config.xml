@@ -87,6 +87,11 @@
 			<forward name="success" path="SearchGroups"></forward>
 			<forward name="toHome" path="/Home.do" />
 		</action>
+		
+		<action path="/DisplayInformationGroup" scope="request"
+			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="displayInformationGroup">
+			<forward name="success" path="DisplayInformationGroup"></forward>
+		</action>
 
 	</action-mappings>
 
