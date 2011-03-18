@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -18,13 +19,16 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
+import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 /**
@@ -45,19 +49,19 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		String socialEntityId = (String) dynaForm.get("socialEntityId");
 
 		EntityManager em = PersistenceProvider.createEntityManager();
-		
+
 		try{
 			em.createQuery(
-				"SELECT community FROM Community community WHERE community.title LIKE :communityName",
-				Community.class).setParameter("communityName", name ).getSingleResult();
-		
+					"SELECT community FROM Community community WHERE community.title LIKE :communityName",
+					Community.class).setParameter("communityName", name ).getSingleResult();
+
 			ActionErrors actionErrors = new ActionErrors();
 			ActionMessage msg = new ActionMessage("communities.alreadyExists");
 			actionErrors.add("createdCommunityName", msg);
 			saveErrors(request, actionErrors);
-		
+
 		} catch (NoResultException e){
-	        
+
 			SocialEntity creator = em.find(SocialEntity.class, Integer.parseInt(socialEntityId));
 			CommunityFacade communityFacade = new CommunityFacade(em);
 
@@ -68,11 +72,11 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 			em.close();
 
 		}
-		
+
 		dynaForm.set("name", "");
-		
+
 		return mapping.findForward("success");
-		
+
 	}
 
 	@Override
@@ -107,7 +111,47 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet");
+		EntityManager em = PersistenceProvider.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		String newCommunityName = (String) dynaForm.get("modifiedCommunityName");
+		String communityName = (String) dynaForm.get("modifierCommunityName");
+		CommunityFacade facade = new CommunityFacade(em);
+		boolean doesNotExist=false;
+		Community community = facade.getCommunityByName(communityName);
+
+		if (community != null) {
+			logger.info("community modification: " + communityName);
+
+			try{
+				facade.getCommunityByName(newCommunityName);
+			}catch(NoResultException e){
+				doesNotExist = true;
+			}
+			if(doesNotExist){
+				try {
+					em.getTransaction().begin();
+					facade.modifyCommunity(newCommunityName, community);
+					em.getTransaction().commit();
+				} catch (DatabaseException ex) {
+					ActionErrors actionErrors = new ActionErrors();
+					ActionMessage msg = new ActionMessage("communities.alreadyExists");
+					actionErrors.add("modifiedCommunityName", msg);
+					saveErrors(request, actionErrors);
+				}
+			}else{
+				ActionErrors actionErrors = new ActionErrors();
+				ActionMessage msg = new ActionMessage("communities.alreadyExists");
+				actionErrors.add("modifiedCommunityName", msg);
+				saveErrors(request, actionErrors);
+			}
+			em.close();
+		}
+
+		dynaForm.set("modifierCommunityName", "");
+		dynaForm.set("modifiedCommunityName", "");
+
+		return mapping.findForward("success");
+
 	}
 
 	@Override
@@ -132,7 +176,7 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		em.close();
 
 		Paginator<Community> paginator = new Paginator<Community>(result, request, "communities");		
-		
+
 		request.setAttribute("allMembers", allMembers);
 		request.setAttribute("communitiesListPaginator", paginator);
 		return mapping.findForward("success");
