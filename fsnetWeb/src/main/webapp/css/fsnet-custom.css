@@ -237,6 +237,7 @@ input[type=text], input[type=password], textarea {
     width: 100%;
     border-color: #DDDDDD;
     background-color: #CCCCCC;
+    text-align: right;
 }
 
 #loginWrapper table {
@@ -286,6 +287,10 @@ input[type=text], input[type=password], textarea {
 }
 #resetPasswordWrapper input[type="text"] {
     width: 200px;
+}
+
+.label {
+	float: right;	
 }
 
 input[type="text"][class="error"], textarea[class="error"] {
