@@ -187,7 +187,7 @@ select {
 		for ( var i = 0; i < memberListRight.options.length; i++) {
 			memberListRight.options[i].selected = "true";
 		}
-		for ( var i = 0; i < rigthListLeft.options.length; i++) {
+		for ( var i = 0; i < rigthListRight.options.length; i++) {
 			rigthListRight.options[i].selected = "true";
 		}
 		return true;
