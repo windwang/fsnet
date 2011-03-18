@@ -22,7 +22,8 @@
 				<arg key="members.error.multiple" />
 			 	<var>
 					<var-name>mask</var-name>
-					<var-value>^([\w, \.!?+*;\(\)\[\]'-]{1,30}/[\w, \.!?+*;\(\)\[\]'-]{1,30}/[\da-zA-Z\._\-]{1,50}@([a-zA-Z\d\-]{1,20}\.)+[a-zA-Z]{1,10}(\r\n)?)+$</var-value>
+					
+					<var-value>^([\w, \.!?+*;\(\)\[\]-]{1,30}/[\w, \.!?+*;\(\)\[\]'-]{1,30}/[\da-zA-Z\._\-]{1,50}@([a-zA-Z\d\-]{1,20}\.)+[a-zA-Z]{1,10}(\r\n)?)+$</var-value>
 				</var> 
 				<var>
 					<var-name>maxlength</var-name>
@@ -43,7 +44,7 @@
 				<arg key="members.error.name" />
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
+					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
 				</var>
 				<var>
 					<var-name>maxlength</var-name>
