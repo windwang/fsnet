@@ -35,6 +35,7 @@ import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.ProfileFacade;
 import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
@@ -252,6 +253,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 
 			request.getSession(true).setAttribute("isMasterGroup", false);
+		
+		SocialGroup socialGroup = profile.getGroup();
+		request.setAttribute("socialGroup", socialGroup);
 		em.close();
 		return mapping.findForward("success");
 	}
