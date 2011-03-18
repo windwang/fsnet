@@ -2,13 +2,13 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.2</version>
+		<version>0.7.3-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>commons</artifactId>
 	<name>commons</name>
-	<version>0.7.2</version>
+	<version>0.7.3-SNAPSHOT</version>
 	<description>This module is an utility module, it contains the code used by many other modules of fsnet project</description>
 	<build>
 		<plugins>
@@ -22,7 +22,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>entities</artifactId>
-			<version>0.7.2</version>
+			<version>0.7.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>javax.mail</groupId>

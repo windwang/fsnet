@@ -4,12 +4,12 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.2</version>
+		<version>0.7.3-SNAPSHOT</version>
 	</parent>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>facade</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.2</version>
+	<version>0.7.3-SNAPSHOT</version>
 	<name>facade</name>
 	<description>This module represents the business tier of fsnet. It provides a facade that helps developers by working with a high level API.</description>
 	<build>
@@ -25,12 +25,12 @@
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>commons</artifactId>
-			<version>0.7.2</version>
+			<version>0.7.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>entities</artifactId>
-			<version>0.7.2</version>
+			<version>0.7.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>junit</groupId>

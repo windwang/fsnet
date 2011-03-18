@@ -3,14 +3,14 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.2</version>
+		<version>0.7.3-SNAPSHOT</version>
 	</parent>
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>mockDB</artifactId>
 	<packaging>war</packaging>
 	<name>mockDB</name>
-	<version>0.7.2</version>
+	<version>0.7.3-SNAPSHOT</version>
 	<description>This module is a web app that creates UML schema of fsnet entities using java reflexivity API</description>
 	
 	<build>
@@ -31,7 +31,7 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>facade</artifactId>
-			<version>0.7.2</version>
+			<version>0.7.3-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>org.eclipse.persistence</groupId>
