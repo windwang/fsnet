@@ -150,19 +150,24 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		try {
 
+			SocialGroup oldSocialGroup22 = masterGroup.getGroup();
+
+			if (oldSocialGroup22 != null) {
+				em.getTransaction().begin();
+				oldSocialGroup22.removeSocialElement(masterGroup);
+				em.merge(oldSocialGroup22);
+				em.getTransaction().commit();
+			}
+
 			socialGroup.setName(name);
 			socialGroup.setDescription(description);
 			socialGroup.setMasterGroup(masterGroup);
-
 			socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
-
-			socialGroup.addAllSocialElements(acceptedSocialEntity);
 			socialGroup.removeAllSocialElements(refusedSocialEntity);
-			if (!socialGroup.getSocialElements().contains(masterGroup))
-				socialGroup.getSocialElements().add(masterGroup);
+			socialGroup.addAllSocialElements(acceptedSocialEntity);
+			socialGroup.addSocialElement(masterGroup);
 
 			em.getTransaction().begin();
-			deleteMasterGroupFromOldGroup(em, masterGroup, socialGroup);
 			em.merge(socialGroup);
 			em.getTransaction().commit();
 
@@ -186,15 +191,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		return mapping.findForward("success");
 
-	}
-
-	private void deleteMasterGroupFromOldGroup(EntityManager em,
-			SocialEntity masterGroup, SocialGroup socialGroup) {
-		SocialGroup oldParentGrouoOfMasterGroup = masterGroup.getGroup();
-		if (!oldParentGrouoOfMasterGroup.equals(socialGroup)) {
-			oldParentGrouoOfMasterGroup.removeSocialElement(masterGroup);
-			em.merge(oldParentGrouoOfMasterGroup);
-		}
 	}
 
 	@Override
@@ -261,7 +257,8 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 			allMembers = socialEntityFacade.getAllSocialEntity();
 
-			acceptedMembers = socialGroupFacade.getAcceptedSocialEntities(group);
+			acceptedMembers = socialGroupFacade
+					.getAcceptedSocialEntities(group);
 			refusedMembers = getRefusedSocialMember(socialGroupFacade,
 					allMembers, group);
 			acceptedRigths = group.getRights();
@@ -404,15 +401,16 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			SocialGroupFacade sgf, SocialGroup socialGroup) {
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-		
-		
-		List<SocialEntity> allMastersGroup = socialGroupFacade.getAllMasterGroupes();
-		
-		List<SocialEntity> allOrphanMembers = socialEntityFacade.getAllOrphanMembers();
-		
-		List<SocialEntity> allSocialchildEntity = socialGroupFacade.getAllChildMembers(socialGroup);
-		
-		
+
+		List<SocialEntity> allMastersGroup = socialGroupFacade
+				.getAllMasterGroupes();
+
+		List<SocialEntity> allOrphanMembers = socialEntityFacade
+				.getAllOrphanMembers();
+
+		List<SocialEntity> allSocialchildEntity = socialGroupFacade
+				.getAllChildMembers(socialGroup);
+
 		allSocialchildEntity.removeAll(allMastersGroup);
 		allSocialchildEntity.add(socialGroup.getMasterGroup());
 		allSocialchildEntity.addAll(allOrphanMembers);
