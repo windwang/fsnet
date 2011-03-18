@@ -417,5 +417,25 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		return allSocialchildEntity;
 	}
+	
+	/**
+	 * @author BOURAGBA Mohamed
+	 */
+	public ActionForward displayInformationGroup(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		String idGroup = request.getParameter("idGroup");
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+		SocialGroup socialGroup ;
+		if(idGroup == null || idGroup.isEmpty())
+			socialGroup =null;
+		else  {
+			int id = Integer.valueOf(idGroup);
+			socialGroup = socialGroupFacade.getSocialGroup(id);
+		}
+		request.setAttribute("socialGroup", socialGroup);
+		return mapping.findForward("success");
+	}
 
 }
