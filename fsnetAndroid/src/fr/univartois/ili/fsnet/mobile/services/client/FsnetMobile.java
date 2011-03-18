@@ -427,18 +427,18 @@ public class FsnetMobile extends Activity {
 
 					public void run() {
 						int nbMessages = 0;
+						int delay=10;
 						while (true) {
 							try {
 								if ((nbMessages = getNbMessages()) > 0) {
+									notificationOk = true;
 									if (notificationStop)
 										break;
-									notificationOk = true;
-									int delay = 10;
-									if (infosBDD != null) {
-										delay = infosBDD.getInfoSettings(1)
+									infosBDD.open();
+									delay = infosBDD.getInfoSettings(1)
 												.getMinutes();
-									}
-									Thread.sleep(delay * 60 * 1000);
+									infosBDD.close();
+									Thread.sleep(delay * 10 * 1000);
 									if (notificationStop)
 										break;
 									messagesNotification = new SimpleMessagesNotification(
@@ -448,7 +448,8 @@ public class FsnetMobile extends Activity {
 											"Unread messages : " + nbMessages);
 								}
 							} catch (InterruptedException e) {
-
+								notificationStop = false;
+								notificationOk = false;
 							}
 						}
 						notificationStop = false;
