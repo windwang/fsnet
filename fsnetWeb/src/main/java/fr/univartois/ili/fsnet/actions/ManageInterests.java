@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -31,6 +32,7 @@ import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 /**
  * Execute CRUD Actions (and more) for the entity interet
@@ -247,7 +249,7 @@ public class ManageInterests extends MappingDispatchAction implements
         InterestFacade facade = new InterestFacade(em);
         DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-
+        SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em); 
         int interestId = Integer.valueOf((String) dynaForm.get("infoInterestId"));
 
         Interest interest = facade.getInterest(interestId);
@@ -256,6 +258,9 @@ public class ManageInterests extends MappingDispatchAction implements
 
         if (interest != null) {
             request.setAttribute("interest", interest);
+            Set<SocialEntity> members = interest.getEntities();
+            members.retainAll(socialGroupFacade.getAllChildMembers(UserUtils.getHisGroup(request)));
+            request.setAttribute("socialEntities", members);
             if (user.getInterests().contains(interest)) {
                 request.setAttribute("own", true);
             } else {
