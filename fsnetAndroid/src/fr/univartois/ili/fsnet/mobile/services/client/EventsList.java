@@ -15,6 +15,7 @@ public class EventsList extends ArrayAdapter<String>{
 	public EventsList(Context context, int resource, int textViewResourceId,
 			Object[] objects) {
 		super(context, resource, textViewResourceId, (String[]) objects);
+		
 	}
 
 
