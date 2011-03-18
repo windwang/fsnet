@@ -6,12 +6,12 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.2-SNAPSHOT</version>
+		<version>0.7.2</version>
 	</parent>
 
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>mobile-services</artifactId>
-	<version>0.7.2-SNAPSHOT</version>
+	<version>0.7.2</version>
 	<packaging>jar</packaging>
 	<name>mobile-services using Jersey</name>
 	<description>This module has been created to be a bridge for tiers applications like web client or mobiles client, it provides a REST API</description>
@@ -29,12 +29,12 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>facade</artifactId>
-			<version>0.7.2-SNAPSHOT</version>
+			<version>0.7.2</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>mobile-services-model</artifactId>
-			<version>0.7.2-SNAPSHOT</version>
+			<version>0.7.2</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
