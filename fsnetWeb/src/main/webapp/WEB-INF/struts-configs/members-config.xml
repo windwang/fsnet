@@ -24,6 +24,16 @@
 				parameter="search">
 			<forward name="success" path="SearchMembers" />
 		</action>
+		<action 
+				path="/ListMembersOfGroup" 
+				type="fr.univartois.ili.fsnet.actions.ManageMembers"
+				name="SearchMemberForm" 
+				input="Members" 
+				scope="request" 
+				validate="false"
+				parameter="search">
+			<forward name="success" path="SearchMembers" />
+		</action>
 		
 		<action path="/ListMembers" 
 				type="fr.univartois.ili.fsnet.actions.ManageMembers"

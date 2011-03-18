@@ -200,7 +200,10 @@
 <ul>
         <c:choose>
         <c:when test="${requestScope.treeGroupProfile != null }">
-		<li>${requestScope.treeGroupProfile}</li>
+        <html:link action="/DiplayInformationGroup.do">
+				<li>${requestScope.treeGroupProfile}</li>
+		</html:link>
+		
 		</c:when>
 		<c:otherwise>
 		<bean:message key="avatar.member.no.group" />
