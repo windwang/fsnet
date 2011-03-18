@@ -3,12 +3,12 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.2-SNAPSHOT</version>
+		<version>0.7.2</version>
 	</parent>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>trayDesktop</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.2-SNAPSHOT</version>
+	<version>0.7.2</version>
 	<name>trayDesktop</name>
 	<description>This module is a portable desktop client that notify fsnet users when they receive new notifications/messages</description>
 
