@@ -16,6 +16,11 @@
 
 
 			</field>
+			<field property="description" depends="required">
+				<arg key="groups.error.description" />
+
+
+			</field>
 
 		</form>
 		<form name="/ModifyGroup">
@@ -28,6 +33,11 @@
 			</field>
 			<field property="socialEntityId" depends="required">
 				<arg key="groups.error.owner" />
+
+
+			</field>
+			<field property="description" depends="required">
+				<arg key="groups.error.description" />
 
 
 			</field>
