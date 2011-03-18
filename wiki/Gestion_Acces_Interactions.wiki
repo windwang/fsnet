@@ -1,0 +1,13 @@
+# Accès sur les intéractions des membres
+
+= Introduction =
+
+Lorsqu'un utilisateur se connecte sur FSNET, l'accès aux intéractions créées par les autres utilisateurs a été soumis à de nouvelles règles.
+
+
+= Details =
+
+A la connexion d'un utilisateur, Les intéractions visibles sont :
+ 
+  * toutes les intéractions crées par l'utilisateur
+  * toutes les intéractions des utilisateurs de son groupe et des groupes attachées
