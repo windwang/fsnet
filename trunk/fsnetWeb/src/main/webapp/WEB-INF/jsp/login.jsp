@@ -29,9 +29,11 @@
 					<table>
 						<tr>
 							<td>
+								<div class="label">
 								<label for="memberMail">
 									<bean:message key="login.1"/>
 								</label>
+								</div>
 							</td>
 							<td>
 								<input type="text" name="memberMail" id="memberMail" class="error"/>
@@ -39,9 +41,11 @@
 						</tr>
 						<tr>
 							<td>
+							<div class="label">
 								<label for="memberPass">
 									<bean:message key="login.0"/>
 								</label>
+							</div>
 							</td>
 							<td>
 								<input type="password" id="memberPass" name="memberPass"/>
