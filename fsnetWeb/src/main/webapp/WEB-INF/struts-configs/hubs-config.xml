@@ -21,6 +21,12 @@
             <form-property name="hubId" type="java.lang.String" />
             <form-property name="communityId" type="java.lang.String" />
         </form-bean>
+        <form-bean name="ModifyHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+            <form-property name="communityId" type="java.lang.String" />
+        	<form-property name="modifiedHubName" type="java.lang.String" />
+        </form-bean>
         <form-bean name="DisplayHubForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
             <form-property name="hubId" type="java.lang.String" />
@@ -77,6 +83,11 @@
                 name="DeleteHubForm" input="UnauthorizedOperationException" scope="request" validate="true"
                 parameter="delete">
             <forward name="success" path="/SearchYourHubs.do" />
+        </action>
+        <action path="/ModifyYourHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+                name="ModifyHubForm" input="/DisplayYourHubs.do" scope="request" validate="true"
+                parameter="modify">
+            <forward name="success" path="/DisplayYourHubs.do" />
         </action>
     </action-mappings>
 

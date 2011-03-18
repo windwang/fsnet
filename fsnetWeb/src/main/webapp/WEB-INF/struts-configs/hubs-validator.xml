@@ -37,6 +37,15 @@
 			<field property="communityId" depends="integer,required">
 			</field>
 		</form>
+		<form name="/ModifyYourHub">
+			<field property="hubId" depends="integer,required">
+				<arg key="hubs.error.name" />
+			</field>
+			<field property="communityId" depends="integer,required">
+			</field>
+			<field property="modifiedHubName" depends="required">
+			</field>	
+		</form>
 		<form name="/SearchHub">
 			<field property="communityId" depends="integer,required">
 			</field>
