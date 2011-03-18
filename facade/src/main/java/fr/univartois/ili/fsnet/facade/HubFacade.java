@@ -83,6 +83,22 @@ public class HubFacade {
 				Hub.class).setParameter("hubName", name ).setParameter("com", community ).getSingleResult();
 		return hub;
 	}
+	
+	/**
+	 * @param id
+	 * @param community
+	 * @return
+	 */
+	public final Hub getHubById(Integer id, Community community) {
+		if (id == null || community == null) {
+			throw new IllegalArgumentException();
+		}
+		Hub hub = em.createQuery(
+				"SELECT hub FROM Hub hub WHERE hub.id = :hubId AND hub.community = :com",
+				Hub.class).setParameter("hubId", id ).setParameter("com", community ).getSingleResult();
+		return hub;
+	}
+
 
     /**
      * Search a Hub in a Community
@@ -99,5 +115,17 @@ public class HubFacade {
                 "SELECT hub FROM Hub hub WHERE hub.title LIKE :hubName AND hub.community = :com",
                 Hub.class).setParameter("hubName", "%" + pattern + "%").setParameter("com", community).getResultList();
         return hubs;
+    }
+    
+    /**
+     * Modify hub's name
+     * @param title
+     * @param myHub
+     */
+    public final void modifyName(String title, Hub myHub){
+    	if(title == null){
+            throw new IllegalArgumentException();
+    	}
+    	myHub.setTitle(title);
     }
 }
