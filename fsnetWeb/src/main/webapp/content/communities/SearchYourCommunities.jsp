@@ -5,6 +5,7 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <jsp:include page="/content/communities/YourCommunities.jsp"/>
+<jsp:include page="/content/communities/ModifyCommunity.jsp"/>
 <h3><bean:message key="communities.searchYourCommunities"/></h3>
 <html:form action="SearchYourCommunities" method="GET">
     <div id="SearchCommunity">

@@ -29,5 +29,13 @@
             <field property="communityId" depends="integer,required">
             </field>
         </form>
+        <form name="/ModifyCommunity">
+            <field property="modifiedCommunityName" depends="required">
+                <arg key="communities.newName" />
+            </field>
+            <field property="modifierCommunityName" depends="required">
+                <arg key="communities.name" />
+            </field>
+        </form>
     </formset>
 </form-validation>

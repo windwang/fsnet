@@ -28,6 +28,11 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="searchCommunityText" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="ModifyCommunity"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="modifierCommunityName" type="java.lang.String" />
+			<form-property name="modifiedCommunityName" type="java.lang.String" />
+		</form-bean>
 	</form-beans>
 	<global-forwards>
 
@@ -91,6 +96,11 @@
 				type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
 				parameter="searchYourCommunities">
 			<forward name="success" path="Communities" />		
+		</action>
+		<action path="/ModifyCommunity" name="ModifyCommunity" type="fr.univartois.ili.fsnet.actions.ManageCommunities" 
+				parameter="modify" input="/DisplayCommunities.do">
+			<forward name="failed" path="/DisplayCommunities.do"/>
+			<forward name="success" path="/Communities.do" />
 		</action>
 	</action-mappings>
 </struts-config>
