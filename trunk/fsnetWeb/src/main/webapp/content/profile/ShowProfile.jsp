@@ -201,6 +201,7 @@
         <c:choose>
         <c:when test="${requestScope.treeGroupProfile != null }">
         <html:link action="/DiplayInformationGroup.do">
+        		<html:param name="idGroup" value="${ socialGroup.id }"/>
 				<li>${requestScope.treeGroupProfile}</li>
 		</html:link>
 		
