@@ -19,6 +19,7 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
@@ -136,7 +137,50 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		throw new UnsupportedOperationException("Not supported yet");
+		EntityManager em = PersistenceProvider.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		String newCommunityName = (String) dynaForm.get("modifiedCommunityName");
+		String communityName = (String) dynaForm.get("modifierCommunityName");
+		CommunityFacade facade = new CommunityFacade(em);
+		boolean doesNotExist=false;
+		Community community = facade.getCommunityByName(communityName);
+
+		if (community != null) {
+
+			try{
+				facade.getCommunityByName(newCommunityName);
+			}catch(NoResultException e){
+				doesNotExist = true;
+			}
+			if(doesNotExist){
+				try {
+					em.getTransaction().begin();
+					facade.modifyCommunity(newCommunityName, community);
+					em.getTransaction().commit();
+				} catch (DatabaseException ex) {
+					ActionErrors actionErrors = new ActionErrors();
+					ActionMessage msg = new ActionMessage("communities.alreadyExists");
+					actionErrors.add("modifiedCommunityName", msg);
+					saveErrors(request, actionErrors);
+					em.close();
+					return mapping.findForward("failed");
+				}
+			}else{
+				ActionErrors actionErrors = new ActionErrors();
+				ActionMessage msg = new ActionMessage("communities.alreadyExists");
+				actionErrors.add("modifiedCommunityName", msg);
+				saveErrors(request, actionErrors);
+				em.close();
+				return mapping.findForward("failed");
+			}
+			em.close();
+		}
+
+		dynaForm.set("modifierCommunityName", "");
+		dynaForm.set("modifiedCommunityName", "");
+
+		return mapping.findForward("success");
+
 	}
 
 	@Override
