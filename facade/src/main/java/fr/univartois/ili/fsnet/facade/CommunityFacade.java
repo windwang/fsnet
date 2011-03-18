@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.Community;
+import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
@@ -69,5 +70,16 @@ public class CommunityFacade {
         query.setParameter("pattern", "%" + pattern + "%");
         return query.getResultList();
     }
-
+    
+    /**
+     * Modify title
+     * @param communityName
+     * @param community
+     */
+    public final void modifyCommunity(String communityName, Community community) {
+        if (communityName == null || community == null) {
+            throw new IllegalArgumentException();
+        }
+        community.setTitle(communityName);
+    }
 }
