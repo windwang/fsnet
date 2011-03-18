@@ -99,11 +99,9 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
-		System.out.println("ici 1");
 		boolean doesNotExists = false;
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-		System.out.println("ici 2");
 
 		int communityId = Integer.valueOf((String) dynaForm
 				.get("communityId"));
@@ -118,8 +116,6 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		Hub myHub = facade.getHubById(hubId, community);
 
 
-		System.out.println("avant test myHub");
-
 		if (myHub != null) {
 			logger.info("hub modification: " + myHub.getTitle());
 
@@ -132,7 +128,6 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 			if (doesNotExists) {	
 				try {
 					em.getTransaction().begin();
-					System.out.println("transaction");
 					facade.modifyName(hubName, myHub);
 					em.getTransaction().commit();
 				} catch (DatabaseException ex) {
@@ -148,8 +143,6 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 					saveErrors(request, actionErrors);
 				}
 			}
-			System.out.println("apres test myHub");
-
 			em.close();
 			dynaForm.set("modifiedHubName", "");		
 			return mapping.findForward("success");
