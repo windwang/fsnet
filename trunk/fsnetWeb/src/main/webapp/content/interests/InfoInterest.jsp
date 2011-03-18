@@ -68,11 +68,11 @@
 		<c:choose>
 			<c:when test="${not empty requestScope.interest.entities}">
 				<div class="cloud">
-					<c:forEach 	var="socialEntities"
-								items="${requestScope.interest.entities}">
+					<c:forEach 	var="socialEntity"
+								items="${requestScope.socialEntities}">
 						<span class="tagSE"> 
-							<ili:getMiniature socialEntity="${socialEntities}"/>
-	                   		<ili:getSocialEntityInfos socialEntity="${socialEntities}"/>
+							<ili:getMiniature socialEntity="${socialEntity}"/>
+	                   		<ili:getSocialEntityInfos socialEntity="${socialEntity}"/>
 						</span>
 					</c:forEach>
 				</div>
