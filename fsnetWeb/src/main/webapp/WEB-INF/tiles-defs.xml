@@ -318,7 +318,6 @@
 	<definition name="DisplayInformationGroup" extends=".defaultLayout">
 		<put name="title" value="pageTitle.19" />
 
-		<put name="left" value="/content/groups/leftMenu.jsp" />
 		<put name="body-content" value="/content/groups/DisplayInformationGroup.jsp" />
 	</definition>
 
