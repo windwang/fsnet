@@ -192,7 +192,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 
 	}
-
+	/**
+	 * @author SAID Mohamed
+	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -258,7 +260,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			allMembers = socialEntityFacade.getAllSocialEntity();
 
 			acceptedMembers = socialGroupFacade
-					.getAcceptedSocialEntities(group);
+					.getAcceptedSocialElementsByFilter(group,SocialEntity.class);
 			refusedMembers = getRefusedSocialMember(socialGroupFacade,
 					allMembers, group);
 			acceptedRigths = group.getRights();
@@ -293,7 +295,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		}
 
 	}
-
+	/**
+	 * @author SAID Mohamed
+	 */
 	private Set<Right> getAcceptedRigth(String[] groupsAccepted) {
 		Set<Right> rights = new HashSet<Right>();
 
@@ -302,7 +306,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		return rights;
 	}
-
+	/**
+	 * @author SAID Mohamed
+	 */
 	private List<SocialElement> createSocialElement(EntityManager em,
 			String[] membersAccepted, SocialEntity masterGroup,
 			SocialGroup parentGroup) {
@@ -320,7 +326,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			socialElements.remove(parentGroup);
 		return socialElements;
 	}
-
+	/**
+	 * @author SAID Mohamed
+	 */
 	private List<SocialElement> createObjectSocialEntity(EntityManager em,
 			String[] members) {
 
@@ -332,8 +340,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					.valueOf(member)));
 		return socialElements;
 	}
-
-	public List<SocialEntity> getRefusedSocialMember(SocialGroupFacade sgf,
+	/**
+	 * @author SAID Mohamed
+	 */
+	private List<SocialEntity> getRefusedSocialMember(SocialGroupFacade sgf,
 			List<SocialEntity> allMembers, SocialGroup socialGroup) {
 		if (sgf == null) {
 			throw new IllegalArgumentException();
@@ -341,7 +351,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialEntity> resulEntities = new ArrayList<SocialEntity>();
 		List<SocialEntity> members = allMembers;
 		if (socialGroup != null) {
-			members.removeAll(sgf.getAcceptedSocialEntities(socialGroup));
+			members.removeAll(sgf.getAcceptedSocialElementsByFilter(socialGroup,SocialEntity.class));
 		}
 		for (SocialEntity se : allMembers) {
 			if (se.getGroup() == null)
@@ -351,28 +361,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 	}
 
-	public List<SocialGroup> getRefusedSocialGroup(SocialGroupFacade sgf,
-			SocialGroup socialGroup) {
-		if (sgf == null) {
-			throw new IllegalArgumentException();
-		}
-		List<SocialGroup> resulGroups = new ArrayList<SocialGroup>();
-		List<SocialGroup> allGroups = sgf.getAllSocialGroups();
-
-		if (socialGroup != null) {
-			List<SocialGroup> groups = sgf.getAcceptedSocialGroups(socialGroup);
-			allGroups.removeAll(groups);
-			allGroups.removeAll(sgf.getAllAntecedentSocialGroups(socialGroup));
-		}
-
-		for (SocialGroup sg : allGroups) {
-			if (sg.getGroup() == null && !sg.equals(socialGroup))
-				resulGroups.add(sg);
-		}
-
-		return resulGroups;
-	}
-
+	/**
+	 * @author SAID Mohamed
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -396,8 +387,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		}
 
 	}
-
-	public List<SocialEntity> getSimpleMember(EntityManager em,
+	/**
+	 * @author SAID Mohamed
+	 */
+	private  List<SocialEntity> getSimpleMember(EntityManager em,
 			SocialGroupFacade sgf, SocialGroup socialGroup) {
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
