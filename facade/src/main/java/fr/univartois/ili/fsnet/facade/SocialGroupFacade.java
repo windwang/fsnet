@@ -158,34 +158,24 @@ public class SocialGroupFacade {
 		return query.getResultList();
 	}
 
-	public List<SocialGroup> getAcceptedSocialGroups(SocialGroup socialGroup) {
+	
+
+	
+	public <T> List<T> getAcceptedSocialElementsByFilter(SocialGroup socialGroup,Class<? extends T> clazz) {
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
 		}
-		List<SocialGroup> groups = new ArrayList<SocialGroup>();
-		List<SocialElement> socialElements = socialGroup.getSocialElements();
-		for (SocialElement socialElement : socialElements) {
-			if (socialElement instanceof SocialGroup)
-				groups.add((SocialGroup) socialElement);
-		}
-		return groups;
-	}
+		
+		List<T> elements = new ArrayList<T>();
+		@SuppressWarnings("unchecked")
+		List<T> socialElements = (List<T>) socialGroup.getSocialElements();
+		for (T socialElement : socialElements) {
 
-	public List<SocialEntity> getAcceptedSocialEntities(SocialGroup socialGroup) {
-		if (socialGroup == null) {
-			throw new IllegalArgumentException();
-		}
-		List<SocialEntity> members = new ArrayList<SocialEntity>();
-		List<SocialElement> socialElements = socialGroup.getSocialElements();
-		for (SocialElement socialElement : socialElements) {
-
-			if (socialElement instanceof SocialEntity) {
-
-				members.add((SocialEntity) socialElement);
-
+			if (socialElement.getClass().isAssignableFrom(clazz)) {
+				elements.add( socialElement);
 			}
 		}
-		return members;
+		return elements;
 	}
 
 	public String TreeParentName(SocialEntity member) {

@@ -77,7 +77,7 @@ public class ListGroups extends HttpServlet {
 		List<SocialGroup> allGroups = sgf.getAllSocialGroups();
 
 		if (socialGroup != null) {
-			List<SocialGroup> groups = sgf.getAcceptedSocialGroups(socialGroup);
+			List<SocialGroup> groups = sgf.getAcceptedSocialElementsByFilter(socialGroup, SocialGroup.class);
 			allGroups.removeAll(groups);
 			allGroups.removeAll(sgf.getAllAntecedentSocialGroups(socialGroup));
 		}
