@@ -81,6 +81,7 @@ public class FsnetMobile extends Activity {
 			new SimplePopUp(this, "NetWork problem",
 					"Your network is not available, please turn the mobile/wireless network on");
 			return false;
+			
 		}
 	}
 
@@ -438,7 +439,7 @@ public class FsnetMobile extends Activity {
 									delay = infosBDD.getInfoSettings(1)
 												.getMinutes();
 									infosBDD.close();
-									Thread.sleep(delay * 10 * 1000);
+									Thread.sleep(delay * 60 * 1000);
 									if (notificationStop)
 										break;
 									messagesNotification = new SimpleMessagesNotification(
@@ -448,8 +449,7 @@ public class FsnetMobile extends Activity {
 											"Unread messages : " + nbMessages);
 								}
 							} catch (InterruptedException e) {
-								notificationStop = false;
-								notificationOk = false;
+
 							}
 						}
 						notificationStop = false;
