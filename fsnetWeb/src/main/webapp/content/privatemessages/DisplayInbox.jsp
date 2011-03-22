@@ -64,7 +64,7 @@
 									endIndex="20">
 									<ili:noxml>${message.body}</ili:noxml>
 								</ili:substring> </span>
-							</html:link>la</td>
+							</html:link></td>
 					</c:if>
 					<td class="alignRight"><bean:write name="message"
 						property="creationDate" formatKey="date.format" /></td>
