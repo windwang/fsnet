@@ -431,7 +431,7 @@ public class FsnetMobile extends Activity {
 						int delay=10;
 						while (true) {
 							try {
-								if ((nbMessages = getNbMessages()) > 0) {
+									nbMessages = getNbMessages();
 									notificationOk = true;
 									if (notificationStop)
 										break;
@@ -442,12 +442,14 @@ public class FsnetMobile extends Activity {
 									Thread.sleep(delay * 60 * 1000);
 									if (notificationStop)
 										break;
+									if ((nbMessages) > 0) {
 									messagesNotification = new SimpleMessagesNotification(
 											(NotificationManager) getSystemService(NOTIFICATION_SERVICE),
 											getIntent(), FsnetMobile.this,
 											"Fsnet mobile", "Fsnet mobile",
 											"Unread messages : " + nbMessages);
-								}
+									}
+
 							} catch (InterruptedException e) {
 
 							}
