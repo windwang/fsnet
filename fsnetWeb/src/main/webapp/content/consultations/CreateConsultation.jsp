@@ -161,7 +161,7 @@
 			}
 			res+='<tr><td><label for="consultationChoice'+j+'"> <span class="i18nChoice">'+$(".i18nChoice").html()+ '</span> ' +j+' : </label></td><td><input type="text" name="consultationChoice" class="consultationChoice" value="'+(displayValue?val:"")+'" id="consultationChoice'+j+'" />';
 			if(displayOption){
-				res+=' <label for="maxVoters'+j+'"><bean:message key="consultation.choicesOption" /> </label><input type="text" name="maxVoters" value="'+val2+'" id="maxVoters'+j+'" />';
+				res+=' <label for="maxVoters'+j+'"><bean:message key="consultation.choicesOption" /> </label><input type="text" name="maxVoters" value="'+val2+'" id="maxVoters'+j+'" class="consultationMaxVotersPerChoice" />';
 			}
 			res+='</td></tr>';
 		}
