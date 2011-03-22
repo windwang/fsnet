@@ -45,7 +45,7 @@
 		</tr>
 		<tr>
 			<td><label for="parentId"> <bean:message
-						key="groups.parent" /> : </label>
+						key="members.group" /> : </label>
 			</td>
 			<td colspan="3"><html:select property="parentId"
 					styleClass="select" >
