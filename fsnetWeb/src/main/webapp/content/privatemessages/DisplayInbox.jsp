@@ -29,7 +29,11 @@
 								<ili:getMiniature socialEntity="${message.from}"/>
 							</td>
 							<td style="width: 25%">
-								<ili:getSocialEntityInfos socialEntity="${message.from}"/>
+								<html:link action="/DisplayMessage">
+								<html:param name="messageId" value="${message.id}" />
+								<span>${message.from.firstName} ${message.from.name}</span>
+								
+							</html:link></td>
 		                    </td>
 							<td style="width: 50%"><html:link action="/DisplayMessage">
 								<html:param name="messageId" value="${message.id}" />
@@ -48,7 +52,10 @@
 								<ili:getMiniature socialEntity="${message.from}"/>
 							</td>
 							<td style="width: 25%">
-								<ili:getSocialEntityInfos socialEntity="${message.from}"/>
+								<html:link action="/DisplayMessage">
+								<html:param name="messageId" value="${message.id}" />
+								<span>${message.from.firstName} ${message.from.name}</span>
+								</html:link>
 		                    </td>
 							<td style="width: 50%"><html:link action="/DisplayMessage">
 								<html:param name="messageId" value="${message.id}" />
@@ -57,7 +64,7 @@
 									endIndex="20">
 									<ili:noxml>${message.body}</ili:noxml>
 								</ili:substring> </span>
-							</html:link></td>
+							</html:link>la</td>
 					</c:if>
 					<td class="alignRight"><bean:write name="message"
 						property="creationDate" formatKey="date.format" /></td>
