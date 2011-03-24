@@ -247,7 +247,7 @@ public class SocialEntity extends SocialElement implements Serializable,
 	 * 
 	 * @param firstName
 	 */
-	public void setFisrtname(String firstName) {
+	public void setFirstname(String firstName) {
 		this.firstName = firstName;
 	}
 
