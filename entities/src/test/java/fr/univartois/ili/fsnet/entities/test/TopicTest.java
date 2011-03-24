@@ -16,36 +16,38 @@ import fr.univartois.ili.fsnet.entities.TopicMessage;
 
 public class TopicTest {
 
-    private EntityManager em;
+	private EntityManager em;
 
-    @Before
-    public void setUp() {
-        EntityManagerFactory fact = Persistence.createEntityManagerFactory("TestPU");
-        em = fact.createEntityManager();
-    }
+	@Before
+	public void setUp() {
+		EntityManagerFactory fact = Persistence
+				.createEntityManagerFactory("TestPU");
+		em = fact.createEntityManager();
+	}
 
-    @After
-    public void tearDown() {
-    }
+	@After
+	public void tearDown() {
+	}
 
-    /**
-     * Test to check if it's possible to persist a Topic
-     */
-    @Test
-    public void testPersist() {
-        SocialEntity es = new SocialEntity("Ragoût", "Mouton", "RagoûtMouton@toiaussitafaim.com");
-        es.setName("Théophile");
-        es.setFisrtname("Gautier");
-        final Community community = new Community(es, "macom");
-        Hub hub = new Hub(community, es, "mon hub");
-        Topic top = new Topic(hub, es, "mon topic");
-        TopicMessage firstmessage = new TopicMessage("kiiiii", es, top);
-        top.getMessages().add(firstmessage);
-        em.getTransaction().begin();
-        em.persist(es);
-        em.persist(community);
-        em.persist(hub);
-        em.persist(top);
-        em.getTransaction().commit();
-    }
+	/**
+	 * Test to check if it's possible to persist a Topic
+	 */
+	@Test
+	public void testPersist() {
+		SocialEntity es = new SocialEntity("Ragoût", "Mouton",
+				"RagoûtMouton@toiaussitafaim.com");
+		es.setName("Théophile");
+		es.setFirstname("Gautier");
+		final Community community = new Community(es, "macom");
+		Hub hub = new Hub(community, es, "mon hub");
+		Topic top = new Topic(hub, es, "mon topic");
+		TopicMessage firstmessage = new TopicMessage("kiiiii", es, top);
+		top.getMessages().add(firstmessage);
+		em.getTransaction().begin();
+		em.persist(es);
+		em.persist(community);
+		em.persist(hub);
+		em.persist(top);
+		em.getTransaction().commit();
+	}
 }
