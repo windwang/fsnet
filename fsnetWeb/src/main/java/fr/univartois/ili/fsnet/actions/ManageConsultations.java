@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -12,6 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.validator.routines.DateValidator;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -20,6 +24,7 @@ import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.actions.utils.ConsultationChoiceComparator;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -356,6 +361,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			request.setAttribute("member", member);
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade.getConsultation(Integer.valueOf(idConsultation));
+			Collections.sort(consultation.getChoices(),new ConsultationChoiceComparator());
 			SocialGroupFacade fascade = new SocialGroupFacade(em);
 			if(!fascade.isSuperAdmin(member) && !fascade.getAllGroupsChildSelfInclude(member.getGroup()).contains(consultation.getCreator().getGroup())){
 				return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -389,7 +395,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		return redirect;
 	}
 	
-	
+
 	public ActionForward closeConsultation(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response){
 		String idConsultation = request.getParameter("id");
