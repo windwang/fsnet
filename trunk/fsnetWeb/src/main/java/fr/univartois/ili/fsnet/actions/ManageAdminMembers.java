@@ -570,7 +570,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		oldGroup.removeSocialElement(member);
 		newGroup.addSocialElement(member);
 
-		member.setFisrtname(firstName);
+		member.setFirstname(firstName);
 		member.setName(name);
 		member.setEmail(email);
 		member.setAddress(new Address(address, city));
