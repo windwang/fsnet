@@ -8,9 +8,7 @@
 		<version>0.7.3-SNAPSHOT</version>
 	</parent>
 	
-	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>mobile-services-model</artifactId>
-	<version>0.7.3-SNAPSHOT</version>
 	<description>This module represents the data model of mobil-services module</description>
 	
 	<build>

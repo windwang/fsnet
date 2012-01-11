@@ -9,9 +9,7 @@
 		<version>0.7.3-SNAPSHOT</version>
 	</parent>
 
-	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>mobile-services</artifactId>
-	<version>0.7.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 	<name>mobile-services using Jersey</name>
 	<description>This module has been created to be a bridge for tiers applications like web client or mobiles client, it provides a REST API</description>
