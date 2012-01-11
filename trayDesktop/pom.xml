@@ -5,10 +5,8 @@
 		<groupId>fr.univartois.ili.fsnet</groupId>
 		<version>0.7.3-SNAPSHOT</version>
 	</parent>
-	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>trayDesktop</artifactId>
 	<packaging>jar</packaging>
-	<version>0.7.3-SNAPSHOT</version>
 	<name>trayDesktop</name>
 	<description>This module is a portable desktop client that notify fsnet users when they receive new notifications/messages</description>
 
@@ -19,8 +17,9 @@
                 <artifactId>maven-compiler-plugin</artifactId>
             </plugin>
 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
+				<groupId>org.jvnet.jax-ws-commons</groupId>
 				<artifactId>jaxws-maven-plugin</artifactId>
+				<version>2.1</version>
 				<executions>
 					<execution>
 						<goals>
@@ -32,8 +31,6 @@
 							</wsdlFiles>
 							<staleFile>${project.build.directory}/jaxws/stale/Info.stale</staleFile>
 						</configuration>
-						<id>wsimport-generate-Info</id>
-						<phase>generate-sources</phase>
 					</execution>
 				</executions>
 				<dependencies>
