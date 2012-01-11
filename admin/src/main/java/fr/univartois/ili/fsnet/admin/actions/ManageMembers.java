@@ -585,7 +585,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialGroup oldGroup = member.getGroup();
 		SocialGroup newGroup = null;
 
-		member.setFisrtname(firstName);
+		member.setFirstname(firstName);
 		member.setName(name);
 		member.setEmail(email);
 		member.setAddress(new Address(address, city));
