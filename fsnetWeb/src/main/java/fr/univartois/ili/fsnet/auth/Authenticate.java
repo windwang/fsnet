@@ -112,6 +112,7 @@ public class Authenticate extends HttpServlet {
 			es = socialEntityFacade.findByEmail(memberMail);
 			if (es != null
 					&& Encryption.testPassword(memberPass, es.getPassword())) {
+				System.out.println( es.getLastConnection());
 				authenticated = true;
 				req.getSession(true).setAttribute(AUTHENTICATED_USER,
 						es.getId());
@@ -143,6 +144,8 @@ public class Authenticate extends HttpServlet {
 			em.getTransaction().begin();
 			SocialEntity user;
 			user = em.find(SocialEntity.class, es.getId());
+			//Last connection in session before a new session
+			session.setAttribute("LastConnection",user.getLastConnection());
 			user.setLastConnection(new Date());
 			em.merge(user);
 			em.getTransaction().commit();
