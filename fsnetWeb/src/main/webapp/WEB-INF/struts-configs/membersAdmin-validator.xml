@@ -70,7 +70,7 @@
 				<arg key="members.error.group" />
 			</field>
 			<field property="password" depends="minlength,validwhen">
-				<msg name="validwhen" key="members.twofields"/>
+				<msg name="validwhen" key="errors.required"/>
 				<arg0 key="members.password" />
 				<arg1 name="minlength" key="${var:minlength}" resource="false"/>
 				<var>
@@ -79,7 +79,7 @@
 				</var>
 				<var>
 					<var-name>test</var-name>
-					<var-value>(((*this* == null) and (passwordConfirmation == null)) or (passwordConfirmation == *this*))</var-value>
+					<var-value>(*this* != null)</var-value>
 				</var>
 			</field>
 			<field property="passwordConfirmation" depends="minlength,validwhen">
