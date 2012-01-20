@@ -16,7 +16,7 @@
 		
 		<div id="logo">
 			<div id="logo">
-				<img src="images/FSNET.png"/>
+				<img src="images/logo.png"/>
 			</div>
 		</div>
 		

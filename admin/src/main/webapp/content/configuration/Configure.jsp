@@ -157,7 +157,11 @@
 		</tr>
 	</table>
 </html:form>
-
+<h3><bean:message key="configure.26"/></h3>
+<html:form enctype="multipart/form-data" action="/ChangeLogo">
+	<html:file property="Logo"></html:file>
+	<html:submit styleClass="button" value="Valider"></html:submit>
+</html:form>
 <h3><bean:message key="configure.16" /></h3>
 <html:form action="/SendTestMail">
 	<table id="SendTestMail">
