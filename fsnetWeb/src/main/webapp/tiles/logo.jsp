@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div id="logo2">
-	<img src="images/FSNET.png" />
+	<img src="images/logo.png" />
 
 </div>
 <html:link action="/DisplayProfile" styleId="userPicture">
