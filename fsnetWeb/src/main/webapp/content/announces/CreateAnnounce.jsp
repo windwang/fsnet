@@ -9,6 +9,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
@@ -20,16 +21,16 @@
 <html:form action="/CreateAnnounce">
 	<table id="CreateAnnounce">
 		<tr>
-			<td colspan="2"><html:messages id="message" /> <html:errors />
-			</td>
-		</tr>
-		<tr>
 			<td><label for="announceTitle"><bean:message
 				key="announce.title" /></label></td>
 			<td><html:text property="announceTitle" styleId="announceTitle" />
 			<c:import url="/InterestCheckBoxes.do" /></td>
 		</tr>
-
+		<logic:messagesPresent property="announceTitle">
+			<tr class="errorMessage">
+				<td colspan="2"><html:errors property="announceTitle" /></td>
+			</tr>
+		</logic:messagesPresent>
 		<tr>
 			<td><label for="announceContent"><bean:message
 				key="announce.content" /> </label></td>
@@ -37,14 +38,24 @@
 				styleId="announceContent" styleClass="mceTextArea"
 				style="width: 100%;" /></td>
 		</tr>
+		<logic:messagesPresent property="announceContent">
+			<tr class="errorMessage">
+				<td colspan="2"><html:errors property="announceContent" /></td>
+			</tr>
+		</logic:messagesPresent>
 		<tr>
 			<td><label for="announceExpiryDate">Date :</label></td>
 			<td><html:text property="announceExpiryDate"
-				styleId="announceExpiryDate" disabled="false" /> <html:submit
+				styleId="announceExpiryDate" disabled="false" /><html:submit
 				styleClass="button">
 				<bean:message key="announce.createAnnounce" />
 			</html:submit></td>
 		</tr>
+		<logic:messagesPresent property="announceExpiryDate">
+			<tr class="errorMessage">
+				<td colspan="2"><html:errors property="announceExpiryDate" /></td>
+			</tr>
+		</logic:messagesPresent>
 
 	</table>
 </html:form>

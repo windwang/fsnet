@@ -17,7 +17,7 @@
 		</c:forEach>
 	</html:select>
     <html:text property="createdInterestName" styleId="createdInterestName"/>
-    <html:errors property="createdInterestName"/>
+    <font color="red"><html:errors property="createdInterestName"/></font>
     <html:submit styleClass="button">
     	<bean:message key="interests.create"/>
     </html:submit>

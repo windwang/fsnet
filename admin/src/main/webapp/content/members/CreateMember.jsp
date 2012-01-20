@@ -20,7 +20,7 @@
 			<td><label for="name"> <bean:message key="members.name" />
 					: </label></td>
 			<td><html:text property="name" styleId="name"
-					errorStyleClass="error" /></td>
+					errorStyleClass="error" errorKey="org.apache.struts.action.ERROR" /></td>
 		</tr>
 		<tr class="errorMessage">
 			<td colspan="2"><html:errors property="name" /></td>
