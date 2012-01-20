@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.facade.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
@@ -135,5 +136,16 @@ public class InterestFacadeTest {
 		assertTrue(result.contains(interest1) && result.contains(interest2) && result.contains(interest3) && result.contains(interest4));
 		
 	}
+	
+	@Test
+	public void testgetNonAssociatedInterests(){
+		em.getTransaction().begin();
+		SocialEntity s1 = sef.createSocialEntity("entity1","entity", "entity4@entities.com");
+		em.persist(s1);
+		em.getTransaction().commit();
+		assertNotNull(interestFacade.getNonAssociatedInterests(s1));
+		
+	}
+	
 	
 }
