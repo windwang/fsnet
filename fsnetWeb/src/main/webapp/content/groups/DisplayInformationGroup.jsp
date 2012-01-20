@@ -17,11 +17,11 @@
 		<h3><bean:message key="groups.description.message"/></h3>
 		<p> ${ socialGroup.description } </p>
 		
-		<h3><bean:message key="groups.members"/></h3>
+		<h3><bean:message key="groups.listMember"/></h3>
 		<ul>
-			<c:foreach var="member" items="${allMembers}">
-				<li>${member.name} ${member.firstname}</li>
-			</c:foreach>
+			<c:forEach var="member" items="${allMembers}">
+				<li>${member.name} ${member.firstName}</li>
+			</c:forEach>
 		</ul>
 		
 		

@@ -428,7 +428,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			socialGroup = socialGroupFacade.getSocialGroup(id);
 		}
 		request.setAttribute("socialGroup", socialGroup);
-		request.setAttribute("allMembers", socialGroupFacade.getAllChildMembers(socialGroup));
+		
+		List<SocialEntity> allMembers = socialGroupFacade.getAllChildMembers(socialGroup);
+		request.setAttribute("allMembers", allMembers);
 		return mapping.findForward("success");
 	}
 
