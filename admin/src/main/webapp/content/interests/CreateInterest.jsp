@@ -15,9 +15,9 @@
 		<c:forEach var="interest" items="${requestScope.allInterests}">
 			<html:option value="${interest.id}">${interest.name}</html:option>
 		</c:forEach>
-	</html:select>
+	</html:select>	
     <html:text property="createdInterestName"/>
-    <html:errors property="createdInterestName"/>
+   	<font color="red"><html:errors property="createdInterestName"/></font> 	
      <html:submit styleClass="button" >
       	<bean:message key="interest.validate"/>
       </html:submit>

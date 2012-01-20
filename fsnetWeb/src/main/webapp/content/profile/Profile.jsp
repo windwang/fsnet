@@ -268,7 +268,7 @@
                 </td>
             </tr>
             <logic:messagesPresent property="${typePwd}">
-                <tr>
+                <tr class="errorMessage">
                     <td colspan="2">
                         <html:errors property="${typePwd}"/>
                     </td>
@@ -296,7 +296,7 @@
 		<html:submit styleClass="button"/>
 	</div>	
 	<logic:messagesPresent property="photo">
-		<div class="error">
+		<div class="errorMessage">
 			<html:errors property="photo"/>
 		</div>
 	</logic:messagesPresent>

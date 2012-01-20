@@ -25,7 +25,7 @@
 				property="SMTPPort" /></td>
 		</tr>
 		<logic:messagesPresent property="SMTPPort">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="SMTPPort" /></td>
 			</tr>
 		</logic:messagesPresent>
@@ -37,7 +37,7 @@
 				onchange="updateAuthenticationFields();" /></td>
 		</tr>
 		<logic:messagesPresent property="enableAuthentication">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="enableAuthentication" />
 				</td>
 			</tr>
@@ -49,7 +49,7 @@
 				property="SMTPUsername" /></td>
 		</tr>
 		<logic:messagesPresent property="SMTPUsername">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="SMTPUsername" /></td>
 			</tr>
 		</logic:messagesPresent>
@@ -60,7 +60,7 @@
 				styleId="SMTPPassword" property="SMTPPassword" /></td>
 		</tr>
 		<logic:messagesPresent property="SMTPPassword">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="SMTPPassword" /></td>
 			</tr>
 		</logic:messagesPresent>
@@ -71,7 +71,7 @@
 				property="MailFrom" /></td>
 		</tr>
 		<logic:messagesPresent property="MailFrom">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="MailFrom" /></td>
 			</tr>
 		</logic:messagesPresent>
@@ -81,7 +81,7 @@
 			<td><html:checkbox styleId="enableTLS" property="enableTLS" /></td>
 		</tr>
 		<logic:messagesPresent property="enableTLS">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="enableTLS" /></td>
 			</tr>
 		</logic:messagesPresent>
@@ -91,7 +91,7 @@
 			<td><html:checkbox styleId="enableSSL" property="enableSSL" /></td>
 		</tr>
 		<logic:messagesPresent property="enableSSL">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="enableSSL" /></td>
 			</tr>
 		</logic:messagesPresent>
@@ -102,7 +102,7 @@
 				property="FSNetWebURL" /></td>
 		</tr>
 		<logic:messagesPresent property="FSNetWebURL">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="FSNetWebURL" /></td>
 			</tr>
 		</logic:messagesPresent>
@@ -113,11 +113,11 @@
 				styleId="PicturesDirectory" property="PicturesDirectory" /></td>
 		</tr>
 		<logic:messagesPresent property="PicturesDirectory">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="PicturesDirectory" /></td>
 			</tr>
 		</logic:messagesPresent>
-		<tr>
+		<tr class="errorMessage">
 			<td colspan="2"><html:errors property="FSNetWebURL" /></td>
 		</tr>
 		<tr>
@@ -138,7 +138,7 @@
 <html:form action="/SaveFacebookId">
 	<table id="saveFacebookId">
 		<logic:messagesPresent property="KeyFacebook">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="KeyFacebook" /></td>
 			</tr>
 		</logic:messagesPresent>
@@ -170,7 +170,7 @@
 			</html:submit></td>
 		</tr>
 		<logic:messagesPresent property="Recipient">
-			<tr>
+			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="Recipient" /></td>
 			</tr>
 		</logic:messagesPresent>

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <h3><bean:message key="consultation.create"/></h3>
-<html:errors/> 
+<font color="red"><html:errors/></font> 
 <html:form action="CreateConsultation" method="POST">
 	<table>
 	<tr>
@@ -25,8 +25,8 @@
 							<label for="nbVotersPerChoiceBox"><bean:message key="consultationLimitVotersNumberPerChoice" /></label> 
 							<html:text styleId="nbVotersPerChoice" onkeyup="updateMaxVoters()" property="nbVotersPerChoice" />
 	
-	<c:if test="${errorChoice}"><p><bean:message key="consultation.errorChoice"/></p></c:if>
-	<c:if test="${errorMaxVotersPerChoice}"><p><bean:message key="consultation.errorMaxVotersPerChoice"/></p></c:if> 
+	<c:if test="${errorChoice}"><p class="errorMessage"><bean:message key="consultation.errorChoice"/></p></c:if>
+	<c:if test="${errorMaxVotersPerChoice}"><p class="errorMessage"><bean:message key="consultation.errorMaxVotersPerChoice"/></p></c:if> 
 	
 	<table id="choicesTab">
 	<c:forEach begin="1" end="3" var="i">
