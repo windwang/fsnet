@@ -48,7 +48,9 @@ public class HubFacadeTest {
 	@Test
 	public void createAndGetHubTest() {
 
-		em.getTransaction().begin();
+		if (!em.getTransaction().isActive()) {
+			em.getTransaction().begin();
+		}
 		Hub createdHub = hf.createHub(com, creator, "testhub");
 		em.getTransaction().commit();
 		

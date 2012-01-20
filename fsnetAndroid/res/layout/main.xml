@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/bg"
+    android:paddingLeft="10dip" android:paddingTop="10dip"
+    >
+    <ImageView android:layout_height="wrap_content" android:layout_width="wrap_content" android:id="@+id/imageFsnet" android:src="@drawable/fsnet"></ImageView>
+	<ScrollView android:id="@+id/scrollView1" android:layout_height="wrap_content" android:layout_width="fill_parent">
+   		<LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout1" android:layout_height="fill_parent">
+			<TextView android:textColor="#0000F0" android:minHeight="40px" android:minWidth="40px" android:maxWidth="90px" android:text="Notification" android:id="@+id/labelNotification" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+			<Button android:text="Start" android:id="@+id/startNotification" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="startNotification" />
+   			<Button android:text="Stop" android:id="@+id/stopNotification" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="stopNotification"/>
+   		</LinearLayout>
+   	</ScrollView>
+   	<ScrollView android:id="@+id/scrollView2" android:layout_height="wrap_content" android:layout_width="fill_parent">
+   		<LinearLayout android:gravity="center_vertical|center_horizontal|left" android:layout_width="fill_parent" android:id="@+id/linearLayout2" android:layout_height="fill_parent">
+   			<ImageView android:id="@+id/buttonMessages" android:minHeight="40px" android:src="@drawable/messages" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeMessages" android:clickable="true"></ImageView>
+   			<TextView android:textColor="#0000F0" android:text="Messages" android:id="@+id/labelMessages" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeMessages" android:clickable="true"></TextView>
+		</LinearLayout>
+   	</ScrollView>
+   	<ScrollView android:id="@+id/scrollView3" android:layout_height="wrap_content" android:layout_width="fill_parent">
+   		<LinearLayout android:layout_width="fill_parent" android:id="@+id/linearLayout4" android:layout_height="fill_parent" android:gravity="center_vertical|center_horizontal|left">
+   			<ImageView android:id="@+id/buttonMeeting" android:minHeight="40px" android:src="@drawable/meetings" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeMeetings" android:clickable="true"></ImageView>
+   			<TextView android:textColor="#0000F0" android:text="Meetings" android:id="@+id/labelMeetings" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeMeetings" android:clickable="true"></TextView>
+		</LinearLayout>
+   	</ScrollView>
+   	<ScrollView android:id="@+id/scrollView4" android:layout_height="wrap_content" android:layout_width="fill_parent">
+   		<LinearLayout android:gravity="center_vertical|center_horizontal|left" android:layout_width="fill_parent" android:id="@+id/linearLayout4" android:layout_height="fill_parent">
+   			<ImageView android:id="@+id/buttonAnnouncement" android:minHeight="40px" android:src="@drawable/announcements" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeAnnouncements" android:clickable="true"></ImageView>
+   			<TextView android:textColor="#0000F0" android:text="Announcements" android:id="@+id/labelAnnouncements" android:layout_width="wrap_content" android:layout_height="wrap_content" android:onClick="seeAnnouncements" android:clickable="true"></TextView>
+		</LinearLayout>
+   	</ScrollView>
+</LinearLayout>
+
+
+    
+    

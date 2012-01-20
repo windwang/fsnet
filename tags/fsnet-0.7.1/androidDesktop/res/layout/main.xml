@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout android:layout_width="fill_parent"
+	android:layout_height="wrap_content" xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<TextView android:id="@+id/textConnexion"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="@string/textConnexion" />
+
+	<TextView android:id="@+id/textLogin" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/textLogin"
+		android:layout_below="@id/textConnexion" />
+	<EditText android:id="@+id/login" android:inputType="textImeMultiLine"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="" android:textSize="18sp" android:layout_below="@id/textLogin" />
+
+	<TextView android:id="@+id/textPassword" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/textPassword"
+		android:layout_below="@id/login" />
+	<EditText android:id="@+id/password" android:inputType="textPassword"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="" android:textSize="18sp" android:layout_below="@id/textPassword" />
+
+	<TextView android:id="@+id/textFsnetAdr" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/textFsnetAdr"
+		android:layout_below="@id/password" />
+	<EditText android:id="@+id/fsnetAdr" android:inputType="textImeMultiLine"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="@string/fsnetAdr" android:textSize="18sp"
+		android:layout_below="@id/textFsnetAdr" />
+
+	<TextView android:id="@+id/textWebAdr" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/textWebAdr"
+		android:layout_below="@id/fsnetAdr" />
+	<EditText android:id="@+id/webAdr" android:inputType="textImeMultiLine"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="@string/webAdr" android:textSize="18sp"
+		android:layout_below="@id/textWebAdr" />
+
+	<TextView android:id="@+id/textLanguage" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/textLanguage"
+		android:layout_below="@id/webAdr" />
+	<Spinner android:id="@+id/language" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:prompt="@id/textLanguage"
+		android:textSize="18sp" android:layout_below="@id/textLanguage" />
+
+	<TextView android:id="@+id/textAlert" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/textAlert"
+		android:layout_below="@id/language" />
+	<EditText android:id="@+id/alert" android:inputType="number"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:text="@string/alert" android:textSize="18sp"
+		android:layout_below="@id/textAlert" />
+
+	<Button android:id="@+id/btnCancel" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/btnCancel"
+		android:layout_below="@id/alert" android:layout_alignParentRight="true" />
+	<Button android:id="@+id/btnValidate" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/btnValidate"
+		android:layout_toLeftOf="@id/btnCancel" android:layout_alignTop="@id/btnCancel" />
+	<Button android:id="@+id/btnTest" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:text="@string/btnTest"
+		android:layout_toLeftOf="@id/btnValidate" android:layout_alignTop="@id/btnValidate" />
+
+</RelativeLayout>

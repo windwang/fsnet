@@ -1,0 +1,26 @@
+package fr.univartois.ili.fsnet.fakeDB.actions;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import fr.univartois.ili.fsnet.fakeDB.DBUtils;
+
+public class PopulateDB extends HttpServlet {
+
+	@Override
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		DBUtils.populateDB();
+		resp.sendRedirect("index.jsp");
+	}
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		doGet(req, resp);
+	}
+
+}

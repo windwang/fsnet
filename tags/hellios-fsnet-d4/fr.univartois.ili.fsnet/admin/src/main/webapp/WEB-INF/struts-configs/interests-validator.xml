@@ -1,0 +1,30 @@
+<!DOCTYPE form-validation PUBLIC
+"-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+"http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<form-validation>
+	<formset>		
+        <form name="/ModifyInterest">
+            <field property="modifiedInterestId" depends="required,integer">
+                <arg key="error.interest.id.modified" />
+            </field>
+            <field property="modifiedInterestName" depends="required">
+                <arg key="error.interest.name.modified" />
+            </field>
+        </form>
+        <form name="/SearchInterest">
+            <field property="searchInterestName" depends="">
+                <arg key="error.interest.search" />
+            </field>
+        </form>
+        <form name="/CreateInterest">
+            <field property="createdInterestName" depends="required">
+                <arg key="error.interest.create" />
+            </field>
+        </form>
+        <form name="/DeleteInterest">
+            <field property="deletedInterestId" depends="required,integer">
+                <arg key="error.interest.create" />
+            </field>
+        </form>
+	</formset>
+</form-validation>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+  <persistence-unit name="TestPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>fr.univartois.ili.fsnet.entities.ActivityReport</class>
+    <class>fr.univartois.ili.fsnet.entities.Announcement</class>
+    <class>fr.univartois.ili.fsnet.entities.Community</class>
+    <class>fr.univartois.ili.fsnet.entities.Hub</class>
+    <class>fr.univartois.ili.fsnet.entities.Interaction</class>
+    <class>fr.univartois.ili.fsnet.entities.InteractionRole</class>
+    <class>fr.univartois.ili.fsnet.entities.Interest</class>
+    <class>fr.univartois.ili.fsnet.entities.Meeting</class>
+    <class>fr.univartois.ili.fsnet.entities.Message</class>
+    <class>fr.univartois.ili.fsnet.entities.SocialEntity</class>
+    <class>fr.univartois.ili.fsnet.entities.Topic</class>
+    <class>fr.univartois.ili.fsnet.entities.TopicMessage</class>
+    <class>fr.univartois.ili.fsnet.entities.PrivateMessage</class>
+    <class>fr.univartois.ili.fsnet.entities.ProfileVisite</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:myDbFSNET;create=true"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
+      <property name="eclipselink.ddl-generation" value="create-tables"/>
+    </properties>
+  </persistence-unit>
+</persistence>

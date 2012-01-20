@@ -1,0 +1,61 @@
+#labels Phase-Implementation
+#This page describe how you can import fsnet in your IDE
+
+= Introduction =
+
+As you can see in the source repository there is no specific IDE files in. The main idea is to let each developer choose his preferred Integrated Development Environment.
+
+= Using Eclipse 3.5 (Galileo) JEE edition  =
+
+== Install some plugins for eclipse ==
+
+  * [http://subclipse.tigris.org/servlets/ProjectProcess?pageID=p4wYuA Subclipse]
+  * [http://m2eclipse.sonatype.org/installing-m2eclipse.html m2eclipse]
+    WARNING : Currently, m2eclipse project is divided in two different update sites ! You MUST install each one.
+    * From m2eclipse core update site : 
+      * Maven integration for eclipse
+      * Restart eclipse...
+    * From m2eclipse extras update site :
+      * Maven integration for WTP
+      * Maven handler for Subclipse
+      * Maven SCM integration 
+      * Project configurators for commonly used maven plugins
+      * Restart eclipse...
+
+== Check out sources ==
+
+  * Perform a right click in the project explorer view
+  * Choose Import -> maven -> Check out maven project from SCM
+  * Choose "svn" for the select input.
+  * Copy/paste in the text field this url : https://fsnet.googlecode.com/svn/trunk/
+    Note : if you're not a team member you can checkout using http instead of https
+  * Click on finish and wait for a while (maven is downloading all the dependencies for you :-))
+  * Perform a right click on the trayDesktop project
+  * Select Run as -> Maven generate-sources
+  * Perform again a right click on this project
+  * Select Maven -> update project configuration (m2eclipse should add the target/generated-sources/ directory to your build path)
+
+== Install tomcat in Eclipse ==
+
+  * First, be sure that you are under the Java EE perspective
+  * Locate the "Servers" view
+  * Perform a right click on it
+  * Select new -> server
+  * in the server list choose : Apache -> Tomcat v6.0 Server
+  * Click on next
+  * Fill the tomcat installation directory
+  * Click on finish
+
+Now you should be ready to develop on fsnet.
+
+= Using Netbeans 6.x =
+Download the latest version of Netbeans Java on http://www.netbeans.org
+While installing, check Tomcat in the server list. 
+
+Launch Netbeans, select Team -> Subversion -> Checkout in the menu.
+Enter the following URL : https://fsnet.googlecode.com/svn/trunk/ and click next and finish. 
+
+Netbeans asks you if you want to open checked out projects, click yes, select the parent project and check the Open required box then click Finish.
+In the project view, right click on the parent project named "Firm Social Network" and select _Clean and Build_.
+
+That's all folks ! Now you can follow the tutorial on http://code.google.com/p/fsnet/wiki/HowToInstall

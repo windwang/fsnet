@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+        <form-bean name="CreateHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="communityId" type="java.lang.String" />
+            <form-property name="hubName" type="java.lang.String" />
+            <form-property name="selectedInterests" type="java.lang.String[]" />
+        </form-bean>
+        <form-bean name="SearchHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubName" type="java.lang.String" />
+            <form-property name="communityId" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="DeleteHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+            <form-property name="communityId" type="java.lang.String" />
+        </form-bean>
+         <form-bean name="DisplayHubForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="hubId" type="java.lang.String" />
+        </form-bean> 
+        <form-bean name="SearchYourHubsForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="hubName" type="java.lang.String" />
+			<form-property name="communityId" type="java.lang.String" />
+		</form-bean>
+    </form-beans>
+    <global-forwards>
+
+    </global-forwards>
+    <action-mappings>
+        <action path="/CreateHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+                name="CreateHubForm" input="/DisplayCreateHub.do" scope="request" validate="true"
+                parameter="create">
+            <forward name="success" path="/SearchHub.do" />
+        </action>
+        <action path="/SearchHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+                name="SearchHubForm" input="Hubs" scope="request" validate="false"
+                parameter="search">
+            <forward name="success" path="Hubs" />
+        </action>
+         <action path="/DeleteHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+         		name="DeleteHubForm" input="Home" scope="request" validate="true"
+                parameter="delete">
+            <forward name="success" path="/SearchHub.do" />
+        </action>
+        <action path="/DisplayHub" type="fr.univartois.ili.fsnet.actions.ManageHub"
+        		name="DisplayHubForm" input="Home" scope="request" validate="true"
+                parameter="display">
+            <forward name="success" path="DisplayHub" />
+        </action>
+        <action path="/Hubs" type="fr.univartois.ili.fsnet.actions.ManageHub"
+                parameter="search">
+         <forward name="success" path="Hubs" />
+        </action>
+        <action path="/DisplayCreateHub" type="org.apache.struts.actions.ForwardAction"
+         		name="DisplayCreateHubForm" input="Home" scope="request" validate="true"
+                parameter="CreateHub">
+        </action>
+        <action path="/DisplayYourHubs" type="fr.univartois.ili.fsnet.actions.ManageHub"
+        		name="SearchYourHubsForm" input="Home" scope="request" validate="true"
+                parameter="searchYourHubs">
+         <forward name="success" path="DisplayYourHubs" />
+        </action>   
+        <action path="/SearchYourHubs" type="fr.univartois.ili.fsnet.actions.ManageHub" 
+			name="SearchYourHubsForm" input="Home" scope="request" validate="false"
+			parameter="searchYourHubs">
+			<forward name="success" path="DisplayYourHubs" />
+		</action>              
+		 <action path="/DeleteYourHub" type="fr.univartois.ili.fsnet.actions.ManageHub" 
+			name="DeleteHubForm" input="Home" scope="request" validate="true"
+			parameter="delete">
+			<forward name="success" path="/SearchYourHubs.do" />
+		</action>       		                
+    </action-mappings>    
+  
+</struts-config>

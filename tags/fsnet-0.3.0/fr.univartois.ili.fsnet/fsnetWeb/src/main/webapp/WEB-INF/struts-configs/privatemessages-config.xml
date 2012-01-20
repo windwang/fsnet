@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+        <form-bean name="CreatePrivateMessageForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="messageTo" type="java.lang.String" />
+            <form-property name="messageSubject" type="java.lang.String" />
+            <form-property name="messageBody" type="java.lang.String" />
+        </form-bean>
+        <form-bean name="DisplayPrivateMessageForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="messageId" type="java.lang.String" />
+            <form-property name="selectedMessages" type="java.lang.String[]" />
+        </form-bean>
+    </form-beans>
+    <global-forwards>
+
+    </global-forwards>
+    <action-mappings>
+        <action path="/Inbox" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                parameter="inbox">
+            <forward name="success" path="DisplayInbox" />
+        </action>
+
+        <action path="/Outbox" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                parameter="outbox">
+            <forward name="success" path="DisplayOutbox" />
+        </action>
+        <action path="/DisplayMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                name="DisplayPrivateMessageForm" validate="true" scope="request"
+                parameter="display">
+            <forward name="success" path="DisplayPrivateMessage" />
+        </action>
+        <action path="/DisplaySentMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                name="DisplayPrivateMessageForm" validate="true" scope="request"
+                parameter="display">
+            <forward name="success" path="DisplaySentMessage" />
+        </action>
+
+        <action path="/DisplayCreatePrivateMessage" type="org.apache.struts.actions.ForwardAction"
+                parameter="CreatePrivateMessage" >
+        </action>
+
+        <action path="/CreatePrivateMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                parameter="create" name="CreatePrivateMessageForm" validate="true" input="CreatePrivateMessage" scope="request">
+            <forward name="success" path="/Inbox.do" />
+        </action>
+
+        <action path="/DeletePrivateMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                name="DisplayPrivateMessageForm" validate="true" scope="request"
+                parameter="delete">
+            <forward name="success" path="/Inbox.do" />
+        </action>
+        
+        <action path="/DeleteMultiMessages" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                name="DisplayPrivateMessageForm" validate="false" scope="request"
+                parameter="deleteMulti">
+            <forward name="success" path="/Inbox.do" />
+        </action>
+        
+        <action path="/DeleteMultiSentMessages" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
+                name="DisplayPrivateMessageForm" validate="false" scope="request"
+                parameter="deleteMulti">
+            <forward name="success" path="/Outbox.do" />
+        </action>
+
+    </action-mappings>
+</struts-config>

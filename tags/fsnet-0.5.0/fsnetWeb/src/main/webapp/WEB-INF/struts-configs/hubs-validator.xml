@@ -1,0 +1,42 @@
+<!DOCTYPE form-validation PUBLIC
+"-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+"http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<form-validation>
+	<formset>
+		<form name="/CreateHub">
+			<field property="hubName" depends="required,mask,maxlength">
+				<var>
+		        	<var-name>mask</var-name>
+		        	<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>
+		        </var>
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>80</var-value>
+		        </var>
+				<arg0 key="hubs.error.name" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+			</field>
+			<field property="communityId" depends="integer,required"></field>
+		</form>
+		<form name="/DeleteHub">
+			<field property="hubId" depends="integer,required"></field>
+			<field property="communityId" depends="integer,required"></field>
+		</form>
+		<form name="/DisplayHub">
+			<field property="hubId" depends="integer,required"></field>
+		</form>
+		<form name="/DisplayCreateHub">
+			<field property="communityId" depends="integer,required"></field>
+		</form>
+		<form name="/DisplayYourHubs">
+			<field property="communityId" depends="integer,required"></field>
+		</form>
+		<form name="/DeleteYourHub">
+			<field property="hubId" depends="integer,required">
+			</field>
+			<field property="communityId" depends="integer,required">
+			</field>
+		</form>
+	</formset>
+
+</form-validation>
