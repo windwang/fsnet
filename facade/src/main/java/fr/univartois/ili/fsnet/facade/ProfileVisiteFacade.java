@@ -1,8 +1,10 @@
 package fr.univartois.ili.fsnet.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.ProfileVisitePK;
@@ -59,5 +61,22 @@ public class ProfileVisiteFacade {
 				.setMaxResults(3)
 				.getResultList();
 	}
+
+	/**
+	 * get a list of social entity whose visit a same profile
+	 * @param visited
+	 * @return
+	 */
+	public List<ProfileVisite> getLastVisitorSinceLastConnection(
+			SocialEntity visited) {
+		TypedQuery<ProfileVisite> query = em.createQuery("SELECT pv FROM ProfileVisite pv WHERE :socialEntityId = pv.visited.id ORDER BY pv.lastVisite DESC", ProfileVisite.class);
+        query.setParameter("socialEntityId",visited.getId());
+        return query.getResultList();	
+	}
+
+	
+
+
+	
 	
 }
