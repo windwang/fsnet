@@ -39,6 +39,14 @@
         </html:link>
     </li>
     <li>
+        <html:link action="/Visits" styleClass="${currentMenu == 'Visits' ? 'current' : ''}">
+            <bean:message key="menu.13"/>
+      	     <c:if test="${sessionScope.numNewVisits gt 0}">
+            	(${sessionScope.numNewVisits})
+            </c:if>
+        </html:link>
+    </li>
+    <li>
         <html:link action="/DisplayProfile" styleClass="${currentMenu == 'Profile' ? 'current' : ''}">
             <bean:message key="menu.3"/>
         </html:link>

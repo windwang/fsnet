@@ -152,8 +152,9 @@ public class ImageManager {
 				AffineTransformOp.TYPE_BICUBIC);
 		BufferedImage properResized = new BufferedImage((int) (incommingImage
 				.getWidth() * scaleValue),
-				(int) (incommingImage.getHeight() * scaleValue), pictureType
-						.getImageType());
+				(int) (incommingImage.getHeight() * scaleValue), 
+            BufferedImage.TYPE_INT_ARGB);
+            //pictureType.getImageType());
 		op.filter(incommingImage, properResized);
 		return properResized;
 	}

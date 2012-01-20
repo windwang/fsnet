@@ -143,6 +143,8 @@ public class Authenticate extends HttpServlet {
 			em.getTransaction().begin();
 			SocialEntity user;
 			user = em.find(SocialEntity.class, es.getId());
+			//Last connection in session before a new session
+			session.setAttribute("LastConnection",user.getLastConnection());
 			user.setLastConnection(new Date());
 			em.merge(user);
 			em.getTransaction().commit();

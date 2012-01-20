@@ -354,6 +354,12 @@
 		<put name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
 	</definition>
 
+	<!-- Visits -->
+	<definition name="Visits" extends=".defaultLayout">
+		<put name="title" value="pageTitle.20" />
+		<put name="body-content" value="/content/visits/Visits.jsp" />
+	</definition>
+	
 	<!-- Ajax -->
 	<definition name="AjaxAutocompleteRecipients" path="/content/ajax/AutocompleteRecipients.jsp" />
 

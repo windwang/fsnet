@@ -45,7 +45,8 @@
                       /WEB-INF/struts-configs/privatemessages-validator.xml,
                       /WEB-INF/struts-configs/interactions-validator.xml,
                       /WEB-INF/struts-configs/groups-validator.xml,
-                      /WEB-INF/struts-configs/consultations-validator.xml" />
+                      /WEB-INF/struts-configs/consultations-validator.xml,
+                      /WEB-INF/struts-configs/visits-validator.xml" />
 	</plug-in>
 
 	<!--

@@ -24,7 +24,8 @@
                 /WEB-INF/struts-configs/interactions-config.xml,
                 /WEB-INF/struts-configs/ajax-config.xml,
                 /WEB-INF/struts-configs/consultations-config.xml,
-                /WEB-INF/struts-configs/groups-config.xml
+                /WEB-INF/struts-configs/groups-config.xml,
+                /WEB-INF/struts-configs/visits-config.xml
             </param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
