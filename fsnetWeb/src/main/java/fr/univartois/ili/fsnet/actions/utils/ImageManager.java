@@ -134,7 +134,7 @@ public class ImageManager {
 	 * The maximum width or height for the user picture (ratio is preserved)
 	 */
 	private static final int PICTURE_MAX_WIDTH_OR_HEIGHT = 100;
-	private static final int MINIATURE_MAX_WIDTH_OR_HEIGHT = 25;
+	private static final int MINIATURE_MAX_WIDTH_OR_HEIGHT = 40;
 
 	private static BufferedImage getProperResizedImage(
 			BufferedImage incommingImage, PictureType pictureType,
