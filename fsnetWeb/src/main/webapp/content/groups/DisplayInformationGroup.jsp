@@ -16,7 +16,16 @@
 		<div>${ socialGroup.name }</div>
 		<h3><bean:message key="groups.description.message"/></h3>
 		<p> ${ socialGroup.description } </p>
-		<c:if test="${ sessionScope.isMasterGroup }">
+		
+		<h3><bean:message key="groups.members"/></h3>
+		<ul>
+			<c:foreach var="member" items="${allMembers}">
+				<li>${member.name} ${member.firstname}</li>
+			</c:foreach>
+		</ul>
+		
+		
+		<c:if test="${ sessionScope.isMasterGroup }">		
 		<h3><bean:message key="groups.rights.title"/></h3>
 		
 		<c:choose>
