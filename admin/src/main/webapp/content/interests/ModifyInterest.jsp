@@ -10,7 +10,7 @@
 	<html:javascript formName="/ModifyInterest"/>
 	<div id="modify">
 	<html:form action="/ModifyInterest">
-		<html:errors property="modifiedInterestId" />
+		<div class="errorMessage"><html:errors property="modifiedInterestId" /></div>
 		<bean:message key="error.interest.create"/>
 		<html:select property="modifiedInterestId" styleClass="select" onchange="updateParentInterest()">
 			<html:option value="">
@@ -29,7 +29,7 @@
 				<html:option value="${interest.id}">${interest.name}</html:option>
 			</c:forEach>
 		</html:select><br/>
-		<html:errors property="modifiedInterestName" />
+		<div class="errorMessage"><html:errors property="modifiedInterestName" /></div>
 		<bean:message key="error.interest.name.modified"/>
 		<html:text property="modifiedInterestName" />
 		<html:hidden property="allInterestsId" value="${ allInterestsId }"/>

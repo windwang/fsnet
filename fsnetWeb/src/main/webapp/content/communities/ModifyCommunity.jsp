@@ -8,8 +8,8 @@
 <c:if test="${not empty requestScope.myCommunitiesPaginator.resultList}">
 	<h3><bean:message key="commmunities.modify" /></h3>
 	<html:form action="/ModifyCommunity">
-		<html:errors property="modifierCommunityName" />
-		<html:errors property="modifiedCommunityName" /><br/>
+		<div class="errorMessage"><html:errors property="modifierCommunityName" /></div>
+		<div class="errorMessage"><html:errors property="modifiedCommunityName" /><br/></div>
 		<html:select property="modifierCommunityName" styleClass="select">
 			<html:option value="">
 				<bean:message key="community.default" />

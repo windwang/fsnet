@@ -19,5 +19,5 @@
       	<bean:message key="interest.validate"/>
       </html:submit>
     </html:form>
-    <html:errors property="deletedInterestId"/>
+    <div class="errorMessage"><html:errors property="deletedInterestId"/></div>
 </c:if>

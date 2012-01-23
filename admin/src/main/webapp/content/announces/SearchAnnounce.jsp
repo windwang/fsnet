@@ -15,6 +15,6 @@
 
 	    <html:submit styleClass="button"><bean:message key="announce.button.search" /></html:submit>
     	<html:messages id="message" />
-    	<html:errors/>
+    	<div class="errorMessage"><html:errors/></div>
     </div>
 </html:form>
