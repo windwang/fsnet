@@ -382,15 +382,6 @@ input[type="text"][class="error"], textarea[class="error"] {
     padding: 2px 5px 0 5px;
 }
 
-.inLineTableMemberGroup{
-    padding: 2px 5px 0 5px;
-    border-collapse:collapse;
-}
-
-.inLineTableMemberGroup tr{
-	background-color: #E8F5FD;
-	border: 5px solid #F7FCFF;
-}
 
 .homeFrame caption {
     text-align: left;
