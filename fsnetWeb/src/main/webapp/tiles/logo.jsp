@@ -13,7 +13,11 @@
 <div class="group">
 	<c:choose>
 	<c:when test="${sessionScope.hisGroup != null}">
-	<bean:message key="avatar.groups" /> ${sessionScope.hisGroup.name}
+	<bean:message key="avatar.groups" /> 
+	<html:link action="/DisplayInformationGroup">
+		<html:param name="idGroup" value="${sessionScope.hisGroup.id}"/>
+		${sessionScope.hisGroup.name}
+	</html:link>
 	</c:when>
 	<c:otherwise>
 		<bean:message key="avatar.member.no.group" /> 
