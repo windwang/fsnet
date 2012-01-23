@@ -87,7 +87,8 @@ public class Authenticate extends HttpServlet {
 		boolean authenticated = false;
 		String memberMail = req.getParameter("memberMail");
 		String memberPass = req.getParameter("memberPass");
-
+		
+		
 		if (memberMail == null && memberPass == null) {
 			if (req.getCookies() != null)
 
@@ -108,6 +109,7 @@ public class Authenticate extends HttpServlet {
 		;
 		SocialEntity es = null;
 		if (memberMail != null && memberPass != null) {
+			memberMail=memberMail.toLowerCase();
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			es = socialEntityFacade.findByEmail(memberMail);
 			if (es != null
