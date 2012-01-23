@@ -1,10 +1,13 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /*
@@ -25,6 +28,9 @@ public class FormationCV implements Serializable {
 	private int id;
 
 	private String name;
+
+	@ManyToMany(mappedBy = "myFormations")
+	private List<Curriculum> myCVs = new ArrayList<Curriculum>();
 
 	// Pensez a la durée !
 	@OneToOne

@@ -1,10 +1,13 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -21,6 +24,9 @@ public class TrainingCV implements Serializable {
 
 	private String name;
 	private String speciality;
+
+	@ManyToMany(mappedBy = "trains")
+	private List<Curriculum> myCVs = new ArrayList<Curriculum>();
 
 	// Pensez aux dates debut et fin :)
 
@@ -96,6 +102,20 @@ public class TrainingCV implements Serializable {
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	/**
+	 * @return the myCVs
+	 */
+	public List<Curriculum> getMyCVs() {
+		return myCVs;
+	}
+
+	/**
+	 * @param myCVs the myCVs to set
+	 */
+	public void setMyCVs(List<Curriculum> myCVs) {
+		this.myCVs = myCVs;
 	}
 
 }

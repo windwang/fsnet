@@ -1,10 +1,13 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
 /*
@@ -27,6 +30,9 @@ public class DegreeCV implements Serializable {
 
 	private int PostBacValue;
 	private String grade;
+
+	@ManyToMany(mappedBy = "degs")
+	private List<Curriculum> myCVs = new ArrayList<Curriculum>();
 
 	@OneToOne
 	private EstablishmentCV ets;
@@ -100,6 +106,20 @@ public class DegreeCV implements Serializable {
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	/**
+	 * @return the myCVs
+	 */
+	public List<Curriculum> getMyCVs() {
+		return myCVs;
+	}
+
+	/**
+	 * @param myCVs the myCVs to set
+	 */
+	public void setMyCVs(List<Curriculum> myCVs) {
+		this.myCVs = myCVs;
 	}
 
 }
