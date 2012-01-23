@@ -19,19 +19,19 @@
 		
 		<h3><bean:message key="groups.listMember"/></h3>
 		
-		<table class="inLineTableMemberGroup">
-                
-	        <tbody>
-				<c:forEach var="member" items="${allMembers}">
-					<tr>
-						<td class="messagePhoto"><a href="/fsnetWeb/DisplayProfile.do?id=${member.id}" class="miniature"> <img title="${member.name} ${member.firstName}" src="miniature/${member.id}.png"/></a></td>
-						<td ><a href="/fsnetWeb/DisplayProfile.do?id=${member.id}">${member.name} ${member.firstName}</a></td>
-					</tr>
-				</c:forEach>
-			</tbody>
 		
-		</table>
+		<c:forEach var="member" items="${allMembers}">
+			
+				<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}" class="miniature"> 
+					<img title="${member.name} ${member.firstName}" src="miniature/${member.id}.png"/>
+					${member.name} ${member.firstName}
+				</a>
+			
+		</c:forEach>
 		
+		
+		<br/>
+		<br/>
 		
 		<c:if test="${ sessionScope.isMasterGroup }">
 		<h3><bean:message key="groups.rights.title"/></h3>
