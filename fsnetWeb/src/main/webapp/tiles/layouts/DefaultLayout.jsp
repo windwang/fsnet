@@ -19,22 +19,10 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
 		<title><bean:message key="${pageTitle}" /></title>
 		<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
-		
-		<link type="text/css" href="css/theme.css" rel="stylesheet" />
-		<link type="text/css" href="css/jquery.qtip.css" rel="stylesheet" />
-		<link type="text/css" href="css/fullcalendar.print.css" rel="stylesheet" />
-		<link type="text/css" href="css/fullcalendar.css" rel="stylesheet" />
-		
 		<script type="text/javascript" src="js/functions.js"></script>
 		<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript" src="js/geolocalisation.js"></script>
-		
-	    <script type="text/javascript" src="js/jquery-ui-1.8.11.custom.min.js"></script>
-		<script type="text/javascript" src="js/jquery.qtip.js"></script>
-		<script type="text/javascript" src="js/fullcalendar.min.js"></script>
-		<script type="text/javascript" src="js/script.js"></script>
-		
 	</head>
 	<body>
 		<div class="wrap background">

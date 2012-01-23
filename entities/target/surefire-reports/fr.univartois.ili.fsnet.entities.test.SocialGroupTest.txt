@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: fr.univartois.ili.fsnet.entities.test.SocialGroupTest
--------------------------------------------------------------------------------
-Tests run: 9, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.196 sec
