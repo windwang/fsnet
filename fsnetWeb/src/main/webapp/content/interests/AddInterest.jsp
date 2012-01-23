@@ -24,7 +24,7 @@
 	                </div>
 	            </c:forEach>
                     <div style="clear : both;"></div>
-	        <html:errors property="addedInterestId"/>
+	        <div class="errorMessage"><html:errors property="addedInterestId"/></div>
 	    </c:when>
 	    <c:otherwise>
 	        <bean:message key="interests.2"/>

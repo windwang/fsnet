@@ -9,7 +9,7 @@
 <h3><bean:message key="interests.11"/></h3>
 <html:javascript formName="/SearchInterest"/>
 <html:form action="/SearchInterest">
- 		<html:errors property="searchInterestName"/>
+ 		<div class="errorMessage"><html:errors property="searchInterestName"/></div>
     	<html:text property="searchInterestName"/>
       <html:submit styleClass="button" >
       	<bean:message key="interest.validate"/>
