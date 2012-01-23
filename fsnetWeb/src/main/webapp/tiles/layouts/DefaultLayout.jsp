@@ -24,7 +24,7 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript" src="js/geolocalisation.js"></script>
 	</head>
-	<body>
+	<body onload="definePasword()">
 		<div class="wrap background">
 			<tiles:useAttribute name="currentMenu" scope="request" ignore="true" /> 
 			<tiles:insert attribute="menu" />
