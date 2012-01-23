@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.Address;
-import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
@@ -105,6 +104,19 @@ public class MeetingFacade {
 						user.getLastConnection()).getResultList();
 		
 		return listMeeting;
+	}
+	
+	/**
+	 * List all the events
+	 * @return List<Meeting> the list containing all the events
+	 */
+	public final List<Meeting> listAllMeeting() {
+		List<Meeting> results;
+		final TypedQuery<Meeting> query;
+		query = em.createQuery("SELECT e FROM Meeting e "
+				+ "ORDER BY e.startDate DESC ", Meeting.class);
+		results = query.getResultList();
+		return results;
 	}
     
 }
