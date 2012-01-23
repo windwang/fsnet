@@ -40,7 +40,7 @@
         <tr>
             <td colspan="2">
                 <html:messages id="message" />
-                <html:errors/>
+                <div class="errorMessage"><html:errors/></div>
             </td>
         </tr>
 

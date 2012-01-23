@@ -15,8 +15,8 @@
 	<c:set var="hub" value="${hubResults}" />
 	<html:form action="/ModifyYourHub" method="post">
 		<html:hidden property="communityId" value="${param.communityId}" />
-		<html:errors property="hubId" />
-		<html:errors property="hubAlreadyExistsErrors" />
+		<div class="errorMessage"><html:errors property="hubId" /></div>
+		<div class="errorMessage"><html:errors property="hubAlreadyExistsErrors" /></div>
 		<br />
 		<html:select property="hubId" styleClass="select">
 			<html:option value="">

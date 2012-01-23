@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <h3><bean:message key="consultation.create"/></h3>
-<font color="red"><html:errors/></font> 
+<div class="errorMessage"><html:errors/></div> 
 <html:form action="CreateConsultation" method="POST">
 	<table>
 	<tr>

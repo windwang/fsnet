@@ -10,7 +10,7 @@
 <html:javascript formName="/SearchInterest"/>
 <html:form action="/SearchInterest" method="GET">
     <html:text property="requestInput"/>
-    <html:errors property="requestInput"/>
+    <div class="errorMessage"><html:errors property="requestInput"/></div>
     <html:submit styleClass="button">
     	<bean:message key="interests.search"/>
     </html:submit>

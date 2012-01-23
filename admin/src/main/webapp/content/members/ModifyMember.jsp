@@ -23,7 +23,7 @@
 
 <html:form action="/ModifyMember">
 	<table id="ModifyMember">
-		<tr>
+		<tr class="errorMessage">
 			<td colspan="2"><html:errors />
 			</td>
 
