@@ -22,12 +22,12 @@
 		
 		<c:forEach var="member" items="${allMembers}">
 			
-				<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}" class="miniature"> 
-					<img title="${member.name} ${member.firstName}" src="miniature/${member.id}.png"/>
-					${member.name} ${member.firstName}
+				<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}"> 
+					<img title="${member.name} ${member.firstName}" src="miniature/${member.id}.png" class="miniature"/>
 				</a>
 			
 		</c:forEach>
+		
 		
 		
 		<br/>
