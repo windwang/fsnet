@@ -18,14 +18,22 @@
 		<p> ${ socialGroup.description } </p>
 		
 		<h3><bean:message key="groups.listMember"/></h3>
-		<ul>
-			<c:forEach var="member" items="${allMembers}">
-				<li>${member.name} ${member.firstName}</li>
-			</c:forEach>
-		</ul>
 		
 		
-		<c:if test="${ sessionScope.isMasterGroup }">		
+		<c:forEach var="member" items="${allMembers}">
+			
+				<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}" class="miniature"> 
+					<img title="${member.name} ${member.firstName}" src="miniature/${member.id}.png"/>
+					${member.name} ${member.firstName}
+				</a>
+			
+		</c:forEach>
+		
+		
+		<br/>
+		<br/>
+		
+		<c:if test="${ sessionScope.isMasterGroup }">
 		<h3><bean:message key="groups.rights.title"/></h3>
 		
 		<c:choose>

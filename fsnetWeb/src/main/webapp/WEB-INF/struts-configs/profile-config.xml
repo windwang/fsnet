@@ -20,6 +20,7 @@
 		<form-bean name="ChangePhotoForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="photo" type="org.apache.struts.upload.FormFile" />
+			<form-property name="photoUrl" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="DisplayProfileForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">

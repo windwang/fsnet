@@ -1,7 +1,11 @@
 package fr.univartois.ili.fsnet.actions;
 
+
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -13,6 +17,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.HttpHost;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
+import org.apache.http.conn.params.ConnRoutePNames;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -166,7 +176,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
 		addRightToRequest(request);
 		request.setAttribute("currentUser", user);
-		dyna.set("name", user.getName());
+		dyna.set("name", user.getName()); 
 		dyna.set("firstName", user.getFirstName());
 		if (user.getAddress() != null) {
 			dyna.set("adress", user.getAddress().getAddress());
@@ -268,7 +278,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
 	public final ActionForward changePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+			throws IOException, ServletException, URISyntaxException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if(!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),Right.MODIFY_PICTURE))
@@ -276,12 +286,33 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("photo");
+		InputStream inputStream=null;
+		HttpClient httpClient = new DefaultHttpClient(); ;
+	    HttpGet httpGet = new HttpGet();
+		URI uri = null;
+		HttpHost proxy;
+		String stringUrl=(String) dynaForm.get("photoUrl");
+		String urlType = null;
+		if(stringUrl!=null  && !stringUrl.isEmpty()){
+			uri = new URI(stringUrl);
+			proxy = new HttpHost("cache-etu",3128);
+			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+			httpGet.setURI(uri);
+	    	HttpResponse httpResponse = httpClient.execute(httpGet); 
+	    	inputStream = httpResponse.getEntity().getContent();
+	    	urlType=httpResponse.getEntity().getContentType().getValue();
+		}
+		else{
+		uri =null;
+		}
+	
 		int userId = UserUtils.getAuthenticatesUserId(request);
 		addRightToRequest(request);
 		if (file.getFileData().length != 0) {
 			PictureType pictureType = null;
 			for (PictureType pt : PictureType.values()) {
 				if (pt.getMimeType().equals(file.getContentType())) {
+					System.out.println("-----file content type"+file.getContentType());
 					pictureType = pt;
 					break;
 				}
@@ -295,8 +326,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				}
 				
 				try {
-					ImageManager.createPicturesForUser(userId, file
-							.getInputStream(), pictureType);
+					ImageManager.createPicturesForUser(userId, file.getInputStream(), pictureType);
 				} catch (FileNotFoundException e) {
 					sendPictureError(request, "updateProfile.error.photo.fatal");
 				} catch (IOException e) {
@@ -307,9 +337,41 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			} else {
 				sendPictureError(request, "updateProfile.error.photo.type");
 			}
-		} else {
-			ImageManager.removeOldUserPicture(userId);
+		} else if(uri!=null){
+			PictureType pictureType = null;
+			for (PictureType pt : PictureType.values()) {
+				if (pt.getMimeType().equals(urlType)) {
+					pictureType = pt;
+					break;
+				}
+			}
+			if (pictureType != null) {		
+				
+				
+				if(inputStream.available()>MAX_PICTURE_SIZE){
+					sendPictureError(request, "updateProfile.error.photo.masize");
+					return mapping.findForward("success");
+				}
+				
+				try {
+					ImageManager.createPicturesForUser(userId, inputStream, pictureType);
+				} 
+				catch (FileNotFoundException e) {
+					sendPictureError(request, "updateProfile.error.photo.fatal");
+				} 
+				catch (IOException e) {
+					sendPictureError(request, "updateProfile.error.photo.fatal");
+				} catch (IllegalStateException e) {
+					sendPictureError(request, "updateProfile.error.photo.fatal");
+				}
+			} else {
+				sendPictureError(request, "updateProfile.error.photo.type");
+			}
 		}
+			else {
+		
+			ImageManager.removeOldUserPicture(userId);
+			}
 		return mapping.findForward("success");
 	}
 

@@ -19,7 +19,7 @@
 <html:form action="/CreateAnnounce">
 	<table id="CreateAnnounce">
 		<tr>
-			<td colspan="2"><html:messages id="message" /> <html:errors />
+			<td colspan="2"><html:messages id="message" /> <div class="errorMessage"><html:errors /></div>
 			</td>
 		</tr>
 		<tr>

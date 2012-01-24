@@ -1,7 +1,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+ 
 <div id="logo2">
 	<img src="images/logo.png" />
 
@@ -13,7 +13,11 @@
 <div class="group">
 	<c:choose>
 	<c:when test="${sessionScope.hisGroup != null}">
-	<bean:message key="avatar.groups" /> ${sessionScope.hisGroup.name}
+	<bean:message key="avatar.groups" /> 
+	<html:link action="/DisplayInformationGroup">
+		<html:param name="idGroup" value="${sessionScope.hisGroup.id}"/>
+		${sessionScope.hisGroup.name}
+	</html:link>
 	</c:when>
 	<c:otherwise>
 		<bean:message key="avatar.member.no.group" /> 
