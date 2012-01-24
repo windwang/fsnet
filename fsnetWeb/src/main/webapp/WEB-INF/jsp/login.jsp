@@ -36,7 +36,7 @@
 								</div>
 							</td>
 							<td>
-								<input type="text" name="memberMail" id="memberMail" class="error"/>
+								<input type="text" value="${param['memberMail'] }" name="memberMail" id="memberMail" class="error"/>
 							</td>
 						</tr>
 						<tr>
@@ -48,7 +48,7 @@
 							</div>
 							</td>
 							<td>
-								<input type="password" id="memberPass" name="memberPass"/>
+								<input type="password" value="${param['memberPass'] }" id="memberPass" name="memberPass"/>
 							</td>
 						</tr>
 						<tr>
