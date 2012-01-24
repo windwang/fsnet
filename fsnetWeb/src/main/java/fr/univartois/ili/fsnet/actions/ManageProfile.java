@@ -131,7 +131,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				dynaForm.getString("city")),
 				birthday, dynaForm.getString("sexe"),
 				dynaForm.getString("job"),
-				dynaForm.getString("mail"),
+				dynaForm.getString("mail").toLowerCase(),
 				dynaForm.getString("phone"));
 		em.getTransaction().commit();
 		em.close();

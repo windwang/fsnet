@@ -23,6 +23,7 @@
 		<form-bean name="ChangeLogoForm" type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="Logo" type="org.apache.struts.upload.FormFile"/>
 		</form-bean>
+		<form-bean name="UpdateDBForm" type="org.apache.struts.validator.DynaValidatorActionForm"/>
 	</form-beans>
 	<action-mappings>
    		<action path="/SendTestMail"
@@ -67,6 +68,14 @@
 				validate="true"
 				scope="request">
 				<forward name="unauthorized" path="/EditConfiguration.do"/>
+				<forward name="success" path="/EditConfiguration.do"></forward>
+	   	</action>
+	   <action path="/UpdateDB"
+				name="UpdateDBForm"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				parameter="updateDB"
+				validate="false"
+				scope="request">
 				<forward name="success" path="/EditConfiguration.do"></forward>
 	   	</action>
 	</action-mappings>
