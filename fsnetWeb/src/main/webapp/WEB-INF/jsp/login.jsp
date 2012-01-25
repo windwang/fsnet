@@ -76,7 +76,7 @@
 									</label>
 								</div>
 							</td>
-							<td><input type="text" name="memberMail" id="memberMail"
+							<td><input type="text" value="${param['memberMail'] }" name="memberMail" id="memberMail"
 								class="error" /></td>
 						</tr>
 						<tr>
