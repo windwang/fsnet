@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 @Entity
@@ -25,8 +25,8 @@ public class TrainingCV implements Serializable {
 	private String name;
 	private String speciality;
 
-	@ManyToMany(mappedBy = "trains")
-	private List<Curriculum> myCVs = new ArrayList<Curriculum>();
+	@ManyToOne
+	private List<AssociationDateTrainingCV> myCVs = new ArrayList<AssociationDateTrainingCV>();
 
 	// Pensez aux dates debut et fin :)
 
@@ -107,14 +107,16 @@ public class TrainingCV implements Serializable {
 	/**
 	 * @return the myCVs
 	 */
-	public List<Curriculum> getMyCVs() {
+	public List<AssociationDateTrainingCV> getAssociationDateTrainingCV() {
 		return myCVs;
 	}
 
 	/**
-	 * @param myCVs the myCVs to set
+	 * @param myCVs
+	 *            the myCVs to set
 	 */
-	public void setMyCVs(List<Curriculum> myCVs) {
+	public void setAssociationDateTrainingCV(
+			List<AssociationDateTrainingCV> myCVs) {
 		this.myCVs = myCVs;
 	}
 

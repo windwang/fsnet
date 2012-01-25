@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /*
@@ -29,8 +29,8 @@ public class FormationCV implements Serializable {
 
 	private String name;
 
-	@ManyToMany(mappedBy = "myFormations")
-	private List<Curriculum> myCVs = new ArrayList<Curriculum>();
+	@ManyToOne
+	private List<AssociationDateFormationCV> myCVs = new ArrayList<AssociationDateFormationCV>();
 
 	// Pensez a la durée !
 	@OneToOne
@@ -90,6 +90,22 @@ public class FormationCV implements Serializable {
 	 */
 	public static long getSerialversionuid() {
 		return serialVersionUID;
+	}
+
+	/**
+	 * @return the myCVs
+	 */
+	public List<AssociationDateFormationCV> getAssociationDateFormationCV() {
+		return myCVs;
+	}
+
+	/**
+	 * @param myCVs
+	 *            the myCVs to set
+	 */
+	public void setAssociationDateFormationCV(
+			List<AssociationDateFormationCV> myCVs) {
+		this.myCVs = myCVs;
 	}
 
 }

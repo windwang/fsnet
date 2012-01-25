@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
@@ -23,20 +25,24 @@ public class Curriculum implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@GeneratedValue
+	@Id
+	private int id;
+
 	@OneToOne
 	private MemberCV member;
 
-	@ManyToMany
-	private List<FormationCV> myFormations = new ArrayList<FormationCV>();
+	@OneToMany
+	private List<AssociationDateFormationCV> myFormations = new ArrayList<AssociationDateFormationCV>();
 
 	@ManyToMany
 	private List<HobbiesCV> hobs = new ArrayList<HobbiesCV>();
 
 	@OneToMany
-	private List<TrainingCV> trains = new ArrayList<TrainingCV>();
+	private List<AssociationDateTrainingCV> trains = new ArrayList<AssociationDateTrainingCV>();
 
-	@ManyToMany
-	private List<DegreeCV> degs = new ArrayList<DegreeCV>();
+	@OneToMany(mappedBy = "idCurriculum")
+	private List<AssociationDateDegreeCV> degs = new ArrayList<AssociationDateDegreeCV>();
 
 	public Curriculum() {
 
@@ -60,7 +66,7 @@ public class Curriculum implements Serializable {
 	/**
 	 * @return the myFormation
 	 */
-	public List<FormationCV> getMyFormations() {
+	public List<AssociationDateFormationCV> getMyFormations() {
 		return myFormations;
 	}
 
@@ -68,7 +74,7 @@ public class Curriculum implements Serializable {
 	 * @param myFormation
 	 *            the myFormation to set
 	 */
-	public void setMyFormations(List<FormationCV> myFormation) {
+	public void setMyFormations(List<AssociationDateFormationCV> myFormation) {
 		this.myFormations = myFormation;
 	}
 
@@ -90,7 +96,7 @@ public class Curriculum implements Serializable {
 	/**
 	 * @return the training
 	 */
-	public List<TrainingCV> getTrains() {
+	public List<AssociationDateTrainingCV> getTrains() {
 		return trains;
 	}
 
@@ -98,14 +104,14 @@ public class Curriculum implements Serializable {
 	 * @param train
 	 *            the train to set
 	 */
-	public void setTrains(List<TrainingCV> train) {
+	public void setTrains(List<AssociationDateTrainingCV> train) {
 		this.trains = train;
 	}
 
 	/**
 	 * @return all the degree
 	 */
-	public List<DegreeCV> getDegs() {
+	public List<AssociationDateDegreeCV> getDegs() {
 		return degs;
 	}
 
@@ -113,8 +119,23 @@ public class Curriculum implements Serializable {
 	 * @param deg
 	 *            the deg to set
 	 */
-	public void setDegs(List<DegreeCV> deg) {
+	public void setDegs(List<AssociationDateDegreeCV> deg) {
 		this.degs = deg;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * @param id
+	 *            the id to set
+	 */
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }

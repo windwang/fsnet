@@ -7,7 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
 /*
@@ -31,8 +31,8 @@ public class DegreeCV implements Serializable {
 	private int PostBacValue;
 	private String grade;
 
-	@ManyToMany(mappedBy = "degs")
-	private List<Curriculum> myCVs = new ArrayList<Curriculum>();
+	@ManyToOne
+	private List<AssociationDateDegreeCV> myCVs = new ArrayList<AssociationDateDegreeCV>();
 
 	@OneToOne
 	private EstablishmentCV ets;
@@ -111,15 +111,17 @@ public class DegreeCV implements Serializable {
 	/**
 	 * @return the myCVs
 	 */
-	public List<Curriculum> getMyCVs() {
+	public List<AssociationDateDegreeCV> getAssociationDateDegreeCV() {
 		return myCVs;
 	}
 
 	/**
-	 * @param myCVs the myCVs to set
+	 * @param myCVs
+	 *            the myCVs to set
 	 */
-	public void setMyCVs(List<Curriculum> myCVs) {
-		this.myCVs = myCVs;
+	public void setAssociationDateDegreeCV(
+			List<AssociationDateDegreeCV> myAssociationDateDegreeCV) {
+		this.myCVs = myAssociationDateDegreeCV;
 	}
 
 }
