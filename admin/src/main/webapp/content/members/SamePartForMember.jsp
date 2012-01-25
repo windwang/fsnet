@@ -15,11 +15,6 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<bean:message key="members.welcomeMessage.welcome" /> "<bean:message key="members.name" />" "<bean:message key="members.firstName" />"
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
 				<c:set var="welcomeMain"><bean:message key="members.welcomeMessage.main" /></c:set>
 				<c:if test="${!empty CreateMemberForm.map.message}">
 					<c:set var="welcomeMain">${CreateMemberForm.map.message}</c:set>
@@ -32,17 +27,7 @@
 		</tr>
 		<tr>
 			<td colspan="2">
-				<bean:message key="members.welcomeMessage.url" /> "url". 
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<bean:message key="members.welcomeMessage.password" /> "<bean:message key="members.password" />" . 
-			</td>
-		</tr>
-		<tr>
-			<td colspan="2">
-				<bean:message key="members.welcomeMessage.donotreply" /> 
+				<bean:message key="members.welcomeMessage.warning" /> 
 			</td>
 		</tr>
 		

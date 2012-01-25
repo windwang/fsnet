@@ -268,7 +268,7 @@
                 </td>
             </tr>
             <logic:messagesPresent property="${typePwd}">
-                <tr>
+                <tr class="errorMessage">
                     <td colspan="2">
                         <html:errors property="${typePwd}"/>
                     </td>
@@ -299,11 +299,14 @@
                     <bean:message key="updateProfile.photoLocal"/> :
                 </label></td>
 	<td><html:file property="photo"></html:file></td></tr><tr><td>
-		<html:submit styleClass="button"/></td></tr>
+		<html:submit styleClass="button">
+			<bean:message key="updateProfile.validate"/>
+		</html:submit>
+	</td></tr>
 		</table>
 	</div>	
 	<logic:messagesPresent property="photo">
-		<div class="error">
+		<div class="errorMessage">
 			<html:errors property="photo"/>
 		</div>
 	</logic:messagesPresent>
