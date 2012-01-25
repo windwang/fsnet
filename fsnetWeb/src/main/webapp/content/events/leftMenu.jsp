@@ -13,4 +13,11 @@
         	</html:link>
         </ili:interactionFilter>
     </li>
+    
+   <li>
+        <html:link action="/Calendar">
+			<bean:message key="left.Calendar"/> 
+        </html:link>
+   </li>
+    
 </ul>

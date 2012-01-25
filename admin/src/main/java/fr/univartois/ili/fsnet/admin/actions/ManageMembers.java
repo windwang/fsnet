@@ -67,6 +67,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String firstName = (String) dynaForm.get("firstName");
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
+		mail=mail.toLowerCase();
 		dynaForm.set("email", "");
 		String parentId = (String) dynaForm.get("parentId");
 		dynaForm.set("parentId", "");
@@ -173,7 +174,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 				SocialEntity socialEntity = facadeSE.createSocialEntity(
 						socialEntitieInput[0], socialEntitieInput[1],
-						socialEntitieInput[2]);
+						socialEntitieInput[2].toLowerCase());
+				
 
 				String definedPassword = Encryption.generateRandomPassword();
 				logger.info("#### Defined Password : " + definedPassword);
@@ -278,7 +280,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 			SocialEntity socialEntity = facadeSE.createSocialEntity(
 					socialEntitieInput[0], socialEntitieInput[1],
-					socialEntitieInput[2]);
+					socialEntitieInput[2].toLowerCase());
 
 			String definedPassword = Encryption.generateRandomPassword();
 			logger.info("#### Defined Password : " + definedPassword);
@@ -555,6 +557,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
+		email=email.toLowerCase();
 		String parentId = (String) formSocialENtity.get("parentId");
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");

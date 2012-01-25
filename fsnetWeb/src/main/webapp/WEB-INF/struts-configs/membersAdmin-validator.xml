@@ -69,6 +69,11 @@
 
 				<arg key="members.error.group" />
 			</field>
+			
+			<field property="typePassword" depends="required">
+
+			</field>
+			
 			<field property="password" depends="minlength,validwhen">
 				<msg name="validwhen" key="errors.required"/>
 				<arg0 key="members.password" />
