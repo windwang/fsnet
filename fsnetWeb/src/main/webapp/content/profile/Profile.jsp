@@ -299,7 +299,10 @@
                     <bean:message key="updateProfile.photoLocal"/> :
                 </label></td>
 	<td><html:file property="photo"></html:file></td></tr><tr><td>
-		<html:submit styleClass="button"/></td></tr>
+		<html:submit styleClass="button">
+			<bean:message key="updateProfile.validate"/>
+		</html:submit>
+	</td></tr>
 		</table>
 	</div>	
 	<logic:messagesPresent property="photo">
