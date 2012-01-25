@@ -34,7 +34,7 @@
 					title="Téléchargez l'application androïd" />
 			</a></li>
 			<li><a
-				href="hettp://www.facebook.com/profile.php?id=100003374258658">
+				href="http://www.facebook.com/profile.php?id=100003374258658">
 					<img src="images/facebook.png" title="Rejoignez-nous sur Facebook"
 					alt="Facebook" />
 			</a></li>
