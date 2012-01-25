@@ -8,6 +8,7 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 /**
  * 
@@ -52,7 +53,21 @@ public class UserUtils {
 			user = socialEntityFacade.getSocialEntity(id);
 			em.getTransaction().commit();
 		}
+		refreshGroupInSession(user, request, em);
 		return user;
 	}
 
+	public static final void refreshGroupInSession(SocialEntity user,
+			HttpServletRequest request, EntityManager em) {
+
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+		SocialGroup tmp = socialEntityFacade.findByEmail(user.getEmail())
+				.getGroup();
+
+		request.getSession().setAttribute("groupTree", tmp);
+		request.getSession().setAttribute("hisGroup", tmp);
+		request.getSession().setAttribute("isMasterGroup",
+				socialGroupFacade.isMasterGroup(user));
+	}
 }
