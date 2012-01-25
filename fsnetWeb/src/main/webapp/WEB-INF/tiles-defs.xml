@@ -47,6 +47,13 @@
 		<put name="body-content" value="/content/events/DisplayEvent.jsp" />
 	</definition>
 
+	<!-- Calendar -->
+	<definition name="Calendar" extends=".defaultLayout">
+		<put name="title" value="pageTitle.Calendar" />
+		<put name="left" value="/content/events/leftMenu.jsp" />
+		<put name="body-content" value="/content/events/Calendar.jsp" />
+	</definition>
+	
 	<!-- Contacts -->
 	<definition name="Contacts" extends=".defaultLayout">
 		<put name="title" value="pageTitle.2" />

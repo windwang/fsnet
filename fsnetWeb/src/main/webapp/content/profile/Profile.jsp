@@ -268,7 +268,7 @@
                 </td>
             </tr>
             <logic:messagesPresent property="${typePwd}">
-                <tr class="errorMessage">
+                <tr>
                     <td colspan="2">
                         <html:errors property="${typePwd}"/>
                     </td>
@@ -291,12 +291,22 @@
 </h3>
 <html:form action="/ChangePhoto" enctype="multipart/form-data" style="float:left">
 		<bean:message key="updateProfile.picturesize"/>
-	<div>
-		<html:file property="photo"></html:file>
-		<html:submit styleClass="button"/>
+	<div><table><tr><td><label for="photoInternet">
+                    <bean:message key="updateProfile.photoInternet"/> :
+                </label></td><td>
+	<html:text property="photoUrl"></html:text></td></tr><tr>
+	<td><label for="photoLocal">
+                    <bean:message key="updateProfile.photoLocal"/> :
+                </label></td>
+	<td><html:file property="photo"></html:file></td></tr><tr><td>
+		<html:submit styleClass="button">
+			<bean:message key="updateProfile.validate"/>
+		</html:submit>
+	</td></tr>
+		</table>
 	</div>	
 	<logic:messagesPresent property="photo">
-		<div class="errorMessage">
+		<div class="error">
 			<html:errors property="photo"/>
 		</div>
 	</logic:messagesPresent>
