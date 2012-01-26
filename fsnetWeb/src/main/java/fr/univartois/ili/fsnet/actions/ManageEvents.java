@@ -28,7 +28,6 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
-import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
@@ -47,10 +46,17 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class ManageEvents extends MappingDispatchAction implements CrudAction {
-
+	
 	private Date validateDate(String eventDate, HttpServletRequest request,
 			String propertyKey) {
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+				calendar.get(Calendar.DAY_OF_MONTH), 0, 0, -1);
+		Date today = calendar.getTime();
+		
 		Date typedEventDate;
+		
 		try {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
@@ -59,13 +65,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 			return null;
 		}
-		Calendar calendar = Calendar.getInstance();
-		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DAY_OF_MONTH), 0, 0, -1);
-		Date today = calendar.getTime();
+		
 		if (typedEventDate.before(today)) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("date.error.invalid")));
+			errors.add(propertyKey, new ActionMessage(("date.error.dateBeforeToday")));
 			saveErrors(request, errors);
 			return null;
 		}
