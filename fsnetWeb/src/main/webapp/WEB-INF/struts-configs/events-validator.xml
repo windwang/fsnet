@@ -25,22 +25,22 @@
 					<var-value>5000</var-value>
 				</var>
 			</field>
-			<field property="eventBeginDate" depends="required,date">
+			<field property="eventBeginDate" depends="required,mask">
 				<arg key="events.15" />
 				<arg position="0" key="events.15" />
 				<msg name="date" key="date.error.invalid"/>
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^([0-9]{2})/([0-9]{2})/([0-9]{4}) ([0-9]{2}):([0-9]{2})$</var-value>
+					<var-value>^[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}$</var-value>
 				</var>
 			</field>
-			<field property="eventEndDate" depends="required,date">
+			<field property="eventEndDate" depends="required,mask">
 				<arg key="events.15" />
 				<arg position="0" key="events.15" />
 				<msg name="date" key="date.error.invalid"/>
 				<var>
 					<var-name>mask</var-name>
-					<var-value>^([0-9]{2})/([0-9]{2})/([0-9]{4}) ([0-9]{2}):([0-9]{2})$</var-value>
+					<var-value>^[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}$</var-value>
 				</var>
 			</field>
 			<field property="eventAddress" depends="maxlength">
