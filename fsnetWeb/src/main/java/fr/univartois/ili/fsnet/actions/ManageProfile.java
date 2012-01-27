@@ -13,6 +13,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -275,6 +276,18 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		errors.add("photo", new ActionMessage(key));
 		saveErrors(request, errors);
 	}
+	
+	public Boolean proxyIsDefined(){
+		ServletContext ctx = getServlet().getServletContext();
+		String proxy=ctx.getInitParameter("http.proxy");
+		return proxy.equalsIgnoreCase("true") ? true:false;
+	}
+	public HttpHost getHttpProxy(){
+		ServletContext ctx = getServlet().getServletContext();
+		String proxyHost=ctx.getInitParameter("http.proxyHost");
+		Integer proxyPort=Integer.valueOf(ctx.getInitParameter("http.proxyPort"));
+		return new HttpHost(proxyHost,proxyPort);
+	}
 
 	public final ActionForward changePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -295,8 +308,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		String urlType = null;
 		if(stringUrl!=null  && !stringUrl.isEmpty()){
 			uri = new URI(stringUrl);
-			proxy = new HttpHost("cache-etu",3128);
-			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+			if(proxyIsDefined()){
+				proxy = getHttpProxy();
+				httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
+			}
 			httpGet.setURI(uri);
 	    	HttpResponse httpResponse = httpClient.execute(httpGet); 
 	    	inputStream = httpResponse.getEntity().getContent();
