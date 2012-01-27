@@ -68,6 +68,10 @@ public class ManageMembers extends MappingDispatchAction {
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 
 			request.getSession(true).setAttribute("isMasterGroup", false);
+		if(sgf.isGroupResponsible(member))
+			request.getSession(true).setAttribute("isGroupResponsible", true);
+		else 
+			request.getSession(true).setAttribute("isGroupResponsible", false);
 		em.close();
 	
 

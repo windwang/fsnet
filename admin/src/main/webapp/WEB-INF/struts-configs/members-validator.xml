@@ -65,17 +65,12 @@
 			<field property="email" depends="required,email">
 				<arg key="members.error.mail" />
 			</field>
-			<field property="password" depends="minlength,validwhen">
-				<msg name="validwhen" key="errors.required"/>
+			<field property="password" depends="minlength">
 				<arg0 key="members.password" />
 				<arg1 name="minlength" key="${var:minlength}" resource="false"/>
 				<var>
 					<var-name>minlength</var-name>
 					<var-value>6</var-value>
-				</var>
-				<var>
-					<var-name>test</var-name>
-					<var-value>(*this* != null)</var-value>
 				</var>
 			</field>
 			<field property="passwordConfirmation" depends="minlength,validwhen">

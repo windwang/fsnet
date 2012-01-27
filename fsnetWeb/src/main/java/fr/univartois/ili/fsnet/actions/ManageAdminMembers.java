@@ -362,7 +362,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 		message = createPersonalizedMessage(socialEntity.getName(),
 				socialEntity.getFirstName(), fsnetAddress, password,
-				personalizedMessage, locale);
+				socialEntity.getEmail(), personalizedMessage, locale);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
@@ -397,34 +397,24 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * @return the message .
 	 * @author stephane Gronowski
 	 */
-	private String createPersonalizedMessage(String nom, String prenom,
-			String addressFsnet, String password, String personalizedMessage,
+	private String createPersonalizedMessage(String name, String firstName,
+			String addressFsnet, String password, String email, String personalizedMessage,
 			Locale locale) {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder message = new StringBuilder();
 
-		message.append(
-				bundle.getMessage(locale, "members.welcomeMessage.welcome"))
-				.append(nom).append(" ").append(prenom);
-		message.append(",<br/><br/>");
+		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.name")+"\"", name);
+		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.firstName")+"\"", firstName);
+		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.password")+"\"", password);
+		personalizedMessage.replace("\"Email\"",email);
+		personalizedMessage.replace("\"url\"", addressFsnet);
 		message.append(personalizedMessage);
-		message.append("<br/><br/>");
-		message.append(bundle.getMessage(locale, "members.welcomeMessage.url"));
-		message.append(addressFsnet);
-		message.append(" .<br/><br/>");
-
-		message.append(
-				bundle.getMessage(locale, "members.welcomeMessage.password"))
-				.append("<em>");
-		message.append(password);
-		message.append("</em><br/><br/>").append(
-				bundle.getMessage(locale, "members.welcomeMessage.donotreply"));
 		return message.toString();
 	}
 
-	@Override
+	@Override 
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {

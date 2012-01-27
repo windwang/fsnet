@@ -24,112 +24,114 @@ import javax.persistence.TemporalType;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class Message implements Serializable {
 
-    /**
-     * The identifier.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
-    /**
-     * The content of the message.
-     */
-    @Column(nullable = false, length = 5000)
-    private String body;
-    /**
-     * The date of creation of the message.
-     */
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable = false)
-    private Date creationDate;
-    /**
-     * The author of the message.
-     */
-    @ManyToOne
-    @JoinColumn(nullable = false)
-    private SocialEntity from;
+	/**
+	 * The identifier.
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
+	/**
+	 * The content of the message.
+	 */
+	@Column(nullable = false, length = 5000)
+	private String body;
+	/**
+	 * The date of creation of the message.
+	 */
+	@Temporal(TemporalType.TIMESTAMP)
+	@Column(nullable = false)
+	private Date creationDate;
+	/**
+	 * The author of the message.
+	 */
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private SocialEntity from;
 
-    public Message() {
-    }
+	public Message() {
+	}
 
-    /**
-     *
-     * @param body the body of the message
-     * @param from the author of the message
-     */
-    public Message(String body, SocialEntity from) {
-        if (body == null || from == null) {
-            throw new IllegalArgumentException();
-        }
-        this.creationDate = new Date();
-        this.body = body;
-        this.from = from;
-    }
+	/**
+	 * 
+	 * @param body
+	 *            the body of the message
+	 * @param from
+	 *            the author of the message
+	 */
+	public Message(String body, SocialEntity from) {
+		if (body == null || from == null) {
+			throw new IllegalArgumentException();
+		}
+		this.creationDate = new Date();
+		this.body = body;
+		this.from = from;
+	}
 
-    /**
-     *
-     * @return the identifier.
-     */
-    public int getId() {
-        return id;
-    }
+	/**
+	 * 
+	 * @return the identifier.
+	 */
+	public int getId() {
+		return id;
+	}
 
-    /**
-     * Gives an identifier to the Message.
-     *
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+	/**
+	 * Gives an identifier to the Message.
+	 * 
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
 
-    /**
-     *
-     * @return the content of the message.
-     */
-    public String getBody() {
-        return body;
-    }
+	/**
+	 * 
+	 * @return the content of the message.
+	 */
+	public String getBody() {
+		return body;
+	}
 
-    /**
-     * Gives a content of the message.
-     *
-     * @param body
-     */
-    public void setBody(String body) {
-        this.body = body;
-    }
+	/**
+	 * Gives a content of the message.
+	 * 
+	 * @param body
+	 */
+	public void setBody(String body) {
+		this.body = body;
+	}
 
-    /**
-     *
-     * @return the date of creation of the message.
-     */
-    public Date getCreationDate() {
-        return creationDate;
-    }
+	/**
+	 * 
+	 * @return the date of creation of the message.
+	 */
+	public Date getCreationDate() {
+		return creationDate;
+	}
 
-    /**
-     * Gives a date of creation to the message.
-     *
-     * @param creationDate
-     */
-    public void setCreationDate(Date creationDate) {
-        this.creationDate = creationDate;
-    }
+	/**
+	 * Gives a date of creation to the message.
+	 * 
+	 * @param creationDate
+	 */
+	public void setCreationDate(Date creationDate) {
+		this.creationDate = creationDate;
+	}
 
-    /**
-     *
-     * @return the creator of the message.
-     */
-    public SocialEntity getFrom() {
-        return from;
-    }
+	/**
+	 * 
+	 * @return the creator of the message.
+	 */
+	public SocialEntity getFrom() {
+		return from;
+	}
 
-    /**
-     * Gives a creator to the message.
-     *
-     * @param from
-     */
-    public void setPropMsg(SocialEntity from) {
-        this.from = from;
-    }
+	/**
+	 * Gives a creator to the message.
+	 * 
+	 * @param from
+	 */
+	public void setPropMsg(SocialEntity from) {
+		this.from = from;
+	}
 }
