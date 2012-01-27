@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import junit.framework.Assert;
+
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -429,8 +431,16 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		}
 		request.setAttribute("socialGroup", socialGroup);
 		
-		List<SocialEntity> allMembers = socialGroupFacade.getAllChildMembers(socialGroup);
+		List<SocialEntity> allMembers = socialGroupFacade.getMembersFromGroup(socialGroup);
 		request.setAttribute("allMembers", allMembers);
+		
+		List<SocialGroup> listOfAntecedantGroup = socialGroupFacade.getAllAntecedentSocialGroups(socialGroup);
+		request.setAttribute("antecedantsOfGroup", listOfAntecedantGroup);		
+		
+		List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(socialGroup);
+		listOfChildGroup.remove(socialGroup);
+		request.setAttribute("childsOfGroup", listOfChildGroup);		
+		
 		return mapping.findForward("success");
 	}
 

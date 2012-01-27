@@ -8,6 +8,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean"  prefix="bean"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<script type="text/javascript" src="js/definePassword.js"></script>
 
 <h3><bean:message key="members.create" /></h3>
 
@@ -123,18 +124,4 @@
 	</table>
 </html:form>
 
-<script type="text/javascript">
-	function definePasword() {
-		var generatePassword = document.getElementById('typePassword');
-		var password = document.getElementById('password');
-		var passwordConfirmation = document
-				.getElementById('passwordConfirmation');
-		if (generatePassword.checked) {
-			passwordConfirmation.disabled = true;
-			password.disabled = true;
-		} else {
-			passwordConfirmation.disabled = false;
-			password.disabled = false;
-		}
-	}
-</script>
+
