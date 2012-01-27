@@ -29,6 +29,11 @@
 	<bean:message key="left.group.manager"/>
 </html:link>
 </c:if>
+<c:if test="${isGroupResponsible}">
+<html:link action="DisplayProfile.do" styleId="">
+	<bean:message key="left.group.responsible"/>
+</html:link>
+</c:if>
 </div>
 
 <style>

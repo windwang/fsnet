@@ -301,7 +301,21 @@ public class SocialGroupFacade {
 		boolean resultat = false;
 		TypedQuery<Long> query = em
 				.createQuery(
-						"SELECT count(sg) FROM SocialGroup sg WHERE sg.masterGroup.id=:id",
+						"SELECT count(sg) FROM SocialGroup sg WHERE sg.masterGroup.id=:id AND sg.group IS null",
+						Long.class);
+		query.setParameter("id", member.getId());
+		Long count = query.getSingleResult();
+		
+		if (count > 0)
+			resultat = true;
+		return resultat;
+	}
+	
+	public boolean isGroupResponsible(SocialEntity member) {
+		boolean resultat = false;
+		TypedQuery<Long> query = em
+				.createQuery(
+						"SELECT count(sg) FROM SocialGroup sg WHERE sg.masterGroup.id=:id AND sg.group!=null",
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
@@ -309,6 +323,8 @@ public class SocialGroupFacade {
 			resultat = true;
 		return resultat;
 	}
+	
+	
 
 	public List<SocialEntity> getAllChildMembers(SocialGroup socialGroupUser) {
 		if (socialGroupUser == null) {
