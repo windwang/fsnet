@@ -67,6 +67,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String firstName = (String) dynaForm.get("firstName");
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
+		mail=mail.toLowerCase();
 		dynaForm.set("email", "");
 		String parentId = (String) dynaForm.get("parentId");
 		dynaForm.set("parentId", "");
@@ -173,7 +174,8 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 				SocialEntity socialEntity = facadeSE.createSocialEntity(
 						socialEntitieInput[0], socialEntitieInput[1],
-						socialEntitieInput[2]);
+						socialEntitieInput[2].toLowerCase());
+				
 
 				String definedPassword = Encryption.generateRandomPassword();
 				logger.info("#### Defined Password : " + definedPassword);
@@ -278,7 +280,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 			SocialEntity socialEntity = facadeSE.createSocialEntity(
 					socialEntitieInput[0], socialEntitieInput[1],
-					socialEntitieInput[2]);
+					socialEntitieInput[2].toLowerCase());
 
 			String definedPassword = Encryption.generateRandomPassword();
 			logger.info("#### Defined Password : " + definedPassword);
@@ -362,7 +364,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		message = createPersonalizedMessage(socialEntity.getName(),
 				socialEntity.getFirstName(), fsnetAddress, password,
-				personalizedMessage, locale);
+				socialEntity.getEmail(),personalizedMessage, locale);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
@@ -396,31 +398,21 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 *            the current {@link Locale}
 	 * @return the message .
 	 * @author stephane Gronowski
+	 * @
 	 */
-	private String createPersonalizedMessage(String nom, String prenom,
-			String addressFsnet, String password, String personalizedMessage,
+	private String createPersonalizedMessage(String name, String firstName,
+			String addressFsnet, String password,String email, String personalizedMessage,
 			Locale locale) {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder message = new StringBuilder();
-
-		message.append(
-				bundle.getMessage(locale, "members.welcomeMessage.welcome"))
-				.append(nom).append(" ").append(prenom);
-		message.append(",<br/><br/>");
+		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.name")+"\"", name);
+		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.firstName")+"\"", firstName);
+		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.password")+"\"", password);
+		personalizedMessage.replace("\"Email\"",email);
+		personalizedMessage.replace("\"url\"", addressFsnet);
 		message.append(personalizedMessage);
-		message.append("<br/><br/>");
-		message.append(bundle.getMessage(locale, "members.welcomeMessage.url"));
-		message.append(addressFsnet);
-		message.append(" .<br/><br/>");
-
-		message.append(
-				bundle.getMessage(locale, "members.welcomeMessage.password"))
-				.append("<em>");
-		message.append(password);
-		message.append("</em><br/><br/>").append(
-				bundle.getMessage(locale, "members.welcomeMessage.donotreply"));
 		return message.toString();
 	}
 
@@ -555,6 +547,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
+		email=email.toLowerCase();
 		String parentId = (String) formSocialENtity.get("parentId");
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");

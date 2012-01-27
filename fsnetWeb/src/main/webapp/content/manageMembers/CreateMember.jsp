@@ -76,24 +76,18 @@
 			<td colspan="2"><html:errors property="parentId" /></td>
 		</tr>
 		<tr>
-			<td>
-				<label for="generatePassword"> 
-					<bean:message key="members.generatePassword" /> :
-				</label>
-			</td>
-			<td>
-				<input type="radio" name="enablePasswordDefinition" id="generatePassword" onchange="definePasword()"/>
-			</td>
+			<td><label> <bean:message key="members.generatePassword" />
+					:
+			</label></td>
+			<td><html:radio property="typePassword" styleId="typePassword"
+					value="generatePassword" onclick="definePasword()" /></td>
 		</tr>
 		<tr>
-			<td>
-				<label for="definePassword"> 
-					<bean:message key="members.definePassword" /> :  
-				</label>
-			</td>
-			<td>
-				<input checked="checked" type="radio" name="enablePasswordDefinition" id="definePassword" onchange="definePasword()"/>
-			</td>
+			<td><label> <bean:message key="members.definePassword" />
+					:
+			</label></td>
+			<td><html:radio property="typePassword" styleId="typePassword"
+					value="definePassword" onclick="definePasword()" /></td>
 		</tr>
 		<tr>
 			<td>
@@ -131,15 +125,16 @@
 
 <script type="text/javascript">
 	function definePasword() {
-		var generatePassword = document.getElementById('generatePassword');
+		var generatePassword = document.getElementById('typePassword');
 		var password = document.getElementById('password');
-		var passwordConfirmation = document.getElementById('passwordConfirmation');
-		if (generatePassword.checked) {	
+		var passwordConfirmation = document
+				.getElementById('passwordConfirmation');
+		if (generatePassword.checked) {
 			passwordConfirmation.disabled = true;
 			password.disabled = true;
 		} else {
 			passwordConfirmation.disabled = false;
 			password.disabled = false;
-		}		
+		}
 	}
 </script>

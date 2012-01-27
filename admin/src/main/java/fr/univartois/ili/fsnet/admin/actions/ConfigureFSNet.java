@@ -1,11 +1,20 @@
 package fr.univartois.ili.fsnet.admin.actions;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Properties;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -24,11 +33,12 @@ import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
 import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Property;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 public class ConfigureFSNet extends MappingDispatchAction {
 
 	private static final String DEFAULT_SMTP_PORT = "25";
-	private static final int MAX_PICTURE_SIZE=500000;
+	private static final int MAX_PICTURE_SIZE = 500000;
 
 	public ActionForward editMailConfiguration(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
@@ -37,8 +47,8 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		Properties properties = conf.getFSNetConfiguration();
 		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
 		try {
-			dynaform.set("MailFrom", properties
-					.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
+			dynaform.set("MailFrom",
+					properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
 			if (conf.isTLSEnabled()) {
 				dynaform.set("enableTLS", "on");
 			} else {
@@ -60,19 +70,19 @@ public class ConfigureFSNet extends MappingDispatchAction {
 				dynaform.set("SMTPUsername", "");
 				dynaform.set("SMTPPassword", "");
 			}
-			dynaform.set("SMTPPort", properties
-					.getProperty(FSNetConfiguration.SMTP_PORT_KEY));
-			dynaform.set("SMTPHost", properties
-					.getProperty(FSNetConfiguration.SMTP_HOST_KEY));
+			dynaform.set("SMTPPort",
+					properties.getProperty(FSNetConfiguration.SMTP_PORT_KEY));
+			dynaform.set("SMTPHost",
+					properties.getProperty(FSNetConfiguration.SMTP_HOST_KEY));
 			dynaform.set("FSNetWebURL", properties
 					.getProperty(FSNetConfiguration.FSNET_WEB_ADDRESS_KEY));
 			dynaform.set("FSNetWebURL", properties
 					.getProperty(FSNetConfiguration.FSNET_WEB_ADDRESS_KEY));
-			
+
 			dynaform.set("PicturesDirectory", properties
 					.getProperty(FSNetConfiguration.PICTURES_DIRECTORY_KEY));
-			dynaform.set("KeyFacebook", properties
-					.getProperty(FSNetConfiguration.KEY_FACEBOOK));
+			dynaform.set("KeyFacebook",
+					properties.getProperty(FSNetConfiguration.KEY_FACEBOOK));
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
@@ -87,18 +97,18 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		if ("".equals(dynaform.get("enableTLS"))) {
-			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY, Boolean.FALSE
-					.toString());
+			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY,
+					Boolean.FALSE.toString());
 		} else {
-			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY, Boolean.TRUE
-					.toString());
+			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY,
+					Boolean.TRUE.toString());
 		}
 		if ("".equals(dynaform.get("enableSSL"))) {
-			saveProperty(em, FSNetConfiguration.SSL_KEY, Boolean.FALSE
-					.toString());
+			saveProperty(em, FSNetConfiguration.SSL_KEY,
+					Boolean.FALSE.toString());
 		} else {
-			saveProperty(em, FSNetConfiguration.SSL_KEY, Boolean.TRUE
-					.toString());
+			saveProperty(em, FSNetConfiguration.SSL_KEY,
+					Boolean.TRUE.toString());
 		}
 		if ("".equals(dynaform.get("enableAuthentication"))) {
 			saveProperty(em, FSNetConfiguration.ENABLE_AUTHENTICATION_KEY,
@@ -111,10 +121,10 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			saveProperty(em, FSNetConfiguration.SMTP_PASSWORD_KEY,
 					(String) dynaform.get("SMTPPassword"));
 		}
-		saveProperty(em, FSNetConfiguration.MAIL_FROM_KEY, (String) dynaform
-				.get("MailFrom"));
-		saveProperty(em, FSNetConfiguration.SMTP_HOST_KEY, (String) dynaform
-				.get("SMTPHost"));
+		saveProperty(em, FSNetConfiguration.MAIL_FROM_KEY,
+				(String) dynaform.get("MailFrom"));
+		saveProperty(em, FSNetConfiguration.SMTP_HOST_KEY,
+				(String) dynaform.get("SMTPHost"));
 		String SMTP_Port = (String) dynaform.get("SMTPPort");
 		try {
 			Integer.parseInt(SMTP_Port);
@@ -132,29 +142,29 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			errors.add("PicturesDirectory", new ActionMessage("configure.23"));
 			saveErrors(request, errors);
 		}
-		
+
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
 		return mapping.findForward("success");
 	}
-	
-	public ActionForward saveFacebookId(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+
+	public ActionForward saveFacebookId(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		
-		saveProperty(em, FSNetConfiguration.KEY_FACEBOOK, (String) dynaform
-				.get("KeyFacebook"));
-		
+
+		saveProperty(em, FSNetConfiguration.KEY_FACEBOOK,
+				(String) dynaform.get("KeyFacebook"));
+
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
 		return mapping.findForward("success");
 	}
-	
+
 	private void saveProperty(EntityManager em, String key, String value) {
 		Property property = em.find(Property.class, key);
 		if (property == null) {
@@ -191,88 +201,143 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		mailer.sendMail(mail);
 		return mapping.findForward("success");
 	}
-	
-	public ActionForward changeLogo(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
-		
+
+	public ActionForward changeLogo(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
 		DynaActionForm myForm = (DynaActionForm) form;
 
 		FormFile myFile = (FormFile) myForm.get("Logo");
-		
-		  // Process the FormFile		  
 
-		  String contentType = myFile.getContentType();
+		// Process the FormFile
 
-		  //Get the file name
+		String contentType = myFile.getContentType();
 
-		  String fileName  = myFile.getFileName();
+		// Get the file name
 
-		  //int fileSize = myFile.getFileSize();
+		String fileName = myFile.getFileName();
 
-		  byte[] fileData  = myFile.getFileData();
+		// int fileSize = myFile.getFileSize();
 
-		  //Get the servers upload directory real path name
+		byte[] fileData = myFile.getFileData();
 
-		  String filePathAdmin = getServlet().getServletContext().getRealPath("/") +"images";
-		  String filePathFsnetWeb = ( new java.io.File(getServlet().getServletContext().getRealPath("")).getParent()) +"/fsnetWeb/images";
-		  
+		// Get the servers upload directory real path name
 
-		  /* Save file on the server */
+		String filePathAdmin = getServlet().getServletContext()
+				.getRealPath("/") + "images";
+		String filePathFsnetWeb = (new java.io.File(getServlet()
+				.getServletContext().getRealPath("")).getParent())
+				+ "/fsnetWeb/images";
 
-		  if(!fileName.equals("")){  
+		/* Save file on the server */
 
-		  System.out.println("Server path:" +filePathAdmin);
+		if (!fileName.equals("")) {
 
-		  //Create file
-		  fileName="logo.png";
-		  File oldPicture = new File(filePathAdmin+"/"+fileName);
+			System.out.println("Server path:" + filePathAdmin);
+
+			// Create file
+			fileName = "logo.png";
+			File oldPicture = new File(filePathAdmin + "/" + fileName);
 			if (oldPicture != null) {
 				oldPicture.delete();
 			}
-		  File fileToCreate = new File(filePathAdmin, fileName);
-		  oldPicture=null;
-		  oldPicture = new File(filePathFsnetWeb+"/"+fileName);
+			File fileToCreate = new File(filePathAdmin, fileName);
+			oldPicture = null;
+			oldPicture = new File(filePathFsnetWeb + "/" + fileName);
 			if (oldPicture != null) {
 				oldPicture.delete();
 			}
-		  File fileToCreateFsnet = new File(filePathFsnetWeb, fileName);
+			File fileToCreateFsnet = new File(filePathFsnetWeb, fileName);
 
-		  //If file does not exists create file  
+			// If file does not exists create file
 
-		  if(!fileToCreate.exists()){
+			if (!fileToCreate.exists()) {
 
-		  FileOutputStream fileOutStream = new FileOutputStream(fileToCreate);
+				FileOutputStream fileOutStream = new FileOutputStream(
+						fileToCreate);
 
-		  fileOutStream.write(myFile.getFileData());
+				fileOutStream.write(myFile.getFileData());
 
-		  fileOutStream.flush();
+				fileOutStream.flush();
 
-		  fileOutStream.close();
+				fileOutStream.close();
 
-		  } 
-		  if(!fileToCreateFsnet.exists()){
+			}
+			if (!fileToCreateFsnet.exists()) {
 
-			  FileOutputStream fileOutStream = new FileOutputStream(fileToCreateFsnet);
+				FileOutputStream fileOutStream = new FileOutputStream(
+						fileToCreateFsnet);
 
-			  fileOutStream.write(myFile.getFileData());
+				fileOutStream.write(myFile.getFileData());
 
-			  fileOutStream.flush();
+				fileOutStream.flush();
 
-			  fileOutStream.close();
+				fileOutStream.close();
 
-			  } 
+			}
 
-		  }
+		}
 
-		  //Set file name to the request object
+		// Set file name to the request object
 
-		  request.setAttribute("fileName",fileName);
+		request.setAttribute("fileName", fileName);
 
-		  
+		return mapping.findForward("success");
 
-		  return mapping.findForward("success");
-
-		
 	}
+
+	public ActionForward updateDB(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		String fileUri = FSNetConfiguration.getInstance()
+				.getFSNetConfiguration()
+				.getProperty(FSNetConfiguration.PICTURES_DIRECTORY_KEY)
+				+ "/DB.txt";
+		String line;
+		File f = new File(fileUri);
+		StringBuffer tmp = new StringBuffer();
+		if (f.exists()) {
+
+			InputStream ips = new FileInputStream(fileUri);
+			InputStreamReader ipsr = new InputStreamReader(ips);
+			BufferedReader br = new BufferedReader(ipsr);
+
+			while ((line = br.readLine()) != null) {
+				if (line.contains("DB modified")) {
+					tmp.append(line);
+				}
+			}
+			br.close();
+		}
+		if (!f.exists() || !tmp.toString().contains("DB modified")) {
+			EntityManager entityManager = PersistenceProvider
+					.createEntityManager();
+			List<SocialEntity> entities = entityManager.createQuery(
+					"SELECT s FROM SocialEntity s", SocialEntity.class)
+					.getResultList();
+
+			HashMap<String, String> mails = new HashMap<String, String>();
+			for (SocialEntity s : entities) {
+				mails.put(s.getEmail(), s.getEmail().toLowerCase());
+			}
+			
+			for (String s : mails.keySet()) {
+				entityManager.getTransaction().begin();
+				Query query = entityManager
+						.createQuery("UPDATE SocialEntity s SET s.email = :newmail WHERE s.email= :oldmail");
+				query.setParameter("newmail", mails.get(s));
+				query.setParameter("oldmail", s);
+				query.executeUpdate();
+				entityManager.getTransaction().commit();
+			}
+
+			PrintWriter out = new PrintWriter(new FileWriter(fileUri));
+			out.println("DB modified");
+			out.close();
+		}
+		return mapping.findForward("success");
+	}
+
 }

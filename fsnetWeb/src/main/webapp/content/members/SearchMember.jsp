@@ -14,6 +14,12 @@
 
 <h3><bean:message key="members.1"/></h3>
 
+<c:if test="${empty membersContactsResult && empty membersRequestedResult 
+	&& empty membersAskedResult && empty membersResult}">
+	<bean:message key="members.noResult" />
+</c:if>
+
+
 <c:if test="${! empty membersContactsResult}">
     <h4><bean:message key="members.2"/></h4>
     <table  class="inLineTable">

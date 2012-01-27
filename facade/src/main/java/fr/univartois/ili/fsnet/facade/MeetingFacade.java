@@ -107,4 +107,16 @@ public class MeetingFacade {
 		return listMeeting;
 	}
     
+	/**
+	 * List all the events
+	 * @return List<Meeting> the list containing all the events
+	 */
+	public final List<Meeting> listAllMeeting() {
+		List<Meeting> results;
+		final TypedQuery<Meeting> query;
+		query = em.createQuery("SELECT e FROM Meeting e "
+				+ "ORDER BY e.startDate DESC ", Meeting.class);
+		results = query.getResultList();
+		return results;
+	}
 }

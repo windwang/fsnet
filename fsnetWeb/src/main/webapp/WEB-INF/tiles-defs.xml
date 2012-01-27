@@ -47,6 +47,13 @@
 		<put name="body-content" value="/content/events/DisplayEvent.jsp" />
 	</definition>
 
+	<!-- Calendar -->
+	<definition name="Calendar" extends=".defaultLayout">
+		<put name="title" value="pageTitle.Calendar" />
+		<put name="left" value="/content/events/leftMenu.jsp" />
+		<put name="body-content" value="/content/events/Calendar.jsp" />
+	</definition>
+	
 	<!-- Contacts -->
 	<definition name="Contacts" extends=".defaultLayout">
 		<put name="title" value="pageTitle.2" />
@@ -357,9 +364,11 @@
 	<!-- Visits -->
 	<definition name="Visits" extends=".defaultLayout">
 		<put name="title" value="pageTitle.20" />
+		<put name="currentMenu" value="Visits" />
 		<put name="body-content" value="/content/visits/Visits.jsp" />
+		<put name="left" value="" />
 	</definition>
-	
+		
 	<!-- Ajax -->
 	<definition name="AjaxAutocompleteRecipients" path="/content/ajax/AutocompleteRecipients.jsp" />
 

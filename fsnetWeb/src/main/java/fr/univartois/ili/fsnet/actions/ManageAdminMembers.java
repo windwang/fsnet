@@ -68,6 +68,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		dynaForm.set("firstName", "");
 
 		String mail = (String) dynaForm.get("email");
+		mail=mail.toLowerCase();
 		dynaForm.set("email", "");
 
 		String parentId = (String) dynaForm.get("parentId");
@@ -172,7 +173,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 				SocialEntity socialEntity = facadeSE.createSocialEntity(
 						socialEntitieInput[0], socialEntitieInput[1],
-						socialEntitieInput[2]);
+						socialEntitieInput[2].toLowerCase());
 
 				String definedPassword = Encryption.generateRandomPassword();
 				logger.info("#### Defined Password : " + definedPassword);
@@ -277,7 +278,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 			SocialEntity socialEntity = facadeSE.createSocialEntity(
 					socialEntitieInput[0], socialEntitieInput[1],
-					socialEntitieInput[2]);
+					socialEntitieInput[2].toLowerCase());
 
 			String definedPassword = Encryption.generateRandomPassword();
 			logger.info("#### Defined Password : " + definedPassword);
@@ -538,6 +539,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
+		email=email.toLowerCase();
 		Integer idGroup = Integer.parseInt((String) formSocialENtity
 				.get("parentId"));
 		String job = (String) formSocialENtity.get("job");
