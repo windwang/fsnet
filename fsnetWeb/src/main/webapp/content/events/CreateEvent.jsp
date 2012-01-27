@@ -135,21 +135,42 @@
     </table>
 </html:form>
 
-<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+
 <script type="text/javascript">
-    $(function() {
-        $.datepicker.setDefaults($.extend(
-        {
-            minDate: 0,
-            dateFormat: 'dd/mm/yy',
-            showOn: 'button',
-            buttonImage: 'images/calendar.gif',
-            buttonImageOnly: true,
-            showMonthAfterYear: false
-        }));
-        $("#eventBeginDate").datepicker($.datepicker.regional['fr']);
-        $("#eventEndDate").datepicker($.datepicker.regional['fr']);
-    });
+$(function() {
+
+    $.datepicker.setDefaults($.datepicker.regional['fr']);
+    $.datepicker.setDefaults($.extend(
+            {
+                minDate: 0,
+                dateFormat: 'dd/mm/yy',
+                showOn: 'both',
+                buttonImage: 'images/calendar.gif',
+                buttonImageOnly: true,
+                showMonthAfterYear: false
+            }));
+    $.timepicker.regional['fr'] = {
+    		timeOnlyTitle: 'Temps',
+    		timeText: 'Temps',
+    		hourText: 'Heure',
+    		minuteText: 'Minute',
+    		secondText: 'Seconde',
+    		millisecText: 'milliseconde',
+    		currentText: 'Maintenant',
+    		closeText: 'Ok',
+    		ampm: false,
+    		timeFormat: 'hh:mm',
+    	};
+    $.timepicker.setDefaults($.timepicker.regional['fr']);
+    
+	$('#eventBeginDate').datetimepicker();
+	$('#eventEndDate').datetimepicker();
+
+});
 </script> 
+
+
