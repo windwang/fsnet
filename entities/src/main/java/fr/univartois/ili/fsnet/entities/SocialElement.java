@@ -31,7 +31,7 @@ public abstract class SocialElement implements Serializable {
 	 */
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	/* Group SocialElement */

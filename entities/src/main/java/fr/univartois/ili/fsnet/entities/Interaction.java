@@ -42,7 +42,7 @@ public abstract class Interaction implements Serializable {
 	 */
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	/**
