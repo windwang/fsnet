@@ -26,7 +26,7 @@
 		<script type="text/javascript" src="js/geolocalisation.js"></script>
 		
 	</head>
-	<body onload="definePasword()">
+	<body>
 		<div class="wrap background">
 			<tiles:useAttribute name="currentMenu" scope="request" ignore="true" /> 
 			<tiles:insert attribute="menu" />
