@@ -297,7 +297,7 @@ public class SocialGroupFacade {
 
 		return rights;
 	}
-	 private static final Logger logger = Logger.getLogger("fr.univartois.ili.fsnet.facade.SocialGroupFacade");
+	
 	public boolean isMasterGroup(SocialEntity member) {
 		boolean resultat = false;
 		TypedQuery<Long> query = em
@@ -306,7 +306,7 @@ public class SocialGroupFacade {
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
-		logger.info("le count dans master :"+count);
+		
 		if (count > 0)
 			resultat = true;
 		return resultat;
@@ -320,7 +320,7 @@ public class SocialGroupFacade {
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
-		logger.info("le count :"+count);
+		
 		if (count > 0)
 			resultat = true;
 		return resultat;
