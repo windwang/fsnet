@@ -18,9 +18,9 @@ public class GetMiniatureTag extends SimpleTagSupport {
 		if (socialEntity.getIsEnabled()) {
 			out.print("<a href=\"DisplayProfile.do?id=");
 			out.print(socialEntity.getId());
-			out.print("\">");
+			out.print("\" class=\"miniature\">");
 		}
-		out.print("<img src=\"miniature/");
+		out.print("<img src=\"avatar/");
 		out.print(socialEntity.getId());
 		out.print(".png\"></img>");
 		if (socialEntity.getIsEnabled()) {

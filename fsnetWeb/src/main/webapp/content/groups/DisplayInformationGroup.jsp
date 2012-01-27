@@ -9,6 +9,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3><bean:message key="groups.title"/></h3>
 <c:choose>
@@ -21,13 +22,9 @@
 		
 		
 		<c:forEach var="member" items="${allMembers}">
-			
-				<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}" class="miniature"> 
-					<img title="${member.name} ${member.firstName}" src="miniature/${member.id}.png"/>
-					${member.name} ${member.firstName}
-				</a>
-			
+			<ili:getMiniature socialEntity="${member}"/>
 		</c:forEach>
+		
 		
 		
 		<br/>

@@ -165,6 +165,8 @@ public class Authenticate extends HttpServlet {
 					UserUtils.getHisGroup(req));
 			req.getSession().setAttribute("isMasterGroup",
 					socialGroupFacade.isMasterGroup(user));
+			req.getSession().setAttribute("isGroupResponsible",
+					socialGroupFacade.isGroupResponsible(user));
 			req.getSession().setAttribute("currentUserId", user.getId());
 
 		} else {

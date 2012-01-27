@@ -44,7 +44,7 @@ public class ResetPassword extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String memberMail = req.getParameter("memberMail");
+		String memberMail = req.getParameter("memberMail2");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade facade = new SocialEntityFacade(em);
 		if ((memberMail != null) && (!memberMail.isEmpty())) {

@@ -17,11 +17,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.HttpHost;
+
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -193,6 +192,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 
 			request.getSession(true).setAttribute("isMasterGroup", false);
+		if(sgf.isGroupResponsible(user))
+			request.getSession(true).setAttribute("isGroupResponsible", true);
+		else 
+			request.getSession(true).setAttribute("isGroupResponsible", false);
 		em.close();
 		return mapping.findForward("success");
 	}
@@ -263,6 +266,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 
 			request.getSession(true).setAttribute("isMasterGroup", false);
+		if(sgf.isGroupResponsible(user))
+			request.getSession(true).setAttribute("isGroupResponsible", true);
+		else 
+			request.getSession(true).setAttribute("isGroupResponsible", false);
 		
 		SocialGroup socialGroup = profile.getGroup();
 		request.setAttribute("socialGroup", socialGroup);
@@ -275,6 +282,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		errors.add("photo", new ActionMessage(key));
 		saveErrors(request, errors);
 	}
+	
+	
+	
 
 	public final ActionForward changePhoto(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -290,13 +300,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		HttpClient httpClient = new DefaultHttpClient(); ;
 	    HttpGet httpGet = new HttpGet();
 		URI uri = null;
-		HttpHost proxy;
 		String stringUrl=(String) dynaForm.get("photoUrl");
 		String urlType = null;
 		if(stringUrl!=null  && !stringUrl.isEmpty()){
 			uri = new URI(stringUrl);
-			proxy = new HttpHost("cache-etu",3128);
-			httpClient.getParams().setParameter(ConnRoutePNames.DEFAULT_PROXY, proxy);
 			httpGet.setURI(uri);
 	    	HttpResponse httpResponse = httpClient.execute(httpGet); 
 	    	inputStream = httpResponse.getEntity().getContent();

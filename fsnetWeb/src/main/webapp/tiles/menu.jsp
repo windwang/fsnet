@@ -2,15 +2,13 @@
 <%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-
-<c:set var="inputTextContent">
-    <bean:message key="menu.7"/>
-</c:set>
+<%@ taglib prefix="ili" uri="../WEB-INF/ili.tld"%>
 
 <div id="search">
     <html:form action="/SearchMember" method="POST">
         <fieldset>
-            <html:text styleClass="field" property="searchText" onclick="this.value=''" value="${inputTextContent}"/>
+            <html:text styleClass="field" styleId="searchText" property="searchText" />
+			<ili:placeHolder id="searchText" value="menu.7" />
             <html:submit styleClass="searchButton" value=" "/>
         </fieldset>
     </html:form>
