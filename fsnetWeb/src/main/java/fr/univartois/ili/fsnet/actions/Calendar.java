@@ -46,7 +46,7 @@ public class Calendar extends Action {
 		for (Meeting m : results) {
 			String startDate = DateUtils.renderDateForFullCalendar(m.getStartDate());
 			String endDate = DateUtils.renderDateForFullCalendar(m.getEndDate());
-			events.add(m.getTitle()+","+startDate+","+endDate+","+"false"+","+m.getContent());
+			events.add(m.getTitle()+","+startDate+","+endDate+","+"false"+","+m.getContent()+","+m.getId());
 		}
 
 		JSONArray jsonArray = JSONArray.fromObject(events);

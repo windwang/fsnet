@@ -7,7 +7,7 @@
 	<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
 	<script type="text/javascript" src="js/jquery.qtip.js"></script>
 	<script type="text/javascript" src="js/fullcalendar.min.js"></script>
-	<script type="text/javascript" src="js/script.js"></script>
+	<script type="text/javascript" src="js/fullcalendar.config.js"></script>
 
 <c:set var="localeCode" value="${pageContext.response.locale.language}" />
 
@@ -16,7 +16,6 @@
   <c:when test="${pageContext.response.locale.language eq 'fr'}">
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
-
 		$('#calendar').fullCalendar($.fullCalendarLocale.fr);
 	});
 	</script>
@@ -24,7 +23,6 @@
   <c:otherwise>
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
-		alert("non fr");
 		$('#calendar').fullCalendar($.fullCalendarLocale.en);
 	});
 	</script> 

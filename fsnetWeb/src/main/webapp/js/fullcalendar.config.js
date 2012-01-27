@@ -42,7 +42,8 @@ jQuery(document).ready(function($) {
 				                        start: str[1],
 				                        end: str[2],
 				                        allDay:alldayevent,
-				                        description:str[4]
+				                        description:str[4],
+				                        url:'/fsnetWeb/DisplayEvent.do?eventId='+str[5]
 				                    });
 
 			                });
