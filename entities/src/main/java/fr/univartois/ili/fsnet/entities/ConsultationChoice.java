@@ -23,7 +23,7 @@ public class ConsultationChoice implements Serializable {
 	 * The identifier.
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	/**

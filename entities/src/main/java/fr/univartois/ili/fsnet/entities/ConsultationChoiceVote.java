@@ -19,7 +19,7 @@ public class ConsultationChoiceVote implements Serializable {
 	 * The identifier.
 	 */
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 
 	@ManyToOne
