@@ -9,11 +9,11 @@
 	<script type="text/javascript" src="js/fullcalendar.min.js"></script>
 	<script type="text/javascript" src="js/fullcalendar.config.js"></script>
 
-<c:set var="localeCode" value="${pageContext.response.locale.language}" />
+<c:set var="localeCode" value="${pageContext.request.locale.language}" />
 
 
 <c:choose>
-  <c:when test="${pageContext.response.locale.language eq 'fr'}">
+  <c:when test="${pageContext.request.locale.language eq 'fr'}">
 	<script type="text/javascript">
 	jQuery(document).ready(function($) {
 		$('#calendar').fullCalendar($.fullCalendarLocale.fr);
