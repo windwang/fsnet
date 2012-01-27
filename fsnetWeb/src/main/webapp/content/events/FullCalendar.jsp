@@ -9,4 +9,26 @@
 	<script type="text/javascript" src="js/fullcalendar.min.js"></script>
 	<script type="text/javascript" src="js/script.js"></script>
 
+<c:set var="localeCode" value="${pageContext.response.locale.language}" />
+
+
+<c:choose>
+  <c:when test="${pageContext.response.locale.language eq 'fr'}">
+	<script type="text/javascript">
+	jQuery(document).ready(function($) {
+
+		$('#calendar').fullCalendar($.fullCalendarLocale.fr);
+	});
+	</script>
+  </c:when>
+  <c:otherwise>
+	<script type="text/javascript">
+	jQuery(document).ready(function($) {
+		alert("non fr");
+		$('#calendar').fullCalendar($.fullCalendarLocale.en);
+	});
+	</script> 
+  </c:otherwise>
+</c:choose>
+
 	<div id="calendar"></div>
