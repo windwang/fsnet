@@ -26,7 +26,7 @@ public class DegreeCV implements Serializable {
 
 	@GeneratedValue
 	@Id
-	private int id;
+	private long id;
 
 	private int PostBacValue;
 	private String grade;
@@ -44,7 +44,7 @@ public class DegreeCV implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -52,7 +52,7 @@ public class DegreeCV implements Serializable {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

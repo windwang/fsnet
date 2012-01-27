@@ -23,7 +23,7 @@ public class MemberCV implements Serializable {
 
 	@GeneratedValue
 	@Id
-	private int id;
+	private long id;
 
 	private String firstName;
 	private String surname;
@@ -44,7 +44,7 @@ public class MemberCV implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -52,7 +52,7 @@ public class MemberCV implements Serializable {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

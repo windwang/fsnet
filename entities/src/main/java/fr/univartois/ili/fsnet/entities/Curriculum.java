@@ -27,7 +27,7 @@ public class Curriculum implements Serializable {
 
 	@GeneratedValue
 	@Id
-	private int id;
+	private long id;
 
 	@OneToOne
 	private MemberCV member;
@@ -126,7 +126,7 @@ public class Curriculum implements Serializable {
 	/**
 	 * @return the id
 	 */
-	public int getId() {
+	public long getId() {
 		return id;
 	}
 
@@ -134,7 +134,7 @@ public class Curriculum implements Serializable {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
