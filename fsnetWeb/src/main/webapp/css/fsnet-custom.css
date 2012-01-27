@@ -31,7 +31,9 @@
     float: left;
 }
 
-#loggedUsers {width: 210px;}
+#loggedUsers {
+	width: 210px;
+}
 
 #contactsAsked {
     float: left;
@@ -53,11 +55,13 @@
     float:left;
     margin: 2px;
     text-align: center;
-    min-height: 25px;
-    min-width: 25px;
+
+    
 }
+
 .miniature img {
     vertical-align:middle;
+    height: 40px;
 }
 
 .profileLink {
@@ -70,7 +74,7 @@
 }
 
 .miniatureContainer {
-    width: 25px;
+    width: 40px;
 }
 
 #eventDescription_container .mceLayout {
