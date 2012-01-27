@@ -13,20 +13,19 @@
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <script type="text/javascript">
-	function init() {
-		document.getElementById('affiche').style.visibility = 'hidden';
-	}
+	
 </script>
 </head>
-<body onload="init();">
+<body>
 	<div class="wrap background">
-		<ul id="menu" class="icons">
+		<ul id="menuLogin">
 			<li><a href="http://code.google.com/p/fsnet/"> <img
-					src="images/google.png" title="Google Forge" alt="Google Forge" />
+					width="30px" height="30px" src="images/google.png"
+					title="Accédez à notre forge" alt="Google Forge" />
 			</a></li>
-			<li><a href="http://www.univ-artois.fr/"> <img
-					src="images/univartois.png" title="Site de l'université d'artois"
-					alt="université d'artois" />
+			<li><a href="http://www.univ-artois.fr/"> <img width="30px"
+					height="30px" src="images/univartois.png"
+					title="Site de l'université d'artois" alt="université d'artois" />
 			</a></li>
 			<li><a
 				href="http://fsnet.googlecode.com/files/FsnetAndroid-0.7.2.3.apk">
@@ -34,9 +33,9 @@
 					title="Téléchargez l'application androïd" />
 			</a></li>
 			<li><a
-				href="http://www.facebook.com/profile.php?id=100003374258658">
-					<img src="images/facebook.png" title="Rejoignez-nous sur Facebook"
-					alt="Facebook" />
+				href="http://www.facebook.com/profile.php?id=100003374258658"> <img
+					width="30px" height="30px" src="images/facebook.png"
+					title="Rejoignez-nous sur Facebook" alt="Facebook" />
 			</a></li>
 		</ul>
 
@@ -45,9 +44,7 @@
 		<div id="logo">
 			<table>
 				<tr>
-					<td><img src="images/FSNET.png"
-						onmouseout="document.getElementById('affiche').style.visibility = 'hidden'"
-						onmouseover="document.getElementById('affiche').style.visibility = 'visible'" /></td>
+					<td><img src="images/FSNET.png" /></td>
 					<td id="affiche"><p class="quotation">
 							"
 							<bean:message key="welcome.message1" />
@@ -76,7 +73,7 @@
 									</label>
 								</div>
 							</td>
-							<td><input type="text" value="${param['memberMail'] }" name="memberMail" id="memberMail"
+							<td><input type="text" name="memberMail" id="memberMail"
 								class="error" /></td>
 						</tr>
 						<tr>

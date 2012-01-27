@@ -24,10 +24,10 @@
 			
 				<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}" class="miniature"> 
 					<img title="${member.name} ${member.firstName}" src="miniature/${member.id}.png"/>
-					${member.name} ${member.firstName}
 				</a>
 			
 		</c:forEach>
+		
 		
 		
 		<br/>

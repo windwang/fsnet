@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.json.simple.JSONObject;
 
+import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
@@ -43,13 +44,8 @@ public class Calendar extends Action {
 		
 		events = new ArrayList<String>();
 		for (Meeting m : results) {
-			SimpleDateFormat usFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-			java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
-			cal.setTime(m.getStartDate());
-			String startDate = usFormat.format(cal.getTime());
-			cal.setTime(m.getEndDate());
-			String endDate = usFormat.format(cal.getTime());
-			
+			String startDate = DateUtils.renderDateForFullCalendar(m.getStartDate());
+			String endDate = DateUtils.renderDateForFullCalendar(m.getEndDate());
 			events.add(m.getTitle()+","+startDate+","+endDate+","+"false"+","+m.getContent());
 		}
 
@@ -58,7 +54,6 @@ public class Calendar extends Action {
 		JSONObject obj = new JSONObject();
 		obj.put("events", jsonArray);
 
-//		response.setHeader("X-JSON", "");
 		response.setHeader("X-JSON", obj.toJSONString());
 		response.setContentType("text/html");
 
