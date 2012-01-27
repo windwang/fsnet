@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -285,7 +286,7 @@ public class SocialGroupFacade {
 	 *            the {@link SocialGroup}
 	 * @return the parents {@link Right} of a {@link SocialGroup}
 	 */
-
+	
 	public Set<Right> getParentsRights(SocialGroup group) {
 		Set<Right> rights = new HashSet<Right>();
 		SocialGroup parent = group.getGroup();
@@ -296,16 +297,16 @@ public class SocialGroupFacade {
 
 		return rights;
 	}
-
+	 private static final Logger logger = Logger.getLogger("fr.univartois.ili.fsnet.facade.SocialGroupFacade");
 	public boolean isMasterGroup(SocialEntity member) {
 		boolean resultat = false;
 		TypedQuery<Long> query = em
 				.createQuery(
-						"SELECT count(sg) FROM SocialGroup sg WHERE sg.masterGroup.id=:id AND sg.group IS null",
+						"SELECT count(sg) FROM SocialGroup sg WHERE sg.masterGroup.id=:id AND sg.group IS NULL",
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
-		
+		logger.info("le count dans master :"+count);
 		if (count > 0)
 			resultat = true;
 		return resultat;
@@ -315,10 +316,11 @@ public class SocialGroupFacade {
 		boolean resultat = false;
 		TypedQuery<Long> query = em
 				.createQuery(
-						"SELECT count(sg) FROM SocialGroup sg WHERE sg.masterGroup.id=:id AND sg.group!=null",
+						"SELECT count(sg) FROM SocialGroup sg WHERE sg.masterGroup.id=:id AND sg.group IS NOT NULL",
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
+		logger.info("le count :"+count);
 		if (count > 0)
 			resultat = true;
 		return resultat;

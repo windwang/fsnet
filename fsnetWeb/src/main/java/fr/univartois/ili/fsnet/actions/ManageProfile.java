@@ -194,6 +194,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 
 			request.getSession(true).setAttribute("isMasterGroup", false);
+		if(sgf.isGroupResponsible(user))
+			request.getSession(true).setAttribute("isGroupResponsible", true);
+		else 
+			request.getSession(true).setAttribute("isGroupResponsible", false);
 		em.close();
 		return mapping.findForward("success");
 	}
@@ -264,6 +268,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 
 			request.getSession(true).setAttribute("isMasterGroup", false);
+		if(sgf.isGroupResponsible(user))
+			request.getSession(true).setAttribute("isGroupResponsible", true);
+		else 
+			request.getSession(true).setAttribute("isGroupResponsible", false);
 		
 		SocialGroup socialGroup = profile.getGroup();
 		request.setAttribute("socialGroup", socialGroup);
