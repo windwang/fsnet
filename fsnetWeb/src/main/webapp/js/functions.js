@@ -1,8 +1,8 @@
-function getElementsByClass(tag, class) {
+function getElementsByClass(tag, clazz) {
 	var elements = document.getElementsByTagName(tag);
 	var results = new Array();
 	for ( var i = 0; i < elements.length; i++) {
-		if (elements[i].className == class) {
+		if (elements[i].className == clazz) {
 			results[results.length] = elements[i];
 		}
 	}
