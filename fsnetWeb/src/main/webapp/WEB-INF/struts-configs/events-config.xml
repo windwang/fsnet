@@ -107,10 +107,9 @@
             <forward name="success" path="/DisplayEvent.do" />
         </action>
         
-        <action path="/GenerateJsonEvents" type="fr.univartois.ili.fsnet.actions.Calendar"/>
-        
         <action path="/Calendar" name="CalendarView" type="fr.univartois.ili.fsnet.actions.Calendar" scope="request" validate="false">
 			<forward name="success" path="Calendar" />
 		</action>
+        
     </action-mappings>
 </struts-config>

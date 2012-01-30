@@ -261,7 +261,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		
 		request.setAttribute("currentUser", user);
-		request.setAttribute("treeGroupProfile", sgf.TreeParentName(profile));
+		request.setAttribute("treeGroupProfile", sgf.TreeParentName(profile));		
+		 
 		if(sgf.isMasterGroup(user))
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		else 

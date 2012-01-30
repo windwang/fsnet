@@ -28,6 +28,7 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
@@ -141,9 +142,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO code pour la modification
-
-		return null;
+		
+		// TODO : edit event
+		
+		return mapping.findForward("success");
 	}
 
 	@Override
@@ -382,5 +384,25 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return new ActionRedirect(mapping.findForward("success"));
 	}
 
+	
+	/**
+	 * @author lahoucine aitelhaj
+	 * Access to the jsp to edit a {@link Meeting}.
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward displayUpdateEvent(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		
+		// TODO check for right to update an event
+		
+		return new ActionRedirect(mapping.findForward("success"));
+	}
 	
 }
