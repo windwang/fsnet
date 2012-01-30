@@ -8,11 +8,15 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<link rel=stylesheet type="text/css" href="css/osx.css" />
+<script type="text/javascript" src="js/jquery.js"></script>
+<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="js/osx.js"></script>
 
 <h3>
 	<bean:message key="members.create" />
 </h3>
+
 
 <html:form action="/CreateMember">
 	<table id="CreateMember">
@@ -59,17 +63,18 @@
 			</td>
 		</tr>
 		<tr>
-			<td><label for="generatePassword"> <bean:message
-						key="members.generatePassword" /> : </label></td>
-			<td><input type="radio" name="enablePasswordDefinition"
-				id="generatePassword" onchange="definePasword()" /></td>
+			<td><label> <bean:message key="members.generatePassword" />
+					:
+			</label></td>
+			<td><html:radio property="typePassword" styleId="typePassword"
+					value="generatePassword" onclick="definePasword()" /></td>
 		</tr>
 		<tr>
-			<td><label for="definePassword"> <bean:message
-						key="members.definePassword" /> : </label></td>
-			<td><input checked="checked" type="radio"
-				name="enablePasswordDefinition" id="definePassword"
-				onchange="definePasword()" /></td>
+			<td><label> <bean:message key="members.definePassword" />
+					:
+			</label></td>
+			<td><html:radio property="typePassword" styleId="typePassword"
+					value="definePassword" onclick="definePasword()" /></td>
 		</tr>
 		<tr>
 			<td><label for="password"> <bean:message

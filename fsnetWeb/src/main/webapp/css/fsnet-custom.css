@@ -50,18 +50,20 @@
 }
 
 .miniature {
-    padding: 2px;
     border: 1px solid #AAAAAA;
-    float:left;
+    float: left;
+    height: 40px;
+    line-height: 40px;
     margin: 2px;
+    padding: 2px;
     text-align: center;
-
-    
+    width: 40px;
 }
 
 .miniature img {
-    vertical-align:middle;
-    height: 40px;
+    max-height: 40px;
+    max-width: 40px;
+    vertical-align: middle;
 }
 
 .profileLink {

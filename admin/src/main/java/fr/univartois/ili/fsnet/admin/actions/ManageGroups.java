@@ -21,6 +21,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -112,6 +113,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			request.setAttribute("refusedGroups", refusedGroups);
 			request.setAttribute("allGroups", allGroups);
 		}
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"groups.success.on.create"));
 
 		return mapping.findForward("success");
 	}
@@ -148,7 +153,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		String[] rigthsAccepted = (String[]) dynaForm.get("rigthListRight");
 
 		SocialEntity masterGroup = socialEntityFacade.getSocialEntity(Integer
-				.valueOf(owner));
+				.valueOf(owner));MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.create"));
 		// SocialGroup oldParentGrouoOfMasterGroup = masterGroup.getGroup();
 
 		List<SocialElement> socialElements = createSocialElement(em,
@@ -193,6 +200,8 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("description", "");
 		dynaForm.set("parentId", "");
 		dynaForm.set("socialEntityId", "");
+		
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"groups.success.on.modify"));
 
 		return mapping.findForward("success");
 

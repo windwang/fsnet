@@ -24,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionErrors;
+import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -46,6 +47,7 @@ import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
+
 
 /**
  * Execute CRUD Actions (and more) for the entity member
@@ -128,7 +130,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("email", "");
 		dynaForm.set("parentId", "");
 		cleanSession(request);
-
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"member.success.on.create"));
+		
 		return mapping.findForward("success");
 	}
 
@@ -335,6 +341,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			}
 
 		}
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"members.success.on.create"));
+		
 		return mapping.findForward("success");
 	}
 
@@ -610,6 +621,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
 		cleanSession(request);
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"member.success.on.modify"));
+		
 		return mapping.findForward("success");
 	}
 

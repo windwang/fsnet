@@ -20,13 +20,17 @@ public class GetMiniatureTag extends SimpleTagSupport {
 			out.print(socialEntity.getId());
 			out.print("\" class=\"miniature\">");
 		}
+		else {
+			out.print("<a class=\"miniature\">");
+		}
 		out.print("<img src=\"avatar/");
 		out.print(socialEntity.getId());
 		out.print(".png\" ");
                 out.print("title='"+socialEntity.getFirstName()+" " + socialEntity.getName()+"'></img>");
-		if (socialEntity.getIsEnabled()) {
-			out.print("</a>");
-		}
+		
+		
+        out.print("</a>");
+		
 	}
 
 	public SocialEntity getSocialEntity() {

@@ -26,7 +26,7 @@ jQuery(document).ready(function($) {
 			    },
 			    events: function(start, end, callback) {
 			        $.ajax({
-			            url: '/fsnetWeb/GenerateJsonEvents.do',
+			            url: '/fsnetWeb/Calendar.do',
 			            data: {
 			                start: Math.round(start.getTime() / 1000),
 			                end: Math.round(end.getTime() / 1000)
@@ -43,7 +43,8 @@ jQuery(document).ready(function($) {
 				                        end: str[2],
 				                        allDay:alldayevent,
 				                        description:str[4],
-				                        url:'/fsnetWeb/DisplayEvent.do?eventId='+str[5]
+				                        url:'/fsnetWeb/DisplayEvent.do?eventId='+str[5],
+				                        id:str[5]
 				                    });
 
 			                });

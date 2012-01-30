@@ -10,6 +10,7 @@ import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
  * @author mickael watrelot - micgamers@gmail.com
@@ -118,5 +119,25 @@ public class MeetingFacade {
 				+ "ORDER BY e.startDate DESC ", Meeting.class);
 		results = query.getResultList();
 		return results;
+	}
+	
+	/**
+	 * List all the user events
+	 * @param user
+	 * @return List<Meeting> the list containing all the user events
+	 */
+	public final List<Meeting> getAllUserMeeting(SocialEntity se) {
+		if (se == null) {
+			throw new IllegalArgumentException();
+		}
+		List<Meeting> listMeeting;
+		listMeeting = em
+		.createQuery(
+				"SELECT e FROM Meeting e ORDER BY e.startDate DESC",
+				Meeting.class).getResultList();
+		
+		FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(em);
+		listMeeting = filter.filterInteraction(se, listMeeting);
+		return listMeeting;
 	}
 }

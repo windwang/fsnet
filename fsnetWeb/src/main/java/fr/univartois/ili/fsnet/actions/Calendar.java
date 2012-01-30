@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,20 +10,26 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
-import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.json.simple.JSONObject;
+import org.apache.struts.actions.MappingDispatchAction;
 
+import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Meeting;
+import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
-public class Calendar extends Action {
 
+public class Calendar extends MappingDispatchAction {
+
+	/**
+	 * List that contains meeting/events for calendar view
+	 */
 	private List<String> events;
 
 	/**
@@ -36,11 +41,12 @@ public class Calendar extends Action {
 			throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
 		em.getTransaction().begin();
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
-		List<Meeting> results = meetingFacade.listAllMeeting();
+		List<Meeting> results = meetingFacade.getAllUserMeeting(user);
 		
 		events = new ArrayList<String>();
 		for (Meeting m : results) {
@@ -50,11 +56,10 @@ public class Calendar extends Action {
 		}
 
 		JSONArray jsonArray = JSONArray.fromObject(events);
-
 		JSONObject obj = new JSONObject();
 		obj.put("events", jsonArray);
 
-		response.setHeader("X-JSON", obj.toJSONString());
+		response.setHeader("X-JSON", obj.toString());
 		response.setContentType("text/html");
 
 		return mapping.findForward("success");

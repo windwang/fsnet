@@ -10,6 +10,8 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link rel=stylesheet type="text/css" href="css/osx.css" />
+
 <table id="CreateGroup">
 	<tr>
 		<td><label for="name"> <bean:message key="groups.name" />
@@ -145,17 +147,6 @@
 			<bean:message key="groups.removeGroups" />
 		</html:button></td>
 	</tr>
-
-
-
-
-
-
-
-
-
-
-
 	<tr>
 		<td ROWSPAN="2"><label for="groups"> <bean:message
 			key="groups.right" /> </label></td>
@@ -191,19 +182,6 @@
 			<bean:message key="groups.removeGroups" />
 		</html:button></td>
 	</tr>
-
-
-
-
-
-
-
-
-
-
-
-
-
 	<tr>
 		<td colspan="2"><html:submit styleClass="button"
 			onclick="Valider();">
@@ -276,3 +254,16 @@ select {
 		xmlhttp.send();
 	}
 </script>
+
+<c:if test="${!empty success}">
+	<script type="text/javascript">jQuery(function () { popup(); });</script>
+	<div id="osx-modal-content" class="simplemodal-data">
+		<div id="osx-modal-title">Message</div>
+		<div class="close">
+			<a class="simplemodal-close" href="#">X</a>
+		</div>
+		<div id="osx-modal-data">
+			<p><c:out value="${success}"/></p>
+		</div>
+	</div>
+</c:if>
