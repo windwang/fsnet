@@ -67,7 +67,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String firstName = (String) dynaForm.get("firstName");
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
-		mail=mail.toLowerCase();
+		mail = mail.toLowerCase();
 		dynaForm.set("email", "");
 		String parentId = (String) dynaForm.get("parentId");
 		dynaForm.set("parentId", "");
@@ -118,6 +118,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 		} catch (Exception e) {
 			ActionErrors errors = new ActionErrors();
+			System.out.print("---------------------");
+			e.printStackTrace();
+			System.out.print("---------------------");
+
 			errors.add("email", new ActionMessage("members.error.on.create"));
 			saveErrors(request, errors);
 		}
@@ -175,7 +179,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 				SocialEntity socialEntity = facadeSE.createSocialEntity(
 						socialEntitieInput[0], socialEntitieInput[1],
 						socialEntitieInput[2].toLowerCase());
-				
 
 				String definedPassword = Encryption.generateRandomPassword();
 				logger.info("#### Defined Password : " + definedPassword);
@@ -361,10 +364,10 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String fsnetAddress = conf.getFSNetConfiguration().getProperty(
 				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
 		String message;
-
+		System.out.println("FSNETADDRESS : ["+fsnetAddress+"]");
 		message = createPersonalizedMessage(socialEntity.getName(),
 				socialEntity.getFirstName(), fsnetAddress, password,
-				socialEntity.getEmail(),personalizedMessage, locale);
+				socialEntity.getEmail(), personalizedMessage, locale);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
@@ -397,20 +400,24 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 * @param locale
 	 *            the current {@link Locale}
 	 * @return the message .
-	 * @author stephane Gronowski
-	 * @
+	 * @author stephane Gronowski @
 	 */
 	private String createPersonalizedMessage(String name, String firstName,
-			String addressFsnet, String password,String email, String personalizedMessage,
-			Locale locale) {
+			String addressFsnet, String password, String email,
+			String personalizedMessage, Locale locale) {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder message = new StringBuilder();
-		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.name")+"\"", name);
-		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.firstName")+"\"", firstName);
-		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.password")+"\"", password);
-		personalizedMessage.replace("\"Email\"",email);
+		personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.name") + "\"", name);
+		personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.firstName") + "\"",
+				firstName);
+		personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.password") + "\"",
+				password);
+		personalizedMessage.replace("\"Email\"", email);
 		personalizedMessage.replace("\"url\"", addressFsnet);
 		message.append(personalizedMessage);
 		return message.toString();
@@ -476,12 +483,13 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		List<SocialGroup> socialGroups = socialGroupFacade.getAllSocialGroups();
 		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
-		List<SocialEntity> allMasterGroups = socialGroupFacade.getAllMasterGroupes();
-		
+		List<SocialEntity> allMasterGroups = socialGroupFacade
+				.getAllMasterGroupes();
+
 		cleanSession(request);
-		
+
 		initializeSession(request, member, socialGroups, allMasterGroups);
-		
+
 		entityManager.close();
 		return mapping.findForward("success");
 	}
@@ -489,23 +497,20 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	private void initializeSession(HttpServletRequest request,
 			SocialEntity member, List<SocialGroup> socialGroups,
 			List<SocialEntity> allMasterGroups) {
-		if(allMasterGroups.contains(member))
-			request.getSession(true).setAttribute("master2",true);
+		if (allMasterGroups.contains(member))
+			request.getSession(true).setAttribute("master2", true);
 		else
-			request.getSession(true).setAttribute("master2",false);
-		
+			request.getSession(true).setAttribute("master2", false);
+
 		if (member.getGroup() != null)
-			request.getSession(true).setAttribute("group2",
-					member.getGroup());
-		else
-			if (member.getGroup() != null)
-				request.getSession(true).setAttribute("group2",
-						member.getGroup());
+			request.getSession(true).setAttribute("group2", member.getGroup());
+		else if (member.getGroup() != null)
+			request.getSession(true).setAttribute("group2", member.getGroup());
 		request.getSession(true).setAttribute("allGroups2", socialGroups);
 	}
 
 	private void cleanSession(HttpServletRequest request) {
-		request.getSession(true).setAttribute("master2",false);
+		request.getSession(true).setAttribute("master2", false);
 		request.getSession(true).removeAttribute("group2");
 		request.getSession(true).removeAttribute("allGroups2");
 	}
@@ -547,7 +552,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
-		email=email.toLowerCase();
+		email = email.toLowerCase();
 		String parentId = (String) formSocialENtity.get("parentId");
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");
