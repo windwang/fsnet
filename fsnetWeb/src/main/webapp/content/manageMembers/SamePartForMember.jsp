@@ -41,3 +41,16 @@
 				</html:submit>
 			</td>
 		</tr>
+		
+	<c:if test="${!empty success}">
+		<script type="text/javascript">jQuery(function () { popup(); });</script>
+		<div id="osx-modal-content" class="simplemodal-data">
+			<div id="osx-modal-title">Message</div>
+			<div class="close">
+				<a class="simplemodal-close" href="#">X</a>
+			</div>
+			<div id="osx-modal-data">
+				<p><c:out value="${success}"/></p>
+			</div>
+		</div>
+	</c:if>
