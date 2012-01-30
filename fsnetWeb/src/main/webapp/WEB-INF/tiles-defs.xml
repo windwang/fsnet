@@ -32,6 +32,7 @@
 		<put name="title" value="pageTitle.1" />
 		<put name="body-content" value="/content/events/CreateEvent.jsp" />
 		<put name="currentMenu" value="Events" />
+		<put name="left" value="/content/events/leftMenu.jsp" />
 	</definition>
 
 	<definition name="Events" extends=".defaultLayout">
@@ -45,11 +46,13 @@
 		<put name="title" value="pageTitle.1" />
 		<put name="currentMenu" value="Events" />
 		<put name="body-content" value="/content/events/DisplayEvent.jsp" />
+		<put name="left" value="/content/events/leftMenu.jsp" />
 	</definition>
 
 	<!-- Calendar -->
 	<definition name="Calendar" extends=".defaultLayout">
 		<put name="title" value="pageTitle.Calendar" />
+		<put name="currentMenu" value="Events" />
 		<put name="left" value="/content/events/leftMenu.jsp" />
 		<put name="body-content" value="/content/events/Calendar.jsp" />
 	</definition>

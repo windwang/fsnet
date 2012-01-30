@@ -15,4 +15,9 @@
 			<bean:message key="left.4"/>
         </html:link>
     </li>
+   <li>
+        <html:link action="/Calendar">
+			<bean:message key="left.Calendar"/> 
+        </html:link>
+   </li>
 </ul>
