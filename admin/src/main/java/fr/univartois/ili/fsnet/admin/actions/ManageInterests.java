@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.util.MessageResources;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
@@ -83,6 +84,11 @@ CrudAction {
 
 		em.close();
 		dynaForm.set("createdInterestName","");
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.create"));
+		
 		return mapping.findForward("success");
 	}
 
@@ -145,6 +151,10 @@ CrudAction {
 				.isEmpty()) {
 			dynaForm.set("parentInterestId", "");
 		}
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.modify"));
 
 		return mapping.findForward("success");
 	}
@@ -177,7 +187,11 @@ CrudAction {
 			}
 		}
 		em.close();
-
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.delete"));
+		
 		return mapping.findForward("success");
 	}
 
