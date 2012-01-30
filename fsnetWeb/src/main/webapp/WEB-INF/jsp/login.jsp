@@ -1,8 +1,9 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@ taglib prefix="ili" uri="../ili.tld"%>
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="content-type"
@@ -73,8 +74,11 @@
 									</label>
 								</div>
 							</td>
-							<td><input type="text" name="memberMail" id="memberMail"
-								class="error" /></td>
+							<td>
+							  <input type="text" name="memberMail" id="memberMail" class="error" />
+							  <ili:changeAttribute id="memberMail" property="type" value="email" />
+                              <ili:placeHolder id="memberMail" value="login.6" />							
+							</td>
 						</tr>
 						<tr>
 							<td>
@@ -83,7 +87,11 @@
 									</label>
 								</div>
 							</td>
-							<td><input type="password" id="memberPass" name="memberPass" /></td>
+							<td>
+							  <input type="password" id="memberPass" name="memberPass" />
+							  <ili:changeAttribute id="memberPass" property="type" value="password" />
+							  <ili:placeHolder id="memberPass" value="login.7" />
+							</td>
 						</tr>
 						<tr>
 							<td><label for="remember"> <bean:message
@@ -105,7 +113,10 @@
 					<table>
 						<tr>
 							<td><label for="memberMail">Email :</label></td>
-							<td><input name="memberMail" type="text" id="memberMail" />
+							<td>
+							  <input name="memberMail2" type="text" id="memberMail2" />
+							  <ili:placeHolder id="memberMail2" value="login.6" />
+				              <ili:changeAttribute id="memberMail2" property="type" value="email" />
 							</td>
 							<td><input type="submit" /></td>
 						</tr>

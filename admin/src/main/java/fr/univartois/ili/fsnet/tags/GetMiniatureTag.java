@@ -12,15 +12,16 @@ public class GetMiniatureTag extends SimpleTagSupport {
 
 	private SocialEntity socialEntity;
 
+	
 	@Override
 	public void doTag() throws JspException, IOException {
 		JspWriter out = getJspContext().getOut();
 		if (socialEntity.getIsEnabled()) {
 			out.print("<a href=\"DisplayProfile.do?id=");
 			out.print(socialEntity.getId());
-			out.print("\">");
+			out.print("\" class=\"miniature\">");
 		}
-		out.print("<img src=\"miniature/");
+		out.print("<img src=\"avatar/");
 		out.print(socialEntity.getId());
 		out.print(".png\"></img>");
 		if (socialEntity.getIsEnabled()) {

@@ -27,7 +27,7 @@
 		<script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
 
 	</head>
-	<body onload="definePasword()">
+	<body>
 		<div class="wrap background">
 			<tiles:useAttribute name="currentMenu" scope="request" ignore="true" /> 
 			<tiles:insert attribute="menu" />

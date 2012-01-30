@@ -25,127 +25,124 @@ import javax.persistence.PostRemove;
  */
 @Entity
 public class Interest implements Serializable {
-    
-    /**
-     * The identifier.
-     */
-    @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    private int id;
-    
-    /**
-     * The list of social entities that are affected by this interest.
-     */
-    @ManyToMany(mappedBy = "interests")
-    @JoinColumn(nullable = false)
-    private Set<SocialEntity> entities = new HashSet<SocialEntity>();
-    
-    @OneToMany(mappedBy="parentInterest")
-    private Set<Interest> childrenInterests;
-    
-    @ManyToOne
-    private Interest parentInterest;
-    
-    /**
-     * The interest name.
-     */
-    @Column(nullable = false, unique = true)
-    @OrderColumn
-    private String name;
 
-    /**
-     * Constructor of the class Interest.
-     */
-    public Interest() {
-    }
+	/**
+	 * The identifier.
+	 */
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private int id;
 
-    /**
-     * Constructor of the class Interest.
-     *
-     * @param entities
-     * @param name
-     */
-    public Interest(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException();
-        }
-        this.name = name;
-        this.entities = new HashSet<SocialEntity>();
-    }
-    
-    /**
-     * Constructor of the class Interest.
-     *
-     * @param entities
-     * @param name
-     * @param parentInterest
-     * 
-     * @author Alexandre Lohez <alexandre.lohez at gmail.com>
-     */
-    public Interest(String name, Interest parentInterest) {
-        if (name == null || parentInterest == null) {
-            throw new IllegalArgumentException();
-        }
-        this.name = name;
-        this.entities = new HashSet<SocialEntity>();
-        this.parentInterest = parentInterest;
-        this.parentInterest.getChildrenInterests().add(this);
-    }
+	/**
+	 * The list of social entities that are affected by this interest.
+	 */
+	@ManyToMany(mappedBy = "interests")
+	@JoinColumn(nullable = false)
+	private Set<SocialEntity> entities = new HashSet<SocialEntity>();
 
-    /**
-     *
-     * @return the identifier.
-     */
-    public int getId() {
-        return id;
-    }
+	@OneToMany(mappedBy = "parentInterest")
+	private Set<Interest> childrenInterests;
 
-    /**
-     * Gives an identifier to the interest.
-     *
-     * @param id
-     */
-    public void setId(int id) {
-        this.id = id;
-    }
+	@ManyToOne
+	private Interest parentInterest;
 
-    /**
-     *
-     * @return the list of social entities that are affected by this interest.
-     */
-    public Set<SocialEntity> getEntities() {
-        return entities;
-    }
+	/**
+	 * The interest name.
+	 */
+	@Column(nullable = false, unique = true)
+	@OrderColumn
+	private String name;
 
-    /**
-     * Gives the list of social entities that are affected by this interest.
-     *
-     * @param entities
-     */
-    public void setEntities(Set<SocialEntity> entities) {
-        this.entities = entities;
-    }
+	/**
+	 * Constructor of the class Interest.
+	 */
+	public Interest() {
+	}
 
-    /**
-     *
-     * @return the interest name.
-     */
-    public String getName() {
-        return name;
-    }
+	/**
+	 * Constructor of the class Interest.
+	 * 
+	 * @param entities
+	 * @param name
+	 */
+	public Interest(String name) {
+		if (name == null) {
+			throw new IllegalArgumentException();
+		}
+		this.name = name;
+		this.entities = new HashSet<SocialEntity>();
+	}
 
-    /**
-     * Gives a name to the interest.
-     *
-     * @param name
-     */
-    public void setName(String name) {
-        this.name = name;
-    }
-    
-    
-    
-    
+	/**
+	 * Constructor of the class Interest.
+	 * 
+	 * @param entities
+	 * @param name
+	 * @param parentInterest
+	 * 
+	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
+	 */
+	public Interest(String name, Interest parentInterest) {
+		if (name == null || parentInterest == null) {
+			throw new IllegalArgumentException();
+		}
+		this.name = name;
+		this.entities = new HashSet<SocialEntity>();
+		this.parentInterest = parentInterest;
+		this.parentInterest.getChildrenInterests().add(this);
+	}
+
+	/**
+	 * 
+	 * @return the identifier.
+	 */
+	public int getId() {
+		return id;
+	}
+
+	/**
+	 * Gives an identifier to the interest.
+	 * 
+	 * @param id
+	 */
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	/**
+	 * 
+	 * @return the list of social entities that are affected by this interest.
+	 */
+	public Set<SocialEntity> getEntities() {
+		return entities;
+	}
+
+	/**
+	 * Gives the list of social entities that are affected by this interest.
+	 * 
+	 * @param entities
+	 */
+	public void setEntities(Set<SocialEntity> entities) {
+		this.entities = entities;
+	}
+
+	/**
+	 * 
+	 * @return the interest name.
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Gives a name to the interest.
+	 * 
+	 * @param name
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	/**
 	 * @return the children's interests of this interests
 	 */
@@ -154,7 +151,8 @@ public class Interest implements Serializable {
 	}
 
 	/**
-	 * @param childrenInterests the children's interests to set
+	 * @param childrenInterests
+	 *            the children's interests to set
 	 */
 	public void setChildrenInterests(Set<Interest> childrenInterests) {
 		this.childrenInterests = childrenInterests;
@@ -168,7 +166,8 @@ public class Interest implements Serializable {
 	}
 
 	/**
-	 * @param parentInterest the parent's interest to set
+	 * @param parentInterest
+	 *            the parent's interest to set
 	 */
 	public void setParentInterest(Interest parentInterest) {
 		this.parentInterest = parentInterest;
@@ -198,10 +197,11 @@ public class Interest implements Serializable {
 			return false;
 		return true;
 	}
-	
+
 	@PostRemove
 	public void onRemove() {
-		Logger.getAnonymousLogger().log(Level.INFO, "Interest.onInterestRemove("+getId()+")");
+		Logger.getAnonymousLogger().log(Level.INFO,
+				"Interest.onInterestRemove(" + getId() + ")");
 		for (SocialEntity entity : entities) {
 			entity.getInterests().remove(this);
 		}
@@ -211,6 +211,5 @@ public class Interest implements Serializable {
 	public String toString() {
 		return name;
 	}
-    
-	
+
 }

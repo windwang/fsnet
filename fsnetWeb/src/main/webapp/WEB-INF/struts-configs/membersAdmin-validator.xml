@@ -84,7 +84,7 @@
 				</var>
 				<var>
 					<var-name>test</var-name>
-					<var-value>(*this* != null)</var-value>
+					<var-value>((typePassword == "generatePassword") or (*this* != null))</var-value>
 				</var>
 			</field>
 			<field property="passwordConfirmation" depends="minlength,validwhen">

@@ -31,7 +31,9 @@
     float: left;
 }
 
-#loggedUsers {width: 210px;}
+#loggedUsers {
+	width: 210px;
+}
 
 #contactsAsked {
     float: left;
@@ -48,16 +50,20 @@
 }
 
 .miniature {
-    padding: 2px;
     border: 1px solid #AAAAAA;
-    float:left;
+    float: left;
+    height: 40px;
+    line-height: 40px;
     margin: 2px;
+    padding: 2px;
     text-align: center;
-    min-height: 25px;
-    min-width: 25px;
+    width: 40px;
 }
+
 .miniature img {
-    vertical-align:middle;
+    max-height: 40px;
+    max-width: 40px;
+    vertical-align: middle;
 }
 
 .profileLink {
@@ -70,7 +76,7 @@
 }
 
 .miniatureContainer {
-    width: 25px;
+    width: 40px;
 }
 
 #eventDescription_container .mceLayout {
@@ -175,7 +181,7 @@ label {
     color: #DDDDDD;
 }
 
-input[type=text], input[type=password], textarea {
+input[type=text], input[type=email], input[type=password], textarea {
     border: 1px solid #808080;
 } 
 #CreateEvent {width: 80%;}
@@ -226,6 +232,7 @@ input[type=text], input[type=password], textarea {
     float:left;
     margin-left: 5%;
     border: 3px solid gray;
+    border-radius: 15px;
 }
 
 #login label {
@@ -233,7 +240,7 @@ input[type=text], input[type=password], textarea {
     font-weight: bold;
 }
 
-#login input[type="text"], #login input[type="password"] {
+#login input[type="email"], #login input[type="password"] {
     height: 20px;
     width: 100%;
     border-color: #DDDDDD;
@@ -293,7 +300,7 @@ input[type=text], input[type=password], textarea {
 	float: right;	
 }
 
-input[type="text"][class="error"], textarea[class="error"] {
+input[type="text"][class="error"], input[type="email"][class="error"], textarea[class="error"] {
     border: 1px solid #AF1515;
 }
 
