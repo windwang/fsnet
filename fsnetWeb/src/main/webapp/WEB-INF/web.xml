@@ -115,4 +115,13 @@
     <servlet-name>MiniatureFetcher</servlet-name>
     <url-pattern>/miniature/*</url-pattern>
   </servlet-mapping>
+    <servlet>
+    <display-name>LogoFetcher</display-name>
+    <servlet-name>LogoFetcher</servlet-name>
+    <servlet-class>fr.univartois.ili.fsnet.core.LogoFetcher</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>LogoFetcher</servlet-name>
+    <url-pattern>/groups/*</url-pattern>
+  </servlet-mapping>
 </web-app>

@@ -4,7 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
@@ -50,7 +50,7 @@
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorContacts.resultList}">
-    <h3><bean:message key="contact.listContact" /></h3>
+    <h3><bean:message key="contact.listContact" /> : ${fn:length(requestScope.paginatorContacts.resultList)} <bean:message key="contact.contacts" /></h3>
     <table class="inLineTable">
 
         <c:forEach var="contact" items="${requestScope.paginatorContacts.resultList}">

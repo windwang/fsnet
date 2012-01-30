@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -18,9 +19,13 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.upload.FormFile;
 
+import fr.univartois.ili.fsnet.actions.utils.ImageManager;
+import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -441,5 +446,53 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		
 		return mapping.findForward("success");
 	}
-
+	private void sendPictureError(HttpServletRequest request, String key) {
+		ActionErrors errors = new ActionErrors();
+		errors.add("Logo", new ActionMessage(key));
+		saveErrors(request, errors);
+	}
+	private static final int MAX_PICTURE_SIZE=500000;
+	public ActionForward changeLogo(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		if(!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),Right.MODIFY_PICTURE))
+			return new ActionRedirect(mapping.findForward("unauthorized"));
+	
+		int groupId = UserUtils.getHisGroup(request).getId();
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		FormFile file = (FormFile) dynaForm.get("Logo");
+		if (file.getFileData().length != 0) {
+			PictureType pictureType = null;
+			for (PictureType pt : PictureType.values()) {
+				if (pt.getMimeType().equals(file.getContentType())) {
+					pictureType = pt;
+					break;
+				}
+			}
+			if (pictureType != null) {		
+				
+				
+				if(file.getFileSize()>MAX_PICTURE_SIZE){
+					sendPictureError(request, "groups.logo.maxsize");
+					return mapping.findForward("success");
+				}
+				
+				try {
+					ImageManager.createLogo(groupId,file.getInputStream(), pictureType);
+				} catch (FileNotFoundException e) {
+					sendPictureError(request, "groups.logo.fatal");
+				} catch (IOException e) {
+					sendPictureError(request, "groups.logo.fatal");
+				} catch (IllegalStateException e) {
+					sendPictureError(request, "groups.logo.fatal");
+				}
+			} else {
+				sendPictureError(request, "groups.logo.type");
+			}
+		} 
+		return mapping.findForward("success");
+	}
 }
