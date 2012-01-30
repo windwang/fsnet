@@ -62,10 +62,10 @@ public class ProfileVisiteFacade {
 		return em
 				.createQuery(
 						"SELECT pv " + "FROM ProfileVisite pv "
-								+ " WHERE :socialEntityId = pv.visited.id "
+								+ " WHERE pv.visited=:socialEntity "
 								+ "ORDER BY pv.lastVisite DESC",
 						ProfileVisite.class)
-				.setParameter("socialEntityId", visited.getId())
+				.setParameter("socialEntity", visited)
 				.setMaxResults(3).getResultList();
 	}
 
@@ -79,9 +79,9 @@ public class ProfileVisiteFacade {
 			SocialEntity visited) {
 		TypedQuery<ProfileVisite> query = em
 				.createQuery(
-						"SELECT pv FROM ProfileVisite pv WHERE :socialEntityId = pv.visited.id ORDER BY pv.lastVisite DESC",
+						"SELECT pv FROM ProfileVisite pv WHERE pv.visited=:socialEntity ORDER BY pv.lastVisite DESC",
 						ProfileVisite.class);
-		query.setParameter("socialEntityId", visited.getId());
+		query.setParameter("socialEntity", visited);
 		return query.getResultList();
 	}
 
