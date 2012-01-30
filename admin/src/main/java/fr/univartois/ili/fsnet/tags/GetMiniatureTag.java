@@ -12,6 +12,7 @@ public class GetMiniatureTag extends SimpleTagSupport {
 
 	private SocialEntity socialEntity;
 
+	
 	@Override
 	public void doTag() throws JspException, IOException {
 		JspWriter out = getJspContext().getOut();
