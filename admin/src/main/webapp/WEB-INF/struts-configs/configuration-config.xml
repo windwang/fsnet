@@ -20,9 +20,6 @@
 			<form-property name="PicturesDirectory" type="java.lang.String"/>
 			<form-property name="KeyFacebook" type="java.lang.String"/>
 		</form-bean>
-		<form-bean name="ChangeLogoForm" type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="Logo" type="org.apache.struts.upload.FormFile"/>
-		</form-bean>
 		<form-bean name="UpdateDBForm" type="org.apache.struts.validator.DynaValidatorActionForm"/>
 	</form-beans>
 	<action-mappings>
@@ -61,15 +58,7 @@
 				scope="request">
 			<forward name="success" path="Configure"/>
 		</action>
-		<action path="/ChangeLogo"
-				name="ChangeLogoForm"
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				parameter="changeLogo"
-				validate="true"
-				scope="request">
-				<forward name="unauthorized" path="/EditConfiguration.do"/>
-				<forward name="success" path="/EditConfiguration.do"></forward>
-	   	</action>
+		
 	   <action path="/UpdateDB"
 				name="UpdateDBForm"
 				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"

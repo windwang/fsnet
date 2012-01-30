@@ -226,5 +226,91 @@ public class ImageManager {
 			oldPicture.delete();
 		}
 	}
+	
+	private static void sendLogo(InputStream stream,
+			HttpServletResponse response) throws IOException {
+		byte[] datas = new byte[BUFFER_SIZE];
+		int numRead = stream.read(datas);
+		OutputStream out = response.getOutputStream();
+		while (numRead != -1) {
+			out.write(datas, 0 , numRead);
+			numRead = stream.read(datas);
+		}
+		stream.close();
+		out.flush();
+	}
+	public static void sendLogo(Integer groupId,HttpServletRequest request,
+			HttpServletResponse response, ServletContext context) throws IOException {
+		String directory = getStorageDirectory();
+		String fileName;
+		if (directory != null) {
+			fileName = directory + Integer.toString(groupId) +".png";
+			File pictureFile = new File(fileName);
+			if (pictureFile.exists()) {
+				sendLogo(pictureFile, response);	
+			} else {
+				sendDefaultLogo(response, context);			
+			}
+		} else {
+			sendDefaultLogo(response, context);
+		}
+	}
+	
+
+	private static void sendDefaultLogo(HttpServletResponse response, ServletContext context) throws IOException {
+		InputStream stream = context.getResourceAsStream("/images/FSNET.png");
+		sendLogo(stream, response);
+	}
+	private static void sendLogo(File logo,
+			HttpServletResponse response) throws IOException {
+		BufferedInputStream stream;
+		try {
+			stream = new BufferedInputStream(new FileInputStream(logo));
+			sendLogo(stream, response);
+		} catch (FileNotFoundException e) {
+			
+		}
+	}
+	public static void createLogo(Integer groupId,
+			InputStream incommingPictureInputStream, PictureType pictureType)
+			throws FileNotFoundException, IOException, IllegalStateException {
+		
+		BufferedImage incommingPicture = ImageIO
+				.read(incommingPictureInputStream);
+		if (incommingPicture == null) {
+			throw new IllegalStateException();
+		}
+		if (pictureType.equals(PictureType.PNG)) {
+			incommingPicture = convert(incommingPicture);
+		}
+		BufferedImage logo = getProperResizedImage(incommingPicture,
+				pictureType, PICTURE_MAX_WIDTH_OR_HEIGHT);
+		
+		ImageManager.installLogo(Integer.toString(groupId),pictureType,logo);
+		
+	}
+	private static void installLogo(String fileName,PictureType pictureType, BufferedImage image)
+			throws IllegalStateException {
+		String directory = getStorageDirectory();
+		if (directory != null) {
+			removeOldPicture(directory + fileName +".png");
+			String fileToCreate = directory +fileName+ ".png";
+			File imageFile = new File(fileToCreate);
+			try {
+				OutputStream out = new FileOutputStream(imageFile);
+				ImageIO.write(image, "png", out);
+				out.flush();
+				out.close();
+			} catch (IOException e) {
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+				throw new IllegalStateException(e);
+			}
+		} else {
+			Logger.getAnonymousLogger().severe(
+					"The storage directory for pictures is not configured");
+			throw new IllegalStateException();
+		}
+	}
+	
 
 }
