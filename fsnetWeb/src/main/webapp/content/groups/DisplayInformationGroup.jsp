@@ -9,6 +9,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3>
 	<bean:message key="groups.title" />
@@ -32,33 +33,25 @@
 			<bean:message key="groups.description.message" />
 		</h3>
 		<p>${ socialGroup.description }</p>
-
 		<h3>
 			<bean:message key="groups.listGroup" />
 		</h3>
-	
 		<c:forEach var="cGroup" items="${childsOfGroup}">
 			<html:link action="/DisplayInformationGroup">
 				<html:param name="idGroup" value="${ cGroup.id }" />
 				${ cGroup.name }
 			</html:link>
 		</c:forEach>
-
 		<h3>
 			<bean:message key="groups.listMember" />
 		</h3>
-
 		<c:forEach var="member" items="${allMembers}">
-
 			<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}"
 				class="miniature"> <img
 				title="${member.name} ${member.firstName}"
 				src="miniature/${member.id}.png" />
 			</a>
-
 		</c:forEach>
-
-
 
 		<br />
 		<br />
@@ -67,7 +60,6 @@
 			<h3>
 				<bean:message key="groups.rights.title" />
 			</h3>
-
 			<c:choose>
 				<c:when test="${ fn:length(socialGroup.rights) != 0 }">
 					<table class="inLineTable">
