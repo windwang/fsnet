@@ -150,6 +150,25 @@
 
 
 </html:form>
+<h3><bean:message key="groups.logo.change"/></h3>
+
+<html:form enctype="multipart/form-data" action="/ChangeLogo">
+	<table id="changeLogo">
+		<tr>
+			<td><html:file property="Logo"></html:file></td>
+			<td>
+				<html:submit styleClass="button">
+					<bean:message key="groups.logo.button" />
+				</html:submit>
+			</td>
+		</tr>
+		<logic:messagesPresent property="Logo">
+			<tr class="errorMessage">
+				<td colspan="2"><html:errors property="Logo"/></td>
+			</tr>
+		</logic:messagesPresent>
+	</table>
+</html:form>
 <style>
 select {
 	min-width: 200px;

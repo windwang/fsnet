@@ -3,7 +3,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div id="logo2">
-	<img src="images/logo.png" />
+	<c:choose>
+		<c:when test="${sessionScope.hisGroup != null}">
+		<img src="groups/${sessionScope.hisGroup.id}.png" /> 
+		</c:when>
+		<c:otherwise>
+			<img src="/images/FSNET.png" /> 
+		</c:otherwise>
+	</c:choose>
 
 </div>
 <html:link action="/DisplayProfile" styleId="userPicture">

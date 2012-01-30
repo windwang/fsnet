@@ -19,6 +19,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.util.MessageResources;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
@@ -74,6 +75,10 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		}
 
 		dynaForm.set("name", "");
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"community.success.on.create"));
 
 		return mapping.findForward("success");
 
@@ -149,6 +154,10 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 
 		dynaForm.set("modifierCommunityName", "");
 		dynaForm.set("modifiedCommunityName", "");
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"community.success.on.modify"));
 
 		return mapping.findForward("success");
 

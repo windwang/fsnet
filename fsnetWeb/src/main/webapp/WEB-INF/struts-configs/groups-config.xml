@@ -32,6 +32,9 @@
 			<form-property name="rigthListRight" type="java.lang.String[]" />
 
 		</form-bean>
+		<form-bean name="ChangeLogoForm" type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="Logo" type="org.apache.struts.upload.FormFile"/>
+		</form-bean>
 	</form-beans>
 	<global-forwards>
 
@@ -92,6 +95,15 @@
 			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="displayInformationGroup">
 			<forward name="success" path="DisplayInformationGroup"></forward>
 		</action>
+		<action path="/ChangeLogo"
+				name="ChangeLogoForm"
+				type="fr.univartois.ili.fsnet.actions.ManageGroups"
+				parameter="changeLogo"
+				validate="true"
+				scope="request">
+				<forward name="success" path="/DisplayGroup.do" />
+				<forward name="unauthorized" path="/DisplayGroup.do"/>
+	   	</action>
 
 	</action-mappings>
 

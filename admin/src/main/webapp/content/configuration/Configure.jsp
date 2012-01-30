@@ -157,13 +157,6 @@
 		</tr>
 	</table>
 </html:form>
-<h3><bean:message key="configure.26"/></h3>
-<html:form enctype="multipart/form-data" action="/ChangeLogo">
-	<html:file property="Logo"></html:file>
-	<html:submit styleClass="button">
-		<bean:message key="configure.9" />
-	</html:submit>
-</html:form>
 
 <h3><bean:message key="configure.UpdateDB"/></h3>
 <html:form enctype="multipart/form-data" action="/UpdateDB">	
