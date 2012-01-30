@@ -29,19 +29,23 @@
 				${ socialGroup.name }
 			</html:link>
 		</div>
+
 		<h3>
 			<bean:message key="groups.description.message" />
 		</h3>
 		<p>${ socialGroup.description }</p>
+
 		<h3>
 			<bean:message key="groups.listGroup" />
 		</h3>
-		<c:forEach var="cGroup" items="${childsOfGroup}">
+		<c:forEach items="${childsOfGroup}" var="cGroup" varStatus="status">
 			<html:link action="/DisplayInformationGroup">
 				<html:param name="idGroup" value="${ cGroup.id }" />
 				${ cGroup.name }
 			</html:link>
+			<c:if test="${status.count < fn:length(childsOfGroup)}"> | </c:if>
 		</c:forEach>
+
 		<h3>
 			<bean:message key="groups.listMember" />
 		</h3>
