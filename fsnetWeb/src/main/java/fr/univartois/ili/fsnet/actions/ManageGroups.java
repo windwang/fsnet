@@ -23,6 +23,7 @@ import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.apache.struts.upload.FormFile;
+import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
 import fr.univartois.ili.fsnet.actions.utils.PictureType;
@@ -110,6 +111,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					.getHisGroup(request));
 			request.setAttribute("allGroups", allGroups);
 		}
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"groups.success.on.create"));
 
 		return mapping.findForward("success");
 	}
@@ -193,6 +198,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("description", "");
 		dynaForm.set("nameParent", "");
 		dynaForm.set("socialEntityId", "");
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"groups.success.on.modify"));
 
 		return mapping.findForward("success");
 

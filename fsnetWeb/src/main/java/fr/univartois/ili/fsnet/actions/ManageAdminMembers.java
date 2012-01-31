@@ -127,6 +127,10 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		dynaForm.set("email", "");
 		dynaForm.set("parentId", "");
 		cleanSession(request);
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"member.success.on.create"));
 
 		return mapping.findForward("success");
 	}
@@ -333,6 +337,11 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			}
 
 		}
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"members.success.on.create"));
+		
 		return mapping.findForward("success");
 	}
 
@@ -584,6 +593,11 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
 		cleanSession(request);
+		
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success",bundle.getMessage(request.getLocale(),"member.success.on.modify"));
+		
 		return mapping.findForward("success");
 	}
 
