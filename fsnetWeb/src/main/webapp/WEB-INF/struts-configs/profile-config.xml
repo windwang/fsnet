@@ -52,7 +52,7 @@
 		</action>
 		<action path="/Profile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
 			scope="request" parameter="displayToModify" validate="true" name="profileForm">
-			<forward name="success" path="/Profile.do" />
+			<forward name="success" path="Profile" />
 		</action>
 		<action path="/ChangePassword" type="fr.univartois.ili.fsnet.actions.ChangePassword"
 			name="ChangePasswordForm" scope="request" validate="true" input="/Profile.do">
