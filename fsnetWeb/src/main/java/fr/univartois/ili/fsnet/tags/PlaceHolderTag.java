@@ -33,12 +33,10 @@ public class PlaceHolderTag extends SimpleTagSupport {
 	@Override
 	public void doTag() throws JspException {
 		JspWriter out = getJspContext().getOut();
-		ResourceBundle res = ResourceBundle.getBundle("FSneti18n", Locale.getDefault());
-		String valeur = (String)res.getObject(value);
 		
 		try {
 			out.print("<script type=\"text/javascript\">");
-			out.print("document.getElementById('" + id + "').setAttribute('placeholder','" + valeur + "');");
+			out.print("document.getElementById('" + id + "').setAttribute('placeholder','" + value + "');");
 			out.println("</script>");
 		} catch (IOException e) {
 			e.printStackTrace();
