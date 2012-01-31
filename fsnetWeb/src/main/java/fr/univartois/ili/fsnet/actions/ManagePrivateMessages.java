@@ -193,9 +193,11 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					authenticatedUser.getReceivedPrivateMessages());
 			Collections.reverse(userMessages);
 			
-			Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(userMessages, request, "inboxMessages");
+			/*Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(userMessages, request, "inboxMessages");
 			
-			request.setAttribute("inBoxMessagesPaginator", paginator);
+			request.setAttribute("inBoxMessagesPaginator", paginator);*/
+			request.setAttribute("inBoxMessages", userMessages);
+
 			refreshNumNewMessages(request, userMessages);
 		refreshNumNewMessages(request, em);
 		em.close();

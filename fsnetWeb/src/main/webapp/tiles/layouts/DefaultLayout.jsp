@@ -17,6 +17,7 @@
 		<meta http-equiv="Expires" content="0"/> 
 		<link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
+		<link type="text/css" href="css/jquery-tablesorter-custom.css" rel="stylesheet" />
 				
 		<title><bean:message key="${pageTitle}" /></title>
 		<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
@@ -25,6 +26,8 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript" src="js/geolocalisation.js"></script>
 		<script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
+		<script type="text/javascript" src="js/jquery.dataTables.js"></script> 
+		
 
 	</head>
 	<body>

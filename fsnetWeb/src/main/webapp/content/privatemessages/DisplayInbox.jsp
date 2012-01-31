@@ -11,15 +11,44 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		$('#tablesorter').dataTable({
+			"aaSorting" : [ [ 4, "desc" ] ],
+			"aoColumns" : [ {
+				"bSortable" : false
+			}, {
+				"bSortable" : false
+			}, null, null, null ],
+			"bInfo" : true,
+			"bPaginate" : true
+		});
+	});
+</script>
+
 <h3><bean:message key="privatemessages.inbox" /></h3>
 <c:choose>
-	<c:when test="${empty requestScope.inBoxMessagesPaginator.resultList}">
+	<c:when test="${empty requestScope.inBoxMessages}">
 		<bean:message key="privatemessages.nomessages" />
 	</c:when>
 	<c:otherwise>
 		<html:form action="/DeleteMultiMessages">
-			<table class="inLineTable">
-				<c:forEach items="${requestScope.inBoxMessagesPaginator.resultList}" var="message">
+			<table id=tablesorter class="tablesorter inLineTable">
+				<thead>
+					<tr>
+						<th></th>
+						<th></th>
+						<th>
+				<bean:message key="privatemessages.from" /></th>
+						<th>
+				<bean:message key="privatemessages.subject" /></th>
+						<th>
+				<bean:message key="privatemessages.date" /></th>
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${requestScope.inBoxMessages}" var="message">
 					<c:if test="${not message.reed}">
 						<tr class="notReed">
 							<td>
@@ -34,7 +63,6 @@
 								<span>${message.from.firstName} ${message.from.name}</span>
 								
 							</html:link></td>
-		                    </td>
 							<td style="width: 50%"><html:link action="/DisplayMessage">
 								<html:param name="messageId" value="${message.id}" />
 								<span>${fn:substring(message.subject, 0,20)} : </span>
@@ -69,14 +97,12 @@
 					<td class="alignRight"><bean:write name="message"
 						property="creationDate" formatKey="date.format" /></td>
 				</c:forEach>
+				</tbody>
 			</table>
+			<br />
 			<html:submit styleClass="button">
 				<bean:message key="privatemessages.delete" />
 			</html:submit>
 		</html:form>
-		<c:set var="paginatorInstance" value="${requestScope.inBoxMessagesPaginator}" scope="request"/>
-		<c:set var="paginatorAction" value="/Inbox" scope="request"/>
-		<c:set var="paginatorTile" value="inboxMessages" scope="request"/>
-		<c:import url="/content/pagination/Pagination.jsp"/>
-	</c:otherwise>
+		</c:otherwise>
 </c:choose>
