@@ -20,7 +20,7 @@
 
 
 <h3><bean:message key="privatemessages.sendM"/></h3>
-
+<table  class="inLineTable"><tr><td>
 <html:form action="/CreatePrivateMessage">
 
     <table style="width: 100%">
@@ -100,7 +100,7 @@
     </table>
 
 </html:form>
-
+</td></tr></table>
 <script type="text/javascript">
     var AC = new dmsAutoComplete('memberSearch','searchDiv');
     AC.clearField = false; 

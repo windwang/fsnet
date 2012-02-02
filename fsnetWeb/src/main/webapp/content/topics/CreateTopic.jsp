@@ -17,6 +17,7 @@
 
 
 <h3><bean:message key="hubs.createTopic"/></h3>
+<table  class="inLineTable"><tr><td>
 <html:form action="/CreateTopic">
 
     <html:hidden property="hubId" value="${param.hubId}"/>
@@ -72,3 +73,4 @@
         </tr>
     </table>
 </html:form>
+</td></tr></table>

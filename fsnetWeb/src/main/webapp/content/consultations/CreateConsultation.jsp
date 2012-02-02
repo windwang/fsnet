@@ -4,6 +4,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <h3><bean:message key="consultation.create"/></h3>
+<table  class="inLineTable"><tr><td>
 <div class="errorMessage"><html:errors/></div> 
 <html:form action="CreateConsultation" method="POST">
 	<table>
@@ -77,6 +78,7 @@
     <html:submit styleClass="button"><bean:message key="consultation.create"/></html:submit>
     
 </html:form>
+</td></tr></table>
 
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>

@@ -15,8 +15,8 @@
 </h3>
 
 <img src="avatar/${watchedProfile.id}.png" style="float: right;" />
-
-<table class="watchedProfile">
+<table class="inLineTablePersonalInformation"><tr><td>
+  <table class="watchedProfile">
 	<c:if
 		test="${watchedProfile.email != null && not empty watchedProfile.email }">
 		<tr>
@@ -68,7 +68,8 @@
 			<td>${watchedProfile.phone}</td>
 		</tr>
 	</c:if>
-</table>
+  </table>
+</td></tr></table>
 
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
 	<html:link action="/ContactDemand" styleClass="button">
@@ -90,6 +91,7 @@
 	<bean:message key="showInterest.title"
 		arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 </h3>
+<table class="inLineTable"><tr><td>
 <logic:empty name="watchedProfile" property="interests">
 	<bean:message key="Profile.noInterests" />.
 </logic:empty>
@@ -111,17 +113,19 @@
 <c:set var="paginatorAction" value="/DisplayProfile" scope="request" />
 <c:set var="paginatorTile" value="profileInterests" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
+</td></tr></table>
 
 <h3>
 	<bean:message key="profile.showInteraction.title"
 		arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 </h3>
+<table class="inLineTable"><tr><td>
 <c:if test="${empty requestScope.interactionPaginator.resultList}">
 	<bean:message key="Profile.noInteractions" />.
 </c:if>
 
 <div class="cloud">
-	<table class="inLineTable">
+	<table>
 		<c:forEach var="inter"
 			items="${requestScope.interactionPaginator.resultList}">
 			<tr>
@@ -182,11 +186,12 @@
 <c:set var="paginatorAction" value="/DisplayProfile" scope="request" />
 <c:set var="paginatorTile" value="profileInteractions" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
-
+</td></tr></table>
 <h3>
 	<bean:message key="showProfile.contacts.title" />
 </h3>
-<logic:empty name="watchedProfile" property="contacts">
+<table class="inLineTable"><tr><td>
+  <logic:empty name="watchedProfile" property="contacts">
 	<c:choose>
 		<c:when test="${edit}">
 			<bean:message key="showProfile.IHaveNoContacts" />
@@ -206,6 +211,7 @@
 <c:set var="paginatorAction" value="/DisplayProfile" scope="request" />
 <c:set var="paginatorTile" value="profileContacts" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
+</td></tr></table>
 
 <h3>
 	<bean:message key="showProfile.groups.tree" />

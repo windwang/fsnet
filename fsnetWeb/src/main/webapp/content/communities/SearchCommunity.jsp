@@ -7,13 +7,14 @@
 
 
 <h3><bean:message key="communities.search"/></h3>
+<table  class="inLineTable"><tr><td>
 <html:form action="SearchCommunity" method="GET">
     <div id="SearchCommunity">
         <html:text property="searchText" />
         <html:submit styleClass="button"><bean:message key="communities.searchButton"/></html:submit>
     </div>
 </html:form>
-
+</td></tr></table>
 
 <h3><bean:message key="communities.listCommunities"/></h3>
 
@@ -67,7 +68,9 @@
         <c:import url="/content/pagination/Pagination.jsp"/>
     </c:when>
     <c:otherwise>
+      <table  class="inLineTable"><tr><td>
         <bean:message key="communities.noResult"/>
+      </td></tr></table>
     </c:otherwise>
 </c:choose>
 

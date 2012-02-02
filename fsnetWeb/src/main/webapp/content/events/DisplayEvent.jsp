@@ -14,7 +14,7 @@
     </c:import>
     ${event.title}
 </h3>
-
+<table  class="inLineTable"><tr><td>
 <div class="interactionDisplay">
     <table>
         <tr class="authorDate">
@@ -87,3 +87,4 @@
 	</span> 
 </logic:iterate>
 </c:if>
+</td></tr></table>
