@@ -42,9 +42,9 @@ jQuery(document).ready(function($) {
 				                        start: str[1],
 				                        end: str[2],
 				                        allDay:alldayevent,
-				                        description:str[4],
-				                        url:'/fsnetWeb/DisplayEvent.do?eventId='+str[5],
-				                        id:str[5]
+				                        description:str[5],
+				                        url:'/fsnetWeb/DisplayEvent.do?eventId='+str[4],
+				                        id:str[4]
 				                    });
 
 			                });
