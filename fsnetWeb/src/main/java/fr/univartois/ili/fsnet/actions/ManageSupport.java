@@ -36,9 +36,6 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		System.out.println("mail" + authenticatedUser.getEmail());
-		System.out.println("ici" + title);
-		System.out.println("la" + content);
 		postMail(authenticatedUser.getEmail(), title, content);
 		return new ActionRedirect(mapping.findForward("success"));
 	}
@@ -48,7 +45,10 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 		Property property;
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		Properties properties = conf.getFSNetConfiguration();
-		if(! "".equals(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY))){
+		/*
+		 * Envoi de mail que l'on a pas encore pu tester
+		 * 
+		 * if(! "".equals(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY))){
 			FSNetMailer mailer = FSNetMailer.getInstance();
 			Mail mail = mailer.createMail();
 			
@@ -56,7 +56,7 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 			mail.addRecipient(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
 			mail.setContent("From : "+email+"\n"+content);
 			mailer.sendMail(mail);
-		}
+		}*/
 		
 	}
 
