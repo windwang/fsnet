@@ -7,6 +7,8 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
+<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<bean:define id="searchMessage"><bean:message key="hub.search"/></bean:define>
 
 <h3><bean:message key="hubs.search"/></h3>
 <table  class="inLineTable"><tr><td>
@@ -16,6 +18,7 @@
         <tr>
             <td>
                 <html:text property="searchText" styleId="hubName" />
+                <ili:placeHolder id="hubName" value="${searchMessage}" />
             </td>
             <td>
                 <html:submit styleClass="button"><bean:message key="hubs.search"/></html:submit>

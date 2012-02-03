@@ -3,6 +3,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<bean:define id="searchMessage"><bean:message key="community.search"/></bean:define>
 
 <jsp:include page="/content/communities/YourCommunities.jsp"/>
 <jsp:include page="/content/communities/ModifyCommunity.jsp"/>
@@ -10,7 +11,8 @@
 <table  class="inLineTable"><tr><td>
 <html:form action="SearchYourCommunities" method="GET">
     <div id="SearchCommunity">
-        <html:text property="searchCommunityText" />
+        <html:text property="searchCommunityText" styleId="searchTexte"  />
+        <ili:placeHolder id="searchTexte" value="${searchMessage}" /> 
         <html:submit styleClass="button"><bean:message key="communities.searchButton"/></html:submit>
     </div>
 </html:form>

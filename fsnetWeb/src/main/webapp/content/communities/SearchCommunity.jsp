@@ -4,13 +4,14 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<bean:define id="searchMessage"><bean:message key="community.search"/></bean:define>
 
 <h3><bean:message key="communities.search"/></h3>
 <table  class="inLineTable"><tr><td>
 <html:form action="SearchCommunity" method="GET">
     <div id="SearchCommunity">
-        <html:text property="searchText" />
+        <html:text property="searchText" styleId="searchTexte" />
+        <ili:placeHolder id="searchTexte" value="${searchMessage}" /> 
         <html:submit styleClass="button"><bean:message key="communities.searchButton"/></html:submit>
     </div>
 </html:form>

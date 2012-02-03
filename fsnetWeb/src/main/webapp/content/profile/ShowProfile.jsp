@@ -216,6 +216,7 @@
 <h3>
 	<bean:message key="showProfile.groups.tree" />
 </h3>
+<table  class="inLineTable"><tr><td>
 <ul>
 	<c:choose>
 		<c:when test="${requestScope.treeGroupProfile}">
@@ -230,7 +231,7 @@
 		</c:otherwise>
 	</c:choose>
 </ul>
-
+</td></tr></table>
 
 
 
