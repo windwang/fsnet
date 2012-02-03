@@ -1,67 +1,113 @@
-/* tables */
 
-/* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
- * DataTables features
- */
+
 .dataTables_info {
 	width: 60%;
 	float: left;
 }
 
 .dataTables_paginate {
-	width: 44px; *
-	width: 50px;
 	float: right;
 	text-align: right;
 }
 
 /* Pagination nested */
-.paginate_disabled_previous,.paginate_enabled_previous,.paginate_disabled_next,.paginate_enabled_next
-	{
+.paginate_disabled_first, .paginate_enabled_first,
+.paginate_disabled_previous, .paginate_enabled_previous,
+.paginate_disabled_next, .paginate_enabled_next,
+.paginate_disabled_last, .paginate_enabled_last {
+	color: #3355bb !important;
 	height: 19px;
-	width: 19px;
-	margin-left: 3px;
 	float: left;
+	cursor: pointer;
+	*cursor: hand;
+}
+.paginate_disabled_first:hover, .paginate_enabled_first:hover,
+.paginate_disabled_previous:hover, .paginate_enabled_previous:hover,
+.paginate_disabled_next:hover, .paginate_enabled_next:hover,
+.paginate_disabled_last:hover, .paginate_enabled_last:hover {
+	text-decoration: none !important;
+}
+.paginate_disabled_first:active, .paginate_enabled_first:active,
+.paginate_disabled_previous:active, .paginate_enabled_previous:active,
+.paginate_disabled_next:active, .paginate_enabled_next:active,
+.paginate_disabled_last:active, .paginate_enabled_last:active  {
+	outline: none;
+}
+
+.paginate_disabled_first,
+.paginate_disabled_previous,
+.paginate_disabled_next,
+.paginate_disabled_last {
+	color: #666 !important;
+}
+
+.paginate_disabled_first, .paginate_enabled_first,
+.paginate_disabled_previous, .paginate_enabled_previous {
+	padding-left: 23px;
+}
+.paginate_disabled_last, .paginate_enabled_last,
+.paginate_disabled_next, .paginate_enabled_next {
+	padding-right: 23px;
+	margin-left: 10px;
+}
+
+
+
+.paginate_disabled_first {
+	background: url('../images/datatables/first_disabled.png') no-repeat top left;
+}
+.paginate_enabled_first {
+	background: url('../images/datatables/first_enabled.png') no-repeat top left;
 }
 
 .paginate_disabled_previous {
-	background-image: url('../images/back_disabled.jpg');
+	background: url('../images/datatables/back_disabled.png') no-repeat top left;
 }
-
 .paginate_enabled_previous {
-	background-image: url('../images/back_enabled.jpg');
+	background: url('../images/datatables/back_enabled.png') no-repeat top left;
 }
 
 .paginate_disabled_next {
-	background-image: url('../images/forward_disabled.jpg');
+	background: url('../images/datatables/forward_disabled.png') no-repeat top right;
+}
+.paginate_enabled_next {
+	background: url('../images/datatables/forward_enabled.png') no-repeat top right;
 }
 
-.paginate_enabled_next {
-	background-image: url('../images/forward_enabled.jpg');
+.paginate_disabled_last {
+	background: url('../images/datatables/last_disabled.png') no-repeat top right;
+}
+.paginate_enabled_last {
+	background: url('../images/datatables/last_enabled.png') no-repeat top right;
 }
 
 
 /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
  * DataTables sorting
  */
+
 .sorting_asc {
-	background: url('../images/sort_asc.png') no-repeat center right;
+	background: url('../images/datatables/sort_asc.png') no-repeat center right;
 }
 
 .sorting_desc {
-	background: url('../images/sort_desc.png') no-repeat center right;
+	background: url('../images/datatables/sort_desc.png') no-repeat center right;
 }
 
 .sorting {
-	background: url('../images/sort_both.png') no-repeat center right;
+	background: url('../images/datatables/sort_both.png') no-repeat center right;
 }
 
 .sorting_asc_disabled {
-	background: url('../images/sort_asc_disabled.png') no-repeat center
-		right;
+	background: url('../images/datatables/sort_asc_disabled.png') no-repeat center right;
 }
 
 .sorting_desc_disabled {
-	background: url('../images/sort_desc_disabled.png') no-repeat center
-		right;
+	background: url('../images/datatables/sort_desc_disabled.png') no-repeat center right;
 }
+ 
+th:active {
+	outline: none;
+}
+
+

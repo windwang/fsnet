@@ -11,20 +11,23 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+ 
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		$('#tablesorter').dataTable({
-			"aaSorting" : [ [ 4, "desc" ] ],
+	    $('#tablesorter').dataTable( {
+	    	"aaSorting" : [ [ 4, "desc" ] ],
 			"aoColumns" : [ {
 				"bSortable" : false
 			}, {
 				"bSortable" : false
 			}, null, null, null ],
 			"bInfo" : true,
-			"bPaginate" : true
-		});
-	});
+			"bPaginate" : true,
+			"sDom": '<"top"ip><"clear">rt<"bottom"p><"clear">',   
+			"sPaginationType": "scrolling"
+	    } );
+	} );
 </script>
 
 <h3><bean:message key="privatemessages.inbox" /></h3>
@@ -39,12 +42,9 @@
 					<tr>
 						<th></th>
 						<th></th>
-						<th>
-				<bean:message key="privatemessages.from" /></th>
-						<th>
-				<bean:message key="privatemessages.subject" /></th>
-						<th>
-				<bean:message key="privatemessages.date" /></th>
+						<th><bean:message key="privatemessages.from" /></th>
+						<th><bean:message key="privatemessages.subject" /></th>
+						<th><bean:message key="privatemessages.date" /></th>
 					</tr>
 				</thead>
 				<tbody>
