@@ -25,7 +25,8 @@
                 /WEB-INF/struts-configs/ajax-config.xml,
                 /WEB-INF/struts-configs/consultations-config.xml,
                 /WEB-INF/struts-configs/groups-config.xml,
-                /WEB-INF/struts-configs/visits-config.xml
+                /WEB-INF/struts-configs/visits-config.xml,
+                /WEB-INF/struts-configs/support-config.xml
             </param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>
@@ -115,13 +116,16 @@
     <servlet-name>MiniatureFetcher</servlet-name>
     <url-pattern>/miniature/*</url-pattern>
   </servlet-mapping>
-    <servlet>
-    <display-name>LogoFetcher</display-name>
-    <servlet-name>LogoFetcher</servlet-name>
-    <servlet-class>fr.univartois.ili.fsnet.core.LogoFetcher</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>LogoFetcher</servlet-name>
-    <url-pattern>/groups/*</url-pattern>
-  </servlet-mapping>
+  <context-param>
+  <param-name>http.proxy</param-name>
+  <param-value>false</param-value>
+  </context-param>
+  <context-param>
+  <param-name>http.proxyHost</param-name>
+  <param-value>cache-etu</param-value>
+  </context-param>
+  <context-param>
+  <param-name>http.proxyPort</param-name>
+  <param-value>3128</param-value>
+  </context-param>
 </web-app>
