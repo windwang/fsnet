@@ -28,8 +28,7 @@
 		<script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
 		
 		<script class="jsbin" src="js/jquery.dataTables.js"></script>
-		<script type="text/javascript" src="js/dataTables.scrollingPagination.js"></script>
-
+		
 	</head>
 	<body>
 		<div class="wrap background">

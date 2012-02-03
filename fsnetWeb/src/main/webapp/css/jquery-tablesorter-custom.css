@@ -1,5 +1,4 @@
 
-
 .dataTables_info {
 	width: 60%;
 	float: left;
@@ -15,7 +14,7 @@
 .paginate_disabled_previous, .paginate_enabled_previous,
 .paginate_disabled_next, .paginate_enabled_next,
 .paginate_disabled_last, .paginate_enabled_last {
-	color: #3355bb !important;
+	color: #196DA6 !important;
 	height: 19px;
 	float: left;
 	cursor: pointer;
@@ -38,7 +37,7 @@
 .paginate_disabled_previous,
 .paginate_disabled_next,
 .paginate_disabled_last {
-	color: #666 !important;
+	color: #DCDCDC !important;
 }
 
 .paginate_disabled_first, .paginate_enabled_first,
@@ -87,23 +86,26 @@
  */
 
 .sorting_asc {
-	background: url('../images/datatables/sort_asc.png') no-repeat center right;
+	background: #DCF0FE center right no-repeat url('../images/datatables/sort_asc.png');
 }
 
 .sorting_desc {
-	background: url('../images/datatables/sort_desc.png') no-repeat center right;
+	background: #DCF0FE center right no-repeat  url('../images/datatables/sort_desc.png');
 }
 
 .sorting {
-	background: url('../images/datatables/sort_both.png') no-repeat center right;
+	background: #DCF0FE center right no-repeat  url('../images/datatables/sort_both.png');
 }
 
 .sorting_asc_disabled {
-	background: url('../images/datatables/sort_asc_disabled.png') no-repeat center right;
+	background: #DCF0FE center right no-repeat  url('../images/datatables/sort_asc_disabled.png');
 }
 
 .sorting_desc_disabled {
-	background: url('../images/datatables/sort_desc_disabled.png') no-repeat center right;
+	background:  #DCF0FE center right no-repeat url('../images/datatables/sort_desc_disabled.png');
+}
+.sorting_asc_disabled {
+	background:  #DCF0FE center right no-repeat url('../images/datatables/sort_asc_disabled.png');
 }
  
 th:active {

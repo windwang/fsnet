@@ -21,10 +21,10 @@
 				"bSortable" : false
 			}, {
 				"bSortable" : false
-			}, null, null, null ],
+			}, null, null, { "sType": "date-euro" }],
 			"bInfo" : true,
 			"bPaginate" : true,
-			"sDom": '<"top"ip><"clear">rt<"bottom"p><"clear">',   
+			"sDom": '<"top"ip><"clear">rt<"bottom"p>',   
 			"sPaginationType": "scrolling"
 	    } );
 	} );

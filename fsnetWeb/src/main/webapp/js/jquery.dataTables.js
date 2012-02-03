@@ -63,10 +63,10 @@ var language_en = {
 var lang = "en";
 var language = language_en;
 if (navigator) {
-	if (navigator.language) {
-		lang = navigator.language;
-	} else if (navigator.browserLanguage) {
+	if (navigator.browserLanguage) {
 		lang = navigator.browserLanguage;
+	} else if (navigator.language) {
+		lang = navigator.language;
 	} else if (navigator.systemLanguage) {
 		lang = navigator.systemLanguage;
 	} else if (navigator.userLanguage) {
@@ -74,7 +74,7 @@ if (navigator) {
 	}
 }
 
-if (lang == "fr")
+if (lang == 'fr')
 	language = language_fr;
 
 /**
@@ -10722,3 +10722,233 @@ function($, window, document, undefined) {
 	 *            {@link DataTable.models.oSettings}
 	 */
 }(jQuery, window, document, undefined));
+
+
+/* Time between each scrolling frame */
+$.fn.dataTableExt.oPagination.iTweenTime = 100;
+
+$.fn.dataTableExt.oPagination.scrolling = {
+
+	"fnInit" : function(oSettings, nPaging, fnCallbackDraw) {
+
+		var nFirst = document.createElement('div');
+		var nPrevious = document.createElement('div');
+		var nNext = document.createElement('div');
+		var nLast = document.createElement('div');
+
+		nPrevious.appendChild(document
+				.createTextNode(oSettings.oLanguage.oPaginate.sPrevious));
+		nNext.appendChild(document
+				.createTextNode(oSettings.oLanguage.oPaginate.sNext));
+
+		if (oSettings.sTableId !== '') {
+			nPaging.setAttribute('id', oSettings.sTableId + '_paginate');
+			nFirst.setAttribute('id', oSettings.sTableId + '_first');
+			nPrevious.setAttribute('id', oSettings.sTableId + '_previous');
+			nNext.setAttribute('id', oSettings.sTableId + '_next');
+			nLast.setAttribute('id', oSettings.sTableId + '_last');
+		}
+
+		nFirst.className = "paginate_disabled_first";
+		nPrevious.className = "paginate_disabled_previous";
+		nNext.className = "paginate_disabled_next";
+		nLast.className = "paginate_disabled_last";
+
+		nFirst.title = oSettings.oLanguage.oPaginate.sFirst;
+		nPrevious.title = oSettings.oLanguage.oPaginate.sPrevious;
+		nNext.title = oSettings.oLanguage.oPaginate.sNext;
+		nLast.title = oSettings.oLanguage.oPaginate.sLast;
+
+		nPaging.appendChild(nFirst);
+		nPaging.appendChild(nPrevious);
+		nPaging.appendChild(nNext);
+		nPaging.appendChild(nLast);
+
+		$(nFirst).click(function() {
+			oSettings.oApi._fnPageChange(oSettings, "first");
+			fnCallbackDraw(oSettings);
+		});
+
+		$(nPrevious)
+				.click(
+						function() {
+							/*
+							 * Disallow paging event during a current paging
+							 * event
+							 */
+							if (typeof oSettings.iPagingLoopStart != 'undefined'
+									&& oSettings.iPagingLoopStart != -1) {
+								return;
+							}
+
+							oSettings.iPagingLoopStart = oSettings._iDisplayStart;
+							oSettings.iPagingEnd = oSettings._iDisplayStart
+									- oSettings._iDisplayLength;
+
+							/* Correct for underrun */
+							if (oSettings.iPagingEnd < 0) {
+								oSettings.iPagingEnd = 0;
+							}
+
+							var iTween = $.fn.dataTableExt.oPagination.iTweenTime;
+							var innerLoop = function() {
+								if (oSettings.iPagingLoopStart > oSettings.iPagingEnd) {
+									oSettings.iPagingLoopStart--;
+									oSettings._iDisplayStart = oSettings.iPagingLoopStart;
+									fnCallbackDraw(oSettings);
+									setTimeout(function() {
+										innerLoop();
+									}, iTween);
+								} else {
+									oSettings.iPagingLoopStart = -1;
+								}
+							};
+							innerLoop();
+						});
+
+		$(nNext)
+				.click(
+						function() {
+							/*
+							 * Disallow paging event during a current paging
+							 * event
+							 */
+							if (typeof oSettings.iPagingLoopStart != 'undefined'
+									&& oSettings.iPagingLoopStart != -1) {
+								return;
+							}
+
+							oSettings.iPagingLoopStart = oSettings._iDisplayStart;
+
+							/*
+							 * Make sure we are not over running the display
+							 * array
+							 */
+							if (oSettings._iDisplayStart
+									+ oSettings._iDisplayLength < oSettings
+									.fnRecordsDisplay()) {
+								oSettings.iPagingEnd = oSettings._iDisplayStart
+										+ oSettings._iDisplayLength;
+							}
+
+							var iTween = $.fn.dataTableExt.oPagination.iTweenTime;
+							var innerLoop = function() {
+								if (oSettings.iPagingLoopStart < oSettings.iPagingEnd) {
+									oSettings.iPagingLoopStart++;
+									oSettings._iDisplayStart = oSettings.iPagingLoopStart;
+									fnCallbackDraw(oSettings);
+									setTimeout(function() {
+										innerLoop();
+									}, iTween);
+								} else {
+									oSettings.iPagingLoopStart = -1;
+								}
+							};
+							innerLoop();
+						});
+
+		$(nLast).click(function() {
+			oSettings.oApi._fnPageChange(oSettings, "last");
+			fnCallbackDraw(oSettings);
+		});
+
+		/* Take the brutal approach to cancelling text selection */
+		$(nFirst).bind('selectstart', function() {
+			return false;
+		});
+		$(nPrevious).bind('selectstart', function() {
+			return false;
+		});
+		$(nNext).bind('selectstart', function() {
+			return false;
+		});
+		$(nLast).bind('selectstart', function() {
+			return false;
+		});
+
+	},
+
+	"fnUpdate" : function(oSettings, fnCallbackDraw) {
+		if (!oSettings.aanFeatures.p) {
+			return;
+		}
+
+		var an = oSettings.aanFeatures.p;
+		for ( var i = 0, iLen = an.length; i < iLen; i++) {
+			if (an[i].childNodes.length !== 0) {
+				if (oSettings._iDisplayStart === 0) {
+					an[i].childNodes[0].className = "paginate_disabled_first";
+					an[i].childNodes[1].className = "paginate_disabled_previous";
+				} else {
+					an[i].childNodes[0].className = "paginate_enabled_first";
+					an[i].childNodes[1].className = "paginate_enabled_previous";
+				}
+
+				if (oSettings.fnDisplayEnd() == oSettings.fnRecordsDisplay()) {
+					an[i].childNodes[2].className = "paginate_disabled_next";
+					an[i].childNodes[3].className = "paginate_disabled_last";
+				} else {
+					an[i].childNodes[2].className = "paginate_enabled_next";
+					an[i].childNodes[3].className = "paginate_enabled_last";
+
+				}
+			}
+		}
+	}
+}
+
+
+function trim(str) {
+    str = str.replace(/^\s+/, '');
+    for (var i = str.length - 1; i >= 0; i--) {
+        if (/\S/.test(str.charAt(i))) {
+            str = str.substring(0, i + 1);
+            break;
+        }
+    }
+    return str;
+}
+ 
+jQuery.fn.dataTableExt.oSort['date-euro-asc'] = function(a, b) {
+    if (trim(a) != '') {
+        var frDatea = trim(a).split(' ');
+        var frTimea = frDatea[1].split(':');
+        var frDatea2 = frDatea[0].split('/');
+        var x = (frDatea2[2] + frDatea2[1] + frDatea2[0] + frTimea[0] + frTimea[1] + frTimea[2]) * 1;
+    } else {
+        var x = 10000000000000; // = l'an 1000 ...
+    }
+ 
+    if (trim(b) != '') {
+        var frDateb = trim(b).split(' ');
+        var frTimeb = frDateb[1].split(':');
+        frDateb = frDateb[0].split('/');
+        var y = (frDateb[2] + frDateb[1] + frDateb[0] + frTimeb[0] + frTimeb[1] + frTimeb[2]) * 1;                     
+    } else {
+        var y = 10000000000000;                    
+    }
+    var z = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+    return z;
+};
+ 
+jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
+    if (trim(a) != '') {
+        var frDatea = trim(a).split(' ');
+        var frTimea = frDatea[1].split(':');
+        var frDatea2 = frDatea[0].split('/');
+        var x = (frDatea2[2] + frDatea2[1] + frDatea2[0] + frTimea[0] + frTimea[1] + frTimea[2]) * 1;                      
+    } else {
+        var x = 10000000000000;                    
+    }
+ 
+    if (trim(b) != '') {
+        var frDateb = trim(b).split(' ');
+        var frTimeb = frDateb[1].split(':');
+        frDateb = frDateb[0].split('/');
+        var y = (frDateb[2] + frDateb[1] + frDateb[0] + frTimeb[0] + frTimeb[1] + frTimeb[2]) * 1;                     
+    } else {
+        var y = 10000000000000;                    
+    }                  
+    var z = ((x < y) ? 1 : ((x > y) ? -1 : 0));                  
+    return z;
+};
