@@ -9,7 +9,7 @@
 <h3>
     <bean:message key="communities.create"/>
 </h3>
-
+<table  class="inLineTable"><tr><td>
 <html:form action="/CreateCommunity">
     <table id="CreateCommunity">
         <tr>
@@ -40,4 +40,4 @@
         </tr>
     </table>
 </html:form>
-
+</td></tr></table>

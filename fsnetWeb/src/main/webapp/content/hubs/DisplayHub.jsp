@@ -11,7 +11,7 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<bean:define id="searchMessage"><bean:message key="topic.search"/></bean:define>
 
 <h3>
     <c:import url="/FavoriteFragment.do">
@@ -26,11 +26,13 @@
 <div class="clear"></div>
 
 <h3><bean:message key="hubs.searchTopic"/></h3>
-<table>
+<table  class="inLineTable">
     <html:form action="/SearchTopic" method="GET">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/> :</label></td>
-            <td><html:text property="topicSujetSearch" styleId="topicSujet" /></td>
+            <td><html:text property="topicSujetSearch" styleId="topicSujet" />
+                <ili:placeHolder id="topicSujet" value="${searchMessage}" />
+            </td>
             <td><html:hidden property="hubId" value="${hubResult.id}"/></td>
             <td><html:submit styleClass="button"><bean:message key="hubs.searchTopic"/></html:submit></td>
         </tr>
@@ -50,10 +52,10 @@
 	-&gt;
     <bean:message key="hubs.topics"/>
 </h3>
+<table class="inLineTable">
 <logic:empty name="topicsLastMessage">
-    <bean:message key="hubs.notopics"/>
+    <tr><td><bean:message key="hubs.notopics"/></td></tr>
 </logic:empty>
-<table class="inLineTable" style="margin-bottom: 20px;">
     <c:forEach var="couple" items="${topicsLastMessage}">
         <c:set var="theTopic" value="${couple.key}"/>
         <tr>

@@ -5,18 +5,22 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <h3><bean:message key="members.0"/></h3>
+<table  class="inLineTable"><tr><td>
 <html:form action="SearchMember" method="POST">
     <div id="SearchMember">
         <html:text property="searchText" />
         <html:submit styleClass="button" />
     </div>
 </html:form>
+</td></tr></table>
 
 <h3><bean:message key="members.1"/></h3>
 
 <c:if test="${empty membersContactsResult && empty membersRequestedResult 
 	&& empty membersAskedResult && empty membersResult}">
+	<table  class="inLineTable"><tr><td>
 	<bean:message key="members.noResult" />
+	</td></tr></table>
 </c:if>
 
 

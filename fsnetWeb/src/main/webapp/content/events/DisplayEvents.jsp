@@ -10,20 +10,22 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-
+<bean:define id="searchMessage"><bean:message key="events.search"/></bean:define>
 
 <h3>
     <bean:message key="events.8"/>
 </h3>
-
-<html:form action="/Events" method="GET">
+<table  class="inLineTable"><tr><td>
+  <html:form action="/Events" method="GET">
     <div id="SearchEvent">
-        <html:text property="searchString" />
+        <html:text styleId="searchTexte" property="searchString" />
+        <ili:placeHolder id="searchTexte" value="${searchMessage}" />
         <html:submit styleClass="button" >
             <bean:message key="events.11"/>
         </html:submit>
     </div>
-</html:form>
+  </html:form>
+</td></tr></table>
 
 <h3>
     <bean:message key="events.9"/> :
@@ -32,7 +34,9 @@
 <c:choose>
 
 	<c:when test="${empty requestScope.eventsListPaginator.resultList}">
-	    <bean:message key="search.noResults"/>
+	  <table  class="inLineTable"><tr><td>
+        <bean:message key="search.noResults"/>
+      </td></tr></table>
 	</c:when>
 	
 	<c:otherwise>

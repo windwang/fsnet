@@ -10,15 +10,17 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-
+<bean:define id="searchMessage"><bean:message key="topic.search"/></bean:define>
 
 
 <h3><bean:message key="hubs.searchTopic"/></h3>
-<table>
+<table class="inLineTable">
     <html:form action="/SearchYourTopics" method="GET">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/></label></td>
-            <td><html:text property="searchText" styleId="topicSujet" /></td>
+            <td><html:text property="searchText" styleId="topicSujet" />
+                <ili:placeHolder id="topicSujet" value="${searchMessage}" />
+            </td>
             <td><html:hidden property="hubId" value="${hubResult.id}"/></td>
             <td><html:submit styleClass="button"><bean:message key="hubs.searchTopic"/></html:submit></td>
         </tr>
@@ -27,10 +29,10 @@
 
 
 <h3><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="topics.yourTopics"/></h3>
+<table class="inLineTable">
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
 </logic:empty>
-<table class="inLineTable" style="margin-bottom: 20px;">
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
             <td>

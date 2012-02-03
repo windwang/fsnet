@@ -12,7 +12,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<div class="largeInteractionInfo" >
+<table  class="inLineTable"><tr><td>
     <bean:message key="interactions.owner"/> :
     <ili:getSocialEntityInfos socialEntity="${theInteraction.creator}"/>
     <br/>
@@ -50,4 +50,5 @@
             </div>
         </logic:notEmpty>
     </div>
-</div>
+  </td></tr>
+</table>

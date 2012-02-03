@@ -2,15 +2,18 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-
+<bean:define id="searchMessage"><bean:message key="consultation.search"/></bean:define>
 
 <h3><bean:message key="consultation.search"/></h3>
+<table  class="inLineTable"><tr><td>
 <html:form action="SearchConsultation" method="GET">
     <div id="SearchCommunity">
-        <html:text property="searchText" />
+        <html:text styleId="searchTexte" property="searchText" />
+        <ili:placeHolder id="searchTexte" value="${searchMessage}" />	
         <html:submit styleClass="button"><bean:message key="consultation.searchButton"/></html:submit>
     </div>
 </html:form>
+</td></tr></table>
 
 <h3><bean:message key="consultation.listConsultations"/></h3>
 <c:choose>
@@ -53,6 +56,8 @@
 		<c:import url="/content/pagination/Pagination.jsp"/>
     </c:when>
     <c:otherwise>
-        <p><bean:message key="consultations.noResult"/>.</p>
+      <table  class="inLineTable"><tr><td>
+        <bean:message key="consultations.noResult"/>.
+      </td></tr></table>
     </c:otherwise>
 </c:choose>

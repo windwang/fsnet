@@ -16,6 +16,7 @@
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
 <h3><bean:message key="topics.createMessage"/></h3>
+<table  class="inLineTable"><tr><td>
 <html:form action="/CreateTopicMessage">
     <html:hidden property="topicId" value="${topicId}"/>
     <bean:message key="topics.description"/> :
@@ -50,5 +51,5 @@
     	${message.body}
     </div>
     </c:forEach>
-
 </html:form>
+</td></tr></table>
