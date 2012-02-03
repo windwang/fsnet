@@ -10,6 +10,7 @@
 
 <c:if test="${consultation ne null }">
 <h3>${consultation.title }</h3>
+  <table  class="inLineTable"><tr><td>
 <ul>
 	<li><bean:message key="consultation.creator" /> : <ili:getSocialEntityInfos socialEntity="${consultation.creator }" /></li>
 	<c:if test="${consultation.description ne '' }"><li><bean:message key="consultation.description" /> : ${consultation.description }</li></c:if>
@@ -166,9 +167,10 @@
 	</html:form>
 	</c:if>
 </table>
-
+</td></tr></table>
 <c:if test="${ allowedToShowResults and consultation.type ne 'PREFERENCE_ORDER' }">
 	<h3><bean:message key="consultation.histogramme" /></h3>
+	  <table  class="inLineTable"><tr><td>
 	
 	<div>
 		<ili:consultationResults consultation="${consultation}" percent="percent" number="number" choice="choice" histogram="yes">
@@ -178,6 +180,7 @@
 			</div>
 		</ili:consultationResults>
 	</div>
+  </td></tr></table>
 </c:if>
 
 </c:if>

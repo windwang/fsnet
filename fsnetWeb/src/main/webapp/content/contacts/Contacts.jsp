@@ -11,7 +11,9 @@
 <c:if
     test="${empty requestScope.paginatorContacts.resultList && empty requestScope.paginatorAsked.resultList && empty requestScope.paginatorRequested.resultList}">
     <h3><bean:message key="contact.conts" /></h3>
-    <bean:message key="contact.noContact" />
+    <table class="inLineTable"><tr><td>
+      <bean:message key="contact.noContact" />
+    </td></tr></table>
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorAsked.resultList}">

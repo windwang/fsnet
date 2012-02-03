@@ -15,7 +15,7 @@
 
 #lastInteractions {
     width: 100%;
-    padding-top: 15px;
+    /* padding-top: 15px; */
     float: left;
 }
 
@@ -113,9 +113,7 @@
 
 #body-content h3 {
     text-align: left;
-    border-bottom: 1px solid #505050;
     font-size: 130%;
-    margin: 25px 0 20px 0;
 }
 
 
@@ -365,7 +363,14 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 
 .inLineTable {
     width: 100%;
-    border-collapse:collapse;
+    border-spacing : 0px 3px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    background: white;
+    border-image: initial;
+    box-shadow: 1px 2px 9px #000;
 }
 .inLineTable tr{
     background-color: #E8F5FD;
@@ -393,16 +398,37 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 .homeFrame caption {
     text-align: left;
     font-size: 120%;
-    margin-bottom: 10px;
-    border-bottom: 1px solid #505050;
 }
 
 .inLineTableDashBoard {
-    width: 50%;
-    border-collapse:collapse;
-    margin-bottom: 10px;
+    border-spacing : 0px 3px;
+    margin-bottom: 15px;
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    background: white;
+    border-image: initial;
+    box-shadow: 1px 2px 9px #000;
 }
+
+.inLineTablePersonalInformation {
+    width: 85%;
+    border-spacing : 0px 3px;
+    margin-bottom: 10px;
+    padding: 5px;
+    border-radius: 15px;
+    border: 1px solid gray;
+    background: white;
+    border-image: initial;
+    box-shadow: 1px 2px 9px #000;
+}
+
 .inLineTableDashBoard tr{
+    background-color: #E8F5FD;
+    border: 5px solid #F7FCFF;
+}
+
+.inLineTablePersonalInformation tr{
     background-color: #E8F5FD;
     border: 5px solid #F7FCFF;
 }

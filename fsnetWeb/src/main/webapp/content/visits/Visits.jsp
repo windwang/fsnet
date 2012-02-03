@@ -12,7 +12,9 @@
 
 <c:if
     test="${empty requestScope.lastVisitors.resultList}">
-    <bean:message key="visits.voidlist" />.
+    <table class="inLineTable"><tr><td>
+      <bean:message key="visits.voidlist" />.
+    </td></tr></table>
 </c:if>
 
 

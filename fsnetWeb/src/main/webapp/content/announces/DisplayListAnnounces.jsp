@@ -11,7 +11,9 @@
 
 <c:choose>
 	<c:when test="${empty requestScope.annoucesListPaginator.resultList}">
+	  <table  class="inLineTable"><tr><td>
 		<bean:message key="announce.emptyList"/>
+      </td></tr></table>
 	</c:when>
 	<c:otherwise>
 	    <table class="inLineTable">

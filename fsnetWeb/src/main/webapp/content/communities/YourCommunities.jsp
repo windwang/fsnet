@@ -57,6 +57,8 @@
 		<c:import url="/content/pagination/Pagination.jsp"/>
     </c:when>
     <c:otherwise>
+       <table  class="inLineTable"><tr><td>
         <bean:message key="communities.noResult"/>
+       </td></tr></table>
     </c:otherwise>
 </c:choose>

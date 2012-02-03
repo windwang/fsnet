@@ -9,6 +9,7 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 
 <h3><bean:message key="hubs.create"/></h3>
+<table  class="inLineTable"><tr><td>
 <html:form action="/CreateHub">
 	<html:hidden property="communityId" value="${param.communityId}"/>
     <table id="CreateHub">
@@ -34,4 +35,5 @@
     </table>
                 <c:import url="/InterestCheckBoxes.do"/>
 </html:form>
+</td></tr></table>
 <div class="clear"></div>

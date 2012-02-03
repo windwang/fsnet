@@ -22,10 +22,10 @@
 	-&gt;
     <bean:message key="hubs.hubs"/>
 </h3>
+<table class="inLineTable">
 <c:if test="${empty requestScope.listHubPaginator.resultList}">
     <bean:message key="hubs.hubNotFound"/>
 </c:if>
-<table class="inLineTable">
     <c:forEach var="hub" items="${requestScope.listHubPaginator.resultList}">
         <tr>
             <th>

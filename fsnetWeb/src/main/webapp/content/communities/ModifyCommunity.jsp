@@ -7,6 +7,7 @@
 
 <c:if test="${not empty requestScope.myCommunitiesPaginator.resultList}">
 	<h3><bean:message key="commmunities.modify" /></h3>
+	<table  class="inLineTable"><tr><td>
 	<html:form action="/ModifyCommunity">
 		<div class="errorMessage"><html:errors property="modifierCommunityName" /></div>
 		<div class="errorMessage"><html:errors property="modifiedCommunityName" /><br/></div>
@@ -25,4 +26,5 @@
 			<bean:message key="communities.validate" />
 		</html:submit>
 	</html:form>
+	</td></tr></table>
 </c:if>

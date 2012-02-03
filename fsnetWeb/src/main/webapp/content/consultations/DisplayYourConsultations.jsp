@@ -42,6 +42,8 @@
 		<c:import url="/content/pagination/Pagination.jsp"/>
 	</c:when>
 	<c:otherwise>
-		<p><bean:message key="consultations.noResult"/>.</p>
+	  <table  class="inLineTable"><tr><td>
+		<bean:message key="consultations.noResult"/>.
+	  </td></tr></table>
 	</c:otherwise>
 </c:choose>

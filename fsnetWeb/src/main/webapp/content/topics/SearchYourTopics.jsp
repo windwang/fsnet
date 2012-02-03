@@ -14,7 +14,7 @@
 
 
 <h3><bean:message key="hubs.searchTopic"/></h3>
-<table>
+<table class="inLineTable">
     <html:form action="/SearchYourTopics" method="GET">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/></label></td>
@@ -27,10 +27,10 @@
 
 
 <h3><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="topics.yourTopics"/></h3>
+<table class="inLineTable">
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
 </logic:empty>
-<table class="inLineTable" style="margin-bottom: 20px;">
     <c:forEach var="couple" items="${topicsLastMessage}">
         <tr>
             <td>

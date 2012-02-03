@@ -26,7 +26,7 @@
 <div class="clear"></div>
 
 <h3><bean:message key="hubs.searchTopic"/></h3>
-<table>
+<table  class="inLineTable">
     <html:form action="/SearchTopic" method="GET">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/> :</label></td>
@@ -50,10 +50,10 @@
 	-&gt;
     <bean:message key="hubs.topics"/>
 </h3>
+<table class="inLineTable">
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
 </logic:empty>
-<table class="inLineTable" style="margin-bottom: 20px;">
     <c:forEach var="couple" items="${topicsLastMessage}">
         <c:set var="theTopic" value="${couple.key}"/>
         <tr>

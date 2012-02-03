@@ -4,11 +4,13 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib prefix="ili" uri="../WEB-INF/ili.tld"%>
 
+<bean:define id="searchMessage"><bean:message key="menu.7"/></bean:define>
+
 <div id="search">
     <html:form action="/SearchMember" method="POST">
         <fieldset>
             <html:text styleClass="field" styleId="searchText" property="searchText" />
-			<ili:placeHolder id="searchText" value="menu.7" />
+			<ili:placeHolder id="searchText" value="${searchMessage}" />
             <html:submit styleClass="searchButton" value=" "/>
         </fieldset>
     </html:form>

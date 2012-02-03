@@ -16,6 +16,7 @@
 <h3>
 	<bean:message key="hubs.search" />
 </h3>
+<table  class="inLineTable"><tr><td>
 <html:form action="/SearchYourHubs" method="GET">
 	<html:hidden property="communityId" value="${param.communityId}" />
 	<table id="SearchHub">
@@ -29,6 +30,7 @@
 		</tr>
 	</table>
 </html:form>
+</td></tr></table>
 
 
 <jsp:include page="/content/hubs/ModifyHub.jsp"/>

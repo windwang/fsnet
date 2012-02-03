@@ -32,7 +32,9 @@
 <c:choose>
 
 	<c:when test="${empty requestScope.eventsListPaginator.resultList}">
-	    <bean:message key="search.noResults"/>
+	  <table  class="inLineTable"><tr><td>
+        <bean:message key="search.noResults"/>
+      </td></tr></table>
 	</c:when>
 	
 	<c:otherwise>

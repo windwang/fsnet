@@ -13,6 +13,7 @@
 		<bean:message key="hubs.modify" />
 	</h3>
 	<c:set var="hub" value="${hubResults}" />
+	<table  class="inLineTable"><tr><td>
 	<html:form action="/ModifyYourHub" method="post">
 		<html:hidden property="communityId" value="${param.communityId}" />
 		<div class="errorMessage"><html:errors property="hubId" /></div>
@@ -33,4 +34,5 @@
 			<bean:message key="hubs.modify" />
 		</html:submit>
 	</html:form>
+  </td></tr></table>
 </c:if>
