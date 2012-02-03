@@ -26,9 +26,9 @@
 		<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 		<script type="text/javascript" src="js/geolocalisation.js"></script>
 		<script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
-		<script type="text/javascript" src="js/jquery.dataTables.js"></script> 
 		
-
+		<script class="jsbin" src="js/jquery.dataTables.js"></script>
+		
 	</head>
 	<body>
 		<div class="wrap background">

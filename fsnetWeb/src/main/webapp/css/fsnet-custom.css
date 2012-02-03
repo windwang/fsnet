@@ -638,3 +638,7 @@ tr.notReed {
 	text-indent: 40px;
 	float: left;
 }
+
+thead, thead th {
+	background-color : #DCF0FE;	
+}

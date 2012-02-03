@@ -11,7 +11,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-
+<bean:define id="searchMessage"><bean:message key="hub.search"/></bean:define>
 
 <h3>
 	<bean:message key="hubs.search" />
@@ -22,6 +22,7 @@
 	<table id="SearchHub">
 		<tr>
 			<td><html:text property="hubName" styleId="hubName" />
+			    <ili:placeHolder id="hubName" value="${searchMessage}" />
 			</td>
 			<td><html:submit styleClass="button">
 					<bean:message key="hubs.search" />
@@ -40,11 +41,10 @@
 	<bean:message key="hubs.yourhubs" />
 </h3>
 <c:set var="hub" value="${hubResults}" />
-<logic:empty name="hub">
-	<bean:message key="hubs.hubNotFound" />
-</logic:empty>
 <table class="inLineTable">
-
+  <logic:empty name="hub">
+	<tr><td><bean:message key="hubs.hubNotFound" /><td></tr>
+  </logic:empty>
 	<c:forEach var="hub" items="${hubResults}">
 		<tr>
 			<th><html:link action="/DisplayHub"

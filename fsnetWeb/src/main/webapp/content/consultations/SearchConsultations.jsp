@@ -2,13 +2,14 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-
+<bean:define id="searchMessage"><bean:message key="consultation.search"/></bean:define>
 
 <h3><bean:message key="consultation.search"/></h3>
 <table  class="inLineTable"><tr><td>
 <html:form action="SearchConsultation" method="GET">
     <div id="SearchCommunity">
-        <html:text property="searchText" />
+        <html:text styleId="searchTexte" property="searchText" />
+        <ili:placeHolder id="searchTexte" value="${searchMessage}" />	
         <html:submit styleClass="button"><bean:message key="consultation.searchButton"/></html:submit>
     </div>
 </html:form>
