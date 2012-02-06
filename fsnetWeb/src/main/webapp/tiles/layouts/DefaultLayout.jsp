@@ -18,6 +18,8 @@
 		<link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
 		<link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
 		<link type="text/css" href="css/jquery-tablesorter-custom.css" rel="stylesheet" />
+		<link type="text/css" rel="stylesheet" media="all" href="css/chat.css" />
+		<link type="text/css" rel="stylesheet" media="all" href="css/screen.css" />
 				
 		<title><bean:message key="${pageTitle}" /></title>
 		<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css" rel="stylesheet" />
@@ -28,6 +30,9 @@
 		<script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
 		
 		<script class="jsbin" src="js/jquery.dataTables.js"></script>
+		<script type="text/javascript" src="js/talkUtils.js"></script>
+		<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+		<script type="text/javascript" src="js/chat.js"></script>
 		
 	</head>
 	<body>

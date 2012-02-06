@@ -14,7 +14,16 @@
 		arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 </h3>
 
-<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
+
+<c:if test="${watchedProfile.id != currentUser.id}">
+	<img src="avatar/${watchedProfile.id}.png" style="float: right;"
+		onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')" />
+
+</c:if>
+<c:if test="${watchedProfile.id == currentUser.id}">
+	<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
+
+</c:if>
 <table class="inLineTablePersonalInformation"><tr><td>
   <table class="watchedProfile">
 	<c:if
