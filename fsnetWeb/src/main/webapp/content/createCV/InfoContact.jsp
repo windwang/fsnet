@@ -1,0 +1,155 @@
+<%-- 
+    Document   : InfoContact
+    Created on : 07 janv
+    Author     : BENZAOUIA Anass <anassbenzaouia at gmail.com>
+--%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+<link rel="stylesheet" type="text/css" media="screen" href="css/cv.css" />
+<html:form action="/CreateCV">
+	<div class="en_cv">
+		<div class="entete">
+			<h3>
+				<bean:message key="cv.titre" />
+			</h3>
+		</div>
+		<div class="corp">
+			<table>
+				<tr>
+					<td><label for="CvTitle"> <bean:message key="cv.0" />
+							:
+					</label></td>
+					<td><html:text property="CvTitle" styleId="CvTitle"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvTitle">
+							<div class="errorMessage">
+								<html:errors property="CvTitle" />
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+	<div class="en_cv">
+		<div class="entete">
+			<h3>
+				<bean:message key="cv.contact" />
+			</h3>
+		</div>
+		<div class="corp_contact">
+			<table>
+				<tr>
+					<td><label for="CvNom"> <bean:message key="cv.1" /> :
+					</label></td>
+					<td><html:text property="CvNom" styleId="CvNom"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvNom">
+							<div class="errorMessage">
+								<html:errors property="CvNom" />
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+				<tr>
+					<td><label for="CvPrenom"> <bean:message key="cv.2" />
+							:
+					</label></td>
+					<td><html:text property="CvPrenom" styleId="CvPrenom"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvPrenom">
+							<div class="errorMessage">
+								<html:errors property="CvPrenom" />
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+				</td>
+				</tr>
+				<tr>
+					<td><label for="CvAdresse"> <bean:message key="cv.3" />
+							:
+					</label></td>
+					<td><html:text property="CvAdresse" styleId="CvAdresse"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvAdresse">
+							<div class="errorMessage">
+								<html:errors property="CvAdresse" />
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+				<tr>
+					<td><label for="CvVille"> <bean:message key="cv.4" />
+							:
+					</label></td>
+					<td><html:text property="CvVille" styleId="CvVille"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvVille">
+							<div class="errorMessage">
+								<html:errors property="CvVille" />
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+				<tr>
+					<td><label for="CvCp"> <bean:message key="cv.5" /> :
+					</label></td>
+					<td><html:text property="CvCp" styleId="CvCp"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvCp">
+							<div class="errorMessage">
+								<html:errors property="CvCp" />
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+				<tr>
+					<td><label for="CvPays"> <bean:message key="cv.6" /> :
+					</label></td>
+					<td><html:text property="CvPays" styleId="CvPays"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvPays">
+							<div class="errorMessage">
+								<html:errors property="CvPays" />
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+				<tr>
+					<td><label for="CvPortable"> <bean:message key="cv.7" />
+							:
+					</label></td>
+					<td><html:text property="CvPortable" styleId="CvPortable"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvPortable">
+							<div class="errorMessage">
+								<html:errors property="CvPortable" />
+
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+				<tr>
+					<td><label for="CvSituation"> <bean:message key="cv.8" />
+							:
+					</label></td>
+					<td><bean:message key="cv.celeb" /><input type="radio"
+						name="situation" value="celebataire" /> <bean:message key="cv.mar" /><input
+						type="radio" name="situation" value="marié" /></td>
+				</tr>
+				<tr>
+					<td><label for="CvContact"> <bean:message key="cv.9" />
+							:
+					</label></td>
+					<td><html:text property="CvContact" styleId="CvContact"
+							errorStyleClass="error" /> <logic:messagesPresent
+							property="CvContact">
+							<div class="errorMessage">
+								<html:errors property="CvContact" />
+							</div>
+						</logic:messagesPresent></td>
+				</tr>
+			</table>
+		</div>
+	</div>
+	<html:submit styleClass="button">Valider</html:submit>
+</html:form>
