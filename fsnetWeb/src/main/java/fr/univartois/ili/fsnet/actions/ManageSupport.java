@@ -45,18 +45,16 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 		Property property;
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		Properties properties = conf.getFSNetConfiguration();
-		/*
-		 * Envoi de mail que l'on a pas encore pu tester
-		 * 
-		 * if(! "".equals(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY))){
+		  
+		  if(! "".equals(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY))){
 			FSNetMailer mailer = FSNetMailer.getInstance();
 			Mail mail = mailer.createMail();
 			
 			mail.setSubject(title);
 			mail.addRecipient(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
-			mail.setContent("From : "+email+"\n"+content);
+			mail.setContent("From : "+email+"<br/><br/>"+content);
 			mailer.sendMail(mail);
-		}*/
+		}
 		
 	}
 
