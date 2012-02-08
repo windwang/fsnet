@@ -33,7 +33,7 @@
 	                </td>
 	                <td class="tableButton">
 	                    <bean:message key="announce.expiryDate"/>
-	                    <bean:write name="announce" property="endDate" format="dd/MM/yyyy"/>
+	                    <bean:write name="announce" property="endDate" format="dd/MM/yyyy HH:mm"/>
 	                </td>
 	            </ili:interactionRow>
 	        </c:forEach>
