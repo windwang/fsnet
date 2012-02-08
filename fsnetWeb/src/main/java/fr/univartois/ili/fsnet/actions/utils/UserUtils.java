@@ -64,10 +64,18 @@ public class UserUtils {
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroup tmp = socialEntityFacade.findByEmail(user.getEmail())
 				.getGroup();
-
+		int parentGroupId=0;
+		
 		request.getSession().setAttribute("groupTree", tmp);
 		request.getSession().setAttribute("hisGroup", tmp);
 		request.getSession().setAttribute("isMasterGroup",
 				socialGroupFacade.isMasterGroup(user));
+		while(tmp!=null)
+		{	
+			parentGroupId=tmp.getId();
+			tmp=tmp.getGroup();			
+		}
+		request.getSession().setAttribute("parentGroupId", parentGroupId);
 	}
+	
 }

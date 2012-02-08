@@ -1,0 +1,28 @@
+/* Overlay */
+#support-overlay {background-color:#000; cursor:wait;}
+
+/* Container */
+#support-container {font: 16px/22px 'Trebuchet MS', Verdana, Arial; text-align:left;}
+#support-container .support-content {background-color:#383838; color:#ddd; height:30px; width:430px;}
+#support-container .support-top {background-color:#383838; height:13px; margin:0; padding:0; -webkit-border-top-left-radius:8px; -webkit-border-top-right-radius:8px; -moz-border-radius-topleft:8px; -moz-border-radius-topright:8px; border-radius:8px 8px 0 0;}
+#support-container .support-bottom {background-color:#383838; font-size:12px; height:13px; line-height:12px; text-align:center; -webkit-border-bottom-right-radius:8px; -webkit-border-bottom-left-radius:8px; -moz-border-radius-bottomright:8px; -moz-border-radius-bottomleft:8px; border-radius:0 0 8px 8px;}
+
+#support-container a.modal-close,
+#support-container a.modal-close:link,
+#support-container a.modal-close:active,
+#support-container a.modal-close:visited {color:#999; font-size:18px; font-weight:bold; position:absolute; text-decoration:none; right:8px; top:8px;}
+#support-container a.modal-close:hover {color:#ccc;}
+#support-container h3 {border-bottom: 1px solid #ccc;padding-right:4px;padding-left:15px;top:8px;font-weight:bold; }
+#support-container label {clear:left; display:block; float:left; font-weight:bold; padding-right:4px; text-align:right; width:100px;}
+#support-container textarea {height:112px;}
+#support-container br {clear:both;}
+#support-container form {margin-top:10px; padding:0;}
+#support-container .support-message {text-align:center;margin-top:-18px;}
+#support-container .support-loading {background:url(../images/loading.gif) no-repeat; height:55px; margin:-14px 0 0 190px; padding:0; position:absolute; width:54px; z-index:8000;}
+
+
+#support-container .support-bottom a,#support-container .support-bottom a:link,#support-container .support-bottom a:active,#support-container .support-bottom a:visited {color:#666; position:relative; top:-4px; text-decoration:none;}
+
+#support-container .support-error {background:#000;color:#FF0000; border:2px solid #ccc; font-size:14px; font-weight:bold; line-height:18px; margin:0 auto; padding:2px; width:92%;}
+
+

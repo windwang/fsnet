@@ -24,7 +24,7 @@
 </h3>
 <table class="inLineTable">
 <c:if test="${empty requestScope.listHubPaginator.resultList}">
-    <bean:message key="hubs.hubNotFound"/>
+    <tr><td><bean:message key="hubs.hubNotFound"/></td></tr>
 </c:if>
     <c:forEach var="hub" items="${requestScope.listHubPaginator.resultList}">
         <tr>

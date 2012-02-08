@@ -52,7 +52,7 @@ public class Calendar extends MappingDispatchAction {
 		for (Meeting m : results) {
 			String startDate = DateUtils.renderDateForFullCalendar(m.getStartDate());
 			String endDate = DateUtils.renderDateForFullCalendar(m.getEndDate());
-			events.add(m.getTitle()+","+startDate+","+endDate+","+"false"+","+m.getContent()+","+m.getId());
+			events.add(m.getTitle()+","+startDate+","+endDate+","+"false"+","+m.getId()+","+m.getContent());
 		}
 
 		JSONArray jsonArray = JSONArray.fromObject(events);

@@ -14,7 +14,16 @@
 		arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 </h3>
 
-<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
+
+<c:if test="${watchedProfile.id != currentUser.id}">
+	<img src="avatar/${watchedProfile.id}.png" style="float: right;"
+		onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')" />
+
+</c:if>
+<c:if test="${watchedProfile.id == currentUser.id}">
+	<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
+
+</c:if>
 <table class="inLineTablePersonalInformation"><tr><td>
   <table class="watchedProfile">
 	<c:if
@@ -216,6 +225,7 @@
 <h3>
 	<bean:message key="showProfile.groups.tree" />
 </h3>
+<table  class="inLineTable"><tr><td>
 <ul>
 	<c:choose>
 		<c:when test="${requestScope.treeGroupProfile}">
@@ -230,7 +240,7 @@
 		</c:otherwise>
 	</c:choose>
 </ul>
-
+</td></tr></table>
 
 
 

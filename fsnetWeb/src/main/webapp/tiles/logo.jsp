@@ -5,7 +5,7 @@
 <div id="logo2">
 	<c:choose>
 		<c:when test="${sessionScope.hisGroup != null}">
-		<img src="groups/${sessionScope.hisGroup.id}.png" /> 
+		<img src="groups/${sessionScope.parentGroupId}.png" /> 
 		</c:when>
 		<c:otherwise>
 			<img src="/images/FSNET.png" /> 

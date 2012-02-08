@@ -114,6 +114,7 @@
 #body-content h3 {
     text-align: left;
     font-size: 130%;
+    line-height: 30px;
 }
 
 
@@ -398,6 +399,7 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 .homeFrame caption {
     text-align: left;
     font-size: 120%;
+    line-height: 30px;
 }
 
 .inLineTableDashBoard {
@@ -637,4 +639,8 @@ tr.notReed {
 	font-style: italic;
 	text-indent: 40px;
 	float: left;
+}
+
+thead, thead th {
+	background-color : #DCF0FE;	
 }
