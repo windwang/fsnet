@@ -66,4 +66,13 @@ public class DateUtils {
 		String usDate = usFormat.format(cal.getTime());
 		return usDate;
 	}
+
+	public static String renderDBDate(Date date) {
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
+		cal.setTime(date);
+		String dbDate = dbDateFormat.format(cal.getTime());
+		return dbDate;
+	}
+
 }

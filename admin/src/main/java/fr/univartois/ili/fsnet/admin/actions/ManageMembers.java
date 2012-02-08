@@ -418,11 +418,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder message = new StringBuilder();
-		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.name")+"\"", name);
-		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.firstName")+"\"", firstName);
-		personalizedMessage.replace("\""+bundle.getMessage(locale, "members.password")+"\"", password);
-		personalizedMessage.replace("\"Email\"",email);
-		personalizedMessage.replace("\"url\"", addressFsnet);
+		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.name")+"\"", name);
+		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.firstName")+"\"", firstName);
+		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.password")+"\"", password);
+		personalizedMessage = personalizedMessage.replace("\"Email\"",email);
+		personalizedMessage = personalizedMessage.replace("\"url\"", addressFsnet);
 		message.append(personalizedMessage);
 		return message.toString();
 	}
