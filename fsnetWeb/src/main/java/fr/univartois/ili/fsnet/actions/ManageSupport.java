@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
+
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
@@ -36,26 +37,33 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		postMail(authenticatedUser.getEmail(), title, content);
+			postMail(authenticatedUser.getEmail(), title, content);
+		
 		return new ActionRedirect(mapping.findForward("success"));
 	}
 
 	private void postMail(String email, String title, String content) {
 		// TODO Auto-generated method stub
-		Property property;
-		FSNetConfiguration conf = FSNetConfiguration.getInstance();
-		Properties properties = conf.getFSNetConfiguration();
-		  
-		  if(! "".equals(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY))){
-			FSNetMailer mailer = FSNetMailer.getInstance();
-			Mail mail = mailer.createMail();
-			
-			mail.setSubject(title);
-			mail.addRecipient(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
-			mail.setContent("From : "+email+"<br/><br/>"+content);
-			mailer.sendMail(mail);
-		}
+			try {
+				
+				Property property;
+				FSNetConfiguration conf = FSNetConfiguration.getInstance();
+				Properties properties = conf.getFSNetConfiguration();
 		
+				if (!"".equals(properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY))) {
+						FSNetMailer mailer = FSNetMailer.getInstance();
+						Mail mail = mailer.createMail();
+		
+						mail.setSubject(title);
+						mail.addRecipient(properties
+								.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
+						mail.setContent("From : " + email + "<br/><br/>" + content);
+						mailer.sendMail(mail);
+				}
+			} catch(Exception e) {
+				e.printStackTrace();
+			}
+
 	}
 
 	@Override

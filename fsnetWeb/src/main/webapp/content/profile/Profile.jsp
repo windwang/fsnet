@@ -231,9 +231,10 @@
     $(function() {
         $.datepicker.setDefaults($.extend(
         {
-            yearRange: '-100:+1',
+        	yearRange : '-100:+100',
+        	minDate:"-100Y+1D",
+        	maxDate:0,
             changeYear: true,
-            maxDate: 0,
             dateFormat: 'dd/mm/yy',
             showOn: 'button',
             buttonImage: 'images/calendar.gif',

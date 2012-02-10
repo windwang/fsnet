@@ -79,7 +79,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	private ActionErrors verified(DynaActionForm dynaForm, EntityManager em, HttpServletRequest request){
 		ActionErrors res = new ActionErrors();
 		try {
-			Date birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
+			Date birthday = DateUtils.formatDate(dynaForm.getString("dateOfBirth"));
 			Date actualDate = new Date();
 			if (birthday.after(actualDate)) {
 				res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
@@ -121,7 +121,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Date birthday = null;
 		addRightToRequest(request);
 		try {
-			birthday = DateUtils.format(dynaForm.getString("dateOfBirth"));
+			birthday = DateUtils.formatDate(dynaForm.getString("dateOfBirth"));
 		} catch (ParseException e) {
 			// DO NOTHING EMPTY DATE
 		}
@@ -138,7 +138,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				dynaForm.getString("firstName"),
 				new Address(dynaForm.getString("adress"),
 				dynaForm.getString("city")),
-				birthday, dynaForm.getString("sexe"),
+				birthday,
+				dynaForm.getString("sexe"),
 				dynaForm.getString("job"),
 				dynaForm.getString("mail").toLowerCase(),
 				dynaForm.getString("phone"));
