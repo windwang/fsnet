@@ -53,6 +53,7 @@ public class UserUtils {
 			user = socialEntityFacade.getSocialEntity(id);
 			em.getTransaction().commit();
 		}
+		request.getSession().setAttribute("user", user);
 		refreshGroupInSession(user, request, em);
 		return user;
 	}

@@ -48,7 +48,7 @@
 					<td><label for="CvNom"> <bean:message key="cv.1" /> :
 					</label></td>
 					<td><html:text property="CvNom" styleId="CvNom"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.name}" /> <logic:messagesPresent
 							property="CvNom">
 							<div class="errorMessage">
 								<html:errors property="CvNom" />
@@ -60,7 +60,7 @@
 							:
 					</label></td>
 					<td><html:text property="CvPrenom" styleId="CvPrenom"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.firstName}"/> <logic:messagesPresent
 							property="CvPrenom">
 							<div class="errorMessage">
 								<html:errors property="CvPrenom" />
@@ -141,7 +141,7 @@
 							:
 					</label></td>
 					<td><html:text property="CvContact" styleId="CvContact"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.email}"/> <logic:messagesPresent
 							property="CvContact">
 							<div class="errorMessage">
 								<html:errors property="CvContact" />
@@ -151,5 +151,5 @@
 			</table>
 		</div>
 	</div>
-	<html:submit styleClass="button">Valider</html:submit>
+	<html:submit styleClass="button"><bean:message key="cv.suivant" /></html:submit>
 </html:form>
