@@ -447,6 +447,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("allMembers", allMembers);
 		
 		List<SocialGroup> listOfAntecedantGroup = socialGroupFacade.getAllAntecedentSocialGroups(socialGroup);
+		java.util.Collections.reverse(listOfAntecedantGroup);
 		request.setAttribute("antecedantsOfGroup", listOfAntecedantGroup);		
 		
 		List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(socialGroup);
@@ -454,7 +455,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("childsOfGroup", listOfChildGroup);		
 		
 		return mapping.findForward("success");
-	}
+	}	
 	private void sendPictureError(HttpServletRequest request, String key) {
 		ActionErrors errors = new ActionErrors();
 		errors.add("Logo", new ActionMessage(key));
