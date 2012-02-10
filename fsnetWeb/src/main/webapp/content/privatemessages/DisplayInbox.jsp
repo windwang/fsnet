@@ -12,22 +12,20 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
  
-
 <script type="text/javascript">
-	$(document).ready(function() {
-	    $('#tablesorter').dataTable( {
-	    	"aaSorting" : [ [ 4, "desc" ] ],
-			"aoColumns" : [ {
-				"bSortable" : false
-			}, {
-				"bSortable" : false
-			}, null, null, { "sType": "date-euro" }],
-			"bInfo" : true,
-			"bPaginate" : true,
-			"sDom": '<"top"ip><"clear">rt<"bottom"p>',   
-			"sPaginationType": "scrolling"
-	    } );
-	} );
+	$(document).ready(function pagination() {
+		var nomTable = "tableinbox";
+		var idColonneATrier = 4;
+		var sensDeTri = "desc";
+		var aoColumns = [ {
+			"bSortable" : false
+		}, {
+			"bSortable" : false
+		}, null, null, {
+			"sType" : "date-euro"
+		} ];
+		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, true);
+	});
 </script>
 
 <h3><bean:message key="privatemessages.inbox" /></h3>
@@ -37,14 +35,14 @@
 	</c:when>
 	<c:otherwise>
 		<html:form action="/DeleteMultiMessages">
-			<table id=tablesorter class="tablesorter inLineTable">
+			<table id="tableinbox" class="tablesorter inLineTable">
 				<thead>
 					<tr>
 						<th></th>
 						<th></th>
-						<th><bean:message key="privatemessages.from" /></th>
-						<th><bean:message key="privatemessages.subject" /></th>
-						<th><bean:message key="privatemessages.date" /></th>
+						<th><bean:message key="tableheader.from" /></th>
+						<th><bean:message key="tableheader.subject" /></th>
+						<th><bean:message key="tableheader.date" /></th>
 					</tr>
 				</thead>
 				<tbody>
