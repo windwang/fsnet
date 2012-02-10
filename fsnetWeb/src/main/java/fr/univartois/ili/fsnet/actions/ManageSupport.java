@@ -45,8 +45,8 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 	private void postMail(String email, String title, String content) {
 		// TODO Auto-generated method stub
 			try {
-				System.out.println("ici");
-				/*Property property;
+				
+				Property property;
 				FSNetConfiguration conf = FSNetConfiguration.getInstance();
 				Properties properties = conf.getFSNetConfiguration();
 		
@@ -59,7 +59,7 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 								.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
 						mail.setContent("From : " + email + "<br/><br/>" + content);
 						mailer.sendMail(mail);
-				}*/
+				}
 			} catch(Exception e) {
 				e.printStackTrace();
 			}
