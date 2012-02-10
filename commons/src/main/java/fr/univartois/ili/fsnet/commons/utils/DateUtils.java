@@ -27,6 +27,14 @@ public class DateUtils {
 		date = simpleFormat.parse(string);
 		return date;
 	}
+	
+	public static Date formatDate(String string) throws ParseException {
+		Date date = null;
+		DateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy",
+				Locale.FRANCE);
+		date = simpleFormat.parse(string);
+		return date;
+	}
 
 	/**
 	 * 
