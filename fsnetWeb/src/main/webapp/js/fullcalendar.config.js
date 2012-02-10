@@ -32,7 +32,7 @@ jQuery(document).ready(function($) {
 			                end: Math.round(end.getTime() / 1000)
 			            },
 			            success: function(data, textStatus, jqXHR) {
-			            	var e = jQuery.parseJSON(jqXHR.getResponseHeader("X-JSON")); 
+			            	var e = jQuery.parseJSON(jqXHR.getResponseHeader("fsnet-json-events")); 
 			                var events = [];
 			                $(e.events).each(function(i) {
 			                	var str = (e.events[i]).split(",");

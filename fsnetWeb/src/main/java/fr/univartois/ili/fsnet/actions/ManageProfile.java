@@ -304,11 +304,16 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		String stringUrl=(String) dynaForm.get("photoUrl");
 		String urlType = null;
 		if(stringUrl!=null  && !stringUrl.isEmpty()){
+			try{
 			uri = new URI(stringUrl);
 			httpGet.setURI(uri);
 	    	HttpResponse httpResponse = httpClient.execute(httpGet); 
 	    	inputStream = httpResponse.getEntity().getContent();
 	    	urlType=httpResponse.getEntity().getContentType().getValue();
+			}catch(Exception e){
+				sendPictureError(request, "updateProfile.error.photo.invalidlink");
+				return mapping.findForward("success");
+			}
 		}
 		else{
 		uri =null;
@@ -320,7 +325,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			PictureType pictureType = null;
 			for (PictureType pt : PictureType.values()) {
 				if (pt.getMimeType().equals(file.getContentType())) {
-					System.out.println("-----file content type"+file.getContentType());
 					pictureType = pt;
 					break;
 				}
