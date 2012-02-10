@@ -14,13 +14,37 @@
 
 <h3><bean:message key="privatemessages.Messagessent"/></h3>
 <c:choose>
- <c:when test="${empty requestScope.outBoxMessagesPaginator.resultList}">
+ <c:when test="${empty requestScope.outBoxMessages}">
  	<bean:message key="privatemessages.nomessages"/>
  </c:when>
 	<c:otherwise>
+		
+<script type="text/javascript">
+	$(document).ready(function pagination() {
+		var nomTable = "tableoutbox";
+		var idColonneATrier = 4;
+		var sensDeTri = "desc";
+		var aoColumns = [ {
+			"bSortable" : false
+		}, null, null, {
+			"sType" : "date-euro"
+		} ];
+		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, true);
+
+	});
+</script>
+		
 		<html:form action="/DeleteMultiSentMessages">
-			<table class="inLineTable">
-			    <c:forEach items="${requestScope.outBoxMessagesPaginator.resultList}" var="message">
+				<table id="tableoutbox" class="tablesorter inLineTable">
+				<thead>
+					<tr>
+						<th></th>
+						<th><bean:message key="tableheader.from" /></th>
+						<th><bean:message key="tableheader.subject" /></th>
+						<th><bean:message key="tableheader.date" /></th>
+					</tr>
+				</thead>
+				<tbody>    <c:forEach items="${requestScope.outBoxMessages}" var="message">
 			        <tr>
 			            <td>
 			                <html:multibox property="selectedMessages" value="${message.id}"/>
@@ -43,15 +67,11 @@
 			                <bean:write name="message" property="creationDate" format="dd/MM/yyyy HH:mm"/>
 			            </td>
 			        </tr>
-			    </c:forEach>
+			    </c:forEach></tbody>
 			</table>
 		    <html:submit styleClass="button">
 		    	<bean:message key="privatemessages.delete"/>
 		    </html:submit>
 		</html:form>
-		<c:set var="paginatorInstance" value="${requestScope.outBoxMessagesPaginator}" scope="request"/>
-		<c:set var="paginatorAction" value="/Outbox" scope="request"/>
-		<c:set var="paginatorTile" value="outboxMessages" scope="request"/>
-		<c:import url="/content/pagination/Pagination.jsp"/>
 	</c:otherwise>
 </c:choose>
