@@ -57,9 +57,9 @@ public class Logout extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		
+
 		HttpSession session = req.getSession(true);
-		if (session.isNew())return;
+
 		updateUser(req.getSession());
 		if (session != null) {
 			session.invalidate();
@@ -74,20 +74,22 @@ public class Logout extends HttpServlet {
 	private void updateUser(HttpSession session) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user;
-		user = em.find(SocialEntity.class,
-				session.getAttribute(Authenticate.AUTHENTICATED_USER));
-		user.setLastConnection(new Date());
-		em.getTransaction().begin();
-		em.merge(user);
-		em.getTransaction().commit();
-		em.close();
+		if (session.getAttribute(Authenticate.AUTHENTICATED_USER) != null) {
+			user = em.find(SocialEntity.class,
+					session.getAttribute(Authenticate.AUTHENTICATED_USER));
+			user.setLastConnection(new Date());
+			em.getTransaction().begin();
+			em.merge(user);
+			em.getTransaction().commit();
+			em.close();
+		}
 
 	}
 
 	/**
 	 * Delegated to doGet
 	 */
-	@Override 
+	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		doGet(req, resp);
