@@ -26,7 +26,10 @@
 </logic:present>
 
 <c:if test="${!empty success}">
-	<script type="text/javascript">jQuery(function () { popup(); });</script>
+	<script type="text/javascript">
+		jQuery(function () { popup(); });
+		success = null;
+	</script>
 	<div id="osx-modal-content" class="simplemodal-data">
 		<div id="osx-modal-title">Message</div>
 		<div class="close">
