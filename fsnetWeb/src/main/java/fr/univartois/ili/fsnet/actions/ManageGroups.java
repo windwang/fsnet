@@ -391,10 +391,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			List<SocialGroup> resultOthersList = socialGroupFacade
 					.getAllChildGroups(socialGroup);
 
-			Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
-					resultOthersList, request, "groupsList");
-
-			request.setAttribute("groupsListPaginator", paginator);
+			request.setAttribute("groupsList", resultOthersList);
 			return mapping.findForward("success");
 		} catch (NullPointerException e) {
 			return mapping.findForward("toHome");
