@@ -12,7 +12,7 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <table id="dashboardMessages" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="DashBoard.lastMes"/></caption>
+    <caption><html:link action="/Inbox"><bean:message  key="DashBoard.lastMes"/></html:link></caption>
     <logic:empty name="messages">
         <tr>
             <td>
@@ -62,7 +62,7 @@
     </logic:notEmpty>
 </table>
 <table id="lastVisits" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="visite.last.title"/></caption>
+    <caption><html:link action="/Visits"><bean:message key="visite.last.title"/></html:link></caption>
     <logic:empty name="visitors">
         <tr>
             <td>
@@ -147,7 +147,7 @@
     </c:otherwise>
 </c:choose>
 <table id="interestProposals" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="DashBoard.interestProposals.title"/></caption>
+    <caption><html:link action="/InterestInformations"><bean:message key="DashBoard.interestProposals.title"/></html:link></caption>
     <logic:empty name="interests">
         <tr>
             <td>
@@ -179,7 +179,7 @@
 <div class="clear homeGap"></div>
 
 <table id="lastInteractions" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="lastInteractions.title"/></caption>
+    <caption><html:link action="/Consultations"><bean:message key="lastInteractions.title"/></html:link></caption>
     <logic:empty name="lastInteractions">
         <tr>
             <td>
