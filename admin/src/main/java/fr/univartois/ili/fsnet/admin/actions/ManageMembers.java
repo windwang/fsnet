@@ -524,7 +524,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	private ActionErrors verified(DynaActionForm dynaForm) {
 		ActionErrors res = new ActionErrors();
 		try {
-			Date birthday = DateUtils.format(dynaForm
+			Date birthday = DateUtils.formatDate(dynaForm
 					.getString("formatBirthDay"));
 			if (birthday.after(new Date())) {
 				res.add("formatBirthDay", new ActionMessage(
@@ -575,7 +575,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		Date birthDay = null;
 		try {
-			birthDay = DateUtils.format((String) formSocialENtity
+			birthDay = DateUtils.formatDate((String) formSocialENtity
 					.get("formatBirthDay"));
 		} catch (ParseException e) {
 			// Date Format is invalid or empty. Do nothing.
