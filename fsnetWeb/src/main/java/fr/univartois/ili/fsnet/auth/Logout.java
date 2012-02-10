@@ -77,7 +77,6 @@ public class Logout extends HttpServlet {
 		user.setLastConnection(new Date());
 		em.merge(user);
 		em.getTransaction().commit();
-		
 	}
 
 	/**
