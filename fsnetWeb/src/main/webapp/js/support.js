@@ -60,15 +60,31 @@ jQuery(function ($) {
 });
 
 function validate(){
+	
+	if(navigator.browserLanguage)
+	 {
+	 var language = navigator.browserLanguage ;
+	  } else {
+	 var language = navigator.language ;
+	  }
+	
 	if(($('#support-container #supportTitle').val())&&($('#support-container #supportContent').val())){
+		
+		$('#support-container .support-message').fadeOut();
+		$('#support-container form').fadeOut(200);
+		$('#support-container .support-content').animate({
+			height: 40
+		});
+		
+		if (language.indexOf('fr') > -1){
+			$('#support-container .support-title').html('Votre message a été envoyé...');
+		}else{
+			$('#support-container .support-title').html('Your message has send...');
+		}
+		
 		return true;
+	  
 	}else{
-		if(navigator.browserLanguage)
-		 {
-		 var language = navigator.browserLanguage ;
-		  } else {
-		 var language = navigator.language ;
-		  }
 		var message ='';
 		if((!$('#support-container #supportTitle').val())&&(!$('#support-container #supportContent').val())){
 			if (language.indexOf('fr') > -1){
@@ -103,4 +119,23 @@ function validate(){
 			return false;
 	}
 }
+
+function refuserToucheEntree(event)
+{
+    // Compatibilité IE / Firefox
+    if(!event && window.event) {
+        event = window.event;
+    }
+    // IE
+    if(event.keyCode == 13) {
+        event.returnValue = false;
+        event.cancelBubble = true;
+    }
+    // DOM
+    if(event.which == 13) {
+        event.preventDefault();
+        event.stopPropagation();
+    }
+}
+
 

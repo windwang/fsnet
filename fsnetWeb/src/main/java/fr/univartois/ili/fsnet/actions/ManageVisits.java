@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -14,7 +15,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -40,8 +40,7 @@ public class ManageVisits  extends MappingDispatchAction {
 		}
 		
 		//paging list of recent visitors since my last connection
-		Paginator<ProfileVisite> paginatorLastVisit = new Paginator<ProfileVisite>(newLastvisitors,request,"lastVisitors");
-		request.setAttribute("lastVisitors", paginatorLastVisit);
+		request.setAttribute("lastVisitors", newLastvisitors);
 	}
 	
 	public ActionForward display(ActionMapping mapping, ActionForm form,
@@ -52,5 +51,35 @@ public class ManageVisits  extends MappingDispatchAction {
 		lastVisitsSinceLastConnection(mapping, request, response, em, authenticatedUser);
 		em.close();
 		return mapping.findForward("success");
+	}
+
+	/**
+	 * Store the number of non reed private messages in the session
+	 * 
+	 * @param request
+	 * @param em
+	 */
+	public static final void refreshNumNewVisits(HttpServletRequest request,
+			EntityManager em) {
+		// recovery of visitors
+		HttpSession session = request.getSession();
+		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+				request, em);
+		ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
+		Date LastConnectionSession = (Date) session.getAttribute(
+				"LastConnection");
+		List<ProfileVisite> lastVisitors = pvf
+				.getLastVisitorSinceLastConnection(authenticatedUser);
+		
+		int numNewVisits = 0;
+		for (int i = 0; i < lastVisitors.size(); i++) {
+			if (lastVisitors.get(i).getVisitor().getLastConnection()
+					.after(LastConnectionSession)) {
+				numNewVisits++;
+			}
+		}
+
+		// paging list of recent visitors since my last connection
+		session.setAttribute("numNewVisits", numNewVisits);
 	}
 }

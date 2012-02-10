@@ -27,7 +27,8 @@
 	            <td>
 	             <html:text  property="supportTitle"
 	                            styleId="supportTitle"
-	                            errorStyleClass="error" 
+	                            errorStyleClass="error"
+	                            onkeypress="refuserToucheEntree(event);"
 	                            style="width: 300px;"/>
 	                <logic:messagesPresent property="supportTitle">
 	                    <div class="errorMessage">
