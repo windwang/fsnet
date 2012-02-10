@@ -29,11 +29,13 @@
 				${ socialGroup.name }
 			</html:link>
 		</div>
+		
 
 		<h3>
 			<bean:message key="groups.description.message" />
 		</h3>
 		<p>${ socialGroup.description }</p>
+
 
 		<h3>
 			<bean:message key="groups.listGroup" />
@@ -46,6 +48,7 @@
 			<c:if test="${status.count < fn:length(childsOfGroup)}"> | </c:if>
 		</c:forEach>
 
+
 		<h3>
 			<bean:message key="groups.listMember" />
 		</h3>
@@ -56,6 +59,7 @@
 				src="miniature/${member.id}.png" />
 			</a>
 		</c:forEach>
+
 
 		<br />
 		<br />

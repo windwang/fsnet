@@ -4,9 +4,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -15,7 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.validator.routines.DateValidator;
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -68,6 +65,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
+			
 		addRightToRequest(request);
 		// TODO chercher le moyen de valider ce qui suit avec struts...
 		for (String cs : consultationChoices){
@@ -354,7 +352,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		String idConsultation = request.getParameter("id");
 		if (idConsultation == null || "".equals(idConsultation)){
 			idConsultation = String.valueOf(request.getAttribute("id"));
-		} 
+		}
 		if (idConsultation != null){
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntity member = UserUtils.getAuthenticatedUser(request, em);

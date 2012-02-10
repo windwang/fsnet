@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.admin.actions;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +25,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
-import org.apache.struts.upload.FormFile;
 
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
