@@ -14,10 +14,15 @@
             <form-property name="eventAddress" type="java.lang.String" />
             <form-property name="eventCity" type="java.lang.String" />
             <form-property name="selectedInterests" type="java.lang.String[]" />
+            <form-property name="eventId" type="java.lang.String"/>
         </form-bean>
         <form-bean  name="DisplayEventForm" 
         			type="org.apache.struts.validator.DynaValidatorActionForm">
         	<form-property name="eventId" type="java.lang.String"/>
+        </form-bean>
+        <form-bean  name="UpdateEventForm" 
+        			type="org.apache.struts.validator.DynaValidatorActionForm">
+        <form-property name="eventId" type="java.lang.String"/>
         </form-bean>
         <form-bean  name="DeleteEventForm" 
         			type="org.apache.struts.validator.DynaValidatorActionForm">
@@ -103,6 +108,29 @@
             	scope="request"
             	validate="true"
             	parameter="unsubscribe" >
+            <forward name="unauthorized" path="/Events.do" />
+            <forward name="success" path="/DisplayEvent.do" />
+        </action>
+        
+        <action path="/DisplayUpdateEvent"
+	        type="fr.univartois.ili.fsnet.actions.ManageEvents"
+	        name="CreateEventForm"
+	        validate="false"
+	        parameter="displayToModify"
+	        input="Events"
+	        scope="request">
+        
+        	<forward name="success" path="UpdateEvent" />
+        	<forward name="unauthorized" path="/Events.do" />
+        </action>   
+        
+        <action path="/UpdateEvent"
+                type="fr.univartois.ili.fsnet.actions.ManageEvents"
+                parameter="modify"
+                input="/DisplayUpdateEvent.do"
+            	scope="request"
+                validate="true"
+                name="CreateEventForm">
             <forward name="unauthorized" path="/Events.do" />
             <forward name="success" path="/DisplayEvent.do" />
         </action>
