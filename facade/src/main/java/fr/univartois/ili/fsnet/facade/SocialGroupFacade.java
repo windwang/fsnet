@@ -159,21 +159,19 @@ public class SocialGroupFacade {
 		return query.getResultList();
 	}
 
-	
-
-	
-	public <T> List<T> getAcceptedSocialElementsByFilter(SocialGroup socialGroup,Class<? extends T> clazz) {
+	public <T> List<T> getAcceptedSocialElementsByFilter(
+			SocialGroup socialGroup, Class<? extends T> clazz) {
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		List<T> elements = new ArrayList<T>();
 		@SuppressWarnings("unchecked")
 		List<T> socialElements = (List<T>) socialGroup.getSocialElements();
 		for (T socialElement : socialElements) {
 
 			if (socialElement.getClass().isAssignableFrom(clazz)) {
-				elements.add( socialElement);
+				elements.add(socialElement);
 			}
 		}
 		return elements;
@@ -286,7 +284,7 @@ public class SocialGroupFacade {
 	 *            the {@link SocialGroup}
 	 * @return the parents {@link Right} of a {@link SocialGroup}
 	 */
-	
+
 	public Set<Right> getParentsRights(SocialGroup group) {
 		Set<Right> rights = new HashSet<Right>();
 		SocialGroup parent = group.getGroup();
@@ -297,7 +295,10 @@ public class SocialGroupFacade {
 
 		return rights;
 	}
-	 private static final Logger logger = Logger.getLogger("fr.univartois.ili.fsnet.facade.SocialGroupFacade");
+
+	private static final Logger logger = Logger
+			.getLogger("fr.univartois.ili.fsnet.facade.SocialGroupFacade");
+
 	public boolean isMasterGroup(SocialEntity member) {
 		boolean resultat = false;
 		TypedQuery<Long> query = em
@@ -306,12 +307,12 @@ public class SocialGroupFacade {
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
-		logger.info("le count dans master :"+count);
+		logger.info("le count dans master :" + count);
 		if (count > 0)
 			resultat = true;
 		return resultat;
 	}
-	
+
 	public boolean isGroupResponsible(SocialEntity member) {
 		boolean resultat = false;
 		TypedQuery<Long> query = em
@@ -320,13 +321,11 @@ public class SocialGroupFacade {
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
-		logger.info("le count :"+count);
+		logger.info("le count :" + count);
 		if (count > 0)
 			resultat = true;
 		return resultat;
 	}
-	
-	
 
 	public List<SocialEntity> getAllChildMembers(SocialGroup socialGroupUser) {
 		if (socialGroupUser == null) {
@@ -350,7 +349,6 @@ public class SocialGroupFacade {
 
 		return listSocialEntity;
 	}
-
 
 	public List<SocialEntity> getMembersFromGroup(SocialGroup socialGroup) {
 		List<SocialEntity> members = new ArrayList<SocialEntity>();
@@ -402,13 +400,17 @@ public class SocialGroupFacade {
 		return personsIds;
 	}
 
-
 	/**
-	 * Same as getAllChildGroups but include the specified {@link SocialGroup} included
-	 * @param socialGroup the {@link SocialGroup}
-	 * @return Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup} included
+	 * Same as getAllChildGroups but include the specified {@link SocialGroup}
+	 * included
+	 * 
+	 * @param socialGroup
+	 *            the {@link SocialGroup}
+	 * @return Same as getAllAntecedentSocialGroups but include the specified
+	 *         {@link SocialGroup} included
 	 */
-	public List<SocialGroup> getAllGroupsChildSelfInclude(SocialGroup socialGroup) {
+	public List<SocialGroup> getAllGroupsChildSelfInclude(
+			SocialGroup socialGroup) {
 
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
@@ -417,13 +419,18 @@ public class SocialGroupFacade {
 		groups.add(socialGroup);
 		return groups;
 	}
-	
+
 	/**
-	 * Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup} included
-	 * @param socialGroup the {@link SocialGroup}
-	 * @return Same as getAllAntecedentSocialGroups but include the specified {@link SocialGroup} included
+	 * Same as getAllAntecedentSocialGroups but include the specified
+	 * {@link SocialGroup} included
+	 * 
+	 * @param socialGroup
+	 *            the {@link SocialGroup}
+	 * @return Same as getAllAntecedentSocialGroups but include the specified
+	 *         {@link SocialGroup} included
 	 */
-	public List<SocialGroup> getAllAnecedentSocialGroupsSelfInclude(SocialGroup socialGroup) {
+	public List<SocialGroup> getAllAnecedentSocialGroupsSelfInclude(
+			SocialGroup socialGroup) {
 
 		if (socialGroup == null) {
 			throw new IllegalArgumentException();
@@ -433,39 +440,44 @@ public class SocialGroupFacade {
 		return getAllParent(socialGroup, groups);
 	}
 
-	
 	/**
 	 * Check if the {@link SocialEntity} have the specified {@link Right}
-	 * @param member the {@link SocialEntity}
-	 * @param right the specified {@link Right}
+	 * 
+	 * @param member
+	 *            the {@link SocialEntity}
+	 * @param right
+	 *            the specified {@link Right}
 	 * @return if the {@link SocialEntity} have the specified {@link Right}
 	 */
-	public boolean isAuthorized(SocialEntity member, Right right){
-		if(member == null || right == null)
+	public boolean isAuthorized(SocialEntity member, Right right) {
+		if (member == null || right == null)
 			return false;
-		
+
 		SocialGroup socialGroup = member.getGroup();
-		//no group, no rights
-		if(socialGroup == null)
+		// no group, no rights
+		if (socialGroup == null)
 			return false;
-		//super admin
-		if(isSuperAdmin(member))
+		// super admin
+		if (isSuperAdmin(member))
 			return true;
-		//regular rights
+		// regular rights
 		return socialGroup.isAuthorized(right);
-			
+
 	}
-	
+
 	/**
 	 * Return if the {@link SocialEntity} is a super admin
-	 * @param member the {@link SocialEntity}
+	 * 
+	 * @param member
+	 *            the {@link SocialEntity}
 	 * @return if the {@link SocialEntity} is a super admin
 	 */
-	public boolean isSuperAdmin(SocialEntity member){
+	public boolean isSuperAdmin(SocialEntity member) {
 		SocialGroup socialGroup = member.getGroup();
-		
-		if(socialGroup.getGroup() == null && socialGroup.getMasterGroup().equals(member))
-				return true;
+
+		if (socialGroup.getGroup() == null
+				&& socialGroup.getMasterGroup().equals(member))
+			return true;
 		return false;
 	}
 }

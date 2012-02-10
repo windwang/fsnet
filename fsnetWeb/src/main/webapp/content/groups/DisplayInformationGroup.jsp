@@ -57,8 +57,8 @@
 			</a>
 		</c:forEach>
 
-		<br />
-		<br />
+		<br/>
+		<br/>
 
 		<c:if test="${ sessionScope.isMasterGroup }">
 			<h3>
