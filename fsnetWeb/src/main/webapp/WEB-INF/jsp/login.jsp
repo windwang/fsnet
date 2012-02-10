@@ -80,7 +80,7 @@
 							<td>
 							  <input type="text" name="memberMail" value="${param['memberMail'] }" id="memberMail" class="error" />
 							  <ili:changeAttribute id="memberMail" property="type" value="email" />
-                              <ili:placeHolder id="memberMail" value="${logMessage}" />							
+                              <ili:placeHolder id="memberMail" value="${logMessage}" />
 							</td>
 						</tr>
 						<tr>

@@ -289,16 +289,16 @@
 <h3>
     <bean:message key="updateProfile.changePhoto.title"/>
 </h3>
-<html:form action="/ChangePhoto" enctype="multipart/form-data" style="float:left">
+<html:form action="/ChangePhoto" enctype="multipart/form-data" style="float:left; width:80%">
 		<bean:message key="updateProfile.picturesize"/>
-	<div><table><tr><td><label for="photoInternet">
+	<div><table width="100%"><tr><td><label for="photoInternet">
                     <bean:message key="updateProfile.photoInternet"/> :
                 </label></td><td>
-	<html:text property="photoUrl"></html:text></td></tr><tr>
+	<html:text property="photoUrl" style="width: 100%"></html:text></td></tr><tr>
 	<td><label for="photoLocal">
                     <bean:message key="updateProfile.photoLocal"/> :
                 </label></td>
-	<td><html:file property="photo"></html:file></td></tr><tr><td>
+	<td><html:file property="photo" style="width: 100%" size="45"></html:file></td></tr><tr><td>
 		<html:submit styleClass="button">
 			<bean:message key="updateProfile.validate"/>
 		</html:submit>
