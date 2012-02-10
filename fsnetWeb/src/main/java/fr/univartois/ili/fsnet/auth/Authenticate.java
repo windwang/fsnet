@@ -142,7 +142,7 @@ public class Authenticate extends HttpServlet {
 			} else {
 				resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
 			}
-			em.getTransaction().begin();
+			
 			SocialEntity user;
 			user = em.find(SocialEntity.class, es.getId());
 			if(user.getLastConnection() != null){
@@ -151,9 +151,7 @@ public class Authenticate extends HttpServlet {
 			}else{
 				session.setAttribute("LastConnection",new Date());
 			}
-			user.setLastConnection(new Date());
-			em.merge(user);
-			em.getTransaction().commit();
+			
 
 			String userName = user.getFirstName() + " " + user.getName();
 			LoggedUsersContainer.getInstance().addUser(user.getId(), userName);

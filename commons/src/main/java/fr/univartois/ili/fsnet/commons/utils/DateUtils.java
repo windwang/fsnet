@@ -22,7 +22,7 @@ public class DateUtils {
 	 */
 	public static Date format(String string) throws ParseException {
 		Date date = null;
-		DateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy hh:mm",
+		DateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy HH:mm",
 				Locale.FRANCE);
 		date = simpleFormat.parse(string);
 		return date;

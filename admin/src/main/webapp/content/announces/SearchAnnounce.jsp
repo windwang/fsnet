@@ -13,7 +13,7 @@
 	<div id="SearchAnnounce">
     	<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
 
-	    <html:submit styleClass="button"><bean:message key="announce.button.search" /></html:submit>
+	    <html:submit styleClass="button"><bean:message key="announce.searchButton" /></html:submit>
     	<html:messages id="message" />
     	<div class="errorMessage"><html:errors/></div>
     </div>
