@@ -29,7 +29,7 @@
 			$(document).ready(
 					function pagination() {
 						var nomTable = "tableoutbox";
-						var idColonneATrier = 4;
+						var idColonneATrier = 3;
 						var sensDeTri = "desc";
 						var aoColumns = [ {
 							"bSortable" : false
@@ -46,7 +46,7 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th><bean:message key="tableheader.from" /></th>
+						<th><bean:message key="tableheader.to" /></th>
 						<th><bean:message key="tableheader.subject" /></th>
 						<th><bean:message key="tableheader.date" /></th>
 					</tr>
@@ -56,8 +56,7 @@
 						<tr>
 							<td><html:multibox property="selectedMessages"
 									value="${message.id}" /></td>
-							<td style="width: 25%"><bean:message
-									key="privatemessages.sentTO" /> : <ili:getSocialEntityInfos
+							<td style="width: 25%"><ili:getSocialEntityInfos
 									socialEntity="${message.to}" /></td>
 							<td style="width: 50%"><html:link
 									action="/DisplaySentMessage">
