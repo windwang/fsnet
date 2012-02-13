@@ -45,7 +45,6 @@
 			</tr>
 		</table>
 	</c:when>
-DisplayEvent
 	<c:otherwise>
 		<script type="text/javascript">
 			$(document).ready(
@@ -75,8 +74,7 @@ DisplayEvent
 				</tr>
 			</thead>
 			<tbody>
-				<c:forEach var="event"
-					items="${requestScope.eventsList}">
+				<c:forEach var="event" items="${requestScope.eventsList}">
 					<ili:interactionRow
 						unreadInteractionsId="${requestScope.unreadInteractionsId}"
 						currentInteractionId="${event.id}">
@@ -89,8 +87,7 @@ DisplayEvent
 							</html:link></td>
 						<td class="left"><bean:write name="event"
 								property="startDate" format="dd/MM/yyyy" /></td>
-						<td><ili:getSocialEntityInfos
-								socialEntity="${event.creator}" /></td>
+						<td><ili:getSocialEntityInfos socialEntity="${event.creator}" /></td>
 						<td class="tableButton"><ili:substring beginIndex="0"
 								endIndex="30">
 								<ili:noxml>${event.content}</ili:noxml>
