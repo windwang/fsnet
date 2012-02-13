@@ -71,7 +71,7 @@ public class Logout extends HttpServlet {
 		dispatcher.forward(req, resp);
 	}
 
-	private void updateUser(HttpSession session) {
+	public static void updateUser(HttpSession session) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user;
 		if (session.getAttribute(Authenticate.AUTHENTICATED_USER) != null) {
