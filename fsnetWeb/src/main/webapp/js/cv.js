@@ -84,10 +84,11 @@ $(function() {
 		+'<input type="hidden" name="CvSecteur'+i+'" value="'+$("#CvSecteur").val()+'" />'
 		+'<input type="hidden" name="expEndDate'+i+'" value="'+$("#expEndDate").val()+'" /></div>';
 		$(".corp_experience").css("display","none");
-		
+		var $annuler=$('<span id="supprimer'+i+'"><a onclick="changeExp('+i+')">supprimer</a></span>');
 		$(".addExp").css("display","inline");
 		$('.listeExperience').append('<li id="experience_'+i+'">'+recapExp+'</li>');
 		$('#experience_'+i).append(inputRecap);
+		$('#experience_'+i).append($annuler);
 		$("#CvPoste").val('');
 		$("#NomEntreprise").val('');
 		$("#CvSecteur").val('');
@@ -157,10 +158,12 @@ $(function() {
 		+'<input type="hidden" name="CvEtudePays'+j+'" value="'+$("#CvEtudePays").val()+'" />'
 		+'<input type="hidden" name="etudBeginDate'+j+'" value="'+$("#etudBeginDate").val()+'" />'
 		+'<input type="hidden" name="etudEndDate'+j+'" value="'+$("#etudEndDate").val()+'" /></div>';
+		var $annuler=$('<span id="supprimerDip'+j+'"><a onclick="changeDip('+j+')">supprimer</a></span>');
 		$(".corp_diplome").css("display","none");
 		$(".addForm").css("display","inline");
 		$('.listeFormation').append('<li id="formation_'+j+'">'+recapExp+'</li>');
 		$('#formation_'+j).append(inputRecap);
+		$('#formation_'+j).append($annuler);
 		$("#CvEtude").val('');
 		$("#CvEtudeDom").val('');
 		$("#CvEtablissment").val('');
@@ -216,12 +219,14 @@ $(function() {
 		var inputRecap='<div id="certifInput" style="display:none;"><input type="hidden" name="CvNomCertif'+k+'" value="'+$("#CvNomCertif").val()+'" />'
 		+'<input type="hidden" name="CvEcolCertif'+k+'" value="'+$("#CvEcolCertif").val()+'" />'
 		+'<input type="hidden" name="CvDateCertif'+k+'" value="'+$("#CvDateCertif").val()+'" /></div>';
+		var $annuler=$('<span id="supprimerCert'+k+'"><a onclick="changeCert('+k+')">supprimer</a></span>');
 		$(".CvNomCertifError").fadeOut();
 		$(".corp_certificat").css("display","none");
 		$(".addCert").css("display","inline");
 		$("#certifInput").css("display","none");
 		$('.listeCertification').append('<li id="certifica_'+k+'">'+recapExp+'</li>');
 		$('#certifica_'+k).append(inputRecap);
+		$('#certifica_'+k).append($annuler);
 		$("#certifInput").css("display","none");
 		$("#CvNomCertif").val('');
 		$("#CvEcolCertif").val('');
@@ -255,12 +260,13 @@ $(".addLangue").click(function(){
 		var recapExp= "<table><tr><td><strong>"+$("#CVLangue").val()+"</strong></td><td>"+$("#niveaux").val()+"</td></tr></table>";
 		var inputRecap='<div id="LangueInput" style="display:none;"><input type="hidden" name="CVLangue'+z+'" value="'+$("#CVLangue").val()+'" />'
 		+'<input type="hidden" name="niveaux'+z+'" value="'+$("#niveaux").val()+'" /></div>';
-		
+		var $annuler=$('<span id="supprimerLang'+z+'"><a onclick="changeLang('+z+')">supprimer</a></span>');
 		$(".corp_langue").css("display","none");
 		$(".addLangue").css("display","inline");
 		
 		$('.listeLangues').append('<li id="Langues_'+z+'">'+recapExp+'</li>');
 		$('#Langues_'+z).append(inputRecap);
+		$('#Langues_'+z).append($annuler);
 		$("#LangueInput").css("display","none");
 		$("#CVLangue").val('');
 		
@@ -280,7 +286,37 @@ $(".addLangue").click(function(){
 		$('#experience_'+0).css("display","none");
 		
 	});
-	
+
 
 
 });
+function changeExp(iden){
+	var answer = confirm ("voulez vous vraimment supprimer?")
+	if(answer){
+	document.getElementById('experience_'+iden).style.display = "none";
+	document.getElementById('supprimer'+iden).style.display = "none";
+	}
+	
+}
+function changeDip(iden){
+	var answer = confirm ("voulez vous vraimment supprimer?")
+	if(answer){
+	document.getElementById('formation_'+iden).style.display = "none";
+	document.getElementById('supprimerDip'+iden).style.display = "none";
+	}
+}
+function changeCert(iden){
+	var answer = confirm ("voulez vous vraimment supprimer?")
+	if(answer){
+	document.getElementById('certifica_'+iden).style.display = "none";
+	document.getElementById('supprimerCert'+iden).style.display = "none";
+	}
+}
+
+function changeLang(iden){
+	var answer = confirm ("voulez vous vraimment supprimer?")
+	if(answer){
+	document.getElementById('Langues_'+iden).style.display = "none";
+	document.getElementById('supprimerLang'+iden).style.display = "none";
+	}
+}

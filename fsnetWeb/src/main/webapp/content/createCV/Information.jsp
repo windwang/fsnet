@@ -230,9 +230,9 @@
  <tr><td>*<bean:message key="cv.28"/></td></tr>
  <tr><td><select name="niveaux" id="niveaux">
  		<option selected="selected"><bean:message key="niveux.0"/></option>
- 		<option ><bean:message key="niveux.1"/></option>
- 		<option ><bean:message key="niveux.2"/></option>
- 		<option ><bean:message key="niveux.3"/></option></select>
+ 		<option value="<bean:message key="niveux.1"/>"><bean:message key="niveux.1"/></option>
+ 		<option value="<bean:message key="niveux.2"/>"><bean:message key="niveux.2"/></option>
+ 		<option value="<bean:message key="niveux.3"/>"><bean:message key="niveux.3"/></option></select>
  		</td> </tr>
  <tr><td><a><span class="annuleLangue"> <bean:message key="cv.annuler"/></span></a>
         <a><span class="SaveLangue"><bean:message key="cv.enregister"/> </span></a></td></tr>        
