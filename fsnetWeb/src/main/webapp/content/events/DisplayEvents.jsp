@@ -69,7 +69,7 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
+					<th><bean:message key="tableheader.eventname" /></th>
 					<th><bean:message key="tableheader.willoccur" /></th>
 					<th><bean:message key="tableheader.by" /></th>
 					<th><bean:message key="tableheader.firstname" /></th>
