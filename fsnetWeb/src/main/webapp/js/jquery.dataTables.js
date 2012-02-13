@@ -10952,10 +10952,8 @@ jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
 
 function miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns,
 		affichemoinsdix) {
-	var bool = affichemoinsdix;
-	if (bool != true && document.getElementById(nomTable).rows.length > 11)
-		bool = false;
-	if (bool == true) {
+	var nbCellules = document.getElementById(nomTable).rows.length;
+	if ((affichemoinsdix == true) ||(nbCellules > 11)) {
 		$("#" + nomTable).dataTable({
 			"aaSorting" : [ [ idColonneATrier, sensDeTri ] ],
 			"aoColumns" : aoColumns,

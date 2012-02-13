@@ -45,7 +45,7 @@
 			</tr>
 		</table>
 	</c:when>
-
+DisplayEvent
 	<c:otherwise>
 		<script type="text/javascript">
 			$(document).ready(
@@ -89,7 +89,7 @@
 							</html:link></td>
 						<td class="left"><bean:write name="event"
 								property="startDate" format="dd/MM/yyyy" /></td>
-						<td><bean:message key="events.16" /> <ili:getSocialEntityInfos
+						<td><ili:getSocialEntityInfos
 								socialEntity="${event.creator}" /></td>
 						<td class="tableButton"><ili:substring beginIndex="0"
 								endIndex="30">
