@@ -631,12 +631,10 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 				resultOthers.retainAll(resultOthersList);
 				resultOthersList = new ArrayList<SocialEntity>(resultOthers);
 				Collections.sort(resultOthersList);
-				Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
-						resultOthersList, request, "membersList");
-				request.setAttribute("membersListPaginator", paginator);
+				request.setAttribute("membersList", resultOthersList);
 
 			} else {
-				request.setAttribute("membersListPaginator", null);
+				request.setAttribute("membersList", null);
 
 			}
 
@@ -645,10 +643,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			em.getTransaction().commit();
 			em.close();
 
-			Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
-					resultOthersList, request, "membersList");
-
-			request.setAttribute("membersListPaginator", paginator);
+			request.setAttribute("membersList", resultOthersList);
 			List<SocialGroup> socialGroups = socialGroupFacade
 					.getAllChildGroups(UserUtils.getHisGroup(request));
 			cleanSession(request);

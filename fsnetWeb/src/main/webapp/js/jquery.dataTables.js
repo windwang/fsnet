@@ -1,11 +1,8 @@
-/*
+ /*
  * When considering jsLint, we need to allow eval() as it it is used for reading cookies and 
  * building the dynamic multi-column sort functions.
  */
 /*jslint evil: true */
-
-
-
 
 /*
  * Internationalisation!
@@ -10723,7 +10720,6 @@ function($, window, document, undefined) {
 	 */
 }(jQuery, window, document, undefined));
 
-
 /* Time between each scrolling frame */
 $.fn.dataTableExt.oPagination.iTweenTime = 100;
 
@@ -10951,4 +10947,31 @@ jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
     }                  
     var z = ((x < y) ? 1 : ((x > y) ? -1 : 0));                  
     return z;
+};
+
+
+function miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns,
+		affichemoinsdix) {
+	var nbCellules = document.getElementById(nomTable).rows.length;
+	if ((affichemoinsdix == true) ||(nbCellules > 11)) {
+		$("#" + nomTable).dataTable({
+			"aaSorting" : [ [ idColonneATrier, sensDeTri ] ],
+			"aoColumns" : aoColumns,
+			"bInfo" : true,
+			"bPaginate" : true,
+			"sDom" : '<"top"ip><"clear">rt<"bottom"p>',
+			"sPaginationType" : "scrolling"
+		});
+		return;
+	} else {
+		$("#" + nomTable).dataTable({
+			"aaSorting" : [ [ idColonneATrier, sensDeTri ] ],
+			"aoColumns" : aoColumns,
+			"bInfo" : false,
+			"bPaginate" : false,
+			"sDom" : '<"top"><"clear">rt<"bottom"><"clear">',
+			"sPaginationType" : "scrolling"
+		});
+		return;
+	}
 };
