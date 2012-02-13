@@ -10,7 +10,7 @@
 	<html:form action="/ModifyCommunity">
 		<div class="errorMessage"><html:errors property="modifierCommunityName" /></div>
 		<div class="errorMessage"><html:errors property="modifiedCommunityName" /></div>
-		<html:select property="modifierCommunityName" styleClass="select">
+		<p><html:select property="modifierCommunityName" styleClass="select">
 			<html:option value="">
 				<bean:message key="community.default" />
 			</html:option>
@@ -24,5 +24,6 @@
 		<html:submit styleClass="button">
 			<bean:message key="interest.validate" />
 		</html:submit>
+		</p>
 	</html:form>
 </c:if>

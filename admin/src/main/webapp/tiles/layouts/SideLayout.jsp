@@ -7,7 +7,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html:html xhtml="true">
     <head>
-        <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" />
+        <meta http-equiv="content-type" content="application/xhtml+xml; charset=UTF-8" ></meta>
         <link rel="stylesheet" type="text/css" media="screen" href="css/style.css" />
         <link rel="stylesheet" type="text/css" media="screen" href="css/fsnet-custom.css" />
         <title><tiles:getAsString name="title"/></title>

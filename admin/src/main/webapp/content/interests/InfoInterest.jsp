@@ -14,12 +14,12 @@
 				<html:link action="/DeleteInterestFromInterestInformations">
 					<html:param name="removedInterestId"
 						value="${requestScope.interest.id}" />
-					<img src="images/mini-delete.png" />
+					<img src="images/mini-delete.png" alt="delete"/>
 				</html:link>
 			</c:when>
 			<c:otherwise>
 				<html:link action="/AddInterestFromInterestInformations">
-					<img src="images/add.png" />
+					<img src="images/add.png" alt="add"/>
 					<html:param name="addedInterestId"
 						value="${requestScope.interest.id}" />
 				</html:link>

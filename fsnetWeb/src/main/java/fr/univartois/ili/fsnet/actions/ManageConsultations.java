@@ -348,11 +348,16 @@ public class ManageConsultations extends MappingDispatchAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+<<<<<<< HEAD
 		List<Consultation> listConsultations = consultationFacade
 				.getUserConsultations(member);
 		Paginator<Consultation> paginator = new Paginator<Consultation>(
 				listConsultations, request, "listConsultations");
 		request.setAttribute("consultationsListPaginator", paginator);
+=======
+		List<Consultation> listConsultations = consultationFacade.getUserConsultations(member);
+		request.setAttribute("consultationsList", listConsultations);
+>>>>>>> 003923f7583d1f204c597e34b716a9d134ba3ee0
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		List<Integer> unreadInteractionsId = interactionFacade
 				.getUnreadInteractionsIdForSocialEntity(member);
@@ -382,10 +387,15 @@ public class ManageConsultations extends MappingDispatchAction {
 			searchConsultations = filter.filterInteraction(se,
 					searchConsultations);
 		}
+<<<<<<< HEAD
 		Paginator<Consultation> paginator = new Paginator<Consultation>(
 				searchConsultations, request, "searchConsultation");
 		request.setAttribute("consultationsSearchListPaginator", paginator);
 
+=======
+		request.setAttribute("consultationsSearchList", searchConsultations);
+		
+>>>>>>> 003923f7583d1f204c597e34b716a9d134ba3ee0
 		em.getTransaction().begin();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);

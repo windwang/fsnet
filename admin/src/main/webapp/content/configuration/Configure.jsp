@@ -165,10 +165,12 @@
 </html:form>
 
 <h3><bean:message key="configure.UpdateDB"/></h3>
-<html:form enctype="multipart/form-data" action="/UpdateDB">	
+<html:form enctype="multipart/form-data" action="/UpdateDB">
+	<div>	
 	<html:submit styleClass="button">
 		<bean:message key="configure.9" />
 	</html:submit>
+	</div>
 </html:form>
  
 
