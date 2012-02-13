@@ -23,7 +23,6 @@ import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.ConsultationChoiceComparator;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
@@ -345,68 +344,49 @@ public class ManageConsultations extends MappingDispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addRightToRequest(request);
-		EntityManager em = PersistenceProvider.createEntityManager();
-		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-<<<<<<< HEAD
-		List<Consultation> listConsultations = consultationFacade
-				.getUserConsultations(member);
-		Paginator<Consultation> paginator = new Paginator<Consultation>(
-				listConsultations, request, "listConsultations");
-		request.setAttribute("consultationsListPaginator", paginator);
-=======
-		List<Consultation> listConsultations = consultationFacade.getUserConsultations(member);
-		request.setAttribute("consultationsList", listConsultations);
->>>>>>> 003923f7583d1f204c597e34b716a9d134ba3ee0
-		InteractionFacade interactionFacade = new InteractionFacade(em);
-		List<Integer> unreadInteractionsId = interactionFacade
-				.getUnreadInteractionsIdForSocialEntity(member);
-		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
-		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward("success"));
-		return redirect;
+        EntityManager em = PersistenceProvider.createEntityManager();
+        ConsultationFacade consultationFacade = new ConsultationFacade(em);
+        SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+        List<Consultation> listConsultations = consultationFacade.getUserConsultations(member);
+        request.setAttribute("consultationsList", listConsultations);
+        InteractionFacade interactionFacade = new InteractionFacade(em);
+        List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
+        request.setAttribute("unreadInteractionsId", unreadInteractionsId);
+        ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
+        return redirect;
+
 	}
 
 	public ActionForward searchConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		addRightToRequest(request);
-		String searchText = "";
-		EntityManager em = PersistenceProvider.createEntityManager();
-		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-		if (form != null) {
-			DynaActionForm dynaForm = (DynaActionForm) form;
-			searchText = (String) dynaForm.get("searchText");
-		}
-		List<Consultation> searchConsultations = consultationFacade
-				.getConsultationsContaining(searchText);
-		if (searchConsultations != null && !searchConsultations.isEmpty()) {
-			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(
-					em);
-			SocialEntity se = UserUtils.getAuthenticatedUser(request);
-			searchConsultations = filter.filterInteraction(se,
-					searchConsultations);
-		}
-<<<<<<< HEAD
-		Paginator<Consultation> paginator = new Paginator<Consultation>(
-				searchConsultations, request, "searchConsultation");
-		request.setAttribute("consultationsSearchListPaginator", paginator);
+		 addRightToRequest(request);
+         String searchText = "";
+         EntityManager em = PersistenceProvider.createEntityManager();
+         ConsultationFacade consultationFacade = new ConsultationFacade(em);
+         if(form != null){
+                 DynaActionForm dynaForm = (DynaActionForm) form;
+                 searchText = (String) dynaForm.get("searchText");
+         }
+         List<Consultation> searchConsultations = consultationFacade.getConsultationsContaining(searchText);
+         if(searchConsultations !=null && !searchConsultations.isEmpty()) {
+                 FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(em);
+                 SocialEntity se = UserUtils.getAuthenticatedUser(request);
+                 searchConsultations = filter.filterInteraction(se, searchConsultations);
+         }
+         request.setAttribute("consultationsSearchList", searchConsultations);
+         
+         em.getTransaction().begin();
+         SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+         InteractionFacade interactionFacade = new InteractionFacade(em);
+         List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
+         refreshNumNewConsultations(request, em);
+         em.getTransaction().commit();
+         em.close();
+         request.setAttribute("unreadInteractionsId", unreadInteractionsId);
+         
+         return mapping.findForward("success");
 
-=======
-		request.setAttribute("consultationsSearchList", searchConsultations);
-		
->>>>>>> 003923f7583d1f204c597e34b716a9d134ba3ee0
-		em.getTransaction().begin();
-		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		InteractionFacade interactionFacade = new InteractionFacade(em);
-		List<Integer> unreadInteractionsId = interactionFacade
-				.getUnreadInteractionsIdForSocialEntity(member);
-		refreshNumNewConsultations(request, em);
-		em.getTransaction().commit();
-		em.close();
-		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
-
-		return mapping.findForward("success");
 	}
 
 	public ActionForward displayAConsultation(ActionMapping mapping,

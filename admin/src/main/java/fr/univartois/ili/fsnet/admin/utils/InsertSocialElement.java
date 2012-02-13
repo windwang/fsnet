@@ -15,34 +15,35 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
  */
 public class InsertSocialElement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public InsertSocialElement() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
-	
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public InsertSocialElement() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		em.createNativeQuery("INSERT INTO SOCIALELEMENT(ID,DTYPE) SELECT ID, 'E' from SOCIALENTITY").executeUpdate();
+		em.createNativeQuery(
+				"INSERT INTO SOCIALELEMENT(ID,DTYPE) SELECT ID, 'E' from SOCIALENTITY")
+				.executeUpdate();
 		em.getTransaction().commit();
 		em.close();
 	}
-	
-	
-	
-	
+
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 	}
 

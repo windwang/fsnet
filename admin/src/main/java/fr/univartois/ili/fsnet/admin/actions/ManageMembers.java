@@ -24,7 +24,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -48,7 +47,6 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
-
 /**
  * Execute CRUD Actions (and more) for the entity member
  * 
@@ -59,6 +57,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 	private static final Logger logger = Logger.getAnonymousLogger();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#create(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -69,7 +76,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String firstName = (String) dynaForm.get("firstName");
 		dynaForm.set("firstName", "");
 		String mail = (String) dynaForm.get("email");
-		mail=mail.toLowerCase();
+		mail = mail.toLowerCase();
 		dynaForm.set("email", "");
 		String parentId = (String) dynaForm.get("parentId");
 		dynaForm.set("parentId", "");
@@ -130,14 +137,19 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("email", "");
 		dynaForm.set("parentId", "");
 		cleanSession(request);
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"member.success.on.create"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"member.success.on.create"));
+
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param filePath
+	 * @return
+	 */
 	public String readFileLinePerLine(String filePath) {
 		String allString = "";
 		try {
@@ -158,6 +170,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		return allString;
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward createMultipleFile(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -181,7 +202,6 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 				SocialEntity socialEntity = facadeSE.createSocialEntity(
 						socialEntitieInput[0], socialEntitieInput[1],
 						socialEntitieInput[2].toLowerCase());
-				
 
 				String definedPassword = Encryption.generateRandomPassword();
 				logger.info("#### Defined Password : " + definedPassword);
@@ -341,11 +361,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			}
 
 		}
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"members.success.on.create"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"members.success.on.create"));
+
 		return mapping.findForward("success");
 	}
 
@@ -375,7 +396,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		message = createPersonalizedMessage(socialEntity.getName(),
 				socialEntity.getFirstName(), fsnetAddress, password,
-				socialEntity.getEmail(),personalizedMessage, locale);
+				socialEntity.getEmail(), personalizedMessage, locale);
 		// send a mail
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
@@ -408,25 +429,39 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	 * @param locale
 	 *            the current {@link Locale}
 	 * @return the message .
-	 * @author stephane Gronowski
-	 * @
+	 * @author stephane Gronowski @
 	 */
 	private String createPersonalizedMessage(String name, String firstName,
-			String addressFsnet, String password,String email, String personalizedMessage,
-			Locale locale) {
+			String addressFsnet, String password, String email,
+			String personalizedMessage, Locale locale) {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder message = new StringBuilder();
-		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.name")+"\"", name);
-		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.firstName")+"\"", firstName);
-		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.password")+"\"", password);
-		personalizedMessage = personalizedMessage.replace("\"Email\"",email);
-		personalizedMessage = personalizedMessage.replace("\"url\"", addressFsnet);
+		personalizedMessage = personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.name") + "\"", name);
+		personalizedMessage = personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.firstName") + "\"",
+				firstName);
+		personalizedMessage = personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.password") + "\"",
+				password);
+		personalizedMessage = personalizedMessage.replace("\"Email\"", email);
+		personalizedMessage = personalizedMessage.replace("\"url\"",
+				addressFsnet);
 		message.append(personalizedMessage);
 		return message.toString();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#delete(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -434,6 +469,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward switchState(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -448,6 +492,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#display(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -487,40 +540,51 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		List<SocialGroup> socialGroups = socialGroupFacade.getAllSocialGroups();
 		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
-		List<SocialEntity> allMasterGroups = socialGroupFacade.getAllMasterGroupes();
-		
+		List<SocialEntity> allMasterGroups = socialGroupFacade
+				.getAllMasterGroupes();
+
 		cleanSession(request);
-		
+
 		initializeSession(request, member, socialGroups, allMasterGroups);
-		
+
 		entityManager.close();
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param request
+	 * @param member
+	 * @param socialGroups
+	 * @param allMasterGroups
+	 */
 	private void initializeSession(HttpServletRequest request,
 			SocialEntity member, List<SocialGroup> socialGroups,
 			List<SocialEntity> allMasterGroups) {
-		if(allMasterGroups.contains(member))
-			request.getSession(true).setAttribute("master2",true);
+		if (allMasterGroups.contains(member))
+			request.getSession(true).setAttribute("master2", true);
 		else
-			request.getSession(true).setAttribute("master2",false);
-		
+			request.getSession(true).setAttribute("master2", false);
+
 		if (member.getGroup() != null)
-			request.getSession(true).setAttribute("group2",
-					member.getGroup());
-		else
-			if (member.getGroup() != null)
-				request.getSession(true).setAttribute("group2",
-						member.getGroup());
+			request.getSession(true).setAttribute("group2", member.getGroup());
+		else if (member.getGroup() != null)
+			request.getSession(true).setAttribute("group2", member.getGroup());
 		request.getSession(true).setAttribute("allGroups2", socialGroups);
 	}
 
+	/**
+	 * @param request
+	 */
 	private void cleanSession(HttpServletRequest request) {
-		request.getSession(true).setAttribute("master2",false);
+		request.getSession(true).setAttribute("master2", false);
 		request.getSession(true).removeAttribute("group2");
 		request.getSession(true).removeAttribute("allGroups2");
 	}
 
+	/**
+	 * @param dynaForm
+	 * @return
+	 */
 	private ActionErrors verified(DynaActionForm dynaForm) {
 		ActionErrors res = new ActionErrors();
 		try {
@@ -546,6 +610,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		return res;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#modify(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -558,7 +631,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
-		email=email.toLowerCase();
+		email = email.toLowerCase();
 		String parentId = (String) formSocialENtity.get("parentId");
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");
@@ -621,14 +694,24 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
 		cleanSession(request);
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"member.success.on.modify"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"member.success.on.modify"));
+
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#search(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)

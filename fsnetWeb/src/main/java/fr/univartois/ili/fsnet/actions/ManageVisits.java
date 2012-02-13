@@ -33,14 +33,22 @@ public class ManageVisits  extends MappingDispatchAction {
 		//recovery of visitors since the last connection
 		List<ProfileVisite> newLastvisitors=new ArrayList<ProfileVisite>();
 		
+		//recovery of visitors before the last connection
+		List<ProfileVisite> lastVisitorsBeforeLastConnection = new ArrayList<ProfileVisite>();
+		
 		for(int i=0;i<lastVisitors.size();i++){
 			if(lastVisitors.get(i).getVisitor().getLastConnection().after(LastConnectionSession)){
 				newLastvisitors.add(lastVisitors.get(i));
+			}else{
+				lastVisitorsBeforeLastConnection.add(lastVisitors.get(i));
 			}
 		}
 		
 		//paging list of recent visitors since my last connection
 		request.setAttribute("lastVisitors", newLastvisitors);
+		
+		//paging list of old visitors before my last connection
+		request.setAttribute("beforeLastVisitors",lastVisitorsBeforeLastConnection);
 	}
 	
 	public ActionForward display(ActionMapping mapping, ActionForm form,

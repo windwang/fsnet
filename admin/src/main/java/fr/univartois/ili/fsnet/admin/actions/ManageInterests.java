@@ -38,6 +38,13 @@ CrudAction {
 	private static final String SEPARATOR_PARENT_CHILD = "=";
 	private static final String SEPARATOR_MAP = ";";
 
+	/**
+	 * @param dynaForm
+	 * @param facade
+	 * @param interestName
+	 * @param em
+	 * @param request
+	 */
 	public void creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,EntityManager em,HttpServletRequest request){
 		if (dynaForm.get("parentInterestId") != null
 				&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
@@ -48,6 +55,9 @@ CrudAction {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.univartois.ili.fsnet.admin.actions.CrudAction#create(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -92,6 +102,9 @@ CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.univartois.ili.fsnet.admin.actions.CrudAction#modify(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -159,6 +172,9 @@ CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.univartois.ili.fsnet.admin.actions.CrudAction#delete(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -195,6 +211,9 @@ CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.univartois.ili.fsnet.admin.actions.CrudAction#search(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -219,6 +238,9 @@ CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/* (non-Javadoc)
+	 * @see fr.univartois.ili.fsnet.admin.actions.CrudAction#display(org.apache.struts.action.ActionMapping, org.apache.struts.action.ActionForm, javax.servlet.http.HttpServletRequest, javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -240,6 +262,15 @@ CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward informations(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 	throws IOException, ServletException {
@@ -268,6 +299,10 @@ CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param listAllInterests
+	 * @return
+	 */
 	private String concatInterest(List<Interest> listAllInterests){
 		String ids = "";
 		if(listAllInterests == null)
