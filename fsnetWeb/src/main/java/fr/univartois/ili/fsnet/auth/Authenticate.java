@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -23,6 +24,7 @@ import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.core.LoggedUsersContainer;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
@@ -171,6 +173,10 @@ public class Authenticate extends HttpServlet {
 			req.getSession().setAttribute("isGroupResponsible",
 					socialGroupFacade.isGroupResponsible(user));
 			req.getSession().setAttribute("currentUserId", user.getId());
+			// add under groups to select them to add rights 
+			// to participate at consultation
+			List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
+			req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);			
 
 		} else {
 			// the user is not authenticated

@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.facade;
 
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,8 +20,8 @@ public class ConsultationFacade {
 		this.em = em;
 	}
 	
-	public final Consultation createConsultation(SocialEntity creator, String title, String description, String [] choices, Consultation.TypeConsultation type){
-		Consultation consultation = new Consultation(creator, title, description, type);
+	public final Consultation createConsultation(SocialEntity creator, String title, String description, String [] choices, Consultation.TypeConsultation type/*, List<String> groupsRigthsAccepted*/){
+		Consultation consultation = new Consultation(creator, title, description, type/*, groupsRigthsAccepted*/);
 		for (String s : choices){
 			consultation.addChoice(new ConsultationChoice(consultation,s));
 		}

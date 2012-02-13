@@ -28,7 +28,6 @@ import org.apache.struts.util.MessageResources;
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
 import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialElement;

@@ -44,7 +44,11 @@ public class Consultation extends Interaction {
 	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
 	@OrderBy(value = "id")
 	private List<ConsultationVote> consultationVotes;
-
+	
+	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
+	@OrderBy(value = "id")
+	private List<String> consultationGroups;
+	
 	private String description;
 
 	@Column(length = 1)
@@ -98,7 +102,8 @@ public class Consultation extends Interaction {
 	 * @param description
 	 */
 	public Consultation(SocialEntity creator, String title, String description,
-			TypeConsultation type) {
+			TypeConsultation type
+			/*, List<String> groupsRigthsAccepted*/) {
 		super(creator, title);
 		this.description = description;
 		this.type = type;
@@ -113,6 +118,7 @@ public class Consultation extends Interaction {
 		allowAllToModify = "F";
 		opened = "T";
 		this.choices = new ArrayList<ConsultationChoice>();
+//		this.consultationGroups = groupsRigthsAccepted;
 	}
 
 	public String getDescription() {
@@ -347,6 +353,14 @@ public class Consultation extends Interaction {
 
 	public void setOpened(String opened) {
 		this.opened = opened;
+	}
+
+	public List<String> getConsultationGroups() {
+		return consultationGroups;
+	}
+
+	public void setConsultationGroups(List<String> consultationGroups) {
+		this.consultationGroups = consultationGroups;
 	}
 
 	@Transient

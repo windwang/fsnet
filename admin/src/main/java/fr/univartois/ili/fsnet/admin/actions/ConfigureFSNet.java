@@ -25,11 +25,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
-<<<<<<< HEAD
-=======
-import org.apache.struts.upload.FormFile;
 import org.apache.struts.util.MessageResources;
->>>>>>> branch 'master' of https://jimmy.constand@code.google.com/p/fsnet/
 
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
@@ -90,7 +86,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 		return mapping.findForward("success");
 	}
 
@@ -150,11 +146,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.mail.update.success"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.mail.update.success"));
+
 		return mapping.findForward("success");
 	}
 
@@ -171,11 +168,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.facebook.update.success"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.facebook.update.success"));
+
 		return mapping.findForward("success");
 	}
 
@@ -213,15 +211,14 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		mail.setContent("Configuration réussie");
 		mail.addRecipient(dynaForm.getString("Recipient"));
 		mailer.sendMail(mail);
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.testMail.sent"));
-		
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.testMail.sent"));
+
 		return mapping.findForward("success");
 	}
-
 
 	public ActionForward updateDB(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -258,7 +255,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			for (SocialEntity s : entities) {
 				mails.put(s.getEmail(), s.getEmail().toLowerCase());
 			}
-			
+
 			for (String s : mails.keySet()) {
 				entityManager.getTransaction().begin();
 				Query query = entityManager
@@ -273,12 +270,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			out.println("DB modified");
 			out.close();
 		}
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.db.update.success"));
-		
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.db.update.success"));
+
 		return mapping.findForward("success");
 	}
 

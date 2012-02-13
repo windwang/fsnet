@@ -53,7 +53,7 @@
 					<p class="errorMessage">
 						<bean:message key="consultation.errorMaxVotersPerChoice" />
 					</p>
-				</c:if>
+				</c:if>				
 
 				<table id="choicesTab">
 					<c:forEach begin="1" end="3" var="i">
@@ -159,6 +159,11 @@
 					<br>
 					<bean:message key="consultation.rights" />
 				</p>
+				<c:if test="${errorRights}">
+					<p class="errorMessage">
+						<bean:message key="consultation.errorRights" />
+					</p>
+				</c:if>
 				<table>
 					<tr>
 						<td ROWSPAN="2">
@@ -167,7 +172,7 @@
 							</div> <html:select property="groupsListLeft" styleClass="select"
 								size="5" multiple="multiple">
 
-								<c:forEach var="socialGroup" items="${noRightsGroups}">
+								<c:forEach var="socialGroup" items="${allUnderGroupsNoRights}">
 
 									<c:if test="${socialGroup.isEnabled}">
 										<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
@@ -186,7 +191,7 @@
 							</div> <html:select property="groupsListRight" styleClass="select"
 								size="5" multiple="multiple">
 
-								<c:forEach var="socialGroup" items="${rightsGroups}">
+								<c:forEach var="socialGroup" items="${allUnderGroupsRights}">
 									<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
 								</c:forEach>
 
@@ -345,7 +350,7 @@
 				}
 			}
 		else {
-			alert("Aucun membre sélectionnée");
+			alert("Aucun élément sélectionné");
 		}
 	}
 </script>
