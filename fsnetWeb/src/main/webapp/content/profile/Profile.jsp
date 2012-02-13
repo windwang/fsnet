@@ -144,6 +144,7 @@
             <td>
                 <html:select property="sexe" styleId="sexe">
                 	<html:option value=""/>
+                	
                     <html:option value="male">
                     	<bean:message key="updateProfile.sexe.male"/>
                     </html:option>
@@ -230,9 +231,10 @@
     $(function() {
         $.datepicker.setDefaults($.extend(
         {
-            yearRange: '-100:+1',
+        	yearRange : '-100:+100',
+        	minDate:"-100Y+1D",
+        	maxDate:0,
             changeYear: true,
-            maxDate: 0,
             dateFormat: 'dd/mm/yy',
             showOn: 'button',
             buttonImage: 'images/calendar.gif',
