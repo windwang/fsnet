@@ -27,7 +27,7 @@
 }
 
 #userPicture {
-    margin: 15px 0 2px 50px;
+    margin: 15px 0 2px 17px;
     float: left;
 }
 
@@ -581,7 +581,6 @@ tr.notReed {
 }
 
 #logo2 {
-    margin-left: -30px;
     text-align: center;
 }
 
