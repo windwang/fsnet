@@ -50,7 +50,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="parentId"> <bean:message
+			<td><label > <bean:message
 						key="groups.parent" /> : </label></td>
 			<c:choose>
 				<c:when test="${ master2 == false}">
@@ -98,7 +98,7 @@
 
 
 		<tr>
-			<td><label for="sexe"> <bean:message key="members.sexe" />
+			<td><label> <bean:message key="members.sexe" />
 					: </label></td>
 			<td><html:select property="sexe">
 					<html:option value="male">
@@ -119,7 +119,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="phone"> <bean:message
+			<td><label > <bean:message
 						key="members.phone" /> :</label></td>
 			<td><html:text errorStyleClass="error" property="phone" /></td>
 		</tr>

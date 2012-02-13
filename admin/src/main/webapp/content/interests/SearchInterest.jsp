@@ -15,10 +15,10 @@
 <html:javascript formName="/SearchInterest"/>
 <html:form action="/SearchInterest">
  		<div class="errorMessage"><html:errors property="searchInterestName"/></div>
-    	<html:text property="searchInterestName"/>
+    	<p><html:text property="searchInterestName"/>
       <html:submit styleClass="button" >
       	<bean:message key="interest.validate"/>
-      </html:submit>
+      </html:submit></p>
 </html:form>
 
 <logic:present name="interestSearchPaginator" scope="request">
