@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
 <%@ taglib prefix="ili" uri="../ili.tld"%>
@@ -109,7 +110,9 @@
 						<tr>
 							<td colspan="2"><a onclick="showResetPasswordForm();"> <bean:message
 										key="login.2" />
-							</a> <input type="submit" /></td>
+							</a> <html:submit>
+									<bean:message key="login.submit" />
+								</html:submit></td>
 						</tr>
 					</table>
 				</form>
@@ -122,7 +125,9 @@
 							<td><input name="memberMail2" type="text" id="memberMail2" />
 								<ili:placeHolder id="memberMail2" value="${logMessage}" /> <ili:changeAttribute
 									id="memberMail2" property="type" value="email" /></td>
-							<td><input type="submit" /></td>
+							<td><html:submit>
+									<bean:message key="login.submit" />
+								</html:submit></td>
 						</tr>
 						<tr>
 							<td colspan="3"><a onclick="showLoginForm();"> <bean:message
