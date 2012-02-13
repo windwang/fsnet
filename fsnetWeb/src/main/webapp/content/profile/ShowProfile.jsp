@@ -216,8 +216,7 @@
 								</c:when>
 							</c:choose></td>
 						<td><bean:write name="inter" property="lastModified"
-								format="dd/MM/yyyy" /> <bean:write name="inter" property="lastModified"
-								format="dd/MM/yyyy" /></td>
+								format="dd/MM/yyyy" /> </td>
 					</tr>
 				</c:forEach>
 			</tbody>
