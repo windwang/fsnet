@@ -46,7 +46,7 @@
 <div id="divChooseMultipleFileMember">
 <jsp:include page="/content/members/CreateMultipleMemberWithFile.jsp"/>
 </div>
-<script>
+<script type="text/javascript">
 	function changeSimpleOrMultiple()
 	{
 		if(document.getElementsByName("chooseSimpleOrMultiple")[0].checked)

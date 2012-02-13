@@ -42,7 +42,7 @@
 	</tr>
 
 	<tr>
-		<td><label for="parentId"> <bean:message
+		<td><label > <bean:message
 			key="groups.parent" /> : </label></td>
 		<td colspan="3"><html:select property="parentId"
 			styleClass="select" value="${ parentGroup.id }"
@@ -57,7 +57,7 @@
 	</tr>
 
 	<tr>
-		<td><label for="socialEntityId"> <bean:message
+		<td><label> <bean:message
 			key="groups.owner" /> : </label></td>
 		<td colspan="3"><html:select property="socialEntityId"
 			styleClass="select" value="${ masterGroup.id }">
@@ -75,7 +75,7 @@
 	</tr>
 
 	<tr>
-		<td ROWSPAN="2"><label for="members"> <bean:message
+		<td ROWSPAN="2"><label > <bean:message
 			key="groups.members" /> </label></td>
 
 		<td ROWSPAN="2">
@@ -113,7 +113,7 @@
 
 
 	<tr>
-		<td ROWSPAN="2"><label for="groups"> <bean:message
+		<td ROWSPAN="2"><label > <bean:message
 			key="groups.groups" /> </label></td>
 
 		<td ROWSPAN="2">
@@ -151,7 +151,7 @@
 		</html:button></td>
 	</tr>
 	<tr>
-		<td ROWSPAN="2"><label for="groups"> <bean:message
+		<td ROWSPAN="2"><label > <bean:message
 			key="groups.right" /> </label></td>
 
 		<td ROWSPAN="2">

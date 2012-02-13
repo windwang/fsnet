@@ -12,10 +12,17 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * @author francois
+ *
+ */
 public class FSNetMailer {
 
 	private static final FSNetMailer instance;
 
+	/**
+	 * @return a instance of FSNetMailer
+	 */
 	public static final FSNetMailer getInstance() {
 		return instance;
 	}
@@ -24,6 +31,9 @@ public class FSNetMailer {
 		instance = new FSNetMailer();
 	}
 
+	/**
+	 * @param mail
+	 */
 	public void sendMail(Mail mail) { 
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		Properties properties = conf.getFSNetConfiguration();
@@ -47,6 +57,9 @@ public class FSNetMailer {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public Mail createMail() {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		Properties properties = conf.getFSNetConfiguration();
