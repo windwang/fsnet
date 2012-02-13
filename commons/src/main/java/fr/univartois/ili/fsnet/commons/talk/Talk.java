@@ -18,6 +18,7 @@ import fr.univartois.ili.fsnet.commons.utils.TalkException;
 
 /**
  * @see {@link ITalk}
+ * 
  * @author habib
  * 
  */
@@ -28,20 +29,38 @@ public class Talk implements ITalk {
 	ConnectionConfiguration config = null;
 	AccountManager accountManager = null;
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.univartois.ili.fsnet.commons.talk.ITalk#getConnection()
+	 */
 	@Override
 	public XMPPConnection getConnection() {
 		return connection;
 	}
 
+	/**
+	 * @param connection
+	 */
 	public void setConnection(XMPPConnection connection) {
 		this.connection = connection;
 
 	}
 
+	/**
+	 * 
+	 */
 	public Talk() {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.commons.talk.ITalk#createAccount(java.lang.String
+	 * , java.lang.String, java.util.Map)
+	 */
 	@Override
 	public boolean createAccount(String userName, String password,
 			Map<String, String> map) {
@@ -80,6 +99,12 @@ public class Talk implements ITalk {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.commons.talk.ITalk#sendPresence(java.lang.String)
+	 */
 	@Override
 	public void sendPresence(String status) {
 
@@ -94,6 +119,12 @@ public class Talk implements ITalk {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.commons.talk.ITalk#subscribe(java.lang.String)
+	 */
 	@Override
 	public void subscribe(String user) {
 
@@ -108,6 +139,12 @@ public class Talk implements ITalk {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.commons.talk.ITalk#unSubscribe(java.lang.String)
+	 */
 	@Override
 	public void unSubscribe(String user) {
 
@@ -122,6 +159,13 @@ public class Talk implements ITalk {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.commons.talk.ITalk#initConnexion(java.lang.String
+	 * , int, java.lang.String, java.lang.String, java.util.Map)
+	 */
 	@Override
 	public void initConnexion(String XMPPServer, int port, String login,
 			String pssword, Map<String, String> map) throws TalkException {
@@ -165,6 +209,11 @@ public class Talk implements ITalk {
 
 	}
 
+	/**
+	 * @param XMPPServer
+	 * @param port
+	 * @throws TalkException
+	 */
 	private void connexion(String XMPPServer, int port) throws TalkException {
 		config = new ConnectionConfiguration(XMPPServer, port);
 
@@ -180,6 +229,11 @@ public class Talk implements ITalk {
 		}
 	}
 
+	/**
+	 * @param login
+	 * @param pssword
+	 * @throws TalkException
+	 */
 	private void login(String login, String pssword) throws TalkException {
 
 		try {
@@ -191,12 +245,24 @@ public class Talk implements ITalk {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see fr.univartois.ili.fsnet.commons.talk.ITalk#stop()
+	 */
 	@Override
 	public void stop() throws TalkException {
 
 		connection.disconnect();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.commons.talk.ITalk#sendMessage(java.lang.String,
+	 * java.lang.String, org.jivesoftware.smack.Chat)
+	 */
 	@Override
 	public void sendMessage(String msg, String friendPseudo, Chat chat)
 			throws TalkException {
@@ -212,6 +278,13 @@ public class Talk implements ITalk {
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.commons.talk.ITalk#createConversation(java.lang
+	 * .String)
+	 */
 	@Override
 	public Chat createConversation(String pseudoFriend) throws TalkException {
 		System.out.println("create Conversation with" + pseudoFriend);

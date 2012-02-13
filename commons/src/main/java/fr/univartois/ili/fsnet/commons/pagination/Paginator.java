@@ -5,6 +5,11 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+/**
+ * @author FSNet
+ * 
+ * @param <T>
+ */
 public class Paginator<T> {
 
 	/**
@@ -111,15 +116,14 @@ public class Paginator<T> {
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
 	public Paginator(List<T> results, HttpServletRequest request,
-			String identifier)
-			throws IllegalArgumentException {
+			String identifier) throws IllegalArgumentException {
 		this.allResults = results;
 		this.identifier = identifier;
 		this.requestInputName = DEFAULT_REQUEST_INPUT_NAME;
 		parseRequest(request);
 		init();
 	}
-	
+
 	/**
 	 * This constructor allow developper to set the number of results, AND this
 	 * parameter is higher priority to HTTP parameter
@@ -157,7 +161,8 @@ public class Paginator<T> {
 	 *            the number of results per page
 	 * @param identifier
 	 *            the tile identifier
-	 * @param requestInputName the requestInput name
+	 * @param requestInputName
+	 *            the requestInput name
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
 	 */
@@ -170,7 +175,7 @@ public class Paginator<T> {
 		this.numResultsPerPage = numResultsPerPage;
 		init();
 	}
-	
+
 	/**
 	 * Default constructor that allow user to set the number of result by
 	 * including the proper parameter in his request
@@ -179,7 +184,8 @@ public class Paginator<T> {
 	 * @param request
 	 * @param identifier
 	 *            the tile identifier
-	 * @param requestInputName the requestInput name
+	 * @param requestInputName
+	 *            the requestInput name
 	 * @throws IllegalArgumentException
 	 * 
 	 * @author Alexandre Lohez <alexandre.lohez at gmail.com>
@@ -320,7 +326,7 @@ public class Paginator<T> {
 	}
 
 	/**
-	 *@return true if there is a previous page following input datas
+	 * @return true if there is a previous page following input datas
 	 */
 	public boolean getHasPreviousPage() {
 		return hasPreviousPage;

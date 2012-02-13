@@ -5,10 +5,18 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Date;
 import java.util.Random;
 
+/**
+ * @author FSNet
+ *
+ */
 public class Encryption {
 
     private static final Random random = new Random(new Date().getTime());
 
+    /**
+     * @param key
+     * @return
+     */
     public static String getEncodedPassword(final String key) {
         byte[] uniqueKey;
         uniqueKey = key.getBytes();
@@ -33,6 +41,11 @@ public class Encryption {
         return hashString.toString();
     }
 
+    /**
+     * @param clearTextTestPassword
+     * @param encodedActualPassword
+     * @return
+     */
     public static boolean testPassword(final String clearTextTestPassword,
             final String encodedActualPassword) {
         String encodedTestPassword;
@@ -40,6 +53,9 @@ public class Encryption {
         return encodedTestPassword.equals(encodedActualPassword);
     }
 
+    /**
+     * @return
+     */
     public static String generateRandomPassword() {
         StringBuilder password = new StringBuilder();
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
