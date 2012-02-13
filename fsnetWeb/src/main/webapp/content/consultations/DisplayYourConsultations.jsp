@@ -52,7 +52,6 @@
 							action="/DeleteAConsultation" method="post"
 							styleId="${consultation.id}" styleClass="cursorPointer">
 							<html:hidden property="id" value="${consultation.id}" />
-
 							<span class="button"> <bean:message
 									key="consultation.delete" />
 							</span>

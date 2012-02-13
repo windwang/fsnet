@@ -30,6 +30,30 @@
 		</attribute>
 	</tag>
 	<tag>
+		<description>Display the entity firstname</description>
+		<display-name>noxml</display-name>
+		<name>getSocialEntityInfosFirstname</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.GetSocialEntityInfosFirstnameTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>socialEntity</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<description>Display the entity name</description>
+		<display-name>noxml</display-name>
+		<name>getSocialEntityInfosName</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.GetSocialEntityInfosNameTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>socialEntity</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
 		<description>Display the group name</description>
 		<display-name>noxml</display-name>
 		<name>getSocialGroupInfos</name>
@@ -152,7 +176,7 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
-		<tag>
+	<tag>
 		<description>Add placeholder attribute</description>
 		<name>placeHolder</name>
 		<tag-class>fr.univartois.ili.fsnet.tags.PlaceHolderTag</tag-class>

@@ -51,12 +51,14 @@
 					function pagination() {
 						var nomTable = "eventsTable";
 						var idColonneATrier = 2;
-						var sensDeTri = "asc";
+						var sensDeTri = "desc";
 						var aoColumns = [ {
 							"bSortable" : false
-						}, null, null, {
-							"sType" : "date-euro"
+						}, null, {
+							"sType" : "date"
 						}, {
+							"bSortable" : false
+						}, null, null, {
 							"bSortable" : false
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -70,6 +72,8 @@
 					<th><bean:message key="tableheader.name" /></th>
 					<th><bean:message key="tableheader.willoccur" /></th>
 					<th><bean:message key="tableheader.by" /></th>
+					<th><bean:message key="tableheader.firstname" /></th>
+					<th><bean:message key="tableheader.name" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -87,7 +91,11 @@
 							</html:link></td>
 						<td class="left"><bean:write name="event"
 								property="startDate" format="dd/MM/yyyy" /></td>
-						<td><ili:getSocialEntityInfos socialEntity="${event.creator}" /></td>
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
+								socialEntity="${event.creator}" /></td>
+						<td><ili:getSocialEntityInfosName
+								socialEntity="${event.creator}" /></td>
 						<td class="tableButton"><ili:substring beginIndex="0"
 								endIndex="30">
 								<ili:noxml>${event.content}</ili:noxml>
