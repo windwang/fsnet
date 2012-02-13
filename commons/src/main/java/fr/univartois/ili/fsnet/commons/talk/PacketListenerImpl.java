@@ -18,11 +18,21 @@ public class PacketListenerImpl implements PacketListener {
 
 	Queue<String> messageQueue = new LinkedList<String>();
 
+	/**
+	 * @return a String
+	 */
 	public String getLastMessage() {
 
 		return messageQueue.poll();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * org.jivesoftware.smack.PacketListener#processPacket(org.jivesoftware.
+	 * smack.packet.Packet)
+	 */
 	@Override
 	public void processPacket(Packet packet) {
 		if (packet.getError() != null) {
@@ -36,6 +46,7 @@ public class PacketListenerImpl implements PacketListener {
 
 			}
 		}
+		
 		if (packet instanceof Message) {
 			Message message = (Message) packet;
 
@@ -45,9 +56,7 @@ public class PacketListenerImpl implements PacketListener {
 			messageQueue.add(from + ": " + body);
 
 		}
-
 		System.out.println(packet.getFrom());
-
 	}
 
 }
