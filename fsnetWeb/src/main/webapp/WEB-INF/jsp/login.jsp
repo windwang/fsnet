@@ -3,8 +3,12 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
 <%@ taglib prefix="ili" uri="../ili.tld"%>
 
-<bean:define id="logMessage"><bean:message key="login.6"/></bean:define>
-<bean:define id="passwordMessage"><bean:message key="login.7"/></bean:define>
+<bean:define id="logMessage">
+	<bean:message key="login.6" />
+</bean:define>
+<bean:define id="passwordMessage">
+	<bean:message key="login.7" />
+</bean:define>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -77,11 +81,11 @@
 									</label>
 								</div>
 							</td>
-							<td>
-							  <input type="text" name="memberMail" value="${param['memberMail'] }" id="memberMail" class="error" />
-							  <ili:changeAttribute id="memberMail" property="type" value="email" />
-                              <ili:placeHolder id="memberMail" value="${logMessage}" />							
-							</td>
+							<td><input type="text" name="memberMail"
+								value="${param['memberMail'] }" id="memberMail" class="error" />
+								<ili:changeAttribute id="memberMail" property="type"
+									value="email" /> <ili:placeHolder id="memberMail"
+									value="${logMessage}" /></td>
 						</tr>
 						<tr>
 							<td>
@@ -90,11 +94,10 @@
 									</label>
 								</div>
 							</td>
-							<td>
-							  <input type="password" id="memberPass" name="memberPass" />
-							  <ili:changeAttribute id="memberPass" property="type" value="password" />
-							  <ili:placeHolder id="memberPass" value="${passwordMessage}" />
-							</td>
+							<td><input type="password" id="memberPass" name="memberPass" />
+								<ili:changeAttribute id="memberPass" property="type"
+									value="password" /> <ili:placeHolder id="memberPass"
+									value="${passwordMessage}" /></td>
 						</tr>
 						<tr>
 							<td><label for="remember"> <bean:message
@@ -116,11 +119,9 @@
 					<table>
 						<tr>
 							<td><label for="memberMail">Email :</label></td>
-							<td>
-							  <input name="memberMail2" type="text" id="memberMail2" />
-							  <ili:placeHolder id="memberMail2" value="${logMessage}" />
-				              <ili:changeAttribute id="memberMail2" property="type" value="email" />
-							</td>
+							<td><input name="memberMail2" type="text" id="memberMail2" />
+								<ili:placeHolder id="memberMail2" value="${logMessage}" /> <ili:changeAttribute
+									id="memberMail2" property="type" value="email" /></td>
 							<td><input type="submit" /></td>
 						</tr>
 						<tr>

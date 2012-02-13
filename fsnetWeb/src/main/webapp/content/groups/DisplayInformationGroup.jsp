@@ -60,9 +60,14 @@
 			</a>
 		</c:forEach>
 
+<<<<<<< HEAD
 
 		<br />
 		<br />
+=======
+		<br/>
+		<br/>
+>>>>>>> branch 'master' of https://jimmy.constand@code.google.com/p/fsnet/
 
 		<c:if test="${ sessionScope.isMasterGroup }">
 			<h3>

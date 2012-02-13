@@ -216,9 +216,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					authenticatedUser.getSentPrivateMessages());
 			Collections.reverse(userMessages);
 	
-			Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(userMessages, request, "outboxMessages");
-			
-			request.setAttribute("outBoxMessagesPaginator", paginator);
+			request.setAttribute("outBoxMessages", userMessages);
 
 		} else {
 			servlet.log("ManagePrivateMessage.display must be not ask");

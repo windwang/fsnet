@@ -24,7 +24,6 @@ import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
-
 public class Calendar extends MappingDispatchAction {
 
 	/**
@@ -33,8 +32,8 @@ public class Calendar extends MappingDispatchAction {
 	private List<String> events;
 
 	/**
-	 * Action that create a list of all events/meetings in json format
-	 * Used for Full Calendar jquery plugin
+	 * Action that create a list of all events/meetings in json format Used for
+	 * Full Calendar jquery plugin
 	 */
 	public ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -47,20 +46,28 @@ public class Calendar extends MappingDispatchAction {
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		List<Meeting> results = meetingFacade.getAllUserMeeting(user);
-		
+
 		events = new ArrayList<String>();
 		for (Meeting m : results) {
-			String startDate = DateUtils.renderDateForFullCalendar(m.getStartDate());
-			String endDate = DateUtils.renderDateForFullCalendar(m.getEndDate());
-			events.add(m.getTitle()+","+startDate+","+endDate+","+"false"+","+m.getId()+","+m.getContent());
+			try {
+				String startDate = DateUtils.renderDateForFullCalendar(m
+						.getStartDate());
+				String endDate = DateUtils.renderDateForFullCalendar(m
+						.getEndDate());
+				events.add(m.getTitle() + "," + startDate + "," + endDate + ","
+						+ "false" + "," + m.getId() + "," + m.getContent());
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 
 		JSONArray jsonArray = JSONArray.fromObject(events);
 		JSONObject obj = new JSONObject();
 		obj.put("events", jsonArray);
 
-		response.setHeader("X-JSON", obj.toString());
+		response.setHeader("fsnet-json-events", obj.toString());
 		response.setContentType("text/html");
+		em.close();
 
 		return mapping.findForward("success");
 

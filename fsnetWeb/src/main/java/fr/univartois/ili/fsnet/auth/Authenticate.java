@@ -17,6 +17,7 @@ import fr.univartois.ili.fsnet.actions.ManageConsultations;
 import fr.univartois.ili.fsnet.actions.ManageContacts;
 import fr.univartois.ili.fsnet.actions.ManageEvents;
 import fr.univartois.ili.fsnet.actions.ManagePrivateMessages;
+import fr.univartois.ili.fsnet.actions.ManageVisits;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -117,8 +118,18 @@ public class Authenticate extends HttpServlet {
 				authenticated = true;
 				req.getSession(true).setAttribute(AUTHENTICATED_USER,
 						es.getId());
+
+				SocialEntity user = em.find(SocialEntity.class, es.getId());
+				if(user.getLastConnection() != null){
+					//Last connection in session before a new session
+					req.getSession(true).setAttribute("LastConnection",user.getLastConnection());
+				}else{
+					req.getSession(true).setAttribute("LastConnection",new Date());
+				}
+				user.setLastConnection(new Date());
 				ManagePrivateMessages.refreshNumNewMessages(req, em);
 				ManageContacts.refreshNumNewContacts(req, em);
+				ManageVisits.refreshNumNewVisits(req, em);
 				ManageAnnounces.refreshNumNewAnnonces(req, em);
 				ManageEvents.refreshNumNewEvents(req, em);
 				ManageConsultations.refreshNumNewConsultations(req, em);
@@ -142,18 +153,10 @@ public class Authenticate extends HttpServlet {
 			} else {
 				resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
 			}
-			em.getTransaction().begin();
+			
 			SocialEntity user;
 			user = em.find(SocialEntity.class, es.getId());
-			if(user.getLastConnection() != null){
-				//Last connection in session before a new session
-				session.setAttribute("LastConnection",user.getLastConnection());
-			}else{
-				session.setAttribute("LastConnection",new Date());
-			}
-			user.setLastConnection(new Date());
-			em.merge(user);
-			em.getTransaction().commit();
+			
 
 			String userName = user.getFirstName() + " " + user.getName();
 			LoggedUsersContainer.getInstance().addUser(user.getId(), userName);

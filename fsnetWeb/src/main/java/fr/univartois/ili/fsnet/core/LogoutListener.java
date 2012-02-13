@@ -4,6 +4,7 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
 import fr.univartois.ili.fsnet.auth.Authenticate;
+import fr.univartois.ili.fsnet.auth.Logout;
 
 /**
  * This class listen the HttpSession in order to notify to LoggedUsersContainers
@@ -26,7 +27,9 @@ public class LogoutListener implements HttpSessionListener {
 	public void sessionDestroyed(HttpSessionEvent se) {
 		Integer userId = (Integer) se.getSession().getAttribute(
 				Authenticate.AUTHENTICATED_USER);
+		Logout.updateUser(se.getSession());
 		LoggedUsersContainer.getInstance().removeUser(userId);
+		
 	}
 
 }

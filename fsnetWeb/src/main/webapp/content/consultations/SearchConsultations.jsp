@@ -4,7 +4,7 @@
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <bean:define id="searchMessage"><bean:message key="consultation.search"/></bean:define>
 
-<h3><bean:message key="consultation.search"/></h3>
+<h3><bean:message key="consultation.searchConsultation"/></h3>
 <table  class="inLineTable"><tr><td>
 <html:form action="SearchConsultation" method="GET">
     <div id="SearchCommunity">

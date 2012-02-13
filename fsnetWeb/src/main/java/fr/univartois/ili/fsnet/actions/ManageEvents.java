@@ -47,17 +47,17 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class ManageEvents extends MappingDispatchAction implements CrudAction {
-	
+
 	private Date validateDate(String eventDate, HttpServletRequest request,
 			String propertyKey) {
-		
+
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 				calendar.get(Calendar.DAY_OF_MONTH), 0, 0, -1);
 		Date today = calendar.getTime();
-		
+
 		Date typedEventDate;
-		
+
 		try {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
@@ -66,10 +66,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 			return null;
 		}
-		
+
 		if (typedEventDate.before(today)) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("date.error.dateBeforeToday")));
+			errors.add(propertyKey, new ActionMessage(
+					("date.error.dateBeforeToday")));
 			saveErrors(request, errors);
 			return null;
 		}
@@ -84,12 +85,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		if(!fascade.isAuthorized(member, Right.ADD_ANNOUNCE))
-		{
+		if (!fascade.isAuthorized(member, Right.ADD_ANNOUNCE)) {
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
-		
+
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventName = (String) dynaForm.get("eventName");
 		String eventDescription = (String) dynaForm.get("eventDescription");
@@ -132,8 +132,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		ifacade.addInterests(event, interests);
 		em.getTransaction().commit();
 		em.close();
-		ActionRedirect redirect = new ActionRedirect(mapping
-				.findForward("success"));
+		ActionRedirect redirect = new ActionRedirect(
+				mapping.findForward("success"));
 		redirect.addParameter("eventId", event.getId());
 		return redirect;
 	}
@@ -143,8 +143,56 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
-		// TODO : edit event
-		
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+			
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			String eventId = (String) dynaForm.get("eventId");
+
+			String eventName = (String) dynaForm.get("eventName");
+			String eventDescription = (String) dynaForm.get("eventDescription");
+			String eventBeginDate = (String) dynaForm.get("eventBeginDate");
+			String eventEndDate = (String) dynaForm.get("eventEndDate");
+			String adress = (String) dynaForm.get("eventAddress");
+			String city = (String) dynaForm.get("eventCity");
+			Date typedEventBeginDate = validateDate(eventBeginDate, request,
+					"eventBeginDate");
+			Date typedEventEndDate = validateDate(eventEndDate, request,
+					"eventEndDate");
+
+			if (typedEventBeginDate == null || typedEventEndDate == null) {
+				return mapping.getInputForward();
+			}
+			if (typedEventBeginDate.after(typedEventEndDate)) {
+				ActionErrors errors = new ActionErrors();
+				errors.add("eventBeginDate", new ActionMessage(("events.21")));
+				errors.add("eventEndDate", new ActionMessage(("events.21")));
+				saveErrors(request, errors);
+				return mapping.getInputForward();
+			}
+			
+			MeetingFacade meetingFacade = new MeetingFacade(em);
+			Meeting meeting = meetingFacade.getMeeting(Integer
+					.parseInt(eventId));
+
+			meeting.setContent(eventDescription);
+			meeting.setTitle(eventName);
+			meeting.setStartDate(typedEventBeginDate);
+			meeting.setEndDate(typedEventEndDate);
+
+			if (meeting.getAddress() != null) {
+				meeting.getAddress().setAddress(adress);
+				meeting.getAddress().setCity(city);
+			}
+
+			em.merge(meeting);
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return mapping.findForward("success");
 	}
 
@@ -193,27 +241,27 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		addRightToRequest(request);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		if(!fascade.isAuthorized(member, Right.REGISTER_EVENT))
-		{
+		if (!fascade.isAuthorized(member, Right.REGISTER_EVENT)) {
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventId = (String) dynaForm.get("eventId");
-		try{
+		try {
 			em.getTransaction().begin();
 			MeetingFacade meetingFacade = new MeetingFacade(em);
-			Meeting meeting = meetingFacade.getMeeting(Integer.parseInt(eventId));
+			Meeting meeting = meetingFacade.getMeeting(Integer
+					.parseInt(eventId));
 			InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
 					em);
 			interactionRoleFacade.subscribe(member, meeting);
 			em.getTransaction().commit();
-		}catch(RollbackException e){
+		} catch (RollbackException e) {
 			e.printStackTrace();
 		}
 		em.close();
-		ActionRedirect redirect = new ActionRedirect(mapping
-				.findForward("success"));
+		ActionRedirect redirect = new ActionRedirect(
+				mapping.findForward("success"));
 		redirect.addParameter("eventId", dynaForm.get("eventId"));
 		return redirect;
 	}
@@ -232,8 +280,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		addRightToRequest(request);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		if(!fascade.isAuthorized(member, Right.REGISTER_EVENT))
-		{
+		if (!fascade.isAuthorized(member, Right.REGISTER_EVENT)) {
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
@@ -247,8 +294,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		interactionRoleFacade.unsubscribe(member, meeting);
 		em.getTransaction().commit();
 		em.close();
-		ActionRedirect redirect = new ActionRedirect(mapping
-				.findForward("success"));
+		ActionRedirect redirect = new ActionRedirect(
+				mapping.findForward("success"));
 		redirect.addParameter("eventId", dynaForm.get("eventId"));
 		return redirect;
 	}
@@ -262,29 +309,29 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
-				
+
 		em.getTransaction().begin();
-		
+
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		List<Meeting> results = meetingFacade.searchMeeting(searchString);
-		
-		if(results !=null && !results.isEmpty()) {
-			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(em);
+
+		if (results != null && !results.isEmpty()) {
+			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(
+					em);
 			SocialEntity se = UserUtils.getAuthenticatedUser(request);
 			results = filter.filterInteraction(se, results);
 		}
-		
+
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
-		List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
+		List<Integer> unreadInteractionsId = interactionFacade
+				.getUnreadInteractionsIdForSocialEntity(member);
 		refreshNumNewEvents(request, em);
-		
+
 		em.getTransaction().commit();
 		em.close();
-		
-		Paginator<Meeting> paginator = new Paginator<Meeting>(results, request, "eventsLists");
-		
-		request.setAttribute("eventsListPaginator", paginator);
+
+		request.setAttribute("eventsList", results);
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 		return mapping.findForward("success");
 	}
@@ -293,7 +340,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		
+
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventId = (String) dynaForm.get("eventId");
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -304,41 +351,42 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("member", member);
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
-		try{
-		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
-		member.addInteractionRead(event);
-		
-		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
-				em);
-		boolean isSubscriber = interactionRoleFacade.isSubsriber(member, event);
-		Set<SocialEntity> subscribers = interactionRoleFacade
-				.getSubscribers(event);
+		try {
+			Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
+			member.addInteractionRead(event);
 
-		refreshNumNewEvents(request, em);
-		em.getTransaction().commit();
+			InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
+					em);
+			boolean isSubscriber = interactionRoleFacade.isSubsriber(member,
+					event);
+			Set<SocialEntity> subscribers = interactionRoleFacade
+					.getSubscribers(event);
 
-		em.close();
-		
-		// TODO find a solution to paginate a Set
-		
-		request.setAttribute("subscribers", subscribers);
-		request.setAttribute("subscriber", isSubscriber);
-		request.setAttribute("event", event);
-		}catch(NumberFormatException e){
+			refreshNumNewEvents(request, em);
+			em.getTransaction().commit();
+
+			em.close();
+
+			// TODO find a solution to paginate a Set
+
+			request.setAttribute("subscribers", subscribers);
+			request.setAttribute("subscriber", isSubscriber);
+			request.setAttribute("event", event);
+		} catch (NumberFormatException e) {
 		}
 		return mapping.findForward("success");
 
 	}
-	
-	private void addRightToRequest(HttpServletRequest request){
+
+	private void addRightToRequest(HttpServletRequest request) {
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		Right rightAddEvent = Right.ADD_EVENT;
 		Right rightRegisterEvent = Right.REGISTER_EVENT;
 		request.setAttribute("rightAddEvent", rightAddEvent);
-		request.setAttribute("rightRegisterEvent",rightRegisterEvent);
-		request.setAttribute("socialEntity",socialEntity);
+		request.setAttribute("rightRegisterEvent", rightRegisterEvent);
+		request.setAttribute("socialEntity", socialEntity);
 	}
-	
+
 	/**
 	 * Store the number of non reed events
 	 * 
@@ -350,15 +398,14 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		HttpSession session = request.getSession();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade inf = new InteractionFacade(em);
-		List<Interaction> list = inf .getUnreadInteractionsForSocialEntity(user);
-		int numNonReedEvents =Interaction.filter(list, Meeting.class).size();
-		session.setAttribute("numNonReedEvents",
-				numNonReedEvents);
+		List<Interaction> list = inf.getUnreadInteractionsForSocialEntity(user);
+		int numNonReedEvents = Interaction.filter(list, Meeting.class).size();
+		session.setAttribute("numNonReedEvents", numNonReedEvents);
 	}
-	
+
 	/**
-	 * @author stephane gronowski
-	 * Access to the jsp to create an {@link Meeting}.
+	 * @author stephane gronowski Access to the jsp to create an {@link Meeting}
+	 *         .
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -367,27 +414,24 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward displayCreateEvent(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public ActionForward displayCreateEvent(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
-		if(!fascade.isAuthorized(user, Right.ADD_EVENT))
-		{
+		if (!fascade.isAuthorized(user, Right.ADD_EVENT)) {
 			entityManager.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 		entityManager.close();
-		
+
 		return new ActionRedirect(mapping.findForward("success"));
 	}
 
-	
 	/**
-	 * @author lahoucine aitelhaj
-	 * Access to the jsp to edit a {@link Meeting}.
+	 * @author lahoucine aitelhaj Access to the jsp to edit a {@link Meeting}.
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -396,13 +440,38 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward displayUpdateEvent(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		
+	public ActionForward displayToModify(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+
 		// TODO check for right to update an event
-		
+
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		String eventId = (String) dynaForm.get("eventId");
+		EntityManager em = PersistenceProvider.createEntityManager();
+
+		MeetingFacade meetingFacade = new MeetingFacade(em);
+		try {
+			em.getTransaction().begin();
+			Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
+
+			dynaForm.set("eventName", event.getTitle());
+			dynaForm.set("eventDescription", event.getContent());
+			if (event.getAddress() != null) {
+				dynaForm.set("eventAddress", event.getAddress().getAddress());
+				dynaForm.set("eventCity", event.getAddress().getCity());
+			}
+
+			dynaForm.set("eventBeginDate",
+					DateUtils.renderDateWithHours(event.getStartDate()));
+			dynaForm.set("eventEndDate",
+					DateUtils.renderDateWithHours(event.getEndDate()));
+			em.close();
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		}
+
 		return new ActionRedirect(mapping.findForward("success"));
 	}
-	
+
 }

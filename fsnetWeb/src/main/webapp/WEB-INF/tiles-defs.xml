@@ -48,6 +48,13 @@
 		<put name="body-content" value="/content/events/DisplayEvent.jsp" />
 		<put name="left" value="/content/events/leftMenu.jsp" />
 	</definition>
+	
+	<definition name="UpdateEvent" extends=".defaultLayout">
+		<put name="title" value="pageTitle.updateEvent" />
+		<put name="body-content" value="/content/events/UpdateEvent.jsp" />
+		<put name="currentMenu" value="Events" />
+		<put name="left" value="/content/events/leftMenu.jsp" />
+	</definition>
 
 	<!-- Calendar -->
 	<definition name="Calendar" extends=".defaultLayout">
@@ -385,5 +392,3 @@
 		<put name="content" value="/content/consultations/autocompleteOtherChoice.jsp" />
 	</definition>
 </tiles-definitions>
-
-
