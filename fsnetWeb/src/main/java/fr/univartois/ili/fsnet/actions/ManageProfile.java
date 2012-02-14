@@ -380,10 +380,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				sendPictureError(request, "updateProfile.error.photo.type");
 			}
 		}
-			else {
-		
-			ImageManager.removeOldUserPicture(userId);
-			}
 		return mapping.findForward("success");
 	}
 
