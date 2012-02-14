@@ -19,7 +19,6 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
