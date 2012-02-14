@@ -8,6 +8,10 @@ import javax.persistence.EntityManager;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Property;
 
+/**
+ * @author FSNet
+ * 
+ */
 public class FSNetConfiguration {
 
 	public static final String MAIL_FROM_KEY = "fsnet.mail.from";
@@ -29,6 +33,9 @@ public class FSNetConfiguration {
 
 	private static final FSNetConfiguration instance;
 
+	/**
+	 * @return a instance of FSNetConfiguration
+	 */
 	public static final FSNetConfiguration getInstance() {
 		return instance;
 	}
@@ -39,14 +46,23 @@ public class FSNetConfiguration {
 		instance = new FSNetConfiguration();
 	}
 
+	/**
+	 * Constructor
+	 */
 	private FSNetConfiguration() {
 		refreshConfiguration();
 	}
 
+	/**
+	 * @return
+	 */
 	public Properties getFSNetConfiguration() {
 		return properties;
 	}
 
+	/**
+	 * Refresh Configuration
+	 */
 	public final void refreshConfiguration() {
 		properties.clear();
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -110,14 +126,23 @@ public class FSNetConfiguration {
 		em.close();
 	}
 
+	/**
+	 * @return a boolean
+	 */
 	public boolean isSSLEnabled() {
 		return SSL_ENABLED_VALUE.equals(properties.getProperty(SSL_KEY));
 	}
 
+	/**
+	 * @return a boolean
+	 */
 	public boolean isTLSEnabled() {
 		return "true".equalsIgnoreCase(properties.getProperty(ENABLE_TLS_KEY));
 	}
 
+	/**
+	 * @return a boolean
+	 */
 	public boolean isAuthenticationEnabled() {
 		return "true".equalsIgnoreCase(properties
 				.getProperty(ENABLE_AUTHENTICATION_KEY));
@@ -135,6 +160,9 @@ public class FSNetConfiguration {
 		return folder.mkdirs() || folder.isDirectory();
 	}
 
+	/**
+	 * @return a String
+	 */
 	private String buildDefaultNameOfPicturesDirectory() {
 		String path = System.getProperty(USER_HOME) + File.separator
 				+ FSNET_DIRECTORY + File.separator + PICTURES_DIRECTORY;

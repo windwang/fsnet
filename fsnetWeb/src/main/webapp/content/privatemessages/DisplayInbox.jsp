@@ -18,7 +18,11 @@
 </h3>
 <c:choose>
 	<c:when test="${empty requestScope.inBoxMessages}">
-		<bean:message key="privatemessages.nomessages" />
+		<table class="inLineTable">
+			<tr>
+				<td><bean:message key="privatemessages.nomessages" /></td>
+			</tr>
+		</table>
 	</c:when>
 	<c:otherwise>
 		<script type="text/javascript">
@@ -38,7 +42,7 @@
 								aoColumns, true);
 					});
 		</script>
-		
+
 		<html:form action="/DeleteMultiMessages">
 			<table id="tableinbox" class="tablesorter inLineTable">
 				<thead>

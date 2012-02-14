@@ -68,6 +68,12 @@ public class ListGroups extends HttpServlet {
 		out.close();
 	}
 
+	/**
+	 * @param sgf
+	 * @param socialGroup
+	 * @param parentGroup
+	 * @return
+	 */
 	private List<SocialGroup> getRefusedSocialGroup(SocialGroupFacade sgf,
 			SocialGroup socialGroup, SocialGroup parentGroup) {
 		if (sgf == null) {
