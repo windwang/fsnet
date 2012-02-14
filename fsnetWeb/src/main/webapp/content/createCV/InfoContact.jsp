@@ -67,8 +67,14 @@
 							</div>
 						</logic:messagesPresent></td>
 				</tr>
-				</td>
-				</tr>
+				<tr>
+			<td><label for="sexe"> <bean:message key="members.sexe" />
+			: </label></td>
+			<td><select name="sexe">
+				<option value="male"><bean:message key="members.sexe.Male" /></option>
+				<option value="female"><bean:message key="members.sexe.Female" /></option>					
+			</select></td>
+		</tr>
 				<tr>
 					<td><label for="CvAdresse"> <bean:message key="cv.3" />
 							:
@@ -133,8 +139,8 @@
 							:
 					</label></td>
 					<td><bean:message key="cv.celeb" /><input type="radio"
-						name="situation" value="celebataire" /> <bean:message key="cv.mar" /><input
-						type="radio" name="situation" value="marié" /></td>
+						name="situation" value="<bean:message key="cv.celeb" />" /> <bean:message key="cv.mar" /><input
+						type="radio" name="situation" value=" <bean:message key="cv.mar" />" /></td>
 				</tr>
 				<tr>
 					<td><label for="CvContact"> <bean:message key="cv.9" />
