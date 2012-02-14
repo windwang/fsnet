@@ -38,6 +38,11 @@ import javax.persistence.Transient;
 public abstract class Interaction implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The identifier.
 	 */
 
@@ -85,14 +90,16 @@ public abstract class Interaction implements Serializable {
 	@Transient
 	private int numFollowers = 0;
 
+	@OneToMany(mappedBy = "interaction", cascade = CascadeType.ALL)
+	@OrderBy(value = "id")
+	private List<InteractionGroups> interactionGroups;
+
 	/**
 	 * Constructor of the class Interaction.
 	 */
 	public Interaction() {
 	}
 
-	// TODO voir rapport d'activite
-	// TODO !!! private
 	public Interaction(SocialEntity creator, String title) {
 		if (creator == null || title == null) {
 			throw new IllegalArgumentException();
@@ -107,6 +114,33 @@ public abstract class Interaction implements Serializable {
 		this.followingEntitys = new HashSet<SocialEntity>();
 		this.readers = new ArrayList<SocialEntity>();
 		// this.report = rapport;
+	}
+	
+	// TODO voir rapport d'activite
+	// TODO !!! private
+	public Interaction(SocialEntity creator, String title,
+			String[] groupsRigthsAccepted) {
+		if (creator == null || title == null) {
+			throw new IllegalArgumentException();
+		}
+		Date date = new Date();
+		this.title = title;
+		this.creationDate = date;
+		this.lastModified = date;
+		this.creator = creator;
+		this.interests = new ArrayList<Interest>();
+		this.roles = new HashSet<InteractionRole>();
+		this.followingEntitys = new HashSet<SocialEntity>();
+		this.readers = new ArrayList<SocialEntity>();
+		// this.report = rapport;
+		getListGroupsRightsAccepted(groupsRigthsAccepted);
+	}
+
+	private void getListGroupsRightsAccepted(String[] groupsAccepted) {
+		this.interactionGroups = new ArrayList<InteractionGroups>();
+		for (String string : groupsAccepted) {
+			interactionGroups.add(new InteractionGroups(this, string));
+		}
 	}
 
 	/**

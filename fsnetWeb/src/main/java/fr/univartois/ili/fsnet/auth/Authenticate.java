@@ -174,13 +174,13 @@ public class Authenticate extends HttpServlet {
 			req.getSession().setAttribute("isGroupResponsible",
 					socialGroupFacade.isGroupResponsible(user));
 			req.getSession().setAttribute("currentUserId", user.getId());
+			// add under groups to select them to add rights 
+			// to participate at consultation
 			if(socialGroupFacade.isGroupResponsible(user)){
-				// add under groups to select them to add rights 
-				// to participate at consultation
 				List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
 				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
 			}else{
-				List<SocialGroup> listOfChildGroup = new ArrayList<SocialGroup>();
+				List<SocialGroup> listOfChildGroup = ((List<SocialGroup>) new ArrayList<SocialGroup>());
 				listOfChildGroup.add(user.getGroup());
 				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
 			}

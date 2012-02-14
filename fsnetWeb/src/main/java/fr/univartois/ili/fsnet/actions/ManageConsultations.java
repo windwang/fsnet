@@ -106,13 +106,12 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-		List<String> groupsRightsAccepted = (ArrayList<String>) Arrays
-				.asList(groupsRightsAccept);
+
 		Consultation consultation = consultationFacade.createConsultation(
 				member, consultationTitle, consultationDescription,
 				consultationChoices,
-				Consultation.TypeConsultation.valueOf(consultationType)/*,
-				groupsRightsAccepted*/);
+				Consultation.TypeConsultation.valueOf(consultationType),
+				groupsRightsAccept);
 
 		if (!"".equals(nbVotersPerChoiceBox)) {
 			consultation.setLimitParticipantPerChoice(true);
