@@ -20,7 +20,7 @@ public class Announcement extends Interaction {
 	/**
 	 * The date of the end's ad.
 	 */
-	@Temporal(TemporalType.DATE)
+	@Temporal(TemporalType.TIMESTAMP)
 	@Column(nullable = false)
 	private Date endDate;
 
