@@ -13,7 +13,7 @@
 </a>
 <p>
 <b>404.</b>
-<ins>That’s an error.</ins>
+<ins>That s an error.</ins>
 </p>
 <p>
 The requested URL
