@@ -45,9 +45,9 @@ public class Consultation extends Interaction {
 	@OrderBy(value = "id")
 	private List<ConsultationVote> consultationVotes;
 	
-	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
-	@OrderBy(value = "id")
-	private List<String> consultationGroups;
+//	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
+//	@OrderBy(value = "id")
+//	private List<String> consultationGroups;
 	
 	private String description;
 
@@ -354,14 +354,14 @@ public class Consultation extends Interaction {
 	public void setOpened(String opened) {
 		this.opened = opened;
 	}
-
-	public List<String> getConsultationGroups() {
-		return consultationGroups;
-	}
-
-	public void setConsultationGroups(List<String> consultationGroups) {
-		this.consultationGroups = consultationGroups;
-	}
+//
+//	public List<String> getConsultationGroups() {
+//		return consultationGroups;
+//	}
+//
+//	public void setConsultationGroups(List<String> consultationGroups) {
+//		this.consultationGroups = consultationGroups;
+//	}
 
 	@Transient
 	public boolean isOpened() {

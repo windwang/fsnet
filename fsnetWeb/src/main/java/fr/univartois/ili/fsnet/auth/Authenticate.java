@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -173,11 +174,16 @@ public class Authenticate extends HttpServlet {
 			req.getSession().setAttribute("isGroupResponsible",
 					socialGroupFacade.isGroupResponsible(user));
 			req.getSession().setAttribute("currentUserId", user.getId());
-			// add under groups to select them to add rights 
-			// to participate at consultation
-			List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
-			req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);			
-
+			if(socialGroupFacade.isGroupResponsible(user)){
+				// add under groups to select them to add rights 
+				// to participate at consultation
+				List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
+				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
+			}else{
+				List<SocialGroup> listOfChildGroup = new ArrayList<SocialGroup>();
+				listOfChildGroup.add(user.getGroup());
+				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
+			}
 		} else {
 			// the user is not authenticated
 			RequestDispatcher dispatcher = req
