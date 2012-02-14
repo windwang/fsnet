@@ -6,6 +6,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
@@ -25,23 +26,23 @@ public class Curriculum implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
 
 	@OneToOne
 	private MemberCV member;
 
-	@OneToMany
+	@OneToMany (mappedBy = "idCurriculum")
 	private List<AssociationDateFormationCV> myFormations = new ArrayList<AssociationDateFormationCV>();
 
 	@ManyToMany
 	private List<HobbiesCV> hobs = new ArrayList<HobbiesCV>();
 
-	@OneToMany
+	@OneToMany (mappedBy="curriculum")
 	private List<AssociationDateTrainingCV> trains = new ArrayList<AssociationDateTrainingCV>();
 
-	@OneToMany(mappedBy = "idCurriculum")
+	@OneToMany(mappedBy = "curriculum")
 	private List<AssociationDateDegreeCV> degs = new ArrayList<AssociationDateDegreeCV>();
 
 	public Curriculum() {

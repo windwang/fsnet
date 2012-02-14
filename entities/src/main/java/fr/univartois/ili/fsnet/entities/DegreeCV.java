@@ -6,8 +6,10 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 /*
@@ -24,14 +26,14 @@ public class DegreeCV implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
 
-	private int PostBacValue;
+	private int postBacValue;
 	private String grade;
 
-	@ManyToOne
+	@OneToMany (mappedBy="degree")
 	private List<AssociationDateDegreeCV> myCVs = new ArrayList<AssociationDateDegreeCV>();
 
 	@OneToOne
@@ -60,7 +62,7 @@ public class DegreeCV implements Serializable {
 	 * @return the postBacValue
 	 */
 	public int getPostBacValue() {
-		return PostBacValue;
+		return postBacValue;
 	}
 
 	/**
@@ -68,7 +70,7 @@ public class DegreeCV implements Serializable {
 	 *            the postBacValue to set
 	 */
 	public void setPostBacValue(int postBacValue) {
-		PostBacValue = postBacValue;
+		this.postBacValue = postBacValue;
 	}
 
 	/**

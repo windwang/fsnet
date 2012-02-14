@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /*
@@ -21,9 +22,11 @@ public class MemberCV implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
+	
+	 
 
 	private String firstName;
 	private String surname;
@@ -227,5 +230,7 @@ public class MemberCV implements Serializable {
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+
+	
 
 }

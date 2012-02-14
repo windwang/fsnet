@@ -3,11 +3,12 @@ package fr.univartois.ili.fsnet.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-
+@Entity
 public class AssociationDateTrainingCV implements Serializable {
 
 	/**
@@ -15,14 +16,14 @@ public class AssociationDateTrainingCV implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
 
 	private Date startDate;
 	private Date endDate;
 
-	@OneToMany(mappedBy = "myCVs")
+	@ManyToOne
 	private TrainingCV training;
 
 	@ManyToOne
@@ -43,7 +44,7 @@ public class AssociationDateTrainingCV implements Serializable {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 

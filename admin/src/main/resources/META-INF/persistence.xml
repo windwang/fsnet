@@ -24,6 +24,15 @@
         <class>fr.univartois.ili.fsnet.entities.ConsultationVote</class>
 	    <class>fr.univartois.ili.fsnet.entities.SocialElement</class>
     	<class>fr.univartois.ili.fsnet.entities.SocialGroup</class>
+    	<class>fr.univartois.ili.fsnet.entities.AssociationDateDegreeCV</class>
+		<class>fr.univartois.ili.fsnet.entities.AssociationDateFormationCV</class>
+		<class>fr.univartois.ili.fsnet.entities.AssociationDateTrainingCV</class>
+		<class>fr.univartois.ili.fsnet.entities.DegreeCV</class>
+		<class>fr.univartois.ili.fsnet.entities.EstablishmentCV</class>
+		<class>fr.univartois.ili.fsnet.entities.FormationCV</class>
+		<class>fr.univartois.ili.fsnet.entities.HobbiesCV</class>
+		<class>fr.univartois.ili.fsnet.entities.TrainingCV</class>
+		<class>fr.univartois.ili.fsnet.entities.Curriculum</class>
         <exclude-unlisted-classes>false</exclude-unlisted-classes>
         <properties>
             <property name="eclipselink.ddl-generation" value="create-tables"/>

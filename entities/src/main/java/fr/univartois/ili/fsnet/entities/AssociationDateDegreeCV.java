@@ -3,11 +3,13 @@ package fr.univartois.ili.fsnet.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-
+@Entity
 public class AssociationDateDegreeCV implements Serializable {
 
 	/**
@@ -15,14 +17,14 @@ public class AssociationDateDegreeCV implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
 
 	private Date startDate;
 	private Date endDate;
 
-	@OneToMany(mappedBy = "myCVs")
+	@ManyToOne
 	private DegreeCV degree;
 
 	@ManyToOne

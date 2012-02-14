@@ -6,9 +6,11 @@ import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class TrainingCV implements Serializable {
@@ -18,19 +20,19 @@ public class TrainingCV implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	@GeneratedValue
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
 
 	private String name;
 	private String speciality;
 
-	@ManyToOne
+	@OneToMany (mappedBy = "training")
 	private List<AssociationDateTrainingCV> myCVs = new ArrayList<AssociationDateTrainingCV>();
 
 	// Pensez aux dates debut et fin :)
 
-	@OneToMany
+	@OneToOne
 	private EstablishmentCV myEst;
 
 	public TrainingCV() {
