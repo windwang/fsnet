@@ -27,11 +27,22 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
 /**
  * Execute CRUD Actions (and more) for the entity SocialGroup
  * 
- * @author Bouragba mohamed
- * source /fsnetWeb/src/main/java/fr/univartois/ili/fsnet/actions/ManageAnnounces.java (Mehdi Benzaghar)
+ * @author Bouragba mohamed source
+ *         /fsnetWeb/src/main/java/fr/univartois/ili/fsnet
+ *         /actions/ManageAnnounces.java (Mehdi Benzaghar)
  */
-public class ManageAnnounces extends MappingDispatchAction implements CrudAction{
+public class ManageAnnounces extends MappingDispatchAction implements
+		CrudAction {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#create(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -39,6 +50,15 @@ public class ManageAnnounces extends MappingDispatchAction implements CrudAction
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#modify(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -46,6 +66,15 @@ public class ManageAnnounces extends MappingDispatchAction implements CrudAction
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#delete(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -60,8 +89,7 @@ public class ManageAnnounces extends MappingDispatchAction implements CrudAction
 		ActionMessages message = new ActionErrors();
 		InteractionFacade interactionFacade = new InteractionFacade(
 				entityManager);
-		if (announce != null)
-		{
+		if (announce != null) {
 			SocialEntity user = announce.getCreator();
 			interactionFacade.deleteInteraction(user, announce);
 		}
@@ -72,6 +100,15 @@ public class ManageAnnounces extends MappingDispatchAction implements CrudAction
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#search(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -96,6 +133,15 @@ public class ManageAnnounces extends MappingDispatchAction implements CrudAction
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#display(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)

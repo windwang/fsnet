@@ -215,8 +215,7 @@ select {
 			alert("Aucun membre sélectionnée");
 		}
 	}
-</script>
-<script type="text/javascript">
+
 	function Valider() {
 		var memberListLeft = document.getElementsByName('memberListRight')
 				.item(0);
@@ -236,8 +235,7 @@ select {
 		}
 		return true;
 	}
-</script>
-<script type="text/javascript">
+
 	function showGroup(idParent, idGroup) {
 
 		if (window.XMLHttpRequest) {// code for IE7+, Firefox, Chrome, Opera, Safari

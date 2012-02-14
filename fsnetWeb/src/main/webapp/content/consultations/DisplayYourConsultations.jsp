@@ -14,11 +14,13 @@
 		<script type="text/javascript">
 	$(document).ready(function pagination() {
 		var nomTable = "yourConsults";
-		var idColonneATrier = 1;
-		var sensDeTri = "asc";
+		var idColonneATrier = 2;
+		var sensDeTri = "desc";
 		var aoColumns = [ {
 			"bSortable" : false
-		}, null, {
+		}, null,{
+			"sType" : "date-euro"
+		} , {
 			"bSortable" : false
 		}];
 		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
@@ -29,6 +31,7 @@
 				<tr>
 					<th></th>
 					<th><bean:message key="tableheader.name" /></th>
+					<th><bean:message key="consultation.createdAtDate" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -37,17 +40,18 @@
 				<tr>
 					<td><c:import url="/FavoriteFragment.do">
 							<c:param name="interactionId" value="${consultation.id}" />
-						</c:import> </td><td><html:link action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
-						(<bean:message key="consultation.createdAtDate" /> <bean:write
-							name="consultation" property="creationDate" format="dd/MM/yyyy" />
-						<bean:message key="consultation.createdAtHour" /> <bean:write
-							name="consultation" property="creationDate" format="HH:mm" />)</td>
+						</c:import></td>
+					<td><html:link
+							action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
+					</td>
+					<td><bean:write name="consultation" property="creationDate"
+							format="dd/MM/yyyy" /> <bean:write name="consultation"
+							property="creationDate" format="HH:mm" /></td>
 					<td class="tableButton"
 						onclick="confirmDelete2(${consultation.id}	)"><html:form
 							action="/DeleteAConsultation" method="post"
 							styleId="${consultation.id}" styleClass="cursorPointer">
 							<html:hidden property="id" value="${consultation.id}" />
-
 							<span class="button"> <bean:message
 									key="consultation.delete" />
 							</span>

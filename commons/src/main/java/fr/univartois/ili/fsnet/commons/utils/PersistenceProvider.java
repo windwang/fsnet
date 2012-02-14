@@ -10,19 +10,30 @@ import javax.persistence.metamodel.Metamodel;
 
 import org.eclipse.persistence.config.PersistenceUnitProperties;
 
+/**
+ * @author FSNet
+ * 
+ */
 public class PersistenceProvider {
 
 	private static Map<String, Object> lOptions = new HashMap<String, Object>();
 	static {
 		lOptions.put(PersistenceUnitProperties.CACHE_SHARED_DEFAULT, "false");
 	}
+
 	private static EntityManagerFactory factory = Persistence
 			.createEntityManagerFactory("fsnetjpa", lOptions);
 
+	/**
+	 * @return
+	 */
 	public static EntityManager createEntityManager() {
 		return factory.createEntityManager();
 	}
 
+	/**
+	 * @return
+	 */
 	public static Metamodel getMetamodel() {
 		return factory.getMetamodel();
 	}

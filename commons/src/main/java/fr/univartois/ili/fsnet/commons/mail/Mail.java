@@ -8,15 +8,25 @@ import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+/**
+ * @author FSNet
+ *
+ */
 public class Mail {
 
 	private final Message message;
 
+	/**
+	 * @param message
+	 */
 	Mail(Message message) {
 		this.message = message;
 
 	}
 
+	/**
+	 * @param recipient
+	 */
 	public void addRecipient(String recipient) {
 		Logger.getAnonymousLogger().info("Add recipient :" + recipient);
 		try {
@@ -29,6 +39,9 @@ public class Mail {
 		}
 	}
 
+	/**
+	 * @param obj
+	 */
 	public void setContent(Object obj) {
 		try {
 			message.setContent(obj, "text/html");
@@ -37,6 +50,9 @@ public class Mail {
 		}
 	}
 
+	/**
+	 * @param subject
+	 */
 	public void setSubject(String subject) {
 		try {
 			message.setSubject(subject);
@@ -45,6 +61,9 @@ public class Mail {
 		}
 	}
 	
+	/**
+	 * @return a Message
+	 */
 	Message getMessage() {
 		return message;
 	}

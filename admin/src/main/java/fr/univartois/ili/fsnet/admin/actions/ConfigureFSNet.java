@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.admin.actions;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +25,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
-import org.apache.struts.upload.FormFile;
 import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
@@ -36,11 +34,24 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Property;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
+/**
+ * @author FSNet
+ *
+ */
 public class ConfigureFSNet extends MappingDispatchAction {
 
 	private static final String DEFAULT_SMTP_PORT = "25";
 	private static final int MAX_PICTURE_SIZE = 500000;
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward editMailConfiguration(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -92,6 +103,15 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward saveMailConfiguration(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -156,6 +176,15 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward saveFacebookId(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -177,6 +206,11 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param em
+	 * @param key
+	 * @param value
+	 */
 	private void saveProperty(EntityManager em, String key, String value) {
 		Property property = em.find(Property.class, key);
 		if (property == null) {
@@ -190,6 +224,10 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		}
 	}
 
+	/**
+	 * @param dirName
+	 * @return
+	 */
 	private boolean isValidDirectory(String dirName) {
 		boolean isValidDirectory;
 		File directory = new File(dirName);
@@ -201,6 +239,15 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		return isValidDirectory;
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward sendTestMail(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -208,7 +255,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 		mail.setSubject("FSNet mail test");
-		mail.setContent("Configuration réussie");
+		mail.setContent("Successful configuration");
 		mail.addRecipient(dynaForm.getString("Recipient"));
 		mailer.sendMail(mail);
 		
@@ -221,6 +268,15 @@ public class ConfigureFSNet extends MappingDispatchAction {
 	}
 
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward updateDB(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
