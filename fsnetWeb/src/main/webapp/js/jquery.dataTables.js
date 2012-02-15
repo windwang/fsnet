@@ -1,4 +1,4 @@
- /*
+/*
  * When considering jsLint, we need to allow eval() as it it is used for reading cookies and 
  * building the dynamic multi-column sort functions.
  */
@@ -10893,67 +10893,54 @@ $.fn.dataTableExt.oPagination.scrolling = {
 	}
 }
 
-
 function trim(str) {
-    str = str.replace(/^\s+/, '');
-    for (var i = str.length - 1; i >= 0; i--) {
-        if (/\S/.test(str.charAt(i))) {
-            str = str.substring(0, i + 1);
-            break;
-        }
-    }
-    return str;
+	str = str.replace(/^\s+/, '');
+	for ( var i = str.length - 1; i >= 0; i--) {
+		if (/\S/.test(str.charAt(i))) {
+			str = str.substring(0, i + 1);
+			break;
+		}
+	}
+	return str;
 }
- 
+
+function convertDate(date) {
+	if (trim(date) != '') {
+		var frDate = trim(date).split(' ');
+		var frDate2 = frDate[0].split('/');
+		if (!frDate[1])
+			var x = (frDate2[2] + frDate2[1] + frDate2[0] + "000000") * 1;
+		else {
+			var frTime = frDate[1].split(':');
+			if (frDate[2] == "PM")
+				frTime[0] = parseInt(frTime[0]) + 12;
+			var x = (frDate2[2] + frDate2[1] + frDate2[0] + frTime[0]
+					+ frTime[1] + frTime[2]) * 1;
+		}
+	} else {
+		var x = 10000000000000; // = l'an 1000 ...
+	}
+	return x;
+}
+
 jQuery.fn.dataTableExt.oSort['date-euro-asc'] = function(a, b) {
-    if (trim(a) != '') {
-        var frDatea = trim(a).split(' ');
-        var frTimea = frDatea[1].split(':');
-        var frDatea2 = frDatea[0].split('/');
-        var x = (frDatea2[2] + frDatea2[1] + frDatea2[0] + frTimea[0] + frTimea[1] + frTimea[2]) * 1;
-    } else {
-        var x = 10000000000000; // = l'an 1000 ...
-    }
- 
-    if (trim(b) != '') {
-        var frDateb = trim(b).split(' ');
-        var frTimeb = frDateb[1].split(':');
-        frDateb = frDateb[0].split('/');
-        var y = (frDateb[2] + frDateb[1] + frDateb[0] + frTimeb[0] + frTimeb[1] + frTimeb[2]) * 1;                     
-    } else {
-        var y = 10000000000000;                    
-    }
-    var z = ((x < y) ? -1 : ((x > y) ? 1 : 0));
-    return z;
-};
- 
-jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
-    if (trim(a) != '') {
-        var frDatea = trim(a).split(' ');
-        var frTimea = frDatea[1].split(':');
-        var frDatea2 = frDatea[0].split('/');
-        var x = (frDatea2[2] + frDatea2[1] + frDatea2[0] + frTimea[0] + frTimea[1] + frTimea[2]) * 1;                      
-    } else {
-        var x = 10000000000000;                    
-    }
- 
-    if (trim(b) != '') {
-        var frDateb = trim(b).split(' ');
-        var frTimeb = frDateb[1].split(':');
-        frDateb = frDateb[0].split('/');
-        var y = (frDateb[2] + frDateb[1] + frDateb[0] + frTimeb[0] + frTimeb[1] + frTimeb[2]) * 1;                     
-    } else {
-        var y = 10000000000000;                    
-    }                  
-    var z = ((x < y) ? 1 : ((x > y) ? -1 : 0));                  
-    return z;
+	var x = convertDate(a);
+	var y = convertDate(b);
+	var z = ((x < y) ? -1 : ((x > y) ? 1 : 0));
+	return z;
 };
 
+jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
+	var x = convertDate(a);
+	var y = convertDate(b);
+	var z = ((x < y) ? 1 : ((x > y) ? -1 : 0));
+	return z;
+};
 
 function miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns,
 		affichemoinsdix) {
 	var nbCellules = document.getElementById(nomTable).rows.length;
-	if ((affichemoinsdix == true) ||(nbCellules > 11)) {
+	if ((affichemoinsdix == true) || (nbCellules > 11)) {
 		$("#" + nomTable).dataTable({
 			"aaSorting" : [ [ idColonneATrier, sensDeTri ] ],
 			"aoColumns" : aoColumns,

@@ -222,7 +222,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.close();
 
 
-		request.setAttribute("annoucesListPaginator", listAnnounces);
+		request.setAttribute("annoucesList", listAnnounces);
 		
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 		
