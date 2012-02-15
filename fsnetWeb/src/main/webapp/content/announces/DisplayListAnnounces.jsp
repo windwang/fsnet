@@ -60,7 +60,7 @@
 						<td><ili:getSocialEntityInfos
 								socialEntity="${announce.creator}" /></td>
 						<td class="tableButton"><bean:write name="announce"
-								property="endDate" format="dd/MM/yyyy" /></td>
+								property="endDate" format="dd/MM/yyyy HH:mm" /></td>
 					</ili:interactionRow>
 				</c:forEach>
 			</tbody>
