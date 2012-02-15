@@ -157,6 +157,7 @@
     padding: 2px 6px 2px 6px;
     font-weight: normal;
     font-style: normal;
+    cursor:pointer;
 }
 
 .deleteEventForm{
@@ -189,6 +190,8 @@ input[type=text], input[type=email], input[type=password], textarea {
 #CreateEvent #eventDescription { width: 100%;}
 #CreateEvent #eventDate {width: 25%; color: black; margin-right: 8px;}
 #CreateEvent input[type=submit] {float: right;}
+
+#UpdateEvent input[type=submit] {float: right;}
 
 #CreateAnnounce {width: 80%;}
 #CreateAnnounce label {width:100px; display:block;	float:left;}
@@ -728,3 +731,5 @@ thead, thead th {
 
 .plus{background: url("../images/addConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
 .moins{background: url("../images/removeConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
+
+input[type=submit] {cursor:pointer;}

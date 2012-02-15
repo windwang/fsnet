@@ -67,5 +67,14 @@
 				scope="request">
 				<forward name="success" path="/EditConfiguration.do"></forward>
 	   	</action>
+	   	
+	   	<action path="/UpdateDateType"
+				name="UpdateDBForm"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				parameter="updateDateType"
+				validate="false"
+				scope="request">
+				<forward name="success" path="/EditConfiguration.do"></forward>
+	   	</action>
 	</action-mappings>
 </struts-config>

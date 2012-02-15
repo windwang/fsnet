@@ -49,6 +49,7 @@
             </td>
             <td>
                 <html:textarea  property="eventDescription"
+                				styleId="eventDescription"
                                 errorStyleClass="error"
                                 styleClass="mceTextArea"
                                 style="width: 100%;"
@@ -96,7 +97,7 @@
         </tr>
         <tr>
             <td>
-                <label for="eventDate">
+                <label for="eventBeginDate">
                     <bean:message key="events.3"/> :
                 </label>
             </td>
@@ -114,7 +115,7 @@
         </tr>
         <tr>
             <td>
-                <label for="eventDate">
+                <label for="eventEndDate">
                     <bean:message key="events.20"/> :
                 </label>
             </td>

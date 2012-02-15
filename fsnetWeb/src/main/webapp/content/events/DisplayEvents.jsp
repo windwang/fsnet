@@ -90,7 +90,7 @@
 		                    <html:param name="eventId" value="${event.id}" />
 							</html:link></td>
 						<td class="left"><bean:write name="event"
-								property="startDate" format="dd/MM/yyyy" /></td>
+								property="startDate" format="dd/MM/yyyy HH'h'mm" /></td>
 						<td></td>
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${event.creator}" /></td>
