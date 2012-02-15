@@ -291,7 +291,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		dynaForm.set("announceTitle", announce.getTitle());
 		dynaForm.set("announceContent", announce.getContent());
 		dynaForm.set("announceExpiryDate",
-				DateUtils.renderDate(announce.getEndDate()));
+				DateUtils.renderDateWithHours(announce.getEndDate()));
 		}catch(NullPointerException e){
 			return mapping.findForward("failer");
 		}

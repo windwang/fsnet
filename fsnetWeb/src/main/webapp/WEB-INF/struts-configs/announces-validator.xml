@@ -27,13 +27,13 @@
 				<arg key="error.announceContent" />
 
 			</field>
-			<field property="announceExpiryDate" depends="required,date">
+			<field property="announceExpiryDate" depends="required,mask">
 				<arg key="error.announceExpiryDate" />
 				<arg position="0" key="error.announceExpiryDate" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
-					<var-name>datePattern</var-name>
-					<var-value>dd/MM/yyyy</var-value>
+					<var-name>mask</var-name>
+					<var-value>^[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}$</var-value>
 				</var>
 
 			</field>
@@ -58,12 +58,12 @@
 				</var>
 				<arg key="error.announceContent" />
 			</field>
-			<field property="announceExpiryDate" depends="required,date">
+			<field property="announceExpiryDate" depends="required,mask">
 				<arg key="error.announceExpiryDate" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
-					<var-name>datePatternStrict</var-name>
-					<var-value>dd/MM/yyyy</var-value>
+					<var-name>mask</var-name>
+					<var-value>^[0-9]{2}/[0-9]{2}/[0-9]{4} [0-9]{2}:[0-9]{2}$</var-value>
 				</var>
 			</field>
 		</form>
