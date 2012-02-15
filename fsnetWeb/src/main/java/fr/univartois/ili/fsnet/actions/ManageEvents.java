@@ -112,7 +112,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
-
+		
 		em.getTransaction().begin();
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
