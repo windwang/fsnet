@@ -61,10 +61,11 @@ a img {
 </style>
 </head>
 <body>
+
 	<a href="/fsnetWeb/Home.do"> <img src="images/FSNET.png" height="55px"
 		width="150px">
 	</a>
-<!-- <p> <b> 404. </b><ins>C'est une erreur. </ ins> </p> L'URL demandée n'a pas été trouvée sur ce serveur. <ins> Vérifier si la syntaxe est correcte ou essayer plus tard. </ ins> </ p> -->
 	<bean:message key="error-404.message"/>
+
 </body>
 </html>

@@ -11,8 +11,10 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<table id="dashboardMessages" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="DashBoard.lastMes"/></caption>
+
+<fieldset class="fieldsetHome1">
+  <legend class="legendHome1"><html:link action="/Inbox"><bean:message  key="DashBoard.lastMes"/></html:link></legend>
+  <table id="dashboardMessages" class="inLineTableDashBoardFieldset fieldsetTable1">
     <logic:empty name="messages">
         <tr>
             <td>
@@ -60,9 +62,12 @@
             </c:if>
         </c:forEach>
     </logic:notEmpty>
-</table>
-<table id="lastVisits" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="visite.last.title"/></caption>
+  </table>
+</fieldset>
+
+<fieldset class="fieldsetHome2">
+  <legend class="legendHome2"><html:link action="/Visits"><bean:message key="visite.last.title"/></html:link></legend>
+  <table id="lastVisits" class="inLineTableDashBoardFieldset homeFrame fieldsetTable2">
     <logic:empty name="visitors">
         <tr>
             <td>
@@ -86,7 +91,8 @@
         </c:forEach>
 
     </logic:notEmpty>
-</table>
+  </table>
+</fieldset>
 
 <div class="clear homeGap"></div>
 <c:choose>
@@ -147,7 +153,7 @@
     </c:otherwise>
 </c:choose>
 <table id="interestProposals" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="DashBoard.interestProposals.title"/></caption>
+    <caption><html:link action="/InterestInformations"><bean:message key="DashBoard.interestProposals.title"/></html:link></caption>
     <logic:empty name="interests">
         <tr>
             <td>
@@ -179,7 +185,7 @@
 <div class="clear homeGap"></div>
 
 <table id="lastInteractions" class="inLineTableDashBoard homeFrame">
-    <caption><bean:message key="lastInteractions.title"/></caption>
+    <caption><html:link action="/Consultations"><bean:message key="lastInteractions.title"/></html:link></caption>
     <logic:empty name="lastInteractions">
         <tr>
             <td>

@@ -10,63 +10,101 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<bean:define id="searchMessage"><bean:message key="events.search"/></bean:define>
+<bean:define id="searchMessage">
+	<bean:message key="events.search" />
+</bean:define>
 
 <h3>
-    <bean:message key="events.8"/>
+	<bean:message key="events.8" />
 </h3>
-<table  class="inLineTable"><tr><td>
-  <html:form action="/Events" method="GET">
-    <div id="SearchEvent">
-        <html:text styleId="searchTexte" property="searchString" />
-        <ili:placeHolder id="searchTexte" value="${searchMessage}" />
-        <html:submit styleClass="button" >
-            <bean:message key="events.11"/>
-        </html:submit>
-    </div>
-  </html:form>
-</td></tr></table>
+<table class="inLineTable">
+	<tr>
+		<td><html:form action="/Events" method="GET">
+				<div id="SearchEvent">
+					<html:text styleId="searchTexte" property="searchString" />
+					<ili:placeHolder id="searchTexte" value="${searchMessage}" />
+					<html:submit styleClass="button">
+						<bean:message key="events.11" />
+					</html:submit>
+				</div>
+			</html:form></td>
+	</tr>
+</table>
 
 <h3>
-    <bean:message key="events.9"/> :
+	<bean:message key="events.9" />
+	:
 </h3>
 
 <c:choose>
 
-	<c:when test="${empty requestScope.eventsListPaginator.resultList}">
-	  <table  class="inLineTable"><tr><td>
-        <bean:message key="search.noResults"/>
-      </td></tr></table>
-	</c:when>
-	
-	<c:otherwise>
-		<table  class="inLineTable">
-		    <c:forEach var="event" items="${requestScope.eventsListPaginator.resultList}">
-		    	<ili:interactionRow unreadInteractionsId="${requestScope.unreadInteractionsId}" currentInteractionId="${event.id}">
-		            <th>
-		                <c:import url="/FavoriteFragment.do">
-		                    <c:param name="interactionId" value="${event.id}"/>
-		                </c:import>
-		                <html:link action="/DisplayEvent">
-		                    ${event.title}
-		                    <html:param name="eventId" value="${event.id}"/>
-		                </html:link>
-		            </th>
-		            <td class="left">
-		                <bean:message key="events.10"/>
-		                <bean:write name="event" property="startDate" format="dd/MM/yyyy"/>,
-		                <bean:message key="events.16"/>
-						<ili:getSocialEntityInfos socialEntity="${event.creator}"/>
-		            </td>
-		            <td  class="tableButton">
-		                <ili:substring beginIndex="0" endIndex="30"><ili:noxml>${event.content}</ili:noxml></ili:substring>
-		            </td>
-		        </ili:interactionRow>
-		    </c:forEach>
+	<c:when test="${empty requestScope.eventsList}">
+		<table class="inLineTable">
+			<tr>
+				<td><bean:message key="search.noResults" /></td>
+			</tr>
 		</table>
-		<c:set var="paginatorInstance" value="${requestScope.eventsListPaginator}" scope="request"/>
-		<c:set var="paginatorAction" value="/Events" scope="request"/>
-		<c:set var="paginatorTile" value="eventsLists" scope="request"/>
-		<c:import url="/content/pagination/Pagination.jsp"/>
+	</c:when>
+	<c:otherwise>
+		<script type="text/javascript">
+			$(document).ready(
+					function pagination() {
+						var nomTable = "eventsTable";
+						var idColonneATrier = 2;
+						var sensDeTri = "desc";
+						var aoColumns = [ {
+							"bSortable" : false
+						}, null, {
+							"sType" : "date"
+						}, {
+							"sType" : "date"
+						}, {
+							"bSortable" : false
+						}, null, null ];
+						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+								aoColumns, false);
+					});
+		</script>
+		<table id="eventsTable" class="tablesorter inLineTable">
+			<thead>
+				<tr>
+					<th></th>
+					<th><bean:message key="tableheader.eventname" /></th>
+					<th><bean:message key="tableheader.willoccur" /></th>
+					<th><bean:message key="tableheader.expirdate" /></th>
+					<th><bean:message key="tableheader.by" /></th>
+					<th><bean:message key="tableheader.firstname" /></th>
+					<th><bean:message key="tableheader.name" /></th>
+				</tr>
+			</thead>
+			<tbody>
+				<c:forEach var="event" items="${requestScope.eventsList}">
+					<ili:interactionRow
+						unreadInteractionsId="${requestScope.unreadInteractionsId}"
+						currentInteractionId="${event.id}">
+						<td><c:import url="/FavoriteFragment.do">
+								<c:param name="interactionId" value="${event.id}" />
+							</c:import></td>
+						<td><html:link action="/DisplayEvent">
+		                    ${event.title}
+		                    <html:param name="eventId" value="${event.id}" />
+							</html:link> <span style="color: gray"> : <ili:substring beginIndex="0"
+									endIndex="30">
+									<ili:noxml>${event.content}</ili:noxml>
+								</ili:substring>
+						</span></td>
+						<td class="left"><bean:write name="event"
+								property="startDate" format="dd/MM/yyyy HH:mm" /></td>
+						<td class="left"><bean:write name="event" property="endDate"
+								format="dd/MM/yyyy HH:mm" /></td>
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
+								socialEntity="${event.creator}" /></td>
+						<td><ili:getSocialEntityInfosName
+								socialEntity="${event.creator}" /></td>
+					</ili:interactionRow>
+				</c:forEach>
+			</tbody>
+		</table>
 	</c:otherwise>
 </c:choose>

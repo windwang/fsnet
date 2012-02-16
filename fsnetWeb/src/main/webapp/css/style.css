@@ -64,7 +64,6 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 		.sidedate span { font-size: .6em; font-weight: bold; color: #808080; }
 
 #ad { background: url(../images/dot.gif) repeat-x; padding: 15px 0 10px; clear: both; font-size: .9em; line-height: 1.7em;  }
-#promo { clear: both; border-top: 3px solid #6E6E6E; background: #505050 url(../images/footer.gif) no-repeat right top; color: #ccc; padding: 30px 0 0 0; }
 	#promo h2 { color: #fff; }
 	#promo a { color: #D9EAF9; border-bottom: 1px dotted #808080; }
 	.col { float: left; width: 280px; margin: 0 30px 20px 0; }
@@ -90,6 +89,7 @@ p  { margin: 0 0 15px; line-height: 1.7em; }
 .consultationAutoCompleteList ul {border: solid 1px #9fa4f5; background-color: #e0fcff; padding-left:5px; padding-right:5px;}
 .consultationAutoCompleteList li {color:#5d7bff;}
 .consultationAutoCompleteList li:hover {text-indent:5px; font-style:italic; font-weight:bold}
+
 
 /* css for timepicker */
 .ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }

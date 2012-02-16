@@ -52,7 +52,7 @@
 						key="members.group" /> : </label>
 			</td>
 			<td colspan="3"><html:select property="parentId"
-					styleClass="select" >
+					styleClass="select" styleId="parentId">
 					<html:option value="">
 						<bean:message key="members.listGroups" />
 					</html:option>
