@@ -94,9 +94,9 @@
 								</ili:substring>
 						</span></td>
 						<td class="left"><bean:write name="event"
-								property="startDate" format="dd/MM/yyyy" /></td>
+								property="startDate" format="dd/MM/yyyy HH:mm" /></td>
 						<td class="left"><bean:write name="event" property="endDate"
-								format="dd/MM/yyyy" /></td>
+								format="dd/MM/yyyy HH:mm" /></td>
 						<td></td>
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${event.creator}" /></td>

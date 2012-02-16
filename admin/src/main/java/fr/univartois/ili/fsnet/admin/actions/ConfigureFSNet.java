@@ -36,7 +36,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  * @author FSNet
- *
+ * 
  */
 public class ConfigureFSNet extends MappingDispatchAction {
 
@@ -99,7 +99,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 		return mapping.findForward("success");
 	}
 
@@ -168,11 +168,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.mail.update.success"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.mail.update.success"));
+
 		return mapping.findForward("success");
 	}
 
@@ -198,11 +199,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.facebook.update.success"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.facebook.update.success"));
+
 		return mapping.findForward("success");
 	}
 
@@ -258,15 +260,14 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		mail.setContent("Successful configuration");
 		mail.addRecipient(dynaForm.getString("Recipient"));
 		mailer.sendMail(mail);
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.testMail.sent"));
-		
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.testMail.sent"));
+
 		return mapping.findForward("success");
 	}
-
 
 	/**
 	 * @param mapping
@@ -312,7 +313,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			for (SocialEntity s : entities) {
 				mails.put(s.getEmail(), s.getEmail().toLowerCase());
 			}
-			
+
 			for (String s : mails.keySet()) {
 				entityManager.getTransaction().begin();
 				Query query = entityManager
@@ -327,12 +328,37 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			out.println("DB modified");
 			out.close();
 		}
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.db.update.success"));
-		
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.db.update.success"));
+
+		return mapping.findForward("success");
+	}
+
+	public ActionForward updateDateType(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+
+			Query query = em
+					.createNativeQuery("ALTER TABLE MEETING MODIFY STARTDATE DATETIME");
+			query.executeUpdate();
+
+			query = em
+					.createNativeQuery("ALTER TABLE ANNOUNCEMENT MODIFY ENDDATE DATETIME");
+			query.executeUpdate();
+
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return mapping.findForward("success");
 	}
 
