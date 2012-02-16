@@ -24,11 +24,11 @@
 	<script type="text/javascript">
 		$(document).ready(
 				function pagination() {
-					var idColonneATrier = 1;
+					var idColonneATrier = 2;
 					var sensDeTri = "asc";
 					var aoColumns = [ {
 						"bSortable" : false
-					}, null, {
+					}, null, null, {
 						"bSortable" : false
 					} ];
 					miseEnPageTable("tableAsked", idColonneATrier, sensDeTri,
@@ -41,8 +41,9 @@
 	<table id="tableAsked" class="tablesorter inLineTable">
 		<thead>
 			<tr>
-				<th></th>
 				<th><bean:message key="tableheader.member" /></th>
+				<th><bean:message key="members.firstName" /></th>
+				<th><bean:message key="members.name" /></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -51,7 +52,9 @@
 				<tr>
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${contact}" /></td>
-					<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosFirstname
+							socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 					<td class="tableButton"><html:link
 							action="/DisplayCreatePrivateMessage" styleClass="button">
 							<bean:message key="showProfile.send" />
@@ -73,11 +76,11 @@
 	<script type="text/javascript">
 		$(document).ready(
 				function pagination() {
-					var idColonneATrier = 1;
+					var idColonneATrier = 2;
 					var sensDeTri = "asc";
 					var aoColumns = [ {
 						"bSortable" : false
-					}, null, {
+					}, null, null, {
 						"bSortable" : false
 					} ];
 					miseEnPageTable("tableContacts", idColonneATrier,
@@ -93,8 +96,9 @@
 	<table id="tableContacts" class="tablesorter inLineTable">
 		<thead>
 			<tr>
-				<th></th>
 				<th><bean:message key="tableheader.member" /></th>
+				<th><bean:message key="members.firstName" /></th>
+				<th><bean:message key="members.name" /></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -103,7 +107,10 @@
 				<tr>
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${contact}" /></td>
-					<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
+
+					<td><ili:getSocialEntityInfosFirstname
+							socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 					<td class="tableButton"><html:link
 							action="/DisplayCreatePrivateMessage" styleClass="button">
 							<bean:message key="showProfile.send" />
@@ -122,11 +129,11 @@
 	<script type="text/javascript">
 		$(document).ready(
 				function pagination() {
-					var idColonneATrier = 1;
+					var idColonneATrier = 2;
 					var sensDeTri = "asc";
 					var aoColumns = [ {
 						"bSortable" : false
-					}, null, {
+					}, null, null, {
 						"bSortable" : false
 					} ];
 					miseEnPageTable("tableRequested", idColonneATrier,
@@ -139,8 +146,9 @@
 	<table id="tableRequested" class="tablesorter inLineTable">
 		<thead>
 			<tr>
-				<th></th>
 				<th><bean:message key="tableheader.member" /></th>
+				<th><bean:message key="members.firstName" /></th>
+				<th><bean:message key="members.name" /></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -149,7 +157,9 @@
 				<tr>
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${contact}" /></td>
-					<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosFirstname
+							socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 					<td class="tableButton"><html:link
 							action="/DisplayCreatePrivateMessage" styleClass="button">
 							<bean:message key="showProfile.send" />

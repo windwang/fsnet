@@ -28,11 +28,11 @@
 		$(document).ready(
 				function pagination() {
 					var nomTable = "tablelastvisitors";
-					var idColonneATrier = 2;
+					var idColonneATrier = 3;
 					var sensDeTri = "desc";
 					var aoColumns = [ {
 						"bSortable" : false
-					}, null, {
+					}, null, null, {
 						"sType" : "date-euro"
 					} ];
 					miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -43,8 +43,9 @@
 	<table id="tablelastvisitors" class="tablesorter inLineTable">
 		<thead>
 			<tr>
-				<th></th>
-				<th width="40%"><bean:message key="privatemessages.from" /></th>
+				<th><bean:message key="privatemessages.from" /></th>
+				<th width="20%"><bean:message key="members.firstName" /></th>
+				<th width="20%"><bean:message key="members.name" /></th>
 				<th width="40%"><bean:message key="privatemessages.date" /></th>
 			</tr>
 		</thead>
@@ -54,8 +55,9 @@
 				<tr>
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${visitor.visitor}" /></td>
-					<td><ili:getSocialEntityInfos
+					<td><ili:getSocialEntityInfosFirstname
 							socialEntity="${visitor.visitor}" /></td>
+					<td><ili:getSocialEntityInfosName socialEntity="${visitor.visitor}" /></td>
 					<td><bean:write name="visitor" property="lastVisite"
 							formatKey="date.format" /></td>
 				</tr>
@@ -82,11 +84,11 @@
 		$(document).ready(
 				function pagination() {
 					var nomTable = "tablelastvisitorsBeforeLastConnection";
-					var idColonneATrier = 2;
+					var idColonneATrier = 3;
 					var sensDeTri = "desc";
 					var aoColumns = [ {
 						"bSortable" : false
-					}, null, {
+					}, null, null, {
 						"sType" : "date-euro"
 					} ];
 					miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -97,8 +99,9 @@
 	<table id="tablelastvisitorsBeforeLastConnection" class="tablesorter inLineTable">
 		<thead>
 			<tr>
-				<th></th>
-				<th width="40%"><bean:message key="privatemessages.from" /></th>
+				<th><bean:message key="privatemessages.from" /></th>
+				<th width="20%"><bean:message key="members.firstName" /></th>
+				<th width="20%"><bean:message key="members.name" /></th>
 				<th width="40%"><bean:message key="privatemessages.date" /></th>
 			</tr>
 		</thead>
@@ -108,8 +111,9 @@
 				<tr>
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${visitor.visitor}" /></td>
-					<td><ili:getSocialEntityInfos
+					<td><ili:getSocialEntityInfosFirstname
 							socialEntity="${visitor.visitor}" /></td>
+					<td><ili:getSocialEntityInfosName socialEntity="${visitor.visitor}" /></td>
 					<td><bean:write name="visitor" property="lastVisite"
 							formatKey="date.format" /></td>
 				</tr>

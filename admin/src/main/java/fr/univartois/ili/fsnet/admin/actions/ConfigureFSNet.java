@@ -341,18 +341,24 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		EntityManager em = PersistenceProvider.createEntityManager();
-		em.getTransaction().begin();
-		
-		Query query = em.createNativeQuery("ALTER TABLE meeting MODIFY STARTDATE DATETIME NOT NULL");
-		query.executeUpdate();
-		
-		query = em.createNativeQuery("ALTER TABLE announcement MODIFY ENDDATE DATETIME NOT NULL");
-		query.executeUpdate();
-		
-		em.getTransaction().commit();
-		em.close();
-		
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+
+			Query query = em
+					.createNativeQuery("ALTER TABLE MEETING MODIFY STARTDATE DATETIME");
+			query.executeUpdate();
+
+			query = em
+					.createNativeQuery("ALTER TABLE ANNOUNCEMENT MODIFY ENDDATE DATETIME");
+			query.executeUpdate();
+
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
 		return mapping.findForward("success");
 	}
 

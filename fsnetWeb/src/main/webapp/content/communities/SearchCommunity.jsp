@@ -39,7 +39,9 @@
 						var sensDeTri = "asc";
 						var aoColumns = [ {
 							"bSortable" : false
-						}, null,  null, {
+						}, null, {
+							"bSortable" : false
+						}, null, null, {
 							"bSortable" : false
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -49,9 +51,11 @@
 		<table id="seachCommTables" class="tablesorter inLineTable">
 			<thead>
 				<tr>
-					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
+					<th width="10%"></th>
+					<th width="30%"><bean:message key="tableheader.communityname" /></th>
 					<th><bean:message key="tableheader.by" /></th>
+					<th width="20%"><bean:message key="members.firstName" /></th>
+					<th width="20%"><bean:message key="members.name" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -60,7 +64,8 @@
 					<tr class="content">
 						<td><c:import url="/FavoriteFragment.do">
 								<c:param name="interactionId" value="${community.id}" />
-							</c:import> </td><td><html:link action="/DisplayCommunity"
+							</c:import></td>
+						<td><html:link action="/DisplayCommunity"
 								title='${empty community.interests ? "" : community.interests}'>
 								<html:param name="communityId" value="${community.id}" />
                             ${community.title}
@@ -75,7 +80,10 @@
                          		(${fn:length(community.hubs)} hubs)
                          	</c:when>
 							</c:choose></td>
-						<td><ili:getSocialEntityInfos
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
+								socialEntity="${community.creator}" /></td>
+						<td><ili:getSocialEntityInfosName
 								socialEntity="${community.creator}" /></td>
 						<td class="tableButton"
 							onclick="confirmDelete2('deleteid${community.id}');"><c:if
