@@ -112,7 +112,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
-
+		
 		em.getTransaction().begin();
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
@@ -331,10 +331,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 
-		Paginator<Meeting> paginator = new Paginator<Meeting>(results, request,
-				"eventsLists");
-
-		request.setAttribute("eventsListPaginator", paginator);
+		request.setAttribute("eventsList", results);
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 		return mapping.findForward("success");
 	}

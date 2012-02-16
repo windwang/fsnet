@@ -32,7 +32,7 @@
         </tr>
         <tr>
        		<td>
-                <label for="creator">
+                <label>
                     <bean:message key="communities.creator"/>
                 </label>
             </td>

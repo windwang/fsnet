@@ -23,7 +23,6 @@ import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
@@ -222,10 +221,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
-		Paginator<Announcement> paginator = new Paginator<Announcement>(
-				listAnnounces, request, "listAnnounces");
 
-		request.setAttribute("annoucesListPaginator", paginator);
+		request.setAttribute("annoucesList", listAnnounces);
 		
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 		
@@ -294,7 +291,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		dynaForm.set("announceTitle", announce.getTitle());
 		dynaForm.set("announceContent", announce.getContent());
 		dynaForm.set("announceExpiryDate",
-				DateUtils.renderDate(announce.getEndDate()));
+				DateUtils.renderDateWithHours(announce.getEndDate()));
 		}catch(NullPointerException e){
 			return mapping.findForward("failer");
 		}

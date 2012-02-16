@@ -250,15 +250,14 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Paginator<SocialEntity> paginatorContact = new Paginator<SocialEntity>(profile.getContacts(), request, 66, "profileContacts", "id");
 		request.setAttribute("contactsPaginator", paginatorContact);
 		request.setAttribute(EDITABLE_PROFILE_VARIABLE, profile.equals(user));
-		if (profile.getBirthDate() != null) {
+		if (profile.getBirthDate() != null) { 
 			request.setAttribute("birthDay", formatter.format(profile
 					.getBirthDate()));
 		}
 		em.getTransaction().begin();
 		InteractionFacade intFac = new InteractionFacade(em);
-		Paginator<Interaction> interactionPaginator = new Paginator<Interaction>(intFac.getIntetactionsByUser(profile), request, 10, "profileInteractions", "id");
 		
-		request.setAttribute("interactionPaginator", interactionPaginator);
+		request.setAttribute("interactions", intFac.getIntetactionsByUser(profile));
 		em.getTransaction().commit();
 		
 		request.setAttribute("currentUser", user);
@@ -381,10 +380,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				sendPictureError(request, "updateProfile.error.photo.type");
 			}
 		}
-			else {
-		
-			ImageManager.removeOldUserPicture(userId);
-			}
 		return mapping.findForward("success");
 	}
 

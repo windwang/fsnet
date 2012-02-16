@@ -23,9 +23,9 @@
                 <ili:getSocialEntityInfos socialEntity="${event.creator}"/>
                 , 
                 <bean:message key="events.willoccur"/>
-                <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
+                <bean:write name="event" property="startDate" format="dd/MM/yyyy HH'h'mm" />
                 <bean:message key="events.to"/>
-                <bean:write name="event" property="endDate" format="dd/MM/yyyy" />
+                <bean:write name="event" property="endDate" format="dd/MM/yyyy HH'h'mm" />
                 
                 <c:if test="${not empty event.address.address or not empty event.address.city}">
                 	<bean:message key="events.in"/>

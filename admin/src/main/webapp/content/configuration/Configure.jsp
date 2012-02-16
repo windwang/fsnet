@@ -165,13 +165,22 @@
 </html:form>
 
 <h3><bean:message key="configure.UpdateDB"/></h3>
-<html:form enctype="multipart/form-data" action="/UpdateDB">	
+<html:form enctype="multipart/form-data" action="/UpdateDB">
+	<div>	
 	<html:submit styleClass="button">
 		<bean:message key="configure.9" />
 	</html:submit>
+	</div>
 </html:form>
  
-
+<h3><bean:message key="configure.UpdateDateType"/></h3>
+<html:form enctype="multipart/form-data" action="/UpdateDateType">
+	<div>	
+	<html:submit styleClass="button">
+		<bean:message key="configure.9" />
+	</html:submit>
+	</div>
+</html:form>
 
 <h3><bean:message key="configure.16" /></h3>
 <html:form action="/SendTestMail">

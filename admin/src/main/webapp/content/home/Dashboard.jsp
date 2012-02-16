@@ -13,7 +13,7 @@
 <bean:message key="welcome.welcome" />
 </h3>
 
-<label for="welcome"> 
+<label> 
 	<bean:message key="welcome.message1" />  <br/><br/>
 	<bean:message key="welcome.message2" />  
 </label>

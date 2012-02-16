@@ -7,7 +7,6 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
-import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -25,11 +24,9 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
-import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
-import fr.univartois.ili.fsnet.facade.InterestFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 /**
@@ -37,33 +34,45 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
  * 
  * @author Audrey Ruellan and Cerelia Besnainou
  */
-public class ManageCommunities extends MappingDispatchAction implements CrudAction {
+public class ManageCommunities extends MappingDispatchAction implements
+		CrudAction {
 
 	private static final Logger logger = Logger.getAnonymousLogger();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#create(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String name = (String) dynaForm.get("name");
 		String socialEntityId = (String) dynaForm.get("socialEntityId");
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
-		try{
+		try {
 			em.createQuery(
 					"SELECT community FROM Community community WHERE community.title LIKE :communityName",
-					Community.class).setParameter("communityName", name ).getSingleResult();
+					Community.class).setParameter("communityName", name)
+					.getSingleResult();
 
 			ActionErrors actionErrors = new ActionErrors();
 			ActionMessage msg = new ActionMessage("communities.alreadyExists");
 			actionErrors.add("createdCommunityName", msg);
 			saveErrors(request, actionErrors);
 
-		} catch (NoResultException e){
+		} catch (NoResultException e) {
 
-			SocialEntity creator = em.find(SocialEntity.class, Integer.parseInt(socialEntityId));
+			SocialEntity creator = em.find(SocialEntity.class,
+					Integer.parseInt(socialEntityId));
 			CommunityFacade communityFacade = new CommunityFacade(em);
 
 			em.getTransaction().begin();
@@ -75,19 +84,29 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		}
 
 		dynaForm.set("name", "");
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"community.success.on.create"));
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"community.success.on.create"));
 
 		return mapping.findForward("success");
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#delete(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		String communityId = request.getParameter("communityId");
 
 		logger.info("delete community: " + communityId);
@@ -96,7 +115,8 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		CommunityFacade communityFacade = new CommunityFacade(em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		em.getTransaction().begin();
-		Community community = communityFacade.getCommunity(Integer.parseInt(communityId));
+		Community community = communityFacade.getCommunity(Integer
+				.parseInt(communityId));
 		interactionFacade.deleteInteraction(community);
 		em.getTransaction().commit();
 		em.close();
@@ -105,47 +125,68 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#display(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#modify(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-		String newCommunityName = (String) dynaForm.get("modifiedCommunityName");
+		String newCommunityName = (String) dynaForm
+				.get("modifiedCommunityName");
 		String communityName = (String) dynaForm.get("modifierCommunityName");
 		CommunityFacade facade = new CommunityFacade(em);
-		boolean doesNotExist=false;
+		boolean doesNotExist = false;
 		Community community = facade.getCommunityByName(communityName);
 
 		if (community != null) {
 			logger.info("community modification: " + communityName);
 
-			try{
+			try {
 				facade.getCommunityByName(newCommunityName);
-			}catch(NoResultException e){
+			} catch (NoResultException e) {
 				doesNotExist = true;
 			}
-			if(doesNotExist){
+			if (doesNotExist) {
 				try {
 					em.getTransaction().begin();
 					facade.modifyCommunity(newCommunityName, community);
 					em.getTransaction().commit();
 				} catch (DatabaseException ex) {
 					ActionErrors actionErrors = new ActionErrors();
-					ActionMessage msg = new ActionMessage("communities.alreadyExists");
+					ActionMessage msg = new ActionMessage(
+							"communities.alreadyExists");
 					actionErrors.add("modifiedCommunityName", msg);
 					saveErrors(request, actionErrors);
 				}
-			}else{
+			} else {
 				ActionErrors actionErrors = new ActionErrors();
-				ActionMessage msg = new ActionMessage("communities.alreadyExists");
+				ActionMessage msg = new ActionMessage(
+						"communities.alreadyExists");
 				actionErrors.add("modifiedCommunityName", msg);
 				saveErrors(request, actionErrors);
 			}
@@ -154,19 +195,29 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 
 		dynaForm.set("modifierCommunityName", "");
 		dynaForm.set("modifiedCommunityName", "");
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"community.success.on.modify"));
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"community.success.on.modify"));
 
 		return mapping.findForward("success");
 
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.admin.actions.CrudAction#search(org.apache.struts
+	 * .action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		List<Community> result = null;
 		Set<SocialEntity> allMembers = null;
@@ -184,7 +235,8 @@ public class ManageCommunities extends MappingDispatchAction implements CrudActi
 		em.getTransaction().commit();
 		em.close();
 
-		Paginator<Community> paginator = new Paginator<Community>(result, request, "communities");		
+		Paginator<Community> paginator = new Paginator<Community>(result,
+				request, "communities");
 
 		request.setAttribute("allMembers", allMembers);
 		request.setAttribute("communitiesListPaginator", paginator);

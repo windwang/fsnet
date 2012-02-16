@@ -50,7 +50,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="parentId"> <bean:message
+			<td><label > <bean:message
 						key="groups.parent" /> : </label></td>
 			<c:choose>
 				<c:when test="${ master2 == false}">
@@ -98,9 +98,10 @@
 
 
 		<tr>
-			<td><label for="sexe"> <bean:message key="members.sexe" />
+			<td><label> <bean:message key="members.sexe" />
 					: </label></td>
 			<td><html:select property="sexe">
+					<html:option value=""/>
 					<html:option value="male">
 						<bean:message key="members.sexe.Male" />
 					</html:option>
@@ -119,7 +120,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="phone"> <bean:message
+			<td><label > <bean:message
 						key="members.phone" /> :</label></td>
 			<td><html:text errorStyleClass="error" property="phone" /></td>
 		</tr>
@@ -173,16 +174,18 @@
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$.datepicker.setDefaults($.extend({
-			yearRange : '-100:+1',
-			changeYear : true,
-			maxDate : 0,
-			dateFormat : 'dd/mm/yy',
-			showOn : 'button',
-			buttonImage : 'images/calendar.gif',
-			buttonImageOnly : true,
-			showMonthAfterYear : false
-		}));
+		$.datepicker.setDefaults($.extend(
+		        {
+		        	yearRange : '-100:+100',
+		        	minDate:"-100Y+1D",
+		        	maxDate:0,
+		            changeYear: true,
+		            dateFormat: 'dd/mm/yy',
+		            showOn: 'button',
+		            buttonImage: 'images/calendar.gif',
+		            buttonImageOnly: true,
+		            showMonthAfterYear: false
+		        }));
 		$("#birthDay").datepicker($.datepicker.regional['fr']);
 	});
 </script>
