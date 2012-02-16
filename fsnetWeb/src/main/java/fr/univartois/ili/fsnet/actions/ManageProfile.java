@@ -303,6 +303,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	    HttpGet httpGet = new HttpGet();
 		URI uri = null;
 		String stringUrl=(String) dynaForm.get("photoUrl");
+		dynaForm.set("photoUrl","");
 		String urlType = null;
 		if(stringUrl!=null  && !stringUrl.isEmpty()){
 			try{
@@ -340,6 +341,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				
 				try {
 					ImageManager.createPicturesForUser(userId, file.getInputStream(), pictureType);
+					return mapping.findForward("success");
 				} catch (FileNotFoundException e) {
 					sendPictureError(request, "updateProfile.error.photo.fatal");
 				} catch (IOException e) {
@@ -382,8 +384,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			}
 		}
 			else {
-		
-			ImageManager.removeOldUserPicture(userId);
+				sendPictureError(request, "updateProfile.error.photo.emptylink");
 			}
 		return mapping.findForward("success");
 	}
