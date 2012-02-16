@@ -29,9 +29,9 @@
 		<table id="yourConsults" class="tablesorter inLineTable">
 			<thead>
 				<tr>
-					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
-					<th><bean:message key="consultation.createdAtDate" /></th>
+					<th width="5%"></th>
+					<th width="25%"><bean:message key="tableheader.consultationname" /></th>
+					<th width="20%"><bean:message key="consultation.createdAtDate" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -45,8 +45,7 @@
 							action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
 					</td>
 					<td><bean:write name="consultation" property="creationDate"
-							format="dd/MM/yyyy" /> <bean:write name="consultation"
-							property="creationDate" format="HH:mm" /></td>
+							formatKey="date.format" /></td>
 					<td class="tableButton"
 						onclick="confirmDelete2(${consultation.id}	)"><html:form
 							action="/DeleteAConsultation" method="post"

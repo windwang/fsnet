@@ -57,10 +57,10 @@
 						}, null, {
 							"sType" : "date"
 						}, {
+							"sType" : "date"
+						}, {
 							"bSortable" : false
-						}, null, null, {
-							"bSortable" : false
-						} ];
+						}, null, null ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
 								aoColumns, false);
 					});
@@ -71,10 +71,10 @@
 					<th></th>
 					<th><bean:message key="tableheader.eventname" /></th>
 					<th><bean:message key="tableheader.willoccur" /></th>
+					<th><bean:message key="tableheader.expirdate" /></th>
 					<th><bean:message key="tableheader.by" /></th>
 					<th><bean:message key="tableheader.firstname" /></th>
 					<th><bean:message key="tableheader.name" /></th>
-					<th></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -88,18 +88,20 @@
 						<td><html:link action="/DisplayEvent">
 		                    ${event.title}
 		                    <html:param name="eventId" value="${event.id}" />
-							</html:link></td>
+							</html:link> <span style="color: gray"> : <ili:substring beginIndex="0"
+									endIndex="30">
+									<ili:noxml>${event.content}</ili:noxml>
+								</ili:substring>
+						</span></td>
 						<td class="left"><bean:write name="event"
-								property="startDate" format="dd/MM/yyyy HH'h'mm" /></td>
+								property="startDate" format="dd/MM/yyyy HH:mm" /></td>
+						<td class="left"><bean:write name="event" property="endDate"
+								format="dd/MM/yyyy HH:mm" /></td>
 						<td></td>
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${event.creator}" /></td>
 						<td><ili:getSocialEntityInfosName
 								socialEntity="${event.creator}" /></td>
-						<td class="tableButton"><ili:substring beginIndex="0"
-								endIndex="30">
-								<ili:noxml>${event.content}</ili:noxml>
-							</ili:substring></td>
 					</ili:interactionRow>
 				</c:forEach>
 			</tbody>

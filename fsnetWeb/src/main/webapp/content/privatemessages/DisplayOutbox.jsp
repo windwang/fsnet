@@ -29,11 +29,11 @@
 			$(document).ready(
 					function pagination() {
 						var nomTable = "tableoutbox";
-						var idColonneATrier = 3;
+						var idColonneATrier = 4;
 						var sensDeTri = "desc";
 						var aoColumns = [ {
 							"bSortable" : false
-						}, null, null, {
+						}, null, null, null, {
 							"sType" : "date-euro"
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -45,8 +45,9 @@
 			<table id="tableoutbox" class="tablesorter inLineTable">
 				<thead>
 					<tr>
-						<th></th>
 						<th><bean:message key="tableheader.to" /></th>
+						<th><bean:message key="members.firstName" /></th>
+						<th><bean:message key="members.name" /></th>
 						<th><bean:message key="tableheader.subject" /></th>
 						<th><bean:message key="tableheader.date" /></th>
 					</tr>
@@ -56,9 +57,11 @@
 						<tr>
 							<td><html:multibox property="selectedMessages"
 									value="${message.id}" /></td>
-							<td style="width: 25%"><ili:getSocialEntityInfos
+							<td style="width: 15%"><ili:getSocialEntityInfosFirstname
 									socialEntity="${message.to}" /></td>
-							<td style="width: 50%"><html:link
+							<td style="width: 15%"><ili:getSocialEntityInfosName
+									socialEntity="${message.to}" /></td>
+							<td style="width: 40%"><html:link
 									action="/DisplaySentMessage">
 									<html:param name="messageId" value="${message.id}" />
 									<span>${fn:substring(message.subject, 0,20)} : </span>
@@ -68,8 +71,8 @@
 										</ili:substring>
 									</span>
 								</html:link></td>
-							<td class="alignRight"><bean:write name="message"
-									property="creationDate" format="dd/MM/yyyy HH:mm" /></td>
+							<td><bean:write name="message"
+									property="creationDate" formatKey="date.format" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
