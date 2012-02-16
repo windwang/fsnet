@@ -15,14 +15,17 @@ import net.sf.json.JSONObject;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Meeting;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 public class Calendar extends MappingDispatchAction {
 
@@ -41,7 +44,11 @@ public class Calendar extends MappingDispatchAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-
+		
+		Right rightAddEvent = Right.ADD_EVENT;
+		request.setAttribute("rightAddEvent", rightAddEvent);
+		request.setAttribute("socialEntity", user);
+		
 		em.getTransaction().begin();
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
