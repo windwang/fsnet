@@ -11,12 +11,11 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
-    ${event.title}
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin">${event.title}</legend>
 
-<div class="interactionDisplay">
-    <table style="width: 100%">
+  <div class="interactionDisplay">
+    <table style="width: 100%" class="fieldsetTableAdmin">
         <tr class="authorDate">
             <td>
                 <bean:message key="events.5"/>
@@ -51,18 +50,19 @@
             </td>
         </tr>
     </table>
-</div>
+  </div>
+</fieldset>
 <div class="clear"></div>
 
 
 <c:if test="${fn:length(subscribers) gt 0}">
-<h3>
-	<bean:message key="events.22"/> : 
-</h3>
-<logic:iterate id="subscriber" collection="${subscribers}"> 
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="events.22"/> :</legend>
+  <logic:iterate id="subscriber" collection="${subscribers}"> 
 	<span class="tagSE"> 
 		<ili:getMiniature socialEntity="${subscriber}"/>
 	    <ili:getSocialEntityInfos socialEntity="${subscriber}"/>
 	</span> 
-</logic:iterate>
+  </logic:iterate>
+</fieldset>
 </c:if>

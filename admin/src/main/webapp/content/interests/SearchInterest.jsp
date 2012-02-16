@@ -11,19 +11,23 @@
 <script type="text/javascript" src="js/osx.js"></script>   
 
 
-<h3><bean:message key="interests.11"/></h3>
-<html:javascript formName="/SearchInterest"/>
-<html:form action="/SearchInterest">
- 		<div class="errorMessage"><html:errors property="searchInterestName"/></div>
-    	<p><html:text property="searchInterestName"/>
-      <html:submit styleClass="button" >
-      	<bean:message key="interest.validate"/>
-      </html:submit></p>
-</html:form>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="interests.11"/></legend>
+  <html:javascript formName="/SearchInterest"/>
+  <html:form action="/SearchInterest">
+ 		<table class="inLineTable fieldsetTableAdmin"><tr><td>
+ 		  <div class="errorMessage"><html:errors property="searchInterestName"/></div>
+    	  <p><html:text property="searchInterestName"/>
+          <html:submit styleClass="button" >
+      	  <bean:message key="interest.validate"/>
+          </html:submit></p>
+        </td></tr></table>
+  </html:form>
 
-<logic:present name="interestSearchPaginator" scope="request">
+  <logic:present name="interestSearchPaginator" scope="request">
 	<jsp:include page="/content/interests/ResultInterest.jsp"/>
-</logic:present>
+  </logic:present>
+</fieldset>
 
 <c:if test="${!empty success}">
 	<script type="text/javascript">
