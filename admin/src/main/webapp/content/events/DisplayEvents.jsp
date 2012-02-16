@@ -11,31 +11,34 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<h3>
-    <bean:message key="events.8"/>
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="events.8"/></legend>
 
-<html:form action="/Events" method="get">
-    <div id="SearchEvent">
+  <html:form action="/Events" method="get">
+    <div>
+      <table class="fieldsetTableAdmin"><tr><td>
         <html:text property="searchString" />
         <html:submit styleClass="button" >
             <bean:message key="events.11"/>
         </html:submit>
+      </td></tr></table>
     </div>
 </html:form>
+</fieldset>
 
-<h3>
-    <bean:message key="events.9"/>
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="events.9"/></legend>
 
-<c:choose>
+  <c:choose>
 
 	<c:when test="${empty requestScope.eventsListPaginator.resultList}">
-	    <bean:message key="search.noResults"/>
+	    <table class="fieldsetTableAdmin"><tr><td>
+	      <bean:message key="search.noResults"/>
+	    </td></tr></table>
 	</c:when>
 	
 	<c:otherwise>
-		<table  class="inLineTable">
+		<table  class="inLineTable fieldsetTableAdmin">
 		    <c:forEach var="event" items="${requestScope.eventsListPaginator.resultList}">
 		        <tr>
 		            <th>
@@ -61,4 +64,5 @@
 		<c:set var="paginatorTile" value="eventsLists" scope="request"/>
 		<c:import url="/content/pagination/Pagination.jsp"/>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

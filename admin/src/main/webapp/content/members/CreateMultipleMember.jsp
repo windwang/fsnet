@@ -9,11 +9,10 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean"  prefix="bean"%>
 
 
-
-<h3><bean:message key="members.createMultiple" /></h3>
-
-<html:form action="/CreateMultipleMember">
-	<table>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.createMultiple" /></legend>
+  <html:form action="/CreateMultipleMember">
+	<table class="fieldsetTableAdmin">
 	<tr>
 		<td colspan="2">
 			<bean:message key="members.createMultipleIndications" />
@@ -35,4 +34,5 @@
 		</td>
 	<jsp:include page="/content/members/SamePartForMember.jsp"/>
 	</table>
-</html:form>
+  </html:form>
+</fieldset>

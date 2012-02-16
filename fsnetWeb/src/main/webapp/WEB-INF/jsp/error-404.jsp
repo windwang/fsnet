@@ -62,8 +62,8 @@ a img {
 </head>
 <body>
 
-	<a href="/fsnetWeb/Home.do"> <img src="images/FSNET.png" height="55px"
-		width="150px">
+	<a href="/fsnetWeb/Home.do"> <img src="images/FSNET.png" height="49px"
+		width="230px">
 	</a>
 	<bean:message key="error-404.message"/>
 

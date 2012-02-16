@@ -7,19 +7,24 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 
-<h3><bean:message key="communities.search"/></h3>
-<html:form action="SearchCommunity">
-    <div id="SearchCommunity">
-        <html:text property="searchText" />
-        <html:submit styleClass="button"><bean:message key="communities.searchButton"/></html:submit>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="communities.search"/></legend>
+    <html:form action="SearchCommunity">
+    <div>
+        <table  class="inLineTable  fieldsetTableAdmin"><tr><td>
+          <html:text property="searchText" />
+          <html:submit styleClass="button"><bean:message key="communities.searchButton"/></html:submit>
+        </td></tr></table>
     </div>
-</html:form>
+    </html:form>
+</fieldset>
+<br />
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="communities.listCommunities"/></legend>
 
-<h3><bean:message key="communities.listCommunities"/></h3>
-
-<c:choose>
-<c:when test="${not empty requestScope.communitiesListPaginator.resultList}">
-	<table  class="inLineTable">
+  <c:choose>
+  <c:when test="${not empty requestScope.communitiesListPaginator.resultList}">
+	<table  class="inLineTable  fieldsetTableAdmin">
         <c:forEach var="community" items="${requestScope.communitiesListPaginator.resultList}">
             <tr class="content">
                 <td>${community.title}      
@@ -45,10 +50,12 @@
 	<c:import url="/content/pagination/Pagination.jsp"/>
 </c:when>
 <c:otherwise>
+  <table  class="inLineTable fieldsetTableAdmin"><tr><td>
 	<bean:message key="communities.noResult"/>
+  </td></tr></table>
 </c:otherwise>
 </c:choose>
-
+</fieldset>
 <c:if test="${!empty success}">
 	<script type="text/javascript">
 		jQuery(function () { popup(); });

@@ -11,19 +11,24 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 
-<h3><bean:message key="groups.search"/></h3>
-<html:form action="SearchGroup">
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="groups.search"/></legend>
+  <html:form action="SearchGroup">
     <div id="SearchGroup">
-        <html:text property="searchText" />
-        <html:submit styleClass="button"><bean:message key="groups.searchButton"/></html:submit>
+        <table class="fieldsetTableAdmin"><tr><td>
+          <html:text property="searchText" />
+          <html:submit styleClass="button"><bean:message key="groups.searchButton"/></html:submit>
+        </td></tr></table>
     </div>
-</html:form>
+  </html:form>
+</fieldset>
 
-<h3><bean:message key="groups.listGroups"/></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="groups.listGroups"/></legend>
 
-<c:choose>
-<c:when test="${not empty requestScope.groupsListPaginator.resultList}">
-	<table  class="inLineTable">
+  <c:choose>
+  <c:when test="${not empty requestScope.groupsListPaginator.resultList}">
+	<table  class="inLineTable fieldsetTableAdmin">
         <c:forEach var="group" items="${requestScope.groupsListPaginator.resultList}">
             <tr class="content">
                 <td>
@@ -53,10 +58,12 @@
 	<c:import url="/content/pagination/Pagination.jsp"/>
 </c:when>
 <c:otherwise>
-	<bean:message key="members.noResult"/>
+   <table class="inLineTable fieldsetTableAdmin"><tr><td>
+	  <bean:message key="members.noResult"/>
+   </td></tr></table>
 </c:otherwise>
 </c:choose>
-
+</fieldset>
 <c:if test="${!empty success}">
 	<script type="text/javascript">
 		jQuery(function () { popup(); });
