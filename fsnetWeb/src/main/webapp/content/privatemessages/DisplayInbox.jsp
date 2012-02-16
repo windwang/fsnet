@@ -29,13 +29,13 @@
 			$(document).ready(
 					function pagination() {
 						var nomTable = "tableinbox";
-						var idColonneATrier = 4;
+						var idColonneATrier = 5;
 						var sensDeTri = "desc";
 						var aoColumns = [ {
 							"bSortable" : false
 						}, {
 							"bSortable" : false
-						}, null, null, {
+						}, null, null, null, {
 							"sType" : "date-euro"
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -48,8 +48,9 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th></th>
 						<th><bean:message key="tableheader.from" /></th>
+						<th><bean:message key="members.firstName" /></th>
+						<th><bean:message key="members.name" /></th>
 						<th><bean:message key="tableheader.subject" /></th>
 						<th><bean:message key="tableheader.date" /></th>
 					</tr>
@@ -61,12 +62,15 @@
 								<td><html:multibox property="selectedMessages"
 										value="${message.id}" /></td>
 								<td><ili:getMiniature socialEntity="${message.from}" /></td>
-								<td style="width: 25%"><html:link action="/DisplayMessage">
+								<td style="width: 15%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
-										<span>${message.from.firstName} ${message.from.name}</span>
-
+										<span>${message.from.firstName}</span>
 									</html:link></td>
-								<td style="width: 50%"><html:link action="/DisplayMessage">
+								<td style="width: 15%"><html:link action="/DisplayMessage">
+										<html:param name="messageId" value="${message.id}" />
+										<span>${message.from.name}</span>
+									</html:link></td>
+								<td style="width: 40%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${fn:substring(message.subject, 0,20)} : </span>
 										<span style="color: gray"> <ili:substring
@@ -81,11 +85,15 @@
 								<td><html:multibox property="selectedMessages"
 										value="${message.id}" /></td>
 								<td><ili:getMiniature socialEntity="${message.from}" /></td>
-								<td style="width: 25%"><html:link action="/DisplayMessage">
+								<td style="width: 15%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
-										<span>${message.from.firstName} ${message.from.name}</span>
+										<span>${message.from.firstName}</span>
 									</html:link></td>
-								<td style="width: 50%"><html:link action="/DisplayMessage">
+								<td style="width: 15%"><html:link action="/DisplayMessage">
+										<html:param name="messageId" value="${message.id}" />
+										<span>${message.from.name}</span>
+									</html:link></td>
+								<td style="width: 40%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${fn:substring(message.subject, 0,20)} : </span>
 										<span style="color: gray"> <ili:substring
@@ -95,7 +103,7 @@
 										</span>
 									</html:link></td>
 						</c:if>
-						<td class="alignRight"><bean:write name="message"
+						<td><bean:write name="message"
 								property="creationDate" formatKey="date.format" /></td>
 					</c:forEach>
 				</tbody>
