@@ -76,6 +76,23 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		}
 		return typedEventDate;
 	}
+	
+	private Date validateDateForEditing(String eventDate, HttpServletRequest request,
+			String propertyKey) {
+
+		Date typedEventDate;
+
+		try {
+			typedEventDate = DateUtils.format(eventDate);
+		} catch (ParseException e) {
+			ActionErrors errors = new ActionErrors();
+			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
+			saveErrors(request, errors);
+			return null;
+		}
+
+		return typedEventDate;
+	}
 
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
@@ -156,9 +173,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			String eventEndDate = (String) dynaForm.get("eventEndDate");
 			String adress = (String) dynaForm.get("eventAddress");
 			String city = (String) dynaForm.get("eventCity");
-			Date typedEventBeginDate = validateDate(eventBeginDate, request,
+			Date typedEventBeginDate = validateDateForEditing(eventBeginDate, request,
 					"eventBeginDate");
-			Date typedEventEndDate = validateDate(eventEndDate, request,
+			Date typedEventEndDate = validateDateForEditing(eventEndDate, request,
 					"eventEndDate");
 
 			if (typedEventBeginDate == null || typedEventEndDate == null) {
