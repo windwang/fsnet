@@ -269,9 +269,9 @@
 	</developers>
 
 	<scm>
-		<connection>scm:svn:https://fsnet.googlecode.com/svn/trunk</connection>
-		<developerConnection>scm:svn:https://fsnet.googlecode.com/svn/trunk</developerConnection>
-		<url>http://fsnet.googlecode.com/svn/trunk</url>
+		<connection>scm:git:https://fsnet.googlecode.com/</connection>
+		<developerConnection>scm:git:https://fsnet.googlecode.com/</developerConnection>
+		<url>http://fsnet.googlecode.com/</url>
 	</scm>
 
 	<reporting>
