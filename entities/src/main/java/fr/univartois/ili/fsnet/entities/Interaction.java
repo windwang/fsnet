@@ -99,7 +99,7 @@ public abstract class Interaction implements Serializable {
 	 */
 	public Interaction() {
 	}
-
+	
 	public Interaction(SocialEntity creator, String title) {
 		if (creator == null || title == null) {
 			throw new IllegalArgumentException();
@@ -118,8 +118,7 @@ public abstract class Interaction implements Serializable {
 	
 	// TODO voir rapport d'activite
 	// TODO !!! private
-	public Interaction(SocialEntity creator, String title,
-			String[] groupsRigthsAccepted) {
+	public Interaction(SocialEntity creator, String title, List<SocialGroup> listOfGroupAccepted) {
 		if (creator == null || title == null) {
 			throw new IllegalArgumentException();
 		}
@@ -133,13 +132,13 @@ public abstract class Interaction implements Serializable {
 		this.followingEntitys = new HashSet<SocialEntity>();
 		this.readers = new ArrayList<SocialEntity>();
 		// this.report = rapport;
-		getListGroupsRightsAccepted(groupsRigthsAccepted);
+		getListGroupsRightsAccepted(listOfGroupAccepted);
 	}
 
-	private void getListGroupsRightsAccepted(String[] groupsAccepted) {
+	private void getListGroupsRightsAccepted( List<SocialGroup> groupsAccepted) {
 		this.interactionGroups = new ArrayList<InteractionGroups>();
-		for (String string : groupsAccepted) {
-			interactionGroups.add(new InteractionGroups(this, string));
+		for (SocialGroup group : groupsAccepted) {
+			interactionGroups.add(new InteractionGroups(this, group));
 		}
 	}
 

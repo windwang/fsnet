@@ -11,6 +11,7 @@ import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
 import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 public class ConsultationFacade {
@@ -20,11 +21,12 @@ public class ConsultationFacade {
 		this.em = em;
 	}
 	
-	public final Consultation createConsultation(SocialEntity creator, String title, String description, String [] choices, Consultation.TypeConsultation type, String[] groupsRigthsAccepted){
+	public final Consultation createConsultation(SocialEntity creator, String title, String description, String [] choices, Consultation.TypeConsultation type, List<SocialGroup> groupsRigthsAccepted){
 		Consultation consultation = new Consultation(creator, title, description, type, groupsRigthsAccepted);
 		for (String s : choices){
 			consultation.addChoice(new ConsultationChoice(consultation,s));
 		}
+		
 		em.persist(consultation);
 		return consultation;
 	}

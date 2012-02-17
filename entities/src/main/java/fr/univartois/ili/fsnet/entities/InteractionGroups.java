@@ -25,20 +25,23 @@ public class InteractionGroups implements Serializable {
 	/**
 	 * The intituled or name of the group
 	 */
-	private String name_group;
+    @ManyToOne
+    @Id
+	private SocialGroup group;
 	
 	/**
 	 * The consultation to which the choice relates
 	 */
-	@ManyToOne
+    @ManyToOne
+    @Id
 	private Interaction interaction;
 	
 	public InteractionGroups() {
 	}
 
-	public InteractionGroups(Interaction interaction, String group) {
+	public InteractionGroups(Interaction interaction, SocialGroup group) {
 		this.setInteraction(interaction);
-		setName_group(group);
+		this.setGroup(group);
 	}
 
 	public int getId() {
@@ -49,12 +52,12 @@ public class InteractionGroups implements Serializable {
 		this.id = id;
 	}
 
-	public String getName_group() {
-		return name_group;
+	public SocialGroup getName_group() {
+		return group;
 	}
 
-	public void setName_group(String name_group) {
-		this.name_group = name_group;
+	public void setGroup(SocialGroup group2) {
+		this.group = group2;
 	}
 
 	public Interaction getInteraction() {

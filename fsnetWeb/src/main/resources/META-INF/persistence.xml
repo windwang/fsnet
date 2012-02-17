@@ -10,6 +10,7 @@
 		<class>fr.univartois.ili.fsnet.entities.Community</class>
 		<class>fr.univartois.ili.fsnet.entities.Hub</class>
 		<class>fr.univartois.ili.fsnet.entities.Interaction</class>
+		<class>fr.univartois.ili.fsnet.entities.InteractionGroups</class>
 		<class>fr.univartois.ili.fsnet.entities.InteractionRole</class>
 		<class>fr.univartois.ili.fsnet.entities.Interest</class>
 		<class>fr.univartois.ili.fsnet.entities.Meeting</class>
@@ -25,9 +26,9 @@
 		<class>fr.univartois.ili.fsnet.entities.ConsultationChoice</class>
 		<class>fr.univartois.ili.fsnet.entities.ConsultationChoiceVote</class>
 		<class>fr.univartois.ili.fsnet.entities.ConsultationVote</class>
-	    <class>fr.univartois.ili.fsnet.entities.SocialElement</class>
-    	<class>fr.univartois.ili.fsnet.entities.SocialGroup</class>
-    	<class>fr.univartois.ili.fsnet.entities.AssociationDateDegreeCV</class>
+		<class>fr.univartois.ili.fsnet.entities.SocialElement</class>
+		<class>fr.univartois.ili.fsnet.entities.SocialGroup</class>
+		<class>fr.univartois.ili.fsnet.entities.AssociationDateDegreeCV</class>
 		<class>fr.univartois.ili.fsnet.entities.AssociationDateFormationCV</class>
 		<class>fr.univartois.ili.fsnet.entities.AssociationDateTrainingCV</class>
 		<class>fr.univartois.ili.fsnet.entities.DegreeCV</class>

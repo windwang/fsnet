@@ -32,6 +32,7 @@ import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.ConsultationFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
@@ -107,11 +108,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 
+		List<SocialGroup> listOfGroupAccepted = new ArrayList<SocialGroup>();
+ 		for (String name : groupsRightsAccept){
+ 			listOfGroupAccepted.add(fascade.findByName(name));
+		}		
 		Consultation consultation = consultationFacade.createConsultation(
 				member, consultationTitle, consultationDescription,
 				consultationChoices,
 				Consultation.TypeConsultation.valueOf(consultationType),
-				groupsRightsAccept);
+				listOfGroupAccepted);		
 
 		if (!"".equals(nbVotersPerChoiceBox)) {
 			consultation.setLimitParticipantPerChoice(true);

@@ -45,10 +45,6 @@ public class Consultation extends Interaction {
 	@OrderBy(value = "id")
 	private List<ConsultationVote> consultationVotes;
 
-//	@OneToMany(mappedBy = "consultation", cascade = CascadeType.ALL)
-//	@OrderBy(value = "id")
-//	private List<ConsultationGroups> consultationGroups;
-
 	private String description;
 
 	@Column(length = 1)
@@ -103,8 +99,8 @@ public class Consultation extends Interaction {
 	 * @param description
 	 */
 	public Consultation(SocialEntity creator, String title, String description,
-			TypeConsultation type, String[] groupsRigthsAccepted) {
-		super(creator, title, groupsRigthsAccepted);
+			TypeConsultation type, List<SocialGroup> listOfGroupAccepted) {
+		super(creator, title, listOfGroupAccepted);
 		this.description = description;
 		this.type = type;
 		limitChoicesPerParticipant = "F";
