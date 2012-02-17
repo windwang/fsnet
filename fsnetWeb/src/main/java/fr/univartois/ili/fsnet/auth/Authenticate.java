@@ -110,7 +110,7 @@ public class Authenticate extends HttpServlet {
 		}
 
 		EntityManager em = PersistenceProvider.createEntityManager();
-		;
+
 		SocialEntity es = null;
 		if (memberMail != null && memberPass != null) {
 			memberMail=memberMail.toLowerCase();
@@ -176,7 +176,8 @@ public class Authenticate extends HttpServlet {
 			req.getSession().setAttribute("currentUserId", user.getId());
 			// add under groups to select them to add rights 
 			// to participate at consultation
-			if(socialGroupFacade.isGroupResponsible(user)){
+			
+			if(socialGroupFacade.isSuperAdmin(user) || socialGroupFacade.isGroupResponsible(user)){
 				List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
 				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
 			}else{

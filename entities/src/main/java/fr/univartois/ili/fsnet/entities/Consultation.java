@@ -100,7 +100,7 @@ public class Consultation extends Interaction {
 	 */
 	public Consultation(SocialEntity creator, String title, String description,
 			TypeConsultation type, List<SocialGroup> listOfGroupAccepted) {
-		super(creator, title, listOfGroupAccepted);
+		super(creator, title);
 		this.description = description;
 		this.type = type;
 		limitChoicesPerParticipant = "F";
@@ -192,6 +192,10 @@ public class Consultation extends Interaction {
 
 	public void addChoice(ConsultationChoice consultationChoice) {
 		this.choices.add(consultationChoice);
+	}
+	
+	public void addConsultationRightGroup(SocialGroup group) {
+		this.addInteractionGroup(new InteractionGroups(this, group));
 	}
 
 	public List<ConsultationVote> getConsultationVotes() {

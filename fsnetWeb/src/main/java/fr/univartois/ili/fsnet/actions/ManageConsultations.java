@@ -68,9 +68,8 @@ public class ManageConsultations extends MappingDispatchAction {
 		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
-		String[] groupsRightsAccept = (String[]) dynaForm
-				.get("groupsListRight");
-
+		String[] groupsRightsAccept = (String[]) dynaForm.get("groupsListRight");
+		
 		addRightToRequest(request);
 		// TODO chercher le moyen de valider ce qui suit avec struts...
 		for (String cs : consultationChoices) {
@@ -109,14 +108,14 @@ public class ManageConsultations extends MappingDispatchAction {
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 
 		List<SocialGroup> listOfGroupAccepted = new ArrayList<SocialGroup>();
- 		for (String name : groupsRightsAccept){
- 			listOfGroupAccepted.add(fascade.findByName(name));
-		}		
+		for (String name : groupsRightsAccept) {
+			listOfGroupAccepted.add(fascade.findByName(name));
+		}
 		Consultation consultation = consultationFacade.createConsultation(
 				member, consultationTitle, consultationDescription,
 				consultationChoices,
 				Consultation.TypeConsultation.valueOf(consultationType),
-				listOfGroupAccepted);		
+				listOfGroupAccepted);
 
 		if (!"".equals(nbVotersPerChoiceBox)) {
 			consultation.setLimitParticipantPerChoice(true);
@@ -348,48 +347,55 @@ public class ManageConsultations extends MappingDispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addRightToRequest(request);
-        EntityManager em = PersistenceProvider.createEntityManager();
-        ConsultationFacade consultationFacade = new ConsultationFacade(em);
-        SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-        List<Consultation> listConsultations = consultationFacade.getUserConsultations(member);
-        request.setAttribute("consultationsList", listConsultations);
-        InteractionFacade interactionFacade = new InteractionFacade(em);
-        List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
-        request.setAttribute("unreadInteractionsId", unreadInteractionsId);
-        ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
-        return redirect;
+		EntityManager em = PersistenceProvider.createEntityManager();
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		List<Consultation> listConsultations = consultationFacade
+				.getUserConsultations(member);
+		request.setAttribute("consultationsList", listConsultations);
+		InteractionFacade interactionFacade = new InteractionFacade(em);
+		List<Integer> unreadInteractionsId = interactionFacade
+				.getUnreadInteractionsIdForSocialEntity(member);
+		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
+		ActionRedirect redirect = new ActionRedirect(
+				mapping.findForward("success"));
+		return redirect;
 
 	}
 
 	public ActionForward searchConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		 addRightToRequest(request);
-         String searchText = "";
-         EntityManager em = PersistenceProvider.createEntityManager();
-         ConsultationFacade consultationFacade = new ConsultationFacade(em);
-         if(form != null){
-                 DynaActionForm dynaForm = (DynaActionForm) form;
-                 searchText = (String) dynaForm.get("searchText");
-         }
-         List<Consultation> searchConsultations = consultationFacade.getConsultationsContaining(searchText);
-         if(searchConsultations !=null && !searchConsultations.isEmpty()) {
-                 FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(em);
-                 SocialEntity se = UserUtils.getAuthenticatedUser(request);
-                 searchConsultations = filter.filterInteraction(se, searchConsultations);
-         }
-         request.setAttribute("consultationsSearchList", searchConsultations);
-         
-         em.getTransaction().begin();
-         SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-         InteractionFacade interactionFacade = new InteractionFacade(em);
-         List<Integer> unreadInteractionsId = interactionFacade.getUnreadInteractionsIdForSocialEntity(member);
-         refreshNumNewConsultations(request, em);
-         em.getTransaction().commit();
-         em.close();
-         request.setAttribute("unreadInteractionsId", unreadInteractionsId);
-         
-         return mapping.findForward("success");
+		addRightToRequest(request);
+		String searchText = "";
+		EntityManager em = PersistenceProvider.createEntityManager();
+		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		if (form != null) {
+			DynaActionForm dynaForm = (DynaActionForm) form;
+			searchText = (String) dynaForm.get("searchText");
+		}
+		List<Consultation> searchConsultations = consultationFacade
+				.getConsultationsContaining(searchText);
+		if (searchConsultations != null && !searchConsultations.isEmpty()) {
+			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(
+					em);
+			SocialEntity se = UserUtils.getAuthenticatedUser(request);
+			searchConsultations = filter.filterInteraction(se,
+					searchConsultations);
+		}
+		request.setAttribute("consultationsSearchList", searchConsultations);
+
+		em.getTransaction().begin();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		InteractionFacade interactionFacade = new InteractionFacade(em);
+		List<Integer> unreadInteractionsId = interactionFacade
+				.getUnreadInteractionsIdForSocialEntity(member);
+		refreshNumNewConsultations(request, em);
+		em.getTransaction().commit();
+		em.close();
+		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
+
+		return mapping.findForward("success");
 
 	}
 

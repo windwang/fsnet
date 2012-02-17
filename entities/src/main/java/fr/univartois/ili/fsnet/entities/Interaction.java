@@ -45,7 +45,6 @@ public abstract class Interaction implements Serializable {
 	/**
 	 * The identifier.
 	 */
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -92,14 +91,16 @@ public abstract class Interaction implements Serializable {
 
 	@OneToMany(mappedBy = "interaction", cascade = CascadeType.ALL)
 	@OrderBy(value = "id")
-	private List<InteractionGroups> interactionGroups;
+	private List<InteractionGroups> interactionGroups;	
 
 	/**
 	 * Constructor of the class Interaction.
 	 */
 	public Interaction() {
 	}
-	
+		
+	// TODO voir rapport d'activite
+	// TODO !!! private
 	public Interaction(SocialEntity creator, String title) {
 		if (creator == null || title == null) {
 			throw new IllegalArgumentException();
@@ -114,34 +115,14 @@ public abstract class Interaction implements Serializable {
 		this.followingEntitys = new HashSet<SocialEntity>();
 		this.readers = new ArrayList<SocialEntity>();
 		// this.report = rapport;
+		this.interactionGroups = new ArrayList<InteractionGroups>();
+	}
+
+
+	public void addInteractionGroup(InteractionGroups group){
+		this.interactionGroups.add(group);
 	}
 	
-	// TODO voir rapport d'activite
-	// TODO !!! private
-	public Interaction(SocialEntity creator, String title, List<SocialGroup> listOfGroupAccepted) {
-		if (creator == null || title == null) {
-			throw new IllegalArgumentException();
-		}
-		Date date = new Date();
-		this.title = title;
-		this.creationDate = date;
-		this.lastModified = date;
-		this.creator = creator;
-		this.interests = new ArrayList<Interest>();
-		this.roles = new HashSet<InteractionRole>();
-		this.followingEntitys = new HashSet<SocialEntity>();
-		this.readers = new ArrayList<SocialEntity>();
-		// this.report = rapport;
-		getListGroupsRightsAccepted(listOfGroupAccepted);
-	}
-
-	private void getListGroupsRightsAccepted( List<SocialGroup> groupsAccepted) {
-		this.interactionGroups = new ArrayList<InteractionGroups>();
-		for (SocialGroup group : groupsAccepted) {
-			interactionGroups.add(new InteractionGroups(this, group));
-		}
-	}
-
 	/**
 	 * 
 	 * @return the identifier.
@@ -270,6 +251,14 @@ public abstract class Interaction implements Serializable {
 	 */
 	public void setFollowingEntitys(Set<SocialEntity> followingEntitys) {
 		this.followingEntitys = followingEntitys;
+	}
+	
+	public List<InteractionGroups> getInteractionGroups() {
+		return interactionGroups;
+	}
+
+	public void setInteractionGroups(List<InteractionGroups> interactionGroups) {
+		this.interactionGroups = interactionGroups;
 	}
 
 	/**
