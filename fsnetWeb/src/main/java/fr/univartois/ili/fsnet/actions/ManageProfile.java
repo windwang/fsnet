@@ -11,6 +11,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -39,6 +41,7 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.core.LoggedUsersContainer;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
@@ -275,6 +278,18 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		SocialGroup socialGroup = profile.getGroup();
 		request.setAttribute("socialGroup", socialGroup);
 		em.close();
+		
+		
+		LoggedUsersContainer loggedCon= (LoggedUsersContainer) getServlet().getServletContext().getAttribute("loggedUsers");
+		Map<Integer,String> loggeddd=loggedCon.getUsers();
+		if(loggeddd.containsKey(id)){
+			System.out.println("id "+id+ "  is logged");
+			request.setAttribute("isLogged", true);
+		}else{
+			System.out.println("id "+id+ "  is not logged");
+			request.setAttribute("isLogged", false);
+		}
+		
 		return mapping.findForward("success");
 	}
 

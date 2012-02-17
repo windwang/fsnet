@@ -12,7 +12,6 @@
 
 <fieldset class="fieldsetProfil">
   <legend class="legendHome"><bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}" /></legend>
-
   <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td>
@@ -75,15 +74,8 @@
 </fieldset>
 
 
-  <c:if test="${watchedProfile.id != currentUser.id}">
-	<img src="avatar/${watchedProfile.id}.png" style="float: right;"
-		onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')" />
+<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
 
-</c:if>
-<c:if test="${watchedProfile.id == currentUser.id}">
-	<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
-
-</c:if>
 
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
 	<html:link action="/ContactDemand" styleClass="button">
@@ -97,6 +89,19 @@
 		<bean:message key="showProfile.send" />
 		<html:param name="receiver" value="${watchedProfile.email}" />
 	</html:link>
+</c:if>
+<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
+  <a class="button" onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')">
+  <bean:message key="showProfile.chat" />
+  </a>
+</c:if>
+<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
+		
+		<a class="button" onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')">
+		<bean:message key="showProfile.chat" />
+		
+	     </a>
+
 </c:if>
 
 <div class="clear"></div>

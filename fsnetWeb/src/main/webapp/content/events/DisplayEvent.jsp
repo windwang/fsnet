@@ -58,10 +58,12 @@
             		</c:if>
             	</ili:interactionFilter>
   
-                <html:link  action="/DisplayUpdateEvent" styleClass="button">
-                    <html:param name="eventId" value="${event.id}"/>
-                    <bean:message key="events.update"/>
-                </html:link>
+  				<c:if test="${userId eq event.creator.id}">
+	                <html:link  action="/DisplayUpdateEvent" styleClass="button">
+	                    <html:param name="eventId" value="${event.id}"/>
+	                    <bean:message key="events.update"/>
+	                </html:link>
+            	</c:if>
             		
                 <c:if test="${userId eq event.creator.id}">
                     <html:form  action="/DeleteEvent" method="post" styleId="eventid${event.id}" styleClass="deleteEventForm" >

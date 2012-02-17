@@ -151,7 +151,6 @@ $(function() {
     $.datepicker.setDefaults($.datepicker.regional['fr']);
     $.datepicker.setDefaults($.extend(
             {
-                minDate: 0,
                 dateFormat: 'dd/mm/yy',
                 showOn: 'both',
                 buttonImage: 'images/calendar.gif',
