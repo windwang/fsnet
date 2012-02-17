@@ -40,4 +40,20 @@
 			<rtexprvalue>true</rtexprvalue>
 		</attribute>
 	</tag>
+	<tag>
+		<description>Add placeholder attribute</description>
+		<name>placeHolder</name>
+		<tag-class>fr.univartois.ili.fsnet.tags.PlaceHolderTag</tag-class>
+		<body-content>empty</body-content>
+		<attribute>
+			<name>id</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+		<attribute>
+			<name>value</name>
+			<required>true</required>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
 </taglib>

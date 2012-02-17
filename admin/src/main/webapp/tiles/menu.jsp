@@ -3,15 +3,15 @@
 <%@ taglib prefix="html" uri="http://struts.apache.org/tags-html" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="ili" uri="../WEB-INF/ili.tld"%>
 
-<c:set var="inputTextContent">
-	<bean:message key="menu.7"/>
-</c:set>
+<bean:define id="searchMessage"><bean:message key="menu.7"/></bean:define>
 
 <div id="search">
     <html:form action="/SearchMember">
         <fieldset>
-            <html:text styleClass="field" property="searchText" onclick="this.value=''" value="${inputTextContent}"/>
+            <html:text styleClass="field" property="searchText" styleId="searchText" />
+            <ili:placeHolder id="searchText" value="${searchMessage}" />
             <html:submit styleClass="searchButton" value=" "/>
         </fieldset>
     </html:form>

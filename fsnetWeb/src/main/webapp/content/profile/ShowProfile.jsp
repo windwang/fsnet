@@ -76,7 +76,7 @@
 
 <img src="avatar/${watchedProfile.id}.png" style="float: right;" />
 
-
+<div class="placeButton">
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
 	<html:link action="/ContactDemand" styleClass="button">
 		<bean:message key="showProfile.ask" />
@@ -95,14 +95,7 @@
   <bean:message key="showProfile.chat" />
   </a>
 </c:if>
-<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
-		
-		<a class="button" onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')">
-		<bean:message key="showProfile.chat" />
-		
-	     </a>
-
-</c:if>
+</div>
 
 <div class="clear"></div>
 

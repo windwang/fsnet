@@ -13,6 +13,16 @@
     margin: 10px;
 }
 
+.placeButton{
+	clear : both;
+}
+
+.homeGap {
+    clear : both;
+    margin: 10px;
+}
+
+
 #lastInteractions {
     width: 100%;
     /* padding-top: 15px; */
