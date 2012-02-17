@@ -12,9 +12,9 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetHome1">
-  <legend class="legendHome1"><html:link action="/Inbox"><bean:message  key="DashBoard.lastMes"/></html:link></legend>
-  <table id="dashboardMessages" class="inLineTableDashBoardFieldset fieldsetTable1">
+<fieldset class="fieldsetHome">
+  <legend class="legendHome"><html:link action="/Inbox"><bean:message  key="DashBoard.lastMes"/></html:link></legend>
+  <table id="dashboardMessages" class="inLineTableDashBoardFieldset fieldsetTable">
     <logic:empty name="messages">
         <tr>
             <td>
@@ -66,8 +66,8 @@
 </fieldset>
 
 <fieldset class="fieldsetHome2">
-  <legend class="legendHome2"><html:link action="/Visits"><bean:message key="visite.last.title"/></html:link></legend>
-  <table id="lastVisits" class="inLineTableDashBoardFieldset homeFrame fieldsetTable2">
+  <legend class="legendHome"><html:link action="/Visits"><bean:message key="visite.last.title"/></html:link></legend>
+  <table id="lastVisits" class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
     <logic:empty name="visitors">
         <tr>
             <td>
@@ -97,8 +97,9 @@
 <div class="clear homeGap"></div>
 <c:choose>
     <c:when test="${sessionScope.numNewContactsRequests gt 0}">
-        <table id="contactsAsked" class="inLineTableDashBoard homeFrame">
-            <caption><bean:message key="DashBoard.contactsAsked.title"/></caption>
+        <fieldset class="fieldsetHome">
+          <legend class="legendHome"><bean:message key="DashBoard.contactsAsked.title"/></legend>  
+          <table id="contactsAsked" class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
             <c:forEach var="contact" items="${contactsAsked}">
                 <tr class="notReed">
                     <td class="miniatureContainer">
@@ -118,12 +119,13 @@
                     </td>
                 </tr>
             </c:forEach>
-
         </table>
+      </fieldset>
     </c:when>
     <c:otherwise>
-        <table id="contactProposals" class="inLineTableDashBoard homeFrame">
-            <caption><bean:message key="DashBoard.contactProposals.title"/></caption>
+        <fieldset class="fieldsetHome">
+          <legend class="legendHome"><bean:message key="DashBoard.contactProposals.title"/></legend>
+          <table id="contactProposals" class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
             <logic:empty name="contacts">
                 <tr>
                     <td>
@@ -150,10 +152,13 @@
                 </c:forEach>
             </logic:notEmpty>
         </table>
+       </fieldset>
     </c:otherwise>
 </c:choose>
-<table id="interestProposals" class="inLineTableDashBoard homeFrame">
-    <caption><html:link action="/InterestInformations"><bean:message key="DashBoard.interestProposals.title"/></html:link></caption>
+
+<fieldset class="fieldsetHome2">
+  <legend class="legendHome"><html:link action="/InterestInformations"><bean:message key="DashBoard.interestProposals.title"/></html:link></legend>
+    <table id="interestProposals" class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
     <logic:empty name="interests">
         <tr>
             <td>
@@ -180,12 +185,14 @@
         </c:forEach>
 
     </logic:notEmpty>
-</table>
+  </table>
+</fieldset>
 
 <div class="clear homeGap"></div>
 
-<table id="lastInteractions" class="inLineTableDashBoard homeFrame">
-    <caption><html:link action="/Consultations"><bean:message key="lastInteractions.title"/></html:link></caption>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><html:link action="/Consultations"><bean:message key="lastInteractions.title"/></html:link></legend>
+   <table id="lastInteractions" class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
     <logic:empty name="lastInteractions">
         <tr>
             <td>
@@ -217,5 +224,5 @@
             </tr>
         </logic:iterate>
     </logic:notEmpty>
-
-</table>
+  </table>
+</fieldset>

@@ -6,14 +6,17 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<h3><bean:message key="interests.11"/></h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="interests.11"/></legend>
 <html:javascript formName="/SearchInterest"/>
-<html:form action="/SearchInterest" method="GET">
+ <html:form action="/SearchInterest" method="GET">
+    <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
     <html:text property="requestInput"/>
     <div class="errorMessage"><html:errors property="requestInput"/></div>
     <html:submit styleClass="button">
     	<bean:message key="interests.search"/>
     </html:submit>
+    </td></tr></table>
 </html:form>
-
 <jsp:include page="/content/interests/ResultInterest.jsp"/>
+</fieldset>

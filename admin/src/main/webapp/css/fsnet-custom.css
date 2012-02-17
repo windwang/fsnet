@@ -217,9 +217,6 @@ input[type="text"][class="error"], textarea[class="error"] {
 
 /*interaction display*/
 .interactionDisplay {
-    float: left;
-    width: 68%;
-    background-color: #ecf8ff;
     padding: 3px;
     margin-right: 10px;
 }

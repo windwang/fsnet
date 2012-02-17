@@ -5,14 +5,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
-	<bean:message key="announce" />
-	s
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="announce" />s</legend>
 
 <c:choose>
 	<c:when test="${empty requestScope.annoucesList}">
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="announce.emptyList" /></td>
 			</tr>
@@ -37,7 +35,7 @@
 
 					});
 		</script>
-		<table id="eventsTable" class="tablesorter inLineTable">
+		<table id="eventsTable" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
 					<th></th>
@@ -74,4 +72,5 @@
 		</table>
 
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

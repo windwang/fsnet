@@ -6,10 +6,9 @@
 	<bean:message key="consultation.search" />
 </bean:define>
 
-<h3>
-	<bean:message key="consultation.searchConsultation" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="consultation.searchConsultation" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><html:form action="SearchConsultation" method="GET">
 				<div id="SearchCommunity">
@@ -22,11 +21,11 @@
 			</html:form></td>
 	</tr>
 </table>
+</fieldset>
 
-<h3>
-	<bean:message key="consultation.listConsultations" />
-</h3>
-<c:choose>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="consultation.listConsultations" /></legend>
+  <c:choose>
 	<c:when test="${! empty requestScope.consultationsSearchList}">
 
 		<script type="text/javascript">
@@ -46,7 +45,7 @@
 		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
 	});
 </script>
-		<table id="searchConsults" class="tablesorter inLineTable">
+		<table id="searchConsults" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
 					<th width="5%"></th>
@@ -94,10 +93,11 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="consultations.noResult" />.</td>
 			</tr>
 		</table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>
