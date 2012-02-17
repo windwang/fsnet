@@ -149,6 +149,7 @@
 		</table>
 	</c:when>
 	<c:otherwise>
+	    <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {

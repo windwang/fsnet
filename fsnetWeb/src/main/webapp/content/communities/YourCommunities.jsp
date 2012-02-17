@@ -26,7 +26,7 @@
 								aoColumns, false);
 					});
 		</script>
-		<table id="myCommTables" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+		<table id="myCommTables" class="tablesorter inLineTableDashBoardFieldset ">
 			<thead>
 				<tr>
 					<th width="10%"></th>
