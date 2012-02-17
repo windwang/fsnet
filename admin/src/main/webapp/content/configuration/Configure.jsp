@@ -124,15 +124,6 @@
 				<td colspan="2"><html:errors property="PicturesDirectory" /></td>
 			</tr>
 		</logic:messagesPresent>
-		<tr class="errorMessage">
-			<td colspan="2"><html:errors property="FSNetWebURL" /></td>
-		</tr>
-		<tr>
-			<td><label for="FSNetWebURL"> <bean:message
-				key="configure.8" /> </label></td>
-			<td><html:text errorStyleClass="error" styleId="FSNetWebURL"
-				property="FSNetWebURL" /></td>
-		</tr>
 		<tr>
 			<td colspan="2"><html:submit styleClass="button">
 				<bean:message key="configure.9" />
