@@ -15,15 +15,10 @@
 </h3>
 
 
-<c:if test="${watchedProfile.id != currentUser.id}">
-	<img src="avatar/${watchedProfile.id}.png" style="float: right;"
-		onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')" />
 
-</c:if>
-<c:if test="${watchedProfile.id == currentUser.id}">
 	<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
 
-</c:if>
+
 <table class="inLineTablePersonalInformation">
 	<tr>
 		<td>
@@ -96,6 +91,14 @@
 		<bean:message key="showProfile.send" />
 		<html:param name="receiver" value="${watchedProfile.email}" />
 	</html:link>
+</c:if>
+<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
+		
+		<a class="button" onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')">
+		<bean:message key="showProfile.chat" />
+		
+	     </a>
+
 </c:if>
 
 <div class="clear"></div>
