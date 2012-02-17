@@ -359,6 +359,11 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			e.printStackTrace();
 		}
 
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.db.update.success"));
+
 		return mapping.findForward("success");
 	}
 
