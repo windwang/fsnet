@@ -35,7 +35,7 @@
 						var nomTable = "searchmemberstable";
 						var idColonneATrier = 0;
 						var sensDeTri = "asc";
-						var aoColumns = [ null, null, {
+						var aoColumns = [ null, null, null, {
 							"bSortable" : false
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -46,7 +46,8 @@
 		<table id="searchmemberstable" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
-					<th><bean:message key="tableheader.member" /></th>
+					<th><bean:message key="tableheader.firstname" /></th>
+					<th><bean:message key="tableheader.name" /></th>
 					<th><bean:message key="tableheader.group" /></th>
 					<th></th>
 				</tr>
@@ -54,11 +55,13 @@
 			<tbody>
 				<c:forEach var="member" items="${requestScope.membersList}">
 					<tr class="content">
-						<td><html:link action="/DisplayMember">${member.name} ${member.firstName}
+						<td><html:link action="/DisplayMember">${member.firstName}
                 		<html:param name="idMember" value="${member.id}" />
 							</html:link></td>
-						<td><ili:getSocialGroupInfos
-								socialGroup="${member.group}" /></td>
+						<td><html:link action="/DisplayMember">${member.name}
+                		<html:param name="idMember" value="${member.id}" />
+							</html:link></td>
+						<td><ili:getSocialGroupInfos socialGroup="${member.group}" /></td>
 						<td class="tableButton"><c:choose>
 								<c:when test="${member.group.isEnabled}">
 									<html:link action="/SwitchState" styleClass="button">
