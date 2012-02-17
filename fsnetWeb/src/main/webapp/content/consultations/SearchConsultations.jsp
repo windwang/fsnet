@@ -6,10 +6,9 @@
 	<bean:message key="consultation.search" />
 </bean:define>
 
-<h3>
-	<bean:message key="consultation.searchConsultation" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="consultation.searchConsultation" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><html:form action="SearchConsultation" method="GET">
 				<div id="SearchCommunity">
@@ -22,11 +21,11 @@
 			</html:form></td>
 	</tr>
 </table>
+</fieldset>
 
-<h3>
-	<bean:message key="consultation.listConsultations" />
-</h3>
-<c:choose>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="consultation.listConsultations" /></legend>
+  <c:choose>
 	<c:when test="${! empty requestScope.consultationsSearchList}">
 
 		<script type="text/javascript">
@@ -38,19 +37,24 @@
 			"bSortable" : false
 		}, null, {
 			"sType" : "date-euro"
-		} ,null, {
+		} ,{
+			"bSortable" : false
+		}, null, null, {
 			"bSortable" : false
 		}];
 		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
 	});
 </script>
-		<table id="searchConsults" class="tablesorter inLineTable">
+		<table id="searchConsults" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
-					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
-					<th><bean:message key="consultation.createdAtDate" /></th>
+					<th width="5%"></th>
+					<th width="25%"><bean:message
+							key="tableheader.consultationname" /></th>
+					<th width="20%"><bean:message key="consultation.createdAtDate" /></th>
 					<th><bean:message key="tableheader.by" /></th>
+					<th><bean:message key="members.firstName" /></th>
+					<th><bean:message key="members.name" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -65,12 +69,12 @@
 							</c:import></td>
 						<td><html:link
 								action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
-							<td><bean:write
-								name="consultation" property="creationDate" format="dd/MM/yyyy" /> 
-							<bean:write
-								name="consultation" property="creationDate" format="HH:mm" />
-						</td>
-						<td><ili:getSocialEntityInfos
+						<td><bean:write name="consultation" property="creationDate"
+								formatKey="date.format" /></td>
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
+								socialEntity="${consultation.creator}" /></td>
+						<td><ili:getSocialEntityInfosName
 								socialEntity="${consultation.creator}" /></td>
 						<td class="tableButton"
 							onclick="confirmDelete2(${consultation.id}	)"><c:if
@@ -89,10 +93,11 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="consultations.noResult" />.</td>
 			</tr>
 		</table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

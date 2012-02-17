@@ -4,11 +4,10 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
-	<bean:message key="consultations.manage" />
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="consultations.manage" /></legend>
 
-<c:choose>
+  <c:choose>
 	<c:when test="${not empty requestScope.consultationsList}">
 
 		<script type="text/javascript">
@@ -25,13 +24,13 @@
 		}];
 		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
 	});
-</script>
-		<table id="yourConsults" class="tablesorter inLineTable">
+  </script>
+		<table id="yourConsults" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
-					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
-					<th><bean:message key="consultation.createdAtDate" /></th>
+					<th width="5%"></th>
+					<th width="25%"><bean:message key="tableheader.consultationname" /></th>
+					<th width="20%"><bean:message key="consultation.createdAtDate" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -45,8 +44,7 @@
 							action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
 					</td>
 					<td><bean:write name="consultation" property="creationDate"
-							format="dd/MM/yyyy" /> <bean:write name="consultation"
-							property="creationDate" format="HH:mm" /></td>
+							formatKey="date.format" /></td>
 					<td class="tableButton"
 						onclick="confirmDelete2(${consultation.id}	)"><html:form
 							action="/DeleteAConsultation" method="post"
@@ -62,10 +60,11 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="consultations.noResult" />.</td>
 			</tr>
 		</table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

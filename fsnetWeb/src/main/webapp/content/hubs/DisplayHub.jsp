@@ -13,20 +13,23 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <bean:define id="searchMessage"><bean:message key="topic.search"/></bean:define>
 
-<h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
     <c:import url="/FavoriteFragment.do">
         <c:param name="interactionId" value="${hubResult.id}"/>
     </c:import>
 
     <bean:write name="hubResult" property="title" />
-</h3>
+  </legend>
 
 <c:set var="theInteraction" value="${hubResult}" scope="request"/>
 <jsp:include page="/content/interactions/LargeInteractionInfo.jsp" />
+</fieldset>
 <div class="clear"></div>
 
-<h3><bean:message key="hubs.searchTopic"/></h3>
-<table  class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="hubs.searchTopic"/></legend>
+  <table  class="inLineTableDashBoardFieldset fieldsetTable">
     <html:form action="/SearchTopic" method="GET">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/> :</label></td>
@@ -37,9 +40,11 @@
             <td><html:submit styleClass="button"><bean:message key="hubs.searchTopic"/></html:submit></td>
         </tr>
     </html:form>
-</table>
+  </table>
+</fieldset>
 
-<h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
     <html:link action="/DisplayCommunity">
         <html:param name="communityId" value="${hubResult.community.id}"/>
         ${hubResult.community.title}
@@ -51,8 +56,8 @@
     </html:link>
 	-&gt;
     <bean:message key="hubs.topics"/>
-</h3>
-<table class="inLineTable">
+  </legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 <logic:empty name="topicsLastMessage">
     <tr><td><bean:message key="hubs.notopics"/></td></tr>
 </logic:empty>
@@ -104,3 +109,4 @@
     <html:param name="hubId" value="${hubResult.id}"/>
     <bean:message key="hubs.createTopic"/>
 </html:link>
+</fieldset>

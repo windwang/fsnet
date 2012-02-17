@@ -10914,6 +10914,7 @@ function convertDate(date) {
 			var frTime = frDate[1].split(':');
 			if (frDate[2] == "PM")
 				frTime[0] = parseInt(frTime[0]) + 12;
+			if (!frTime[2]) frTime[2] = "00";
 			var x = (frDate2[2] + frDate2[1] + frDate2[0] + frTime[0]
 					+ frTime[1] + frTime[2]) * 1;
 		}

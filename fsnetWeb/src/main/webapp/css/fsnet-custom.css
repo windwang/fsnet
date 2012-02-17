@@ -13,6 +13,16 @@
     margin: 10px;
 }
 
+.placeButton{
+	clear : both;
+}
+
+.homeGap {
+    clear : both;
+    margin: 10px;
+}
+
+
 #lastInteractions {
     width: 100%;
     /* padding-top: 15px; */
@@ -37,10 +47,11 @@
 
 #contactsAsked {
     float: left;
+    width: 100%;
 }
 
 #lastVisits {
-    /*float: right;*/
+    float: left;
     width: 100%;
 }
 
@@ -157,6 +168,7 @@
     padding: 2px 6px 2px 6px;
     font-weight: normal;
     font-style: normal;
+    cursor:pointer;
 }
 
 .deleteEventForm{
@@ -190,6 +202,8 @@ input[type=text], input[type=email], input[type=password], textarea {
 #CreateEvent #eventDate {width: 25%; color: black; margin-right: 8px;}
 #CreateEvent input[type=submit] {float: right;}
 
+#UpdateEvent input[type=submit] {float: right;}
+
 #CreateAnnounce {width: 80%;}
 #CreateAnnounce label {width:100px; display:block;	float:left;}
 #CreateAnnounce #announceTitle {width: 100%;}
@@ -212,13 +226,6 @@ input[type=text], input[type=email], input[type=password], textarea {
 
 #DisplayEvent, #DisplayAnnounce {width: 100%}
 
-#ModifyProfile {margin-left: 120px;width: 60%;}
-#ModifyProfile td:first-child {width: 35%;}
-#ModifyProfile input[type="text"], 
-#ModifyProfile input[type="password"],
-#ModifyProfile  textarea {width: 100%;}
-#ModifyProfile input[type=submit] {float: right;}
-#ModifyProfile #dateOfBirth {width: 90%;margin-right: 6px; color: black;}
 
 #MemberList {width: 100%;}
 #MemberList td {width: 30%;}
@@ -362,10 +369,72 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     margin-top: 20px;
 }
 
+.fieldsetAppli {
+    width: 100%;
+    border: 1px solid #FFF;
+    border-radius: 5px ;
+    box-shadow: 3px 3px 12px #000;
+    margin: 34px 10px 10px 10px;
+    padding: 1px;
+	background-color : white;
+}
+
+.fieldsetCV {
+    width: 80%;
+    border: 1px solid #FFF;
+    border-radius: 5px ;
+    box-shadow: 3px 3px 12px #000;
+    margin: 34px 10px 10px 10px;
+    padding: 1px;
+	background-color : white;
+}
+
+.fieldsetAdmin {
+    float: left;
+    border: 1px solid #FFF;
+    border-radius: 5px ;
+    box-shadow: 3px 3px 12px #000;
+    margin: 26px 10px 10px 10px;
+    padding: 8px;
+    background-color : white;
+    width: 100%;
+}
+
+.legendAdmin {
+    text-align: left;
+    background: -webkit-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
+    border-radius: 5px;
+    box-shadow: 1px 2px 9px #000;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: absolute;
+    margin: -22px 0px 0px 30px;
+}
+
+.fieldsetTableAdmin{
+	width: 100%;
+    margin-top: 27px;
+    background-color : #E8F5FD;
+}
+
+.fieldsetProfil {
+	float: left;
+    width: 80%;
+    border: 1px solid #FFF;
+    border-radius: 5px ;
+    box-shadow: 3px 3px 12px #000;
+    margin: 28px 10px 10px 10px;
+    padding: 1px;
+	background-color : white;
+}
+
 .inLineTable {
     width: 100%;
     border-spacing : 0px 3px;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     padding: 5px;
     border-radius: 15px;
     border: 1px solid gray;
@@ -392,8 +461,9 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     border: 5px solid #F7FCFF;
 }
 
+
 #dashboardMessages {
-    /*float: left;*/
+	float: left;
     width: 100%;
 }
 
@@ -409,29 +479,29 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     padding: 2px 5px 0 5px;
 }
 
-.fieldsetHome1 {
+.fieldsetHome {
     float: left;
     width: 47%;
     border: 1px solid #FFF;
     border-radius: 5px ;
     box-shadow: 3px 3px 12px #000;
-    margin: 10px;
+    margin: 28px 0px 10px 10px;
     padding: 1px;
 	background-color : white;
 }
 
 .fieldsetHome2 {
-	border: solid 1px #FFF;
-	margin-top: 2px;
-	border-radius: 5px;	
-	width: 47%;
-	float: right;
-	box-shadow: 1px 2px 9px #000;
-	padding: 1px;
+    float: right;
+    width: 47%;
+    border: 1px solid #FFF;
+    border-radius: 5px ;
+    box-shadow: 3px 3px 12px #000;
+    margin: 28px 0px 10px 10px;
+    padding: 1px;
 	background-color : white;
 }
 
-.legendHome1 {
+.legendHome {
     text-align: left;
     background: -webkit-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
     background: -moz-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
@@ -445,27 +515,22 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     margin: -12px 0px 0px 30px;
 }
 
-.legendHome2 {
-    margin-top: 3px;
-    padding: 3px;
-	margin-left: 10px;
-	position:absolute; 
-}
-
-.fieldsetTable1{
+.fieldsetTable{
     margin-top: 27px;
     padding-top: 2px;
 }
 
-.fieldsetTable2{
+.space{
     margin-top: 27px;
 }
+
 
 .inLineTableDashBoardFieldset {
     border-spacing : 0px 3px;
     padding: 5px;
     background: white;
     border-image: initial;
+    width: 100%;
 }
 
 .inLineTableDashBoardFieldset tr{
@@ -481,25 +546,19 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 
 .inLineTableDashBoard {
     border-spacing : 0px 3px;
-    margin-bottom: 15px;
+    /*margin-bottom: 15px;*/
     padding: 5px;
-    border-radius: 15px;
-    border: 1px solid gray;
     background: white;
     border-image: initial;
-    box-shadow: 1px 2px 9px #000;
 }
 
 .inLineTablePersonalInformation {
     width: 85%;
     border-spacing : 0px 3px;
-    margin-bottom: 10px;
+    /*margin-bottom: 10px;*/
     padding: 5px;
-    border-radius: 15px;
-    border: 1px solid gray;
     background: white;
     border-image: initial;
-    box-shadow: 1px 2px 9px #000;
 }
 
 .inLineTableDashBoard tr{
@@ -518,8 +577,8 @@ tr.notReed {
 }
 
 #contactProposals {
-    float: left;
-    width: 48%;
+    /*float: left;*/
+    width: 100%;
 }
 
 #contactProposals table {
@@ -531,7 +590,7 @@ tr.notReed {
 
 #interestProposals {
     float: right;
-    width: 48%;
+    width: 100%;
 }
 
 #InboxTitle {
@@ -728,3 +787,5 @@ thead, thead th {
 
 .plus{background: url("../images/addConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
 .moins{background: url("../images/removeConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
+
+input[type=submit] {cursor:pointer;}

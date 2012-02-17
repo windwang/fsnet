@@ -9,11 +9,13 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
 
-<h3>
-<bean:message key="welcome.welcome" />
-</h3>
-
-<label> 
-	<bean:message key="welcome.message1" />  <br/><br/>
-	<bean:message key="welcome.message2" />  
-</label>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="pageTitle.0" /></legend>
+  <table class="fieldsetTableAdmin">
+    <tr><td>
+      <bean:message key="welcome.welcome" />  <br/><br/>
+	  <bean:message key="welcome.message1" />  <br/><br/>
+	  <bean:message key="welcome.message2" />  
+    </td></tr>
+  </table>
+</fieldset>

@@ -9,11 +9,10 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <c:if test="${not empty hubResults}">
-	<h3>
-		<bean:message key="hubs.modify" />
-	</h3>
+	<fieldset class="fieldsetAppli">
+      <legend class="legendHome"><bean:message key="hubs.modify" /></legend>
 	<c:set var="hub" value="${hubResults}" />
-	<table  class="inLineTable"><tr><td>
+	<table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 	<html:form action="/ModifyYourHub" method="post">
 		<html:hidden property="communityId" value="${param.communityId}" />
 		<div class="errorMessage"><html:errors property="hubId" /></div>
@@ -35,4 +34,5 @@
 		</html:submit>
 	</html:form>
   </td></tr></table>
+ </fieldset>
 </c:if>

@@ -8,13 +8,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
     <c:import url="/FavoriteFragment.do">
         <c:param name="interactionId" value="${event.id}"/>
     </c:import>
     ${event.title}
-</h3>
-<table  class="inLineTable"><tr><td>
+  </legend>
+<table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <div class="interactionDisplay">
     <table>
         <tr class="authorDate">
@@ -23,9 +24,9 @@
                 <ili:getSocialEntityInfos socialEntity="${event.creator}"/>
                 , 
                 <bean:message key="events.willoccur"/>
-                <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
+                <bean:write name="event" property="startDate" format="dd/MM/yyyy HH'h'mm" />
                 <bean:message key="events.to"/>
-                <bean:write name="event" property="endDate" format="dd/MM/yyyy" />
+                <bean:write name="event" property="endDate" format="dd/MM/yyyy HH'h'mm" />
                 
                 <c:if test="${not empty event.address.address or not empty event.address.city}">
                 	<bean:message key="events.in"/>
@@ -57,10 +58,12 @@
             		</c:if>
             	</ili:interactionFilter>
   
-                <html:link  action="/DisplayUpdateEvent" styleClass="button">
-                    <html:param name="eventId" value="${event.id}"/>
-                    <bean:message key="events.update"/>
-                </html:link>
+  				<c:if test="${userId eq event.creator.id}">
+	                <html:link  action="/DisplayUpdateEvent" styleClass="button">
+	                    <html:param name="eventId" value="${event.id}"/>
+	                    <bean:message key="events.update"/>
+	                </html:link>
+            	</c:if>
             		
                 <c:if test="${userId eq event.creator.id}">
                     <html:form  action="/DeleteEvent" method="post" styleId="eventid${event.id}" styleClass="deleteEventForm" >
@@ -94,3 +97,4 @@
 </logic:iterate>
 </c:if>
 </td></tr></table>
+</fieldset>

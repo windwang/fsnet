@@ -6,11 +6,11 @@
 
 
 
-<h3>
-    <bean:message key="communities.create"/>
-</h3>
-<table  class="inLineTable"><tr><td>
-<html:form action="/CreateCommunity">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="communities.create"/></legend>
+
+  <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
+  <html:form action="/CreateCommunity">
     <table id="CreateCommunity">
         <tr>
             <td>
@@ -41,3 +41,4 @@
     </table>
 </html:form>
 </td></tr></table>
+</fieldset>

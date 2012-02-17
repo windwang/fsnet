@@ -53,6 +53,7 @@ body {
 	position:fixed;
 	height:41px;
 	border-bottom:1px solid white;	
+	z-index: 5;
 }
 #header{
 	width:1100px;

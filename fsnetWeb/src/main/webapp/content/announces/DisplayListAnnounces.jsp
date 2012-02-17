@@ -5,14 +5,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
-	<bean:message key="announce" />
-	s
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="announce" />s</legend>
 
 <c:choose>
 	<c:when test="${empty requestScope.annoucesList}">
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="announce.emptyList" /></td>
 			</tr>
@@ -23,24 +21,28 @@
 			$(document).ready(
 					function pagination() {
 						var nomTable = "eventsTable";
-						var idColonneATrier = 1;
-						var sensDeTri = "asc";
+						var idColonneATrier = 5;
+						var sensDeTri = "desc";
 						var aoColumns = [ {
 							"bSortable" : false
-						}, null, null, {
+						}, null,{
 							"bSortable" : false
+						}, null, null, {
+							"sType" : "date-euro"
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
 								aoColumns, false);
 
 					});
 		</script>
-		<table id="eventsTable" class="tablesorter inLineTable">
+		<table id="eventsTable" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
 					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
+					<th><bean:message key="tableheader.announcename" /></th>
 					<th><bean:message key="tableheader.by" /></th>
+					<th><bean:message key="members.firstName" /></th>
+					<th><bean:message key="members.name" /></th>
 					<th><bean:message key="tableheader.expirdate" /></th>
 				</tr>
 			</thead>
@@ -57,14 +59,18 @@
 								paramId="idAnnounce" paramName="idAnnounce">
 								<bean:write name="announce" property="title" />
 							</html:link></td>
-						<td><ili:getSocialEntityInfos
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${announce.creator}" /></td>
-						<td class="tableButton"><bean:write name="announce"
-								property="endDate" format="dd/MM/yyyy HH:mm" /></td>
+						<td><ili:getSocialEntityInfosName
+								socialEntity="${announce.creator}" /></td>
+						<td><bean:write name="announce" property="endDate"
+								format="dd/MM/yyyy HH:mm" /></td>
 					</ili:interactionRow>
 				</c:forEach>
 			</tbody>
 		</table>
 
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

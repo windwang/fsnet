@@ -8,10 +8,9 @@
 	<bean:message key="community.search" />
 </bean:define>
 
-<h3>
-	<bean:message key="communities.search" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="communities.search" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><html:form action="SearchCommunity" method="GET">
 				<div id="SearchCommunity">
@@ -23,14 +22,15 @@
 				</div>
 			</html:form></td>
 	</tr>
-</table>
+  </table>
+</fieldset>
 
-<h3>
-	<bean:message key="communities.listCommunities" />
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="communities.listCommunities" /></legend>
 
 <c:choose>
 	<c:when test="${! empty requestScope.communitiesSearch}">
+	    <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
@@ -39,19 +39,23 @@
 						var sensDeTri = "asc";
 						var aoColumns = [ {
 							"bSortable" : false
-						}, null,  null, {
+						}, null, {
+							"bSortable" : false
+						}, null, null, {
 							"bSortable" : false
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
 								aoColumns, false);
 					});
 		</script>
-		<table id="seachCommTables" class="tablesorter inLineTable">
+		<table id="seachCommTables" class="tablesorter inLineTableDashBoardFieldset">
 			<thead>
 				<tr>
-					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
+					<th width="10%"></th>
+					<th width="30%"><bean:message key="tableheader.communityname" /></th>
 					<th><bean:message key="tableheader.by" /></th>
+					<th width="20%"><bean:message key="members.firstName" /></th>
+					<th width="20%"><bean:message key="members.name" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -60,7 +64,8 @@
 					<tr class="content">
 						<td><c:import url="/FavoriteFragment.do">
 								<c:param name="interactionId" value="${community.id}" />
-							</c:import> </td><td><html:link action="/DisplayCommunity"
+							</c:import></td>
+						<td><html:link action="/DisplayCommunity"
 								title='${empty community.interests ? "" : community.interests}'>
 								<html:param name="communityId" value="${community.id}" />
                             ${community.title}
@@ -75,7 +80,10 @@
                          		(${fn:length(community.hubs)} hubs)
                          	</c:when>
 							</c:choose></td>
-						<td><ili:getSocialEntityInfos
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
+								socialEntity="${community.creator}" /></td>
+						<td><ili:getSocialEntityInfosName
 								socialEntity="${community.creator}" /></td>
 						<td class="tableButton"
 							onclick="confirmDelete2('deleteid${community.id}');"><c:if
@@ -96,12 +104,13 @@
 
 	</c:when>
 	<c:otherwise>
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="communities.noResult" /></td>
 			</tr>
 		</table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>
 
 

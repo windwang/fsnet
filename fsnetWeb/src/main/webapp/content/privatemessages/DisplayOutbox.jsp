@@ -12,28 +12,27 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
-	<bean:message key="privatemessages.Messagessent" />
-</h3>
+<fieldset class="fieldsetAppli">
+   <legend class="legendHome"><bean:message key="privatemessages.Messagessent" /></legend>
 <c:choose>
 	<c:when test="${empty requestScope.outBoxMessages}">
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="privatemessages.nomessages" /></td>
 			</tr>
 		</table>
 	</c:when>
 	<c:otherwise>
-
+        <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
 						var nomTable = "tableoutbox";
-						var idColonneATrier = 3;
+						var idColonneATrier = 4;
 						var sensDeTri = "desc";
 						var aoColumns = [ {
 							"bSortable" : false
-						}, null, null, {
+						}, null, null, null, {
 							"sType" : "date-euro"
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -42,11 +41,12 @@
 		</script>
 
 		<html:form action="/DeleteMultiSentMessages">
-			<table id="tableoutbox" class="tablesorter inLineTable">
+			<table id="tableoutbox" class="tablesorter inLineTableDashBoardFieldset">
 				<thead>
 					<tr>
-						<th></th>
 						<th><bean:message key="tableheader.to" /></th>
+						<th><bean:message key="members.firstName" /></th>
+						<th><bean:message key="members.name" /></th>
 						<th><bean:message key="tableheader.subject" /></th>
 						<th><bean:message key="tableheader.date" /></th>
 					</tr>
@@ -56,9 +56,11 @@
 						<tr>
 							<td><html:multibox property="selectedMessages"
 									value="${message.id}" /></td>
-							<td style="width: 25%"><ili:getSocialEntityInfos
+							<td style="width: 15%"><ili:getSocialEntityInfosFirstname
 									socialEntity="${message.to}" /></td>
-							<td style="width: 50%"><html:link
+							<td style="width: 15%"><ili:getSocialEntityInfosName
+									socialEntity="${message.to}" /></td>
+							<td style="width: 40%"><html:link
 									action="/DisplaySentMessage">
 									<html:param name="messageId" value="${message.id}" />
 									<span>${fn:substring(message.subject, 0,20)} : </span>
@@ -68,8 +70,8 @@
 										</ili:substring>
 									</span>
 								</html:link></td>
-							<td class="alignRight"><bean:write name="message"
-									property="creationDate" format="dd/MM/yyyy HH:mm" /></td>
+							<td><bean:write name="message"
+									property="creationDate" formatKey="date.format" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -79,4 +81,5 @@
 			</html:submit>
 		</html:form>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

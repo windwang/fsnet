@@ -12,12 +12,11 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<h3>
-    <bean:write name="announce" property="title" />
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:write name="announce" property="title" /></legend>
 
-<div class="interactionDisplay">
-    <table>
+  <div class="interactionDisplay">
+    <table class="fieldsetTableAdmin">
         <tr class="authorDate">
             <td>
                 <bean:message  key="announce.createdBy"/>
@@ -53,4 +52,5 @@
             </td>
         </tr>
     </table>
-</div>
+  </div>
+</fieldset>

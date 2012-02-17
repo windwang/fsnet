@@ -7,9 +7,10 @@
 
 <jsp:include page="/content/communities/YourCommunities.jsp"/>
 <jsp:include page="/content/communities/ModifyCommunity.jsp"/>
-<h3><bean:message key="communities.searchYourCommunities"/></h3>
-<table  class="inLineTable"><tr><td>
-<html:form action="SearchYourCommunities" method="GET">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="communities.searchYourCommunities"/></legend>
+ <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
+  <html:form action="SearchYourCommunities" method="GET">
     <div id="SearchCommunity">
         <html:text property="searchCommunityText" styleId="searchTexte"  />
         <ili:placeHolder id="searchTexte" value="${searchMessage}" /> 
@@ -17,6 +18,7 @@
     </div>
 </html:form>
 </td></tr></table>
+</fieldset>
 <ili:interactionFilter user="${ socialEntity }" right="${ rightCreateCommunity }">
 	<jsp:include page="/content/communities/CreateCommunity.jsp"/>
 </ili:interactionFilter>

@@ -3,9 +3,10 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<h3><bean:message key="consultation.create"/></h3>
-<table  class="inLineTable"><tr><td>
-<html:form action="CreateConsultation" method="POST">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="consultation.create"/></legend>
+  <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
+  <html:form action="CreateConsultation" method="POST">
 	<fieldset class="inLinefieldset">
 	<legend><bean:message key="consultation.information" /></legend>
 	<div class="errorMessage" ><html:errors property="consultationTitle"/></div> 
@@ -103,7 +104,7 @@
     
 </html:form>
 </td></tr></table>
-
+</fieldset>
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>

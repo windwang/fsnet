@@ -6,12 +6,11 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <c:if test="${not empty requestScope.allInterests}">
-	<h3>
-		<bean:message key="interests.4" />
-	</h3>
+	<fieldset class="fieldsetAdmin">
+      <legend class="legendAdmin"><bean:message key="interests.4" /></legend>
 	<html:javascript formName="/DeleteInterest" />
 	<html:form action="/DeleteInterest">
-		<div>
+		<table class="fieldsetTableAdmin"><tr><td>
 			<html:select property="deletedInterestId" styleClass="select">
 				<html:option value="">
 					<bean:message key="interests.1" />
@@ -23,8 +22,9 @@
 			<html:submit styleClass="button">
 				<bean:message key="interest.validate" />
 			</html:submit>
-		</div>
-	</html:form>
+		</td></tr></table>
+	  </html:form>
+	 </fieldset>
 	<div class="errorMessage">
 		<html:errors property="deletedInterestId" />
 	</div>

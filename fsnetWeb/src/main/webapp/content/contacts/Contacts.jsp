@@ -10,39 +10,40 @@
 
 <c:if
 	test="${empty requestScope.paginatorContacts && empty requestScope.paginatorAsked && empty requestScope.paginatorRequested}">
-	<h3>
-		<bean:message key="contact.conts" />
-	</h3>
-	<table class="inLineTable">
+	<fieldset class="fieldsetAppli">
+      <legend class="legendHome"><bean:message key="contact.conts" /></legend>
+	  <table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
 			<td><bean:message key="contact.noContact" /></td>
 		</tr>
-	</table>
+	  </table>
+	</fieldset>
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorAsked}">
+  <fieldset class="fieldsetAppli">
+    <legend class="legendHome"><bean:message key="contact.re" /></legend>
 	<script type="text/javascript">
 		$(document).ready(
 				function pagination() {
-					var idColonneATrier = 1;
+					var idColonneATrier = 2;
 					var sensDeTri = "asc";
 					var aoColumns = [ {
 						"bSortable" : false
-					}, null, {
+					}, null, null, {
 						"bSortable" : false
 					} ];
 					miseEnPageTable("tableAsked", idColonneATrier, sensDeTri,
 							aoColumns, false);
 				});
 	</script>
-	<h3>
-		<bean:message key="contact.re" />
-	</h3>
-	<table id="tableAsked" class="tablesorter inLineTable">
+
+	  <table id="tableAsked" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 		<thead>
 			<tr>
-				<th></th>
 				<th><bean:message key="tableheader.member" /></th>
+				<th><bean:message key="members.firstName" /></th>
+				<th><bean:message key="members.name" /></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -51,7 +52,9 @@
 				<tr>
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${contact}" /></td>
-					<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosFirstname
+							socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 					<td class="tableButton"><html:link
 							action="/DisplayCreatePrivateMessage" styleClass="button">
 							<bean:message key="showProfile.send" />
@@ -67,34 +70,35 @@
 			</c:forEach>
 		</tbody>
 	</table>
+  </fieldset>
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorContacts}">
+	<fieldset class="fieldsetAppli">
+    <legend class="legendHome"><bean:message key="contact.listContact" />
+		: ${fn:length(requestScope.paginatorContacts)}
+		<bean:message key="contact.contacts" /></legend>
 	<script type="text/javascript">
 		$(document).ready(
 				function pagination() {
-					var idColonneATrier = 1;
+					var idColonneATrier = 2;
 					var sensDeTri = "asc";
 					var aoColumns = [ {
 						"bSortable" : false
-					}, null, {
+					}, null, null, {
 						"bSortable" : false
 					} ];
 					miseEnPageTable("tableContacts", idColonneATrier,
 							sensDeTri, aoColumns, false);
 				});
 	</script>
-	<h3>
-		<bean:message key="contact.listContact" />
-		: ${fn:length(requestScope.paginatorContacts)}
-		<bean:message key="contact.contacts" />
-	</h3>
 
-	<table id="tableContacts" class="tablesorter inLineTable">
+	<table id="tableContacts" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 		<thead>
 			<tr>
-				<th></th>
 				<th><bean:message key="tableheader.member" /></th>
+				<th><bean:message key="members.firstName" /></th>
+				<th><bean:message key="members.name" /></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -103,7 +107,10 @@
 				<tr>
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${contact}" /></td>
-					<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
+
+					<td><ili:getSocialEntityInfosFirstname
+							socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 					<td class="tableButton"><html:link
 							action="/DisplayCreatePrivateMessage" styleClass="button">
 							<bean:message key="showProfile.send" />
@@ -116,31 +123,32 @@
 			</c:forEach>
 		</tbody>
 	</table>
+  </fieldset>
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorRequested}">
 	<script type="text/javascript">
 		$(document).ready(
 				function pagination() {
-					var idColonneATrier = 1;
+					var idColonneATrier = 2;
 					var sensDeTri = "asc";
 					var aoColumns = [ {
 						"bSortable" : false
-					}, null, {
+					}, null, null, {
 						"bSortable" : false
 					} ];
 					miseEnPageTable("tableRequested", idColonneATrier,
 							sensDeTri, aoColumns, false);
 				});
 	</script>
-	<h3>
-		<bean:message key="contact.eff" />
-	</h3>
-	<table id="tableRequested" class="tablesorter inLineTable">
+	<fieldset class="fieldsetAppli"><legend class="legendHome">
+		<bean:message key="contact.eff" /></legend>
+	<table id="tableRequested" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 		<thead>
 			<tr>
-				<th></th>
 				<th><bean:message key="tableheader.member" /></th>
+				<th><bean:message key="members.firstName" /></th>
+				<th><bean:message key="members.name" /></th>
 				<th></th>
 			</tr>
 		</thead>
@@ -149,7 +157,9 @@
 				<tr>
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${contact}" /></td>
-					<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosFirstname
+							socialEntity="${contact}" /></td>
+					<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 					<td class="tableButton"><html:link
 							action="/DisplayCreatePrivateMessage" styleClass="button">
 							<bean:message key="showProfile.send" />
@@ -162,4 +172,5 @@
 			</c:forEach>
 		</tbody>
 	</table>
+  </fieldset>
 </c:if>

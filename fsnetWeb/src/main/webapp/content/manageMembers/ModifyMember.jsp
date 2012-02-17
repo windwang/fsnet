@@ -15,10 +15,11 @@
 	
 </script>
 
-<h3><bean:message key="members.modify" /></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.modify" /></legend>
 
 <html:form action="/ModifyMember">
-	<table id="ModifyMember">
+	<table id="ModifyMember" class="fieldsetTableAdmin">
 		<tr class="errorMessage">
 			<td colspan="2"><html:errors /></td>
 
@@ -130,9 +131,12 @@
 		</tr>
 	</table>
 </html:form>
+</fieldset>
 
-<h3><bean:message key="members.herInterests" /></h3>
-<c:choose>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.herInterests" /></legend>
+  <table class="fieldsetTableAdmin"><tr><td>
+  <c:choose>
 	<c:when
 		test="${not empty requestScope.interestsMemberPaginator.resultList}">
 		<div class="cloud"><c:forEach var="interest"
@@ -152,6 +156,8 @@
 		<bean:message key="interests.17" />
 	</c:otherwise>
 </c:choose>
+</td></tr></table>
+</fieldset>
 <c:set var="paginatorInstance"
 	value="${requestScope.interestsMemberPaginator}" scope="request" />
 <c:set var="paginatorAction" value="/DisplayMember" scope="request" />
