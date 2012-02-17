@@ -9,22 +9,10 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<h3>
-	<bean:message key="showProfile.title"
-		arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
-</h3>
 
-
-<c:if test="${watchedProfile.id != currentUser.id}">
-	<img src="avatar/${watchedProfile.id}.png" style="float: right;"
-		onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')" />
-
-</c:if>
-<c:if test="${watchedProfile.id == currentUser.id}">
-	<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
-
-</c:if>
-<table class="inLineTablePersonalInformation">
+<fieldset class="fieldsetProfil">
+  <legend class="legendHome"><bean:message key="showProfile.title" arg0="${watchedProfile.firstName} ${watchedProfile.name}" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td>
 			<table class="watchedProfile">
@@ -83,7 +71,12 @@
 		</td>
 	</tr>
 </table>
+</fieldset>
 
+
+<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
+
+<div class="placeButton">
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
 	<html:link action="/ContactDemand" styleClass="button">
 		<bean:message key="showProfile.ask" />
@@ -97,14 +90,19 @@
 		<html:param name="receiver" value="${watchedProfile.email}" />
 	</html:link>
 </c:if>
+<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
+  <a class="button" onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')">
+  <bean:message key="showProfile.chat" />
+  </a>
+</c:if>
+</div>
 
 <div class="clear"></div>
 
-<h3>
-	<bean:message key="showInterest.title"
-		arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="showInterest.title"
+		arg0="${watchedProfile.firstName} ${watchedProfile.name}" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><logic:empty name="watchedProfile" property="interests">
 				<bean:message key="Profile.noInterests" />.
@@ -128,21 +126,23 @@
 				url="/content/pagination/Pagination.jsp" /></td>
 	</tr>
 </table>
+</fieldset>
 
-<h3>
-	<bean:message key="profile.showInteraction.title"
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="profile.showInteraction.title"
 		arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
-</h3>
+  </legend>
 <c:choose>
 	<c:when test="${empty requestScope.interactions}">
 
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="Profile.noInteractions" />.</td>
 			</tr>
 		</table>
 	</c:when>
 	<c:otherwise>
+	    <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
@@ -159,7 +159,7 @@
 					});
 		</script>
 
-		<table id="tableinteractions" class="tablesorter inLineTable">
+		<table id="tableinteractions" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
 					<th></th>
@@ -223,13 +223,12 @@
 		</table>
 	</c:otherwise>
 </c:choose>
+</fieldset>
 
 
-
-<h3>
-	<bean:message key="showProfile.contacts.title" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="showProfile.contacts.title" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><logic:empty name="watchedProfile" property="contacts">
 				<c:choose>
@@ -251,11 +250,11 @@
 				url="/content/pagination/Pagination.jsp" /></td>
 	</tr>
 </table>
+</fieldset>
 
-<h3>
-	<bean:message key="showProfile.groups.tree" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="showProfile.groups.tree" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td>
 			<ul>
@@ -275,6 +274,6 @@
 		</td>
 	</tr>
 </table>
-
+</fieldset>
 
 

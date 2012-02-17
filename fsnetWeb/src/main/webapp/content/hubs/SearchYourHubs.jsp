@@ -15,10 +15,9 @@
 	<bean:message key="hubs.search" />
 </bean:define>
 
-<h3>
-	<bean:message key="hubs.searchHubs" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="hubs.searchHubs" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><html:form action="/SearchYourHubs" method="GET">
 				<html:hidden property="communityId" value="${param.communityId}" />
@@ -34,16 +33,16 @@
 			</html:form></td>
 	</tr>
 </table>
+</fieldset>
 
 
 <jsp:include page="/content/hubs/ModifyHub.jsp" />
 
 
-<h3>
-	<bean:message key="hubs.yourhubs" />
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="hubs.yourhubs" /></legend>
 <c:set var="hub" value="${hubResults}" />
-<table class="inLineTable">
+<table class="inLineTableDashBoardFieldset fieldsetTable">
 	<logic:empty name="hub">
 		<tr>
 			<td><bean:message key="hubs.hubNotFound" />
@@ -72,3 +71,4 @@
 
 	</c:forEach>
 </table>
+</fieldset>

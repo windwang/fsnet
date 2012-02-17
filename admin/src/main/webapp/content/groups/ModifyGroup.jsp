@@ -9,11 +9,12 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean"  prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<h3><bean:message key="groups.Modify" /></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="groups.Modify" /></legend>
 
 
 
 <html:form action="/ModifyGroup" onsubmit="Valider()">
 	<jsp:include page="/content/groups/SamePartForGroup.jsp"/>
 </html:form>
-
+</fieldset>

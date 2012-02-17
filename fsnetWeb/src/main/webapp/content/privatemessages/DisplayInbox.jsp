@@ -13,18 +13,19 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<h3>
-	<bean:message key="privatemessages.inbox" />
-</h3>
-<c:choose>
+<fieldset class="fieldsetAppli">
+   <legend class="legendHome"><bean:message key="privatemessages.inbox" /></legend>
+
+  <c:choose>
 	<c:when test="${empty requestScope.inBoxMessages}">
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="privatemessages.nomessages" /></td>
 			</tr>
 		</table>
 	</c:when>
 	<c:otherwise>
+	    <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
@@ -42,9 +43,8 @@
 								aoColumns, true);
 					});
 		</script>
-
-		<html:form action="/DeleteMultiMessages">
-			<table id="tableinbox" class="tablesorter inLineTable">
+		   <html:form action="/DeleteMultiMessages">
+			<table id="tableinbox" class="tablesorter inLineTableDashBoardFieldset">
 				<thead>
 					<tr>
 						<th></th>
@@ -62,15 +62,15 @@
 								<td><html:multibox property="selectedMessages"
 										value="${message.id}" /></td>
 								<td><ili:getMiniature socialEntity="${message.from}" /></td>
-								<td style="width: 15%"><html:link action="/DisplayMessage">
+								<td style="width: 20%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${message.from.firstName}</span>
 									</html:link></td>
-								<td style="width: 15%"><html:link action="/DisplayMessage">
+								<td style="width: 20%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${message.from.name}</span>
 									</html:link></td>
-								<td style="width: 40%"><html:link action="/DisplayMessage">
+								<td style="width: 60%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${fn:substring(message.subject, 0,20)} : </span>
 										<span style="color: gray"> <ili:substring
@@ -85,15 +85,15 @@
 								<td><html:multibox property="selectedMessages"
 										value="${message.id}" /></td>
 								<td><ili:getMiniature socialEntity="${message.from}" /></td>
-								<td style="width: 15%"><html:link action="/DisplayMessage">
+								<td style="width: 20%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${message.from.firstName}</span>
 									</html:link></td>
-								<td style="width: 15%"><html:link action="/DisplayMessage">
+								<td style="width: 20%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${message.from.name}</span>
 									</html:link></td>
-								<td style="width: 40%"><html:link action="/DisplayMessage">
+								<td style="width: 60%"><html:link action="/DisplayMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${fn:substring(message.subject, 0,20)} : </span>
 										<span style="color: gray"> <ili:substring
@@ -114,4 +114,5 @@
 			</html:submit>
 		</html:form>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

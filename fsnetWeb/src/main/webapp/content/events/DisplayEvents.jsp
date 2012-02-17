@@ -14,10 +14,10 @@
 	<bean:message key="events.search" />
 </bean:define>
 
-<h3>
-	<bean:message key="events.8" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="events.8" /></legend>
+
+<table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><html:form action="/Events" method="GET">
 				<div id="SearchEvent">
@@ -30,22 +30,24 @@
 			</html:form></td>
 	</tr>
 </table>
+</fieldset>
 
-<h3>
-	<bean:message key="events.9" />
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="events.9" />
 	:
-</h3>
+</legend>
 
 <c:choose>
 
 	<c:when test="${empty requestScope.eventsList}">
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="search.noResults" /></td>
 			</tr>
 		</table>
 	</c:when>
 	<c:otherwise>
+	    <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
@@ -65,7 +67,7 @@
 								aoColumns, false);
 					});
 		</script>
-		<table id="eventsTable" class="tablesorter inLineTable">
+		<table id="eventsTable" class="tablesorter inLineTableDashBoardFieldset">
 			<thead>
 				<tr>
 					<th></th>
@@ -107,4 +109,5 @@
 			</tbody>
 		</table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

@@ -11,15 +11,17 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
     <c:import url="/FavoriteFragment.do">
         <c:param name="interactionId" value="${requestScope.topic.id}"/>
     </c:import>
     ${requestScope.topic.title}
-</h3>
+  </legend>
 
 <c:set var="theInteraction" value="${topic}" scope="request"/>
 <jsp:include page="/content/interactions/LargeInteractionInfo.jsp" />
+</fieldset>
 <div class="clear"></div>
 
 <h3>

@@ -5,12 +5,12 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<h3>
-	<bean:message key="communities.listYourCommunities" />
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="communities.listYourCommunities" /></legend>
 
-<c:choose>
+  <c:choose>
 	<c:when test="${not empty requestScope.myCommunities}">
+	    <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
@@ -26,7 +26,7 @@
 								aoColumns, false);
 					});
 		</script>
-		<table id="myCommTables" class="tablesorter inLineTable">
+		<table id="myCommTables" class="tablesorter inLineTableDashBoardFieldset ">
 			<thead>
 				<tr>
 					<th width="10%"></th>
@@ -73,10 +73,11 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="communities.noResult" /></td>
 			</tr>
 		</table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

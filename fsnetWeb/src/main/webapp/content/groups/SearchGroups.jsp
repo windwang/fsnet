@@ -6,10 +6,10 @@
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/osx.js"></script>
 
-<h3>
-	<bean:message key="group.listGroups" />
-</h3>
-<c:choose>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="group.listGroups" /></legend>
+
+  <c:choose>
 	<c:when test="${! empty requestScope.groupsList}">
 		<script type="text/javascript">
 			$(document).ready(
@@ -17,18 +17,22 @@
 						var nomTable = "searchGroupsTable";
 						var idColonneATrier = 0;
 						var sensDeTri = "asc";
-						var aoColumns = [ null, null, {
+						var aoColumns = [ null, {
+							"bSortable" : false
+						}, null, null, {
 							"bSortable" : false
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
 								aoColumns, false);
 					});
 		</script>
-		<table id="searchGroupsTable" class="tablesorter inLineTable">
+		<table id="searchGroupsTable" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.group" /></th>
 					<th><bean:message key="tableheader.created" /></th>
+					<th><bean:message key="tableheader.name" /></th>
+					<th><bean:message key="tableheader.firstname" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -38,9 +42,12 @@
 						<td><html:link action="/DisplayGroup">${group.name} 
                 			<html:param name="idGroup" value="${group.id}" />
 							</html:link> <!--${group.name}--></td>
-
-						<td><ili:getSocialEntityInfos
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${group.masterGroup}" /></td>
+						<td><ili:getSocialEntityInfosName
+								socialEntity="${group.masterGroup}" /></td>
+								
 						<c:choose>
 							<c:when test="${ group.group.isEnabled == false }">
 								<td class="tableButton"><bean:message
@@ -67,12 +74,12 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-		<p>
-			<bean:message key="group.noResult" />
-			.
-		</p>
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<tr><td><bean:message key="group.noResult" />.
+		</td></tr></table>
 	</c:otherwise>
 </c:choose>
+</fieldset>
 
 <c:if test="${!empty success}">
 	<script type="text/javascript">
