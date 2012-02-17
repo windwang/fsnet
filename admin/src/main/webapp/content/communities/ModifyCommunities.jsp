@@ -6,8 +6,10 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <c:if test="${not empty requestScope.communitiesListPaginator.resultList}">
-	<h3><bean:message key="commmunities.modify" /></h3>
-	<html:form action="/ModifyCommunity">
+	<fieldset class="fieldsetAdmin">
+       <legend class="legendAdmin"><bean:message key="commmunities.modify" /></legend>
+	   <table class="fieldsetTableAdmin"><tr><td>
+	   <html:form action="/ModifyCommunity">
 		<div class="errorMessage"><html:errors property="modifierCommunityName" /></div>
 		<div class="errorMessage"><html:errors property="modifiedCommunityName" /></div>
 		<p><html:select property="modifierCommunityName" styleClass="select">
@@ -25,5 +27,7 @@
 			<bean:message key="interest.validate" />
 		</html:submit>
 		</p>
-	</html:form>
+	  </html:form>
+	  </td></tr></table>
+	</fieldset>
 </c:if>

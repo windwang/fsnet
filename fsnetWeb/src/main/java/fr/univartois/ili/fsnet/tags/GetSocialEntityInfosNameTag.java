@@ -20,7 +20,7 @@ public class GetSocialEntityInfosNameTag extends SimpleTagSupport {
 			out.print(socialEntity.getId());
 			out.print("\">");
 		}
-		out.print(socialEntity.getFirstName());
+		out.print(socialEntity.getName());
 		if (socialEntity.getIsEnabled()) {
 			out.print("</a>");
 		}

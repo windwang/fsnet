@@ -15,7 +15,7 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 
-<table id="CreateGroup">
+<table id="CreateGroup" class="fieldsetTableAdmin">
 	<tr>
 		<td><label for="name"> <bean:message key="groups.name" />
 		: </label></td>

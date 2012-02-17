@@ -157,6 +157,7 @@
     padding: 2px 6px 2px 6px;
     font-weight: normal;
     font-style: normal;
+    cursor:pointer;
 }
 
 .deleteEventForm{
@@ -189,6 +190,8 @@ input[type=text], input[type=email], input[type=password], textarea {
 #CreateEvent #eventDescription { width: 100%;}
 #CreateEvent #eventDate {width: 25%; color: black; margin-right: 8px;}
 #CreateEvent input[type=submit] {float: right;}
+
+#UpdateEvent input[type=submit] {float: right;}
 
 #CreateAnnounce {width: 80%;}
 #CreateAnnounce label {width:100px; display:block;	float:left;}
@@ -369,10 +372,24 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     padding: 5px;
     border-radius: 15px;
     border: 1px solid gray;
-    background: white;
-    border-image: initial;
+    
     box-shadow: 1px 2px 9px #000;
 }
+
+.inLinefieldset {
+    width: 90%;
+    border-spacing : 0px 3px;
+    margin-top:15px;
+    margin-bottom: 15px;
+    margin-left: auto;
+	margin-right: auto;
+	padding-top:5px;
+	padding-bottom:5px;
+	padding-left:10px;
+    border-radius: 15px;
+    border: 1px solid gray;
+}
+
 .inLineTable tr{
     background-color: #E8F5FD;
     border: 5px solid #F7FCFF;
@@ -707,3 +724,12 @@ tr.notReed {
 thead, thead th {
 	background-color : #DCF0FE;	
 }
+
+#buttonConsultation { float:right;margin-right:25px;margin-top:5px; margin-bottom:10px;}
+
+.plusMoins{margin-left:10px;}
+
+.plus{background: url("../images/addConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
+.moins{background: url("../images/removeConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
+
+input[type=submit] {cursor:pointer;}

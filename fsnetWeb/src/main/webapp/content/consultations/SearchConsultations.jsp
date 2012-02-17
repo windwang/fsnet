@@ -38,7 +38,9 @@
 			"bSortable" : false
 		}, null, {
 			"sType" : "date-euro"
-		} ,null, {
+		} ,{
+			"bSortable" : false
+		}, null, null, {
 			"bSortable" : false
 		}];
 		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
@@ -47,10 +49,13 @@
 		<table id="searchConsults" class="tablesorter inLineTable">
 			<thead>
 				<tr>
-					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
-					<th><bean:message key="consultation.createdAtDate" /></th>
+					<th width="5%"></th>
+					<th width="25%"><bean:message
+							key="tableheader.consultationname" /></th>
+					<th width="20%"><bean:message key="consultation.createdAtDate" /></th>
 					<th><bean:message key="tableheader.by" /></th>
+					<th><bean:message key="members.firstName" /></th>
+					<th><bean:message key="members.name" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -65,12 +70,12 @@
 							</c:import></td>
 						<td><html:link
 								action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
-							<td><bean:write
-								name="consultation" property="creationDate" format="dd/MM/yyyy" /> 
-							<bean:write
-								name="consultation" property="creationDate" format="HH:mm" />
-						</td>
-						<td><ili:getSocialEntityInfos
+						<td><bean:write name="consultation" property="creationDate"
+								formatKey="date.format" /></td>
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
+								socialEntity="${consultation.creator}" /></td>
+						<td><ili:getSocialEntityInfosName
 								socialEntity="${consultation.creator}" /></td>
 						<td class="tableButton"
 							onclick="confirmDelete2(${consultation.id}	)"><c:if

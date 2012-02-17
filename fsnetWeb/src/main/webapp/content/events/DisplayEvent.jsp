@@ -23,9 +23,9 @@
                 <ili:getSocialEntityInfos socialEntity="${event.creator}"/>
                 , 
                 <bean:message key="events.willoccur"/>
-                <bean:write name="event" property="startDate" format="dd/MM/yyyy" />
+                <bean:write name="event" property="startDate" format="dd/MM/yyyy HH'h'mm" />
                 <bean:message key="events.to"/>
-                <bean:write name="event" property="endDate" format="dd/MM/yyyy" />
+                <bean:write name="event" property="endDate" format="dd/MM/yyyy HH'h'mm" />
                 
                 <c:if test="${not empty event.address.address or not empty event.address.city}">
                 	<bean:message key="events.in"/>
@@ -57,10 +57,12 @@
             		</c:if>
             	</ili:interactionFilter>
   
-                <html:link  action="/DisplayUpdateEvent" styleClass="button">
-                    <html:param name="eventId" value="${event.id}"/>
-                    <bean:message key="events.update"/>
-                </html:link>
+  				<c:if test="${userId eq event.creator.id}">
+	                <html:link  action="/DisplayUpdateEvent" styleClass="button">
+	                    <html:param name="eventId" value="${event.id}"/>
+	                    <bean:message key="events.update"/>
+	                </html:link>
+            	</c:if>
             		
                 <c:if test="${userId eq event.creator.id}">
                     <html:form  action="/DeleteEvent" method="post" styleId="eventid${event.id}" styleClass="deleteEventForm" >

@@ -36,7 +36,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  * @author FSNet
- *
+ * 
  */
 public class ConfigureFSNet extends MappingDispatchAction {
 
@@ -333,7 +333,36 @@ public class ConfigureFSNet extends MappingDispatchAction {
 				.getMessageResources("FSneti18n");
 		request.setAttribute("success", bundle.getMessage(request.getLocale(),
 				"configure.db.update.success"));
+		return mapping.findForward("success");
+	}
 
+	public ActionForward updateDateType(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+
+			Query query = em
+					.createNativeQuery("ALTER TABLE MEETING MODIFY STARTDATE DATETIME");
+			query.executeUpdate();
+
+			query = em
+					.createNativeQuery("ALTER TABLE ANNOUNCEMENT MODIFY ENDDATE DATETIME");
+			query.executeUpdate();
+
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.db.update.success"));
+		
 		return mapping.findForward("success");
 	}
 

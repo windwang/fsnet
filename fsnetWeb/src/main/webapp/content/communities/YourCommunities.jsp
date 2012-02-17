@@ -29,8 +29,8 @@
 		<table id="myCommTables" class="tablesorter inLineTable">
 			<thead>
 				<tr>
-					<th></th>
-					<th><bean:message key="tableheader.name" /></th>
+					<th width="10%"></th>
+					<th width="30%"><bean:message key="tableheader.communityname" /></th>
 					<th></th>
 				</tr>
 			</thead>
