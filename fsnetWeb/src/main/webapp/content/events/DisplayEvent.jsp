@@ -8,13 +8,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
     <c:import url="/FavoriteFragment.do">
         <c:param name="interactionId" value="${event.id}"/>
     </c:import>
     ${event.title}
-</h3>
-<table  class="inLineTable"><tr><td>
+  </legend>
+<table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <div class="interactionDisplay">
     <table>
         <tr class="authorDate">
@@ -94,3 +95,4 @@
 </logic:iterate>
 </c:if>
 </td></tr></table>
+</fieldset>

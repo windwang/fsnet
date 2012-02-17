@@ -9,13 +9,14 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<h3><bean:message key="groups.Modify" /></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="groups.Modify" /></legend>
 
 
 
 <html:form action="/ModifyGroup" onsubmit="Valider()">
 
-	<table id="CreateGroup">
+	<table id="CreateGroup" class="fieldsetTableAdmin">
 		<tr>
 			<td><label for="name"> <bean:message key="groups.name" />
 			: </label></td>
@@ -150,10 +151,13 @@
 
 
 </html:form>
-<h3><bean:message key="groups.logo.change"/></h3>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="groups.logo.change"/></legend>
 
 <html:form enctype="multipart/form-data" action="/ChangeLogo">
-	<table id="changeLogo">
+	<table id="changeLogo" class="fieldsetTableAdmin">
 		<tr>
 			<td><html:file property="Logo"></html:file></td>
 			<td>
@@ -169,6 +173,7 @@
 		</logic:messagesPresent>
 	</table>
 </html:form>
+</fieldset>
 <style>
 select {
 	min-width: 200px;

@@ -15,10 +15,9 @@
 
 
 <html:javascript formName="/CreateAnnounce" />
-<h3>
-	<bean:message key="announce.create.title"/>
-</h3>
-<table  class="inLineTable"><tr><td>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="announce.create.title"/></legend>
+  <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <html:form action="/CreateAnnounce">
 	<table id="CreateAnnounce">
 		<tr>
@@ -61,6 +60,7 @@
 	</table>
 </html:form>
 </td></tr></table>
+</fieldset>
 
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>

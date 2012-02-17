@@ -9,8 +9,9 @@
 <c:if test="${consultation eq null }"><p><bean:message key="consultation.unavailable" /></p></c:if>
 
 <c:if test="${consultation ne null }">
-<h3>${consultation.title }</h3>
-  <table  class="inLineTable"><tr><td>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">${consultation.title }</legend>
+  <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <ul>
 	<li><bean:message key="consultation.creator" /> : <ili:getSocialEntityInfos socialEntity="${consultation.creator }" /></li>
 	<c:if test="${consultation.description ne '' }"><li><bean:message key="consultation.description" /> : ${consultation.description }</li></c:if>
@@ -168,9 +169,12 @@
 	</c:if>
 </table>
 </td></tr></table>
+</fieldset>
+
 <c:if test="${ allowedToShowResults and consultation.type ne 'PREFERENCE_ORDER' }">
-	<h3><bean:message key="consultation.histogramme" /></h3>
-	  <table  class="inLineTable"><tr><td>
+	<fieldset class="fieldsetAppli">
+     <legend class="legendHome"><bean:message key="consultation.histogramme" /></legend>
+	  <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 	
 	<div>
 		<ili:consultationResults consultation="${consultation}" percent="percent" number="number" choice="choice" histogram="yes">
@@ -181,6 +185,7 @@
 		</ili:consultationResults>
 	</div>
   </td></tr></table>
+  </fieldset>
 </c:if>
 
 </c:if>

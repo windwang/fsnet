@@ -9,21 +9,22 @@
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/osx.js"></script>
 
-<h3>
-	<bean:message key="members.search" />
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.search" /></legend>
 <html:form action="SearchMemberAdmin">
+   <table class="fieldsetTableAdmin"><tr><td>
 	<div id="SearchMember">
 		<html:text property="searchText" />
 		<html:submit styleClass="button">
 			<bean:message key="members.searchButton" />
 		</html:submit>
 	</div>
+	</td></tr></table>
 </html:form>
+</fieldset>
 
-<h3>
-	<bean:message key="members.listMembers" />
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.listMembers" /></legend>
 
 <c:choose>
 	<c:when test="${not empty requestScope.membersList}">
@@ -42,7 +43,7 @@
 
 					});
 		</script>
-		<table id="searchmemberstable" class="tablesorter inLineTable">
+		<table id="searchmemberstable" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.member" /></th>
@@ -85,9 +86,12 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-		<bean:message key="members.noResult" />
+	  <table class="inLineTableDashBoardFieldset fieldsetTable">
+			<tr><td><bean:message key="members.noResult" />
+	 </td></tr></table>
 	</c:otherwise>
 </c:choose>
+</fieldset>
 
 <c:if test="${!empty success}">
 	<script type="text/javascript">

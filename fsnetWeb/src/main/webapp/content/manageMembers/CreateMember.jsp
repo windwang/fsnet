@@ -14,10 +14,11 @@
 
 <script type="text/javascript" src="js/definePassword.js"></script>
 
-<h3><bean:message key="members.create" /></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.create" /></legend>
 
 <html:form action="/CreateMember">
-	<table id="CreateMember">
+	<table id="CreateMember" class="fieldsetTableAdmin">
 		<tr>
 			<td>
 				<label for="name"> 
@@ -127,5 +128,6 @@
 		<jsp:include page="/content/manageMembers/SamePartForMember.jsp"/>
 	</table>
 </html:form>
+</fieldset>
 
 

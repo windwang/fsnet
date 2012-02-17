@@ -12,10 +12,10 @@
 	<bean:message key="hubs.search" />
 </bean:define>
 
-<h3>
-	<bean:message key="hubs.searchHubs" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="hubs.searchHubs" /></legend>
+  
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><html:form action="/SearchHub" method="GET">
 				<html:hidden property="communityId" value="${param.communityId}" />
@@ -31,3 +31,4 @@
 			</html:form></td>
 	</tr>
 </table>
+</fieldset>

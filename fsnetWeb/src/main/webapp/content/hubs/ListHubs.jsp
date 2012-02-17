@@ -12,7 +12,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
-<h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
 	<c:if test="${not empty requestScope.Community}">
 		<html:link action="/DisplayCommunity">
 			<html:param name="communityId" value="${requestScope.Community.id}" />
@@ -21,18 +22,18 @@
 	</c:if>
 	-&gt;
 	<bean:message key="hubs.hubs" />
-</h3>
+</legend>
 <c:choose>
 	<c:when test="${empty requestScope.listHubPaginator.resultList}">
 
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="hubs.hubNotFound" /></td>
 			</tr>
 		</table>
 	</c:when>
 	<c:otherwise>
-
+       <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
@@ -52,7 +53,7 @@
 								aoColumns, false);
 					});
 		</script>
-		<table id="tablehub" class="tablesorter inLineTable">
+		<table id="tablehub" class="tablesorter inLineTableDashBoardFieldset">
 			<thead>
 				<tr>
 					<th></th>
@@ -96,3 +97,4 @@
 		</table>
 	</c:otherwise>
 </c:choose>
+</fieldset>

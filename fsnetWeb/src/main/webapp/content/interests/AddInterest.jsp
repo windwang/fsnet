@@ -7,7 +7,9 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <logic:present name="addInterestPaginator" scope="request">
-	<h3><bean:message key="interests.0"/></h3>
+	<fieldset class="fieldsetAppli">
+    <legend class="legendHome"><bean:message key="interests.0"/></legend>
+    <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 	<c:choose>
 	    <c:when test="${not empty requestScope.addInterestPaginator.resultList}">
 	        <html:javascript formName="/AddInterest"/>
@@ -34,4 +36,6 @@
 	<c:set var="paginatorAction" value="/DisplayInterests" scope="request"/>
 	<c:set var="paginatorTile" value="addInterest" scope="request"/>
 	<c:import url="/content/pagination/Pagination.jsp"/>
-</logic:present>
+    </td></tr></table>
+  </logic:present>
+</fieldset>

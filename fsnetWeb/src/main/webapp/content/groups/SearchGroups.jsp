@@ -6,10 +6,10 @@
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/osx.js"></script>
 
-<h3>
-	<bean:message key="group.listGroups" />
-</h3>
-<c:choose>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="group.listGroups" /></legend>
+
+  <c:choose>
 	<c:when test="${! empty requestScope.groupsList}">
 		<script type="text/javascript">
 			$(document).ready(
@@ -24,7 +24,7 @@
 								aoColumns, false);
 					});
 		</script>
-		<table id="searchGroupsTable" class="tablesorter inLineTable">
+		<table id="searchGroupsTable" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.group" /></th>
@@ -67,12 +67,12 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-		<p>
-			<bean:message key="group.noResult" />
-			.
-		</p>
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<tr><td><bean:message key="group.noResult" />.
+		</td></tr></table>
 	</c:otherwise>
 </c:choose>
+</fieldset>
 
 <c:if test="${!empty success}">
 	<script type="text/javascript">

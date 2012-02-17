@@ -13,8 +13,9 @@
 <bean:define id="searchMessage"><bean:message key="topic.search"/></bean:define>
 
 
-<h3><bean:message key="hubs.searchTopic"/></h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="hubs.searchTopic"/></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
     <html:form action="/SearchYourTopics" method="GET">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/></label></td>
@@ -26,10 +27,12 @@
         </tr>
     </html:form>
 </table>
+</fieldset>
 
 
-<h3><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="topics.yourTopics"/></h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="topics.yourTopics"/></legend>
+<table class="inLineTableDashBoardFieldset fieldsetTable">
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
 </logic:empty>
@@ -72,4 +75,5 @@
             </c:if>
         </tr>
     </c:forEach>
-</table>
+  </table>
+</fieldset>

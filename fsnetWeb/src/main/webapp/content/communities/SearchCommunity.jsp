@@ -8,10 +8,9 @@
 	<bean:message key="community.search" />
 </bean:define>
 
-<h3>
-	<bean:message key="communities.search" />
-</h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="communities.search" /></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
 		<td><html:form action="SearchCommunity" method="GET">
 				<div id="SearchCommunity">
@@ -23,14 +22,15 @@
 				</div>
 			</html:form></td>
 	</tr>
-</table>
+  </table>
+</fieldset>
 
-<h3>
-	<bean:message key="communities.listCommunities" />
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="communities.listCommunities" /></legend>
 
 <c:choose>
 	<c:when test="${! empty requestScope.communitiesSearch}">
+	    <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
@@ -48,7 +48,7 @@
 								aoColumns, false);
 					});
 		</script>
-		<table id="seachCommTables" class="tablesorter inLineTable">
+		<table id="seachCommTables" class="tablesorter inLineTableDashBoardFieldset">
 			<thead>
 				<tr>
 					<th width="10%"></th>
@@ -104,12 +104,13 @@
 
 	</c:when>
 	<c:otherwise>
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="communities.noResult" /></td>
 			</tr>
 		</table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>
 
 
