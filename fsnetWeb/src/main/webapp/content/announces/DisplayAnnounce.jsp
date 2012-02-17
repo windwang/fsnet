@@ -28,7 +28,7 @@
                 <bean:message  key="announce.createdBy"/>
 				<ili:getSocialEntityInfos socialEntity="${announce.creator}"/>,
                 <bean:message key="announce.expiryDate"/>
-                <bean:write name="announce" property="endDate" format="dd/MM/yyyy" />
+                <bean:write name="announce" property="endDate" format="dd/MM/yyyy HH:mm" />
             </td>
         </tr>
         <tr>
