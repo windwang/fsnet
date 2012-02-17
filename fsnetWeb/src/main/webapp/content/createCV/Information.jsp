@@ -181,34 +181,26 @@
 <h3><bean:message key="cv.25"/></h3> 
 </div>
 
-<div id="Certificaion">
-<ul class="listeCertification">
+<div id="loisir">
+<ul class="listeLoisir">
  
  
 </ul>
 </div>
-<div class="corp_certificat">
+<div class="corp_loisir">
 <table>
 <tr><td>*<bean:message key="cv.20"/></td></tr>
-<tr><td><html:text  property="CvNomCertif"
-                            styleId="CvNomCertif"
+<tr><td><html:text  property="CvNomLoisir"
+                            styleId="CvNomLoisir"
                             errorStyleClass="error" /></td>
-                            <td><span class="CvNomCertifError"><bean:message key="error.CvNomCertif"/></span></td></tr>
-<tr><td>*<bean:message key="cv.21"/></td></tr>
-<tr><td><html:text  property="CvDateCertif"
-                            styleId="CvDateCertif"
-                            errorStyleClass="error" /></td><td><span class="CvDateCertifError"><bean:message key="error.CvDateCertif"/></span></td></tr>
- <tr><td><bean:message key="cv.22"/></td></tr>
-<tr><td><html:text  property="CvEcolCertif"
-                            styleId="CvEcolCertif"
-                            errorStyleClass="error" /></td>
-                           <td><span class="CvEcolCertifError"><bean:message key="error.CvEcolCertif"/></span></td> </tr>
-                             <tr><td><a><span class="annuleCert"> <bean:message key="cv.annuler"/></span></a>
-        <a><span class="SaveCert"> <bean:message key="cv.enregister"/></span></a></td></tr>         
+                            <td><span class="CvNomLoisirError"><bean:message key="error.CvNomLoisir"/></span></td></tr>
+
+                             <tr><td><a><span class="annuleLoisir"> <bean:message key="cv.annuler"/></span></a>
+        <a><span class="SaveLoisir"> <bean:message key="cv.enregister"/></span></a></td></tr>         
 </table>
 </div>
 <a>
-<span class="addCert"> <bean:message key="cv.addCert"/>  </span>
+<span class="addLoisir"> <bean:message key="cv.addLoisir"/>  </span>
 </a>
 </div>
 <div class="en_cv">
@@ -244,7 +236,7 @@
 </div>
 
 
-<html:submit styleClass="button"><bean:message key="cv.23"/></html:submit>
+<html:submit   styleId="envoi" styleClass="button"><bean:message key="cv.23"/></html:submit>
 </html:form>
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="js/cv.js"></script>
