@@ -17,7 +17,9 @@
 						var nomTable = "searchGroupsTable";
 						var idColonneATrier = 0;
 						var sensDeTri = "asc";
-						var aoColumns = [ null, null, {
+						var aoColumns = [ null, {
+							"bSortable" : false
+						}, null, null, {
 							"bSortable" : false
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
@@ -29,6 +31,8 @@
 				<tr>
 					<th><bean:message key="tableheader.group" /></th>
 					<th><bean:message key="tableheader.created" /></th>
+					<th><bean:message key="tableheader.name" /></th>
+					<th><bean:message key="tableheader.firstname" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -38,9 +42,12 @@
 						<td><html:link action="/DisplayGroup">${group.name} 
                 			<html:param name="idGroup" value="${group.id}" />
 							</html:link> <!--${group.name}--></td>
-
-						<td><ili:getSocialEntityInfos
+						<td></td>
+						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${group.masterGroup}" /></td>
+						<td><ili:getSocialEntityInfosName
+								socialEntity="${group.masterGroup}" /></td>
+								
 						<c:choose>
 							<c:when test="${ group.group.isEnabled == false }">
 								<td class="tableButton"><bean:message
