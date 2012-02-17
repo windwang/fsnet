@@ -137,6 +137,7 @@
         
         <action path="/Calendar" name="CalendarView" type="fr.univartois.ili.fsnet.actions.Calendar" scope="request" validate="false">
 			<forward name="success" path="Calendar" />
+			<forward name="unauthorized" path="/Events.do" />
 		</action>
         
     </action-mappings>

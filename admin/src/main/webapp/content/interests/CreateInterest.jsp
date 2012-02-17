@@ -5,9 +5,11 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<h3><bean:message key="interests.3"/></h3>
-<html:javascript formName="/CreateInterest"/>
-<html:form action="/CreateInterest">
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="interests.3"/></legend>
+  <html:javascript formName="/CreateInterest"/>
+  <html:form action="/CreateInterest">
+    <table class="fieldsetTableAdmin"><tr><td>
 	<p><bean:message key="interests.18"/><br/>
 	<bean:message key="interests.15"/>
 	<html:select property="parentInterestId" styleClass="select">
@@ -21,4 +23,6 @@
      <html:submit styleClass="button" >
       	<bean:message key="interest.validate"/>
       </html:submit></p>
-</html:form>
+    </td></tr></table>
+    </html:form>
+</fieldset>
