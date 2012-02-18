@@ -4,7 +4,7 @@
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>fsnet</artifactId>
 	<packaging>pom</packaging>
-	<version>0.7.3-SNAPSHOT</version>
+	<version>0.7.3</version>
 	<name>Firm Social Network</name>
 	<url>http://code.google.com/p/fsnet/</url>
 

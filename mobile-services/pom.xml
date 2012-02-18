@@ -6,7 +6,7 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.3-SNAPSHOT</version>
+		<version>0.7.3</version>
 	</parent>
 
 	<artifactId>mobile-services</artifactId>
@@ -27,12 +27,12 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>facade</artifactId>
-			<version>0.7.3-SNAPSHOT</version>
+			<version>0.7.3</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>mobile-services-model</artifactId>
-			<version>0.7.3-SNAPSHOT</version>
+			<version>0.7.3</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.jersey</groupId>
