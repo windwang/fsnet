@@ -13,13 +13,10 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 
-<h3>
-	<bean:message key="members.create" />
-</h3>
-
-
-<html:form action="/CreateMember">
-	<table id="CreateMember">
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.create" /></legend>
+  <html:form action="/CreateMember">
+	<table id="CreateMember" class="fieldsetTableAdmin">
 		<tr>
 			<td><label for="name"> <bean:message key="members.name" />
 					: </label></td>
@@ -52,7 +49,7 @@
 						key="members.group" /> : </label>
 			</td>
 			<td colspan="3"><html:select property="parentId"
-					styleClass="select" >
+					styleClass="select" styleId="parentId">
 					<html:option value="">
 						<bean:message key="members.listGroups" />
 					</html:option>
@@ -97,8 +94,8 @@
 		</tr>
 		<jsp:include page="/content/members/SamePartForMember.jsp" />
 	</table>
-</html:form>
-
+  </html:form>
+</fieldset>
 <script type="text/javascript">
 	function definePasword() {
 		var generatePassword = document.getElementById('generatePassword');

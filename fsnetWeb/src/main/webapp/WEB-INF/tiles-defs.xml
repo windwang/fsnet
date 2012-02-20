@@ -391,4 +391,16 @@
 	<definition name="AutocompleteOtherChoice" path="/content/ajax/EmptyRecipient.jsp">
 		<put name="content" value="/content/consultations/autocompleteOtherChoice.jsp" />
 	</definition>
+	<!-- CV -->
+	<definition name="Information" extends=".defaultLayout">
+		<put name="title" value="profile.CreateCV" />
+		<put name="body-content" value="/content/createCV/Information.jsp" />
+
+	</definition>
+
+	<definition name="InfoContact" extends=".defaultLayout">
+		<put name="title" value="profile.CreateCV" />
+		<put name="body-content" value="/content/createCV/InfoContact.jsp" />
+
+	</definition>
 </tiles-definitions>

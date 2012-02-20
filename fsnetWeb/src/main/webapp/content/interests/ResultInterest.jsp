@@ -7,6 +7,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
 <logic:present name="interestSearchPaginator" scope="request">
+	<table class="inLineTableDashBoardFieldset"><tr><td>
 	<c:choose>
 	    <c:when test="${not empty requestScope.interestSearchPaginator.resultList}">
 	        <div class="cloud">
@@ -24,6 +25,7 @@
 	        <bean:message key="interests.10"/>
 	    </c:otherwise>
 	</c:choose>
+	</td></tr></table>
 	<c:set var="paginatorInstance" value="${requestScope.interestSearchPaginator}" scope="request"/>
 	<c:set var="paginatorAction" value="/SearchInterest" scope="request"/>
 	<c:set var="paginatorTile" value="search" scope="request"/>

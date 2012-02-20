@@ -14,8 +14,9 @@
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
-<h3><bean:message key="events.0"/></h3>
-<table  class="inLineTable"><tr><td>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="events.0"/></legend>
+  <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <html:form action="/CreateEvent">
     <table id="CreateEvent">
         <tr>
@@ -49,6 +50,7 @@
             </td>
             <td>
                 <html:textarea  property="eventDescription"
+                				styleId="eventDescription"
                                 errorStyleClass="error"
                                 styleClass="mceTextArea"
                                 style="width: 100%;"
@@ -96,7 +98,7 @@
         </tr>
         <tr>
             <td>
-                <label for="eventDate">
+                <label for="eventBeginDate">
                     <bean:message key="events.3"/> :
                 </label>
             </td>
@@ -114,7 +116,7 @@
         </tr>
         <tr>
             <td>
-                <label for="eventDate">
+                <label for="eventEndDate">
                     <bean:message key="events.20"/> :
                 </label>
             </td>
@@ -169,6 +171,7 @@
     </table>
 </html:form>
 </td></tr></table>
+</fieldset>
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>

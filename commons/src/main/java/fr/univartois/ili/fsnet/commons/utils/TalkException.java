@@ -8,17 +8,30 @@ package fr.univartois.ili.fsnet.commons.utils;
  */
 public class TalkException extends Exception {
 
+	/**
+	 * 
+	 */
 	public TalkException() {
 	}
 
+	/**
+	 * @param message
+	 */
 	public TalkException(String message) {
 		super(message);
 	}
 
+	/**
+	 * @param cause
+	 */
 	public TalkException(Throwable cause) {
 		super(cause);
 	}
 
+	/**
+	 * @param message
+	 * @param cause
+	 */
 	public TalkException(String message, Throwable cause) {
 		super(message, cause);
 	}

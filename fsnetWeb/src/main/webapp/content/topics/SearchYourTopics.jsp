@@ -13,9 +13,10 @@
 <bean:define id="searchMessage"><bean:message key="topic.search"/></bean:define>
 
 
-<h3><bean:message key="hubs.searchTopic"/></h3>
-<table class="inLineTable">
-    <html:form action="/SearchYourTopics" method="GET">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="hubs.searchTopic"/></legend>
+  <table class="inLineTableDashBoardFieldset fieldsetTable">
+    <html:form action="/SearchYourTopics" method="get">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/></label></td>
             <td><html:text property="searchText" styleId="topicSujet" />
@@ -26,10 +27,12 @@
         </tr>
     </html:form>
 </table>
+</fieldset>
 
 
-<h3><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="topics.yourTopics"/></h3>
-<table class="inLineTable">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="hubs.hub"/> ${hubResult.title} - <bean:message key="topics.yourTopics"/></legend>
+<table class="inLineTableDashBoardFieldset fieldsetTable">
 <logic:empty name="topicsLastMessage">
     <bean:message key="hubs.notopics"/>
 </logic:empty>
@@ -38,7 +41,7 @@
             <td>
                 <!-- TODO gerer les favoris -->
                 <img src="images/non-favorite.png" alt="Favorite" onclick="this.src='images/favorite.png';" onmouseover="this.style.cursor='pointer'"/>
-                <img src="images/message.png"/>
+                <img src="images/message.png" alt="Message"/>
             </td>
             <td>
                 <html:link action="/DisplayTopic" title='${empty couple.key.interests? "" : couple.key.interests}'>
@@ -72,4 +75,5 @@
             </c:if>
         </tr>
     </c:forEach>
-</table>
+  </table>
+</fieldset>

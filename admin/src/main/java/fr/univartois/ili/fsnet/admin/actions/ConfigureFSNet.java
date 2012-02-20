@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.admin.actions;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,7 +25,6 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
-import org.apache.struts.upload.FormFile;
 import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
@@ -36,11 +34,24 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Property;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
+/**
+ * @author FSNet
+ * 
+ */
 public class ConfigureFSNet extends MappingDispatchAction {
 
 	private static final String DEFAULT_SMTP_PORT = "25";
 	private static final int MAX_PICTURE_SIZE = 500000;
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward editMailConfiguration(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -88,10 +99,19 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		} catch (Exception ex) {
 			ex.printStackTrace();
 		}
-		
+
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward saveMailConfiguration(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -148,14 +168,24 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.mail.update.success"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.mail.update.success"));
+
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward saveFacebookId(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -169,14 +199,20 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		em.getTransaction().commit();
 		em.close();
 		FSNetConfiguration.getInstance().refreshConfiguration();
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.facebook.update.success"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.facebook.update.success"));
+
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param em
+	 * @param key
+	 * @param value
+	 */
 	private void saveProperty(EntityManager em, String key, String value) {
 		Property property = em.find(Property.class, key);
 		if (property == null) {
@@ -190,6 +226,10 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		}
 	}
 
+	/**
+	 * @param dirName
+	 * @return
+	 */
 	private boolean isValidDirectory(String dirName) {
 		boolean isValidDirectory;
 		File directory = new File(dirName);
@@ -201,6 +241,15 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		return isValidDirectory;
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward sendTestMail(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -208,19 +257,27 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 		mail.setSubject("FSNet mail test");
-		mail.setContent("Configuration réussie");
+		mail.setContent("Successful configuration");
 		mail.addRecipient(dynaForm.getString("Recipient"));
 		mailer.sendMail(mail);
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.testMail.sent"));
-		
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.testMail.sent"));
+
 		return mapping.findForward("success");
 	}
 
-
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward updateDB(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -256,7 +313,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			for (SocialEntity s : entities) {
 				mails.put(s.getEmail(), s.getEmail().toLowerCase());
 			}
-			
+
 			for (String s : mails.keySet()) {
 				entityManager.getTransaction().begin();
 				Query query = entityManager
@@ -271,12 +328,42 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			out.println("DB modified");
 			out.close();
 		}
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"configure.db.update.success"));
-		
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.db.update.success"));
+
+		return mapping.findForward("success");
+	}
+
+	public ActionForward updateDateType(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+
+			Query query = em
+					.createNativeQuery("ALTER TABLE MEETING MODIFY STARTDATE DATETIME");
+			query.executeUpdate();
+
+			query = em
+					.createNativeQuery("ALTER TABLE ANNOUNCEMENT MODIFY ENDDATE DATETIME");
+			query.executeUpdate();
+
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"configure.db.update.success"));
+
 		return mapping.findForward("success");
 	}
 

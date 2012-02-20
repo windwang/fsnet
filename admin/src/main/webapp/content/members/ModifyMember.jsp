@@ -17,12 +17,11 @@
 	
 </script>
 
-<h3>
-	<bean:message key="members.modify" />
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.modify" /></legend>
 
-<html:form action="/ModifyMember">
-	<table id="ModifyMember">
+  <html:form action="/ModifyMember">
+	<table id="ModifyMember" class="fieldsetTableAdmin">
 		<tr class="errorMessage">
 			<td colspan="2"><html:errors />
 			</td>
@@ -50,7 +49,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="parentId"> <bean:message
+			<td><label > <bean:message
 						key="groups.parent" /> : </label></td>
 			<c:choose>
 				<c:when test="${ master2 == false}">
@@ -98,7 +97,7 @@
 
 
 		<tr>
-			<td><label for="sexe"> <bean:message key="members.sexe" />
+			<td><label> <bean:message key="members.sexe" />
 					: </label></td>
 			<td><html:select property="sexe">
 					<html:option value=""/>
@@ -120,7 +119,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="phone"> <bean:message
+			<td><label > <bean:message
 						key="members.phone" /> :</label></td>
 			<td><html:text errorStyleClass="error" property="phone" /></td>
 		</tr>
@@ -131,12 +130,13 @@
 				</html:submit></td>
 		</tr>
 	</table>
-</html:form>
+  </html:form>
+</fieldset>
 
-<h3>
-	<bean:message key="members.herInterests" />
-</h3>
-<c:choose>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.herInterests" /></legend>
+ <table class="fieldsetTableAdmin"><tr><td>
+  <c:choose>
 	<c:when
 		test="${not empty requestScope.interestsMemberPaginator.resultList}">
 		<div class="cloud">
@@ -157,7 +157,9 @@
 	<c:otherwise>
 		<bean:message key="interests.17" />
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+  </td></tr></table>
+</fieldset>
 <c:set var="paginatorInstance"
 	value="${requestScope.interestsMemberPaginator}" scope="request" />
 <c:set var="paginatorAction" value="/DisplayMember" scope="request" />

@@ -167,8 +167,9 @@ function restructureChatBoxes() {
 }
 
 function chatWith(chatuser, mailUser) {
-	createChatBox(chatuser);
-	$("#chatbox_" + chatuser + " .chatboxtextarea").focus();
+	var user=chatuser.toLowerCase();
+	createChatBox(user);
+	$("#chatbox_" + user + " .chatboxtextarea").focus();
 }
 
 function createChatBox(chatboxtitle, minimizeChatBox) {

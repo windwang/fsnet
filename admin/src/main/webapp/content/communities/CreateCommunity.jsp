@@ -7,13 +7,13 @@
 
 
 
-<h3>
-  <bean:message key="communities.create"/>
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="communities.create"/></legend>
 
-<html:form action="/CreateCommunity">
+
+  <html:form action="/CreateCommunity">
 	
-    <table id="CreateCommunity">
+    <table id="CreateCommunity" class="fieldsetTableAdmin">
         <tr>
             <td>
                 <label for="name">
@@ -32,7 +32,7 @@
         </tr>
         <tr>
        		<td>
-                <label for="creator">
+                <label>
                     <bean:message key="communities.creator"/>
                 </label>
             </td>
@@ -59,5 +59,5 @@
             </td>
         </tr>
     </table>
-</html:form>
-
+  </html:form>
+</fieldset>

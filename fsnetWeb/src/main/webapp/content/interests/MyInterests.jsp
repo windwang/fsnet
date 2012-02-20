@@ -6,8 +6,10 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<h3><bean:message key="interests.6"/></h3>
-<logic:present name="myInterestPaginator" scope="request">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="interests.6"/></legend>
+  <logic:present name="myInterestPaginator" scope="request">
+    <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
     <c:choose>
         <c:when test="${not empty requestScope.myInterestPaginator.resultList}">
             <div class="cloud">
@@ -16,7 +18,7 @@
                     <span class="tag">
                         <html:link action="/RemoveInterest">
                             <html:param name="removedInterestId" value="${interest.id}"/>
-                            <img src="images/mini-delete.png" />
+                            <img src="images/mini-delete.png" alt="delete"/>
                         </html:link>
                         <html:link action="/InterestInformations">
                             <html:param name="infoInterestId" value="${interest.id}"/>
@@ -36,4 +38,6 @@
 	<c:set var="paginatorAction" value="/DisplayInterests" scope="request"/>
 	<c:set var="paginatorTile" value="display" scope="request"/>
 	<c:import url="/content/pagination/Pagination.jsp"/>
-</logic:present>
+  </td></tr></table>
+  </logic:present>
+</fieldset>

@@ -21,6 +21,7 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Meeting;
+import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
@@ -41,6 +42,10 @@ public class Calendar extends MappingDispatchAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+
+		Right rightAddEvent = Right.ADD_EVENT;
+		request.setAttribute("rightAddEvent", rightAddEvent);
+		request.setAttribute("socialEntity", user);
 
 		em.getTransaction().begin();
 
@@ -73,10 +78,16 @@ public class Calendar extends MappingDispatchAction {
 
 	}
 
+	/**
+	 * @return
+	 */
 	public List<String> getEvents() {
 		return events;
 	}
 
+	/**
+	 * @param events
+	 */
 	public void setEvents(List<String> events) {
 		this.events = events;
 	}

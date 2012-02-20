@@ -9,10 +9,11 @@
 
 
 
-<h3><bean:message key="members.createMultiple" /></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.createMultiple" /></legend>
 
-<html:form action="/CreateMultipleMember">
-	<table>
+  <html:form action="/CreateMultipleMember">
+	<table class="fieldsetTableAdmin">
 	<tr>
 		<td colspan="2">
 			<bean:message key="members.createMultipleIndications" />
@@ -35,3 +36,4 @@
 	<jsp:include page="/content/manageMembers/SamePartForMember.jsp"/>
 	</table>
 </html:form>
+</fieldset>

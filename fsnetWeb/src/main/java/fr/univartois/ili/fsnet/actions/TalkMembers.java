@@ -9,29 +9,18 @@ import java.util.Map.Entry;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
-import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
 
-import org.apache.http.HttpClientConnection;
-import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.DispatchAction;
 import org.apache.struts.actions.MappingDispatchAction;
-import org.apache.struts.chain.contexts.ActionContext;
 import org.jivesoftware.smack.Chat;
-import org.jivesoftware.smack.ChatManagerListener;
-import org.jivesoftware.smack.MessageListener;
-import org.jivesoftware.smack.packet.Message;
 import org.json.simple.JSONObject;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.commons.talk.ITalk;
 import fr.univartois.ili.fsnet.commons.talk.Talk;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -40,34 +29,43 @@ import fr.univartois.ili.fsnet.commons.utils.TalkJsonMsg;
 import fr.univartois.ili.fsnet.commons.utils.TalkMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.tools.PropsUtils;
+
 /**
  * manage chat action.
  * 
  * @author habib
- *
+ * 
  */
 public class TalkMembers extends MappingDispatchAction {
 
 	private static List<TalkMessage> talkMessages;
-	private final String xmppServer = PropsUtils.getProperty("xmpp.server") ;  // "localhost";
-	private final int port =Integer.parseInt(PropsUtils.getProperty("xmpp.server.port"));//5222;
-	private final String xmppServerDomain =PropsUtils.getProperty("xmpp.domain") ; //"master11";
-	private final String password =PropsUtils.getProperty("xmpp.password") ; 
+	private final String xmppServer = PropsUtils.getProperty("xmpp.server"); // "localhost";
+	private final int port = Integer.parseInt(PropsUtils
+			.getProperty("xmpp.server.port"));// 5222;
+	private final String xmppServerDomain = PropsUtils
+			.getProperty("xmpp.domain"); // "master11";
+	private final String password = PropsUtils.getProperty("xmpp.password");
 
+	/**
+	 * @param request
+	 * @return
+	 */
 	private ITalk initTalkMembers(HttpServletRequest request) {
 
 		ITalk talk = new Talk();
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-			String name = member.getName();
+			System.out.println("name :" + member.getName());
+			String name = member.getName().replaceAll(" ", "").toLowerCase();
+			System.out.println("after name :" + name);
 			String email = member.getEmail();
 			String pass = member.getPassword();
 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("email", email);
 			map.put("name", name);
-			talk.initConnexion(xmppServer, port, name,password, map);
+			talk.initConnexion(xmppServer, port, name, password, map);
 			request.getSession().setAttribute("talk", talk);
 			talkMessages = new ArrayList<TalkMessage>();
 
@@ -80,6 +78,7 @@ public class TalkMembers extends MappingDispatchAction {
 
 	/**
 	 * activate listener chat
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -123,6 +122,7 @@ public class TalkMembers extends MappingDispatchAction {
 
 	/**
 	 * detect recieved message
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -181,7 +181,8 @@ public class TalkMembers extends MappingDispatchAction {
 	}
 
 	/**
-	 * send message 
+	 * send message
+	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -201,7 +202,7 @@ public class TalkMembers extends MappingDispatchAction {
 		}
 
 		String friend = request.getParameter("toFriend");
-		friend = friend + "@"+xmppServerDomain;
+		friend = friend + "@" + xmppServerDomain;
 		String msg = request.getParameter("msg");
 
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
@@ -237,14 +238,14 @@ public class TalkMembers extends MappingDispatchAction {
 			if (dd == null) {
 
 				dd = new StringBuilder();
-				dd.append("</br><p style=\"margin:-7px -7px -7px -7px;\">me :" + msg
-						+ "</p></br>");
+				dd.append("</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
+						+ msg + "</p></br>");
 				talkMessage.getConversation().put(friend, dd);
 				request.getSession().setAttribute("talkMessage", talkMessage);
 			} else {
 
-				dd.append("</br><p style=\"margin:-7px -7px -7px -7px;\">me :" + msg
-						+ "</p></br>");
+				dd.append("</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
+						+ msg + "</p></br>");
 				talkMessage.getConversation().put(friend, dd);
 				request.getSession().setAttribute("talkMessage", talkMessage);
 			}

@@ -8,11 +8,19 @@ import javax.servlet.jsp.tagext.SimpleTagSupport;
 
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
+/**
+ * @author FSNet
+ * 
+ */
 public class GetMiniatureTag extends SimpleTagSupport {
 
 	private SocialEntity socialEntity;
 
-	
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see javax.servlet.jsp.tagext.SimpleTagSupport#doTag()
+	 */
 	@Override
 	public void doTag() throws JspException, IOException {
 		JspWriter out = getJspContext().getOut();
@@ -29,10 +37,16 @@ public class GetMiniatureTag extends SimpleTagSupport {
 		}
 	}
 
+	/**
+	 * @return
+	 */
 	public SocialEntity getSocialEntity() {
 		return socialEntity;
 	}
 
+	/**
+	 * @param socialEntity
+	 */
 	public void setSocialEntity(SocialEntity socialEntity) {
 		this.socialEntity = socialEntity;
 	}

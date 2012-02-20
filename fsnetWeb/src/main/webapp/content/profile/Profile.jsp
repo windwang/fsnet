@@ -44,12 +44,13 @@
 	
 
 <ili:interactionFilter user="${ socialEntity }" right="${ rightModifyProfil }">      
-<h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
     <bean:message key="updateProfile.title"/>
-</h3>
+  </legend>
 
 <html:form action="/ModifyProfile">
-    <table id="ModifyProfile">
+    <table id="ModifyProfile" class="inLineTableDashBoardFieldset fieldsetTable">
         <tr>
             <td>
                 <label for="name">
@@ -222,6 +223,7 @@
         </tr>
     </table>
 </html:form>
+</fieldset>
 </ili:interactionFilter>
 
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
@@ -245,9 +247,9 @@
     });
 </script> 
 
-<h3>
-    <bean:message key="updateProfile.changePassword.title"/>
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
+    <bean:message key="updateProfile.changePassword.title"/></legend>
 
 <html:form action="/ChangePassword">	
 
@@ -257,7 +259,7 @@
 	</logic:messagesPresent>
 	
 
-    <table align="center">
+    <table  class="inLineTableDashBoardFieldset fieldsetTable">
         <c:forTokens var="typePwd" items="oldPassword:newPassword:confirmNewPassword" delims=":">
             <tr>
                 <td>
@@ -286,21 +288,22 @@
         </tr>
     </table>
 </html:form>
+</fieldset>
 
 <ili:interactionFilter user="${ socialEntity }" right="${ rightModifyPicture }">      
-<h3>
-    <bean:message key="updateProfile.changePhoto.title"/>
-</h3>
-<html:form action="/ChangePhoto" enctype="multipart/form-data" style="float:left; width:80%">
-		<bean:message key="updateProfile.picturesize"/>
-	<div><table width="100%"><tr><td><label for="photoInternet">
+<fieldset class="fieldsetProfil">
+  <legend class="legendHome">
+    <bean:message key="updateProfile.changePhoto.title"/></legend>
+   <html:form action="/ChangePhoto" enctype="multipart/form-data"><div class="space"></div>
+		<div><bean:message key="updateProfile.picturesize"/></div>
+	<div><table class="inLineTableDashBoardFieldset"><tr><td><label >
                     <bean:message key="updateProfile.photoInternet"/> :
                 </label></td><td>
-	<html:text property="photoUrl" style="width: 100%"></html:text></td></tr><tr>
-	<td><label for="photoLocal">
+	<html:text property="photoUrl"></html:text></td></tr><tr>
+	<td><label >
                     <bean:message key="updateProfile.photoLocal"/> :
                 </label></td>
-	<td><html:file property="photo" style="width: 100%" size="45"></html:file></td></tr><tr><td>
+	<td><html:file property="photo" size="45"></html:file></td></tr><tr><td colspan="2">
 		<html:submit styleClass="button">
 			<bean:message key="updateProfile.validate"/>
 		</html:submit>
@@ -313,10 +316,11 @@
 		</div>
 	</logic:messagesPresent>
 </html:form>
+</fieldset>
 </ili:interactionFilter>
 
-<img src="avatar/${userId}.png" style="float:right;"/>
-<div class="clear"></div>
+<img src="avatar/${userId}.png" style="float:right;" alt="Avatar"/>
 <html:link action="/DeletePhoto" style="float:right;">
 	<bean:message key="updateProfile.deletePhoto"/>
 </html:link>
+<div class="clear"></div>

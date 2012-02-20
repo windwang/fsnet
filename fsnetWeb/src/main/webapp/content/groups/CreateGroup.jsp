@@ -9,12 +9,13 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<h3><bean:message key="groups.create" /></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="groups.create" /></legend>
 
 
 
 <html:form action="/CreateGroup" onsubmit="Valider()">
-	<table id="CreateGroup">
+	<table id="CreateGroup" class="fieldsetTableAdmin">
 		<tr>
 			<td><label for="name"> <bean:message key="groups.name" />
 			: </label></td>
@@ -41,7 +42,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="parentId"> <bean:message
+			<td><label> <bean:message
 				key="groups.parent" /> : </label></td>
 			<td colspan="3"><html:select property="parentId"
 				styleClass="select">
@@ -59,7 +60,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="socialEntityId"> <bean:message
+			<td><label > <bean:message
 				key="groups.owner" /> : </label></td>
 			<td colspan="3"><html:select property="socialEntityId"
 				styleClass="select" value="${ masterGroup.id }">
@@ -77,7 +78,7 @@
 		</tr>
 
 		<tr>
-			<td ROWSPAN="2"><label for="members"> <bean:message
+			<td ROWSPAN="2"><label > <bean:message
 				key="groups.members" /> </label></td>
 
 			<td ROWSPAN="2">
@@ -115,7 +116,7 @@
 
 
 		<tr>
-			<td ROWSPAN="2"><label for="groups"> <bean:message
+			<td ROWSPAN="2"><label> <bean:message
 				key="groups.right" /> </label></td>
 
 			<td ROWSPAN="2">
@@ -161,11 +162,7 @@
 
 
 </html:form>
-<style>
-select {
-	min-width: 200px;
-}
-</style>
+</fieldset>
 
 <script type="text/javascript">
 	function Deplacer(l1, l2) {

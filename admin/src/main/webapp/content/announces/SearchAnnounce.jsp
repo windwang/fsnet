@@ -8,13 +8,17 @@
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<h3><bean:message key="announce.searchAnnounce" /> </h3>
-<html:form action="/Announces" method="GET">
-	<div id="SearchAnnounce">
-    	<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
 
-	    <html:submit styleClass="button"><bean:message key="announce.searchButton" /></html:submit>
-    	<html:messages id="message" />
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="announce.searchAnnounce" /></legend>
+   <html:form action="/Announces" method="get">
+	<div>
+	    <table class="fieldsetTableAdmin"><tr><td>
+    	  <html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
+	      <html:submit styleClass="button"><bean:message key="announce.searchButton" /></html:submit>
+    	  <html:messages id="message" />
+    	</td></tr></table>
     	<div class="errorMessage"><html:errors/></div>
     </div>
-</html:form>
+  </html:form>
+</fieldset>

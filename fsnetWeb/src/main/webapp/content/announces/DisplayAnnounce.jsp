@@ -14,21 +14,21 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">
     <c:import url="/FavoriteFragment.do">
         <c:param name="interactionId" value="${announce.id}"/>
     </c:import>
-    <bean:write name="announce" property="title" />
-</h3>
+    <bean:write name="announce" property="title" /></legend>
 
 <div class="interactionDisplay">
-    <table>
+    <table class="fieldsetTable">
         <tr class="authorDate">
             <td>
                 <bean:message  key="announce.createdBy"/>
 				<ili:getSocialEntityInfos socialEntity="${announce.creator}"/>,
                 <bean:message key="announce.expiryDate"/>
-                <bean:write name="announce" property="endDate" format="dd/MM/yyyy" />
+                <bean:write name="announce" property="endDate" format="dd/MM/yyyy HH:mm" />
             </td>
         </tr>
         <tr>
@@ -56,7 +56,7 @@
             </td>
         </tr>
     </table>
-</div>
-
+  </div>
 <c:set var="theInteraction" value="${announce}" scope="request"/>
 <jsp:include page="/content/interactions/InteractionInfo.jsp" />
+</fieldset>

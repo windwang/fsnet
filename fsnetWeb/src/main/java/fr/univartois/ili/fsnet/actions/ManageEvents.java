@@ -53,12 +53,19 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	private static final String DEFAULT_RECALLTIME = "10";
 	
 
+	/**
+	 * @param eventDate
+	 * @param request
+	 * @param propertyKey
+	 * @return
+	 */
 	private Date validateDate(String eventDate, HttpServletRequest request,
 			String propertyKey) {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DAY_OF_MONTH), 0, 0, -1);
+				calendar.get(Calendar.DAY_OF_MONTH),
+				calendar.get(Calendar.HOUR_OF_DAY) - 1, 0, 0);
 		Date today = calendar.getTime();
 
 		Date typedEventDate;
@@ -83,6 +90,38 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	}
 	
 
+	/**
+	 * @param eventDate
+	 * @param request
+	 * @param propertyKey
+	 * @return
+	 */
+	private Date validateDateForEditing(String eventDate,
+			HttpServletRequest request, String propertyKey) {
+
+		Date typedEventDate;
+
+		try {
+			typedEventDate = DateUtils.format(eventDate);
+		} catch (ParseException e) {
+			ActionErrors errors = new ActionErrors();
+			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
+			saveErrors(request, errors);
+			return null;
+		}
+
+		return typedEventDate;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#create(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -151,15 +190,24 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return redirect;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#modify(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		
+
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
-			
+
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String eventId = (String) dynaForm.get("eventId");
 
@@ -169,6 +217,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			String eventEndDate = (String) dynaForm.get("eventEndDate");
 			String adress = (String) dynaForm.get("eventAddress");
 			String city = (String) dynaForm.get("eventCity");
+
 			String eventRecallTime = (String) dynaForm.get("eventRecallTime");
 			String eventRecallTypeTime = (String) dynaForm.get("eventRecallTypeTime");
 			Date typedEventBeginDate = validateDate(eventBeginDate, request,
@@ -178,7 +227,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			
 			Date typedEventRecallDate = DateUtils.substractTimeToDate(typedEventBeginDate,Integer.parseInt(eventRecallTime),
 					eventRecallTypeTime);
-
+			
 			if (typedEventBeginDate == null || typedEventEndDate == null) {
 				return mapping.getInputForward();
 			}
@@ -191,7 +240,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}
-			
+
 			MeetingFacade meetingFacade = new MeetingFacade(em);
 			Meeting meeting = meetingFacade.getMeeting(Integer
 					.parseInt(eventId));
@@ -217,6 +266,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#delete(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -321,6 +379,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return redirect;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#search(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -357,6 +424,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#display(org.apache.struts.
+	 * action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -399,6 +475,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 	}
 
+	/**
+	 * @param request
+	 */
 	private void addRightToRequest(HttpServletRequest request) {
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		Right rightAddEvent = Right.ADD_EVENT;

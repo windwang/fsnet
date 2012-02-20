@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts-config PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
+"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
+<struts-config>
+    <form-beans>
+    
+    	<form-bean name="CVForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="formatBirthDay" type="java.lang.String" />		
+			<form-property name="CvTitle" type="java.lang.String" />
+			<form-property name="CvNom" type="java.lang.String" />
+			<form-property name="CvPrenom" type="java.lang.String" />
+			<form-property name="CvAdresse" type="java.lang.String" />
+			<form-property name="CvVille" type="java.lang.String" />
+			<form-property name="CvCp" type="java.lang.String" />
+			<form-property name="CvPays" type="java.lang.String" />
+			<form-property name="CvPortable" type="java.lang.String" />
+			<form-property name="CvSituation" type="java.lang.String" />
+			<form-property name="CvContact" type="java.lang.String" />
+			<form-property name="CvPoste" type="java.lang.String" />
+			<form-property name="NomEntreprise" type="java.lang.String" />
+			<form-property name="expEndDate" type="java.lang.String" />
+			<form-property name="expBeginDate" type="java.lang.String" />
+			<form-property name="CvSecteur" type="java.lang.String" />
+			<form-property name="CvLieu" type="java.lang.String" />
+			<form-property name="CvEtude" type="java.lang.String" />
+			<form-property name="CvEtudeDom" type="java.lang.String" />
+			<form-property name="CvEtablissment" type="java.lang.String" />
+			<form-property name="CvEtudePays" type="java.lang.String" />
+			<form-property name="CvEtudeVille" type="java.lang.String" />
+			<form-property name="etudEndDate" type="java.lang.String" />
+			<form-property name="etudBeginDate" type="java.lang.String" />
+			<form-property name="CvNomLoisir" type="java.lang.String" />
+			<form-property name="CvFin" type="java.lang.String" />
+			
+		</form-bean>
+		</form-beans>
+		<action-mappings>
+		 <action
+            path="/CreateCV"
+            type="fr.univartois.ili.fsnet.actions.CreateCV"
+            input="/CreateCV.do"
+            scope="request"
+            name="CVForm"
+            validate="true"
+            parameter="display">
+            <forward name="success" path="Information" />            
+              <forward name="unauthorized" path="InfoContact" />
+        </action>
+       
+         <action
+            path="/GenerateCV"
+            type="fr.univartois.ili.fsnet.actions.InsertInfoCV"
+            input="/DisplayProfile.do"
+            scope="request"
+            name="CVForm"
+            validate="true"
+            parameter="display">
+            <forward name="success" path="/DisplayProfile.do" />
+            
+        </action>
+ 		<action
+            path="/InforCV"
+            type="fr.univartois.ili.fsnet.actions.CreateCV"
+            input="/InforCV.do"
+            scope="request"
+            name="CVForm"
+             validate="true"
+            parameter="Cree">
+            <forward name="success" path="InfoContact" />
+            
+            
+            
+        </action>
+        </action-mappings>
+		</struts-config>
+		

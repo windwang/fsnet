@@ -14,20 +14,22 @@
 				<html:link action="/DeleteInterestFromInterestInformations">
 					<html:param name="removedInterestId"
 						value="${requestScope.interest.id}" />
-					<img src="images/mini-delete.png" />
+					<img src="images/mini-delete.png" alt="delete"/>
 				</html:link>
 			</c:when>
 			<c:otherwise>
 				<html:link action="/AddInterestFromInterestInformations">
-					<img src="images/add.png" />
+					<img src="images/add.png" alt="add"/>
 					<html:param name="addedInterestId"
 						value="${requestScope.interest.id}" />
 				</html:link>
 			</c:otherwise>
 		</c:choose></h2>
 
-		<h3><bean:message key="interests.15" /></h3>
-		<c:choose>
+		<fieldset class="fieldsetAppli">
+        <legend class="legendHome"><bean:message key="interests.15" /></legend>
+		  <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
+		  <c:choose>
 			<c:when test="${not empty requestScope.interest.parentInterest}">
 				<div class="cloud">
 					<div>
@@ -45,10 +47,14 @@
 			<c:otherwise>
 				<bean:message key="interests.17" />
 			</c:otherwise>
-		</c:choose>
+		  </c:choose>
+		  </td></tr></table>
+		</fieldset>
 
-		<h3><bean:message key="interests.16" /></h3>
-		<c:choose>
+		<fieldset class="fieldsetAppli">
+          <legend class="legendHome"><bean:message key="interests.16" /></legend>
+		  <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
+		  <c:choose>
 			<c:when test="${not empty requestScope.interest.childrenInterests}">
 				<div class="cloud"><c:forEach var="interestChild"
 					items="${requestScope.interest.childrenInterests}">
@@ -63,8 +69,12 @@
 				<bean:message key="interests.17" />
 			</c:otherwise>
 		</c:choose>
-
-		<h3><bean:message key="interests.14" /></h3>
+        </td></tr></table>
+       </fieldset>
+       
+		<fieldset class="fieldsetAppli">
+          <legend class="legendHome"><bean:message key="interests.14" /></legend>
+		  <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 		<c:choose>
 			<c:when test="${not empty requestScope.interest.entities}">
 				<div class="cloud">
@@ -81,8 +91,13 @@
 				<bean:message key="interests.17" />
 			</c:otherwise>
 		</c:choose>
+		</td></tr></table>
+       </fieldset>
+		
 		<div class="clear"></div>
-		<h3><bean:message key="pageTitle.15" /></h3>
+		<fieldset class="fieldsetAppli">
+          <legend class="legendHome"><bean:message key="pageTitle.15" /></legend>
+          <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 		<c:choose>
 			<c:when test="${not empty requestScope.Community}">
 				<div class="cloud"><c:forEach var="community"
@@ -101,8 +116,13 @@
 				<bean:message key="interests.17" />
 			</c:otherwise>
 		</c:choose>
+		</td></tr></table>
+       </fieldset>
 		<div class="clear"></div>
-		<h3><bean:message key="pageTitle.4" /></h3>
+		
+		<fieldset class="fieldsetAppli">
+          <legend class="legendHome"><bean:message key="pageTitle.4" /></legend>
+          <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 		<c:choose>
 			<c:when test="${not empty requestScope.Hub}">
 				<div class="cloud"><c:forEach var="hub"
@@ -121,9 +141,14 @@
 				<bean:message key="interests.17" />
 			</c:otherwise>
 		</c:choose>
+		</td></tr></table>
+       </fieldset>
 		<div class="clear"></div>
-		<h3><bean:message key="pageTitle.6" /></h3>
-		<c:choose>
+		
+		<fieldset class="fieldsetAppli">
+          <legend class="legendHome"><bean:message key="pageTitle.6" /></legend>
+          <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
+		  <c:choose>
 			<c:when test="${not empty requestScope.Topic}">
 				<div class="cloud"><c:forEach var="topic"
 					items="${requestScope.Topic}">
@@ -141,8 +166,13 @@
 				<bean:message key="interests.17" />
 			</c:otherwise>
 		</c:choose>
+	  </td></tr></table>
+       </fieldset>
 		<div class="clear"></div>
-		<h3><bean:message key="pageTitle.1" /></h3>
+		
+		<fieldset class="fieldsetAppli">
+          <legend class="legendHome"><bean:message key="pageTitle.1" /></legend>
+		  <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 		<c:choose>
 			<c:when test="${not empty requestScope.Meeting}">
 				<div class="cloud"><c:forEach var="meeting"
@@ -161,8 +191,13 @@
 				<bean:message key="interests.17" />
 			</c:otherwise>
 		</c:choose>
+		</td></tr></table>
+       </fieldset>
+		
 		<div class="clear"></div>
-		<h3><bean:message key="pageTitle.8" /></h3>
+		<fieldset class="fieldsetAppli">
+          <legend class="legendHome"><bean:message key="pageTitle.8" /></legend>
+          <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 		<c:choose>
 			<c:when test="${not empty requestScope.Announcement}">
 				<div class="cloud"><c:forEach var="announce"
@@ -181,6 +216,8 @@
 				<bean:message key="interests.17" />
 			</c:otherwise>
 		</c:choose>
+		</td></tr></table>
+       </fieldset>
 	</c:when>
 	<c:otherwise>
 		<bean:message key="interests.8" />

@@ -57,6 +57,15 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 	private static final Logger logger = Logger.getAnonymousLogger();
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#create(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -68,7 +77,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		dynaForm.set("firstName", "");
 
 		String mail = (String) dynaForm.get("email");
-		mail=mail.toLowerCase();
+		mail = mail.toLowerCase();
 		dynaForm.set("email", "");
 
 		String parentId = (String) dynaForm.get("parentId");
@@ -127,14 +136,19 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		dynaForm.set("email", "");
 		dynaForm.set("parentId", "");
 		cleanSession(request);
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"member.success.on.create"));
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"member.success.on.create"));
 
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param filePath
+	 * @return
+	 */
 	public String readFileLinePerLine(String filePath) {
 		String allString = "";
 		try {
@@ -155,6 +169,15 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		return allString;
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward createMultipleFile(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -337,11 +360,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			}
 
 		}
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"members.success.on.create"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"members.success.on.create"));
+
 		return mapping.findForward("success");
 	}
 
@@ -407,29 +431,53 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * @author stephane Gronowski
 	 */
 	private String createPersonalizedMessage(String name, String firstName,
-			String addressFsnet, String password, String email, String personalizedMessage,
-			Locale locale) {
+			String addressFsnet, String password, String email,
+			String personalizedMessage, Locale locale) {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder message = new StringBuilder();
 
-		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.name")+"\"", name);
-		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.firstName")+"\"", firstName);
-		personalizedMessage = personalizedMessage.replace("\""+bundle.getMessage(locale, "members.password")+"\"", password);
-		personalizedMessage = personalizedMessage.replace("\"Email\"",email);
-		personalizedMessage = personalizedMessage.replace("\"url\"", addressFsnet);
+		personalizedMessage = personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.name") + "\"", name);
+		personalizedMessage = personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.firstName") + "\"",
+				firstName);
+		personalizedMessage = personalizedMessage.replace(
+				"\"" + bundle.getMessage(locale, "members.password") + "\"",
+				password);
+		personalizedMessage = personalizedMessage.replace("\"Email\"", email);
+		personalizedMessage = personalizedMessage.replace("\"url\"",
+				addressFsnet);
 		message.append(personalizedMessage);
 		return message.toString();
 	}
 
-	@Override 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#delete(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException();
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward switchState(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -444,6 +492,15 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#display(org.apache.struts.
+	 * action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -501,6 +558,10 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param dynaForm
+	 * @return
+	 */
 	private ActionErrors verified(DynaActionForm dynaForm) {
 		ActionErrors res = new ActionErrors();
 		try {
@@ -526,6 +587,15 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		return res;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#modify(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -538,7 +608,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		String name = (String) formSocialENtity.get("name");
 		String firstName = (String) formSocialENtity.get("firstName");
 		String email = (String) formSocialENtity.get("email");
-		email=email.toLowerCase();
+		email = email.toLowerCase();
 		Integer idGroup = Integer.parseInt((String) formSocialENtity
 				.get("parentId"));
 		String job = (String) formSocialENtity.get("job");
@@ -593,20 +663,33 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		errors.add("message", new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
 		cleanSession(request);
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"member.success.on.modify"));
-		
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"member.success.on.modify"));
+
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param request
+	 */
 	private void cleanSession(HttpServletRequest request) {
 		request.getSession(true).setAttribute("master", false);
 		request.getSession(true).removeAttribute("group");
 		request.getSession(true).removeAttribute("allGroups");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#search(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)

@@ -8,7 +8,6 @@ import java.util.Date;
 import java.util.Locale;
 
 /**
- * 
  * @author Mehdi Benzagahr
  * 
  */
@@ -28,7 +27,12 @@ public class DateUtils {
 		date = simpleFormat.parse(string);
 		return date;
 	}
-	
+
+	/**
+	 * @param string
+	 * @return
+	 * @throws ParseException
+	 */
 	public static Date formatDate(String string) throws ParseException {
 		Date date = null;
 		DateFormat simpleFormat = new SimpleDateFormat("dd/MM/yy",
@@ -44,7 +48,11 @@ public class DateUtils {
 	 *         today
 	 */
 	public static Integer compareToToday(Date date) {
-		Date today = new Date();
+//		Date today = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+				calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY)-1, 0, 0);
+		Date today = calendar.getTime();
 		return today.compareTo(date);
 	}
 
@@ -76,6 +84,10 @@ public class DateUtils {
 
 	
 
+	/**
+	 * @param date
+	 * @return
+	 */
 	public static String renderDateForFullCalendar(Date date) {
 		SimpleDateFormat usFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
@@ -84,6 +96,10 @@ public class DateUtils {
 		return usDate;
 	}
 
+	/**
+	 * @param date
+	 * @return
+	 */
 	public static String renderDBDate(Date date) {
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();

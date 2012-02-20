@@ -16,9 +16,8 @@
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
 
-<h3>
-    ${theMessage.subject}
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome">${theMessage.subject}</legend>
 
 <c:choose>
 	<c:when test="${empty requestScope.conversationMessages.resultList}">
@@ -26,7 +25,7 @@
 	</c:when>
 	<c:otherwise>
 	<html:form action="/DeleteMultiMessages2">
-	<table class="topicTable">
+	<table class="topicTable inLineTableDashBoardFieldset fieldsetTable">
 	<c:forEach items="${requestScope.conversationMessages.resultList}" var="message">
 		<tr class="topicHeader" ="2">
 		<td>
@@ -56,7 +55,7 @@
 		
 	<ili:interactionFilter user="${ socialEntity }" right="${ rightAnswerMessage }">
    		<a class="button" onclick="document.getElementById('quickResponse').style.display='table'">
-        	<img src="images/quickResponse.png" style="vertical-align: bottom"/>
+        	<img src="images/quickResponse.png" style="vertical-align: bottom" alt="Quick response"/>
         	<bean:message key="privatemessages.Quickresponse"/>
     	</a>
     </ili:interactionFilter>
@@ -115,4 +114,5 @@
     </html:form>
 	
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

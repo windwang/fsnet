@@ -43,7 +43,7 @@
 
 .inLineTable {
     width: 100%;
-    border-collapse:collapse;
+    /*border-collapse:collapse;*/
 }
 .inLineTable tr{
     background-color: #F0FFF0;
@@ -51,8 +51,8 @@
 }
 
 #body-content h3 {
-    text-align: left;
-    border-bottom: 1px solid #505050;
+    /*text-align: left;*/
+    /*border-bottom: 1px solid #505050;*/
     font-size: 130%;
     margin: 25px 0 20px 0;
 }
@@ -74,7 +74,6 @@
 
 #menu {
     float:left;
-    width: 70%;
 }
 
 #logout {
@@ -93,6 +92,7 @@
     background-color: #505050;
     color: #DDDDDD;
     padding: 2px 6px 2px 6px;
+    cursor:pointer;
 }
 
 .select{
@@ -210,15 +210,9 @@ input[type="text"][class="error"], textarea[class="error"] {
     background-image: none;
 }
 
-#menu li a:hover, #menu li a.current {
-    background: url(../images/menu2.gif) no-repeat center bottom;
-}
 
 /*interaction display*/
 .interactionDisplay {
-    float: left;
-    width: 68%;
-    background-color: #ecf8ff;
     padding: 3px;
     margin-right: 10px;
 }
@@ -256,4 +250,35 @@ input[type="text"][class="error"], textarea[class="error"] {
 }
 .tag img{
     vertical-align: middle;
+}
+
+.fieldsetAdmin {
+    float: left;
+    border: 1px solid #FFF;
+    border-radius: 5px ;
+    box-shadow: 3px 3px 12px #000;
+    margin: 26px 10px 10px 10px;
+    padding: 8px;
+    background-color : white;
+    width: 100%;
+}
+
+.legendAdmin {
+    text-align: left;
+    background: -webkit-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
+    background: -moz-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
+    border-radius: 5px;
+    box-shadow: 1px 2px 9px #000;
+    padding-right: 1em;
+    padding-left: 1em;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    position: absolute;
+    margin: -22px 0px 0px 30px;
+}
+
+.fieldsetTableAdmin{
+	width: 100%;
+    margin-top: 27px;
+    background-color : #F0FFF0;
 }

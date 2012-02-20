@@ -1,0 +1,102 @@
+* {
+padding: 0;
+margin: 0;
+}
+html, body {
+height: 100%;
+}
+body {
+	/* Navigateurs récents */
+	background: -webkit-gradient(
+		linear,
+		left top, left bottom,
+		from(#A9DBA2),
+		to(white)
+		)
+		no-repeat;
+	background: -webkit-linear-gradient(
+		top,
+		#A9DBA2,
+		white
+	)
+		no-repeat;
+	background: -moz-linear-gradient(
+		top,
+			#A9DBA2,
+		white
+		)
+		no-repeat;
+		
+	background: -o-linear-gradient(
+		top,
+			#A9DBA2,
+		white
+	)
+		no-repeat;
+	background: linear-gradient(
+		top,
+		#A9DBA2,
+		white
+	)
+		no-repeat;
+
+}
+
+
+#wrapBody{
+	width: 1100px;
+	min-height: 100%;
+	margin: 0 auto;
+	margin-bottom:-87px;
+}
+
+
+
+
+#wrapHeader{
+	background-color:#505050;
+	width:100%;
+	position:fixed;
+	height:41px;
+	border-bottom:1px solid white;	
+	z-index: 5;
+}
+#header{
+	width:1100px;
+	height:41px;
+	margin: 0 auto;
+}
+#placeHeader{
+	height:50px;
+}
+
+
+#wrapFooterStyle{
+	clear: both; 
+	border-top: 3px solid #6E6E6E; 
+	background: #505050;/* url(../images/footer.gif) no-repeat right top; */
+	color: #ccc;
+	padding: 20px 0 0 0;
+	height:63px;
+	border-bottom:1px solid #505050;
+	
+}
+#placeFooterStyle{
+	height:63px;
+}
+#footerStyle{
+	width:1100px;
+	margin: 0 auto;
+}
+
+
+
+#leftMenu{
+	float:left;
+	width: 22%;
+}
+#left{
+	margin-top: 30px; 
+	width: 100%;
+	
+}

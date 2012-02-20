@@ -14,10 +14,11 @@
 
 <script type="text/javascript" src="js/definePassword.js"></script>
 
-<h3><bean:message key="members.create" /></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.create" /></legend>
 
 <html:form action="/CreateMember">
-	<table id="CreateMember">
+	<table id="CreateMember" class="fieldsetTableAdmin">
 		<tr>
 			<td>
 				<label for="name"> 
@@ -64,7 +65,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><label for="parentId"> <bean:message
+			<td><label > <bean:message
 				key="members.group" /> : </label></td>
 			<td colspan="3"><html:select property="parentId"
 				styleClass="select">
@@ -127,5 +128,6 @@
 		<jsp:include page="/content/manageMembers/SamePartForMember.jsp"/>
 	</table>
 </html:form>
+</fieldset>
 
 
