@@ -2,7 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 
-import java.util.Date;
+import java.sql.Date;
 import java.util.List;
 import java.text.SimpleDateFormat;
 
@@ -36,7 +36,7 @@ public class InsertInfoCV extends MappingDispatchAction{
 	  public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	  
 	    public static Date stringToDate(String sDate) throws ParseException, java.text.ParseException {
-	        return formatter.parse(sDate);
+	        return (Date) formatter.parse(sDate);
 	    }
 	 public ActionForward display(ActionMapping mapping, ActionForm form,
 	            HttpServletRequest request, HttpServletResponse response)
@@ -45,6 +45,12 @@ public class InsertInfoCV extends MappingDispatchAction{
 		 EstablishmentCV etab=new EstablishmentCV();
 		 Curriculum curriculum=new Curriculum();
 		 
+		 EntityManager em = PersistenceProvider.createEntityManager();
+		
+		 
+		 
+		 em.getTransaction().begin();
+			
 		 
 		 TrainingCV training=new TrainingCV();
 		 HttpSession mysession=request.getSession();
@@ -106,13 +112,7 @@ public class InsertInfoCV extends MappingDispatchAction{
 		 //Langues
 		 String CVLangue=request.getParameter("CVLangue");
 		 String niveaux=request.getParameter("niveaux");
-		 
-		 EntityManager em = PersistenceProvider.createEntityManager();
 		
-		 
-		 
-		 em.getTransaction().begin();
-			
 			em.persist(member);
 
 			em.getTransaction().commit();
