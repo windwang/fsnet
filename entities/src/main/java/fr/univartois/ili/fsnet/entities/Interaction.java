@@ -90,7 +90,6 @@ public abstract class Interaction implements Serializable {
 	private int numFollowers = 0;
 
 	@OneToMany(mappedBy = "interaction", cascade = CascadeType.ALL)
-	@OrderBy(value = "id")
 	private List<InteractionGroups> interactionGroups;	
 
 	/**
@@ -117,10 +116,13 @@ public abstract class Interaction implements Serializable {
 		// this.report = rapport;
 		this.interactionGroups = new ArrayList<InteractionGroups>();
 	}
+	
+	public List<InteractionGroups> getInteractionGroups() {
+		return interactionGroups;
+	}
 
-
-	public void addInteractionGroup(InteractionGroups group){
-		this.interactionGroups.add(group);
+	public void setInteractionGroups(List<InteractionGroups> interactionGroups) {
+		this.interactionGroups = interactionGroups;
 	}
 	
 	/**
@@ -251,14 +253,6 @@ public abstract class Interaction implements Serializable {
 	 */
 	public void setFollowingEntitys(Set<SocialEntity> followingEntitys) {
 		this.followingEntitys = followingEntitys;
-	}
-	
-	public List<InteractionGroups> getInteractionGroups() {
-		return interactionGroups;
-	}
-
-	public void setInteractionGroups(List<InteractionGroups> interactionGroups) {
-		this.interactionGroups = interactionGroups;
 	}
 
 	/**

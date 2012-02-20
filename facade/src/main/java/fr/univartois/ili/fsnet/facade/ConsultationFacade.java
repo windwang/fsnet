@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.facade;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -9,6 +10,7 @@ import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
 import fr.univartois.ili.fsnet.entities.ConsultationVote;
+import fr.univartois.ili.fsnet.entities.InteractionGroups;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
@@ -24,14 +26,18 @@ public class ConsultationFacade {
 			String title, String description, String[] choices,
 			Consultation.TypeConsultation type,
 			List<SocialGroup> groupsRigthsAccepted) {
+		
 		Consultation consultation = new Consultation(creator, title,
 				description, type, groupsRigthsAccepted);
 		for (String s : choices) {
 			consultation.addChoice(new ConsultationChoice(consultation, s));
 		}
 		
+		List<InteractionGroups> igList = new ArrayList<InteractionGroups>();
 		for (SocialGroup group : groupsRigthsAccepted) {
-			consultation.addConsultationRightGroup(group);
+			System.out.println(consultation.getId() + group.getId());
+			igList.add(new InteractionGroups(consultation, group));
+			consultation.setInteractionGroups(igList);
 		}
 		System.err.println("taille list interaction gorups : "
 				+ consultation.getInteractionGroups().size());

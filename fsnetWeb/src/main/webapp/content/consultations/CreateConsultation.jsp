@@ -109,7 +109,7 @@
 										<c:forEach var="socialGroup" items="${allUnderGroupsNoRights}">
 
 											<c:if test="${socialGroup.isEnabled}">
-												<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
+												<html:option value="${socialGroup.name}">${socialGroup.name}</html:option>
 											</c:if>
 
 										</c:forEach>
@@ -126,7 +126,7 @@
 										size="5" multiple="multiple">
 
 										<c:forEach var="socialGroup" items="${allUnderGroupsRights}">
-											<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
+											<html:option value="${socialGroup.name}">${socialGroup.name}</html:option>
 										</c:forEach>
 
 									</html:select>

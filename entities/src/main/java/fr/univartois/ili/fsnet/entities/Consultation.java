@@ -194,9 +194,9 @@ public class Consultation extends Interaction {
 		this.choices.add(consultationChoice);
 	}
 	
-	public void addConsultationRightGroup(SocialGroup group) {
-		this.addInteractionGroup(new InteractionGroups(this, group));
-	}
+//	public void addConsultationRightGroup(InteractionGroups iG) {
+//		this.addInteractionGroup(iG);
+//	}
 
 	public List<ConsultationVote> getConsultationVotes() {
 		return consultationVotes;
@@ -353,14 +353,6 @@ public class Consultation extends Interaction {
 	public void setOpened(String opened) {
 		this.opened = opened;
 	}
-
-//	public List<ConsultationGroups> getConsultationGroups() {
-//		return consultationGroups;
-//	}
-//
-//	public void setConsultationGroups(List<ConsultationGroups> consultationGroups) {
-//		this.consultationGroups = consultationGroups;
-//	}
 
 	@Transient
 	public boolean isOpened() {
