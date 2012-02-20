@@ -38,12 +38,25 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
+/**
+ * @author FSNet
+ *
+ */
 public class ManageConsultations extends MappingDispatchAction {
 
 	private static final String DEADLINE_TIME = ":23:59:59";
 
 	private static final String NO_ANSWER = "no";
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -106,7 +119,6 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-
 		List<SocialGroup> listOfGroupAccepted = new ArrayList<SocialGroup>();
 		for (String name : groupsRightsAccept) {
 			listOfGroupAccepted.add(fascade.findByName(name));
@@ -172,6 +184,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward vote(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -264,6 +285,12 @@ public class ManageConsultations extends MappingDispatchAction {
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
+	/**
+	 * @param consultation
+	 * @param vote
+	 * @param choices
+	 * @return
+	 */
 	private boolean voteIfNecessary(Consultation consultation,
 			ConsultationVote vote, List<String> choices) {
 		for (String choice : choices) {
@@ -291,6 +318,13 @@ public class ManageConsultations extends MappingDispatchAction {
 		return true;
 	}
 
+	/**
+	 * @param request
+	 * @param consultation
+	 * @param vote
+	 * @param choices
+	 * @return
+	 */
 	private boolean votePreferenceOrder(HttpServletRequest request,
 			Consultation consultation, ConsultationVote vote,
 			List<String> choices) {
@@ -316,6 +350,13 @@ public class ManageConsultations extends MappingDispatchAction {
 		return true;
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public ActionForward deleteVote(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		String idConsultation = request.getParameter("consultation");
@@ -343,6 +384,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		return displayAConsultation(mapping, form, request, response);
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 **/
 	public ActionForward searchYourConsultations(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -363,6 +413,15 @@ public class ManageConsultations extends MappingDispatchAction {
 
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward searchConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -399,6 +458,13 @@ public class ManageConsultations extends MappingDispatchAction {
 
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public ActionForward displayAConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -454,6 +520,13 @@ public class ManageConsultations extends MappingDispatchAction {
 		return redirect;
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public ActionForward closeConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -472,6 +545,13 @@ public class ManageConsultations extends MappingDispatchAction {
 		return displayAConsultation(mapping, form, request, response);
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	public ActionForward openConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
@@ -490,6 +570,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		return displayAConsultation(mapping, form, request, response);
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward deleteConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -511,6 +600,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		return redirect;
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward autocompleteOther(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
@@ -525,6 +623,11 @@ public class ManageConsultations extends MappingDispatchAction {
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param consultation
+	 * @param member
+	 * @return
+	 */
 	public boolean isAllowedToVote(Consultation consultation,
 			SocialEntity member) {
 		return consultation.isOpened() && !consultation.isVoted(member)
@@ -532,6 +635,11 @@ public class ManageConsultations extends MappingDispatchAction {
 				&& !consultation.isDeadlineReached();
 	}
 
+	/**
+	 * @param consultation
+	 * @param member
+	 * @return
+	 */
 	public boolean isAllowedToShowResults(Consultation consultation,
 			SocialEntity member) {
 		return (consultation.isShowBeforeAnswer() || consultation
@@ -560,6 +668,10 @@ public class ManageConsultations extends MappingDispatchAction {
 		session.setAttribute("numNonReedConsultations", numNonReedConsultations);
 	}
 
+
+	/**
+	 * @param request
+	 */
 	private void addRightToRequest(HttpServletRequest request) {
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		Right rightAddConsultation = Right.ADD_CONSULTATION;

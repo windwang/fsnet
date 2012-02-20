@@ -36,9 +36,20 @@ import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
+/**
+ * @author FSNet
+ * 
+ */
 public class ManageGroups extends MappingDispatchAction implements CrudAction {
-	/**
-	 * @author SAID Mohamed
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#create(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
@@ -110,16 +121,23 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					.getHisGroup(request));
 			request.setAttribute("allGroups", allGroups);
 		}
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"groups.success.on.create"));
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"groups.success.on.create"));
 
 		return mapping.findForward("success");
 	}
 
-	/**
-	 * @author SAID Mohamed
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#modify(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
@@ -197,16 +215,24 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("description", "");
 		dynaForm.set("nameParent", "");
 		dynaForm.set("socialEntityId", "");
-		
+
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"groups.success.on.modify"));
+		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				"groups.success.on.modify"));
 
 		return mapping.findForward("success");
 
 	}
-	/**
-	 * @author SAID Mohamed
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#delete(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
@@ -217,7 +243,13 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	}
 
 	/**
-	 * @author SAID Mohamed
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
 	 */
 	public ActionForward switchState(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -235,8 +267,14 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
-	/**
-	 * @author SAID Mohamed
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#display(org.apache.struts.
+	 * action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
@@ -273,7 +311,8 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			allMembers = socialEntityFacade.getAllSocialEntity();
 
 			acceptedMembers = socialGroupFacade
-					.getAcceptedSocialElementsByFilter(group,SocialEntity.class);
+					.getAcceptedSocialElementsByFilter(group,
+							SocialEntity.class);
 			refusedMembers = getRefusedSocialMember(socialGroupFacade,
 					allMembers, group);
 			acceptedRigths = group.getRights();
@@ -308,8 +347,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		}
 
 	}
+
 	/**
-	 * @author SAID Mohamed
+	 * @param groupsAccepted
+	 * @return
 	 */
 	private Set<Right> getAcceptedRigth(String[] groupsAccepted) {
 		Set<Right> rights = new HashSet<Right>();
@@ -319,8 +360,13 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		return rights;
 	}
+
 	/**
-	 * @author SAID Mohamed
+	 * @param em
+	 * @param membersAccepted
+	 * @param masterGroup
+	 * @param parentGroup
+	 * @return
 	 */
 	private List<SocialElement> createSocialElement(EntityManager em,
 			String[] membersAccepted, SocialEntity masterGroup,
@@ -339,8 +385,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			socialElements.remove(parentGroup);
 		return socialElements;
 	}
+
 	/**
-	 * @author SAID Mohamed
+	 * @param em
+	 * @param members
+	 * @return
 	 */
 	private List<SocialElement> createObjectSocialEntity(EntityManager em,
 			String[] members) {
@@ -353,8 +402,12 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					.valueOf(member)));
 		return socialElements;
 	}
+
 	/**
-	 * @author SAID Mohamed
+	 * @param sgf
+	 * @param allMembers
+	 * @param socialGroup
+	 * @return
 	 */
 	private List<SocialEntity> getRefusedSocialMember(SocialGroupFacade sgf,
 			List<SocialEntity> allMembers, SocialGroup socialGroup) {
@@ -364,7 +417,8 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialEntity> resulEntities = new ArrayList<SocialEntity>();
 		List<SocialEntity> members = allMembers;
 		if (socialGroup != null) {
-			members.removeAll(sgf.getAcceptedSocialElementsByFilter(socialGroup,SocialEntity.class));
+			members.removeAll(sgf.getAcceptedSocialElementsByFilter(
+					socialGroup, SocialEntity.class));
 		}
 		for (SocialEntity se : allMembers) {
 			if (se.getGroup() == null)
@@ -374,8 +428,14 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 	}
 
-	/**
-	 * @author SAID Mohamed
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#search(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
@@ -397,10 +457,14 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		}
 
 	}
+
 	/**
-	 * @author SAID Mohamed
+	 * @param em
+	 * @param sgf
+	 * @param socialGroup
+	 * @return
 	 */
-	private  List<SocialEntity> getSimpleMember(EntityManager em,
+	private List<SocialEntity> getSimpleMember(EntityManager em,
 			SocialGroupFacade sgf, SocialGroup socialGroup) {
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
@@ -420,53 +484,79 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		return allSocialchildEntity;
 	}
-	
+
 	/**
-	 * @author BOURAGBA Mohamed
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
 	 */
-	public ActionForward displayInformationGroup(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public ActionForward displayInformationGroup(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		String idGroup = request.getParameter("idGroup");
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-		SocialGroup socialGroup ;
-		if(idGroup == null || idGroup.isEmpty())
-			socialGroup =null;
-		else  {
+		SocialGroup socialGroup;
+		if (idGroup == null || idGroup.isEmpty())
+			socialGroup = null;
+		else {
 			int id = Integer.valueOf(idGroup);
 			socialGroup = socialGroupFacade.getSocialGroup(id);
 		}
 		request.setAttribute("socialGroup", socialGroup);
-		
-		List<SocialEntity> allMembers = socialGroupFacade.getMembersFromGroup(socialGroup);
+
+		List<SocialEntity> allMembers = socialGroupFacade
+				.getMembersFromGroup(socialGroup);
 		request.setAttribute("allMembers", allMembers);
-		
-		List<SocialGroup> listOfAntecedantGroup = socialGroupFacade.getAllAntecedentSocialGroups(socialGroup);
+
+		List<SocialGroup> listOfAntecedantGroup = socialGroupFacade
+				.getAllAntecedentSocialGroups(socialGroup);
 		java.util.Collections.reverse(listOfAntecedantGroup);
-		request.setAttribute("antecedantsOfGroup", listOfAntecedantGroup);		
-		
-		List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(socialGroup);
+		request.setAttribute("antecedantsOfGroup", listOfAntecedantGroup);
+
+		List<SocialGroup> listOfChildGroup = socialGroupFacade
+				.getAllChildGroups(socialGroup);
 		listOfChildGroup.remove(socialGroup);
-		request.setAttribute("childsOfGroup", listOfChildGroup);		
-		
+		request.setAttribute("childsOfGroup", listOfChildGroup);
+
 		return mapping.findForward("success");
-	}	
+	}
+
+	/**
+	 * @param request
+	 * @param key
+	 */
 	private void sendPictureError(HttpServletRequest request, String key) {
 		ActionErrors errors = new ActionErrors();
 		errors.add("Logo", new ActionMessage(key));
 		saveErrors(request, errors);
 	}
-	private static final int MAX_PICTURE_SIZE=500000;
-	public ActionForward changeLogo(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
-		
+
+	private static final int MAX_PICTURE_SIZE = 500000;
+
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward changeLogo(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		if(!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),Right.MODIFY_PICTURE))
+		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
+				Right.MODIFY_PICTURE))
 			return new ActionRedirect(mapping.findForward("unauthorized"));
-	
+
 		int groupId = UserUtils.getHisGroup(request).getId();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("Logo");
@@ -478,16 +568,16 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					break;
 				}
 			}
-			if (pictureType != null) {		
-				
-				
-				if(file.getFileSize()>MAX_PICTURE_SIZE){
+			if (pictureType != null) {
+
+				if (file.getFileSize() > MAX_PICTURE_SIZE) {
 					sendPictureError(request, "groups.logo.maxsize");
 					return mapping.findForward("success");
 				}
-				
+
 				try {
-					ImageManager.createLogo(groupId,file.getInputStream(), pictureType);
+					ImageManager.createLogo(groupId, file.getInputStream(),
+							pictureType);
 				} catch (FileNotFoundException e) {
 					sendPictureError(request, "groups.logo.fatal");
 				} catch (IOException e) {
@@ -498,7 +588,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			} else {
 				sendPictureError(request, "groups.logo.type");
 			}
-		} 
+		}
 		return mapping.findForward("success");
 	}
 }
