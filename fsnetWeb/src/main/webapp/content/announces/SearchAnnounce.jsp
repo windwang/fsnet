@@ -12,8 +12,9 @@
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <bean:define id="searchMessage"><bean:message key="announce.search"/></bean:define>
 
-<h3><bean:message key="announce.searchAnnounce" /> </h3>
-<table  class="inLineTable"><tr><td>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="announce.searchAnnounce" /> </legend>
+<table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <html:form action="/Announces" method="GET">
 	<div id="SearchAnnounce">
     	<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
@@ -24,3 +25,4 @@
     </div>
 </html:form>
   </td></tr></table>
+</fieldset>

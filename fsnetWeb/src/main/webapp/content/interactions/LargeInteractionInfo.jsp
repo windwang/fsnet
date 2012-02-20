@@ -12,7 +12,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<table  class="inLineTable"><tr><td>
+<table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
     <bean:message key="interactions.owner"/> :
     <ili:getSocialEntityInfos socialEntity="${theInteraction.creator}"/>
     <br/>

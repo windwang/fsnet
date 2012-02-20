@@ -6,11 +6,13 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <c:if test="${not empty requestScope.allInterests}">
-	<h3><bean:message key="interests.5" /></h3>
-	<html:javascript formName="/ModifyInterest"/>
-	<div id="modify">
-	<html:form action="/ModifyInterest">
-		
+	<fieldset class="fieldsetAdmin">
+      <legend class="legendAdmin"><bean:message key="interests.5" /></legend>
+	
+	  <html:javascript formName="/ModifyInterest"/>
+	  <div id="modify">
+	  <html:form action="/ModifyInterest">
+		<table class="fieldsetTableAdmin"><tr><td>
 		<div class="errorMessage"><html:errors property="modifiedInterestId" /></div>
 		<div>
 		<bean:message key="error.interest.create"/>
@@ -41,6 +43,8 @@
       		<bean:message key="interest.validate"/>
       	</html:submit>
       	</div>
+      	</td></tr></table>
 	</html:form>
 	</div>
+	</fieldset>
 </c:if>

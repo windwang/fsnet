@@ -17,4 +17,3 @@
 	</ul>
 </div>
 <script type='text/javascript'> document.onload = initializeGeolocalisation(); </script>
-	

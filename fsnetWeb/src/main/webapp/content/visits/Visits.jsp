@@ -9,12 +9,12 @@
 
 
 
-<h3>
-	<bean:message key="visits.conts" />
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="visits.conts" /></legend>
+
 
 <c:if test="${empty requestScope.lastVisitors}">
-	<table class="inLineTable">
+	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
 			<td><bean:message key="visits.voidlist" />.</td>
 		</tr>
@@ -40,7 +40,7 @@
 				});
 	</script>
 
-	<table id="tablelastvisitors" class="tablesorter inLineTable">
+	<table id="tablelastvisitors" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 		<thead>
 			<tr>
 				<th><bean:message key="privatemessages.from" /></th>
@@ -65,13 +65,14 @@
 		</tbody>
 	</table>	
 </c:if>
+</fieldset>
+	
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="visits.old" /></legend>
 
-	<h3>
-		<bean:message key="visits.old" />
-	</h3>
 
 <c:if test="${empty requestScope.beforeLastVisitors}">
-	<table class="inLineTable">
+	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
 			<td><bean:message key="visits.voidlist" />.</td>
 		</tr>
@@ -96,7 +97,7 @@
 				});
 	</script>
 
-	<table id="tablelastvisitorsBeforeLastConnection" class="tablesorter inLineTable">
+	<table id="tablelastvisitorsBeforeLastConnection" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 		<thead>
 			<tr>
 				<th><bean:message key="privatemessages.from" /></th>
@@ -121,3 +122,4 @@
 		</tbody>
 	</table>	
 </c:if>
+</fieldset>

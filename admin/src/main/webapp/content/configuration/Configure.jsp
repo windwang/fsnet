@@ -10,9 +10,10 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 
-<h3><bean:message key="configure.10" /></h3>
-<html:form action="/SaveMailConfiguration">
-	<table id="ConfigureMail">
+<fieldset class="fieldsetAdmin">
+   <legend class="legendAdmin"><bean:message key="configure.10" /></legend>
+   <html:form action="/SaveMailConfiguration">
+	<table id="ConfigureMail" class="fieldsetTableAdmin">
 		<tr>
 			<td><label for="SMTPHost"> <bean:message
 				key="configure.0" /> </label></td>
@@ -123,26 +124,19 @@
 				<td colspan="2"><html:errors property="PicturesDirectory" /></td>
 			</tr>
 		</logic:messagesPresent>
-		<tr class="errorMessage">
-			<td colspan="2"><html:errors property="FSNetWebURL" /></td>
-		</tr>
-		<tr>
-			<td><label for="FSNetWebURL"> <bean:message
-				key="configure.8" /> </label></td>
-			<td><html:text errorStyleClass="error" styleId="FSNetWebURL"
-				property="FSNetWebURL" /></td>
-		</tr>
 		<tr>
 			<td colspan="2"><html:submit styleClass="button">
 				<bean:message key="configure.9" />
 			</html:submit></td>
 		</tr>
 	</table>
-</html:form>
+  </html:form>
+</fieldset>
 
-<h3><bean:message key="configure.25" /></h3>
-<html:form action="/SaveFacebookId">
-	<table id="saveFacebookId">
+<fieldset class="fieldsetAdmin">
+   <legend class="legendAdmin"><bean:message key="configure.25" /></legend>
+   <html:form action="/SaveFacebookId">
+	<table id="saveFacebookId" class="fieldsetTableAdmin">
 		<logic:messagesPresent property="KeyFacebook">
 			<tr class="errorMessage">
 				<td colspan="2"><html:errors property="KeyFacebook" /></td>
@@ -162,29 +156,39 @@
 			</html:submit></td>
 		</tr>
 	</table>
-</html:form>
+  </html:form>
+</fieldset>
 
-<h3><bean:message key="configure.UpdateDB"/></h3>
-<html:form enctype="multipart/form-data" action="/UpdateDB">
+<fieldset class="fieldsetAdmin">
+   <legend class="legendAdmin"><bean:message key="configure.UpdateDB"/></legend>
+   <table class="fieldsetTableAdmin"><tr><td>
+   <html:form enctype="multipart/form-data" action="/UpdateDB">
 	<div>	
 	<html:submit styleClass="button">
 		<bean:message key="configure.9" />
 	</html:submit>
 	</div>
-</html:form>
- 
-<h3><bean:message key="configure.UpdateDateType"/></h3>
-<html:form enctype="multipart/form-data" action="/UpdateDateType">
+  </html:form>
+  </td></tr></table>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+   <legend class="legendAdmin"><bean:message key="configure.UpdateDateType"/></legend>
+   <table class="fieldsetTableAdmin"><tr><td>
+   <html:form enctype="multipart/form-data" action="/UpdateDateType">
 	<div>	
 	<html:submit styleClass="button">
 		<bean:message key="configure.9" />
 	</html:submit>
 	</div>
-</html:form>
+  </html:form>
+  </td></tr></table>
+</fieldset>
 
-<h3><bean:message key="configure.16" /></h3>
-<html:form action="/SendTestMail">
-	<table id="SendTestMail">
+<fieldset class="fieldsetAdmin">
+   <legend class="legendAdmin"><bean:message key="configure.16" /></legend>
+  <html:form action="/SendTestMail">
+	<table id="SendTestMail" class="fieldsetTableAdmin">
 		<tr>
 			<td><label for="Recipient"> <bean:message
 				key="configure.14" /> </label> <html:text errorStyleClass="error"
@@ -199,7 +203,8 @@
 			</tr>
 		</logic:messagesPresent>
 	</table>
-</html:form>
+  </html:form>
+</fieldset>
 
 
 

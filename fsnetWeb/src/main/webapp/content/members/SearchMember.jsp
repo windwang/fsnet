@@ -4,8 +4,9 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3><bean:message key="members.0"/></h3>
-<table  class="inLineTable"><tr><td>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="members.0"/></legend>
+<table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <html:form action="SearchMember" method="POST">
     <div id="SearchMember">
         <html:text property="searchText" />
@@ -13,12 +14,14 @@
     </div>
 </html:form>
 </td></tr></table>
+</fieldset>
 
-<h3><bean:message key="members.1"/></h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="members.1"/></legend>
 
 <c:if test="${empty membersContactsResult && empty membersRequestedResult 
 	&& empty membersAskedResult && empty membersResult}">
-	<table  class="inLineTable"><tr><td>
+	<table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 	<bean:message key="members.noResult" />
 	</td></tr></table>
 </c:if>
@@ -26,7 +29,7 @@
 
 <c:if test="${! empty membersContactsResult}">
     <h4><bean:message key="members.2"/></h4>
-    <table  class="inLineTable">
+    <table  class="inLineTableDashBoardFieldset fieldsetTable">
         <c:forEach var="member" items="${membersContactsResult}">
             <tr class="content">
             	<td class="miniatureContainer">
@@ -42,7 +45,7 @@
 
 <c:if test="${! empty membersRequestedResult}">
     <h4><bean:message key="members.9"/></h4>
-    <table  class="inLineTable">
+    <table  class="inLineTableDashBoardFieldset fieldsetTable">
         <c:forEach var="member" items="${membersRequestedResult}">
             <tr class="content">
             	<td class="miniatureContainer">
@@ -58,7 +61,7 @@
 
 <c:if test="${! empty membersAskedResult}">
     <h4><bean:message key="members.4"/></h4>
-    <table  class="inLineTable">
+    <table  class="inLineTableDashBoardFieldset fieldsetTable">
         <c:forEach var="member" items="${membersAskedResult}">
             <tr class="content">
             	<td class="miniatureContainer">
@@ -85,7 +88,7 @@
 <c:if test="${! empty membersResult}">
 
     <h4><bean:message key="members.7"/></h4>
-    <table  class="inLineTable">
+    <table  class="inLineTableDashBoardFieldset fieldsetTable">
         <c:forEach var="member" items="${membersResult}">
             <tr class="content">
             	<td class="miniatureContainer">
@@ -104,7 +107,11 @@
         </c:forEach>
     </table>
 </c:if>
+<<<<<<< HEAD
 
 
 
 
+=======
+</fieldset>
+>>>>>>> branch 'master' of https://aich.ayoub@code.google.com/p/fsnet/

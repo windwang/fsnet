@@ -4,11 +4,10 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
-	<bean:message key="consultations.manage" />
-</h3>
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="consultations.manage" /></legend>
 
-<c:choose>
+  <c:choose>
 	<c:when test="${not empty requestScope.consultationsList}">
 
 		<script type="text/javascript">
@@ -25,8 +24,8 @@
 		}];
 		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
 	});
-</script>
-		<table id="yourConsults" class="tablesorter inLineTable">
+  </script>
+		<table id="yourConsults" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 			<thead>
 				<tr>
 					<th width="5%"></th>
@@ -61,10 +60,11 @@
 		</table>
 	</c:when>
 	<c:otherwise>
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="consultations.noResult" />.</td>
 			</tr>
 		</table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

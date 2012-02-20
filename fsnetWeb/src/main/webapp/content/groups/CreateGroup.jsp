@@ -9,12 +9,13 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<h3><bean:message key="groups.create" /></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="groups.create" /></legend>
 
 
 
 <html:form action="/CreateGroup" onsubmit="Valider()">
-	<table id="CreateGroup">
+	<table id="CreateGroup" class="fieldsetTableAdmin">
 		<tr>
 			<td><label for="name"> <bean:message key="groups.name" />
 			: </label></td>
@@ -161,6 +162,7 @@
 
 
 </html:form>
+</fieldset>
 <style>
 select {
 	min-width: 200px;

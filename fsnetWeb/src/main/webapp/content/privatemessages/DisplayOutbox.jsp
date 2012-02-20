@@ -12,19 +12,18 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
-	<bean:message key="privatemessages.Messagessent" />
-</h3>
+<fieldset class="fieldsetAppli">
+   <legend class="legendHome"><bean:message key="privatemessages.Messagessent" /></legend>
 <c:choose>
 	<c:when test="${empty requestScope.outBoxMessages}">
-		<table class="inLineTable">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
 				<td><bean:message key="privatemessages.nomessages" /></td>
 			</tr>
 		</table>
 	</c:when>
 	<c:otherwise>
-
+        <div class="space"></div>
 		<script type="text/javascript">
 			$(document).ready(
 					function pagination() {
@@ -42,7 +41,7 @@
 		</script>
 
 		<html:form action="/DeleteMultiSentMessages">
-			<table id="tableoutbox" class="tablesorter inLineTable">
+			<table id="tableoutbox" class="tablesorter inLineTableDashBoardFieldset">
 				<thead>
 					<tr>
 						<th><bean:message key="tableheader.to" /></th>
@@ -82,4 +81,5 @@
 			</html:submit>
 		</html:form>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>

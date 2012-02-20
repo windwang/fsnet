@@ -10,17 +10,19 @@
 
 <c:if
 	test="${empty requestScope.paginatorContacts && empty requestScope.paginatorAsked && empty requestScope.paginatorRequested}">
-	<h3>
-		<bean:message key="contact.conts" />
-	</h3>
-	<table class="inLineTable">
+	<fieldset class="fieldsetAppli">
+      <legend class="legendHome"><bean:message key="contact.conts" /></legend>
+	  <table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
 			<td><bean:message key="contact.noContact" /></td>
 		</tr>
-	</table>
+	  </table>
+	</fieldset>
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorAsked}">
+  <fieldset class="fieldsetAppli">
+    <legend class="legendHome"><bean:message key="contact.re" /></legend>
 	<script type="text/javascript">
 		$(document).ready(
 				function pagination() {
@@ -35,10 +37,8 @@
 							aoColumns, false);
 				});
 	</script>
-	<h3>
-		<bean:message key="contact.re" />
-	</h3>
-	<table id="tableAsked" class="tablesorter inLineTable">
+
+	  <table id="tableAsked" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 		<thead>
 			<tr>
 				<th><bean:message key="tableheader.member" /></th>
@@ -70,9 +70,14 @@
 			</c:forEach>
 		</tbody>
 	</table>
+  </fieldset>
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorContacts}">
+	<fieldset class="fieldsetAppli">
+    <legend class="legendHome"><bean:message key="contact.listContact" />
+		: ${fn:length(requestScope.paginatorContacts)}
+		<bean:message key="contact.contacts" /></legend>
 	<script type="text/javascript">
 		$(document).ready(
 				function pagination() {
@@ -87,13 +92,8 @@
 							sensDeTri, aoColumns, false);
 				});
 	</script>
-	<h3>
-		<bean:message key="contact.listContact" />
-		: ${fn:length(requestScope.paginatorContacts)}
-		<bean:message key="contact.contacts" />
-	</h3>
 
-	<table id="tableContacts" class="tablesorter inLineTable">
+	<table id="tableContacts" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 		<thead>
 			<tr>
 				<th><bean:message key="tableheader.member" /></th>
@@ -123,6 +123,7 @@
 			</c:forEach>
 		</tbody>
 	</table>
+  </fieldset>
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorRequested}">
@@ -140,10 +141,9 @@
 							sensDeTri, aoColumns, false);
 				});
 	</script>
-	<h3>
-		<bean:message key="contact.eff" />
-	</h3>
-	<table id="tableRequested" class="tablesorter inLineTable">
+	<fieldset class="fieldsetAppli"><legend class="legendHome">
+		<bean:message key="contact.eff" /></legend>
+	<table id="tableRequested" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
 		<thead>
 			<tr>
 				<th><bean:message key="tableheader.member" /></th>
@@ -172,4 +172,5 @@
 			</c:forEach>
 		</tbody>
 	</table>
+  </fieldset>
 </c:if>

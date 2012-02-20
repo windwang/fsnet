@@ -7,20 +7,27 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 
-<h3><bean:message key="members.search" /></h3>
-<html:form action="SearchMember">
-	<div id="SearchMember"><html:text property="searchText" /> <html:submit
-		styleClass="button">
-		<bean:message key="members.searchButton" />
-	</html:submit></div>
-</html:form>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.search" /></legend>
+  <html:form action="SearchMember">
+	<div >
+	  <table class="fieldsetTableAdmin"><tr><td>
+	    <html:text property="searchText" /> 
+	    <html:submit styleClass="button">
+		  <bean:message key="members.searchButton" />
+	     </html:submit>
+	   </td></tr></table>
+	</div>
+  </html:form>
+</fieldset>
 
-<h3><bean:message key="members.listMembers" /></h3>
-
-<c:choose>
+<h3></h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="members.listMembers" /></legend>
+  <c:choose>
 	<c:when
 		test="${not empty requestScope.membersListPaginator.resultList}">
-		<table class="inLineTable">
+		<table class="inLineTable fieldsetTableAdmin">
 			<c:forEach var="member"
 				items="${requestScope.membersListPaginator.resultList}">
 				<tr class="content">
@@ -58,9 +65,12 @@
 		<c:import url="/content/pagination/Pagination.jsp" />
 	</c:when>
 	<c:otherwise>
-		<bean:message key="members.noResult" />
+	    <table class="inLineTable fieldsetTableAdmin"><tr><td>
+		  <bean:message key="members.noResult" />
+		</td></tr></table>
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>
 
 <c:if test="${!empty success}">
 	<script type="text/javascript">

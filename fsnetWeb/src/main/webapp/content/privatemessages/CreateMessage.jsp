@@ -19,9 +19,10 @@
 
 
 
-<h3><bean:message key="privatemessages.sendM"/></h3>
-<table  class="inLineTable"><tr><td>
-<html:form action="/CreatePrivateMessage">
+<fieldset class="fieldsetAppli">
+  <legend class="legendHome"><bean:message key="privatemessages.sendM"/></legend>
+  <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
+  <html:form action="/CreatePrivateMessage">
 
     <table style="width: 100%">
         <tr>
@@ -101,6 +102,7 @@
 
 </html:form>
 </td></tr></table>
+</fieldset>
 <script type="text/javascript">
     var AC = new dmsAutoComplete('memberSearch','searchDiv');
     AC.clearField = false; 

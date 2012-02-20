@@ -1,12 +1,14 @@
 $(function() {
+
+
+
 	$(".corp_experience").css("display","none");
 	$(".corp_diplome").css("display","none");
-	$(".corp_certificat").css("display","none");
+	$(".corp_loisir").css("display","none");
 	$(".corp_langue").css("display","none");
 	$("#ErrorCertif").css("display","none");
-	$(".CvNomCertifError").css("display","none");
-	$(".CvEcolCertifError").css("display","none");
-	$(".CvDateCertifError").css("display","none");
+	$(".CvNomLoisirError").css("display","none");
+	
 	$(".CVLangueError").css("display","none");
 	$(".CvEtablissmentError").css("display","none");
 	$(".etudBeginDateError").css("display","none");
@@ -26,6 +28,8 @@ $(function() {
 	var j=0;
 	var k=0;
 	var z=0;
+	var tabExp=new Array();
+	
 	$(".addExp").css("display","inline");
 	$(".addForm").css("display","inline");
 	$(".addExp").click(function(){
@@ -73,7 +77,7 @@ $(function() {
 		}
 		
 		if(erreur==0){
-		
+			tabExp[i]=i;
 		var recapExp= "<strong>"+$("#CvPoste").val()+"</strong><p>"+$("#NomEntreprise").val()+"</p><p>"
 		+$("#CvSecteur").val()+"</p><p>"+$("#CvLieu").val()+"</p><p> Date debut :"+$("#expBeginDate").val()+"</p><p> date de  fin :"+$("#expEndDate").val()+"</p>";
 		
@@ -86,9 +90,9 @@ $(function() {
 		$(".corp_experience").css("display","none");
 		var $annuler=$('<span id="supprimer'+i+'"><a onclick="changeExp('+i+')">supprimer</a></span>');
 		$(".addExp").css("display","inline");
-		$('.listeExperience').append('<li id="experience_'+i+'">'+recapExp+'</li>');
+		$('.listeExperience').append('<li class="liste" id="experience_'+i+'">'+recapExp+'</li>');
 		$('#experience_'+i).append(inputRecap);
-		$('#experience_'+i).append($annuler);
+		//$('#experience_'+i).append($annuler);
 		$("#CvPoste").val('');
 		$("#NomEntreprise").val('');
 		$("#CvSecteur").val('');
@@ -100,6 +104,7 @@ $(function() {
 		$(".CvLieuError").css("display","none");
 		$(".expBeginDateError").css("display","none");
 		$(".expEndDateError").css("display","none");
+		
 		i++;
 		}
 		
@@ -156,14 +161,15 @@ $(function() {
 		+'<input type="hidden" name="CvEtudeDom'+j+'" value="'+$("#CvEtudeDom").val()+'" />'
 		+'<input type="hidden" name="CvEtablissment'+j+'" value="'+$("#CvEtablissment").val()+'" />'
 		+'<input type="hidden" name="CvEtudePays'+j+'" value="'+$("#CvEtudePays").val()+'" />'
+		+'<input type="hidden" name="CvEtudeVille'+j+'" value="'+$("#CvEtudeVille").val()+'" />'
 		+'<input type="hidden" name="etudBeginDate'+j+'" value="'+$("#etudBeginDate").val()+'" />'
 		+'<input type="hidden" name="etudEndDate'+j+'" value="'+$("#etudEndDate").val()+'" /></div>';
 		var $annuler=$('<span id="supprimerDip'+j+'"><a onclick="changeDip('+j+')">supprimer</a></span>');
 		$(".corp_diplome").css("display","none");
 		$(".addForm").css("display","inline");
-		$('.listeFormation').append('<li id="formation_'+j+'">'+recapExp+'</li>');
+		$('.listeFormation').append('<li class="liste" id="formation_'+j+'">'+recapExp+'</li>');
 		$('#formation_'+j).append(inputRecap);
-		$('#formation_'+j).append($annuler);
+		//$('#formation_'+j).append($annuler);
 		$("#CvEtude").val('');
 		$("#CvEtudeDom").val('');
 		$("#CvEtablissment").val('');
@@ -183,70 +189,58 @@ $(function() {
 		$(".addForm").css("display","inline");
 	});
 	
-	$(".addCert").click(function(){
+	$(".addLoisir").click(function(){
 		
-		$(".corp_certificat").css("display","inline");
-		$(".CvNomCertifError").css("display","none");
-		$(".addCert").css("display","none");
-		$(".CvNomCertifError").css("display","none");
-		$(".CvDateCertifError").css("display","none");
-		$(".CvEcolCertifError").css("display","none");
+		$(".corp_loisir").css("display","inline");
+		$(".CvNomLoisirError").css("display","none");
+		$(".addLoisir").css("display","none");
+		
+	
 		
 	});
-	$(".SaveCert").click(function(){
-		$(".CvNomCertifError").css("display","none");
-		$(".CvDateCertifError").css("display","none");
-		$(".CvEcolCertifError").css("display","none");
+	$(".SaveLoisir").click(function(){
+		$(".CvNomLoisirError").css("display","none");
 		
 		var erreur=0;
-		if($("#CvNomCertif").val()=='' ){
+		if($("#CvNomLoisir").val()=='' ){
 			
-			$(".CvNomCertifError").css("display","inline");
+			$(".CvNomLoisirError").css("display","inline");
 			erreur=1;
 			
 		}
 		
-		if($("#CvEcolCertif").val()=='' ){
-			$(".CvEcolCertifError").css("display","inline");
-			erreur=1;
-		}
-		if($("#CvDateCertif").val()=='' ){
-			$(".CvDateCertifError").css("display","inline");
-			erreur=1;
-		}
+		
 		if(erreur==0){
-		var recapExp= "<strong>"+$("#CvNomCertif").val()+"</strong><p>"+$("#CvEcolCertif").val()+"</p><p> Date d'obtention :"+$("#CvDateCertif").val()+"</p>";
-		var inputRecap='<div id="certifInput" style="display:none;"><input type="hidden" name="CvNomCertif'+k+'" value="'+$("#CvNomCertif").val()+'" />'
-		+'<input type="hidden" name="CvEcolCertif'+k+'" value="'+$("#CvEcolCertif").val()+'" />'
-		+'<input type="hidden" name="CvDateCertif'+k+'" value="'+$("#CvDateCertif").val()+'" /></div>';
-		var $annuler=$('<span id="supprimerCert'+k+'"><a onclick="changeCert('+k+')">supprimer</a></span>');
-		$(".CvNomCertifError").fadeOut();
-		$(".corp_certificat").css("display","none");
-		$(".addCert").css("display","inline");
-		$("#certifInput").css("display","none");
-		$('.listeCertification').append('<li id="certifica_'+k+'">'+recapExp+'</li>');
-		$('#certifica_'+k).append(inputRecap);
-		$('#certifica_'+k).append($annuler);
-		$("#certifInput").css("display","none");
-		$("#CvNomCertif").val('');
-		$("#CvEcolCertif").val('');
-		$("#CvDateCertif").val('');
-		$(".CvNomCertifError").css("display","none");
-		$(".CvDateCertifError").css("display","none");
-		$(".CvEcolCertifError").css("display","none");
+		var recapExp= "<strong>"+$("#CvNomLoisir").val()+"</strong><br/>";
+		var inputRecap='<div id="loisirInput" style="display:none;"><input type="hidden" name="CvNomLoisir'+k+'" value="'+$("#CvNomLoisir").val()+'" /></div>'
+
+		var $annuler=$('<span id="supprimerLoisir'+k+'"><a onclick="changeLoisir('+k+')">supprimer</a></span>');
+		$(".CvNomLoisirError").fadeOut();
+		$(".corp_loisir").css("display","none");
+		$(".addLoisir").css("display","inline");
+		$("#loisirInput").css("display","none");
+		$('.listeLoisir').append('<li class="liste" id="loisir_'+k+'">'+recapExp+'</li>');
+		$('#loisir_'+k).append(inputRecap);
+		//$('#loisir_'+k).append($annuler);
+		$("#loisirInput").css("display","none");
+		$("#CvNomLoisir").val('');
+		
+		$(".CvNomLoisirError").css("display","none");
+	
 			k++;
 		}
 		
 	});
-	$(".annuleCert").click(function(){
-		$(".corp_certificat").css("display","none");
-		$(".addCert").css("display","inline");
+	$(".annuleLoisir").click(function(){
+		$(".corp_loisir").css("display","none");
+		$(".addLoisir").css("display","inline");
 	});
 	
 $(".addLangue").click(function(){
 	$(".corp_langue").css("display","inline");
 	$(".addLangue").css("display","none");
 	$(".CVLangueError").css("display","none");
+
 
 	});
 	$(".SaveLangue").click(function(){
@@ -264,9 +258,9 @@ $(".addLangue").click(function(){
 		$(".corp_langue").css("display","none");
 		$(".addLangue").css("display","inline");
 		
-		$('.listeLangues').append('<li id="Langues_'+z+'">'+recapExp+'</li>');
+		$('.listeLangues').append('<li class="liste" id="Langues_'+z+'">'+recapExp+'</li>');
 		$('#Langues_'+z).append(inputRecap);
-		$('#Langues_'+z).append($annuler);
+		//$('#Langues_'+z).append($annuler);
 		$("#LangueInput").css("display","none");
 		$("#CVLangue").val('');
 		
@@ -286,11 +280,22 @@ $(".addLangue").click(function(){
 		$('#experience_'+0).css("display","none");
 		
 	});
-
-
+	$("#envoi").click(function(){
+		var nbExp='<input type="hidden" name="nbexp" value="'+i+'" />';
+		var nbForm='<input type="hidden" name="nbform" value="'+j+'" />';
+		var nblangue='<input type="hidden" name="nblangue" value="'+k+'" />';
+		var nbloisir='<input type="hidden" name="nbloisir" value="'+z+'" />';
+		$('.listeExperience').append(nbExp);
+		$('.listeFormation').append(nbForm);
+		$('.listeLangues').append(nblangue);
+		$('.listeLoisir').append(nbloisir);
+	   
+	});
+	
 
 });
 function changeExp(iden){
+	
 	var answer = confirm ("voulez vous vraimment supprimer?")
 	if(answer){
 	document.getElementById('experience_'+iden).style.display = "none";
@@ -305,11 +310,11 @@ function changeDip(iden){
 	document.getElementById('supprimerDip'+iden).style.display = "none";
 	}
 }
-function changeCert(iden){
+function changeLoisir(iden){
 	var answer = confirm ("voulez vous vraimment supprimer?")
 	if(answer){
-	document.getElementById('certifica_'+iden).style.display = "none";
-	document.getElementById('supprimerCert'+iden).style.display = "none";
+	document.getElementById('loisir_'+iden).style.display = "none";
+	document.getElementById('supprimerLoisir'+iden).style.display = "none";
 	}
 }
 
@@ -319,4 +324,5 @@ function changeLang(iden){
 	document.getElementById('Langues_'+iden).style.display = "none";
 	document.getElementById('supprimerLang'+iden).style.display = "none";
 	}
+	
 }

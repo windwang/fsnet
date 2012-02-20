@@ -9,16 +9,17 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<h3>
-    <bean:message key="announce"/>
-</h3>
+<fieldset class="fieldsetAdmin">
+  <legend class="legendAdmin"><bean:message key="announce"/></legend>
 
-<c:choose>
+  <c:choose>
 	<c:when test="${empty requestScope.annoucesListPaginator.resultList}">
-		<bean:message key="announce.emptyList"/>
+		<table class="inLineTable fieldsetTableAdmin"><tr><td>
+		  <bean:message key="announce.emptyList"/>
+		</td></tr></table>
 	</c:when>
 	<c:otherwise>
-	    <table class="inLineTable">
+	    <table class="inLineTable fieldsetTableAdmin">
 	
 	        <c:forEach var="announce" items="${requestScope.annoucesListPaginator.resultList}">
 	        	<tr>
@@ -48,4 +49,5 @@
 		<c:import url="/content/pagination/Pagination.jsp"/>
 
 	</c:otherwise>
-</c:choose>
+  </c:choose>
+</fieldset>
