@@ -80,7 +80,7 @@
 							:
 					</label></td>
 					<td><html:text property="CvAdresse" styleId="CvAdresse"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.address.address}" /> <logic:messagesPresent
 							property="CvAdresse">
 							<div class="errorMessage">
 								<html:errors property="CvAdresse" />
@@ -92,7 +92,7 @@
 							:
 					</label></td>
 					<td><html:text property="CvVille" styleId="CvVille"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.address.city}"/> <logic:messagesPresent
 							property="CvVille">
 							<div class="errorMessage">
 								<html:errors property="CvVille" />
@@ -126,7 +126,7 @@
 							:
 					</label></td>
 					<td><html:text property="CvPortable" styleId="CvPortable"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.phone}"  /> <logic:messagesPresent
 							property="CvPortable">
 							<div class="errorMessage">
 								<html:errors property="CvPortable" />
