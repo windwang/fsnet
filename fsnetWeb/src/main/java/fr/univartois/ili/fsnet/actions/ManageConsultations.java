@@ -111,7 +111,6 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(mapping.findForward("error"));
 		}
 		// END TODO
-
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
