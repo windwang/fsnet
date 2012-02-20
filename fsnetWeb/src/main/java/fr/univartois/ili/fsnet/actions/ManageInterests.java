@@ -40,239 +40,346 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * @author Alexandre Lohez <alexandre.lohez at gmail.com>
  */
 public class ManageInterests extends MappingDispatchAction implements
-        CrudAction {
+		CrudAction {
 
-    private static final Logger logger = Logger.getAnonymousLogger();
-    
-    public Interest creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,Interest interest,EntityManager em,HttpServletRequest request){
-        if (dynaForm.get("parentInterestId") != null
-                && !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-            interest=facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
-        } else {
-        	interest=facade.createInterest(interestName); 
-        }
+	private static final Logger logger = Logger.getAnonymousLogger();
 
-        return interest;
-        
-    }
-    
-    private void addKeyFacebookInRequest(HttpServletRequest request, HttpServletResponse response){
-		request.setAttribute("KEY_FACEBOOK", FacebookKeyManager.getKeyFacebook());
+	/**
+	 * @param dynaForm
+	 * @param facade
+	 * @param interestName
+	 * @param interest
+	 * @param em
+	 * @param request
+	 * @return
+	 */
+	public Interest creation(DynaActionForm dynaForm, InterestFacade facade,
+			String interestName, Interest interest, EntityManager em,
+			HttpServletRequest request) {
+		if (dynaForm.get("parentInterestId") != null
+				&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+			interest = facade.createInterest(interestName,
+					Integer.valueOf((String) dynaForm.get("parentInterestId")));
+		} else {
+			interest = facade.createInterest(interestName);
+		}
+
+		return interest;
+
 	}
-    
-    @Override
-    public ActionForward create(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = PersistenceProvider.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-        InterestFacade facade = new InterestFacade(em);
-        String interestName = (String) dynaForm.get("createdInterestName");
-        String interestNameTmp[];
-        List<Interest> mesInterets=new LinkedList<Interest>();
 
-        logger.info("new interest: " + interestName);
+	/**
+	 * @param request
+	 * @param response
+	 */
+	private void addKeyFacebookInRequest(HttpServletRequest request,
+			HttpServletResponse response) {
+		request.setAttribute("KEY_FACEBOOK",
+				FacebookKeyManager.getKeyFacebook());
+	}
 
-        try {
-        	Interest interest=null;
-        	em.getTransaction().begin();
-            if(interestName.contains(";")){
-            	interestNameTmp=interestName.split(";");
-            	for(String myInterestName : interestNameTmp){
-                	interest=null;
-                	myInterestName=myInterestName.trim();
-                	if(!myInterestName.isEmpty()){
-                		interest=creation(dynaForm,facade,myInterestName,interest,em,request);
-                	   	mesInterets.add(interest);
-                	}
-            	}
-            }else{
-            	interest=creation(dynaForm,facade,interestName,interest,em,request);
-            }
-            em.getTransaction().commit();    
-        	em.getTransaction().begin();
-            if(interestName.contains(";")){
-            	for(Interest unInteret : mesInterets){
-            		addInterestToCurrentUser(request, em, unInteret.getId());
-            	}
-            }else{
-            	if(interest!=null){
-            		addInterestToCurrentUser(request, em, interest.getId());
-            	}
-            }
-            em.getTransaction().commit();    
-            
-        } catch (RollbackException ex) {
-            ActionErrors actionErrors = new ActionErrors();
-            ActionMessage msg = new ActionMessage("interest.alreadyExists");
-            actionErrors.add("createdInterestName", msg);
-            saveErrors(request, actionErrors);
-        }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#create(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public ActionForward create(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		InterestFacade facade = new InterestFacade(em);
+		String interestName = (String) dynaForm.get("createdInterestName");
+		String interestNameTmp[];
+		List<Interest> mesInterets = new LinkedList<Interest>();
 
-        em.close();
+		logger.info("new interest: " + interestName);
 
-        dynaForm.set("createdInterestName", "");
+		try {
+			Interest interest = null;
+			em.getTransaction().begin();
+			if (interestName.contains(";")) {
+				interestNameTmp = interestName.split(";");
+				for (String myInterestName : interestNameTmp) {
+					interest = null;
+					myInterestName = myInterestName.trim();
+					if (!myInterestName.isEmpty()) {
+						interest = creation(dynaForm, facade, myInterestName,
+								interest, em, request);
+						mesInterets.add(interest);
+					}
+				}
+			} else {
+				interest = creation(dynaForm, facade, interestName, interest,
+						em, request);
+			}
+			em.getTransaction().commit();
+			em.getTransaction().begin();
+			if (interestName.contains(";")) {
+				for (Interest unInteret : mesInterets) {
+					addInterestToCurrentUser(request, em, unInteret.getId());
+				}
+			} else {
+				if (interest != null) {
+					addInterestToCurrentUser(request, em, interest.getId());
+				}
+			}
+			em.getTransaction().commit();
 
-        return mapping.findForward("success");
-    }
+		} catch (RollbackException ex) {
+			ActionErrors actionErrors = new ActionErrors();
+			ActionMessage msg = new ActionMessage("interest.alreadyExists");
+			actionErrors.add("createdInterestName", msg);
+			saveErrors(request, actionErrors);
+		}
 
-    public ActionForward add(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = PersistenceProvider.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-        int interestId = Integer.valueOf((String) dynaForm.get("addedInterestId"));
-        em.getTransaction().begin();
-        addInterestToCurrentUser(request, em, interestId);
-        em.getTransaction().commit();
-        em.close();
-        ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
-        redirect.addParameter("infoInterestId", interestId);
-        return redirect;
-    }
+		em.close();
 
-    /**
-     * Add the interest corresponding to the id specified to the current user.
-     * 
-     * @param request the HttpServletRequest
-     * @param em the entity manager (You need close it after the function)
-     * @param interestId of the interest to add to the current user.
-     */
-	private void addInterestToCurrentUser(HttpServletRequest request, EntityManager em, int interestId) {
+		dynaForm.set("createdInterestName", "");
+
+		return mapping.findForward("success");
+	}
+
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward add(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		int interestId = Integer.valueOf((String) dynaForm
+				.get("addedInterestId"));
+		em.getTransaction().begin();
+		addInterestToCurrentUser(request, em, interestId);
+		em.getTransaction().commit();
+		em.close();
+		ActionRedirect redirect = new ActionRedirect(
+				mapping.findForward("success"));
+		redirect.addParameter("infoInterestId", interestId);
+		return redirect;
+	}
+
+	/**
+	 * Add the interest corresponding to the id specified to the current user.
+	 * 
+	 * @param request
+	 *            the HttpServletRequest
+	 * @param em
+	 *            the entity manager (You need close it after the function)
+	 * @param interestId
+	 *            of the interest to add to the current user.
+	 */
+	private void addInterestToCurrentUser(HttpServletRequest request,
+			EntityManager em, int interestId) {
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
-        InterestFacade facadeInterest = new InterestFacade(em);
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		InterestFacade facadeInterest = new InterestFacade(em);
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
-        Interest interest = facadeInterest.getInterest(interestId);
-        if (interest != null) {
-            logger.info("add interest: id=" + interestId + " for user: "
-                    + user.getName() + " " + user.getFirstName() + " "
-                    + user.getId());
+		Interest interest = facadeInterest.getInterest(interestId);
+		if (interest != null) {
+			logger.info("add interest: id=" + interestId + " for user: "
+					+ user.getName() + " " + user.getFirstName() + " "
+					+ user.getId());
 
-            facadeSE.addInterest(interest, user);
-        }
+			facadeSE.addInterest(interest, user);
+		}
 	}
 
-    public ActionForward remove(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = PersistenceProvider.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-        int interestId = Integer.valueOf((String) dynaForm.get("removedInterestId"));
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward remove(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+		int interestId = Integer.valueOf((String) dynaForm
+				.get("removedInterestId"));
 
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
-        SocialEntityFacade facadeSE = new SocialEntityFacade(em);
-        InterestFacade facadeInterest = new InterestFacade(em);
+		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
+		InterestFacade facadeInterest = new InterestFacade(em);
 
-        Interest interest = facadeInterest.getInterest(interestId);
-        if (interest != null) {
-            logger.info("remove interest: id=" + interestId + " for user: "
-                    + user.getName() + " " + user.getFirstName() + " "
-                    + user.getId());
+		Interest interest = facadeInterest.getInterest(interestId);
+		if (interest != null) {
+			logger.info("remove interest: id=" + interestId + " for user: "
+					+ user.getName() + " " + user.getFirstName() + " "
+					+ user.getId());
 
-            em.getTransaction().begin();
-            facadeSE.removeInterest(interest, user);
-            em.getTransaction().commit();
-        }
-        em.close();
-        ActionRedirect redirect = new ActionRedirect(mapping.findForward("success"));
-        redirect.addParameter("infoInterestId", interestId);
-        return redirect;
-    }
+			em.getTransaction().begin();
+			facadeSE.removeInterest(interest, user);
+			em.getTransaction().commit();
+		}
+		em.close();
+		ActionRedirect redirect = new ActionRedirect(
+				mapping.findForward("success"));
+		redirect.addParameter("infoInterestId", interestId);
+		return redirect;
+	}
 
-    @Override
-    public ActionForward modify(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#modify(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public ActionForward modify(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		return null;
+	}
 
-    @Override
-    public ActionForward delete(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        return null;
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#delete(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public ActionForward delete(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		return null;
+	}
 
-    @Override
-    public ActionForward search(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = PersistenceProvider.createEntityManager();
-        DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-        InterestFacade facade = new InterestFacade(em);
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#search(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public ActionForward search(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		InterestFacade facade = new InterestFacade(em);
 
-        String interestName = "";
-        if (dynaForm.get("requestInput") != null) {
-            interestName = (String) dynaForm.get("requestInput");
-        }
+		String interestName = "";
+		if (dynaForm.get("requestInput") != null) {
+			interestName = (String) dynaForm.get("requestInput");
+		}
 
+		List<Interest> results = facade.searchInterest(interestName);
+		em.close();
 
-        List<Interest> results = facade.searchInterest(interestName);
-        em.close();
+		Paginator<Interest> paginator = new Paginator<Interest>(results,
+				request, 25, "search");
 
-        Paginator<Interest> paginator = new Paginator<Interest>(results, request, 25, "search");
+		request.setAttribute("interestSearchPaginator", paginator);
 
-        request.setAttribute("interestSearchPaginator", paginator);
+		return mapping.findForward("success");
+	}
 
-        return mapping.findForward("success");
-    }
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#display(org.apache.struts.
+	 * action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
+	@Override
+	public ActionForward display(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		InterestFacade facade = new InterestFacade(em);
 
-    @Override
-    public ActionForward display(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = PersistenceProvider.createEntityManager();
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        InterestFacade facade = new InterestFacade(em);
-        
-		addKeyFacebookInRequest( request,response);
+		addKeyFacebookInRequest(request, response);
 
-        List<Interest> listAllInterests = facade.getInterests();
-        List<Interest> listNonAssociatedInterests = facade.getNonAssociatedInterests(user);
-        em.close();
+		List<Interest> listAllInterests = facade.getInterests();
+		List<Interest> listNonAssociatedInterests = facade
+				.getNonAssociatedInterests(user);
+		em.close();
 
-        Paginator<Interest> paginatorMy = new Paginator<Interest>(user.getInterests(), request, 25, "display");
-        Paginator<Interest> paginatorAdd = new Paginator<Interest>(listNonAssociatedInterests, request, 25, "addInterest");
-        request.setAttribute("allInterests", listAllInterests);
-        request.setAttribute("myInterestPaginator", paginatorMy);
-        request.setAttribute("addInterestPaginator", paginatorAdd);
+		Paginator<Interest> paginatorMy = new Paginator<Interest>(
+				user.getInterests(), request, 25, "display");
+		Paginator<Interest> paginatorAdd = new Paginator<Interest>(
+				listNonAssociatedInterests, request, 25, "addInterest");
+		request.setAttribute("allInterests", listAllInterests);
+		request.setAttribute("myInterestPaginator", paginatorMy);
+		request.setAttribute("addInterestPaginator", paginatorAdd);
 
-        return mapping.findForward("success");
-    }
+		return mapping.findForward("success");
+	}
 
-    public ActionForward informations(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        EntityManager em = PersistenceProvider.createEntityManager();
-        InterestFacade facade = new InterestFacade(em);
-        DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em); 
-        int interestId = Integer.valueOf((String) dynaForm.get("infoInterestId"));
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward informations(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		InterestFacade facade = new InterestFacade(em);
+		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
+		int interestId = Integer.valueOf((String) dynaForm
+				.get("infoInterestId"));
 
-        Interest interest = facade.getInterest(interestId);
-        HashMap<String, List<Interaction>> resultMap = facade.getInteractions(interestId);
-        em.close();
+		Interest interest = facade.getInterest(interestId);
+		HashMap<String, List<Interaction>> resultMap = facade
+				.getInteractions(interestId);
+		em.close();
 
-        if (interest != null) {
-            request.setAttribute("interest", interest);
-            Set<SocialEntity> members = interest.getEntities();
-            members.retainAll(socialGroupFacade.getAllChildMembers(UserUtils.getHisGroup(request)));
-            request.setAttribute("socialEntities", members);
-            if (user.getInterests().contains(interest)) {
-                request.setAttribute("own", true);
-            } else {
-                request.setAttribute("own", false);
-            }
+		if (interest != null) {
+			request.setAttribute("interest", interest);
+			Set<SocialEntity> members = interest.getEntities();
+			members.retainAll(socialGroupFacade.getAllChildMembers(UserUtils
+					.getHisGroup(request)));
+			request.setAttribute("socialEntities", members);
+			if (user.getInterests().contains(interest)) {
+				request.setAttribute("own", true);
+			} else {
+				request.setAttribute("own", false);
+			}
 
-            for (Map.Entry<String, List<Interaction>> interactionEntry : resultMap.entrySet()) {
-                request.setAttribute(interactionEntry.getKey(),
-                        interactionEntry.getValue());
-            }
-        }
+			for (Map.Entry<String, List<Interaction>> interactionEntry : resultMap
+					.entrySet()) {
+				request.setAttribute(interactionEntry.getKey(),
+						interactionEntry.getValue());
+			}
+		}
 
-        return mapping.findForward("success");
-    }
+		return mapping.findForward("success");
+	}
 }
