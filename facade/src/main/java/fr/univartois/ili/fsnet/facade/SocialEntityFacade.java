@@ -323,8 +323,9 @@ public class SocialEntityFacade {
 		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(em);
 		
 		for(Meeting m : listMeeting){
-			if(listSocialEntity==null)
+			if(listSocialEntity==null){
 				listSocialEntity = new HashMap<Meeting,Set<SocialEntity>>();
+			}
 			listSocialEntity.put(m,interactionRoleFacade.getSubscribers(m));
 		}
 		

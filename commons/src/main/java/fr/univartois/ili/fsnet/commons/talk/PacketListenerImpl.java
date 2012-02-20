@@ -16,7 +16,7 @@ import org.jivesoftware.smack.packet.Presence;
  */
 public class PacketListenerImpl implements PacketListener {
 
-	Queue<String> messageQueue = new LinkedList<String>();
+	private Queue<String> messageQueue = new LinkedList<String>();
 
 	/**
 	 * @return a String
@@ -35,28 +35,22 @@ public class PacketListenerImpl implements PacketListener {
 	 */
 	@Override
 	public void processPacket(Packet packet) {
-		if (packet.getError() != null) {
-			System.out.println("Error:" + packet.getError());
-		}
-
-		if (packet instanceof Presence) {
-			Presence presencePacket = (Presence) packet;
-			if (presencePacket.getType().equals(Presence.Type.subscribe)) {
-				System.out.println("Subscription request");
-
-			}
-		}
-		
 		if (packet instanceof Message) {
 			Message message = (Message) packet;
 
 			String body = message.getBody();
 			String from = message.getFrom();
-			System.out.println(from + body);
 			messageQueue.add(from + ": " + body);
 
 		}
-		System.out.println(packet.getFrom());
+	}
+
+	public Queue<String> getMessageQueue() {
+		return messageQueue;
+	}
+
+	public void setMessageQueue(Queue<String> messageQueue) {
+		this.messageQueue = messageQueue;
 	}
 
 }

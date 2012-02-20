@@ -12,6 +12,11 @@ import java.util.Locale;
  * 
  */
 public class DateUtils {
+	
+	private DateUtils(){
+		
+	}
+	
 	/**
 	 * 
 	 * @param date
@@ -84,8 +89,7 @@ public class DateUtils {
 		SimpleDateFormat usFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
 		cal.setTime(date);
-		String usDate = usFormat.format(cal.getTime());
-		return usDate;
+		return usFormat.format(cal.getTime());
 	}
 
 	/**
@@ -96,8 +100,7 @@ public class DateUtils {
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
 		cal.setTime(date);
-		String dbDate = dbDateFormat.format(cal.getTime());
-		return dbDate;
+		return dbDateFormat.format(cal.getTime());
 	}
 
 }

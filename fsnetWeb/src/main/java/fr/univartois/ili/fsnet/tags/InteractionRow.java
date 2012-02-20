@@ -11,6 +11,10 @@ import fr.univartois.ili.fsnet.entities.Interaction;
 
 public class InteractionRow extends TagSupport {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private List<Integer> unreadInteractionsId;
 	private int currentInteractionId;
 

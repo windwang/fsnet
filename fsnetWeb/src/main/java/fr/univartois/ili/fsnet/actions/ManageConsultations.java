@@ -109,8 +109,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		if (!fascade.isAuthorized(member, Right.ADD_CONSULTATION))
+		if (!fascade.isAuthorized(member, Right.ADD_CONSULTATION)){
 			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		Consultation consultation = consultationFacade.createConsultation(
@@ -125,11 +126,13 @@ public class ManageConsultations extends MappingDispatchAction {
 						.setMaxVoters(Integer.valueOf(maxVoters[i]));
 			}
 		}
-		if (!"".equals(showBeforeAnswer))
+		if (!"".equals(showBeforeAnswer)){
 			consultation.setShowBeforeAnswer(false);
+		}
 
-		if (!"".equals(showBeforeClosing))
+		if (!"".equals(showBeforeClosing)){
 			consultation.setShowBeforeClosing(false);
+		}
 
 		if (!"".equals(deadline)) {
 			consultation.setClosingAtDate(true);
@@ -209,8 +212,9 @@ public class ManageConsultations extends MappingDispatchAction {
 			if (TypeConsultation.YES_NO_IFNECESSARY.equals(consultation
 					.getType())) {
 				for (String s : voteChoices) {
-					if (!s.startsWith(NO_ANSWER))
+					if (!s.startsWith(NO_ANSWER)){
 						answersNumber++;
+					}
 				}
 			} else if (TypeConsultation.YES_NO_OTHER.equals(consultation
 					.getType())) {
@@ -256,8 +260,9 @@ public class ManageConsultations extends MappingDispatchAction {
 					for (ConsultationVote cv : consultation
 							.getConsultationVotes()) {
 						for (ConsultationChoiceVote ccv : cv.getChoices())
-							if (ccv.getChoice().equals(choice))
+							if (ccv.getChoice().equals(choice)){
 								nbVotes++;
+							}
 					}
 					if (nbVotes > choice.getMaxVoters()) {
 						return displayAConsultation(mapping, dynaForm, request,
@@ -297,8 +302,9 @@ public class ManageConsultations extends MappingDispatchAction {
 					if (choiceCons.getId() == id) {
 						ConsultationChoiceVote choiceVote = new ConsultationChoiceVote(
 								vote, choiceCons);
-						if (ifNecessary)
+						if (ifNecessary){
 							choiceVote.setIfNecessary(true);
+						}
 						vote.getChoices().add(choiceVote);
 					}
 				}

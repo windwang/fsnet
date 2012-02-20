@@ -39,8 +39,9 @@ public class ConsultationResultsTag extends TagSupport {
 	
 	@Override
 	public int doStartTag() throws JspException {
-		if (consultation == null || consultation.getChoices().size() == 0)
+		if (consultation == null || consultation.getChoices().size() == 0){
 			return SKIP_BODY;
+		}
 		init();
 		currentNb = nb.iterator();
 		currentChoice = choices.iterator();
@@ -53,32 +54,34 @@ public class ConsultationResultsTag extends TagSupport {
 	
 	@Override
 	public int doAfterBody() throws JspException {
-		if (!currentNb.hasNext())
+		if (!currentNb.hasNext()){
 			return SKIP_BODY;
+		}
 		setAttributes();
 		return EVAL_BODY_AGAIN;
 	}
 	
 	@Override
 	public int doEndTag() throws JspException {
-		if (number != null) pageContext.getRequest().removeAttribute(number);
-		if (percent != null) pageContext.getRequest().removeAttribute(percent);
-		if (maximum != null) pageContext.getRequest().removeAttribute(maximum);
-		if (choice != null) pageContext.getRequest().removeAttribute(choice);
+		if (number != null){ pageContext.getRequest().removeAttribute(number); }
+		if (percent != null){ pageContext.getRequest().removeAttribute(percent);}
+		if (maximum != null){ pageContext.getRequest().removeAttribute(maximum);}
+		if (choice != null){ pageContext.getRequest().removeAttribute(choice);}
 		return super.doEndTag();
 	}
 	
 	public void setAttributes(){
 		double nbVotes = currentNb.next();
 		if (number != null && !"".equals(number)) {
-			if (consultation.getType() == TypeConsultation.YES_NO_IFNECESSARY)
+			if (consultation.getType() == TypeConsultation.YES_NO_IFNECESSARY){
 				pageContext.getRequest().setAttribute(number, Double.valueOf(Math.round(nbVotes*10))/10);
-			else 
+			}else{ 
 				pageContext.getRequest().setAttribute(number, Math.round(nbVotes));
+			}
 		}
-		if (percent != null && !"".equals(percent)) pageContext.getRequest().setAttribute(percent, Math.round(nbVotes*100/total));
-		if (maximum != null && !"".equals(maximum)) pageContext.getRequest().setAttribute(maximum, nbVotes == max);
-		if (choice != null && !"".equals(choice)) pageContext.getRequest().setAttribute(choice, currentChoice.next());
+		if (percent != null && !"".equals(percent)){ pageContext.getRequest().setAttribute(percent, Math.round(nbVotes*100/total));}
+		if (maximum != null && !"".equals(maximum)){ pageContext.getRequest().setAttribute(maximum, nbVotes == max);}
+		if (choice != null && !"".equals(choice)){ pageContext.getRequest().setAttribute(choice, currentChoice.next());}
 	}
 	
 	public void init(){
@@ -121,8 +124,9 @@ public class ConsultationResultsTag extends TagSupport {
 								total+=1;
 							}
 						}
-						if (max < nb.get(i))
+						if (max < nb.get(i)){
 							max = nb.get(i);
+						}
 					}
 				}
 			}
@@ -165,8 +169,9 @@ public class ConsultationResultsTag extends TagSupport {
 				vote = votes.next();
 				if (!"".equals(vote.getOther())){
 					nb.set(i, nb.get(i)+1);
-					if (max < nb.get(i))
+					if (max < nb.get(i)){
 						max = nb.get(i);
+					}
 					total++;
 				}
 			}
@@ -180,8 +185,9 @@ public class ConsultationResultsTag extends TagSupport {
 		for (int i=0,j=0 ; i<nb.size() ; j=0,i++){
 			for (Double mark : marks){
 				j++;
-				if (mark.equals(nb.get(i)))
+				if (mark.equals(nb.get(i))){
 					nb.set(i, Double.valueOf(j));
+				}
 			}
 		}
 	}

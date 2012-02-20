@@ -305,8 +305,9 @@ CrudAction {
 	 */
 	private String concatInterest(List<Interest> listAllInterests){
 		String ids = "";
-		if(listAllInterests == null)
+		if(listAllInterests == null){
 			return "";
+		}
 		for(Interest interest : listAllInterests){
 			Interest parent = interest.getParentInterest();
 			String id = String.valueOf( interest.getId() );

@@ -25,7 +25,7 @@ import fr.univartois.ili.fsnet.trayDesktop.views.FSNetTray;
  * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class TrayLauncher {
+public final class TrayLauncher {
 
     private static ResourceBundle trayi18n;
     private static Logger logger = Logger.getLogger(TrayLauncher.class.getName());
@@ -81,11 +81,8 @@ public class TrayLauncher {
         }
 
         SwingUtilities.invokeLater(new Runnable() {
-
             @Override
             public void run() {
-
-
                 trayi18n = ResourceBundle.getBundle("ressources/Trayi18n", Options.getLocale());
                 if (!Options.isConfigured()) {
                     showConfigFrame();
@@ -93,7 +90,7 @@ public class TrayLauncher {
                     ImageIcon icon = getImageIcon("/ressources/iconefsnet.png");
                     if (icon != null) {
                         try {
-                            tray = new FSNetTray(icon.getImage(), control);
+							tray = new FSNetTray(icon.getImage(), control);
                             connector.addListener(tray);
                             SystemTray.getSystemTray().add(tray.getTrayIcon());
                         } catch (AWTException ex) {

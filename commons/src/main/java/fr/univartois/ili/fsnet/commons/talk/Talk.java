@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.commons.talk;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,12 +23,12 @@ import fr.univartois.ili.fsnet.commons.utils.TalkException;
  * @author habib
  * 
  */
-public class Talk implements ITalk {
+public class Talk implements ITalk,Serializable {
 
 	private XMPPConnection connection;
 
-	ConnectionConfiguration config = null;
-	AccountManager accountManager = null;
+	private ConnectionConfiguration config = null;
+	private AccountManager accountManager = null;
 
 	/*
 	 * (non-Javadoc)
@@ -65,27 +66,25 @@ public class Talk implements ITalk {
 	public boolean createAccount(String userName, String password,
 			Map<String, String> map) {
 		{
-			if (!connection.isConnected())
+			if (!connection.isConnected()){
 				try {
 					connection.connect();
 				} catch (XMPPException e3) {
 
 					e3.printStackTrace();
 				}
-			System.out.println(accountManager.getAccountInstructions());
-
-			System.out.println("Create New user:" + userName + password);
+			}
+			
 			try {
-				if (map == null)
+				if (map == null){
 					map = new HashMap<String, String>();
+				}
 				accountManager.createAccount(userName, password, map);
-				System.out.println("Account Created.");
-				System.out.println("reload connextion.");
+
 				connection.disconnect();
 				// Thread.sleep(6000);
 				connection.connect();
 				connection.login(userName, password);
-				System.out.println("connextion reloaded");
 
 				return true;
 			} catch (XMPPException e2) {
@@ -180,26 +179,13 @@ public class Talk implements ITalk {
 			}
 
 			accountManager = connection.getAccountManager();
-			System.out.println("connecter ");
 			connection.login(login, pssword);
-			System.out.println("authenticated ");
 
 		} catch (XMPPException e) {
-			System.out.println(" coucouc 1 account " + login);
 			if ((e.getLocalizedMessage().contains("authentication failed") || e
 					.getLocalizedMessage().contains("SASL authentication"))
-
 			&& accountManager.supportsAccountCreation()) {
-				System.out.println(" coucouc 2 account " + login);
-				boolean createAccount = false;
-				createAccount = createAccount(login, pssword, map);
-
-				if (!createAccount) {
-					System.out
-							.println("failed to create xmpp account " + login);
-				} else {
-					System.out.println("succed create xmpp account " + login);
-				}
+				createAccount(login, pssword, map);
 
 			} else {
 				e.printStackTrace();
@@ -213,7 +199,10 @@ public class Talk implements ITalk {
 	 * @param XMPPServer
 	 * @param port
 	 * @throws TalkException
-	 */
+	 *
+	 *
+	 * This method is never used
+	 *
 	private void connexion(String XMPPServer, int port) throws TalkException {
 		config = new ConnectionConfiguration(XMPPServer, port);
 
@@ -221,29 +210,28 @@ public class Talk implements ITalk {
 		try {
 			connection.connect();
 			accountManager = connection.getAccountManager();
-			System.out.println("connecter ");
-
 		} catch (XMPPException e) {
-
 			throw new TalkException("Problem Jabber connexion ", e);
 		}
 	}
-
+	*/
 	/**
 	 * @param login
 	 * @param pssword
 	 * @throws TalkException
-	 */
+	 *
+	 * This method is never used
+	 *
 	private void login(String login, String pssword) throws TalkException {
 
 		try {
 			connection.login(login, pssword);
-
 		} catch (XMPPException e) {
 			throw new TalkException("Problem login  with  username", e);
 		}
 
 	}
+	*/
 
 	/*
 	 * (non-Javadoc)
@@ -252,7 +240,6 @@ public class Talk implements ITalk {
 	 */
 	@Override
 	public void stop() throws TalkException {
-
 		connection.disconnect();
 	}
 
@@ -266,16 +253,12 @@ public class Talk implements ITalk {
 	@Override
 	public void sendMessage(String msg, String friendPseudo, Chat chat)
 			throws TalkException {
-
-		System.out.println("message:" + msg + "  to user " + friendPseudo);
-
 		try {
 			chat.sendMessage(msg);
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-
 	}
 
 	/*
@@ -287,7 +270,6 @@ public class Talk implements ITalk {
 	 */
 	@Override
 	public Chat createConversation(String pseudoFriend) throws TalkException {
-		System.out.println("create Conversation with" + pseudoFriend);
 		try {
 
 			Chat chat = connection.getChatManager().createChat(pseudoFriend,
@@ -301,10 +283,25 @@ public class Talk implements ITalk {
 			return chat;
 
 		} catch (Exception e) {
-			System.out.println("Create Conversation Exception");
 			e.printStackTrace();
 		}
 		return null;
+	}
+
+	public ConnectionConfiguration getConfig() {
+		return config;
+	}
+
+	public void setConfig(ConnectionConfiguration config) {
+		this.config = config;
+	}
+
+	public AccountManager getAccountManager() {
+		return accountManager;
+	}
+
+	public void setAccountManager(AccountManager accountManager) {
+		this.accountManager = accountManager;
 	}
 
 }

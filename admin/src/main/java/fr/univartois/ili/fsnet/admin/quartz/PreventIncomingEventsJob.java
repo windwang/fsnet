@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.admin.quartz;
 
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Map.Entry;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -55,7 +56,7 @@ public class PreventIncomingEventsJob implements Job {
 	private void preventIncomingEvents() {
 		HashMap<Meeting, Set<SocialEntity>> incomingEvents = searchIncomingEvents();
 		if (incomingEvents != null) {
-			Iterator<Meeting> iterator = incomingEvents.keySet().iterator();
+			Iterator<Entry<Meeting, Set<SocialEntity>>> iterator = incomingEvents.entrySet().iterator();
 			while (iterator.hasNext()) {
 				Meeting meeting = (Meeting) iterator.next();
 				for (SocialEntity socialEntity : (Set<SocialEntity>) incomingEvents
@@ -120,29 +121,43 @@ public class PreventIncomingEventsJob implements Job {
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 
-		String message = "<h1>" + bundle.getMessage("events.recallMail.title")
-				+ "</h1>";
-		message += "<p>" + meeting.getTitle() + "</p>";
-		message += "<ul>";
-		message += "<li>" + bundle.getMessage("events.recallMail.startDate")
-				+ ": " + DateUtils.renderDBDate(meeting.getStartDate())
-				+ "</li>";
-		message += "<li>" + bundle.getMessage("events.recallMail.endDate")
-				+ ": " + DateUtils.renderDBDate(meeting.getEndDate()) + "</li>";
-		message += "<li>" + bundle.getMessage("events.recallMail.subscriber")
-				+ ": ";
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append("<h1>");
+		sb.append(bundle.getMessage("events.recallMail.title"));
+		sb.append("</h1>");
+		sb.append("<p>");
+		sb.append(meeting.getTitle());
+		sb.append("</p>");
+		sb.append("<ul>");
+		sb.append("<li>");
+		sb.append(bundle.getMessage("events.recallMail.startDate"));
+		sb.append(": " + DateUtils.renderDBDate(meeting.getStartDate()));
+		sb.append("</li>");
+		sb.append("<li>");
+		sb.append(bundle.getMessage("events.recallMail.endDate"));
+		sb.append(": ");
+		sb.append(DateUtils.renderDBDate(meeting.getEndDate()));
+		sb.append("</li>");
+		sb.append("<li>");
+		sb.append(bundle.getMessage("events.recallMail.subscriber"));
+		sb.append(": ");
 
 		for (SocialEntity socialEntity : listSubscribes) {
-			message += " " + socialEntity.getEmail();
+			sb.append(" ");
+			sb.append(socialEntity.getEmail());
 		}
 
-		message += "</li>";
-		message += "<li>" + bundle.getMessage("events.recallMail.fsnet") + ": "
-				+ fsnetAddress + "</li>";
-		message += "</ul>";
+		sb.append("</li>");
+		sb.append("<li>");
+		sb.append(bundle.getMessage("events.recallMail.fsnet"));
+		sb.append(": ");
+		sb.append(fsnetAddress);
+		sb.append("</li>");
+		sb.append("</ul>");
 
-		message += meeting.getContent();
-		return message;
+		sb.append(meeting.getContent());
+		return sb.toString();
 	}
 
 }

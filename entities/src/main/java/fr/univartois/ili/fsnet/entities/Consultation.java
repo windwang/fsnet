@@ -364,8 +364,9 @@ public class Consultation extends Interaction {
 	public boolean isVoted(SocialEntity member) {
 		Iterator<ConsultationVote> it = consultationVotes.iterator();
 		while (it.hasNext()) {
-			if (it.next().getVoter().equals(member))
+			if (it.next().getVoter().equals(member)){
 				return true;
+			}
 		}
 		return false;
 	}
