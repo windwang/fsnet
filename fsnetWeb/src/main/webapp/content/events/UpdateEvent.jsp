@@ -126,14 +126,46 @@
                             styleId="eventEndDate"
                             errorStyleClass="error"/>
 
-                <html:submit styleClass="button">
-                    <bean:message key="events.update"/>
-                </html:submit>
                 <logic:messagesPresent property="eventEndDate">
                     <div class="errorMessage">
                         <html:errors property="eventEndDate"/>
                     </div>
                 </logic:messagesPresent>
+            </td>
+        </tr>
+        <tr>
+        	<td>
+        		<label for="eventRecallTime">
+                    <bean:message key="events.recall"/> :
+             	</label>
+            </td>
+            <td>
+       			<html:text  property="eventRecallTime"
+                            styleId="eventRecallTime"
+                            errorStyleClass="error" />
+ 
+                <html:select property="eventRecallTypeTime" styleId="eventRecallTypeTime">
+                    <html:option value="minute">
+                    	<bean:message key="event.recall.minute"/>
+                    </html:option>
+                    <html:option value="hour">
+                    	<bean:message key="event.recall.hour"/>
+                    </html:option>
+                    <html:option value="day">
+                    	<bean:message key="event.recall.day"/>
+                    </html:option>
+                </html:select>
+                
+                <logic:messagesPresent property="eventRecallTime">
+                    <div class="errorMessage">
+                        <html:errors property="eventRecallTime"/>
+                    </div>
+                </logic:messagesPresent>
+			</td>
+            <td>
+            	<html:submit styleClass="button">
+                    <bean:message key="events.update"/>
+                </html:submit>
             </td>
         </tr>
     </table>

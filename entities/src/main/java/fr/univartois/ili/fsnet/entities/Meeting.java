@@ -16,9 +16,11 @@ public class Meeting extends Announcement {
 
 	@Embedded
 	private Address address;
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date startDate;
-
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	private Date recallDate;
+	
 	/**
 	 * Constructor of the class Meeting.
 	 */
@@ -26,13 +28,33 @@ public class Meeting extends Announcement {
 	}
 
 	public Meeting(SocialEntity creator, String title, String content,
-			Date endDate, boolean isPrivate, Date startDate, Address address) {
+			Date endDate, boolean isPrivate, Date startDate, Address address,Date recallDate) {
 		super(creator, title, content, endDate, isPrivate);
 		if (startDate == null || address == null) {
 			throw new IllegalArgumentException();
 		}
 		this.startDate = startDate;
 		this.address = address;
+		this.recallDate = recallDate;
+	}
+	
+	/**
+	 * Get the value of recallTime
+	 * 
+	 * @return the value of recallTime
+	 */
+	public Date getRecallDate() {
+		return recallDate;
+	}
+
+	/**
+	 * Set the value of recallTime
+	 * 
+	 * @param recallTime
+	 *            new value of recallTime
+	 */
+	public void setRecallDate(Date recallDate) {
+		this.recallDate = recallDate;
 	}
 
 	/**
