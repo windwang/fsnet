@@ -75,7 +75,7 @@ public class PreventIncomingEventsJob implements Job {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-		return socialEntityFacade.getSocialEntityHavingEventTomorow();
+		return socialEntityFacade.getSocialEntityHavingEvent();
 	}
 
 	/**

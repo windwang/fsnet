@@ -43,19 +43,14 @@ public class MeetingFacade {
      */
     public final Meeting createMeeting(SocialEntity member, String eventName,
             String eventDescription, Date endDate, Boolean isPrivate,
-            Date startDate, String address, String city) {
-    	// The complexity of a boolean expression should not exceed 3
-        if (member == null || eventName == null || eventDescription == null){
-            throw new IllegalArgumentException();
-        }
-        if ( endDate == null || isPrivate == null || startDate == null){
-            throw new IllegalArgumentException();
-        }
-        if ( address == null || city == null) {
+            Date startDate, String address, String city,Date recallDate) {
+        if (member == null || eventName == null || eventDescription == null
+                || endDate == null || isPrivate == null || startDate == null
+                || address == null || city == null) {
             throw new IllegalArgumentException();
         }
         Meeting event = new Meeting(member, eventName, eventDescription,
-                endDate, isPrivate, startDate, new Address(address, city));
+                endDate, isPrivate, startDate, new Address(address, city),recallDate);
 
         member.getInteractions().add(event);
         em.persist(event);
