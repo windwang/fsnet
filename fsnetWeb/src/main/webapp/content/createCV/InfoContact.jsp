@@ -15,7 +15,7 @@
 	<div class="en_cv">
 		<div class="entete">
 			<h3>
-				<bean:message key="cv.titre" />
+				<bean:message key="cv.titre" /> 
 			</h3>
 		</div>
 		<div class="corp">
@@ -71,21 +71,25 @@
 			<td><label for="sexe"> <bean:message key="members.sexe" />
 			: </label></td>
 			<td><select name="sexe">
-			
+		
 			<c:choose>
 				<c:when test="${sessionScope.user.sex == 'male'}">
+					<option value=""></option>
 					<option value="male" selected="selected"><bean:message key="members.sexe.Male" /></option>
 					<option value="female"><bean:message key="members.sexe.Female" /></option>	
 				</c:when>
 				<c:when test="${sessionScope.user.sex == 'female'}">
+					<option value=""></option>
 					<option value="male" ><bean:message key="members.sexe.Male" /></option>
 					<option value="female" selected="selected"><bean:message key="members.sexe.Female" /></option>	
 				</c:when>
 				<c:otherwise>
+					<option value=""></option>
 					<option value="male"><bean:message key="members.sexe.Male" /></option>
 					<option value="female"><bean:message key="members.sexe.Female" /></option>	
 				</c:otherwise>
 			</c:choose>			
+			
 			</select></td>
 		</tr>
 				<tr>
@@ -147,6 +151,14 @@
 							</div>
 						</logic:messagesPresent></td>
 				</tr>
+				
+				<tr>
+			<td><label for="birthDay"> <bean:message
+						key="members.birthDay" /> :</label></td>
+			<td><html:text errorStyleClass="error" styleId="birthDay"
+					property="formatBirthDay" >
+				</html:text></td>
+		</tr>
 				<tr>
 					<td><label for="CvSituation"> <bean:message key="cv.8" />
 							:
@@ -172,3 +184,24 @@
 	</div>
 	<html:submit styleClass="button"><bean:message key="cv.suivant" /></html:submit>
 </html:form>
+
+<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$.datepicker.setDefaults($.extend(
+		        {
+		        	yearRange : '-100:+100',
+		        	minDate:"-100Y+1D",
+		        	maxDate:0,
+		            changeYear: true,
+		            dateFormat: 'dd/mm/yy',
+		            showOn: 'button',
+		            buttonImage: 'images/calendar.gif',
+		            buttonImageOnly: true,
+		            showMonthAfterYear: false
+		        }));
+		$("#birthDay").datepicker($.datepicker.regional['fr']);
+	});
+</script>

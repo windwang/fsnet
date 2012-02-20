@@ -32,8 +32,21 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
+/**
+ * @author FSNet
+ *
+ */
 public class Home extends MappingDispatchAction {
 
+	/**
+	 * @param mapping
+	 * @param request
+	 * @param response
+	 * @param em
+	 * @param authenticatedUser
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void lastVisits(ActionMapping mapping, HttpServletRequest request,
 			HttpServletResponse response, EntityManager em,
 			SocialEntity authenticatedUser) throws IOException,
@@ -43,6 +56,14 @@ public class Home extends MappingDispatchAction {
 		request.setAttribute("visitors", visitors);
 	}
 
+	/**
+	 * @param mapping
+	 * @param request
+	 * @param response
+	 * @param em
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void lastInteractions(ActionMapping mapping,
 			HttpServletRequest request, HttpServletResponse response,
 			EntityManager em) throws IOException, ServletException {
@@ -54,6 +75,15 @@ public class Home extends MappingDispatchAction {
 		request.setAttribute("lastInteractions", result);
 	}
 
+	/**
+	 * @param mapping
+	 * @param request
+	 * @param response
+	 * @param em
+	 * @param authenticatedUser
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void lastMessages(ActionMapping mapping,
 			HttpServletRequest request, HttpServletResponse response,
 			EntityManager em, SocialEntity authenticatedUser)
@@ -64,6 +94,15 @@ public class Home extends MappingDispatchAction {
 		request.setAttribute("messages", userMessages);
 	}
 
+	/**
+	 * @param mapping
+	 * @param request
+	 * @param response
+	 * @param em
+	 * @param authenticatedUser
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void getInterestProposals(ActionMapping mapping,
 			HttpServletRequest request, HttpServletResponse response,
 			EntityManager em, SocialEntity authenticatedUser)
@@ -84,6 +123,15 @@ public class Home extends MappingDispatchAction {
 
 	}
 
+	/**
+	 * @param mapping
+	 * @param request
+	 * @param response
+	 * @param em
+	 * @param authenticatedUser
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	private void getContactProposals(ActionMapping mapping,
 			HttpServletRequest request, HttpServletResponse response,
 			EntityManager em, SocialEntity authenticatedUser)
@@ -122,6 +170,15 @@ public class Home extends MappingDispatchAction {
 
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward doDashboard(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {

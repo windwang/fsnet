@@ -23,6 +23,10 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 
+/**
+ * @author FSNet
+ *
+ */
 public class ManageMembers extends MappingDispatchAction {
 
 	/**
