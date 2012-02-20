@@ -71,8 +71,21 @@
 			<td><label for="sexe"> <bean:message key="members.sexe" />
 			: </label></td>
 			<td><select name="sexe">
-				<option value="male"><bean:message key="members.sexe.Male" /></option>
-				<option value="female"><bean:message key="members.sexe.Female" /></option>					
+			
+			<c:choose>
+				<c:when test="${sessionScope.user.sex == 'male'}">
+					<option value="male" selected="selected"><bean:message key="members.sexe.Male" /></option>
+					<option value="female"><bean:message key="members.sexe.Female" /></option>	
+				</c:when>
+				<c:when test="${sessionScope.user.sex == 'female'}">
+					<option value="male" ><bean:message key="members.sexe.Male" /></option>
+					<option value="female" selected="selected"><bean:message key="members.sexe.Female" /></option>	
+				</c:when>
+				<c:otherwise>
+					<option value="male"><bean:message key="members.sexe.Male" /></option>
+					<option value="female"><bean:message key="members.sexe.Female" /></option>	
+				</c:otherwise>
+			</c:choose>			
 			</select></td>
 		</tr>
 				<tr>
