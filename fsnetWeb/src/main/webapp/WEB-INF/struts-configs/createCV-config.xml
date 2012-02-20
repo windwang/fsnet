@@ -72,9 +72,19 @@
             parameter="display">
             <forward name="success" path="InfoContact" />
             
-            
-            
+      
         </action>
+        <action
+            path="/MenuCv"
+            type="fr.univartois.ili.fsnet.actions.DisplayCv"
+            input="/DisplayCv.do"
+            validate="true"
+            parameter="display">
+            <forward name="success" path="DisplayCv" />
+            
+      
+        </action>
+     
         </action-mappings>
 		</struts-config>
 		

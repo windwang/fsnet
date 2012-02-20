@@ -403,4 +403,12 @@
 		<put name="body-content" value="/content/createCV/InfoContact.jsp" />
 
 	</definition>
+	
+		<definition name="DisplayCv" extends=".defaultLayout">
+		<put name="title" value="profile.ManageCv" />
+		<put name="body-content" value="/content/createCV/DisplayCv.jsp" />
+
+	</definition>
+	
+	
 </tiles-definitions>
