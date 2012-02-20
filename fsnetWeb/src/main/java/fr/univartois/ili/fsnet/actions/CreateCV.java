@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -27,7 +28,7 @@ public class CreateCV extends MappingDispatchAction{
 	 public ActionForward display(ActionMapping mapping, ActionForm form,
 	            HttpServletRequest request, HttpServletResponse response)
 	            throws IOException, ServletException {
-	        
+		 HttpSession mysession=request.getSession();
 		 DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		 String CvTitle = (String) dynaForm.get("CvTitle");
 		 String CvNom = (String) dynaForm.get("CvNom");
@@ -38,6 +39,16 @@ public class CreateCV extends MappingDispatchAction{
 		 String CvCp = (String) dynaForm.get("CvCp");
 		 String CvPays = (String) dynaForm.get("CvPays");
 		 String CvContact = (String) dynaForm.get("CvContact");
+		 
+		 mysession.setAttribute("CvTitle", CvTitle);
+		 mysession.setAttribute("CvNom", CvNom);
+		 mysession.setAttribute("CvPrenom", CvPrenom);
+		 mysession.setAttribute("CvAdresse", CvAdresse);
+		 mysession.setAttribute("CvVille", CvVille);
+		 mysession.setAttribute("CvPortable", CvPortable);
+		 mysession.setAttribute("CvCp", CvCp);
+		 mysession.setAttribute("CvPays", CvPays);
+		 mysession.setAttribute("CvContact", CvContact);
 		 
 		 ActionErrors errors = new ActionErrors();
 		 int erreur=0;
@@ -80,12 +91,14 @@ public class CreateCV extends MappingDispatchAction{
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
-		 if(CvCp==""){
-			 
-				errors.add("CvCp", new ActionMessage("error.cp"));
-				saveErrors(request, errors);
-				erreur = 1;
-		 }
+		 
+		
+//		 if(CvCp.){
+//			 
+//				errors.add("CvCp", new ActionMessage("error.cp"));
+//				saveErrors(request, errors);
+//				erreur = 1;
+//		 }
 		 if(CvPays==""){
 			 
 				errors.add("CvPays", new ActionMessage("error.pays"));
@@ -98,9 +111,31 @@ public class CreateCV extends MappingDispatchAction{
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
+		 if(CvCp==""){
+				
+				errors.add("CvCp", new ActionMessage("error.cp"));
+				saveErrors(request, errors);
+				erreur = 1;
+		 }
+		 if(CvCp!=""){
+		try{
+			Integer.parseInt(CvCp);
+		}catch(Exception e){
+		
+			 errors.add("CvCp", new ActionMessage("error.cpInt"));
+				saveErrors(request, errors);
+				erreur=1;
+		 }
+		 }
+		
 		 if(erreur==1){
 				return mapping.findForward("unauthorized");
 		 }else
 	        return mapping.findForward("success");
 	    }
+	 public ActionForward Cree(ActionMapping mapping, ActionForm form,
+	            HttpServletRequest request, HttpServletResponse response)
+	            throws IOException, ServletException {
+		 return mapping.findForward("success");
+	 }
 }

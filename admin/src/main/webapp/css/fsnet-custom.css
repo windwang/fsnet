@@ -74,7 +74,6 @@
 
 #menu {
     float:left;
-    width: 70%;
 }
 
 #logout {
@@ -211,15 +210,9 @@ input[type="text"][class="error"], textarea[class="error"] {
     background-image: none;
 }
 
-#menu li a:hover, #menu li a.current {
-    background: url(../images/menu2.gif) no-repeat center bottom;
-}
 
 /*interaction display*/
 .interactionDisplay {
-    float: left;
-    width: 68%;
-    background-color: #ecf8ff;
     padding: 3px;
     margin-right: 10px;
 }
