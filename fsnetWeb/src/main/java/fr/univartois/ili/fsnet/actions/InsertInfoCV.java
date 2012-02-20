@@ -15,6 +15,7 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.entities.MemberCV;
 
 /**
@@ -62,12 +63,18 @@ public class InsertInfoCV extends MappingDispatchAction{
 		 
 		 EntityManager em = PersistenceProvider.createEntityManager();
 		 MemberCV member=new MemberCV();
+		 member.setBirthDate((String) mysession.getAttribute("formatBirthDay"));
+		
+		 member.setTown((String) mysession.getAttribute("CvPays"));		 
 		 member.setAdress((String) mysession.getAttribute("CvAdresse"));
 		 member.setFirstName((String)mysession.getAttribute("CvNom"));
-		 member.setMail((String)mysession.getAttribute("CvAdresse"));
+		 member.setMail((String)mysession.getAttribute("CvContact"));
 		 member.setNumberPhone((String)mysession.getAttribute("CvPortable"));
 		 member.setSurname((String)mysession.getAttribute("CvPrenom"));
 		 member.setPostCode(Integer.parseInt((String) mysession.getAttribute("CvCp")));
+		 member.setSituationFamilly((String)mysession.getAttribute("CvSituation"));
+		 member.setSex((String)mysession.getAttribute("SexeMember"));
+		 
 		 
 		 em.getTransaction().begin();
 			
