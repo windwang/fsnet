@@ -12,7 +12,7 @@
   <legend class="legendHome"><bean:message key="communities.search" /></legend>
   <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
-		<td><html:form action="SearchCommunity" method="GET">
+		<td><html:form action="SearchCommunity" method="get">
 				<div id="SearchCommunity">
 					<html:text property="searchText" styleId="searchTexte" />
 					<ili:placeHolder id="searchTexte" value="${searchMessage}" />

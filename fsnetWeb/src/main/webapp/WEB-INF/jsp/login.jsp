@@ -53,7 +53,7 @@
 		<div id="logo">
 			<table>
 				<tr>
-					<td><img src="images/FSNET.png" /></td>
+					<td><img src="images/FSNET.png" alt="Logo"/></td>
 					<td id="affiche"><p class="quotation">
 							"
 							<bean:message key="welcome.message1" />

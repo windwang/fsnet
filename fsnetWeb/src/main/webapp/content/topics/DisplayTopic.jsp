@@ -72,7 +72,7 @@
             <td class="topicOwner">
                 <ili:getSocialEntityInfos socialEntity="${msg.from}"/>
                 <br/>
-                <img src="avatar/${msg.from.id}.png">
+                <img src="avatar/${msg.from.id}.png" alt="Avatar">
             </td>
             <td class="topicMessage">
                 <c:if test="${not empty msg.body}">

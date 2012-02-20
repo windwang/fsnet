@@ -74,7 +74,7 @@
 </fieldset>
 
 
-<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
+<img src="avatar/${watchedProfile.id}.png" style="float: right;" alt="Avatar"/>
 
 <div class="placeButton">
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
@@ -267,7 +267,7 @@
 
 					</c:when>
 					<c:otherwise>
-						<bean:message key="avatar.member.no.group" />
+						<li><bean:message key="avatar.member.no.group" /></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>

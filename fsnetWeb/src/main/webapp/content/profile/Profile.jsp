@@ -259,7 +259,7 @@
 	</logic:messagesPresent>
 	
 
-    <table align="center" class="inLineTableDashBoardFieldset fieldsetTable">
+    <table  class="inLineTableDashBoardFieldset fieldsetTable">
         <c:forTokens var="typePwd" items="oldPassword:newPassword:confirmNewPassword" delims=":">
             <tr>
                 <td>
@@ -295,12 +295,12 @@
   <legend class="legendHome">
     <bean:message key="updateProfile.changePhoto.title"/></legend>
    <html:form action="/ChangePhoto" enctype="multipart/form-data"><div class="space"></div>
-		<bean:message key="updateProfile.picturesize"/> 
-	<div><table class="inLineTableDashBoardFieldset"><tr><td><label for="photoInternet">
+		<div><bean:message key="updateProfile.picturesize"/></div>
+	<div><table class="inLineTableDashBoardFieldset"><tr><td><label >
                     <bean:message key="updateProfile.photoInternet"/> :
                 </label></td><td>
 	<html:text property="photoUrl"></html:text></td></tr><tr>
-	<td><label for="photoLocal">
+	<td><label >
                     <bean:message key="updateProfile.photoLocal"/> :
                 </label></td>
 	<td><html:file property="photo" size="45"></html:file></td></tr><tr><td colspan="2">
@@ -319,7 +319,7 @@
 </fieldset>
 </ili:interactionFilter>
 
-<img src="avatar/${userId}.png" style="float:right;"/>
+<img src="avatar/${userId}.png" style="float:right;" alt="Avatar"/>
 <html:link action="/DeletePhoto" style="float:right;">
 	<bean:message key="updateProfile.deletePhoto"/>
 </html:link>
