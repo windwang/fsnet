@@ -3,11 +3,11 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.7.3-SNAPSHOT</version>
+		<version>0.7.4-SNAPSHOT</version>
 	</parent>
 	<groupId>fr.univartois.ili.fsnet</groupId>
 	<artifactId>assembler</artifactId>
-	<version>0.7.3-SNAPSHOT</version>
+	<version>0.7.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<description>This module is used to create binary distribution of fsnet on each build</description>
 	<build>
@@ -38,19 +38,19 @@
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>fsnetWeb</artifactId>
-			<version>0.7.3-SNAPSHOT</version>
+			<version>0.7.4-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>webservice</artifactId>
-			<version>0.7.3-SNAPSHOT</version>
+			<version>0.7.4-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
 			<groupId>fr.univartois.ili.fsnet</groupId>
 			<artifactId>admin</artifactId>
-			<version>0.7.3-SNAPSHOT</version>
+			<version>0.7.4-SNAPSHOT</version>
 			<type>war</type>
 		</dependency>
 		<dependency>
