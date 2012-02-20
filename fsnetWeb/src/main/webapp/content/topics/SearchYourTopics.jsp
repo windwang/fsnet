@@ -16,7 +16,7 @@
 <fieldset class="fieldsetAppli">
   <legend class="legendHome"><bean:message key="hubs.searchTopic"/></legend>
   <table class="inLineTableDashBoardFieldset fieldsetTable">
-    <html:form action="/SearchYourTopics" method="GET">
+    <html:form action="/SearchYourTopics" method="get">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/></label></td>
             <td><html:text property="searchText" styleId="topicSujet" />
@@ -41,7 +41,7 @@
             <td>
                 <!-- TODO gerer les favoris -->
                 <img src="images/non-favorite.png" alt="Favorite" onclick="this.src='images/favorite.png';" onmouseover="this.style.cursor='pointer'"/>
-                <img src="images/message.png"/>
+                <img src="images/message.png" alt="Message"/>
             </td>
             <td>
                 <html:link action="/DisplayTopic" title='${empty couple.key.interests? "" : couple.key.interests}'>

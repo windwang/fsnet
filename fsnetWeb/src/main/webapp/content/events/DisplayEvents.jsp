@@ -19,7 +19,7 @@
 
 <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
-		<td><html:form action="/Events" method="GET">
+		<td><html:form action="/Events" method="get">
 				<div id="SearchEvent">
 					<html:text styleId="searchTexte" property="searchString" />
 					<ili:placeHolder id="searchTexte" value="${searchMessage}" />
