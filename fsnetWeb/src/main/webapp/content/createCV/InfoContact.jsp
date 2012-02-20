@@ -15,7 +15,7 @@
 	<div class="en_cv">
 		<div class="entete">
 			<h3>
-				<bean:message key="cv.titre" />
+				<bean:message key="cv.titre" /> 
 			</h3>
 		</div>
 		<div class="corp">
@@ -71,9 +71,25 @@
 			<td><label for="sexe"> <bean:message key="members.sexe" />
 			: </label></td>
 			<td><select name="sexe">
-			<option value=""></option>
-				<option value="<bean:message key="members.sexe.Male" />"><bean:message key="members.sexe.Male" /></option>
-				<option value="<bean:message key="members.sexe.Female" />"><bean:message key="members.sexe.Female" /></option>					
+		
+			<c:choose>
+				<c:when test="${sessionScope.user.sex == 'male'}">
+					<option value=""></option>
+					<option value="male" selected="selected"><bean:message key="members.sexe.Male" /></option>
+					<option value="female"><bean:message key="members.sexe.Female" /></option>	
+				</c:when>
+				<c:when test="${sessionScope.user.sex == 'female'}">
+					<option value=""></option>
+					<option value="male" ><bean:message key="members.sexe.Male" /></option>
+					<option value="female" selected="selected"><bean:message key="members.sexe.Female" /></option>	
+				</c:when>
+				<c:otherwise>
+					<option value=""></option>
+					<option value="male"><bean:message key="members.sexe.Male" /></option>
+					<option value="female"><bean:message key="members.sexe.Female" /></option>	
+				</c:otherwise>
+			</c:choose>			
+			
 			</select></td>
 		</tr>
 				<tr>
@@ -81,7 +97,7 @@
 							:
 					</label></td>
 					<td><html:text property="CvAdresse" styleId="CvAdresse"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.address.address}" /> <logic:messagesPresent
 							property="CvAdresse">
 							<div class="errorMessage">
 								<html:errors property="CvAdresse" />
@@ -93,7 +109,7 @@
 							:
 					</label></td>
 					<td><html:text property="CvVille" styleId="CvVille"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.address.city}"/> <logic:messagesPresent
 							property="CvVille">
 							<div class="errorMessage">
 								<html:errors property="CvVille" />
@@ -127,7 +143,7 @@
 							:
 					</label></td>
 					<td><html:text property="CvPortable" styleId="CvPortable"
-							errorStyleClass="error" /> <logic:messagesPresent
+							errorStyleClass="error" value="${sessionScope.user.phone}"  /> <logic:messagesPresent
 							property="CvPortable">
 							<div class="errorMessage">
 								<html:errors property="CvPortable" />
