@@ -7,7 +7,7 @@
 <bean:define id="searchMessage"><bean:message key="menu.7"/></bean:define>
 
 <div id="search">
-    <html:form action="/SearchMember" method="POST">
+    <html:form action="/SearchMember" method="post">
         <fieldset>
             <html:text styleClass="field" styleId="searchText" property="searchText" />
 			<ili:placeHolder id="searchText" value="${searchMessage}" />

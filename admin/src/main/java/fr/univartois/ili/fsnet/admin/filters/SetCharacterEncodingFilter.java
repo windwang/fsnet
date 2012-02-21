@@ -66,20 +66,20 @@ public class SetCharacterEncodingFilter implements Filter {
      * The default character encoding to set for requests that pass through
      * this filter.
      */
-    protected String encoding = null;
+    private String encoding = null;
 
 
     /**
      * The filter configuration object we are associated with.  If this value
      * is null, this filter instance is not currently configured.
      */
-    protected FilterConfig filterConfig = null;
+    private FilterConfig filterConfig = null;
 
 
     /**
      * Should a character encoding specified by the client be ignored?
      */
-    protected boolean ignore = true;
+    private boolean ignore = true;
 
 
     // --------------------------------------------------------- Public Methods
@@ -114,8 +114,9 @@ public class SetCharacterEncodingFilter implements Filter {
         // Conditionally select and set the character encoding to be used
         if (ignore || (request.getCharacterEncoding() == null)) {
             String encoding = selectEncoding(request);
-            if (encoding != null)
+            if (encoding != null){
                 request.setCharacterEncoding(encoding);
+            }
         }
 
 	// Pass control on to the next filter
@@ -134,14 +135,15 @@ public class SetCharacterEncodingFilter implements Filter {
 	this.filterConfig = filterConfig;
         this.encoding = filterConfig.getInitParameter("encoding");
         String value = filterConfig.getInitParameter("ignore");
-        if (value == null)
+        if (value == null){
             this.ignore = true;
-        else if (value.equalsIgnoreCase("true"))
+        }else if (value.equalsIgnoreCase("true")){
             this.ignore = true;
-        else if (value.equalsIgnoreCase("yes"))
+        }else if (value.equalsIgnoreCase("yes")){
             this.ignore = true;
-        else
+        }else{
             this.ignore = false;
+        }
 
     }
 
@@ -166,6 +168,36 @@ public class SetCharacterEncodingFilter implements Filter {
         return (this.encoding);
 
     }
+
+
+	public String getEncoding() {
+		return encoding;
+	}
+
+
+	public void setEncoding(String encoding) {
+		this.encoding = encoding;
+	}
+
+
+	public FilterConfig getFilterConfig() {
+		return filterConfig;
+	}
+
+
+	public void setFilterConfig(FilterConfig filterConfig) {
+		this.filterConfig = filterConfig;
+	}
+
+
+	public boolean isIgnore() {
+		return ignore;
+	}
+
+
+	public void setIgnore(boolean ignore) {
+		this.ignore = ignore;
+	}
 
 
 }

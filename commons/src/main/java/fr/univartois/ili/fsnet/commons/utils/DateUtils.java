@@ -12,6 +12,11 @@ import java.util.Locale;
  * 
  */
 public class DateUtils {
+	
+	private DateUtils(){
+		
+	}
+	
 	/**
 	 * 
 	 * @param date
@@ -60,9 +65,14 @@ public class DateUtils {
 			"dd/MM/yyyy");
 	private static final DateFormat formatterWithHours = new SimpleDateFormat(
 			"dd/MM/yyyy hh:mm");
+	
+	
 
 	/**
-	 * Return a string representation of the date in parameter
+	 * Return a string representation of the date icalendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+				calendar.get(Calendar.DATE), calendar.get(Calendar.HOUR),
+				calendar.get(Calendar.MINUTE), -1);
+		Date today = calendar.getTime();n parameter
 	 */
 	public static String renderDate(Date date) {
 		return formatter.format(date);
@@ -75,6 +85,9 @@ public class DateUtils {
 	public static String renderDateWithHours(Date date) {
 		return formatterWithHours.format(date);
 	}
+	
+
+	
 
 	/**
 	 * @param date
@@ -84,8 +97,7 @@ public class DateUtils {
 		SimpleDateFormat usFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
 		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
 		cal.setTime(date);
-		String usDate = usFormat.format(cal.getTime());
-		return usDate;
+		return usFormat.format(cal.getTime());
 	}
 
 	/**
@@ -96,8 +108,51 @@ public class DateUtils {
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
 		cal.setTime(date);
+		return dbDateFormat.format(cal.getTime());
+	}
+	
+	public static String renderDBDateWithSecond(Date date) {
+		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.FRANCE);
+		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
+		cal.setTime(date);
 		String dbDate = dbDateFormat.format(cal.getTime());
 		return dbDate;
+	}
+	
+	
+	
+	public static Date substractTimeToDate(Date date,int time,String type){
+		if(date == null){
+			return null;
+		}
+		Calendar calendar = Calendar.getInstance();
+		calendar.setTime(date);
+		
+		if(type.equals("minute")){
+			calendar.add(Calendar.MINUTE, time*-1);
+		}	
+		else{
+			if(type.equals("hour")){
+				calendar.add(Calendar.HOUR, time*-1);
+			}
+			else
+				calendar.add(Calendar.DATE, time*-1);	
+		}
+		return calendar.getTime();
+	}
+	
+	/**
+	 * 
+	 * @param date, date
+	 * @return string represent the difference between two date in minutes
+	 * 
+	 */
+	public static long differenceBetweenTwoDateInMinutes(Date date1, Date date2){
+		Calendar calendar1 = Calendar.getInstance();
+		Calendar calendar2 = Calendar.getInstance();
+		calendar1.setTime(date1);
+		calendar2.setTime(date2);
+		return (calendar1.getTimeInMillis()-calendar2.getTimeInMillis())/60000;
 	}
 
 }

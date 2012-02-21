@@ -59,6 +59,14 @@
 				<arg0 key="events.24" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 			</field>
+			<field property="eventRecallTime" depends="maxlength">
+		        <var>
+		        	<var-name>maxlength</var-name>
+		        	<var-value>10</var-value>
+		        </var>
+				<arg0 key="event.recall" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+			</field>
 		</form>
 	</formset>
 </form-validation>

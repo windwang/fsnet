@@ -105,12 +105,14 @@ public class SocialGroup extends SocialElement implements Serializable {
 	 * @return true if it has this {@link Right}
 	 */
 	public boolean isAuthorized(Right right) {
-		if (rights.contains(right))
+		if (rights.contains(right)){
 			return true;
+		}
 
 		SocialGroup father = getGroup();
-		if (father != null)
+		if (father != null){
 			return father.isAuthorized(right);
+		}
 
 		return false;
 	}
@@ -208,8 +210,9 @@ public class SocialGroup extends SocialElement implements Serializable {
 
 	public void setMasterGroup(SocialEntity masterGroup) {
 		SocialGroup oldSocialGroup = masterGroup.getGroup();
-		if (!this.equals(oldSocialGroup) && oldSocialGroup != null)
+		if (!this.equals(oldSocialGroup) && oldSocialGroup != null){
 			oldSocialGroup.removeSocialElement(masterGroup);
+		}
 		this.addSocialElement(masterGroup);
 		this.masterGroup = masterGroup;
 	}
@@ -222,47 +225,77 @@ public class SocialGroup extends SocialElement implements Serializable {
 		this.name = name;
 	}
 
-	/*
-	 * public SocialEntity getCreator() { return creator; }
-	 * 
-	 * public void setCreator(SocialEntity creator) { this.creator = creator; }
-	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result
+				+ ((isEnabled == null) ? 0 : isEnabled.hashCode());
+		result = prime * result
+				+ ((masterGroup == null) ? 0 : masterGroup.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((rights == null) ? 0 : rights.hashCode());
+		result = prime * result
+				+ ((socialElements == null) ? 0 : socialElements.hashCode());
+		return result;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
-		if (obj == null) {
+		if (this == obj){
+			return true;
+		}
+		if (obj == null){
 			return false;
 		}
-
-		if (getClass() != obj.getClass()) {
-
+		if (getClass() != obj.getClass()){
 			return false;
 		}
-
-		final SocialGroup other = (SocialGroup) obj;
-
-		if ((this.name == null) ? (other.name != null) : !this.name
-				.equals(other.name)) {
-
+		SocialGroup other = (SocialGroup) obj;
+		if (description == null) {
+			if (other.description != null){
+				return false;
+			}
+		} else if (!description.equals(other.description)){
 			return false;
 		}
-		if ((this.description == null) ? (other.description != null)
-				: !this.description.equals(other.description)) {
-
+		if (isEnabled == null) {
+			if (other.isEnabled != null){
+				return false;
+			}
+		} else if (!isEnabled.equals(other.isEnabled)){
 			return false;
 		}
-		if (!this.masterGroup.equals(other.masterGroup)) {
-
+		if (masterGroup == null) {
+			if (other.masterGroup != null){
+				return false;
+			}
+		} else if (!masterGroup.equals(other.masterGroup)){
 			return false;
 		}
-		if (this.isEnabled != other.isEnabled) {
-
+		if (name == null) {
+			if (other.name != null){
+				return false;
+			}
+		} else if (!name.equals(other.name)){
 			return false;
 		}
-		if (this.socialElements.size() != other.socialElements.size()) {
+		if (rights == null) {
+			if (other.rights != null){
+				return false;
+			}
+		} else if (!rights.equals(other.rights)){
 			return false;
 		}
-
+		if (socialElements == null) {
+			if (other.socialElements != null){
+				return false;
+			}
+		} else if (!socialElements.equals(other.socialElements)){
+			return false;
+		}
 		return true;
 	}
 }

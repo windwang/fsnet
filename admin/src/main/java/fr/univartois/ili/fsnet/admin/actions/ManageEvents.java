@@ -158,8 +158,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
-		SocialEntity member = event.getCreator();
-
 		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
 				em);
 		// boolean isSubscriber = interactionRoleFacade.isSubsriber(member,

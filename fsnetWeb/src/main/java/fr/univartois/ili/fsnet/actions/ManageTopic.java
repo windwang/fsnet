@@ -40,14 +40,23 @@ import fr.univartois.ili.fsnet.facade.TopicMessageFacade;
  */
 public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#create(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String topicSujet = (String) dynaForm.get("topicSubject"); 
+		String topicSujet = (String) dynaForm.get("topicSubject");
 		String messageDescription = (String) dynaForm.get("messageDescription");
 		int hubId = Integer.valueOf(Integer.parseInt(dynaForm
 				.getString("hubId")));
@@ -76,17 +85,35 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#modify(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		return null;
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#delete(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
 		int topicId = Integer.valueOf((String) dynaForm.get("topicId"));
@@ -100,23 +127,32 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic topic = topicFacade.getTopic(topicId);
 		hub.getTopics().remove(topic);
-		for(SocialEntity se : topic.getFollowingEntitys()){
+		for (SocialEntity se : topic.getFollowingEntitys()) {
 			se.getFavoriteInteractions().remove(topic);
 		}
 		interactionFacade.deleteInteraction(user, topic);
-		try{
+		try {
 			em.getTransaction().commit();
-		}catch(RollbackException e){
+		} catch (RollbackException e) {
 			servlet.log("commit error", e);
 		}
 		em.close();
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#search(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String topicSujet = (String) dynaForm.get("topicSujetSearch");
@@ -126,7 +162,6 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		Hub hub = hubFacade.getHub(hubId);
 		TopicFacade topicFacade = new TopicFacade(em);
 		List<Topic> result = topicFacade.searchTopic(topicSujet, hub);
-
 
 		for (Topic t : result) {
 			List<TopicMessage> messages = t.getMessages();
@@ -138,26 +173,36 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		}
 
 		em.close();
-		
+
 		// TODO modify paginator for accepting HasMap
-		
+
 		request.setAttribute("hubResult", hub);
 		request.setAttribute("topicsLastMessage", topicsLastMessage);
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#display(org.apache.struts.
+	 * action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
-		//TODO Use DynaForm to get topicId
+			throws IOException, ServletException {
+		// TODO Use DynaForm to get topicId
 		int topicId = Integer.valueOf(request.getParameter("topicId"));
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic result = topicFacade.getTopic(topicId);
 
-		Paginator<TopicMessage> paginator = new Paginator<TopicMessage>(result.getMessages(), request, "displayTopic", "topicId");
+		Paginator<TopicMessage> paginator = new Paginator<TopicMessage>(
+				result.getMessages(), request, "displayTopic", "topicId");
 		request.setAttribute("topicMessageDisplayPaginator", paginator);
 		request.setAttribute("topic", result);
 
@@ -165,9 +210,18 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 	}
 
-	public ActionForward searchYourTopics(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-	throws IOException, ServletException {
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward searchYourTopics(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -177,11 +231,14 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 		Hub hub = em.find(Hub.class, hubId);
 
-		if (pattern==null) {
+		if (pattern == null) {
 			pattern = "";
 		}
 		em.getTransaction().begin();
-		TypedQuery<Topic> query = em.createQuery("SELECT topic FROM Topic topic WHERE topic.title LIKE :pattern AND topic.hub = :hub AND topic.creator = :creator", Topic.class);
+		TypedQuery<Topic> query = em
+				.createQuery(
+						"SELECT topic FROM Topic topic WHERE topic.title LIKE :pattern AND topic.hub = :hub AND topic.creator = :creator",
+						Topic.class);
 		query.setParameter("pattern", "%" + pattern + "%");
 		query.setParameter("hub", hub);
 		query.setParameter("creator", creator);

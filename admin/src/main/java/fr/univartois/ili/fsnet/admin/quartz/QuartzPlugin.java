@@ -5,15 +5,15 @@ import javax.servlet.ServletException;
 import org.apache.struts.action.ActionServlet;
 import org.apache.struts.action.PlugIn;
 import org.apache.struts.config.ModuleConfig;
-import org.quartz.CronTrigger;
 import org.quartz.JobDetail;
 import org.quartz.Scheduler;
 import org.quartz.SchedulerException;
+import org.quartz.Trigger;
 import org.quartz.impl.StdSchedulerFactory;
 
 import static org.quartz.JobBuilder.*;
-import static org.quartz.CronScheduleBuilder.*;
 import static org.quartz.TriggerBuilder.*;
+import static org.quartz.SimpleScheduleBuilder.*;
 
 /**
  * Plugin quartz : task scheduler
@@ -44,13 +44,16 @@ public class QuartzPlugin implements PlugIn {
 			throws ServletException {
 		try {
 			JobDetail job = newJob(PreventIncomingEventsJob.class)
-					.withIdentity("myJob", "group 1").build();
+		           .withIdentity("PreventIncomingEventsJob","group 1")
+		           .build();
 
-			// activate the job every day at 0:30
-			CronTrigger trigger = newTrigger()
-					.withIdentity("trigger", "group1")
-					.withSchedule(dailyAtHourAndMinute(0, 30)).build();
-
+			Trigger trigger =  newTrigger()
+					.withIdentity("PreventIncomingEventsTrigger", "group1")
+					.withSchedule(simpleSchedule()
+					        .withIntervalInMinutes(1)
+					        .repeatForever())
+				    .build();
+				   
 			Scheduler scheduler = new StdSchedulerFactory().getScheduler();
 			scheduler.start();
 			scheduler.scheduleJob(job, trigger);

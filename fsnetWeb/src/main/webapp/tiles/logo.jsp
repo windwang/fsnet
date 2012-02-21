@@ -5,16 +5,16 @@
 <div id="logo2">
 	<c:choose>
 		<c:when test="${sessionScope.hisGroup != null}">
-		<img src="groups/${sessionScope.parentGroupId}.png" /> 
+		<img src="groups/${sessionScope.parentGroupId}.png" alt="GroupLogo"/> 
 		</c:when>
 		<c:otherwise>
-			<img src="/images/FSNET.png" /> 
+			<img src="/images/FSNET.png" alt="Logo"/> 
 		</c:otherwise>
 	</c:choose>
 
 </div>
 <html:link action="/DisplayProfile" styleId="userPicture">
-	<img src="avatar/${sessionScope.userId}.png" />
+	<img src="avatar/${sessionScope.userId}.png" alt="Avatar"/>
 </html:link>
 
 <div class="group">
@@ -33,13 +33,13 @@
 	<br>
 	<c:choose>
 		<c:when test="${isMasterGroup}">
-			<html:link action="DisplayProfile.do" styleId="">
+			<html:link action="DisplayProfile.do">
 				<bean:message key="left.group.manager" />
 			</html:link>
 		</c:when>
 		<c:otherwise>
 			<c:if test="${isGroupResponsible}">
-				<html:link action="DisplayProfile.do" styleId="">
+				<html:link action="DisplayProfile.do">
 					<bean:message key="left.group.responsible" />
 				</html:link>
 			</c:if>
@@ -47,10 +47,5 @@
 	</c:choose>
 </div>
 
-<style>
-.group {
-	float: left;
-	clear: left;
-}
-</style>
+
 

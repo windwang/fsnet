@@ -65,7 +65,7 @@
 			</td>
 		</tr>
 		<tr>
-			<td><label for="parentId"> <bean:message
+			<td><label > <bean:message
 				key="members.group" /> : </label></td>
 			<td colspan="3"><html:select property="parentId"
 				styleClass="select">

@@ -7,6 +7,7 @@
     
     	<form-bean name="CVForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="formatBirthDay" type="java.lang.String" />		
 			<form-property name="CvTitle" type="java.lang.String" />
 			<form-property name="CvNom" type="java.lang.String" />
 			<form-property name="CvPrenom" type="java.lang.String" />

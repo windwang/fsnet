@@ -36,19 +36,23 @@ public class InteractionsFilter extends TagSupport {
 	@Override
 	public int doStartTag() throws JspException {
 		SocialGroup socialGroup;
-		if(user == null || right == null)
+		if(user == null || right == null){
 			return SKIP_BODY;
+		}
 		
 		socialGroup = user.getGroup();
 		//no group, no rights
-		if(socialGroup == null)
+		if(socialGroup == null){
 			return SKIP_BODY;
+		}
 		//super admin
-		if(socialGroup.getGroup() == null && socialGroup.getMasterGroup().equals(user))
+		if(socialGroup.getGroup() == null && socialGroup.getMasterGroup().equals(user)){
 			return EVAL_BODY_INCLUDE;
+		}
 		//regular rights
-		if(socialGroup.isAuthorized(right))
+		if(socialGroup.isAuthorized(right)){
 			return EVAL_BODY_INCLUDE;
+		}
 		
 		return SKIP_BODY;
 	}
