@@ -131,10 +131,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 
-		Paginator<Meeting> paginator = new Paginator<Meeting>(results, request,
-				"eventsLists");
-
-		request.setAttribute("eventsListPaginator", paginator);
+		request.setAttribute("eventsList", results);
 		return mapping.findForward("success");
 	}
 

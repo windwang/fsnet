@@ -35,7 +35,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 /**
  * Execute CRUD Actions (and more) for the entity SocialGroup
  * 
- * @author SAID mohamed
+ * @author SAID mohamed 
  * @author Bouragba mohamed
  */
 public class ManageGroups extends MappingDispatchAction implements CrudAction {
@@ -275,14 +275,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 			em.close();
 			if (resultOthers != null) {
-
 				List<SocialGroup> resultOthersList = new ArrayList<SocialGroup>(
 						resultOthers);
-				Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
-						resultOthersList, request, "groupsList");
-				request.setAttribute("groupsListPaginator", paginator);
+				request.setAttribute("groupsList", resultOthersList);
 			} else
-				request.setAttribute("groupsListPaginator", null);
+				request.setAttribute("groupsList", null);
 		} else {
 			query = em
 					.createQuery(
@@ -292,10 +289,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 			em.close();
 
-			Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
-					resultOthersList, request, "groupsList");
-
-			request.setAttribute("groupsListPaginator", paginator);
+			request.setAttribute("groupsList", resultOthersList);
 		}
 
 		return mapping.findForward("success");

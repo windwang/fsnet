@@ -3,7 +3,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <link rel=stylesheet type="text/css" href="css/osx.css" />
-<script type="text/javascript" src="js/jquery.js"></script>
+<!-- <script type="text/javascript" src="js/jquery.js"></script> -->
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 
@@ -26,12 +26,37 @@
   <legend class="legendAdmin"><bean:message key="members.listMembers" /></legend>
   <c:choose>
 	<c:when
-		test="${not empty requestScope.membersListPaginator.resultList}">
-		<table class="inLineTable fieldsetTableAdmin">
+		test="${not empty requestScope.membersList}">
+			<script type="text/javascript">
+				$(document).ready(
+						function pagination() {
+							var nomTable = "memberTable";
+							var idColonneATrier = 0;
+							var sensDeTri = "asc";
+							var aoColumns = [ null, null, {
+								"bSortable" : false
+							} ];
+							miseEnPageTable(nomTable, idColonneATrier,
+									sensDeTri, aoColumns, false);
+						});
+			</script>
+			<table id="memberTable"
+				class="inLineTable fieldsetTableAdmin tablesorter">
+				<thead>
+					<tr>
+						<th><bean:message key="tableheader.name" /></th>
+						<th><bean:message key="tableheader.firstname" /></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
 			<c:forEach var="member"
-				items="${requestScope.membersListPaginator.resultList}">
+				items="${requestScope.membersList}">
 				<tr class="content">
-					<td><html:link action="/DisplayMember">${member.name} ${member.firstName}
+					<td><html:link action="/DisplayMember">${member.name}
+                		<html:param name="idMember" value="${member.id}" />
+					</html:link></td>
+					<td><html:link action="/DisplayMember">${member.firstName}
                 		<html:param name="idMember" value="${member.id}" />
 					</html:link></td>
 					<td class="tableButton"><c:choose>
@@ -57,12 +82,8 @@
 					</c:choose></td>
 				</tr>
 			</c:forEach>
+			</tbody>
 		</table>
-		<c:set var="paginatorInstance"
-			value="${requestScope.membersListPaginator}" scope="request" />
-		<c:set var="paginatorAction" value="/MemberList" scope="request" />
-		<c:set var="paginatorTile" value="membersList" scope="request" />
-		<c:import url="/content/pagination/Pagination.jsp" />
 	</c:when>
 	<c:otherwise>
 	    <table class="inLineTable fieldsetTableAdmin"><tr><td>
