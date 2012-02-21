@@ -25,6 +25,8 @@ public class ManageVisits  extends MappingDispatchAction {
 	public void lastVisitsSinceLastConnection(ActionMapping mapping, HttpServletRequest request,
 			HttpServletResponse response, EntityManager em,
 			SocialEntity authenticatedUser){
+		
+		
 		//recovery of visitors
 		ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
 		Date LastConnectionSession=(Date) request.getSession().getAttribute("LastConnection");
@@ -36,13 +38,15 @@ public class ManageVisits  extends MappingDispatchAction {
 		//recovery of visitors before the last connection
 		List<ProfileVisite> lastVisitorsBeforeLastConnection = new ArrayList<ProfileVisite>();
 		
+		
 		for(int i=0;i<lastVisitors.size();i++){
-			if(lastVisitors.get(i).getVisitor().getLastConnection().after(LastConnectionSession)){
+			if(lastVisitors.get(i).getLastVisite().after(LastConnectionSession)){
 				newLastvisitors.add(lastVisitors.get(i));
 			}else{
 				lastVisitorsBeforeLastConnection.add(lastVisitors.get(i));
 			}
 		}
+		
 		
 		//paging list of recent visitors since my last connection
 		request.setAttribute("lastVisitors", newLastvisitors);
@@ -56,7 +60,9 @@ public class ManageVisits  extends MappingDispatchAction {
 		
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(request, em);
+		
 		lastVisitsSinceLastConnection(mapping, request, response, em, authenticatedUser);
+		
 		em.close();
 		return mapping.findForward("success");
 	}
@@ -81,7 +87,7 @@ public class ManageVisits  extends MappingDispatchAction {
 		
 		int numNewVisits = 0;
 		for (int i = 0; i < lastVisitors.size(); i++) {
-			if (lastVisitors.get(i).getVisitor().getLastConnection()
+			if (lastVisitors.get(i).getLastVisite()
 					.after(LastConnectionSession)) {
 				numNewVisits++;
 			}
