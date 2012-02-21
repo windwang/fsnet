@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  * 
@@ -16,7 +17,7 @@ public class Meeting extends Announcement {
 
 	@Embedded
 	private Address address;
-	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
+	@Temporal(javax.persistence.TemporalType.DATE)
 	private Date startDate;
 
 	/**
