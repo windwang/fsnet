@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import java.sql.Date;
 import java.util.List;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.persistence.EntityManager;
@@ -16,8 +17,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
-
-import com.sun.tools.example.debug.expr.ParseException;
 
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.AssociationDateTrainingCV;
@@ -35,12 +34,12 @@ import fr.univartois.ili.fsnet.entities.TrainingCV;
 public class InsertInfoCV extends MappingDispatchAction{
 	  public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 	  
-	    public static Date stringToDate(String sDate) throws ParseException, java.text.ParseException {
+	    public static Date stringToDate(String sDate) throws ParseException {
 	        return (Date) formatter.parse(sDate);
 	    }
 	 public ActionForward display(ActionMapping mapping, ActionForm form,
 	            HttpServletRequest request, HttpServletResponse response)
-	            throws IOException, ServletException, ParseException, java.text.ParseException {
+	            throws IOException, ServletException, ParseException {
 		 AssociationDateTrainingCV dateTaining=new AssociationDateTrainingCV();
 		 EstablishmentCV etab=new EstablishmentCV();
 		 Curriculum curriculum=new Curriculum();
