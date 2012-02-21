@@ -57,8 +57,9 @@ public class FilterInteractionByUserGroup {
 		/* filter interaction */
 		for (T interaction : listInteraction) {
 			SocialEntity socialEntity = interaction.getCreator();
-			if(listSocialEntity.contains(socialEntity))
+			if(listSocialEntity.contains(socialEntity)){
 				listFilterInteraction.add(interaction);
+			}
 		}
 		return listFilterInteraction;
 		

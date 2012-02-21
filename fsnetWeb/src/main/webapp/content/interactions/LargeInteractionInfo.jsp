@@ -42,7 +42,7 @@
 	                        <html:link action="/RemoveInterestOfInteraction">
 								<html:param name="interactionId" value="${theInteraction.id}" />
 								<html:param name="interestId" value="${interest.id}" />
-								<img src="images/mini-delete.png" />
+								<img src="images/mini-delete.png" alt="delete"/>
 							</html:link>
 						</c:if>
                     </span>

@@ -174,10 +174,7 @@
 	</table>
 </html:form>
 </fieldset>
-<style>
-select {
-	min-width: 200px;
-}
+
 </style>
 
 <script type="text/javascript">

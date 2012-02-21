@@ -30,7 +30,7 @@
 <fieldset class="fieldsetAppli">
   <legend class="legendHome"><bean:message key="hubs.searchTopic"/></legend>
   <table  class="inLineTableDashBoardFieldset fieldsetTable">
-    <html:form action="/SearchTopic" method="GET">
+    <html:form action="/SearchTopic" method="get">
         <tr>
             <td><label><bean:message key="hubs.subjectTopic"/> :</label></td>
             <td><html:text property="topicSujetSearch" styleId="topicSujet" />

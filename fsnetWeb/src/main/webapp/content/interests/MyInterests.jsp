@@ -18,7 +18,7 @@
                     <span class="tag">
                         <html:link action="/RemoveInterest">
                             <html:param name="removedInterestId" value="${interest.id}"/>
-                            <img src="images/mini-delete.png" />
+                            <img src="images/mini-delete.png" alt="delete"/>
                         </html:link>
                         <html:link action="/InterestInformations">
                             <html:param name="infoInterestId" value="${interest.id}"/>

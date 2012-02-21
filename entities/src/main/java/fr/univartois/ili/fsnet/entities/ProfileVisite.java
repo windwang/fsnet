@@ -121,28 +121,37 @@ public class ProfileVisite implements Serializable{
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj)
+		if (this == obj){
 			return true;
-		if (obj == null)
+		}
+		if (obj == null){
 			return false;
-		if (getClass() != obj.getClass())
+		}
+		if (getClass() != obj.getClass()){
 			return false;
+		}
 		ProfileVisite other = (ProfileVisite) obj;
 		if (lastVisite == null) {
-			if (other.lastVisite != null)
+			if (other.lastVisite != null){
 				return false;
-		} else if (!lastVisite.equals(other.lastVisite))
+			}
+		} else if (!lastVisite.equals(other.lastVisite)){
 			return false;
+		}
 		if (visited == null) {
-			if (other.visited != null)
+			if (other.visited != null){
 				return false;
-		} else if (!visited.equals(other.visited))
+			}
+		} else if (!visited.equals(other.visited)){
 			return false;
+		}
 		if (visitor == null) {
-			if (other.visitor != null)
+			if (other.visitor != null){
 				return false;
-		} else if (!visitor.equals(other.visitor))
+			}
+		} else if (!visitor.equals(other.visitor)){
 			return false;
+		}
 		return true;
 	}
 	

@@ -13,6 +13,11 @@ public class Encryption {
 
     private static final Random random = new Random(new Date().getTime());
 
+    private Encryption(){
+    	
+    }
+    
+    
     /**
      * @param key
      * @return
@@ -20,7 +25,7 @@ public class Encryption {
     public static String getEncodedPassword(final String key) {
         byte[] uniqueKey;
         uniqueKey = key.getBytes();
-        byte[] hash = null;
+        byte[] hash;
         try {
             hash = MessageDigest.getInstance("MD5").digest(uniqueKey);
         } catch (NoSuchAlgorithmException e) {

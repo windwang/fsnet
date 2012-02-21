@@ -1,13 +1,23 @@
 package fr.univartois.ili.fsnet.facade.security;
 
 public class UnauthorizedOperationException extends RuntimeException {
-	
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	/**
 	 * The unique constructor of this class.
-	 * @param key the resource bundle key that represents the message to show to an user
+	 * 
+	 * @param key
+	 *            the resource bundle key that represents the message to show to
+	 *            an user
 	 */
+
 	public UnauthorizedOperationException(String key) {
-		
+		// TODO Complete this method and use it, to take care of unauthorized
+		// operation performed by users
 	}
 
 }

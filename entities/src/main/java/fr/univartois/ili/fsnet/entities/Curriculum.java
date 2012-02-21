@@ -29,6 +29,7 @@ public class Curriculum implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
+	private String titleCv;
 
 	@OneToOne
 	private MemberCV member;
@@ -48,6 +49,22 @@ public class Curriculum implements Serializable {
 	public Curriculum() {
 
 	}
+	/**
+	 * @return the titleCv
+	 */
+	
+	public String getTitleCv() {
+		return titleCv;
+	}
+
+	/**
+	 * @param titleCv
+	 *            the titleCv to set
+	 */
+	public void setTitleCv(String titleCv) {
+		this.titleCv = titleCv;
+	}
+
 
 	/**
 	 * @return the member

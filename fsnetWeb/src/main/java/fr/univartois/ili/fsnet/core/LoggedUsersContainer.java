@@ -10,7 +10,7 @@ import java.util.logging.Logger;
  * 
  * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
-public class LoggedUsersContainer {
+public final class LoggedUsersContainer {
 	
 	private static final Logger LOGGER = Logger.getLogger(LogoutListener.class.getSimpleName());
 

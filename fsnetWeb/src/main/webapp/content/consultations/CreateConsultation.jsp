@@ -6,7 +6,7 @@
 <fieldset class="fieldsetAppli">
   <legend class="legendHome"><bean:message key="consultation.create"/></legend>
   <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
-  <html:form action="CreateConsultation" method="POST">
+  <html:form action="CreateConsultation" method="post">
 	<fieldset class="inLinefieldset">
 	<legend><bean:message key="consultation.information" /></legend>
 	<div class="errorMessage" ><html:errors property="consultationTitle"/></div> 

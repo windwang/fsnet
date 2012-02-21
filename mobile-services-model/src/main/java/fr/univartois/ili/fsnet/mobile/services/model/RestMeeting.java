@@ -11,14 +11,51 @@ public class RestMeeting {
 	public RestMeeting() {
 	}
 
+
 	@Override
 	public int hashCode() {
-		int hash = 5;
-		hash = 19 * hash + (this.title != null ? this.title.hashCode() : 0);
-		hash = 19 * hash + (this.from != null ? this.from.hashCode() : 0);
-		hash = 19 * hash + this.meetingId;
-		return hash;
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((from == null) ? 0 : from.hashCode());
+		result = prime * result + meetingId;
+		result = prime * result + ((title == null) ? 0 : title.hashCode());
+		return result;
 	}
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj){
+			return true;
+		}
+		if (obj == null){
+			return false;
+		}
+		if (getClass() != obj.getClass()){
+			return false;
+		}
+		RestMeeting other = (RestMeeting) obj;
+		if (from == null) {
+			if (other.from != null){
+				return false;
+			}
+		} else if (!from.equals(other.from)){
+			return false;
+		}
+		if (meetingId != other.meetingId){
+			return false;
+		}
+		if (title == null) {
+			if (other.title != null){
+				return false;
+			}
+		} else if (!title.equals(other.title)){
+			return false;
+		}
+		return true;
+	}
+
+
 
 	public void setTitle(String title) {
 		this.title = title;

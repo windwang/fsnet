@@ -24,6 +24,10 @@ public class PersistenceProvider {
 	private static EntityManagerFactory factory = Persistence
 			.createEntityManagerFactory("fsnetjpa", lOptions);
 
+	
+	private PersistenceProvider(){
+		
+	}
 	/**
 	 * @return
 	 */

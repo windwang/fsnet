@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.actions.utils;
 
+import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Date;
 
@@ -7,7 +8,12 @@ import org.apache.commons.validator.routines.DateValidator;
 
 import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 
-public class ConsultationChoiceComparator implements Comparator<ConsultationChoice> {
+public class ConsultationChoiceComparator implements Comparator<ConsultationChoice> , Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Override
 	public int compare(ConsultationChoice c1, ConsultationChoice c2) {

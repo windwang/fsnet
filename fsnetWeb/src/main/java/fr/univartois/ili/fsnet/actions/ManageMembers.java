@@ -23,6 +23,10 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 
+/**
+ * @author FSNet
+ *
+ */
 public class ManageMembers extends MappingDispatchAction {
 
 	/**
@@ -64,14 +68,16 @@ public class ManageMembers extends MappingDispatchAction {
 		resultOthers = results.get(SearchResult.Others);
 		resultOthers.retainAll(membersVisibleByCurrentMember);
 		em.getTransaction().commit();
-		if(sgf.isMasterGroup(member))
+		if(sgf.isMasterGroup(member)){
 			request.getSession(true).setAttribute("isMasterGroup", true);
-		else 
+		}else{ 
 			request.getSession(true).setAttribute("isMasterGroup", false);
-		if(sgf.isGroupResponsible(member))
+		}
+		if(sgf.isGroupResponsible(member)){
 			request.getSession(true).setAttribute("isGroupResponsible", true);
-		else 
+		}else{ 
 			request.getSession(true).setAttribute("isGroupResponsible", false);
+		}
 		em.close();
 	
 
