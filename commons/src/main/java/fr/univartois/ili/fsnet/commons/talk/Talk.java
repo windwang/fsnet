@@ -185,7 +185,6 @@ public class Talk implements ITalk {
 			System.out.println("authenticated ");
 
 		} catch (XMPPException e) {
-			System.out.println(" coucouc 1 account " + login);
 			if ((e.getLocalizedMessage().contains("authentication failed") || e
 					.getLocalizedMessage().contains("SASL authentication"))
 
