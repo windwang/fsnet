@@ -133,7 +133,7 @@ public class DateUtils {
 		}	
 		else{
 			if(type.equals("hour")){
-				calendar.add(Calendar.HOUR, time*-1);
+				calendar.add(Calendar.HOUR_OF_DAY, time*-1);
 			}
 			else
 				calendar.add(Calendar.DATE, time*-1);	
