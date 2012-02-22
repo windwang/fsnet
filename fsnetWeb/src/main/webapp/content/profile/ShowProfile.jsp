@@ -259,7 +259,7 @@
 		<td>
 			<ul>
 				<c:choose>
-					<c:when test="${requestScope.treeGroupProfile}">
+					<c:when test="${requestScope.treeGroupProfile ne ''}">
 						<html:link action="/DisplayInformationGroup">
 							<html:param name="idGroup" value="${ socialGroup.id }" />
 							<li>${requestScope.treeGroupProfile}</li>
