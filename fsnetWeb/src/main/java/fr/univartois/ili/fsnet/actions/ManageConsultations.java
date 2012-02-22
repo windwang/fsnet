@@ -661,7 +661,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade inf = new InteractionFacade(em);
 		List<Interaction> list = inf.getUnreadInteractionsForSocialEntity(user);
-
+		
 		int numNonReedConsultations = Interaction.filter(list,
 				Consultation.class).size();
 		session.setAttribute("numNonReedConsultations", numNonReedConsultations);

@@ -256,7 +256,7 @@ public class InteractionFacade {
 					list.add(interaction.getId());
 				}
 
-			}			
+			}
 		}
 
 		return list;
