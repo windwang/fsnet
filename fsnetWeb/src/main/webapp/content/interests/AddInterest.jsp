@@ -16,7 +16,7 @@
 	            <c:forEach var="interest" items="${requestScope.addInterestPaginator.resultList}">
 	                <div class="otag">
 	                    <html:link action="/AddInterest">
-	                        <img src="images/add.png"/>
+	                        <img src="images/add.png" alt="add"/>
 	                        <html:param name="addedInterestId" value="${interest.id}"/>
 	                    </html:link>
 	                    <html:link action="/InterestInformations">

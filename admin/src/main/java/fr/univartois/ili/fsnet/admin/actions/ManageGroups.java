@@ -82,9 +82,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 			SocialEntity masterGroup = socialEntityFacade
 					.getSocialEntity(Integer.valueOf(owner));
-			if (!parent.equals(""))
+			if (!parent.equals("")) {
 				parentGroup = socialGroupFacade.getSocialGroup(Integer
 						.parseInt(parent));
+			}
 			List<SocialElement> socialElements = createSocialElement(em,
 					membersAccepted, groupsAccepted, masterGroup, parentGroup);
 			try {
@@ -164,9 +165,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("socialEntityId", "");
 		String parent = (String) dynaForm.get("parentId");
 		dynaForm.set("parentId", "");
-		if (!parent.equals(""))
+		if (!parent.equals("")) {
 			newParentGroup = socialGroupFacade.getSocialGroup(Integer
 					.parseInt(parent));
+		}
 		String[] membersAccepted = (String[]) dynaForm.get("memberListRight");
 		String[] groupsAccepted = (String[]) dynaForm.get("groupListRight");
 		String[] rigthsAccepted = (String[]) dynaForm.get("rigthListRight");
@@ -275,14 +277,12 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 			em.close();
 			if (resultOthers != null) {
-
 				List<SocialGroup> resultOthersList = new ArrayList<SocialGroup>(
 						resultOthers);
-				Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
-						resultOthersList, request, "groupsList");
-				request.setAttribute("groupsListPaginator", paginator);
-			} else
-				request.setAttribute("groupsListPaginator", null);
+				request.setAttribute("groupsList", resultOthersList);
+			} else {
+				request.setAttribute("groupsList", null);
+			}
 		} else {
 			query = em
 					.createQuery(
@@ -292,10 +292,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 			em.close();
 
-			Paginator<SocialGroup> paginator = new Paginator<SocialGroup>(
-					resultOthersList, request, "groupsList");
-
-			request.setAttribute("groupsListPaginator", paginator);
+			request.setAttribute("groupsList", resultOthersList);
 		}
 
 		return mapping.findForward("success");
@@ -362,10 +359,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		String id = request.getParameter("idGroup");
 
-		if (id == null)
+		if (id == null) {
 			id = (String) session.getAttribute("idGroup");
-		else
+		} else {
 			session.setAttribute("idGroup", id);
+		}
 		Integer idGroup = Integer.valueOf(id);
 		SocialGroup group = socialGroupFacade.getSocialGroup(idGroup);
 		SocialEntity masterGroup = group.getMasterGroup();
@@ -417,8 +415,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	private Set<Right> getAcceptedRigth(String[] groupsAccepted) {
 		Set<Right> rights = new HashSet<Right>();
 
-		for (String string : groupsAccepted)
+		for (String string : groupsAccepted) {
 			rights.add(Right.valueOf(string));
+		}
 
 		return rights;
 	}
@@ -438,16 +437,20 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialElement> socialElements = new ArrayList<SocialElement>();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-		for (String members : membersAccepted)
+		for (String members : membersAccepted) {
 			socialElements.add(socialEntityFacade.getSocialEntity(Integer
 					.valueOf(members)));
-		for (String groups : groupsAccepted)
+		}
+		for (String groups : groupsAccepted) {
 			socialElements.add(socialGroupFacade.getSocialGroup(Integer
 					.valueOf(groups)));
-		if (!socialElements.contains(masterGroup))
+		}
+		if (!socialElements.contains(masterGroup)) {
 			socialElements.add(masterGroup);
-		if (parentGroup != null)
+		}
+		if (parentGroup != null) {
 			socialElements.remove(parentGroup);
+		}
 		return socialElements;
 	}
 
@@ -469,8 +472,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					socialGroup, SocialEntity.class));
 		}
 		for (SocialEntity se : allMembers) {
-			if (se.getGroup() == null)
+			if (se.getGroup() == null) {
 				resulEntities.add(se);
+			}
 		}
 		return resulEntities;
 
@@ -497,8 +501,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		}
 
 		for (SocialGroup sg : allGroups) {
-			if (sg.getGroup() == null && !sg.equals(socialGroup))
+			if (sg.getGroup() == null && !sg.equals(socialGroup)) {
 				resulGroups.add(sg);
+			}
 		}
 
 		return resulGroups;

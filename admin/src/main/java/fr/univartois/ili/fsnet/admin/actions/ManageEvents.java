@@ -131,10 +131,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 
-		Paginator<Meeting> paginator = new Paginator<Meeting>(results, request,
-				"eventsLists");
-
-		request.setAttribute("eventsListPaginator", paginator);
+		request.setAttribute("eventsList", results);
 		return mapping.findForward("success");
 	}
 
@@ -161,8 +158,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
-		SocialEntity member = event.getCreator();
-
 		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
 				em);
 		// boolean isSubscriber = interactionRoleFacade.isSubsriber(member,

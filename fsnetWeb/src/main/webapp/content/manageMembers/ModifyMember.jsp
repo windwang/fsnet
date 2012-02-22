@@ -46,7 +46,7 @@
 		</tr>
 
 		<tr>
-			<td><label for="parentId"> <bean:message
+			<td><label > <bean:message
 				key="groups.parent" /> : </label></td>
 			<c:choose>
 				<c:when test="${ master == false }">
@@ -144,7 +144,7 @@
 			<span class="tag"> <html:link action="DeleteInterestMember">
 				<html:param name="interestSelected" value="${interest.id}" />
 				<html:param name="idMember" value="${id}" />
-				<img src="images/mini-delete.png" />
+				<img src="images/mini-delete.png" alt="delete"/>
 			</html:link> <html:link action="/InterestInformations">
 				<html:param name="infoInterestId" value="${interest.id}" />
                             ${interest.name}

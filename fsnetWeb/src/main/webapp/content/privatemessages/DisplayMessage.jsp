@@ -55,7 +55,7 @@
 		
 	<ili:interactionFilter user="${ socialEntity }" right="${ rightAnswerMessage }">
    		<a class="button" onclick="document.getElementById('quickResponse').style.display='table'">
-        	<img src="images/quickResponse.png" style="vertical-align: bottom"/>
+        	<img src="images/quickResponse.png" style="vertical-align: bottom" alt="Quick response"/>
         	<bean:message key="privatemessages.Quickresponse"/>
     	</a>
     </ili:interactionFilter>

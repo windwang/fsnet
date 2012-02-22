@@ -9,7 +9,7 @@
 <fieldset class="fieldsetAppli">
   <legend class="legendHome"><bean:message key="interests.11"/></legend>
 <html:javascript formName="/SearchInterest"/>
- <html:form action="/SearchInterest" method="GET">
+ <html:form action="/SearchInterest" method="get">
     <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
     <html:text property="requestInput"/>
     <div class="errorMessage"><html:errors property="requestInput"/></div>

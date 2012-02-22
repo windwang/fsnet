@@ -177,7 +177,7 @@ public class SocialGroupFacade {
 		return elements;
 	}
 
-	public String TreeParentName(SocialEntity member) {
+	public String treeParentName(SocialEntity member) {
 
 		if (member == null) {
 			throw new IllegalArgumentException();
@@ -191,8 +191,9 @@ public class SocialGroupFacade {
 				tree = (socialGroup2.getName() + ">") + tree;
 			}
 			tree = tree + member.getGroup().getName();
-		} else
+		} else {
 			tree = ">";
+		}
 		return tree;
 	}
 
@@ -303,8 +304,10 @@ public class SocialGroupFacade {
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
-		if (count > 0)
+		if (count > 0) {
 			resultat = true;
+		}
+
 		return resultat;
 	}
 
@@ -316,8 +319,10 @@ public class SocialGroupFacade {
 						Long.class);
 		query.setParameter("id", member.getId());
 		Long count = query.getSingleResult();
-		if (count > 0)
+		if (count > 0) {
 			resultat = true;
+		}
+
 		return resultat;
 	}
 
@@ -326,7 +331,6 @@ public class SocialGroupFacade {
 			throw new IllegalArgumentException();
 		}
 		List<SocialEntity> listSocialEntity = new ArrayList<SocialEntity>();
-		if (socialGroupUser != null) {
 
 			List<SocialGroup> listSocialGroup = getAllChildGroups(socialGroupUser);
 
@@ -339,7 +343,6 @@ public class SocialGroupFacade {
 					}
 				}
 			}
-		}
 
 		return listSocialEntity;
 	}
@@ -444,16 +447,19 @@ public class SocialGroupFacade {
 	 * @return if the {@link SocialEntity} have the specified {@link Right}
 	 */
 	public boolean isAuthorized(SocialEntity member, Right right) {
-		if (member == null || right == null)
+		if (member == null || right == null) {
 			return false;
+		}
 
 		SocialGroup socialGroup = member.getGroup();
 		// no group, no rights
-		if (socialGroup == null)
+		if (socialGroup == null) {
 			return false;
+		}
 		// super admin
-		if (isSuperAdmin(member))
+		if (isSuperAdmin(member)) {
 			return true;
+		}
 		// regular rights
 		return socialGroup.isAuthorized(right);
 
@@ -470,8 +476,9 @@ public class SocialGroupFacade {
 		SocialGroup socialGroup = member.getGroup();
 
 		if (socialGroup.getGroup() == null
-				&& socialGroup.getMasterGroup().equals(member))
+				&& socialGroup.getMasterGroup().equals(member)) {
 			return true;
+		}
 		return false;
 	}
 }

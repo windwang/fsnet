@@ -11,11 +11,9 @@
 	<li><html:link action="/Interests">
 		<bean:message key="showProfile.edit.interests" />
 	</html:link></li>
-	<!--
 	<li><html:link action="/InforCV">
 		<bean:message key="profile.CreateCV" />
 	</html:link></li>
-	-->
 </ul>
 
 <c:choose>

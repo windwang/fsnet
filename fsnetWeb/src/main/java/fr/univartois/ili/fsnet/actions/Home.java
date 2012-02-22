@@ -143,7 +143,6 @@ public class Home extends MappingDispatchAction {
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 			List<SocialEntity> socialEntities;
 			if (user.getAsked().size() > 5) {
-				socialEntities = new ArrayList<SocialEntity>(5);
 				socialEntities = user.getAsked().subList(0, 5);
 			} else {
 				socialEntities = user.getAsked();

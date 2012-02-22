@@ -15,7 +15,7 @@
 <fieldset class="fieldsetAppli">
   <legend class="legendHome"><bean:message key="announce.searchAnnounce" /> </legend>
 <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
-<html:form action="/Announces" method="GET">
+<html:form action="/Announces" method="get">
 	<div id="SearchAnnounce">
     	<html:text property="textSearchAnnounce" styleId="textSearchAnnounce" />
         <ili:placeHolder id="textSearchAnnounce" value="${searchMessage}" />

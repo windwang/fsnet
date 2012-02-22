@@ -26,7 +26,7 @@ public class NotificationPanel {
         return panel;
     }
 
-    public void init(int nb, String message) {
+    public final void init(int nb, String message) {
     	Font font = new Font("Arial", Font.PLAIN, 16);
         this.label = new JLabel(" "+trayi18n.getString("YOU")+" "+ nb + " " + message);
         this.label.setFont(font);

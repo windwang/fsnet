@@ -7,7 +7,7 @@
 <fieldset class="fieldsetAppli">
   <legend class="legendHome"><bean:message key="members.0"/></legend>
 <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
-<html:form action="SearchMember" method="POST">
+<html:form action="SearchMember" method="post">
     <div id="SearchMember">
         <html:text property="searchText" />
         <html:submit styleClass="button" />

@@ -56,11 +56,9 @@ public class TalkMembers extends MappingDispatchAction {
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-			System.out.println("name :" + member.getName());
 			String name = member.getName().replaceAll(" ", "").toLowerCase();
-			System.out.println("after name :" + name);
 			String email = member.getEmail();
-			String pass = member.getPassword();
+			// String pass = member.getPassword();
 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("email", email);

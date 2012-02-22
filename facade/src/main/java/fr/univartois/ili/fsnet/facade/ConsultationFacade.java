@@ -26,13 +26,13 @@ public class ConsultationFacade {
 			String title, String description, String[] choices,
 			Consultation.TypeConsultation type,
 			List<SocialGroup> groupsRigthsAccepted) {
-		
+
 		Consultation consultation = new Consultation(creator, title,
 				description, type, groupsRigthsAccepted);
 		for (String s : choices) {
 			consultation.addChoice(new ConsultationChoice(consultation, s));
 		}
-		
+
 		List<InteractionGroups> igList = new ArrayList<InteractionGroups>();
 		for (SocialGroup group : groupsRigthsAccepted) {
 			System.out.println(consultation.getId() + group.getId());
@@ -47,8 +47,7 @@ public class ConsultationFacade {
 	}
 
 	public final Consultation getConsultation(int consultationId) {
-		Consultation cons = em.find(Consultation.class, consultationId);
-		return cons;
+		return em.find(Consultation.class, consultationId);
 	}
 
 	public ConsultationVote getVote(int voteId) {

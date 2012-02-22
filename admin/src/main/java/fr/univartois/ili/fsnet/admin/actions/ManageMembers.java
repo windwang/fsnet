@@ -157,14 +157,14 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			try {
 				String line;
 				while ((line = buff.readLine()) != null) {
-					if (line.matches("^[A-Za-z0-9 -.]{1,30}/[A-Za-z0-9 -.]{1,30}/[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$"))
+					if (line.matches("^[A-Za-z0-9 -.]{1,30}/[A-Za-z0-9 -.]{1,30}/[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$")){
 						allString = allString.concat(line + "\n");
+					}
 				}
 			} finally {
 				buff.close();
 			}
 		} catch (IOException ioe) {
-			System.out.println("Erreur --" + ioe.toString());
 			return null;
 		}
 		return allString;
@@ -517,10 +517,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		String adress = "";
 		String city = "";
 		if (member.getAddress() != null) {
-			if (member.getAddress().getAddress() != null)
+			if (member.getAddress().getAddress() != null){
 				adress = member.getAddress().getAddress();
-			if (member.getAddress().getCity() != null)
+			}
+			if (member.getAddress().getCity() != null){
 				city = member.getAddress().getCity();
+			}
 		}
 		dynaForm.set("address", adress);
 		dynaForm.set("city", city);
@@ -560,15 +562,17 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 	private void initializeSession(HttpServletRequest request,
 			SocialEntity member, List<SocialGroup> socialGroups,
 			List<SocialEntity> allMasterGroups) {
-		if (allMasterGroups.contains(member))
+		if (allMasterGroups.contains(member)){
 			request.getSession(true).setAttribute("master2", true);
-		else
+		}else{
 			request.getSession(true).setAttribute("master2", false);
+		}
 
-		if (member.getGroup() != null)
+		if (member.getGroup() != null){
 			request.getSession(true).setAttribute("group2", member.getGroup());
-		else if (member.getGroup() != null)
+		}else if (member.getGroup() != null){
 			request.getSession(true).setAttribute("group2", member.getGroup());
+		}
 		request.getSession(true).setAttribute("allGroups2", socialGroups);
 	}
 
@@ -730,15 +734,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 			em.close();
 			if (resultOthers != null) {
-
 				List<SocialEntity> resultOthersList = new ArrayList<SocialEntity>(
 						resultOthers);
 				Collections.sort(resultOthersList);
-				Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
-						resultOthersList, request, "membersList");
-				request.setAttribute("membersListPaginator", paginator);
+				request.setAttribute("membersList", resultOthersList);
 			} else
-				request.setAttribute("membersListPaginator", null);
+				request.setAttribute("membersList", null);
 		} else {
 			query = em
 					.createQuery(
@@ -747,10 +748,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			List<SocialEntity> resultOthersList = query.getResultList();
 			em.getTransaction().commit();
 
-			Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(
-					resultOthersList, request, "membersList");
-
-			request.setAttribute("membersListPaginator", paginator);
+			request.setAttribute("membersList", resultOthersList);
 			List<SocialGroup> socialGroups = socialGroupFacade
 					.getAllSocialGroups();
 			cleanSession(request);

@@ -14,7 +14,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class UserUtils {
+public final class UserUtils {
 
 	private UserUtils() {
 	}

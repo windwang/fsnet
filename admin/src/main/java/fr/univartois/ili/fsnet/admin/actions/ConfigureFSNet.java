@@ -300,7 +300,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					tmp.append(line);
 				}
 			}
+			try{
 			br.close();
+			}catch(Exception e){
+				e.printStackTrace();
+			}
+			
 		}
 		if (!f.exists() || !tmp.toString().contains("DB modified")) {
 			EntityManager entityManager = PersistenceProvider

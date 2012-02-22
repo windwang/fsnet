@@ -301,30 +301,31 @@ public class SocialEntityFacade {
 	 * @return HasMap key: Meeting value: set of social entity
 	 */
 	
-	public final HashMap<Meeting,Set<SocialEntity>> getSocialEntityHavingEventTomorow(){
+	public final HashMap<Meeting,Set<SocialEntity>> getSocialEntityHavingEvent(){
 		List<Meeting> listMeeting;
 		HashMap<Meeting,Set<SocialEntity>> listSocialEntity = null; 
 		
 		Calendar calendar = GregorianCalendar.getInstance();
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DATE), calendar.get(Calendar.HOUR),
-				calendar.get(Calendar.MINUTE), -1);
+				calendar.get(Calendar.DATE), calendar.get(Calendar.HOUR_OF_DAY),
+				calendar.get(Calendar.MINUTE), 0);
 		Date today = calendar.getTime();
 		
 		String todayFormatted = "";
-		todayFormatted = DateUtils.renderDBDate(today);
-		
+		todayFormatted = DateUtils.renderDBDateWithSecond(today);
+
 		listMeeting = em
 				.createQuery(
-						"SELECT m FROM Meeting m where m.startDate = \""+
+						"SELECT m FROM Meeting m where m.recallDate = \""+
 								todayFormatted+"\"",
 						Meeting.class).getResultList();
 		
 		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(em);
 		
 		for(Meeting m : listMeeting){
-			if(listSocialEntity==null)
+			if(listSocialEntity==null){
 				listSocialEntity = new HashMap<Meeting,Set<SocialEntity>>();
+			}
 			listSocialEntity.put(m,interactionRoleFacade.getSubscribers(m));
 		}
 		

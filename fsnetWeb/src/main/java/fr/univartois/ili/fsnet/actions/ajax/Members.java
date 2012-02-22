@@ -33,7 +33,7 @@ public class Members extends Action {
     	if (form != null) {
             DynaActionForm theform = (DynaActionForm) form; // NOSONAR
             String actualText = (String) theform.get("searchText");
-            int index = actualText.lastIndexOf(",");
+            int index = actualText.lastIndexOf(',');
             String completeUser = (index==-1) ? ("") : (actualText.substring(0, index+1));
             String searchText = (index==-1) ? (actualText) : (actualText.substring(index+1));
             EntityManager em = PersistenceProvider.createEntityManager();

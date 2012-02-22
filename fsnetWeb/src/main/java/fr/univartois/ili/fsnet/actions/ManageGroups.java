@@ -82,9 +82,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 			SocialEntity masterGroup = socialEntityFacade
 					.getSocialEntity(Integer.valueOf(owner));
-			if (!parent.equals(""))
+			if (!parent.equals("")){
 				parentGroup = socialGroupFacade.getSocialGroup(Integer
 						.parseInt(parent));
+			}
 			List<SocialElement> socialElements = createSocialElement(em,
 					membersAccepted, masterGroup, parentGroup);
 			try {
@@ -325,8 +326,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			dynaForm.set("id", id);
 			dynaForm.set("name", group.getName());
 			dynaForm.set("description", group.getDescription());
-			if (parentGroup != null)
+			if (parentGroup != null){
 				request.setAttribute("nameParent", parentGroup.getName());
+			}
 			request.setAttribute("masterGroup", masterGroup);
 
 			request.setAttribute("acceptedMembers", acceptedMembers);
@@ -375,14 +377,17 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialElement> socialElements = new ArrayList<SocialElement>();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 
-		for (String members : membersAccepted)
+		for (String members : membersAccepted){
 			socialElements.add(socialEntityFacade.getSocialEntity(Integer
 					.valueOf(members)));
+		}
 
-		if (!socialElements.contains(masterGroup))
+		if (!socialElements.contains(masterGroup)){
 			socialElements.add(masterGroup);
-		if (parentGroup != null)
+		}
+		if (parentGroup != null){
 			socialElements.remove(parentGroup);
+		}
 		return socialElements;
 	}
 
@@ -397,9 +402,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialElement> socialElements = new ArrayList<SocialElement>();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 
-		for (String member : members)
+		for (String member : members){
 			socialElements.add(socialEntityFacade.getSocialEntity(Integer
 					.valueOf(member)));
+		}
+		
 		return socialElements;
 	}
 
@@ -421,8 +428,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					socialGroup, SocialEntity.class));
 		}
 		for (SocialEntity se : allMembers) {
-			if (se.getGroup() == null)
+			if (se.getGroup() == null){
 				resulEntities.add(se);
+			}
 		}
 		return resulEntities;
 
@@ -554,8 +562,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
-				Right.MODIFY_PICTURE))
+				Right.MODIFY_PICTURE)){
 			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
 
 		int groupId = UserUtils.getHisGroup(request).getId();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR

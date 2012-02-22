@@ -18,6 +18,11 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
 public class ResetPassword extends HttpServlet {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public void resetPassword(SocialEntity se) {
 		String generatedPassword = Encryption.generateRandomPassword();
 		String message = createMessage(generatedPassword);

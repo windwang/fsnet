@@ -129,9 +129,17 @@ public final class Options {
     public static void setLanguage(LANG language) {
         Options.language = language;
     }
-    protected static String fsneturl;
+    private static String fsneturl;
 
-    /**
+    public static String getFsneturl() {
+		return fsneturl;
+	}
+
+	public static void setFsneturl(String fsneturl) {
+		Options.fsneturl = fsneturl;
+	}
+
+	/**
      * Get the value of fsneturl
      *
      * @return the value of fsneturl
