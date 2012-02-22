@@ -36,7 +36,7 @@ public class MeetingTest {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yy");
         Date date = (Date) formatter.parse("29/01/02");
         final SocialEntity socialEntity = new SocialEntity("ktest6", "test6", "test6@test.com");
-        Meeting manif = new Meeting(socialEntity, "Meeting", "null", date, true, date, new Address());
+        Meeting manif = new Meeting(socialEntity, "Meeting", "null", date, true, date, new Address(),null);
         em.getTransaction().begin();
         em.persist(socialEntity);
         em.persist(manif);

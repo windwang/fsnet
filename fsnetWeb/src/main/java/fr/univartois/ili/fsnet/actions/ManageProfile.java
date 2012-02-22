@@ -307,8 +307,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 		}
 
-		if (user.getGroup() != null)
+		if (user.getGroup() != null){
 			request.setAttribute("groupId", user.getGroup().getId());
+		}
 		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		Paginator<Interest> paginatorInterest = new Paginator<Interest>(
@@ -330,7 +331,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 
 		request.setAttribute("currentUser", user);
-		request.setAttribute("treeGroupProfile", sgf.TreeParentName(profile));
+		request.setAttribute("treeGroupProfile", sgf.treeParentName(profile));
 
 		if (sgf.isMasterGroup(user))
 			request.getSession(true).setAttribute("isMasterGroup", true);
@@ -349,10 +350,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				.getServletContext().getAttribute("loggedUsers");
 		Map<Integer, String> loggeddd = loggedCon.getUsers();
 		if (loggeddd.containsKey(id)) {
-			System.out.println("id " + id + "  is logged");
 			request.setAttribute("isLogged", true);
 		} else {
-			System.out.println("id " + id + "  is not logged");
 			request.setAttribute("isLogged", false);
 		}
 
@@ -386,8 +385,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
-				Right.MODIFY_PICTURE))
+				Right.MODIFY_PICTURE)){
 			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
 
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("photo");
@@ -501,8 +501,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
-				Right.MODIFY_PICTURE))
+				Right.MODIFY_PICTURE)){
 			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
 
 		ImageManager.removeOldUserPicture(userId);
 		addRightToRequest(request);

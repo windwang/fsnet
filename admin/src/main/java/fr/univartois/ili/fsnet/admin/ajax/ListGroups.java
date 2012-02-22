@@ -93,8 +93,9 @@ public class ListGroups extends HttpServlet {
 		}
 
 		for (SocialGroup sg : allGroups) {
-			if (sg.getGroup() == null && !sg.equals(socialGroup))
+			if (sg.getGroup() == null && !sg.equals(socialGroup)){
 				resulGroups.add(sg);
+			}
 		}
 
 		return resulGroups;

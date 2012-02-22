@@ -13,6 +13,11 @@ import javax.servlet.http.HttpServlet;
 public class InitializerServlet extends HttpServlet {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * Put the LoggedUsersContainer singleton in application scope as an
 	 * attribute
 	 */

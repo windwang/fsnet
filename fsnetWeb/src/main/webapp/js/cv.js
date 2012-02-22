@@ -6,7 +6,8 @@ $(function() {
 	$(".corp_diplome").css("display","none");
 	$(".corp_loisir").css("display","none");
 	$(".corp_langue").css("display","none");
-	$("#ErrorCertif").css("display","none");
+	$(".corp_formation").css("display","none");
+	
 	$(".CvNomLoisirError").css("display","none");
 	
 	$(".CVLangueError").css("display","none");
@@ -16,6 +17,9 @@ $(function() {
 	$(".CvEtudeDomError").css("display","none");
 	$(".CvEtudeError").css("display","none");
 	
+	$(".CvEtablissmentformError").css("display","none");		
+	$(".CvFormationError").css("display","none");
+	$(".DateObtentionError").css("display","none");
 	
 	
 	$(".CvPosteError").css("display","none");
@@ -358,4 +362,4 @@ $(".addLangue").click(function(){
 });
 
 	
-}
+

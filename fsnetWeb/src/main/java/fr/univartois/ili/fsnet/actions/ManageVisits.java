@@ -48,16 +48,13 @@ public class ManageVisits extends MappingDispatchAction {
 
 		// recovery of visitors before the last connection
 		List<ProfileVisite> lastVisitorsBeforeLastConnection = new ArrayList<ProfileVisite>();
-
-		for (int i = 0; i < lastVisitors.size(); i++) {
-			if (lastVisitors.get(i).getVisitor().getLastConnection()
-					.after(LastConnectionSession)) {
+		for(int i=0;i<lastVisitors.size();i++){
+			if(lastVisitors.get(i).getLastVisite().after(LastConnectionSession)){
 				newLastvisitors.add(lastVisitors.get(i));
 			} else {
 				lastVisitorsBeforeLastConnection.add(lastVisitors.get(i));
 			}
 		}
-
 		// paging list of recent visitors since my last connection
 		request.setAttribute("lastVisitors", newLastvisitors);
 
@@ -105,7 +102,7 @@ public class ManageVisits extends MappingDispatchAction {
 
 		int numNewVisits = 0;
 		for (int i = 0; i < lastVisitors.size(); i++) {
-			if (lastVisitors.get(i).getVisitor().getLastConnection()
+			if (lastVisitors.get(i).getLastVisite()
 					.after(LastConnectionSession)) {
 				numNewVisits++;
 			}

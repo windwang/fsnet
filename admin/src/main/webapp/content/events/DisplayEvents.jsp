@@ -12,57 +12,87 @@
 
 
 <fieldset class="fieldsetAdmin">
-  <legend class="legendAdmin"><bean:message key="events.8"/></legend>
+	<legend class="legendAdmin">
+		<bean:message key="events.8" />
+	</legend>
 
-  <html:form action="/Events" method="get">
-    <div>
-      <table class="fieldsetTableAdmin"><tr><td>
-        <html:text property="searchString" />
-        <html:submit styleClass="button" >
-            <bean:message key="events.11"/>
-        </html:submit>
-      </td></tr></table>
-    </div>
-</html:form>
+	<html:form action="/Events" method="get">
+		<div>
+			<table class="fieldsetTableAdmin">
+				<tr>
+					<td><html:text property="searchString" /> <html:submit
+							styleClass="button">
+							<bean:message key="events.11" />
+						</html:submit></td>
+				</tr>
+			</table>
+		</div>
+	</html:form>
 </fieldset>
 
 <fieldset class="fieldsetAdmin">
-  <legend class="legendAdmin"><bean:message key="events.9"/></legend>
+	<legend class="legendAdmin">
+		<bean:message key="events.9" />
+	</legend>
 
-  <c:choose>
+	<c:choose>
+		<c:when test="${empty requestScope.eventsList}">
+			<table class="fieldsetTableAdmin">
+				<tr>
+					<td><bean:message key="search.noResults" /></td>
+				</tr>
+			</table>
+		</c:when>
 
-	<c:when test="${empty requestScope.eventsListPaginator.resultList}">
-	    <table class="fieldsetTableAdmin"><tr><td>
-	      <bean:message key="search.noResults"/>
-	    </td></tr></table>
-	</c:when>
-	
-	<c:otherwise>
-		<table  class="inLineTable fieldsetTableAdmin">
-		    <c:forEach var="event" items="${requestScope.eventsListPaginator.resultList}">
-		        <tr>
-		            <th>
-		                <html:link action="/DisplayEvent">
+		<c:otherwise>
+			<script type="text/javascript">
+				$(document).ready(
+						function pagination() {
+							var nomTable = "eventsTable";
+							var idColonneATrier = 0;
+							var sensDeTri = "asc";
+							var aoColumns = [ null, {
+								"sType" : "date-euro"
+							}, {
+								"bSortable" : false
+							}, null, null ];
+							miseEnPageTable(nomTable, idColonneATrier,
+									sensDeTri, aoColumns, false);
+						});
+			</script>
+			<table id="eventsTable"
+				class="tablesorter inLineTable fieldsetTableAdmin">
+				<thead>
+					<tr>
+						<th><bean:message key="tableheader.eventname" /></th>
+						<th><bean:message key="tableheader.willoccuron" /></th>
+						<th><bean:message key="tableheader.by" /></th>
+						<th><bean:message key="tableheader.firstname" /></th>
+						<th><bean:message key="tableheader.name" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="event" items="${requestScope.eventsList}">
+						<tr>
+							<th><html:link action="/DisplayEvent">
 		                    ${event.title}
-		                    <html:param name="eventId" value="${event.id}"/>
-		                </html:link>
-		            </th>
-		            <td class="left">
-		                <bean:message key="events.10"/>
-		                <bean:write name="event" property="startDate" format="dd/MM/yyyy"/>,
-		                <bean:message key="events.16"/>
-						<html:link action="/DisplayMember">
-	                    	<html:param name="idMember" value="${event.creator.id}"/>
-	                    	${event.creator.firstName} ${event.creator.name}
-	              </html:link>
-		            </td>
-		        </tr>
-		    </c:forEach>
-		</table>
-		<c:set var="paginatorInstance" value="${requestScope.eventsListPaginator}" scope="request"/>
-		<c:set var="paginatorAction" value="/Events" scope="request"/>
-		<c:set var="paginatorTile" value="eventsLists" scope="request"/>
-		<c:import url="/content/pagination/Pagination.jsp"/>
-	</c:otherwise>
-  </c:choose>
+		                    <html:param name="eventId" value="${event.id}" />
+								</html:link></th>
+							<td class="left"><bean:write name="event"
+									property="startDate" format="dd/MM/yyyy" /></td>
+							<td></td>
+							<td><html:link action="/DisplayMember">
+									<html:param name="idMember" value="${event.creator.id}" />
+	                    	${event.creator.firstName} 
+	              </html:link></td>
+							<td><html:link action="/DisplayMember">
+									<html:param name="idMember" value="${event.creator.id}" />
+	                    	 ${event.creator.name}
+	              </html:link></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:otherwise>
+	</c:choose>
 </fieldset>

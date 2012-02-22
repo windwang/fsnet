@@ -67,8 +67,7 @@ public class FSNetMailer {
 		Properties properties = conf.getFSNetConfiguration();
 		Session session = Session.getDefaultInstance(properties, null);
 		MimeMessage message = new MimeMessage(session);
-		Mail mail = new Mail(message);
-		return mail;
+		return new Mail(message);
 	}
 
 }

@@ -178,8 +178,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 		addRightToRequest(request);
-		if (announce != null)
+		if (announce != null){
 			interactionFacade.deleteInteraction(user, announce);
+		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
 		message.add("message", new ActionMessage("success.deleteAnnounce"));
@@ -342,8 +343,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				entityManager);
 		entityManager.close();
 		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
-		if(!fascade.isAuthorized(user, Right.ADD_ANNOUNCE))
+		if(!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)){
 			return new ActionRedirect(mapping.findForward("unauthorized"));
+		}
 		
 		return new ActionRedirect(mapping.findForward("success"));
 	}

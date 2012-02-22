@@ -17,6 +17,10 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 public class LoggedUsersTag extends TagSupport {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private LoggedUsersContainer loggedUsers;
 	private int userId;
 	private String var;

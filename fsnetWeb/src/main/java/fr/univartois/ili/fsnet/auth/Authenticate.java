@@ -91,19 +91,22 @@ public class Authenticate extends HttpServlet {
 		
 		
 		if (memberMail == null && memberPass == null) {
-			if (req.getCookies() != null)
+			if (req.getCookies() != null){
 
 				for (Cookie c : req.getCookies()) {
 					if (c.getName().equals(LOGIN_COOKIE)) {
 						memberMail = c.getValue();
-						if (memberPass != null)
+						if (memberPass != null){
 							break;
+						}
 					} else if (c.getName().equals(PSSWD_COOKIE)) {
 						memberPass = c.getValue();
-						if (memberMail != null)
+						if (memberMail != null){
 							break;
+						}
 					}
 				}
+			}
 		}
 
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -141,8 +144,9 @@ public class Authenticate extends HttpServlet {
 		if (authenticated) {
 			// the user is now authenticated
 			String remember = req.getParameter("remember");
-			if (remember != null && remember.equals("on"))
+			if (remember != null && remember.equals("on")){
 				setCookies(resp, memberMail, memberPass);
+			}
 
 			HttpSession session = req.getSession(true);
 			String lastRequestedURL = (String) session
@@ -162,7 +166,7 @@ public class Authenticate extends HttpServlet {
 			LoggedUsersContainer.getInstance().addUser(user.getId(), userName);
 
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-			String groupTree = socialGroupFacade.TreeParentName(user);
+			String groupTree = socialGroupFacade.treeParentName(user);
 			req.getSession().setAttribute("groupTree", groupTree);
 			req.getSession().setAttribute("hisGroup",
 					UserUtils.getHisGroup(req));

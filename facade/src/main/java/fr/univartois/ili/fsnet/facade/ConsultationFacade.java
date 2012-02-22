@@ -31,8 +31,7 @@ public class ConsultationFacade {
 	}
 	
 	public final Consultation getConsultation(int consultationId) {
-		Consultation cons = em.find(Consultation.class, consultationId);
-        return cons;
+		return em.find(Consultation.class, consultationId);
     }
 	
 	public ConsultationVote getVote(int voteId) {

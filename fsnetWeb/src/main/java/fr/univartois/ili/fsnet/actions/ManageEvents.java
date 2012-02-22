@@ -47,6 +47,11 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class ManageEvents extends MappingDispatchAction implements CrudAction {
+	
+	private static final int HOUR_IN_MINUTES = 60;
+	private static final int DAY_IN_MINUTES = 1440;
+	private static final String DEFAULT_RECALLTIME = "10";
+	
 
 	/**
 	 * @param eventDate
@@ -83,6 +88,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		}
 		return typedEventDate;
 	}
+	
 
 	/**
 	 * @param eventDate
@@ -136,10 +142,17 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		String eventEndDate = (String) dynaForm.get("eventEndDate");
 		String adress = (String) dynaForm.get("eventAddress");
 		String city = (String) dynaForm.get("eventCity");
+		String eventRecallTime = (String) dynaForm.get("eventRecallTime");
+		String eventRecallTypeTime = (String) dynaForm.get("eventRecallTypeTime");
+		
 		Date typedEventBeginDate = validateDate(eventBeginDate, request,
 				"eventBeginDate");
 		Date typedEventEndDate = validateDate(eventEndDate, request,
 				"eventEndDate");
+		Date typedEventRecallDate = DateUtils.substractTimeToDate(typedEventBeginDate,Integer.parseInt(eventRecallTime),
+				eventRecallTypeTime);
+		
+		
 		addRightToRequest(request);
 		if (typedEventBeginDate == null || typedEventEndDate == null) {
 			return mapping.getInputForward();
@@ -157,7 +170,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting event = meetingFacade.createMeeting(member, eventName,
 				eventDescription, typedEventEndDate, false,
-				typedEventBeginDate, adress, city);
+				typedEventBeginDate, adress, city,typedEventRecallDate);
 
 		String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
 		InterestFacade fac = new InterestFacade(em);
@@ -204,14 +217,22 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			String eventEndDate = (String) dynaForm.get("eventEndDate");
 			String adress = (String) dynaForm.get("eventAddress");
 			String city = (String) dynaForm.get("eventCity");
-			Date typedEventBeginDate = validateDateForEditing(eventBeginDate,
-					request, "eventBeginDate");
-			Date typedEventEndDate = validateDateForEditing(eventEndDate,
-					request, "eventEndDate");
 
+			String eventRecallTime = (String) dynaForm.get("eventRecallTime");
+			String eventRecallTypeTime = (String) dynaForm.get("eventRecallTypeTime");
+			Date typedEventBeginDate = validateDate(eventBeginDate, request,
+					"eventBeginDate");
+			Date typedEventEndDate = validateDate(eventEndDate, request,
+					"eventEndDate");
+			
+			Date typedEventRecallDate = DateUtils.substractTimeToDate(typedEventBeginDate,Integer.parseInt(eventRecallTime),
+					eventRecallTypeTime);
+			
 			if (typedEventBeginDate == null || typedEventEndDate == null) {
 				return mapping.getInputForward();
 			}
+			
+	
 			if (typedEventBeginDate.after(typedEventEndDate)) {
 				ActionErrors errors = new ActionErrors();
 				errors.add("eventBeginDate", new ActionMessage(("events.21")));
@@ -228,6 +249,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			meeting.setTitle(eventName);
 			meeting.setStartDate(typedEventBeginDate);
 			meeting.setEndDate(typedEventEndDate);
+			meeting.setRecallDate(typedEventRecallDate);
 
 			if (meeting.getAddress() != null) {
 				meeting.getAddress().setAddress(adress);
@@ -499,6 +521,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
+		
+		request.setAttribute("recallDefaultValue",DEFAULT_RECALLTIME);
+		
 		if (!fascade.isAuthorized(user, Right.ADD_EVENT)) {
 			entityManager.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -544,6 +569,25 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 					DateUtils.renderDateWithHours(event.getStartDate()));
 			dynaForm.set("eventEndDate",
 					DateUtils.renderDateWithHours(event.getEndDate()));
+			
+			Long recallTime = DateUtils.differenceBetweenTwoDateInMinutes(event.getStartDate(),
+					event.getRecallDate());
+			
+			if(recallTime % DAY_IN_MINUTES == 0){
+				recallTime /= DAY_IN_MINUTES;
+				dynaForm.set("eventRecallTypeTime","day");
+			}
+			else{
+				if(recallTime % HOUR_IN_MINUTES == 0){
+					recallTime /= HOUR_IN_MINUTES;
+					dynaForm.set("eventRecallTypeTime","hour");
+				}
+			}
+			
+			dynaForm.set("eventRecallTime",
+					Long.toString(recallTime));
+			
+			
 			em.close();
 		} catch (NumberFormatException e) {
 			e.printStackTrace();

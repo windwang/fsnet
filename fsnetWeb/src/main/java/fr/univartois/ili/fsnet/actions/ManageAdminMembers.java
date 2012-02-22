@@ -156,14 +156,14 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			try {
 				String line;
 				while ((line = buff.readLine()) != null) {
-					if (line.matches("^[A-Za-z0-9 -.]{1,30}/[A-Za-z0-9 -.]{1,30}/[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$"))
+					if (line.matches("^[A-Za-z0-9 -.]{1,30}/[A-Za-z0-9 -.]{1,30}/[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$")){
 						allString = allString.concat(line + "\n");
+					}
 				}
 			} finally {
 				buff.close();
 			}
 		} catch (IOException ioe) {
-			System.out.println("Erreur --" + ioe.toString());
 			return null;
 		}
 		return allString;
@@ -517,10 +517,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		String adress = "";
 		String city = "";
 		if (member.getAddress() != null) {
-			if (member.getAddress().getAddress() != null)
+			if (member.getAddress().getAddress() != null){
 				adress = member.getAddress().getAddress();
-			if (member.getAddress().getCity() != null)
+			}
+			if (member.getAddress().getCity() != null){
 				city = member.getAddress().getCity();
+			}
 		}
 		dynaForm.set("address", adress);
 		dynaForm.set("city", city);

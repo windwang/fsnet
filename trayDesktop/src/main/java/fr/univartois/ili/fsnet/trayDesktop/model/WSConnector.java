@@ -256,38 +256,45 @@ public class WSConnector {
 		} else {
 			try {
 				boolean newMessage, newContact, newAnnounce, newEvent, newConsultation;
+				int i=0;
+				newMessage = (getNbMessage() > 0);
+				newContact = (getNbDemandeC() > 0);
+				newAnnounce = (getNbAnnouncement() > 0);
+				newEvent = (getNbEvent() > 0);
+				newConsultation = (getNbConsultation() > 0);
+				
+				if(newMessage){i++;}
+				if(newContact){i++;}
+				if(newAnnounce){i++;}
+				if(newEvent){i++;}
+				if(newConsultation){i++;}
 
-				newMessage = getNbMessage() > 0;
-				newContact = getNbDemandeC() > 0;
-				newAnnounce = getNbAnnouncement() > 0;
-				newEvent = getNbEvent() > 0;
-				newConsultation = getNbConsultation() > 0;
+				fireNotification(i,newMessage,newContact,newAnnounce,newEvent,newConsultation);
 
-				if (newMessage && !newContact && !newAnnounce && !newEvent
-						&& !newConsultation) {
-					fireNewMessages(getNbMessage());
-				} else if (!newMessage && newContact && !newAnnounce
-						&& !newEvent && !newConsultation) {
-					fireNewContact(getNbDemandeC());
-				} else if (!newMessage && !newContact && newAnnounce
-						&& !newEvent && !newConsultation) {
-					fireNewAnnouncement(getNbAnnouncement());
-				} else if (!newMessage && !newContact && !newAnnounce
-						&& newEvent && !newConsultation) {
-					fireNewEvent(getNbEvent());
-				} else if (!newMessage && !newContact && !newAnnounce
-						&& !newEvent && newConsultation) {
-					fireNewConsultation(getNbConsultation());
-				} else if (newMessage || newContact || newAnnounce || newEvent
-						|| newConsultation) {
-					fireNewNotification(getNbMessage() + getNbDemandeC()
-							+ getNbAnnouncement() + getNbEvent()
-							+ getNbConsultation());
-				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+				Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
+						null, e);
 				fireError("No Connection");
 			}
+		}
+	}
+	
+	public void fireNotification(int i,boolean newMessage,boolean newContact,boolean newAnnounce,boolean newEvent,boolean newConsultation){
+		if(i==1){
+			if (newMessage) {
+				fireNewMessages(getNbMessage());
+			} else if (newContact) {
+				fireNewContact(getNbDemandeC());
+			} else if (newAnnounce) {
+				fireNewAnnouncement(getNbAnnouncement());
+			} else if (newEvent) {
+				fireNewEvent(getNbEvent());
+			} else if (newConsultation) {
+				fireNewConsultation(getNbConsultation());
+			}
+		}else if(i>1){
+			fireNewNotification(getNbMessage() + getNbDemandeC() + getNbAnnouncement() + getNbEvent() + getNbConsultation());
 		}
 	}
 
@@ -321,7 +328,9 @@ public class WSConnector {
 					}
 				}
 			} catch (Exception e) {
-				e.printStackTrace();
+				//e.printStackTrace();
+				Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
+						null, e);
 				fireError("No Connection");
 			}
 		}
@@ -336,7 +345,9 @@ public class WSConnector {
 				return messages.size();
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
+					null, e);
 		}
 		return 0;
 	}
@@ -347,7 +358,9 @@ public class WSConnector {
 			nbC = infoPort.getNewDemandeCount(Options.getLogin(),
 					Options.getPassword());
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
+					null, e);
 		}
 		return nbC;
 	}
@@ -357,7 +370,9 @@ public class WSConnector {
 			return infoPort.getNewAnnouncementCount(Options.getLogin(),
 					Options.getPassword());
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
+					null, e);
 		}
 		return 0;
 	}
@@ -367,7 +382,9 @@ public class WSConnector {
 			return infoPort.getNewEventsCount(Options.getLogin(),
 					Options.getPassword());
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
+					null, e);
 		}
 		return 0;
 	}
@@ -377,7 +394,9 @@ public class WSConnector {
 			return infoPort.getNewConsultationCount(Options.getLogin(),
 					Options.getPassword());
 		} catch (Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
+			Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
+					null, e);
 		}
 		return 0;
 	}

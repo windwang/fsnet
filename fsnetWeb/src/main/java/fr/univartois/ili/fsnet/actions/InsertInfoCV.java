@@ -1,12 +1,11 @@
 package fr.univartois.ili.fsnet.actions;
 
-import java.io.IOException;
-
-import java.text.SimpleDateFormat;
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.HashMap;
 
 import javax.persistence.EntityManager;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,10 +14,6 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
-import org.apache.struts.tiles.taglib.GetAttributeTag;
-
-import java.text.ParseException;
-import java.util.HashMap;
 
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.AssociationDateFormationCV;
@@ -38,14 +33,18 @@ import fr.univartois.ili.fsnet.entities.TrainingCV;
  */
 public class InsertInfoCV extends MappingDispatchAction{
 	  public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
 	
 	  public static java.util.Date stringToDate(String sDate) throws ParseException {
 	        return  formatter.parse(sDate);
 	    }
 	  public static Date toDBDateFormat(String sDate) throws ParseException {
 	        return new Date(stringToDate(sDate).getTime());
-	    }
+	  }
+	  
+	   
 	 public ActionForward display(ActionMapping mapping, ActionForm form,
+
 	            HttpServletRequest request, HttpServletResponse response) throws ParseException
 	            {
 		 int nbExp=Integer.parseInt(request.getParameter("nbexp"));
@@ -53,6 +52,9 @@ public class InsertInfoCV extends MappingDispatchAction{
 		 int nblangue=Integer.parseInt(request.getParameter("nblangue"));
 		 int nbloisir=Integer.parseInt(request.getParameter("nbloisir"));
 		
+
+		
+
 		 Curriculum curriculum=new Curriculum();
 	
 		 EntityManager em = PersistenceProvider.createEntityManager();
