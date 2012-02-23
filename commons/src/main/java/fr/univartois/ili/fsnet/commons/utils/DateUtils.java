@@ -64,7 +64,7 @@ public class DateUtils {
 	private static final DateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 	private static final DateFormat formatterWithHours = new SimpleDateFormat(
-			"dd/MM/yyyy hh:mm");
+			"dd/MM/yyyy HH:mm");
 	
 	
 
@@ -133,7 +133,7 @@ public class DateUtils {
 		}	
 		else{
 			if(type.equals("hour")){
-				calendar.add(Calendar.HOUR, time*-1);
+				calendar.add(Calendar.HOUR_OF_DAY, time*-1);
 			}
 			else
 				calendar.add(Calendar.DATE, time*-1);	

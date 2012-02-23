@@ -14,17 +14,6 @@
 <html:form action="/GenerateCV">
 
 
-<div class="en_cv">
-<div class="entete">
-<h3><bean:message key="cv.objectifs"/></h3> 
-</div>
-<div class="corp_objectif">
-<table>
-<tr><td><bean:message key="cv.objectifs2"/></td></tr>
-<tr><td><textarea style="border: 1px solid rgb(204, 204, 204);"></textarea></td></tr>
-</table></div>
- 
-</div>
 
 <div class="en_cv">
 <div class="entete">
@@ -105,8 +94,8 @@
 <div class="entete">
 <h3><bean:message key="cv.Diplome"/></h3> 
 </div>
-<div id="formation">
-<ul class="listeFormation">
+<div id="diplome">
+<ul class="listeDiplome">
  
  
 </ul>
@@ -168,6 +157,64 @@
                             styleId="etudEndDate"
                             errorStyleClass="error"/>
                             </td><td><span class="etudEndDateError"><bean:message key="error.etudEndDate"/></span></td>
+               <tr><td><a><span class="annuleDip"> <bean:message key="cv.annuler"/></span></a>
+        <a><span class="SaveDip"> <bean:message key="cv.enregister"/> </span></a></td></tr>                       
+</table>
+</div>
+<a>
+<span class="addDip"><bean:message key="cv.addDip"/>  </span>
+</a>
+</div>
+
+<div class="en_cv">
+<div class="entete">
+<h3><bean:message key="cv.Formation"/></h3> 
+</div>
+<div id="formation">
+<ul class="listeFormation">
+ 
+ 
+</ul>
+</div>
+<div class="corp_formation">
+<table>
+<tr><td>*<bean:message key="cv.29"/></td></tr>
+<tr><td><html:text  property="CvFormation"
+                            styleId="CvFormation"
+                            errorStyleClass="error" /></td>
+                            <td><span class="CvFormationError"><bean:message key="error.CvFormation"/></span></td></tr>
+                        
+<tr><td><html:text  property="CvEtablissmentform"
+                            styleId="CvEtablissmentform"
+                            errorStyleClass="error" /></td>
+                            <td><span class="CvEtablissmentformError"><bean:message key="error.CvEtablissmentform"/></span></td></tr>
+<tr><td>*<bean:message key="cv.18"/></td></tr>                            
+<tr><td><html:text  property="CvFormPays"
+                            styleId="CvFormPays"
+                            errorStyleClass="error" /></td><td><bean:message key="cv.19"/><html:text  property="CvFormVille"
+                            styleId="CvFormVille"
+                            errorStyleClass="error" /></td>
+                            </tr>
+                               <tr><td>*<label for="expDate">
+                    <bean:message key="cv.21"/> :
+                </label>
+            </td>
+            </tr>
+            <tr>
+            <td>
+                <html:text  property="DateObtention" 
+                            styleId="DateObtention"
+                            errorStyleClass="error"/>
+                            
+                <logic:messagesPresent property="DateObtention">
+                    <div class="errorMessage">
+                        <html:errors property="DateObtention"/>
+                    </div>
+                </logic:messagesPresent>
+            </td><td><span class="DateObtentionError"><bean:message key="error.DateObtention"/></span></td>
+        </tr>
+        
+
                <tr><td><a><span class="annuleForm"> <bean:message key="cv.annuler"/></span></a>
         <a><span class="SaveForm"> <bean:message key="cv.enregister"/> </span></a></td></tr>                       
 </table>
@@ -176,6 +223,7 @@
 <span class="addForm"><bean:message key="cv.addForm"/>  </span>
 </a>
 </div>
+
 <div class="en_cv">
 <div class="entete">
 <h3><bean:message key="cv.25"/></h3> 

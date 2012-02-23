@@ -17,7 +17,7 @@ public class Meeting extends Announcement {
 
 	@Embedded
 	private Address address;
-	@Temporal(javax.persistence.TemporalType.DATE)
+	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date startDate;
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)
 	private Date recallDate;
