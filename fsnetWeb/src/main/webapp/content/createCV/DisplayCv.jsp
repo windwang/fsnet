@@ -10,7 +10,7 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
             <h3>
-			Mes CV
+			<bean:message key="Cv.0"/>
 			</h3>
 			
 			<table id="eventsTable" class="tablesorter inLineTable">
