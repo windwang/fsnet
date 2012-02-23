@@ -171,7 +171,7 @@ $(function() {
 		+'<input type="hidden" name="etudEndDate'+j+'" value="'+$("#etudEndDate").val()+'" /></div>';
 		var $annuler=$('<span id="supprimerDip'+j+'"><a onclick="changeDip('+j+')">supprimer</a></span>');
 		$(".corp_diplome").css("display","none");
-		$(".addForm").css("display","inline");
+		$(".addDip").css("display","inline");
 		$('.listeDiplome').append('<li class="liste" id="diplome_'+j+'">'+recapExp+'</li>');
 		$('#diplome_'+j).append(inputRecap);
 		//$('#formation_'+j).append($annuler);
@@ -224,16 +224,16 @@ $(function() {
 		if(erreur==0){
 		var recapExp= "<strong>"+$("#CvFormation").val()+"</strong><p>"
 		+$("#CvEtablissmentform").val()+"</p><p>"+$("#CvFormPays").val()+"-"+$("#CvFormVille").val()+"</p><p> "+$("#DateObtention").val();
-		var inputRecap='<div id="FormInput" style="display:none;"><input type="hidden" name="CvFormation'+f+'" value="'+$("#CvFormation").val()+'" />'
-		
+		var inputRecap='<div id="FormInput" style="display:none;"><input type="hidden" name="CvFormation'+f+'" value="'+$("#CvFormation").val()+'" />'		
 		+'<input type="hidden" name="CvEtablissmentform'+f+'" value="'+$("#CvEtablissmentform").val()+'" />'
 		+'<input type="hidden" name="CvFormPays'+f+'" value="'+$("#CvFormPays").val()+'" />'
 		+'<input type="hidden" name="CvFormVille'+f+'" value="'+$("#CvEtudeVille").val()+'" />'
 		+'<input type="hidden" name="DateObtention'+f+'" value="'+$("#DateObtention").val()+'" />'
 
 		
-		$(".corp_diplome").css("display","none");
+		$(".corp_formation").css("display","none");
 		$(".addForm").css("display","inline");
+		
 		$('.listeFormation').append('<li class="liste" id="formation_'+f+'">'+recapExp+'</li>');
 		$('#formation_'+j).append(inputRecap);
 		
@@ -241,6 +241,7 @@ $(function() {
 		
 		$("#CvEtablissmentform").val('');
 		$("#CvFormPays").val('');
+		$("#CvFormVille").val('');
 		$("#DateObtention").val('');
 	
 		$(".CvEtablissmentformError").css("display","none");
@@ -348,13 +349,15 @@ $(".addLangue").click(function(){
 	});
 	$("#envoi").click(function(){
 		var nbExp='<input type="hidden" name="nbexp" value="'+i+'" />';
-		var nbForm='<input type="hidden" name="nbform" value="'+j+'" />';
+		var nbForm='<input type="hidden" name="nbform" value="'+f+'" />';
 		var nblangue='<input type="hidden" name="nblangue" value="'+k+'" />';
 		var nbloisir='<input type="hidden" name="nbloisir" value="'+z+'" />';
+		var nbdip='<input type="hidden" name="nbdip" value="'+j+'" />';
 		$('.listeExperience').append(nbExp);
 		$('.listeFormation').append(nbForm);
 		$('.listeLangues').append(nblangue);
 		$('.listeLoisir').append(nbloisir);
+		$('.listeDiplome').append(nbdip);
 	   
 	});
 	

@@ -39,7 +39,7 @@ public class CreateCV extends MappingDispatchAction{
 		 String CvCp = (String) dynaForm.get("CvCp");
 		 String CvPays = (String) dynaForm.get("CvPays");
 		 String CvContact = (String) dynaForm.get("CvContact");
-		 String formatBirthDay = (String) dynaForm.get("formatBirthDay");
+		 String BirthDay = (String) dynaForm.get("formatBirthDay");
 		 
 		 mysession.setAttribute("CvTitle", CvTitle);
 		 mysession.setAttribute("CvNom", CvNom);
@@ -50,7 +50,7 @@ public class CreateCV extends MappingDispatchAction{
 		 mysession.setAttribute("CvCp", CvCp);
 		 mysession.setAttribute("CvPays", CvPays);
 		 mysession.setAttribute("CvContact", CvContact);
-		 mysession.setAttribute("formatBirthDay", formatBirthDay);
+		 mysession.setAttribute("formatBirthDay", BirthDay);
 		 mysession.setAttribute("CvSituation", request.getParameter("situation"));
 		 mysession.setAttribute("SexeMember", request.getParameter("sexe"));
 		 
@@ -97,12 +97,7 @@ public class CreateCV extends MappingDispatchAction{
 		 }
 		 
 		
-//		 if(CvCp.){
-//			 
-//				errors.add("CvCp", new ActionMessage("error.cp"));
-//				saveErrors(request, errors);
-//				erreur = 1;
-//		 }
+
 		 if(CvPays==""){
 			 
 				errors.add("CvPays", new ActionMessage("error.pays"));

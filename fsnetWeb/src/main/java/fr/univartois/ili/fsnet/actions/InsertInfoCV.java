@@ -16,187 +16,226 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.AssociationDateDegreeCV;
 import fr.univartois.ili.fsnet.entities.AssociationDateFormationCV;
 import fr.univartois.ili.fsnet.entities.AssociationDateTrainingCV;
 import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.entities.DegreeCV;
 import fr.univartois.ili.fsnet.entities.EstablishmentCV;
 import fr.univartois.ili.fsnet.entities.FormationCV;
+import fr.univartois.ili.fsnet.entities.HobbiesCV;
 import fr.univartois.ili.fsnet.entities.MemberCV;
 import fr.univartois.ili.fsnet.entities.TrainingCV;
 
 /**
  * 
  * formular validator for resume
+ * 
  * @author BENZAOUIA
- *
+ * 
  */
-public class InsertInfoCV extends MappingDispatchAction{
-	  public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+public class InsertInfoCV extends MappingDispatchAction {
+	public static SimpleDateFormat formatter = new SimpleDateFormat(
+			"dd/MM/yyyy");
 
-	
-	  public static java.util.Date stringToDate(String sDate) throws ParseException {
-	        return  formatter.parse(sDate);
-	    }
-	  public static Date toDBDateFormat(String sDate) throws ParseException {
-	        return new Date(stringToDate(sDate).getTime());
-	  }
-	  
-	   
-	 public ActionForward display(ActionMapping mapping, ActionForm form,
+	public static java.util.Date stringToDate(String sDate)
+			throws ParseException {
+		return formatter.parse(sDate);
+	}
 
-	            HttpServletRequest request, HttpServletResponse response) throws ParseException
-	            {
-		 int nbExp=Integer.parseInt(request.getParameter("nbexp"));
-		 int nbfrom=Integer.parseInt(request.getParameter("nbform"));
-		 int nblangue=Integer.parseInt(request.getParameter("nblangue"));
-		 int nbloisir=Integer.parseInt(request.getParameter("nbloisir"));
-		
+	public static Date toDBDateFormat(String sDate) throws ParseException {
+		return new Date(stringToDate(sDate).getTime());
+	}
 
-		
+	public ActionForward display(ActionMapping mapping, ActionForm form,
 
-		 Curriculum curriculum=new Curriculum();
-	
-		 EntityManager em = PersistenceProvider.createEntityManager();
-		
-	 HttpSession mysession=request.getSession();
-		 //MemberCv
-		 MemberCV member=new MemberCV();
-		 member.setBirthDate((String) mysession.getAttribute("formatBirthDay"));
-		 
-		 member.setTown((String) mysession.getAttribute("CvPays"));		 
-		 member.setAdress((String) mysession.getAttribute("CvAdresse"));
-		 member.setFirstName((String)mysession.getAttribute("CvNom"));
-		 member.setMail((String)mysession.getAttribute("CvContact"));
-		 member.setNumberPhone((String)mysession.getAttribute("CvPortable"));
-		 member.setSurname((String)mysession.getAttribute("CvPrenom"));
-		 member.setPostCode(Integer.parseInt((String) mysession.getAttribute("CvCp")));
-		 member.setSituationFamilly((String)mysession.getAttribute("CvSituation"));
-		 member.setSex((String)mysession.getAttribute("SexeMember"));
-		 int lang=0;
-		HashMap<String,String> languages = null;
-		 while(lang<nblangue){
-		 String CVLangue=request.getParameter("CVLangue"+lang);
-		 String niveaux=request.getParameter("niveaux"+lang);
-		 languages.put(CVLangue, niveaux);
-		 
-		 
-		 }
-		 member.setLanguages(languages);
-		 em.getTransaction().begin();
-			em.persist(member);
-	     curriculum.setMember(member);
-	     curriculum.setTitleCv((String)mysession.getAttribute("CvTitle"));
-		 
-		
-		
-		 
-		 //Les experiances
-		 int i=0;
-		 
-		 while(i< nbExp){
-			 TrainingCV training=new TrainingCV();
-			 
-			 AssociationDateTrainingCV dateTaining=new AssociationDateTrainingCV();
-			 EstablishmentCV etab=new EstablishmentCV();
-			 String NomEntreprise=request.getParameter("NomEntreprise"+i);
-			 String CvLieu=request.getParameter("CvLieu"+i);
-			 String CvPoste=request.getParameter("CvPoste"+i);
-			 Date expBeginDate = toDBDateFormat(request.getParameter("expBeginDate"+i));
-			 Date expEndDate = toDBDateFormat(request.getParameter("expEndDate"+i));
-			 
-			
-			
-			
-		
-		 String CvSecteur=request.getParameter("CvSecteur"+i);
-		
-		 
-		
-		
-		
-		 etab.setName(NomEntreprise);
-		
-		 dateTaining.setStartDate(expBeginDate);		 
-		 dateTaining.setEndDate(expEndDate);
-		 training.setName(CvPoste);
-		 training.setSpeciality(CvSecteur);
-		 training.getAssociationDateTrainingCV().add(dateTaining);
-		 training.setAssociationDateTrainingCV(training.getAssociationDateTrainingCV());
-		 training.setMyEst(etab);
-		 
-		 curriculum.getTrains().add(dateTaining);
-		 curriculum.setTrains(curriculum.getTrains());
-		 
-		 dateTaining.setCurriculum(curriculum);
-		 dateTaining.setTraining(training);
-		  em.persist(dateTaining);
-		  
-		 em.persist(training);
-		 em.persist(etab);
-		
-		
-			
-		 i++;
-		 }
-		 
-		 //Diplôme/formation
-		 int j=0;
-		 while(j<nbfrom){
-			DegreeCV degreecv=new DegreeCV();
-			AssociationDateFormationCV dateFormation=new AssociationDateFormationCV();
-			FormationCV  formation= new FormationCV();
-			 EstablishmentCV etab=new EstablishmentCV();
-		 String CvEtude=request.getParameter("CvEtude"+j);
-		 String CvEtudeDom=request.getParameter("CvEtudeDom"+j);
-		 String CvEtablissment=request.getParameter("CvEtablissment"+j);
-		 String CvEtudePays=request.getParameter("CvEtudePays"+j);
-		 Date etudBeginDate=toDBDateFormat(request.getParameter("etudBeginDate"+j));
-		 Date etudEndDate=toDBDateFormat(request.getParameter("etudEndDate"+j));
-		 String CvEtudeVille=request.getParameter("CvEtudeVille"+j);
-		 			 formation.setName(CvEtude);
-		 			 etab.setName(CvEtablissment);
-		 			 etab.setTown(CvEtudeVille);
-		 			 etab.setLand(CvEtudePays);
-		 			 dateFormation.setEndDate(etudEndDate);
-		 			 dateFormation.setStartDate(etudBeginDate);
-		 			 formation.getAssociationDateFormationCV().add(dateFormation);
-		 			 formation.setAssociationDateFormationCV(formation.getAssociationDateFormationCV());
-		 			 formation.setEts(etab);
-		 			 curriculum.getMyFormations().add(dateFormation);
-		 			 curriculum.setMyFormations( curriculum.getMyFormations());
-		 			dateFormation.setIdCurriculum(curriculum);
-		 			dateFormation.setIdFormation(formation);
-		 			
-		 			em.persist(dateFormation);
-		 			em.persist(formation);
-		 			em.persist(etab);
-		 			 
-		 			 
-		 
-		 
-		 j++;
-		 }
-		 String CvNomLoisir=request.getParameter("CvNomLoisir");
-		 //Langues
-		
-		
-		
-			
-		 
-		
-		
-		 
-		 
-		
-		
-			em.persist(curriculum);
-			
-			em.getTransaction().commit();
-			em.close();
-	
-//	        
+	HttpServletRequest request, HttpServletResponse response)
+			throws ParseException {
+		int nbExp = Integer.parseInt(request.getParameter("nbexp"));
+		int nbfrom = Integer.parseInt(request.getParameter("nbform"));
+		int nblangue = Integer.parseInt(request.getParameter("nblangue"));
+		int nbloisir = Integer.parseInt(request.getParameter("nbloisir"));
+		int nbdip = Integer.parseInt(request.getParameter("nbdip"));
 
-	        return mapping.findForward("success");
-	    }
+		Curriculum curriculum = new Curriculum();
+
+		EntityManager em = PersistenceProvider.createEntityManager();
+
+		HttpSession mysession = request.getSession();
+		// MemberCv
+		MemberCV member = new MemberCV();
+		member.setBirthDate((Date) toDBDateFormat((String) mysession
+				.getAttribute("formatBirthDay")));
+		member.setTown((String) mysession.getAttribute("CvPays"));
+		member.setAdress((String) mysession.getAttribute("CvAdresse"));
+		member.setFirstName((String) mysession.getAttribute("CvNom"));
+		member.setMail((String) mysession.getAttribute("CvContact"));
+		member.setNumberPhone((String) mysession.getAttribute("CvPortable"));
+		member.setSurname((String) mysession.getAttribute("CvPrenom"));
+		member.setPostCode(Integer.parseInt((String) mysession
+				.getAttribute("CvCp")));
+		member.setSituationFamilly((String) mysession
+				.getAttribute("CvSituation"));
+		member.setSex((String) mysession.getAttribute("SexeMember"));
+		int lang = 0;
+		HashMap<String, String> languages= new HashMap<String, String>();
+		while (lang < nblangue) {
+			
+			String CVLangue = request.getParameter("CVLangue" + lang);
+			String niveaux = request.getParameter("niveaux" + lang);
+			languages.put(CVLangue, niveaux);
+			lang++;
+		}
+		member.setLanguages(languages);
+		em.getTransaction().begin();
+		em.persist(member);
+		curriculum.setMember(member);
+		curriculum.setTitleCv((String) mysession.getAttribute("CvTitle"));
+
+		// Les experiances
+		int i = 0;
+
+		while (i < nbExp) {
+			TrainingCV training = new TrainingCV();
+
+			AssociationDateTrainingCV dateTaining = new AssociationDateTrainingCV();
+			EstablishmentCV etab = new EstablishmentCV();
+			String NomEntreprise = request.getParameter("NomEntreprise" + i);
+			String CvLieu = request.getParameter("CvLieu" + i);
+			String CvPoste = request.getParameter("CvPoste" + i);
+			try{
+			Date expBeginDate = toDBDateFormat(request
+					.getParameter("expBeginDate" + i));
+			Date expEndDate = toDBDateFormat(request.getParameter("expEndDate"
+					+ i));
+
+			dateTaining.setStartDate(expBeginDate);
+			dateTaining.setEndDate(expEndDate);
+			}catch(Exception e){
+				
+			}
+			String CvSecteur = request.getParameter("CvSecteur" + i);
+			etab.setName(NomEntreprise);
+
+			training.setName(CvPoste);
+			training.setSpeciality(CvSecteur);
+			training.getAssociationDateTrainingCV().add(dateTaining);
+			training.setAssociationDateTrainingCV(training
+					.getAssociationDateTrainingCV());
+			training.setMyEst(etab);
+
+			curriculum.getTrains().add(dateTaining);
+			curriculum.setTrains(curriculum.getTrains());
+
+			dateTaining.setCurriculum(curriculum);
+			dateTaining.setTraining(training);
+			em.persist(dateTaining);
+
+			em.persist(training);
+			em.persist(etab);
+
+			i++;
+		}
+
+		//formation
+		int f = 0;
+		while (f < nbfrom) {
+			
+			AssociationDateFormationCV dateFormation = new AssociationDateFormationCV();
+			FormationCV formation = new FormationCV();
+			EstablishmentCV etab = new EstablishmentCV();
+			String CvFormation = request.getParameter("CvFormation"+f);
+			String CvEtablissmentform = request.getParameter("CvEtablissmentform"+f);
+			String CvFormPays = request.getParameter("CvFormPays"+f);
+			try{
+			Date DateObtention = toDBDateFormat(request
+					.getParameter("DateObtention"+f));
+			dateFormation.setObtainedDate(DateObtention);
+			}catch(Exception e){
+				
+			}
+			String CvFormVille = request.getParameter("CvFormVille"+f);
+			formation.setName(CvFormation);
+			etab.setName(CvEtablissmentform);
+			etab.setTown(CvFormVille);
+			etab.setLand(CvFormPays);
+			
+		
+			formation.getAssociationDateFormationCV().add(dateFormation);
+			formation.setAssociationDateFormationCV(formation
+					.getAssociationDateFormationCV());
+			formation.setEts(etab);
+			curriculum.getMyFormations().add(dateFormation);
+			curriculum.setMyFormations(curriculum.getMyFormations());
+			dateFormation.setIdCurriculum(curriculum);
+			dateFormation.setIdFormation(formation);
+
+			em.persist(dateFormation);
+			em.persist(formation);
+			em.persist(etab);
+
+			f++;
+		}
+		//diplome
+		int d=0;
+		while(d<nbdip){
+			DegreeCV degree=new DegreeCV();
+			AssociationDateDegreeCV dateDegreeCV=new AssociationDateDegreeCV();
+			EstablishmentCV etabCv=new EstablishmentCV();
+			String CvEtude= request.getParameter("CvEtude"+d);
+			String CvEtudeDom= request.getParameter("CvEtudeDom"+d);
+			String CvEtablissment= request.getParameter("CvEtablissment"+d);
+			String CvEtudePays= request.getParameter("CvEtudePays"+d);
+			String CvEtudeVille= request.getParameter("CvEtudeVille"+d);
+			try{
+				Date etudBeginDate = toDBDateFormat(request
+						.getParameter("etudBeginDate" + d));
+				Date etudEndDate = toDBDateFormat(request.getParameter("etudEndDate"
+						+ d));
+
+				dateDegreeCV.setStartDate(etudBeginDate);
+				dateDegreeCV.setEndDate(etudEndDate);
+				}catch(Exception e){
+					
+				}
+			degree.setStudiesLevel(CvEtude);
+			etabCv.setName(CvEtablissment);
+			etabCv.setTown(CvEtudeVille);
+			etabCv.setLand(CvEtudePays);
+			
+		
+			degree.getAssociationDateDegreeCV().add(dateDegreeCV);
+			degree.setAssociationDateDegreeCV(degree.getAssociationDateDegreeCV());
+			degree.setEts(etabCv);
+			curriculum.getDegs().add(dateDegreeCV);
+			curriculum.setDegs(curriculum.getDegs());
+			dateDegreeCV.setCurriculum(curriculum);
+			dateDegreeCV.setDegree(degree);
+
+			em.persist(dateDegreeCV);
+			em.persist(degree);
+			em.persist(etabCv);
+			
+			d++;
+		}
+		int l=0;
+		while(l< nbloisir){
+			HobbiesCV loisir=new HobbiesCV();
+		String CvNomLoisir = request.getParameter("CvNomLoisir"+l);
+		loisir.setName(CvNomLoisir);
+		em.persist(loisir);
+		curriculum.getHobs().add(loisir);
+		curriculum.setHobs(curriculum.getHobs());
+		l++;
+		}// Langues
+
+		em.persist(curriculum);
+
+		em.getTransaction().commit();
+		em.close();
+
+		//
+
+		return mapping.findForward("success");
+	}
 }

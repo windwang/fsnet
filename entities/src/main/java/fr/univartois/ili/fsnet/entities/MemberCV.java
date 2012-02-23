@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class MemberCV implements Serializable {
 	private int postCode;
 	private String town;
 	private String numberPhone;
-	private String birthDate;
+	private Date birthDate;
 	private String sex;
 	private String situationFamilly;
 	private HashMap<String,String> languages;
@@ -165,7 +166,7 @@ public class MemberCV implements Serializable {
 	/**
 	 * @return the birthDate
 	 */
-	public String getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
@@ -173,7 +174,7 @@ public class MemberCV implements Serializable {
 	 * @param birthDate
 	 *            the birthDate to set
 	 */
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
