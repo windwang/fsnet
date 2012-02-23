@@ -29,6 +29,12 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
+/**
+ * 
+ * @author Ayoub AICH
+ *
+ */
+
 public class DisplayCv extends MappingDispatchAction{
 	
 	
@@ -53,6 +59,18 @@ public class DisplayCv extends MappingDispatchAction{
 		session.setAttribute("numNonReedEvents", numNonReedEvents);
 	}
 	
+	
+	
+	/**
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	 public ActionForward display(ActionMapping mapping, ActionForm form,
 	            HttpServletRequest request, HttpServletResponse response)
 	            throws IOException, ServletException {
@@ -65,52 +83,12 @@ public class DisplayCv extends MappingDispatchAction{
 		em.getTransaction().begin();
 			
 		CvFacade cvfacade=new CvFacade(em);	
-		 
-//		 BeanCv test=new BeanCv();
-//		 test.setId(1);
-//		 test.setTitle("titre");
-//		 test.setFirstName("ayoub");
-		 List<Curriculum> result=cvfacade.listAllCv();
+		List<Meeting> result=cvfacade.listAllCv();
 		 
 		 
-		
-		 em.close();
+		em.close();
 		 
 		 request.setAttribute("CVsList", result);
-		 
-//		 DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-//			String eventId = (String) dynaForm.get("eventId");
-//			EntityManager em = PersistenceProvider.createEntityManager();
-//			addRightToRequest(request);
-//			em.getTransaction().begin();
-//
-//			SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-//			request.setAttribute("member", member);
-//
-//			MeetingFacade meetingFacade = new MeetingFacade(em);
-//			try {
-//				Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
-//				member.addInteractionRead(event);
-//
-//				InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
-//						em);
-//				boolean isSubscriber = interactionRoleFacade.isSubsriber(member,
-//						event);
-//				Set<SocialEntity> subscribers = interactionRoleFacade
-//						.getSubscribers(event);
-//
-//				refreshNumNewEvents(request, em);
-//				em.getTransaction().commit();
-//
-//				em.close();
-//
-//				// TODO find a solution to paginate a Set
-//
-//				request.setAttribute("subscribers", subscribers);
-//				request.setAttribute("subscriber", isSubscriber);
-//				request.setAttribute("event", event);
-//			} catch (NumberFormatException e) {
-//			}
 		 
 		 
 		 return mapping.findForward("success");

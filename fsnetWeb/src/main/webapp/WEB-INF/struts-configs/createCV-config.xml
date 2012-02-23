@@ -34,6 +34,11 @@
 			<form-property name="CvFin" type="java.lang.String" />
 			
 		</form-bean>
+		
+		<form-bean name="GenerateForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+        </form-bean>
+	
 		</form-beans>
 		<action-mappings>
 		 <action
@@ -71,6 +76,9 @@
             
       
         </action>
+        
+        
+   <!-- Author: AICH Ayoub -->     
         <action
             path="/MenuCv"
             type="fr.univartois.ili.fsnet.actions.DisplayCv"
@@ -81,7 +89,14 @@
             
       
         </action>
-     
+        <action path="/Generate"
+        		name="GenerateForm"
+        		type="fr.univartois.ili.fsnet.actions.GenerateCv"
+            	scope="request"
+            	validate="true"
+            	parameter="test">
+        </action>
+        
         </action-mappings>
 		</struts-config>
 		

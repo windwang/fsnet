@@ -1,6 +1,5 @@
 <%-- 
-    Created on : 13/02/2012
-    Author     : AICH Ayoub 
+    Author     : Ayoub AICH  
 --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -27,7 +26,20 @@
 			
 			<c:forEach var="cv" items="${requestScope.CVsList}">
 			
-					<tr><td></td><td>${cv.id }</td><td>${cv.membre }</td><td></td><td><input type="hidden" name="idCv" value="${cv.id }"/><input type="submit" name="generate" value="genereCV"/></td></tr>
+					<tr><td></td><td>${cv.id }</td><td></td>
+					
+					   <td>
+					  
+					  
+					  <html:form action="/Generate">
+					  <input type="hidden" name="idCv" value="${cv.id }"/>  
+					      <html:submit styleClass="button" >
+					        <bean:message key="BoutonCv.1" />
+					       </html:submit> 
+					    </html:form>   
+					   </td>
+					</tr>
+					
 		
 			</c:forEach>
 		

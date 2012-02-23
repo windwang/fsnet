@@ -8,6 +8,14 @@ import javax.persistence.TypedQuery;
 import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.entities.Meeting;
 
+
+/**
+ * 
+ * @author Ayoub AICH
+ *
+ */
+
+
 public class CvFacade {
 	
 	 private final EntityManager em;
@@ -20,13 +28,22 @@ public class CvFacade {
 	 * List all the resumes
 	 * @return List<Meeting> the list containing all the resumes
 	 */
-	public final List<Curriculum> listAllCv() {
-		List<Curriculum> results;
+	public final List<Meeting> listAllCv() {
+		List<Meeting> results;
 		results = em
 		.createQuery(
-				"SELECT c FROM Curriculum c",
-				Curriculum.class).getResultList();
+				"SELECT e FROM Meeting e",
+				Meeting.class).getResultList();
 		return results;
 	}
+	
+	/**
+    *
+    * @param meetingId
+    * @return
+    */
+   public final Meeting getMeeting(int meetingId) {
+       return em.find(Meeting.class, meetingId);
+   }
 
 }

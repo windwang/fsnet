@@ -402,6 +402,8 @@
 		<put name="title" value="profile.CreateCV" />
 		<put name="body-content" value="/content/createCV/InfoContact.jsp" />
 
+
+    <!-- Author: Ayoub AICH --> 
 	</definition>
 	
 		<definition name="DisplayCv" extends=".defaultLayout">
@@ -409,6 +411,7 @@
 		<put name="body-content" value="/content/createCV/DisplayCv.jsp" />
 
 	</definition>
+	
 	
 	
 </tiles-definitions>
