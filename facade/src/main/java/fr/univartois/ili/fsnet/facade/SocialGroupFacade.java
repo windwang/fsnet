@@ -188,7 +188,7 @@ public class SocialGroupFacade {
 					.getGroup());
 
 			for (SocialGroup socialGroup2 : socialGroups) {
-				tree = (socialGroup2.getName() + ">") + tree;
+				tree = (socialGroup2.getName() + " > ") + tree;
 			}
 			tree = tree + member.getGroup().getName();
 		} else {
