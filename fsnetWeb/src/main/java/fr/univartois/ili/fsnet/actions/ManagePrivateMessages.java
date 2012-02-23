@@ -40,36 +40,45 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 public class ManagePrivateMessages extends MappingDispatchAction implements
 		CrudAction {
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#create(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		
+
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		if(!fascade.isAuthorized(authenticatedUser, Right.SEND_MESSAGE))
-		{
+		if (!fascade.isAuthorized(authenticatedUser, Right.SEND_MESSAGE)) {
 			em.close();
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
-		
+
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String to = dynaForm.getString("messageTo");
 		String subject = dynaForm.getString("messageSubject");
 		String body = dynaForm.getString("messageBody");
 		em.getTransaction().begin();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
-		StringTokenizer stk = new StringTokenizer(to,",");
+		StringTokenizer stk = new StringTokenizer(to, ",");
 		List<SocialEntity> receivers = new ArrayList<SocialEntity>();
 		addRightToRequest(request);
-		while(stk.hasMoreTokens()){
+		while (stk.hasMoreTokens()) {
 			String email = stk.nextToken();
 			SocialEntity findByEmail = sef.findByEmail(email);
 			if (findByEmail == null) {
 				ActionErrors errors = new ActionErrors();
-				errors.add("messageTo", new ActionMessage("privatemessages.to.error",email));
+				errors.add("messageTo", new ActionMessage(
+						"privatemessages.to.error", email));
 				saveErrors(request, errors);
 				em.getTransaction().commit();
 				em.close();
@@ -77,15 +86,24 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			}
 			receivers.add(findByEmail);
 		}
-		for (SocialEntity se : receivers  ) {
+		for (SocialEntity se : receivers) {
 			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-			pmf.sendPrivateMessage(body, authenticatedUser, subject,se);
-		} 			
+			pmf.sendPrivateMessage(body, authenticatedUser, subject, se);
+		}
 		em.getTransaction().commit();
 		em.close();
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#modify(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -93,6 +111,15 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#delete(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -101,87 +128,111 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		addRightToRequest(request);
 		try {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-			int messageId = Integer.parseInt(dynaForm
-					.getString("messageId"));
-			SocialEntity authenticatedUser = UserUtils
-					.getAuthenticatedUser(request, em);
+			int messageId = Integer.parseInt(dynaForm.getString("messageId"));
+			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+					request, em);
 
 			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 			PrivateMessage privateMessage = pmf.getPrivateMessage(messageId);
-			if(privateMessage == null){
+			if (privateMessage == null) {
 				em.close();
 				throw new UnauthorizedOperationException("");
-			}	
+			}
 			em.getTransaction().begin();
 			pmf.deletePrivateMessage(authenticatedUser, privateMessage);
 			em.getTransaction().commit();
 			em.close();
 			return mapping.findForward("success");
 		} catch (NumberFormatException e) {
-			servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS",e);
+			servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS", e);
 		}
 		em.close();
 		return mapping.findForward("fail");
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		try {
-				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
-				String[] selectedMessages = (String[]) dynaForm
-						.get("selectedMessages");
-				SocialEntity authenticatedUser = UserUtils
-						.getAuthenticatedUser(request, em);
-				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-				em.getTransaction().begin();
-				for (int i = 0; i < selectedMessages.length; i++) {
-					PrivateMessage m = pmf.getPrivateMessage(Integer
-							.valueOf(selectedMessages[i]));
-					pmf.deletePrivateMessage(authenticatedUser, m);
-				}
-				em.flush();
-				em.getTransaction().commit();
-			} catch (NumberFormatException e) {
+			String[] selectedMessages = (String[]) dynaForm
+					.get("selectedMessages");
+			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+					request, em);
+			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+			em.getTransaction().begin();
+			for (int i = 0; i < selectedMessages.length; i++) {
+				PrivateMessage m = pmf.getPrivateMessage(Integer
+						.valueOf(selectedMessages[i]));
+				pmf.deletePrivateMessage(authenticatedUser, m);
+			}
+			em.flush();
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
 		}
 		em.close();
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward deleteMulti2(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		
-		
+
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		try {
-				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
-				String[] selectedMessages = (String[]) dynaForm
-						.get("selectedMessages");
-				SocialEntity authenticatedUser = UserUtils
-						.getAuthenticatedUser(request, em);
-				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-				em.getTransaction().begin();
-				for (int i = 0; i < selectedMessages.length; i++) {
-					PrivateMessage m = pmf.getPrivateMessage(Integer
-							.valueOf(selectedMessages[i]));
-					pmf.deletePrivateMessage(authenticatedUser, m);
-				}
-				em.flush();
-				em.getTransaction().commit();
-			} catch (NumberFormatException e) {
+			String[] selectedMessages = (String[]) dynaForm
+					.get("selectedMessages");
+			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+					request, em);
+			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+			em.getTransaction().begin();
+			for (int i = 0; i < selectedMessages.length; i++) {
+				PrivateMessage m = pmf.getPrivateMessage(Integer
+						.valueOf(selectedMessages[i]));
+				pmf.deletePrivateMessage(authenticatedUser, m);
+			}
+			em.flush();
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
 		}
-				
+
 		em.close();
 		return mapping.findForward("success");
 	}
-	
-	
+
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward inbox(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -189,21 +240,33 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 		addRightToRequest(request);
-			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
-					authenticatedUser.getReceivedPrivateMessages());
-			Collections.reverse(userMessages);
-			
-			/*Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(userMessages, request, "inboxMessages");
-			
-			request.setAttribute("inBoxMessagesPaginator", paginator);*/
-			request.setAttribute("inBoxMessages", userMessages);
+		List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
+				authenticatedUser.getReceivedPrivateMessages());
+		Collections.reverse(userMessages);
 
-			refreshNumNewMessages(request, userMessages);
+		/*
+		 * Paginator<PrivateMessage> paginator = new
+		 * Paginator<PrivateMessage>(userMessages, request, "inboxMessages");
+		 * 
+		 * request.setAttribute("inBoxMessagesPaginator", paginator);
+		 */
+		request.setAttribute("inBoxMessages", userMessages);
+
+		refreshNumNewMessages(request, userMessages);
 		refreshNumNewMessages(request, em);
 		em.close();
 		return mapping.findForward("success");
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward outbox(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -215,7 +278,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 					authenticatedUser.getSentPrivateMessages());
 			Collections.reverse(userMessages);
-	
+
 			request.setAttribute("outBoxMessages", userMessages);
 
 		} else {
@@ -225,6 +288,15 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		return mapping.findForward("success");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#search(org.apache.struts.action
+	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -232,6 +304,15 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * fr.univartois.ili.fsnet.actions.CrudAction#display(org.apache.struts.
+	 * action.ActionMapping, org.apache.struts.action.ActionForm,
+	 * javax.servlet.http.HttpServletRequest,
+	 * javax.servlet.http.HttpServletResponse)
+	 */
 	@Override
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
@@ -249,13 +330,13 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 				PrivateMessage privateMessage = pmf
 						.getPrivateMessage(messageId);
-				
-				
+
 				List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
-						pmf.getConversation(privateMessage.getFrom(), 
-								privateMessage.getSubject(),privateMessage.getTo() ));
+						pmf.getConversation(privateMessage.getFrom(),
+								privateMessage.getSubject(),
+								privateMessage.getTo()));
 				Collections.reverse(userMessages);
-				
+
 				if (privateMessage != null
 						&& (authenticatedUser.equals(privateMessage.getFrom()) || authenticatedUser
 								.equals(privateMessage.getTo()))) {
@@ -265,17 +346,18 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 						refreshNumNewMessages(request, em);
 						em.getTransaction().commit();
 					}
-					
-					Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>
-					(userMessages, request, "conversationMessages");
-					
+
+					Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(
+							userMessages, request, "conversationMessages");
+
 					request.setAttribute("conversationMessages", paginator);
 					request.setAttribute("theMessage", privateMessage);
 					em.close();
 					return mapping.findForward("success");
 				} else {
 					em.close();
-					throw new UnauthorizedOperationException("Must be the owner of message");
+					throw new UnauthorizedOperationException(
+							"Must be the owner of message");
 				}
 			}
 		} catch (NumberFormatException e) {
@@ -284,6 +366,10 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		return null;
 	}
 
+	/**
+	 * @param messages
+	 * @return
+	 */
 	private static final int calculateNumNewMessage(
 			Collection<PrivateMessage> messages) {
 		int numNonReedPrivateMessages = 0;
@@ -295,6 +381,10 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		return numNonReedPrivateMessages;
 	}
 
+	/**
+	 * @param request
+	 * @param messages
+	 */
 	private static final void refreshNumNewMessages(HttpServletRequest request,
 			Collection<PrivateMessage> messages) {
 		HttpSession session = request.getSession();
@@ -318,14 +408,17 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		session.setAttribute("numNonReedPrivateMessages",
 				numNonReedPrivateMessages);
 	}
-	
-	private void addRightToRequest(HttpServletRequest request){
+
+	/**
+	 * @param request
+	 */
+	private void addRightToRequest(HttpServletRequest request) {
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		Right rightAnswerMessage = Right.ANSWER_MESSAGE;
 		Right rightSendMessage = Right.SEND_MESSAGE;
 		request.setAttribute("rightAnswerMessage", rightAnswerMessage);
 		request.setAttribute("rightSendMessage", rightSendMessage);
-		request.setAttribute("socialEntity",socialEntity);
+		request.setAttribute("socialEntity", socialEntity);
 	}
 
 }

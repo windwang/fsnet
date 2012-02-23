@@ -126,10 +126,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.getTransaction().commit();
 		entityManager.close();
 
-		Paginator<Announcement> paginator = new Paginator<Announcement>(
-				listAnnounces, request, "listAnnounces");
-
-		request.setAttribute("annoucesListPaginator", paginator);
+		request.setAttribute("annoucesList", listAnnounces);
 		return mapping.findForward("success");
 	}
 

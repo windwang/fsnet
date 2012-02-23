@@ -12,7 +12,7 @@ import fr.univartois.ili.fsnet.entities.Property;
  * @author FSNet
  * 
  */
-public class FSNetConfiguration {
+public final class FSNetConfiguration {
 
 	public static final String MAIL_FROM_KEY = "fsnet.mail.from";
 	public static final String ENABLE_TLS_KEY = "mail.smtp.starttls.enable";

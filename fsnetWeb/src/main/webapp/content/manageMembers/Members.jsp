@@ -5,17 +5,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean"  prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-html"  prefix="html"%>
 
-<style type="text/css">
-  #divChooseSimpleMember {
-		display: block;
-    }
-  #divChooseMultipleMember {
-		display: none;
-    }
-  #divChooseMultipleFileMember {
-		display: none;
-    }
-  </style>
+
 
 <input type="radio" name="chooseSimpleOrMultiple" checked="checked" id="simpleMember" value="simpleChoose" onchange="changeSimpleOrMultiple()"/>
 <label for="simpleMember"> 
@@ -43,7 +33,7 @@
 <div id="divChooseMultipleFileMember">
 <jsp:include page="/content/manageMembers/CreateMultipleMemberWithFile.jsp"/>
 </div>
-<script>
+<script type="text/javascript">
 	function changeSimpleOrMultiple()
 	{
 		if(document.getElementsByName("chooseSimpleOrMultiple")[0].checked)

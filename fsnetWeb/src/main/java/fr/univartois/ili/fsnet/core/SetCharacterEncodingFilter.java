@@ -114,8 +114,9 @@ public class SetCharacterEncodingFilter implements Filter {
         // Conditionally select and set the character encoding to be used
         if (ignore || (request.getCharacterEncoding() == null)) {
             String encoding = selectEncoding(request);
-            if (encoding != null)
+            if (encoding != null){
                 request.setCharacterEncoding(encoding);
+            }
         }
 
 	// Pass control on to the next filter
@@ -134,15 +135,15 @@ public class SetCharacterEncodingFilter implements Filter {
 	this.filterConfig = filterConfig;
         this.encoding = filterConfig.getInitParameter("encoding");
         String value = filterConfig.getInitParameter("ignore");
-        if (value == null)
+        if (value == null){
             this.ignore = true;
-        else if (value.equalsIgnoreCase("true"))
+        }else if (value.equalsIgnoreCase("true")){
             this.ignore = true;
-        else if (value.equalsIgnoreCase("yes"))
+        }else if (value.equalsIgnoreCase("yes")){
             this.ignore = true;
-        else
+        }else{
             this.ignore = false;
-
+        }
     }
 
 

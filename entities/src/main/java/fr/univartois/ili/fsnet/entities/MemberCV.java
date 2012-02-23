@@ -1,6 +1,8 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
+import java.sql.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import javax.persistence.Entity;
@@ -25,20 +27,17 @@ public class MemberCV implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
-	
-	 
-
 	private String firstName;
 	private String surname;
 	private String mail;
-	private String adress;
+	private String adress;	
 	private int postCode;
 	private String town;
 	private String numberPhone;
-	private String birthDate;
+	private Date birthDate;
 	private String sex;
 	private String situationFamilly;
-	private List<String> languages;
+	private HashMap<String,String> languages;
 
 	public MemberCV() {
 
@@ -167,7 +166,7 @@ public class MemberCV implements Serializable {
 	/**
 	 * @return the birthDate
 	 */
-	public String getBirthDate() {
+	public Date getBirthDate() {
 		return birthDate;
 	}
 
@@ -175,7 +174,7 @@ public class MemberCV implements Serializable {
 	 * @param birthDate
 	 *            the birthDate to set
 	 */
-	public void setBirthDate(String birthDate) {
+	public void setBirthDate(Date birthDate) {
 		this.birthDate = birthDate;
 	}
 
@@ -194,6 +193,7 @@ public class MemberCV implements Serializable {
 		this.sex = sex;
 	}
 
+	
 	/**
 	 * @return the situationFamilly
 	 */
@@ -212,7 +212,7 @@ public class MemberCV implements Serializable {
 	/**
 	 * @return the languages
 	 */
-	public List<String> getLanguages() {
+	public HashMap<String,String> getLanguages() {
 		return languages;
 	}
 
@@ -220,7 +220,7 @@ public class MemberCV implements Serializable {
 	 * @param languages
 	 *            the languages to set
 	 */
-	public void setLanguages(List<String> languages) {
+	public void setLanguages(HashMap<String,String> languages) {
 		this.languages = languages;
 	}
 

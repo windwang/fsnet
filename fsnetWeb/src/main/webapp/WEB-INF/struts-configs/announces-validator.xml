@@ -20,6 +20,9 @@
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="announceContent" depends="required,maxlength">
+				<arg key="announce.content" name="required" />
+				<arg0 key="announce.content" name="maxlength" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
 					<var-name>maxlength</var-name>
 					<var-value>5000</var-value>
@@ -38,6 +41,7 @@
 
 			</field>
 		</form>
+		
 		<form name="/ModifyAnnounce">
 			<field property="announceTitle" depends="required,mask,maxlength">
 				<var>
@@ -52,6 +56,9 @@
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="announceContent" depends="required,maxlength">
+				<arg key="announce.content" name="required" />
+				<arg0 key="announce.content" name="maxlength" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
 					<var-name>maxlength</var-name>
 					<var-value>5000</var-value>

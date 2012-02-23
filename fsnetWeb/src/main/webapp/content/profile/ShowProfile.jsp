@@ -74,7 +74,7 @@
 </fieldset>
 
 
-<img src="avatar/${watchedProfile.id}.png" style="float: right;" />
+<img src="avatar/${watchedProfile.id}.png" style="float: right;" alt="Avatar"/>
 
 <div class="placeButton">
 <c:if test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
@@ -259,7 +259,7 @@
 		<td>
 			<ul>
 				<c:choose>
-					<c:when test="${requestScope.treeGroupProfile}">
+					<c:when test="${requestScope.treeGroupProfile ne ''}">
 						<html:link action="/DisplayInformationGroup">
 							<html:param name="idGroup" value="${ socialGroup.id }" />
 							<li>${requestScope.treeGroupProfile}</li>
@@ -267,7 +267,7 @@
 
 					</c:when>
 					<c:otherwise>
-						<bean:message key="avatar.member.no.group" />
+						<li><bean:message key="avatar.member.no.group" /></li>
 					</c:otherwise>
 				</c:choose>
 			</ul>

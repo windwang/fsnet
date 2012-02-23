@@ -235,11 +235,8 @@ public class ManageCommunities extends MappingDispatchAction implements
 		em.getTransaction().commit();
 		em.close();
 
-		Paginator<Community> paginator = new Paginator<Community>(result,
-				request, "communities");
-
 		request.setAttribute("allMembers", allMembers);
-		request.setAttribute("communitiesListPaginator", paginator);
+		request.setAttribute("communitiesList", result);
 		return mapping.findForward("success");
 	}
 }

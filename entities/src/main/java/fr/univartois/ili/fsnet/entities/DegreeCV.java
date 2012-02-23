@@ -30,8 +30,9 @@ public class DegreeCV implements Serializable {
 	@Id
 	private long id;
 
-	private int postBacValue;
-	private String grade;
+	private String studiesLevel;
+	
+	private String domain;
 
 	@OneToMany (mappedBy="degree")
 	private List<AssociationDateDegreeCV> myCVs = new ArrayList<AssociationDateDegreeCV>();
@@ -58,41 +59,22 @@ public class DegreeCV implements Serializable {
 		this.id = id;
 	}
 
-	/**
-	 * @return the postBacValue
-	 */
-	public int getPostBacValue() {
-		return postBacValue;
+	
+
+	public String getStudiesLevel() {
+		return studiesLevel;
 	}
 
-	/**
-	 * @param postBacValue
-	 *            the postBacValue to set
-	 */
-	public void setPostBacValue(int postBacValue) {
-		this.postBacValue = postBacValue;
+	public void setStudiesLevel(String studiesLevel) {
+		this.studiesLevel = studiesLevel;
 	}
 
-	/**
-	 * @return the grade
-	 */
-	public String getGrade() {
-		return grade;
+	public String getDomain() {
+		return domain;
 	}
 
-	/**
-	 * @param grade
-	 *            the grade to set
-	 */
-	public void setGrade(String grade) {
-		this.grade = grade;
-	}
-
-	/**
-	 * @return the ets
-	 */
-	public EstablishmentCV getEts() {
-		return ets;
+	public void setDomain(String domain) {
+		domain = domain;
 	}
 
 	/**

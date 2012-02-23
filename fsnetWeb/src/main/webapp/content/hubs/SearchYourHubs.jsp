@@ -19,7 +19,7 @@
   <legend class="legendHome"><bean:message key="hubs.searchHubs" /></legend>
   <table class="inLineTableDashBoardFieldset fieldsetTable">
 	<tr>
-		<td><html:form action="/SearchYourHubs" method="GET">
+		<td><html:form action="/SearchYourHubs" method="get">
 				<html:hidden property="communityId" value="${param.communityId}" />
 				<table id="SearchHub">
 					<tr>

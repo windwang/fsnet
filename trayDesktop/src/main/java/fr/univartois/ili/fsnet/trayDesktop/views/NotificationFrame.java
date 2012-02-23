@@ -244,7 +244,7 @@ public class NotificationFrame {
 		});
 	}
 
-	public void init(Point position) {
+	public final void init(Point position) {
 		this.frame.setUndecorated(true);
 		BoxLayout flow = new BoxLayout(frame.getContentPane(),
 				BoxLayout.PAGE_AXIS);

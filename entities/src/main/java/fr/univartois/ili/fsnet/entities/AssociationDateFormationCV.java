@@ -21,8 +21,8 @@ public class AssociationDateFormationCV implements Serializable {
 	@Id
 	private long id;
 
-	private Date startDate;
-	private Date endDate;
+	private Date obtainedDate;
+
 
 	@ManyToOne
 	private FormationCV idFormation;
@@ -50,34 +50,21 @@ public class AssociationDateFormationCV implements Serializable {
 	}
 
 	/**
-	 * @return the startDate
+	 * @return the obtainedDate
 	 */
-	public Date getStartDate() {
-		return startDate;
+	public Date getObtainedDate() {
+		return obtainedDate;
 	}
 
 	/**
-	 * @param startDate
-	 *            the startDate to set
+	 * @param obtainedDate
+	 *            the obtainedDate to set
 	 */
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
+	public void setObtainedDate(Date obtainedDate) {
+		this.obtainedDate = obtainedDate;
 	}
 
-	/**
-	 * @return the endDate
-	 */
-	public Date getEndDate() {
-		return endDate;
-	}
-
-	/**
-	 * @param endDate
-	 *            the endDate to set
-	 */
-	public void setEndDate(Date endDate) {
-		this.endDate = endDate;
-	}
+	
 
 	/**
 	 * @return the idFormation

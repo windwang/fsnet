@@ -6,10 +6,17 @@ import javax.persistence.Persistence;
 import javax.persistence.Query;
 import javax.persistence.metamodel.EntityType;
 
-public class DBUtils {
+public final class DBUtils {
 	private static final EntityManagerFactory factory = Persistence
 			.createEntityManagerFactory("fsnetjpa");
 
+	/*
+	 * There has to be a constructor, even if it is a private one
+	 */
+	private DBUtils(){
+		
+	}
+	
 	public static final void cleanDB() {
 		EntityManager em = factory.createEntityManager();
 		for (EntityType<?> et : factory.getMetamodel().getEntities()) {

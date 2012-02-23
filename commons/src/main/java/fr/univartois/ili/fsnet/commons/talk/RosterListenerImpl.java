@@ -14,13 +14,13 @@ import org.jivesoftware.smack.packet.Presence;
  */
 public class RosterListenerImpl implements RosterListener {
 
-	HashMap<String, String> userStatus = new HashMap<String, String>();
-	boolean dirty = true;
+	private HashMap<String, String> userStatus = new HashMap<String, String>();
+	private boolean dirty = true;
 
 	/**
 	 * @param roster
 	 */
-	public RosterListenerImpl(Roster roster) {
+	public RosterListenerImpl(/*Roster roster*/) {
 		super();
 	}
 
@@ -33,10 +33,8 @@ public class RosterListenerImpl implements RosterListener {
 	@Override
 	public void entriesAdded(Collection<String> addresses) {
 		dirty = true;
-		System.out.println("Entry added");
 		for (String string : addresses) {
 			System.out.println(string);
-
 		}
 	}
 
@@ -50,10 +48,9 @@ public class RosterListenerImpl implements RosterListener {
 	@Override
 	public void entriesUpdated(Collection<String> addresses) {
 		dirty = true;
-		System.out.println("Entry update");
-		for (String string : addresses) {
-			System.out.println(string);
-		}
+//		for (String string : addresses) {
+//			System.out.println(string);
+//		}
 	}
 
 	/*
@@ -66,10 +63,9 @@ public class RosterListenerImpl implements RosterListener {
 	@Override
 	public void entriesDeleted(Collection<String> addresses) {
 		dirty = true;
-		System.out.println("Entry deleted");
-		for (String string : addresses) {
-			System.out.println(string);
-		}
+//		for (String string : addresses) {
+//			System.out.println(string);
+//		}
 	}
 
 	/*
@@ -82,8 +78,6 @@ public class RosterListenerImpl implements RosterListener {
 	@Override
 	public void presenceChanged(Presence presence) {
 		dirty = true;
-		System.out.println("Presenceof " + presence.getFrom() + " changed to"
-				+ presence.getStatus());
 		userStatus.put(presence.getFrom(), presence.getStatus());
 	}
 
@@ -107,6 +101,14 @@ public class RosterListenerImpl implements RosterListener {
 	 */
 	public void setDirty(boolean dirty) {
 		this.dirty = dirty;
+	}
+
+	public HashMap<String, String> getUserStatus() {
+		return userStatus;
+	}
+
+	public void setUserStatus(HashMap<String, String> userStatus) {
+		this.userStatus = userStatus;
 	}
 
 }

@@ -148,7 +148,7 @@ public class InteractionFacade {
 	public static class Triple {
 		private Interaction inter;
 		private String path;
-		String id;
+		private String id;
 		
 		public Triple(Interaction inter, String path, String id) {
 			this.inter = inter;

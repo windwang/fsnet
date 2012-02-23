@@ -25,9 +25,6 @@ public class EstablishmentCV implements Serializable {
 	private long id;
 
 	private String name;
-
-	private String adress;
-	private int postCode;
 	private String town;
 	private String land;
 
@@ -65,35 +62,9 @@ public class EstablishmentCV implements Serializable {
 		this.name = name;
 	}
 
-	/**
-	 * @return the adress
-	 */
-	public String getAdress() {
-		return adress;
-	}
+	
 
-	/**
-	 * @param adress
-	 *            the adress to set
-	 */
-	public void setAdress(String adress) {
-		this.adress = adress;
-	}
 
-	/**
-	 * @return the postCode
-	 */
-	public int getPostCode() {
-		return postCode;
-	}
-
-	/**
-	 * @param postCode
-	 *            the postCode to set
-	 */
-	public void setPostCode(int postCode) {
-		this.postCode = postCode;
-	}
 
 	/**
 	 * @return the town
