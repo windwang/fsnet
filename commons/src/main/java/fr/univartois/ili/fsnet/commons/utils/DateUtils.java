@@ -64,7 +64,7 @@ public class DateUtils {
 	private static final DateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 	private static final DateFormat formatterWithHours = new SimpleDateFormat(
-			"dd/MM/yyyy hh:mm");
+			"dd/MM/yyyy HH:mm");
 	
 	
 
