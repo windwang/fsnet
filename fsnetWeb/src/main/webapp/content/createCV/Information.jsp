@@ -57,15 +57,19 @@
 					<td><span class="CvSecteurError"><bean:message
 								key="error.CvSecteur" /></span></td>
 				</tr>
+				
 				<tr>
-					<td>*<bean:message key="cv.lieu" /></td>
+					<td><bean:message key="cv.18" /></td>
+					<td><bean:message key="cv.19" /></td>
 				</tr>
 				<tr>
-					<td><html:text property="CvLieu" styleId="CvLieu"
+					<td><html:text property="CvPaysExp" styleId="CvPaysExp"
 							errorStyleClass="error" /></td>
-					<td><span errorStyleClass="error" class="CvLieuError"><bean:message
-								key="error.CvLieu" /></span></td>
+					<td>
+						<html:text property="CvVilleExp" styleId="CvVilleExp"
+							errorStyleClass="error" /></td>
 				</tr>
+
 				<tr>
 					<td>*<label for="expDate"> <bean:message key="cv.12" />
 							:
@@ -153,12 +157,13 @@
 								key="error.CvEtablissment" /></span></td>
 				</tr>
 				<tr>
-					<td>*<bean:message key="cv.18" /></td>
+					<td><bean:message key="cv.18" /></td>
+					<td><bean:message key="cv.19" /></td>
 				</tr>
 				<tr>
 					<td><html:text property="CvEtudePays" styleId="CvEtudePays"
 							errorStyleClass="error" /></td>
-					<td><bean:message key="cv.19" />
+					<td>
 						<html:text property="CvEtudeVille" styleId="CvEtudeVille"
 							errorStyleClass="error" /></td>
 				</tr>
@@ -235,12 +240,13 @@
 								key="error.CvEtablissmentform" /></span></td>
 				</tr>
 				<tr>
-					<td>*<bean:message key="cv.18" /></td>
+					<td><bean:message key="cv.18" /></td>
+					<td><bean:message key="cv.19" /></td>
 				</tr>
 				<tr>
 					<td><html:text property="CvFormPays" styleId="CvFormPays"
 							errorStyleClass="error" /></td>
-					<td><bean:message key="cv.19" />
+					<td>
 						<html:text property="CvFormVille" styleId="CvFormVille"
 							errorStyleClass="error" /></td>
 				</tr>

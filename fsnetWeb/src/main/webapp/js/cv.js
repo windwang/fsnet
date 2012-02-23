@@ -64,10 +64,7 @@ $(function() {
 			erreur=1;
 		}
 	
-		if($("#CvLieu").val()==''){
-			$(".CvLieuError").css("display","inline");
-			erreur=1;
-		}
+		
 		if($("#CvSecteur").val()==''){
 			$(".CvSecteurError").css("display","inline");
 			erreur=1;
@@ -84,11 +81,12 @@ $(function() {
 		if(erreur==0){
 			tabExp[i]=i;
 		var recapExp= "<strong>"+$("#CvPoste").val()+"</strong><p>"+$("#NomEntreprise").val()+"</p><p>"
-		+$("#CvSecteur").val()+"</p><p>"+$("#CvLieu").val()+"</p><p> Date debut :"+$("#expBeginDate").val()+"</p><p> date de  fin :"+$("#expEndDate").val()+"</p>";
+		+$("#CvSecteur").val()+"</p><p>"+$("#CvPaysExp").val()+"</p><p>"+$("#CvVilleExp").val('')+"</p><p>"+$("#expBeginDate").val()+"</p><p> "+$("#expEndDate").val()+"</p>";
 		
 		var inputRecap='<div id="ExpInput" style="display:none;"><input type="hidden" id="CVPostehidden" name="CvPoste'+i+'" value="'+$("#CvPoste").val()+'" />'
 		+'<input type="hidden" name="NomEntreprise'+i+'" value="'+$("#NomEntreprise").val()+'" />'
-		+'<input type="hidden" name="CvLieu'+i+'" value="'+$("#CvLieu").val()+'" />'
+		+'<input type="hidden" name="CvPaysExp'+i+'" value="'+$("#CvPaysExp").val()+'" />'
+		+'<input type="hidden" name="CvVilleExp'+i+'" value="'+$("#CvVilleExp").val()+'" />'
 		+'<input type="hidden" name="expBeginDate'+i+'" value="'+$("#expBeginDate").val()+'" />'
 		+'<input type="hidden" name="CvSecteur'+i+'" value="'+$("#CvSecteur").val()+'" />'
 		+'<input type="hidden" name="expEndDate'+i+'" value="'+$("#expEndDate").val()+'" /></div>';
@@ -101,7 +99,8 @@ $(function() {
 		$("#CvPoste").val('');
 		$("#NomEntreprise").val('');
 		$("#CvSecteur").val('');
-		$("#CvLieu").val('');
+		$("#CvPaysExp").val('');
+		$("#CvVilleExp").val('');
 		$("#expBeginDate").val('');
 		$("#expEndDate").val('');
 		$(".CvPosteError").css("display","none");
@@ -235,7 +234,7 @@ $(function() {
 		$(".addForm").css("display","inline");
 		
 		$('.listeFormation').append('<li class="liste" id="formation_'+f+'">'+recapExp+'</li>');
-		$('#formation_'+j).append(inputRecap);
+		$('#formation_'+f).append(inputRecap);
 		
 		$("#CvFormation").val('');
 		
@@ -248,11 +247,12 @@ $(function() {
 		$(".DateObtentionError").css("display","none");
 	
 		$(".CvFormationError").css("display","none");
+		
 		f++;
 		}
 	});
 	$(".annuleForm").click(function(){
-		$(".corp_diplome").css("display","none");
+		$(".corp_formation").css("display","none");
 		$(".addForm").css("display","inline");
 	});
 	

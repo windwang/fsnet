@@ -38,6 +38,8 @@
 			<form-property name="CvFormation" type="java.lang.String" />
 			<form-property name="CvFormPays" type="java.lang.String" />
 			<form-property name="CvFormVille" type="java.lang.String" />
+			<form-property name="CvVilleExp" type="java.lang.String" />
+			<form-property name="CvPaysExp" type="java.lang.String" />
 			
 		</form-bean>
 		</form-beans>
