@@ -25,6 +25,7 @@ public class NotificationFrame {
 	private Point point;
 	private Point position;
 	private final ResourceBundle trayi18n = TrayLauncher.getBundle();
+    private static final int PANEL_BACKGROUND_COLOR = 0xc6c2bf;
 
 	public NotificationFrame(Point position) {
 		frame = new JFrame("Fsnet");
@@ -67,7 +68,7 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel.getPanel().setBackground(new Color(0xc6c2bf));
+				panel.getPanel().setBackground(new Color(PANEL_BACKGROUND_COLOR));
 			}
 
 			@Override
@@ -109,7 +110,7 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel.getPanel().setBackground(new Color(0xc6c2bf));
+				panel.getPanel().setBackground(new Color(PANEL_BACKGROUND_COLOR));
 			}
 
 			@Override
@@ -150,7 +151,7 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel.getPanel().setBackground(new Color(0xc6c2bf));
+				panel.getPanel().setBackground(new Color(PANEL_BACKGROUND_COLOR));
 			}
 
 			@Override
@@ -191,7 +192,7 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel.getPanel().setBackground(new Color(0xc6c2bf));
+				panel.getPanel().setBackground(new Color(PANEL_BACKGROUND_COLOR));
 			}
 
 			@Override
@@ -234,7 +235,7 @@ public class NotificationFrame {
 
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				panel.getPanel().setBackground(new Color(0xc6c2bf));
+				panel.getPanel().setBackground(new Color(PANEL_BACKGROUND_COLOR));
 			}
 
 			@Override

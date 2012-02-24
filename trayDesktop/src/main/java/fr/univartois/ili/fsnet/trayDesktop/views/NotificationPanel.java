@@ -16,7 +16,8 @@ public class NotificationPanel {
     private JLabel label;
     private BorderLayout border;
     private final ResourceBundle trayi18n = TrayLauncher.getBundle();
-
+    private static final int FONT_SIZE = 16;
+    
     public NotificationPanel(int nb, String message) {
         this.panel = new JPanel();
         init(nb, message);
@@ -27,7 +28,7 @@ public class NotificationPanel {
     }
 
     public final void init(int nb, String message) {
-    	Font font = new Font("Arial", Font.PLAIN, 16);
+    	Font font = new Font("Arial", Font.PLAIN, FONT_SIZE);
         this.label = new JLabel(" "+trayi18n.getString("YOU")+" "+ nb + " " + message);
         this.label.setFont(font);
         border = new BorderLayout();

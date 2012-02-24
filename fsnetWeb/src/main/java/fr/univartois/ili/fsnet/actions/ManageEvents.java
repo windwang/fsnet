@@ -168,14 +168,14 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		}
 		if (typedEventBeginDate.after(typedEventEndDate)) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
-			errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
+			errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
+			errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
 		if(DateUtils.compareToToday(typedEventRecallDate) > 0){
 			ActionErrors errors = new ActionErrors();
-			errors.add(EVENT_RECALL_TIME_FORM_FIELD_NAME, new ActionMessage(("error.events.recallDate")));
+			errors.add(EVENT_RECALL_TIME_FORM_FIELD_NAME, new ActionMessage(("date.error.dateBeforeToday")));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
@@ -187,13 +187,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				eventDescription, typedEventEndDate, false,
 				typedEventBeginDate, adress, city,typedEventRecallDate);
 
-		String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+		String interestsIds[] = (String[]) dynaForm.get("selectedInterests");
 		InterestFacade fac = new InterestFacade(em);
 		List<Interest> interests = new ArrayList<Interest>();
 		int currentId;
-		for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+		for (currentId = 0; currentId < interestsIds.length; currentId++) {
 			interests.add(fac.getInterest(Integer
-					.valueOf(InterestsIds[currentId])));
+					.valueOf(interestsIds[currentId])));
 		}
 		InteractionFacade ifacade = new InteractionFacade(em);
 		ifacade.addInterests(event, interests);
@@ -250,15 +250,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	
 			if (typedEventBeginDate.after(typedEventEndDate)) {
 				ActionErrors errors = new ActionErrors();
-				errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
-				errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
+				errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
+				errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}
 			
 			if(DateUtils.compareToToday(typedEventRecallDate) > 0){
 				ActionErrors errors = new ActionErrors();
-				errors.add("eventRecallTime", new ActionMessage(("error.events.recallDate")));
+				errors.add("eventRecallTime", new ActionMessage(("date.error.dateBeforeToday")));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}

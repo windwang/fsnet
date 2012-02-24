@@ -6,7 +6,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="members.0" />
+		<bean:message key="members.title.search" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
@@ -22,7 +22,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="members.1" />
+		<bean:message key="members.title.searchResult" />
 	</legend>
 
 	<c:if
@@ -91,23 +91,26 @@
 
 	<c:if test="${! empty membersResult}">
 
-		<h4>
-			<bean:message key="members.7" />
-		</h4>
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
-			<c:forEach var="member" items="${membersResult}">
-				<tr class="content">
-					<td class="miniatureContainer"><ili:getMiniature
-							socialEntity="${member}" /></td>
-					<td><ili:getSocialEntityInfos socialEntity="${member}" /></td>
-					<td class="tableButton"><html:link action="/ContactDemand"
-							styleClass="button">
-							<bean:message key="members.8" />
-							<html:param name="entitySelected" value="${member.id}" />
-						</html:link></td>
-				</tr>
-			</c:forEach>
-		</table>
-	</c:if>
+    <h4><bean:message key="members.7"/></h4>
+    <table  class="inLineTableDashBoardFieldset fieldsetTable">
+        <c:forEach var="member" items="${membersResult}">
+            <tr class="content">
+            	<td class="miniatureContainer">
+            		<ili:getMiniature socialEntity="${member}"/>
+               	</td>
+                <td>
+                	<ili:getSocialEntityInfos socialEntity="${member}"/>
+                </td>
+                <td class="tableButton">
+                    <html:link action="/ContactDemand" styleClass="button">
+                        <bean:message key="members.8"/>
+                        <html:param name="entitySelected" value="${member.id}"/>
+                    </html:link>
+                </td>
+            </tr>
+        </c:forEach>
+    </table>
+</c:if>
+
 </fieldset>
 

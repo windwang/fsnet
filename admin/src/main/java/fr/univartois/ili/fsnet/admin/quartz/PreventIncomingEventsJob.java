@@ -1,8 +1,6 @@
 package fr.univartois.ili.fsnet.admin.quartz;
 
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map.Entry;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Set;
@@ -58,9 +56,7 @@ public class PreventIncomingEventsJob implements Job {
 	private void preventIncomingEvents() {
 		HashMap<Meeting, Set<SocialEntity>> incomingEvents = searchIncomingEvents();
 		if (incomingEvents != null) {
-			Iterator<Entry<Meeting, Set<SocialEntity>>> iterator = incomingEvents.entrySet().iterator();
-			while (iterator.hasNext()) {
-				Meeting meeting = (Meeting) iterator.next();
+			for(Meeting meeting : incomingEvents.keySet()) {
 				for (SocialEntity socialEntity : (Set<SocialEntity>) incomingEvents
 						.get(meeting)) {
 					sendPreventIncomingEventMail(meeting, socialEntity,
@@ -101,16 +97,12 @@ public class PreventIncomingEventsJob implements Job {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-
 		mail.setSubject(bundle.getMessage("events.recallMail.subject.recall")
-				+ " - " + meeting.getTitle() + " "
-				+ bundle.getMessage("events.recallMail.subject.start")
-				+ " "
+				+ ": " + meeting.getTitle()
+				+ " - "
 				+ DateUtils.renderDateForFullCalendar(meeting.getStartDate()));
-
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
-		System.out.println(message);
 		mailer.sendMail(mail);
 	}
 

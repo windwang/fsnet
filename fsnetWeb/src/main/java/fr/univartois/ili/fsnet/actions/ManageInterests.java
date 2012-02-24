@@ -42,7 +42,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 public class ManageInterests extends MappingDispatchAction implements
 		CrudAction {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 
@@ -73,10 +73,8 @@ public class ManageInterests extends MappingDispatchAction implements
 
 	/**
 	 * @param request
-	 * @param response
 	 */
-	private void addKeyFacebookInRequest(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void addKeyFacebookInRequest(HttpServletRequest request) {
 		request.setAttribute("KEY_FACEBOOK",
 				FacebookKeyManager.getKeyFacebook());
 	}
@@ -101,7 +99,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		String interestNameTmp[];
 		List<Interest> mesInterets = new LinkedList<Interest>();
 
-		logger.info("new interest: " + interestName);
+		LOGGER.info("new interest: " + interestName);
 
 		try {
 			Interest interest = null;
@@ -136,7 +134,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
-			ActionMessage msg = new ActionMessage("interest.alreadyExists");
+			ActionMessage msg = new ActionMessage("interests.alreadyExists");
 			actionErrors.add("createdInterestName", msg);
 			saveErrors(request, actionErrors);
 		}
@@ -192,7 +190,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		Interest interest = facadeInterest.getInterest(interestId);
 		if (interest != null) {
-			logger.info("add interest: id=" + interestId + " for user: "
+			LOGGER.info("add interest: id=" + interestId + " for user: "
 					+ user.getName() + " " + user.getFirstName() + " "
 					+ user.getId());
 
@@ -224,7 +222,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		Interest interest = facadeInterest.getInterest(interestId);
 		if (interest != null) {
-			logger.info("remove interest: id=" + interestId + " for user: "
+			LOGGER.info("remove interest: id=" + interestId + " for user: "
 					+ user.getName() + " " + user.getFirstName() + " "
 					+ user.getId());
 
@@ -321,7 +319,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InterestFacade facade = new InterestFacade(em);
 
-		addKeyFacebookInRequest(request, response);
+		addKeyFacebookInRequest(request);
 
 		List<Interest> listAllInterests = facade.getInterests();
 		List<Interest> listNonAssociatedInterests = facade

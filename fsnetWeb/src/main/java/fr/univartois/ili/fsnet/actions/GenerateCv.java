@@ -54,8 +54,6 @@ import fr.univartois.ili.fsnet.facade.CvFacade;
 public class GenerateCv extends MappingDispatchAction{
 	public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
-	//path of the file is defined on properties file
-	private static String file = "../File.pdf";
 	
 	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
 			Font.BOLD, BaseColor.DARK_GRAY);
@@ -109,6 +107,12 @@ public class GenerateCv extends MappingDispatchAction{
 	
 	
 	//create title of document
+	/**
+	 * 
+	 * @param document
+	 * @param curriculum
+	 * @throws DocumentException
+	 */
 	private static void addTitlePage(Document document,Curriculum curriculum)
 			throws DocumentException {
 		
@@ -124,6 +128,11 @@ public class GenerateCv extends MappingDispatchAction{
 	}
 	
 	//add one empty line
+	/**
+	 * 
+	 * @param paragraph
+	 * @param number
+	 */
 	private static void addEmptyLine(Paragraph paragraph, int number) {
 		for (int i = 0; i < number; i++) {
 			paragraph.add(new Paragraph(" "));
@@ -134,15 +143,16 @@ public class GenerateCv extends MappingDispatchAction{
 	
 	//CV Picture
 	public static void onPageEvent(Document document) throws MalformedURLException, IOException, DocumentException {
-		document.open();
-		Image img=Image.getInstance("/homelocal/aa/ILI4.JAVA/FSNET-NOTE/example.jpg");
-		img.setAbsolutePosition(500,720);
-	    document.add(img);
+		//TODO
 	    
 	  }
 	
 	//CV separate
-	
+	/**
+	 * 
+	 * @param document
+	 * @throws DocumentException
+	 */
 	public static void addseparate(Document document) throws DocumentException{
 		
 		
@@ -158,6 +168,12 @@ public class GenerateCv extends MappingDispatchAction{
 	}
 	
 	//add the first section
+	/**
+	 * 
+	 * @param document
+	 * @param curriculum
+	 * @throws DocumentException
+	 */
 	public static void addFirstSection(Document document,Curriculum curriculum) throws DocumentException{
 		
 		 List overview = new List(false, 10);
@@ -177,6 +193,12 @@ public class GenerateCv extends MappingDispatchAction{
 	}
 	
 	//add the second section
+	/**
+	 * 
+	 * @param document
+	 * @param curriculum
+	 * @throws DocumentException
+	 */
 	public static void addSecondSection(Document document,Curriculum curriculum) throws DocumentException{
 		
 		
@@ -195,6 +217,12 @@ public class GenerateCv extends MappingDispatchAction{
 	
 	
 	//add the tirth section
+	/**
+	 * 
+	 * @param document
+	 * @param curriculum
+	 * @throws DocumentException
+	 */
 	public static void addtirthSection(Document document,Curriculum curriculum) throws DocumentException{
 		
 		 List overview = new List(false, 10);
@@ -212,7 +240,12 @@ public class GenerateCv extends MappingDispatchAction{
 		
 	}
 	//add the fourth section
-	
+	/**
+	 * 
+	 * @param document
+	 * @param curriculum
+	 * @throws DocumentException
+	 */
 	public static void addfifthSection(Document document,Curriculum curriculum) throws DocumentException{
 		 List overview = new List(false, 10);
 		document.add(styleSection("Langues"));
@@ -232,6 +265,12 @@ public class GenerateCv extends MappingDispatchAction{
 	}
 	
 	//add the fifth section
+	/**
+	 * 
+	 * @param document
+	 * @param curriculum
+	 * @throws DocumentException
+	 */
 	public static void addfourthSection(Document document,Curriculum curriculum) throws DocumentException{
 		 List overview = new List(false, 10);
 		document.add(styleSection("Loisirs"));
@@ -245,6 +284,11 @@ public class GenerateCv extends MappingDispatchAction{
 	
 	
 	//Style of Section
+	/**
+	 * 
+	 * @param string
+	 * @return
+	 */
 	public static PdfPTable styleSection(String string){
 		
 		
@@ -262,67 +306,6 @@ public class GenerateCv extends MappingDispatchAction{
 	
 	/**
 	 * 
-	 * @param request
-	 */
-	public void generer(HttpServletRequest request){
-		
-		long id=Integer.parseInt(request.getParameter("idCv"));
-		
-		
-		CvFacade cvFacade = new CvFacade(em);
-		Curriculum curriculum = cvFacade.getCurriculum(id);
-		
-		
-		Rectangle pageSize=new Rectangle(595,842);
-		Document document = new Document(pageSize);
-		PdfWriter writer;
-		PdfContentByte under;
-		try {
-			Image img=Image.getInstance("/homelocal/aa/ILI4.JAVA/FSNET-NOTE/example.jpg");
-			
-			FileOutputStream f=new FileOutputStream(file);
-			writer=PdfWriter.getInstance(document, f);
-			
-			
-			document.open();
-			img.setAbsolutePosition(11,11);
-			under=writer.getDirectContent();
-			under.addImage(img);
-			onPageEvent(document);
-			addParticulars(document,curriculum);
-			addTitlePage(document,curriculum);
-			addseparate(document);
-			addFirstSection(document,curriculum);
-			addSecondSection(document,curriculum);
-			addtirthSection(document,curriculum);
-			addfifthSection(document,curriculum);
-			addfourthSection(document,curriculum);
-			
-			System.out.println(document.getPageSize());
-			
-			
-			
-			document.close();
-			System.out.println("fichier crée"+writer.toString());
-			
-		   
-			
-		} catch (FileNotFoundException e) {
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-		} catch (DocumentException e) {
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-		} catch (MalformedURLException e) {
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-		} catch (IOException e) {
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-		}
-		
-		
-	}
-	
-	
-	/**
-	 * 
 	 * @param mapping
 	 * @param form
 	 * @param request
@@ -331,45 +314,69 @@ public class GenerateCv extends MappingDispatchAction{
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward test(ActionMapping mapping, ActionForm form,
+	public ActionForward download(ActionMapping mapping, ActionForm form,
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
+
 		
-		generer(request);
-		String filexport = "../File.pdf";
-		FileInputStream filename = null;
-		ByteArrayOutputStream bos = null;
-		FileChannel src = null;
-		OutputStream os = null;
+		long id=Integer.parseInt(request.getParameter("idCv"));
+		CvFacade cvFacade = new CvFacade(em);
+		Curriculum curriculum = cvFacade.getCurriculum(id);
 		
-		filename = new FileInputStream(filexport);
-		src = filename.getChannel();
-		bos = new ByteArrayOutputStream((int)src.size());
-		byte[] tab = new byte [(int)src.size()];
+		 try {
 		
-		// copy the pdf on byte Array
-		filename.read(tab);
-		bos.write(tab);
 		
-		// Fill here your bos with the stream PDF
-	    response.setContentType("text/html, application/pdf");
-	    // get the output stream
-	 	os = response.getOutputStream();
-	  
-	    // write the pdf
-	    os.write(bos.toByteArray(), 0, bos.size());
-	    
-	    // force to empty the cache
-	 			os.flush();
-	  
-	    // close stream
-	 			os.close();
-	 			bos.close();
-	 			src.close();
-	 			filename.close();
+		
+        String text = request.getParameter("text");
+        if (text == null || text.trim().length() == 0) {
+             text = "You didn't enter any text.";
+        }
+       
+        Document document = new Document();
+        
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        PdfWriter.getInstance(document, baos);
+       
+        document.open();
+        
+        
+		addParticulars(document,curriculum);
+		addTitlePage(document,curriculum);
+		addseparate(document);
+		addFirstSection(document,curriculum);
+		addSecondSection(document,curriculum);
+		addtirthSection(document,curriculum);
+		addfifthSection(document,curriculum);
+		addfourthSection(document,curriculum);
+        
+        
+        
+        document.close();
+
+        // setting some response headers
+        response.setHeader("Expires", "0");
+        response.setHeader("Cache-Control",
+            "must-revalidate, post-check=0, pre-check=0");
+        response.setHeader("Pragma", "public");
+        response.setHeader("Content-Disposition",
+             "attachment;filename="+curriculum.getMember().getFirstName()+"_"+
+             curriculum.getMember().getSurname()+"_CV_"+
+             curriculum.getMember().getBirthDate()+".pdf"); 
+        // setting the content type
+        response.setContentType("application/pdf");
+        // the contentlength
+        response.setContentLength(baos.size());
+        // write ByteArrayOutputStream to the ServletOutputStream
+        OutputStream os = response.getOutputStream();
+        baos.writeTo(os);
+        os.flush();
+        os.close();
 	 			
 		return mapping.findForward("success");
-		
+		 }
+	        catch(DocumentException e) {
+	            throw new IOException(e.getMessage());
+	        }
 	}
 	
 	

@@ -1,9 +1,3 @@
-<%-- 
-    Document   : DisplayMessages
-    Created on : 2 févr. 2010, 18:29:45
-    Author     : Matthieu Proucelle <matthieu.proucelle at gmail.com>
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
@@ -14,7 +8,9 @@
 
 
 <fieldset class="fieldsetAppli">
-   <legend class="legendHome"><bean:message key="privatemessages.inbox" /></legend>
+	<legend class="legendHome">
+		<bean:message key="privatemessages.inbox" />
+	</legend>
 
   <c:choose>
 	<c:when test="${empty requestScope.inBoxMessages}">
@@ -124,12 +120,12 @@
 								property="creationDate" formatKey="date.format" /></td>
 					</c:forEach>
 				</tbody>
-			</table>
-			<br />
-			<html:submit styleClass="button">
-				<bean:message key="privatemessages.delete" />
-			</html:submit>
-		</html:form>
-	</c:otherwise>
-  </c:choose>
+				</table>
+				<br />
+				<html:submit styleClass="button">
+					<bean:message key="privatemessages.delete" />
+				</html:submit>
+			</html:form>
+		</c:otherwise>
+	</c:choose>
 </fieldset>
