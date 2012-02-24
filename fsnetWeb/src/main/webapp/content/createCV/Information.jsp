@@ -10,25 +10,25 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet" type="text/css" media="screen" href="css/cv.css" />
 <html:form action="/GenerateCV">
 
 
 
 	<div class="en_cv">
+	<fieldset class="fieldsetAppli">
 		<div class="entete">
-			<h3>
+			 <legend class="legendHome">
 				<bean:message key="cv.experiencePro" />
-			</h3>
+			</legend>
 		</div>
 		<div id="experiences">
-			<ul class="listeExperience">
+			<ul class="listeExperience fieldsetTableAdmin">
 
 
 			</ul>
 		</div>
 		<div class="corp_experience">
-			<table>
+			<table class="fieldsetTableAdmin">
 
 				<tr>
 					<td>*<bean:message key="cv.10" /></td>
@@ -36,7 +36,7 @@
 				<tr>
 					<td><html:text property="CvPoste" styleId="CvPoste"
 							errorStyleClass="error" /></td>
-					<td><span class="CvPosteError"><bean:message
+					<td><span class="CvPosteError errorCV"><bean:message
 								key="error.CvPoste" /></span></td>
 				</tr>
 				<tr>
@@ -45,7 +45,7 @@
 				<tr>
 					<td><html:text property="NomEntreprise"
 							styleId="NomEntreprise" errorStyleClass="error" /></td>
-					<td><span class="NomEntrepriseError"><bean:message
+					<td><span class="NomEntrepriseError errorCV"><bean:message
 								key="error.NomEntreprise" /></span></td>
 				</tr>
 				<tr>
@@ -54,7 +54,7 @@
 				<tr>
 					<td><html:text property="CvSecteur" styleId="CvSecteur"
 							errorStyleClass="error" /></td>
-					<td><span class="CvSecteurError"><bean:message
+					<td><span class="CvSecteurError errorCV"><bean:message
 								key="error.CvSecteur" /></span></td>
 				</tr>
 				
@@ -84,7 +84,7 @@
 								<html:errors property="expBeginDate" />
 							</div>
 						</logic:messagesPresent></td>
-					<td><span class="expBeginDateError"><bean:message
+					<td><span class="expBeginDateError errorCV"><bean:message
 								key="error.expBeginDate" /></span></td>
 				</tr>
 				<tr>
@@ -96,7 +96,7 @@
 				<tr>
 					<td><html:text property="expEndDate" styleId="expEndDate"
 							errorStyleClass="error" /></td>
-					<td><span class="expEndDateError"><bean:message
+					<td><span class="expEndDateError errorCV"><bean:message
 								key="error.expEndDate" /></span></td>
 				<tr>
 					<td><a><span class="annuleExp"> <bean:message
@@ -112,28 +112,30 @@
 		<a> <span class="addExp"> <bean:message key="cv.addExp" />
 		</span>
 		</a>
+		</fieldset>
 	</div>
 	<div class="en_cv">
+	<fieldset class="fieldsetAppli">
 		<div class="entete">
-			<h3>
+			 <legend class="legendHome">
 				<bean:message key="cv.Diplome" />
-			</h3>
+			</legend> 
 		</div>
 		<div id="diplome">
-			<ul class="listeDiplome">
+			<ul class="listeDiplome fieldsetTableAdmin">
 
 
 			</ul>
 		</div>
 		<div class="corp_diplome">
-			<table>
+			<table class="fieldsetTableAdmin">
 				<tr>
 					<td>*<bean:message key="cv.15" /></td>
 				</tr>
 				<tr>
 					<td><html:text property="CvEtude" styleId="CvEtude"
 							errorStyleClass="error" /></td>
-					<td><span class="CvEtudeError"><bean:message
+					<td><span class="CvEtudeError errorCV"><bean:message
 								key="error.CvEtude" /></span></td>
 				</tr>
 				<tr>
@@ -143,7 +145,7 @@
 				<tr>
 					<td><html:text property="CvEtudeDom" styleId="CvEtudeDom"
 							errorStyleClass="error" /></td>
-					<td><span class="CvEtudeDomError"><bean:message
+					<td><span class="CvEtudeDomError errorCV"><bean:message
 								key="error.CvEtudeDom" /></span></td>
 				</tr>
 
@@ -153,7 +155,7 @@
 				<tr>
 					<td><html:text property="CvEtablissment"
 							styleId="CvEtablissment" errorStyleClass="error" /></td>
-					<td><span class="CvEtablissmentError"><bean:message
+					<td><span class="CvEtablissmentError errorCV"><bean:message
 								key="error.CvEtablissment" /></span></td>
 				</tr>
 				<tr>
@@ -181,7 +183,7 @@
 								<html:errors property="etudBeginDate" />
 							</div>
 						</logic:messagesPresent></td>
-					<td><span class="etudBeginDateError"><bean:message
+					<td><span class="etudBeginDateError errorCV"><bean:message
 								key="error.etudBeginDate" /></span></td>
 				</tr>
 				<tr>
@@ -193,7 +195,7 @@
 				<tr>
 					<td><html:text property="etudEndDate" styleId="etudEndDate"
 							errorStyleClass="error" /></td>
-					<td><span class="etudEndDateError"><bean:message
+					<td><span class="etudEndDateError errorCV"><bean:message
 								key="error.etudEndDate" /></span></td>
 				<tr>
 					<td><a><span class="annuleDip"> <bean:message
@@ -205,29 +207,31 @@
 		</div>
 		<a> <span class="addDip"><bean:message key="cv.addDip" /> </span>
 		</a>
+		</fieldset>
 	</div>
 
 	<div class="en_cv">
+	<fieldset class="fieldsetAppli">
 		<div class="entete">
-			<h3>
+			<legend class="legendHome">
 				<bean:message key="cv.Formation" />
-			</h3>
+			</legend>
 		</div>
 		<div id="formation">
-			<ul class="listeFormation">
+			<ul class="listeFormation fieldsetTableAdmin">
 
 
 			</ul>
 		</div>
 		<div class="corp_formation">
-			<table>
+			<table class="fieldsetTableAdmin">
 				<tr>
 					<td>*<bean:message key="cv.29" /></td>
 				</tr>
 				<tr>
 					<td><html:text property="CvFormation" styleId="CvFormation"
 							errorStyleClass="error" /></td>
-					<td><span class="CvFormationError"><bean:message
+					<td><span class="CvFormationError errorCV"><bean:message
 								key="error.CvFormation" /></span></td>
 				</tr>
 				<tr>
@@ -236,7 +240,7 @@
 				<tr>
 					<td><html:text property="CvEtablissmentform"
 							styleId="CvEtablissmentform" errorStyleClass="error" /></td>
-					<td><span class="CvEtablissmentformError"><bean:message
+					<td><span class="CvEtablissmentformError errorCV"><bean:message
 								key="error.CvEtablissmentform" /></span></td>
 				</tr>
 				<tr>
@@ -260,11 +264,11 @@
 					<td><html:text property="DateObtention"
 							styleId="DateObtention" errorStyleClass="error" /> <logic:messagesPresent
 							property="DateObtention">
-							<div class="errorMessage">
+							<div class="errorMessage errorCV">
 								<html:errors property="DateObtention" />
 							</div>
 						</logic:messagesPresent></td>
-					<td><span class="DateObtentionError"><bean:message
+					<td><span class="DateObtentionError errorCV"><bean:message
 								key="error.DateObtention" /></span></td>
 				</tr>
 
@@ -280,30 +284,32 @@
 		<a> <span class="addForm"><bean:message key="cv.addForm" />
 		</span>
 		</a>
+		</fieldset>
 	</div>
 
 	<div class="en_cv">
+	<fieldset class="fieldsetAppli">
 		<div class="entete">
-			<h3>
+			<legend class="legendHome">
 				<bean:message key="cv.25" />
-			</h3>
+			</legend> 
 		</div>
 
 		<div id="loisir">
-			<ul class="listeLoisir">
+			<ul class="listeLoisir fieldsetTableAdmin">
 
 
 			</ul>
 		</div>
 		<div class="corp_loisir">
-			<table>
+			<table class="fieldsetTableAdmin">
 				<tr>
 					<td>*<bean:message key="cv.20" /></td>
 				</tr>
 				<tr>
 					<td><html:text property="CvNomLoisir" styleId="CvNomLoisir"
 							errorStyleClass="error" /></td>
-					<td><span class="CvNomLoisirError"><bean:message
+					<td><span class="CvNomLoisirError errorCV"><bean:message
 								key="error.CvNomLoisir" /></span></td>
 				</tr>
 
@@ -318,29 +324,31 @@
 					key="cv.addLoisir" />
 		</span>
 		</a>
+		</fieldset>
 	</div>
 	<div class="en_cv">
+	  <fieldset class="fieldsetAppli">
 		<div class="entete">
-			<h3>
+			<legend class="legendHome">
 				<bean:message key="cv.26" />
-			</h3>
+			</legend>
 		</div>
 
 		<div id="Langue">
-			<ul class="listeLangues">
+			<ul class="listeLangues fieldsetTableAdmin">
 
 
 			</ul>
 		</div>
 		<div class="corp_langue">
-			<table>
+			<table class="fieldsetTableAdmin">
 				<tr>
 					<td>*<bean:message key="cv.27" /></td>
 				</tr>
 				<tr>
 					<td><input type="text" name="CVLangue" id="CVLangue" />
 					<td>
-					<td><span class="CVLangueError"><bean:message
+					<td><span class="CVLangueError errorCV"><bean:message
 								key="error.CVLangue" /></span></td>
 				</tr>
 				<tr>
@@ -373,6 +381,7 @@
 					key="cv.addLangue" />
 		</span>
 		</a>
+		</fieldset>
 	</div>
 
 
