@@ -24,6 +24,10 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  */
 public class ManageFavorites extends MappingDispatchAction {
 
+	
+	private static final String INTERACTION_ID_FORM_FIELD_NAME = "interactionId";
+
+	
     /**
      * @param mapping
      * @param form
@@ -37,7 +41,7 @@ public class ManageFavorites extends MappingDispatchAction {
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-        int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
+        int interactionId = Integer.parseInt((String) dynaForm.get(INTERACTION_ID_FORM_FIELD_NAME));
         EntityManager em = PersistenceProvider.createEntityManager();
         em.getTransaction().begin();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -64,7 +68,7 @@ public class ManageFavorites extends MappingDispatchAction {
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-        int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
+        int interactionId = Integer.parseInt((String) dynaForm.get(INTERACTION_ID_FORM_FIELD_NAME));
         EntityManager em = PersistenceProvider.createEntityManager();
         em.getTransaction().begin();
 
@@ -94,7 +98,7 @@ public class ManageFavorites extends MappingDispatchAction {
             HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException {
         DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-        int interactionId = Integer.parseInt((String) dynaForm.get("interactionId"));
+        int interactionId = Integer.parseInt((String) dynaForm.get(INTERACTION_ID_FORM_FIELD_NAME));
         EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         Interaction interaction = em.find(Interaction.class, interactionId);
@@ -104,7 +108,7 @@ public class ManageFavorites extends MappingDispatchAction {
             request.setAttribute("isFavorite", false);
         }
         em.close();
-        request.setAttribute("interactionId", interaction.getId());
+        request.setAttribute(INTERACTION_ID_FORM_FIELD_NAME, interaction.getId());
         return mapping.findForward("success");
     }
 }

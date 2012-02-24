@@ -9,14 +9,14 @@
     <li>
     	<ili:interactionFilter user="${ socialEntity }" right="${ rightAddEvent }">
         	<html:link action="/DisplayCreateEvent">
-				<bean:message key="left.4"/> 
+				<bean:message key="events.leftMenu.create"/> 
         	</html:link>
         </ili:interactionFilter>
     </li>
     
    <li>
         <html:link action="/Calendar">
-			<bean:message key="left.Calendar"/> 
+			<bean:message key="events.leftMenu.calendar"/> 
         </html:link>
    </li>
     

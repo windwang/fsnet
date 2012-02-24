@@ -1,0 +1,558 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xb4b27996, pid=3340, tid=3078032240
+#
+# JRE version: 6.0_22-b22
+# Java VM: OpenJDK Server VM (20.0-b11 mixed mode linux-x86 )
+# Derivative: IcedTea6 1.10.4
+# Distribution: Ubuntu 11.04, package 6b22-1.10.4-0ubuntu1~11.04.1
+# Problematic frame:
+# J  com.sun.tools.javac.code.Types.capture(Lcom/sun/tools/javac/code/Type;)Lcom/sun/tools/javac/code/Type;
+#
+# If you would like to submit a bug report, please include
+# instructions how to reproduce the bug and visit:
+#   https://bugs.launchpad.net/ubuntu/+source/openjdk-6/
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x084a3800):  JavaThread "main" [_thread_in_Java, id=3346, stack(0xb7720000,0xb7771000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=128 (), si_addr=0x00000000
+
+Registers:
+EAX=0xa3ee6c38, EBX=0x77a6b6e0, ECX=0xa27df9f8, EDX=0xa3eb9a80
+ESP=0xb776e8a0, EBP=0xa27df9f8, ESI=0xb4ad3af4, EDI=0x00000000
+EIP=0xb4b27996, EFLAGS=0x00210202, CR2=0x00000010
+
+Top of Stack: (sp=0xb776e8a0)
+0xb776e8a0:   77a8ae5b b776e8cc 77a6b6e0 a2851a28
+0xb776e8b0:   a3eb9a80 a3eb9a80 a27df9f8 084a3800
+0xb776e8c0:   a25eb4d8 a27df9f8 a4a3eec0 a2851ac8
+0xb776e8d0:   00000000 77bf8ea4 77a6a808 00000000
+0xb776e8e0:   b776e8f0 a3c59198 a2851a28 b4b1d564
+0xb776e8f0:   00000000 b776e8f4 77b83108 b776e91c
+0xb776e900:   a3e24e18 00000000 a29302d8 a4a3eec0
+0xb776e910:   a2851a28 a4a3eee8 a4a3eac8 a3eb9a80 
+
+Instructions: (pc=0xb4b27996)
+0xb4b27976:   89 4c 24 24 8b 41 1c 85 c0 0f 84 2e 07 00 00 8b
+0xb4b27986:   58 0c 85 db 74 54 8b 5c 24 08 81 fb 30 ae a6 77
+0xb4b27996:   0f 85 2e 08 00 00 8b 4c 24 14 89 4c 24 18 8b 59
+0xb4b279a6:   1c 89 5c 24 24 85 db 0f 84 87 0a 00 00 8b 4c 24 
+
+Register to memory mapping:
+
+EAX=0xa3ee6c38 is an oop
+com.sun.tools.javac.util.List 
+ - klass: 'com/sun/tools/javac/util/List'
+EBX=0x77a6b6e0 is an oop
+{instance class} 
+ - klass: {other class}
+ECX=0xa27df9f8 is an oop
+com.sun.tools.javac.code.Type$ClassType 
+ - klass: 'com/sun/tools/javac/code/Type$ClassType'
+EDX=0xa3eb9a80 is an oop
+com.sun.tools.javac.jvm.ClassReader$1 
+ - klass: 'com/sun/tools/javac/jvm/ClassReader$1'
+ESP=0xb776e8a0 is pointing into the stack for thread: 0x084a3800
+EBP=0xa27df9f8 is an oop
+com.sun.tools.javac.code.Type$ClassType 
+ - klass: 'com/sun/tools/javac/code/Type$ClassType'
+ESI=0xb4ad39c8 [CodeBlob (0xb4ad39c8)]
+Framesize: 8
+EDI=0x00000000 is an unknown value
+
+
+Stack: [0xb7720000,0xb7771000],  sp=0xb776e8a0,  free space=314k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+J  com.sun.tools.javac.code.Types.capture(Lcom/sun/tools/javac/code/Type;)Lcom/sun/tools/javac/code/Type;
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x08f07c00 JavaThread "resolver-5" daemon [_thread_blocked, id=3368, stack(0x7450d000,0x7455e000)]
+  0x08ee9000 JavaThread "resolver-4" daemon [_thread_blocked, id=3367, stack(0x7455e000,0x745af000)]
+  0x08d48400 JavaThread "resolver-3" daemon [_thread_blocked, id=3366, stack(0x745af000,0x74600000)]
+  0x08dc7400 JavaThread "resolver-2" daemon [_thread_blocked, id=3365, stack(0x719af000,0x71a00000)]
+  0x08edf800 JavaThread "resolver-1" daemon [_thread_blocked, id=3364, stack(0x74aaf000,0x74b00000)]
+  0x08773c00 JavaThread "com.google.inject.internal.util.$Finalizer" daemon [_thread_blocked, id=3360, stack(0x74e10000,0x74e61000)]
+  0x08555800 JavaThread "Low Memory Detector" daemon [_thread_blocked, id=3357, stack(0x74f5c000,0x74fad000)]
+  0x08553c00 JavaThread "C2 CompilerThread1" daemon [_thread_in_vm, id=3356, stack(0x74fad000,0x7502e000)]
+  0x75311800 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=3355, stack(0x7502e000,0x750af000)]
+  0x75310000 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=3354, stack(0x750af000,0x75100000)]
+  0x75300800 JavaThread "Finalizer" daemon [_thread_blocked, id=3353, stack(0x7541b000,0x7546c000)]
+  0x0854f000 JavaThread "Reference Handler" daemon [_thread_blocked, id=3352, stack(0x7546c000,0x754bd000)]
+=>0x084a3800 JavaThread "main" [_thread_in_Java, id=3346, stack(0xb7720000,0xb7771000)]
+
+Other Threads:
+  0x0854b000 VMThread [stack: 0x754bd000,0x7553e000] [id=3351]
+  0x08557800 WatcherThread [stack: 0x74edb000,0x74f5c000] [id=3358]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread:  ([mutex/lock_event])
+[0x084a1980] CompiledIC_lock - owner thread: 0x08553c00
+
+Heap
+ PSYoungGen      total 183168K, used 42105K [0xa2310000, 0xb4630000, 0xb4660000)
+  eden space 165824K, 25% used [0xa2310000,0xa4c2e600,0xac500000)
+  from space 17344K, 0% used [0xac500000,0xac500000,0xad5f0000)
+  to   space 16384K, 0% used [0xb3630000,0xb3630000,0xb4630000)
+ PSOldGen        total 66112K, used 37247K [0x7dc60000, 0x81cf0000, 0xa2310000)
+  object space 66112K, 56% used [0x7dc60000,0x800bffe0,0x81cf0000)
+ PSPermGen       total 60800K, used 32396K [0x75c60000, 0x797c0000, 0x7dc60000)
+  object space 60800K, 53% used [0x75c60000,0x77c03328,0x797c0000)
+
+Code Cache  [0xb4720000, 0xb4b30000, 0xb7720000)
+ total_blobs=1365 nmethods=1235 adapters=83 free_code_cache=46119296 largest_free_block=22912
+
+Dynamic libraries:
+00110000-0026a000 r-xp 00000000 08:05 782659     /lib/i386-linux-gnu/libc-2.13.so
+0026a000-0026b000 ---p 0015a000 08:05 782659     /lib/i386-linux-gnu/libc-2.13.so
+0026b000-0026d000 r--p 0015a000 08:05 782659     /lib/i386-linux-gnu/libc-2.13.so
+0026d000-0026e000 rw-p 0015c000 08:05 782659     /lib/i386-linux-gnu/libc-2.13.so
+0026e000-00271000 rw-p 00000000 00:00 0 
+00271000-00284000 r-xp 00000000 08:05 782699     /lib/i386-linux-gnu/libnsl-2.13.so
+00284000-00285000 r--p 00012000 08:05 782699     /lib/i386-linux-gnu/libnsl-2.13.so
+00285000-00286000 rw-p 00013000 08:05 782699     /lib/i386-linux-gnu/libnsl-2.13.so
+00286000-00288000 rw-p 00000000 00:00 0 
+0028f000-002a4000 r-xp 00000000 08:05 782724     /lib/i386-linux-gnu/libpthread-2.13.so
+002a4000-002a5000 r--p 00015000 08:05 782724     /lib/i386-linux-gnu/libpthread-2.13.so
+002a5000-002a6000 rw-p 00016000 08:05 782724     /lib/i386-linux-gnu/libpthread-2.13.so
+002a6000-002a8000 rw-p 00000000 00:00 0 
+002a8000-002b2000 r-xp 00000000 08:05 782705     /lib/i386-linux-gnu/libnss_files-2.13.so
+002b2000-002b3000 r--p 00009000 08:05 782705     /lib/i386-linux-gnu/libnss_files-2.13.so
+002b3000-002b4000 rw-p 0000a000 08:05 782705     /lib/i386-linux-gnu/libnss_files-2.13.so
+0037f000-00380000 r-xp 00000000 00:00 0          [vdso]
+00455000-00457000 r-xp 00000000 08:05 782669     /lib/i386-linux-gnu/libdl-2.13.so
+00457000-00458000 r--p 00001000 08:05 782669     /lib/i386-linux-gnu/libdl-2.13.so
+00458000-00459000 rw-p 00002000 08:05 782669     /lib/i386-linux-gnu/libdl-2.13.so
+00527000-0054b000 r-xp 00000000 08:05 782696     /lib/i386-linux-gnu/libm-2.13.so
+0054b000-0054c000 r--p 00023000 08:05 782696     /lib/i386-linux-gnu/libm-2.13.so
+0054c000-0054d000 rw-p 00024000 08:05 782696     /lib/i386-linux-gnu/libm-2.13.so
+00675000-00680000 r-xp 00000000 08:05 11547      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00680000-00681000 ---p 0000b000 08:05 11547      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00681000-00682000 r--p 0000b000 08:05 11547      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+00682000-00683000 rw-p 0000c000 08:05 11547      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libverify.so
+006f8000-0070b000 r-xp 00000000 08:05 782742     /lib/i386-linux-gnu/libz.so.1.2.3.4
+0070b000-0070c000 r--p 00012000 08:05 782742     /lib/i386-linux-gnu/libz.so.1.2.3.4
+0070c000-0070d000 rw-p 00013000 08:05 782742     /lib/i386-linux-gnu/libz.so.1.2.3.4
+00716000-0071c000 r-xp 00000000 08:05 782701     /lib/i386-linux-gnu/libnss_compat-2.13.so
+0071c000-0071d000 r--p 00005000 08:05 782701     /lib/i386-linux-gnu/libnss_compat-2.13.so
+0071d000-0071e000 rw-p 00006000 08:05 782701     /lib/i386-linux-gnu/libnss_compat-2.13.so
+007a6000-007c9000 r-xp 00000000 08:05 9957       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+007c9000-007ca000 r--p 00022000 08:05 9957       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+007ca000-007cc000 rw-p 00023000 08:05 9957       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libjava.so
+00836000-0083d000 r-xp 00000000 08:05 782728     /lib/i386-linux-gnu/librt-2.13.so
+0083d000-0083e000 r--p 00006000 08:05 782728     /lib/i386-linux-gnu/librt-2.13.so
+0083e000-0083f000 rw-p 00007000 08:05 782728     /lib/i386-linux-gnu/librt-2.13.so
+00930000-0094c000 r-xp 00000000 08:05 782646     /lib/i386-linux-gnu/ld-2.13.so
+0094c000-0094d000 r--p 0001b000 08:05 782646     /lib/i386-linux-gnu/ld-2.13.so
+0094d000-0094e000 rw-p 0001c000 08:05 782646     /lib/i386-linux-gnu/ld-2.13.so
+00955000-0095b000 r-xp 00000000 08:05 11548      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+0095b000-0095c000 r--p 00005000 08:05 11548      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+0095c000-0095d000 rw-p 00006000 08:05 11548      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libzip.so
+009b5000-009c8000 r-xp 00000000 08:05 9968       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+009c8000-009c9000 r--p 00013000 08:05 9968       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+009c9000-009ca000 rw-p 00014000 08:05 9968       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnet.so
+009f9000-00a00000 r-xp 00000000 08:05 9970       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00a00000-00a01000 r--p 00006000 08:05 9970       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00a01000-00a02000 rw-p 00007000 08:05 9970       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/libnio.so
+00a60000-00b3f000 r-xp 00000000 08:05 7684       /usr/lib/i386-linux-gnu/libstdc++.so.6.0.14
+00b3f000-00b43000 r--p 000de000 08:05 7684       /usr/lib/i386-linux-gnu/libstdc++.so.6.0.14
+00b43000-00b44000 rw-p 000e2000 08:05 7684       /usr/lib/i386-linux-gnu/libstdc++.so.6.0.14
+00b44000-00b4b000 rw-p 00000000 00:00 0 
+00c0d000-00c16000 r-xp 00000000 08:05 782709     /lib/i386-linux-gnu/libnss_nis-2.13.so
+00c16000-00c17000 r--p 00008000 08:05 782709     /lib/i386-linux-gnu/libnss_nis-2.13.so
+00c17000-00c18000 rw-p 00009000 08:05 782709     /lib/i386-linux-gnu/libnss_nis-2.13.so
+00d56000-00d70000 r-xp 00000000 08:05 782687     /lib/i386-linux-gnu/libgcc_s.so.1
+00d70000-00d71000 r--p 00019000 08:05 782687     /lib/i386-linux-gnu/libgcc_s.so.1
+00d71000-00d72000 rw-p 0001a000 08:05 782687     /lib/i386-linux-gnu/libgcc_s.so.1
+00f54000-00f57000 r-xp 00000000 08:05 9945       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00f57000-00f58000 r--p 00002000 08:05 9945       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00f58000-00f59000 rw-p 00003000 08:05 9945       /usr/lib/jvm/java-6-openjdk/jre/lib/i386/jli/libjli.so
+00f59000-0161f000 r-xp 00000000 08:05 11551      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+0161f000-01620000 ---p 006c6000 08:05 11551      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01620000-01665000 r--p 006c6000 08:05 11551      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01665000-01674000 rw-p 0070b000 08:05 11551      /usr/lib/jvm/java-6-openjdk/jre/lib/i386/server/libjvm.so
+01674000-01a8e000 rw-p 00000000 00:00 0 
+08048000-08051000 r-xp 00000000 08:05 13083      /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08051000-08052000 r--p 00008000 08:05 13083      /usr/lib/jvm/java-6-openjdk/jre/bin/java
+08052000-08053000 rw-p 00009000 08:05 13083      /usr/lib/jvm/java-6-openjdk/jre/bin/java
+0849c000-0ae59000 rw-p 00000000 00:00 0          [heap]
+6ff00000-6ff9c000 rw-p 00000000 00:00 0 
+6ff9c000-70000000 ---p 00000000 00:00 0 
+70100000-701fa000 rw-p 00000000 00:00 0 
+701fa000-70200000 ---p 00000000 00:00 0 
+70200000-702f9000 rw-p 00000000 00:00 0 
+702f9000-70300000 ---p 00000000 00:00 0 
+70300000-703fd000 rw-p 00000000 00:00 0 
+703fd000-70400000 ---p 00000000 00:00 0 
+70400000-704fc000 rw-p 00000000 00:00 0 
+704fc000-70500000 ---p 00000000 00:00 0 
+70500000-705f9000 rw-p 00000000 00:00 0 
+705f9000-70600000 ---p 00000000 00:00 0 
+70600000-706e3000 rw-p 00000000 00:00 0 
+706e3000-70700000 ---p 00000000 00:00 0 
+70700000-707fd000 rw-p 00000000 00:00 0 
+707fd000-70800000 ---p 00000000 00:00 0 
+70800000-708f8000 rw-p 00000000 00:00 0 
+708f8000-70900000 ---p 00000000 00:00 0 
+70900000-70aff000 rw-p 00000000 00:00 0 
+70aff000-70b00000 ---p 00000000 00:00 0 
+70b00000-70d00000 rw-p 00000000 00:00 0 
+70d00000-70f00000 rw-p 00000000 00:00 0 
+70f00000-71100000 rw-p 00000000 00:00 0 
+71100000-71300000 rw-p 00000000 00:00 0 
+71300000-71500000 rw-p 00000000 00:00 0 
+71500000-71700000 rw-p 00000000 00:00 0 
+71700000-71800000 rw-p 00000000 00:00 0 
+7195e000-71961000 ---p 00000000 00:00 0 
+71961000-719af000 rw-p 00000000 00:00 0 
+719af000-719b2000 ---p 00000000 00:00 0 
+719b2000-71a00000 rw-p 00000000 00:00 0 
+71b00000-71bf7000 rw-p 00000000 00:00 0 
+71bf7000-71c00000 ---p 00000000 00:00 0 
+71c00000-71cfe000 rw-p 00000000 00:00 0 
+71cfe000-71d00000 ---p 00000000 00:00 0 
+71d00000-71df2000 rw-p 00000000 00:00 0 
+71df2000-71e00000 ---p 00000000 00:00 0 
+71e00000-71eec000 rw-p 00000000 00:00 0 
+71eec000-71f00000 ---p 00000000 00:00 0 
+71f00000-71ff9000 rw-p 00000000 00:00 0 
+71ff9000-72000000 ---p 00000000 00:00 0 
+72000000-720f6000 rw-p 00000000 00:00 0 
+720f6000-72100000 ---p 00000000 00:00 0 
+72100000-721fc000 rw-p 00000000 00:00 0 
+721fc000-72200000 ---p 00000000 00:00 0 
+72200000-722e9000 rw-p 00000000 00:00 0 
+722e9000-72300000 ---p 00000000 00:00 0 
+72300000-723b6000 rw-p 00000000 00:00 0 
+723b6000-72400000 ---p 00000000 00:00 0 
+72400000-72600000 rw-p 00000000 00:00 0 
+72600000-72700000 rw-p 00000000 00:00 0 
+72700000-72800000 rw-p 00000000 00:00 0 
+72800000-72900000 rw-p 00000000 00:00 0 
+72900000-72a00000 rw-p 00000000 00:00 0 
+72a00000-72b00000 rw-p 00000000 00:00 0 
+72b00000-72c00000 rw-p 00000000 00:00 0 
+72c00000-72d00000 rw-p 00000000 00:00 0 
+72d00000-72e00000 rw-p 00000000 00:00 0 
+72e00000-73000000 rw-p 00000000 00:00 0 
+73000000-73100000 rw-p 00000000 00:00 0 
+73150000-73153000 ---p 00000000 00:00 0 
+73153000-731a1000 rw-p 00000000 00:00 0 
+731a1000-73200000 r--s 00d91000 08:05 156045     /usr/lib/jvm/java-6-openjdk/lib/tools.jar
+73200000-732fe000 rw-p 00000000 00:00 0 
+732fe000-73300000 ---p 00000000 00:00 0 
+73300000-73400000 rw-p 00000000 00:00 0 
+73400000-734f4000 rw-p 00000000 00:00 0 
+734f4000-73500000 ---p 00000000 00:00 0 
+73500000-735f7000 rw-p 00000000 00:00 0 
+735f7000-73600000 ---p 00000000 00:00 0 
+73600000-736f2000 rw-p 00000000 00:00 0 
+736f2000-73700000 ---p 00000000 00:00 0 
+73700000-737fa000 rw-p 00000000 00:00 0 
+737fa000-73800000 ---p 00000000 00:00 0 
+73800000-73a00000 rw-p 00000000 00:00 0 
+73a00000-73afa000 rw-p 00000000 00:00 0 
+73afa000-73b00000 ---p 00000000 00:00 0 
+73b00000-73bfb000 rw-p 00000000 00:00 0 
+73bfb000-73c00000 ---p 00000000 00:00 0 
+73c00000-73df3000 rw-p 00000000 00:00 0 
+73df3000-73e00000 ---p 00000000 00:00 0 
+73e00000-73eff000 rw-p 00000000 00:00 0 
+73eff000-73f00000 ---p 00000000 00:00 0 
+73f00000-73ffa000 rw-p 00000000 00:00 0 
+73ffa000-74000000 ---p 00000000 00:00 0 
+74000000-740ff000 rw-p 00000000 00:00 0 
+740ff000-74100000 ---p 00000000 00:00 0 
+74109000-7410c000 ---p 00000000 00:00 0 
+7410c000-7415a000 rw-p 00000000 00:00 0 
+74200000-742f9000 rw-p 00000000 00:00 0 
+742f9000-74300000 ---p 00000000 00:00 0 
+74300000-74400000 rw-p 00000000 00:00 0 
+74400000-744ea000 rw-p 00000000 00:00 0 
+744ea000-74500000 ---p 00000000 00:00 0 
+7450d000-74510000 ---p 00000000 00:00 0 
+74510000-7455e000 rw-p 00000000 00:00 0 
+7455e000-74561000 ---p 00000000 00:00 0 
+74561000-745af000 rw-p 00000000 00:00 0 
+745af000-745b2000 ---p 00000000 00:00 0 
+745b2000-74600000 rw-p 00000000 00:00 0 
+74600000-747f8000 rw-p 00000000 00:00 0 
+747f8000-74800000 ---p 00000000 00:00 0 
+74800000-748de000 rw-p 00000000 00:00 0 
+748de000-74900000 ---p 00000000 00:00 0 
+74900000-749fd000 rw-p 00000000 00:00 0 
+749fd000-74a00000 ---p 00000000 00:00 0 
+74a1e000-74a20000 r--s 00007000 08:09 4589955    /homelocal/nicolas/.m2/repository/org/apache/maven/shared/maven-filtering/1.0-beta-2/maven-filtering-1.0-beta-2.jar
+74a20000-74a22000 r--s 00005000 08:09 4458957    /homelocal/nicolas/.m2/repository/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar
+74a22000-74a2d000 r--s 0005f000 08:09 4326683    /homelocal/nicolas/.m2/repository/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar
+74a2d000-74a30000 r--s 0000a000 08:09 3934999    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-io/1.0.1/plexus-io-1.0.1.jar
+74a30000-74a34000 r--s 00029000 08:09 4589954    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-archiver/1.2/plexus-archiver-1.2.jar
+74a34000-74a36000 r--s 00011000 08:09 4328224    /homelocal/nicolas/.m2/repository/org/apache/maven/plugins/maven-war-plugin/2.1.1/maven-war-plugin-2.1.1.jar
+74a36000-74a3a000 r--s 0002f000 08:09 4325741    /homelocal/nicolas/.m2/repository/commons-lang/commons-lang/2.1/commons-lang-2.1.jar
+74a3a000-74a3d000 r--s 0000a000 08:09 3933512    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-io/1.0/plexus-io-1.0.jar
+74a3d000-74a41000 r--s 00028000 08:09 3933511    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-archiver/1.0/plexus-archiver-1.0.jar
+74a41000-74a42000 r--s 00004000 08:09 4325742    /homelocal/nicolas/.m2/repository/org/apache/maven/maven-archiver/2.4.1/maven-archiver-2.4.1.jar
+74a42000-74a43000 r--s 00007000 08:09 4195868    /homelocal/nicolas/.m2/repository/org/apache/maven/plugins/maven-jar-plugin/2.3.1/maven-jar-plugin-2.3.1.jar
+74a43000-74a44000 r--s 00002000 08:09 4196165    /homelocal/nicolas/.m2/repository/org/apache/maven/reporting/maven-reporting-api/2.0.9/maven-reporting-api-2.0.9.jar
+74a44000-74a46000 r--s 00006000 08:09 4325712    /homelocal/nicolas/.m2/repository/org/apache/maven/shared/maven-common-artifact-filters/1.3/maven-common-artifact-filters-1.3.jar
+74a46000-74a48000 r--s 0000c000 08:09 4459553    /homelocal/nicolas/.m2/repository/org/apache/maven/surefire/maven-surefire-common/2.7.1/maven-surefire-common-2.7.1.jar
+74a48000-74a4b000 r--s 00019000 08:09 4459552    /homelocal/nicolas/.m2/repository/org/apache/maven/surefire/surefire-api/2.7.1/surefire-api-2.7.1.jar
+74a4b000-74a4c000 r--s 00007000 08:09 4459551    /homelocal/nicolas/.m2/repository/org/apache/maven/surefire/surefire-booter/2.7.1/surefire-booter-2.7.1.jar
+74a4c000-74a4e000 r--s 00006000 08:09 4328746    /homelocal/nicolas/.m2/repository/org/apache/maven/plugins/maven-surefire-plugin/2.7.1/maven-surefire-plugin-2.7.1.jar
+74a4e000-74a4f000 r--s 00002000 08:09 4066047    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-compiler-javac/1.8/plexus-compiler-javac-1.8.jar
+74a4f000-74a51000 r--s 00000000 08:09 3934988    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-compiler-manager/1.8/plexus-compiler-manager-1.8.jar
+74a51000-74a52000 r--s 00004000 08:09 3934989    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-compiler-api/1.8/plexus-compiler-api-1.8.jar
+74a52000-74a54000 r--s 00006000 08:09 4197465    /homelocal/nicolas/.m2/repository/org/apache/maven/plugins/maven-compiler-plugin/2.3.1/maven-compiler-plugin-2.3.1.jar
+74a54000-74a56000 r--s 0000d000 08:09 3932972    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.13/plexus-interpolation-1.13.jar
+74a56000-74a57000 r--s 00001000 08:09 3673451    /homelocal/nicolas/.m2/repository/org/sonatype/plexus/plexus-build-api/0.0.4/plexus-build-api-0.0.4.jar
+74a57000-74a59000 r--s 00007000 08:09 4325558    /homelocal/nicolas/.m2/repository/org/apache/maven/shared/maven-filtering/1.0-beta-4/maven-filtering-1.0-beta-4.jar
+74a59000-74a5a000 r--s 00001000 08:09 4325557    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.jar
+74a5a000-74a5b000 r--s 00005000 08:09 4195923    /homelocal/nicolas/.m2/repository/org/apache/maven/plugins/maven-resources-plugin/2.4.3/maven-resources-plugin-2.4.3.jar
+74a5b000-74a5c000 r--s 00002000 08:09 3934093    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar
+74a5c000-74a60000 r--s 00033000 08:09 3278792    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar
+74a60000-74a63000 r--s 0001b000 08:09 4325462    /homelocal/nicolas/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar
+74a63000-74a67000 r--s 0003c000 08:09 4325404    /homelocal/nicolas/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar
+74a67000-74a69000 r--s 00005000 08:09 4326689    /homelocal/nicolas/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar
+74a69000-74a70000 r--s 00079000 08:09 4458681    /homelocal/nicolas/.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.7/wstx-asl-3.2.7.jar
+74a70000-74a71000 r--s 00002000 08:09 3933647    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-i18n/1.0-beta-7/plexus-i18n-1.0-beta-7.jar
+74a71000-74a75000 r--s 00034000 08:09 3934973    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-utils/1.5.15/plexus-utils-1.5.15.jar
+74a75000-74a77000 r--s 00004000 08:09 4325945    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-module-xhtml/1.0/doxia-module-xhtml-1.0.jar
+74a77000-74a78000 r--s 00006000 08:09 4325944    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-module-xdoc/1.0/doxia-module-xdoc-1.0.jar
+74a78000-74a79000 r--s 00004000 08:09 4325940    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-module-fml/1.0/doxia-module-fml-1.0.jar
+74a79000-74a7b000 r--s 0000a000 08:09 4325939    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-module-apt/1.0/doxia-module-apt-1.0.jar
+74a7b000-74a88000 r--s 0007f000 08:09 4325938    /homelocal/nicolas/.m2/repository/commons-collections/commons-collections/3.2/commons-collections-3.2.jar
+74a88000-74a89000 r--s 0000b000 08:09 4325937    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-decoration-model/1.0/doxia-decoration-model-1.0.jar
+74a89000-74a91000 r--s 00058000 08:09 4325935    /homelocal/nicolas/.m2/repository/org/apache/velocity/velocity/1.5/velocity-1.5.jar
+74a91000-74a92000 r--s 00001000 08:09 3933648    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-velocity/1.1.7/plexus-velocity-1.1.7.jar
+74a92000-74a94000 r--s 0000a000 08:09 4325930    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-site-renderer/1.0/doxia-site-renderer-1.0.jar
+74a94000-74a95000 r--s 00002000 08:09 4325926    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0/doxia-sink-api-1.0.jar
+74a95000-74a96000 r--s 00002000 08:09 3016838    /homelocal/nicolas/.m2/repository/org/apache/maven/wagon/wagon-file/1.0-beta-2/wagon-file-1.0-beta-2.jar
+74a96000-74a99000 r--s 00020000 08:09 3934972    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-archiver/1.0-alpha-7/plexus-archiver-1.0-alpha-7.jar
+74a99000-74a9a000 r--s 00007000 08:09 4325960    /homelocal/nicolas/.m2/repository/org/apache/maven/shared/maven-plugin-testing-harness/1.1/maven-plugin-testing-harness-1.1.jar
+74a9a000-74a9c000 r--s 00006000 08:09 4325959    /homelocal/nicolas/.m2/repository/org/apache/maven/shared/maven-common-artifact-filters/1.2/maven-common-artifact-filters-1.2.jar
+74a9c000-74a9f000 r--s 0000b000 08:09 4458678    /homelocal/nicolas/.m2/repository/org/apache/maven/doxia/doxia-core/1.0-alpha-10/doxia-core-1.0-alpha-10.jar
+74a9f000-74aa4000 r--s 00016000 08:09 4328204    /homelocal/nicolas/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar
+74aa4000-74aa6000 r--s 0000e000 08:09 4196131    /homelocal/nicolas/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar
+74aa6000-74aaa000 r--s 00026000 08:09 4458672    /homelocal/nicolas/.m2/repository/commons-digester/commons-digester/1.6/commons-digester-1.6.jar
+74aaa000-74aaf000 r--s 0002a000 08:09 4458674    /homelocal/nicolas/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar
+74aaf000-74ab2000 ---p 00000000 00:00 0 
+74ab2000-74b00000 rw-p 00000000 00:00 0 
+74b00000-74bfc000 rw-p 00000000 00:00 0 
+74bfc000-74c00000 ---p 00000000 00:00 0 
+74c00000-74cfa000 rw-p 00000000 00:00 0 
+74cfa000-74d00000 ---p 00000000 00:00 0 
+74d00000-74df9000 rw-p 00000000 00:00 0 
+74df9000-74e00000 ---p 00000000 00:00 0 
+74e00000-74e01000 r--s 00005000 08:09 4195970    /homelocal/nicolas/.m2/repository/org/apache/maven/plugins/maven-install-plugin/2.3.1/maven-install-plugin-2.3.1.jar
+74e01000-74e03000 r--s 00008000 08:09 4195843    /homelocal/nicolas/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar
+74e03000-74e06000 r--s 00014000 08:09 4458673    /homelocal/nicolas/.m2/repository/commons-validator/commons-validator/1.2.0/commons-validator-1.2.0.jar
+74e06000-74e07000 r--s 00004000 08:09 4458675    /homelocal/nicolas/.m2/repository/org/apache/maven/reporting/maven-reporting-impl/2.0.4.1/maven-reporting-impl-2.0.4.1.jar
+74e07000-74e08000 r--s 00002000 08:09 4196159    /homelocal/nicolas/.m2/repository/org/apache/maven/reporting/maven-reporting-api/2.0.6/maven-reporting-api-2.0.6.jar
+74e08000-74e0a000 r--s 00002000 08:09 3932970    /homelocal/nicolas/.m2/repository/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.jar
+74e0a000-74e0c000 r--s 00006000 08:09 4325559    /homelocal/nicolas/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar
+74e0c000-74e0f000 r--s 0002f000 08:09 3410852    /homelocal/nicolas/.m2/repository/org/codehaus/mojo/versions-maven-plugin/1.2/versions-maven-plugin-1.2.jar
+74e0f000-74e10000 r--p 00000000 00:00 0 
+74e10000-74e13000 ---p 00000000 00:00 0 
+74e13000-74e61000 rw-p 00000000 00:00 0 
+74e61000-74e71000 r--s 000bc000 08:09 3276804    /homelocal/nicolas/Bureau/eclipse/configuration/org.eclipse.osgi/bundles/829/1/.cp/netty-3.2.4.Final.jar
+74e71000-74e77000 r--s 0004c000 08:09 3148800    /homelocal/nicolas/Bureau/eclipse/configuration/org.eclipse.osgi/bundles/756/1/.cp/async-http-client-1.6.3.jar
+74e77000-74e79000 r--s 00005000 08:09 3673635    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/wagon-ahc-1.2.0.jar
+74e79000-74e7b000 r--s 0000c000 08:09 3673629    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-connector-asynchttpclient-1.11.jar
+74e7b000-74e7e000 r--s 0001e000 08:09 3673641    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-impl-1.11.jar
+74e7e000-74e80000 r--s 0000d000 08:09 3673611    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/wagon-provider-api-1.0-beta-6.jar
+74e80000-74e83000 r--s 0001d000 08:09 3673614    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-util-1.11.jar
+74e83000-74e85000 r--s 00004000 08:09 3673631    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-spi-1.11.jar
+74e85000-74e88000 r--s 00015000 08:09 3673613    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-api-1.11.jar
+74e88000-74e8a000 r--s 00007000 08:09 3673630    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-connector-wagon-1.11.jar
+74e8a000-74e95000 r--s 00073000 08:09 3673602    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/sisu-guice-2.9.4-no_aop.jar
+74e95000-74e99000 r--s 00036000 08:09 3673619    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-utils-2.0.6.jar
+74e99000-74e9a000 r--s 00005000 08:09 3673638    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-scanners-2.0.0.jar
+74e9a000-74e9c000 r--s 00006000 08:09 3673620    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-binders-2.0.0.jar
+74e9c000-74e9d000 r--s 00004000 08:09 3673615    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-locators-2.0.0.jar
+74e9d000-74e9f000 r--s 00002000 08:09 3673637    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-converters-2.0.0.jar
+74e9f000-74ea0000 r--s 00004000 08:09 3673634    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-metadata-2.0.0.jar
+74ea0000-74ea2000 r--s 00001000 08:09 3673628    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-converters-2.0.0.jar
+74ea2000-74ea4000 r--s 00012000 08:09 3673609    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-scanners-2.0.0.jar
+74ea4000-74ea6000 r--s 00007000 08:09 3673640    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-binders-2.0.0.jar
+74ea6000-74ea9000 r--s 0000b000 08:09 3673636    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-locators-2.0.0.jar
+74ea9000-74eab000 r--s 00002000 08:09 3673625    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-inject-2.0.0.jar
+74eab000-74ead000 r--s 00009000 08:09 3673612    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-reflect-2.0.0.jar
+74ead000-74eae000 r--s 00001000 08:09 3673626    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/javax.inject-1.jar
+74eae000-74eb0000 r--s 00001000 08:09 3673622    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-component-annotations-1.5.5.jar
+74eb0000-74eb5000 r--s 0001d000 08:09 3673605    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-shim-2.0.0.jar
+74eb5000-74eb6000 r--s 00003000 08:09 3673604    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/wagon-file-1.0-beta-7.jar
+74eb6000-74eb8000 r--s 0000a000 08:09 3673607    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/commons-cli-1.2.jar
+74eb8000-74ebe000 r--s 00044000 08:09 3673632    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-compat-3.0.2.jar
+74ebe000-74ec0000 r--s 0000f000 08:09 3673608    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-interpolation-1.14.jar
+74ec0000-74ec2000 r--s 0000d000 08:09 3673623    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-aether-provider-3.0.2.jar
+74ec2000-74ec4000 r--s 0000d000 08:09 3673600    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-artifact-3.0.2.jar
+74ec4000-74ec5000 r--s 00008000 08:09 3673603    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-repository-metadata-3.0.2.jar
+74ec5000-74ec7000 r--s 0000a000 08:09 3673617    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-settings-builder-3.0.2.jar
+74ec7000-74ec9000 r--s 00028000 08:09 3673639    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-model-3.0.2.jar
+74ec9000-74ed5000 r--s 00081000 08:09 3673610    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-core-3.0.2.jar
+74ed5000-74ed6000 r--s 00004000 08:09 3673601    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-cipher-1.4.jar
+74ed6000-74edb000 r--s 00023000 08:09 3673633    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-model-builder-3.0.2.jar
+74edb000-74edc000 ---p 00000000 00:00 0 
+74edc000-74f5c000 rw-p 00000000 00:00 0 
+74f5c000-74f5f000 ---p 00000000 00:00 0 
+74f5f000-74fad000 rw-p 00000000 00:00 0 
+74fad000-74fb0000 ---p 00000000 00:00 0 
+74fb0000-7502e000 rw-p 00000000 00:00 0 
+7502e000-75031000 ---p 00000000 00:00 0 
+75031000-750af000 rw-p 00000000 00:00 0 
+750af000-750b2000 ---p 00000000 00:00 0 
+750b2000-75100000 rw-p 00000000 00:00 0 
+75100000-75300000 r--p 00000000 08:05 9348       /usr/lib/locale/locale-archive
+75300000-753fd000 rw-p 00000000 00:00 0 
+753fd000-75400000 ---p 00000000 00:00 0 
+75400000-75402000 r--s 00007000 08:09 3673616    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-sec-dispatcher-1.3.jar
+75402000-75404000 r--s 0000c000 08:09 3673627    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-plugin-api-3.0.2.jar
+75404000-75405000 r--s 0000c000 08:09 3673618    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-settings-3.0.2.jar
+75405000-75406000 r--s 0000b000 08:09 3673624    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-embedder-3.0.2.jar
+75406000-7540d000 r--s 000fb000 08:05 9935       /usr/lib/jvm/java-6-openjdk/jre/lib/resources.jar
+7540d000-75410000 r--s 0007d000 08:05 9931       /usr/lib/jvm/java-6-openjdk/jre/lib/jsse.jar
+75410000-75413000 r--s 0000b000 08:09 3673606    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-classworlds-2.4.jar
+75413000-7541b000 r--s 00066000 08:05 293132     /usr/share/java/gnome-java-bridge.jar
+7541b000-7541e000 ---p 00000000 00:00 0 
+7541e000-7546c000 rw-p 00000000 00:00 0 
+7546c000-7546f000 ---p 00000000 00:00 0 
+7546f000-754bd000 rw-p 00000000 00:00 0 
+754bd000-754be000 ---p 00000000 00:00 0 
+754be000-75571000 rw-p 00000000 00:00 0 
+75571000-75702000 r--s 037b1000 08:05 9941       /usr/lib/jvm/java-6-openjdk/jre/lib/rt.jar
+75702000-75703000 ---p 00000000 00:00 0 
+75703000-75783000 rw-p 00000000 00:00 0 
+75783000-75784000 ---p 00000000 00:00 0 
+75784000-75804000 rw-p 00000000 00:00 0 
+75804000-75805000 ---p 00000000 00:00 0 
+75805000-75885000 rw-p 00000000 00:00 0 
+75885000-75886000 ---p 00000000 00:00 0 
+75886000-75924000 rw-p 00000000 00:00 0 
+75924000-75946000 rw-p 00000000 00:00 0 
+75946000-75967000 rw-p 00000000 00:00 0 
+75967000-75a6a000 rw-p 00000000 00:00 0 
+75a6a000-75a88000 rw-p 00000000 00:00 0 
+75a88000-75aaa000 rw-p 00000000 00:00 0 
+75aaa000-75acb000 rw-p 00000000 00:00 0 
+75acb000-75bcd000 rw-p 00000000 00:00 0 
+75bcd000-75c5f000 rw-p 00000000 00:00 0 
+75c5f000-797c0000 rw-p 00000000 00:00 0 
+797c0000-7dc60000 rw-p 00000000 00:00 0 
+7dc60000-81cf0000 rw-p 00000000 00:00 0 
+81cf0000-a2310000 rw-p 00000000 00:00 0 
+a2310000-b4630000 rw-p 00000000 00:00 0 
+b4630000-b4660000 rw-p 00000000 00:00 0 
+b4660000-b4671000 rw-p 00000000 00:00 0 
+b4671000-b4720000 rw-p 00000000 00:00 0 
+b4720000-b4b30000 rwxp 00000000 00:00 0 
+b4b30000-b7720000 rw-p 00000000 00:00 0 
+b7720000-b7723000 ---p 00000000 00:00 0 
+b7723000-b7774000 rw-p 00000000 00:00 0 
+b7774000-b7776000 r--s 00009000 08:09 3148445    /homelocal/nicolas/Bureau/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/local-patches.jar
+b7776000-b7779000 r--s 0000f000 08:05 6887       /usr/lib/jvm/java-6-openjdk/jre/lib/ext/pulse-java.jar
+b7779000-b777a000 r--p 007ed000 08:05 9348       /usr/lib/locale/locale-archive
+b777a000-b7782000 rw-s 00000000 08:05 554097     /tmp/hsperfdata_nicolas/3340
+b7782000-b7783000 rw-p 00000000 00:00 0 
+b7783000-b7784000 r--p 00000000 00:00 0 
+b7784000-b7786000 rw-p 00000000 00:00 0 
+bf932000-bf953000 rw-p 00000000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -Dmaven.home=EMBEDDED -Dclassworlds.conf=/homelocal/nicolas/fsnet/.metadata/.plugins/org.eclipse.m2e.core/launches/m2conf6246807136441155026.tmp -Dfile.encoding=UTF-8 
+java_command: org.codehaus.plexus.classworlds.launcher.Launcher -B -s /homelocal/nicolas/.m2/settings.xml install
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+USERNAME=nicolas
+LD_LIBRARY_PATH=/usr/lib/jvm/java-6-openjdk/jre/lib/i386/server:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:/usr/lib/jvm/java-6-openjdk/jre/../lib/i386:/usr/lib/jvm/java-6-openjdk/jre/lib/i386/client:/usr/lib/jvm/java-6-openjdk/jre/lib/i386:
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x656fb0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x656fb0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x51d4d0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x51d4d0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x51d4d0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x51d4d0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x51d340], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x520130], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x520130], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x520130], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x520130], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:Ubuntu 11.04 (natty)
+uname:Linux 2.6.38-13-generic #53-Ubuntu SMP Mon Nov 28 19:23:39 UTC 2011 i686
+libc:glibc 2.13 NPTL 2.13 
+rlimit: STACK 8192k, CORE 0k, NPROC infinity, NOFILE 4096, AS infinity
+load average:0.38 0.30 0.27
+
+/proc/meminfo:
+MemTotal:        3572408 kB
+MemFree:         1403952 kB
+Buffers:          144496 kB
+Cached:           822608 kB
+SwapCached:            0 kB
+Active:          1404040 kB
+Inactive:         676596 kB
+Active(anon):    1116068 kB
+Inactive(anon):    91744 kB
+Active(file):     287972 kB
+Inactive(file):   584852 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+HighTotal:       2719372 kB
+HighFree:         766620 kB
+LowTotal:         853036 kB
+LowFree:          637332 kB
+SwapTotal:       8191996 kB
+SwapFree:        8191996 kB
+Dirty:             27592 kB
+Writeback:             0 kB
+AnonPages:       1113568 kB
+Mapped:           127864 kB
+Shmem:             94260 kB
+Slab:              43420 kB
+SReclaimable:      27904 kB
+SUnreclaim:        15516 kB
+KernelStack:        3608 kB
+PageTables:         7300 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     9978200 kB
+Committed_AS:    2689968 kB
+VmallocTotal:     122880 kB
+VmallocUsed:       31084 kB
+VmallocChunk:      86868 kB
+HardwareCorrupted:     0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       4096 kB
+DirectMap4k:       16376 kB
+DirectMap4M:      892928 kB
+
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+Memory: 4k page, physical 3572408k(1403952k free), swap 8191996k(8191996k free)
+
+vm_info: OpenJDK Server VM (20.0-b11) for linux-x86 JRE (1.6.0_22-b22), built on Oct 25 2011 06:27:31 by "buildd" with gcc 4.5.2
+
+time: Fri Feb 17 16:45:50 2012
+elapsed time: 23 seconds
+

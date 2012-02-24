@@ -81,7 +81,6 @@
             <bean:message key="menu.9"/>
         </html:link>
     </li>
-
     
 </ul>
 <a class="button" href="Logout" id="logout"><bean:message key="logout"/></a>

@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -57,6 +58,21 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 	private static final Logger logger = Logger.getAnonymousLogger();
 
+	private static final String NAME_FORM_FIELD_NAME = "name";
+	private static final String FIRSTNAME_FORM_FIELD_NAME = "firstName";
+	private static final String EMAIL_FORM_FIELD_NAME = "email";
+	private static final String PARENT_ID_FORM_FIELD_NAME = "parentId";
+	private static final String MESSAGE_FORM_FIELD_NAME = "message";
+	private static final String FORMAT_BIRTHDAY_FORM_FIELD_NAME = "formatBirthDay";
+	private static final String MEMBERS_USER_EXISTS_ACTION_NAME = "members.user.exists";
+	private static final String MEMBERS_ERROR_ON_CREATE_ACTION_NAME = "members.error.on.create";
+	private static final String ID_MEMBER_REQUEST_PARAMETER_NAME = "idMember";
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String INTERNATIONALIZATION_RESSOURCE_NAME = "FSneti18n";
+	
+
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -71,19 +87,19 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String name = (String) dynaForm.get("name");
-		dynaForm.set("name", "");
-		String firstName = (String) dynaForm.get("firstName");
-		dynaForm.set("firstName", "");
+		String name = (String) dynaForm.get(NAME_FORM_FIELD_NAME);
+		dynaForm.set(NAME_FORM_FIELD_NAME, "");
+		String firstName = (String) dynaForm.get(FIRSTNAME_FORM_FIELD_NAME);
+		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, "");
 
-		String mail = (String) dynaForm.get("email");
+		String mail = (String) dynaForm.get(EMAIL_FORM_FIELD_NAME);
 		mail = mail.toLowerCase();
-		dynaForm.set("email", "");
+		dynaForm.set(EMAIL_FORM_FIELD_NAME, "");
 
-		String parentId = (String) dynaForm.get("parentId");
-		dynaForm.set("parentId", "");
+		String parentId = (String) dynaForm.get(PARENT_ID_FORM_FIELD_NAME);
+		dynaForm.set(PARENT_ID_FORM_FIELD_NAME, "");
 
-		String personalizedMessage = (String) dynaForm.get("message");
+		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
 		String inputPassword = (String) dynaForm.get("password");
 		dynaForm.set("password", "");
 		dynaForm.set("passwordConfirmation", "");
@@ -122,27 +138,27 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 					personalizedMessage, currentLocale);
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.user.exists"));
+			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 			saveErrors(request, errors);
 		} catch (Exception e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.error.on.create"));
+			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 			saveErrors(request, errors);
 		}
 		em.close();
 
-		dynaForm.set("name", "");
-		dynaForm.set("firstName", "");
-		dynaForm.set("email", "");
-		dynaForm.set("parentId", "");
+		dynaForm.set(NAME_FORM_FIELD_NAME, "");
+		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, "");
+		dynaForm.set(EMAIL_FORM_FIELD_NAME, "");
+		dynaForm.set(PARENT_ID_FORM_FIELD_NAME, "");
 		cleanSession(request);
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"member.success.on.create"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -184,7 +200,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR;
 		String formInput = readFileLinePerLine((String) dynaForm
 				.get("fileMultipleMember"));
-		String personalizedMessage = (String) dynaForm.get("message");
+		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
 		if (formInput != null) {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntityFacade facadeSE = new SocialEntityFacade(em);
@@ -219,16 +235,16 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			// the
 			// create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
-				errors.add("email", new ActionMessage("members.user.exists"));
+				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
-				errors.add("email",
-						new ActionMessage("members.error.on.create"));
+				errors.add(EMAIL_FORM_FIELD_NAME,
+						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}
@@ -245,16 +261,16 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 				// as in
 				// the create methode
 				catch (RollbackException e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
-					errors.add("email",
-							new ActionMessage("members.user.exists"));
+					errors.add(EMAIL_FORM_FIELD_NAME,
+							new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 					saveErrors(request, errors);
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
-					errors.add("email", new ActionMessage(
-							"members.error.on.create"));
+					errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(
+							MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 					saveErrors(request, errors);
 				}
 			}
@@ -264,7 +280,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 					"members.error.file"));
 			saveErrors(request, errors);
 		}
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -289,7 +305,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 		String formInput = (String) dynaForm.get("multipleMember");
 		dynaForm.set("multipleMember", "");
-		String personalizedMessage = (String) dynaForm.get("message");
+		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
@@ -323,15 +339,15 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		// I'm not really sure about the exception, so I took the same as in the
 		// create methode
 		catch (RollbackException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.user.exists"));
+			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.error.on.create"));
+			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
@@ -347,26 +363,26 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			// I'm not really sure about the exception, so I took the same as in
 			// the create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
-				errors.add("email", new ActionMessage("members.user.exists"));
+				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
-				errors.add("email",
-						new ActionMessage("members.error.on.create"));
+				errors.add(EMAIL_FORM_FIELD_NAME,
+						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 				saveErrors(request, errors);
 			}
 
 		}
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"members.success.on.create"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -401,7 +417,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		Mail mail = mailer.createMail();
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
 
 		mail.setSubject(bundle.getMessage(locale,
 				"members.welcomeMessage.subject"));
@@ -435,7 +451,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			String personalizedMessage, Locale locale) {
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
 		StringBuilder message = new StringBuilder();
 
 		personalizedMessage = personalizedMessage.replace(
@@ -489,7 +505,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		socialEntityFacade.switchState(socialEntityId);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -510,7 +526,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(
 				entityManager);
 
-		Integer idMember = Integer.valueOf(request.getParameter("idMember"));
+		Integer idMember = Integer.valueOf(request.getParameter(ID_MEMBER_REQUEST_PARAMETER_NAME));
 
 		SocialEntity member = socialEntityFacade.getSocialEntity(idMember);
 
@@ -530,9 +546,9 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		dynaForm.set("sexe", member.getSex());
 		dynaForm.set("job", member.getProfession());
 		dynaForm.set("birthDay", member.getBirthDate());
-		dynaForm.set("name", member.getName());
-		dynaForm.set("email", member.getEmail());
-		dynaForm.set("firstName", member.getFirstName());
+		dynaForm.set(NAME_FORM_FIELD_NAME, member.getName());
+		dynaForm.set(EMAIL_FORM_FIELD_NAME, member.getEmail());
+		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, member.getFirstName());
 		dynaForm.set("id", member.getId());
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
 				entityManager);
@@ -540,7 +556,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 				.getAllChildGroups(UserUtils.getHisGroup(request));
 
 		Paginator<Interest> paginator = new Paginator<Interest>(
-				member.getInterests(), request, "interestsMember", "idMember");
+				member.getInterests(), request, "interestsMember", ID_MEMBER_REQUEST_PARAMETER_NAME);
 
 		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
@@ -557,7 +573,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		request.getSession(true).setAttribute("group", member.getGroup());
 		request.getSession(true).setAttribute("allGroups", socialGroups);
 		entityManager.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -568,20 +584,20 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		ActionErrors res = new ActionErrors();
 		try {
 			Date birthday = DateUtils.format(dynaForm
-					.getString("formatBirthDay"));
+					.getString(FORMAT_BIRTHDAY_FORM_FIELD_NAME));
 			if (birthday.after(new Date())) {
-				res.add("formatBirthDay", new ActionMessage(
+				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
 						"date.error.invalid"));
 			}
 			Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 100);
 			if (birthday.before(cal.getTime())) {
-				res.add("formatBirthDay", new ActionMessage(
+				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
 						"date.error.invalid"));
 			}
 		} catch (ParseException e1) {
-			if (!dynaForm.getString("formatBirthDay").isEmpty()) {
-				res.add("formatBirthDay", new ActionMessage(
+			if (!dynaForm.getString(FORMAT_BIRTHDAY_FORM_FIELD_NAME).isEmpty()) {
+				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
 						"date.error.invalid"));
 			}
 			// Date Format is empty. Do nothing.
@@ -607,12 +623,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 				entityManager);
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 
-		String name = (String) formSocialENtity.get("name");
-		String firstName = (String) formSocialENtity.get("firstName");
-		String email = (String) formSocialENtity.get("email");
+		String name = (String) formSocialENtity.get(NAME_FORM_FIELD_NAME);
+		String firstName = (String) formSocialENtity.get(FIRSTNAME_FORM_FIELD_NAME);
+		String email = (String) formSocialENtity.get(EMAIL_FORM_FIELD_NAME);
 		email = email.toLowerCase();
 		Integer idGroup = Integer.parseInt((String) formSocialENtity
-				.get("parentId"));
+				.get(PARENT_ID_FORM_FIELD_NAME));
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");
 		String city = (String) formSocialENtity.get("city");
@@ -629,7 +645,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		Date birthDay = null;
 		try {
 			birthDay = DateUtils.format((String) formSocialENtity
-					.get("formatBirthDay"));
+					.get(FORMAT_BIRTHDAY_FORM_FIELD_NAME));
 		} catch (ParseException e) {
 			// Date Format is invalid or empty. Do nothing.
 		}
@@ -659,19 +675,19 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		request.setAttribute("member", member);
 		request.setAttribute("id", member.getId());
 		Paginator<Interest> paginator = new Paginator<Interest>(
-				member.getInterests(), request, "interestsMember", "idMember");
+				member.getInterests(), request, "interestsMember", ID_MEMBER_REQUEST_PARAMETER_NAME);
 		request.setAttribute("interestsMemberPaginator", paginator);
 
-		errors.add("message", new ActionMessage("member.success.update"));
+		errors.add(MESSAGE_FORM_FIELD_NAME, new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
 		cleanSession(request);
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"member.success.on.modify"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -735,7 +751,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			request.getSession(true).setAttribute("allGroups", socialGroups);
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -755,7 +771,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		Integer interestSelected = Integer.valueOf(request
 				.getParameter("interestSelected"));
 		Integer idSocialEntity = Integer.valueOf(request
-				.getParameter("idMember"));
+				.getParameter(ID_MEMBER_REQUEST_PARAMETER_NAME));
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -768,7 +784,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		em.getTransaction().commit();
 		em.close();
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 }

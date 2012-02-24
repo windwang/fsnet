@@ -1,5 +1,8 @@
 package fr.univartois.ili.fsnet.admin.quartz;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 
 import org.apache.struts.action.ActionServlet;
@@ -59,7 +62,7 @@ public class QuartzPlugin implements PlugIn {
 			scheduler.scheduleJob(job, trigger);
 
 		} catch (SchedulerException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 	}

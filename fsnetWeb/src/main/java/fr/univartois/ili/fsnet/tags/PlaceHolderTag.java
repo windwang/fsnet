@@ -3,6 +3,9 @@ package fr.univartois.ili.fsnet.tags;
 import java.io.IOException;
 import java.util.Locale;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.SimpleTagSupport;
@@ -39,7 +42,7 @@ public class PlaceHolderTag extends SimpleTagSupport {
 			out.print("document.getElementById('" + id + "').setAttribute('placeholder','" + value + "');");
 			out.println("</script>");
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 	}
 }
