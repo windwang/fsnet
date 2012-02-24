@@ -10,116 +10,124 @@
 
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="visits.conts" /></legend>
+	<legend class="legendHome">
+		<bean:message key="visits.conts" />
+	</legend>
 
 
-<c:if test="${empty requestScope.lastVisitors}">
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><bean:message key="visits.voidlist" />.</td>
-		</tr>
-	</table>
-</c:if>
-
-
-<c:if test="${not empty requestScope.lastVisitors}">
-
-	<script type="text/javascript">
-		$(document).ready(
-				function pagination() {
-					var nomTable = "tablelastvisitors";
-					var idColonneATrier = 3;
-					var sensDeTri = "desc";
-					var aoColumns = [ {
-						"bSortable" : false
-					}, null, null, {
-						"sType" : "date-euro"
-					} ];
-					miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-							aoColumns, false);
-				});
-	</script>
-
-	<table id="tablelastvisitors" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
-		<thead>
+	<c:if test="${empty requestScope.lastVisitors}">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
-				<th><bean:message key="privatemessages.from" /></th>
-				<th width="20%"><bean:message key="members.firstName" /></th>
-				<th width="20%"><bean:message key="members.name" /></th>
-				<th width="40%"><bean:message key="privatemessages.date" /></th>
+				<td><bean:message key="visits.voidlist" />.</td>
 			</tr>
-		</thead>
-		<tbody>
+		</table>
+	</c:if>
 
-			<c:forEach var="visitor" items="${requestScope.lastVisitors}">
+
+	<c:if test="${not empty requestScope.lastVisitors}">
+
+		<script type="text/javascript">
+			$(document).ready(
+					function pagination() {
+						var nomTable = "tablelastvisitors";
+						var idColonneATrier = 3;
+						var sensDeTri = "desc";
+						var aoColumns = [ {
+							"bSortable" : false
+						}, null, null, {
+							"sType" : "date-euro"
+						} ];
+						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+								aoColumns, false);
+					});
+		</script>
+
+		<table id="tablelastvisitors"
+			class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+			<thead>
 				<tr>
-					<td class="miniatureContainer"><ili:getMiniature
-							socialEntity="${visitor.visitor}" /></td>
-					<td><ili:getSocialEntityInfosFirstname
-							socialEntity="${visitor.visitor}" /></td>
-					<td><ili:getSocialEntityInfosName socialEntity="${visitor.visitor}" /></td>
-					<td><bean:write name="visitor" property="lastVisite"
-							formatKey="date.format" /></td>
+					<th><bean:message key="privatemessages.from" /></th>
+					<th width="20%"><bean:message key="members.firstName" /></th>
+					<th width="20%"><bean:message key="members.name" /></th>
+					<th width="40%"><bean:message key="privatemessages.date" /></th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>	
-</c:if>
+			</thead>
+			<tbody>
+
+				<c:forEach var="visitor" items="${requestScope.lastVisitors}">
+					<tr>
+						<td class="miniatureContainer"><ili:getMiniature
+								socialEntity="${visitor.visitor}" /></td>
+						<td><ili:getSocialEntityInfosFirstname
+								socialEntity="${visitor.visitor}" /></td>
+						<td><ili:getSocialEntityInfosName
+								socialEntity="${visitor.visitor}" /></td>
+						<td><bean:write name="visitor" property="lastVisite"
+								formatKey="date.format" /></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</c:if>
 </fieldset>
-	
+
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="visits.old" /></legend>
+	<legend class="legendHome">
+		<bean:message key="visits.old" />
+	</legend>
 
 
-<c:if test="${empty requestScope.beforeLastVisitors}">
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><bean:message key="visits.voidlist" />.</td>
-		</tr>
-	</table>
-</c:if>
-
-<c:if test="${not empty requestScope.beforeLastVisitors}">
-
-	<script type="text/javascript">
-		$(document).ready(
-				function pagination() {
-					var nomTable = "tablelastvisitorsBeforeLastConnection";
-					var idColonneATrier = 3;
-					var sensDeTri = "desc";
-					var aoColumns = [ {
-						"bSortable" : false
-					}, null, null, {
-						"sType" : "date-euro"
-					} ];
-					miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-							aoColumns, false);
-				});
-	</script>
-
-	<table id="tablelastvisitorsBeforeLastConnection" class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
-		<thead>
+	<c:if test="${empty requestScope.beforeLastVisitors}">
+		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
-				<th><bean:message key="privatemessages.from" /></th>
-				<th width="20%"><bean:message key="members.firstName" /></th>
-				<th width="20%"><bean:message key="members.name" /></th>
-				<th width="40%"><bean:message key="privatemessages.date" /></th>
+				<td><bean:message key="visits.voidlist" />.</td>
 			</tr>
-		</thead>
-		<tbody>
+		</table>
+	</c:if>
 
-			<c:forEach var="visitor" items="${requestScope.beforeLastVisitors}">
+	<c:if test="${not empty requestScope.beforeLastVisitors}">
+
+		<script type="text/javascript">
+			$(document).ready(
+					function pagination() {
+						var nomTable = "tablelastvisitorsBeforeLastConnection";
+						var idColonneATrier = 3;
+						var sensDeTri = "desc";
+						var aoColumns = [ {
+							"bSortable" : false
+						}, null, null, {
+							"sType" : "date-euro"
+						} ];
+						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+								aoColumns, false);
+					});
+		</script>
+
+		<table id="tablelastvisitorsBeforeLastConnection"
+			class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+			<thead>
 				<tr>
-					<td class="miniatureContainer"><ili:getMiniature
-							socialEntity="${visitor.visitor}" /></td>
-					<td><ili:getSocialEntityInfosFirstname
-							socialEntity="${visitor.visitor}" /></td>
-					<td><ili:getSocialEntityInfosName socialEntity="${visitor.visitor}" /></td>
-					<td><bean:write name="visitor" property="lastVisite"
-							formatKey="date.format" /></td>
+					<th><bean:message key="privatemessages.from" /></th>
+					<th width="20%"><bean:message key="members.firstName" /></th>
+					<th width="20%"><bean:message key="members.name" /></th>
+					<th width="40%"><bean:message key="privatemessages.date" /></th>
 				</tr>
-			</c:forEach>
-		</tbody>
-	</table>	
-</c:if>
+			</thead>
+			<tbody>
+
+				<c:forEach var="visitor" items="${requestScope.beforeLastVisitors}">
+					<tr>
+						<td class="miniatureContainer"><ili:getMiniature
+								socialEntity="${visitor.visitor}" /></td>
+						<td><ili:getSocialEntityInfosFirstname
+								socialEntity="${visitor.visitor}" /></td>
+						<td><ili:getSocialEntityInfosName
+								socialEntity="${visitor.visitor}" /></td>
+						<td><bean:write name="visitor" property="lastVisite"
+								formatKey="date.format" /></td>
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	</c:if>
 </fieldset>
