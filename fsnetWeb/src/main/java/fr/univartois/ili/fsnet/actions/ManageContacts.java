@@ -33,6 +33,9 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	private static final Logger LOGGER = Logger.getLogger(ManageContacts.class
 			.getName());
 
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+
+	
 	/**
 	 * Submit a request contact to another social entity
 	 * 
@@ -72,7 +75,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -102,7 +105,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		refreshNumNewContacts(request, em);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -133,7 +136,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		refreshNumNewContacts(request, em);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -193,7 +196,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		contactFacade.removeContact(user, removedEntity);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -239,7 +242,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		request.setAttribute("paginatorAsked", user.getAsked());
 		request.setAttribute("paginatorRequested", user.getRequested());
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -275,7 +278,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		cf.cancelRequested(user, requested, em);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 }

@@ -42,6 +42,11 @@
 			<form-property name="CvPaysExp" type="java.lang.String" />
 			
 		</form-bean>
+		
+		<form-bean name="GenerateForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+        </form-bean>
+	
 		</form-beans>
 		<action-mappings>
 		 <action
@@ -77,9 +82,29 @@
             parameter="Cree">
             <forward name="success" path="InfoContact" />
             
-            
-            
+      
         </action>
+        
+        
+   <!-- Author: AICH Ayoub -->     
+        <action
+            path="/MenuCv"
+            type="fr.univartois.ili.fsnet.actions.DisplayCv"
+            input="/DisplayCv.do"
+            validate="true"
+            parameter="display">
+            <forward name="success" path="DisplayCv" />
+            
+      
+        </action>
+        <action path="/Generate"
+        		name="GenerateForm"
+        		type="fr.univartois.ili.fsnet.actions.GenerateCv"
+            	scope="request"
+            	validate="true"
+            	parameter="test">
+        </action>
+        
         </action-mappings>
 		</struts-config>
 		

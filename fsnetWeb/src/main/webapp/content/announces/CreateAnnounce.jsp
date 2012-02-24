@@ -1,9 +1,3 @@
-<%-- 
-    Document   : CreateAnnounce
-    Created on : 18 janv. 2010, 18:06:12
-    Author     : Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
---%>
-
 <%@page contentType="text/html;charset=ISO-8859-1" language="java"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
@@ -16,13 +10,13 @@
 
 <html:javascript formName="/CreateAnnounce" />
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="announce.create.title"/></legend>
+  <legend class="legendHome"><bean:message key="announce.title.create"/></legend>
   <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <html:form action="/CreateAnnounce">
 	<table id="CreateAnnounce">
 		<tr>
 			<td><label for="announceTitle"><bean:message
-				key="announce.title" /></label></td>
+				key="announce.form.title" /></label></td>
 			<td><html:text property="announceTitle" styleId="announceTitle" />
 			<c:import url="/InterestCheckBoxes.do" /></td>
 		</tr>
@@ -33,7 +27,7 @@
 		</logic:messagesPresent>
 		<tr>
 			<td><label for="announceContent"><bean:message
-				key="announce.content" /> </label></td>
+				key="announce.form.content" /> </label></td>
 			<td><html:textarea cols="40" rows="8" property="announceContent"
 				styleId="announceContent" styleClass="mceTextArea"
 				style="width: 100%;" /></td>
@@ -48,7 +42,7 @@
 			<td><html:text property="announceExpiryDate"
 				styleId="announceExpiryDate" disabled="false" /><html:submit
 				styleClass="button">
-				<bean:message key="announce.createAnnounce" />
+				<bean:message key="announce.button.create" />
 			</html:submit></td>
 		</tr>
 		<logic:messagesPresent property="announceExpiryDate">

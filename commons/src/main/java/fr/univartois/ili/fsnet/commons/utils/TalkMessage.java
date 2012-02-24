@@ -2,6 +2,8 @@ package fr.univartois.ili.fsnet.commons.utils;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
@@ -159,8 +161,7 @@ public class TalkMessage implements ChatManagerListener, MessageListener {
 				Chat chatt = talk.createConversation(particiant[0]);
 				getSessionTalks().put(particiant[0], chatt);
 			} catch (TalkException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
 
 		}

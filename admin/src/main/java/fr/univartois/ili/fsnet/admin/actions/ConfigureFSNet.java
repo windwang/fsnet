@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -42,6 +44,9 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 	private static final String DEFAULT_SMTP_PORT = "25";
 	private static final int MAX_PICTURE_SIZE = 500000;
+	
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String INTERNATIONALIZATION_RESSOURCE = "FSneti18n";
 
 	/**
 	 * @param mapping
@@ -97,10 +102,10 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					properties.getProperty(FSNetConfiguration.KEY_FACEBOOK));
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", ex);
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -170,11 +175,11 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		FSNetConfiguration.getInstance().refreshConfiguration();
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"configure.mail.update.success"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -201,11 +206,11 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		FSNetConfiguration.getInstance().refreshConfiguration();
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"configure.facebook.update.success"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -262,11 +267,11 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		mailer.sendMail(mail);
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"configure.testMail.sent"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -303,7 +308,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			try{
 			br.close();
 			}catch(Exception e){
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
 			
 		}
@@ -335,11 +340,11 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		}
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"configure.db.update.success"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	public ActionForward updateDateType(ActionMapping mapping, ActionForm form,
@@ -361,15 +366,15 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			em.getTransaction().commit();
 			em.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"configure.db.update.success"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 }

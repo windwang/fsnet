@@ -13,12 +13,12 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetHome">
-  <legend class="legendHome"><html:link action="/Inbox"><bean:message  key="DashBoard.lastMes"/></html:link></legend>
+  <legend class="legendHome"><html:link action="/Inbox"><bean:message  key="dashBoard.messages.last"/></html:link></legend>
   <table id="dashboardMessages" class="inLineTableDashBoardFieldset fieldsetTable">
     <logic:empty name="messages">
         <tr>
             <td>
-                <bean:message key="DashBoard.noMes"/>.
+                <bean:message key="dashBoard.messages.empty"/>.
             </td>
         </tr>
     </logic:empty>
@@ -71,7 +71,7 @@
     <logic:empty name="visitors">
         <tr>
             <td>
-                <bean:message key="DashBoard.noVis"/>.
+                <bean:message key="dashBoard.visites.empty"/>.
             </td>
         </tr>
     </logic:empty>
@@ -98,7 +98,7 @@
 <c:choose>
     <c:when test="${sessionScope.numNewContactsRequests gt 0}">
         <fieldset class="fieldsetHome">
-          <legend class="legendHome"><bean:message key="DashBoard.contactsAsked.title"/></legend>  
+          <legend class="legendHome"><bean:message key="dashBoard.contacts.ask"/></legend>  
           <table id="contactsAsked" class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
             <c:forEach var="contact" items="${contactsAsked}">
                 <tr class="notReed">
@@ -111,10 +111,10 @@
                     <td class="tableButton">
                         <html:link action="/AcceptContact" styleClass="button">
                             <html:param name="entityAccepted" value="${contact.id}" />
-                            <bean:message key="contact.accept" />
+                            <bean:message key="contact.button.accept" />
                         </html:link> <html:link action="/RefuseContact" styleClass="button">
                             <html:param name="entityRefused" value="${contact.id}" />
-                            <bean:message key="contact.refuse" />
+                            <bean:message key="contact.button.refuse" />
                         </html:link>
                     </td>
                 </tr>
@@ -124,12 +124,12 @@
     </c:when>
     <c:otherwise>
         <fieldset class="fieldsetHome">
-          <legend class="legendHome"><bean:message key="DashBoard.contactProposals.title"/></legend>
+          <legend class="legendHome"><bean:message key="dashBoard.contacts.proposals"/></legend>
           <table id="contactProposals" class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
             <logic:empty name="contacts">
                 <tr>
                     <td>
-                        <bean:message key="DashBoard.noContacts"/>.
+                        <bean:message key="dashBoard.contacts.empty"/>.
                     </td>
                 </tr>
             </logic:empty>
@@ -144,7 +144,7 @@
                         </td>
                         <td class="tableButton">
                             <html:link action="/ContactDemand">            
-                            	<img src="images/add.png" alt="<bean:message key='DashBoard.addContactButtonAlt'/>" title="<bean:message key='DashBoard.addContactButton'/> ${contact.firstName} ${contact.name}" />
+                            	<img src="images/add.png" alt="<bean:message key='dashBoard.contact.button.add.alt'/>" title="<bean:message key='dashBoard.contact.button.add'/> ${contact.firstName} ${contact.name}" />
                                 <html:param name="entitySelected" value="${contact.id}"/>
                             </html:link>
                         </td>
@@ -157,12 +157,12 @@
 </c:choose>
 
 <fieldset class="fieldsetHome2">
-  <legend class="legendHome"><html:link action="/InterestInformations"><bean:message key="DashBoard.interestProposals.title"/></html:link></legend>
+  <legend class="legendHome"><html:link action="/InterestInformations"><bean:message key="dashBoard.interests.proposals"/></html:link></legend>
     <table id="interestProposals" class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
     <logic:empty name="interests">
         <tr>
             <td>
-                <bean:message key="DashBoard.noInterest"/>.
+                <bean:message key="dashBoard.interests.empty"/>.
             </td>
         </tr>
     </logic:empty>
@@ -177,7 +177,7 @@
                 </td>
                 <td class="tableButton">
                     <html:link action="/AddInterest">
-                        <img src="images/add.png" alt="<bean:message key='DashBoard.addInterestButtonAlt'/>" title="<bean:message key='DashBoard.addInterestButton'/> ${interest.name}" />
+                        <img src="images/add.png" alt="<bean:message key='dashBoard.interest.button.add.alt'/>" title="<bean:message key='dashBoard.interest.button.add'/> ${interest.name}" />
                         <html:param name="addedInterestId" value="${interest.id}"/>
                     </html:link>
                 </td>
@@ -196,7 +196,7 @@
     <logic:empty name="lastInteractions">
         <tr>
             <td>
-                <bean:message key="DashBoard.noNewInt"/>.
+                <bean:message key="dashBoard.interaction.empty"/>.
             </td>
         </tr>
     </logic:empty>

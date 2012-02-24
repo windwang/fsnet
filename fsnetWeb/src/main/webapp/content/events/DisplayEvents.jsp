@@ -42,7 +42,7 @@
 	<c:when test="${empty requestScope.eventsList}">
 		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<tr>
-				<td><bean:message key="search.noResults" /></td>
+				<td><bean:message key="events.search.empty" /></td>
 			</tr>
 		</table>
 	</c:when>

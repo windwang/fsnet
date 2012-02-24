@@ -10,16 +10,16 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel="stylesheet" type="text/css" media="screen" href="css/cv.css" />
 <html:form action="/CreateCV">
 	<div class="en_cv">
+	   <fieldset class="fieldsetAppli">
 		<div class="entete">
-			<h3>
+			<legend class="legendHome">
 				<bean:message key="cv.titre" /> 
-			</h3>
+			</legend>
 		</div>
 		<div class="corp">
-			<table>
+			<table class="fieldsetTableAdmin">
 				<tr>
 					<td><label for="CvTitle"> <bean:message key="cv.0" />
 							:
@@ -34,16 +34,18 @@
 				</tr>
 			</table>
 		</div>
+	  </fieldset>
 	</div>
 
 	<div class="en_cv">
+	  <fieldset class="fieldsetAppli">
 		<div class="entete">
-			<h3>
+			<legend class="legendHome">
 				<bean:message key="cv.contact" />
-			</h3>
+			</legend>
 		</div>
 		<div class="corp_contact">
-			<table>
+			<table class="fieldsetTableAdmin">
 				<tr>
 					<td><label for="CvNom"> <bean:message key="cv.1" /> :
 					</label></td>
@@ -181,6 +183,7 @@
 				</tr>
 			</table>
 		</div>
+	  </fieldset>
 	</div>
 	<html:submit styleClass="button"><bean:message key="cv.suivant" /></html:submit>
 </html:form>

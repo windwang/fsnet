@@ -402,6 +402,7 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 
 .legendAdmin {
     text-align: left;
+    background-color: white;
     background: -webkit-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
     background: -moz-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
     border-radius: 5px;
@@ -503,6 +504,7 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 
 .legendHome {
     text-align: left;
+    background-color: white;
     background: -webkit-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
     background: -moz-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
     border-radius: 5px;
@@ -524,6 +526,13 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     margin-top: 27px;
 }
 
+.errorCV{
+	color : #AF1515;
+}
+
+.fieldsetTableAdmin li {
+  border-bottom: dotted 1px;
+}
 
 .inLineTableDashBoardFieldset {
     border-spacing : 0px 3px;

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -47,6 +49,9 @@ public class ManageConsultations extends MappingDispatchAction {
 
         private static final String NO_ANSWER = "no";
 
+    	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+
+    	
         /**
          * @param mapping
          * @param form
@@ -142,7 +147,7 @@ public class ManageConsultations extends MappingDispatchAction {
                                 consultation.setMaxDate(dateFormat.parse(deadline
                                                 + DEADLINE_TIME));
                         } catch (Exception e) {
-                                e.printStackTrace();
+                        	Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
                         }
                 }
 
@@ -403,7 +408,7 @@ public class ManageConsultations extends MappingDispatchAction {
                                 .getUnreadInteractionsIdForSocialEntity(member);
                 request.setAttribute("unreadInteractionsId", unreadInteractionsId);
                 ActionRedirect redirect = new ActionRedirect(
-                                mapping.findForward("success"));
+                                mapping.findForward(SUCCES_ATTRIBUTE_NAME));
                 return redirect;
         }
 
@@ -448,7 +453,7 @@ public class ManageConsultations extends MappingDispatchAction {
                 em.close();
                 request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 
-                return mapping.findForward("success");
+                return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
         }
 
         /**
@@ -509,7 +514,7 @@ public class ManageConsultations extends MappingDispatchAction {
                 }
 
                 ActionRedirect redirect = new ActionRedirect(
-                                mapping.findForward("success"));
+                                mapping.findForward(SUCCES_ATTRIBUTE_NAME));
                 return redirect;
         }
 
@@ -589,7 +594,7 @@ public class ManageConsultations extends MappingDispatchAction {
                         em.close();
                 }
                 ActionRedirect redirect = new ActionRedirect(
-                                mapping.findForward("success"));
+                                mapping.findForward(SUCCES_ATTRIBUTE_NAME));
                 return redirect;
         }
 
@@ -613,7 +618,7 @@ public class ManageConsultations extends MappingDispatchAction {
                                 "autocompleteChoices",
                                 consultationFacade.getOtherChoice(
                                                 Integer.valueOf(consultationId), voteOther));
-                return mapping.findForward("success");
+                return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
         }
 
         /**

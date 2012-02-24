@@ -38,6 +38,10 @@ CrudAction {
 	private static final String SEPARATOR_PARENT_CHILD = "=";
 	private static final String SEPARATOR_MAP = ";";
 
+	private static final String PARENT_INTEREST_FORM_FIELD_NAME = "parentInterestId";
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String MODIFIED_INTEREST_FORM_FIELD_NAME = "modifiedInterestId";
+
 	/**
 	 * @param dynaForm
 	 * @param facade
@@ -46,9 +50,9 @@ CrudAction {
 	 * @param request
 	 */
 	public void creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,EntityManager em,HttpServletRequest request){
-		if (dynaForm.get("parentInterestId") != null
-				&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-			facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
+		if (dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME) != null
+				&& !((String) dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME)).isEmpty()) {
+			facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME)));
 		} else {
 			facade.createInterest(interestName); 
 		}
@@ -97,9 +101,9 @@ CrudAction {
 		
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.create"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,bundle.getMessage(request.getLocale(),"interest.success.on.create"));
 		
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/* (non-Javadoc)
@@ -112,7 +116,7 @@ CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		int interestId = Integer.valueOf((String) dynaForm
-				.get("modifiedInterestId"));
+				.get(MODIFIED_INTEREST_FORM_FIELD_NAME));
 		String interestName = (String) dynaForm.get("modifiedInterestName");
 		InterestFacade facade = new InterestFacade(em);
 
@@ -123,18 +127,18 @@ CrudAction {
 
 			try {
 				em.getTransaction().begin();
-				if (dynaForm.get("parentInterestId") != null
-						&& !((String) dynaForm.get("parentInterestId"))
+				if (dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME) != null
+						&& !((String) dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME))
 						.isEmpty()) {
 					if(Integer.valueOf(((String) dynaForm
-							.get("parentInterestId")))!=interestId){
+							.get(PARENT_INTEREST_FORM_FIELD_NAME)))!=interestId){
 							facade.modifyInterest(interestName, interest,
 									Integer.valueOf(((String) dynaForm
-											.get("parentInterestId"))));
+											.get(PARENT_INTEREST_FORM_FIELD_NAME))));
 					}else{
 						ActionErrors actionErrors = new ActionErrors();
 						ActionMessage msg = new ActionMessage("interest.invalideParent");
-						actionErrors.add("modifiedInterestId", msg);
+						actionErrors.add(MODIFIED_INTEREST_FORM_FIELD_NAME, msg);
 						saveErrors(request, actionErrors);
 						em.close();
 						return mapping.findForward("failed");
@@ -151,25 +155,25 @@ CrudAction {
 			} catch (RollbackException exc){
 				ActionErrors actionErrors = new ActionErrors();
 				ActionMessage msg = new ActionMessage("interest.alreadyExists");
-				actionErrors.add("modifiedInterestId", msg);
+				actionErrors.add(MODIFIED_INTEREST_FORM_FIELD_NAME, msg);
 				saveErrors(request, actionErrors);
 			}
 			em.close();
 		}
 
-		dynaForm.set("modifiedInterestId", "");
+		dynaForm.set(MODIFIED_INTEREST_FORM_FIELD_NAME, "");
 		dynaForm.set("modifiedInterestName", "");
-		if (dynaForm.get("parentInterestId") != null
-				&& !((String) dynaForm.get("parentInterestId"))
+		if (dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME) != null
+				&& !((String) dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME))
 				.isEmpty()) {
-			dynaForm.set("parentInterestId", "");
+			dynaForm.set(PARENT_INTEREST_FORM_FIELD_NAME, "");
 		}
 		
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.modify"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,bundle.getMessage(request.getLocale(),"interest.success.on.modify"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/* (non-Javadoc)
@@ -206,9 +210,9 @@ CrudAction {
 		
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.delete"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,bundle.getMessage(request.getLocale(),"interest.success.on.delete"));
 		
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/* (non-Javadoc)
@@ -235,7 +239,7 @@ CrudAction {
 
 		request.setAttribute("interestSearchPaginator", paginator);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/* (non-Javadoc)
@@ -259,7 +263,7 @@ CrudAction {
 		request.setAttribute("allInterests", listAllInterests);		
 		request.setAttribute("allInterestsId", allInterestsId);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -296,7 +300,7 @@ CrudAction {
 			}
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
