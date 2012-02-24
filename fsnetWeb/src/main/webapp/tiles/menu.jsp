@@ -82,13 +82,6 @@
         </html:link>
     </li>
     
-    <li>
-        <html:link action="/MenuCv" styleClass="${currentMenu == 'Communities' ? 'current' : ''}">
-            <bean:message key="menu.14"/>
-        </html:link>
-    </li>
-
-    
 </ul>
 <a class="button" href="Logout" id="logout"><bean:message key="logout"/></a>
 <div class="clear"></div>

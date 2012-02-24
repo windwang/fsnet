@@ -11,6 +11,8 @@ import java.net.MalformedURLException;
 import java.nio.channels.FileChannel;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -213,7 +215,16 @@ public class GenerateCv extends MappingDispatchAction{
 		 List overview = new List(false, 10);
 		document.add(styleSection("Langues"));
 		 
-			 
+			 @SuppressWarnings("rawtypes")
+			 Iterator iterator = curriculum.getMember().getLanguages().entrySet().iterator();
+			 while (iterator.hasNext()) {
+					@SuppressWarnings("rawtypes")
+					Map.Entry entry = (Map.Entry) iterator.next();
+					String key = (String) entry.getKey();
+					String value = (String) entry.getValue();
+					overview.add(key+"     niveau: "+value) ; 
+					
+	         }
 			 
 		 document.add(overview);
 	}
@@ -282,7 +293,9 @@ public class GenerateCv extends MappingDispatchAction{
 			addFirstSection(document,curriculum);
 			addSecondSection(document,curriculum);
 			addtirthSection(document,curriculum);
+			addfifthSection(document,curriculum);
 			addfourthSection(document,curriculum);
+			
 			System.out.println(document.getPageSize());
 			
 			
