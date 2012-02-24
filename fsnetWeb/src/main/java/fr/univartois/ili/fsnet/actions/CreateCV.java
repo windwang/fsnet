@@ -1,6 +1,9 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -21,10 +24,21 @@ import org.apache.struts.upload.FormFile;
 /**
  * 
  * formular validator for resume
- * @author geoffrey
+ * @author BENZAOUIA
  *
  */
 public class CreateCV extends MappingDispatchAction{
+	public static SimpleDateFormat formatter = new SimpleDateFormat(
+			"dd/MM/yyyy");
+
+	public static java.util.Date stringToDate(String sDate)
+			throws ParseException {
+		return formatter.parse(sDate);
+	}
+
+	public static Date toDBDateFormat(String sDate) throws ParseException {
+		return new Date(stringToDate(sDate).getTime());
+	}
 	 public ActionForward display(ActionMapping mapping, ActionForm form,
 	            HttpServletRequest request, HttpServletResponse response)
 	            throws IOException, ServletException {
@@ -95,6 +109,12 @@ public class CreateCV extends MappingDispatchAction{
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
+		 if("".equals(birthDay)){
+				
+			 errors.add("formatBirthDay", new ActionMessage("error.birthDay"));
+				saveErrors(request, errors);
+				erreur = 1;
+		 }
 		 
 		
 
@@ -126,6 +146,13 @@ public class CreateCV extends MappingDispatchAction{
 				erreur=1;
 		 }
 		 }
+		try{
+			 toDBDateFormat(birthDay);
+		}catch(Exception e){
+			 errors.add("formatBirthDay", new ActionMessage("error.birthDayValue"));
+				saveErrors(request, errors);
+				erreur=1;
+		}
 		
 		 if(erreur==1){
 				return mapping.findForward("unauthorized");

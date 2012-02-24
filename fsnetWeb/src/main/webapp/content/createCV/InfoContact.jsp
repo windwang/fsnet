@@ -177,7 +177,13 @@
 						</label></td>
 						<td><html:text errorStyleClass="error" styleId="birthDay"
 								property="formatBirthDay">
-							</html:text></td>
+							</html:text>
+							<logic:messagesPresent property="formatBirthDay">
+								<div class="errorMessage">
+									<html:errors property="formatBirthDay" />
+
+								</div>
+							</logic:messagesPresent></td>
 					</tr>
 					<tr>
 						<td><label for="CvSituation"> <bean:message
