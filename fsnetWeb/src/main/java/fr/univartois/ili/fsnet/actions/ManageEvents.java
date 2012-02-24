@@ -175,7 +175,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		}
 		if(DateUtils.compareToToday(typedEventRecallDate) > 0){
 			ActionErrors errors = new ActionErrors();
-			errors.add(EVENT_RECALL_TIME_FORM_FIELD_NAME, new ActionMessage(("error.events.recallDate")));
+			errors.add(EVENT_RECALL_TIME_FORM_FIELD_NAME, new ActionMessage(("date.error.dateBeforeToday")));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
@@ -258,7 +258,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			
 			if(DateUtils.compareToToday(typedEventRecallDate) > 0){
 				ActionErrors errors = new ActionErrors();
-				errors.add("eventRecallTime", new ActionMessage(("error.events.recallDate")));
+				errors.add("eventRecallTime", new ActionMessage(("date.error.dateBeforeToday")));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}
