@@ -42,6 +42,10 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 public class ManageCommunities extends MappingDispatchAction implements
 		CrudAction {
 
+	
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String MODIFIED_COMMUNITY_NAME_FORM_FIELD_NAME = "modifiedCommunityName";
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -105,7 +109,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 
 		dynaForm.set("name", "");
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -157,7 +161,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 		em.getTransaction().commit();
 		em.close();
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 
 	}
 
@@ -177,7 +181,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		String newCommunityName = (String) dynaForm
-				.get("modifiedCommunityName");
+				.get(MODIFIED_COMMUNITY_NAME_FORM_FIELD_NAME);
 		String communityName = (String) dynaForm.get("modifierCommunityName");
 		CommunityFacade facade = new CommunityFacade(em);
 		boolean doesNotExist = false;
@@ -199,7 +203,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 					ActionErrors actionErrors = new ActionErrors();
 					ActionMessage msg = new ActionMessage(
 							"communities.alreadyExists");
-					actionErrors.add("modifiedCommunityName", msg);
+					actionErrors.add(MODIFIED_COMMUNITY_NAME_FORM_FIELD_NAME, msg);
 					saveErrors(request, actionErrors);
 					em.close();
 					return mapping.findForward("failed");
@@ -208,7 +212,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 				ActionErrors actionErrors = new ActionErrors();
 				ActionMessage msg = new ActionMessage(
 						"communities.alreadyExists");
-				actionErrors.add("modifiedCommunityName", msg);
+				actionErrors.add(MODIFIED_COMMUNITY_NAME_FORM_FIELD_NAME, msg);
 				saveErrors(request, actionErrors);
 				em.close();
 				return mapping.findForward("failed");
@@ -217,9 +221,9 @@ public class ManageCommunities extends MappingDispatchAction implements
 		}
 
 		dynaForm.set("modifierCommunityName", "");
-		dynaForm.set("modifiedCommunityName", "");
+		dynaForm.set(MODIFIED_COMMUNITY_NAME_FORM_FIELD_NAME, "");
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 
 	}
 
@@ -259,7 +263,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 		em.close();
 
 		request.setAttribute("communitiesSearch", result);
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -299,7 +303,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 		em.close();
 
 		request.setAttribute("myCommunities", result);
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**

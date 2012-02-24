@@ -26,7 +26,8 @@ import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 public class ImageManager {
 
 	private static final String MINIATURE_SUFFIX = ".miniature";
-
+	private static final String PICTURE_FORMAT = ".png";
+	
 	public static void createPicturesForUser(int userId,
 			InputStream incommingPictureInputStream, PictureType pictureType)
 			throws FileNotFoundException, IOException, IllegalStateException {
@@ -53,8 +54,8 @@ public class ImageManager {
 	public static void removeOldUserPicture(int userId) {
 		String directory = getStorageDirectory();
 		if (directory != null) {
-			removeOldPicture(directory + userId + ".png");
-			removeOldPicture(directory + userId + MINIATURE_SUFFIX + ".png");
+			removeOldPicture(directory + userId + PICTURE_FORMAT);
+			removeOldPicture(directory + userId + MINIATURE_SUFFIX + PICTURE_FORMAT);
 		}
 	}
 
@@ -65,7 +66,7 @@ public class ImageManager {
 		String fileName;
 		if (directory != null) {
 			fileName = directory + Integer.toString(userId) + MINIATURE_SUFFIX
-					+ ".png";
+					+ PICTURE_FORMAT;
 			File pictureFile = new File(fileName);
 			if (pictureFile.exists()) {
 				sendPicture(pictureFile, response);	
@@ -82,7 +83,7 @@ public class ImageManager {
 		String directory = getStorageDirectory();
 		String fileName;
 		if (directory != null) {
-			fileName = directory + Integer.toString(userId) + ".png";
+			fileName = directory + Integer.toString(userId) + PICTURE_FORMAT;
 			File pictureFile = new File(fileName);
 			if (pictureFile.exists()) {
 				sendPicture(pictureFile, response);	
@@ -244,7 +245,7 @@ public class ImageManager {
 		String directory = getStorageDirectory();
 		String fileName;
 		if (directory != null) {
-			fileName = directory + Integer.toString(groupId) +".png";
+			fileName = directory + Integer.toString(groupId) +PICTURE_FORMAT;
 			File pictureFile = new File(fileName);
 			if (pictureFile.exists()) {
 				sendLogo(pictureFile, response);	
@@ -293,8 +294,8 @@ public class ImageManager {
 			throws IllegalStateException {
 		String directory = getStorageDirectory();
 		if (directory != null) {
-			removeOldPicture(directory + fileName +".png");
-			String fileToCreate = directory +fileName+ ".png";
+			removeOldPicture(directory + fileName +PICTURE_FORMAT);
+			String fileToCreate = directory +fileName+ PICTURE_FORMAT;
 			File imageFile = new File(fileToCreate);
 			try {
 				OutputStream out = new FileOutputStream(imageFile);

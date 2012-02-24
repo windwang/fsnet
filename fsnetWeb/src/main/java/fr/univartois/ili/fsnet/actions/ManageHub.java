@@ -45,7 +45,10 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
 public class ManageHub extends MappingDispatchAction implements CrudAction {
 
 	private static final Logger logger = Logger.getAnonymousLogger();
-
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String COMMUNITY_ID_FORM_FIELD_NAME = "communityId";
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -62,7 +65,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String hubName = (String) dynaForm.get("hubName");
-		String communityId = (String) dynaForm.get("communityId");
+		String communityId = (String) dynaForm.get(COMMUNITY_ID_FORM_FIELD_NAME);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		Community community = em.find(Community.class,
 				Integer.parseInt(communityId));
@@ -102,8 +105,8 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		}
 		em.close();
 		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward("success"));
-		redirect.addParameter("communityId", communityId);
+				mapping.findForward(SUCCES_ATTRIBUTE_NAME));
+		redirect.addParameter(COMMUNITY_ID_FORM_FIELD_NAME, communityId);
 		return redirect;
 	}
 
@@ -124,7 +127,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 
-		int communityId = Integer.valueOf((String) dynaForm.get("communityId"));
+		int communityId = Integer.valueOf((String) dynaForm.get(COMMUNITY_ID_FORM_FIELD_NAME));
 		int hubId = Integer.valueOf((String) dynaForm.get("hubId"));
 		String hubName = (String) dynaForm.get("modifiedHubName");
 		HubFacade facade = new HubFacade(em);
@@ -162,7 +165,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		}
 		em.close();
 		dynaForm.set("modifiedHubName", "");
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -180,7 +183,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
-		int communityId = Integer.valueOf((String) dynaForm.get("communityId"));
+		int communityId = Integer.valueOf((String) dynaForm.get(COMMUNITY_ID_FORM_FIELD_NAME));
 
 		logger.info("delete hub: " + hubId);
 
@@ -200,7 +203,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		interactionFacade.deleteInteraction(user, hub);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -218,7 +221,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String communityId = (String) dynaForm.get("communityId");
+		String communityId = (String) dynaForm.get(COMMUNITY_ID_FORM_FIELD_NAME);
 		String hubName = (String) dynaForm.get("searchText");
 
 		if (hubName == null) {
@@ -234,12 +237,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 		Paginator<Hub> paginator = new Paginator<Hub>(result, request,
-				"hubList", "communityId");
+				"hubList", COMMUNITY_ID_FORM_FIELD_NAME);
 
 		request.setAttribute("listHubPaginator", paginator);
 		request.setAttribute("Community", community);
 		request.setAttribute("hubResults", result);
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -279,7 +282,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 
 		request.setAttribute("hubResult", result);
 		request.setAttribute("topicsLastMessage", topicsLastMessage);
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -299,7 +302,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		List<Interest> listInterests = fac.getInterests();
 		request.setAttribute("Interests", listInterests);
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -317,7 +320,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		// TODO use facade
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String pattern = (String) dynaForm.get("hubName");
-		String communityId = (String) dynaForm.get("communityId");
+		String communityId = (String) dynaForm.get(COMMUNITY_ID_FORM_FIELD_NAME);
 
 		if (pattern == null) {
 			pattern = "";
@@ -342,7 +345,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 		em.close();
 		request.setAttribute("hubResults", hubs);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 }
