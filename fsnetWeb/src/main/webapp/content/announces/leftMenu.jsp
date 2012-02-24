@@ -10,7 +10,7 @@
     <li>
     	<ili:interactionFilter user="${ socialEntity }" right="${ rightAddAnnounce }">
         <html:link action="/DisplayCreateAnnounce">
-			<bean:message key="left.3"/> 
+			<bean:message key="announce.leftMenu.create"/> 
         </html:link>
         </ili:interactionFilter>
     </li>
