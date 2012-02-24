@@ -39,16 +39,13 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 public class Home extends MappingDispatchAction {
 
 	/**
-	 * @param mapping
 	 * @param request
-	 * @param response
 	 * @param em
 	 * @param authenticatedUser
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void lastVisits(ActionMapping mapping, HttpServletRequest request,
-			HttpServletResponse response, EntityManager em,
+	private void lastVisits(HttpServletRequest request, EntityManager em,
 			SocialEntity authenticatedUser) throws IOException,
 			ServletException {
 		ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
@@ -57,15 +54,12 @@ public class Home extends MappingDispatchAction {
 	}
 
 	/**
-	 * @param mapping
 	 * @param request
-	 * @param response
 	 * @param em
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void lastInteractions(ActionMapping mapping,
-			HttpServletRequest request, HttpServletResponse response,
+	private void lastInteractions(HttpServletRequest request,
 			EntityManager em) throws IOException, ServletException {
 		SocialEntity connectedUser = UserUtils
 				.getAuthenticatedUser(request, em);
@@ -76,17 +70,13 @@ public class Home extends MappingDispatchAction {
 	}
 
 	/**
-	 * @param mapping
 	 * @param request
-	 * @param response
-	 * @param em
 	 * @param authenticatedUser
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void lastMessages(ActionMapping mapping,
-			HttpServletRequest request, HttpServletResponse response,
-			EntityManager em, SocialEntity authenticatedUser)
+	private void lastMessages(HttpServletRequest request,
+			SocialEntity authenticatedUser)
 			throws IOException, ServletException {
 		List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 				authenticatedUser.getReceivedPrivateMessages());
@@ -95,16 +85,13 @@ public class Home extends MappingDispatchAction {
 	}
 
 	/**
-	 * @param mapping
 	 * @param request
-	 * @param response
 	 * @param em
 	 * @param authenticatedUser
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void getInterestProposals(ActionMapping mapping,
-			HttpServletRequest request, HttpServletResponse response,
+	private void getInterestProposals(HttpServletRequest request,
 			EntityManager em, SocialEntity authenticatedUser)
 			throws IOException, ServletException {
 		InterestFacade facade = new InterestFacade(em);
@@ -124,16 +111,13 @@ public class Home extends MappingDispatchAction {
 	}
 
 	/**
-	 * @param mapping
 	 * @param request
-	 * @param response
 	 * @param em
 	 * @param authenticatedUser
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	private void getContactProposals(ActionMapping mapping,
-			HttpServletRequest request, HttpServletResponse response,
+	private void getContactProposals(HttpServletRequest request,
 			EntityManager em, SocialEntity authenticatedUser)
 			throws IOException, ServletException {
 		HttpSession session = request.getSession();
@@ -185,11 +169,11 @@ public class Home extends MappingDispatchAction {
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 
-		lastVisits(mapping, request, response, em, authenticatedUser);
-		lastInteractions(mapping, request, response, em);
-		lastMessages(mapping, request, response, em, authenticatedUser);
-		getContactProposals(mapping, request, response, em, authenticatedUser);
-		getInterestProposals(mapping, request, response, em, authenticatedUser);
+		lastVisits(request, em, authenticatedUser);
+		lastInteractions(request, em);
+		lastMessages(request, authenticatedUser);
+		getContactProposals(request, em, authenticatedUser);
+		getInterestProposals(request, em, authenticatedUser);
 
 		// RIGHT
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);

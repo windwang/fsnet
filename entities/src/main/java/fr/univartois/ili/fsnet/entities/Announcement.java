@@ -15,7 +15,13 @@ import javax.persistence.TemporalType;
 @Entity
 public class Announcement extends Interaction {
 
-	@Column(length = 5000)
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final int CONTENT_LENGTH = 5000;
+	
+	@Column(length = CONTENT_LENGTH)
 	private String content;
 	/**
 	 * The date of the end's ad.

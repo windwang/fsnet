@@ -73,8 +73,8 @@ public class DegreeCV implements Serializable {
 		return domain;
 	}
 
-	public void setDomain(String domain) {
-		domain = domain;
+	public void setDomain(String dom) {
+		this.domain = dom;
 	}
 
 	/**

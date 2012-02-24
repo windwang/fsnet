@@ -11,7 +11,7 @@ import java.util.Random;
  */
 public class Encryption {
 
-    private static final Random random = new Random(new Date().getTime());
+    private static final Random RANDOM = new Random(new Date().getTime());
 
     private Encryption(){
     	
@@ -65,7 +65,7 @@ public class Encryption {
         StringBuilder password = new StringBuilder();
         String chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
         for (int i = 0; i < 6; i++) {
-            int randomInt = random.nextInt(chars.length());
+            int randomInt = RANDOM.nextInt(chars.length());
             password.append(chars.charAt(randomInt));
         }
         return password.toString();

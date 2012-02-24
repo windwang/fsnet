@@ -325,11 +325,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		String GroupSelected = request.getParameter("groupSelected");
+		String groupSelected = request.getParameter("groupSelected");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		em.getTransaction().begin();
-		int socialGroupId = Integer.parseInt(GroupSelected);
+		int socialGroupId = Integer.parseInt(groupSelected);
 		socialGroupFacade.switchState(socialGroupId);
 		em.getTransaction().commit();
 		em.close();

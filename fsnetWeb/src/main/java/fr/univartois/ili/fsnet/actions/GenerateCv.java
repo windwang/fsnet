@@ -296,10 +296,7 @@ public class GenerateCv extends MappingDispatchAction{
 			addSecondSection(document,curriculum);
 			addtirthSection(document,curriculum);
 			addfifthSection(document,curriculum);
-			addfourthSection(document,curriculum);
-			
-			System.out.println(document.getPageSize());
-			
+			addfourthSection(document,curriculum);			
 			
 			
 			document.close();

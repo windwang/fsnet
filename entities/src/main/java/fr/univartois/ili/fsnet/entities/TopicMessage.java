@@ -9,6 +9,11 @@ import javax.persistence.ManyToOne;
 public class TopicMessage extends Message implements Serializable {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * The topic in which the message appears.
      */
     @ManyToOne

@@ -18,6 +18,11 @@ import javax.persistence.PostRemove;
 public class Hub extends Interaction {
 
     /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	/**
      * The list of topics of a hub.
      */
     @OneToMany(mappedBy = "hub", cascade = CascadeType.ALL)

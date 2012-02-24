@@ -152,13 +152,13 @@ public class ConfigureFSNet extends MappingDispatchAction {
 				(String) dynaform.get("MailFrom"));
 		saveProperty(em, FSNetConfiguration.SMTP_HOST_KEY,
 				(String) dynaform.get("SMTPHost"));
-		String SMTP_Port = (String) dynaform.get("SMTPPort");
+		String smtpPort = (String) dynaform.get("SMTPPort");
 		try {
-			Integer.parseInt(SMTP_Port);
+			Integer.parseInt(smtpPort);
 		} catch (NumberFormatException e) {
-			SMTP_Port = DEFAULT_SMTP_PORT;
+			smtpPort = DEFAULT_SMTP_PORT;
 		}
-		saveProperty(em, FSNetConfiguration.SMTP_PORT_KEY, SMTP_Port);
+		saveProperty(em, FSNetConfiguration.SMTP_PORT_KEY, smtpPort);
 		saveProperty(em, FSNetConfiguration.FSNET_WEB_ADDRESS_KEY,
 				(String) dynaform.get("FSNetWebURL"));
 		String dirName = (String) dynaform.get("PicturesDirectory");
