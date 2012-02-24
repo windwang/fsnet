@@ -2,6 +2,8 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -78,7 +80,7 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 				mailer.sendMail(mail);
 			}
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 	}

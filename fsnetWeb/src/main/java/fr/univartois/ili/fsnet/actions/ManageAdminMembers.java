@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -234,13 +235,13 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			// the
 			// create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME,
 						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
@@ -260,13 +261,13 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 				// as in
 				// the create methode
 				catch (RollbackException e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
 					errors.add(EMAIL_FORM_FIELD_NAME,
 							new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 					saveErrors(request, errors);
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
 					errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(
 							MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
@@ -338,13 +339,13 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		// I'm not really sure about the exception, so I took the same as in the
 		// create methode
 		catch (RollbackException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
 			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
 			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 			saveErrors(request, errors);
@@ -362,12 +363,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			// I'm not really sure about the exception, so I took the same as in
 			// the create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME,
 						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
