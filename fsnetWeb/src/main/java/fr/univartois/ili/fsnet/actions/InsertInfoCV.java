@@ -51,6 +51,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 
 	HttpServletRequest request, HttpServletResponse response)
 			throws ParseException {
+		try{
 		int nbExp = Integer.parseInt(request.getParameter("nbexp"));
 		int nbfrom = Integer.parseInt(request.getParameter("nbform"));
 		int nblangue = Integer.parseInt(request.getParameter("nblangue"));
@@ -62,6 +63,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		HttpSession mysession = request.getSession();
+		
 		// MemberCv
 		MemberCV member = new MemberCV();
 		member.setBirthDate((Date) toDBDateFormat((String) mysession
@@ -180,6 +182,8 @@ public class InsertInfoCV extends MappingDispatchAction {
 
 			f++;
 		}
+		
+		
 		//diplome
 		int d=0;
 		while(d<nbdip){
@@ -223,6 +227,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 			
 			d++;
 		}
+		
 		int l=0;
 		while(l< nbloisir){
 			HobbiesCV loisir=new HobbiesCV();
@@ -232,7 +237,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 		curriculum.getHobs().add(loisir);
 		curriculum.setHobs(curriculum.getHobs());
 		l++;
-		}// Langues
+		}
 
 		em.persist(curriculum);
 
@@ -242,5 +247,10 @@ public class InsertInfoCV extends MappingDispatchAction {
 		//
 
 		return mapping.findForward("success");
+		}catch(NumberFormatException e){
+			return mapping.findForward("success");
+			
+		}
 	}
+	
 }

@@ -102,7 +102,7 @@
         		type="fr.univartois.ili.fsnet.actions.GenerateCv"
             	scope="request"
             	validate="true"
-            	parameter="test">
+            	parameter="download">
         </action>
         
         </action-mappings>

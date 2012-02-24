@@ -81,7 +81,7 @@ $(function() {
 		if(erreur==0){
 			tabExp[i]=i;
 		var recapExp= "<strong>"+$("#CvPoste").val()+"</strong><p>"+$("#NomEntreprise").val()+"</p><p>"
-		+$("#CvSecteur").val()+"</p><p>"+$("#CvPaysExp").val()+"</p><p>"+$("#CvVilleExp").val('')+"</p><p>"+$("#expBeginDate").val()+"</p><p> "+$("#expEndDate").val()+"</p>";
+		+$("#CvSecteur").val()+"</p><p>"+$("#CvPaysExp").val()+"</p><p>"+$("#CvVilleExp").val()+"</p><p>"+$("#expBeginDate").val()+"</p><p> "+$("#expEndDate").val()+"</p>";
 		
 		var inputRecap='<div id="ExpInput" style="display:none;"><input type="hidden" id="CVPostehidden" name="CvPoste'+i+'" value="'+$("#CvPoste").val()+'" />'
 		+'<input type="hidden" name="NomEntreprise'+i+'" value="'+$("#NomEntreprise").val()+'" />'

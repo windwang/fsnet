@@ -1,7 +1,3 @@
-<%-- 
-		 Author : BOURAGBA Mohamed
-		
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
@@ -53,12 +49,12 @@
 			<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}"
 				class="miniature"> <img
 				title="${member.name} ${member.firstName}"
-				src="miniature/${member.id}.png" alt="miniature"/>
+				src="miniature/${member.id}.png" alt="miniature" />
 			</a>
 		</c:forEach>
 
-		<br/>
-		<br/>
+		<br />
+		<br />
 
 		<c:if test="${ sessionScope.isMasterGroup }">
 			<h3>

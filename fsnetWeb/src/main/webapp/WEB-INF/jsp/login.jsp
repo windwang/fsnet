@@ -17,7 +17,8 @@
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8" />
 <title>FSNet - Login</title>
-<link rel="shortcut icon" href="icons/icon_from_jimmac_musichall_cz_223.png" type="image/png" />
+<link rel="shortcut icon"
+	href="icons/icon_from_jimmac_musichall_cz_223.png" type="image/png" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/fsnet-custom.css" />
 <link rel="stylesheet" type="text/css" media="screen"
@@ -54,7 +55,7 @@
 		<div id="logo">
 			<table>
 				<tr>
-					<td><img src="images/FSNET.png" alt="Logo"/></td>
+					<td><img src="images/FSNET.png" alt="Logo" /></td>
 					<td id="affiche"><p class="quotation">
 							"
 							<bean:message key="welcome.message1" />
@@ -92,7 +93,8 @@
 						<tr>
 							<td>
 								<div class="label">
-									<label for="memberPass"> <bean:message key="login.password" />
+									<label for="memberPass"> <bean:message
+											key="login.password" />
 									</label>
 								</div>
 							</td>

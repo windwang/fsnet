@@ -52,11 +52,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	
 	private static final int HOUR_IN_MINUTES = 60;
 	private static final int DAY_IN_MINUTES = 1440;
-	private static final String DEFAULT_RECALLTIME = "10";
+	private static final String DEFAULT_RECALLTIME = "0";
 	
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
 	private static final String EVENT_BEGIN_DATE_FORM_FIELD_NAME = "eventBeginDate";
 	private static final String EVENT_END_DATE_FORM_FIELD_NAME = "eventEndDate";
+	private static final String EVENT_RECALL_TIME_FORM_FIELD_NAME = "eventRecallTime";
 	private static final String EVENT_RECALL_TYPE_TIME_FORM_FIELD_NAME = "eventRecallTypeTime";
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String EVENT_ID_ATTRIBUTE_NAME = "eventId";
@@ -82,7 +83,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
+			errors.add(propertyKey, new ActionMessage(("event.date.error")));
 			saveErrors(request, errors);
 			return null;
 		}
@@ -113,7 +114,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
+			errors.add(propertyKey, new ActionMessage(("event.date.error")));
 			saveErrors(request, errors);
 			return null;
 		}
@@ -162,13 +163,19 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		
 		
 		addRightToRequest(request);
-		if (typedEventBeginDate == null || typedEventEndDate == null) {
+		if (typedEventBeginDate == null || typedEventEndDate == null || typedEventRecallDate == null) {
 			return mapping.getInputForward();
 		}
 		if (typedEventBeginDate.after(typedEventEndDate)) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
-			errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
+			errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
+			errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
+			saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		if(DateUtils.compareToToday(typedEventRecallDate) > 0){
+			ActionErrors errors = new ActionErrors();
+			errors.add(EVENT_RECALL_TIME_FORM_FIELD_NAME, new ActionMessage(("date.error.dateBeforeToday")));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
@@ -236,15 +243,22 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			Date typedEventRecallDate = DateUtils.substractTimeToDate(typedEventBeginDate,Integer.parseInt(eventRecallTime),
 					eventRecallTypeTime);
 			
-			if (typedEventBeginDate == null || typedEventEndDate == null) {
+			if (typedEventBeginDate == null || typedEventEndDate == null || typedEventRecallDate==null) {
 				return mapping.getInputForward();
 			}
 			
 	
 			if (typedEventBeginDate.after(typedEventEndDate)) {
 				ActionErrors errors = new ActionErrors();
-				errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
-				errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
+				errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
+				errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
+				saveErrors(request, errors);
+				return mapping.getInputForward();
+			}
+			
+			if(DateUtils.compareToToday(typedEventRecallDate) > 0){
+				ActionErrors errors = new ActionErrors();
+				errors.add("eventRecallTime", new ActionMessage(("date.error.dateBeforeToday")));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}
