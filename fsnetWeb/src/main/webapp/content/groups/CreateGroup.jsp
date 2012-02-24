@@ -93,7 +93,7 @@
 			</html:select></td>
 
 			<td><html:button property=""
-				onclick="Deplacer(this.form.memberListLeft,this.form.memberListRight)">
+				onclick="DeplacerDroit(this.form.memberListLeft,this.form.memberListRight)">
 				<bean:message key="groups.addMembers" />
 			</html:button></td>
 
@@ -109,7 +109,7 @@
 
 		<tr>
 			<td><html:button property=""
-				onclick="Deplacer(this.form.memberListRight,this.form.memberListLeft)">
+				onclick="DeplacerDroit(this.form.memberListRight,this.form.memberListLeft)">
 				<bean:message key="groups.removeMembers" />
 			</html:button></td>
 		</tr>
@@ -129,7 +129,7 @@
 			</html:select></td>
 
 			<td><html:button property=""
-				onclick="Deplacer(this.form.rigthListLeft,this.form.rigthListRight)">
+				onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight)">
 				<bean:message key="groups.addGroups" />
 			</html:button></td>
 
@@ -146,14 +146,14 @@
 
 		<tr>
 			<td><html:button property=""
-				onclick="Deplacer(this.form.rigthListRight,this.form.rigthListLeft)">
+				onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)">
 				<bean:message key="groups.removeGroups" />
 			</html:button></td>
 		</tr>
 
 		<tr>
 			<td colspan="2"><html:submit styleClass="button"
-				onclick="Valider();">
+				onclick="ValiderCreateGroup();">
 				<bean:message key="groups.validate" />
 			</html:submit></td>
 		</tr>
@@ -164,37 +164,4 @@
 </html:form>
 </fieldset>
 
-<script type="text/javascript">
-	function Deplacer(l1, l2) {
-
-		if (l1.options.selectedIndex >= 0)
-			for ( var i = l1.options.length - 1; i >= 0; i--) {
-				if (l1.options[i].selected) {
-					o = new Option(l1.options[i].text, l1.options[i].value);
-					l2.options[l2.options.length] = o;
-					l1.options[i] = null;
-				}
-			}
-		else {
-			alert("Aucun membre sélectionnée");
-		}
-	}
-</script>
-<script type="text/javascript">
-	function Valider() {
-		var memberListLeft = document.getElementsByName('memberListRight')
-				.item(0);
-
-		var rigthListLeft = document.getElementsByName('rigthListRight')
-				.item(0);
-		for ( var i = 0; i < memberListLeft.options.length; i++) {
-			memberListLeft.options[i].selected = "true";
-		}
-
-		for ( var i = 0; i < rigthListLeft.options.length; i++) {
-			rigthListLeft.options[i].selected = "true";
-		}
-		return true;
-	}
-</script>
 
