@@ -20,8 +20,8 @@
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="announceContent" depends="required,maxlength">
-				<arg key="announce.content" name="required" />
-				<arg0 key="announce.content" name="maxlength" />
+				<arg key="announce.form.content" name="required" />
+				<arg0 key="announce.form.content" name="maxlength" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
 					<var-name>maxlength</var-name>
@@ -56,8 +56,8 @@
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="announceContent" depends="required,maxlength">
-				<arg key="announce.content" name="required" />
-				<arg0 key="announce.content" name="maxlength" />
+				<arg key="announce.form.content" name="required" />
+				<arg0 key="announce.form.content" name="maxlength" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
 					<var-name>maxlength</var-name>
