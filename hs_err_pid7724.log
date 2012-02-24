@@ -1,0 +1,643 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  SIGSEGV (0xb) at pc=0xb4c706cb, pid=7724, tid=3078888304
+#
+# JRE version: 7.0-b147
+# Java VM: Java HotSpot(TM) Server VM (21.0-b17 mixed mode linux-x86 )
+# Problematic frame:
+# J  java.net.URLClassLoader$1.run()Ljava/lang/Class;
+#
+# Failed to write core dump. Core dumps have been disabled. To enable core dumping, try "ulimit -c unlimited" before starting Java again
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.sun.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x09500000):  JavaThread "main" [_thread_in_Java, id=7729, stack(0xb77f1000,0xb7842000)]
+
+siginfo:si_signo=SIGSEGV: si_errno=0, si_code=128 (), si_addr=0x00000000
+
+Registers:
+EAX=0x00000000, EBX=0xa33999d8, ECX=0xa3399dc8, EDX=0xa6271cf8
+ESP=0xb783f5e0, EBP=0x00000000, ESI=0xa6271cb0, EDI=0xa6271d10
+EIP=0xb4c706cb, EFLAGS=0x00210246, CR2=0x00000004
+
+Top of Stack: (sp=0xb783f5e0)
+0xb783f5e0:   00000000 a6271cec 00000006 b47f1308
+0xb783f5f0:   019b4900 014efc00 b783f730 a6271c48
+0xb783f600:   a6271c98 a6271cf8 79720fe0 00000400
+0xb783f610:   09500000 00000000 b4928e88 0101f7e4
+0xb783f620:   79fd7ae8 00000001 09500730 b47f13d9
+0xb783f630:   b784107c 0158c328 b783f668 011c53a4
+0xb783f640:   79e8ae20 b7841080 797cef18 011c5313
+0xb783f650:   a62714f8 b783f8c0 b4c59b88 0158c328 
+
+Instructions: (pc=0xb4c706cb)
+0xb4c706ab:   c6 81 80 b6 78 79 00 8b 4c 24 1c 8b 59 0c 8b 4b
+0xb4c706bb:   40 85 c9 0f 84 d5 39 00 00 8b d5 33 ed 89 2c 24
+0xb4c706cb:   e8 3a 5f 00 00 8b 6c 24 1c 8b 5d 08 85 c0 75 6b
+0xb4c706db:   8b 54 24 30 8b 42 34 8d 48 20 3b 4a 3c 0f 83 93 
+
+Register to memory mapping:
+
+EAX=0x00000000 is an unknown value
+EBX=0xa33999d8 is an oop
+org.codehaus.plexus.classworlds.realm.ClassRealm 
+ - klass: 'org/codehaus/plexus/classworlds/realm/ClassRealm'
+ECX=0xa3399dc8 is an oop
+sun.misc.URLClassPath 
+ - klass: 'sun/misc/URLClassPath'
+EDX=0xa6271cf8 is an oop
+java.lang.String 
+ - klass: 'java/lang/String'
+ESP=0xb783f5e0 is pointing into the stack for thread: 0x09500000
+EBP=0x00000000 is an unknown value
+ESI=0xa6271cb0 is an oop
+[C 
+ - klass: {type array char}
+ - length: 30
+EDI=0xa6271d10 is an unknown value
+
+
+Stack: [0xb77f1000,0xb7842000],  sp=0xb783f5e0,  free space=313k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+J  java.net.URLClassLoader$1.run()Ljava/lang/Class;
+
+[error occurred during error reporting (printing native stack), id 0xb]
+
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x0966f400 JavaThread "process reaper" daemon [_thread_blocked, id=7880, stack(0x78767000,0x78776000)]
+  0x09cda800 JavaThread "resolver-5" daemon [_thread_blocked, id=7749, stack(0x7850d000,0x7855e000)]
+  0x77ef0400 JavaThread "resolver-4" daemon [_thread_blocked, id=7748, stack(0x7855e000,0x785af000)]
+  0x7885b000 JavaThread "resolver-3" daemon [_thread_blocked, id=7747, stack(0x78783000,0x787d4000)]
+  0x09cddc00 JavaThread "resolver-2" daemon [_thread_blocked, id=7746, stack(0x785af000,0x78600000)]
+  0x09d3c400 JavaThread "resolver-1" daemon [_thread_blocked, id=7745, stack(0x78704000,0x78755000)]
+  0x099a8800 JavaThread "process reaper" daemon [_thread_blocked, id=7744, stack(0x78cd2000,0x78ce1000)]
+  0x78ba9800 JavaThread "com.google.inject.internal.util.$Finalizer" daemon [_thread_blocked, id=7742, stack(0x78e09000,0x78e5a000)]
+  0x79001800 JavaThread "Service Thread" daemon [_thread_blocked, id=7740, stack(0x78f2e000,0x78f7f000)]
+  0x797ff800 JavaThread "C2 CompilerThread1" daemon [_thread_in_native, id=7739, stack(0x78f7f000,0x79000000)]
+  0x797fd800 JavaThread "C2 CompilerThread0" daemon [_thread_in_native, id=7738, stack(0x79101000,0x79182000)]
+  0x797fbc00 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=7737, stack(0x79182000,0x791d3000)]
+  0x797c3000 JavaThread "Finalizer" daemon [_thread_blocked, id=7736, stack(0x793d3000,0x79424000)]
+  0x797c1400 JavaThread "Reference Handler" daemon [_thread_blocked, id=7735, stack(0x79424000,0x79475000)]
+=>0x09500000 JavaThread "main" [_thread_in_Java, id=7729, stack(0xb77f1000,0xb7842000)]
+
+Other Threads:
+  0x797bb800 VMThread [stack: 0x79475000,0x794f6000] [id=7734]
+  0x7900b800 WatcherThread [stack: 0x78ead000,0x78f2e000] [id=7741]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap
+ PSYoungGen      total 262400K, used 90073K [0xa23e0000, 0xb4730000, 0xb4730000)
+  eden space 239680K, 28% used [0xa23e0000,0xa65a93f8,0xb0df0000)
+  from space 22720K, 99% used [0xb3100000,0xb472d328,0xb4730000)
+  to   space 29312K, 0% used [0xb0df0000,0xb0df0000,0xb2a90000)
+ PSOldGen        total 63936K, used 45161K [0x7dd30000, 0x81ba0000, 0xa23e0000)
+  object space 63936K, 70% used [0x7dd30000,0x8094a728,0x81ba0000)
+ PSPermGen       total 48128K, used 40057K [0x79d30000, 0x7cc30000, 0x7dd30000)
+  object space 48128K, 83% used [0x79d30000,0x7c44e680,0x7cc30000)
+
+Code Cache  [0xb47f1000, 0xb4c89000, 0xb77f1000)
+ total_blobs=1957 nmethods=1815 adapters=91 free_code_cache=44511Kb largest_free_block=45539456
+
+Dynamic libraries:
+00110000-00117000 r-xp 00000000 08:06 1049480    /lib/i386-linux-gnu/librt-2.13.so
+00117000-00118000 r--p 00006000 08:06 1049480    /lib/i386-linux-gnu/librt-2.13.so
+00118000-00119000 rw-p 00007000 08:06 1049480    /lib/i386-linux-gnu/librt-2.13.so
+00121000-00145000 r-xp 00000000 08:06 1049448    /lib/i386-linux-gnu/libm-2.13.so
+00145000-00146000 r--p 00023000 08:06 1049448    /lib/i386-linux-gnu/libm-2.13.so
+00146000-00147000 rw-p 00024000 08:06 1049448    /lib/i386-linux-gnu/libm-2.13.so
+00147000-0015a000 r-xp 00000000 08:06 1049451    /lib/i386-linux-gnu/libnsl-2.13.so
+0015a000-0015b000 r--p 00012000 08:06 1049451    /lib/i386-linux-gnu/libnsl-2.13.so
+0015b000-0015c000 rw-p 00013000 08:06 1049451    /lib/i386-linux-gnu/libnsl-2.13.so
+0015c000-0015e000 rw-p 00000000 00:00 0 
+0015e000-0016c000 r-xp 00000000 08:06 147199     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libnio.so
+0016c000-0016d000 rw-p 0000e000 08:06 147199     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libnio.so
+00178000-0018c000 r-xp 00000000 08:06 147170     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libnet.so
+0018c000-0018d000 rw-p 00014000 08:06 147170     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libnet.so
+001c2000-001d5000 r-xp 00000000 08:06 419550     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/jli/libjli.so
+001d5000-001d6000 rw-p 00012000 08:06 419550     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/jli/libjli.so
+001f2000-0020e000 r-xp 00000000 08:06 1049398    /lib/i386-linux-gnu/ld-2.13.so
+0020e000-0020f000 r--p 0001b000 08:06 1049398    /lib/i386-linux-gnu/ld-2.13.so
+0020f000-00210000 rw-p 0001c000 08:06 1049398    /lib/i386-linux-gnu/ld-2.13.so
+00210000-0036a000 r-xp 00000000 08:06 1049411    /lib/i386-linux-gnu/libc-2.13.so
+0036a000-0036b000 ---p 0015a000 08:06 1049411    /lib/i386-linux-gnu/libc-2.13.so
+0036b000-0036d000 r--p 0015a000 08:06 1049411    /lib/i386-linux-gnu/libc-2.13.so
+0036d000-0036e000 rw-p 0015c000 08:06 1049411    /lib/i386-linux-gnu/libc-2.13.so
+0036e000-00371000 rw-p 00000000 00:00 0 
+0058a000-00594000 r-xp 00000000 08:06 1049457    /lib/i386-linux-gnu/libnss_files-2.13.so
+00594000-00595000 r--p 00009000 08:06 1049457    /lib/i386-linux-gnu/libnss_files-2.13.so
+00595000-00596000 rw-p 0000a000 08:06 1049457    /lib/i386-linux-gnu/libnss_files-2.13.so
+005cd000-005cf000 r-xp 00000000 08:06 1049421    /lib/i386-linux-gnu/libdl-2.13.so
+005cf000-005d0000 r--p 00001000 08:06 1049421    /lib/i386-linux-gnu/libdl-2.13.so
+005d0000-005d1000 rw-p 00002000 08:06 1049421    /lib/i386-linux-gnu/libdl-2.13.so
+006a9000-006b5000 r-xp 00000000 08:06 147167     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libverify.so
+006b5000-006b6000 rw-p 0000c000 08:06 147167     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libverify.so
+006be000-006d5000 r-xp 00000000 08:06 147195     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libzip.so
+006d5000-006d6000 rw-p 00017000 08:06 147195     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libzip.so
+00715000-0071b000 r-xp 00000000 08:06 1049453    /lib/i386-linux-gnu/libnss_compat-2.13.so
+0071b000-0071c000 r--p 00005000 08:06 1049453    /lib/i386-linux-gnu/libnss_compat-2.13.so
+0071c000-0071d000 rw-p 00006000 08:06 1049453    /lib/i386-linux-gnu/libnss_compat-2.13.so
+00728000-0074b000 r-xp 00000000 08:06 147187     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libjava.so
+0074b000-0074c000 rw-p 00022000 08:06 147187     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/libjava.so
+007e4000-007f9000 r-xp 00000000 08:06 1049476    /lib/i386-linux-gnu/libpthread-2.13.so
+007f9000-007fa000 r--p 00015000 08:06 1049476    /lib/i386-linux-gnu/libpthread-2.13.so
+007fa000-007fb000 rw-p 00016000 08:06 1049476    /lib/i386-linux-gnu/libpthread-2.13.so
+007fb000-007fd000 rw-p 00000000 00:00 0 
+00988000-00991000 r-xp 00000000 08:06 1049461    /lib/i386-linux-gnu/libnss_nis-2.13.so
+00991000-00992000 r--p 00008000 08:06 1049461    /lib/i386-linux-gnu/libnss_nis-2.13.so
+00992000-00993000 rw-p 00009000 08:06 1049461    /lib/i386-linux-gnu/libnss_nis-2.13.so
+00dec000-00ded000 r-xp 00000000 00:00 0          [vdso]
+00ded000-01551000 r-xp 00000000 08:06 302906     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/server/libjvm.so
+01551000-0159c000 rw-p 00763000 08:06 302906     /usr/lib/jvm/jdk1.7.0/jre/lib/i386/server/libjvm.so
+0159c000-019bb000 rw-p 00000000 00:00 0 
+08048000-08049000 r-xp 00000000 08:06 147123     /usr/lib/jvm/jdk1.7.0/bin/java
+08049000-0804a000 rw-p 00000000 08:06 147123     /usr/lib/jvm/jdk1.7.0/bin/java
+094fa000-0b0b4000 rw-p 00000000 00:00 0          [heap]
+77749000-77800000 rw-p 00000000 00:00 0 
+77800000-778f0000 rw-p 00000000 00:00 0 
+778f0000-77900000 ---p 00000000 00:00 0 
+77a00000-77b00000 rw-p 00000000 00:00 0 
+77c00000-77ce2000 rw-p 00000000 00:00 0 
+77ce2000-77d00000 ---p 00000000 00:00 0 
+77d00000-77dfd000 rw-p 00000000 00:00 0 
+77dfd000-77e00000 ---p 00000000 00:00 0 
+77e00000-77ef1000 rw-p 00000000 00:00 0 
+77ef1000-77f00000 ---p 00000000 00:00 0 
+77fa5000-77fa6000 r--s 00004000 08:08 141919     /homelocal/aa/.m2/repository/com/sun/istack/istack-commons-runtime/2.2/istack-commons-runtime-2.2.jar
+77fa6000-78000000 r--s 005e4000 08:08 407008     /homelocal/aa/.m2/repository/org/eclipse/persistence/eclipselink/2.3.2/eclipselink-2.3.2.jar
+78000000-780c7000 rw-p 00000000 00:00 0 
+780c7000-78100000 ---p 00000000 00:00 0 
+78124000-78126000 r--s 00009000 08:08 528988     /homelocal/aa/.m2/repository/org/glassfish/external/management-api/3.0.0-b012/management-api-3.0.0-b012.jar
+78126000-78128000 r--s 00004000 08:08 528987     /homelocal/aa/.m2/repository/org/glassfish/gmbal/gmbal-api-only/3.0.0-b023/gmbal-api-only-3.0.0-b023.jar
+78128000-7812a000 r--s 0000e000 08:08 528985     /homelocal/aa/.m2/repository/com/sun/xml/txw2/txw2/20090102/txw2-20090102.jar
+7812a000-7812e000 r--s 00023000 08:08 528984     /homelocal/aa/.m2/repository/com/sun/xml/ws/policy/2.0-b01/policy-2.0-b01.jar
+7812e000-78130000 r--s 00008000 08:08 402768     /homelocal/aa/.m2/repository/org/jvnet/mimepull/1.4/mimepull-1.4.jar
+78130000-78132000 r--s 00005000 08:08 273374     /homelocal/aa/.m2/repository/javax/xml/stream/stax-api/1.0/stax-api-1.0.jar
+78132000-78134000 r--s 0000d000 08:08 528979     /homelocal/aa/.m2/repository/com/sun/xml/stream/buffer/streambuffer/1.0/streambuffer-1.0.jar
+78134000-78139000 r--s 00042000 08:08 528977     /homelocal/aa/.m2/repository/com/sun/xml/messaging/saaj/saaj-impl/1.3.4/saaj-impl-1.3.4.jar
+78139000-7814c000 r--s 000c3000 08:08 528976     /homelocal/aa/.m2/repository/com/sun/xml/bind/jaxb-impl/2.2/jaxb-impl-2.2.jar
+7814c000-7814d000 r--s 00001000 08:08 528975     /homelocal/aa/.m2/repository/javax/jws/jsr181-api/1.0-MR1/jsr181-api-1.0-MR1.jar
+7814d000-7814e000 r--s 00001000 08:08 528974     /homelocal/aa/.m2/repository/javax/annotation/jsr250-api/1.0/jsr250-api-1.0.jar
+7814e000-78150000 r--s 00005000 08:08 528972     /homelocal/aa/.m2/repository/javax/xml/soap/saaj-api/1.3.1/saaj-api-1.3.1.jar
+78150000-78154000 r--s 00016000 08:08 528971     /homelocal/aa/.m2/repository/javax/xml/bind/jaxb-api/2.2/jaxb-api-2.2.jar
+78154000-78157000 r--s 0000b000 08:08 528970     /homelocal/aa/.m2/repository/javax/xml/ws/jaxws-api/2.2/jaxws-api-2.2.jar
+78157000-78172000 r--s 0014f000 08:08 528969     /homelocal/aa/.m2/repository/com/sun/xml/ws/jaxws-rt/2.2/jaxws-rt-2.2.jar
+78172000-78174000 r--s 0000b000 08:08 399725     /homelocal/aa/git/fsnet/entities/target/entities-0.7.3-SNAPSHOT.jar
+78174000-7817a000 r--s 00034000 08:08 141836     /homelocal/aa/.m2/repository/junit/junit/4.8.2/junit-4.8.2.jar
+7817a000-7817c000 r--s 00005000 08:08 528968     /homelocal/aa/.m2/repository/org/codehaus/jackson/jackson-xc/1.5.5/jackson-xc-1.5.5.jar
+7817c000-7817e000 r--s 00003000 08:08 402765     /homelocal/aa/.m2/repository/org/codehaus/jackson/jackson-jaxrs/1.5.5/jackson-jaxrs-1.5.5.jar
+7817e000-78188000 r--s 0006d000 08:08 402764     /homelocal/aa/.m2/repository/org/codehaus/jackson/jackson-mapper-asl/1.5.5/jackson-mapper-asl-1.5.5.jar
+78188000-7818b000 r--s 00027000 08:08 273372     /homelocal/aa/.m2/repository/org/codehaus/jackson/jackson-core-asl/1.5.5/jackson-core-asl-1.5.5.jar
+7818b000-7818d000 r--s 0000f000 08:08 273371     /homelocal/aa/.m2/repository/org/codehaus/jettison/jettison/1.1/jettison-1.1.jar
+7818d000-78190000 r--s 00020000 08:08 141916     /homelocal/aa/.m2/repository/com/sun/jersey/jersey-json/1.4/jersey-json-1.4.jar
+78190000-78191000 r--s 0000a000 08:08 528967     /homelocal/aa/.m2/repository/asm/asm/3.1/asm-3.1.jar
+78191000-7819c000 r--s 00065000 08:08 141915     /homelocal/aa/.m2/repository/com/sun/jersey/jersey-core/1.4/jersey-core-1.4.jar
+7819c000-781ad000 r--s 00095000 08:08 141914     /homelocal/aa/.m2/repository/com/sun/jersey/jersey-server/1.4/jersey-server-1.4.jar
+781ad000-781b2000 r--s 0001c000 08:08 402651     /homelocal/aa/.m2/repository/org/eclipse/persistence/javax.persistence/2.0.0/javax.persistence-2.0.0.jar
+781b2000-781b8000 r--s 00045000 08:08 398493     /homelocal/aa/.m2/repository/org/igniterealtime/smack/smack/3.2.1/smack-3.2.1.jar
+781b8000-781ba000 r--s 0000b000 08:08 393567     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.11/plexus-interpolation-1.11.jar
+781ba000-781c2000 r--s 00049000 08:08 137668     /homelocal/aa/.m2/repository/backport-util-concurrent/backport-util-concurrent/3.1/backport-util-concurrent-3.1.jar
+781c2000-781c4000 r--s 0000e000 08:08 273323     /homelocal/aa/.m2/repository/javax/activation/activation/1.1/activation-1.1.jar
+781c4000-781c5000 r--s 00002000 08:08 402767     /homelocal/aa/.m2/repository/org/jvnet/staxex/stax-ex/1.2/stax-ex-1.2.jar
+781c5000-78200000 r--s 002c6000 08:08 137667     /homelocal/aa/.m2/repository/com/sun/xml/bind/jaxb-xjc/2.1.11/jaxb-xjc-2.1.11.jar
+78200000-782ff000 rw-p 00000000 00:00 0 
+782ff000-78300000 ---p 00000000 00:00 0 
+78300000-78302000 r--s 00018000 08:08 402718     /homelocal/aa/.m2/repository/javax/servlet/servlet-api/2.5/servlet-api-2.5.jar
+78302000-78309000 r--s 0006a000 08:08 141861     /homelocal/aa/.m2/repository/javax/mail/mail/1.4.3/mail-1.4.3.jar
+78309000-7830b000 r--s 00005000 08:08 399749     /homelocal/aa/git/fsnet/commons/target/commons-0.7.3-SNAPSHOT.jar
+7830b000-7830d000 r--s 00009000 08:08 399820     /homelocal/aa/git/fsnet/facade/target/facade-0.7.3-SNAPSHOT.jar
+7830d000-7830f000 r--s 00008000 08:08 393566     /homelocal/aa/.m2/repository/org/jvnet/mimepull/1.3/mimepull-1.3.jar
+7830f000-78311000 r--s 0000f000 08:08 141917     /homelocal/aa/.m2/repository/com/sun/org/apache/xml/internal/resolver/20050927/resolver-20050927.jar
+78311000-78317000 r--s 00079000 08:08 273373     /homelocal/aa/.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.3/wstx-asl-3.2.3.jar
+78317000-78319000 r--s 0001e000 08:08 523335     /homelocal/aa/.m2/repository/com/sun/xml/stream/buffer/streambuffer/0.9/streambuffer-0.9.jar
+78319000-7831b000 r--s 00003000 08:08 523334     /homelocal/aa/.m2/repository/javax/xml/soap/saaj-api/1.3/saaj-api-1.3.jar
+7831b000-78321000 r--s 00040000 08:08 523333     /homelocal/aa/.m2/repository/com/sun/xml/messaging/saaj/saaj-impl/1.3.3/saaj-impl-1.3.3.jar
+78321000-78333000 r--s 000c2000 08:08 137666     /homelocal/aa/.m2/repository/com/sun/xml/bind/jaxb-impl/2.1.11/jaxb-impl-2.1.11.jar
+78333000-7834c000 r--s 00129000 08:08 523331     /homelocal/aa/.m2/repository/com/sun/xml/ws/jaxws-rt/2.1.7/jaxws-rt-2.1.7.jar
+7834c000-78355000 r--s 00077000 08:08 137665     /homelocal/aa/.m2/repository/com/sun/xml/ws/jaxws-tools/2.1.7/jaxws-tools-2.1.7.jar
+78355000-7835e000 r--s 00254000 08:06 147258     /usr/lib/jvm/jdk1.7.0/jre/lib/resources.jar
+7835e000-78361000 ---p 00000000 00:00 0 
+78361000-783af000 rw-p 00000000 00:00 0 
+783af000-783b2000 ---p 00000000 00:00 0 
+783b2000-78400000 rw-p 00000000 00:00 0 
+78400000-784c6000 rw-p 00000000 00:00 0 
+784c6000-78500000 ---p 00000000 00:00 0 
+78500000-78502000 r--s 00004000 08:08 273333     /homelocal/aa/.m2/repository/javax/xml/stream/stax-api/1.0-2/stax-api-1.0-2.jar
+78502000-7850d000 r--s 0005f000 08:08 137793     /homelocal/aa/.m2/repository/com/thoughtworks/xstream/xstream/1.3.1/xstream-1.3.1.jar
+7850d000-78510000 ---p 00000000 00:00 0 
+78510000-7855e000 rw-p 00000000 00:00 0 
+7855e000-78561000 ---p 00000000 00:00 0 
+78561000-785af000 rw-p 00000000 00:00 0 
+785af000-785b2000 ---p 00000000 00:00 0 
+785b2000-78600000 rw-p 00000000 00:00 0 
+78600000-786e9000 rw-p 00000000 00:00 0 
+786e9000-78700000 ---p 00000000 00:00 0 
+78700000-78701000 r--s 00001000 08:08 413092     /homelocal/aa/git/fsnet/mobile-services-model/target/mobile-services.jar
+78701000-78704000 r--s 00013000 08:08 273332     /homelocal/aa/.m2/repository/javax/xml/bind/jaxb-api/2.1/jaxb-api-2.1.jar
+78704000-78707000 ---p 00000000 00:00 0 
+78707000-78755000 rw-p 00000000 00:00 0 
+78755000-78756000 r--s 00002000 08:08 413104     /homelocal/aa/git/fsnet/mobile-services/target/mobile-services-0.7.3-SNAPSHOT.jar
+78756000-78759000 r--s 00006000 08:08 523332     /homelocal/aa/.m2/repository/javax/xml/ws/jaxws-api/2.1/jaxws-api-2.1.jar
+78759000-7875a000 r--s 00005000 08:08 392897     /homelocal/aa/.m2/repository/org/jvnet/jax-ws-commons/jaxws-maven-plugin/2.1/jaxws-maven-plugin-2.1.jar
+7875a000-7875c000 r--s 00007000 08:08 394741     /homelocal/aa/.m2/repository/org/apache/maven/shared/maven-filtering/1.0-beta-2/maven-filtering-1.0-beta-2.jar
+7875c000-7875e000 r--s 00005000 08:08 137794     /homelocal/aa/.m2/repository/xpp3/xpp3_min/1.1.4c/xpp3_min-1.1.4c.jar
+7875e000-78761000 r--s 0000a000 08:08 523362     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-io/1.0.1/plexus-io-1.0.1.jar
+78761000-78765000 r--s 00029000 08:08 523361     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-archiver/1.2/plexus-archiver-1.2.jar
+78765000-78767000 r--s 00011000 08:08 273417     /homelocal/aa/.m2/repository/org/apache/maven/plugins/maven-war-plugin/2.1.1/maven-war-plugin-2.1.1.jar
+78767000-7876a000 ---p 00000000 00:00 0 
+7876a000-78776000 rw-p 00000000 00:00 0 
+78776000-7877a000 r--s 0002f000 08:08 529258     /homelocal/aa/.m2/repository/commons-lang/commons-lang/2.1/commons-lang-2.1.jar
+7877a000-7877d000 r--s 0000a000 08:08 529257     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-io/1.0/plexus-io-1.0.jar
+7877d000-78781000 r--s 00028000 08:08 529256     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-archiver/1.0/plexus-archiver-1.0.jar
+78781000-78782000 r--s 00004000 08:08 529255     /homelocal/aa/.m2/repository/org/apache/maven/maven-archiver/2.4.1/maven-archiver-2.4.1.jar
+78782000-78783000 r--s 00007000 08:08 273514     /homelocal/aa/.m2/repository/org/apache/maven/plugins/maven-jar-plugin/2.3.1/maven-jar-plugin-2.3.1.jar
+78783000-78786000 ---p 00000000 00:00 0 
+78786000-787d4000 rw-p 00000000 00:00 0 
+787d4000-787d5000 r--s 00002000 08:08 529783     /homelocal/aa/.m2/repository/org/apache/maven/reporting/maven-reporting-api/2.0.9/maven-reporting-api-2.0.9.jar
+787d5000-787d7000 r--s 00006000 08:08 529781     /homelocal/aa/.m2/repository/org/apache/maven/shared/maven-common-artifact-filters/1.3/maven-common-artifact-filters-1.3.jar
+787d7000-787d9000 r--s 0000c000 08:08 393606     /homelocal/aa/.m2/repository/org/apache/maven/surefire/maven-surefire-common/2.7.1/maven-surefire-common-2.7.1.jar
+787d9000-787dc000 r--s 00019000 08:08 393605     /homelocal/aa/.m2/repository/org/apache/maven/surefire/surefire-api/2.7.1/surefire-api-2.7.1.jar
+787dc000-787dd000 r--s 00007000 08:08 393604     /homelocal/aa/.m2/repository/org/apache/maven/surefire/surefire-booter/2.7.1/surefire-booter-2.7.1.jar
+787dd000-78800000 r--p 00000000 08:06 290347     /usr/share/locale-langpack/fr/LC_MESSAGES/libc.mo
+78800000-788f3000 rw-p 00000000 00:00 0 
+788f3000-78900000 ---p 00000000 00:00 0 
+78900000-789e3000 rw-p 00000000 00:00 0 
+789e3000-78a00000 ---p 00000000 00:00 0 
+78a00000-78afd000 rw-p 00000000 00:00 0 
+78afd000-78b00000 ---p 00000000 00:00 0 
+78b00000-78bff000 rw-p 00000000 00:00 0 
+78bff000-78c00000 ---p 00000000 00:00 0 
+78c00000-78c02000 r--s 00006000 08:08 273520     /homelocal/aa/.m2/repository/org/apache/maven/plugins/maven-surefire-plugin/2.7.1/maven-surefire-plugin-2.7.1.jar
+78c02000-78c6b000 r--s 00e06000 08:06 926419     /usr/lib/jvm/jdk1.7.0/lib/tools.jar
+78c6b000-78c6c000 r--s 00002000 08:08 402562     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-compiler-javac/1.8/plexus-compiler-javac-1.8.jar
+78c6c000-78c6e000 r--s 00000000 08:08 402561     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-compiler-manager/1.8/plexus-compiler-manager-1.8.jar
+78c6e000-78c6f000 r--s 00004000 08:08 273280     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-compiler-api/1.8/plexus-compiler-api-1.8.jar
+78c6f000-78c71000 r--s 00006000 08:08 273221     /homelocal/aa/.m2/repository/org/apache/maven/plugins/maven-compiler-plugin/2.3.1/maven-compiler-plugin-2.3.1.jar
+78c71000-78c73000 r--s 0000d000 08:08 529038     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-interpolation/1.13/plexus-interpolation-1.13.jar
+78c73000-78c74000 r--s 00001000 08:08 529037     /homelocal/aa/.m2/repository/org/sonatype/plexus/plexus-build-api/0.0.4/plexus-build-api-0.0.4.jar
+78c74000-78c76000 r--s 00007000 08:08 402812     /homelocal/aa/.m2/repository/org/apache/maven/shared/maven-filtering/1.0-beta-4/maven-filtering-1.0-beta-4.jar
+78c76000-78c77000 r--s 00001000 08:08 402559     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0-alpha-7/doxia-sink-api-1.0-alpha-7.jar
+78c77000-78c78000 r--s 00005000 08:08 273386     /homelocal/aa/.m2/repository/org/apache/maven/plugins/maven-resources-plugin/2.4.3/maven-resources-plugin-2.4.3.jar
+78c78000-78c79000 r--s 00002000 08:08 529709     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-digest/1.0/plexus-digest-1.0.jar
+78c79000-78c7d000 r--s 00033000 08:08 402560     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-utils/2.0.5/plexus-utils-2.0.5.jar
+78c7d000-78c80000 r--s 0001b000 08:08 141811     /homelocal/aa/.m2/repository/junit/junit/3.8.1/junit-3.8.1.jar
+78c80000-78c81000 r--s 00005000 08:08 273559     /homelocal/aa/.m2/repository/org/apache/maven/plugins/maven-install-plugin/2.3.1/maven-install-plugin-2.3.1.jar
+78c81000-78c85000 r--s 0003c000 08:08 529688     /homelocal/aa/.m2/repository/commons-lang/commons-lang/2.4/commons-lang-2.4.jar
+78c85000-78c87000 r--s 00005000 08:08 528989     /homelocal/aa/.m2/repository/stax/stax-api/1.0.1/stax-api-1.0.1.jar
+78c87000-78c8e000 r--s 00079000 08:08 273601     /homelocal/aa/.m2/repository/org/codehaus/woodstox/wstx-asl/3.2.7/wstx-asl-3.2.7.jar
+78c8e000-78c8f000 r--s 00002000 08:08 529686     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-i18n/1.0-beta-7/plexus-i18n-1.0-beta-7.jar
+78c8f000-78c93000 r--s 00034000 08:08 402981     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-utils/1.5.15/plexus-utils-1.5.15.jar
+78c93000-78c95000 r--s 00004000 08:08 529683     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-module-xhtml/1.0/doxia-module-xhtml-1.0.jar
+78c95000-78c96000 r--s 00006000 08:08 529681     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-module-xdoc/1.0/doxia-module-xdoc-1.0.jar
+78c96000-78c97000 r--s 00004000 08:08 529678     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-module-fml/1.0/doxia-module-fml-1.0.jar
+78c97000-78c99000 r--s 0000a000 08:08 529677     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-module-apt/1.0/doxia-module-apt-1.0.jar
+78c99000-78ca6000 r--s 0007f000 08:08 529676     /homelocal/aa/.m2/repository/commons-collections/commons-collections/3.2/commons-collections-3.2.jar
+78ca6000-78ca7000 r--s 0000b000 08:08 529674     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-decoration-model/1.0/doxia-decoration-model-1.0.jar
+78ca7000-78caf000 r--s 00058000 08:08 529671     /homelocal/aa/.m2/repository/org/apache/velocity/velocity/1.5/velocity-1.5.jar
+78caf000-78cb0000 r--s 00001000 08:08 529669     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-velocity/1.1.7/plexus-velocity-1.1.7.jar
+78cb0000-78cb2000 r--s 0000a000 08:08 529667     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-site-renderer/1.0/doxia-site-renderer-1.0.jar
+78cb2000-78cb3000 r--s 00002000 08:08 529666     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-sink-api/1.0/doxia-sink-api-1.0.jar
+78cb3000-78cb4000 r--s 00002000 08:08 529662     /homelocal/aa/.m2/repository/org/apache/maven/wagon/wagon-file/1.0-beta-2/wagon-file-1.0-beta-2.jar
+78cb4000-78cb7000 r--s 00020000 08:08 529664     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-archiver/1.0-alpha-7/plexus-archiver-1.0-alpha-7.jar
+78cb7000-78cb8000 r--s 00007000 08:08 529660     /homelocal/aa/.m2/repository/org/apache/maven/shared/maven-plugin-testing-harness/1.1/maven-plugin-testing-harness-1.1.jar
+78cb8000-78cba000 r--s 00006000 08:08 529656     /homelocal/aa/.m2/repository/org/apache/maven/shared/maven-common-artifact-filters/1.2/maven-common-artifact-filters-1.2.jar
+78cba000-78cbd000 r--s 0000b000 08:08 529654     /homelocal/aa/.m2/repository/org/apache/maven/doxia/doxia-core/1.0-alpha-10/doxia-core-1.0-alpha-10.jar
+78cbd000-78cc2000 r--s 00016000 08:08 529651     /homelocal/aa/.m2/repository/xml-apis/xml-apis/1.0.b2/xml-apis-1.0.b2.jar
+78cc2000-78cc4000 r--s 0000e000 08:08 528828     /homelocal/aa/.m2/repository/oro/oro/2.0.8/oro-2.0.8.jar
+78cc4000-78cc6000 r--s 00008000 08:08 528826     /homelocal/aa/.m2/repository/commons-logging/commons-logging/1.0.4/commons-logging-1.0.4.jar
+78cc6000-78cca000 r--s 00026000 08:08 529650     /homelocal/aa/.m2/repository/commons-digester/commons-digester/1.6/commons-digester-1.6.jar
+78cca000-78ccf000 r--s 0002a000 08:08 529649     /homelocal/aa/.m2/repository/commons-beanutils/commons-beanutils/1.7.0/commons-beanutils-1.7.0.jar
+78ccf000-78cd2000 r--s 00014000 08:08 529648     /homelocal/aa/.m2/repository/commons-validator/commons-validator/1.2.0/commons-validator-1.2.0.jar
+78cd2000-78cd5000 ---p 00000000 00:00 0 
+78cd5000-78ce1000 rw-p 00000000 00:00 0 
+78ce1000-78cf1000 r--s 000bc000 08:08 273181     /homelocal/aa/eclipse/configuration/org.eclipse.osgi/bundles/842/1/.cp/netty-3.2.4.Final.jar
+78cf1000-78cf7000 r--s 0004c000 08:08 273128     /homelocal/aa/eclipse/configuration/org.eclipse.osgi/bundles/775/1/.cp/async-http-client-1.6.3.jar
+78cf7000-78cf9000 r--s 00005000 08:08 659894     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/wagon-ahc-1.2.0.jar
+78cf9000-78cfb000 r--s 0000c000 08:08 659888     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-connector-asynchttpclient-1.11.jar
+78cfb000-78cfe000 r--s 0001e000 08:08 659900     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-impl-1.11.jar
+78cfe000-78d00000 r--s 0000d000 08:08 659870     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/wagon-provider-api-1.0-beta-6.jar
+78d00000-78de7000 rw-p 00000000 00:00 0 
+78de7000-78e00000 ---p 00000000 00:00 0 
+78e00000-78e01000 r--s 00004000 08:08 529652     /homelocal/aa/.m2/repository/org/apache/maven/reporting/maven-reporting-impl/2.0.4.1/maven-reporting-impl-2.0.4.1.jar
+78e01000-78e02000 r--s 00002000 08:08 402558     /homelocal/aa/.m2/repository/org/apache/maven/reporting/maven-reporting-api/2.0.6/maven-reporting-api-2.0.6.jar
+78e02000-78e04000 r--s 00002000 08:08 273279     /homelocal/aa/.m2/repository/org/codehaus/plexus/plexus-interactivity-api/1.0-alpha-4/plexus-interactivity-api-1.0-alpha-4.jar
+78e04000-78e06000 r--s 00006000 08:08 141812     /homelocal/aa/.m2/repository/commons-cli/commons-cli/1.0/commons-cli-1.0.jar
+78e06000-78e09000 r--s 0002f000 08:08 529217     /homelocal/aa/.m2/repository/org/codehaus/mojo/versions-maven-plugin/1.2/versions-maven-plugin-1.2.jar
+78e09000-78e0c000 ---p 00000000 00:00 0 
+78e0c000-78e5a000 rw-p 00000000 00:00 0 
+78e5a000-78e5d000 r--s 0001d000 08:08 659873     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-util-1.11.jar
+78e5d000-78e5f000 r--s 00004000 08:08 659890     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-spi-1.11.jar
+78e5f000-78e62000 r--s 00015000 08:08 659872     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-api-1.11.jar
+78e62000-78e64000 r--s 00007000 08:08 659889     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/aether-connector-wagon-1.11.jar
+78e64000-78e6f000 r--s 00073000 08:08 659861     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/sisu-guice-2.9.4-no_aop.jar
+78e6f000-78e73000 r--s 00036000 08:08 659878     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-utils-2.0.6.jar
+78e73000-78e74000 r--s 00005000 08:08 659897     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-scanners-2.0.0.jar
+78e74000-78e76000 r--s 00006000 08:08 659879     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-binders-2.0.0.jar
+78e76000-78e77000 r--s 00004000 08:08 659874     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-locators-2.0.0.jar
+78e77000-78e79000 r--s 00002000 08:08 659896     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-converters-2.0.0.jar
+78e79000-78e7a000 r--s 00004000 08:08 659893     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-metadata-2.0.0.jar
+78e7a000-78e7c000 r--s 00001000 08:08 659887     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-converters-2.0.0.jar
+78e7c000-78e7e000 r--s 00012000 08:08 659868     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-scanners-2.0.0.jar
+78e7e000-78e80000 r--s 00007000 08:08 659899     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-binders-2.0.0.jar
+78e80000-78e83000 r--s 0000b000 08:08 659895     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-locators-2.0.0.jar
+78e83000-78e85000 r--s 00002000 08:08 659884     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-inject-2.0.0.jar
+78e85000-78e87000 r--s 00009000 08:08 659871     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-bean-reflect-2.0.0.jar
+78e87000-78e88000 r--s 00001000 08:08 659885     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/javax.inject-1.jar
+78e88000-78e8a000 r--s 00001000 08:08 659881     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-component-annotations-1.5.5.jar
+78e8a000-78e8f000 r--s 0001d000 08:08 659864     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/guice-plexus-shim-2.0.0.jar
+78e8f000-78e90000 r--s 00003000 08:08 659863     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/wagon-file-1.0-beta-7.jar
+78e90000-78e92000 r--s 0000a000 08:08 659866     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/commons-cli-1.2.jar
+78e92000-78e98000 r--s 00044000 08:08 659891     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-compat-3.0.2.jar
+78e98000-78e9a000 r--s 0000f000 08:08 659867     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-interpolation-1.14.jar
+78e9a000-78e9c000 r--s 0000d000 08:08 659882     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-aether-provider-3.0.2.jar
+78e9c000-78e9e000 r--s 0000d000 08:08 659859     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-artifact-3.0.2.jar
+78e9e000-78e9f000 r--s 00008000 08:08 659862     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-repository-metadata-3.0.2.jar
+78e9f000-78ea1000 r--s 0000a000 08:08 659876     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-settings-builder-3.0.2.jar
+78ea1000-78ead000 r--s 00081000 08:08 659869     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-core-3.0.2.jar
+78ead000-78eae000 ---p 00000000 00:00 0 
+78eae000-78f2e000 rw-p 00000000 00:00 0 
+78f2e000-78f31000 ---p 00000000 00:00 0 
+78f31000-78f7f000 rw-p 00000000 00:00 0 
+78f7f000-78f82000 ---p 00000000 00:00 0 
+78f82000-79000000 rw-p 00000000 00:00 0 
+79000000-79100000 rw-p 00000000 00:00 0 
+79100000-79101000 r--p 00000000 00:00 0 
+79101000-79104000 ---p 00000000 00:00 0 
+79104000-79182000 rw-p 00000000 00:00 0 
+79182000-79185000 ---p 00000000 00:00 0 
+79185000-791d3000 rw-p 00000000 00:00 0 
+791d3000-793d3000 r--p 00000000 08:06 7944       /usr/lib/locale/locale-archive
+793d3000-793d6000 ---p 00000000 00:00 0 
+793d6000-79424000 rw-p 00000000 00:00 0 
+79424000-79427000 ---p 00000000 00:00 0 
+79427000-79475000 rw-p 00000000 00:00 0 
+79475000-79476000 ---p 00000000 00:00 0 
+79476000-79541000 rw-p 00000000 00:00 0 
+79541000-79700000 r--s 039fa000 08:06 147256     /usr/lib/jvm/jdk1.7.0/jre/lib/rt.jar
+79700000-79800000 rw-p 00000000 00:00 0 
+79800000-79802000 r--s 00028000 08:08 659898     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-model-3.0.2.jar
+79802000-79804000 r--s 00007000 08:08 659875     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-sec-dispatcher-1.3.jar
+79804000-79809000 r--s 00023000 08:08 659892     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-model-builder-3.0.2.jar
+79809000-7980b000 r--s 0000c000 08:08 659886     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-plugin-api-3.0.2.jar
+7980b000-7980c000 r--s 0000b000 08:08 659883     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-embedder-3.0.2.jar
+7980c000-7980e000 r--s 00009000 08:08 659857     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/local-patches.jar
+7980e000-79812000 r--s 00088000 08:06 147251     /usr/lib/jvm/jdk1.7.0/jre/lib/jsse.jar
+79812000-79813000 ---p 00000000 00:00 0 
+79813000-79893000 rw-p 00000000 00:00 0 
+79893000-79894000 ---p 00000000 00:00 0 
+79894000-79914000 rw-p 00000000 00:00 0 
+79914000-79915000 ---p 00000000 00:00 0 
+79915000-79995000 rw-p 00000000 00:00 0 
+79995000-79996000 ---p 00000000 00:00 0 
+79996000-79a2e000 rw-p 00000000 00:00 0 
+79a2e000-79a36000 rw-p 00000000 00:00 0 
+79a36000-79a56000 rw-p 00000000 00:00 0 
+79a56000-79b5a000 rw-p 00000000 00:00 0 
+79b5a000-79b72000 rw-p 00000000 00:00 0 
+79b72000-79b7a000 rw-p 00000000 00:00 0 
+79b7a000-79b9a000 rw-p 00000000 00:00 0 
+79b9a000-79c9d000 rw-p 00000000 00:00 0 
+79c9d000-79d2f000 rw-p 00000000 00:00 0 
+79d2f000-7cc30000 rw-p 00000000 00:00 0 
+7cc30000-7dd30000 rw-p 00000000 00:00 0 
+7dd30000-81ba0000 rw-p 00000000 00:00 0 
+81ba0000-a23e0000 rw-p 00000000 00:00 0 
+a23e0000-b4730000 rw-p 00000000 00:00 0 
+b4730000-b4731000 r--s 00004000 08:08 659860     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-cipher-1.4.jar
+b4731000-b4744000 rw-p 00000000 00:00 0 
+b4744000-b47f1000 rw-p 00000000 00:00 0 
+b47f1000-b4c99000 rwxp 00000000 00:00 0 
+b4c99000-b77f1000 rw-p 00000000 00:00 0 
+b77f1000-b77f4000 ---p 00000000 00:00 0 
+b77f4000-b7844000 rw-p 00000000 00:00 0 
+b7844000-b7845000 r--s 0000c000 08:08 659877     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/maven-settings-3.0.2.jar
+b7845000-b7848000 r--s 0000b000 08:08 659865     /homelocal/aa/eclipse/plugins/org.eclipse.m2e.maven.runtime_1.0.100.20110804-1717/jars/plexus-classworlds-2.4.jar
+b7848000-b7849000 r--p 007f0000 08:06 7944       /usr/lib/locale/locale-archive
+b7849000-b7851000 rw-s 00000000 08:06 1053243    /tmp/hsperfdata_aa/7724
+b7851000-b7852000 rw-p 00000000 00:00 0 
+b7852000-b7853000 r--p 00000000 00:00 0 
+b7853000-b7855000 rw-p 00000000 00:00 0 
+bf87c000-bf89d000 rw-p 00000000 00:00 0          [stack]
+
+VM Arguments:
+jvm_args: -Dmaven.home=EMBEDDED -Dclassworlds.conf=/homelocal/aa/FSNETWORKSPACE/.metadata/.plugins/org.eclipse.m2e.core/launches/m2conf8629252463715644290.tmp -Dfile.encoding=UTF-8 
+java_command: org.codehaus.plexus.classworlds.launcher.Launcher -B -s /homelocal/aa/.m2/settings.xml install
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games
+USERNAME=aa
+LD_LIBRARY_PATH=/usr/lib/jvm/jdk1.7.0/jre/lib/i386/server:/usr/lib/jvm/jdk1.7.0/jre/lib/i386:/usr/lib/jvm/jdk1.7.0/jre/../lib/i386:/usr/lib/jvm/jdk1.7.0/jre/lib/i386/client:/usr/lib/jvm/jdk1.7.0/jre/lib/i386:
+SHELL=/bin/bash
+DISPLAY=:0.0
+
+Signal Handlers:
+SIGSEGV: [libjvm.so+0x6ddc10], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGBUS: [libjvm.so+0x6ddc10], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGFPE: [libjvm.so+0x59e1e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGPIPE: [libjvm.so+0x59e1e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGXFSZ: [libjvm.so+0x59e1e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGILL: [libjvm.so+0x59e1e0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGUSR1: SIG_DFL, sa_mask[0]=0x00000000, sa_flags=0x00000000
+SIGUSR2: [libjvm.so+0x59dae0], sa_mask[0]=0x00000004, sa_flags=0x10000004
+SIGHUP: [libjvm.so+0x5a01f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGINT: [libjvm.so+0x5a01f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGTERM: [libjvm.so+0x5a01f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+SIGQUIT: [libjvm.so+0x5a01f0], sa_mask[0]=0x7ffbfeff, sa_flags=0x10000004
+
+
+---------------  S Y S T E M  ---------------
+
+OS:squeeze/sid
+
+uname:Linux 2.6.38-8-generic #42-Ubuntu SMP Mon Apr 11 03:31:50 UTC 2011 i686
+libc:glibc 2.13 NPTL 2.13 
+rlimit: STACK 8192k, CORE 0k, NPROC infinity, NOFILE 4096, AS infinity
+load average:1,04 0,57 0,27
+
+/proc/meminfo:
+MemTotal:        3572408 kB
+MemFree:          308136 kB
+Buffers:          114896 kB
+Cached:           862112 kB
+SwapCached:          252 kB
+Active:          2248944 kB
+Inactive:         918208 kB
+Active(anon):    1892620 kB
+Inactive(anon):   454684 kB
+Active(file):     356324 kB
+Inactive(file):   463524 kB
+Unevictable:           0 kB
+Mlocked:               0 kB
+HighTotal:       2719372 kB
+HighFree:           3132 kB
+LowTotal:         853036 kB
+LowFree:          305004 kB
+SwapTotal:       7811068 kB
+SwapFree:        7810244 kB
+Dirty:             14808 kB
+Writeback:             0 kB
+AnonPages:       2190020 kB
+Mapped:           162192 kB
+Shmem:            157164 kB
+Slab:              52116 kB
+SReclaimable:      33336 kB
+SUnreclaim:        18780 kB
+KernelStack:        4080 kB
+PageTables:         9840 kB
+NFS_Unstable:          0 kB
+Bounce:                0 kB
+WritebackTmp:          0 kB
+CommitLimit:     9597272 kB
+Committed_AS:    4266092 kB
+VmallocTotal:     122880 kB
+VmallocUsed:       31368 kB
+VmallocChunk:      36232 kB
+HardwareCorrupted:     0 kB
+HugePages_Total:       0
+HugePages_Free:        0
+HugePages_Rsvd:        0
+HugePages_Surp:        0
+Hugepagesize:       4096 kB
+DirectMap4k:       16376 kB
+DirectMap4M:      892928 kB
+
+
+CPU:total 4 (4 cores per cpu, 1 threads per core) family 6 model 23 stepping 10, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1
+
+/proc/cpuinfo:
+processor	: 0
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 23
+model name	: Intel(R) Core(TM)2 Quad CPU    Q9500  @ 2.83GHz
+stepping	: 10
+cpu MHz		: 1998.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 0
+cpu cores	: 4
+apicid		: 0
+initial apicid	: 0
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx lm constant_tsc arch_perfmon pebs bts aperfmperf pni dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm sse4_1 xsave lahf_lm dts tpr_shadow vnmi flexpriority
+bogomips	: 5652.39
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 1
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 23
+model name	: Intel(R) Core(TM)2 Quad CPU    Q9500  @ 2.83GHz
+stepping	: 10
+cpu MHz		: 2833.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 1
+cpu cores	: 4
+apicid		: 1
+initial apicid	: 1
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx lm constant_tsc arch_perfmon pebs bts aperfmperf pni dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm sse4_1 xsave lahf_lm dts tpr_shadow vnmi flexpriority
+bogomips	: 5652.40
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 2
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 23
+model name	: Intel(R) Core(TM)2 Quad CPU    Q9500  @ 2.83GHz
+stepping	: 10
+cpu MHz		: 2833.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 2
+cpu cores	: 4
+apicid		: 2
+initial apicid	: 2
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx lm constant_tsc arch_perfmon pebs bts aperfmperf pni dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm sse4_1 xsave lahf_lm dts tpr_shadow vnmi flexpriority
+bogomips	: 5652.42
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+processor	: 3
+vendor_id	: GenuineIntel
+cpu family	: 6
+model		: 23
+model name	: Intel(R) Core(TM)2 Quad CPU    Q9500  @ 2.83GHz
+stepping	: 10
+cpu MHz		: 2833.000
+cache size	: 3072 KB
+physical id	: 0
+siblings	: 4
+core id		: 3
+cpu cores	: 4
+apicid		: 3
+initial apicid	: 3
+fdiv_bug	: no
+hlt_bug		: no
+f00f_bug	: no
+coma_bug	: no
+fpu		: yes
+fpu_exception	: yes
+cpuid level	: 13
+wp		: yes
+flags		: fpu vme de pse tsc msr pae mce cx8 apic mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe nx lm constant_tsc arch_perfmon pebs bts aperfmperf pni dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm sse4_1 xsave lahf_lm dts tpr_shadow vnmi flexpriority
+bogomips	: 5652.42
+clflush size	: 64
+cache_alignment	: 64
+address sizes	: 36 bits physical, 48 bits virtual
+power management:
+
+
+
+Memory: 4k page, physical 3572408k(308136k free), swap 7811068k(7810244k free)
+
+vm_info: Java HotSpot(TM) Server VM (21.0-b17) for linux-x86 JRE (1.7.0-b147), built on Jun 27 2011 01:49:33 by "java_re" with gcc 4.3.0 20080428 (Red Hat 4.3.0-8)
+
+time: Fri Feb 17 15:07:21 2012
+elapsed time: 29 seconds
+
