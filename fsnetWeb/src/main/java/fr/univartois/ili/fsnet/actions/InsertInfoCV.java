@@ -64,10 +64,14 @@ public class InsertInfoCV extends MappingDispatchAction {
 
 		HttpSession mysession = request.getSession();
 		
-		// MemberCv
+		// Insert Membe
 		MemberCV member = new MemberCV();
+		try{
 		member.setBirthDate((Date) toDBDateFormat((String) mysession
 				.getAttribute("formatBirthDay")));
+		}catch(Exception e){
+			
+		}
 		member.setTown((String) mysession.getAttribute("CvPays"));
 		member.setAdress((String) mysession.getAttribute("CvAdresse"));
 		member.setFirstName((String) mysession.getAttribute("CvNom"));
@@ -94,7 +98,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 		curriculum.setMember(member);
 		curriculum.setTitleCv((String) mysession.getAttribute("CvTitle"));
 
-		// Les experiances
+		// Insert experiences
 		int i = 0;
 
 		while (i < nbExp) {
@@ -142,7 +146,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 			i++;
 		}
 
-		//formation
+		//Insert formation
 		int f = 0;
 		while (f < nbfrom) {
 			
@@ -184,7 +188,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 		}
 		
 		
-		//diplome
+		//Insert degree
 		int d=0;
 		while(d<nbdip){
 			DegreeCV degree=new DegreeCV();
