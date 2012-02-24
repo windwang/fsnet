@@ -45,14 +45,14 @@
 				<div class="clear"></div>
 			</c:when>
 			<c:otherwise>
-				<bean:message key="interests.17" />
+				<bean:message key="interests.none" />
 			</c:otherwise>
 		  </c:choose>
 		  </td></tr></table>
 		</fieldset>
 
 		<fieldset class="fieldsetAppli">
-          <legend class="legendHome"><bean:message key="interests.16" /></legend>
+          <legend class="legendHome"><bean:message key="interests.title.son" /></legend>
 		  <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 		  <c:choose>
 			<c:when test="${not empty requestScope.interest.childrenInterests}">
@@ -66,14 +66,14 @@
 				<div class="clear"></div>
 			</c:when>
 			<c:otherwise>
-				<bean:message key="interests.17" />
+				<bean:message key="interests.none" />
 			</c:otherwise>
 		</c:choose>
         </td></tr></table>
        </fieldset>
        
 		<fieldset class="fieldsetAppli">
-          <legend class="legendHome"><bean:message key="interests.14" /></legend>
+          <legend class="legendHome"><bean:message key="interests.title.associate" /></legend>
 		  <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 		<c:choose>
 			<c:when test="${not empty requestScope.interest.entities}">
@@ -88,7 +88,7 @@
 				</div>
 			</c:when>
 			<c:otherwise>
-				<bean:message key="interests.17" />
+				<bean:message key="interests.none" />
 			</c:otherwise>
 		</c:choose>
 		</td></tr></table>
@@ -113,7 +113,7 @@
 				</c:forEach></div>
 			</c:when>
 			<c:otherwise>
-				<bean:message key="interests.17" />
+				<bean:message key="interests.none" />
 			</c:otherwise>
 		</c:choose>
 		</td></tr></table>
@@ -138,7 +138,7 @@
 				</c:forEach></div>
 			</c:when>
 			<c:otherwise>
-				<bean:message key="interests.17" />
+				<bean:message key="interests.none" />
 			</c:otherwise>
 		</c:choose>
 		</td></tr></table>
@@ -163,7 +163,7 @@
 				</c:forEach></div>
 			</c:when>
 			<c:otherwise>
-				<bean:message key="interests.17" />
+				<bean:message key="interests.none" />
 			</c:otherwise>
 		</c:choose>
 	  </td></tr></table>
@@ -188,7 +188,7 @@
 				</c:forEach></div>
 			</c:when>
 			<c:otherwise>
-				<bean:message key="interests.17" />
+				<bean:message key="interests.none" />
 			</c:otherwise>
 		</c:choose>
 		</td></tr></table>
@@ -213,13 +213,13 @@
 				</c:forEach></div>
 			</c:when>
 			<c:otherwise>
-				<bean:message key="interests.17" />
+				<bean:message key="interests.none" />
 			</c:otherwise>
 		</c:choose>
 		</td></tr></table>
        </fieldset>
 	</c:when>
 	<c:otherwise>
-		<bean:message key="interests.8" />
+		<bean:message key="interests.list.no" />
 	</c:otherwise>
 </c:choose>

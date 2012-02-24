@@ -7,7 +7,7 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="interests.6"/></legend>
+  <legend class="legendHome"><bean:message key="interests.title.my"/></legend>
   <logic:present name="myInterestPaginator" scope="request">
     <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
     <c:choose>
@@ -31,7 +31,7 @@
             <div style="clear : both;"></div>
         </c:when>
         <c:otherwise>
-            <bean:message key="interests.8"/>
+            <bean:message key="interests.search.empty"/>
         </c:otherwise>
     </c:choose>
     <c:set var="paginatorInstance" value="${requestScope.myInterestPaginator}" scope="request"/>

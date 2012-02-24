@@ -11,6 +11,8 @@ import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -100,7 +102,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					properties.getProperty(FSNetConfiguration.KEY_FACEBOOK));
 
 		} catch (Exception ex) {
-			ex.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", ex);
 		}
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
@@ -306,7 +308,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			try{
 			br.close();
 			}catch(Exception e){
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
 			
 		}
@@ -364,7 +366,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			em.getTransaction().commit();
 			em.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 		MessageResources bundle = MessageResources

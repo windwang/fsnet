@@ -15,14 +15,14 @@
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="events.0"/></legend>
+  <legend class="legendHome"><bean:message key="events.title.create"/></legend>
   <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
 <html:form action="/CreateEvent">
     <table id="CreateEvent">
         <tr>
             <td>
                 <label for="eventName">
-                    <bean:message key="events.1"/> :
+                    <bean:message key="events.form.title"/>
                 </label>
             </td>
             <td>
@@ -45,7 +45,7 @@
         <tr>
             <td>
                 <label for="eventDescription">
-                    <bean:message key="events.2"/> :
+                    <bean:message key="events.form.description"/>
                 </label>
             </td>
             <td>
@@ -65,7 +65,7 @@
         <tr>
             <td>
                 <label for="eventAddress">
-                    <bean:message key="events.23"/> :
+                    <bean:message key="events.form.address"/>
                 </label>
             </td>
             <td>
@@ -82,7 +82,7 @@
         <tr>
             <td>
                 <label for="eventCity">
-                    <bean:message key="events.24"/> :
+                    <bean:message key="events.form.city"/>
                 </label>
             </td>
             <td>
@@ -99,7 +99,7 @@
         <tr>
             <td>
                 <label for="eventBeginDate">
-                    <bean:message key="events.3"/> :
+                    <bean:message key="events.form.beginDate"/>
                 </label>
             </td>
             <td>
@@ -117,7 +117,7 @@
         <tr>
             <td>
                 <label for="eventEndDate">
-                    <bean:message key="events.20"/> :
+                    <bean:message key="events.form.endDate"/>
                 </label>
             </td>
             <td>
@@ -135,7 +135,7 @@
         <tr>
         	<td>
         		<label for="eventRecallTime">
-                    <bean:message key="events.recall"/> :
+                    <bean:message key="events.form.recall"/>
              	</label>
             </td>
             <td>
@@ -146,13 +146,13 @@
 
                 <html:select property="eventRecallTypeTime" styleId="eventRecallTypeTime">
                     <html:option value="minute">
-                    	<bean:message key="event.recall.minute"/>
+                    	<bean:message key="event.form.recall.minute"/>
                     </html:option>
                     <html:option value="hour">
-                    	<bean:message key="event.recall.hour"/>
+                    	<bean:message key="event.form.recall.hour"/>
                     </html:option>
                     <html:option value="day">
-                    	<bean:message key="event.recall.day"/>
+                    	<bean:message key="event.form.recall.day"/>
                     </html:option>
                 </html:select>
                 
@@ -164,7 +164,7 @@
 
             <td>
             	<html:submit styleClass="button">
-                    <bean:message key="events.4"/>
+                    <bean:message key="events.button.create"/>
                 </html:submit>
             </td>
         </tr>

@@ -5,7 +5,7 @@
 
 <c:if test="${not empty KEY_FACEBOOK}">
 <h3>
-    <bean:message key="interests.19"/>
+    <bean:message key="interests.import"/>
 </h3>
 <div id="fb-root"></div>
 	<script src="http://connect.facebook.net/fr_FR/all.js"></script>

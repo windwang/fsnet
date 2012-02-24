@@ -13,6 +13,8 @@ import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -304,6 +306,7 @@ public class GenerateCv extends MappingDispatchAction{
 	
 	/**
 	 * 
+
 	 * @param mapping
 	 * @param form
 	 * @param request

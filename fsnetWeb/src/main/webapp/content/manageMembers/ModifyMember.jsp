@@ -153,7 +153,7 @@
 		<div style="clear: both;"></div>
 	</c:when>
 	<c:otherwise>
-		<bean:message key="interests.17" />
+		<bean:message key="interests.none" />
 	</c:otherwise>
 </c:choose>
 </td></tr></table>

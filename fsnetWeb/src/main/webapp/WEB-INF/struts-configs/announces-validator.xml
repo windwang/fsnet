@@ -16,23 +16,23 @@
 					<var-name>maxlength</var-name>
 					<var-value>80</var-value>
 				</var>
-				<arg0 key="error.announceTitle" />
+				<arg0 key="announce.form.title" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="announceContent" depends="required,maxlength">
-				<arg key="announce.content" name="required" />
-				<arg0 key="announce.content" name="maxlength" />
+				<arg key="announce.form.content" name="required" />
+				<arg0 key="announce.form.content" name="maxlength" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
 					<var-name>maxlength</var-name>
 					<var-value>5000</var-value>
 				</var>
-				<arg key="error.announceContent" />
+				<arg key="announce.form.content" />
 
 			</field>
 			<field property="announceExpiryDate" depends="required,mask">
-				<arg key="error.announceExpiryDate" />
-				<arg position="0" key="error.announceExpiryDate" />
+				<arg key="date.error.announce.expiryDate" />
+				<arg position="0" key="date.error.announce.expiryDate" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
 					<var-name>mask</var-name>
@@ -52,21 +52,21 @@
 					<var-name>maxlength</var-name>
 					<var-value>80</var-value>
 				</var>
-				<arg0 key="error.announceTitle" />
+				<arg0 key="announce.form.title" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="announceContent" depends="required,maxlength">
-				<arg key="announce.content" name="required" />
-				<arg0 key="announce.content" name="maxlength" />
+				<arg key="announce.form.content" name="required" />
+				<arg0 key="announce.form.content" name="maxlength" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
 					<var-name>maxlength</var-name>
 					<var-value>5000</var-value>
 				</var>
-				<arg key="error.announceContent" />
+				<arg key="announce.form.content" />
 			</field>
 			<field property="announceExpiryDate" depends="required,mask">
-				<arg key="error.announceExpiryDate" />
+				<arg key="date.error.announce.expiryDate" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
 					<var-name>mask</var-name>

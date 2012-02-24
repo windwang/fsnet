@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -145,7 +147,7 @@ public class ManageConsultations extends MappingDispatchAction {
                                 consultation.setMaxDate(dateFormat.parse(deadline
                                                 + DEADLINE_TIME));
                         } catch (Exception e) {
-                                e.printStackTrace();
+                        	Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
                         }
                 }
 

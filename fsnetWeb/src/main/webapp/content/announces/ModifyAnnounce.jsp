@@ -1,9 +1,3 @@
-<%-- 
-    Document   : CreateAnnounce
-    Created on : 18 janv. 2010, 18:06:12
-    Author     : Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -18,7 +12,7 @@
 </script>
 
 
-<h3><bean:message key="announce.modifyAnnounce" /></h3>
+<h3><bean:message key="announce.title.modify" /></h3>
 <html:form action="/ModifyAnnounce">
 
 	<html:hidden property="idAnnounce"/>
@@ -29,13 +23,13 @@
 		</tr>
 		<tr>
 			<td><label for="announceTitle"><bean:message
-				key="announce.title" /></label></td>
+				key="announce.form.title" /></label></td>
 			<td><html:text property="announceTitle"
 				styleId="announceTitle" /></td>
 		</tr>
 		<tr>
 			<td><label for="announceContent"><bean:message
-				key="announce.content" /> </label></td>
+				key="announce.form.content" /> </label></td>
 			<td><html:textarea cols="40" rows="8"
 				property="announceContent"
 				styleId="announceContent" styleClass="mceTextArea"
@@ -47,7 +41,7 @@
 			 <html:text property="announceExpiryDate"
 				styleId="announceExpiryDate" /> <html:submit
 				styleClass="button">
-				<bean:message key="announce.modifyAnnounce" />
+				<bean:message key="announce.button.modify" />
 			</html:submit></td>
 		</tr>
 

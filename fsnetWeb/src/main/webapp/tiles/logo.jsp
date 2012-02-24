@@ -34,13 +34,13 @@
 	<c:choose>
 		<c:when test="${isMasterGroup}">
 			<html:link action="DisplayProfile.do">
-				<bean:message key="left.group.manager" />
+				<bean:message key="leftMenu.user.group.manager" />
 			</html:link>
 		</c:when>
 		<c:otherwise>
 			<c:if test="${isGroupResponsible}">
 				<html:link action="DisplayProfile.do">
-					<bean:message key="left.group.responsible" />
+					<bean:message key="leftMenu.user.group.responsible" />
 				</html:link>
 			</c:if>
 		</c:otherwise>
