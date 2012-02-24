@@ -1,5 +1,8 @@
 package fr.univartois.ili.fsnet.admin.quartz;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 import javax.servlet.ServletException;
 
 import org.apache.struts.action.ActionServlet;
@@ -43,23 +46,31 @@ public class QuartzPlugin implements PlugIn {
 	public void init(ActionServlet arg0, ModuleConfig arg1)
 			throws ServletException {
 		try {
+			// Grab the Scheduler instance from the Factory 
+			Scheduler scheduler = new StdSchedulerFactory().getScheduler();
+			
+			// and start it off
+			scheduler.start();
+			
+			 // define the job and tie it to PreventIncomingEventsJob class
 			JobDetail job = newJob(PreventIncomingEventsJob.class)
 		           .withIdentity("PreventIncomingEventsJob","group 1")
 		           .build();
 
+			// Trigger the job to repeat every minutes
 			Trigger trigger =  newTrigger()
 					.withIdentity("PreventIncomingEventsTrigger", "group1")
+					.startNow()
 					.withSchedule(simpleSchedule()
 					        .withIntervalInMinutes(1)
 					        .repeatForever())
 				    .build();
-				   
-			Scheduler scheduler = new StdSchedulerFactory().getScheduler();
-			scheduler.start();
+			
+			// Tell quartz to schedule the job using our trigger
 			scheduler.scheduleJob(job, trigger);
 
 		} catch (SchedulerException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 	}

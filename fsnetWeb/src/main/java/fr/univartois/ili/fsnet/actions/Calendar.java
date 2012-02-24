@@ -3,6 +3,8 @@ package fr.univartois.ili.fsnet.actions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -62,7 +64,7 @@ public class Calendar extends MappingDispatchAction {
 				events.add(m.getTitle() + "," + startDate + "," + endDate + ","
 						+ "false" + "," + m.getId() + "," + m.getContent());
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
 		}
 

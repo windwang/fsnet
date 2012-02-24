@@ -82,14 +82,14 @@ public class ManageCommunities extends MappingDispatchAction implements
 
 		}
 		if (doesNotExists) {
-			String InterestsIds[] = (String[]) dynaForm
+			String interestsIds[] = (String[]) dynaForm
 					.get("selectedInterests");
 			InterestFacade fac = new InterestFacade(em);
 			List<Interest> interests = new ArrayList<Interest>();
 			int currentId;
-			for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+			for (currentId = 0; currentId < interestsIds.length; currentId++) {
 				interests.add(fac.getInterest(Integer
-						.valueOf(InterestsIds[currentId])));
+						.valueOf(interestsIds[currentId])));
 			}
 
 			em.getTransaction().begin();

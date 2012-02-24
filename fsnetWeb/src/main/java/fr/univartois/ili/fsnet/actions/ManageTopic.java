@@ -69,13 +69,13 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic topic = topicFacade.createTopic(hub, socialEntity, topicSujet);
 
-		String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+		String interestsIds[] = (String[]) dynaForm.get("selectedInterests");
 		InterestFacade fac = new InterestFacade(em);
 		List<Interest> interests = new ArrayList<Interest>();
 		int currentId;
-		for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+		for (currentId = 0; currentId < interestsIds.length; currentId++) {
 			interests.add(fac.getInterest(Integer
-					.valueOf(InterestsIds[currentId])));
+					.valueOf(interestsIds[currentId])));
 		}
 		InteractionFacade ifacade = new InteractionFacade(em);
 		ifacade.addInterests(topic, interests);

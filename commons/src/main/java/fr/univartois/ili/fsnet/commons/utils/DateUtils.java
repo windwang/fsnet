@@ -56,14 +56,14 @@ public class DateUtils {
 //		Date today = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR_OF_DAY)-1, 0, 0);
+				calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), 0);
 		Date today = calendar.getTime();
 		return today.compareTo(date);
 	}
 
-	private static final DateFormat formatter = new SimpleDateFormat(
+	private static final DateFormat FORMATTER = new SimpleDateFormat(
 			"dd/MM/yyyy");
-	private static final DateFormat formatterWithHours = new SimpleDateFormat(
+	private static final DateFormat FORMATTER_WITH_HOURS = new SimpleDateFormat(
 			"dd/MM/yyyy HH:mm");
 	
 	
@@ -75,7 +75,7 @@ public class DateUtils {
 		Date today = calendar.getTime();n parameter
 	 */
 	public static String renderDate(Date date) {
-		return formatter.format(date);
+		return FORMATTER.format(date);
 	}
 
 	/**
@@ -83,7 +83,7 @@ public class DateUtils {
 	 * 
 	 */
 	public static String renderDateWithHours(Date date) {
-		return formatterWithHours.format(date);
+		return FORMATTER_WITH_HOURS.format(date);
 	}
 	
 
@@ -134,9 +134,9 @@ public class DateUtils {
 		else{
 			if(type.equals("hour")){
 				calendar.add(Calendar.HOUR_OF_DAY, time*-1);
-			}
-			else
+			}else{
 				calendar.add(Calendar.DATE, time*-1);	
+			}
 		}
 		return calendar.getTime();
 	}

@@ -6,6 +6,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -99,9 +101,9 @@ public class ManageConsultations extends MappingDispatchAction {
                         return new ActionRedirect(mapping.findForwardConfig("error"));
                 }
                 for (int i = 0; i < maxVoters.length; i++) {
-                        if ("".equals(maxVoters[i]))
+                        if ("".equals(maxVoters[i])){
                                 maxVoters[i] = "-1"; // Unlimited
-                        else if (!IntegerValidator.getInstance().isValid(maxVoters[i])
+                        }else if (!IntegerValidator.getInstance().isValid(maxVoters[i])
                                         || Integer.valueOf(maxVoters[i]) < 1) {
                                 request.setAttribute("errorMaxVotersPerChoice", true);
                                 return new ActionRedirect(mapping.findForward("error"));
@@ -145,7 +147,7 @@ public class ManageConsultations extends MappingDispatchAction {
                                 consultation.setMaxDate(dateFormat.parse(deadline
                                                 + DEADLINE_TIME));
                         } catch (Exception e) {
-                                e.printStackTrace();
+                        	Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
                         }
                 }
 
@@ -490,10 +492,11 @@ public class ManageConsultations extends MappingDispatchAction {
                         em.getTransaction().commit();
 
                         request.setAttribute("consultation", consultation);
-                        if (isAllowedToVote(consultation, member))
+                        if (isAllowedToVote(consultation, member)){
                                 request.setAttribute("allowedToVote", true);
-                        else
+                        }else{
                                 request.setAttribute("allowedToVote", false);
+                        }
                         request.setAttribute("allowedToShowResults",
                                         isAllowedToShowResults(consultation, member));
                         if (consultation.isLimitParticipantsPerChoice()) {
@@ -501,10 +504,11 @@ public class ManageConsultations extends MappingDispatchAction {
                                 for (ConsultationChoice choice : consultation.getChoices()) {
                                         int nbVotes = consultationFacade.getChoicesVote(
                                                         choice.getId()).size();
-                                        if (nbVotes >= choice.getMaxVoters())
+                                        if (nbVotes >= choice.getMaxVoters()){
                                                 disabledList.add("true");
-                                        else
+                                        }else{
                                                 disabledList.add("false");
+                                        }
                                 }
                                 request.setAttribute("disabledList", disabledList);
                         }

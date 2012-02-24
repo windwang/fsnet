@@ -16,7 +16,8 @@
 <meta http-equiv="Cache-Control" content="no-cache" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<link rel="shortcut icon" href="icons/icon_from_jimmac_musichall_cz_223.png" type="image/png" />
+<link rel="shortcut icon"
+	href="icons/icon_from_jimmac_musichall_cz_223.png" type="image/png" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <link rel="stylesheet" type="text/css" media="screen"

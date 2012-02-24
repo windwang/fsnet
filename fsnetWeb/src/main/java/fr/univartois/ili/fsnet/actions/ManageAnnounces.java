@@ -70,7 +70,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		String content = (String) formAnnounce.get("announceContent");
 		String stringExpiryDate = (String) formAnnounce
 				.get("announceExpiryDate");
-		String InterestsIds[] = (String[]) formAnnounce
+		String interestsIds[] = (String[]) formAnnounce
 				.get("selectedInterests");
 
 		Announcement createdAnnounce;
@@ -87,9 +87,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				InterestFacade fac = new InterestFacade(entityManager);
 				List<Interest> interests = new ArrayList<Interest>();
 				int currentId;
-				for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+				for (currentId = 0; currentId < interestsIds.length; currentId++) {
 					interests.add(fac.getInterest(Integer
-							.valueOf(InterestsIds[currentId])));
+							.valueOf(interestsIds[currentId])));
 				}
 				InteractionFacade ifacade = new InteractionFacade(entityManager);
 				ifacade.addInterests(createdAnnounce, interests);
@@ -97,7 +97,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			} else {
 				ActionMessages errors = new ActionErrors();
 				errors.add("message", new ActionMessage(
-						"error.dateBelowDateToday"));
+						"date.error.dateBelowDateToday"));
 				saveErrors(request, errors);
 				entityManager.close();
 				return mapping.findForward(FAILER_ACTION_NAME);
@@ -148,7 +148,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			} else {
 				ActionMessages errors = new ActionMessages();
 				errors.add("message", new ActionMessage(
-						"error.dateBelowDateToday"));
+						"date.error.dateBelowDateToday"));
 				saveErrors(request, errors);
 			}
 			request.setAttribute("announce", announce);
@@ -187,7 +187,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		message.add("message", new ActionMessage("success.deleteAnnounce"));
+		message.add("message", new ActionMessage("announce.message.delete.success"));
 		saveMessages(request, message);
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 
@@ -243,7 +243,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		entityManager.getTransaction().begin();
-		SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request,
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request,
 				entityManager);
 		try{
 		Integer idAnnounce = Integer
@@ -251,7 +251,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(
 				entityManager);
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
-		SocialEntity SocialEntityOwner = (SocialEntity) entityManager
+		SocialEntity socialEntityOwner = (SocialEntity) entityManager
 				.createQuery(
 						"SELECT es FROM SocialEntity es,IN(es.interactions) e WHERE e = :announce")
 				.setParameter("announce", announce).getSingleResult();
@@ -264,9 +264,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.close();
 
 		request.setAttribute("announce", announce);
-		request.setAttribute("SocialEntity", SocialEntityOwner);
-		servlet.log(SocialEntityOwner.toString() + SocialEntityOwner.getName());
-		if (SocialEntity.getId() == SocialEntityOwner.getId()) {
+		request.setAttribute("SocialEntity", socialEntityOwner);
+		servlet.log(socialEntityOwner.toString() + socialEntityOwner.getName());
+		if (socialEntity.getId() == socialEntityOwner.getId()) {
 			request.setAttribute("owner", true);
 		}
 		}catch(NumberFormatException e){

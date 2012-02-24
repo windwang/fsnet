@@ -7,7 +7,7 @@ import javax.persistence.Query;
 import javax.persistence.metamodel.EntityType;
 
 public final class DBUtils {
-	private static final EntityManagerFactory factory = Persistence
+	private static final EntityManagerFactory FACTORY = Persistence
 			.createEntityManagerFactory("fsnetjpa");
 
 	/*
@@ -18,8 +18,8 @@ public final class DBUtils {
 	}
 	
 	public static final void cleanDB() {
-		EntityManager em = factory.createEntityManager();
-		for (EntityType<?> et : factory.getMetamodel().getEntities()) {
+		EntityManager em = FACTORY.createEntityManager();
+		for (EntityType<?> et : FACTORY.getMetamodel().getEntities()) {
 			em.getTransaction().begin();
 			Query q = em.createQuery("DELETE FROM " + et.getName());
 			q.executeUpdate();
@@ -29,7 +29,7 @@ public final class DBUtils {
 	}
 	
 	public static final void populateDB() {
-		EntityManager em = factory.createEntityManager();
+		EntityManager em = FACTORY.createEntityManager();
 		Instancier instancier = new Instancier(em);
 		instancier.start();
 		

@@ -34,7 +34,7 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 public class ManageTopicMessages extends MappingDispatchAction implements
 		CrudAction {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String TOPIC_ID_FORM_FIELD_NAME = "topicId";
 	private static final String MESSAGE_ID_FORM_FIELD_NAME = "messageId";
@@ -53,7 +53,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		logger.info("create Message: ");
+		LOGGER.info("create Message: ");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -64,9 +64,9 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic topic = topicFacade.getTopic(topicId);
 
-		SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request, em);
 		TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
-		topicMessageFacade.createTopicMessage(messageDescription, SocialEntity,
+		topicMessageFacade.createTopicMessage(messageDescription, socialEntity,
 				topic);
 
 		em.getTransaction().commit();
@@ -96,7 +96,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		logger.info("modify Message ");
+		LOGGER.info("modify Message ");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -186,7 +186,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
 		String topicId = (String) dynaForm.get(TOPIC_ID_FORM_FIELD_NAME);
-		logger.info("display Message: ");
+		LOGGER.info("display Message: ");
 
 		request.setAttribute(TOPIC_ID_FORM_FIELD_NAME, topicId);
 		EntityManager em = PersistenceProvider.createEntityManager();

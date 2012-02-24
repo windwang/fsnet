@@ -150,8 +150,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(
 				entityManager);
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
-		SocialEntity SocialEntity = announce.getCreator();
-		SocialEntity SocialEntityOwner = (SocialEntity) entityManager
+		SocialEntity socialEntity = announce.getCreator();
+		SocialEntity socialEntityOwner = (SocialEntity) entityManager
 				.createQuery(
 						"SELECT es FROM SocialEntity es,IN(es.interactions) e WHERE e = :announce")
 				.setParameter("announce", announce).getSingleResult();
@@ -159,9 +159,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.close();
 
 		request.setAttribute("announce", announce);
-		request.setAttribute("SocialEntity", SocialEntityOwner);
-		servlet.log(SocialEntityOwner.toString() + SocialEntityOwner.getName());
-		if (SocialEntity.getId() == SocialEntityOwner.getId()) {
+		request.setAttribute("SocialEntity", socialEntityOwner);
+		servlet.log(socialEntityOwner.toString() + socialEntityOwner.getName());
+		if (socialEntity.getId() == socialEntityOwner.getId()) {
 			request.setAttribute("owner", true);
 		}
 

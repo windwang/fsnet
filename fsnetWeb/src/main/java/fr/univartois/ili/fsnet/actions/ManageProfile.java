@@ -182,10 +182,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
 	/**
 	 * @param request
-	 * @param response
 	 */
-	private void addKeyFacebookInRequest(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void addKeyFacebookInRequest(HttpServletRequest request) {
 		request.setAttribute("KEY_FACEBOOK",
 				FacebookKeyManager.getKeyFacebook());
 	}
@@ -234,7 +232,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public final ActionForward displayToModify(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		addKeyFacebookInRequest(request, response);
+		addKeyFacebookInRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -254,14 +252,16 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		dyna.set("job", user.getProfession());
 		dyna.set(MAIL_FORM_FIELD_NAME, user.getEmail());
 		dyna.set("phone", user.getPhone());
-		if (sgf.isMasterGroup(user))
+		if (sgf.isMasterGroup(user)){
 			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, true);
-		else
+		}else{
 			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, false);
-		if (sgf.isGroupResponsible(user))
+		}
+		if (sgf.isGroupResponsible(user)){
 			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, true);
-		else
+		}else{
 			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, false);
+		}
 		em.close();
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
@@ -279,7 +279,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public final ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		addKeyFacebookInRequest(request, response);
+		addKeyFacebookInRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
@@ -341,14 +341,16 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("currentUser", user);
 		request.setAttribute("treeGroupProfile", sgf.treeParentName(profile));
 
-		if (sgf.isMasterGroup(user))
+		if (sgf.isMasterGroup(user)){
 			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, true);
-		else
+		}else{
 			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, false);
-		if (sgf.isGroupResponsible(user))
+		}
+		if (sgf.isGroupResponsible(user)){
 			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, true);
-		else
+		}else{
 			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, false);
+		}
 
 		SocialGroup socialGroup = profile.getGroup();
 		request.setAttribute("socialGroup", socialGroup);

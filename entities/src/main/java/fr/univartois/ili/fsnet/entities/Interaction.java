@@ -38,6 +38,11 @@ import javax.persistence.Transient;
 public abstract class Interaction implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
 	 * The identifier.
 	 */
 
