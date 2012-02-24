@@ -40,6 +40,9 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 public class ManagePrivateMessages extends MappingDispatchAction implements
 		CrudAction {
 
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -92,7 +95,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		}
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -142,7 +145,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			pmf.deletePrivateMessage(authenticatedUser, privateMessage);
 			em.getTransaction().commit();
 			em.close();
-			return mapping.findForward("success");
+			return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 		} catch (NumberFormatException e) {
 			servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS", e);
 		}
@@ -183,7 +186,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		} catch (NumberFormatException e) {
 		}
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -221,7 +224,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		}
 
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -255,7 +258,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		refreshNumNewMessages(request, userMessages);
 		refreshNumNewMessages(request, em);
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -285,7 +288,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			servlet.log("ManagePrivateMessage.display must be not ask");
 		}
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -353,7 +356,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					request.setAttribute("conversationMessages", paginator);
 					request.setAttribute("theMessage", privateMessage);
 					em.close();
-					return mapping.findForward("success");
+					return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 				} else {
 					em.close();
 					throw new UnauthorizedOperationException(

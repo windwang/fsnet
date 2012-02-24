@@ -44,6 +44,9 @@ public class ManageInterests extends MappingDispatchAction implements
 
 	private static final Logger logger = Logger.getAnonymousLogger();
 
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+
+	
 	/**
 	 * @param dynaForm
 	 * @param facade
@@ -142,7 +145,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		dynaForm.set("createdInterestName", "");
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -166,7 +169,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		em.getTransaction().commit();
 		em.close();
 		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward("success"));
+				mapping.findForward(SUCCES_ATTRIBUTE_NAME));
 		redirect.addParameter("infoInterestId", interestId);
 		return redirect;
 	}
@@ -231,7 +234,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		}
 		em.close();
 		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward("success"));
+				mapping.findForward(SUCCES_ATTRIBUTE_NAME));
 		redirect.addParameter("infoInterestId", interestId);
 		return redirect;
 	}
@@ -298,7 +301,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		request.setAttribute("interestSearchPaginator", paginator);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -333,7 +336,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		request.setAttribute("myInterestPaginator", paginatorMy);
 		request.setAttribute("addInterestPaginator", paginatorAdd);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -380,6 +383,6 @@ public class ManageInterests extends MappingDispatchAction implements
 			}
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 }

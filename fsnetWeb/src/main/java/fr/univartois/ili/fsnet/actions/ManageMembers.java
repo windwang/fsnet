@@ -29,6 +29,8 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
  */
 public class ManageMembers extends MappingDispatchAction {
 
+
+	
 	/**
 	 * 
 	 * @param mapping

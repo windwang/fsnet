@@ -44,6 +44,10 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 public class ManageAnnounces extends MappingDispatchAction implements
 		CrudAction {
 
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String FAILER_ACTION_NAME = "failer";
+	private static final String ID_ANNOUNCE_FORM_FIELD_NAME = "idAnnounce";
+	
 	/**
 	 * @return to announces view after persisting new announce
 	 */
@@ -96,15 +100,15 @@ public class ManageAnnounces extends MappingDispatchAction implements
 						"error.dateBelowDateToday"));
 				saveErrors(request, errors);
 				entityManager.close();
-				return mapping.findForward("failer");
+				return mapping.findForward(FAILER_ACTION_NAME);
 			}
 		} catch (ParseException e) {
 			servlet.log(getClass().getName()
 					+ " methode:create exception when formating date ");
-			return mapping.findForward("failer");
+			return mapping.findForward(FAILER_ACTION_NAME);
 		}
 		entityManager.close();
-		return new ActionRedirect(mapping.findForward("success"));
+		return new ActionRedirect(mapping.findForward(SUCCES_ATTRIBUTE_NAME));
 	}
 
 	/**
@@ -123,7 +127,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		String content = (String) formAnnounce.get("announceContent");
 		String stringExpiryDate = (String) formAnnounce
 				.get("announceExpiryDate");
-		Integer idAnnounce = (Integer) formAnnounce.get("idAnnounce");
+		Integer idAnnounce = (Integer) formAnnounce.get(ID_ANNOUNCE_FORM_FIELD_NAME);
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(
 				entityManager);
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
@@ -151,11 +155,11 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			request.setAttribute("owner", true);
 		} catch (ParseException e) {
 			servlet.log("class:ManageAnnounces methode:create exception whene formatying date ");
-			return mapping.findForward("failer");
+			return mapping.findForward(FAILER_ACTION_NAME);
 		} finally {
 			entityManager.close();
 		}
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -170,7 +174,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(
 				entityManager);
 		Integer idAnnounce = Integer
-				.valueOf(request.getParameter("idAnnounce"));
+				.valueOf(request.getParameter(ID_ANNOUNCE_FORM_FIELD_NAME));
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
 		ActionMessages message = new ActionErrors();
 		InteractionFacade interactionFacade = new InteractionFacade(
@@ -185,7 +189,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		entityManager.close();
 		message.add("message", new ActionMessage("success.deleteAnnounce"));
 		saveMessages(request, message);
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 
 	}
 
@@ -227,7 +231,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 		
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -243,7 +247,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				entityManager);
 		try{
 		Integer idAnnounce = Integer
-				.valueOf(request.getParameter("idAnnounce"));
+				.valueOf(request.getParameter(ID_ANNOUNCE_FORM_FIELD_NAME));
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(
 				entityManager);
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
@@ -268,7 +272,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		}catch(NumberFormatException e){
 		}
 		
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -281,22 +285,22 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		Integer idAnnounce = Integer
-				.valueOf(request.getParameter("idAnnounce"));
+				.valueOf(request.getParameter(ID_ANNOUNCE_FORM_FIELD_NAME));
 		try{
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
 		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
 		addRightToRequest(request);
 		em.getTransaction().commit();
 		em.close();
-		dynaForm.set("idAnnounce", announce.getId());
+		dynaForm.set(ID_ANNOUNCE_FORM_FIELD_NAME, announce.getId());
 		dynaForm.set("announceTitle", announce.getTitle());
 		dynaForm.set("announceContent", announce.getContent());
 		dynaForm.set("announceExpiryDate",
 				DateUtils.renderDateWithHours(announce.getEndDate()));
 		}catch(NullPointerException e){
-			return mapping.findForward("failer");
+			return mapping.findForward(FAILER_ACTION_NAME);
 		}
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 	
 	private void addRightToRequest(HttpServletRequest request){
@@ -347,7 +351,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 		
-		return new ActionRedirect(mapping.findForward("success"));
+		return new ActionRedirect(mapping.findForward(SUCCES_ATTRIBUTE_NAME));
 	}
 
 	

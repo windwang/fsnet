@@ -36,6 +36,10 @@ public class Info {
     private Date dt;
     
     private SocialEntityFacade socialEntityFacade;
+    
+    private static final String LOGIN_PARAMETER_NAME = "login";
+    private static final String PASSWORD_PARAMETER_NAME = "password";
+
 
     public Info() {
         em = PersistenceProvider.createEntityManager();
@@ -52,8 +56,8 @@ public class Info {
      */
     @WebMethod
     public Integer getNewEventsCount(
-            @WebParam(name = "login") final String login,
-            @WebParam(name = "password") final String password) {
+            @WebParam(name = LOGIN_PARAMETER_NAME) final String login,
+            @WebParam(name = PASSWORD_PARAMETER_NAME) final String password) {
     	
     	SocialEntityFacade sef = new SocialEntityFacade(em);
         InteractionFacade inf = new InteractionFacade(em);
@@ -76,8 +80,8 @@ public class Info {
      */
     @WebMethod
     public Integer getNewAnnouncementCount(
-            @WebParam(name = "login") final String login,
-            @WebParam(name = "password") final String password) {
+            @WebParam(name = LOGIN_PARAMETER_NAME) final String login,
+            @WebParam(name = PASSWORD_PARAMETER_NAME) final String password) {
     	
     	 SocialEntityFacade sef = new SocialEntityFacade(em);
     	 InteractionFacade inf = new InteractionFacade(em);
@@ -100,8 +104,8 @@ public class Info {
      */
     @WebMethod
     public Integer getNewConsultationCount(
-            @WebParam(name = "login") final String login,
-            @WebParam(name = "password") final String password) {
+            @WebParam(name = LOGIN_PARAMETER_NAME) final String login,
+            @WebParam(name = PASSWORD_PARAMETER_NAME) final String password) {
     	
     	 SocialEntityFacade sef = new SocialEntityFacade(em);
     	 InteractionFacade inf = new InteractionFacade(em);
@@ -125,8 +129,8 @@ public class Info {
      */
     @WebMethod
     public Integer getNewDemandeCount(
-            @WebParam(name = "login") final String login,
-            @WebParam(name = "password") final String password) {
+            @WebParam(name = LOGIN_PARAMETER_NAME) final String login,
+            @WebParam(name = PASSWORD_PARAMETER_NAME) final String password) {
         SocialEntityFacade sef = new SocialEntityFacade(em);
         Query ql1 = null;
         if (sef.isMember(login, password)) {
@@ -146,8 +150,8 @@ public class Info {
      */
     @WebMethod
     public List<WsPrivateMessage> getNewMessages(
-            @WebParam(name = "login") final String login,
-            @WebParam(name = "password") final String password) {
+            @WebParam(name = LOGIN_PARAMETER_NAME) final String login,
+            @WebParam(name = PASSWORD_PARAMETER_NAME) final String password) {
         List<WsPrivateMessage> messages = new ArrayList<WsPrivateMessage>();
         SocialEntityFacade sef = new SocialEntityFacade(em);
         if (sef.isMember(login, password)) {
@@ -172,8 +176,8 @@ public class Info {
      * @return true if informations correspond to a member
      */
     @WebMethod
-    public boolean isMember(@WebParam(name = "login") final String login,
-            @WebParam(name = "password") final String password) {
+    public boolean isMember(@WebParam(name = LOGIN_PARAMETER_NAME) final String login,
+            @WebParam(name = PASSWORD_PARAMETER_NAME) final String password) {
         SocialEntityFacade sef = new SocialEntityFacade(em);
         return sef.isMember(login, password);
     }
