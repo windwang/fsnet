@@ -162,7 +162,7 @@ public class GenerateCv extends MappingDispatchAction{
 		 
 		 document.add(styleSection("Expériences Professionnelles"));
 		 for(int i=0;i<curriculum.getTrains().size();i++){
-			 
+		 	 
 		 overview.add(curriculum.getTrains().get(i).getIdTraining().getName()+" à "+
 				 curriculum.getTrains().get(i).getIdTraining().getMyEst().getName()+" du "+
 				 dateToString(curriculum.getTrains().get(i).getStartDate())+
@@ -199,7 +199,7 @@ public class GenerateCv extends MappingDispatchAction{
 		 document.add(styleSection("Formation"));
 		 
 		 for(int i=0;i<curriculum.getMyFormations().size();i++){ 
-			 
+			
 			 overview.add(curriculum.getMyFormations().get(i).getIdFormation().getName()+" obtenu à "+
 					 curriculum.getMyFormations().get(i).getObtainedDate()+" à "+
 					 curriculum.getMyFormations().get(i).getIdFormation().getEts().getName()
@@ -265,7 +265,7 @@ public class GenerateCv extends MappingDispatchAction{
 	public void generer(HttpServletRequest request){
 		
 		long id=Integer.parseInt(request.getParameter("idCv"));
-		System.out.println("voilaaaaaaaaaaaaa"+id);
+		
 		
 		CvFacade cvFacade = new CvFacade(em);
 		Curriculum curriculum = cvFacade.getCurriculum(id);
