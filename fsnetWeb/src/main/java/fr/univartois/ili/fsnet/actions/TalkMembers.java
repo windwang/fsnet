@@ -6,6 +6,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -69,7 +71,7 @@ public class TalkMembers extends MappingDispatchAction {
 
 		} catch (TalkException e) {
 
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 		return talk;
 	}
@@ -225,7 +227,7 @@ public class TalkMembers extends MappingDispatchAction {
 
 			} catch (TalkException e) {
 
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
 
 		}
@@ -250,7 +252,7 @@ public class TalkMembers extends MappingDispatchAction {
 
 		} catch (TalkException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 		List<TalkJsonMsg> lastConversation = new ArrayList<TalkJsonMsg>();

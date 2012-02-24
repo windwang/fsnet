@@ -7,6 +7,8 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
@@ -266,7 +268,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 			em.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
@@ -342,7 +344,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			interactionRoleFacade.subscribe(member, meeting);
 			em.getTransaction().commit();
 		} catch (RollbackException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 		em.close();
 		ActionRedirect redirect = new ActionRedirect(
@@ -596,7 +598,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			
 			em.close();
 		} catch (NumberFormatException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 		return new ActionRedirect(mapping.findForward(SUCCES_ATTRIBUTE_NAME));
