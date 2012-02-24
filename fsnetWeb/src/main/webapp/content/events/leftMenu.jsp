@@ -3,7 +3,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
-    <bean:message key="events.eventsLeftMenu"/>
+    <bean:message key="events.leftMenu.title"/>
 </h2>
 <ul>
     <li>

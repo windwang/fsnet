@@ -208,7 +208,7 @@
                     <ili:getMiniature socialEntity="${triple.interaction.creator}"/>
                 </td>
                 <td>
-                    <bean:message key="events.16"/>
+                    <bean:message key="events.by"/>
                     <ili:getSocialEntityInfos socialEntity="${triple.interaction.creator}"/>
                 </td>
                 <td>
