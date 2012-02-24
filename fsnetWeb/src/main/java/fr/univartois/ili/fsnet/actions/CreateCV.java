@@ -72,7 +72,7 @@ public class CreateCV extends MappingDispatchAction{
 		 }
 		 if(CvNom==""){
 			
-				errors.add("CvNom", new ActionMessage("error.nom"));
+				errors.add("CvNom",  new ActionMessage("error.nom"));
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
