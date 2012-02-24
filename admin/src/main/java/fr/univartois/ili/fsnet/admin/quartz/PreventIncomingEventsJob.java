@@ -102,10 +102,13 @@ public class PreventIncomingEventsJob implements Job {
 
 		mail.setSubject(bundle.getMessage("events.recallMail.subject.recall")
 				+ " - " + meeting.getTitle() + " "
-				+ bundle.getMessage("events.recallMail.subject.today"));
+				+ bundle.getMessage("events.recallMail.subject.start")
+				+ " "
+				+ DateUtils.renderDateForFullCalendar(meeting.getStartDate()));
 
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
+		System.out.println(message);
 		mailer.sendMail(mail);
 	}
 
@@ -114,7 +117,7 @@ public class PreventIncomingEventsJob implements Job {
 	 * @param entity
 	 * @param fsnetAddress
 	 * @param listSubscribes
-	 * @return
+	 * @return 
 	 */
 	private String createMessage(Meeting meeting, SocialEntity entity,
 			String fsnetAddress, Set<SocialEntity> listSubscribes) {
@@ -132,12 +135,12 @@ public class PreventIncomingEventsJob implements Job {
 		sb.append("<ul>");
 		sb.append("<li>");
 		sb.append(bundle.getMessage("events.recallMail.startDate"));
-		sb.append(": " + DateUtils.renderDBDate(meeting.getStartDate()));
+		sb.append(": " + DateUtils.renderDateForFullCalendar(meeting.getStartDate()));
 		sb.append("</li>");
 		sb.append("<li>");
 		sb.append(bundle.getMessage("events.recallMail.endDate"));
 		sb.append(": ");
-		sb.append(DateUtils.renderDBDate(meeting.getEndDate()));
+		sb.append(DateUtils.renderDateForFullCalendar(meeting.getEndDate()));
 		sb.append("</li>");
 		sb.append("<li>");
 		sb.append(bundle.getMessage("events.recallMail.subscriber"));

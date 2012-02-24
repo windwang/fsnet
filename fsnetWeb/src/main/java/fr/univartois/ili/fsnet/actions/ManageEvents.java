@@ -50,7 +50,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	
 	private static final int HOUR_IN_MINUTES = 60;
 	private static final int DAY_IN_MINUTES = 1440;
-	private static final String DEFAULT_RECALLTIME = "10";
+	private static final String DEFAULT_RECALLTIME = "0";
 	
 
 	/**
@@ -154,13 +154,19 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		
 		
 		addRightToRequest(request);
-		if (typedEventBeginDate == null || typedEventEndDate == null) {
+		if (typedEventBeginDate == null || typedEventEndDate == null || typedEventRecallDate == null) {
 			return mapping.getInputForward();
 		}
 		if (typedEventBeginDate.after(typedEventEndDate)) {
 			ActionErrors errors = new ActionErrors();
 			errors.add("eventBeginDate", new ActionMessage(("events.21")));
 			errors.add("eventEndDate", new ActionMessage(("events.21")));
+			saveErrors(request, errors);
+			return mapping.getInputForward();
+		}
+		if(DateUtils.compareToToday(typedEventRecallDate) > 0){
+			ActionErrors errors = new ActionErrors();
+			errors.add("eventRecallTime", new ActionMessage(("error.events.recallDate")));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
@@ -228,7 +234,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			Date typedEventRecallDate = DateUtils.substractTimeToDate(typedEventBeginDate,Integer.parseInt(eventRecallTime),
 					eventRecallTypeTime);
 			
-			if (typedEventBeginDate == null || typedEventEndDate == null) {
+			if (typedEventBeginDate == null || typedEventEndDate == null || typedEventRecallDate==null) {
 				return mapping.getInputForward();
 			}
 			
@@ -237,6 +243,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				ActionErrors errors = new ActionErrors();
 				errors.add("eventBeginDate", new ActionMessage(("events.21")));
 				errors.add("eventEndDate", new ActionMessage(("events.21")));
+				saveErrors(request, errors);
+				return mapping.getInputForward();
+			}
+			
+			if(DateUtils.compareToToday(typedEventRecallDate) > 0){
+				ActionErrors errors = new ActionErrors();
+				errors.add("eventRecallTime", new ActionMessage(("error.events.recallDate")));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}
