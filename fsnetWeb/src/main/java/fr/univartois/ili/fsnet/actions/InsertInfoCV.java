@@ -101,7 +101,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 			AssociationDateTrainingCV dateTaining = new AssociationDateTrainingCV();
 			EstablishmentCV etab = new EstablishmentCV();
 			String NomEntreprise = request.getParameter("NomEntreprise" + i);
-			String CvLieu = request.getParameter("CvLieu" + i);
+			
 			String CvPoste = request.getParameter("CvPoste" + i);
 			try{
 			Date expBeginDate = toDBDateFormat(request
@@ -116,9 +116,12 @@ public class InsertInfoCV extends MappingDispatchAction {
 			}
 			String CvSecteur = request.getParameter("CvSecteur" + i);
 			etab.setName(NomEntreprise);
+			etab.setLand("CvPaysExp" + i);
+			etab.setTown("CvVilleExp" + i);
 
 			training.setName(CvPoste);
 			training.setSpeciality(CvSecteur);
+		
 			training.getAssociationDateTrainingCV().add(dateTaining);
 			training.setAssociationDateTrainingCV(training
 					.getAssociationDateTrainingCV());
@@ -155,7 +158,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 				
 			}
 			String CvFormVille = request.getParameter("CvFormVille"+f);
-			formation.setName(CvFormation);
+		
 			etab.setName(CvEtablissmentform);
 			etab.setTown(CvFormVille);
 			etab.setLand(CvFormPays);
@@ -164,6 +167,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 			formation.getAssociationDateFormationCV().add(dateFormation);
 			formation.setAssociationDateFormationCV(formation
 					.getAssociationDateFormationCV());
+			formation.setName(CvFormation);
 			formation.setEts(etab);
 			curriculum.getMyFormations().add(dateFormation);
 			curriculum.setMyFormations(curriculum.getMyFormations());
@@ -199,6 +203,7 @@ public class InsertInfoCV extends MappingDispatchAction {
 					
 				}
 			degree.setStudiesLevel(CvEtude);
+			degree.setDomain(CvEtudeDom);
 			etabCv.setName(CvEtablissment);
 			etabCv.setTown(CvEtudeVille);
 			etabCv.setLand(CvEtudePays);

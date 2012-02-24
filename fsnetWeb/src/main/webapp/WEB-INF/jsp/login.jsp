@@ -5,10 +5,10 @@
 <%@ taglib prefix="ili" uri="../ili.tld"%>
 
 <bean:define id="logMessage">
-	<bean:message key="login.6" />
+	<bean:message key="login.placeholder.mail" />
 </bean:define>
 <bean:define id="passwordMessage">
-	<bean:message key="login.7" />
+	<bean:message key="login.placeholder.password" />
 </bean:define>
 
 <!DOCTYPE html>
@@ -79,7 +79,7 @@
 						<tr>
 							<td>
 								<div class="label">
-									<label for="memberMail"> <bean:message key="login.1" />
+									<label for="memberMail"> <bean:message key="login.mail" />
 									</label>
 								</div>
 							</td>
@@ -92,7 +92,7 @@
 						<tr>
 							<td>
 								<div class="label">
-									<label for="memberPass"> <bean:message key="login.0" />
+									<label for="memberPass"> <bean:message key="login.password" />
 									</label>
 								</div>
 							</td>
@@ -103,14 +103,14 @@
 						</tr>
 						<tr>
 							<td><label for="remember"> <bean:message
-										key="login.5" />
+										key="login.checkbox.connectAuto" />
 							</label></td>
 							<td><input type="checkbox" id="remember" name="remember" />
 							</td>
 						</tr>
 						<tr>
 							<td colspan="2"><a onclick="showResetPasswordForm();"> <bean:message
-										key="login.2" />
+										key="login.password.forget" />
 							</a> <html:submit>
 									<bean:message key="login.submit" />
 								</html:submit></td>
@@ -132,7 +132,7 @@
 						</tr>
 						<tr>
 							<td colspan="3"><a onclick="showLoginForm();"> <bean:message
-										key="login.4" />
+										key="login.authentification" />
 							</a></td>
 						</tr>
 					</table>
