@@ -5,11 +5,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>   
-
+<bean:define id="searchInterest">
+	<bean:message key="interest.search" />
+</bean:define>
 
 <fieldset class="fieldsetAdmin">
   <legend class="legendAdmin"><bean:message key="interests.11"/></legend>
@@ -17,7 +20,8 @@
   <html:form action="/SearchInterest">
  		<table class="inLineTable fieldsetTableAdmin"><tr><td>
  		  <div class="errorMessage"><html:errors property="searchInterestName"/></div>
-    	  <p><html:text property="searchInterestName"/>
+    	  <p><html:text property="searchInterestName" styleId="searchTexte"/>
+    	  <ili:placeHolder id="searchTexte" value="${searchInterest}" />
           <html:submit styleClass="button" >
       	  <bean:message key="interest.validate"/>
           </html:submit></p>

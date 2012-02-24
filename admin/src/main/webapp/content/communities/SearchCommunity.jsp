@@ -2,10 +2,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <!-- <script type="text/javascript" src="js/jquery.js"></script>-->
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
+<bean:define id="searchCommunitie">
+	<bean:message key="communitie.search" />
+</bean:define>
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
@@ -15,8 +19,10 @@
 		<div>
 			<table class="inLineTable  fieldsetTableAdmin">
 				<tr>
-					<td><html:text property="searchText" /> <html:submit
-							styleClass="button">
+					<td>
+					    <html:text property="searchText" styleId="searchTexte" /> 
+					    <ili:placeHolder id="searchTexte" value="${searchCommunitie}" />
+					    <html:submit styleClass="button">
 							<bean:message key="communities.searchButton" />
 						</html:submit></td>
 				</tr>
