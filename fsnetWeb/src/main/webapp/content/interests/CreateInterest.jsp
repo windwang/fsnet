@@ -6,21 +6,21 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="interests.3"/></legend>
+  <legend class="legendHome"><bean:message key="interests.title.create2"/></legend>
    <div class="space"></div>
   <html:javascript formName="/CreateInterest"/>
   <html:form action="/CreateInterest">
 	<table id="CreateInterest" class="inLineTableDashBoardFieldset">
 		<tr>
-			 <bean:message key="interests.18"/>
+			 <bean:message key="interests.message.create"/>
 		</tr>
 		<tr>
 			<td>
-				<bean:message key="interests.15"/>
+				<bean:message key="interests.title.parent"/>
 			</td>
 			<td>
 				<html:select property="parentInterestId" styleClass="select">
-					<html:option value=""><bean:message key="interests.8"/></html:option>
+					<html:option value=""><bean:message key="interests.list.no"/></html:option>
 					<c:forEach var="interest" items="${requestScope.allInterests}">
 						<html:option value="${interest.id}">${interest.name}</html:option>
 					</c:forEach>
@@ -31,7 +31,7 @@
 	    	</td>
 	    	<td>	    
 			    <html:submit styleClass="button">
-			    	<bean:message key="interests.create"/>
+			    	<bean:message key="interests.button.create"/>
 			    </html:submit>
 			</td>
 	    </tr>

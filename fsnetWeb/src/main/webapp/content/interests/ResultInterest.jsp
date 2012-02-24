@@ -22,7 +22,7 @@
 	        </div>
 	    </c:when>
 	    <c:otherwise>
-	        <bean:message key="interests.10"/>
+	        <bean:message key="interests.search.empty"/>
 	    </c:otherwise>
 	</c:choose>
 	</td></tr></table>

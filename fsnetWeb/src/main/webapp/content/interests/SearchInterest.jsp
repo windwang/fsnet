@@ -7,14 +7,14 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="interests.11"/></legend>
+  <legend class="legendHome"><bean:message key="interests.title.search"/></legend>
 <html:javascript formName="/SearchInterest"/>
  <html:form action="/SearchInterest" method="get">
     <table class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
     <html:text property="requestInput"/>
     <div class="errorMessage"><html:errors property="requestInput"/></div>
     <html:submit styleClass="button">
-    	<bean:message key="interests.search"/>
+    	<bean:message key="interests.button.search"/>
     </html:submit>
     </td></tr></table>
 </html:form>

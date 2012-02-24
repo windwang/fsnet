@@ -136,7 +136,7 @@ public class ManageInterests extends MappingDispatchAction implements
 
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
-			ActionMessage msg = new ActionMessage("interest.alreadyExists");
+			ActionMessage msg = new ActionMessage("interests.alreadyExists");
 			actionErrors.add("createdInterestName", msg);
 			saveErrors(request, actionErrors);
 		}
