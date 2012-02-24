@@ -1,9 +1,3 @@
-<%-- 
-    Document   : CreateAnnounce
-    Created on : 18 janv. 2010, 18:06:12
-    Author     : Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
---%>
-
 <%@page contentType="text/html;charset=ISO-8859-1" language="java"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>

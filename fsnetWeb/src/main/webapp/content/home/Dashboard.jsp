@@ -18,7 +18,7 @@
     <logic:empty name="messages">
         <tr>
             <td>
-                <bean:message key="dashBoard.messages.no"/>.
+                <bean:message key="dashBoard.messages.empty"/>.
             </td>
         </tr>
     </logic:empty>
@@ -71,7 +71,7 @@
     <logic:empty name="visitors">
         <tr>
             <td>
-                <bean:message key="dashBoard.visites.no"/>.
+                <bean:message key="dashBoard.visites.empty"/>.
             </td>
         </tr>
     </logic:empty>
@@ -111,10 +111,10 @@
                     <td class="tableButton">
                         <html:link action="/AcceptContact" styleClass="button">
                             <html:param name="entityAccepted" value="${contact.id}" />
-                            <bean:message key="contact.accept" />
+                            <bean:message key="contact.button.accept" />
                         </html:link> <html:link action="/RefuseContact" styleClass="button">
                             <html:param name="entityRefused" value="${contact.id}" />
-                            <bean:message key="contact.refuse" />
+                            <bean:message key="contact.button.refuse" />
                         </html:link>
                     </td>
                 </tr>
@@ -129,7 +129,7 @@
             <logic:empty name="contacts">
                 <tr>
                     <td>
-                        <bean:message key="dashBoard.contacts.no"/>.
+                        <bean:message key="dashBoard.contacts.empty"/>.
                     </td>
                 </tr>
             </logic:empty>
@@ -162,7 +162,7 @@
     <logic:empty name="interests">
         <tr>
             <td>
-                <bean:message key="dashBoard.interests.no"/>.
+                <bean:message key="dashBoard.interests.empty"/>.
             </td>
         </tr>
     </logic:empty>
@@ -196,7 +196,7 @@
     <logic:empty name="lastInteractions">
         <tr>
             <td>
-                <bean:message key="dashBoard.interaction.no"/>.
+                <bean:message key="dashBoard.interaction.empty"/>.
             </td>
         </tr>
     </logic:empty>
@@ -208,7 +208,7 @@
                     <ili:getMiniature socialEntity="${triple.interaction.creator}"/>
                 </td>
                 <td>
-                    <bean:message key="events.16"/>
+                    <bean:message key="events.by"/>
                     <ili:getSocialEntityInfos socialEntity="${triple.interaction.creator}"/>
                 </td>
                 <td>

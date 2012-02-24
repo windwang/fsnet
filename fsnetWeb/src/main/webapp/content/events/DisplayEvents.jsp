@@ -11,103 +11,106 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <bean:define id="searchMessage">
-	<bean:message key="events.search" />
+	<bean:message key="events.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="events.8" /></legend>
+	<legend class="legendHome">
+		<bean:message key="events.title.search" />
+	</legend>
 
-<table class="inLineTableDashBoardFieldset fieldsetTable">
-	<tr>
-		<td><html:form action="/Events" method="get">
-				<div id="SearchEvent">
-					<html:text styleId="searchTexte" property="searchString" />
-					<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-					<html:submit styleClass="button">
-						<bean:message key="events.11" />
-					</html:submit>
-				</div>
-			</html:form></td>
-	</tr>
-</table>
+	<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<tr>
+			<td><html:form action="/Events" method="get">
+					<div id="SearchEvent">
+						<html:text styleId="searchTexte" property="searchString" />
+						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
+						<html:submit styleClass="button">
+							<bean:message key="events.button.search" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
 </fieldset>
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="events.9" />
-	:
-</legend>
+	<legend class="legendHome">
+		<bean:message key="events.title.list" />
+	</legend>
 
-<c:choose>
+	<c:choose>
 
-	<c:when test="${empty requestScope.eventsList}">
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
-			<tr>
-				<td><bean:message key="search.noResults" /></td>
-			</tr>
-		</table>
-	</c:when>
-	<c:otherwise>
-	    <div class="space"></div>
-		<script type="text/javascript">
-			$(document).ready(
-					function pagination() {
-						var nomTable = "eventsTable";
-						var idColonneATrier = 2;
-						var sensDeTri = "desc";
-						var aoColumns = [ {
-							"bSortable" : false
-						}, null, {
-							"sType" : "date"
-						}, {
-							"sType" : "date"
-						}, {
-							"bSortable" : false
-						}, null, null ];
-						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
-					});
-		</script>
-		<table id="eventsTable" class="tablesorter inLineTableDashBoardFieldset">
-			<thead>
+		<c:when test="${empty requestScope.eventsList}">
+			<table class="inLineTableDashBoardFieldset fieldsetTable">
 				<tr>
-					<th></th>
-					<th><bean:message key="tableheader.eventname" /></th>
-					<th><bean:message key="tableheader.willoccur" /></th>
-					<th><bean:message key="tableheader.expirdate" /></th>
-					<th><bean:message key="tableheader.by" /></th>
-					<th><bean:message key="tableheader.firstname" /></th>
-					<th><bean:message key="tableheader.name" /></th>
+					<td><bean:message key="events.search.empty" /></td>
 				</tr>
-			</thead>
-			<tbody>
-				<c:forEach var="event" items="${requestScope.eventsList}">
-					<ili:interactionRow
-						unreadInteractionsId="${requestScope.unreadInteractionsId}"
-						currentInteractionId="${event.id}">
-						<td><c:import url="/FavoriteFragment.do">
-								<c:param name="interactionId" value="${event.id}" />
-							</c:import></td>
-						<td><html:link action="/DisplayEvent">
+			</table>
+		</c:when>
+		<c:otherwise>
+			<div class="space"></div>
+			<script type="text/javascript">
+				$(document).ready(
+						function pagination() {
+							var nomTable = "eventsTable";
+							var idColonneATrier = 2;
+							var sensDeTri = "desc";
+							var aoColumns = [ {
+								"bSortable" : false
+							}, null, {
+								"sType" : "date"
+							}, {
+								"sType" : "date"
+							}, {
+								"bSortable" : false
+							}, null, null ];
+							miseEnPageTable(nomTable, idColonneATrier,
+									sensDeTri, aoColumns, false);
+						});
+			</script>
+			<table id="eventsTable"
+				class="tablesorter inLineTableDashBoardFieldset">
+				<thead>
+					<tr>
+						<th></th>
+						<th><bean:message key="tableheader.eventname" /></th>
+						<th><bean:message key="tableheader.willoccur" /></th>
+						<th><bean:message key="tableheader.expirdate" /></th>
+						<th><bean:message key="tableheader.by" /></th>
+						<th><bean:message key="tableheader.firstname" /></th>
+						<th><bean:message key="tableheader.name" /></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="event" items="${requestScope.eventsList}">
+						<ili:interactionRow
+							unreadInteractionsId="${requestScope.unreadInteractionsId}"
+							currentInteractionId="${event.id}">
+							<td><c:import url="/FavoriteFragment.do">
+									<c:param name="interactionId" value="${event.id}" />
+								</c:import></td>
+							<td><html:link action="/DisplayEvent">
 		                    ${event.title}
 		                    <html:param name="eventId" value="${event.id}" />
-							</html:link> <span style="color: gray"> : <ili:substring beginIndex="0"
-									endIndex="30">
-									<ili:noxml>${event.content}</ili:noxml>
-								</ili:substring>
-						</span></td>
-						<td class="left"><bean:write name="event"
-								property="startDate" format="dd/MM/yyyy HH:mm" /></td>
-						<td class="left"><bean:write name="event" property="endDate"
-								format="dd/MM/yyyy HH:mm" /></td>
-						<td></td>
-						<td><ili:getSocialEntityInfosFirstname
-								socialEntity="${event.creator}" /></td>
-						<td><ili:getSocialEntityInfosName
-								socialEntity="${event.creator}" /></td>
-					</ili:interactionRow>
-				</c:forEach>
-			</tbody>
-		</table>
-	</c:otherwise>
-  </c:choose>
+								</html:link> <span style="color: gray"> : <ili:substring
+										beginIndex="0" endIndex="30">
+										<ili:noxml>${event.content}</ili:noxml>
+									</ili:substring>
+							</span></td>
+							<td class="left"><bean:write name="event"
+									property="startDate" format="dd/MM/yyyy HH:mm" /></td>
+							<td class="left"><bean:write name="event" property="endDate"
+									format="dd/MM/yyyy HH:mm" /></td>
+							<td></td>
+							<td><ili:getSocialEntityInfosFirstname
+									socialEntity="${event.creator}" /></td>
+							<td><ili:getSocialEntityInfosName
+									socialEntity="${event.creator}" /></td>
+						</ili:interactionRow>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:otherwise>
+	</c:choose>
 </fieldset>

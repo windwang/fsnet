@@ -83,7 +83,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
+			errors.add(propertyKey, new ActionMessage(("event.date.error")));
 			saveErrors(request, errors);
 			return null;
 		}
@@ -114,7 +114,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
+			errors.add(propertyKey, new ActionMessage(("event.date.error")));
 			saveErrors(request, errors);
 			return null;
 		}
@@ -168,8 +168,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		}
 		if (typedEventBeginDate.after(typedEventEndDate)) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
-			errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
+			errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
+			errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
@@ -250,8 +250,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	
 			if (typedEventBeginDate.after(typedEventEndDate)) {
 				ActionErrors errors = new ActionErrors();
-				errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
-				errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.21")));
+				errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
+				errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(("events.date.error")));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}
