@@ -107,11 +107,3 @@
         </c:forEach>
     </table>
 </c:if>
-<<<<<<< HEAD
-
-
-
-
-=======
-</fieldset>
->>>>>>> branch 'master' of https://aich.ayoub@code.google.com/p/fsnet/
