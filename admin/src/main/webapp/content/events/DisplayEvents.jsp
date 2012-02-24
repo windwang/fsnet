@@ -9,7 +9,9 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-
+<bean:define id="searchEvent">
+	<bean:message key="event.search" />
+</bean:define>
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
@@ -20,8 +22,9 @@
 		<div>
 			<table class="fieldsetTableAdmin">
 				<tr>
-					<td><html:text property="searchString" /> <html:submit
-							styleClass="button">
+					<td><html:text property="searchString" styleId="searchTexte" /> 
+					   <ili:placeHolder id="searchTexte" value="${searchEvent}" />
+					    <html:submit styleClass="button">
 							<bean:message key="events.11" />
 						</html:submit></td>
 				</tr>
