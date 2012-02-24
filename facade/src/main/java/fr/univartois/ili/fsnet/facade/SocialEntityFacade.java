@@ -315,7 +315,6 @@ public class SocialEntityFacade {
 		
 		String todayFormatted = "";
 		todayFormatted = DateUtils.renderDBDateWithSecond(today);
-
 		listMeeting = em
 				.createQuery(
 						"SELECT m FROM Meeting m where m.recallDate = \""+
