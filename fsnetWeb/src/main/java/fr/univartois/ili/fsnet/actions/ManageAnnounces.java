@@ -187,7 +187,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		}
 		entityManager.getTransaction().commit();
 		entityManager.close();
-		message.add("message", new ActionMessage("success.deleteAnnounce"));
+		message.add("message", new ActionMessage("announce.message.delete.success"));
 		saveMessages(request, message);
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 

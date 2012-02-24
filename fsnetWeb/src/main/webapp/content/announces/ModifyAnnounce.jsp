@@ -1,9 +1,3 @@
-<%-- 
-    Document   : CreateAnnounce
-    Created on : 18 janv. 2010, 18:06:12
-    Author     : Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 

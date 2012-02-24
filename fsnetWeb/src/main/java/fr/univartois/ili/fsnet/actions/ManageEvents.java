@@ -80,7 +80,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
+			errors.add(propertyKey, new ActionMessage(("event.date.error")));
 			saveErrors(request, errors);
 			return null;
 		}
@@ -111,7 +111,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("event.date.errors")));
+			errors.add(propertyKey, new ActionMessage(("event.date.error")));
 			saveErrors(request, errors);
 			return null;
 		}

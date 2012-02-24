@@ -6,7 +6,7 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="announce" />s</legend>
+  <legend class="legendHome"><bean:message key="announce.title.list" />s</legend>
 
 <c:choose>
 	<c:when test="${empty requestScope.annoucesList}">
