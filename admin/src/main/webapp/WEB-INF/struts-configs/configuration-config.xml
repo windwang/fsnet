@@ -76,5 +76,21 @@
 				scope="request">
 				<forward name="success" path="/EditConfiguration.do"></forward>
 	   	</action>
+	   		   	<action path="/DropCVTables"
+				name="UpdateDBForm"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				parameter="dropCVTables"
+				validate="false"
+				scope="request">
+				<forward name="success" path="/EditConfiguration.do"></forward>
+	   	</action>
+	   		   	<action path="/AddRecalTimeColumnInMeeting"
+				name="UpdateDBForm"
+				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+				parameter="addRecalTimeColumnInMeeting"
+				validate="false"
+				scope="request">
+				<forward name="success" path="/EditConfiguration.do"></forward>
+	   	</action>
 	</action-mappings>
 </struts-config>

@@ -186,6 +186,32 @@
 </fieldset>
 
 <fieldset class="fieldsetAdmin">
+   <legend class="legendAdmin"><bean:message key="configure.addRecallDateColumn"/></legend>
+   <table class="fieldsetTableAdmin"><tr><td>
+   <html:form enctype="multipart/form-data" action="/AddRecalTimeColumnInMeeting">
+	<div>	
+	<html:submit styleClass="button">
+		<bean:message key="configure.9" />
+	</html:submit>
+	</div>
+  </html:form>
+  </td></tr></table>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+   <legend class="legendAdmin"><bean:message key="configure.dropCVTables"/></legend>
+   <table class="fieldsetTableAdmin"><tr><td>
+   <html:form enctype="multipart/form-data" action="/DropCVTables">
+	<div>	
+	<html:submit styleClass="button">
+		<bean:message key="configure.9" />
+	</html:submit>
+	</div>
+  </html:form>
+  </td></tr></table>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
    <legend class="legendAdmin"><bean:message key="configure.16" /></legend>
   <html:form action="/SendTestMail">
 	<table id="SendTestMail" class="fieldsetTableAdmin">

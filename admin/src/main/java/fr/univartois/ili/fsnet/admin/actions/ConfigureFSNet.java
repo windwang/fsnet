@@ -376,5 +376,88 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
+	
+	public ActionForward dropCVTables(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+
+			Query query = em.createNativeQuery("DROP TABLE IF EXISTS CURRICULUM");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE CURRICULUM");
+			
+			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS CURRICULUM_HOBBIESCV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE CURRICULUM_HOBBIESCV");
+			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS DEGREECV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE DEGREECV");
+			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS ESTABLISHMENTCV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE ESTABLISHMENTCV");
+			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS FORMATIONCV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE FORMATIONCV");
+			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS HOBBIESCV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE HOBBIESCV");
+			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS MEMBERCV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE MEMBERCV");
+			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS TRAININGCV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE TRAININGCV");
+			
+			
+
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		}
+
+		MessageResources bundle = MessageResources
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
+				"configure.db.dropcvtables.success"));
+
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+	}
+	
+	public ActionForward addRecalTimeColumnInMeeting(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+
+			Query query = em.createNativeQuery("ALTER TABLE MEETING ADD COLUMN RECALLDATE DATETIME");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "COLUMN RECALLDATE ADDED IN MEETING TABLE");
+
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		}
+
+		MessageResources bundle = MessageResources
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
+				"configure.db.addRecalTimeColumn.success"));
+
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+	}
 
 }
