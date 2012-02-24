@@ -55,7 +55,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	private static final String DEFAULT_RECALLTIME = "0";
 	
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
-	private static >>>>>>> branch 'master' of https://code.google.com/p/fsnet/final String EVENT_BEGIN_DATE_FORM_FIELD_NAME = "eventBeginDate";
+	private static final String EVENT_BEGIN_DATE_FORM_FIELD_NAME = "eventBeginDate";
 	private static final String EVENT_END_DATE_FORM_FIELD_NAME = "eventEndDate";
 	private static final String EVENT_RECALL_TIME_FORM_FIELD_NAME = "eventRecallTime";
 	private static final String EVENT_RECALL_TYPE_TIME_FORM_FIELD_NAME = "eventRecallTypeTime";
