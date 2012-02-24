@@ -38,11 +38,10 @@
 <script type="text/javascript" src="js/geolocalisation.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-
+<script type="text/javascript" src="js/consultationUtils.js"></script>
 <script type="text/javascript" src="js/talkUtils.js"></script>
 <script type="text/javascript" src="js/chat.js"></script>
-<script class="jsbin" type="text/javascript"
-	src="js/jquery.dataTables.js"></script>
+<script class="jsbin" type="text/javascript" src="js/jquery.dataTables.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/skeleton.css" />
@@ -84,17 +83,5 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-		function confirmDelete(action) {
-			if (confirm("<bean:message key='message.confirmation.delete' />")) {
-				document.location = action;
-			}
-		}
-		function confirmDelete2(formid) {
-			if (confirm("<bean:message key='message.confirmation.delete' />")) {
-				document.getElementById(formid).submit();
-			}
-		}
-	</script>
 </body>
 </html:html>

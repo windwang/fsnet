@@ -38,15 +38,46 @@
 						errorStyleClass="error" cols="36" rows="6" /></td>
 			</tr>
 
-			<c:if test="${requestScope.nameParent != null}">
-				<tr>
-					<td><label for="nameParent"> <bean:message
-								key="groups.parent" /> :
-					</label></td>
-					<td colspan="3">${requestScope.nameParent}</td>
-				</tr>
-			</c:if>
+		<tr class="errorMessage">
+			<td colspan="2"><html:errors property="socialEntityId" /></td>
+		</tr>
 
+		<tr>
+			<td ROWSPAN="2"><label for="members"> <bean:message
+				key="groups.members" /> </label></td>
+
+			<td ROWSPAN="2">
+			<div><bean:message key="groups.members.refused" /></div>
+			<html:select property="memberListLeft" styleClass="select" size="5"
+				multiple="multiple">
+				<c:forEach var="socialEntity" items="${refusedMembers}">
+					<c:if test="${socialEntity.isEnabled}">
+						<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
+					</c:if>
+				</c:forEach>
+			</html:select></td>
+
+			<td><html:button property=""
+				onclick="DeplacerDroit(this.form.memberListLeft,this.form.memberListRight)">
+				<bean:message key="groups.addMembers" />
+			</html:button></td>
+
+			<td ROWSPAN="2">
+			<div><bean:message key="groups.members.accepted" /></div>
+			<html:select property="memberListRight" styleClass="select" size="5"
+				multiple="multiple">
+				<c:forEach var="socialEntity" items="${acceptedMembers}">
+					<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
+				</c:forEach>
+			</html:select></td>
+		</tr>
+
+		<tr>
+			<td><html:button property=""
+				onclick="DeplacerDroit(this.form.memberListRight,this.form.memberListLeft)">
+				<bean:message key="groups.removeMembers" />
+			</html:button></td>
+		</tr>
 
 			<tr>
 				<td><label for="socialEntityId"> <bean:message
@@ -67,10 +98,10 @@
 				<td colspan="2"><html:errors property="socialEntityId" /></td>
 			</tr>
 
-			<tr>
-				<td ROWSPAN="2"><label for="members"> <bean:message
-							key="groups.members" />
-				</label></td>
+			<td><html:button property=""
+				onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight)">
+				<bean:message key="groups.addGroups" />
+			</html:button></td>
 
 				<td ROWSPAN="2">
 					<div>
@@ -90,25 +121,20 @@
 						<bean:message key="groups.addMembers" />
 					</html:button></td>
 
-				<td ROWSPAN="2">
-					<div>
-						<bean:message key="groups.members.accepted" />
-					</div> <html:select property="memberListRight" styleClass="select"
-						size="5" multiple="multiple">
-						<c:forEach var="socialEntity" items="${acceptedMembers}">
-							<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
-						</c:forEach>
-					</html:select>
-				</td>
-			</tr>
+		<tr>
+			<td><html:button property=""
+				onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)">
+				<bean:message key="groups.removeGroups" />
+			</html:button></td>
+		</tr>
+		<tr>
+			<td colspan="2"><html:submit styleClass="button"
+				onclick="ValiderModGroup();">
+				<bean:message key="groups.validate" />
+			</html:submit></td>
+		</tr>
 
-			<tr>
-				<td><html:button property=""
-						onclick="Deplacer(this.form.memberListRight,this.form.memberListLeft)">
-						<bean:message key="groups.removeMembers" />
-					</html:button></td>
-			</tr>
-
+	</table>
 
 			<tr>
 				<td ROWSPAN="2"><label for="groups"> <bean:message
@@ -189,42 +215,3 @@
 		</table>
 	</html:form>
 </fieldset>
-
-<script type="text/javascript">
-	function Deplacer(l1, l2) {
-
-		if (l1.options.selectedIndex >= 0)
-			for ( var i = l1.options.length - 1; i >= 0; i--) {
-				if (l1.options[i].selected) {
-					o = new Option(l1.options[i].text, l1.options[i].value);
-					l2.options[l2.options.length] = o;
-					l1.options[i] = null;
-				}
-			}
-		else {
-			alert("Aucun membre sélectionnée");
-		}
-	}
-</script>
-<script type="text/javascript">
-	function Valider() {
-		var memberListRight = document.getElementsByName('memberListRight')
-				.item(0);
-		var memberListLeft = document.getElementsByName('memberListLeft').item(
-				0);
-		var rigthListRight = document.getElementsByName('rigthListRight').item(
-				0);
-		for ( var i = 0; i < memberListLeft.options.length; i++) {
-			memberListLeft.options[i].selected = "true";
-		}
-
-		for ( var i = 0; i < memberListRight.options.length; i++) {
-			memberListRight.options[i].selected = "true";
-		}
-		for ( var i = 0; i < rigthListRight.options.length; i++) {
-			rigthListRight.options[i].selected = "true";
-		}
-		return true;
-	}
-</script>
-
