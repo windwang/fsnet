@@ -27,6 +27,11 @@ import fr.univartois.ili.fsnet.commons.utils.TalkException;
  */
 public class Talk implements ITalk,Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private XMPPConnection connection;
 
 	private ConnectionConfiguration config = null;
@@ -165,11 +170,11 @@ public class Talk implements ITalk,Serializable {
 	 * , int, java.lang.String, java.lang.String, java.util.Map)
 	 */
 	@Override
-	public void initConnexion(String XMPPServer, int port, String login,
+	public void initConnexion(String xmppServer, int port, String login,
 			String pssword, Map<String, String> map) throws TalkException {
 		// connexion(XMPPServer, port);
 		// login(login, pssword);
-		config = new ConnectionConfiguration(XMPPServer, port);
+		config = new ConnectionConfiguration(xmppServer, port);
 
 		connection = new XMPPConnection(config);
 		try {

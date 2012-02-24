@@ -17,7 +17,7 @@ public final class LoggedUsersContainer {
 	/*
 	 * Sole instance of this class
 	 */
-	private static final LoggedUsersContainer instance = new LoggedUsersContainer();
+	private static final LoggedUsersContainer INSTANCE = new LoggedUsersContainer();
 
 	/*
 	 * private constructor of this class
@@ -29,7 +29,7 @@ public final class LoggedUsersContainer {
 	 * @return the sole instance of this class
 	 */
 	public static final LoggedUsersContainer getInstance() {
-		return instance;
+		return INSTANCE;
 	}
 
 	/*

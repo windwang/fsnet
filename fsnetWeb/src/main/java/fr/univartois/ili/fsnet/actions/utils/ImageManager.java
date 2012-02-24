@@ -40,15 +40,13 @@ public class ImageManager {
 			incommingPicture = convert(incommingPicture);
 		}
 		BufferedImage picture = getProperResizedImage(incommingPicture,
-				pictureType, PICTURE_MAX_WIDTH_OR_HEIGHT);
-		ImageManager.installPicture(Integer.toString(userId), pictureType,
-				picture);
+				PICTURE_MAX_WIDTH_OR_HEIGHT);
+		ImageManager.installPicture(Integer.toString(userId), picture);
 
 		BufferedImage miniature = getProperResizedImage(incommingPicture,
-				pictureType, MINIATURE_MAX_WIDTH_OR_HEIGHT);
+				MINIATURE_MAX_WIDTH_OR_HEIGHT);
 		ImageManager.installPicture(
-				Integer.toString(userId) + MINIATURE_SUFFIX, pictureType,
-				miniature);
+				Integer.toString(userId) + MINIATURE_SUFFIX, miniature);
 	}
 
 	public static void removeOldUserPicture(int userId) {
@@ -138,8 +136,7 @@ public class ImageManager {
 	private static final int MINIATURE_MAX_WIDTH_OR_HEIGHT = 40;
 
 	private static BufferedImage getProperResizedImage(
-			BufferedImage incommingImage, PictureType pictureType,
-			int maxWidthOrHeight) throws FileNotFoundException, IOException {
+			BufferedImage incommingImage, int maxWidthOrHeight) throws FileNotFoundException, IOException {
 		AffineTransform tx = new AffineTransform();
 		double scaleValue;
 		if (incommingImage.getWidth() > incommingImage.getHeight()) {
@@ -179,7 +176,7 @@ public class ImageManager {
 	 * @param datas the picture's datas
 	 */
 	private static void installPicture(String fileName,
-			PictureType pictureType, BufferedImage image)
+			BufferedImage image)
 			throws IllegalStateException {
 		String directory = getStorageDirectory();
 		if (directory != null) {
@@ -285,12 +282,12 @@ public class ImageManager {
 			incommingPicture = convert(incommingPicture);
 		}
 		BufferedImage logo = getProperResizedImage(incommingPicture,
-				pictureType, PICTURE_MAX_WIDTH_OR_HEIGHT);
+				PICTURE_MAX_WIDTH_OR_HEIGHT);
 		
-		ImageManager.installLogo(Integer.toString(groupId),pictureType,logo);
+		ImageManager.installLogo(Integer.toString(groupId),logo);
 		
 	}
-	private static void installLogo(String fileName,PictureType pictureType, BufferedImage image)
+	private static void installLogo(String fileName,BufferedImage image)
 			throws IllegalStateException {
 		String directory = getStorageDirectory();
 		if (directory != null) {
