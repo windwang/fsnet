@@ -26,24 +26,24 @@ public class CvFacade {
 	 
 	/**
 	 * List all the resumes
-	 * @return List<Meeting> the list containing all the resumes
+	 * @return List<Curriculum> the list containing all the resumes
 	 */
-	public final List<Meeting> listAllCv() {
-		List<Meeting> results;
+	public final List<Curriculum> listAllCv() {
+		List<Curriculum> results;
 		results = em
 		.createQuery(
-				"SELECT e FROM Meeting e",
-				Meeting.class).getResultList();
+				"SELECT e FROM Curriculum e",
+				Curriculum.class).getResultList();
 		return results;
 	}
 	
 	/**
     *
-    * @param meetingId
+    * @param curriculumId
     * @return
     */
-   public final Meeting getMeeting(int meetingId) {
-       return em.find(Meeting.class, meetingId);
+   public final Curriculum getCurriculum(long curriculumId) {
+       return em.find(Curriculum.class, curriculumId);
    }
 
 }

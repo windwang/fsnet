@@ -17,7 +17,6 @@
 			<thead>
 				<tr>
 					<th></th>
-					<th><bean:message key="tableheader.firstname" /></th>
 					<th><bean:message key="tableheader.cvname" /></th>
 					<th><bean:message key="tableheader.cvaction" /></th>
 				</tr>
@@ -26,7 +25,7 @@
 			
 			<c:forEach var="cv" items="${requestScope.CVsList}">
 			
-					<tr><td></td><td>${cv.id }</td><td></td>
+					<tr><td></td><td> ${cv.titleCv }</td>
 					
 					   <td>
 					  

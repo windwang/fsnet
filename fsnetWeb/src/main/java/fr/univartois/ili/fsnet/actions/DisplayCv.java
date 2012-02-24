@@ -1,9 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpSession;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -26,8 +23,6 @@ import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.CvFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
-import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
-import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
 /**
  * 
@@ -83,7 +78,7 @@ public class DisplayCv extends MappingDispatchAction{
 		em.getTransaction().begin();
 			
 		CvFacade cvfacade=new CvFacade(em);	
-		List<Meeting> result=cvfacade.listAllCv();
+		List<Curriculum> result=cvfacade.listAllCv();
 		 
 		 
 		em.close();

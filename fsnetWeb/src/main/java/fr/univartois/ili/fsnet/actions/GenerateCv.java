@@ -9,6 +9,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
 import java.nio.channels.FileChannel;
+import java.sql.Date;
+import java.text.SimpleDateFormat;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -36,8 +38,8 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
-import fr.univartois.ili.fsnet.entities.Meeting;
-import fr.univartois.ili.fsnet.facade.MeetingFacade;
+import fr.univartois.ili.fsnet.entities.Curriculum;
+import fr.univartois.ili.fsnet.facade.CvFacade;
 
 /**
  * 
@@ -46,6 +48,7 @@ import fr.univartois.ili.fsnet.facade.MeetingFacade;
  */
 
 public class GenerateCv extends MappingDispatchAction{
+	public static SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
 
 	//path of the file is defined on properties file
 	private static String file = "../File.pdf";
@@ -63,6 +66,11 @@ public class GenerateCv extends MappingDispatchAction{
 	EntityManager em = PersistenceProvider.createEntityManager();
 	
 	
+
+	public static String dateToString(Date date) {
+	return formatter.format(date);
+
+	}
 	//CV particulars
 	/**
 	 * 
@@ -72,18 +80,23 @@ public class GenerateCv extends MappingDispatchAction{
 	 * @throws MalformedURLException
 	 * @throws IOException
 	 */
-	private static void addParticulars(Document document,Meeting meeting) throws DocumentException, MalformedURLException, IOException {
+	private static void addParticulars(Document document,Curriculum curriculum) throws DocumentException, MalformedURLException, IOException {
 		
-		Paragraph prefaceNom = new Paragraph(meeting.getAddress().getAddress()+" "+meeting.getAddress().getCity());
+		Paragraph prefaceNom = new Paragraph(curriculum.getMember().getFirstName()+" "+curriculum.getMember().getSurname());
 
-		Paragraph prefaceAdresse = new Paragraph("Adresse"+"",particularFont);
+		Paragraph prefaceAdresse = new Paragraph(curriculum.getMember().getAdress()+"",particularFont);
 		
-		Paragraph prefaceEmail = new Paragraph("email",particularFont);
+		Paragraph prefaceEmail = new Paragraph(curriculum.getMember().getMail(),particularFont);
 		
-		Paragraph prefaceTelephone = new Paragraph("téléphone",particularFont);
+		Paragraph prefaceTelephone = new Paragraph(curriculum.getMember().getNumberPhone(),particularFont);
 		
+		Paragraph prefaceBirthday = new Paragraph(dateToString(curriculum.getMember().getBirthDate()),particularFont);
+		
+		Paragraph prefaceSituation = new Paragraph(curriculum.getMember().getNumberPhone(),particularFont);
 		
 		document.add(prefaceNom);
+		document.add(prefaceSituation);
+		document.add(prefaceBirthday);
 		document.add(prefaceAdresse);
 		document.add(prefaceEmail);
 		document.add(prefaceTelephone);
@@ -92,14 +105,14 @@ public class GenerateCv extends MappingDispatchAction{
 	
 	
 	//create title of document
-	private static void addTitlePage(Document document)
+	private static void addTitlePage(Document document,Curriculum curriculum)
 			throws DocumentException {
 		
 		Paragraph preface = new Paragraph();
 		// We add one empty line
 		addEmptyLine(preface, 3);
 		// Lets write a big header
-		preface.add(new Paragraph("Ingénieur d'études et développement", titleFont));
+		preface.add(new Paragraph(curriculum.getTitleCv(), titleFont));
 		preface.setAlignment(Element.ALIGN_CENTER);
 		
 		document.add(preface);
@@ -141,47 +154,80 @@ public class GenerateCv extends MappingDispatchAction{
 	}
 	
 	//add the first section
-	public static void addFirstSection(Document document) throws DocumentException{
+	public static void addFirstSection(Document document,Curriculum curriculum) throws DocumentException{
 		
 		 List overview = new List(false, 10);
-		 overview.add("stage Atos");
-		 overview.add("stage GFI");
-		 overview.add("stage Proxiad");
+		 
 		 document.add(styleSection("Expériences Professionnelles"));
+		 for(int i=0;i<curriculum.getTrains().size();i++){
+			 
+		 overview.add(curriculum.getTrains().get(i).getIdTraining().getName()+" à "+
+				 curriculum.getTrains().get(i).getIdTraining().getMyEst().getName()+" du "+
+				 dateToString(curriculum.getTrains().get(i).getStartDate())+
+				 " au "+ dateToString(curriculum.getTrains().get(i).getEndDate()));
+		 
+		 }
 		 document.add(overview);
+		 
 		 
 	}
 	
 	//add the second section
-	public static void addSecondSection(Document document) throws DocumentException{
+	public static void addSecondSection(Document document,Curriculum curriculum) throws DocumentException{
 		
 		
 		 List overview = new List(false, 10);
-		 overview.add(new ListItem("JAVA"));
-		 overview.add("PHP");
-		 overview.add("MYSQL");
-	
-		 document.add(styleSection("Compétences techniques"));
+		 document.add(styleSection("Diplômes"));
+		 
+		 for(int i=0;i<curriculum.getDegs().size();i++){ 
+		 overview.add(curriculum.getDegs().get(i).getDegree().getStudiesLevel()+" du "+
+				 curriculum.getDegs().get(i).getStartDate()+" au "+
+				 curriculum.getDegs().get(i).getEndDate());
+		 
+		 }
 		 document.add(overview);
+		 
 	}
 	
 	
 	//add the tirth section
-	public static void addtirthSection(Document document) throws DocumentException{
+	public static void addtirthSection(Document document,Curriculum curriculum) throws DocumentException{
 		
 		 List overview = new List(false, 10);
-		 overview.add(new ListItem("Licence Informatique"));
-		 overview.add("Master 1 Informatique");
-		 overview.add("Master 2 ILI");
-		 
 		 document.add(styleSection("Formation"));
+		 
+		 for(int i=0;i<curriculum.getMyFormations().size();i++){ 
+			 
+			 overview.add(curriculum.getMyFormations().get(i).getIdFormation().getName()+" obtenu à "+
+					 curriculum.getMyFormations().get(i).getObtainedDate()+" à "+
+					 curriculum.getMyFormations().get(i).getIdFormation().getEts().getName()
+					 );
+			 
+			 }
+		 document.add(overview);
+		
+	}
+	//add the fourth section
+	
+	public static void addfifthSection(Document document,Curriculum curriculum) throws DocumentException{
+		 List overview = new List(false, 10);
+		document.add(styleSection("Langues"));
+		 
+			 
+			 
 		 document.add(overview);
 	}
 	
-	//add the fourth section
-	public static void addfourthSection(Document document) throws DocumentException{
-		
-		document.add(styleSection("Divers"));
+	//add the fifth section
+	public static void addfourthSection(Document document,Curriculum curriculum) throws DocumentException{
+		 List overview = new List(false, 10);
+		document.add(styleSection("Loisirs"));
+		 for(int i=0;i<curriculum.getHobs().size();i++){ 
+			 overview.add(curriculum.getHobs().get(i).getName()
+					 );
+			 
+			 } 
+		 document.add(overview);
 	}
 	
 	
@@ -207,11 +253,11 @@ public class GenerateCv extends MappingDispatchAction{
 	 */
 	public void generer(HttpServletRequest request){
 		
-		int id=Integer.parseInt(request.getParameter("idCv"));
+		long id=Integer.parseInt(request.getParameter("idCv"));
 		System.out.println("voilaaaaaaaaaaaaa"+id);
 		
-		MeetingFacade meetingFacade = new MeetingFacade(em);
-		Meeting meeting = meetingFacade.getMeeting(id);
+		CvFacade cvFacade = new CvFacade(em);
+		Curriculum curriculum = cvFacade.getCurriculum(id);
 		
 		
 		Rectangle pageSize=new Rectangle(595,842);
@@ -230,13 +276,13 @@ public class GenerateCv extends MappingDispatchAction{
 			under=writer.getDirectContent();
 			under.addImage(img);
 			onPageEvent(document);
-			addParticulars(document,meeting);
-			addTitlePage(document);
+			addParticulars(document,curriculum);
+			addTitlePage(document,curriculum);
 			addseparate(document);
-			addFirstSection(document);
-			addSecondSection(document);
-			addtirthSection(document);
-			addfourthSection(document);
+			addFirstSection(document,curriculum);
+			addSecondSection(document,curriculum);
+			addtirthSection(document,curriculum);
+			addfourthSection(document,curriculum);
 			System.out.println(document.getPageSize());
 			
 			
