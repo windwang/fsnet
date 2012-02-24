@@ -25,26 +25,49 @@
 	<c:otherwise>
         <div class="space"></div>
 		<script type="text/javascript">
-			$(document).ready(
-					function pagination() {
-						var nomTable = "tableoutbox";
-						var idColonneATrier = 4;
-						var sensDeTri = "desc";
-						var aoColumns = [ {
-							"bSortable" : false
-						}, null, null, null, {
-							"sType" : "date-euro"
-						} ];
-						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, true);
-					});
+			$(document).ready(function(){
+				
+				function pagination() {
+					var nomTable = "tableoutbox";
+					var idColonneATrier = 4;
+					var sensDeTri = "desc";
+					var aoColumns = [ {
+						"bSortable" : false
+					}, null, null, null, {
+						"sType" : "date-euro"
+					} ];
+					miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+							aoColumns, true);
+				}
+				
+				pagination();
+				
+				function allSelect(){	
+					$('input[name=selectedMessages]').attr('checked', true);
+				}
+				
+				function allNoSelect(){	
+					$('input[name=selectedMessages]').attr('checked', false);
+				}
+				
+				$(".checkThemAll").click(function() {
+					if(this.checked){
+						allSelect();
+					}else{
+						allNoSelect();
+					}
+				});
+			});
+					
 		</script>
 
 		<html:form action="/DeleteMultiSentMessages">
 			<table id="tableoutbox" class="tablesorter inLineTableDashBoardFieldset">
-				<thead>
+				<thead >
 					<tr>
-						<th><bean:message key="tableheader.to" /></th>
+						<th class="thMessage"><input type="checkbox" name="selected" class="checkThemAll" />
+							
+						<bean:message key="tableheader.to" /></th>
 						<th><bean:message key="members.firstName" /></th>
 						<th><bean:message key="members.name" /></th>
 						<th><bean:message key="tableheader.subject" /></th>
@@ -54,7 +77,7 @@
 				<tbody>
 					<c:forEach items="${requestScope.outBoxMessages}" var="message">
 						<tr>
-							<td><html:multibox property="selectedMessages"
+							<td><html:multibox property="selectedMessages" 
 									value="${message.id}" /></td>
 							<td style="width: 15%"><ili:getSocialEntityInfosFirstname
 									socialEntity="${message.to}" /></td>

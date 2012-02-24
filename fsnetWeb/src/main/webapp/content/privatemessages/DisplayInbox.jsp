@@ -27,7 +27,7 @@
 	<c:otherwise>
 	    <div class="space"></div>
 		<script type="text/javascript">
-			$(document).ready(
+			$(document).ready(function(){
 					function pagination() {
 						var nomTable = "tableinbox";
 						var idColonneATrier = 5;
@@ -41,14 +41,31 @@
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
 								aoColumns, true);
+					}
+						pagination();
+						
+						function allSelect(){	
+							$('input[name=selectedMessages]').attr('checked', true);
+						}
+						
+						function allNoSelect(){	
+							$('input[name=selectedMessages]').attr('checked', false);
+						}
+						
+						$(".checkThemAll1").click(function() {
+							if(this.checked){
+								allSelect();
+							}else{
+								allNoSelect();
+							}
+						});
 					});
 		</script>
 		   <html:form action="/DeleteMultiMessages">
 			<table id="tableinbox" class="tablesorter inLineTableDashBoardFieldset">
 				<thead>
 					<tr>
-						<th></th>
-						<th><bean:message key="tableheader.from" /></th>
+						<th class="thMessage"><input type="checkbox" name="selected" class="checkThemAll1" /></td><td><bean:message key="tableheader.from" /> </th>
 						<th><bean:message key="members.firstName" /></th>
 						<th><bean:message key="members.name" /></th>
 						<th><bean:message key="tableheader.subject" /></th>
