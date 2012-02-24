@@ -6,7 +6,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="members.0" />
+		<bean:message key="members.title.search" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
@@ -22,7 +22,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="members.1" />
+		<bean:message key="members.title.searchResult" />
 	</legend>
 
 	<c:if

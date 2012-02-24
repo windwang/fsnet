@@ -5,16 +5,16 @@
 <div id="logo2">
 	<c:choose>
 		<c:when test="${sessionScope.hisGroup != null}">
-		<img src="groups/${sessionScope.parentGroupId}.png" alt="GroupLogo"/> 
+			<img src="groups/${sessionScope.parentGroupId}.png" alt="GroupLogo" />
 		</c:when>
 		<c:otherwise>
-			<img src="/images/FSNET.png" alt="Logo"/> 
+			<img src="/images/FSNET.png" alt="Logo" />
 		</c:otherwise>
 	</c:choose>
 
 </div>
 <html:link action="/DisplayProfile" styleId="userPicture">
-	<img src="avatar/${sessionScope.userId}.png" alt="Avatar"/>
+	<img src="avatar/${sessionScope.userId}.png" alt="Avatar" />
 </html:link>
 
 <div class="group">
