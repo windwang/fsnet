@@ -187,13 +187,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				eventDescription, typedEventEndDate, false,
 				typedEventBeginDate, adress, city,typedEventRecallDate);
 
-		String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+		String interestsIds[] = (String[]) dynaForm.get("selectedInterests");
 		InterestFacade fac = new InterestFacade(em);
 		List<Interest> interests = new ArrayList<Interest>();
 		int currentId;
-		for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+		for (currentId = 0; currentId < interestsIds.length; currentId++) {
 			interests.add(fac.getInterest(Integer
-					.valueOf(InterestsIds[currentId])));
+					.valueOf(interestsIds[currentId])));
 		}
 		InteractionFacade ifacade = new InteractionFacade(em);
 		ifacade.addInterests(event, interests);

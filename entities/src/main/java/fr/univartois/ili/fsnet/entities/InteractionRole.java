@@ -13,7 +13,12 @@ import javax.persistence.ManyToOne;
 @IdClass(value=InteractionRolePK.class)
 public class InteractionRole implements Serializable {
 
-    public static enum RoleName {
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	public static enum RoleName {
         DECISION_MAKER, SUBSCRIBER
     }
     

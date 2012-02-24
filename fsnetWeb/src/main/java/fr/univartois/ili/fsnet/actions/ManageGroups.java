@@ -263,11 +263,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		String GroupSelected = request.getParameter("groupSelected");
+		String groupSelected = request.getParameter("groupSelected");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		em.getTransaction().begin();
-		int socialGroupId = Integer.parseInt(GroupSelected);
+		int socialGroupId = Integer.parseInt(groupSelected);
 		socialGroupFacade.switchState(socialGroupId);
 		em.getTransaction().commit();
 		em.close();
@@ -304,10 +304,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		String id = request.getParameter(ID_GROUP_ATTRIBUTE_NAME);
 
-		if (id == null)
+		if (id == null){
 			id = (String) session.getAttribute(ID_GROUP_ATTRIBUTE_NAME);
-		else
+		}else{
 			session.setAttribute(ID_GROUP_ATTRIBUTE_NAME, id);
+		}
 
 		try {
 			Integer idGroup;
@@ -340,7 +341,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 			request.setAttribute("acceptedMembers", acceptedMembers);
 			request.setAttribute("allMembers",
-					getSimpleMember(em, socialGroupFacade, group));
+					getSimpleMember(em, group));
 
 			request.setAttribute("refusedMembers", refusedMembers);
 
@@ -475,12 +476,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 	/**
 	 * @param em
-	 * @param sgf
 	 * @param socialGroup
 	 * @return
 	 */
 	private List<SocialEntity> getSimpleMember(EntityManager em,
-			SocialGroupFacade sgf, SocialGroup socialGroup) {
+			SocialGroup socialGroup) {
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 
@@ -516,9 +516,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		String idGroup = request.getParameter(ID_GROUP_ATTRIBUTE_NAME);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialGroup socialGroup;
-		if (idGroup == null || idGroup.isEmpty())
+		if (idGroup == null || idGroup.isEmpty()){
 			socialGroup = null;
-		else {
+		}else {
 			int id = Integer.valueOf(idGroup);
 			socialGroup = socialGroupFacade.getSocialGroup(id);
 		}

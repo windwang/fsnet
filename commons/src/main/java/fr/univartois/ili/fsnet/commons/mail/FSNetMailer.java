@@ -18,17 +18,17 @@ import javax.mail.internet.MimeMessage;
  */
 public class FSNetMailer {
 
-	private static final FSNetMailer instance;
+	private static final FSNetMailer INSTANCE;
 
 	/**
 	 * @return a instance of FSNetMailer
 	 */
 	public static final FSNetMailer getInstance() {
-		return instance;
+		return INSTANCE;
 	}
 
 	static {
-		instance = new FSNetMailer();
+		INSTANCE = new FSNetMailer();
 	}
 
 	/**

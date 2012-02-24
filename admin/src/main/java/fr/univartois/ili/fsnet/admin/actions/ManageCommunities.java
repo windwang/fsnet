@@ -37,7 +37,7 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 public class ManageCommunities extends MappingDispatchAction implements
 		CrudAction {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String MODIFIED_COMMUNITY_FORM_FIELD_NAME = "modifiedCommunityName";
@@ -113,7 +113,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		String communityId = request.getParameter("communityId");
 
-		logger.info("delete community: " + communityId);
+		LOGGER.info("delete community: " + communityId);
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		CommunityFacade communityFacade = new CommunityFacade(em);
@@ -168,7 +168,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 		Community community = facade.getCommunityByName(communityName);
 
 		if (community != null) {
-			logger.info("community modification: " + communityName);
+			LOGGER.info("community modification: " + communityName);
 
 			try {
 				facade.getCommunityByName(newCommunityName);

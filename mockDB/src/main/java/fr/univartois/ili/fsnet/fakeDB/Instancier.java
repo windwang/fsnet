@@ -13,7 +13,7 @@ import fr.univartois.ili.fsnet.fakeDB.mocks.InterestsMock;
 import fr.univartois.ili.fsnet.fakeDB.mocks.SocialEntitiesMock;
 
 public class Instancier implements MockLocator {
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
 	private Map<Class<? extends Mock>, Mock> mocks = new HashMap<Class<? extends Mock>, Mock>();
 	
@@ -30,13 +30,13 @@ public class Instancier implements MockLocator {
 			mock.create(em);
 			mocks.put(mock.getClass(), mock);
 		} catch (SecurityException e) {
-			logger.log(Level.SEVERE, "", e);
+			LOGGER.log(Level.SEVERE, "", e);
 			em.close();
 		} catch (InstantiationException e) {
-			logger.log(Level.SEVERE, "", e);
+			LOGGER.log(Level.SEVERE, "", e);
 			em.close();
 		} catch (IllegalAccessException e) {
-			logger.log(Level.SEVERE, "", e);
+			LOGGER.log(Level.SEVERE, "", e);
 			em.close();
 		}
 	}

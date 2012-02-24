@@ -20,7 +20,8 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 public class ProfileVisiteFacade {
 
 	private EntityManager em;
-
+	private static final int MAX_RESULTS =3;
+	
 	/**
 	 * create a ProfileVisiteFacade
 	 * 
@@ -66,7 +67,7 @@ public class ProfileVisiteFacade {
 								+ "ORDER BY pv.lastVisite DESC",
 						ProfileVisite.class)
 				.setParameter("socialEntity", visited)
-				.setMaxResults(3).getResultList();
+				.setMaxResults(MAX_RESULTS).getResultList();
 	}
 
 	/**

@@ -79,6 +79,7 @@ public class DegreeCV implements Serializable {
 		return domain;
 	}
 
+
 	/**
 	 * @param domain
 	 *            the domain to set

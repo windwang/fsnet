@@ -30,66 +30,66 @@ public class CreateCV extends MappingDispatchAction{
 	            throws IOException, ServletException {
 		 HttpSession mysession=request.getSession();
 		 DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		 String CvTitle = (String) dynaForm.get("CvTitle");
-		 String CvNom = (String) dynaForm.get("CvNom");
-		 String CvPrenom = (String) dynaForm.get("CvPrenom");
-		 String CvAdresse = (String) dynaForm.get("CvAdresse");
-		 String CvVille = (String) dynaForm.get("CvVille");
-		 String CvPortable = (String) dynaForm.get("CvPortable");
-		 String CvCp = (String) dynaForm.get("CvCp");
-		 String CvPays = (String) dynaForm.get("CvPays");
-		 String CvContact = (String) dynaForm.get("CvContact");
-		 String BirthDay = (String) dynaForm.get("formatBirthDay");
+		 String cvTitle = (String) dynaForm.get("CvTitle");
+		 String cvNom = (String) dynaForm.get("CvNom");
+		 String cvPrenom = (String) dynaForm.get("CvPrenom");
+		 String cvAdresse = (String) dynaForm.get("CvAdresse");
+		 String cvVille = (String) dynaForm.get("CvVille");
+		 String cvPortable = (String) dynaForm.get("CvPortable");
+		 String cvCp = (String) dynaForm.get("CvCp");
+		 String cvPays = (String) dynaForm.get("CvPays");
+		 String cvContact = (String) dynaForm.get("CvContact");
+		 String birthDay = (String) dynaForm.get("formatBirthDay");
 		 
-		 mysession.setAttribute("CvTitle", CvTitle);
-		 mysession.setAttribute("CvNom", CvNom);
-		 mysession.setAttribute("CvPrenom", CvPrenom);
-		 mysession.setAttribute("CvAdresse", CvAdresse);
-		 mysession.setAttribute("CvVille", CvVille);
-		 mysession.setAttribute("CvPortable", CvPortable);
-		 mysession.setAttribute("CvCp", CvCp);
-		 mysession.setAttribute("CvPays", CvPays);
-		 mysession.setAttribute("CvContact", CvContact);
-		 mysession.setAttribute("formatBirthDay", BirthDay);
+		 mysession.setAttribute("CvTitle", cvTitle);
+		 mysession.setAttribute("CvNom", cvNom);
+		 mysession.setAttribute("CvPrenom", cvPrenom);
+		 mysession.setAttribute("CvAdresse", cvAdresse);
+		 mysession.setAttribute("CvVille", cvVille);
+		 mysession.setAttribute("CvPortable", cvPortable);
+		 mysession.setAttribute("CvCp", cvCp);
+		 mysession.setAttribute("CvPays", cvPays);
+		 mysession.setAttribute("CvContact", cvContact);
+		 mysession.setAttribute("formatBirthDay", birthDay);
 		 mysession.setAttribute("CvSituation", request.getParameter("situation"));
 		 mysession.setAttribute("SexeMember", request.getParameter("sexe"));
 		 
 		 ActionErrors errors = new ActionErrors();
 		 int erreur=0;
 		 
-		 if(CvTitle==""){
+		 if("".equals(cvTitle)){
 			
 				errors.add("CvTitle", new ActionMessage("error.titre"));
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
 		 
-		 if(CvPortable==""){
+		 if("".equals(cvPortable)){
 			
 				errors.add("CvPortable", new ActionMessage("error.portable"));
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
-		 if(CvNom==""){
+		 if("".equals(cvNom)){
 			
 				errors.add("CvNom",  new ActionMessage("error.nom"));
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
-		 if(CvPrenom==""){
+		 if("".equals(cvPrenom)){
 			
 				errors.add("CvPrenom", new ActionMessage("error.prenom"));
 				saveErrors(request, errors);
 				erreur = 1;
 				
 		 }
-		 if(CvAdresse==""){
+		 if("".equals(cvAdresse)){
 			 
 				errors.add("CvAdresse", new ActionMessage("error.adresse"));
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
-		 if(CvVille==""){
+		 if("".equals(cvVille)){
 			
 				errors.add("CvVille", new ActionMessage("error.ville"));
 				saveErrors(request, errors);
@@ -98,27 +98,27 @@ public class CreateCV extends MappingDispatchAction{
 		 
 		
 
-		 if(CvPays==""){
+		 if("".equals(cvPays)){
 			 
 				errors.add("CvPays", new ActionMessage("error.pays"));
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
-		 if(CvContact==""){
+		 if("".equals(cvContact)){
 			
 				errors.add("CvContact", new ActionMessage("error.contact"));
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
-		 if(CvCp==""){
+		 if("".equals(cvCp)){
 				
 				errors.add("CvCp", new ActionMessage("error.cp"));
 				saveErrors(request, errors);
 				erreur = 1;
 		 }
-		 if(CvCp!=""){
+		 if(!"".equals(cvCp)){
 		try{
-			Integer.parseInt(CvCp);
+			Integer.parseInt(cvCp);
 		}catch(Exception e){
 		
 			 errors.add("CvCp", new ActionMessage("error.cpInt"));
@@ -129,8 +129,9 @@ public class CreateCV extends MappingDispatchAction{
 		
 		 if(erreur==1){
 				return mapping.findForward("unauthorized");
-		 }else
+		 }else{
 	        return mapping.findForward("success");
+		 }
 	    }
 	 public ActionForward Cree(ActionMapping mapping, ActionForm form,
 	            HttpServletRequest request, HttpServletResponse response)

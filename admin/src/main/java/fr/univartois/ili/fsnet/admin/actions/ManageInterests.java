@@ -34,7 +34,7 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
  */
 public class ManageInterests extends MappingDispatchAction implements
 CrudAction {
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	private static final String SEPARATOR_PARENT_CHILD = "=";
 	private static final String SEPARATOR_MAP = ";";
 
@@ -42,6 +42,8 @@ CrudAction {
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String MODIFIED_INTEREST_FORM_FIELD_NAME = "modifiedInterestId";
 
+	private static final int MAX_PER_PAGE =25;
+	
 	/**
 	 * @param dynaForm
 	 * @param facade
@@ -72,7 +74,7 @@ CrudAction {
 		String interestName = (String) dynaForm.get("createdInterestName");
 		String[] interestNameTmp;
 
-		logger.info("new interest: " + interestName);
+		LOGGER.info("new interest: " + interestName);
 
 		try {
 			em.getTransaction().begin();
@@ -123,7 +125,7 @@ CrudAction {
 		Interest interest = facade.getInterest(interestId);
 
 		if (interest != null) {
-			logger.info("interest modification: " + interestName);
+			LOGGER.info("interest modification: " + interestName);
 
 			try {
 				em.getTransaction().begin();
@@ -193,7 +195,7 @@ CrudAction {
 		Interest interest = facade.getInterest(interestId);
 
 		if (interest != null) {
-			logger.info("interest deleted: id=" + interestId);
+			LOGGER.info("interest deleted: id=" + interestId);
 
 			try {
 				em.getTransaction().begin();
@@ -230,12 +232,12 @@ CrudAction {
 			interestName = (String) dynaForm.get("searchInterestName");
 		}
 		InterestFacade facade = new InterestFacade(em);
-		logger.info("search interest: " + interestName);
+		LOGGER.info("search interest: " + interestName);
 
 		List<Interest> result = facade.searchInterest(interestName);
 		em.close();
 
-		Paginator<Interest> paginator = new Paginator<Interest>(result, request, 25, "search");
+		Paginator<Interest> paginator = new Paginator<Interest>(result, request, MAX_PER_PAGE, "search");
 
 		request.setAttribute("interestSearchPaginator", paginator);
 
@@ -251,13 +253,13 @@ CrudAction {
 	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
-		logger.info("Displaying interests");
+		LOGGER.info("Displaying interests");
 
 		List<Interest> listAllInterests = facade.getInterests();
 		String allInterestsId = concatInterest(listAllInterests);
 		em.close();
 
-		Paginator<Interest> paginator = new Paginator<Interest>(listAllInterests, request, 25, "search");
+		Paginator<Interest> paginator = new Paginator<Interest>(listAllInterests, request, MAX_PER_PAGE, "search");
 
 		request.setAttribute("interestSearchPaginator", paginator);
 		request.setAttribute("allInterests", listAllInterests);		
@@ -280,7 +282,7 @@ CrudAction {
 	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
-		logger.info("Displaying interest's informations");
+		LOGGER.info("Displaying interest's informations");
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 
 		int interestId = Integer.valueOf((String) dynaForm
@@ -317,9 +319,11 @@ CrudAction {
 			String id = String.valueOf( interest.getId() );
 			String idParent;
 			String tmp = "";
-			if(parent == null)
+			if(parent == null){
 				idParent = "-1";
-			else idParent = String.valueOf( parent.getId() );
+			}else{
+				idParent = String.valueOf( parent.getId() );
+			}
 			tmp = tmp.concat( id );
 			tmp = tmp.concat( SEPARATOR_PARENT_CHILD );
 			tmp = tmp.concat( idParent );
