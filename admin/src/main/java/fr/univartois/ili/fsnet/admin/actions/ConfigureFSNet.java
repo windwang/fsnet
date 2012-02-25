@@ -418,7 +418,17 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			query.executeUpdate();
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE TRAININGCV");
 			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATEDEGREECV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE ASSOCIATIONDATEDEGREECV");
 			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATEFORMATIONCV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE ASSOCIATIONDATEFORMATIONCV");
+			
+			query = em.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATETRAININGCV");
+			query.executeUpdate();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE ASSOCIATIONDATETRAININGCV");
 
 			em.getTransaction().commit();
 			em.close();
