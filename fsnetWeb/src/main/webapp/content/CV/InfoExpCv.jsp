@@ -1,8 +1,3 @@
-<%-- 
-    Document   : Information
-    Created on : 07 janv
-    Author     : BENZAOUIA Anass <anassbenzaouia at gmail.com>
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
@@ -10,10 +5,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<html:form action="/GenerateCV">
-
-
-
+<html:form action="/CreateCv3">
 	<div class="en_cv">
 		<fieldset class="fieldsetAppli">
 			<div class="entete">
@@ -31,7 +23,7 @@
 				<table class="fieldsetTableAdmin">
 
 					<tr>
-						<td>*<bean:message key="cv.10" /></td>
+						<td>*<bean:message key="cv.form.titleJob" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvPoste" styleId="CvPoste"
@@ -40,7 +32,7 @@
 									key="error.CvPoste" /></span></td>
 					</tr>
 					<tr>
-						<td>*<bean:message key="cv.11" /></td>
+						<td>*<bean:message key="cv.form.nameCompany" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="NomEntreprise"
@@ -49,7 +41,7 @@
 									key="error.NomEntreprise" /></span></td>
 					</tr>
 					<tr>
-						<td>*<bean:message key="cv.secteur" /></td>
+						<td>*<bean:message key="cv.form.industry" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvSecteur" styleId="CvSecteur"
@@ -59,8 +51,8 @@
 					</tr>
 
 					<tr>
-						<td><bean:message key="cv.18" /></td>
-						<td><bean:message key="cv.19" /></td>
+						<td><bean:message key="cv.form.country" /></td>
+						<td><bean:message key="cv.form.city" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvPaysExp" styleId="CvPaysExp"
@@ -70,7 +62,7 @@
 					</tr>
 
 					<tr>
-						<td>*<label for="expDate"> <bean:message key="cv.12" />
+						<td>*<label for="expDate"> <bean:message key="cv.form.dateBegin" />
 								:
 						</label>
 						</td>
@@ -87,7 +79,7 @@
 									key="error.expBeginDate" /></span></td>
 					</tr>
 					<tr>
-						<td>*<label for="expDate"> <bean:message key="cv.13" />
+						<td>*<label for="expDate"> <bean:message key="cv.form.dateEnd" />
 								:
 						</label>
 						</td>
@@ -99,16 +91,16 @@
 									key="error.expEndDate" /></span></td>
 					<tr>
 						<td><a><span class="annuleExp"> <bean:message
-										key="cv.annuler" />
+										key="cv.button.cancel" />
 							</span></a> <a><span class="SaveExp"> <bean:message
-										key="cv.enregister" />
+										key="cv.button.save" />
 							</span></a></td>
 					</tr>
 				</table>
 
 			</div>
 
-			<a> <span class="addExp"> <bean:message key="cv.addExp" />
+			<a> <span class="addExp"> <bean:message key="cv.button.addExperience" />
 			</span>
 			</a>
 		</fieldset>
@@ -117,7 +109,7 @@
 		<fieldset class="fieldsetAppli">
 			<div class="entete">
 				<legend class="legendHome">
-					<bean:message key="cv.Diplome" />
+					<bean:message key="cv.title.degree" />
 				</legend>
 			</div>
 			<div id="diplome">
@@ -129,7 +121,7 @@
 			<div class="corp_diplome">
 				<table class="fieldsetTableAdmin">
 					<tr>
-						<td>*<bean:message key="cv.15" /></td>
+						<td>*<bean:message key="cv.form.level" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvEtude" styleId="CvEtude"
@@ -138,7 +130,7 @@
 									key="error.CvEtude" /></span></td>
 					</tr>
 					<tr>
-						<td>*<bean:message key="cv.16" /></td>
+						<td>*<bean:message key="cv.form.domain" /></td>
 					</tr>
 
 					<tr>
@@ -149,7 +141,7 @@
 					</tr>
 
 					<tr>
-						<td>*<bean:message key="cv.17" /></td>
+						<td>*<bean:message key="cv.form.school" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvEtablissment"
@@ -158,8 +150,8 @@
 									key="error.CvEtablissment" /></span></td>
 					</tr>
 					<tr>
-						<td><bean:message key="cv.18" /></td>
-						<td><bean:message key="cv.19" /></td>
+						<td><bean:message key="cv.form.country" /></td>
+						<td><bean:message key="cv.form.city" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvEtudePays" styleId="CvEtudePays"
@@ -168,7 +160,7 @@
 								errorStyleClass="error" /></td>
 					</tr>
 					<tr>
-						<td>*<label for="expDate"> <bean:message key="cv.12" />
+						<td>*<label for="expDate"> <bean:message key="cv.form.dateBegin" />
 								:
 						</label>
 						</td>
@@ -185,7 +177,7 @@
 									key="error.etudBeginDate" /></span></td>
 					</tr>
 					<tr>
-						<td>*<label for="etudDate"> <bean:message key="cv.13" />
+						<td>*<label for="etudDate"> <bean:message key="cv.form.dateEnd" />
 								:
 						</label>
 						</td>
@@ -197,13 +189,13 @@
 									key="error.etudEndDate" /></span></td>
 					<tr>
 						<td><a><span class="annuleDip"> <bean:message
-										key="cv.annuler" /></span></a> <a><span class="SaveDip"> <bean:message
-										key="cv.enregister" />
+										key="cv.button.cancel" /></span></a> <a><span class="SaveDip"> <bean:message
+										key="cv.button.save" />
 							</span></a></td>
 					</tr>
 				</table>
 			</div>
-			<a> <span class="addDip"><bean:message key="cv.addDip" />
+			<a> <span class="addDip"><bean:message key="cv.button.addDegree" />
 			</span>
 			</a>
 		</fieldset>
@@ -213,7 +205,7 @@
 		<fieldset class="fieldsetAppli">
 			<div class="entete">
 				<legend class="legendHome">
-					<bean:message key="cv.Formation" />
+					<bean:message key="cv.title.formation" />
 				</legend>
 			</div>
 			<div id="formation">
@@ -225,7 +217,7 @@
 			<div class="corp_formation">
 				<table class="fieldsetTableAdmin">
 					<tr>
-						<td>*<bean:message key="cv.29" /></td>
+						<td>*<bean:message key="cv.form.nameFormation" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvFormation" styleId="CvFormation"
@@ -234,7 +226,7 @@
 									key="error.CvFormation" /></span></td>
 					</tr>
 					<tr>
-						<td>*<bean:message key="cv.17" /></td>
+						<td>*<bean:message key="cv.form.school" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvEtablissmentform"
@@ -243,8 +235,8 @@
 									key="error.CvEtablissmentform" /></span></td>
 					</tr>
 					<tr>
-						<td><bean:message key="cv.18" /></td>
-						<td><bean:message key="cv.19" /></td>
+						<td><bean:message key="cv.form.country" /></td>
+						<td><bean:message key="cv.form.city" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvFormPays" styleId="CvFormPays"
@@ -253,7 +245,7 @@
 								errorStyleClass="error" /></td>
 					</tr>
 					<tr>
-						<td>*<label for="expDate"> <bean:message key="cv.21" />
+						<td>*<label for="expDate"> <bean:message key="cv.form.obtainedDate" />
 								:
 						</label>
 						</td>
@@ -273,13 +265,13 @@
 
 					<tr>
 						<td><a><span class="annuleForm"> <bean:message
-										key="cv.annuler" /></span></a> <a><span class="SaveForm"> <bean:message
-										key="cv.enregister" />
+										key="cv.button.cancel" /></span></a> <a><span class="SaveForm"> <bean:message
+										key="cv.button.save" />
 							</span></a></td>
 					</tr>
 				</table>
 			</div>
-			<a> <span class="addForm"><bean:message key="cv.addForm" />
+			<a> <span class="addForm"><bean:message key="cv.button.addFormation" />
 			</span>
 			</a>
 		</fieldset>
@@ -289,7 +281,7 @@
 		<fieldset class="fieldsetAppli">
 			<div class="entete">
 				<legend class="legendHome">
-					<bean:message key="cv.25" />
+					<bean:message key="cv.title.hobbies" />
 				</legend>
 			</div>
 
@@ -302,7 +294,7 @@
 			<div class="corp_loisir">
 				<table class="fieldsetTableAdmin">
 					<tr>
-						<td>*<bean:message key="cv.20" /></td>
+						<td>*<bean:message key="cv.form.hobby" /></td>
 					</tr>
 					<tr>
 						<td><html:text property="CvNomLoisir" styleId="CvNomLoisir"
@@ -313,13 +305,13 @@
 
 					<tr>
 						<td><a><span class="annuleLoisir"> <bean:message
-										key="cv.annuler" /></span></a> <a><span class="SaveLoisir"> <bean:message
-										key="cv.enregister" /></span></a></td>
+										key="cv.button.cancel" /></span></a> <a><span class="SaveLoisir"> <bean:message
+										key="cv.button.save" /></span></a></td>
 					</tr>
 				</table>
 			</div>
 			<a> <span class="addLoisir"> <bean:message
-						key="cv.addLoisir" />
+						key="cv.button.addHobby" />
 			</span>
 			</a>
 		</fieldset>
@@ -328,7 +320,7 @@
 		<fieldset class="fieldsetAppli">
 			<div class="entete">
 				<legend class="legendHome">
-					<bean:message key="cv.26" />
+					<bean:message key="cv.title.languages" />
 				</legend>
 			</div>
 
@@ -341,7 +333,7 @@
 			<div class="corp_langue">
 				<table class="fieldsetTableAdmin">
 					<tr>
-						<td>*<bean:message key="cv.27" /></td>
+						<td>*<bean:message key="cv.form.language" /></td>
 					</tr>
 					<tr>
 						<td><input type="text" name="CVLangue" id="CVLangue" />
@@ -350,33 +342,33 @@
 									key="error.CVLangue" /></span></td>
 					</tr>
 					<tr>
-						<td>*<bean:message key="cv.28" /></td>
+						<td>*<bean:message key="cv.form.levelLanguage" /></td>
 					</tr>
 					<tr>
 						<td><select name="niveaux" id="niveaux">
-								<option selected="selected">
-									<bean:message key="niveux.0" />
+								<option value="<bean:message key="cv.levelLanguage.0" />" selected="selected">
+									<bean:message key="cv.levelLanguage.0" />
 								</option>
-								<option value="<bean:message key="niveux.1"/>">
-									<bean:message key="niveux.1" />
+								<option value="<bean:message key="cv.levelLanguage.1"/>">
+									<bean:message key="cv.levelLanguage.1" />
 								</option>
-								<option value="<bean:message key="niveux.2"/>">
-									<bean:message key="niveux.2" />
+								<option value="<bean:message key="cv.levelLanguage.2"/>">
+									<bean:message key="cv.levelLanguage.2" />
 								</option>
-								<option value="<bean:message key="niveux.3"/>">
-									<bean:message key="niveux.3" />
+								<option value="<bean:message key="cv.levelLanguage.3"/>">
+									<bean:message key="cv.levelLanguage.3" />
 								</option>
 						</select></td>
 					</tr>
 					<tr>
 						<td><a><span class="annuleLangue"> <bean:message
-										key="cv.annuler" /></span></a> <a><span class="SaveLangue"><bean:message
-										key="cv.enregister" /> </span></a></td>
+										key="cv.button.cancel" /></span></a> <a><span class="SaveLangue"><bean:message
+										key="cv.button.save" /> </span></a></td>
 					</tr>
 				</table>
 			</div>
 			<a> <span class="addLangue"> <bean:message
-						key="cv.addLangue" />
+						key="cv.button.addLanguage" />
 			</span>
 			</a>
 		</fieldset>
@@ -384,7 +376,7 @@
 
 
 	<html:submit styleId="envoi" styleClass="button">
-		<bean:message key="cv.23" />
+		<bean:message key="cv.button.create" />
 	</html:submit>
 </html:form>
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>

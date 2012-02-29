@@ -3,21 +3,21 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <bean:define id="searchMessage">
-	<bean:message key="consultation.search" />
+	<bean:message key="consultations.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="consultation.searchConsultation" />
+		<bean:message key="consultations.title.search" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
 			<td><html:form action="SearchConsultation" method="get">
-					<div id="SearchCommunity">
-						<html:text styleId="searchTexte" property="searchText" />
+					<div id="SearchConsultation">
+						<html:text property="searchText" styleId="searchTexte" />
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
 						<html:submit styleClass="button">
-							<bean:message key="consultation.searchButton" />
+							<bean:message key="consultations.button.search" />
 						</html:submit>
 					</div>
 				</html:form></td>
@@ -27,7 +27,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="consultation.listConsultations" />
+		<bean:message key="consultations.title.listConsultations" />
 	</legend>
 	<c:choose>
 		<c:when test="${! empty requestScope.consultationsSearchList}">
@@ -57,7 +57,7 @@
 						<th width="25%"><bean:message
 								key="tableheader.consultationname" /></th>
 						<th width="20%"><bean:message
-								key="consultation.createdAtDate" /></th>
+								key="consultations.createdAtDate" /></th>
 						<th><bean:message key="tableheader.by" /></th>
 						<th><bean:message key="members.firstName" /></th>
 						<th><bean:message key="members.name" /></th>
@@ -83,13 +83,13 @@
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${consultation.creator}" /></td>
 							<td class="tableButton"
-								onclick="confirmDelete2(${consultation.id}	)"><c:if
+								onclick="confirmDelete2(${consultation.id},	'<bean:message key="message.confirmation.delete" />');"><c:if
 									test="${sessionScope.userId eq consultation.creator.id}">
 									<html:form action="/DeleteAConsultation" method="post"
 										styleId="${consultation.id}" styleClass="cursorPointer">
 										<html:hidden property="id" value="${consultation.id}" />
 										<span class="button"> <bean:message
-												key="consultation.delete" />
+												key="consultations.button.delete" />
 										</span>
 									</html:form>
 								</c:if></td>

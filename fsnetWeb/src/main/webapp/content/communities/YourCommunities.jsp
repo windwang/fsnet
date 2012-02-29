@@ -7,7 +7,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="communities.listYourCommunities" />
+		<bean:message key="communities.title.listYourCommunities" />
 	</legend>
 
 	<c:choose>
@@ -49,7 +49,7 @@
                             ${community.title}
                         </html:link> <c:choose>
 									<c:when test="${fn:length(community.hubs) eq 0}">
-                         		(<bean:message key="communities.notany.hubs" /> hub)
+                         		(<bean:message key="communities.hubs.notAny" /> hub)
                          	</c:when>
 									<c:when test="${fn:length(community.hubs) eq 1}">
                          		(1 hub)
@@ -59,14 +59,14 @@
                          	</c:when>
 								</c:choose></td>
 							<td class="tableButton"
-								onclick="confirmDelete2('deleteid${community.id}')"><c:if
+								onclick="confirmDelete2('deleteid${community.id}', '<bean:message key="message.confirmation.delete" />');"><c:if
 									test="${sessionScope.userId eq community.creator.id}">
 									<html:form action="DeleteCommunity.do"
 										styleId="deleteid${community.id}" method="post"
 										styleClass="cursorPointer">
 										<html:hidden property="communityId" value="${community.id}" />
 										<span class="button"> <bean:message
-												key="communities.delete" />
+												key="communities.button.delete" />
 										</span>
 									</html:form>
 								</c:if></td>

@@ -12,7 +12,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.createTopic" />
+		<bean:message key="topics.title.create" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
@@ -22,7 +22,7 @@
 					<table id="CreateEvent">
 						<tr>
 							<td><label for="topicSubject"> <bean:message
-										key="hubs.subjectTopic" />
+										key="topics.form.subject" />
 							</label></td>
 							<td><html:text property="topicSubject" styleId="eventName"
 									errorStyleClass="error" /> <logic:messagesPresent
@@ -38,7 +38,7 @@
 						</tr>
 						<tr>
 							<td><label for="messageDescription"> <bean:message
-										key="topics.descriptionMessage" /> :
+										key="topics.form.description" />
 							</label></td>
 							<td><html:textarea property="messageDescription"
 									styleId="messageDescription" styleClass="mceTextArea"
@@ -50,7 +50,7 @@
 						</tr>
 						<tr>
 							<td colspan="2"><html:submit styleClass="button alignRight">
-									<bean:message key="topics.submit" />
+									<bean:message key="topics.button.create" />
 								</html:submit></td>
 						</tr>
 					</table>

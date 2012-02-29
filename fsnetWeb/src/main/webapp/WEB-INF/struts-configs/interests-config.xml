@@ -20,7 +20,7 @@
         </form-bean>
         <form-bean name="SearchInterestForm"
                    type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="requestInput" type="java.lang.String" />
+            <form-property name="searchInterests" type="java.lang.String" />
             <form-property name="pageId" type="java.lang.String" />
             <form-property name="tileId" type="java.lang.String" />
         </form-bean>

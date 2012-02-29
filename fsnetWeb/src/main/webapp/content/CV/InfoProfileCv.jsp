@@ -1,8 +1,3 @@
-<%-- 
-    Document   : InfoContact
-    Created on : 07 janv
-    Author     : BENZAOUIA Anass <anassbenzaouia at gmail.com>
---%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
@@ -10,7 +5,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<html:form action="/CreateCV">
+<html:form action="/CreateCv2">
 	<div class="en_cv">
 		<fieldset class="fieldsetAppli">
 			<div class="entete">
@@ -21,7 +16,7 @@
 			<div class="corp">
 				<table class="fieldsetTableAdmin">
 					<tr>
-						<td><label for="CvTitle"> <bean:message key="cv.0" />
+						<td><label for="CvTitle"> <bean:message key="cv.form.title" />
 								:
 						</label></td>
 						<td><html:text property="CvTitle" styleId="CvTitle"
@@ -47,7 +42,7 @@
 			<div class="corp_contact">
 				<table class="fieldsetTableAdmin">
 					<tr>
-						<td><label for="CvNom"> <bean:message key="cv.1" />
+						<td><label for="CvNom"> <bean:message key="cv.form.name" />
 								:
 						</label></td>
 						<td><html:text property="CvNom" styleId="CvNom"
@@ -59,7 +54,7 @@
 							</logic:messagesPresent></td>
 					</tr>
 					<tr>
-						<td><label for="CvPrenom"> <bean:message key="cv.2" />
+						<td><label for="CvPrenom"> <bean:message key="cv.form.surname" />
 								:
 						</label></td>
 						<td><html:text property="CvPrenom" styleId="CvPrenom"
@@ -109,7 +104,7 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td><label for="CvAdresse"> <bean:message key="cv.3" />
+						<td><label for="CvAdresse"> <bean:message key="cv.form.address" />
 								:
 						</label></td>
 						<td><html:text property="CvAdresse" styleId="CvAdresse"
@@ -122,7 +117,7 @@
 							</logic:messagesPresent></td>
 					</tr>
 					<tr>
-						<td><label for="CvVille"> <bean:message key="cv.4" />
+						<td><label for="CvVille"> <bean:message key="cv.form.city" />
 								:
 						</label></td>
 						<td><html:text property="CvVille" styleId="CvVille"
@@ -135,7 +130,7 @@
 							</logic:messagesPresent></td>
 					</tr>
 					<tr>
-						<td><label for="CvCp"> <bean:message key="cv.5" /> :
+						<td><label for="CvCp"> <bean:message key="cv.form.cp" /> :
 						</label></td>
 						<td><html:text property="CvCp" styleId="CvCp"
 								errorStyleClass="error" /> <logic:messagesPresent
@@ -146,7 +141,7 @@
 							</logic:messagesPresent></td>
 					</tr>
 					<tr>
-						<td><label for="CvPays"> <bean:message key="cv.6" />
+						<td><label for="CvPays"> <bean:message key="cv.form.country" />
 								:
 						</label></td>
 						<td><html:text property="CvPays" styleId="CvPays"
@@ -158,7 +153,7 @@
 							</logic:messagesPresent></td>
 					</tr>
 					<tr>
-						<td><label for="CvPortable"> <bean:message key="cv.7" />
+						<td><label for="CvPortable"> <bean:message key="cv.form.tel" />
 								:
 						</label></td>
 						<td><html:text property="CvPortable" styleId="CvPortable"
@@ -187,15 +182,15 @@
 					</tr>
 					<tr>
 						<td><label for="CvSituation"> <bean:message
-									key="cv.8" /> :
+									key="cv.form.situation" /> :
 						</label></td>
-						<td><bean:message key="cv.celeb" /><input type="radio"
-							name="situation" value="<bean:message key="cv.celeb" />" /> <bean:message
-								key="cv.mar" /><input type="radio" name="situation"
-							value=" <bean:message key="cv.mar" />" /></td>
+						<td><bean:message key="cv.form.single" /><input type="radio"
+							name="situation" value="<bean:message key="cv.form.single" />" /> <bean:message
+								key="cv.form.married" /><input type="radio" name="situation"
+							value=" <bean:message key="cv.form.married" />" /></td>
 					</tr>
 					<tr>
-						<td><label for="CvContact"> <bean:message key="cv.9" />
+						<td><label for="CvContact"> <bean:message key="cv.form.mail" />
 								:
 						</label></td>
 						<td><html:text property="CvContact" styleId="CvContact"

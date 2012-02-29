@@ -13,11 +13,11 @@
 	<li><html:link action="/Interests">
 			<bean:message key="showProfile.edit.interests" />
 		</html:link></li>
-	<li><html:link action="/InforCV">
-			<bean:message key="profile.CreateCV" />
+	<li><html:link action="/CreateCv1">
+			<bean:message key="profile.leftMenu.createCV" />
 		</html:link></li>
-	<li><html:link action="/MenuCv">
-			<bean:message key="profile.MenuCV" />
+	<li><html:link action="/DisplayCV">
+			<bean:message key="profile.leftMenu.myCV" />
 		</html:link></li>
 
 </ul>

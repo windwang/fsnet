@@ -5,7 +5,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.create" />
+		<bean:message key="hubs.title.create" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
@@ -14,11 +14,11 @@
 					<table id="CreateHub">
 						<tr>
 							<td><label for="hubName"><bean:message
-										key="hubs.name" /> :</label></td>
+										key="hubs.form.name" /> :</label></td>
 							<td><html:text property="hubName" styleId="hubName" /></td>
 
 							<td><html:submit styleClass="button">
-									<bean:message key="hubs.create" />
+									<bean:message key="hubs.button.create" />
 								</html:submit></td>
 						</tr>
 						<tr class="errorMessage">

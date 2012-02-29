@@ -61,7 +61,7 @@
 										styleId="eventid${event.id}" styleClass="deleteEventForm">
 										<html:hidden property="eventId" value="${event.id}" />
 										<span class="button"
-											onclick="confirmDelete2('eventid${event.id}')"> <bean:message
+											onclick="confirmDelete2('eventid${event.id}', '<bean:message key="message.confirmation.delete" />');"> <bean:message
 												key="events.button.delete" />
 										</span>
 									</html:form>

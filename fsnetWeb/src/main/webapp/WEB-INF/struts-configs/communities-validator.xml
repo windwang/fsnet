@@ -13,7 +13,7 @@
 		        	<var-name>maxlength</var-name>
 		        	<var-value>80</var-value>
 		        </var>
-				<arg0 key="communities.error.name" />
+				<arg0 key="communities.form.name" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
             </field>
         </form>
@@ -31,10 +31,10 @@
         </form>
         <form name="/ModifyCommunity">
             <field property="modifiedCommunityName" depends="required">
-                <arg key="communities.newName" />
+                <arg key="communities.form.newName" />
             </field>
             <field property="modifierCommunityName" depends="required">
-                <arg key="communities.name" />
+                <arg key="communities.form.name" />
             </field>
         </form>
     </formset>

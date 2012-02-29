@@ -287,8 +287,8 @@ public class ManageInterests extends MappingDispatchAction implements
 		InterestFacade facade = new InterestFacade(em);
 
 		String interestName = "";
-		if (dynaForm.get("requestInput") != null) {
-			interestName = (String) dynaForm.get("requestInput");
+		if (dynaForm.get("searchInterests") != null) {
+			interestName = (String) dynaForm.get("searchInterests");
 		}
 
 		List<Interest> results = facade.searchInterest(interestName);

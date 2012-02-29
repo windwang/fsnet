@@ -48,8 +48,8 @@ function switchFavorite(id) {
 		xhr.send("interactionId=" + id);
 	}
 }
-function changeSimpleOrMultiple()
-{
+
+function changeSimpleOrMultiple() {
 	if(document.getElementsByName("chooseSimpleOrMultiple")[0].checked)
 	{
 		document.getElementById("divChooseSimpleMember").style.display='block';
@@ -69,6 +69,7 @@ function changeSimpleOrMultiple()
 		document.getElementById("divChooseMultipleMember").style.display='none';
 	}
 }
+
 function DeplacerDroit(l1, l2) {
 
 	if (l1.options.selectedIndex >= 0)
@@ -83,6 +84,7 @@ function DeplacerDroit(l1, l2) {
 		alert("Aucun membre sélectionnée");
 	}
 }
+
 function ValiderModGroup() {
 	var memberListRight= document.getElementsByName('memberListRight')
 			.item(0);
@@ -102,6 +104,7 @@ function ValiderModGroup() {
 	}
 	return true;
 }
+
 function ValiderCreateGroup() {
 	var memberListLeft = document.getElementsByName('memberListRight')
 			.item(0);
@@ -117,13 +120,14 @@ function ValiderCreateGroup() {
 	}
 	return true;
 }
-function confirmDelete(action) {
-	if (confirm("<bean:message key='confirmation.delete' />")) {
+
+function confirmDelete(action, msg) {
+	if (confirm(msg)) {
 		document.location = action;
 	}
 }
-function confirmDelete2(formid) {
-	if (confirm("<bean:message key='confirmation.delete' />")) {
+function confirmDelete2(formid, msg) {
+	if (confirm(msg)) {
 		document.getElementById(formid).submit();
 	}
 }

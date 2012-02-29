@@ -7,7 +7,7 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <bean:define id="searchMessage">
-	<bean:message key="topic.search" />
+	<bean:message key="topics.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAppli">
@@ -26,17 +26,16 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.searchTopic" />
+		<bean:message key="hubs.title.searchTopic" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<html:form action="/SearchTopic" method="get">
 			<tr>
-				<td><label><bean:message key="hubs.subjectTopic" /> :</label></td>
 				<td><html:text property="topicSujetSearch" styleId="topicSujet" />
 					<ili:placeHolder id="topicSujet" value="${searchMessage}" /></td>
 				<td><html:hidden property="hubId" value="${hubResult.id}" /></td>
 				<td><html:submit styleClass="button">
-						<bean:message key="hubs.searchTopic" />
+						<bean:message key="hubs.button.searchTopic" />
 					</html:submit></td>
 			</tr>
 		</html:form>
@@ -55,12 +54,12 @@
         ${hubResult.title}
     </html:link>
 		-&gt;
-		<bean:message key="hubs.topics" />
+		<bean:message key="hubs.title.topics" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<logic:empty name="topicsLastMessage">
 			<tr>
-				<td><bean:message key="hubs.notopics" /></td>
+				<td><bean:message key="hubs.noTopics" /></td>
 			</tr>
 		</logic:empty>
 		<c:forEach var="couple" items="${topicsLastMessage}">
@@ -92,16 +91,11 @@
 					</logic:empty></td>
 				<c:if test="${sessionScope.userId eq couple.key.creator.id}">
 					<td class="tableButton"><a class="button"
-						onclick="confirmDelete('DeleteTopic.do?topicId='+${couple.key.id}+'&hubId='+${hubResult.id})">
-							<bean:message key="hubs.deleteTopic" />
+						onclick="confirmDelete('DeleteTopic.do?topicId='+${couple.key.id}+'&hubId='+${hubResult.id}, '<bean:message key="message.confirmation.delete" />');">
+							<bean:message key="hubs.button.deleteTopic" />
 					</a></td>
 				</c:if>
 			</tr>
 		</c:forEach>
 	</table>
-
-	<html:link action="/DisplayCreateTopic" styleClass="button">
-		<html:param name="hubId" value="${hubResult.id}" />
-		<bean:message key="hubs.createTopic" />
-	</html:link>
 </fieldset>

@@ -11,13 +11,13 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="topics.createMessage" />
+		<bean:message key="topics.title.createMessage" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
 			<td><html:form action="/CreateTopicMessage">
 					<html:hidden property="topicId" value="${topicId}" />
-					<bean:message key="topics.description" /> :
+					<bean:message key="topics.form.description" />
     <table style="width: 100%;">
 						<tr>
 							<td><html:textarea property="messageDescription"
@@ -31,7 +31,7 @@
 						<tr>
 							<td colspan="2" class="alignRight"><html:submit
 									styleClass="button">
-									<bean:message key="topics.createMessage" />
+									<bean:message key="topics.button.createMessage" />
 								</html:submit></td>
 						</tr>
 					</table>

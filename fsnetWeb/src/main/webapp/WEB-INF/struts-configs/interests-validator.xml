@@ -14,7 +14,7 @@
             </field>
         </form>
         <form name="/SearchInterest">
-            <field property="requestInput" depends="">
+            <field property="searchInterests" depends="">
                 <arg key="interests.error.search" />
             </field>
             <field property="pageId" depends="integer"/>

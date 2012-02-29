@@ -13,7 +13,7 @@
 		        	<var-name>maxlength</var-name>
 		        	<var-value>80</var-value>
 		        </var>
-				<arg0 key="hubs.error.name" />
+				<arg0 key="hubs.form.name" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 			</field>
 			<field property="communityId" depends="integer,required"></field>
@@ -39,7 +39,7 @@
 		</form>
 		<form name="/ModifyYourHub">
 			<field property="hubId" depends="integer,required">
-				<arg key="hubs.error.name" />
+				<arg key="hubs.form.name" />
 			</field>
 			<field property="communityId" depends="integer,required">
 			</field>

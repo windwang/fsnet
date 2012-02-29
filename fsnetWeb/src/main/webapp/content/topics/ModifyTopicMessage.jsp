@@ -9,13 +9,13 @@
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
 <h3>
-	<bean:message key="topics.modifyMessage" />
+	<bean:message key="topics.title.modifyMessage" />
 </h3>
 
 <html:form action="/ModifyTopicMessage">
 	<html:hidden property="topicId" value="${topicId}" />
 	<html:hidden property="messageId" value="${message.id}" />
-	<bean:message key="topics.descriptionMessage" /> :
+	<bean:message key="topics.form.description" />
     <table style="width: 100%;">
 		<tr>
 			<td><html:textarea cols="60" rows="8"
@@ -30,7 +30,7 @@
 		<tr>
 			<td colspan="2" class="alignRight"><html:submit
 					styleClass="button">
-					<bean:message key="topics.modifyMessage" />
+					<bean:message key="topics.button.updateMessage" />
 				</html:submit></td>
 		</tr>
 	</table>

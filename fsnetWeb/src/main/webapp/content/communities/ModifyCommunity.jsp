@@ -7,7 +7,7 @@
 
 <c:if test="${not empty requestScope.myCommunitiesPaginator.resultList}">
 	<h3>
-		<bean:message key="commmunities.modify" />
+		<bean:message key="commmunities.title.modify" />
 	</h3>
 	<table class="inLineTable">
 		<tr>
@@ -21,17 +21,16 @@
 					</div>
 					<html:select property="modifierCommunityName" styleClass="select">
 						<html:option value="">
-							<bean:message key="community.default" />
 						</html:option>
 						<c:forEach var="community"
 							items="${requestScope.myCommunitiesPaginator.resultList}">
 							<html:option value="${community.title}">${community.title}</html:option>
 						</c:forEach>
 					</html:select>
-					<bean:message key="communities.newName" />
+					<bean:message key="communities.form.newName" />
 					<html:text property="modifiedCommunityName" />
 					<html:submit styleClass="button">
-						<bean:message key="communities.validate" />
+						<bean:message key="communities.button.update" />
 					</html:submit>
 				</html:form></td>
 		</tr>

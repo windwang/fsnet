@@ -4,14 +4,14 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <bean:define id="searchMessage">
-	<bean:message key="community.search" />
+	<bean:message key="communities.placeholder.search" />
 </bean:define>
 
 <jsp:include page="/content/communities/YourCommunities.jsp" />
 <jsp:include page="/content/communities/ModifyCommunity.jsp" />
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="communities.searchYourCommunities" />
+		<bean:message key="communities.title.searchYourCommunities" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
@@ -20,7 +20,7 @@
 						<html:text property="searchCommunityText" styleId="searchTexte" />
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
 						<html:submit styleClass="button">
-							<bean:message key="communities.searchButton" />
+							<bean:message key="communities.button.search" />
 						</html:submit>
 					</div>
 				</html:form></td>

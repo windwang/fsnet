@@ -9,7 +9,7 @@
 <c:if test="${not empty hubResults}">
 	<fieldset class="fieldsetAppli">
 		<legend class="legendHome">
-			<bean:message key="hubs.modify" />
+			<bean:message key="hubs.title.modify" />
 		</legend>
 		<c:set var="hub" value="${hubResults}" />
 		<table class="inLineTableDashBoardFieldset fieldsetTable">
@@ -25,7 +25,6 @@
 						<br />
 						<html:select property="hubId" styleClass="select">
 							<html:option value="">
-								<bean:message key="hubs.hub" />
 							</html:option>
 							<c:forEach var="hub" items="${hubResults}">
 								<c:if test="${sessionScope.userId eq hub.creator.id}">
@@ -35,7 +34,7 @@
 						</html:select>
 						<html:text property="modifiedHubName" />
 						<html:submit styleClass="button">
-							<bean:message key="hubs.modify" />
+							<bean:message key="hubs.button.modify" />
 						</html:submit>
 					</html:form></td>
 			</tr>

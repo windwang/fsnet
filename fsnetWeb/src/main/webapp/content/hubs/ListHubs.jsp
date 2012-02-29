@@ -16,7 +16,7 @@
         </html:link>
 		</c:if>
 		-&gt;
-		<bean:message key="hubs.hubs" />
+		<bean:message key="hubs.title.hubs" />
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.listHubPaginator.resultList}">
@@ -82,8 +82,8 @@
 							<td class="tableButton"><c:if
 									test="${sessionScope.userId eq hub.creator.id}">
 									<a class="button"
-										onclick="confirmDelete('DeleteHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id})">
-										<bean:message key="hubs.delete" />
+										onclick="confirmDelete('DeleteHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id}, '<bean:message key="message.confirmation.delete" />');">
+										<bean:message key="hubs.button.delete" />
 									</a>
 								</c:if></td>
 						</tr>

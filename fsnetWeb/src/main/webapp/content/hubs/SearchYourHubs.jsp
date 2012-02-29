@@ -7,26 +7,24 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <bean:define id="searchMessage">
-	<bean:message key="hubs.search" />
+	<bean:message key="hubs.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.searchHubs" />
+		<bean:message key="hubs.title.search" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<tr>
 			<td><html:form action="/SearchYourHubs" method="get">
-					<html:hidden property="communityId" value="${param.communityId}" />
-					<table id="SearchHub">
-						<tr>
-							<td><html:text property="hubName" styleId="hubName" /> <ili:placeHolder
-									id="hubName" value="${searchMessage}" /></td>
-							<td><html:submit styleClass="button">
-									<bean:message key="hubs.searchButton" />
-								</html:submit></td>
-						</tr>
-					</table>
+					<div id="SearchYourHubs">
+						<html:hidden property="communityId" value="${param.communityId}" />
+						<html:text property="hubName" styleId="hubName" />
+						<ili:placeHolder id="hubName" value="${searchMessage}" />
+						<html:submit styleClass="button">
+							<bean:message key="hubs.button.search" />
+						</html:submit>
+					</div>
 				</html:form></td>
 		</tr>
 	</table>
@@ -38,7 +36,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.yourhubs" />
+		<bean:message key="hubs.title.myHubs" />
 	</legend>
 	<c:set var="hub" value="${hubResults}" />
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
@@ -62,8 +60,8 @@
 				<td class="tableButton"><c:if
 						test="${sessionScope.userId eq hub.creator.id}">
 						<a class="button"
-							onclick="confirmDelete('DeleteYourHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id})">
-							<bean:message key="hubs.delete" />
+							onclick="confirmDelete('DeleteYourHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id}, '<bean:message key="message.confirmation.delete" />');">
+							<bean:message key="hubs.button.delete" />
 						</a>
 					</c:if></td>
 			</tr>

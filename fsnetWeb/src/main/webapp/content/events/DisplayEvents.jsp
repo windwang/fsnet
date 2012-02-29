@@ -17,7 +17,7 @@
 		<tr>
 			<td><html:form action="/Events" method="get">
 					<div id="SearchEvent">
-						<html:text styleId="searchTexte" property="searchString" />
+						<html:text property="searchString" styleId="searchTexte" />
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
 						<html:submit styleClass="button">
 							<bean:message key="events.button.search" />

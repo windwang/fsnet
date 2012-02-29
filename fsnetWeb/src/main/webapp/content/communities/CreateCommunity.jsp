@@ -8,7 +8,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="communities.create" />
+		<bean:message key="communities.title.create" />
 	</legend>
 
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
@@ -17,7 +17,7 @@
 					<table id="CreateCommunity">
 						<tr>
 							<td><label for="name"> <bean:message
-										key="communities.name" /> :
+										key="communities.form.name" /> :
 							</label></td>
 							<td><html:text property="name" styleId="name"
 									errorStyleClass="error" /></td>
@@ -31,7 +31,7 @@
 						</tr>
 						<tr>
 							<td colspan="2"><html:submit styleClass="button">
-									<bean:message key="communities.validate" />
+									<bean:message key="communities.button.validate" />
 								</html:submit></td>
 						</tr>
 					</table>
