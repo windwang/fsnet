@@ -11,19 +11,25 @@
 		<legend class="legendHome">
 			<bean:message key="hubs.title.modify" />
 		</legend>
+		
 		<c:set var="hub" value="${hubResults}" />
+		
 		<table class="inLineTableDashBoardFieldset fieldsetTable">
-			<tr>
-				<td><html:form action="/ModifyYourHub" method="post">
-						<html:hidden property="communityId" value="${param.communityId}" />
+			<html:form action="/ModifyYourHub" method="post">
+				<html:hidden property="communityId" value="${param.communityId}" />
+				<tr>
+					<td colspan="2">
 						<div class="errorMessage">
 							<html:errors property="hubId" />
 						</div>
 						<div class="errorMessage">
 							<html:errors property="hubAlreadyExistsErrors" />
 						</div>
-						<br />
-						<html:select property="hubId" styleClass="select">
+					</td>
+				</tr>
+				
+				<tr>
+					<td><html:select property="hubId" styleClass="select">
 							<html:option value="">
 							</html:option>
 							<c:forEach var="hub" items="${hubResults}">
@@ -31,13 +37,16 @@
 									<html:option value="${hub.id}">${hub.title}</html:option>
 								</c:if>
 							</c:forEach>
-						</html:select>
-						<html:text property="modifiedHubName" />
-						<html:submit styleClass="button">
+						</html:select></td>
+					<td><html:text property="modifiedHubName" /></td>
+				</tr>
+				
+				<tr>
+					<td colspan="2"><html:submit styleClass="button">
 							<bean:message key="hubs.button.modify" />
-						</html:submit>
-					</html:form></td>
-			</tr>
+						</html:submit></td>
+				</tr>
+			</html:form>
 		</table>
 	</fieldset>
 </c:if>

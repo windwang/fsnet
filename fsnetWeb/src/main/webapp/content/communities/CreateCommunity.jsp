@@ -11,31 +11,31 @@
 		<bean:message key="communities.title.create" />
 	</legend>
 
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="/CreateCommunity">
-					<table id="CreateCommunity">
-						<tr>
-							<td><label for="name"> <bean:message
-										key="communities.form.name" /> :
-							</label></td>
-							<td><html:text property="name" styleId="name"
-									errorStyleClass="error" /></td>
-						</tr>
-						<tr class="errorMessage">
-							<td colspan="2"><html:errors property="name" /> <html:errors
-									property="createdCommunityName" /></td>
-						</tr>
-						<tr>
-							<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
-						</tr>
-						<tr>
-							<td colspan="2"><html:submit styleClass="button">
-									<bean:message key="communities.button.validate" />
-								</html:submit></td>
-						</tr>
-					</table>
-				</html:form></td>
-		</tr>
+	<table id="CreateCommunity"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="/CreateCommunity">
+			<tr>
+				<td><label for="name"> <bean:message
+							key="communities.form.name" /> :
+				</label></td>
+				<td><html:text property="name" styleId="name"
+						errorStyleClass="error" /> <logic:messagesPresent property="name">
+						<div class="errorMessage">
+							<html:errors property="name" />
+							<html:errors property="createdCommunityName" />
+						</div>
+					</logic:messagesPresent></td>
+			</tr>
+
+			<tr>
+				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" align="right"><html:submit styleClass="button">
+						<bean:message key="communities.button.validate" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>

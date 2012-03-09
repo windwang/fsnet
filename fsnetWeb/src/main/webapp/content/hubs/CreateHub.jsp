@@ -7,28 +7,32 @@
 	<legend class="legendHome">
 		<bean:message key="hubs.title.create" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="/CreateHub">
-					<html:hidden property="communityId" value="${param.communityId}" />
-					<table id="CreateHub">
-						<tr>
-							<td><label for="hubName"><bean:message
-										key="hubs.form.name" /> :</label></td>
-							<td><html:text property="hubName" styleId="hubName" /></td>
+	<table id="CreateHub"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="/CreateHub">
+			<html:hidden property="communityId" value="${param.communityId}" />
+			<tr>
+				<td><label for="hubName"><bean:message
+							key="hubs.form.name" /> :</label></td>
+				<td><html:text property="hubName" styleId="hubName" />
+					<logic:messagesPresent property="hubName">
+						<div class="errorMessage">
+							<html:errors property="hubName" />
+							<html:errors property="createdHubName" />
+						</div>
+					</logic:messagesPresent></td>
+			</tr>
 
-							<td><html:submit styleClass="button">
-									<bean:message key="hubs.button.create" />
-								</html:submit></td>
-						</tr>
-						<tr class="errorMessage">
-							<td colspan="2"><html:errors property="hubName" /> <html:errors
-									property="createdHubName" /></td>
-						</tr>
-					</table>
-					<c:import url="/InterestCheckBoxes.do" />
-				</html:form></td>
-		</tr>
+			<tr>
+				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" align="right"><html:submit styleClass="button">
+						<bean:message key="hubs.button.create" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>
 <div class="clear"></div>

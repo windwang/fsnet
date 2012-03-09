@@ -790,8 +790,6 @@ thead, thead th {
 	background-color : #DCF0FE;	
 }
 
-#buttonConsultation { float:right;margin-right:25px;margin-top:5px; margin-bottom:10px;}
-
 .plusMoins{margin-left:10px;}
 
 .plus{background: url("../images/addConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}

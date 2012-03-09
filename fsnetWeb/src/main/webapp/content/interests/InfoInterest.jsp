@@ -31,7 +31,7 @@
 
 		<fieldset class="fieldsetAppli">
 			<legend class="legendHome">
-				<bean:message key="interests.15" />
+				<bean:message key="interests.title.parent" />
 			</legend>
 			<table class="inLineTableDashBoardFieldset fieldsetTable">
 				<tr>

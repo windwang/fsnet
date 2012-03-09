@@ -10,8 +10,6 @@
 		<bean:message key="groups.create" />
 	</legend>
 
-
-
 	<html:form action="/CreateGroup" onsubmit="Valider()">
 		<table id="CreateGroup" class="fieldsetTableAdmin">
 			<tr>

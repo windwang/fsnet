@@ -13,51 +13,53 @@
 	<legend class="legendHome">
 		<bean:message key="announce.title.create" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="/CreateAnnounce">
-					<table id="CreateAnnounce">
-						<tr>
-							<td><label for="announceTitle"><bean:message
-										key="announce.form.title" /></label></td>
-							<td><html:text property="announceTitle"
-									styleId="announceTitle" /> <c:import
-									url="/InterestCheckBoxes.do" /></td>
-						</tr>
-						<logic:messagesPresent property="announceTitle">
-							<tr class="errorMessage">
-								<td colspan="2"><html:errors property="announceTitle" /></td>
-							</tr>
-						</logic:messagesPresent>
-						<tr>
-							<td><label for="announceContent"><bean:message
-										key="announce.form.content" /> </label></td>
-							<td><html:textarea cols="40" rows="8"
-									property="announceContent" styleId="announceContent"
-									styleClass="mceTextArea" style="width: 100%;" /></td>
-						</tr>
-						<logic:messagesPresent property="announceContent">
-							<tr class="errorMessage">
-								<td colspan="2"><html:errors property="announceContent" /></td>
-							</tr>
-						</logic:messagesPresent>
-						<tr>
-							<td><label for="announceExpiryDate">Date :</label></td>
-							<td><html:text property="announceExpiryDate"
-									styleId="announceExpiryDate" disabled="false" />
-								<html:submit styleClass="button">
-									<bean:message key="announce.button.create" />
-								</html:submit></td>
-						</tr>
-						<logic:messagesPresent property="announceExpiryDate">
-							<tr class="errorMessage">
-								<td colspan="2"><html:errors property="announceExpiryDate" /></td>
-							</tr>
-						</logic:messagesPresent>
+	
+	<table id="CreateAnnounce"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="/CreateAnnounce">
+			<tr>
+				<td><label for="announceTitle"><bean:message
+							key="announce.form.title" /></label></td>
+				<td><html:text property="announceTitle" styleId="announceTitle" />
+					<c:import url="/InterestCheckBoxes.do" /></td>
+			</tr>
+			<logic:messagesPresent property="announceTitle">
+				<tr class="errorMessage">
+					<td colspan="2"><html:errors property="announceTitle" /></td>
+				</tr>
+			</logic:messagesPresent>
 
-					</table>
-				</html:form></td>
-		</tr>
+			<tr>
+				<td><label for="announceContent"><bean:message
+							key="announce.form.content" /> </label></td>
+				<td><html:textarea cols="40" rows="8"
+						property="announceContent" styleId="announceContent"
+						styleClass="mceTextArea" style="width: 100%;" /></td>
+			</tr>
+			<logic:messagesPresent property="announceContent">
+				<tr class="errorMessage">
+					<td colspan="2"><html:errors property="announceContent" /></td>
+				</tr>
+			</logic:messagesPresent>
+
+			<tr>
+				<td><label for="announceExpiryDate"><bean:message
+							key="announce.form.date" /></label></td>
+				<td><html:text property="announceExpiryDate"
+						styleId="announceExpiryDate" disabled="false" /></td>
+			</tr>
+			<logic:messagesPresent property="announceExpiryDate">
+				<tr class="errorMessage">
+					<td colspan="2"><html:errors property="announceExpiryDate" /></td>
+				</tr>
+			</logic:messagesPresent>
+
+			<tr>
+				<td colspan="2" align="right"><html:submit styleClass="button">
+						<bean:message key="announce.button.create" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>
 

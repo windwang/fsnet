@@ -102,25 +102,25 @@ public class ManageCV extends MappingDispatchAction {
 		String cvPrenom = (String) dynaForm.get("CvPrenom");
 		String cvAdresse = (String) dynaForm.get("CvAdresse");
 		String cvVille = (String) dynaForm.get("CvVille");
-		String cvPortable = (String) dynaForm.get("CvPortable");
+		String cvPortable = (String) dynaForm.get("CvTel");
 		String cvCp = (String) dynaForm.get("CvCp");
 		String cvPays = (String) dynaForm.get("CvPays");
 		String cvContact = (String) dynaForm.get("CvContact");
-		String birthDay = (String) dynaForm.get("formatBirthDay");
+		String birthDay = (String) dynaForm.get("CvBirthDay");
 
 		mysession.setAttribute("CvTitle", cvTitle);
 		mysession.setAttribute("CvNom", cvNom);
 		mysession.setAttribute("CvPrenom", cvPrenom);
 		mysession.setAttribute("CvAdresse", cvAdresse);
 		mysession.setAttribute("CvVille", cvVille);
-		mysession.setAttribute("CvPortable", cvPortable);
+		mysession.setAttribute("CvTel", cvPortable);
 		mysession.setAttribute("CvCp", cvCp);
 		mysession.setAttribute("CvPays", cvPays);
 		mysession.setAttribute("CvContact", cvContact);
-		mysession.setAttribute("formatBirthDay", birthDay);
+		mysession.setAttribute("CvBirthDay", birthDay);
 		mysession
 				.setAttribute("CvSituation", request.getParameter("situation"));
-		mysession.setAttribute("SexeMember", request.getParameter("sexe"));
+		mysession.setAttribute("CvSexe", request.getParameter("sexe"));
 
 		ActionErrors errors = new ActionErrors();
 		int erreur = 0;
@@ -134,7 +134,7 @@ public class ManageCV extends MappingDispatchAction {
 
 		if ("".equals(cvPortable)) {
 
-			errors.add("CvPortable", new ActionMessage("error.portable"));
+			errors.add("CvTel", new ActionMessage("error.portable"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
@@ -165,7 +165,7 @@ public class ManageCV extends MappingDispatchAction {
 		}
 		if ("".equals(birthDay)) {
 
-			errors.add("formatBirthDay", new ActionMessage("error.birthDay"));
+			errors.add("CvBirthDay", new ActionMessage("error.birthDay"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
@@ -201,7 +201,7 @@ public class ManageCV extends MappingDispatchAction {
 		try {
 			toDBDateFormat(birthDay);
 		} catch (Exception e) {
-			errors.add("formatBirthDay", new ActionMessage(
+			errors.add("CvBirthDay", new ActionMessage(
 					"error.birthDayValue"));
 			saveErrors(request, errors);
 			erreur = 1;
@@ -242,7 +242,7 @@ public class ManageCV extends MappingDispatchAction {
 			MemberCV member = new MemberCV();
 			try {
 				member.setBirthDate((Date) toDBDateFormat((String) mysession
-						.getAttribute("formatBirthDay")));
+						.getAttribute("CvBirthDay")));
 			} catch (Exception e) {
 
 			}
@@ -250,13 +250,13 @@ public class ManageCV extends MappingDispatchAction {
 			member.setAdress((String) mysession.getAttribute("CvAdresse"));
 			member.setFirstName((String) mysession.getAttribute("CvNom"));
 			member.setMail((String) mysession.getAttribute("CvContact"));
-			member.setNumberPhone((String) mysession.getAttribute("CvPortable"));
+			member.setNumberPhone((String) mysession.getAttribute("CvTel"));
 			member.setSurname((String) mysession.getAttribute("CvPrenom"));
 			member.setPostCode(Integer.parseInt((String) mysession
 					.getAttribute("CvCp")));
 			member.setSituationFamilly((String) mysession
 					.getAttribute("CvSituation"));
-			member.setSex((String) mysession.getAttribute("SexeMember"));
+			member.setSex((String) mysession.getAttribute("CvSexe"));
 			int lang = 0;
 			HashMap<String, String> languages = new HashMap<String, String>();
 			while (lang < nblangue) {

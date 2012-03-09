@@ -11,42 +11,50 @@
 
 
 <fieldset class="fieldsetAppli">
-  <legend class="legendHome"><bean:message key="announce.title.modify" /></legend>
-   <table  class="inLineTableDashBoardFieldset fieldsetTable"><tr><td>
+	<legend class="legendHome">
+		<bean:message key="announce.title.modify" />
+	</legend>
+	<table id="ModifyAnnounce"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="/ModifyAnnounce">
 
-<html:form action="/ModifyAnnounce">
+			<html:hidden property="idAnnounce" />
+			<tr>
+				<td colspan="2"><html:messages id="message" />
+					<div class="errorMessage">
+						<html:errors />
+					</div></td>
+			</tr>
 
-	<html:hidden property="idAnnounce" />
-	<table id="CreateAnnounce">
-		<tr>
-			<td colspan="2"><html:messages id="message" />
-				<div class="errorMessage">
-					<html:errors />
-				</div></td>
-		</tr>
-		<tr>
-			<td><label for="announceTitle"><bean:message
-						key="announce.form.title" /></label></td>
-			<td><html:text property="announceTitle" styleId="announceTitle" /></td>
-		</tr>
-		<tr>
-			<td><label for="announceContent"><bean:message
-						key="announce.form.content" /> </label></td>
-			<td><html:textarea cols="40" rows="8" property="announceContent"
-					styleId="announceContent" styleClass="mceTextArea"
-					style="width: 100%;" /></td>
-		</tr>
-		<tr>
-			<td><label for="announceExpiryDate">Date :</label></td>
-			<td><html:text property="announceExpiryDate"
-					styleId="announceExpiryDate" /> <html:submit styleClass="button">
-					<bean:message key="announce.button.modify" />
-				</html:submit></td>
-		</tr>
+			<tr>
+				<td><label for="announceTitle"><bean:message
+							key="announce.form.title" /></label></td>
+				<td><html:text property="announceTitle" styleId="announceTitle" /></td>
+			</tr>
 
+			<tr>
+				<td><label for="announceContent"><bean:message
+							key="announce.form.content" /> </label></td>
+				<td><html:textarea cols="40" rows="8"
+						property="announceContent" styleId="announceContent"
+						styleClass="mceTextArea" style="width: 100%;" /></td>
+			</tr>
+
+			<tr>
+				<td><label for="announceExpiryDate"><bean:message
+							key="announce.form.date" /></label></td>
+				<td><html:text property="announceExpiryDate"
+						styleId="announceExpiryDate" /></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" align="right"><html:submit styleClass="button">
+						<bean:message key="announce.button.modify" />
+					</html:submit></td>
+			</tr>
+
+		</html:form>
 	</table>
-  </html:form>
- </td></tr></table>
 </fieldset>
 
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>

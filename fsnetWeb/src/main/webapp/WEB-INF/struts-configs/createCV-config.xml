@@ -7,7 +7,7 @@
 
 		<form-bean name="CVForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="formatBirthDay" type="java.lang.String" />
+			<form-property name="CvBirthDay" type="java.lang.String" />
 			<form-property name="CvTitle" type="java.lang.String" />
 			<form-property name="CvNom" type="java.lang.String" />
 			<form-property name="CvPrenom" type="java.lang.String" />
@@ -15,7 +15,7 @@
 			<form-property name="CvVille" type="java.lang.String" />
 			<form-property name="CvCp" type="java.lang.String" />
 			<form-property name="CvPays" type="java.lang.String" />
-			<form-property name="CvPortable" type="java.lang.String" />
+			<form-property name="CvTel" type="java.lang.String" />
 			<form-property name="CvSituation" type="java.lang.String" />
 			<form-property name="CvContact" type="java.lang.String" />
 			<form-property name="CvPoste" type="java.lang.String" />

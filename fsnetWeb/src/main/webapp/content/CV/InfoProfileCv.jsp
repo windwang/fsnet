@@ -14,11 +14,10 @@
 				</legend>
 			</div>
 			<div class="corp">
-				<table class="fieldsetTableAdmin">
+				<table class="inLineTableDashBoardFieldset fieldsetTable">
 					<tr>
-						<td><label for="CvTitle"> <bean:message key="cv.form.title" />
-								:
-						</label></td>
+						<td><label for="CvTitle"><bean:message
+									key="cv.form.title" /> : </label></td>
 						<td><html:text property="CvTitle" styleId="CvTitle"
 								errorStyleClass="error" /> <logic:messagesPresent
 								property="CvTitle">
@@ -40,11 +39,10 @@
 				</legend>
 			</div>
 			<div class="corp_contact">
-				<table class="fieldsetTableAdmin">
+				<table class="inLineTableDashBoardFieldset fieldsetTable">
 					<tr>
-						<td><label for="CvNom"> <bean:message key="cv.form.name" />
-								:
-						</label></td>
+						<td><label for="CvNom"><bean:message
+									key="cv.form.name" /> : </label></td>
 						<td><html:text property="CvNom" styleId="CvNom"
 								errorStyleClass="error" value="${sessionScope.user.name}" /> <logic:messagesPresent
 								property="CvNom">
@@ -53,10 +51,10 @@
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
+
 					<tr>
-						<td><label for="CvPrenom"> <bean:message key="cv.form.surname" />
-								:
-						</label></td>
+						<td><label for="CvPrenom"><bean:message
+									key="cv.form.surname" /> : </label></td>
 						<td><html:text property="CvPrenom" styleId="CvPrenom"
 								errorStyleClass="error" value="${sessionScope.user.firstName}" />
 							<logic:messagesPresent property="CvPrenom">
@@ -65,11 +63,11 @@
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
+
 					<tr>
-						<td><label for="sexe"> <bean:message
-									key="members.sexe" /> :
-						</label></td>
-						<td><select name="sexe">
+						<td><label for="CvSexe"><bean:message
+									key="members.sexe" /> : </label></td>
+						<td><select name="CvSexe">
 
 								<c:choose>
 									<c:when test="${sessionScope.user.sex == 'male'}">
@@ -103,10 +101,10 @@
 
 						</select></td>
 					</tr>
+
 					<tr>
-						<td><label for="CvAdresse"> <bean:message key="cv.form.address" />
-								:
-						</label></td>
+						<td><label for="CvAdresse"><bean:message
+									key="cv.form.address" /> : </label></td>
 						<td><html:text property="CvAdresse" styleId="CvAdresse"
 								errorStyleClass="error"
 								value="${sessionScope.user.address.address}" /> <logic:messagesPresent
@@ -116,10 +114,10 @@
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
+
 					<tr>
-						<td><label for="CvVille"> <bean:message key="cv.form.city" />
-								:
-						</label></td>
+						<td><label for="CvVille"><bean:message
+									key="cv.form.city" /> : </label></td>
 						<td><html:text property="CvVille" styleId="CvVille"
 								errorStyleClass="error"
 								value="${sessionScope.user.address.city}" /> <logic:messagesPresent
@@ -129,9 +127,10 @@
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
+
 					<tr>
-						<td><label for="CvCp"> <bean:message key="cv.form.cp" /> :
-						</label></td>
+						<td><label for="CvCp"><bean:message key="cv.form.cp" />
+								: </label></td>
 						<td><html:text property="CvCp" styleId="CvCp"
 								errorStyleClass="error" /> <logic:messagesPresent
 								property="CvCp">
@@ -140,9 +139,10 @@
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
+
 					<tr>
-						<td><label for="CvPays"> <bean:message key="cv.form.country" />
-								:
+						<td><label for="CvPays"> <bean:message
+									key="cv.form.country" /> :
 						</label></td>
 						<td><html:text property="CvPays" styleId="CvPays"
 								errorStyleClass="error" /> <logic:messagesPresent
@@ -152,46 +152,46 @@
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
-					<tr>
-						<td><label for="CvPortable"> <bean:message key="cv.form.tel" />
-								:
-						</label></td>
-						<td><html:text property="CvPortable" styleId="CvPortable"
-								errorStyleClass="error" value="${sessionScope.user.phone}" />
-							<logic:messagesPresent property="CvPortable">
-								<div class="errorMessage">
-									<html:errors property="CvPortable" />
 
+					<tr>
+						<td><label for="CvTel"> <bean:message
+									key="cv.form.tel" /> :
+						</label></td>
+						<td><html:text property="CvTel" styleId="CvTel"
+								errorStyleClass="error" value="${sessionScope.user.phone}" /> <logic:messagesPresent
+								property="CvTel">
+								<div class="errorMessage">
+									<html:errors property="CvTel" />
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
 
 					<tr>
-						<td><label for="birthDay"> <bean:message
+						<td><label for="CvBirthDay"> <bean:message
 									key="members.birthDay" /> :
 						</label></td>
-						<td><html:text errorStyleClass="error" styleId="birthDay"
-								property="formatBirthDay">
-							</html:text>
-							<logic:messagesPresent property="formatBirthDay">
+						<td><html:text errorStyleClass="error" styleId="CvBirthDay"
+								property="CvBirthDay">
+							</html:text> <logic:messagesPresent property="CvBirthDay">
 								<div class="errorMessage">
-									<html:errors property="formatBirthDay" />
-
+									<html:errors property="CvBirthDay" />
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
+
 					<tr>
 						<td><label for="CvSituation"> <bean:message
 									key="cv.form.situation" /> :
 						</label></td>
 						<td><bean:message key="cv.form.single" /><input type="radio"
-							name="situation" value="<bean:message key="cv.form.single" />" /> <bean:message
-								key="cv.form.married" /><input type="radio" name="situation"
-							value=" <bean:message key="cv.form.married" />" /></td>
+							name="situation" value="<bean:message key="cv.form.single" />" />
+							<bean:message key="cv.form.married" /><input type="radio"
+							name="situation" value=" <bean:message key="cv.form.married" />" /></td>
 					</tr>
+					
 					<tr>
-						<td><label for="CvContact"> <bean:message key="cv.form.mail" />
-								:
+						<td><label for="CvContact"> <bean:message
+									key="cv.form.mail" /> :
 						</label></td>
 						<td><html:text property="CvContact" styleId="CvContact"
 								errorStyleClass="error" value="${sessionScope.user.email}" /> <logic:messagesPresent
@@ -201,13 +201,16 @@
 								</div>
 							</logic:messagesPresent></td>
 					</tr>
+
+					<tr>
+						<td colspan="2" align="right"><html:submit styleClass="button">
+								<bean:message key="cv.suivant" />
+							</html:submit></td>
+					</tr>
 				</table>
 			</div>
 		</fieldset>
 	</div>
-	<html:submit styleClass="button">
-		<bean:message key="cv.suivant" />
-	</html:submit>
 </html:form>
 
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
@@ -224,7 +227,7 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
-		$("#birthDay").datepicker($.datepicker.regional['fr']);
+		$("#CvBirthDay").datepicker($.datepicker.regional['fr']);
 
 	});
 </script>
