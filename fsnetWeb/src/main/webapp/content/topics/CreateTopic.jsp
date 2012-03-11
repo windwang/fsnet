@@ -20,12 +20,12 @@
 		<html:form action="/CreateTopic">
 
 			<html:hidden property="hubId" value="${param.hubId}" />
-			
+
 			<tr>
-				<td><label for="topicSubject"> <bean:message
+				<td><label for="topicSubject"><bean:message
 							key="topics.form.subject" />
 				</label></td>
-				<td><html:text property="topicSubject" styleId="eventName"
+				<td><html:text property="topicSubject" styleId="topicSubject"
 						errorStyleClass="error" /> <logic:messagesPresent
 						property="topicSubject">
 						<div class="errorMessage">
@@ -33,11 +33,11 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
-			
+
 			<tr>
 				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="messageDescription"> <bean:message
 							key="topics.form.description" />
@@ -51,7 +51,8 @@
 					</div></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button alignRight">
+				<td colspan="2" align="right"><html:submit
+						styleClass="button alignRight">
 						<bean:message key="topics.button.create" />
 					</html:submit></td>
 			</tr>

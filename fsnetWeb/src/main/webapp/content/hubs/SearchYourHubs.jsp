@@ -1,11 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <bean:define id="searchMessage">
 	<bean:message key="hubs.placeholder.search" />
 </bean:define>
@@ -14,25 +15,24 @@
 	<legend class="legendHome">
 		<bean:message key="hubs.title.search" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="/SearchYourHubs" method="get">
-					<div id="SearchYourHubs">
-						<html:hidden property="communityId" value="${param.communityId}" />
-						<html:text property="hubName" styleId="hubName" />
-						<ili:placeHolder id="hubName" value="${searchMessage}" />
-						<html:submit styleClass="button">
-							<bean:message key="hubs.button.search" />
-						</html:submit>
-					</div>
-				</html:form></td>
-		</tr>
+
+	<table id="SearchYourHubs"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="/SearchYourHubs" method="GET">
+			<tr>
+				<td><html:hidden property="communityId"
+						value="${param.communityId}" /> <html:text
+						property="searchYourText" styleId="searchTexte" /> <ili:placeHolder
+						id="searchTexte" value="${searchMessage}" /> <html:submit
+						styleClass="button">
+						<bean:message key="hubs.button.search" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>
 
-
-<jsp:include page="/content/hubs/ModifyHub.jsp" />
-
+<%@ include file="ModifyHub.jsp"%>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
@@ -69,3 +69,5 @@
 		</c:forEach>
 	</table>
 </fieldset>
+
+<%@ include file="CreateHub.jsp"%>

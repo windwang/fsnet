@@ -13,7 +13,7 @@
 	<legend class="legendHome">
 		<bean:message key="announce.title.create" />
 	</legend>
-	
+
 	<table id="CreateAnnounce"
 		class="inLineTableDashBoardFieldset fieldsetTable">
 		<html:form action="/CreateAnnounce">
@@ -21,38 +21,31 @@
 				<td><label for="announceTitle"><bean:message
 							key="announce.form.title" /></label></td>
 				<td><html:text property="announceTitle" styleId="announceTitle" />
-					<c:import url="/InterestCheckBoxes.do" /></td>
+					<div class="errorMessage">
+						<html:errors property="announceTitle" />
+					</div> <c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
-			<logic:messagesPresent property="announceTitle">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="announceTitle" /></td>
-				</tr>
-			</logic:messagesPresent>
 
 			<tr>
 				<td><label for="announceContent"><bean:message
 							key="announce.form.content" /> </label></td>
 				<td><html:textarea cols="40" rows="8"
 						property="announceContent" styleId="announceContent"
-						styleClass="mceTextArea" style="width: 100%;" /></td>
+						styleClass="mceTextArea" style="width: 100%;" />
+					<div class="errorMessage">
+						<html:errors property="announceContent" />
+					</div></td>
 			</tr>
-			<logic:messagesPresent property="announceContent">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="announceContent" /></td>
-				</tr>
-			</logic:messagesPresent>
 
 			<tr>
 				<td><label for="announceExpiryDate"><bean:message
 							key="announce.form.date" /></label></td>
 				<td><html:text property="announceExpiryDate"
-						styleId="announceExpiryDate" disabled="false" /></td>
+						styleId="announceExpiryDate" disabled="false" />
+					<div class="errorMessage">
+						<html:errors property="announceExpiryDate" />
+					</div></td>
 			</tr>
-			<logic:messagesPresent property="announceExpiryDate">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="announceExpiryDate" /></td>
-				</tr>
-			</logic:messagesPresent>
 
 			<tr>
 				<td colspan="2" align="right"><html:submit styleClass="button">

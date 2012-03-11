@@ -6,15 +6,15 @@
 		<form name="/CreateHub">
 			<field property="hubName" depends="required,mask,maxlength">
 				<var>
-		        	<var-name>mask</var-name>
-		        	<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
-		        </var>
-		        <var>
-		        	<var-name>maxlength</var-name>
-		        	<var-value>80</var-value>
-		        </var>
+					<var-name>mask</var-name>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>80</var-value>
+				</var>
 				<arg0 key="hubs.form.name" />
-				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="communityId" depends="integer,required"></field>
 		</form>
@@ -24,9 +24,6 @@
 		</form>
 		<form name="/DisplayHub">
 			<field property="hubId" depends="integer,required"></field>
-		</form>
-		<form name="/DisplayCreateHub">
-			<field property="communityId" depends="integer,required"></field>
 		</form>
 		<form name="/DisplayYourHubs">
 			<field property="communityId" depends="integer,required"></field>
@@ -38,13 +35,23 @@
 			</field>
 		</form>
 		<form name="/ModifyYourHub">
-			<field property="hubId" depends="integer,required">
+			<field property="oldHubId" depends="integer,required">
 				<arg key="hubs.form.name" />
 			</field>
 			<field property="communityId" depends="integer,required">
 			</field>
-			<field property="modifiedHubName" depends="required">
-			</field>	
+			<field property="newHubName" depends="required,mask,maxlength">
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^[\w, \.!?+*;\(\)\[\]'-]+$</var-value>
+				</var>
+				<var>
+					<var-name>maxlength</var-name>
+					<var-value>80</var-value>
+				</var>
+				<arg0 key="hubs.form.newName" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+			</field>
 		</form>
 		<form name="/SearchHub">
 			<field property="communityId" depends="integer,required">

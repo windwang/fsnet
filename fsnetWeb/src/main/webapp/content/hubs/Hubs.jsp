@@ -16,5 +16,5 @@
 </fieldset>
 <div class="clear"></div>
 
-<jsp:include page="/content/hubs/SearchHub.jsp" />
-<jsp:include page="/content/hubs/ListHubs.jsp" />
+<%@ include file="SearchHub.jsp" %>
+<%@ include file="ListHubs.jsp" %>

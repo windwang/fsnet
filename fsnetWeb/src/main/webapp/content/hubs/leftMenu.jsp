@@ -5,9 +5,9 @@
 	<bean:message key="hubs.leftMenu.title" />
 </h2>
 <ul>
-	<li><html:link action="/DisplayCreateHub">
+	<li><html:link action="/DisplayCommunity">
 			<html:param name="communityId" value="${param.communityId}" />
-			<bean:message key="hubs.leftMenu.create" />
+			<bean:message key="hubs.leftMenu.manageCommunity" />
 		</html:link></li>
 	<li><html:link action="/DisplayYourHubs">
 			<html:param name="communityId" value="${param.communityId}" />

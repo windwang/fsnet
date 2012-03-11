@@ -309,8 +309,9 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td colspan="2" align="right"><a><span class="annuleLangue"><bean:message
-										key="cv.button.cancel" /></span></a> | <a><span class="SaveLangue"><bean:message
+						<td colspan="2" align="right"><a><span
+								class="annuleLangue"><bean:message key="cv.button.cancel" /></span></a>
+							| <a><span class="SaveLangue"><bean:message
 										key="cv.button.save" /></span></a></td>
 					</tr>
 				</table>

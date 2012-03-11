@@ -28,7 +28,6 @@ import org.apache.struts.util.MessageResources;
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
 import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialElement;
@@ -43,11 +42,17 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  */
 public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
-	private static final String NAME_FORM_FIELD_NAME = "name";
-	private static final String DESCRIPTION_FORM_FIELD_NAME = "description";
-	private static final String SOCIAL_ENTITY_ID_FORM_FIELD_NAME = "socialEntityId";
-	private static final String ID_GROUP_ATTRIBUTE_NAME = "idGroup";	
-	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String GROUP_NAME_FORM_FIELD_NAME = "name";
+	private static final String GROUP_DESCRIPTION_FORM_FIELD_NAME = "description";
+	private static final String GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME = "socialEntityId";
+	private static final String GROUP_PARENT_ID_FORM_FIELD_NAME = "parentId";
+	private static final String GROUP_MEMBER_LIST_FORM_FIELD_NAME = "memberListRight";
+	private static final String GROUP_RIGHT_LIST_FORM_FIELD_NAME = "rigthListRight";
+	private static final String GROUP_ID_GROUP_ATTRIBUTE_NAME = "idGroup";
+	
+	private static final String SUCCES_ACTION_NAME = "success";
+	private static final String FAILER_ACTION_NAME = "failer";
+	private static final String TO_HOME_ACTION_NAME = "toHome";
 	
 	/*
 	 * (non-Javadoc)
@@ -64,7 +69,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 
 		HttpSession session = request.getSession(true);
-		session.removeAttribute(ID_GROUP_ATTRIBUTE_NAME);
+		session.removeAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 		List<SocialEntity> allMembers = null;
 		List<SocialGroup> allGroups = null;
 		SocialGroup parentGroup = null;
@@ -75,17 +80,17 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		if (form != null) {
 
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-			String name = (String) dynaForm.get(NAME_FORM_FIELD_NAME);
-			dynaForm.set(NAME_FORM_FIELD_NAME, "");
-			String description = (String) dynaForm.get(DESCRIPTION_FORM_FIELD_NAME);
-			dynaForm.set(DESCRIPTION_FORM_FIELD_NAME, "");
-			String parent = (String) dynaForm.get("parentId");
-			dynaForm.set("parentId", "");
-			String owner = (String) dynaForm.get(SOCIAL_ENTITY_ID_FORM_FIELD_NAME);
-			dynaForm.set(SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
+			String name = (String) dynaForm.get(GROUP_NAME_FORM_FIELD_NAME);
+			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
+			String description = (String) dynaForm.get(GROUP_DESCRIPTION_FORM_FIELD_NAME);
+			dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
+			String parent = (String) dynaForm.get(GROUP_PARENT_ID_FORM_FIELD_NAME);
+			dynaForm.set(GROUP_PARENT_ID_FORM_FIELD_NAME, "");
+			String owner = (String) dynaForm.get(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME);
+			dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
 			String[] membersAccepted = (String[]) dynaForm
-					.get("memberListRight");
-			String[] rigthsAccepted = (String[]) dynaForm.get("rigthListRight");
+					.get(GROUP_MEMBER_LIST_FORM_FIELD_NAME);
+			String[] rigthsAccepted = (String[]) dynaForm.get(GROUP_RIGHT_LIST_FORM_FIELD_NAME);
 
 			SocialEntity masterGroup = socialEntityFacade
 					.getSocialEntity(Integer.valueOf(owner));
@@ -110,14 +115,14 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 				em.getTransaction().commit();
 			} catch (RollbackException e) {
 				ActionErrors errors = new ActionErrors();
-				errors.add(NAME_FORM_FIELD_NAME, new ActionMessage("groups.name.exists"));
+				errors.add(GROUP_NAME_FORM_FIELD_NAME, new ActionMessage("groups.name.exists"));
 				saveErrors(request, errors);
-				return mapping.findForward("errors");
+				return mapping.findForward(FAILER_ACTION_NAME);
 			}
 			em.close();
-			dynaForm.set(NAME_FORM_FIELD_NAME, "");
-			dynaForm.set(DESCRIPTION_FORM_FIELD_NAME, "");
-			dynaForm.set(SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
+			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
+			dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
+			dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
 		} else {
 
 			allMembers = getRefusedSocialMember(socialGroupFacade,
@@ -132,10 +137,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(request.getLocale(),
 				"groups.success.on.create"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/*
@@ -151,24 +156,22 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
-
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		Integer socialGroupId = Integer.parseInt(dynaForm.getString("id"));
-		String name = (String) dynaForm.get(NAME_FORM_FIELD_NAME);
-		dynaForm.set(NAME_FORM_FIELD_NAME, "");
-		String description = (String) dynaForm.get(DESCRIPTION_FORM_FIELD_NAME);
-		dynaForm.set(DESCRIPTION_FORM_FIELD_NAME, "");
-		String owner = (String) dynaForm.get(SOCIAL_ENTITY_ID_FORM_FIELD_NAME);
-		dynaForm.set(SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
+		String name = (String) dynaForm.get(GROUP_NAME_FORM_FIELD_NAME);
+		dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
+		String description = (String) dynaForm.get(GROUP_DESCRIPTION_FORM_FIELD_NAME);
+		dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
+		String owner = (String) dynaForm.get(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME);
+		dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
 
-		String[] membersAccepted = (String[]) dynaForm.get("memberListRight");
+		String[] membersAccepted = (String[]) dynaForm.get(GROUP_MEMBER_LIST_FORM_FIELD_NAME);
 		String[] membersRefused = (String[]) dynaForm.get("memberListLeft");
-		String[] rigthsAccepted = (String[]) dynaForm.get("rigthListRight");
+		String[] rigthsAccepted = (String[]) dynaForm.get(GROUP_RIGHT_LIST_FORM_FIELD_NAME);
 
 		SocialGroup socialGroup = socialGroupFacade
 				.getSocialGroup(socialGroupId);
@@ -206,30 +209,31 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			em.merge(socialGroup);
 			em.getTransaction().commit();
 
-			request.getSession(true).removeAttribute(ID_GROUP_ATTRIBUTE_NAME);
+			request.getSession(true).removeAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 			if (!oldMasterGroup.equals(masterGroup)) {
 				request.getSession().setAttribute("isMasterGroup", false);
-				return mapping.findForward("toHome");
+				return mapping.findForward(TO_HOME_ACTION_NAME);
 			}
 
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add(NAME_FORM_FIELD_NAME, new ActionMessage("groups.name.exists"));
+			errors.add(GROUP_NAME_FORM_FIELD_NAME, new ActionMessage("groups.name.exists"));
 			saveErrors(request, errors);
-			return mapping.findForward("errors");
+			return mapping.findForward(FAILER_ACTION_NAME);
+		} finally {
+			em.close();
 		}
-		em.close();
-		dynaForm.set(NAME_FORM_FIELD_NAME, "");
-		dynaForm.set(DESCRIPTION_FORM_FIELD_NAME, "");
-		dynaForm.set("nameParent", "");
-		dynaForm.set(SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
+		
+		dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
+		dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
+		dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(request.getLocale(),
 				"groups.success.on.modify"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 
 	}
 
@@ -246,7 +250,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
@@ -272,7 +275,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/*
@@ -302,12 +305,12 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 
-		String id = request.getParameter(ID_GROUP_ATTRIBUTE_NAME);
+		String id = request.getParameter(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 
 		if (id == null){
-			id = (String) session.getAttribute(ID_GROUP_ATTRIBUTE_NAME);
+			id = (String) session.getAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 		}else{
-			session.setAttribute(ID_GROUP_ATTRIBUTE_NAME, id);
+			session.setAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME, id);
 		}
 
 		try {
@@ -332,8 +335,8 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			refusedRigths.removeAll(acceptedRigths);
 
 			dynaForm.set("id", id);
-			dynaForm.set(NAME_FORM_FIELD_NAME, group.getName());
-			dynaForm.set(DESCRIPTION_FORM_FIELD_NAME, group.getDescription());
+			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, group.getName());
+			dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, group.getDescription());
 			if (parentGroup != null){
 				request.setAttribute("nameParent", parentGroup.getName());
 			}
@@ -350,10 +353,10 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 			em.close();
 
-			return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+			return mapping.findForward(SUCCES_ACTION_NAME);
 
 		} catch (Exception e) {
-			return mapping.findForward("toHome");
+			return mapping.findForward(TO_HOME_ACTION_NAME);
 		}
 
 	}
@@ -467,9 +470,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					.getAllChildGroups(socialGroup);
 
 			request.setAttribute("groupsList", resultOthersList);
-			return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+			return mapping.findForward(SUCCES_ACTION_NAME);
 		} catch (NullPointerException e) {
-			return mapping.findForward("toHome");
+			return mapping.findForward(TO_HOME_ACTION_NAME);
 		}
 
 	}
@@ -513,7 +516,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		String idGroup = request.getParameter(ID_GROUP_ATTRIBUTE_NAME);
+		String idGroup = request.getParameter(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialGroup socialGroup;
 		if (idGroup == null || idGroup.isEmpty()){
@@ -538,7 +541,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		listOfChildGroup.remove(socialGroup);
 		request.setAttribute("childsOfGroup", listOfChildGroup);
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/**
@@ -588,7 +591,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 				if (file.getFileSize() > MAX_PICTURE_SIZE) {
 					sendPictureError(request, "groups.logo.maxsize");
-					return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+					return mapping.findForward(SUCCES_ACTION_NAME);
 				}
 
 				try {
@@ -605,6 +608,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 				sendPictureError(request, "groups.logo.type");
 			}
 		}
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 }

@@ -7,27 +7,28 @@
 	<bean:message key="communities.placeholder.search" />
 </bean:define>
 
-<jsp:include page="/content/communities/YourCommunities.jsp" />
-<jsp:include page="/content/communities/ModifyCommunity.jsp" />
+<%@ include file="YourCommunities.jsp" %>
+<%@ include file="ModifyCommunity.jsp" %>
+
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
 		<bean:message key="communities.title.searchYourCommunities" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="SearchYourCommunities" method="get">
-					<div id="SearchCommunity">
-						<html:text property="searchCommunityText" styleId="searchTexte" />
-						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:submit styleClass="button">
-							<bean:message key="communities.button.search" />
-						</html:submit>
-					</div>
-				</html:form></td>
-		</tr>
+	<table id="SearchCommunity"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="SearchYourCommunities" method="GET">
+			<tr>
+				<td><html:text property="searchYourText" styleId="searchTexte" />
+					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> <html:submit
+						styleClass="button">
+						<bean:message key="communities.button.search" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>
+
 <ili:interactionFilter user="${ socialEntity }"
 	right="${ rightCreateCommunity }">
-	<jsp:include page="/content/communities/CreateCommunity.jsp" />
+	<%@ include file="CreateCommunity.jsp" %>
 </ili:interactionFilter>

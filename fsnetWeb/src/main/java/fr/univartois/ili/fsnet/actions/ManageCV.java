@@ -46,6 +46,9 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
  */
 public class ManageCV extends MappingDispatchAction {
 
+	public static final String SUCCESS_ACTION_NAME = "success";
+	public static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
+	
 	public static SimpleDateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 
@@ -126,78 +129,74 @@ public class ManageCV extends MappingDispatchAction {
 		int erreur = 0;
 
 		if ("".equals(cvTitle)) {
-
 			errors.add("CvTitle", new ActionMessage("error.titre"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
 
 		if ("".equals(cvPortable)) {
-
 			errors.add("CvTel", new ActionMessage("error.portable"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
+		
 		if ("".equals(cvNom)) {
-
 			errors.add("CvNom", new ActionMessage("error.nom"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
+		
 		if ("".equals(cvPrenom)) {
-
 			errors.add("CvPrenom", new ActionMessage("error.prenom"));
 			saveErrors(request, errors);
 			erreur = 1;
-
 		}
+		
 		if ("".equals(cvAdresse)) {
-
 			errors.add("CvAdresse", new ActionMessage("error.adresse"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
+		
 		if ("".equals(cvVille)) {
-
 			errors.add("CvVille", new ActionMessage("error.ville"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
 		if ("".equals(birthDay)) {
-
 			errors.add("CvBirthDay", new ActionMessage("error.birthDay"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
 
 		if ("".equals(cvPays)) {
-
 			errors.add("CvPays", new ActionMessage("error.pays"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
+		
 		if ("".equals(cvContact)) {
-
 			errors.add("CvContact", new ActionMessage("error.contact"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
+		
 		if ("".equals(cvCp)) {
-
 			errors.add("CvCp", new ActionMessage("error.cp"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
+		
 		if (!"".equals(cvCp)) {
 			try {
 				Integer.parseInt(cvCp);
 			} catch (Exception e) {
-
 				errors.add("CvCp", new ActionMessage("error.cpInt"));
 				saveErrors(request, errors);
 				erreur = 1;
 			}
 		}
+		
 		try {
 			toDBDateFormat(birthDay);
 		} catch (Exception e) {
@@ -208,9 +207,9 @@ public class ManageCV extends MappingDispatchAction {
 		}
 
 		if (erreur == 1) {
-			return mapping.findForward("unauthorized");
+			return mapping.findForward(UNAUTHORIZED_ACTION_NAME);
 		} else {
-			return mapping.findForward("success");
+			return mapping.findForward(SUCCESS_ACTION_NAME);
 		}
 	}
 
@@ -246,6 +245,7 @@ public class ManageCV extends MappingDispatchAction {
 			} catch (Exception e) {
 
 			}
+			
 			member.setTown((String) mysession.getAttribute("CvPays"));
 			member.setAdress((String) mysession.getAttribute("CvAdresse"));
 			member.setFirstName((String) mysession.getAttribute("CvNom"));
@@ -425,13 +425,15 @@ public class ManageCV extends MappingDispatchAction {
 
 			//
 
-			return mapping.findForward("success");
+			return mapping.findForward(SUCCESS_ACTION_NAME);
 		} catch (NumberFormatException e) {
-			return mapping.findForward("success");
-
+			return mapping.findForward(SUCCESS_ACTION_NAME);
 		}
 	}
 
+	/**
+	 * @param request
+	 */
 	private void addRightToRequest(HttpServletRequest request) {
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		Right rightAddEvent = Right.ADD_EVENT;
@@ -441,6 +443,10 @@ public class ManageCV extends MappingDispatchAction {
 		request.setAttribute("socialEntity", socialEntity);
 	}
 
+	/**
+	 * @param request
+	 * @param em
+	 */
 	public static final void refreshNumNewEvents(HttpServletRequest request,
 			EntityManager em) {
 		HttpSession session = request.getSession();
@@ -477,6 +483,6 @@ public class ManageCV extends MappingDispatchAction {
 
 		request.setAttribute("CVsList", result);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCESS_ACTION_NAME);
 	}
 }

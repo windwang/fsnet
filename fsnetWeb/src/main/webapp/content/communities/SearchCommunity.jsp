@@ -12,18 +12,17 @@
 	<legend class="legendHome">
 		<bean:message key="communities.title.search" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="SearchCommunity" method="get">
-					<div id="SearchCommunity">
-						<html:text property="searchText" styleId="searchTexte" />
-						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:submit styleClass="button">
-							<bean:message key="communities.button.search" />
-						</html:submit>
-					</div>
-				</html:form></td>
-		</tr>
+	<table id="SearchCommunity"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="SearchCommunity" method="GET">
+			<tr>
+				<td><html:text property="searchText" styleId="searchTexte" />
+					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> <html:submit
+						styleClass="button">
+						<bean:message key="communities.button.search" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>
 

@@ -211,11 +211,6 @@ input[type=text], input[type=email], input[type=password], textarea {
 #CreateAnnounce #announceExpiryDate {width: 25%; color: black; margin-right: 8px;}
 #CreateAnnounce input[type=submit] {float: right;}
 
-#SearchEvent, #SearchAnnounce {margin-left: 190px;}
-#SearchEvent .button, #SearchAnnounce .button {margin-left: 15px;}
-
-#SearchHub {margin-left: 190px;}
-
 #EventList {width: 100%;}
 #EventList .header td {width: 20%;}
 #EventList .header th {color: #505050; font-size: 120%;background: url(../images/bg-message.png) repeat-x;}

@@ -11,7 +11,7 @@
 	</legend>
 
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<html:form action="CreateConsultation" method="post">
+		<html:form action="CreateConsultation" method="POST">
 			<tr>
 				<td>
 					<fieldset class="inLinefieldset">
@@ -19,16 +19,15 @@
 							<bean:message key="consultations.title.information" />
 						</legend>
 
-						<div class="errorMessage">
-							<html:errors property="consultationTitle" />
-						</div>
-
 						<table>
 							<tr>
 								<td><label for="consultationTitle"><bean:message
-											key="consultations.form.title" /> : </label></td>
+											key="consultations.form.title" /></label></td>
 								<td><html:text property="consultationTitle"
 										styleId="consultationTitle" />
+									<div class="errorMessage">
+										<html:errors property="consultationTitle" />
+									</div></td>
 							</tr>
 
 							<tr>
@@ -44,7 +43,6 @@
 
 			<tr>
 				<td>
-
 					<fieldset class="inLinefieldset">
 						<legend>
 							<bean:message key="consultations.title.choix" />

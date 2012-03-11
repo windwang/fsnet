@@ -17,19 +17,15 @@
 	<table id="ModifyAnnounce"
 		class="inLineTableDashBoardFieldset fieldsetTable">
 		<html:form action="/ModifyAnnounce">
-
 			<html:hidden property="idAnnounce" />
-			<tr>
-				<td colspan="2"><html:messages id="message" />
-					<div class="errorMessage">
-						<html:errors />
-					</div></td>
-			</tr>
-
+			
 			<tr>
 				<td><label for="announceTitle"><bean:message
 							key="announce.form.title" /></label></td>
-				<td><html:text property="announceTitle" styleId="announceTitle" /></td>
+				<td><html:text property="announceTitle" styleId="announceTitle" />
+					<div class="errorMessage">
+						<html:errors property="announceTitle" />
+					</div></td>
 			</tr>
 
 			<tr>
@@ -37,14 +33,19 @@
 							key="announce.form.content" /> </label></td>
 				<td><html:textarea cols="40" rows="8"
 						property="announceContent" styleId="announceContent"
-						styleClass="mceTextArea" style="width: 100%;" /></td>
+						styleClass="mceTextArea" style="width: 100%;" />
+					<div class="errorMessage">
+						<html:errors property="announceContent" />
+					</div></td>
 			</tr>
 
 			<tr>
 				<td><label for="announceExpiryDate"><bean:message
 							key="announce.form.date" /></label></td>
 				<td><html:text property="announceExpiryDate"
-						styleId="announceExpiryDate" /></td>
+						styleId="announceExpiryDate" /><div class="errorMessage">
+						<html:errors property="announceExpiryDate" />
+					</div></td>
 			</tr>
 
 			<tr>

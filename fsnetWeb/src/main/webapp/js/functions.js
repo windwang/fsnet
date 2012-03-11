@@ -85,7 +85,7 @@ function DeplacerDroit(l1, l2) {
 	}
 }
 
-function ValiderModGroup() {
+function ModifyGroup() {
 	var memberListRight= document.getElementsByName('memberListRight')
 			.item(0);
 	var memberListLeft = document.getElementsByName('memberListLeft')
@@ -105,7 +105,7 @@ function ValiderModGroup() {
 	return true;
 }
 
-function ValiderCreateGroup() {
+function CreateGroup() {
 	var memberListLeft = document.getElementsByName('memberListRight')
 			.item(0);
 

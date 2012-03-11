@@ -28,9 +28,9 @@
 					</logic:messagesPresent></td>
 			</tr>
 			<tr>
-				<td></td>
-				<td><c:import url="/InterestCheckBoxes.do" /></td>
+				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
+			
 			<tr>
 				<td><label for="eventDescription"> <bean:message
 							key="events.form.description" />
@@ -44,6 +44,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
+			
 			<tr>
 				<td><label for="eventAddress"> <bean:message
 							key="events.form.address" />
@@ -56,6 +57,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
+			
 			<tr>
 				<td><label for="eventCity"> <bean:message
 							key="events.form.city" />
@@ -68,6 +70,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
+			
 			<tr>
 				<td><label for="eventBeginDate"> <bean:message
 							key="events.form.beginDate" />
@@ -80,6 +83,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
+			
 			<tr>
 				<td><label for="eventEndDate"> <bean:message
 							key="events.form.endDate" />
@@ -92,6 +96,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
+			
 			<tr>
 				<td><label for="eventRecallTime"> <bean:message
 							key="events.form.recall" />
@@ -115,6 +120,7 @@
 						</div>
 					</logic:messagesPresent>
 			</tr>
+			
 			<tr>
 				<td colspan="2" align="right"><html:submit styleClass="button">
 						<bean:message key="events.button.create" />

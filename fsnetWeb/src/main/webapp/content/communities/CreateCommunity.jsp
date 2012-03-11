@@ -1,10 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
-
+<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
@@ -15,14 +13,13 @@
 		class="inLineTableDashBoardFieldset fieldsetTable">
 		<html:form action="/CreateCommunity">
 			<tr>
-				<td><label for="name"> <bean:message
-							key="communities.form.name" /> :
+				<td><label for="communityName"> <bean:message
+							key="communities.form.name" />
 				</label></td>
-				<td><html:text property="name" styleId="name"
-						errorStyleClass="error" /> <logic:messagesPresent property="name">
+				<td><html:text property="communityName" styleId="name"
+						errorStyleClass="error" /> <logic:messagesPresent property="communityName">
 						<div class="errorMessage">
-							<html:errors property="name" />
-							<html:errors property="createdCommunityName" />
+							<html:errors property="communityName" />
 						</div>
 					</logic:messagesPresent></td>
 			</tr>

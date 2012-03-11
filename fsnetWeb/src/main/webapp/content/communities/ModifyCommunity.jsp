@@ -1,11 +1,9 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
-<c:if test="${not empty requestScope.myCommunitiesPaginator.resultList}">
+<c:if test="${not empty requestScope.myCommunities}">
 	<fieldset class="fieldsetAppli">
 		<legend class="legendHome">
 			<bean:message key="commmunities.title.modify" />
@@ -15,32 +13,31 @@
 			class="inLineTableDashBoardFieldset fieldsetTable">
 			<html:form action="/ModifyCommunity">
 				<tr>
-					<td colspan="3">
-						<div class="errorMessage">
-							<html:errors property="modifierCommunityName" />
-						</div>
-						<div class="errorMessage">
-							<html:errors property="modifiedCommunityName" />
-							<br />
-						</div>
-					</td>
-				</tr>
-				<tr>
-					<td><html:select property="modifierCommunityName"
+					<td><bean:message key="communities.form.oldName" /></td>
+					<td><html:select property="oldCommunityName"
 							styleClass="select">
 							<html:option value="">
 							</html:option>
-							<c:forEach var="community"
-								items="${requestScope.myCommunitiesPaginator.resultList}">
+							<c:forEach var="community" items="${requestScope.myCommunities}">
 								<html:option value="${community.title}">${community.title}</html:option>
 							</c:forEach>
 						</html:select>
-					<td><bean:message key="communities.form.newName" /></td>
-					<td><html:text property="modifiedCommunityName" /></td>
+						<div class="errorMessage">
+							<html:errors property="oldCommunityName" />
+						</div></td>
+
 				</tr>
 				<tr>
-					<td colspan="3" align="right"><html:submit styleClass="button">
-							<bean:message key="communities.button.update" />
+					<td><bean:message key="communities.form.newName" /></td>
+					<td><html:text property="newCommunityName" />
+						<div class="errorMessage">
+							<html:errors property="newCommunityName" />
+						</div></td>
+				</tr>
+
+				<tr>
+					<td colspan="2" align="right"><html:submit styleClass="button">
+							<bean:message key="communities.button.modify" />
 						</html:submit></td>
 				</tr>
 			</html:form>

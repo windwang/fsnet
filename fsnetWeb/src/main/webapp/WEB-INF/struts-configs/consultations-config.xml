@@ -4,121 +4,111 @@
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
 	<form-beans>
-        <form-bean name="CreateConsultationForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="consultationTitle" type="java.lang.String" />
-            <form-property name="consultationDescription" type="java.lang.String" />
-            <form-property name="consultationChoice" type="java.lang.String[]"  />
-            <form-property name="consultationType" type="java.lang.String" initial="YES_NO" />
-            <form-property name="consultationIfNecessaryWeight" type="java.lang.String" />
-            <form-property name="nbVotersPerChoiceBox" type="java.lang.String" />
-            <form-property name="nbVotersPerChoice" type="java.lang.String" />
-            <form-property name="maxVoters" type="java.lang.String[]" />
-            <form-property name="limitChoicesPerVoter" type="java.lang.String" />
-            <form-property name="minChoicesVoter" type="java.lang.String" />
-            <form-property name="maxChoicesVoter" type="java.lang.String" />
-            <form-property name="showBeforeAnswer" type="java.lang.String" />
-            <form-property name="showBeforeClosing" type="java.lang.String" />
-            <form-property name="closingAtMaxVoters" type="java.lang.String" />
-            <form-property name="deadline" type="java.lang.String" />
-        </form-bean>
-        <form-bean name="VoteConsultationForm" 
-        			type="org.apache.struts.validator.DynaValidatorActionForm">
-        	<form-property name="voteComment" type="java.lang.String" />
-        	<form-property name="voteOther" type="java.lang.String" />
-        	<form-property name="voteChoice" type="java.lang.String[]"/>
-        	<form-property name="id" type="java.lang.Integer"/>
-        </form-bean>
-        <form-bean name="DeleteAConsultation" type="org.apache.struts.validator.DynaValidatorActionForm">
-        	<form-property name="id" type="java.lang.String"/>
-        </form-bean>
-        <form-bean name="SearchConsultation" type="org.apache.struts.validator.DynaValidatorActionForm">
-        	<form-property name="searchText" type="java.lang.String"></form-property>
-        </form-bean>
-     </form-beans>
-	 <action-mappings>
-	        <action path="/CreateConsultation"
-	        		name="CreateConsultationForm"
-	            	type="fr.univartois.ili.fsnet.actions.ManageConsultations"
-	            	input="CreateConsultation"
-	            	scope="request"
-	            	validate="true"
-	            	parameter="create">
-	            <forward name="error" path="CreateConsultation" />
-	            <forward name="success" path="DisplayAConsultation" />
-	            <forward name="unauthorized" path="/SearchConsultation.do" />
-	            
-	        </action>
-	        
-	        <action path="/CreateConsultationMenu"
-	        		type="org.apache.struts.actions.ForwardAction"
-                	parameter="CreateConsultation"/>
-                	
-	        <action path="/Consultations"
-	        		type="org.apache.struts.actions.ForwardAction"
-                	parameter="/SearchConsultation.do"/>
-                	
-	        <action path="/DisplayConsultations" 
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
-				parameter="searchYourConsultations">
-				<forward name="success" path="DisplayConsultations" />
-			</action>
-			<action path="/DisplayAConsultation" 
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations"
-				parameter="displayAConsultation">
-				<forward name="success" path="DisplayAConsultation" />
-				<forward name="unauthorized" path="/SearchConsultation.do" />
-			</action>
-			<action path="/CloseConsultation" 
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations"
-				parameter="closeConsultation">
-				<forward name="success" path="DisplayAConsultation" />
-			</action>
-			<action path="/OpenConsultation" 
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations"
-				parameter="openConsultation">
-				<forward name="success" path="DisplayAConsultation" />
-			</action>
-			<action path="/VoteConsultation"
-				name="VoteConsultationForm"
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
-				input="DisplayAConsultation"
-	            scope="request"
-	            validate="true"
-	            parameter="vote">
-	            <forward name="success" path="DisplayAConsultation" />
-	            <forward name="unauthorized" path="/SearchConsultation.do" />
-			</action>
-			<action path="/DeleteVoteConsultation"
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
-				input="DisplayAConsultation"
-				scope="request"
-	            parameter="deleteVote">
-	            <forward name="success" path="DisplayAConsultation" />
-			</action>
-			<action path="/DeleteAConsultation"
-				name="DeleteAConsultation"
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
-				input="/SearchConsultation.do"
-				scope="request"
-	            parameter="deleteConsultation">
-	            <forward name="success" path="/SearchConsultation.do" />
-			</action>
-			<action path="/SearchConsultation"
-				name="SearchConsultation"
-				type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
-				input="/DisplayConsultations.do"
-				scope="request"
-	            parameter="searchConsultation">
-	            <forward name="success" path="/DisplayConsultations.do" />
-			</action>
-			<action path="/AutocompleteOther"
-					name="VoteConsultationForm"
-					type="fr.univartois.ili.fsnet.actions.ManageConsultations" 
-					input="/DisplayConsultations.do"
-					scope="request"
-		            parameter="autocompleteOther">
-				<forward name="success" path="AutocompleteOtherChoice" />
-			</action>
-	 </action-mappings>
+		<form-bean name="CreateConsultationForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="consultationTitle" type="java.lang.String" />
+			<form-property name="consultationDescription" type="java.lang.String" />
+			<form-property name="consultationChoice" type="java.lang.String[]" />
+			<form-property name="consultationType" type="java.lang.String"
+				initial="YES_NO" />
+			<form-property name="consultationIfNecessaryWeight"
+				type="java.lang.String" />
+			<form-property name="nbVotersPerChoiceBox" type="java.lang.String" />
+			<form-property name="nbVotersPerChoice" type="java.lang.String" />
+			<form-property name="maxVoters" type="java.lang.String[]" />
+			<form-property name="limitChoicesPerVoter" type="java.lang.String" />
+			<form-property name="minChoicesVoter" type="java.lang.String" />
+			<form-property name="maxChoicesVoter" type="java.lang.String" />
+			<form-property name="showBeforeAnswer" type="java.lang.String" />
+			<form-property name="showBeforeClosing" type="java.lang.String" />
+			<form-property name="closingAtMaxVoters" type="java.lang.String" />
+			<form-property name="deadline" type="java.lang.String" />
+		</form-bean>
+
+		<form-bean name="VoteConsultationForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="voteComment" type="java.lang.String" />
+			<form-property name="voteOther" type="java.lang.String" />
+			<form-property name="voteChoice" type="java.lang.String[]" />
+			<form-property name="id" type="java.lang.Integer" />
+		</form-bean>
+
+		<form-bean name="DeleteAConsultation"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="id" type="java.lang.String" />
+		</form-bean>
+
+		<form-bean name="SearchConsultation"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="searchText" type="java.lang.String"></form-property>
+		</form-bean>
+	</form-beans>
+
+	<action-mappings>
+		<action path="/CreateConsultation" name="CreateConsultationForm"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="CreateConsultation"
+			scope="request" validate="true" parameter="create">
+			<forward name="failed" path="CreateConsultation" />
+			<forward name="success" path="DisplayAConsultation" />
+			<forward name="unauthorized" path="/SearchConsultation.do" />
+		</action>
+
+		<action path="/CreateConsultationMenu" type="org.apache.struts.actions.ForwardAction"
+			parameter="CreateConsultation" />
+
+		<action path="/Consultations" type="org.apache.struts.actions.ForwardAction"
+			parameter="/SearchConsultation.do" />
+			
+		<action path="/DisplayConsultations"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" parameter="searchYourConsultations">
+			<forward name="success" path="DisplayConsultations" />
+		</action>
+		
+		<action path="/DisplayAConsultation"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" parameter="displayAConsultation">
+			<forward name="success" path="DisplayAConsultation" />
+			<forward name="unauthorized" path="/SearchConsultation.do" />
+		</action>
+		
+		<action path="/CloseConsultation"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" parameter="closeConsultation">
+			<forward name="success" path="DisplayAConsultation" />
+		</action>
+		
+		<action path="/OpenConsultation"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" parameter="openConsultation">
+			<forward name="success" path="DisplayAConsultation" />
+		</action>
+		
+		<action path="/VoteConsultation" name="VoteConsultationForm"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="DisplayAConsultation"
+			scope="request" validate="true" parameter="vote">
+			<forward name="success" path="DisplayAConsultation" />
+			<forward name="unauthorized" path="/SearchConsultation.do" />
+		</action>
+		
+		<action path="/DeleteVoteConsultation"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="DisplayAConsultation"
+			scope="request" parameter="deleteVote">
+			<forward name="success" path="DisplayAConsultation" />
+		</action>
+		
+		<action path="/DeleteAConsultation" name="DeleteAConsultation"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="/SearchConsultation.do"
+			scope="request" parameter="deleteConsultation">
+			<forward name="success" path="/SearchConsultation.do" />
+		</action>
+		
+		<action path="/SearchConsultation" name="SearchConsultation"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="/DisplayConsultations.do"
+			scope="request" parameter="searchConsultation">
+			<forward name="success" path="/DisplayConsultations.do" />
+		</action>
+		
+		<action path="/AutocompleteOther" name="VoteConsultationForm"
+			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="/DisplayConsultations.do"
+			scope="request" parameter="autocompleteOther">
+			<forward name="success" path="AutocompleteOtherChoice" />
+		</action>
+	</action-mappings>
 </struts-config>
