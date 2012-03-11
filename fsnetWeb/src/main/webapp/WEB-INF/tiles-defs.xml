@@ -64,6 +64,13 @@
 		<put name="body-content" value="/content/events/Calendar.jsp" />
 	</definition>
 	
+		<definition name="ImportEvents" extends=".defaultLayout">
+		<put name="title" value="pageTitle.ImportEvents" />
+		<put name="currentMenu" value="Events" />
+		<put name="left" value="/content/events/leftMenu.jsp" />
+		<put name="body-content" value="/content/events/ImportEvents.jsp" />
+	</definition>
+	
 	<!-- Contacts -->
 	<definition name="Contacts" extends=".defaultLayout">
 		<put name="title" value="pageTitle.2" />

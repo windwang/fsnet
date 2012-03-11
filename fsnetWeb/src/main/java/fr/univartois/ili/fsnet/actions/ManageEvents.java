@@ -1,10 +1,14 @@
 package fr.univartois.ili.fsnet.actions;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -17,6 +21,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import net.fortuna.ical4j.data.CalendarBuilder;
+import net.fortuna.ical4j.data.ParserException;
+import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.Property;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -25,12 +35,11 @@ import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.upload.FormFile;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
-import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
-import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
@@ -55,13 +64,25 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	private static final String DEFAULT_RECALLTIME = "0";
 	
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
-	private static final String EVENT_BEGIN_DATE_FORM_FIELD_NAME = "eventBeginDate";
+	public static final String EVENT_BEGIN_DATE_FORM_FIELD_NAME = "eventBeginDate";
 	private static final String EVENT_END_DATE_FORM_FIELD_NAME = "eventEndDate";
 	private static final String EVENT_RECALL_TIME_FORM_FIELD_NAME = "eventRecallTime";
 	private static final String EVENT_RECALL_TYPE_TIME_FORM_FIELD_NAME = "eventRecallTypeTime";
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String EVENT_ID_ATTRIBUTE_NAME = "eventId";
 
+	public static enum EventProperty {
+		UID, DTSTART, DTEND, DESCRIPTION, SUMMARY, LOCATION,UNKNOWN;
+	    public static EventProperty lookup(String text) {
+	        try {
+	            return valueOf(text);
+	        } catch(Exception e) {
+	            return UNKNOWN;
+	        }
+	     }
+
+    }
+	
 	/**
 	 * @param eventDate
 	 * @param request
@@ -617,5 +638,117 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		return new ActionRedirect(mapping.findForward(SUCCES_ATTRIBUTE_NAME));
 	}
+	
+	public ActionForward displayImportEvents(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		
+		/** Check for right to import events **/
+		
+		return mapping.findForward("success");
+		
+	}
+	
+	public ActionForward importEventsFromFile(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		
+			try {
+				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+				FormFile icsFile = (FormFile) dynaForm.get("icsFile");
+				
+		        if(icsFile != null) {
+		        	String filePath = request.getSession().getServletContext().getRealPath("/");
+		            
+		            if (!icsFile.getFileName().endsWith(".ics")) {
+		            	return mapping.findForward("input");
+		            };
+		            
+		            FileOutputStream outputStream = null;
+		            try {
+			            outputStream = new FileOutputStream(new File(filePath,icsFile.getFileName()));
+			            outputStream.write(icsFile.getFileData());
+		            }
+		            finally {
+			            if (outputStream != null) {
+			            	outputStream.close();
+			            }
+		            }
+		            
+		            FileInputStream fin = new FileInputStream(filePath+icsFile.getFileName());
+
+		            CalendarBuilder builder = new CalendarBuilder();
+		            
+				net.fortuna.ical4j.model.Calendar calendar = builder.build(fin);
+				
+				parseCalendarAndSaveToDB(calendar,request);
+		        } else {
+		    		return mapping.findForward("input");
+		    	}
+			} catch (ParserException e) {
+				e.printStackTrace();
+			}
+
+		return mapping.findForward("success");
+		
+	}
+	
+	
+	/**
+	 * Method that parse an ical4j calendar to retrieve events and save them to the database
+	 * @return String the Action status
+	 */
+    public void parseCalendarAndSaveToDB(net.fortuna.ical4j.model.Calendar calendar, HttpServletRequest request) {
+    	try {
+    		EntityManager em = PersistenceProvider.createEntityManager();
+    		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+    		em.getTransaction().begin();
+	        for (Iterator i = calendar.getComponents(Component.VEVENT).iterator(); i.hasNext();) {
+
+	        	
+	            Component component = (Component) i.next();
+	
+	    		String eventName = "";
+	    		String eventDescription = "";
+	    		String eventBeginDate = "";
+	    		String eventEndDate = "";
+	    		String adress = "";
+	    		String city = "";
+	    		String eventRecallTime = "0";
+	    		String eventRecallTypeTime = "";
+	            
+	            for (Iterator j = component.getProperties().iterator(); j.hasNext();) {
+	                Property property = (Property) j.next();
+
+	                switch(EventProperty.lookup(property.getName())) {
+	                	case UID : eventName = property.getValue(); break;
+	                	case DTSTART : eventBeginDate = property.getValue(); break;
+	                	case DTEND :   eventEndDate = property.getValue(); break;
+	                	case DESCRIPTION : eventDescription = property.getValue(); break;
+	                	case SUMMARY : eventName = property.getValue(); break;
+	                	case LOCATION : adress = property.getValue(); break;
+	                	default : break;
+	                }
+	            }
+	            
+	    		Date typedEventBeginDate = DateUtils.convertIcsTimestampToDate(eventBeginDate);
+	    		Date typedEventEndDate = DateUtils.convertIcsTimestampToDate(eventEndDate);
+	    		Date typedEventRecallDate = DateUtils.substractTimeToDate(typedEventBeginDate,Integer.parseInt(eventRecallTime),
+	    				eventRecallTypeTime);
+	    		
+	    		
+                MeetingFacade meetingFacade = new MeetingFacade(em);
+        		Meeting event = meetingFacade.createMeeting(member, eventName,
+        				eventDescription, typedEventEndDate, false,
+        				typedEventBeginDate, adress, city,typedEventRecallDate);
+	        }
+	        
+    		em.getTransaction().commit();
+    		em.close();
+    		
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
 }

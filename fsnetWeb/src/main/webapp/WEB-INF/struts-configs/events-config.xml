@@ -45,6 +45,10 @@
 		<form-bean name="CalendarView"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 		</form-bean>
+		<form-bean name="importEventsForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="icsFile" type="org.apache.struts.upload.FormFile" />
+		</form-bean>
 	</form-beans>
 
 	<action-mappings>
@@ -103,6 +107,17 @@
 			type="fr.univartois.ili.fsnet.actions.Calendar" scope="request"
 			validate="false">
 			<forward name="success" path="Calendar" />
+			<forward name="unauthorized" path="/Events.do" />
+		</action>
+		<action path="/DisplayImportEvents" type="fr.univartois.ili.fsnet.actions.ManageEvents"
+			parameter="displayImportEvents" validate="false">
+			<forward name="success" path="ImportEvents" />
+			<forward name="unauthorized" path="Events" />
+		</action>
+		<action path="/importEventsFromFile" type="fr.univartois.ili.fsnet.actions.ManageEvents"
+			name="importEventsForm" input="/DisplayImportEvents.do" scope="request"
+			validate="false" parameter="importEventsFromFile">
+			<forward name="success" path="/Events.do" />
 			<forward name="unauthorized" path="/Events.do" />
 		</action>
 	</action-mappings>

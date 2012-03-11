@@ -802,3 +802,11 @@ input[type=submit] {cursor:pointer;}
 .thMessage{
 	padding-left: 0;
 }
+
+form#formImportEventsFromFile fieldset {
+	padding:30px 5px;
+}
+
+form#formImportEventsFromFile fieldset legend{
+	margin:-40px 0 0 30px;
+}

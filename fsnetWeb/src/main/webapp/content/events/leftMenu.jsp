@@ -16,5 +16,9 @@
 	<li><html:link action="/Calendar">
 			<bean:message key="events.leftMenu.calendar" />
 		</html:link></li>
+		
+	<li><html:link action="/DisplayImportEvents">
+			<bean:message key="events.leftMenu.importEvents" />
+	</html:link></li>
 
 </ul>

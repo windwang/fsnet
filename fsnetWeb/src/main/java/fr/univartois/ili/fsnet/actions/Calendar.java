@@ -33,7 +33,7 @@ public class Calendar extends MappingDispatchAction {
 	 * List that contains meeting/events for calendar view
 	 */
 	private List<String> events;
-
+	
 	/**
 	 * Action that create a list of all events/meetings in json format Used for
 	 * Full Calendar jquery plugin
@@ -79,7 +79,8 @@ public class Calendar extends MappingDispatchAction {
 		return mapping.findForward("success");
 
 	}
-
+	
+	
 	/**
 	 * @return
 	 */
@@ -93,5 +94,5 @@ public class Calendar extends MappingDispatchAction {
 	public void setEvents(List<String> events) {
 		this.events = events;
 	}
-
+   
 }

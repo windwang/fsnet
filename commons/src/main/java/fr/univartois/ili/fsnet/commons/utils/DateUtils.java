@@ -6,12 +6,17 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author Mehdi Benzagahr
  * 
  */
 public class DateUtils {
+	
+	/** Value of DATE in ics Calendar RFC (eg : 20120331T143055) **/
+	private static final String ICS_DATE_PATTERN = "([0-9]{4})([0-9]{2})([0-9]{2})(T([0-9]{2})([0-9]{2})([0-9]{2})?(Z?))?";
 	
 	private DateUtils(){
 		
@@ -155,4 +160,24 @@ public class DateUtils {
 		return (calendar1.getTimeInMillis()-calendar2.getTimeInMillis())/60000;
 	}
 
+	
+	public static Date convertIcsTimestampToDate(String date) {
+		Calendar cal = Calendar.getInstance();
+
+		Matcher matcher = Pattern.compile(ICS_DATE_PATTERN).matcher(date);
+		while(matcher.find()){
+			cal.set(java.util.Calendar.MONTH, Integer.parseInt(matcher.group(2)));
+			cal.set(java.util.Calendar.DAY_OF_MONTH, Integer.parseInt(matcher.group(3)));
+			cal.set(java.util.Calendar.YEAR, Integer.parseInt(matcher.group(1)));
+			if((matcher.group(5)!=null) && (matcher.group(6) != null)) {
+				cal.set(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(matcher.group(5)));
+				cal.set(java.util.Calendar.MINUTE, Integer.parseInt(matcher.group(6)));	
+				cal.set(java.util.Calendar.SECOND, 0);
+			}
+
+		}
+		
+		return cal.getTime();
+	}
+	
 }
