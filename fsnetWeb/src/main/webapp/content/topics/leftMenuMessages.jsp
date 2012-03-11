@@ -4,6 +4,6 @@
 <ul>
 	<li><html:link action="/DisplayCreateTopicMessage">
 			<html:param name="topicId" value="${param.topicId}" />
-			<bean:message key="topics.createLeftMenuMessages" />
+			<bean:message key="topics.leftMenu.createMessage" />
 		</html:link></li>
 </ul>

@@ -6,39 +6,42 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <bean:define id="searchMessage">
-	<bean:message key="topic.search" />
+	<bean:message key="topics.placeholder.search" />
 </bean:define>
 
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.searchTopic" />
+		<bean:message key="hubs.title.search" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<html:form action="/SearchYourTopics" method="get">
-			<tr>
-				<td><label><bean:message key="hubs.subjectTopic" /></label></td>
-				<td><html:text property="searchText" styleId="topicSujet" /> <ili:placeHolder
-						id="topicSujet" value="${searchMessage}" /></td>
-				<td><html:hidden property="hubId" value="${hubResult.id}" /></td>
-				<td><html:submit styleClass="button">
-						<bean:message key="hubs.searchTopic" />
-					</html:submit></td>
-			</tr>
-		</html:form>
+
+		<tr>
+			<td><html:form action="/SearchYourTopics" method="get">
+				<div id="SearchYourTopics">
+					<html:text property="searchText" styleId="searchTexte" />
+					<ili:placeHolder id="searchTexte" value="${searchMessage}" />
+					<html:hidden property="hubId" value="${hubResult.id}" />
+					<html:submit styleClass="button">
+						<bean:message key="topics.button.search" />
+					</html:submit>
+				</div>
+			</html:form></td>
+		</tr>
+
 	</table>
 </fieldset>
 
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.hub" />
+		<bean:message key="hubs.title.hub" />
 		${hubResult.title} -
-		<bean:message key="topics.yourTopics" />
+		<bean:message key="topics.title.myTopics" />
 	</legend>
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
 		<logic:empty name="topicsLastMessage">
-			<bean:message key="hubs.notopics" />
+			<bean:message key="topics.noTopics" />
 		</logic:empty>
 		<c:forEach var="couple" items="${topicsLastMessage}">
 			<tr>
@@ -52,9 +55,9 @@
 						title='${empty couple.key.interests? "" : couple.key.interests}'>
 						<html:param name="topicId" value="${couple.key.id}" />
                     ${couple.key.title}
-                </html:link> <br /> <bean:message key="hubs.createdOn" /> <bean:write
+                </html:link> <br /> <bean:message key="topics.createdOn" /> <bean:write
 						name="hubResult" property="creationDate" format="dd/MM/yyyy" /> <bean:message
-						key="hubs.by" /> <ili:getSocialEntityInfos
+						key="topics.by" /> <ili:getSocialEntityInfos
 						socialEntity="${couple.key.creator}" /></td>
 
 				<td style="background-color: #C7E5F8;"><logic:notEmpty
@@ -63,14 +66,14 @@
 						<bean:write name="lastMessage" property="creationDate"
 							format="dd/MM/yyyy" />
 						<br />
-						<bean:message key="hubs.by" /> ${lastMessage.from.firstName} ${lastMessage.from.name}
+						<bean:message key="topics.by" /> ${lastMessage.from.firstName} ${lastMessage.from.name}
                 </logic:notEmpty> <logic:empty name="couple" property="value">
-						<bean:message key="hubs.noMessage" />
+						<bean:message key="topics.noMessage" />
 					</logic:empty></td>
 				<c:if test="${sessionScope.userId eq couple.key.creator.id}">
 					<td class="tableButton"><a class="button"
-						onclick="confirmDelete('DeleteYourTopic.do?topicId='+${couple.key.id}+'&hubId='+${hubResult.id})">
-							<bean:message key="hubs.deleteTopic" />
+						onclick="confirmDelete('DeleteYourTopic.do?topicId='+${couple.key.id}+'&hubId='+${hubResult.id}, '<bean:message key="message.confirmation.delete" />');">
+							<bean:message key="topics.button.delete" />
 					</a></td>
 				</c:if>
 			</tr>

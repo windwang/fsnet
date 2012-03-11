@@ -12,49 +12,50 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.createTopic" />
+		<bean:message key="topics.title.create" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="/CreateTopic">
 
-					<html:hidden property="hubId" value="${param.hubId}" />
-					<table id="CreateEvent">
-						<tr>
-							<td><label for="topicSubject"> <bean:message
-										key="hubs.subjectTopic" />
-							</label></td>
-							<td><html:text property="topicSubject" styleId="eventName"
-									errorStyleClass="error" /> <logic:messagesPresent
-									property="topicSubject">
-									<div class="errorMessage">
-										<html:errors property="topicSubject" />
-									</div>
-								</logic:messagesPresent></td>
-						</tr>
-						<tr>
-							<td></td>
-							<td><c:import url="/InterestCheckBoxes.do" /></td>
-						</tr>
-						<tr>
-							<td><label for="messageDescription"> <bean:message
-										key="topics.descriptionMessage" /> :
-							</label></td>
-							<td><html:textarea property="messageDescription"
-									styleId="messageDescription" styleClass="mceTextArea"
-									style="width: 100%;">
-								</html:textarea>
-								<div class="errorMessage">
-									<html:errors property="messageDescription" />
-								</div></td>
-						</tr>
-						<tr>
-							<td colspan="2"><html:submit styleClass="button alignRight">
-									<bean:message key="topics.submit" />
-								</html:submit></td>
-						</tr>
-					</table>
-				</html:form></td>
-		</tr>
+	<table id="CreateTopic"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="/CreateTopic">
+
+			<html:hidden property="hubId" value="${param.hubId}" />
+
+			<tr>
+				<td><label for="topicSubject"><bean:message
+							key="topics.form.subject" />
+				</label></td>
+				<td><html:text property="topicSubject" styleId="topicSubject"
+						errorStyleClass="error" /> <logic:messagesPresent
+						property="topicSubject">
+						<div class="errorMessage">
+							<html:errors property="topicSubject" />
+						</div>
+					</logic:messagesPresent></td>
+			</tr>
+
+			<tr>
+				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
+			</tr>
+
+			<tr>
+				<td><label for="messageDescription"> <bean:message
+							key="topics.form.description" />
+				</label></td>
+				<td><html:textarea property="messageDescription"
+						styleId="messageDescription" styleClass="mceTextArea"
+						style="width: 100%;">
+					</html:textarea>
+					<div class="errorMessage">
+						<html:errors property="messageDescription" />
+					</div></td>
+			</tr>
+			<tr>
+				<td colspan="2" align="right"><html:submit
+						styleClass="button alignRight">
+						<bean:message key="topics.button.create" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>

@@ -11,39 +11,43 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="topics.createMessage" />
+		<bean:message key="topics.title.createMessage" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="/CreateTopicMessage">
-					<html:hidden property="topicId" value="${topicId}" />
-					<bean:message key="topics.description" /> :
-    <table style="width: 100%;">
-						<tr>
-							<td><html:textarea property="messageDescription"
-									styleId="messageDescription" styleClass="mceTextArea"
-									style="width: 100%;">
-								</html:textarea>
-								<div class="errorMessage">
-									<html:errors property="messageDescription" />
-								</div></td>
-						</tr>
-						<tr>
-							<td colspan="2" class="alignRight"><html:submit
-									styleClass="button">
-									<bean:message key="topics.createMessage" />
-								</html:submit></td>
-						</tr>
-					</table>
-					<bean:message key="topics.lastmessages" /> :
-	<c:forEach var="message" items="${lastMessages}">
 
-						<div class="lastMessageOwner">
-							<ili:getSocialEntityInfos socialEntity="${message.from}" />
-						</div>
-						<div class="topicTable">${message.body}</div>
-					</c:forEach>
-				</html:form></td>
-		</tr>
+	<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="/CreateTopicMessage">
+			<tr>
+				<td><html:hidden property="topicId" value="${topicId}" /> <bean:message
+						key="topics.form.description" /></td>
+				<td><html:textarea property="messageDescription"
+						styleId="messageDescription" styleClass="mceTextArea"
+						style="width: 100%;">
+					</html:textarea>
+					<div class="errorMessage">
+						<html:errors property="messageDescription" />
+					</div></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" class="alignRight"><html:submit
+						styleClass="button">
+						<bean:message key="topics.button.createMessage" />
+					</html:submit></td>
+			</tr>
+
+			<tr>
+				<td><bean:message key="topics.lastmessages" /></td>
+				<td><c:forEach var="message" items="${lastMessages}">
+						<tr>
+							<td colspan="2">
+								<div class="lastMessageOwner">
+									<ili:getSocialEntityInfos socialEntity="${message.from}" />
+								</div>
+								<div class="topicTable">${message.body}</div>
+							</td>
+						</tr>
+					</c:forEach></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>

@@ -9,6 +9,7 @@
 	<legend class="legendHome">
 		<bean:message key="interests.title.create2" />
 	</legend>
+
 	<div class="space"></div>
 	<html:javascript formName="/CreateInterest" />
 	<html:form action="/CreateInterest">
@@ -16,8 +17,10 @@
 			<tr>
 				<bean:message key="interests.message.create" />
 			</tr>
+
 			<tr>
 				<td><bean:message key="interests.title.parent" /></td>
+
 				<td><html:select property="parentInterestId"
 						styleClass="select">
 						<html:option value="">
@@ -27,15 +30,22 @@
 							<html:option value="${interest.id}">${interest.name}</html:option>
 						</c:forEach>
 					</html:select></td>
+
+			</tr>
+			
+			<tr>
+				<td><bean:message key="interests.form.name" /></td>
 				<td><html:text property="createdInterestName"
-						styleId="createdInterestName" /></td>
-				<td><html:submit styleClass="button">
+						styleId="createdInterestName" />
+					<div class="errorMessage">
+						<html:errors property="createdInterestName" />
+					</div></td>
+			</tr>
+			
+			<tr>
+				<td colspan="2" align="right"><html:submit styleClass="button">
 						<bean:message key="interests.button.create" />
 					</html:submit></td>
-			</tr>
-			<tr class="errorMessage">
-				<td></td>
-				<td colspan="2"><html:errors property="createdInterestName" /></td>
 			</tr>
 		</table>
 	</html:form>

@@ -8,7 +8,6 @@
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
 		<bean:message key="announce.title.list" />
-		s
 	</legend>
 
 	<c:choose>

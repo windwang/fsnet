@@ -17,36 +17,40 @@
 
 	<html:form action="/ModifyMember">
 		<table id="ModifyMember" class="fieldsetTableAdmin">
-			<tr class="errorMessage">
-				<td colspan="2"><html:errors /></td>
-
-			</tr>
 			<tr>
 				<td><label for="name"> <bean:message key="members.name" />
-						:
 				</label> <html:hidden property="id" /></td>
 				<td><html:text property="name" styleId="name"
-						errorStyleClass="error" /></td>
+						errorStyleClass="error" />
+					<div class="errorMessage">
+						<html:errors property="name" />
+					</div></td>
 			</tr>
 
 			<tr>
 				<td><label for="firstName"> <bean:message
-							key="members.firstName" /> :
+							key="members.firstName" />
 				</label></td>
 				<td><html:text property="firstName" styleId="firstName"
-						errorStyleClass="error" /></td>
+						errorStyleClass="error" />
+					<div class="errorMessage">
+						<html:errors property="firstName" />
+					</div></td>
 			</tr>
 
 			<tr>
 				<td><label for="email"> <bean:message
-							key="members.email" /> :
+							key="members.email" />
 				</label></td>
 				<td><html:text property="email" styleId="email"
-						errorStyleClass="error" /></td>
+						errorStyleClass="error" />
+					<div class="errorMessage">
+						<html:errors property="email" />
+					</div></td>
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="groups.parent" /> :
+				<td><label> <bean:message key="groups.parent" />
 				</label></td>
 				<c:choose>
 					<c:when test="${ master == false }">
@@ -58,7 +62,10 @@
 								<c:forEach var="socialGroup" items="${sessionScope.allGroups}">
 									<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
 								</c:forEach>
-							</html:select></td>
+							</html:select>
+							<div class="errorMessage">
+								<html:errors property="parentId" />
+							</div></td>
 					</c:when>
 					<c:otherwise>
 						<td colspan="3"><html:hidden property="parentId"
@@ -67,42 +74,40 @@
 					</c:otherwise>
 				</c:choose>
 			</tr>
-			<tr class="errorMessage">
-				<td colspan="2"><html:errors property="parentId" /></td>
-			</tr>
-
 
 			<tr>
 				<td><label for="address"> <bean:message
-							key="members.address" /> :
+							key="members.address" />
 				</label></td>
 				<td><html:textarea errorStyleClass="error" property="address"
 						styleId="address" /></td>
 			</tr>
+
 			<tr>
 				<td><label for="city"> <bean:message key="members.city" />
-						:
 				</label></td>
 				<td><html:text errorStyleClass="error" property="city"
-						styleId="city" /></td>
+						styleId="city" />
+					<div class="errorMessage">
+						<html:errors property="city" />
+					</div></td>
 			</tr>
+
 			<c:set var="formatBirthDay">
 				<bean:write name="ModifyMemberForm" property="birthDay"
 					format="dd/MM/yyyy" />
 			</c:set>
 			<tr>
 				<td><label for="birthDay"> <bean:message
-							key="members.birthDay" /> :
+							key="members.birthDay" />
 				</label></td>
 				<td><html:text errorStyleClass="error" styleId="birthDay"
 						property="formatBirthDay" value="${formatBirthDay}">
 					</html:text></td>
 			</tr>
 
-
 			<tr>
 				<td><label for="sexe"> <bean:message key="members.sexe" />
-						:
 				</label></td>
 				<td><html:select property="sexe">
 						<html:option value="" />
@@ -112,22 +117,30 @@
 						<html:option value="female">
 							<bean:message key="members.sexe.Female" />
 						</html:option>
-					</html:select></td>
+					</html:select>
+					<div class="errorMessage">
+						<html:errors property="sexe" />
+					</div></td>
 			</tr>
 
 			<tr>
 				<td><label for="job"> <bean:message key="members.job" />
-						:
 				</label></td>
 				<td><html:text errorStyleClass="error" property="job"
-						styleId="job" /></td>
+						styleId="job" />
+					<div class="errorMessage">
+						<html:errors property="job" />
+					</div></td>
 			</tr>
 
 			<tr>
 				<td><label for="phone"> <bean:message
-							key="members.phone" /> :
+							key="members.phone" />
 				</label></td>
-				<td><html:text errorStyleClass="error" property="phone" /></td>
+				<td><html:text errorStyleClass="error" property="phone" />
+					<div class="errorMessage">
+						<html:errors property="phone" />
+					</div></td>
 			</tr>
 
 			<tr>
@@ -177,11 +190,6 @@
 <c:set var="paginatorAction" value="/DisplayMember" scope="request" />
 <c:set var="paginatorTile" value="interestsMember" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
-
-
-
-
-
 
 <script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>

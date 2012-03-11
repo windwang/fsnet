@@ -1,10 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <fieldset class="fieldsetAppli">
@@ -16,7 +16,7 @@
         </html:link>
 		</c:if>
 		-&gt;
-		<bean:message key="hubs.hubs" />
+		<bean:message key="hubs.title.hubs" />
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.listHubPaginator.resultList}">
@@ -82,8 +82,8 @@
 							<td class="tableButton"><c:if
 									test="${sessionScope.userId eq hub.creator.id}">
 									<a class="button"
-										onclick="confirmDelete('DeleteHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id})">
-										<bean:message key="hubs.delete" />
+										onclick="confirmDelete('DeleteHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id}, '<bean:message key="message.confirmation.delete" />');">
+										<bean:message key="hubs.button.delete" />
 									</a>
 								</c:if></td>
 						</tr>

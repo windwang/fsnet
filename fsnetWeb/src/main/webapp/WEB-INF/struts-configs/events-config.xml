@@ -55,7 +55,8 @@
 		<action path="/CreateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
 			name="CreateEventForm" input="/DisplayCreateEvent.do" scope="request"
 			validate="true" parameter="create">
-			<forward name="success" path="/DisplayEvent.do" />
+			<forward name="success" path="/Events.do" />
+			<forward name="failed" path="/DisplayCreateEvent.do" />
 			<forward name="unauthorized" path="/Events.do" />
 		</action>
 		<action path="/DisplayCreateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
@@ -64,45 +65,55 @@
 			<forward name="unauthorized" path="/Events.do" />
 		</action>
 
+		<action path="/UpdateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
+			parameter="modify" input="UpdateEvent" scope="request"
+			validate="true" name="CreateEventForm">
+			<forward name="success" path="/Events.do" />
+			<forward name="failed" path="UpdateEvent" />
+		</action>
+		<action path="/DisplayUpdateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
+			name="CreateEventForm" validate="false" parameter="displayToModify"
+			scope="request">
+			<forward name="success" path="UpdateEvent" />
+			<forward name="failed" path="/Events.do" />
+		</action>
+
 		<action path="/Events" name="SearchEventForm"
 			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
 			scope="request" validate="false" parameter="search">
 			<forward name="success" path="Events" />
 		</action>
+
 		<action path="/DisplayEvent" name="DisplayEventForm"
 			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
 			scope="request" validate="true" parameter="display">
 			<forward name="success" path="DisplayEvent" />
+			<forward name="failed" path="/Events.do" />
 		</action>
+
 		<action path="/DeleteEvent" name="DeleteEventForm"
 			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
 			scope="request" validate="true" parameter="delete">
 			<forward name="success" path="/Events.do" />
+			<forward name="failed" path="/Events.do" />
 		</action>
+
 		<action path="/SubscribeEvent" name="SubscribeEventForm"
 			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
 			scope="request" validate="true" parameter="subscribe">
 			<forward name="unauthorized" path="/Events.do" />
 			<forward name="success" path="/DisplayEvent.do" />
+			<forward name="failed" path="/Events.do" />
 		</action>
+
 		<action path="/UnsubscribeEvent" name="UnsubscribeEventForm"
 			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
 			scope="request" validate="true" parameter="unsubscribe">
 			<forward name="unauthorized" path="/Events.do" />
 			<forward name="success" path="/DisplayEvent.do" />
+			<forward name="failed" path="/Events.do" />
 		</action>
-		<action path="/DisplayUpdateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			name="CreateEventForm" validate="false" parameter="displayToModify"
-			input="Events" scope="request">
-			<forward name="success" path="UpdateEvent" />
-			<forward name="unauthorized" path="/Events.do" />
-		</action>
-		<action path="/UpdateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			parameter="modify" input="/DisplayUpdateEvent.do" scope="request"
-			validate="true" name="CreateEventForm">
-			<forward name="unauthorized" path="/Events.do" />
-			<forward name="success" path="/DisplayEvent.do" />
-		</action>
+
 		<action path="/Calendar" name="CalendarView"
 			type="fr.univartois.ili.fsnet.actions.Calendar" scope="request"
 			validate="false">

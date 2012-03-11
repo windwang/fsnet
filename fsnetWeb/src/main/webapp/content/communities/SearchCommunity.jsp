@@ -5,31 +5,30 @@
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <bean:define id="searchMessage">
-	<bean:message key="community.search" />
+	<bean:message key="communities.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="communities.search" />
+		<bean:message key="communities.title.search" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="SearchCommunity" method="get">
-					<div id="SearchCommunity">
-						<html:text property="searchText" styleId="searchTexte" />
-						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:submit styleClass="button">
-							<bean:message key="communities.searchButton" />
-						</html:submit>
-					</div>
-				</html:form></td>
-		</tr>
+	<table id="SearchCommunity"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="SearchCommunity" method="GET">
+			<tr>
+				<td><html:text property="searchText" styleId="searchTexte" />
+					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> <html:submit
+						styleClass="button">
+						<bean:message key="communities.button.search" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="communities.listCommunities" />
+		<bean:message key="communities.title.listCommunities" />
 	</legend>
 
 	<c:choose>
@@ -77,7 +76,7 @@
                             ${community.title}
                         </html:link> <c:choose>
 									<c:when test="${fn:length(community.hubs) eq 0}">
-                         		(<bean:message key="communities.notany.hubs" /> hub)
+                         		(<bean:message key="communities.hubs.notAny" /> hub)
                          	</c:when>
 									<c:when test="${fn:length(community.hubs) eq 1}">
                          		(1 hub)
@@ -92,14 +91,14 @@
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${community.creator}" /></td>
 							<td class="tableButton"
-								onclick="confirmDelete2('deleteid${community.id}');"><c:if
+								onclick="confirmDelete2('deleteid${community.id}', '<bean:message key="message.confirmation.delete" />');"><c:if
 									test="${sessionScope.userId eq community.creator.id}">
 									<html:form action="DeleteCommunity.do"
 										styleId="deleteid${community.id}" method="post"
 										styleClass="cursorPointer">
 										<html:hidden property="communityId" value="${community.id}" />
 										<span class="button"> <bean:message
-												key="communities.delete" />
+												key="communities.button.delete" />
 										</span>
 									</html:form>
 								</c:if></td>
@@ -118,5 +117,4 @@
 		</c:otherwise>
 	</c:choose>
 </fieldset>
-
 

@@ -2,9 +2,9 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:if test="${param.searchText == null}">
-	<jsp:include page="/content/communities/YourCommunities.jsp" />
+	<%@ include file="YourCommunities.jsp" %>
 </c:if>
 
 <c:if test="${param.searchCommunityText == null}">
-	<jsp:include page="/content/communities/SearchCommunity.jsp" />
+	<%@ include file="SearchCommunity.jsp" %>
 </c:if>

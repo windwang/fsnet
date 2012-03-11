@@ -35,7 +35,8 @@
 		<html:param name="topicId" value="${requestScope.topic.id}" />
         ${requestScope.topic.title}
     </html:link>
-	-&gt; Messages
+	-&gt;
+	<bean:message key="topics.title.message" />
 </h3>
 
 <c:forEach var="msg"
@@ -50,13 +51,13 @@
 					<html:link action="/DeleteTopicMessage" styleClass="button">
 						<html:param name="topicId" value="${topic.id}" />
 						<html:param name="messageId" value="${msg.id}" />
-						<bean:message key="topics.deleteMsg" />
+						<bean:message key="topics.button.deleteMessage" />
 					</html:link>
 
 					<html:link action="/DisplayModifyTopicMessage" styleClass="button">
 						<html:param name="topicId" value="${topic.id}" />
 						<html:param name="messageId" value="${msg.id}" />
-						<bean:message key="topics.modifyMsg" />
+						<bean:message key="topics.button.modifyMessage" />
 					</html:link>
 
 				</c:if></td>
@@ -80,7 +81,7 @@
 
 <html:link action="/DisplayCreateTopicMessage" styleClass="button">
 	<html:param name="topicId" value="${topic.id}" />
-	<bean:message key="topics.answerMsg" />
+	<bean:message key="topics.button.answerMessage" />
 </html:link>
 
 

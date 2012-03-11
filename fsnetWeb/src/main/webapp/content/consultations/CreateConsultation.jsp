@@ -3,48 +3,60 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
+<script type="text/javascript" src="js/consultationUtils.js"></script>
+
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="consultation.create" />
+		<bean:message key="consultations.title.create" />
 	</legend>
+
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="CreateConsultation" method="post">
+		<html:form action="CreateConsultation" method="POST">
+			<tr>
+				<td>
 					<fieldset class="inLinefieldset">
 						<legend>
-							<bean:message key="consultation.information" />
+							<bean:message key="consultations.title.information" />
 						</legend>
-						<div class="errorMessage">
-							<html:errors property="consultationTitle" />
-						</div>
+
 						<table>
 							<tr>
 								<td><label for="consultationTitle"><bean:message
-											key="consultation.title" /> : </label></td>
+											key="consultations.form.title" /></label></td>
 								<td><html:text property="consultationTitle"
 										styleId="consultationTitle" />
+									<div class="errorMessage">
+										<html:errors property="consultationTitle" />
+									</div></td>
 							</tr>
+
 							<tr>
 								<td><label for="consultationDescription"><bean:message
-											key="consultation.description" /> : </label></td>
+											key="consultations.form.description" /> : </label></td>
 								<td><html:text property="consultationDescription"
 										styleId="consultationDescription" /></td>
 							</tr>
 						</table>
 					</fieldset>
+				</td>
+			</tr>
 
+			<tr>
+				<td>
 					<fieldset class="inLinefieldset">
 						<legend>
-							<bean:message key="consultation.choix" />
+							<bean:message key="consultations.title.choix" />
 						</legend>
+
 						<table>
 							<tr>
 								<td><label for="radioButtonText"><bean:message
-											key="consultation.textAlternative"></bean:message></label> <input
+											key="consultations.form.textAlternative"></bean:message></label> <input
 									type="radio" class="alternativeRadio" name="alternativeRadio"
 									id="radioButtonText" checked="checked" /></td>
+
 								<td><label for="radioButtonDate"><bean:message
-											key="consultation.dateAlternative"></bean:message></label><input
+											key="consultations.form.dateAlternative"></bean:message></label><input
 									type="radio" class="alternativeRadio" name="alternativeRadio"
 									id="radioButtonDate" /></td>
 							</tr>
@@ -53,23 +65,24 @@
 						<html:checkbox onclick="displayChoicesOption(true)"
 							property="nbVotersPerChoiceBox" styleId="nbVotersPerChoiceBox" />
 						<label for="nbVotersPerChoiceBox"><bean:message
-								key="consultationLimitVotersNumberPerChoice" /></label>
+								key="consultations.form.limitVotersNumberPerChoice" /></label>
 						<html:text styleId="nbVotersPerChoice" onkeyup="updateMaxVoters()"
 							property="nbVotersPerChoice" />
 
 						<div class="plusMoins">
-							<br />
-							<input type="button" onclick="removeChoice()" class="moins" /><input
-								type="button" onclick="addChoice()" class="plus" /><br />
+							<br /> <input type="button" onclick="removeChoice()"
+								class="moins" /><input type="button" onclick="addChoice()"
+								class="plus" /><br />
 						</div>
+
 						<c:if test="${errorChoice}">
 							<p class="errorMessage">
-								<bean:message key="consultation.errorChoice" />
+								<bean:message key="consultations.error.choice" />
 							</p>
 						</c:if>
 						<c:if test="${errorMaxVotersPerChoice}">
 							<p class="errorMessage">
-								<bean:message key="consultation.errorMaxVotersPerChoice" />
+								<bean:message key="consultations.error.maxVotersPerChoice" />
 							</p>
 						</c:if>
 
@@ -78,7 +91,8 @@
 								<tr>
 									<td><label for="consultationChoice${i}"><span
 											class="i18nChoice"><bean:message
-													key="consultation.choice" /></span> ${i} : </label></td>
+													key="consultations.form.choice" /></span> ${i} : </label></td>
+
 									<td><html:text property="consultationChoice"
 											styleClass="consultationChoice"
 											styleId="consultationChoice${i}" value="" /></td>
@@ -86,123 +100,157 @@
 							</c:forEach>
 						</table>
 					</fieldset>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
 
 					<fieldset class="inLinefieldset">
 						<legend>
-							<bean:message key="consultation.droit" />
+							<bean:message key="consultations.title.droit" />
 						</legend>
 					</fieldset>
+				</td>
+			</tr>
 
+			<tr>
+				<td>
 					<fieldset class="inLinefieldset">
 						<legend>
-							<bean:message key="consultation.typeConsultation" />
+							<bean:message key="consultations.title.typeConsultation" />
 						</legend>
+
 						<div class="errorMessage">
 							<html:errors property="consultationIfNecessaryWeight" />
 						</div>
+
 						<table>
 							<tr>
 								<td><html:radio property="consultationType" value="YES_NO"
 										styleId="YES_NO" /></td>
 								<td><label for="YES_NO"><bean:message
-											key="consultation.typeYesNo" /></label></td>
+											key="consultations.form.typeYesNo" /></label></td>
 							</tr>
+
 							<tr>
 								<td><html:radio property="consultationType"
 										value="YES_NO_OTHER" styleId="YES_NO_OTHER" /></td>
 								<td><label for="YES_NO_OTHER"><bean:message
-											key="consultation.typeYesNoOther" /></label></td>
+											key="consultations.form.typeYesNoOther" /></label></td>
 							</tr>
+
 							<tr>
 								<td><html:radio property="consultationType"
 										value="YES_NO_IFNECESSARY" styleId="YES_NO_IFNECESSARY" /></td>
+
 								<td><label for="YES_NO_IFNECESSARY"><bean:message
-											key="consultation.typeYesNoIfNecessary" /></label><label
+											key="consultations.form.typeYesNoIfNecessary" /></label><label
 									for="consultationIfNecessaryWeight"> <bean:message
-											key="consultation.IfNecessaryWeight" /></label>
-								<html:text property="consultationIfNecessaryWeight"
+											key="consultations.form.ifNecessaryWeight" /></label> <html:text
+										property="consultationIfNecessaryWeight"
 										styleId="consultationIfNecessaryWeight" disabled="true" /></td>
 							</tr>
+
 							<tr>
 								<td><html:radio property="consultationType"
 										value="PREFERENCE_ORDER" styleId="PREFERENCE_ORDER" /></td>
 								<td><label for="PREFERENCE_ORDER"><bean:message
-											key="consultation.typePreferenceOrder" /></label></td>
+											key="consultations.form.typePreferenceOrder" /></label></td>
 							</tr>
 						</table>
 					</fieldset>
+				</td>
+			</tr>
+
+			<tr>
+				<td>
 
 					<fieldset class="inLinefieldset">
 						<legend>
-							<bean:message key="consultation.option" />
+							<bean:message key="consultations.title.option" />
 						</legend>
+
 						<div class="errorMessage">
 							<html:errors property="minChoicesVoter" />
 						</div>
+
 						<div class="errorMessage">
 							<html:errors property="maxChoicesVoter" />
 						</div>
+
 						<div class="errorMessage">
 							<html:errors property="closingAtMaxVoters" />
 						</div>
+
 						<div class="errorMessage">
 							<html:errors property="deadline" />
 						</div>
+
 						<c:if test="${errorChoicesVoter}">
 							<p>
-								<bean:message key="consultation.errorChoicesVoter" />
+								<bean:message key="consultations.error.choicesVoter" />
 							</p>
 						</c:if>
+
 						<table>
 							<tr>
 								<td><html:checkbox property="limitChoicesPerVoter"
 										styleId="limitChoicesPerVoter" /></td>
 								<td><label for="limitChoicesPerVoter"><bean:message
-											key="consultation.limitChoicesPerVoter" /> </label></td>
+											key="consultations.form.limitChoicesPerVoter" /> </label></td>
 							</tr>
+
 							<tr>
 								<td><label for="minChoicesVoter">Min : </label></td>
 								<td><html:text property="minChoicesVoter"
 										styleId="minChoicesVoter" value="1" /> <label
-									for="maxChoicesVoter">Max : </label>
-								<html:text property="maxChoicesVoter" styleId="maxChoicesVoter"
-										value="1" /></td>
+									for="maxChoicesVoter">Max : </label> <html:text
+										property="maxChoicesVoter" styleId="maxChoicesVoter" value="1" /></td>
 							</tr>
 						</table>
+
 						<table>
 							<tr>
 								<td><html:checkbox property="showBeforeAnswer"
 										styleId="showBeforeAnswer" /></td>
 								<td><label for="showBeforeAnswer"><bean:message
-											key="consultation.showBeforeAnswer" /></label></td>
+											key="consultations.form.showBeforeAnswer" /></label></td>
 							</tr>
+
 							<tr>
 								<td><html:checkbox property="showBeforeClosing"
 										styleId="showBeforeClosing" /></td>
 								<td><label for="showBeforeClosing"><bean:message
-											key="consultation.showBeforeClosing" /></label></td>
+											key="consultations.form.showBeforeClosing" /></label></td>
 							</tr>
 						</table>
+
 						<table>
 							<tr>
 								<td><label for="deadline"><bean:message
-											key="consultation.deadline" /> : </label></td>
+											key="consultations.form.deadline" /> : </label></td>
 								<td><html:text property="deadline" styleId="deadline" /></td>
 							</tr>
+
 							<tr>
 								<td><label for="closingAtMaxVoters"><bean:message
-											key="consultation.closingAtMaxVoters" /> : </label></td>
+											key="consultations.form.closingAtMaxVoters" /> : </label></td>
 								<td><html:text styleId="closingAtMaxVoters"
 										property="closingAtMaxVoters" /></td>
 							</tr>
 						</table>
 					</fieldset>
-					<html:submit styleClass="button" styleId="buttonConsultation">
-						<bean:message key="consultation.create" />
-					</html:submit>
+				</td>
+			</tr>
 
-				</html:form></td>
-		</tr>
+			<tr>
+				<td align="right"><html:submit styleClass="button"
+						styleId="buttonConsultation">
+						<bean:message key="consultations.button.create" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>
 

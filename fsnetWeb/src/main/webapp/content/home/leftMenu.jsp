@@ -19,6 +19,6 @@
 			</html:link></li>
 	</ili:interactionFilter>
 	<li><html:link action="/DisplayCommunities">
-			<bean:message key="communities.manageLeftMenu" />
+			<bean:message key="communities.leftMenu.manage" />
 		</html:link></li>
 </ul>

@@ -8,7 +8,7 @@
 
 <c:if test="${consultation eq null }">
 	<p>
-		<bean:message key="consultation.unavailable" />
+		<bean:message key="consultations.unavailable" />
 	</p>
 </c:if>
 
@@ -19,85 +19,85 @@
 			<tr>
 				<td>
 					<ul>
-						<li><bean:message key="consultation.creator" /> : <ili:getSocialEntityInfos
+						<li><bean:message key="consultations.creator" /> : <ili:getSocialEntityInfos
 								socialEntity="${consultation.creator }" /></li>
 						<c:if test="${consultation.description ne '' }">
-							<li><bean:message key="consultation.description" /> :
+							<li><bean:message key="consultations.form.description" /> :
 								${consultation.description }</li>
 						</c:if>
-						<li><bean:message key="consultation.createdAtDate" /> <bean:write
+						<li><bean:message key="consultations.createdAtDate" /> <bean:write
 								name="consultation" property="creationDate" format="dd/MM/yyyy" />
-							<bean:message key="consultation.createdAtHour" /> <bean:write
+							<bean:message key="consultations.createdAtHour" /> <bean:write
 								name="consultation" property="creationDate" format="HH:mm" /></li>
-						<li><bean:message key="consultation.typeConsultation" /> : <c:choose>
+						<li><bean:message key="consultations.typeConsultation" /> : <c:choose>
 								<c:when test="${consultation.type eq 'YES_NO'}">
-									<bean:message key="consultation.typeYesNo" />
+									<bean:message key="consultations.typeYesNo" />
 								</c:when>
 								<c:when test="${consultation.type eq 'YES_NO_OTHER'}">
-									<bean:message key="consultation.typeYesNoOther" />
+									<bean:message key="consultations.typeYesNoOther" />
 								</c:when>
 								<c:when test="${consultation.type eq 'YES_NO_IFNECESSARY'}">
-									<bean:message key="consultation.typeYesNoIfNecessary" />
+									<bean:message key="consultations.typeYesNoIfNecessary" />
 								</c:when>
 								<c:when test="${consultation.type eq 'PREFERENCE_ORDER'}">
-									<bean:message key="consultation.typePreferenceOrder" />
+									<bean:message key="consultations.typePreferenceOrder" />
 								</c:when>
 							</c:choose></li>
-						<li><bean:message key="consultation.state" /> : <c:choose>
+						<li><bean:message key="consultations.state" /> : <c:choose>
 								<c:when test="${consultation.opened }">
-									<bean:message key="consultation.opened" />
+									<bean:message key="consultations.opened" />
 									<c:if test="${member eq consultation.creator }">
 					(<html:link action="/CloseConsultation?id=${consultation.id}">
-											<bean:message key="consultation.close" />
+											<bean:message key="consultations.button.close" />
 										</html:link>)
 				</c:if>
 								</c:when>
 								<c:when test="${not consultation.opened }">
-									<bean:message key="consultation.closed" />
+									<bean:message key="consultations.closed" />
 									<c:if test="${member eq consultation.creator }">
 					(<html:link action="/OpenConsultation?id=${consultation.id}">
-											<bean:message key="consultation.open" />
+											<bean:message key="consultations.button.open" />
 										</html:link>)
 				</c:if>
 								</c:when>
 							</c:choose></li>
 						<c:if test="${consultation.limitChoicesPerParticipant}">
-							<li><bean:message key="consultation.limitChoicesPerVoter" />
+							<li><bean:message key="consultations.limitChoicesPerVoter" />
 								- min : ${consultation.limitChoicesPerParticipantMin }, max :
 								${consultation.limitChoicesPerParticipantMax}</li>
 						</c:if>
 						<c:if test="${consultation.closingAtMaxVoters}">
-							<li><bean:message key="consultation.closingAtMaxVoters" />
+							<li><bean:message key="consultations.closingAtMaxVoters" />
 								: ${consultation.maxVoters}</li>
 						</c:if>
 						<c:if test="${consultation.closingAtDate}">
-							<li><bean:message key="consultation.deadline" /> : <bean:write
+							<li><bean:message key="consultations.deadline" /> : <bean:write
 									name="consultation" property="maxDate" format="dd/MM/yyyy" />
 							</li>
 						</c:if>
 					</ul> <br /> <c:if test="${errorChoicesPerParticipant}">
 						<p>
-							<bean:message key="consultation.errorChoicesPerParticipant" />
+							<bean:message key="consultations.error.choicesPerParticipant" />
 						</p>
 					</c:if> <c:if test="${errorPreferenceOrderDistinct}">
 						<p>
-							<bean:message key="consultation.errorPreferenceOrderDistinct" />
+							<bean:message key="consultations.error.preferenceOrderDistinct" />
 						</p>
 					</c:if>
 					<table>
 						<tr>
 							<td></td>
 							<td class="consultationPerticipant"><bean:message
-									key="consultation.voter" /></td>
+									key="consultations.voter" /></td>
 							<c:forEach var="choice" items="${consultation.choices }">
 								<td class="consultationResultChoice">${choice.intituled }</td>
 							</c:forEach>
 							<c:if test="${consultation.type eq 'YES_NO_OTHER' }">
 								<td class="consultationResultChoice"><bean:message
-										key="consultation.other" /></td>
+										key="consultations.other" /></td>
 							</c:if>
 							<td class="consultationComment"><bean:message
-									key="consultation.comment" /></td>
+									key="consultations.comment" /></td>
 						</tr>
 
 						<c:forEach var="vote" items="${consultation.consultationVotes }">
@@ -108,7 +108,7 @@
 											<html:link
 												action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}">
 												<html:img src="images/mini-delete.png"
-													altKey="consultation.delete" />
+													altKey="consultations.button.delete" />
 											</html:link>
 										</c:if></td>
 									<td class="consultationPerticipant"><ili:getSocialEntityInfos
@@ -182,13 +182,13 @@
 													<html:select property="voteChoice"
 														disabled="${disabledList[i]}">
 														<html:option value="no${choice.id}">
-															<bean:message key="consultation.choiceNo" />
+															<bean:message key="consultations.choiceNo" />
 														</html:option>
 														<html:option value="yes${choice.id}">
-															<bean:message key="consultation.choiceYes" />
+															<bean:message key="consultations.choiceYes" />
 														</html:option>
 														<html:option value="ifNecessary${choice.id}">
-															<bean:message key="consultation.choiceIfNecessary" />
+															<bean:message key="consultations.choiceIfNecessary" />
 														</html:option>
 													</html:select>
 												</c:when>
@@ -219,7 +219,7 @@
 
 									<html:hidden property="id" value="${consultation.id }" />
 									<td><html:submit styleClass="button">
-											<bean:message key="consultation.vote" />
+											<bean:message key="consultations.button.vote" />
 										</html:submit></td>
 								</tr>
 							</html:form>
@@ -234,7 +234,7 @@
 		test="${ allowedToShowResults and consultation.type ne 'PREFERENCE_ORDER' }">
 		<fieldset class="fieldsetAppli">
 			<legend class="legendHome">
-				<bean:message key="consultation.histogramme" />
+				<bean:message key="consultations.histogramme" />
 			</legend>
 			<table class="inLineTableDashBoardFieldset fieldsetTable">
 				<tr>

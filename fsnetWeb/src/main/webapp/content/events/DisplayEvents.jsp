@@ -4,29 +4,8 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<bean:define id="searchMessage">
-	<bean:message key="events.placeholder.search" />
-</bean:define>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
-		<bean:message key="events.title.search" />
-	</legend>
-
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="/Events" method="get">
-					<div id="SearchEvent">
-						<html:text styleId="searchTexte" property="searchString" />
-						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:submit styleClass="button">
-							<bean:message key="events.button.search" />
-						</html:submit>
-					</div>
-				</html:form></td>
-		</tr>
-	</table>
-</fieldset>
+<%@ include file="SearchEvent.jsp" %>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">

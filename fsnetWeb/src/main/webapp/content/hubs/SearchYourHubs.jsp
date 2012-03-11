@@ -1,44 +1,42 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+
 <bean:define id="searchMessage">
-	<bean:message key="hubs.search" />
+	<bean:message key="hubs.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.searchHubs" />
+		<bean:message key="hubs.title.search" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
-		<tr>
-			<td><html:form action="/SearchYourHubs" method="get">
-					<html:hidden property="communityId" value="${param.communityId}" />
-					<table id="SearchHub">
-						<tr>
-							<td><html:text property="hubName" styleId="hubName" /> <ili:placeHolder
-									id="hubName" value="${searchMessage}" /></td>
-							<td><html:submit styleClass="button">
-									<bean:message key="hubs.searchButton" />
-								</html:submit></td>
-						</tr>
-					</table>
-				</html:form></td>
-		</tr>
+
+	<table id="SearchYourHubs"
+		class="inLineTableDashBoardFieldset fieldsetTable">
+		<html:form action="/SearchYourHubs" method="GET">
+			<tr>
+				<td><html:hidden property="communityId"
+						value="${param.communityId}" /> <html:text
+						property="searchYourText" styleId="searchTexte" /> <ili:placeHolder
+						id="searchTexte" value="${searchMessage}" /> <html:submit
+						styleClass="button">
+						<bean:message key="hubs.button.search" />
+					</html:submit></td>
+			</tr>
+		</html:form>
 	</table>
 </fieldset>
 
-
-<jsp:include page="/content/hubs/ModifyHub.jsp" />
-
+<%@ include file="ModifyHub.jsp"%>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="hubs.yourhubs" />
+		<bean:message key="hubs.title.myHubs" />
 	</legend>
 	<c:set var="hub" value="${hubResults}" />
 	<table class="inLineTableDashBoardFieldset fieldsetTable">
@@ -62,8 +60,8 @@
 				<td class="tableButton"><c:if
 						test="${sessionScope.userId eq hub.creator.id}">
 						<a class="button"
-							onclick="confirmDelete('DeleteYourHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id})">
-							<bean:message key="hubs.delete" />
+							onclick="confirmDelete('DeleteYourHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id}, '<bean:message key="message.confirmation.delete" />');">
+							<bean:message key="hubs.button.delete" />
 						</a>
 					</c:if></td>
 			</tr>
@@ -71,3 +69,5 @@
 		</c:forEach>
 	</table>
 </fieldset>
+
+<%@ include file="CreateHub.jsp"%>

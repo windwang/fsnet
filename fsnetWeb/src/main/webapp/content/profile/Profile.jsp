@@ -45,10 +45,9 @@
 		<legend class="legendHome">
 			<bean:message key="updateProfile.title" />
 		</legend>
-
-		<html:form action="/ModifyProfile">
-			<table id="ModifyProfile"
-				class="inLineTableDashBoardFieldset fieldsetTable">
+		<table id="ModifyProfile"
+			class="inLineTableDashBoardFieldset fieldsetTable">
+			<html:form action="/ModifyProfile">
 				<tr>
 					<td><label for="name"> <bean:message
 								key="updateProfile.name" /> :
@@ -61,6 +60,7 @@
 						<td colspan="2"><html:errors property="name" /></td>
 					</tr>
 				</logic:messagesPresent>
+
 				<tr>
 					<td><label for="firstName"> <bean:message
 								key="updateProfile.firstname" /> :
@@ -73,6 +73,7 @@
 						<td colspan="2"><html:errors property="firstName" /></td>
 					</tr>
 				</logic:messagesPresent>
+
 				<tr>
 					<td><label for="adress"> <bean:message
 								key="updateProfile.adress" /> :
@@ -85,6 +86,7 @@
 						<td colspan="2"><html:errors property="adress" /></td>
 					</tr>
 				</logic:messagesPresent>
+
 				<tr>
 					<td><label for="city"> <bean:message
 								key="updateProfile.city" /> :
@@ -97,6 +99,7 @@
 						<td colspan="2"><html:errors property="city" /></td>
 					</tr>
 				</logic:messagesPresent>
+
 				<tr>
 					<td><label for="dateOfBirth"> <bean:message
 								key="updateProfile.dateOfBirth" /> :
@@ -109,6 +112,7 @@
 						<td colspan="2"><html:errors property="dateOfBirth" /></td>
 					</tr>
 				</logic:messagesPresent>
+
 				<tr>
 					<td><label for="sexe"> <bean:message
 								key="updateProfile.sexe" /> :
@@ -142,6 +146,7 @@
 						<td colspan="2"><html:errors property="job" /></td>
 					</tr>
 				</logic:messagesPresent>
+
 				<tr>
 					<td><label for="mail"> <bean:message
 								key="updateProfile.email" /> :
@@ -154,6 +159,7 @@
 						<td colspan="2"><html:errors property="mail" /></td>
 					</tr>
 				</logic:messagesPresent>
+
 				<tr>
 					<td><label for="phone"> <bean:message
 								key="updateProfile.phone" /> :
@@ -166,13 +172,15 @@
 						<td colspan="2"><html:errors property="phone" /></td>
 					</tr>
 				</logic:messagesPresent>
+
 				<tr>
-					<td colspan="2"><html:submit styleClass="button">
+					<td colspan="2" align="right"><html:submit styleClass="button">
 							<bean:message key="updateProfile.validate" />
 						</html:submit></td>
 				</tr>
-			</table>
-		</html:form>
+			</html:form>
+		</table>
+
 	</fieldset>
 </ili:interactionFilter>
 
@@ -204,11 +212,9 @@
 
 	<html:form action="/ChangePassword">
 
-
 		<logic:messagesPresent property="passwordChange">
 			<html:errors property="passwordChange" />
 		</logic:messagesPresent>
-
 
 		<table class="inLineTableDashBoardFieldset fieldsetTable">
 			<c:forTokens var="typePwd"
@@ -241,11 +247,14 @@
 		<legend class="legendHome">
 			<bean:message key="updateProfile.changePhoto.title" />
 		</legend>
+
 		<html:form action="/ChangePhoto" enctype="multipart/form-data">
 			<div class="space"></div>
+
 			<div>
 				<bean:message key="updateProfile.picturesize" />
 			</div>
+
 			<div>
 				<table class="inLineTableDashBoardFieldset">
 					<tr>
@@ -254,19 +263,23 @@
 						</label></td>
 						<td><html:text property="photoUrl"></html:text></td>
 					</tr>
+					
 					<tr>
 						<td><label> <bean:message
 									key="updateProfile.photoLocal" /> :
 						</label></td>
 						<td><html:file property="photo" size="45"></html:file></td>
 					</tr>
+					
 					<tr>
-						<td colspan="2"><html:submit styleClass="button">
+						<td colspan="2" align="right"><html:submit
+								styleClass="button">
 								<bean:message key="updateProfile.validate" />
 							</html:submit></td>
 					</tr>
 				</table>
 			</div>
+			
 			<logic:messagesPresent property="photo">
 				<div class="errorMessage">
 					<html:errors property="photo" />

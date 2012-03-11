@@ -67,6 +67,7 @@
 			</field>
 			<field property="announceExpiryDate" depends="required,mask">
 				<arg key="date.error.announce.expiryDate" />
+				<arg position="0" key="date.error.announce.expiryDate" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
 					<var-name>mask</var-name>
@@ -74,6 +75,7 @@
 				</var>
 			</field>
 		</form>
+		
 		<form name="/Announces">
 			<field property="textSearchAnnounce" depends="">
 				<arg key="error.textSearchAnnounce" />

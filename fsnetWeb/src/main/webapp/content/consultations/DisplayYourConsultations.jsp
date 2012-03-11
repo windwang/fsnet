@@ -6,7 +6,7 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="consultations.manage" />
+		<bean:message key="consultations.title.my" />
 	</legend>
 
 	<c:choose>
@@ -35,7 +35,7 @@
 						<th width="25%"><bean:message
 								key="tableheader.consultationname" /></th>
 						<th width="20%"><bean:message
-								key="consultation.createdAtDate" /></th>
+								key="consultations.createdAtDate" /></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -51,12 +51,12 @@
 						<td><bean:write name="consultation" property="creationDate"
 								formatKey="date.format" /></td>
 						<td class="tableButton"
-							onclick="confirmDelete2(${consultation.id}	)"><html:form
+							onclick="confirmDelete2(${consultation.id}, '<bean:message key="message.confirmation.delete" />');"><html:form
 								action="/DeleteAConsultation" method="post"
 								styleId="${consultation.id}" styleClass="cursorPointer">
 								<html:hidden property="id" value="${consultation.id}" />
 								<span class="button"> <bean:message
-										key="consultation.delete" />
+										key="consultations.button.delete" />
 								</span>
 							</html:form></td>
 					</tr>

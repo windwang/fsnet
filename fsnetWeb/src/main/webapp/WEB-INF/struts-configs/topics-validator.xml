@@ -6,7 +6,7 @@
 		<form name="/CreateTopic">
 			<field property="hubId" depends="integer,required"></field>
 			<field property="topicSubject" depends="required,mask,maxlength">
-				<arg0 key="topics.error.topicSubjet" />
+				<arg0 key="topics.form.subject" />
 				<msg name="mask" key="topics.error.mask" />				
 				 <var>
 		        	<var-name>mask</var-name>
@@ -19,7 +19,7 @@
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 			</field>
 			<field property="messageDescription" depends="required,maxlength">
-				<arg key="topics.error.messageDescription" />
+				<arg key="topics.form.description" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 				<var>
 					<var-name>maxlength</var-name>
@@ -36,7 +36,7 @@
 		</form>
 		<form name="/CreateTopicMessage">
 			<field property="messageDescription" depends="required,maxlength">
-				<arg key="topics.error.messageDescription" />
+				<arg key="topics.form.description" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 				<var>
 					<var-name>maxlength</var-name>
@@ -46,7 +46,7 @@
 		</form>
 		<form name="/ModifyTopicMessage">
 			<field property="messageDescription" depends="required,maxlength">
-				<arg key="topics.error.messageDescription" />
+				<arg key="topics.form.description" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
 				<var>
 					<var-name>maxlength</var-name>
