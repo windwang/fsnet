@@ -17,6 +17,8 @@
 	<img src="avatar/${sessionScope.userId}.png" alt="Avatar" />
 </html:link>
 
+<h3>${sessionScope.userFirstName} ${sessionScope.userName}</h3>
+
 <div class="group">
 	<c:choose>
 		<c:when test="${sessionScope.hisGroup != null}">
