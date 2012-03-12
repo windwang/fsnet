@@ -72,13 +72,14 @@ public class ManageVisits extends MappingDispatchAction {
 	 */
 	public ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
-
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 		lastVisitsSinceLastConnection(mapping, request, response, em,
 				authenticatedUser);
+		
 		em.close();
+		
 		return mapping.findForward("success");
 	}
 

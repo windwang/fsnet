@@ -9,12 +9,14 @@
 </bean:define>
 
 <div id="search">
-	<html:form action="/SearchMember" method="post">
+	<html:form action="/Research" method="post">
 		<fieldset>
 			<html:text styleClass="field" styleId="searchText"
 				property="searchText" />
 			<ili:placeHolder id="searchText" value="${searchMessage}" />
 			<html:submit styleClass="searchButton" value=" " />
+			<input style="display: none" type="checkbox" checked
+				name="selectedResearch" value="tous" />
 		</fieldset>
 	</html:form>
 </div>
