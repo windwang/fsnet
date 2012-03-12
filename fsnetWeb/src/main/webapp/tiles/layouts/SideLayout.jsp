@@ -9,8 +9,7 @@
 <head>
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8" />
-<link rel="shortcut icon"
-	href="" type="image" />
+<link rel="shortcut icon" href="images/Favicon.ico" type="image/vnd.microsoft.icon" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <link rel="stylesheet" type="text/css" media="screen"
