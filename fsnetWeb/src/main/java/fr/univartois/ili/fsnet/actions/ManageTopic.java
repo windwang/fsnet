@@ -40,6 +40,9 @@ import fr.univartois.ili.fsnet.facade.TopicMessageFacade;
  */
 public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String HUB_ID_FORM_FIELD_NAME = "hubId";
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -59,20 +62,20 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		String topicSujet = (String) dynaForm.get("topicSubject");
 		String messageDescription = (String) dynaForm.get("messageDescription");
 		int hubId = Integer.valueOf(Integer.parseInt(dynaForm
-				.getString("hubId")));
+				.getString(HUB_ID_FORM_FIELD_NAME)));
 		HubFacade hubFacade = new HubFacade(em);
 		Hub hub = hubFacade.getHub(hubId);
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request, em);
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic topic = topicFacade.createTopic(hub, socialEntity, topicSujet);
 
-		String InterestsIds[] = (String[]) dynaForm.get("selectedInterests");
+		String interestsIds[] = (String[]) dynaForm.get("selectedInterests");
 		InterestFacade fac = new InterestFacade(em);
 		List<Interest> interests = new ArrayList<Interest>();
 		int currentId;
-		for (currentId = 0; currentId < InterestsIds.length; currentId++) {
+		for (currentId = 0; currentId < interestsIds.length; currentId++) {
 			interests.add(fac.getInterest(Integer
-					.valueOf(InterestsIds[currentId])));
+					.valueOf(interestsIds[currentId])));
 		}
 		InteractionFacade ifacade = new InteractionFacade(em);
 		ifacade.addInterests(topic, interests);
@@ -82,7 +85,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 				topic);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -115,7 +118,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
+		int hubId = Integer.parseInt((String) dynaForm.get(HUB_ID_FORM_FIELD_NAME));
 		int topicId = Integer.valueOf((String) dynaForm.get("topicId"));
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -137,7 +140,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 			servlet.log("commit error", e);
 		}
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -156,7 +159,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String topicSujet = (String) dynaForm.get("topicSujetSearch");
-		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
+		int hubId = Integer.parseInt((String) dynaForm.get(HUB_ID_FORM_FIELD_NAME));
 		Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
 		HubFacade hubFacade = new HubFacade(em);
 		Hub hub = hubFacade.getHub(hubId);
@@ -178,7 +181,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 
 		request.setAttribute("hubResult", hub);
 		request.setAttribute("topicsLastMessage", topicsLastMessage);
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -207,7 +210,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("topic", result);
 
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -226,7 +229,7 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String pattern = (String) dynaForm.get("searchText");
-		int hubId = Integer.parseInt((String) dynaForm.get("hubId"));
+		int hubId = Integer.parseInt((String) dynaForm.get(HUB_ID_FORM_FIELD_NAME));
 		Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
 		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 		Hub hub = em.find(Hub.class, hubId);
@@ -259,6 +262,6 @@ public class ManageTopic extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("hubResult", hub);
 		request.setAttribute("topicsLastMessage", topicsLastMessage);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 }

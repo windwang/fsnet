@@ -39,7 +39,9 @@ public class FSNetTray implements WSListener {
 	private final WSControl control;
 	private boolean newMessage, newContact, newEvent, newAnnounce,
 			newConsultation;
-
+	
+	private static final String NOTIFICATIONS_MESSAGE = "NOTIFICATIONS";
+	
 	/**
 	 * 
 	 * @param image
@@ -171,7 +173,7 @@ public class FSNetTray implements WSListener {
 		newEvent = false;
 		newConsultation = false;
 		
-		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+		tray.displayMessage(trayi18n.getString(NOTIFICATIONS_MESSAGE),
 				message.getMessage() + " " + trayi18n.getString("NEWMESSAGES"),
 				TrayIcon.MessageType.NONE);
 
@@ -185,7 +187,7 @@ public class FSNetTray implements WSListener {
 		newMessage = false;
 		newConsultation = false;
 		
-		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+		tray.displayMessage(trayi18n.getString(NOTIFICATIONS_MESSAGE),
 				message.getMessage() + " " + trayi18n.getString("NEWEVENT"),
 				TrayIcon.MessageType.NONE);
 	}
@@ -198,7 +200,7 @@ public class FSNetTray implements WSListener {
 		newEvent = false;
 		newConsultation = false;
 		
-		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+		tray.displayMessage(trayi18n.getString(NOTIFICATIONS_MESSAGE),
 				mes.getMessage() + " " + trayi18n.getString("NEWCONTACT"),
 				TrayIcon.MessageType.NONE);
 
@@ -212,7 +214,7 @@ public class FSNetTray implements WSListener {
 		newEvent = false;
 		newConsultation = false;
 		
-		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+		tray.displayMessage(trayi18n.getString(NOTIFICATIONS_MESSAGE),
 				mes.getMessage() + " " + trayi18n.getString("NEWANNOUNCEMENT"),
 				TrayIcon.MessageType.NONE);
 	}
@@ -225,7 +227,7 @@ public class FSNetTray implements WSListener {
 		newMessage = false;
 		newConsultation = false;
 		
-		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+		tray.displayMessage(trayi18n.getString(NOTIFICATIONS_MESSAGE),
 				mes.getMessage() + " " + trayi18n.getString("NEWNOTIFICATION"),
 				TrayIcon.MessageType.NONE);
 
@@ -239,7 +241,7 @@ public class FSNetTray implements WSListener {
 		newMessage = false;
 		newEvent = false;
 		
-		tray.displayMessage(trayi18n.getString("NOTIFICATIONS"),
+		tray.displayMessage(trayi18n.getString(NOTIFICATIONS_MESSAGE),
 				mes.getMessage() + " " + trayi18n.getString("NEWCONSULTATION"),
 				TrayIcon.MessageType.NONE);
 	}

@@ -34,10 +34,16 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
  */
 public class ManageInterests extends MappingDispatchAction implements
 CrudAction {
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	private static final String SEPARATOR_PARENT_CHILD = "=";
 	private static final String SEPARATOR_MAP = ";";
 
+	private static final String PARENT_INTEREST_FORM_FIELD_NAME = "parentInterestId";
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String MODIFIED_INTEREST_FORM_FIELD_NAME = "modifiedInterestId";
+
+	private static final int MAX_PER_PAGE =25;
+	
 	/**
 	 * @param dynaForm
 	 * @param facade
@@ -46,9 +52,9 @@ CrudAction {
 	 * @param request
 	 */
 	public void creation(DynaActionForm dynaForm,InterestFacade facade,String interestName,EntityManager em,HttpServletRequest request){
-		if (dynaForm.get("parentInterestId") != null
-				&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-			facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get("parentInterestId")));
+		if (dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME) != null
+				&& !((String) dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME)).isEmpty()) {
+			facade.createInterest(interestName, Integer.valueOf((String) dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME)));
 		} else {
 			facade.createInterest(interestName); 
 		}
@@ -68,7 +74,7 @@ CrudAction {
 		String interestName = (String) dynaForm.get("createdInterestName");
 		String[] interestNameTmp;
 
-		logger.info("new interest: " + interestName);
+		LOGGER.info("new interest: " + interestName);
 
 		try {
 			em.getTransaction().begin();
@@ -97,9 +103,9 @@ CrudAction {
 		
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.create"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,bundle.getMessage(request.getLocale(),"interest.success.on.create"));
 		
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/* (non-Javadoc)
@@ -112,29 +118,29 @@ CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		int interestId = Integer.valueOf((String) dynaForm
-				.get("modifiedInterestId"));
+				.get(MODIFIED_INTEREST_FORM_FIELD_NAME));
 		String interestName = (String) dynaForm.get("modifiedInterestName");
 		InterestFacade facade = new InterestFacade(em);
 
 		Interest interest = facade.getInterest(interestId);
 
 		if (interest != null) {
-			logger.info("interest modification: " + interestName);
+			LOGGER.info("interest modification: " + interestName);
 
 			try {
 				em.getTransaction().begin();
-				if (dynaForm.get("parentInterestId") != null
-						&& !((String) dynaForm.get("parentInterestId"))
+				if (dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME) != null
+						&& !((String) dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME))
 						.isEmpty()) {
 					if(Integer.valueOf(((String) dynaForm
-							.get("parentInterestId")))!=interestId){
+							.get(PARENT_INTEREST_FORM_FIELD_NAME)))!=interestId){
 							facade.modifyInterest(interestName, interest,
 									Integer.valueOf(((String) dynaForm
-											.get("parentInterestId"))));
+											.get(PARENT_INTEREST_FORM_FIELD_NAME))));
 					}else{
 						ActionErrors actionErrors = new ActionErrors();
 						ActionMessage msg = new ActionMessage("interest.invalideParent");
-						actionErrors.add("modifiedInterestId", msg);
+						actionErrors.add(MODIFIED_INTEREST_FORM_FIELD_NAME, msg);
 						saveErrors(request, actionErrors);
 						em.close();
 						return mapping.findForward("failed");
@@ -151,25 +157,25 @@ CrudAction {
 			} catch (RollbackException exc){
 				ActionErrors actionErrors = new ActionErrors();
 				ActionMessage msg = new ActionMessage("interest.alreadyExists");
-				actionErrors.add("modifiedInterestId", msg);
+				actionErrors.add(MODIFIED_INTEREST_FORM_FIELD_NAME, msg);
 				saveErrors(request, actionErrors);
 			}
 			em.close();
 		}
 
-		dynaForm.set("modifiedInterestId", "");
+		dynaForm.set(MODIFIED_INTEREST_FORM_FIELD_NAME, "");
 		dynaForm.set("modifiedInterestName", "");
-		if (dynaForm.get("parentInterestId") != null
-				&& !((String) dynaForm.get("parentInterestId"))
+		if (dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME) != null
+				&& !((String) dynaForm.get(PARENT_INTEREST_FORM_FIELD_NAME))
 				.isEmpty()) {
-			dynaForm.set("parentInterestId", "");
+			dynaForm.set(PARENT_INTEREST_FORM_FIELD_NAME, "");
 		}
 		
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.modify"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,bundle.getMessage(request.getLocale(),"interest.success.on.modify"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/* (non-Javadoc)
@@ -189,7 +195,7 @@ CrudAction {
 		Interest interest = facade.getInterest(interestId);
 
 		if (interest != null) {
-			logger.info("interest deleted: id=" + interestId);
+			LOGGER.info("interest deleted: id=" + interestId);
 
 			try {
 				em.getTransaction().begin();
@@ -206,9 +212,9 @@ CrudAction {
 		
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success",bundle.getMessage(request.getLocale(),"interest.success.on.delete"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,bundle.getMessage(request.getLocale(),"interest.success.on.delete"));
 		
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/* (non-Javadoc)
@@ -226,16 +232,16 @@ CrudAction {
 			interestName = (String) dynaForm.get("searchInterestName");
 		}
 		InterestFacade facade = new InterestFacade(em);
-		logger.info("search interest: " + interestName);
+		LOGGER.info("search interest: " + interestName);
 
 		List<Interest> result = facade.searchInterest(interestName);
 		em.close();
 
-		Paginator<Interest> paginator = new Paginator<Interest>(result, request, 25, "search");
+		Paginator<Interest> paginator = new Paginator<Interest>(result, request, MAX_PER_PAGE, "search");
 
 		request.setAttribute("interestSearchPaginator", paginator);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/* (non-Javadoc)
@@ -247,19 +253,19 @@ CrudAction {
 	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
-		logger.info("Displaying interests");
+		LOGGER.info("Displaying interests");
 
 		List<Interest> listAllInterests = facade.getInterests();
 		String allInterestsId = concatInterest(listAllInterests);
 		em.close();
 
-		Paginator<Interest> paginator = new Paginator<Interest>(listAllInterests, request, 25, "search");
+		Paginator<Interest> paginator = new Paginator<Interest>(listAllInterests, request, MAX_PER_PAGE, "search");
 
 		request.setAttribute("interestSearchPaginator", paginator);
 		request.setAttribute("allInterests", listAllInterests);		
 		request.setAttribute("allInterestsId", allInterestsId);
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -276,7 +282,7 @@ CrudAction {
 	throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
-		logger.info("Displaying interest's informations");
+		LOGGER.info("Displaying interest's informations");
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 
 		int interestId = Integer.valueOf((String) dynaForm
@@ -296,7 +302,7 @@ CrudAction {
 			}
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -313,9 +319,11 @@ CrudAction {
 			String id = String.valueOf( interest.getId() );
 			String idParent;
 			String tmp = "";
-			if(parent == null)
+			if(parent == null){
 				idParent = "-1";
-			else idParent = String.valueOf( parent.getId() );
+			}else{
+				idParent = String.valueOf( parent.getId() );
+			}
 			tmp = tmp.concat( id );
 			tmp = tmp.concat( SEPARATOR_PARENT_CHILD );
 			tmp = tmp.concat( idParent );

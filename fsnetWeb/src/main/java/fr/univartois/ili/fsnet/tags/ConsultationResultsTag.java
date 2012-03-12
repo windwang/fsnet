@@ -154,7 +154,7 @@ public class ConsultationResultsTag extends TagSupport {
 						nb.set(iChoice, nb.get(iChoice)+1);
 					}
 					else {
-						iChoice=nb.size();
+						//iChoice=nb.size();
 						nb.add(1.0);
 						this.choices.add(vote.getOther());
 					}

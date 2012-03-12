@@ -3,6 +3,8 @@ package fr.univartois.ili.fsnet.commons.talk;
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.jivesoftware.smack.AccountManager;
 import org.jivesoftware.smack.Chat;
@@ -24,6 +26,11 @@ import fr.univartois.ili.fsnet.commons.utils.TalkException;
  * 
  */
 public class Talk implements ITalk,Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private XMPPConnection connection;
 
@@ -71,7 +78,7 @@ public class Talk implements ITalk,Serializable {
 					connection.connect();
 				} catch (XMPPException e3) {
 
-					e3.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e3);
 				}
 			}
 			
@@ -88,11 +95,8 @@ public class Talk implements ITalk,Serializable {
 
 				return true;
 			} catch (XMPPException e2) {
-				e2.printStackTrace();
-			} // catch (InterruptedException e2) {
-
-			// e2.printStackTrace();
-			// }
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e2);
+			}
 			return false;
 
 		}
@@ -166,11 +170,11 @@ public class Talk implements ITalk,Serializable {
 	 * , int, java.lang.String, java.lang.String, java.util.Map)
 	 */
 	@Override
-	public void initConnexion(String XMPPServer, int port, String login,
+	public void initConnexion(String xmppServer, int port, String login,
 			String pssword, Map<String, String> map) throws TalkException {
 		// connexion(XMPPServer, port);
 		// login(login, pssword);
-		config = new ConnectionConfiguration(XMPPServer, port);
+		config = new ConnectionConfiguration(xmppServer, port);
 
 		connection = new XMPPConnection(config);
 		try {
@@ -188,7 +192,7 @@ public class Talk implements ITalk,Serializable {
 				createAccount(login, pssword, map);
 
 			} else {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 
 			}
 		}
@@ -257,7 +261,7 @@ public class Talk implements ITalk,Serializable {
 			chat.sendMessage(msg);
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 	}
 
@@ -283,7 +287,7 @@ public class Talk implements ITalk,Serializable {
 			return chat;
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 		return null;
 	}

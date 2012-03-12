@@ -30,31 +30,34 @@ import fr.univartois.ili.fsnet.facade.ProfileFacade;
  */
 public class ChangePassword extends Action{
 	 
+	private static final String OLD_PASSWORD_ATTRIBUTE_NAME = "oldPassword";
+
+	
 	@Override
 	public final ActionForward execute(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
         EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
         ActionErrors errors = new ActionErrors();
-        String old = request.getParameter("oldPassword");
+        String old = request.getParameter(OLD_PASSWORD_ATTRIBUTE_NAME);
         if(old != null){
         	old = Encryption.getEncodedPassword(old);
         }
         if ((old == null)||(!user.getPassword().equals(old))) {
-            errors.add("oldPassword", new ActionMessage("error.changePassword.oldPassword"));
+            errors.add(OLD_PASSWORD_ATTRIBUTE_NAME, new ActionMessage("error.changePassword.oldPassword"));
             this.saveErrors(request, errors);
             return mapping.getInputForward();
         }
 		ProfileFacade pf = new ProfileFacade(em);
         DynaActionForm cpf = (DynaActionForm) form;   			//NOSONAR
         em.getTransaction().begin();
-        pf.changePassword(user,cpf.getString("oldPassword") , cpf.getString("newPassword"));
+        pf.changePassword(user,cpf.getString(OLD_PASSWORD_ATTRIBUTE_NAME) , cpf.getString("newPassword"));
         em.getTransaction().commit();
         em.close();
         errors.add("passwordChange",new ActionMessage("updateProfile.passwd.change"));
         this.saveErrors(request, errors);
         
-        cpf.set("oldPassword", "");
+        cpf.set(OLD_PASSWORD_ATTRIBUTE_NAME, "");
         cpf.set("newPassword", "");
         cpf.set("confirmNewPassword", "");
 		return mapping.findForward("success");

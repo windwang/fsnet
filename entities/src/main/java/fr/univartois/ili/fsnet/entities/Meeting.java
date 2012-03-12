@@ -15,6 +15,12 @@ import javax.persistence.TemporalType;
 @Entity
 public class Meeting extends Announcement {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	
 	@Embedded
 	private Address address;
 	@Temporal(javax.persistence.TemporalType.TIMESTAMP)

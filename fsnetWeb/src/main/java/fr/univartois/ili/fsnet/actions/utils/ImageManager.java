@@ -26,7 +26,8 @@ import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 public class ImageManager {
 
 	private static final String MINIATURE_SUFFIX = ".miniature";
-
+	private static final String PICTURE_FORMAT = ".png";
+	
 	public static void createPicturesForUser(int userId,
 			InputStream incommingPictureInputStream, PictureType pictureType)
 			throws FileNotFoundException, IOException, IllegalStateException {
@@ -39,22 +40,20 @@ public class ImageManager {
 			incommingPicture = convert(incommingPicture);
 		}
 		BufferedImage picture = getProperResizedImage(incommingPicture,
-				pictureType, PICTURE_MAX_WIDTH_OR_HEIGHT);
-		ImageManager.installPicture(Integer.toString(userId), pictureType,
-				picture);
+				PICTURE_MAX_WIDTH_OR_HEIGHT);
+		ImageManager.installPicture(Integer.toString(userId), picture);
 
 		BufferedImage miniature = getProperResizedImage(incommingPicture,
-				pictureType, MINIATURE_MAX_WIDTH_OR_HEIGHT);
+				MINIATURE_MAX_WIDTH_OR_HEIGHT);
 		ImageManager.installPicture(
-				Integer.toString(userId) + MINIATURE_SUFFIX, pictureType,
-				miniature);
+				Integer.toString(userId) + MINIATURE_SUFFIX, miniature);
 	}
 
 	public static void removeOldUserPicture(int userId) {
 		String directory = getStorageDirectory();
 		if (directory != null) {
-			removeOldPicture(directory + userId + ".png");
-			removeOldPicture(directory + userId + MINIATURE_SUFFIX + ".png");
+			removeOldPicture(directory + userId + PICTURE_FORMAT);
+			removeOldPicture(directory + userId + MINIATURE_SUFFIX + PICTURE_FORMAT);
 		}
 	}
 
@@ -65,7 +64,7 @@ public class ImageManager {
 		String fileName;
 		if (directory != null) {
 			fileName = directory + Integer.toString(userId) + MINIATURE_SUFFIX
-					+ ".png";
+					+ PICTURE_FORMAT;
 			File pictureFile = new File(fileName);
 			if (pictureFile.exists()) {
 				sendPicture(pictureFile, response);	
@@ -82,7 +81,7 @@ public class ImageManager {
 		String directory = getStorageDirectory();
 		String fileName;
 		if (directory != null) {
-			fileName = directory + Integer.toString(userId) + ".png";
+			fileName = directory + Integer.toString(userId) + PICTURE_FORMAT;
 			File pictureFile = new File(fileName);
 			if (pictureFile.exists()) {
 				sendPicture(pictureFile, response);	
@@ -137,8 +136,7 @@ public class ImageManager {
 	private static final int MINIATURE_MAX_WIDTH_OR_HEIGHT = 40;
 
 	private static BufferedImage getProperResizedImage(
-			BufferedImage incommingImage, PictureType pictureType,
-			int maxWidthOrHeight) throws FileNotFoundException, IOException {
+			BufferedImage incommingImage, int maxWidthOrHeight) throws FileNotFoundException, IOException {
 		AffineTransform tx = new AffineTransform();
 		double scaleValue;
 		if (incommingImage.getWidth() > incommingImage.getHeight()) {
@@ -178,7 +176,7 @@ public class ImageManager {
 	 * @param datas the picture's datas
 	 */
 	private static void installPicture(String fileName,
-			PictureType pictureType, BufferedImage image)
+			BufferedImage image)
 			throws IllegalStateException {
 		String directory = getStorageDirectory();
 		if (directory != null) {
@@ -244,7 +242,7 @@ public class ImageManager {
 		String directory = getStorageDirectory();
 		String fileName;
 		if (directory != null) {
-			fileName = directory + Integer.toString(groupId) +".png";
+			fileName = directory + Integer.toString(groupId) +PICTURE_FORMAT;
 			File pictureFile = new File(fileName);
 			if (pictureFile.exists()) {
 				sendLogo(pictureFile, response);	
@@ -284,17 +282,17 @@ public class ImageManager {
 			incommingPicture = convert(incommingPicture);
 		}
 		BufferedImage logo = getProperResizedImage(incommingPicture,
-				pictureType, PICTURE_MAX_WIDTH_OR_HEIGHT);
+				PICTURE_MAX_WIDTH_OR_HEIGHT);
 		
-		ImageManager.installLogo(Integer.toString(groupId),pictureType,logo);
+		ImageManager.installLogo(Integer.toString(groupId),logo);
 		
 	}
-	private static void installLogo(String fileName,PictureType pictureType, BufferedImage image)
+	private static void installLogo(String fileName,BufferedImage image)
 			throws IllegalStateException {
 		String directory = getStorageDirectory();
 		if (directory != null) {
-			removeOldPicture(directory + fileName +".png");
-			String fileToCreate = directory +fileName+ ".png";
+			removeOldPicture(directory + fileName +PICTURE_FORMAT);
+			String fileToCreate = directory +fileName+ PICTURE_FORMAT;
 			File imageFile = new File(fileToCreate);
 			try {
 				OutputStream out = new FileOutputStream(imageFile);

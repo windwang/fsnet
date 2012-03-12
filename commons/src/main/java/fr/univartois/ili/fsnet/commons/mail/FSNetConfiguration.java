@@ -31,19 +31,19 @@ public final class FSNetConfiguration {
 	private static final String FSNET_DIRECTORY = ".fsnet";
 	private static final String PICTURES_DIRECTORY = "uploaded-images";
 
-	private static final FSNetConfiguration instance;
+	private static final FSNetConfiguration INSTANCE;
 
 	/**
 	 * @return a instance of FSNetConfiguration
 	 */
 	public static final FSNetConfiguration getInstance() {
-		return instance;
+		return INSTANCE;
 	}
 
 	private Properties properties = new Properties();
 
 	static {
-		instance = new FSNetConfiguration();
+		INSTANCE = new FSNetConfiguration();
 	}
 
 	/**

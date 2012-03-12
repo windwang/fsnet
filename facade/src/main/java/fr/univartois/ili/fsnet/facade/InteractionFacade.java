@@ -22,6 +22,8 @@ public class InteractionFacade {
 	private final EntityManager em;
 
 	private FilterInteractionByUserGroup filterGroup;
+	
+	private static final int MAX_RESULTS =10;
 
 	public InteractionFacade(EntityManager em) {
 		this.em = em;
@@ -131,7 +133,7 @@ public class InteractionFacade {
 								+ "WHERE inter.creator= c AND se = :user ORDER BY inter.lastModified DESC",
 						Interaction.class);
 		query.setParameter("user", user);
-		query.setMaxResults(10);
+		query.setMaxResults(MAX_RESULTS);
 
 		List<Interaction> result = query.getResultList();
 		List<Triple> triples = new ArrayList<Triple>();

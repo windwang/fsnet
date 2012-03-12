@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-         pageEncoding="UTF-8"%>
-         
+	pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <link type="text/css" href="css/jquery.qtip.css" rel="stylesheet" />
 <link type="text/css" href="css/fullcalendar.print.css" media="print"

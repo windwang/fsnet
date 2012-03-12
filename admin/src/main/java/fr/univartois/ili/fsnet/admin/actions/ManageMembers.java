@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.admin.actions;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -55,8 +57,22 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  */
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
+	private static final String NAME_FORM_FIELD_NAME = "name";
+	private static final String FIRSTNAME_FORM_FIELD_NAME = "firstName";
+	private static final String EMAIL_FORM_FIELD_NAME = "email";
+	private static final String PARENT_ID_FORM_FIELD_NAME = "parentId";
+	private static final String MESSAGE_FORM_FIELD_NAME = "message";
+	private static final String FORMAT_BIRTHDAY_FORM_FIELD_NAME = "formatBirthDay";
+	private static final String MEMBERS_USER_EXISTS_ACTION_NAME = "members.user.exists";
+	private static final String MEMBERS_ERROR_ON_CREATE_ACTION_NAME = "members.error.on.create";
+	private static final String ID_MEMBER_REQUEST_PARAMETER_NAME = "idMember";
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String INTERNATIONALIZATION_RESSOURCE_NAME = "FSneti18n";
+
+	
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -71,16 +87,16 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String name = (String) dynaForm.get("name");
-		dynaForm.set("name", "");
-		String firstName = (String) dynaForm.get("firstName");
-		dynaForm.set("firstName", "");
-		String mail = (String) dynaForm.get("email");
+		String name = (String) dynaForm.get(NAME_FORM_FIELD_NAME);
+		dynaForm.set(NAME_FORM_FIELD_NAME, "");
+		String firstName = (String) dynaForm.get(FIRSTNAME_FORM_FIELD_NAME);
+		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, "");
+		String mail = (String) dynaForm.get(EMAIL_FORM_FIELD_NAME);
 		mail = mail.toLowerCase();
-		dynaForm.set("email", "");
-		String parentId = (String) dynaForm.get("parentId");
-		dynaForm.set("parentId", "");
-		String personalizedMessage = (String) dynaForm.get("message");
+		dynaForm.set(EMAIL_FORM_FIELD_NAME, "");
+		String parentId = (String) dynaForm.get(PARENT_ID_FORM_FIELD_NAME);
+		dynaForm.set(PARENT_ID_FORM_FIELD_NAME, "");
+		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
 		String inputPassword = (String) dynaForm.get("password");
 		dynaForm.set("password", "");
 		dynaForm.set("passwordConfirmation", "");
@@ -97,12 +113,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			String encryptedPassword = null;
 			if (inputPassword == null || "".equals(inputPassword)) {
 				definedPassword = Encryption.generateRandomPassword();
-				logger.info("#### Generated Password : " + definedPassword);
+				LOGGER.info("#### Generated Password : " + definedPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 			} else {
 				definedPassword = inputPassword;
-				logger.info("#### Defined Password : " + inputPassword);
+				LOGGER.info("#### Defined Password : " + inputPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(inputPassword);
 			}
@@ -114,8 +130,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						.getSocialGroup(Integer.parseInt(parentId));
 				socialGroup.addSocialElement(socialEntity);
 				em.persist(socialGroup);
-			} else
+			} else{
 				em.persist(socialEntity);
+			}
 			em.getTransaction().commit();
 
 			Locale currentLocale = request.getLocale();
@@ -123,27 +140,27 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 					personalizedMessage, currentLocale);
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.user.exists"));
+			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 			saveErrors(request, errors);
 		} catch (Exception e) {
 			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.error.on.create"));
+			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 			saveErrors(request, errors);
 		}
 		em.close();
 
-		dynaForm.set("name", "");
-		dynaForm.set("firstName", "");
-		dynaForm.set("email", "");
-		dynaForm.set("parentId", "");
+		dynaForm.set(NAME_FORM_FIELD_NAME, "");
+		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, "");
+		dynaForm.set(EMAIL_FORM_FIELD_NAME, "");
+		dynaForm.set(PARENT_ID_FORM_FIELD_NAME, "");
 		cleanSession(request);
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"member.success.on.create"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -185,7 +202,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR;
 		String formInput = readFileLinePerLine((String) dynaForm
 				.get("fileMultipleMember"));
-		String personalizedMessage = (String) dynaForm.get("message");
+		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
 		if (formInput != null) {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntityFacade facadeSE = new SocialEntityFacade(em);
@@ -204,7 +221,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						socialEntitieInput[2].toLowerCase());
 
 				String definedPassword = Encryption.generateRandomPassword();
-				logger.info("#### Defined Password : " + definedPassword);
+				LOGGER.info("#### Defined Password : " + definedPassword);
 				String encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 				socialEntity.setPassword(encryptedPassword);
@@ -220,16 +237,16 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			// the
 			// create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
-				errors.add("email", new ActionMessage("members.user.exists"));
+				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
-				errors.add("email",
-						new ActionMessage("members.error.on.create"));
+				errors.add(EMAIL_FORM_FIELD_NAME,
+						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}
@@ -246,16 +263,16 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 				// as in
 				// the create methode
 				catch (RollbackException e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
-					errors.add("email",
-							new ActionMessage("members.user.exists"));
+					errors.add(EMAIL_FORM_FIELD_NAME,
+							new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 					saveErrors(request, errors);
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
-					errors.add("email", new ActionMessage(
-							"members.error.on.create"));
+					errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(
+							MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 					saveErrors(request, errors);
 				}
 			}
@@ -265,7 +282,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 					"members.error.file"));
 			saveErrors(request, errors);
 		}
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -290,7 +307,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		String formInput = (String) dynaForm.get("multipleMember");
 		dynaForm.set("multipleMember", "");
-		String personalizedMessage = (String) dynaForm.get("message");
+		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
@@ -309,7 +326,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 					socialEntitieInput[2].toLowerCase());
 
 			String definedPassword = Encryption.generateRandomPassword();
-			logger.info("#### Defined Password : " + definedPassword);
+			LOGGER.info("#### Defined Password : " + definedPassword);
 			String encryptedPassword = Encryption
 					.getEncodedPassword(definedPassword);
 			socialEntity.setPassword(encryptedPassword);
@@ -324,15 +341,15 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		// I'm not really sure about the exception, so I took the same as in the
 		// create methode
 		catch (RollbackException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.user.exists"));
+			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
-			errors.add("email", new ActionMessage("members.error.on.create"));
+			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		}
@@ -348,26 +365,26 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			// I'm not really sure about the exception, so I took the same as in
 			// the create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
-				errors.add("email", new ActionMessage("members.user.exists"));
+				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
-				errors.add("email",
-						new ActionMessage("members.error.on.create"));
+				errors.add(EMAIL_FORM_FIELD_NAME,
+						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 				saveErrors(request, errors);
 			}
 
 		}
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"members.success.on.create"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -402,7 +419,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		Mail mail = mailer.createMail();
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
 
 		mail.setSubject(bundle.getMessage(locale,
 				"members.welcomeMessage.subject"));
@@ -436,7 +453,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			String personalizedMessage, Locale locale) {
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
 		StringBuilder message = new StringBuilder();
 		personalizedMessage = personalizedMessage.replace(
 				"\"" + bundle.getMessage(locale, "members.name") + "\"", name);
@@ -489,7 +506,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		socialEntityFacade.switchState(socialEntityId);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -510,7 +527,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(
 				entityManager);
 
-		Integer idMember = Integer.valueOf(request.getParameter("idMember"));
+		Integer idMember = Integer.valueOf(request.getParameter(ID_MEMBER_REQUEST_PARAMETER_NAME));
 
 		SocialEntity member = socialEntityFacade.getSocialEntity(idMember);
 
@@ -530,13 +547,13 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		dynaForm.set("sexe", member.getSex());
 		dynaForm.set("job", member.getProfession());
 		dynaForm.set("birthDay", member.getBirthDate());
-		dynaForm.set("name", member.getName());
-		dynaForm.set("email", member.getEmail());
-		dynaForm.set("firstName", member.getFirstName());
+		dynaForm.set(NAME_FORM_FIELD_NAME, member.getName());
+		dynaForm.set(EMAIL_FORM_FIELD_NAME, member.getEmail());
+		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, member.getFirstName());
 		dynaForm.set("id", member.getId());
 
 		Paginator<Interest> paginator = new Paginator<Interest>(
-				member.getInterests(), request, "interestsMember", "idMember");
+				member.getInterests(), request, "interestsMember", ID_MEMBER_REQUEST_PARAMETER_NAME);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
 				entityManager);
 		List<SocialGroup> socialGroups = socialGroupFacade.getAllSocialGroups();
@@ -550,7 +567,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		initializeSession(request, member, socialGroups, allMasterGroups);
 
 		entityManager.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -573,7 +590,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		}else if (member.getGroup() != null){
 			request.getSession(true).setAttribute("group2", member.getGroup());
 		}
-		request.getSession(true).setAttribute("allGroups2", socialGroups);
+		request.getSession(true).setAttribute("allGroups2", (Serializable) socialGroups);
 	}
 
 	/**
@@ -593,20 +610,20 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		ActionErrors res = new ActionErrors();
 		try {
 			Date birthday = DateUtils.formatDate(dynaForm
-					.getString("formatBirthDay"));
+					.getString(FORMAT_BIRTHDAY_FORM_FIELD_NAME));
 			if (birthday.after(new Date())) {
-				res.add("formatBirthDay", new ActionMessage(
+				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
 						"date.error.invalid"));
 			}
 			Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 100);
 			if (birthday.before(cal.getTime())) {
-				res.add("formatBirthDay", new ActionMessage(
+				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
 						"date.error.invalid"));
 			}
 		} catch (ParseException e1) {
-			if (!dynaForm.getString("formatBirthDay").isEmpty()) {
-				res.add("formatBirthDay", new ActionMessage(
+			if (!dynaForm.getString(FORMAT_BIRTHDAY_FORM_FIELD_NAME).isEmpty()) {
+				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
 						"date.error.invalid"));
 			}
 			// Date Format is empty. Do nothing.
@@ -632,11 +649,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 				entityManager);
 		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 
-		String name = (String) formSocialENtity.get("name");
-		String firstName = (String) formSocialENtity.get("firstName");
-		String email = (String) formSocialENtity.get("email");
+		String name = (String) formSocialENtity.get(NAME_FORM_FIELD_NAME);
+		String firstName = (String) formSocialENtity.get(FIRSTNAME_FORM_FIELD_NAME);
+		String email = (String) formSocialENtity.get(EMAIL_FORM_FIELD_NAME);
 		email = email.toLowerCase();
-		String parentId = (String) formSocialENtity.get("parentId");
+		String parentId = (String) formSocialENtity.get(PARENT_ID_FORM_FIELD_NAME);
 		String job = (String) formSocialENtity.get("job");
 		String address = (String) formSocialENtity.get("address");
 		String city = (String) formSocialENtity.get("city");
@@ -653,7 +670,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		Date birthDay = null;
 		try {
 			birthDay = DateUtils.formatDate((String) formSocialENtity
-					.get("formatBirthDay"));
+					.get(FORMAT_BIRTHDAY_FORM_FIELD_NAME));
 		} catch (ParseException e) {
 			// Date Format is invalid or empty. Do nothing.
 		}
@@ -692,19 +709,19 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("member", member);
 		request.setAttribute("id", member.getId());
 		Paginator<Interest> paginator = new Paginator<Interest>(
-				member.getInterests(), request, "interestsMember", "idMember");
+				member.getInterests(), request, "interestsMember", ID_MEMBER_REQUEST_PARAMETER_NAME);
 		request.setAttribute("interestsMemberPaginator", paginator);
 
-		errors.add("message", new ActionMessage("member.success.update"));
+		errors.add(MESSAGE_FORM_FIELD_NAME, new ActionMessage("member.success.update"));
 		saveErrors(request, errors);
 		cleanSession(request);
 
 		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"member.success.on.modify"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -738,8 +755,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						resultOthers);
 				Collections.sort(resultOthersList);
 				request.setAttribute("membersList", resultOthersList);
-			} else
+			} else{
 				request.setAttribute("membersList", null);
+			}
 		} else {
 			query = em
 					.createQuery(
@@ -756,7 +774,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			em.close();
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -776,11 +794,11 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		Integer interestSelected = Integer.valueOf(request
 				.getParameter("interestSelected"));
 		Integer idSocialEntity = Integer.valueOf(request
-				.getParameter("idMember"));
+				.getParameter(ID_MEMBER_REQUEST_PARAMETER_NAME));
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
-		logger.info("delete interest social entity");
+		LOGGER.info("delete interest social entity");
 		SocialEntityFacade ise = new SocialEntityFacade(em);
 		InterestFacade interestFacade = new InterestFacade(em);
 		em.getTransaction().begin();
@@ -789,7 +807,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 }

@@ -37,7 +37,11 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 public class ManageCommunities extends MappingDispatchAction implements
 		CrudAction {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
+	
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String MODIFIED_COMMUNITY_FORM_FIELD_NAME = "modifiedCommunityName";
+
 
 	/*
 	 * (non-Javadoc)
@@ -87,10 +91,10 @@ public class ManageCommunities extends MappingDispatchAction implements
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"community.success.on.create"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 
 	}
 
@@ -109,7 +113,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		String communityId = request.getParameter("communityId");
 
-		logger.info("delete community: " + communityId);
+		LOGGER.info("delete community: " + communityId);
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		CommunityFacade communityFacade = new CommunityFacade(em);
@@ -121,7 +125,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 		em.getTransaction().commit();
 		em.close();
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 
 	}
 
@@ -157,14 +161,14 @@ public class ManageCommunities extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		String newCommunityName = (String) dynaForm
-				.get("modifiedCommunityName");
+				.get(MODIFIED_COMMUNITY_FORM_FIELD_NAME);
 		String communityName = (String) dynaForm.get("modifierCommunityName");
 		CommunityFacade facade = new CommunityFacade(em);
 		boolean doesNotExist = false;
 		Community community = facade.getCommunityByName(communityName);
 
 		if (community != null) {
-			logger.info("community modification: " + communityName);
+			LOGGER.info("community modification: " + communityName);
 
 			try {
 				facade.getCommunityByName(newCommunityName);
@@ -180,28 +184,28 @@ public class ManageCommunities extends MappingDispatchAction implements
 					ActionErrors actionErrors = new ActionErrors();
 					ActionMessage msg = new ActionMessage(
 							"communities.alreadyExists");
-					actionErrors.add("modifiedCommunityName", msg);
+					actionErrors.add(MODIFIED_COMMUNITY_FORM_FIELD_NAME, msg);
 					saveErrors(request, actionErrors);
 				}
 			} else {
 				ActionErrors actionErrors = new ActionErrors();
 				ActionMessage msg = new ActionMessage(
 						"communities.alreadyExists");
-				actionErrors.add("modifiedCommunityName", msg);
+				actionErrors.add(MODIFIED_COMMUNITY_FORM_FIELD_NAME, msg);
 				saveErrors(request, actionErrors);
 			}
 			em.close();
 		}
 
 		dynaForm.set("modifierCommunityName", "");
-		dynaForm.set("modifiedCommunityName", "");
+		dynaForm.set(MODIFIED_COMMUNITY_FORM_FIELD_NAME, "");
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		request.setAttribute("success", bundle.getMessage(request.getLocale(),
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
 				"community.success.on.modify"));
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 
 	}
 
@@ -237,6 +241,6 @@ public class ManageCommunities extends MappingDispatchAction implements
 
 		request.setAttribute("allMembers", allMembers);
 		request.setAttribute("communitiesList", result);
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 }

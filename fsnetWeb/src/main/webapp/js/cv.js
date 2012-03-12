@@ -64,10 +64,7 @@ $(function() {
 			erreur=1;
 		}
 	
-		if($("#CvLieu").val()==''){
-			$(".CvLieuError").css("display","inline");
-			erreur=1;
-		}
+		
 		if($("#CvSecteur").val()==''){
 			$(".CvSecteurError").css("display","inline");
 			erreur=1;
@@ -84,11 +81,12 @@ $(function() {
 		if(erreur==0){
 			tabExp[i]=i;
 		var recapExp= "<strong>"+$("#CvPoste").val()+"</strong><p>"+$("#NomEntreprise").val()+"</p><p>"
-		+$("#CvSecteur").val()+"</p><p>"+$("#CvLieu").val()+"</p><p> Date debut :"+$("#expBeginDate").val()+"</p><p> date de  fin :"+$("#expEndDate").val()+"</p>";
+		+$("#CvSecteur").val()+"</p><p>"+$("#CvPaysExp").val()+"</p><p>"+$("#CvVilleExp").val()+"</p><p>"+$("#expBeginDate").val()+"</p><p> "+$("#expEndDate").val()+"</p>";
 		
 		var inputRecap='<div id="ExpInput" style="display:none;"><input type="hidden" id="CVPostehidden" name="CvPoste'+i+'" value="'+$("#CvPoste").val()+'" />'
 		+'<input type="hidden" name="NomEntreprise'+i+'" value="'+$("#NomEntreprise").val()+'" />'
-		+'<input type="hidden" name="CvLieu'+i+'" value="'+$("#CvLieu").val()+'" />'
+		+'<input type="hidden" name="CvPaysExp'+i+'" value="'+$("#CvPaysExp").val()+'" />'
+		+'<input type="hidden" name="CvVilleExp'+i+'" value="'+$("#CvVilleExp").val()+'" />'
 		+'<input type="hidden" name="expBeginDate'+i+'" value="'+$("#expBeginDate").val()+'" />'
 		+'<input type="hidden" name="CvSecteur'+i+'" value="'+$("#CvSecteur").val()+'" />'
 		+'<input type="hidden" name="expEndDate'+i+'" value="'+$("#expEndDate").val()+'" /></div>';
@@ -101,7 +99,8 @@ $(function() {
 		$("#CvPoste").val('');
 		$("#NomEntreprise").val('');
 		$("#CvSecteur").val('');
-		$("#CvLieu").val('');
+		$("#CvPaysExp").val('');
+		$("#CvVilleExp").val('');
 		$("#expBeginDate").val('');
 		$("#expEndDate").val('');
 		$(".CvPosteError").css("display","none");
@@ -171,7 +170,7 @@ $(function() {
 		+'<input type="hidden" name="etudEndDate'+j+'" value="'+$("#etudEndDate").val()+'" /></div>';
 		var $annuler=$('<span id="supprimerDip'+j+'"><a onclick="changeDip('+j+')">supprimer</a></span>');
 		$(".corp_diplome").css("display","none");
-		$(".addForm").css("display","inline");
+		$(".addDip").css("display","inline");
 		$('.listeDiplome').append('<li class="liste" id="diplome_'+j+'">'+recapExp+'</li>');
 		$('#diplome_'+j).append(inputRecap);
 		//$('#formation_'+j).append($annuler);
@@ -224,34 +223,36 @@ $(function() {
 		if(erreur==0){
 		var recapExp= "<strong>"+$("#CvFormation").val()+"</strong><p>"
 		+$("#CvEtablissmentform").val()+"</p><p>"+$("#CvFormPays").val()+"-"+$("#CvFormVille").val()+"</p><p> "+$("#DateObtention").val();
-		var inputRecap='<div id="FormInput" style="display:none;"><input type="hidden" name="CvFormation'+f+'" value="'+$("#CvFormation").val()+'" />'
-		
+		var inputRecap='<div id="FormInput" style="display:none;"><input type="hidden" name="CvFormation'+f+'" value="'+$("#CvFormation").val()+'" />'		
 		+'<input type="hidden" name="CvEtablissmentform'+f+'" value="'+$("#CvEtablissmentform").val()+'" />'
 		+'<input type="hidden" name="CvFormPays'+f+'" value="'+$("#CvFormPays").val()+'" />'
 		+'<input type="hidden" name="CvFormVille'+f+'" value="'+$("#CvEtudeVille").val()+'" />'
 		+'<input type="hidden" name="DateObtention'+f+'" value="'+$("#DateObtention").val()+'" />'
 
 		
-		$(".corp_diplome").css("display","none");
+		$(".corp_formation").css("display","none");
 		$(".addForm").css("display","inline");
+		
 		$('.listeFormation').append('<li class="liste" id="formation_'+f+'">'+recapExp+'</li>');
-		$('#formation_'+j).append(inputRecap);
+		$('#formation_'+f).append(inputRecap);
 		
 		$("#CvFormation").val('');
 		
 		$("#CvEtablissmentform").val('');
 		$("#CvFormPays").val('');
+		$("#CvFormVille").val('');
 		$("#DateObtention").val('');
 	
 		$(".CvEtablissmentformError").css("display","none");
 		$(".DateObtentionError").css("display","none");
 	
 		$(".CvFormationError").css("display","none");
+		
 		f++;
 		}
 	});
 	$(".annuleForm").click(function(){
-		$(".corp_diplome").css("display","none");
+		$(".corp_formation").css("display","none");
 		$(".addForm").css("display","inline");
 	});
 	
@@ -348,13 +349,15 @@ $(".addLangue").click(function(){
 	});
 	$("#envoi").click(function(){
 		var nbExp='<input type="hidden" name="nbexp" value="'+i+'" />';
-		var nbForm='<input type="hidden" name="nbform" value="'+j+'" />';
+		var nbForm='<input type="hidden" name="nbform" value="'+f+'" />';
 		var nblangue='<input type="hidden" name="nblangue" value="'+k+'" />';
 		var nbloisir='<input type="hidden" name="nbloisir" value="'+z+'" />';
+		var nbdip='<input type="hidden" name="nbdip" value="'+j+'" />';
 		$('.listeExperience').append(nbExp);
 		$('.listeFormation').append(nbForm);
 		$('.listeLangues').append(nblangue);
 		$('.listeLoisir').append(nbloisir);
+		$('.listeDiplome').append(nbdip);
 	   
 	});
 	

@@ -220,10 +220,11 @@ public class Consultation extends Interaction {
 	}
 
 	public void setLimitParticipantPerChoice(boolean limitParticipantsPerChoice) {
-		if (limitParticipantsPerChoice)
+		if (limitParticipantsPerChoice){
 			this.limitParticipantsPerChoice = "T";
-		else
+		}else{
 			this.limitParticipantsPerChoice = "F";
+		}
 	}
 
 	public String getLimitChoicesPerParticipant() {
@@ -242,8 +243,9 @@ public class Consultation extends Interaction {
 	public void setLimitChoicesPerParticipant(boolean limitChoicesPerParticipant) {
 		if (limitChoicesPerParticipant) {
 			this.limitChoicesPerParticipant = "T";
-		} else
+		} else{
 			this.limitChoicesPerParticipant = "F";
+		}
 	}
 
 	public String getShowBeforeAnswer() {
@@ -260,10 +262,11 @@ public class Consultation extends Interaction {
 	}
 
 	public void setShowBeforeAnswer(boolean showBeforeAnswer) {
-		if (showBeforeAnswer)
+		if (showBeforeAnswer){
 			this.showBeforeAnswer = "T";
-		else
+		}else{
 			this.showBeforeAnswer = "F";
+		}
 	}
 
 	public String getShowBeforeClosing() {
@@ -280,10 +283,11 @@ public class Consultation extends Interaction {
 	}
 
 	public void setShowBeforeClosing(boolean showBeforeClosing) {
-		if (showBeforeClosing)
+		if (showBeforeClosing){
 			this.showBeforeClosing = "T";
-		else
+		}else{
 			this.showBeforeClosing = "F";
+		}
 	}
 
 	public String getAllowAllToModify() {
@@ -300,10 +304,11 @@ public class Consultation extends Interaction {
 	}
 
 	public void setAllowAllToModify(boolean allowAllToModify) {
-		if (allowAllToModify)
+		if (allowAllToModify){
 			this.allowAllToModify = "T";
-		else
+		}else{
 			this.allowAllToModify = "F";
+		}
 	}
 
 	public String getClosingAtDate() {
@@ -320,10 +325,11 @@ public class Consultation extends Interaction {
 	}
 
 	public void setClosingAtDate(boolean closingAtDate) {
-		if (closingAtDate)
+		if (closingAtDate){
 			this.closingAtDate = "T";
-		else
+		}else{
 			this.closingAtDate = "F";
+		}
 	}
 
 	public String getClosingAtMaxVoters() {
@@ -340,10 +346,11 @@ public class Consultation extends Interaction {
 	}
 
 	public void setClosingAtMaxVoters(boolean closingAtMaxVoters) {
-		if (closingAtMaxVoters)
+		if (closingAtMaxVoters){
 			this.closingAtMaxVoters = "T";
-		else
+		}else{
 			this.closingAtMaxVoters = "F";
+		}
 	}
 
 	public String getOpened() {
@@ -360,10 +367,11 @@ public class Consultation extends Interaction {
 	}
 
 	public void setOpened(boolean opened) {
-		if (opened)
+		if (opened){
 			this.opened = "T";
-		else
+		}else{
 			this.opened = "F";
+		}
 	}
 
 	public boolean isVoted(SocialEntity member) {

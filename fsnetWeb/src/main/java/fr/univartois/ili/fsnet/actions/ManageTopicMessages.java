@@ -34,8 +34,12 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 public class ManageTopicMessages extends MappingDispatchAction implements
 		CrudAction {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String TOPIC_ID_FORM_FIELD_NAME = "topicId";
+	private static final String MESSAGE_ID_FORM_FIELD_NAME = "messageId";
 
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -49,20 +53,20 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 	public ActionForward create(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		logger.info("create Message: ");
+		LOGGER.info("create Message: ");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String messageDescription = (String) dynaForm.get("messageDescription");
 		int topicId = Integer.valueOf(Integer.parseInt(dynaForm
-				.getString("topicId")));
+				.getString(TOPIC_ID_FORM_FIELD_NAME)));
 
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic topic = topicFacade.getTopic(topicId);
 
-		SocialEntity SocialEntity = UserUtils.getAuthenticatedUser(request, em);
+		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request, em);
 		TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
-		topicMessageFacade.createTopicMessage(messageDescription, SocialEntity,
+		topicMessageFacade.createTopicMessage(messageDescription, socialEntity,
 				topic);
 
 		em.getTransaction().commit();
@@ -72,8 +76,8 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 
 		em.close();
 		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward("success"));
-		redirect.addParameter("topicId", dynaForm.get("topicId"));
+				mapping.findForward(SUCCES_ATTRIBUTE_NAME));
+		redirect.addParameter(TOPIC_ID_FORM_FIELD_NAME, dynaForm.get(TOPIC_ID_FORM_FIELD_NAME));
 		redirect.addParameter("pageId", pageId);
 		return redirect;
 	}
@@ -92,13 +96,13 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		logger.info("modify Message ");
+		LOGGER.info("modify Message ");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String messageDescription = (String) dynaForm.get("messageDescription");
 		int messageId = Integer.valueOf(Integer.parseInt(dynaForm
-				.getString("messageId")));
+				.getString(MESSAGE_ID_FORM_FIELD_NAME)));
 		TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
 		TopicMessage message = topicMessageFacade.getTopicMessage(messageId);
 
@@ -109,7 +113,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 		message.setBody(messageDescription);
 
 		int topicId = Integer.valueOf(Integer.parseInt(dynaForm
-				.getString("topicId")));
+				.getString(TOPIC_ID_FORM_FIELD_NAME)));
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic topic = topicFacade.getTopic(topicId);
 
@@ -118,7 +122,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 		topic.getMessages();
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -136,18 +140,18 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		int topicId = Integer.valueOf(request.getParameter("topicId"));
+		int topicId = Integer.valueOf(request.getParameter(TOPIC_ID_FORM_FIELD_NAME));
 		TopicFacade topicFacade = new TopicFacade(em);
 		Topic topic = topicFacade.getTopic(topicId);
 		int messageId = Integer.valueOf(Integer.parseInt(request
-				.getParameter("messageId")));
+				.getParameter(MESSAGE_ID_FORM_FIELD_NAME)));
 		TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
 		TopicMessage message = topicMessageFacade.getTopicMessage(messageId);
 		topicMessageFacade.deleteTopicMessage(messageId);
 		topic.getMessages().remove(message);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -181,10 +185,10 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
-		String topicId = (String) dynaForm.get("topicId");
-		logger.info("display Message: ");
+		String topicId = (String) dynaForm.get(TOPIC_ID_FORM_FIELD_NAME);
+		LOGGER.info("display Message: ");
 
-		request.setAttribute("topicId", topicId);
+		request.setAttribute(TOPIC_ID_FORM_FIELD_NAME, topicId);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		Topic currentTopic = em.find(Topic.class, Integer.valueOf(topicId));
 		List<TopicMessage> messages = currentTopic.getMessages();
@@ -197,8 +201,8 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 		}
 		Collections.reverse(lastMessages);
 		request.setAttribute("lastMessages", lastMessages);
-		if (request.getParameter("messageId") != null) {
-			String messageId = (String) dynaForm.get("messageId");
+		if (request.getParameter(MESSAGE_ID_FORM_FIELD_NAME) != null) {
+			String messageId = (String) dynaForm.get(MESSAGE_ID_FORM_FIELD_NAME);
 
 			TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
 			TopicMessage message = topicMessageFacade.getTopicMessage(Integer
@@ -206,6 +210,6 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 			request.setAttribute("message", message);
 		}
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 }

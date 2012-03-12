@@ -40,6 +40,8 @@ public class WSConnector {
 	private Info infoPort;
 	private NotificationFrame frame;
 
+	private static final String NO_CONNECTION_MESSAGE = "No Connection";
+	
 	public WSConnector() {
 		if (verifConfig()) {
 			startNotifications();
@@ -252,7 +254,7 @@ public class WSConnector {
 	 */
 	public void checkWS() {
 		if (infoPort == null) {
-			fireError("No Connection");
+			fireError(NO_CONNECTION_MESSAGE);
 		} else {
 			try {
 				boolean newMessage, newContact, newAnnounce, newEvent, newConsultation;
@@ -275,7 +277,7 @@ public class WSConnector {
 				//e.printStackTrace();
 				Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
 						null, e);
-				fireError("No Connection");
+				fireError(NO_CONNECTION_MESSAGE);
 			}
 		}
 	}
@@ -300,7 +302,7 @@ public class WSConnector {
 
 	public void checkWS(Point position) {
 		if (infoPort == null) {
-			fireError("No Connection");
+			fireError(NO_CONNECTION_MESSAGE);
 		} else {
 			try {
 				if (getNbMessage() > 0 || getNbDemandeC() > 0
@@ -331,7 +333,7 @@ public class WSConnector {
 				//e.printStackTrace();
 				Logger.getLogger(WSConnector.class.getName()).log(Level.SEVERE,
 						null, e);
-				fireError("No Connection");
+				fireError(NO_CONNECTION_MESSAGE);
 			}
 		}
 

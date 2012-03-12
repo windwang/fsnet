@@ -16,7 +16,12 @@ import javax.persistence.OneToMany;
 @Entity
 public class Community extends Interaction {
     
-    @OneToMany(cascade=CascadeType.ALL,mappedBy="community")
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
+	@OneToMany(cascade=CascadeType.ALL,mappedBy="community")
     private Set<Hub> hubs;
     
     @OneToMany(cascade=CascadeType.ALL,mappedBy="parentCommunity")

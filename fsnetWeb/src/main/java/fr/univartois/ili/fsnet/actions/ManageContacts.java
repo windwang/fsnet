@@ -33,6 +33,8 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	private static final Logger LOGGER = Logger.getLogger(ManageContacts.class
 			.getName());
 
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+
 	/**
 	 * Submit a request contact to another social entity
 	 * 
@@ -47,32 +49,35 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	public ActionForward askContact(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		EntityManager em = PersistenceProvider.createEntityManager();
-		em.getTransaction().begin();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		final String idString = (String) dynaForm.get("entitySelected");
-		int entitySelected = 0;
 		try {
+			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+			em.getTransaction().begin();
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			final String idString = (String) dynaForm.get("entitySelected");
+			int entitySelected = 0;
+
 			entitySelected = Integer.parseInt(idString);
+			// TODO changer les listes en set sur les entites sociales pour
+			// eviter
+			// les doublons
+
+			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+			SocialEntity entity = socialEntityFacade
+					.getSocialEntity(entitySelected);
+			ContactFacade contactFacade = new ContactFacade(em);
+			contactFacade.askContact(user, entity);
+
+			em.getTransaction().commit();
 		} catch (NumberFormatException nfe) {
 			LOGGER.log(Level.WARNING,
 					"Unable to parse the contact id as an integer", nfe);
 			throw new UnauthorizedOperationException("exception.message");
+		} finally {
+			em.close();
 		}
 
-		// TODO changer les listes en set sur les entites sociales pour eviter
-		// les doublons
-
-		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-		SocialEntity entity = socialEntityFacade
-				.getSocialEntity(entitySelected);
-		ContactFacade contactFacade = new ContactFacade(em);
-		contactFacade.askContact(user, entity);
-
-		em.getTransaction().commit();
-		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -89,20 +94,29 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	public ActionForward accept(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		EntityManager em = PersistenceProvider.createEntityManager();
-		em.getTransaction().begin();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		final String idString = (String) dynaForm.get("entityAccepted");
-		int id = Integer.parseInt(idString);
-		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-		SocialEntity entityAccepted = socialEntityFacade.getSocialEntity(id);
-		ContactFacade contactFacade = new ContactFacade(em);
-		contactFacade.acceptContact(user, entityAccepted);
-		refreshNumNewContacts(request, em);
-		em.getTransaction().commit();
-		em.close();
-		return mapping.findForward("success");
+		try {
+			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+			em.getTransaction().begin();
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			final String idString = (String) dynaForm.get("entityAccepted");
+			int id = Integer.parseInt(idString);
+			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+			SocialEntity entityAccepted = socialEntityFacade
+					.getSocialEntity(id);
+			ContactFacade contactFacade = new ContactFacade(em);
+			contactFacade.acceptContact(user, entityAccepted);
+			refreshNumNewContacts(request, em);
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
+			LOGGER.log(Level.WARNING,
+					"Unable to parse the contact id as an integer", e);
+			throw new UnauthorizedOperationException("exception.message");
+		} finally {
+			em.close();
+		}
+
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -119,21 +133,28 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	public ActionForward refuse(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		EntityManager em = PersistenceProvider.createEntityManager();
-		em.getTransaction().begin();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		final String idString = (String) dynaForm.get("entityRefused");
-		int id = Integer.parseInt(idString);
-		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-		SocialEntity entityRefused = socialEntityFacade.getSocialEntity(id);
-		ContactFacade contactFacade = new ContactFacade(em);
-		contactFacade.refuseContact(user, entityRefused);
-		refreshNumNewContacts(request, em);
-		em.getTransaction().commit();
-		em.close();
-		return mapping.findForward("success");
+		try {
+			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+			em.getTransaction().begin();
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			final String idString = (String) dynaForm.get("entityRefused");
+			int id = Integer.parseInt(idString);
+			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+			SocialEntity entityRefused = socialEntityFacade.getSocialEntity(id);
+			ContactFacade contactFacade = new ContactFacade(em);
+			contactFacade.refuseContact(user, entityRefused);
+			refreshNumNewContacts(request, em);
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
+			LOGGER.log(Level.WARNING,
+					"Unable to parse the contact id as an integer", e);
+			throw new UnauthorizedOperationException("exception.message");
+		} finally {
+			em.close();
+		}
+
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -181,19 +202,27 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		EntityManager em = PersistenceProvider.createEntityManager();
-		em.getTransaction().begin();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		final String idString = (String) dynaForm.get("entityDeleted");
-		int id = Integer.parseInt(idString);
-		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-		SocialEntity removedEntity = socialEntityFacade.getSocialEntity(id);
-		ContactFacade contactFacade = new ContactFacade(em);
-		contactFacade.removeContact(user, removedEntity);
-		em.getTransaction().commit();
-		em.close();
-		return mapping.findForward("success");
+		try {
+			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
+			em.getTransaction().begin();
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			final String idString = (String) dynaForm.get("entityDeleted");
+			int id = Integer.parseInt(idString);
+			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+			SocialEntity removedEntity = socialEntityFacade.getSocialEntity(id);
+			ContactFacade contactFacade = new ContactFacade(em);
+			contactFacade.removeContact(user, removedEntity);
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
+			LOGGER.log(Level.WARNING,
+					"Unable to parse the contact id as an integer", e);
+			throw new UnauthorizedOperationException("exception.message");
+		} finally {
+			em.close();
+		}
+
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -239,7 +268,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		request.setAttribute("paginatorAsked", user.getAsked());
 		request.setAttribute("paginatorRequested", user.getRequested());
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -263,19 +292,27 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	public ActionForward cancelAsk(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response) {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialEntityFacade sef = new SocialEntityFacade(em);
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
-		int id = Integer.parseInt(dyna.getString("id"));
-		em.getTransaction().begin();
-		SocialEntity requested = sef.getSocialEntity(id);
-		em.getTransaction().commit();
-		ContactFacade cf = new ContactFacade(em);
-		em.getTransaction().begin();
-		cf.cancelRequested(user, requested, em);
-		em.getTransaction().commit();
-		em.close();
-		return mapping.findForward("success");
+		try {
+			SocialEntityFacade sef = new SocialEntityFacade(em);
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
+			int id = Integer.parseInt(dyna.getString("id"));
+			em.getTransaction().begin();
+			SocialEntity requested = sef.getSocialEntity(id);
+			em.getTransaction().commit();
+			ContactFacade cf = new ContactFacade(em);
+			em.getTransaction().begin();
+			cf.cancelRequested(user, requested, em);
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
+			LOGGER.log(Level.WARNING,
+					"Unable to parse the contact id as an integer", e);
+			throw new UnauthorizedOperationException("exception.message");
+		} finally {
+			em.close();
+		}
+
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 }

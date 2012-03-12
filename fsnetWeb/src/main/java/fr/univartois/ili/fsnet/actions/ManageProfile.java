@@ -65,6 +65,14 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public static final String WATCHED_PROFILE_VARIABLE = "watchedProfile";
 	public static final String EDITABLE_PROFILE_VARIABLE = "edit";
 	private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+	
+	private static final String DATE_OF_BIRTH_FORM_FIELD_NAME = "dateOfBirth";
+	private static final String MAIL_FORM_FIELD_NAME = "mail";
+	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String IS_MASTER_GROUP_ATTRIBUTE_NAME = "isMasterGroup";
+	private static final String IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME = "isGroupResponsible";
+	private static final String ERROR_UPDATE_ATTRIBUTE_STRING = "updateProfile.error.photo.fatal";
+	
 
 	/*
 	 * (non-Javadoc)
@@ -93,28 +101,28 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		ActionErrors res = new ActionErrors();
 		try {
 			Date birthday = DateUtils.formatDate(dynaForm
-					.getString("dateOfBirth"));
+					.getString(DATE_OF_BIRTH_FORM_FIELD_NAME));
 			Date actualDate = new Date();
 			if (birthday.after(actualDate)) {
-				res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
+				res.add(DATE_OF_BIRTH_FORM_FIELD_NAME, new ActionMessage("date.error.invalid"));
 			}
 			Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 100);
 			Date lastedDate = cal.getTime();
 			if (birthday.before(lastedDate)) {
-				res.add("dateOfBirth", new ActionMessage("date.error.invalid"));
+				res.add(DATE_OF_BIRTH_FORM_FIELD_NAME, new ActionMessage("date.error.invalid"));
 			}
 		} catch (ParseException e1) {
 			// DO NOTHING EMPTY DATE
 		}
 		if (!UserUtils.getAuthenticatedUser(request, em).getEmail()
-				.equals(dynaForm.getString("mail"))) {
+				.equals(dynaForm.getString(MAIL_FORM_FIELD_NAME))) {
 			SocialEntityFacade sef = new SocialEntityFacade(em);
 			em.getTransaction().begin();
-			SocialEntity se = sef.findByEmail(dynaForm.getString("mail"));
+			SocialEntity se = sef.findByEmail(dynaForm.getString(MAIL_FORM_FIELD_NAME));
 			em.getTransaction().commit();
 			if (se != null) {
-				res.add("mail", new ActionMessage(
+				res.add(MAIL_FORM_FIELD_NAME, new ActionMessage(
 						"error.updateProfile.email.alwaysExist"));
 			}
 		}
@@ -146,7 +154,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Date birthday = null;
 		addRightToRequest(request);
 		try {
-			birthday = DateUtils.formatDate(dynaForm.getString("dateOfBirth"));
+			birthday = DateUtils.formatDate(dynaForm.getString(DATE_OF_BIRTH_FORM_FIELD_NAME));
 		} catch (ParseException e) {
 			// DO NOTHING EMPTY DATE
 		}
@@ -165,19 +173,17 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				new Address(dynaForm.getString("adress"), dynaForm
 						.getString("city")), birthday, dynaForm
 						.getString("sexe"), dynaForm.getString("job"), dynaForm
-						.getString("mail").toLowerCase(), dynaForm
+						.getString(MAIL_FORM_FIELD_NAME).toLowerCase(), dynaForm
 						.getString("phone"));
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
 	 * @param request
-	 * @param response
 	 */
-	private void addKeyFacebookInRequest(HttpServletRequest request,
-			HttpServletResponse response) {
+	private void addKeyFacebookInRequest(HttpServletRequest request) {
 		request.setAttribute("KEY_FACEBOOK",
 				FacebookKeyManager.getKeyFacebook());
 	}
@@ -226,7 +232,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public final ActionForward displayToModify(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		addKeyFacebookInRequest(request, response);
+		addKeyFacebookInRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -240,22 +246,24 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			dyna.set("city", user.getAddress().getCity());
 		}
 		if (user.getBirthDate() != null) {
-			dyna.set("dateOfBirth", formatter.format(user.getBirthDate()));
+			dyna.set(DATE_OF_BIRTH_FORM_FIELD_NAME, formatter.format(user.getBirthDate()));
 		}
 		dyna.set("sexe", user.getSex());
 		dyna.set("job", user.getProfession());
-		dyna.set("mail", user.getEmail());
+		dyna.set(MAIL_FORM_FIELD_NAME, user.getEmail());
 		dyna.set("phone", user.getPhone());
-		if (sgf.isMasterGroup(user))
-			request.getSession(true).setAttribute("isMasterGroup", true);
-		else
-			request.getSession(true).setAttribute("isMasterGroup", false);
-		if (sgf.isGroupResponsible(user))
-			request.getSession(true).setAttribute("isGroupResponsible", true);
-		else
-			request.getSession(true).setAttribute("isGroupResponsible", false);
+		if (sgf.isMasterGroup(user)){
+			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, true);
+		}else{
+			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, false);
+		}
+		if (sgf.isGroupResponsible(user)){
+			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, true);
+		}else{
+			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, false);
+		}
 		em.close();
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/*
@@ -271,7 +279,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public final ActionForward display(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		addKeyFacebookInRequest(request, response);
+		addKeyFacebookInRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
@@ -333,14 +341,16 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("currentUser", user);
 		request.setAttribute("treeGroupProfile", sgf.treeParentName(profile));
 
-		if (sgf.isMasterGroup(user))
-			request.getSession(true).setAttribute("isMasterGroup", true);
-		else
-			request.getSession(true).setAttribute("isMasterGroup", false);
-		if (sgf.isGroupResponsible(user))
-			request.getSession(true).setAttribute("isGroupResponsible", true);
-		else
-			request.getSession(true).setAttribute("isGroupResponsible", false);
+		if (sgf.isMasterGroup(user)){
+			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, true);
+		}else{
+			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, false);
+		}
+		if (sgf.isGroupResponsible(user)){
+			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, true);
+		}else{
+			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, false);
+		}
 
 		SocialGroup socialGroup = profile.getGroup();
 		request.setAttribute("socialGroup", socialGroup);
@@ -355,7 +365,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			request.setAttribute("isLogged", false);
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -409,7 +419,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			} catch (Exception e) {
 				sendPictureError(request,
 						"updateProfile.error.photo.invalidlink");
-				return mapping.findForward("success");
+				return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 			}
 		} else {
 			uri = null;
@@ -430,19 +440,19 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				if (file.getFileSize() > MAX_PICTURE_SIZE) {
 					sendPictureError(request,
 							"updateProfile.error.photo.masize");
-					return mapping.findForward("success");
+					return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 				}
 
 				try {
 					ImageManager.createPicturesForUser(userId,
 							file.getInputStream(), pictureType);
-					return mapping.findForward("success");
+					return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 				} catch (FileNotFoundException e) {
-					sendPictureError(request, "updateProfile.error.photo.fatal");
+					sendPictureError(request, ERROR_UPDATE_ATTRIBUTE_STRING);
 				} catch (IOException e) {
-					sendPictureError(request, "updateProfile.error.photo.fatal");
+					sendPictureError(request, ERROR_UPDATE_ATTRIBUTE_STRING);
 				} catch (IllegalStateException e) {
-					sendPictureError(request, "updateProfile.error.photo.fatal");
+					sendPictureError(request, ERROR_UPDATE_ATTRIBUTE_STRING);
 				}
 			} else {
 				sendPictureError(request, "updateProfile.error.photo.type");
@@ -460,18 +470,18 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				if (inputStream.available() > MAX_PICTURE_SIZE) {
 					sendPictureError(request,
 							"updateProfile.error.photo.masize");
-					return mapping.findForward("success");
+					return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 				}
 
 				try {
 					ImageManager.createPicturesForUser(userId, inputStream,
 							pictureType);
 				} catch (FileNotFoundException e) {
-					sendPictureError(request, "updateProfile.error.photo.fatal");
+					sendPictureError(request, ERROR_UPDATE_ATTRIBUTE_STRING);
 				} catch (IOException e) {
-					sendPictureError(request, "updateProfile.error.photo.fatal");
+					sendPictureError(request, ERROR_UPDATE_ATTRIBUTE_STRING);
 				} catch (IllegalStateException e) {
-					sendPictureError(request, "updateProfile.error.photo.fatal");
+					sendPictureError(request, ERROR_UPDATE_ATTRIBUTE_STRING);
 				}
 			} else {
 				sendPictureError(request, "updateProfile.error.photo.type");
@@ -482,7 +492,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			sendPictureError(request, "updateProfile.error.photo.emptylink");
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
@@ -507,7 +517,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
 		ImageManager.removeOldUserPicture(userId);
 		addRightToRequest(request);
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**

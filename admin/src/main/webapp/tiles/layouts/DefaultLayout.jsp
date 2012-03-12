@@ -13,7 +13,7 @@
 <head>
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8" />
-<link rel="shortcut icon" href="icons/icon_from_jimmac_musichall_cz_223.png" type="image/png" />
+<link rel="shortcut icon" href="" type="image" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <link rel="stylesheet" type="text/css" media="screen"
@@ -32,7 +32,8 @@
 <script class="jsbin" type="text/javascript"
 	src="js/jquery.dataTables.js"></script>
 
-<link rel="stylesheet" type="text/css" media="screen" href="css/skeleton.css" />
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/skeleton.css" />
 </head>
 <body>
 
@@ -50,7 +51,8 @@
 			</div>
 			<div id="left">
 				<h2>
-					<a> <bean:message key="${pageTitle}" /> </a>
+					<a> <bean:message key="${pageTitle}" />
+					</a>
 				</h2>
 				<tiles:insert attribute="left" />
 			</div>

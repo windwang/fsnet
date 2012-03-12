@@ -101,10 +101,10 @@
 				</var>	
 			</field>
 		</form>
+		
 		<form name="/GetMiniature">
 			<field property="memberId" depends="required,integer" />
 		</form>
-
 
 		<form name="/Profile">
 			<field property="name" depends="" />
