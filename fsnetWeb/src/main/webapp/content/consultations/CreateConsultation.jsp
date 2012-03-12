@@ -76,14 +76,14 @@
 						</div>
 
 						<c:if test="${errorChoice}">
-							<p class="errorMessage">
+							<div class="errorMessage">
 								<bean:message key="consultations.error.choice" />
-							</p>
+							</div>
 						</c:if>
 						<c:if test="${errorMaxVotersPerChoice}">
-							<p class="errorMessage">
+							<div class="errorMessage">
 								<bean:message key="consultations.error.maxVotersPerChoice" />
-							</p>
+							</div>
 						</c:if>
 
 						<table id="choicesTab">
