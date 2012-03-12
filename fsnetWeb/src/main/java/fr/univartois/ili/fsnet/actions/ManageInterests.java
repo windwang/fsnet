@@ -46,7 +46,6 @@ public class ManageInterests extends MappingDispatchAction implements
 
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 
-	
 	/**
 	 * @param dynaForm
 	 * @param facade
@@ -166,6 +165,7 @@ public class ManageInterests extends MappingDispatchAction implements
 		addInterestToCurrentUser(request, em, interestId);
 		em.getTransaction().commit();
 		em.close();
+
 		ActionRedirect redirect = new ActionRedirect(
 				mapping.findForward(SUCCES_ATTRIBUTE_NAME));
 		redirect.addParameter("infoInterestId", interestId);
@@ -211,26 +211,33 @@ public class ManageInterests extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
+
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		int interestId = Integer.valueOf((String) dynaForm
 				.get("removedInterestId"));
 
-		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+		try {
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
-		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
-		InterestFacade facadeInterest = new InterestFacade(em);
+			SocialEntityFacade facadeSE = new SocialEntityFacade(em);
+			InterestFacade facadeInterest = new InterestFacade(em);
 
-		Interest interest = facadeInterest.getInterest(interestId);
-		if (interest != null) {
-			LOGGER.info("remove interest: id=" + interestId + " for user: "
-					+ user.getName() + " " + user.getFirstName() + " "
-					+ user.getId());
+			Interest interest = facadeInterest.getInterest(interestId);
+			if (interest != null) {
+				LOGGER.info("remove interest: id=" + interestId + " for user: "
+						+ user.getName() + " " + user.getFirstName() + " "
+						+ user.getId());
 
-			em.getTransaction().begin();
-			facadeSE.removeInterest(interest, user);
-			em.getTransaction().commit();
+				em.getTransaction().begin();
+				facadeSE.removeInterest(interest, user);
+				em.getTransaction().commit();
+			}
+		} catch (NumberFormatException e) {
+
+		} finally {
+			em.close();
 		}
-		em.close();
+		
 		ActionRedirect redirect = new ActionRedirect(
 				mapping.findForward(SUCCES_ATTRIBUTE_NAME));
 		redirect.addParameter("infoInterestId", interestId);

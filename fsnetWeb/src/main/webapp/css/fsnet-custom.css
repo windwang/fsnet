@@ -452,6 +452,8 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     border: 1px solid gray;
 }
 
+
+
 .inLineTable tr{
     background-color: #E8F5FD;
     border: 5px solid #F7FCFF;

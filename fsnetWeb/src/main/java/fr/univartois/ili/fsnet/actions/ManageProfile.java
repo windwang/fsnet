@@ -65,14 +65,13 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	public static final String WATCHED_PROFILE_VARIABLE = "watchedProfile";
 	public static final String EDITABLE_PROFILE_VARIABLE = "edit";
 	private DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-	
+
 	private static final String DATE_OF_BIRTH_FORM_FIELD_NAME = "dateOfBirth";
 	private static final String MAIL_FORM_FIELD_NAME = "mail";
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String IS_MASTER_GROUP_ATTRIBUTE_NAME = "isMasterGroup";
 	private static final String IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME = "isGroupResponsible";
 	private static final String ERROR_UPDATE_ATTRIBUTE_STRING = "updateProfile.error.photo.fatal";
-	
 
 	/*
 	 * (non-Javadoc)
@@ -104,23 +103,29 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 					.getString(DATE_OF_BIRTH_FORM_FIELD_NAME));
 			Date actualDate = new Date();
 			if (birthday.after(actualDate)) {
-				res.add(DATE_OF_BIRTH_FORM_FIELD_NAME, new ActionMessage("date.error.invalid"));
+				res.add(DATE_OF_BIRTH_FORM_FIELD_NAME, new ActionMessage(
+						"date.error.invalid"));
 			}
 			Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 100);
 			Date lastedDate = cal.getTime();
 			if (birthday.before(lastedDate)) {
-				res.add(DATE_OF_BIRTH_FORM_FIELD_NAME, new ActionMessage("date.error.invalid"));
+				res.add(DATE_OF_BIRTH_FORM_FIELD_NAME, new ActionMessage(
+						"date.error.invalid"));
 			}
 		} catch (ParseException e1) {
 			// DO NOTHING EMPTY DATE
 		}
+
 		if (!UserUtils.getAuthenticatedUser(request, em).getEmail()
 				.equals(dynaForm.getString(MAIL_FORM_FIELD_NAME))) {
 			SocialEntityFacade sef = new SocialEntityFacade(em);
 			em.getTransaction().begin();
-			SocialEntity se = sef.findByEmail(dynaForm.getString(MAIL_FORM_FIELD_NAME));
+			SocialEntity se = sef.findByEmail(dynaForm
+					.getString(MAIL_FORM_FIELD_NAME));
 			em.getTransaction().commit();
+			em.close();
+
 			if (se != null) {
 				res.add(MAIL_FORM_FIELD_NAME, new ActionMessage(
 						"error.updateProfile.email.alwaysExist"));
@@ -144,6 +149,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
+
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
 				Right.MODIFY_PROFIL)) {
 			em.close();
@@ -153,17 +159,22 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		Date birthday = null;
 		addRightToRequest(request);
+
 		try {
-			birthday = DateUtils.formatDate(dynaForm.getString(DATE_OF_BIRTH_FORM_FIELD_NAME));
+			birthday = DateUtils.formatDate(dynaForm
+					.getString(DATE_OF_BIRTH_FORM_FIELD_NAME));
 		} catch (ParseException e) {
 			// DO NOTHING EMPTY DATE
 		}
+
 		ActionErrors actionsErrors = verified(dynaForm, em, request);
+
 		if (!actionsErrors.isEmpty()) {
 			saveErrors(request, actionsErrors);
 			em.close();
 			return mapping.getInputForward();
 		}
+
 		ProfileFacade pf = new ProfileFacade(em);
 		em.getTransaction().begin();
 		pf.editProfile(
@@ -173,10 +184,11 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				new Address(dynaForm.getString("adress"), dynaForm
 						.getString("city")), birthday, dynaForm
 						.getString("sexe"), dynaForm.getString("job"), dynaForm
-						.getString(MAIL_FORM_FIELD_NAME).toLowerCase(), dynaForm
-						.getString("phone"));
+						.getString(MAIL_FORM_FIELD_NAME).toLowerCase(),
+				dynaForm.getString("phone"));
 		em.getTransaction().commit();
 		em.close();
+
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
@@ -241,28 +253,40 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("currentUser", user);
 		dyna.set("name", user.getName());
 		dyna.set("firstName", user.getFirstName());
+
 		if (user.getAddress() != null) {
 			dyna.set("adress", user.getAddress().getAddress());
 			dyna.set("city", user.getAddress().getCity());
 		}
+
 		if (user.getBirthDate() != null) {
-			dyna.set(DATE_OF_BIRTH_FORM_FIELD_NAME, formatter.format(user.getBirthDate()));
+			dyna.set(DATE_OF_BIRTH_FORM_FIELD_NAME,
+					formatter.format(user.getBirthDate()));
 		}
+
 		dyna.set("sexe", user.getSex());
 		dyna.set("job", user.getProfession());
 		dyna.set(MAIL_FORM_FIELD_NAME, user.getEmail());
 		dyna.set("phone", user.getPhone());
-		if (sgf.isMasterGroup(user)){
-			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, true);
-		}else{
-			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, false);
+
+		if (sgf.isMasterGroup(user)) {
+			request.getSession(true).setAttribute(
+					IS_MASTER_GROUP_ATTRIBUTE_NAME, true);
+		} else {
+			request.getSession(true).setAttribute(
+					IS_MASTER_GROUP_ATTRIBUTE_NAME, false);
 		}
-		if (sgf.isGroupResponsible(user)){
-			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, true);
-		}else{
-			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, false);
+
+		if (sgf.isGroupResponsible(user)) {
+			request.getSession(true).setAttribute(
+					IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, true);
+		} else {
+			request.getSession(true).setAttribute(
+					IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, false);
 		}
+
 		em.close();
+
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
@@ -281,6 +305,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		addKeyFacebookInRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
+
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
 
@@ -290,24 +315,29 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
 		int id = -1;
 		addRightToRequest(request);
+
 		try {
 			String idS = dyna.getString("id");
 			id = Integer.parseInt(idS);
 		} catch (NumberFormatException e) {
 			id = user.getId();
 		}
+
 		SocialEntity profile = sef.getSocialEntity(id);
+
 		if (profile == null) {
 			em.close();
 			throw new UnauthorizedOperationException(
 					"The profile id is not defined");
 		}
+
 		if (user.getContacts().contains(profile)
 				|| user.getAsked().contains(profile)
 				|| user.getRequested().contains(profile)
 				|| user.getRefused().contains(profile)) {
 			alreadyInContact = true;
 		}
+
 		if (!profile.equals(user)) {
 			ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
 			em.getTransaction().begin();
@@ -315,9 +345,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 		}
 
-		if (user.getGroup() != null){
+		if (user.getGroup() != null) {
 			request.setAttribute("groupId", user.getGroup().getId());
 		}
+
 		request.setAttribute("alreadyInContact", alreadyInContact);
 		request.setAttribute(WATCHED_PROFILE_VARIABLE, profile);
 		Paginator<Interest> paginatorInterest = new Paginator<Interest>(
@@ -327,38 +358,46 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 				profile.getContacts(), request, 66, "profileContacts", "id");
 		request.setAttribute("contactsPaginator", paginatorContact);
 		request.setAttribute(EDITABLE_PROFILE_VARIABLE, profile.equals(user));
+
 		if (profile.getBirthDate() != null) {
 			request.setAttribute("birthDay",
 					formatter.format(profile.getBirthDate()));
 		}
+
 		em.getTransaction().begin();
 		InteractionFacade intFac = new InteractionFacade(em);
 
 		request.setAttribute("interactions",
 				intFac.getIntetactionsByUser(profile));
 		em.getTransaction().commit();
+		em.close();
 
 		request.setAttribute("currentUser", user);
 		request.setAttribute("treeGroupProfile", sgf.treeParentName(profile));
 
-		if (sgf.isMasterGroup(user)){
-			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, true);
-		}else{
-			request.getSession(true).setAttribute(IS_MASTER_GROUP_ATTRIBUTE_NAME, false);
+		if (sgf.isMasterGroup(user)) {
+			request.getSession(true).setAttribute(
+					IS_MASTER_GROUP_ATTRIBUTE_NAME, true);
+		} else {
+			request.getSession(true).setAttribute(
+					IS_MASTER_GROUP_ATTRIBUTE_NAME, false);
 		}
-		if (sgf.isGroupResponsible(user)){
-			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, true);
-		}else{
-			request.getSession(true).setAttribute(IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, false);
+
+		if (sgf.isGroupResponsible(user)) {
+			request.getSession(true).setAttribute(
+					IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, true);
+		} else {
+			request.getSession(true).setAttribute(
+					IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME, false);
 		}
 
 		SocialGroup socialGroup = profile.getGroup();
 		request.setAttribute("socialGroup", socialGroup);
-		em.close();
 
 		LoggedUsersContainer loggedCon = (LoggedUsersContainer) getServlet()
 				.getServletContext().getAttribute("loggedUsers");
 		Map<Integer, String> loggeddd = loggedCon.getUsers();
+
 		if (loggeddd.containsKey(id)) {
 			request.setAttribute("isLogged", true);
 		} else {
@@ -394,8 +433,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			URISyntaxException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
-				Right.MODIFY_PICTURE)){
+				Right.MODIFY_PICTURE)) {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 
@@ -403,12 +443,12 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		FormFile file = (FormFile) dynaForm.get("photo");
 		InputStream inputStream = null;
 		HttpClient httpClient = new DefaultHttpClient();
-		;
 		HttpGet httpGet = new HttpGet();
 		URI uri = null;
 		String stringUrl = (String) dynaForm.get("photoUrl");
 		dynaForm.set("photoUrl", "");
 		String urlType = null;
+		
 		if (stringUrl != null && !stringUrl.isEmpty()) {
 			try {
 				uri = new URI(stringUrl);
@@ -427,6 +467,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
 		int userId = UserUtils.getAuthenticatesUserId(request);
 		addRightToRequest(request);
+		
 		if (file.getFileData().length != 0) {
 			PictureType pictureType = null;
 			for (PictureType pt : PictureType.values()) {
@@ -435,6 +476,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 					break;
 				}
 			}
+			
 			if (pictureType != null) {
 
 				if (file.getFileSize() > MAX_PICTURE_SIZE) {
@@ -465,6 +507,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 					break;
 				}
 			}
+			
 			if (pictureType != null) {
 
 				if (inputStream.available() > MAX_PICTURE_SIZE) {
@@ -510,8 +553,9 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Integer userId = UserUtils.getAuthenticatesUserId(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
+		
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
-				Right.MODIFY_PICTURE)){
+				Right.MODIFY_PICTURE)) {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 
