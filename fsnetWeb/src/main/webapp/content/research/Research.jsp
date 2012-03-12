@@ -28,13 +28,13 @@
 								property="selectedResearch" value="members" />  <bean:message key="members.leftMenu" />
 						</span> <span class="checkboxSearch"> <html:multibox
 								property="selectedResearch" value="consultations" />
-						 <bean:message key="consultations.leftMenu" />
+						 <bean:message key="consultations.leftMenu.my" />
 						</span> <span class="checkboxSearch"> <html:multibox
 								property="selectedResearch" value="annonces" />  <bean:message key="research.announces" />
 						</span> <span class="checkboxSearch"> <html:multibox
-								property="selectedResearch" value="evenements" />  <bean:message key="events.9" />
+								property="selectedResearch" value="evenements" />  <bean:message key="research.events" />
 						</span> <span class="checkboxSearch"> <html:multibox
-								property="selectedResearch" value="communaute" />  <bean:message key="community.default" />
+								property="selectedResearch" value="communaute" />  <bean:message key="research.communities" />
 						</span><br />
 						<html:submit styleClass="button" />
 					</div>
@@ -47,7 +47,7 @@
 	<c:if test="${searchMembers}">
 			<fieldset class="fieldsetAppli">
 				<legend class="legendHome">
-					<bean:message key="members.1" />
+					<bean:message key="members.title.searchResult" />
 				</legend>
 
 				<c:choose>
@@ -175,7 +175,7 @@
 		<c:if test="${searchConsultations}">
 			<fieldset class="fieldsetAppli">
 				<legend class="legendHome">
-					<bean:message key="research.consul" />
+					<bean:message key="research.consultations.search" />
 				</legend>
 
 				<c:choose>
@@ -213,7 +213,7 @@
 									<th width="25%"><bean:message
 											key="tableheader.consultationname" /></th>
 									<th width="20%"><bean:message
-											key="consultation.createdAtDate" /></th>
+											key="consultations.createdAtDate" /></th>
 									<th><bean:message key="tableheader.by" /></th>
 									<th><bean:message key="members.firstName" /></th>
 									<th><bean:message key="members.name" /></th>
@@ -243,7 +243,7 @@
 													styleId="${consultation.id}" styleClass="cursorPointer">
 													<html:hidden property="id" value="${consultation.id}" />
 													<span class="button"> <bean:message
-															key="consultation.delete" />
+															key="consultations.button.delete" />
 													</span>
 												</html:form>
 											</c:if></td>
@@ -261,7 +261,7 @@
 		<c:if test="${searchAnnonce}">
 			<fieldset class="fieldsetAppli">
 				<legend class="legendHome">
-					<bean:message key="research.annonces" />
+					<bean:message key="research.annonces.search" />
 				</legend>
 
 				<c:choose>
@@ -336,7 +336,7 @@
 		<c:if test="${searchEvents}">
 			<fieldset class="fieldsetAppli">
 				<legend class="legendHome">
-					<bean:message key="research.events" />
+					<bean:message key="research.events.search" />
 				</legend>
 				<c:choose>
 					<c:when test="${empty eventsResult}">
@@ -418,7 +418,7 @@
 		<c:if test="${searchCommunauties}">
 			<fieldset class="fieldsetAppli">
 				<legend class="legendHome">
-					<bean:message key="research.communities" />
+					<bean:message key="research.communities.search" />
 				</legend>
 				<c:choose>
 					<c:when test="${! empty communitiesResult}">
@@ -457,24 +457,24 @@
 								<c:forEach var="community"
 									items="${communitiesResult}">
 									<tr class="content">
-										<td><c:import url="/FavoriteFragment.do">
-												<c:param name="interactionId" value="${community.id}" />
-											</c:import></td>
-										<td><html:link action="/DisplayCommunity"
-												title='${empty community.interests ? "" : community.interests}'>
-												<html:param name="communityId" value="${community.id}" />
+								<td><c:import url="/FavoriteFragment.do">
+									<c:param name="interactionId" value="${community.id}" />
+								</c:import></td>
+							<td><html:link action="/DisplayCommunity"
+									title='${empty community.interests ? "" : community.interests}'>
+									<html:param name="communityId" value="${community.id}" />
                             ${community.title}
                         </html:link> <c:choose>
-												<c:when test="${fn:length(community.hubs) eq 0}">
-                         		(<bean:message key="communities.notany.hubs" /> hub)
+									<c:when test="${fn:length(community.hubs) eq 0}">
+                         		(<bean:message key="communities.hubs.notAny" /> hub)
                          	</c:when>
-												<c:when test="${fn:length(community.hubs) eq 1}">
+									<c:when test="${fn:length(community.hubs) eq 1}">
                          		(1 hub)
                          	</c:when>
-												<c:when test="${fn:length(community.hubs) gt 1}">
+									<c:when test="${fn:length(community.hubs) gt 1}">
                          		(${fn:length(community.hubs)} hubs)
                          	</c:when>
-											</c:choose></td>
+								</c:choose></td>
 										<td></td>
 										<td><ili:getSocialEntityInfosFirstname
 												socialEntity="${community.creator}" /></td>
@@ -488,7 +488,7 @@
 													styleClass="cursorPointer">
 													<html:hidden property="communityId" value="${community.id}" />
 													<span class="button"> <bean:message
-															key="communities.delete" />
+															key="communities.button.delete" />
 													</span>
 												</html:form>
 											</c:if></td>
