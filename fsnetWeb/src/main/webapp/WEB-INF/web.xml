@@ -28,7 +28,8 @@
                 /WEB-INF/struts-configs/groups-config.xml,
                 /WEB-INF/struts-configs/visits-config.xml,
                 /WEB-INF/struts-configs/support-config.xml,
-                /WEB-INF/struts-configs/talk-config.xml
+                /WEB-INF/struts-configs/talk-config.xml,
+                /WEB-INF/struts-configs/research-config.xml
             </param-value>
     </init-param>
     <load-on-startup>1</load-on-startup>

@@ -48,7 +48,7 @@
 		<put name="body-content" value="/content/events/DisplayEvent.jsp" />
 		<put name="left" value="/content/events/leftMenu.jsp" />
 	</definition>
-	
+
 	<definition name="UpdateEvent" extends=".defaultLayout">
 		<put name="title" value="pageTitle.updateEvent" />
 		<put name="body-content" value="/content/events/UpdateEvent.jsp" />
@@ -63,7 +63,7 @@
 		<put name="left" value="/content/events/leftMenu.jsp" />
 		<put name="body-content" value="/content/events/Calendar.jsp" />
 	</definition>
-	
+
 	<!-- Contacts -->
 	<definition name="Contacts" extends=".defaultLayout">
 		<put name="title" value="pageTitle.2" />
@@ -224,6 +224,13 @@
 		<put name="body-content" value="/content/members/SearchMember.jsp" />
 	</definition>
 
+	<!-- Research -->
+	<definition name="Research" extends=".defaultLayout">
+		<put name="title" value="research.title" />
+		<put name="body-content" value="/content/research/Research.jsp" />
+	</definition>
+
+
 
 	<!-- Private Messages -->
 	<definition name="DisplayInbox" extends=".defaultLayout">
@@ -378,7 +385,7 @@
 		<put name="body-content" value="/content/visits/Visits.jsp" />
 		<put name="left" value="" />
 	</definition>
-		
+
 	<!-- Ajax -->
 	<definition name="AjaxAutocompleteRecipients" path="/content/ajax/AutocompleteRecipients.jsp" />
 
@@ -403,15 +410,15 @@
 		<put name="body-content" value="/content/createCV/InfoContact.jsp" />
 
 
-    <!-- Author: Ayoub AICH --> 
+		<!-- Author: Ayoub AICH -->
 	</definition>
-	
-		<definition name="DisplayCv" extends=".defaultLayout">
+
+	<definition name="DisplayCv" extends=".defaultLayout">
 		<put name="title" value="profile.ManageCv" />
 		<put name="body-content" value="/content/createCV/DisplayCv.jsp" />
 
 	</definition>
-	
-	
-	
+
+
+
 </tiles-definitions>
