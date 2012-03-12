@@ -23,15 +23,9 @@
 			<form-property name="showBeforeClosing" type="java.lang.String" />
 			<form-property name="closingAtMaxVoters" type="java.lang.String" />
 			<form-property name="deadline" type="java.lang.String" />
-<<<<<<< HEAD
-
 			<form-property name="groupsListLeft" type="java.lang.String[]" />
 			<form-property name="groupsListRight" type="java.lang.String[]" />
 		</form-bean>
-=======
-		</form-bean>
-
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 		<form-bean name="VoteConsultationForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="voteComment" type="java.lang.String" />
@@ -39,41 +33,25 @@
 			<form-property name="voteChoice" type="java.lang.String[]" />
 			<form-property name="id" type="java.lang.Integer" />
 		</form-bean>
-<<<<<<< HEAD
-=======
 
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 		<form-bean name="DeleteAConsultation"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="id" type="java.lang.String" />
 		</form-bean>
-<<<<<<< HEAD
-=======
 
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 		<form-bean name="SearchConsultation"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="searchText" type="java.lang.String"></form-property>
 		</form-bean>
 	</form-beans>
-<<<<<<< HEAD
-=======
 
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 	<action-mappings>
 		<action path="/CreateConsultation" name="CreateConsultationForm"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="CreateConsultation"
 			scope="request" validate="true" parameter="create">
-<<<<<<< HEAD
-			<forward name="error" path="CreateConsultation" />
-			<forward name="success" path="DisplayAConsultation" />
-			<forward name="unauthorized" path="/SearchConsultation.do" />
-
-=======
 			<forward name="failed" path="CreateConsultation" />
 			<forward name="success" path="DisplayAConsultation" />
 			<forward name="unauthorized" path="/SearchConsultation.do" />
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 		</action>
 
 		<action path="/CreateConsultationMenu" type="org.apache.struts.actions.ForwardAction"
@@ -81,81 +59,53 @@
 
 		<action path="/Consultations" type="org.apache.struts.actions.ForwardAction"
 			parameter="/SearchConsultation.do" />
-<<<<<<< HEAD
 
-=======
-			
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 		<action path="/DisplayConsultations"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" parameter="searchYourConsultations">
 			<forward name="success" path="DisplayConsultations" />
 		</action>
-<<<<<<< HEAD
-=======
-		
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
+
 		<action path="/DisplayAConsultation"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" parameter="displayAConsultation">
 			<forward name="success" path="DisplayAConsultation" />
 			<forward name="unauthorized" path="/SearchConsultation.do" />
 		</action>
-<<<<<<< HEAD
-=======
-		
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
+
 		<action path="/CloseConsultation"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" parameter="closeConsultation">
 			<forward name="success" path="DisplayAConsultation" />
 		</action>
-<<<<<<< HEAD
-=======
-		
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
+
 		<action path="/OpenConsultation"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" parameter="openConsultation">
 			<forward name="success" path="DisplayAConsultation" />
 		</action>
-<<<<<<< HEAD
-=======
-		
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
+
 		<action path="/VoteConsultation" name="VoteConsultationForm"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="DisplayAConsultation"
 			scope="request" validate="true" parameter="vote">
 			<forward name="success" path="DisplayAConsultation" />
 			<forward name="unauthorized" path="/SearchConsultation.do" />
 		</action>
-<<<<<<< HEAD
-=======
-		
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
+
 		<action path="/DeleteVoteConsultation"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="DisplayAConsultation"
 			scope="request" parameter="deleteVote">
 			<forward name="success" path="DisplayAConsultation" />
 		</action>
-<<<<<<< HEAD
-=======
-		
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
+
 		<action path="/DeleteAConsultation" name="DeleteAConsultation"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="/SearchConsultation.do"
 			scope="request" parameter="deleteConsultation">
 			<forward name="success" path="/SearchConsultation.do" />
 		</action>
-<<<<<<< HEAD
-=======
-		
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
+
 		<action path="/SearchConsultation" name="SearchConsultation"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="/DisplayConsultations.do"
 			scope="request" parameter="searchConsultation">
 			<forward name="success" path="/DisplayConsultations.do" />
 		</action>
-<<<<<<< HEAD
-=======
-		
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
+
 		<action path="/AutocompleteOther" name="VoteConsultationForm"
 			type="fr.univartois.ili.fsnet.actions.ManageConsultations" input="/DisplayConsultations.do"
 			scope="request" parameter="autocompleteOther">

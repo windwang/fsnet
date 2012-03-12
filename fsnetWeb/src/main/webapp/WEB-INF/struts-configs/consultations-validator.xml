@@ -5,46 +5,6 @@
 	<formset>
 		<form name="/CreateConsultation">
 			<field property="consultationTitle" depends="required">
-<<<<<<< HEAD
-				<arg key="consultation.title" name="required" />
-			</field>
-			<field property="consultationChoice" depends="required">
-				<arg key="consultation.choice" name="required" />
-			</field>
-			<field property="consultationIfNecessaryWeight" depends="double,doubleRange">
-				<arg key="consultation.ifNecessaryWeightError" name="double" />
-				<arg key="consultation.ifNecessaryWeightError" name="doubleRange"
-					position="0" />
-				<arg name="doubleRange" key="${var:min}" resource="false"
-					position="1" />
-				<arg name="doubleRange" key="${var:max}" resource="false"
-					position="2" />
-				<var>
-					<var-name>min</var-name>
-					<var-value>0</var-value>
-				</var>
-				<var>
-					<var-name>max</var-name>
-					<var-value>1</var-value>
-				</var>
-			</field>
-			<field property="minChoicesVoter" depends="integer">
-				<arg key="consultation.minChoicesVoter" />
-			</field>
-			<field property="maxChoicesVoter" depends="integer">
-				<arg key="consultation.maxChoicesVoter" />
-			</field>
-			<field property="closingAtMaxVoters" depends="integer">
-				<arg key="consultation.maxChoicesVoter" />
-			</field>
-			<field property="deadline" depends="date">
-				<arg0 key="consultation.deadline" />
-				<var>
-					<var-name>datePattern</var-name>
-					<var-value>dd/MM/yyyy</var-value>
-				</var>
-			</field>
-=======
 				<arg key="consultations.form.title" name="required"/>
 			</field>
 			<field property="consultationChoice" depends="required">
@@ -71,8 +31,6 @@
 		        <arg0 key="consultations.form.deadline"/>
 		        <var><var-name>datePattern</var-name><var-value>dd/MM/yyyy</var-value></var>
 		    </field>
-			
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 		</form>
 	</formset>
 </form-validation>
