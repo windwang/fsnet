@@ -5,6 +5,6 @@
 
 <root>
 	 <c:forEach var="socialEntity" items="${matchesSocialEntity}"> 
-		<item id="${socialEntity.id}" label="${completeUsers}${socialEntity.email}"/>
+		<item id="${socialEntity.id}" label="${socialEntity.email} (${socialEntity.name} ${socialEntity.firstName}), "/>
 	 </c:forEach> 
 </root>

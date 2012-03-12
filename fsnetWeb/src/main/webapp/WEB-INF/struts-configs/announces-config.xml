@@ -66,6 +66,7 @@
 		<action path="/DeleteAnnounce" scope="request"
 			type="fr.univartois.ili.fsnet.actions.ManageAnnounces" parameter="delete">
 			<forward name="success" path="/Announces.do"></forward>
+			<forward name="failed" path="/Announces.do" />
 		</action>
 	</action-mappings>
 

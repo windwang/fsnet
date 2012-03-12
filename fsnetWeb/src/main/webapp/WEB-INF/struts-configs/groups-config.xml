@@ -44,7 +44,7 @@
 			type="fr.univartois.ili.fsnet.actions.ManageGroups" name="CreateGroupForm"
 			parameter="create" validate="true" input="/ErrorGroups.do">
 			<forward name="success" path="/SearchGroup.do" />
-			<forward name="failer" path="CreateGroup" />
+			<forward name="failed" path="CreateGroup" />
 		</action>
 
 		<action path="/Groups"
@@ -77,12 +77,13 @@
 			
 			<forward name="toHome" path="/Home.do" />
 			<forward name="success" path="/SearchGroup.do" />
-			<forward name="failer" path="/ErrorModifyGroup.do" />
+			<forward name="failed" path="/ErrorModifyGroup.do" />
 		</action>
 
 		<action path="/SwitchStateGroup" scope="request"
 			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="switchState">
 			<forward name="success" path="/SearchGroup.do" />
+			<forward name="failed" path="/SearchGroup.do" />
 		</action>
 
 		<action path="/SearchGroup" scope="request"

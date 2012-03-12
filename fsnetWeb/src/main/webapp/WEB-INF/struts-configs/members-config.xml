@@ -22,7 +22,7 @@
 				scope="request" 
 				validate="false"
 				parameter="search">
-			<forward name="success" path="SearchMembers" />
+			<forward name="success" path="Research" />
 		</action>
 		<action 
 				path="/ListMembersOfGroup" 

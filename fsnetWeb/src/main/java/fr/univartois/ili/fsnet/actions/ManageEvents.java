@@ -123,29 +123,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return typedEventDate;
 	}
 
-	/**
-	 * @param eventDate
-	 * @param request
-	 * @param propertyKey
-	 * @return
-	 */
-	private Date validateDateForEditing(String eventDate,
-			HttpServletRequest request, String propertyKey) {
-
-		Date typedEventDate;
-
-		try {
-			typedEventDate = DateUtils.format(eventDate);
-		} catch (ParseException e) {
-			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("event.date.error")));
-			saveErrors(request, errors);
-			return null;
-		}
-
-		return typedEventDate;
-	}
-
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -254,9 +231,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward modify(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
 
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -328,8 +305,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			em.merge(meeting);
 			em.getTransaction().commit();
 			em.close();
-		} catch (Exception e) {
+		} catch (NumberFormatException e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+			return mapping.findForward(FAILED_ACTION_NAME);
+		} finally {
+			em.close();
 		}
 
 		return mapping.findForward(SUCCES_ACTION_NAME);

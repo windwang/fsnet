@@ -13,10 +13,10 @@
 
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8" />
-<meta http-equiv="Cache-Control" content="no-cache" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<link rel="shortcut icon" href="" type="image" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<link rel="shortcut icon" href="images/Favicon.ico" type="image/vnd.microsoft.icon" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <link rel="stylesheet" type="text/css" media="screen"
