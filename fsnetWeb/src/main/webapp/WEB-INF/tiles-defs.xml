@@ -69,7 +69,7 @@
 		<put name="left" value="/content/events/leftMenu.jsp" />
 		<put name="body-content" value="/content/events/Calendar.jsp" />
 	</definition>
-	
+
 	<definition name="ImportEvents" extends=".defaultLayout">
 		<put name="title" value="pageTitle.ImportEvents" />
 		<put name="currentMenu" value="Events" />
@@ -98,27 +98,27 @@
 		<put name="currentMenu" value="Interests" />
 		<put name="body-content" value="/content/interests/Interests.jsp" />
 	</definition>
-	
+
 	<definition name="AddInterest" extends=".defaultLayout">
 		<put name="title" value="AddInterest" />
 		<put name="body-content" value="/content/interests/AddInterest.jsp" />
 	</definition>
-	
+
 	<definition name="SearchInterest" extends=".defaultLayout">
 		<put name="title" value="SearchInterest" />
 		<put name="body-content" value="/content/interests/SearchInterest.jsp" />
 	</definition>
-	
+
 	<definition name="CreateInterest" extends=".defaultLayout">
 		<put name="title" value="CreateInterest" />
 		<put name="body-content" value="/content/interests/CreateInterest.jsp" />
 	</definition>
-	
+
 	<definition name="MyInterests" extends=".defaultLayout">
 		<put name="title" value="MyInterest" />
 		<put name="body-content" value="/content/interests/MyInterests.jsp" />
 	</definition>
-	
+
 	<definition name="InfoInterest" extends=".defaultLayout">
 		<put name="title" value="pageTitle.13" />
 		<put name="body-content" value="/content/interests/InfoInterest.jsp" />
@@ -181,28 +181,28 @@
 		<put name="left" value="/content/topics/leftMenuMessages.jsp" />
 		<put name="body-content" value="/content/topics/DisplayTopic.jsp" />
 	</definition>
-	
+
 	<definition name="CreateTopic" extends=".defaultLayout">
 		<put name="title" value="pageTitle.16" />
 		<put name="currentMenu" value="Hub" />
 		<put name="left" value="/content/topics/leftMenu.jsp" />
 		<put name="body-content" value="/content/topics/CreateTopic.jsp" />
 	</definition>
-	
+
 	<definition name="CreateTopicMessage" extends=".defaultLayout">
 		<put name="title" value="pageTitle.7" />
 		<put name="currentMenu" value="Hub" />
 		<put name="left" value="/content/topics/leftMenuMessages.jsp" />
 		<put name="body-content" value="/content/topics/CreateTopicMessage.jsp" />
 	</definition>
-	
+
 	<definition name="ModifyTopicMessage" extends=".defaultLayout">
 		<put name="title" value="pageTitle.7" />
 		<put name="currentMenu" value="Hub" />
 		<put name="left" value="/content/topics/leftMenuMessages.jsp" />
 		<put name="body-content" value="/content/topics/ModifyTopicMessage.jsp" />
 	</definition>
-	
+
 	<definition name="DisplayYourTopics" extends=".defaultLayout">
 		<put name="title" value="pageTitle.16" />
 		<put name="currentMenu" value="Hub" />
@@ -226,26 +226,26 @@
 		<put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
 		<put name="left" value="/content/announces/leftMenu.jsp" />
 	</definition>
-	
+
 	<definition name="CreateAnnounce" extends=".defaultLayout">
 		<put name="title" value="pageTitle.9" />
 		<put name="currentMenu" value="Announces" />
 		<put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
 	</definition>
-	
+
 	<definition name="ModifyAnnounce" extends=".defaultLayout">
 		<put name="title" value="pageTitle.10" />
 		<put name="currentMenu" value="Announces" />
 		<put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
 	</definition>
-	
+
 	<definition name="DisplayForModifyAnnounce" extends=".defaultLayout">
 		<put name="title" value="pageTitle.10" />
 		<put name="currentMenu" value="Announces" />
 		<put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
 		<put name="left" value="/content/announces/leftMenu.jsp" />
 	</definition>
-	
+
 	<definition name="DisplayAnnounce" extends=".defaultLayout">
 		<put name="title" value="pageTitle.11" />
 		<put name="currentMenu" value="Announces" />
@@ -261,6 +261,13 @@
 		<put name="body-content" value="/content/members/SearchMember.jsp" />
 	</definition>
 
+	<!-- Research -->
+	<definition name="Research" extends=".defaultLayout">
+		<put name="title" value="research.title" />
+		<put name="body-content" value="/content/research/Research.jsp" />
+	</definition>
+
+
 
 
 	<!-- Private Messages -->
@@ -270,28 +277,28 @@
 		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
 		<put name="body-content" value="/content/privatemessages/DisplayInbox.jsp" />
 	</definition>
-	
+
 	<definition name="DisplayOutbox" extends=".defaultLayout">
 		<put name="title" value="pageTitle.14" />
 		<put name="currentMenu" value="Messages" />
 		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
 		<put name="body-content" value="/content/privatemessages/DisplayOutbox.jsp" />
 	</definition>
-	
+
 	<definition name="DisplayPrivateMessage" extends=".defaultLayout">
 		<put name="title" value="pageTitle.14" />
 		<put name="currentMenu" value="Messages" />
 		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
 		<put name="body-content" value="/content/privatemessages/DisplayMessage.jsp" />
 	</definition>
-	
+
 	<definition name="DisplaySentMessage" extends=".defaultLayout">
 		<put name="title" value="pageTitle.14" />
 		<put name="currentMenu" value="Messages" />
 		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
 		<put name="body-content" value="/content/privatemessages/DisplaySentMessage.jsp" />
 	</definition>
-	
+
 	<definition name="CreatePrivateMessage" extends=".defaultLayout">
 		<put name="title" value="pageTitle.14" />
 		<put name="currentMenu" value="Messages" />
@@ -308,14 +315,14 @@
 		<put name="left" value="/content/communities/leftMenu.jsp" />
 		<put name="body-content" value="/content/communities/Communities.jsp" />
 	</definition>
-	
+
 	<definition name="DisplayCommunities" extends=".defaultLayout">
 		<put name="title" value="pageTitle.15" />
 		<put name="currentMenu" value="Communities" />
 		<put name="left" value="/content/communities/leftMenu.jsp" />
 		<put name="body-content" value="/content/communities/SearchCommunity.jsp" />
 	</definition>
-	
+
 	<definition name="DisplayYourCommunities" extends=".defaultLayout">
 		<put name="title" value="pageTitle.15" />
 		<put name="currentMenu" value="Communities" />
@@ -356,7 +363,7 @@
 		<put name="body-content" value="/content/groups/SearchGroups.jsp" />
 		<put name="left" value="/content/groups/leftMenu.jsp" />
 	</definition>
-	
+
 	<definition name="CreateGroup" extends=".defaultLayout">
 		<put name="title" value="pageTitle.19" />
 		<put name="currentMenu" value="Groups" />
@@ -377,7 +384,7 @@
 		<put name="left" value="/content/groups/leftMenu.jsp" />
 		<put name="body-content" value="/content/groups/ModifyGroup.jsp" />
 	</definition>
-	
+
 	<definition name="DisplayInformationGroup" extends=".defaultLayout">
 		<put name="title" value="pageTitle.19" />
 		<put name="currentMenu" value="Groups" />
@@ -394,7 +401,7 @@
 		<put name="currentMenu" value="Members" />
 		<put name="body-content" value="/content/manageMembers/SearchMember.jsp" />
 	</definition>
-	
+
 	<definition name="Members" extends=".defaultLayout">
 		<put name="title" value="pageTitle.12" />
 		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
@@ -434,7 +441,6 @@
 	</definition>
 
 
-
 	<!-- Ajax -->
 	<definition name="AjaxAutocompleteRecipients" path="/content/ajax/AutocompleteRecipients.jsp" />
 
@@ -446,7 +452,7 @@
 		<put name="currentMenu" value="UnauthorizedOperationException" />
 		<put name="body-content" value="/content/exception/UnauthorizedOperationException.jsp" />
 	</definition>
-	
+
 	<definition name="AutocompleteOtherChoice" path="/content/ajax/EmptyRecipient.jsp">
 		<put name="content" value="/content/consultations/autocompleteOtherChoice.jsp" />
 	</definition>
@@ -458,6 +464,7 @@
 		<put name="title" value="profile.leftMenu.createCV" />
 		<put name="body-content" value="/content/CV/InfoExpCv.jsp" />
 	</definition>
+
 
 	<definition name="InfoProfileCv" extends=".defaultLayout">
 		<put name="title" value="profile.leftMenu.createCV" />

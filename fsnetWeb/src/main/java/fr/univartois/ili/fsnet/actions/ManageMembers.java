@@ -70,19 +70,21 @@ public class ManageMembers extends MappingDispatchAction {
 		resultOthers = results.get(SearchResult.Others);
 		resultOthers.retainAll(membersVisibleByCurrentMember);
 		em.getTransaction().commit();
+		
 		if(sgf.isMasterGroup(member)){
 			request.getSession(true).setAttribute("isMasterGroup", true);
 		}else{ 
 			request.getSession(true).setAttribute("isMasterGroup", false);
 		}
+		
 		if(sgf.isGroupResponsible(member)){
 			request.getSession(true).setAttribute("isGroupResponsible", true);
 		}else{ 
 			request.getSession(true).setAttribute("isGroupResponsible", false);
 		}
+		
 		em.close();
 	
-
 		request.setAttribute("membersResult", resultOthers);
 		request.setAttribute("membersContactsResult", resultContacts);
 		request.setAttribute("membersRequestedResult", resultRequested);
