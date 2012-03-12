@@ -94,7 +94,7 @@ select {
 
 #search {
 	float: right;
-	margin: 9px 0 0;
+	margin: 13px 0 0;
 }
 
 #search	input.field {
@@ -139,7 +139,7 @@ select {
 	margin: 0 2px 0 0;
 	font-weight: bold;
 	font-size: .7em;
-	padding: 21px 0px 20px;
+	padding: 21px 0px 28px;
 	color: #ccc;
 }
 
