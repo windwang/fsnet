@@ -153,7 +153,7 @@
 
 #logout {
     float: right;
-    margin: 8px;
+    margin: 14px 8px 8px 8px;
     background-color: #606060;
 }
 
@@ -451,6 +451,8 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     border-radius: 15px;
     border: 1px solid gray;
 }
+
+
 
 .inLineTable tr{
     background-color: #E8F5FD;
