@@ -25,7 +25,6 @@ import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Component;
 import net.fortuna.ical4j.model.Property;
 
-import org.apache.commons.io.FileUtils;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -702,7 +701,16 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return mapping.findForward("success");
 		
 	}
-	
+	/**
+	 * Method that import events from an ics file
+	 * @param mapping Struts ActionMapping
+	 * @param form Struts ActionForm
+	 * @param request Http Servlet Request
+	 * @param response Http Servlet Response
+	 * @return String the Action status
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward importEventsFromFile(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -769,7 +777,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	    		String adress = "";
 	    		String city = "";
 	    		String eventRecallTime = "0";
-	    		String eventRecallTypeTime = "";
+	    		String eventRecallTypeTime = "minute";
 	            
 	            for (Iterator j = component.getProperties().iterator(); j.hasNext();) {
 	                Property property = (Property) j.next();
