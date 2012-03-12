@@ -68,20 +68,20 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			return mapping.findForward(UNAUTHORIZED_ACTION_NAME);
 		}
 
-		DynaActionForm formAnnounce = (DynaActionForm) form; // NOSONAR
-		String title = (String) formAnnounce
-				.get(ANNOUNCE_TITLE_FORM_FIELD_NAME);
-		String content = (String) formAnnounce
-				.get(ANNOUNCE_CONTENT_FORM_FIELD_NAME);
-		String stringExpiryDate = (String) formAnnounce
-				.get(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME);
-		String interestsIds[] = (String[]) formAnnounce
-				.get("selectedInterests");
-
-		Announcement createdAnnounce;
-		addRightToRequest(request);
-
 		try {
+			DynaActionForm formAnnounce = (DynaActionForm) form; // NOSONAR
+			String title = (String) formAnnounce
+					.get(ANNOUNCE_TITLE_FORM_FIELD_NAME);
+			String content = (String) formAnnounce
+					.get(ANNOUNCE_CONTENT_FORM_FIELD_NAME);
+			String stringExpiryDate = (String) formAnnounce
+					.get(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME);
+			String interestsIds[] = (String[]) formAnnounce
+					.get("selectedInterests");
+
+			Announcement createdAnnounce;
+			addRightToRequest(request);
+
 			Date expiryDate = DateUtils.format(stringExpiryDate);
 			if (0 > DateUtils.compareToToday(expiryDate)) {
 				AnnouncementFacade announcementFacade = new AnnouncementFacade(
@@ -130,23 +130,25 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			throws IOException, ServletException,
 			UnauthorizedOperationException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request,
-				entityManager);
-		DynaActionForm formAnnounce = (DynaActionForm) form;// NOSONAR
-		String title = (String) formAnnounce
-				.get(ANNOUNCE_TITLE_FORM_FIELD_NAME);
-		String content = (String) formAnnounce
-				.get(ANNOUNCE_CONTENT_FORM_FIELD_NAME);
-		String stringExpiryDate = (String) formAnnounce
-				.get(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME);
-		Integer idAnnounce = (Integer) formAnnounce
-				.get(ANNOUNCE_ID_ATTRIBUTE_NAME);
-		AnnouncementFacade announcementFacade = new AnnouncementFacade(
-				entityManager);
-		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
-		addRightToRequest(request);
 
 		try {
+			DynaActionForm formAnnounce = (DynaActionForm) form;// NOSONAR
+			String title = (String) formAnnounce
+					.get(ANNOUNCE_TITLE_FORM_FIELD_NAME);
+			String content = (String) formAnnounce
+					.get(ANNOUNCE_CONTENT_FORM_FIELD_NAME);
+			String stringExpiryDate = (String) formAnnounce
+					.get(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME);
+			Integer idAnnounce = (Integer) formAnnounce
+					.get(ANNOUNCE_ID_ATTRIBUTE_NAME);
+			AnnouncementFacade announcementFacade = new AnnouncementFacade(
+					entityManager);
+			Announcement announce = announcementFacade
+					.getAnnouncement(idAnnounce);
+			addRightToRequest(request);
+			SocialEntity user = UserUtils.getAuthenticatedUser(request,
+					entityManager);
+
 			if (!announce.getCreator().equals(user)) {
 				throw new UnauthorizedOperationException("exception.message");
 			}
@@ -185,31 +187,36 @@ public class ManageAnnounces extends MappingDispatchAction implements
 	public ActionForward delete(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		EntityManager entityManager = PersistenceProvider.createEntityManager();
-		entityManager.getTransaction().begin();
+		EntityManager em = PersistenceProvider.createEntityManager();
 
-		AnnouncementFacade announcementFacade = new AnnouncementFacade(
-				entityManager);
-		Integer idAnnounce = Integer.valueOf(request
-				.getParameter(ANNOUNCE_ID_ATTRIBUTE_NAME));
-		Announcement announce = announcementFacade.getAnnouncement(idAnnounce);
-		InteractionFacade interactionFacade = new InteractionFacade(
-				entityManager);
-		SocialEntity user = UserUtils.getAuthenticatedUser(request,
-				entityManager);
-		addRightToRequest(request);
+		try {
+			em.getTransaction().begin();
 
-		if (announce != null) {
-			interactionFacade.deleteInteraction(user, announce);
+			AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
+			Integer idAnnounce = Integer.valueOf(request
+					.getParameter(ANNOUNCE_ID_ATTRIBUTE_NAME));
+			Announcement announce = announcementFacade
+					.getAnnouncement(idAnnounce);
+			InteractionFacade interactionFacade = new InteractionFacade(em);
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			addRightToRequest(request);
+
+			if (announce != null) {
+				interactionFacade.deleteInteraction(user, announce);
+			}
+
+			em.getTransaction().commit();
+			em.close();
+
+			ActionMessages message = new ActionErrors();
+			message.add("message", new ActionMessage(
+					"announce.message.delete.success"));
+			saveMessages(request, message);
+		} catch (NumberFormatException e) {
+			return mapping.findForward(FAILED_ACTION_NAME);
+		} finally {
+			em.close();
 		}
-
-		entityManager.getTransaction().commit();
-		entityManager.close();
-
-		ActionMessages message = new ActionErrors();
-		message.add("message", new ActionMessage(
-				"announce.message.delete.success"));
-		saveMessages(request, message);
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
@@ -221,20 +228,21 @@ public class ManageAnnounces extends MappingDispatchAction implements
 	public ActionForward search(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+
 		DynaActionForm seaarchForm = (DynaActionForm) form;// NOSONAR
 		String textSearchAnnounce = (String) seaarchForm
 				.get("textSearchAnnounce");
-		EntityManager entityManager = PersistenceProvider.createEntityManager();
-		entityManager.getTransaction().begin();
+		em.getTransaction().begin();
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(
-				entityManager);
+				em);
 
 		List<Announcement> listAnnounces = announcementFacade
 				.searchAnnouncement(textSearchAnnounce);
 		/* filter list announce */
 		if (listAnnounces != null && !listAnnounces.isEmpty()) {
 			FilterInteractionByUserGroup filter = new FilterInteractionByUserGroup(
-					entityManager);
+					em);
 			SocialEntity se = UserUtils.getAuthenticatedUser(request);
 			listAnnounces = filter.filterInteraction(se, listAnnounces);
 		}
@@ -242,14 +250,14 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		addRightToRequest(request);
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request,
-				entityManager);
+				em);
 		InteractionFacade interactionFacade = new InteractionFacade(
-				entityManager);
+				em);
 		List<Integer> unreadInteractionsId = interactionFacade
 				.getUnreadInteractionsIdForSocialEntity(member);
-		refreshNumNewAnnonces(request, entityManager);
-		entityManager.getTransaction().commit();
-		entityManager.close();
+		refreshNumNewAnnonces(request, em);
+		em.getTransaction().commit();
+		em.close();
 
 		request.setAttribute("annoucesList", listAnnounces);
 
@@ -266,7 +274,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
-		
+
 		try {
 			entityManager.getTransaction().begin();
 			SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request,
@@ -323,7 +331,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 					.getAnnouncement(idAnnounce);
 			addRightToRequest(request);
 			em.getTransaction().commit();
-			
+
 			dynaForm.set(ANNOUNCE_ID_ATTRIBUTE_NAME, announce.getId());
 			dynaForm.set(ANNOUNCE_TITLE_FORM_FIELD_NAME, announce.getTitle());
 			dynaForm.set(ANNOUNCE_CONTENT_FORM_FIELD_NAME,
@@ -378,8 +386,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request,
-				em);
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		em.close();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
