@@ -20,95 +20,119 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
  * @author FSNet
- *
+ * 
  */
 public class ManageFavorites extends MappingDispatchAction {
 
-	
 	private static final String INTERACTION_ID_FORM_FIELD_NAME = "interactionId";
+	private static final String SUCCESS_ACTION_NAME = "success";
 
-	
-    /**
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return
-     * @throws IOException
-     * @throws ServletException
-     */
-    public ActionForward add(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-        int interactionId = Integer.parseInt((String) dynaForm.get(INTERACTION_ID_FORM_FIELD_NAME));
-        EntityManager em = PersistenceProvider.createEntityManager();
-        em.getTransaction().begin();
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        Interaction interaction = em.find(Interaction.class, interactionId);
-        if (interaction != null) {
-            user.getFavoriteInteractions().add(interaction);
-            interaction.getFollowingEntitys().add(user);
-        }
-        em.getTransaction().commit();
-        em.close();
-        return null;
-    }
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward add(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
 
-    /**
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return
-     * @throws IOException
-     * @throws ServletException
-     */
-    public ActionForward remove(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-        int interactionId = Integer.parseInt((String) dynaForm.get(INTERACTION_ID_FORM_FIELD_NAME));
-        EntityManager em = PersistenceProvider.createEntityManager();
-        em.getTransaction().begin();
+		try {
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			int interactionId = Integer.parseInt((String) dynaForm
+					.get(INTERACTION_ID_FORM_FIELD_NAME));
+			em.getTransaction().begin();
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			Interaction interaction = em.find(Interaction.class, interactionId);
+			if (interaction != null) {
+				user.getFavoriteInteractions().add(interaction);
+				interaction.getFollowingEntitys().add(user);
+			}
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
+			return null;
+		} finally {
+			em.close();
+		}
 
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        Interaction interaction = em.find(Interaction.class, interactionId);
+		return null;
+	}
 
-        if (interaction != null) {
-        	interaction.getFollowingEntitys().remove(user);
-            user.getFavoriteInteractions().remove(interaction);
-            em.flush();
-        }
-        em.getTransaction().commit();
-        em.close();
-        return null;
-    }
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward remove(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
 
-    /**
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return
-     * @throws IOException
-     * @throws ServletException
-     */
-    public ActionForward display(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
-        DynaActionForm dynaForm = (DynaActionForm) form; //NOSONAR
-        int interactionId = Integer.parseInt((String) dynaForm.get(INTERACTION_ID_FORM_FIELD_NAME));
-        EntityManager em = PersistenceProvider.createEntityManager();
-        SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-        Interaction interaction = em.find(Interaction.class, interactionId);
-        if (user.getFavoriteInteractions().contains(interaction)) {
-            request.setAttribute("isFavorite", true);
-        } else {
-            request.setAttribute("isFavorite", false);
-        }
-        em.close();
-        request.setAttribute(INTERACTION_ID_FORM_FIELD_NAME, interaction.getId());
-        return mapping.findForward("success");
-    }
+		try {
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			int interactionId = Integer.parseInt((String) dynaForm
+					.get(INTERACTION_ID_FORM_FIELD_NAME));
+			em.getTransaction().begin();
+
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			Interaction interaction = em.find(Interaction.class, interactionId);
+
+			if (interaction != null) {
+				interaction.getFollowingEntitys().remove(user);
+				user.getFavoriteInteractions().remove(interaction);
+				em.flush();
+			}
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
+			return null;
+		} finally {
+			em.close();
+		}
+
+		return null;
+	}
+
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward display(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+
+		try {
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+			int interactionId = Integer.parseInt((String) dynaForm
+					.get(INTERACTION_ID_FORM_FIELD_NAME));
+			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+			Interaction interaction = em.find(Interaction.class, interactionId);
+			if (user.getFavoriteInteractions().contains(interaction)) {
+				request.setAttribute("isFavorite", true);
+			} else {
+				request.setAttribute("isFavorite", false);
+			}
+			request.setAttribute(INTERACTION_ID_FORM_FIELD_NAME,
+					interaction.getId());
+		} catch (NumberFormatException e) {
+			return mapping.findForward(SUCCESS_ACTION_NAME);
+		} finally {
+			em.close();
+		}
+		
+		return mapping.findForward(SUCCESS_ACTION_NAME);
+	}
 }
