@@ -25,6 +25,13 @@ import javax.persistence.TemporalType;
 public abstract class Message implements Serializable {
 
 	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private static final int BODY_LENGTH = 5000;
+
+	
+	/**
 	 * The identifier.
 	 */
 	@Id
@@ -33,7 +40,7 @@ public abstract class Message implements Serializable {
 	/**
 	 * The content of the message.
 	 */
-	@Column(nullable = false, length = 5000)
+	@Column(nullable = false, length = BODY_LENGTH)
 	private String body;
 	/**
 	 * The date of creation of the message.

@@ -40,7 +40,7 @@
                       /WEB-INF/struts-configs/profile-validator.xml,
                       /WEB-INF/struts-configs/topics-validator.xml,
                       /WEB-INF/struts-configs/members-validator.xml,
-                      /WEB-INF/struts-configs/createCV-validator.xml,
+                       /WEB-INF/struts-configs/CV-validator.xml,
                       /WEB-INF/struts-configs/membersAdmin-validator.xml,
                       /WEB-INF/struts-configs/communities-validator.xml,
                       /WEB-INF/struts-configs/privatemessages-validator.xml,

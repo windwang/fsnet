@@ -3,6 +3,8 @@ package fr.univartois.ili.fsnet.actions;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -31,7 +33,7 @@ public class Calendar extends MappingDispatchAction {
 	 * List that contains meeting/events for calendar view
 	 */
 	private List<String> events;
-
+	
 	/**
 	 * Action that create a list of all events/meetings in json format Used for
 	 * Full Calendar jquery plugin
@@ -62,7 +64,7 @@ public class Calendar extends MappingDispatchAction {
 				events.add(m.getTitle() + "," + startDate + "," + endDate + ","
 						+ "false" + "," + m.getId() + "," + m.getContent());
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
 		}
 
@@ -77,7 +79,8 @@ public class Calendar extends MappingDispatchAction {
 		return mapping.findForward("success");
 
 	}
-
+	
+	
 	/**
 	 * @return
 	 */
@@ -91,5 +94,5 @@ public class Calendar extends MappingDispatchAction {
 	public void setEvents(List<String> events) {
 		this.events = events;
 	}
-
+   
 }

@@ -3,6 +3,7 @@ package fr.univartois.ili.fsnet.admin.actions;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -14,6 +15,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -55,7 +57,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  */
 public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
 	private static final String NAME_FORM_FIELD_NAME = "name";
 	private static final String FIRSTNAME_FORM_FIELD_NAME = "firstName";
@@ -111,12 +113,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			String encryptedPassword = null;
 			if (inputPassword == null || "".equals(inputPassword)) {
 				definedPassword = Encryption.generateRandomPassword();
-				logger.info("#### Generated Password : " + definedPassword);
+				LOGGER.info("#### Generated Password : " + definedPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 			} else {
 				definedPassword = inputPassword;
-				logger.info("#### Defined Password : " + inputPassword);
+				LOGGER.info("#### Defined Password : " + inputPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(inputPassword);
 			}
@@ -128,8 +130,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						.getSocialGroup(Integer.parseInt(parentId));
 				socialGroup.addSocialElement(socialEntity);
 				em.persist(socialGroup);
-			} else
+			} else{
 				em.persist(socialEntity);
+			}
 			em.getTransaction().commit();
 
 			Locale currentLocale = request.getLocale();
@@ -218,7 +221,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						socialEntitieInput[2].toLowerCase());
 
 				String definedPassword = Encryption.generateRandomPassword();
-				logger.info("#### Defined Password : " + definedPassword);
+				LOGGER.info("#### Defined Password : " + definedPassword);
 				String encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 				socialEntity.setPassword(encryptedPassword);
@@ -234,13 +237,13 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			// the
 			// create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME,
 						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
@@ -260,13 +263,13 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 				// as in
 				// the create methode
 				catch (RollbackException e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
 					errors.add(EMAIL_FORM_FIELD_NAME,
 							new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 					saveErrors(request, errors);
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
 					errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(
 							MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
@@ -323,7 +326,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 					socialEntitieInput[2].toLowerCase());
 
 			String definedPassword = Encryption.generateRandomPassword();
-			logger.info("#### Defined Password : " + definedPassword);
+			LOGGER.info("#### Defined Password : " + definedPassword);
 			String encryptedPassword = Encryption
 					.getEncodedPassword(definedPassword);
 			socialEntity.setPassword(encryptedPassword);
@@ -338,13 +341,13 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		// I'm not really sure about the exception, so I took the same as in the
 		// create methode
 		catch (RollbackException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
 			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
 			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 			saveErrors(request, errors);
@@ -362,12 +365,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			// I'm not really sure about the exception, so I took the same as in
 			// the create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME,
 						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
@@ -587,7 +590,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 		}else if (member.getGroup() != null){
 			request.getSession(true).setAttribute("group2", member.getGroup());
 		}
-		request.getSession(true).setAttribute("allGroups2", socialGroups);
+		request.getSession(true).setAttribute("allGroups2", (Serializable) socialGroups);
 	}
 
 	/**
@@ -752,8 +755,9 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						resultOthers);
 				Collections.sort(resultOthersList);
 				request.setAttribute("membersList", resultOthersList);
-			} else
+			} else{
 				request.setAttribute("membersList", null);
+			}
 		} else {
 			query = em
 					.createQuery(
@@ -794,7 +798,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
-		logger.info("delete interest social entity");
+		LOGGER.info("delete interest social entity");
 		SocialEntityFacade ise = new SocialEntityFacade(em);
 		InterestFacade interestFacade = new InterestFacade(em);
 		em.getTransaction().begin();

@@ -211,11 +211,6 @@ input[type=text], input[type=email], input[type=password], textarea {
 #CreateAnnounce #announceExpiryDate {width: 25%; color: black; margin-right: 8px;}
 #CreateAnnounce input[type=submit] {float: right;}
 
-#SearchEvent, #SearchAnnounce {margin-left: 190px;}
-#SearchEvent .button, #SearchAnnounce .button {margin-left: 15px;}
-
-#SearchHub {margin-left: 190px;}
-
 #EventList {width: 100%;}
 #EventList .header td {width: 20%;}
 #EventList .header th {color: #505050; font-size: 120%;background: url(../images/bg-message.png) repeat-x;}
@@ -790,11 +785,21 @@ thead, thead th {
 	background-color : #DCF0FE;	
 }
 
-#buttonConsultation { float:right;margin-right:25px;margin-top:5px; margin-bottom:10px;}
-
 .plusMoins{margin-left:10px;}
 
 .plus{background: url("../images/addConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
 .moins{background: url("../images/removeConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
 
 input[type=submit] {cursor:pointer;}
+
+.thMessage{
+	padding-left: 0;
+}
+
+form#formImportEventsFromFile fieldset {
+	padding:30px 5px;
+}
+
+form#formImportEventsFromFile fieldset legend{
+	margin:-40px 0 0 30px;
+}

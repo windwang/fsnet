@@ -58,23 +58,34 @@ public class DegreeCV implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
-
-	
-
+	/**
+	 * @return the studiesLevel
+	 */
 	public String getStudiesLevel() {
 		return studiesLevel;
 	}
 
+	/**
+	 * @param studiesLevel
+	 *            the studiesLevel to set
+	 */
 	public void setStudiesLevel(String studiesLevel) {
 		this.studiesLevel = studiesLevel;
 	}
-
+	/**
+	 * @return the domain
+	 */
 	public String getDomain() {
 		return domain;
 	}
 
+
+	/**
+	 * @param domain
+	 *            the domain to set
+	 */
 	public void setDomain(String domain) {
-		domain = domain;
+		this.domain = domain;
 	}
 
 	/**

@@ -14,6 +14,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
@@ -55,7 +56,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 public class ManageAdminMembers extends MappingDispatchAction implements
 		CrudAction {
 
-	private static final Logger logger = Logger.getAnonymousLogger();
+	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
 	private static final String NAME_FORM_FIELD_NAME = "name";
 	private static final String FIRSTNAME_FORM_FIELD_NAME = "firstName";
@@ -116,12 +117,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			String encryptedPassword = null;
 			if (inputPassword == null || "".equals(inputPassword)) {
 				definedPassword = Encryption.generateRandomPassword();
-				logger.info("#### Generated Password : " + definedPassword);
+				LOGGER.info("#### Generated Password : " + definedPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 			} else {
 				definedPassword = inputPassword;
-				logger.info("#### Defined Password : " + inputPassword);
+				LOGGER.info("#### Defined Password : " + inputPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(inputPassword);
 			}
@@ -218,7 +219,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 						socialEntitieInput[2].toLowerCase());
 
 				String definedPassword = Encryption.generateRandomPassword();
-				logger.info("#### Defined Password : " + definedPassword);
+				LOGGER.info("#### Defined Password : " + definedPassword);
 				String encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 				socialEntity.setPassword(encryptedPassword);
@@ -234,13 +235,13 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			// the
 			// create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME,
 						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
@@ -260,13 +261,13 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 				// as in
 				// the create methode
 				catch (RollbackException e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
 					errors.add(EMAIL_FORM_FIELD_NAME,
 							new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 					saveErrors(request, errors);
 				} catch (Exception e) {
-					e.printStackTrace();
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 					ActionErrors errors = new ActionErrors();
 					errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(
 							MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
@@ -323,7 +324,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 					socialEntitieInput[2].toLowerCase());
 
 			String definedPassword = Encryption.generateRandomPassword();
-			logger.info("#### Defined Password : " + definedPassword);
+			LOGGER.info("#### Defined Password : " + definedPassword);
 			String encryptedPassword = Encryption
 					.getEncodedPassword(definedPassword);
 			socialEntity.setPassword(encryptedPassword);
@@ -338,13 +339,13 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		// I'm not really sure about the exception, so I took the same as in the
 		// create methode
 		catch (RollbackException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
 			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 			saveErrors(request, errors);
 			return mapping.getInputForward();
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			ActionErrors errors = new ActionErrors();
 			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
 			saveErrors(request, errors);
@@ -362,12 +363,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 			// I'm not really sure about the exception, so I took the same as in
 			// the create methode
 			catch (RollbackException e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
 				saveErrors(request, errors);
 			} catch (Exception e) {
-				e.printStackTrace();
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 				ActionErrors errors = new ActionErrors();
 				errors.add(EMAIL_FORM_FIELD_NAME,
 						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
@@ -564,10 +565,11 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 		cleanSession(request);
 
-		if (allMastersGroup.contains(member))
+		if (allMastersGroup.contains(member)){
 			request.getSession(true).setAttribute("master", true);
-		else
+		}else{
 			request.getSession(true).setAttribute("master", false);
+		}
 
 		request.getSession(true).setAttribute("group", member.getGroup());
 		request.getSession(true).setAttribute("allGroups", socialGroups);
@@ -735,14 +737,10 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 			} else {
 				request.setAttribute("membersList", null);
-
 			}
-
 		} else {
-
 			em.getTransaction().commit();
 			em.close();
-
 			request.setAttribute("membersList", resultOthersList);
 			List<SocialGroup> socialGroups = socialGroupFacade
 					.getAllChildGroups(UserUtils.getHisGroup(request));
@@ -774,7 +772,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
-		logger.info("delete interest social entity");
+		LOGGER.info("delete interest social entity");
 		SocialEntityFacade ise = new SocialEntityFacade(em);
 		InterestFacade interestFacade = new InterestFacade(em);
 		em.getTransaction().begin();

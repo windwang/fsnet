@@ -1,21 +1,22 @@
 .liste {
 	border-bottom: dotted 1px;;
 }
-#ErrorCertif{
+
+#ErrorCertif {
 	background-color: #F5F5ED;
-    border: 1px solid #EF6F6D;
-    color: #5C583F;
-    font-family: Verdana;
-    font-size: 11px;
-    margin: 7px 0 0;
+	border: 1px solid #EF6F6D;
+	color: #5C583F;
+	font-family: Verdana;
+	font-size: 11px;
+	margin: 7px 0 0;
 	padding: 11px 30px;
 }
+
 #body-content h3 {
 	border-bottom: 1px solid #505050;
 	margin: 25px 0 20px 0;
+}
 
-	}
-	span{
-	color : #AF1515;
-	}
-	
+span {
+	color: #AF1515;
+}

@@ -33,9 +33,9 @@ public class RosterListenerImpl implements RosterListener {
 	@Override
 	public void entriesAdded(Collection<String> addresses) {
 		dirty = true;
-		for (String string : addresses) {
-			System.out.println(string);
-		}
+//		for (String string : addresses) {
+//			System.out.println(string);
+//		}
 	}
 
 	/*

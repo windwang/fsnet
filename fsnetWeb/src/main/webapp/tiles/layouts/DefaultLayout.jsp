@@ -16,7 +16,7 @@
 <meta http-equiv="Cache-Control" content="no-cache" />
 <meta http-equiv="Pragma" content="no-cache" />
 <meta http-equiv="Expires" content="0" />
-<link rel="shortcut icon" href="icons/icon_from_jimmac_musichall_cz_223.png" type="image/png" />
+<link rel="shortcut icon" href="" type="image" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <link rel="stylesheet" type="text/css" media="screen"
@@ -37,7 +37,6 @@
 <script type="text/javascript" src="js/geolocalisation.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
 <script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-
 <script type="text/javascript" src="js/talkUtils.js"></script>
 <script type="text/javascript" src="js/chat.js"></script>
 <script class="jsbin" type="text/javascript"
@@ -83,17 +82,5 @@
 		</div>
 	</div>
 
-	<script type="text/javascript">
-		function confirmDelete(action) {
-			if (confirm("<bean:message key='confirmation.delete' />")) {
-				document.location = action;
-			}
-		}
-		function confirmDelete2(formid) {
-			if (confirm("<bean:message key='confirmation.delete' />")) {
-				document.getElementById(formid).submit();
-			}
-		}
-	</script>
 </body>
 </html:html>

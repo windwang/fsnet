@@ -13,12 +13,12 @@
 					<var-name>maxlength</var-name>
 					<var-value>80</var-value>
 				</var>
-				<arg0 key="events.13" />
+				<arg0 key="events.form.title" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="eventDescription" depends="required, maxlength">
-				<arg key="events.14" name="required" />
-				<arg0 key="events.14" name="maxlength" />
+				<arg key="events.form.description" name="required" />
+				<arg0 key="events.form.description" name="maxlength" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
 					<var-name>maxlength</var-name>
@@ -26,8 +26,8 @@
 				</var>
 			</field>
 			<field property="eventBeginDate" depends="required,mask">
-				<arg key="events.15" />
-				<arg position="0" key="events.15" />
+				<arg key="events.form.date" />
+				<arg position="0" key="events.form.date" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
 					<var-name>mask</var-name>
@@ -35,8 +35,8 @@
 				</var>
 			</field>
 			<field property="eventEndDate" depends="required,mask">
-				<arg key="events.15" />
-				<arg position="0" key="events.15" />
+				<arg key="events.form.date" />
+				<arg position="0" key="events.form.date" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
 					<var-name>mask</var-name>
@@ -48,7 +48,7 @@
 					<var-name>maxlength</var-name>
 					<var-value>200</var-value>
 				</var>
-				<arg0 key="events.23" />
+				<arg0 key="events.form.address" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="eventCity" depends="maxlength">
@@ -56,7 +56,7 @@
 					<var-name>maxlength</var-name>
 					<var-value>80</var-value>
 				</var>
-				<arg0 key="events.24" />
+				<arg0 key="events.form.city" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="eventRecallTime" depends="required,mask,maxlength">
@@ -68,7 +68,7 @@
 					<var-name>maxlength</var-name>
 					<var-value>10</var-value>
 				</var>
-				<arg0 key="events.recall" />
+				<arg0 key="events.form.recall" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 		</form>
@@ -83,12 +83,12 @@
 					<var-name>maxlength</var-name>
 					<var-value>80</var-value>
 				</var>
-				<arg0 key="events.13" />
+				<arg0 key="events.form.title" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="eventDescription" depends="required, maxlength">
-				<arg key="events.14" name="required" />
-				<arg0 key="events.14" name="maxlength" />
+				<arg key="events.form.description" name="required" />
+				<arg0 key="events.form.description" name="maxlength" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 				<var>
 					<var-name>maxlength</var-name>
@@ -96,8 +96,8 @@
 				</var>
 			</field>
 			<field property="eventBeginDate" depends="required,mask">
-				<arg key="events.15" />
-				<arg position="0" key="events.15" />
+				<arg key="events.form.date" />
+				<arg position="0" key="events.form.date" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
 					<var-name>mask</var-name>
@@ -105,8 +105,8 @@
 				</var>
 			</field>
 			<field property="eventEndDate" depends="required,mask">
-				<arg key="events.15" />
-				<arg position="0" key="events.15" />
+				<arg key="events.form.date" />
+				<arg position="0" key="events.form.date" />
 				<msg name="date" key="date.error.invalid" />
 				<var>
 					<var-name>mask</var-name>
@@ -118,7 +118,7 @@
 					<var-name>maxlength</var-name>
 					<var-value>200</var-value>
 				</var>
-				<arg0 key="events.23" />
+				<arg0 key="events.form.address" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="eventCity" depends="maxlength">
@@ -126,7 +126,7 @@
 					<var-name>maxlength</var-name>
 					<var-value>80</var-value>
 				</var>
-				<arg0 key="events.24" />
+				<arg0 key="events.form.city" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 			<field property="eventRecallTime" depends="required,mask,maxlength">
@@ -138,7 +138,7 @@
 					<var-name>maxlength</var-name>
 					<var-value>10</var-value>
 				</var>
-				<arg0 key="events.recall" />
+				<arg0 key="events.form.recall" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
 			</field>
 		</form>

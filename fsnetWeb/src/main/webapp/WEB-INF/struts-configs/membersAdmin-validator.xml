@@ -112,7 +112,7 @@
 
 		<form name="/ModifyMember">
 			<field property="name" depends="required,mask,maxlength">
-				<arg key="members.error.group" />
+				<arg key="members.error.name" />
 				<var>
 					<var-name>mask</var-name>
 					<var-value>^[\w, \.!?+*;\(\)\[\]-]+$</var-value>

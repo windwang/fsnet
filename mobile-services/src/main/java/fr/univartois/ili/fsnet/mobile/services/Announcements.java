@@ -26,7 +26,8 @@ import fr.univartois.ili.fsnet.mobile.services.model.RestAnnouncementList;
 public class Announcements {
 
 	private EntityManager em;
-
+	private static final int DELAY_MULTIPLIER =60000;
+	
 	public Announcements() {
 		em = PersistenceProvider.createEntityManager();
 	}
@@ -47,7 +48,7 @@ public class Announcements {
 			@QueryParam("delay") Integer delay) {
 		Logger.getAnonymousLogger().info(login);
 		Date d = new Date();
-		Date e = new Date(d.getTime()- delay*60000);
+		Date e = new Date(d.getTime()- delay*DELAY_MULTIPLIER);
 		List<RestAnnouncement> announcements = new ArrayList<RestAnnouncement>();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		if (sef.isMember(login, password)) {
@@ -79,7 +80,7 @@ public class Announcements {
 			@QueryParam("pwd") String password, //
 			@QueryParam("delay") Integer delay) {
 		Date d = new Date();
-		Date e = new Date(d.getTime()- delay*60000);
+		Date e = new Date(d.getTime()- delay*DELAY_MULTIPLIER);
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		if (sef.isMember(login, password)) {
 			TypedQuery<Announcement> announceQuery = em

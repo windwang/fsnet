@@ -3,11 +3,11 @@
 "-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
 "http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
 <struts-config>
-    <form-beans>
-    
-    	<form-bean name="CVForm"
+	<form-beans>
+
+		<form-bean name="CVForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="formatBirthDay" type="java.lang.String" />		
+			<form-property name="CvBirthDay" type="java.lang.String" />
 			<form-property name="CvTitle" type="java.lang.String" />
 			<form-property name="CvNom" type="java.lang.String" />
 			<form-property name="CvPrenom" type="java.lang.String" />
@@ -15,7 +15,7 @@
 			<form-property name="CvVille" type="java.lang.String" />
 			<form-property name="CvCp" type="java.lang.String" />
 			<form-property name="CvPays" type="java.lang.String" />
-			<form-property name="CvPortable" type="java.lang.String" />
+			<form-property name="CvTel" type="java.lang.String" />
 			<form-property name="CvSituation" type="java.lang.String" />
 			<form-property name="CvContact" type="java.lang.String" />
 			<form-property name="CvPoste" type="java.lang.String" />
@@ -40,71 +40,43 @@
 			<form-property name="CvFormVille" type="java.lang.String" />
 			<form-property name="CvVilleExp" type="java.lang.String" />
 			<form-property name="CvPaysExp" type="java.lang.String" />
-			
 		</form-bean>
-		
+
 		<form-bean name="GenerateForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-        </form-bean>
-	
-		</form-beans>
-		<action-mappings>
-		 <action
-            path="/CreateCV"
-            type="fr.univartois.ili.fsnet.actions.CreateCV"
-            input="/CreateCV.do"
-            scope="request"
-            name="CVForm"
-            validate="true"
-            parameter="display">
-            <forward name="success" path="Information" />            
-              <forward name="unauthorized" path="InfoContact" />
-        </action>
-       
-         <action
-            path="/GenerateCV"
-            type="fr.univartois.ili.fsnet.actions.InsertInfoCV"
-            input="/DisplayProfile.do"
-            scope="request"
-            name="CVForm"
-            validate="true"
-            parameter="display">
-            <forward name="success" path="/DisplayProfile.do" />
-            
-        </action>
- 		<action
-            path="/InforCV"
-            type="fr.univartois.ili.fsnet.actions.CreateCV"
-            input="/InforCV.do"
-            scope="request"
-            name="CVForm"
-             validate="true"
-            parameter="Cree">
-            <forward name="success" path="InfoContact" />
-            
-      
-        </action>
-        
-        
-   <!-- Author: AICH Ayoub -->     
-        <action
-            path="/MenuCv"
-            type="fr.univartois.ili.fsnet.actions.DisplayCv"
-            input="/DisplayCv.do"
-            validate="true"
-            parameter="display">
-            <forward name="success" path="DisplayCv" />
-            
-      
-        </action>
-        <action path="/Generate"
-        		name="GenerateForm"
-        		type="fr.univartois.ili.fsnet.actions.GenerateCv"
-            	scope="request"
-            	validate="true"
-            	parameter="test">
-        </action>
-        
-        </action-mappings>
-		</struts-config>
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+		</form-bean>
+
+	</form-beans>
+
+	<action-mappings>
+		<action path="/CreateCv1" type="fr.univartois.ili.fsnet.actions.ManageCV"
+			input="/CreateCv1.do" scope="request" name="CVForm" validate="true"
+			parameter="Cree">
+			<forward name="success" path="InfoProfileCv" />
+		</action>
+		<action path="/CreateCv2" type="fr.univartois.ili.fsnet.actions.ManageCV"
+			input="/CreateCv2.do" scope="request" name="CVForm" validate="true"
+			parameter="displayProfile">
+			<forward name="success" path="InfoExpCv" />
+			<forward name="unauthorized" path="InfoProfileCv" />
+		</action>
+		<action path="/CreateCv3" type="fr.univartois.ili.fsnet.actions.ManageCV"
+			input="/DisplayProfile.do" scope="request" name="CVForm" validate="true"
+			parameter="displayExp">
+			<forward name="success" path="/DisplayProfile.do" />
+
+		</action>
+
+		<action path="/DisplayCV" type="fr.univartois.ili.fsnet.actions.ManageCV"
+			input="/DisplayCV.do" validate="true" parameter="displayCv">
+			<forward name="success" path="DisplayCv" />
+		</action>
+
+		<action path="/Generate" name="GenerateForm"
+			type="fr.univartois.ili.fsnet.actions.GenerateCv" scope="request"
+			validate="true" parameter="download">
+		</action>
+
+	</action-mappings>
+</struts-config>
 		
