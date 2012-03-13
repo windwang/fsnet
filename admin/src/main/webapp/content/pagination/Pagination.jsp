@@ -22,7 +22,6 @@
         </html:link>
     </c:if>
 
-
     <c:if test="${paginatorInstance.numPages > 1}">
         <c:forEach var="page" begin="0" end="${paginatorInstance.numPages-1}">
             <html:link styleClass="paginatorPageId" action="${paginatorAction}" title="page ${page+1}">
@@ -49,6 +48,4 @@
             <bean:message key="pagination.next"/>
         </html:link>
     </c:if>
-
-
 </div>

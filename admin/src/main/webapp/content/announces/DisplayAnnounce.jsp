@@ -1,7 +1,3 @@
-<%-- 
-    Author     : Mohamed Bouragba
---%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -10,7 +6,6 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
@@ -27,6 +22,7 @@
 	              </html:link>, <bean:message key="announce.expiryDate" /> <bean:write
 						name="announce" property="endDate" format="dd/MM/yyyy" /></td>
 			</tr>
+
 			<tr>
 				<td>${announce.content}</td>
 			</tr>

@@ -9,31 +9,41 @@
 	<legend class="legendAdmin">
 		<bean:message key="interests.title.create" />
 	</legend>
+
 	<html:javascript formName="/CreateInterest" />
+
 	<html:form action="/CreateInterest">
 		<table class="fieldsetTableAdmin">
 			<tr>
-				<td>
-					<p>
-						<bean:message key="interests.from.multiple" />
-						<br/>
-						<bean:message key="interests.form.parent" />
-						<html:select property="parentInterestId" styleClass="select">
-							<html:option value="">
-								<bean:message key="interests.noResult" />
-							</html:option>
-							<c:forEach var="interest" items="${requestScope.allInterests}">
-								<html:option value="${interest.id}">${interest.name}</html:option>
-							</c:forEach>
-						</html:select>
-						<html:text property="createdInterestName" />
+				<td colspan="2"><bean:message key="interests.from.multiple" /></td>
+			</tr>
+
+			<tr>
+				<td><label for="parentInterestId"><bean:message
+							key="interests.form.parent" /></label></td>
+				<td><html:select property="parentInterestId"
+						styleClass="select">
+						<html:option value="">
+						</html:option>
+						<c:forEach var="interest" items="${requestScope.allInterests}">
+							<html:option value="${interest.id}">${interest.name}</html:option>
+						</c:forEach>
+					</html:select></td>
+			</tr>
+
+			<tr>
+				<td><label for="createdInterestName"><bean:message
+							key="interests.form.name" /></label></td>
+				<td><html:text property="createdInterestName" />
 					<div class="errorMessage">
 						<html:errors property="createdInterestName" />
-					</div> <html:submit styleClass="button">
+					</div></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" align="right"><html:submit styleClass="button">
 						<bean:message key="interests.button.create" />
-					</html:submit>
-					</p>
-				</td>
+					</html:submit></td>
 			</tr>
 		</table>
 	</html:form>

@@ -14,6 +14,7 @@
 	<legend class="legendAdmin">
 		<bean:message key="configure.title.mailConfiguration" />
 	</legend>
+
 	<html:form action="/SaveMailConfiguration">
 		<table id="ConfigureMail" class="fieldsetTableAdmin">
 			<tr>
@@ -21,123 +22,158 @@
 							key="configure.form.serverSmtp" />
 				</label></td>
 				<td><html:text errorStyleClass="error" styleId="SMTPHost"
-						property="SMTPHost" /></td>
+						property="SMTPHost" /> <logic:messagesPresent property="SMTPHost">
+						<div class="errorMessage">
+							<html:errors property="SMTPHost" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="SMTPHost">
-				<tr>
-					<td colspan="2"><html:errors property="SMTPHost" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="SMTPPort"> <bean:message
 							key="configure.form.portSmtp" />
 				</label></td>
 				<td><html:text errorStyleClass="error" styleId="SMTPPort"
-						property="SMTPPort" /></td>
+						property="SMTPPort" /> <logic:messagesPresent property="SMTPPort">
+						<div class="errorMessage">
+							<html:errors property="SMTPPort" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="SMTPPort">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="SMTPPort" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="enableAuthentication"> <bean:message
 							key="configure.form.activateAuth" />
 				</label></td>
 				<td><html:checkbox styleId="enableAuthentication"
 						property="enableAuthentication"
-						onchange="updateAuthenticationFields();" /></td>
+						onchange="updateAuthenticationFields();" /> <logic:messagesPresent
+						property="enableAuthentication">
+						<div class="errorMessage">
+							<html:errors property="enableAuthentication" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="enableAuthentication">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="enableAuthentication" />
-					</td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="SMTPUsername"> <bean:message
 							key="configure.form.mailLogin" />
 				</label></td>
 				<td><html:text errorStyleClass="error" styleId="SMTPUsername"
-						property="SMTPUsername" /></td>
+						property="SMTPUsername" /> <logic:messagesPresent
+						property="SMTPUsername">
+						<div class="errorMessage">
+							<html:errors property="SMTPUsername" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="SMTPUsername">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="SMTPUsername" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="SMTPPassword"> <bean:message
 							key="configure.form.mailPassword" />
 				</label></td>
 				<td><html:password errorStyleClass="error"
-						styleId="SMTPPassword" property="SMTPPassword" /></td>
+						styleId="SMTPPassword" property="SMTPPassword" /> <logic:messagesPresent
+						property="SMTPPassword">
+						<div class="errorMessage">
+							<html:errors property="SMTPPassword" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="SMTPPassword">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="SMTPPassword" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="MailFrom"> <bean:message
 							key="configure.form.mailAdmin" />
 				</label></td>
 				<td><html:text errorStyleClass="error" styleId="MailFrom"
-						property="MailFrom" /></td>
+						property="MailFrom" /> <logic:messagesPresent property="MailFrom">
+						<div class="errorMessage">
+							<html:errors property="MailFrom" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="MailFrom">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="MailFrom" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="enableTLS"> <bean:message
 							key="configure.form.activateTls" />
 				</label></td>
-				<td><html:checkbox styleId="enableTLS" property="enableTLS" /></td>
+				<td><html:checkbox styleId="enableTLS" property="enableTLS" />
+					<logic:messagesPresent property="enableTLS">
+						<div class="errorMessage">
+							<html:errors property="enableTLS" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="enableTLS">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="enableTLS" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="enableSSL"> <bean:message
 							key="configure.form.activateSsl" />
 				</label></td>
-				<td><html:checkbox styleId="enableSSL" property="enableSSL" /></td>
+				<td><html:checkbox styleId="enableSSL" property="enableSSL" />
+					<logic:messagesPresent property="enableSSL">
+						<div class="errorMessage">
+							<html:errors property="enableSSL" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="enableSSL">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="enableSSL" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="FSNetWebURL"> <bean:message
 							key="configure.form.urlPublicSite" />
 				</label></td>
 				<td><html:text errorStyleClass="error" styleId="FSNetWebURL"
-						property="FSNetWebURL" /></td>
+						property="FSNetWebURL" /> <logic:messagesPresent
+						property="FSNetWebURL">
+						<div class="errorMessage">
+							<html:errors property="FSNetWebURL" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="FSNetWebURL">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="FSNetWebURL" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
 				<td><label for="PicturesDirectory"> <bean:message
 							key="configure.form.imgFolder" />
 				</label></td>
 				<td><html:text errorStyleClass="error"
-						styleId="PicturesDirectory" property="PicturesDirectory" /></td>
+						styleId="PicturesDirectory" property="PicturesDirectory" /> <logic:messagesPresent
+						property="PicturesDirectory">
+						<div class="errorMessage">
+							<html:errors property="PicturesDirectory" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
-			<logic:messagesPresent property="PicturesDirectory">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="PicturesDirectory" /></td>
-				</tr>
-			</logic:messagesPresent>
+
 			<tr>
-				<td colspan="2"><html:submit styleClass="button">
+				<td colspan="2" align="right"><html:submit styleClass="button">
+						<bean:message key="configure.button.submit" />
+					</html:submit></td>
+			</tr>
+		</table>
+	</html:form>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message key="configure.title.testMail" />
+	</legend>
+
+	<html:form action="/SendTestMail">
+		<table id="SendTestMail" class="fieldsetTableAdmin">
+			<tr>
+				<td><label for="Recipient"> <bean:message
+							key="configure.form.testMail" />
+				</label></td>
+				<td><html:text errorStyleClass="error" property="Recipient"
+						styleId="Recipient"></html:text> <logic:messagesPresent
+						property="Recipient">
+						<div class="errorMessage">
+							<html:errors property="Recipient" />
+						</div>
+					</logic:messagesPresent></td>
+			</tr>
+
+			<tr>
+				<td colspan="2" align="right"><html:submit styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -149,22 +185,24 @@
 	<legend class="legendAdmin">
 		<bean:message key="configure.title.facebookKey" />
 	</legend>
+
 	<html:form action="/SaveFacebookId">
 		<table id="saveFacebookId" class="fieldsetTableAdmin">
-			<logic:messagesPresent property="KeyFacebook">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="KeyFacebook" /></td>
-				</tr>
-			</logic:messagesPresent>
 			<tr>
 				<td><label for="KeyFacebook"> <bean:message
 							key="configure.form.facebookKey" />
 				</label></td>
 				<td><html:text errorStyleClass="error" styleId="KeyFacebook"
-						property="KeyFacebook" /></td>
+						property="KeyFacebook" /> <logic:messagesPresent
+						property="KeyFacebook">
+						<div class="errorMessage">
+							<html:errors property="KeyFacebook" />
+						</div>
+					</logic:messagesPresent></td>
 			</tr>
+
 			<tr>
-				<td colspan="2"><html:submit styleClass="button">
+				<td colspan="2" align="right"><html:submit styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -176,6 +214,7 @@
 	<legend class="legendAdmin">
 		<bean:message key="configure.title.updateDBMail" />
 	</legend>
+
 	<table class="fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data" action="/UpdateDB">
@@ -193,6 +232,7 @@
 	<legend class="legendAdmin">
 		<bean:message key="configure.title.updateDBDateType" />
 	</legend>
+
 	<table class="fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data"
@@ -211,6 +251,7 @@
 	<legend class="legendAdmin">
 		<bean:message key="configure.title.addDBRecallDateColumn" />
 	</legend>
+
 	<table class="fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data"
@@ -229,6 +270,7 @@
 	<legend class="legendAdmin">
 		<bean:message key="configure.title.dropDBCVTables" />
 	</legend>
+
 	<table class="fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data"
@@ -242,32 +284,6 @@
 		</tr>
 	</table>
 </fieldset>
-
-<fieldset class="fieldsetAdmin">
-	<legend class="legendAdmin">
-		<bean:message key="configure.title.testMail" />
-	</legend>
-	<html:form action="/SendTestMail">
-		<table id="SendTestMail" class="fieldsetTableAdmin">
-			<tr>
-				<td><label for="Recipient"> <bean:message
-							key="configure.form.testMail" />
-				</label> <html:text errorStyleClass="error" property="Recipient"
-						styleId="Recipient"></html:text></td>
-				<td><html:submit styleClass="button">
-						<bean:message key="configure.button.submit" />
-					</html:submit></td>
-			</tr>
-			<logic:messagesPresent property="Recipient">
-				<tr class="errorMessage">
-					<td colspan="2"><html:errors property="Recipient" /></td>
-				</tr>
-			</logic:messagesPresent>
-		</table>
-	</html:form>
-</fieldset>
-
-
 
 <script type="text/javascript">
 	function updateAuthenticationFields() {

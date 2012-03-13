@@ -10,7 +10,9 @@
 		<legend class="legendAdmin">
 			<bean:message key="interests.title.delete" />
 		</legend>
+
 		<html:javascript formName="/DeleteInterest" />
+
 		<html:form action="/DeleteInterest">
 			<table class="fieldsetTableAdmin">
 				<tr>
@@ -21,14 +23,18 @@
 							<c:forEach var="interest" items="${requestScope.allInterests}">
 								<html:option value="${interest.id}">${interest.name}</html:option>
 							</c:forEach>
-						</html:select> <html:submit styleClass="button">
+						</html:select>
+						<div class="errorMessage">
+							<html:errors property="deletedInterestId" />
+						</div></td>
+				</tr>
+
+				<tr>
+					<td align="right"><html:submit styleClass="button">
 							<bean:message key="interests.button.delete" />
 						</html:submit></td>
 				</tr>
 			</table>
 		</html:form>
 	</fieldset>
-	<div class="errorMessage">
-		<html:errors property="deletedInterestId" />
-	</div>
 </c:if>

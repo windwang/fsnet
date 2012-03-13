@@ -1,4 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
@@ -42,21 +44,6 @@
 		</c:when>
 
 		<c:otherwise>
-			<script type="text/javascript">
-				$(document).ready(
-						function pagination() {
-							var nomTable = "eventsTable";
-							var idColonneATrier = 0;
-							var sensDeTri = "asc";
-							var aoColumns = [ null, {
-								"sType" : "date-euro"
-							}, {
-								"bSortable" : false
-							}, null, null ];
-							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
-						});
-			</script>
 			<table id="eventsTable"
 				class="tablesorter inLineTable fieldsetTableAdmin">
 				<thead>
@@ -93,3 +80,19 @@
 		</c:otherwise>
 	</c:choose>
 </fieldset>
+
+<script type="text/javascript">
+	$(document).ready(
+			function pagination() {
+				var nomTable = "eventsTable";
+				var idColonneATrier = 0;
+				var sensDeTri = "asc";
+				var aoColumns = [ null, {
+					"sType" : "date-euro"
+				}, {
+					"bSortable" : false
+				}, null, null ];
+				miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+						aoColumns, false);
+			});
+</script>

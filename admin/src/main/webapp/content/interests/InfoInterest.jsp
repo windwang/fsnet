@@ -64,7 +64,7 @@
 			<legend class="legendAdmin">
 				<bean:message key="interests.title.chidren" />
 			</legend>
-			
+
 			<table class="fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>

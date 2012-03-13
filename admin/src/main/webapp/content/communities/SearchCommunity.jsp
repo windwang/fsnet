@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
@@ -17,21 +18,19 @@
 		<bean:message key="communities.title.search" />
 	</legend>
 
-	<html:form action="SearchCommunity">
-		<div>
-			<table class="inLineTable  fieldsetTableAdmin">
-				<tr>
-					<td><html:text property="searchText" styleId="searchTexte" />
-						<ili:placeHolder id="searchTexte" value="${searchCommunitie}" />
-						<html:submit styleClass="button">
-							<bean:message key="communities.button.search" />
-						</html:submit></td>
-				</tr>
-			</table>
-		</div>
-	</html:form>
+	<table class="fieldsetTableAdmin">
+		<html:form action="SearchCommunity">
+			<tr>
+				<td><html:text property="searchText" styleId="searchTexte" />
+					<ili:placeHolder id="searchTexte" value="${searchCommunitie}" /> <html:submit
+						styleClass="button">
+						<bean:message key="communities.button.search" />
+					</html:submit></td>
+			</tr>
+		</html:form>
+	</table>
 </fieldset>
-<br />
+
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
 		<bean:message key="communities.title.listCommunities" />
@@ -39,21 +38,6 @@
 
 	<c:choose>
 		<c:when test="${not empty requestScope.communitiesList}">
-			<script type="text/javascript">
-			$(document).ready(
-					function pagination() {
-						var nomTable = "communitiesTable";
-						var idColonneATrier = 0;
-						var sensDeTri = "asc";
-						var aoColumns = [ null,{
-							"bSortable" : false
-						}, null, null,{
-							"bSortable" : false
-						}];
-						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
-					});
-		</script>
 			<table id="communitiesTable"
 				class="tablesorter inLineTable fieldsetTableAdmin">
 				<thead>
@@ -96,6 +80,7 @@
 		</c:otherwise>
 	</c:choose>
 </fieldset>
+
 <c:if test="${!empty success}">
 	<script type="text/javascript">
 		jQuery(function () { popup(); });
@@ -113,3 +98,20 @@
 		</div>
 	</div>
 </c:if>
+
+<script type="text/javascript">
+	$(document).ready(
+		function pagination() {
+			var nomTable = "communitiesTable";
+			var idColonneATrier = 0;
+			var sensDeTri = "asc";
+			var aoColumns = [ null,{
+				"bSortable" : false
+			}, null, null,{
+				"bSortable" : false
+			}];
+			miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+					aoColumns, false);
+		});
+</script>
+

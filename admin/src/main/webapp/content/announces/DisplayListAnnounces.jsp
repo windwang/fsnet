@@ -1,7 +1,3 @@
-<%-- 
-	author : Bouragba Mohamed
-	source : /fsnetWeb/src/main/webapp/content/announces/DisplayListAnnounces.jsp
- --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
@@ -23,21 +19,6 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-			<script type="text/javascript">
-				$(document).ready(
-						function pagination() {
-							var nomTable = "announceTable";
-							var idColonneATrier = 4;
-							var sensDeTri = "desc";
-							var aoColumns = [ null, {
-								"bSortable" : false
-							}, null, null , {
-								"sType" : "date-euro"
-							}];
-							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
-						});
-			</script>
 			<table id="announceTable"
 				class="tablesorter inLineTable fieldsetTableAdmin">
 				<thead>
@@ -49,6 +30,7 @@
 						<th><bean:message key="tableheader.expirdate" /></th>
 					</tr>
 				</thead>
+				
 				<tbody>
 					<c:forEach var="announce" items="${requestScope.annoucesList}">
 						<tr>
@@ -66,8 +48,8 @@
 									<html:param name="idMember" value="${announce.creator.id}" />
 	                    	 ${announce.creator.name}
 	                		</html:link></td>
-							<td><bean:write name="announce"
-									property="endDate" format="dd/MM/yyyy" /></td>
+							<td><bean:write name="announce" property="endDate"
+									format="dd/MM/yyyy" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -75,3 +57,19 @@
 		</c:otherwise>
 	</c:choose>
 </fieldset>
+
+<script type="text/javascript">
+	$(document).ready(
+			function pagination() {
+				var nomTable = "announceTable";
+				var idColonneATrier = 4;
+				var sensDeTri = "desc";
+				var aoColumns = [ null, {
+					"bSortable" : false
+				}, null, null, {
+					"sType" : "date-euro"
+				} ];
+				miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+						aoColumns, false);
+			});
+</script>

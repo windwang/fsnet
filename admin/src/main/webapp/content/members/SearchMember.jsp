@@ -1,8 +1,10 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
@@ -30,11 +32,11 @@
 	</html:form>
 </fieldset>
 
-<h3></h3>
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
 		<bean:message key="members.listMembers" />
 	</legend>
+	
 	<c:choose>
 		<c:when test="${not empty requestScope.membersList}">
 			<script type="text/javascript">

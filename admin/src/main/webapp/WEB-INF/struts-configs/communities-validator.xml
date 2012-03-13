@@ -26,11 +26,11 @@
             </field>
         </form>
         <form name="/ModifyCommunity">
-            <field property="modifiedCommunityName" depends="required">
-                <arg key="communitiesnewName" />
+            <field property="newCommunityName" depends="required">
+                <arg key="newCommunityName" />
             </field>
-            <field property="modifierCommunityName" depends="required">
-                <arg key="communities.oldName" />
+            <field property="oldCommunityName" depends="required">
+                <arg key="oldCommunityName" />
             </field>
         </form>
     </formset>

@@ -16,44 +16,50 @@
 			<html:form action="/ModifyInterest">
 				<table class="fieldsetTableAdmin">
 					<tr>
-						<td>
+						<td><label for="modifiedInterestId"><bean:message
+									key="interests.form.oldName" /></label></td>
+						<td><html:select property="modifiedInterestId"
+								styleClass="select" onchange="updateParentInterest()">
+								<html:option value="">
+								</html:option>
+								<c:forEach var="interest" items="${requestScope.allInterests}">
+									<html:option value="${interest.id}">${interest.name}</html:option>
+								</c:forEach>
+							</html:select>
 							<div class="errorMessage">
 								<html:errors property="modifiedInterestId" />
-							</div>
-							<div>
-								<bean:message key="error.interest.create" />
-								<html:select property="modifiedInterestId" styleClass="select"
-									onchange="updateParentInterest()">
-									<html:option value="">
-									</html:option>
-									<c:forEach var="interest" items="${requestScope.allInterests}">
-										<html:option value="${interest.id}">${interest.name}</html:option>
-									</c:forEach>
-								</html:select>
-								<bean:message key="interests.15" />
+							</div></td>
+					</tr>
 
-								<html:select property="parentInterestId" styleClass="select">
-									<html:option value="">
-										<bean:message key="interests.noResult" />
-									</html:option>
-									<c:forEach var="interest" items="${requestScope.allInterests}">
-										<html:option value="${interest.id}">${interest.name}</html:option>
-									</c:forEach>
-								</html:select>
-								<br />
+					<tr>
+						<td><label for="parentInterestId"><bean:message
+									key="interests.form.parent" /></label></td>
+						<td><html:select property="parentInterestId"
+								styleClass="select">
+								<html:option value="">
+								</html:option>
+								<c:forEach var="interest" items="${requestScope.allInterests}">
+									<html:option value="${interest.id}">${interest.name}</html:option>
+								</c:forEach>
+							</html:select></td>
+					</tr>
 
-								<div class="errorMessage">
-									<html:errors property="modifiedInterestName" />
-								</div>
-								<bean:message key="error.interest.name.modified" />
-								<html:text property="modifiedInterestName" />
-								<html:hidden property="allInterestsId"
-									value="${ allInterestsId }" />
-								<html:submit styleClass="button">
-									<bean:message key="interests.button.modify" />
-								</html:submit>
-							</div>
-						</td>
+					<tr>
+						<td><label for="modifiedInterestName"><bean:message
+									key="interests.form.newName" /></label></td>
+						<td><html:text property="modifiedInterestName" />
+							<div class="errorMessage">
+								<html:errors property="modifiedInterestName" />
+							</div></td>
+					</tr>
+
+					<tr>
+						<td colspan="2" align="right"><html:hidden
+								property="allInterestsId" value="${ allInterestsId }" /> <html:submit
+								styleClass="button">
+								<bean:message key="interests.button.modify" />
+							</html:submit></td>
+						<td></td>
 					</tr>
 				</table>
 			</html:form>

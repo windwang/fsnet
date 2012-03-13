@@ -1,6 +1,3 @@
-<%--
-	author : Bouragba Mohamed
- --%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
@@ -31,9 +28,11 @@
                 </c:if> <c:if test="${subscriber}">,&nbsp;&nbsp;"<bean:message
 							key="events.subscribe" />"</c:if></td>
 			</tr>
+			
 			<tr>
 				<td>${event.content}</td>
 			</tr>
+			
 			<tr>
 				<td class="alignRight"><html:link action="/DeleteEvent"
 						styleClass="button">
@@ -46,12 +45,12 @@
 </fieldset>
 <div class="clear"></div>
 
-
 <c:if test="${fn:length(subscribers) gt 0}">
 	<fieldset class="fieldsetAdmin">
 		<legend class="legendAdmin">
 			<bean:message key="events.title.members" />
 		</legend>
+		
 		<logic:iterate id="subscriber" collection="${subscribers}">
 			<span class="tagSE"> <ili:getMiniature
 					socialEntity="${subscriber}" /> <ili:getSocialEntityInfos
