@@ -124,6 +124,8 @@ public class Authenticate extends HttpServlet {
 				authenticated = true;
 				req.getSession(true).setAttribute(AUTHENTICATED_USER,
 						es.getId());
+				req.getSession(true).setAttribute("userName", es.getName());
+				req.getSession(true).setAttribute("userFirstName", es.getFirstName());
 
 				SocialEntity user = em.find(SocialEntity.class, es.getId());
 				if(user.getLastConnection() != null){
