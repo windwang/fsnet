@@ -11,11 +11,13 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>   
 <bean:define id="searchInterest">
-	<bean:message key="interest.search" />
+	<bean:message key="interests.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAdmin">
-  <legend class="legendAdmin"><bean:message key="interests.11"/></legend>
+  <legend class="legendAdmin">
+		<bean:message key="interests.title.search" />
+	</legend>
   <html:javascript formName="/SearchInterest"/>
   <html:form action="/SearchInterest">
  		<table class="inLineTable fieldsetTableAdmin"><tr><td>
@@ -23,7 +25,7 @@
     	  <p><html:text property="searchInterestName" styleId="searchTexte"/>
     	  <ili:placeHolder id="searchTexte" value="${searchInterest}" />
           <html:submit styleClass="button" >
-      	  <bean:message key="interest.validate"/>
+      	  <bean:message key="interests.button.search"/>
           </html:submit></p>
         </td></tr></table>
   </html:form>

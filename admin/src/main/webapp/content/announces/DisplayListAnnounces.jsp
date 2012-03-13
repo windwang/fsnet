@@ -11,14 +11,14 @@
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="announce" />
+		<bean:message key="announce.title.all" />
 	</legend>
 
 	<c:choose>
 		<c:when test="${empty requestScope.annoucesList}">
 			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
-					<td><bean:message key="announce.emptyList" /></td>
+					<td><bean:message key="announce.noResult" /></td>
 				</tr>
 			</table>
 		</c:when>

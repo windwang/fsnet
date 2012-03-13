@@ -11,14 +11,16 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+
 <bean:define id="searchGroup">
-	<bean:message key="group.search" />
+	<bean:message key="groups.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="groups.search" />
+		<bean:message key="groups.title.search" />
 	</legend>
+	
 	<html:form action="SearchGroup">
 		<div id="SearchGroup">
 			<table class="fieldsetTableAdmin">
@@ -26,7 +28,7 @@
 					<td><html:text property="searchText" styleId="searchTexte" /> 
 					<ili:placeHolder id="searchTexte" value="${searchGroup}" />
 					<html:submit styleClass="button">
-							<bean:message key="groups.searchButton" />
+							<bean:message key="groups.button.search" />
 						</html:submit></td>
 				</tr>
 			</table>
@@ -36,7 +38,7 @@
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="groups.listGroups" />
+		<bean:message key="groups.title.listGroups" />
 	</legend>
 
 	<c:choose>

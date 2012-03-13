@@ -5,7 +5,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib prefix="ili" uri="../WEB-INF/ili.tld"%>
 
-<bean:define id="searchMessage"><bean:message key="menu.7"/></bean:define>
+<bean:define id="searchMessage"><bean:message key="menu.placeholder"/></bean:define>
 
 <div id="search">
     <html:form action="/SearchMember">
@@ -20,48 +20,48 @@
 <ul id="menu">
     <li>
     	<html:link action="/Home" styleClass="${currentMenu == 'Home' ? 'current' : ''}">
-    		<bean:message key="menu.0"/>
+    		<bean:message key="menu.welcome"/>
     	</html:link>
     </li>
     <li>
     	<html:link action="/Members" styleClass="${currentMenu == 'Members' ? 'current' : ''}">
-    		<bean:message key="menu.9"/>
+    		<bean:message key="menu.creation"/>
     	</html:link>
     </li>
     <li>
     	<html:link action="/MemberList" styleClass="${currentMenu == 'MemberList' ? 'current' : ''}">
-    		<bean:message key="menu.1"/>
+    		<bean:message key="menu.members"/>
     	</html:link>
     </li>
     <li>
     	<html:link action="/GroupList" styleClass="${currentMenu == 'Groups' ? 'current' : ''}">
-    		<bean:message key="menu.10"/>
+    		<bean:message key="menu.groups"/>
     	</html:link>
     </li>
     <li>
         <html:link action="/Announces" styleClass="${currentMenu == 'Announces' ? 'current' : ''}">
-            <bean:message key="menu.4"/>
+            <bean:message key="menu.announces"/>
         </html:link>
     </li>
     <li>
         <html:link action="/Events" styleClass="${currentMenu == 'Events' ? 'current' : ''}">
-            <bean:message key="menu.5"/>
+            <bean:message key="menu.events"/>
         </html:link>
     </li>
     <li>
     	<html:link action="/Communities" styleClass="${currentMenu == 'Communities' ? 'current' : ''}">
-    		<bean:message key="menu.8"/>
+    		<bean:message key="menu.communities"/>
     	</html:link>
     </li>
     <li>
     	<html:link action="/Interests" styleClass="${currentMenu == 'Interests' ? 'current' : ''}">
-    		<bean:message key="menu.2"/>
+    		<bean:message key="menu.interests"/>
     	</html:link>
     </li>
     
     <li>
     	<html:link action="/EditConfiguration" styleClass="${currentMenu == 'Configuration' ? 'current' : ''}">
-    		<bean:message key="menu.3"/>
+    		<bean:message key="menu.configuration"/>
     	</html:link>
     </li>
     

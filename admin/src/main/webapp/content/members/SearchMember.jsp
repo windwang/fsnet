@@ -7,31 +7,36 @@
 <!-- <script type="text/javascript" src="js/jquery.js"></script> -->
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
+
 <bean:define id="searchMember">
-	<bean:message key="member.search" />
+	<bean:message key="members.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAdmin">
-  <legend class="legendAdmin"><bean:message key="members.search" /></legend>
-  <html:form action="SearchMember">
-	<div >
-	  <table class="fieldsetTableAdmin"><tr><td>
-	    <html:text property="searchText" styleId="searchTexte" /> 
-	    <ili:placeHolder id="searchTexte" value="${searchMember}" />
-	    <html:submit styleClass="button">
-		  <bean:message key="members.searchButton" />
-	     </html:submit>
-	   </td></tr></table>
-	</div>
-  </html:form>
+	<legend class="legendAdmin">
+		<bean:message key="members.search" />
+	</legend>
+
+	<html:form action="SearchMember">
+		<table class="fieldsetTableAdmin">
+			<tr>
+				<td><html:text property="searchText" styleId="searchTexte" />
+					<ili:placeHolder id="searchTexte" value="${searchMember}" /> <html:submit
+						styleClass="button">
+						<bean:message key="members.searchButton" />
+					</html:submit></td>
+			</tr>
+		</table>
+	</html:form>
 </fieldset>
 
 <h3></h3>
 <fieldset class="fieldsetAdmin">
-  <legend class="legendAdmin"><bean:message key="members.listMembers" /></legend>
-  <c:choose>
-	<c:when
-		test="${not empty requestScope.membersList}">
+	<legend class="legendAdmin">
+		<bean:message key="members.listMembers" />
+	</legend>
+	<c:choose>
+		<c:when test="${not empty requestScope.membersList}">
 			<script type="text/javascript">
 				$(document).ready(
 						function pagination() {
@@ -55,52 +60,55 @@
 					</tr>
 				</thead>
 				<tbody>
-			<c:forEach var="member"
-				items="${requestScope.membersList}">
-				<tr class="content">
-					<td><html:link action="/DisplayMember">${member.name}
+					<c:forEach var="member" items="${requestScope.membersList}">
+						<tr class="content">
+							<td><html:link action="/DisplayMember">${member.name}
                 		<html:param name="idMember" value="${member.id}" />
-					</html:link></td>
-					<td><html:link action="/DisplayMember">${member.firstName}
+								</html:link></td>
+							<td><html:link action="/DisplayMember">${member.firstName}
                 		<html:param name="idMember" value="${member.id}" />
-					</html:link></td>
-					<td class="tableButton"><c:choose>
-						<c:when test="${member.group.isEnabled}">
-							<html:link action="/SwitchState" styleClass="button">
-								<html:param name="entitySelected" value="${member.id}" />
-								<c:choose>
-									<c:when test="${member.isEnabled}">
-										<bean:message key="members.searchDisable" />
+								</html:link></td>
+							<td class="tableButton"><c:choose>
+									<c:when test="${member.group.isEnabled}">
+										<html:link action="/SwitchState" styleClass="button">
+											<html:param name="entitySelected" value="${member.id}" />
+											<c:choose>
+												<c:when test="${member.isEnabled}">
+													<bean:message key="members.searchDisable" />
+												</c:when>
+												<c:otherwise>
+													<bean:message key="members.searchEnable" />
+												</c:otherwise>
+											</c:choose>
+										</html:link>
+									</c:when>
+									<c:when test="${ member.group.isEnabled == false }">
+										<bean:message key="members.groupDisable" />
 									</c:when>
 									<c:otherwise>
-										<bean:message key="members.searchEnable" />
+										<bean:message key="members.groupNull" />
 									</c:otherwise>
-								</c:choose>
-							</html:link>
-						</c:when>
-						<c:when test="${ member.group.isEnabled == false }">
-							<bean:message key="members.groupDisable" />
-						</c:when>
-						<c:otherwise>
-							<bean:message key="members.groupNull" />
-						</c:otherwise>
-					</c:choose></td>
+								</c:choose></td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</c:when>
+		<c:otherwise>
+			<table class="inLineTable fieldsetTableAdmin">
+				<tr>
+					<td><bean:message key="members.noResult" /></td>
 				</tr>
-			</c:forEach>
-			</tbody>
-		</table>
-	</c:when>
-	<c:otherwise>
-	    <table class="inLineTable fieldsetTableAdmin"><tr><td>
-		  <bean:message key="members.noResult" />
-		</td></tr></table>
-	</c:otherwise>
-  </c:choose>
+			</table>
+		</c:otherwise>
+	</c:choose>
 </fieldset>
 
 <c:if test="${!empty success}">
 	<script type="text/javascript">
-		jQuery(function () { popup(); });
+		jQuery(function() {
+			popup();
+		});
 		success = null;
 	</script>
 	<div id="osx-modal-content" class="simplemodal-data">
@@ -109,7 +117,9 @@
 			<a class="simplemodal-close" href="#">X</a>
 		</div>
 		<div id="osx-modal-data">
-			<p><c:out value="${success}"/></p>
+			<p>
+				<c:out value="${success}" />
+			</p>
 		</div>
 	</div>
 </c:if>

@@ -7,23 +7,24 @@
 <!-- <script type="text/javascript" src="js/jquery.js"></script>-->
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
+
 <bean:define id="searchCommunitie">
-	<bean:message key="communitie.search" />
+	<bean:message key="communities.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="communities.search" />
+		<bean:message key="communities.title.search" />
 	</legend>
+
 	<html:form action="SearchCommunity">
 		<div>
 			<table class="inLineTable  fieldsetTableAdmin">
 				<tr>
-					<td>
-					    <html:text property="searchText" styleId="searchTexte" /> 
-					    <ili:placeHolder id="searchTexte" value="${searchCommunitie}" />
-					    <html:submit styleClass="button">
-							<bean:message key="communities.searchButton" />
+					<td><html:text property="searchText" styleId="searchTexte" />
+						<ili:placeHolder id="searchTexte" value="${searchCommunitie}" />
+						<html:submit styleClass="button">
+							<bean:message key="communities.button.search" />
 						</html:submit></td>
 				</tr>
 			</table>
@@ -33,7 +34,7 @@
 <br />
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="communities.listCommunities" />
+		<bean:message key="communities.title.listCommunities" />
 	</legend>
 
 	<c:choose>
@@ -79,7 +80,7 @@
 	                </html:link></td>
 							<td class="tableButton"><a class="button"
 								onclick="confirmDelete('DeleteCommunity.do?communityId='+${community.id})">
-									<bean:message key="communities.delete" />
+									<bean:message key="communities.button.delete" />
 							</a></td>
 						</tr>
 					</c:forEach>

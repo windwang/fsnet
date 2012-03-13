@@ -12,7 +12,9 @@
 
 
 <fieldset class="fieldsetAdmin">
-  <legend class="legendAdmin"><bean:message key="groups.create" /></legend>
+  <legend class="legendAdmin">
+		<bean:message key="groups.title.create" />
+	</legend>
   
   <html:form action="/CreateGroup" onsubmit="Valider()">
 	<jsp:include page="/content/groups/SamePartForGroup.jsp"/>

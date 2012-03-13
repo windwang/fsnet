@@ -166,7 +166,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			saveProperty(em, FSNetConfiguration.PICTURES_DIRECTORY_KEY, dirName);
 		} else {
 			ActionErrors errors = new ActionErrors();
-			errors.add("PicturesDirectory", new ActionMessage("configure.23"));
+			errors.add("PicturesDirectory", new ActionMessage("configure.error.imgFolder2"));
 			saveErrors(request, errors);
 		}
 
