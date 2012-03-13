@@ -71,7 +71,7 @@
 										var sensDeTri = "asc";
 										var aoColumns = [ {
 											"bSortable" : false
-										}, null, null, null, {
+										}, null, null, {
 											"bSortable" : false
 										}, ];
 										miseEnPageTable(nomTable,
@@ -88,7 +88,6 @@
 									<th><bean:message key="members.firstName" /></th>
 									<th><bean:message key="members.name" /></th>
 									<th></th>
-									<th></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -98,7 +97,6 @@
 												socialEntity="${member}" /></td>
 										<td><ili:getSocialEntityInfosFirstname
 												socialEntity="${member}" /></td>
-										<td><bean:message key="contact.added" /></td>
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
 										<td class="tableButton"><html:link
@@ -106,7 +104,7 @@
 												<bean:message key="showProfile.send" />
 												<html:param name="receiver" value="${member.email}" />
 											</html:link> <html:link action="/DeleteContact" styleClass="button">
-												<bean:message key="contact.delete" />
+												<bean:message key="contact.button.delete" />
 												<html:param name="entityDeleted" value="${member.id}" />
 											</html:link></td>
 									</tr>
@@ -119,7 +117,6 @@
 												socialEntity="${member}" /></td>
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
-										<td><bean:message key="contact.requested" /></td>
 										<td class="tableButton"><html:link
 												action="/DisplayCreatePrivateMessage" styleClass="button">
 												<bean:message key="showProfile.send" />
@@ -138,7 +135,6 @@
 												socialEntity="${member}" /></td>
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
-										<td><bean:message key="contact.asked" /></td>
 										<td class="tableButton"><html:link
 												action="/AcceptContact" styleClass="button">
 												<bean:message key="members.5" />
@@ -157,7 +153,6 @@
 												socialEntity="${member}" /></td>
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
-										<td></td>
 										<td class="tableButton"><html:link
 												action="/ContactDemand" styleClass="button">
 												<bean:message key="members.8" />
