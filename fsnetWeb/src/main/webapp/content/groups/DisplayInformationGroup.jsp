@@ -8,8 +8,15 @@
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetAdmin">
+	<legend class="legendHome">
+			<bean:message key="groups.titleInformation" />
+		</legend>
+			
 	<c:choose>
 		<c:when test="${ socialGroup != null }">
+			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<tr>
+			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
 					<bean:message key="groups.title" />
@@ -29,7 +36,12 @@
 			</html:link>
 				</div>
 			</fieldset>
-
+			</td>
+			</tr>
+			
+			
+			<tr>
+			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
 					<bean:message key="groups.description.message" />
@@ -37,7 +49,11 @@
 
 				<p>${ socialGroup.description }</p>
 			</fieldset>
-
+			</td>
+			</tr>
+			
+			<tr>
+			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
 					<bean:message key="groups.listGroup" />
@@ -51,7 +67,11 @@
 					<c:if test="${status.count < fn:length(childsOfGroup)}"> | </c:if>
 				</c:forEach>
 			</fieldset>
+			</td>
+			</tr>
 
+			<tr>
+			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
 					<bean:message key="groups.listMember" />
@@ -65,22 +85,25 @@
 					</a>
 				</c:forEach>
 			</fieldset>
+			</td>
+			</tr>
 
 			<c:if test="${ sessionScope.isMasterGroup }">
+				<tr>
+				<td>
 				<fieldset class="inLinefieldset">
 					<legend>
 						<bean:message key="groups.rights.title" />
 					</legend>
-
 					<c:choose>
 						<c:when test="${ fn:length(socialGroup.rights) != 0 }">
-							<table class="inLineTable">
+								
 								<c:forEach var="right" items="${ socialGroup.rights }">
-									<tr>
-										<td><bean:message key="groups.rights.${ right }" /></td>
-									</tr>
+									
+									<p><bean:message key="groups.rights.${ right }" /></p>
+									
 								</c:forEach>
-							</table>
+								
 						</c:when>
 						<c:otherwise>
 							<p>
@@ -89,12 +112,17 @@
 						</c:otherwise>
 					</c:choose>
 				</fieldset>
+			</td>
+			</tr>	
 			</c:if>
+			</table>
 		</c:when>
 		<c:otherwise>
 			<p>
 				<bean:message key="groups.noGroup" />
 			</p>
 		</c:otherwise>
+		
 	</c:choose>
+	
 </fieldset>

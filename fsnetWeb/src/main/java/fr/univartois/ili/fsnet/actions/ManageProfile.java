@@ -370,7 +370,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("interactions",
 				intFac.getIntetactionsByUser(profile));
 		em.getTransaction().commit();
-		em.close();
 
 		request.setAttribute("currentUser", user);
 		request.setAttribute("treeGroupProfile", sgf.treeParentName(profile));
@@ -404,6 +403,8 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			request.setAttribute("isLogged", false);
 		}
 
+		em.close();
+		
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 

@@ -137,10 +137,10 @@
 												socialEntity="${member}" /></td>
 										<td class="tableButton"><html:link
 												action="/AcceptContact" styleClass="button">
-												<bean:message key="members.5" />
+												<bean:message key="members.button.accept" />
 												<html:param name="entityAccepted" value="${member.id}" />
 											</html:link> <html:link action="/RefuseContact" styleClass="button">
-												<bean:message key="members.6" />
+												<bean:message key="members.button.refuse" />
 												<html:param name="entityRefused" value="${member.id}" />
 											</html:link></td>
 									</tr>
@@ -155,7 +155,7 @@
 												socialEntity="${member}" /></td>
 										<td class="tableButton"><html:link
 												action="/ContactDemand" styleClass="button">
-												<bean:message key="members.8" />
+												<bean:message key="members.button.add" />
 												<html:param name="entitySelected" value="${member.id}" />
 											</html:link></td>
 									</tr>

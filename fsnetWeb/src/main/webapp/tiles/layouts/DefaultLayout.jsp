@@ -13,10 +13,10 @@
 
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8" />
-<meta http-equiv="Cache-Control" content="no-cache" />
-<meta http-equiv="Pragma" content="no-cache" />
-<meta http-equiv="Expires" content="0" />
-<link rel="shortcut icon" href="" type="image" />
+<meta http-equiv="pragma" content="no-cache" />
+<meta http-equiv="cache-control" content="no-cache" />
+<meta http-equiv="expires" content="0" />
+<link rel="shortcut icon" href="images/Favicon.ico" type="image/vnd.microsoft.icon" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <link rel="stylesheet" type="text/css" media="screen"
@@ -29,14 +29,12 @@
 <title><bean:message key="${pageTitle}" /></title>
 <link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css"
 	rel="stylesheet" />
+
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="js/functions.js"></script>
-<script type="text/javascript"
-	src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
 <script type="text/javascript" src="js/geolocalisation.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/talkUtils.js"></script>
 <script type="text/javascript" src="js/chat.js"></script>
 <script class="jsbin" type="text/javascript"

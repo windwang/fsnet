@@ -7,39 +7,46 @@
 
 		<form-bean name="CVForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="CvBirthDay" type="java.lang.String" />
-			<form-property name="CvTitle" type="java.lang.String" />
-			<form-property name="CvNom" type="java.lang.String" />
-			<form-property name="CvPrenom" type="java.lang.String" />
-			<form-property name="CvAdresse" type="java.lang.String" />
-			<form-property name="CvVille" type="java.lang.String" />
-			<form-property name="CvCp" type="java.lang.String" />
-			<form-property name="CvPays" type="java.lang.String" />
-			<form-property name="CvTel" type="java.lang.String" />
-			<form-property name="CvSituation" type="java.lang.String" />
-			<form-property name="CvContact" type="java.lang.String" />
-			<form-property name="CvPoste" type="java.lang.String" />
-			<form-property name="NomEntreprise" type="java.lang.String" />
-			<form-property name="expEndDate" type="java.lang.String" />
-			<form-property name="expBeginDate" type="java.lang.String" />
-			<form-property name="CvSecteur" type="java.lang.String" />
-			<form-property name="CvLieu" type="java.lang.String" />
-			<form-property name="CvEtude" type="java.lang.String" />
-			<form-property name="CvEtudeDom" type="java.lang.String" />
-			<form-property name="CvEtablissment" type="java.lang.String" />
-			<form-property name="CvEtudePays" type="java.lang.String" />
-			<form-property name="CvEtudeVille" type="java.lang.String" />
-			<form-property name="etudEndDate" type="java.lang.String" />
-			<form-property name="etudBeginDate" type="java.lang.String" />
-			<form-property name="CvNomLoisir" type="java.lang.String" />
-			<form-property name="CvFin" type="java.lang.String" />
-			<form-property name="DateObtention" type="java.lang.String" />
-			<form-property name="CvEtablissmentform" type="java.lang.String" />
-			<form-property name="CvFormation" type="java.lang.String" />
-			<form-property name="CvFormPays" type="java.lang.String" />
-			<form-property name="CvFormVille" type="java.lang.String" />
-			<form-property name="CvVilleExp" type="java.lang.String" />
-			<form-property name="CvPaysExp" type="java.lang.String" />
+			<form-property name="cvTitle" type="java.lang.String" />
+
+			<form-property name="cvBirthDay" type="java.lang.String" />
+			<form-property name="cvFirstname" type="java.lang.String" />
+			<form-property name="cvSurname" type="java.lang.String" />
+			<form-property name="cvAddress" type="java.lang.String" />
+			<form-property name="cvCity" type="java.lang.String" />
+			<form-property name="cvCP" type="java.lang.String" />
+			<form-property name="cvCountry" type="java.lang.String" />
+			<form-property name="cvPhone" type="java.lang.String" />
+			<form-property name="cvSituation" type="java.lang.String" />
+			<form-property name="cvSexe" type="java.lang.String" />
+			<form-property name="cvMail" type="java.lang.String" />
+			
+			<form-property name="cvExpJob" type="java.lang.String" />
+			<form-property name="cvExpFirmName" type="java.lang.String" />
+			<form-property name="cvExpEndDate" type="java.lang.String" />
+			<form-property name="cvExpBeginDate" type="java.lang.String" />
+			<form-property name="cvExpDomain" type="java.lang.String" />
+			<form-property name="cvExpCity" type="java.lang.String" />
+			<form-property name="cvExpCountry" type="java.lang.String" />
+
+			<form-property name="cvDegreeName" type="java.lang.String" />
+			<form-property name="cvDegreeDomain" type="java.lang.String" />
+			<form-property name="cvDegreeSchool" type="java.lang.String" />
+			<form-property name="cvDegreeCountry" type="java.lang.String" />
+			<form-property name="cvDegreeCity" type="java.lang.String" />
+			<form-property name="cvDegreeEndDate" type="java.lang.String" />
+			<form-property name="cvDegreeBeginDate" type="java.lang.String" />
+			
+			<form-property name="cvTrainingObtainingDate" type="java.lang.String" />
+			<form-property name="cvTrainingInstitution" type="java.lang.String" />
+			<form-property name="cvTrainingName" type="java.lang.String" />
+			<form-property name="cvTrainingCountry" type="java.lang.String" />
+			<form-property name="cvTrainingCity" type="java.lang.String" />
+			
+			<form-property name="cvLangName" type="java.lang.String" />
+			<form-property name="cvLangLevel" type="java.lang.String" />
+			
+			<form-property name="cvHobbyName" type="java.lang.String" />
 		</form-bean>
 
 		<form-bean name="GenerateForm"

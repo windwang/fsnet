@@ -68,6 +68,9 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String to = dynaForm.getString("messageTo");
+		to = to.replaceAll("\\(.*\\)", "");
+		to = to.replaceAll(" ", "");
+		to = to.replaceAll("\t", "");
 		String subject = dynaForm.getString("messageSubject");
 		String body = dynaForm.getString("messageBody");
 		em.getTransaction().begin();
