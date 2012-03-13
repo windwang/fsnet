@@ -10,13 +10,12 @@ import fr.univartois.ili.fsnet.entities.InteractionGroups;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
 
-
 /*
  * author : J FLAMEN
  * Filter Interaction by belong user group
  */
 public class FilterInteractionByUserGroup {
-	
+
 	private final EntityManager em;
 
 	/**
@@ -27,28 +26,38 @@ public class FilterInteractionByUserGroup {
 	public FilterInteractionByUserGroup(EntityManager em) {
 		this.em = em;
 	}
-	
-	
-	
-	public final <T extends  Interaction> List<T>  filterInteraction(SocialEntity se, List<T> listInteraction) {
-		/* load group user */
-		SocialGroup socialGroupUser = se.getGroup();
-		
+
+	public final <T extends Interaction> List<T> filterInteraction(
+			SocialEntity se, List<T> listInteraction) {
+
 		List<T> listFilterInteraction = new ArrayList<T>();
-		
+
 		/* list of user */
-		if(socialGroupUser != null) {		
-			for (T interaction : listInteraction) {
-				for (InteractionGroups ig : interaction.getInteractionGroups()) {
-					if(socialGroupUser.getId() == ig.getGroup().getId()){
-						listFilterInteraction.add(interaction);
-					}
-				}			
+		for (T interaction : listInteraction) {
+			T interact = filterAnInteraction(se, interaction);
+			if (interact != null) {
+				listFilterInteraction.add(interact);
 			}
 		}
-		
+
 		return listFilterInteraction;
 	}
-	
+
+	public final <T extends Interaction> T filterAnInteraction(SocialEntity se,
+			T interaction) {
+		/* load group user */
+		SocialGroup socialGroupUser = se.getGroup();
+
+		/* list of user */
+		if (socialGroupUser != null) {
+			for (InteractionGroups ig : interaction.getInteractionGroups()) {
+				if (socialGroupUser.getId() == ig.getGroup().getId()) {
+					return interaction;
+				}
+			}
+		}
+
+		return null;
+	}
 
 }

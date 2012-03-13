@@ -8,8 +8,15 @@
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetAdmin">
+	<legend class="legendHome">
+			<bean:message key="groups.titleInformation" />
+		</legend>
+			
 	<c:choose>
 		<c:when test="${ socialGroup != null }">
+			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<tr>
+			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
 					<bean:message key="groups.title" />
@@ -27,31 +34,26 @@
 						<html:param name="idGroup" value="${ socialGroup.id }" />
 				${ socialGroup.name }
 			</html:link>
-<<<<<<< HEAD
-		</div>
-		
-=======
 				</div>
 			</fieldset>
-
+			</td>
+			</tr>
+			
+			
+			<tr>
+			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
 					<bean:message key="groups.description.message" />
 				</legend>
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 
 				<p>${ socialGroup.description }</p>
 			</fieldset>
-
-<<<<<<< HEAD
-
-		<h3>
-			<bean:message key="groups.listGroup" />
-		</h3>
-		<c:forEach items="${childsOfGroup}" var="cGroup" varStatus="status">
-			<html:link action="/DisplayInformationGroup">
-				<html:param name="idGroup" value="${ cGroup.id }" />
-=======
+			</td>
+			</tr>
+			
+			<tr>
+			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
 					<bean:message key="groups.listGroup" />
@@ -60,35 +62,21 @@
 				<c:forEach items="${childsOfGroup}" var="cGroup" varStatus="status">
 					<html:link action="/DisplayInformationGroup">
 						<html:param name="idGroup" value="${ cGroup.id }" />
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
 				${ cGroup.name }
 			</html:link>
 					<c:if test="${status.count < fn:length(childsOfGroup)}"> | </c:if>
 				</c:forEach>
 			</fieldset>
+			</td>
+			</tr>
 
+			<tr>
+			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
 					<bean:message key="groups.listMember" />
 				</legend>
 
-<<<<<<< HEAD
-
-		<h3>
-			<bean:message key="groups.listMember" />
-		</h3>
-		<c:forEach var="member" items="${allMembers}">
-			<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}"
-				class="miniature"> <img
-				title="${member.name} ${member.firstName}"
-				src="miniature/${member.id}.png" alt="miniature"/>
-			</a>
-		</c:forEach>
-
-		<br />
-		<br />
-
-=======
 				<c:forEach var="member" items="${allMembers}">
 					<a href="/fsnetWeb/DisplayProfile.do?id=${member.id}"
 						class="miniature"> <img
@@ -97,23 +85,25 @@
 					</a>
 				</c:forEach>
 			</fieldset>
+			</td>
+			</tr>
 
 			<c:if test="${ sessionScope.isMasterGroup }">
+				<tr>
+				<td>
 				<fieldset class="inLinefieldset">
 					<legend>
 						<bean:message key="groups.rights.title" />
 					</legend>
->>>>>>> d4930e59985b0d788b02342bf59a1ee09f08e0d5
-
 					<c:choose>
 						<c:when test="${ fn:length(socialGroup.rights) != 0 }">
-							<table class="inLineTable">
+								
 								<c:forEach var="right" items="${ socialGroup.rights }">
-									<tr>
-										<td><bean:message key="groups.rights.${ right }" /></td>
-									</tr>
+									
+									<p><bean:message key="groups.rights.${ right }" /></p>
+									
 								</c:forEach>
-							</table>
+								
 						</c:when>
 						<c:otherwise>
 							<p>
@@ -122,12 +112,17 @@
 						</c:otherwise>
 					</c:choose>
 				</fieldset>
+			</td>
+			</tr>	
 			</c:if>
+			</table>
 		</c:when>
 		<c:otherwise>
 			<p>
 				<bean:message key="groups.noGroup" />
 			</p>
 		</c:otherwise>
+		
 	</c:choose>
+	
 </fieldset>

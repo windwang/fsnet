@@ -115,7 +115,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		}
 		if (groupsRightsAccept.length == 0) {
 			request.setAttribute("errorRights", true);
-			return new ActionRedirect(mapping.findForward("error"));
+			return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
 		}
 		// END TODO
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -494,15 +494,19 @@ public class ManageConsultations extends MappingDispatchAction {
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade
 					.getConsultation(Integer.valueOf(idConsultation));
-			Collections.sort(consultation.getChoices(),
-					new ConsultationChoiceComparator());
-			SocialGroupFacade fascade = new SocialGroupFacade(em);
-			if (!fascade.isSuperAdmin(member)
-					&& !fascade.getAllGroupsChildSelfInclude(member.getGroup())
-							.contains(consultation.getCreator().getGroup())) {
+			if((consultation==null)){
 				return new ActionRedirect(
 						mapping.findForward(UNAUTHORIZED_ACTION_NAME));
 			}
+			Collections.sort(consultation.getChoices(),
+					new ConsultationChoiceComparator());
+			
+			FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(em);
+			if((filterGroup.filterAnInteraction(member, consultation) == null)){
+				return new ActionRedirect(
+						mapping.findForward(UNAUTHORIZED_ACTION_NAME));
+			}
+			
 			em.getTransaction().begin();
 			member.addInteractionRead(consultation);
 			refreshNumNewConsultations(request, em);
