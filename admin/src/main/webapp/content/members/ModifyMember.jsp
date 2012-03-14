@@ -42,11 +42,13 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="groups.parent" /></label></td>
+				<td><label for="parentId"> <bean:message
+							key="groups.parent" /></label></td>
 				<c:choose>
 					<c:when test="${ master2 == false}">
 						<td colspan="3"><html:select property="parentId"
-								styleClass="select" value="${sessionScope.group2.id}">
+								styleId="parentId" styleClass="select"
+								value="${sessionScope.group2.id}">
 								<html:option value="">
 									<bean:message key="members.listGroups" />
 								</html:option>
@@ -87,8 +89,9 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="members.sexe" /></label></td>
-				<td><html:select property="sexe">
+				<td><label for="sexe"> <bean:message key="members.sexe" /></label></td>
+				<td><html:select property="sexe" styleClass="select"
+						styleId="sexe">
 						<html:option value="" />
 						<html:option value="male">
 							<bean:message key="members.sexe.Male" />
@@ -106,8 +109,10 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="members.phone" /></label></td>
-				<td><html:text errorStyleClass="error" property="phone" /></td>
+				<td><label for="phone"> <bean:message
+							key="members.phone" /></label></td>
+				<td><html:text errorStyleClass="error" property="phone"
+						styleId="phone" /></td>
 			</tr>
 
 			<tr>

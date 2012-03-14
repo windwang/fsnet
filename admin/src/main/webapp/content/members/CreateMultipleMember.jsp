@@ -14,13 +14,15 @@
 				<td colspan="2"><bean:message
 						key="members.createMultipleIndications" /></td>
 			</tr>
+
 			<tr>
-				<td colspan="2"><bean:message
-						key="members.createMultipleFormat" /></td>
+				<td colspan="2"><label for="multipleMember2"><bean:message
+							key="members.createMultipleFormat" /></label></td>
 			</tr>
+
 			<tr>
 				<td colspan="2"><html:textarea property="multipleMember"
-						styleId="multipleMember" errorStyleClass="error" cols="80"
+						styleId="multipleMember2" errorStyleClass="error" cols="80"
 						rows="6" />
 					<div class="errorMessage">
 						<html:errors property="multipleMember" />

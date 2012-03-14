@@ -22,9 +22,8 @@
 				<td><label for="parentInterestId"><bean:message
 							key="interests.form.parent" /></label></td>
 				<td><html:select property="parentInterestId"
-						styleClass="select">
-						<html:option value="">
-						</html:option>
+						styleClass="select" styleId="parentInterestId">
+						<html:option value="" />
 						<c:forEach var="interest" items="${requestScope.allInterests}">
 							<html:option value="${interest.id}">${interest.name}</html:option>
 						</c:forEach>
@@ -34,7 +33,8 @@
 			<tr>
 				<td><label for="createdInterestName"><bean:message
 							key="interests.form.name" /></label></td>
-				<td><html:text property="createdInterestName" />
+				<td><html:text property="createdInterestName"
+						styleId="createdInterestName" />
 					<div class="errorMessage">
 						<html:errors property="createdInterestName" />
 					</div></td>

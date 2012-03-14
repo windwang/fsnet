@@ -19,9 +19,8 @@
 						<td><label for="modifiedInterestId"><bean:message
 									key="interests.form.oldName" /></label></td>
 						<td><html:select property="modifiedInterestId"
-								styleClass="select" onchange="updateParentInterest()">
-								<html:option value="">
-								</html:option>
+								styleClass="select" styleId="modifiedInterestId" onchange="updateParentInterest()">
+								<html:option value="" />
 								<c:forEach var="interest" items="${requestScope.allInterests}">
 									<html:option value="${interest.id}">${interest.name}</html:option>
 								</c:forEach>
@@ -32,12 +31,11 @@
 					</tr>
 
 					<tr>
-						<td><label for="parentInterestId"><bean:message
+						<td><label for="parentInterestId2"><bean:message
 									key="interests.form.parent" /></label></td>
 						<td><html:select property="parentInterestId"
-								styleClass="select">
-								<html:option value="">
-								</html:option>
+								styleClass="select" styleId="parentInterestId2">
+								<html:option value="" />
 								<c:forEach var="interest" items="${requestScope.allInterests}">
 									<html:option value="${interest.id}">${interest.name}</html:option>
 								</c:forEach>
@@ -47,7 +45,7 @@
 					<tr>
 						<td><label for="modifiedInterestName"><bean:message
 									key="interests.form.newName" /></label></td>
-						<td><html:text property="modifiedInterestName" />
+						<td><html:text property="modifiedInterestName" styleId="modifiedInterestName"/>
 							<div class="errorMessage">
 								<html:errors property="modifiedInterestName" />
 							</div></td>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-	
+
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
@@ -15,11 +15,10 @@
 	<tr>
 		<td><label for="name"> <bean:message key="groups.name" /></label></td>
 		<td colspan="3"><html:text property="name" styleId="name"
-				errorStyleClass="error" /> <html:hidden property="id" styleId="id" /></td>
-	</tr>
-
-	<tr class="errorMessage">
-		<td colspan="2"><html:errors property="name" /></td>
+				errorStyleClass="error" /> <html:hidden property="id" styleId="id" />
+			<div class="errorMessage">
+				<html:errors property="name" />
+			</div></td>
 	</tr>
 
 	<tr>
@@ -29,17 +28,17 @@
 				<bean:message key="groups.description.message" /> :
 			</c:set> <html:textarea property="description" styleId="description"
 				errorStyleClass="error" cols="36" rows="6">
-			</html:textarea></td>
-	</tr>
-
-	<tr class="errorMessage">
-		<td colspan="2"><html:errors property="description" /></td>
+			</html:textarea>
+			<div class="errorMessage">
+				<html:errors property="description" />
+			</div></td>
 	</tr>
 
 	<tr>
-		<td><label> <bean:message key="groups.parent" /></label></td>
+		<td><label for="parentId"> <bean:message
+					key="groups.parent" /></label></td>
 		<td colspan="3"><html:select property="parentId"
-				styleClass="select" value="${ parentGroup.id }"
+				styleClass="select" styleId="parentId" value="${ parentGroup.id }"
 				onchange="showGroup(this.value,document.getElementById('id').value)">
 				<html:option value="">
 					<bean:message key="groups.listParent" />
@@ -51,20 +50,21 @@
 	</tr>
 
 	<tr>
-		<td><label> <bean:message key="groups.owner" /></label></td>
+		<td><label for="socialEntityId"> <bean:message
+					key="groups.owner" /></label></td>
 		<td colspan="3"><html:select property="socialEntityId"
-				styleClass="select" value="${ masterGroup.id }">
+				styleClass="select" styleId="socialEntityId"
+				value="${ masterGroup.id }">
 				<html:option value="" disabled="true">
 					<bean:message key="groups.listMember" />
 				</html:option>
 				<c:forEach var="socialEntity" items="${allMembers}">
 					<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
 				</c:forEach>
-			</html:select></td>
-	</tr>
-
-	<tr class="errorMessage">
-		<td colspan="2"><html:errors property="socialEntityId" /></td>
+			</html:select>
+			<div class="errorMessage">
+				<html:errors property="socialEntityId" />
+			</div></td>
 	</tr>
 
 	<tr>
@@ -195,7 +195,7 @@
 			</html:button></td>
 	</tr>
 	<tr>
-		<td colspan="2"><html:submit styleClass="button"
+		<td colspan="4" align="right"><html:submit styleClass="button"
 				onclick="Valider();">
 				<bean:message key="groups.validate" />
 			</html:submit></td>

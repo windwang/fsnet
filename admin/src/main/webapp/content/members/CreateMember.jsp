@@ -65,17 +65,18 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message
+				<td><label for="typePassword1"> <bean:message
 							key="members.generatePassword" />
 				</label></td>
-				<td><html:radio property="typePassword" styleId="typePassword"
+				<td><html:radio property="typePassword" styleId="typePassword1"
 						value="generatePassword" onclick="definePasword()" /></td>
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="members.definePassword" />
+				<td><label for="typePassword2"> <bean:message
+							key="members.definePassword" />
 				</label></td>
-				<td><html:radio property="typePassword" styleId="typePassword"
+				<td><html:radio property="typePassword" styleId="typePassword2"
 						value="definePassword" onclick="definePasword()" /></td>
 			</tr>
 			<tr>
