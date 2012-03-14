@@ -40,7 +40,6 @@ import fr.univartois.ili.fsnet.tools.PropsUtils;
  */
 public class TalkMembers extends MappingDispatchAction {
 
-	private static List<TalkMessage> talkMessages;
 	private final String xmppServer = PropsUtils.getProperty("xmpp.server"); // "localhost";
 	private final int port = Integer.parseInt(PropsUtils
 			.getProperty("xmpp.server.port"));// 5222;
@@ -48,6 +47,9 @@ public class TalkMembers extends MappingDispatchAction {
 			.getProperty("xmpp.domain"); // "master11";
 	private final String password = PropsUtils.getProperty("xmpp.password");
 
+	private static final String TALK_ATTRIBUTE_NAME = "talk"; 
+	private static final String TALKMESSAGE_ATTRIBUTE_NAME = "talkMessage";
+	
 	/**
 	 * @param request
 	 * @return
@@ -66,8 +68,7 @@ public class TalkMembers extends MappingDispatchAction {
 			map.put("email", email);
 			map.put("name", name);
 			talk.initConnexion(xmppServer, port, name, password, map);
-			request.getSession().setAttribute("talk", talk);
-			talkMessages = new ArrayList<TalkMessage>();
+			request.getSession().setAttribute(TALK_ATTRIBUTE_NAME, talk);
 
 		} catch (TalkException e) {
 
@@ -90,7 +91,7 @@ public class TalkMembers extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		ITalk talk = (ITalk) request.getSession().getAttribute("talk");
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
 
@@ -99,12 +100,12 @@ public class TalkMembers extends MappingDispatchAction {
 		}
 
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
-				.getAttribute("talkMessage");
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute("talkMessage", talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 		}
 
 		List<String> valListner = new ArrayList<String>();
@@ -134,7 +135,7 @@ public class TalkMembers extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		ITalk talk = (ITalk) request.getSession().getAttribute("talk");
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
 
@@ -143,18 +144,18 @@ public class TalkMembers extends MappingDispatchAction {
 		}
 
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
-				.getAttribute("talkMessage");
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute("talkMessage", talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 		}
 
 		Map<String, Boolean> newConversation = talkMessage.getNewConversation();
 		List<TalkJsonMsg> lastConversation = new ArrayList<TalkJsonMsg>();
 		for (Entry<String, Boolean> entry : newConversation.entrySet()) {
 			String key = entry.getKey();
-			if (entry.getValue() == true) {
+			if (entry.getValue()) {
 
 				String msg = talkMessage.getConversation().get(key).toString();
 				String[] tt = key.split("@");
@@ -165,7 +166,7 @@ public class TalkMembers extends MappingDispatchAction {
 			}
 		}
 		talkMessage.setNewConversation(newConversation);
-		request.getSession().setAttribute("talkMessage", talkMessage);
+		request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 
 		JSONArray jsonArray = JSONArray.fromObject(lastConversation);
 
@@ -193,7 +194,7 @@ public class TalkMembers extends MappingDispatchAction {
 	public void send(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		ITalk talk = (ITalk) request.getSession().getAttribute("talk");
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
 
@@ -206,14 +207,14 @@ public class TalkMembers extends MappingDispatchAction {
 		String msg = request.getParameter("msg");
 
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
-				.getAttribute("talkMessage");
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute("talkMessage", talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 		}
 		talkMessage = (TalkMessage) request.getSession().getAttribute(
-				"talkMessage");
+				TALKMESSAGE_ATTRIBUTE_NAME);
 		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
 
 		Chat chat = sessionTalks.get(friend);
@@ -241,13 +242,13 @@ public class TalkMembers extends MappingDispatchAction {
 				dd.append("</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
 						+ msg + "</p></br>");
 				talkMessage.getConversation().put(friend, dd);
-				request.getSession().setAttribute("talkMessage", talkMessage);
+				request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 			} else {
 
 				dd.append("</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
 						+ msg + "</p></br>");
 				talkMessage.getConversation().put(friend, dd);
-				request.getSession().setAttribute("talkMessage", talkMessage);
+				request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 			}
 
 		} catch (TalkException e) {

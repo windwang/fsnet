@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.commons.talk;
 import java.util.Collection;
 import java.util.HashMap;
 
-import org.jivesoftware.smack.Roster;
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.packet.Presence;
 

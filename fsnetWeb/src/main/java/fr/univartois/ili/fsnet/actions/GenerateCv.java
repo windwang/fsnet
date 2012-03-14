@@ -1,19 +1,13 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.ByteArrayOutputStream;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.MalformedURLException;
-import java.nio.channels.FileChannel;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -30,12 +24,8 @@ import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.Image;
 import com.itextpdf.text.List;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
-import com.itextpdf.text.Rectangle;
-import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -49,7 +39,7 @@ import fr.univartois.ili.fsnet.facade.CvFacade;
  *
  */
 public class GenerateCv extends MappingDispatchAction {
-	public static SimpleDateFormat formatter = new SimpleDateFormat(
+	private static SimpleDateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 
 	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
@@ -61,7 +51,7 @@ public class GenerateCv extends MappingDispatchAction {
 	private static Font sectionFont = new Font(Font.FontFamily.HELVETICA, 14,
 			Font.BOLD, BaseColor.WHITE);
 
-	EntityManager em = PersistenceProvider.createEntityManager();
+	private EntityManager em = PersistenceProvider.createEntityManager();
 
 	public static String dateToString(Date date) {
 		return formatter.format(date);

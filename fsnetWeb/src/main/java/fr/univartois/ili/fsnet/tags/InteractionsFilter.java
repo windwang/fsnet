@@ -23,15 +23,6 @@ public class InteractionsFilter extends TagSupport {
 	private SocialElement user;
 	private Right right;
 
-	@Override
-	public int doAfterBody() throws JspException {
-		return super.doAfterBody();
-	}
-
-	@Override
-	public int doEndTag() throws JspException {
-		return super.doEndTag();
-	}
 
 	@Override
 	public int doStartTag() throws JspException {

@@ -74,6 +74,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	private static final String EVENT_RECALL_TIME_FORM_FIELD_NAME = "eventRecallTime";
 	private static final String EVENT_RECALL_TYPE_TIME_FORM_FIELD_NAME = "eventRecallTypeTime";
 	private static final String EVENT_ID_ATTRIBUTE_NAME = "eventId";
+	private static final String ERROR_ON_DATE_MESSAGE = "events.date.error" ;
 
 	public static enum EventProperty {
 		UID, DTSTART, DTEND, DESCRIPTION, SUMMARY, LOCATION,UNKNOWN;
@@ -176,9 +177,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		if (typedEventBeginDate.after(typedEventEndDate)) {
 			ActionErrors errors = new ActionErrors();
 			errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(
-					("events.date.error")));
+					(ERROR_ON_DATE_MESSAGE)));
 			errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(
-					("events.date.error")));
+					(ERROR_ON_DATE_MESSAGE)));
 			saveErrors(request, errors);
 
 			return mapping.getInputForward();
@@ -272,9 +273,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			if (typedEventBeginDate.after(typedEventEndDate)) {
 				ActionErrors errors = new ActionErrors();
 				errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(
-						("events.date.error")));
+						(ERROR_ON_DATE_MESSAGE)));
 				errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(
-						("events.date.error")));
+						(ERROR_ON_DATE_MESSAGE)));
 				saveErrors(request, errors);
 				return mapping.getInputForward();
 			}

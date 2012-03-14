@@ -3,10 +3,8 @@ package fr.univartois.ili.fsnet.facade;
 import java.util.List;
 
 import javax.persistence.EntityManager;
-import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.Curriculum;
-import fr.univartois.ili.fsnet.entities.Meeting;
 
 
 /**

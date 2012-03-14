@@ -34,6 +34,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			.getName());
 
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String UNABLE_TO_PARSE_ID_ERROR = "Unable to parse the contact id as an integer";
 
 	/**
 	 * Submit a request contact to another social entity
@@ -71,7 +72,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.getTransaction().commit();
 		} catch (NumberFormatException nfe) {
 			LOGGER.log(Level.WARNING,
-					"Unable to parse the contact id as an integer", nfe);
+					UNABLE_TO_PARSE_ID_ERROR, nfe);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -110,7 +111,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
 			LOGGER.log(Level.WARNING,
-					"Unable to parse the contact id as an integer", e);
+					UNABLE_TO_PARSE_ID_ERROR, e);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -148,7 +149,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
 			LOGGER.log(Level.WARNING,
-					"Unable to parse the contact id as an integer", e);
+					UNABLE_TO_PARSE_ID_ERROR, e);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -216,7 +217,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
 			LOGGER.log(Level.WARNING,
-					"Unable to parse the contact id as an integer", e);
+					UNABLE_TO_PARSE_ID_ERROR, e);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -306,7 +307,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
 			LOGGER.log(Level.WARNING,
-					"Unable to parse the contact id as an integer", e);
+					UNABLE_TO_PARSE_ID_ERROR, e);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();

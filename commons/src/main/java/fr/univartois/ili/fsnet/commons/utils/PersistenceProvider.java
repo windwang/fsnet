@@ -14,7 +14,7 @@ import org.eclipse.persistence.config.PersistenceUnitProperties;
  * @author FSNet
  * 
  */
-public class PersistenceProvider {
+public final class PersistenceProvider {
 
 	private static Map<String, Object> lOptions = new HashMap<String, Object>();
 	static {

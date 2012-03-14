@@ -85,32 +85,32 @@ public class ConsultationResultsTag extends TagSupport {
 	}
 	
 	public void init(){
-		ConsultationChoice choice;
+		ConsultationChoice tmpChoice;
 		Iterator<ConsultationVote> votes;
 		ConsultationVote vote;
 		Iterator<ConsultationChoiceVote> voteChoices;
 		ConsultationChoiceVote voteChoice;
-		Iterator<ConsultationChoice> choices = consultation.getChoices().iterator();
+		Iterator<ConsultationChoice> copyChoices = consultation.getChoices().iterator();
 		nb = new ArrayList<Double>();
 		this.choices = new ArrayList<String>();
-		while (choices.hasNext()){
-			choices.next();
+		while (copyChoices.hasNext()){
+			copyChoices.next();
 			nb.add(0.0);
 		}
-		choices = consultation.getChoices().iterator();
+		copyChoices = consultation.getChoices().iterator();
 		total = 0;
 		max = 0;
 		int i=0;
-		while (choices.hasNext()){
-			choice = choices.next();
-			this.choices.add(choice.getIntituled());
+		while (copyChoices.hasNext()){
+			tmpChoice = copyChoices.next();
+			this.choices.add(tmpChoice.getIntituled());
 			votes = consultation.getConsultationVotes().iterator();
 			while (votes.hasNext()){
 				vote = votes.next();
 				voteChoices = vote.getChoices().iterator();
 				while (voteChoices.hasNext()){
 					voteChoice = voteChoices.next();
-					if (choice.getId() == voteChoice.getChoice().getId()){
+					if (tmpChoice.getId() == voteChoice.getChoice().getId()){
 						if (voteChoice.isIfNecessary()){
 							nb.set(i, nb.get(i)+consultation.getIfNecessaryWeight());
 							total+=consultation.getIfNecessaryWeight();

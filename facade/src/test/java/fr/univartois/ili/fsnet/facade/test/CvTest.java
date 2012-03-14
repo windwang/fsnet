@@ -1,7 +1,5 @@
 package fr.univartois.ili.fsnet.facade.test;
 
-import java.util.List;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -9,7 +7,6 @@ import javax.persistence.Persistence;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.facade.CvFacade;
 
 public class CvTest {
