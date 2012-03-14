@@ -10,7 +10,7 @@
 		<bean:message key="pageTitle.0" />
 	</legend>
 	
-	<table class="fieldsetTableAdmin">
+	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
 			<td><bean:message key="welcome.welcome" /> <br />
 			<br /> <bean:message key="welcome.message1" /> <br />

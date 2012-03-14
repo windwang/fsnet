@@ -20,7 +20,7 @@
 	</legend>
 
 	<html:form action="SearchMember">
-		<table class="fieldsetTableAdmin">
+		<table class="inLineTable fieldsetTableAdmin">
 			<tr>
 				<td><html:text property="searchText" styleId="searchTexte" />
 					<ili:placeHolder id="searchTexte" value="${searchMember}" /> <html:submit
@@ -36,22 +36,9 @@
 	<legend class="legendAdmin">
 		<bean:message key="members.listMembers" />
 	</legend>
-	
+
 	<c:choose>
 		<c:when test="${not empty requestScope.membersList}">
-			<script type="text/javascript">
-				$(document).ready(
-						function pagination() {
-							var nomTable = "memberTable";
-							var idColonneATrier = 0;
-							var sensDeTri = "asc";
-							var aoColumns = [ null, null, {
-								"bSortable" : false
-							} ];
-							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
-						});
-			</script>
 			<table id="memberTable"
 				class="inLineTable fieldsetTableAdmin tablesorter">
 				<thead>
@@ -125,3 +112,18 @@
 		</div>
 	</div>
 </c:if>
+
+<script type="text/javascript">
+	$(document).ready(
+			function pagination() {
+				var nomTable = "memberTable";
+				var idColonneATrier = 0;
+				var sensDeTri = "asc";
+				var aoColumns = [ null, null, {
+					"bSortable" : false
+				} ];
+				miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+						aoColumns, false);
+			});
+</script>
+

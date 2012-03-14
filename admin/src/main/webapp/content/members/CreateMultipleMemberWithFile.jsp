@@ -10,7 +10,7 @@
 	</legend>
 
 	<html:form action="/CreateMultipleMemberFile">
-		<table class="fieldsetTableAdmin">
+		<table class="inLineTable fieldsetTableAdmin">
 			<tr>
 				<td colspan="2"><bean:message
 						key="members.createMultipleFileFormat" /></td>

@@ -44,18 +44,11 @@
 
 .inLineTable {
 	width: 100%;
-	/*border-collapse:collapse;*/
 }
 
 .inLineTable tr {
 	background-color: #F0FFF0;
 	border: 5px solid #FEFFFE;
-}
-
-#body-content h3 { /*text-align: left;*/
-	/*border-bottom: 1px solid #505050;*/
-	font-size: 130%;
-	margin: 25px 0 20px 0;
 }
 
 .inLineTable td,th {
@@ -64,12 +57,16 @@
 	padding-right: 5px;
 	padding-top: 5px;
 	padding-bottom: 5px;
-	/*border: 20px solid transparent;
-    border-spacing: 20px;*/
 }
 
 .inLineTable .tableButton {
 	text-align: right;
+}
+
+#body-content h3 { /*text-align: left;*/
+	/*border-bottom: 1px solid #505050;*/
+	font-size: 130%;
+	margin: 25px 0 20px 0;
 }
 
 #menu {
@@ -205,10 +202,6 @@ input[type=text],input[type=password],textarea {
 
 #EventList .gap {
 	height: 15px;
-}
-
-#DisplayEvent,#DisplayAnnounce {
-	width: 100%
 }
 
 #ModifyProfile {
@@ -376,8 +369,7 @@ input[type="text"][class="error"],textarea[class="error"] {
 }
 
 .fieldsetTableAdmin {
-	width: 100%;
-	margin-top: 27px;
+	margin-top: 15px;
 	background-color: #F0FFF0;
 }
 

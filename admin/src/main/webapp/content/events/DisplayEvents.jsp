@@ -17,7 +17,7 @@
 	</legend>
 
 	<html:form action="/Events" method="get">
-		<table class="fieldsetTableAdmin">
+		<table class="inLineTable fieldsetTableAdmin">
 			<tr>
 				<td><html:text property="searchString" styleId="searchTexte" />
 					<ili:placeHolder id="searchTexte" value="${searchEvent}" /> <html:submit
@@ -36,7 +36,7 @@
 
 	<c:choose>
 		<c:when test="${empty requestScope.eventsList}">
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><bean:message key="events.noResults" /></td>
 				</tr>
@@ -58,10 +58,10 @@
 				<tbody>
 					<c:forEach var="event" items="${requestScope.eventsList}">
 						<tr>
-							<th><html:link action="/DisplayEvent">
+							<td><html:link action="/DisplayEvent">
 		                    ${event.title}
 		                    <html:param name="eventId" value="${event.id}" />
-								</html:link></th>
+								</html:link></td>
 							<td class="left"><bean:write name="event"
 									property="startDate" format="dd/MM/yyyy" /></td>
 							<td></td>

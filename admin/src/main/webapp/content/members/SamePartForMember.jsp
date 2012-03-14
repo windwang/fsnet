@@ -29,7 +29,7 @@
 </tr>
 
 <tr>
-	<td colspan="2" align="right"><html:submit styleClass="button">
+	<td colspan="2" class="tableButton"><html:submit styleClass="button">
 			<bean:message key="members.validate" />
 		</html:submit></td>
 </tr>

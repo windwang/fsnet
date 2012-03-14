@@ -15,7 +15,7 @@
 	</legend>
 	
 	<html:form action="/Announces" method="get">
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><html:text property="textSearchAnnounce"
 							styleId="textSearchAnnounce" /> <ili:placeHolder

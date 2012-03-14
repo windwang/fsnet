@@ -7,7 +7,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
 <logic:present name="interestSearchPaginator" scope="request">
-	<table class="inLineTable"><tr><td>
+	<table class="inLineTable fieldsetTableAdmin"><tr><td>
 	  <c:choose>
 	    <c:when test="${not empty requestScope.interestSearchPaginator.resultList}">
             <c:forEach var="interest" items="${requestScope.interestSearchPaginator.resultList}">

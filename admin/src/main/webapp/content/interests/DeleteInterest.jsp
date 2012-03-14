@@ -14,7 +14,7 @@
 		<html:javascript formName="/DeleteInterest" />
 
 		<html:form action="/DeleteInterest">
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><html:select property="deletedInterestId"
 							styleClass="select">
@@ -29,7 +29,7 @@
 				</tr>
 
 				<tr>
-					<td align="right"><html:submit styleClass="button">
+					<td class="tableButton"><html:submit styleClass="button">
 							<bean:message key="interests.button.delete" />
 						</html:submit></td>
 				</tr>

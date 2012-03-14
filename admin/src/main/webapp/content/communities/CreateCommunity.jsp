@@ -9,7 +9,7 @@
 		<bean:message key="communities.title.create" />
 	</legend>
 
-	<table id="CreateCommunity" class="fieldsetTableAdmin">
+	<table id="CreateCommunity" class="inLineTable fieldsetTableAdmin">
 		<html:form action="/CreateCommunity">
 			<tr>
 				<td><label for="name"> <bean:message
@@ -39,7 +39,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="communities.button.create" />
 					</html:submit></td>
 			</tr>

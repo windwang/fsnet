@@ -20,24 +20,20 @@
 	<legend class="legendAdmin">
 		<bean:message key="interests.title.search" />
 	</legend>
-	
+
 	<html:javascript formName="/SearchInterest" />
-	
+
 	<html:form action="/SearchInterest">
 		<table class="inLineTable fieldsetTableAdmin">
 			<tr>
-				<td>
+				<td><html:text property="searchInterestName"
+						styleId="searchTexte" /> <ili:placeHolder id="searchTexte"
+						value="${searchInterest}" /> <html:submit styleClass="button">
+						<bean:message key="interests.button.search" />
+					</html:submit>
 					<div class="errorMessage">
 						<html:errors property="searchInterestName" />
-					</div>
-					<p>
-						<html:text property="searchInterestName" styleId="searchTexte" />
-						<ili:placeHolder id="searchTexte" value="${searchInterest}" />
-						<html:submit styleClass="button">
-							<bean:message key="interests.button.search" />
-						</html:submit>
-					</p>
-				</td>
+					</div></td>
 			</tr>
 		</table>
 	</html:form>

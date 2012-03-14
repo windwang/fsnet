@@ -16,7 +16,7 @@
 	</legend>
 
 	<html:form action="/CreateMember">
-		<table id="CreateMember" class="fieldsetTableAdmin">
+		<table id="CreateMember" class="inLineTable fieldsetTableAdmin">
 			<tr>
 				<td><label for="name"> <bean:message key="members.name" />
 				</label></td>

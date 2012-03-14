@@ -13,7 +13,7 @@
 	</legend>
 
 	<div class="interactionDisplay">
-		<table class="fieldsetTableAdmin">
+		<table class="inLineTable fieldsetTableAdmin">
 			<tr class="authorDate">
 				<td><bean:message key="announce.createdBy" /> <html:link
 						action="/DisplayMember">
@@ -35,7 +35,7 @@
 			</tr>
 
 			<tr>
-				<td class="alignRight"><logic:present name="owner">
+				<td class="tableButton"><logic:present name="owner">
 						<bean:define id="idAnnounce" name="announce" property="id" />
 						<html:link action="/DeleteAnnounce" paramId="idAnnounce"
 							paramName="idAnnounce" styleClass="button">

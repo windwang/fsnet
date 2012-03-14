@@ -18,7 +18,7 @@
 		<bean:message key="communities.title.search" />
 	</legend>
 
-	<table class="fieldsetTableAdmin">
+	<table class="inLineTable fieldsetTableAdmin">
 		<html:form action="SearchCommunity">
 			<tr>
 				<td><html:text property="searchText" styleId="searchTexte" />

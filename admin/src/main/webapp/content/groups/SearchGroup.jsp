@@ -22,7 +22,7 @@
 
 	<html:form action="SearchGroup">
 		<div id="SearchGroup">
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><html:text property="searchText" styleId="searchTexte" />
 						<ili:placeHolder id="searchTexte" value="${searchGroup}" /> <html:submit
