@@ -13,7 +13,7 @@
 	<html:javascript formName="/CreateInterest" />
 
 	<html:form action="/CreateInterest">
-		<table class="fieldsetTableAdmin">
+		<table class="inLineTable fieldsetTableAdmin">
 			<tr>
 				<td colspan="2"><bean:message key="interests.from.multiple" /></td>
 			</tr>
@@ -41,7 +41,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="interests.button.create" />
 					</html:submit></td>
 			</tr>

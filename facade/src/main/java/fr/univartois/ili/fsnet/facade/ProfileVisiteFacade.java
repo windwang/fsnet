@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.facade;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;

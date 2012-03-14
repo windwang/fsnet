@@ -16,7 +16,7 @@
 	</legend>
 
 	<html:form action="/SaveMailConfiguration">
-		<table id="ConfigureMail" class="fieldsetTableAdmin">
+		<table id="ConfigureMail" class="inLineTable fieldsetTableAdmin">
 			<tr>
 				<td><label for="SMTPHost"> <bean:message
 							key="configure.form.serverSmtp" />
@@ -144,7 +144,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -158,7 +158,7 @@
 	</legend>
 
 	<html:form action="/SendTestMail">
-		<table id="SendTestMail" class="fieldsetTableAdmin">
+		<table id="SendTestMail" class="inLineTable fieldsetTableAdmin">
 			<tr>
 				<td><label for="Recipient"> <bean:message
 							key="configure.form.testMail" />
@@ -173,7 +173,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -187,7 +187,7 @@
 	</legend>
 
 	<html:form action="/SaveFacebookId">
-		<table id="saveFacebookId" class="fieldsetTableAdmin">
+		<table id="saveFacebookId" class="inLineTable fieldsetTableAdmin">
 			<tr>
 				<td><label for="KeyFacebook"> <bean:message
 							key="configure.form.facebookKey" />
@@ -202,7 +202,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -215,7 +215,7 @@
 		<bean:message key="configure.title.updateDBMail" />
 	</legend>
 
-	<table class="fieldsetTableAdmin">
+	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data" action="/UpdateDB">
 					<div>
@@ -233,7 +233,7 @@
 		<bean:message key="configure.title.updateDBDateType" />
 	</legend>
 
-	<table class="fieldsetTableAdmin">
+	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data"
 					action="/UpdateDateType">
@@ -252,7 +252,7 @@
 		<bean:message key="configure.title.addDBRecallDateColumn" />
 	</legend>
 
-	<table class="fieldsetTableAdmin">
+	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data"
 					action="/AddRecalTimeColumnInMeeting">
@@ -271,7 +271,7 @@
 		<bean:message key="configure.title.dropDBCVTables" />
 	</legend>
 
-	<table class="fieldsetTableAdmin">
+	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data"
 					action="/DropCVTables">

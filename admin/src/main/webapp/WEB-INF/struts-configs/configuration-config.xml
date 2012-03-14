@@ -6,91 +6,79 @@
 <struts-config>
 	<form-beans>
 		<form-bean name="MailConfigurationForm"
-					type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="SMTPHost" type="java.lang.String"/>
-			<form-property name="SMTPPort" type="java.lang.String"/>
-			<form-property name="SMTPUsername" type="java.lang.String"/>
-			<form-property name="SMTPPassword" type="java.lang.String"/>
-			<form-property name="MailFrom" type="java.lang.String"/>
-			<form-property name="enableAuthentication" type="java.lang.String"/>
-			<form-property name="enableTLS" type="java.lang.String"/>
-			<form-property name="enableSSL" type="java.lang.String"/>
-			<form-property name="FSNetWebURL" type="java.lang.String"/>
-			<form-property name="Recipient" type="java.lang.String"/>
-			<form-property name="PicturesDirectory" type="java.lang.String"/>
-			<form-property name="KeyFacebook" type="java.lang.String"/>
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="SMTPHost" type="java.lang.String" />
+			<form-property name="SMTPPort" type="java.lang.String" />
+			<form-property name="SMTPUsername" type="java.lang.String" />
+			<form-property name="SMTPPassword" type="java.lang.String" />
+			<form-property name="MailFrom" type="java.lang.String" />
+			<form-property name="enableAuthentication" type="java.lang.String" />
+			<form-property name="enableTLS" type="java.lang.String" />
+			<form-property name="enableSSL" type="java.lang.String" />
+			<form-property name="FSNetWebURL" type="java.lang.String" />
+			<form-property name="PicturesDirectory" type="java.lang.String" />
 		</form-bean>
-		<form-bean name="UpdateDBForm" type="org.apache.struts.validator.DynaValidatorActionForm"/>
+		<form-bean name="UpdateDBForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm" />
+
+		<form-bean name="SendTestMailForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="Recipient" type="java.lang.String" />
+		</form-bean>
+
+		<form-bean name="SaveFacebookIdForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+			<form-property name="KeyFacebook" type="java.lang.String" />
+		</form-bean>
 	</form-beans>
 	<action-mappings>
-   		<action path="/SendTestMail"
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				input="/EditConfiguration.do"
-				parameter="sendTestMail"
-				name="MailConfigurationForm"
-				validate="true"
-				scope="request">
-			<forward name="success" path="/EditConfiguration.do"/>
+		<action path="/SendTestMail"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet" input="/EditConfiguration.do"
+			parameter="sendTestMail" name="SendTestMailForm" validate="true"
+			scope="request">
+			<forward name="success" path="/EditConfiguration.do" />
 		</action>
-		<action path="/SaveFacebookId"
-				name="MailConfigurationForm"		
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				input="/EditConfiguration.do"
-				parameter="saveFacebookId"
-				validate="true"
-				scope="request">
-			<forward name="success" path="/EditConfiguration.do"/>
+
+		<action path="/SaveFacebookId" name="SaveFacebookIdForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet" input="/EditConfiguration.do"
+			parameter="saveFacebookId" validate="true" scope="request">
+			<forward name="success" path="/EditConfiguration.do" />
 		</action>
-		<action path="/SaveMailConfiguration"
-				name="MailConfigurationForm"		
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				input="Configure"
-				parameter="saveMailConfiguration"
-				validate="true"
-				scope="request">
-			<forward name="success" path="/EditConfiguration.do"/>
+
+		<action path="/SaveMailConfiguration" name="MailConfigurationForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet" input="Configure"
+			parameter="saveMailConfiguration" validate="true" scope="request">
+			<forward name="success" path="/EditConfiguration.do" />
 		</action>
-		<action path="/EditConfiguration"
-				name="MailConfigurationForm"
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				parameter="editMailConfiguration"
-				validate="false"
-				scope="request">
-			<forward name="success" path="Configure"/>
+
+		<action path="/EditConfiguration" name="MailConfigurationForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+			parameter="editMailConfiguration" validate="false" scope="request">
+			<forward name="success" path="Configure" />
 		</action>
-		
-	   <action path="/UpdateDB"
-				name="UpdateDBForm"
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				parameter="updateDB"
-				validate="false"
-				scope="request">
-				<forward name="success" path="/EditConfiguration.do"></forward>
-	   	</action>
-	   	
-	   	<action path="/UpdateDateType"
-				name="UpdateDBForm"
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				parameter="updateDateType"
-				validate="false"
-				scope="request">
-				<forward name="success" path="/EditConfiguration.do"></forward>
-	   	</action>
-	   		   	<action path="/DropCVTables"
-				name="UpdateDBForm"
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				parameter="dropCVTables"
-				validate="false"
-				scope="request">
-				<forward name="success" path="/EditConfiguration.do"></forward>
-	   	</action>
-	   		   	<action path="/AddRecalTimeColumnInMeeting"
-				name="UpdateDBForm"
-				type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-				parameter="addRecalTimeColumnInMeeting"
-				validate="false"
-				scope="request">
-				<forward name="success" path="/EditConfiguration.do"></forward>
-	   	</action>
+
+		<action path="/UpdateDB" name="UpdateDBForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+			parameter="updateDB" validate="false" scope="request">
+			<forward name="success" path="/EditConfiguration.do"></forward>
+		</action>
+
+		<action path="/UpdateDateType" name="UpdateDBForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+			parameter="updateDateType" validate="false" scope="request">
+			<forward name="success" path="/EditConfiguration.do"></forward>
+		</action>
+
+		<action path="/DropCVTables" name="UpdateDBForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+			parameter="dropCVTables" validate="false" scope="request">
+			<forward name="success" path="/EditConfiguration.do"></forward>
+		</action>
+
+		<action path="/AddRecalTimeColumnInMeeting" name="UpdateDBForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+			parameter="addRecalTimeColumnInMeeting" validate="false" scope="request">
+			<forward name="success" path="/EditConfiguration.do"></forward>
+		</action>
 	</action-mappings>
 </struts-config>

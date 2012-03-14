@@ -11,7 +11,7 @@
 	<c:when test="${not empty requestScope.interest}">
 		<h2>
 			${requestScope.interest.name}
-			<c:choose>
+			<!--<c:choose>
 				<c:when test="${requestScope.own}">
 					<html:link action="/DeleteInterestFromInterestInformations">
 						<html:param name="removedInterestId"
@@ -26,7 +26,7 @@
 							value="${requestScope.interest.id}" />
 					</html:link>
 				</c:otherwise>
-			</c:choose>
+			</c:choose>-->
 		</h2>
 
 		<fieldset class="fieldsetAdmin">
@@ -34,7 +34,7 @@
 				<bean:message key="interests.title.parent" />
 			</legend>
 
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.interest.parentInterest}">
@@ -65,7 +65,7 @@
 				<bean:message key="interests.title.chidren" />
 			</legend>
 
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>
 							<c:when
@@ -97,7 +97,7 @@
 			<legend class="legendAdmin">
 				<bean:message key="interests.title.entitySocial" />
 			</legend>
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.interest.entities}">
@@ -124,7 +124,7 @@
 			<legend class="legendAdmin">
 				<bean:message key="pageTitle.15" />
 			</legend>
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Community}">
@@ -154,7 +154,7 @@
 			<legend class="legendAdmin">
 				<bean:message key="pageTitle.4" />
 			</legend>
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Hub}">
@@ -184,7 +184,7 @@
 			<legend class="legendAdmin">
 				<bean:message key="pageTitle.6" />
 			</legend>
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Topic}">
@@ -214,7 +214,7 @@
 			<legend class="legendAdmin">
 				<bean:message key="pageTitle.1" />
 			</legend>
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Meeting}">
@@ -244,7 +244,7 @@
 			<legend class="legendAdmin">
 				<bean:message key="pageTitle.8" />
 			</legend>
-			<table class="fieldsetTableAdmin">
+			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Announcement}">

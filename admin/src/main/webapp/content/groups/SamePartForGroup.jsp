@@ -11,7 +11,7 @@
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 
-<table id="CreateGroup" class="fieldsetTableAdmin">
+<table id="CreateGroup" class="inLineTable fieldsetTableAdmin">
 	<tr>
 		<td><label for="name"> <bean:message key="groups.name" /></label></td>
 		<td colspan="3"><html:text property="name" styleId="name"
@@ -195,7 +195,7 @@
 			</html:button></td>
 	</tr>
 	<tr>
-		<td colspan="4" align="right"><html:submit styleClass="button"
+		<td colspan="4" class="tableButton"><html:submit styleClass="button"
 				onclick="Valider();">
 				<bean:message key="groups.validate" />
 			</html:submit></td>

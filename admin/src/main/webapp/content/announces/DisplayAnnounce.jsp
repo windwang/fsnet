@@ -12,37 +12,33 @@
 		<bean:write name="announce" property="title" />
 	</legend>
 
-	<div class="interactionDisplay">
-		<table class="fieldsetTableAdmin">
-			<tr class="authorDate">
-				<td><bean:message key="announce.createdBy" /> <html:link
-						action="/DisplayMember">
-						<html:param name="idMember" value="${announce.creator.id}" />
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr class="authorDate">
+			<td><bean:message key="announce.createdBy" /> <html:link
+					action="/DisplayMember">
+					<html:param name="idMember" value="${announce.creator.id}" />
 	                    	${announce.creator.firstName} ${announce.creator.name}
 	              </html:link>, <bean:message key="announce.expiryDate" /> <bean:write
-						name="announce" property="endDate" format="dd/MM/yyyy" /></td>
-			</tr>
+					name="announce" property="endDate" format="dd/MM/yyyy" /></td>
+		</tr>
 
-			<tr>
-				<td>${announce.content}</td>
-			</tr>
+		<tr>
+			<td>${announce.content}</td>
+		</tr>
 
-			<tr>
-				<td colspan="2"><html:messages id="message" />
-					<div class="errorMessage">
-						<html:errors />
-					</div></td>
-			</tr>
+		<tr>
+			<td colspan="2" class="errorMessage"><html:messages id="message" />
+				<html:errors /></td>
+		</tr>
 
-			<tr>
-				<td class="alignRight"><logic:present name="owner">
-						<bean:define id="idAnnounce" name="announce" property="id" />
-						<html:link action="/DeleteAnnounce" paramId="idAnnounce"
-							paramName="idAnnounce" styleClass="button">
-							<bean:message key="announce.button.delete" />
-						</html:link>
-					</logic:present></td>
-			</tr>
-		</table>
-	</div>
+		<tr>
+			<td class="tableButton"><logic:present name="owner">
+					<bean:define id="idAnnounce" name="announce" property="id" />
+					<html:link action="/DeleteAnnounce" paramId="idAnnounce"
+						paramName="idAnnounce" styleClass="button">
+						<bean:message key="announce.button.delete" />
+					</html:link>
+				</logic:present></td>
+		</tr>
+	</table>
 </fieldset>

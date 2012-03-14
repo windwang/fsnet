@@ -280,10 +280,11 @@ public class ManageConsultations extends MappingDispatchAction {
 					int nbVotes = 0;
 					for (ConsultationVote cv : consultation
 							.getConsultationVotes()) {
-						for (ConsultationChoiceVote ccv : cv.getChoices())
+						for (ConsultationChoiceVote ccv : cv.getChoices()){
 							if (ccv.getChoice().equals(choice)) {
 								nbVotes++;
 							}
+						}
 					}
 					if (nbVotes > choice.getMaxVoters()) {
 						return displayAConsultation(mapping, dynaForm, request,

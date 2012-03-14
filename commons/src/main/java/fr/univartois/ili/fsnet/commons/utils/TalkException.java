@@ -11,6 +11,11 @@ public class TalkException extends Exception {
 	/**
 	 * 
 	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * 
+	 */
 	public TalkException() {
 	}
 

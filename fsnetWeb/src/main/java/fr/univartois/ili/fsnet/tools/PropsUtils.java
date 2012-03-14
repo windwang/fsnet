@@ -1,8 +1,5 @@
 package fr.univartois.ili.fsnet.tools;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
@@ -16,6 +13,8 @@ import java.util.Properties;
 
 public class PropsUtils {
 
+	private PropsUtils(){}
+	
 	private static Properties fsnetProperties = new Properties();;
 	static {
 		try {

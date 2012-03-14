@@ -1,11 +1,6 @@
 package fr.univartois.ili.fsnet.mobile.services.client;
 
-import junit.framework.Assert;
-
 import org.junit.Test;
-
-import fr.univartois.ili.fsnet.mobile.services.model.RestMessagesList;
-import fr.univartois.ili.fsnet.mobile.services.model.RestPrivateMessage;
 
 public class MessagesTest {
 

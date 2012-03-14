@@ -22,7 +22,7 @@
 		<bean:message key="members.title.choice" />
 	</legend>
 
-	<table id="chooseCreateMembers" class="fieldsetTableAdmin">
+	<table id="chooseCreateMembers" class="inLineTable fieldsetTableAdmin">
 
 		<tr>
 			<td><input type="radio" name="chooseSimpleOrMultiple"

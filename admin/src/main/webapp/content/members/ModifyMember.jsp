@@ -15,7 +15,7 @@
 	</legend>
 
 	<html:form action="/ModifyMember">
-		<table id="ModifyMember" class="fieldsetTableAdmin">
+		<table id="ModifyMember" class="inLineTable fieldsetTableAdmin">
 			<tr class="errorMessage">
 				<td colspan="2"><html:errors /></td>
 
@@ -116,7 +116,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="members.modifyUpdate" />
 					</html:submit></td>
 			</tr>
@@ -129,7 +129,7 @@
 		<bean:message key="members.herInterests" />
 	</legend>
 
-	<table class="fieldsetTableAdmin">
+	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
 			<td><c:choose>
 					<c:when

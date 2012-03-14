@@ -10,7 +10,7 @@
 			<bean:message key="commmunities.title.modify" />
 		</legend>
 
-		<table class="fieldsetTableAdmin">
+		<table class="inLineTable fieldsetTableAdmin">
 			<html:form action="/ModifyCommunity">
 				<tr>
 					<td><label for="oldCommunityName"><bean:message
@@ -39,7 +39,7 @@
 				</tr>
 
 				<tr>
-					<td colspan="2" align="right"><html:submit styleClass="button">
+					<td colspan="2" class="tableButton"><html:submit styleClass="button">
 							<bean:message key="communities.button.modify" />
 						</html:submit></td>
 				</tr>
