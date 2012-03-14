@@ -9,13 +9,13 @@
 
 <ul>
 	<li><html:link action="/Members">
-		<bean:message key="left.2" />
+		<bean:message key="leftMenu.button.createMember" />
 	</html:link></li>
 
 
 
 	<li><html:link action="/Groups">
-		<bean:message key="left.4" />
+		<bean:message key="leftMenu.button.createGroup" />
 	</html:link></li>
 
 

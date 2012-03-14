@@ -1,36 +1,46 @@
-<%-- 
-    Document   : Members
-    Author     : Audrey Ruellan and Cerelia Besnainou
-    modified by : Alexandre Thery
---%>
-
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean"  prefix="bean"%>
-<%@ taglib uri="http://struts.apache.org/tags-html"  prefix="html"%>
+
+<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
 <style type="text/css">
-  #divChooseSimpleMember {
-		display: block;
-    }
-  #divChooseMultipleMember {
-		display: none;
-    }
-  #divChooseMultipleFileMember {
-		display: none;
-    }
-  </style>
+#divChooseSimpleMember {
+	display: block;
+}
 
-<input type="radio" name="chooseSimpleOrMultiple" checked="checked" id="simpleMember" value="simpleChoose" onchange="changeSimpleOrMultiple()"/>
-<label for="simpleMember"> 
-	<bean:message key="members.simpleMember" />  
-</label>
-<br/>
-<input type="radio" name="chooseSimpleOrMultiple" id="multipleMember" value="multipleChoose" onchange="changeSimpleOrMultiple()"/>
+#divChooseMultipleMember {
+	display: none;
+}
 
-<label for="multipleMember"> 
-	<bean:message key="members.multipleMember" />  
-</label>
-<br/>
+#divChooseMultipleFileMember {
+	display: none;
+}
+</style>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message key="members.title.choice" />
+	</legend>
+
+	<table id="chooseCreateMembers" class="fieldsetTableAdmin">
+
+		<tr>
+			<td><input type="radio" name="chooseSimpleOrMultiple"
+				checked="checked" id="simpleMember" value="simpleChoose"
+				onchange="changeSimpleOrMultiple()" /> <label for="simpleMember">
+					<bean:message key="members.simpleMember" />
+			</label></td>
+		</tr>
+
+		<tr>
+			<td><input type="radio" name="chooseSimpleOrMultiple"
+				id="multipleMember" value="multipleChoose"
+				onchange="changeSimpleOrMultiple()" /> <label for="multipleMember">
+					<bean:message key="members.multipleMember" />
+			</label></td>
+		</tr>
+	</table>
+</fieldset>
 
 <!--<input type="radio" name="chooseSimpleOrMultiple" id="multipleMemberFile" value="multipleFileChoose" onchange="changeSimpleOrMultiple()"/>-->
 <!--<label for="multipleMemberFile"> -->
@@ -38,34 +48,33 @@
 <!--</label>-->
 
 <div id="divChooseSimpleMember">
-<jsp:include page="/content/members/CreateMember.jsp"/>
+	<%@ include file="CreateMember.jsp"%>
 </div>
+
 <div id="divChooseMultipleMember">
-<jsp:include page="/content/members/CreateMultipleMember.jsp"/>
+	<%@ include file="CreateMultipleMember.jsp"%>
 </div>
+
 <div id="divChooseMultipleFileMember">
-<jsp:include page="/content/members/CreateMultipleMemberWithFile.jsp"/>
+	<%@ include file="CreateMultipleMemberWithFile.jsp"%>
 </div>
+
 <script type="text/javascript">
-	function changeSimpleOrMultiple()
-	{
-		if(document.getElementsByName("chooseSimpleOrMultiple")[0].checked)
-		{
-			document.getElementById("divChooseSimpleMember").style.display='block';
-			document.getElementById("divChooseMultipleMember").style.display='none';
-			document.getElementById("divChooseMultipleFileMember").style.display='none';
+	function changeSimpleOrMultiple() {
+		if (document.getElementsByName("chooseSimpleOrMultiple")[0].checked) {
+			document.getElementById("divChooseSimpleMember").style.display = 'block';
+			document.getElementById("divChooseMultipleMember").style.display = 'none';
+			document.getElementById("divChooseMultipleFileMember").style.display = 'none';
 		}
-		if(document.getElementsByName("chooseSimpleOrMultiple")[1].checked)
-		{
-			document.getElementById("divChooseMultipleMember").style.display='block';
-			document.getElementById("divChooseSimpleMember").style.display='none';
-			document.getElementById("divChooseMultipleFileMember").style.display='none';
+		if (document.getElementsByName("chooseSimpleOrMultiple")[1].checked) {
+			document.getElementById("divChooseMultipleMember").style.display = 'block';
+			document.getElementById("divChooseSimpleMember").style.display = 'none';
+			document.getElementById("divChooseMultipleFileMember").style.display = 'none';
 		}
-		if(document.getElementsByName("chooseSimpleOrMultiple")[2].checked)
-		{
-			document.getElementById("divChooseMultipleFileMember").style.display='block';
-			document.getElementById("divChooseSimpleMember").style.display='none';
-			document.getElementById("divChooseMultipleMember").style.display='none';
+		if (document.getElementsByName("chooseSimpleOrMultiple")[2].checked) {
+			document.getElementById("divChooseMultipleFileMember").style.display = 'block';
+			document.getElementById("divChooseSimpleMember").style.display = 'none';
+			document.getElementById("divChooseMultipleMember").style.display = 'none';
 		}
 	}
 </script>

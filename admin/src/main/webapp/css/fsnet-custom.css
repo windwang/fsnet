@@ -172,10 +172,6 @@ input[type=text],input[type=password],textarea {
 	margin-left: 190px;
 }
 
-#SearchEvent .button,#SearchAnnounce .button {
-	margin-left: 15px;
-}
-
 #SearchHub {
 	margin-left: 190px;
 }

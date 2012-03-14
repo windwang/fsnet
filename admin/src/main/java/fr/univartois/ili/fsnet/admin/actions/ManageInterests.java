@@ -93,7 +93,7 @@ CrudAction {
 
 		} catch (RollbackException ex) {
 			ActionErrors actionErrors = new ActionErrors();
-			ActionMessage msg = new ActionMessage("interest.alreadyExists");
+			ActionMessage msg = new ActionMessage("interests.alreadyExists");
 			actionErrors.add("createdInterestName", msg);
 			saveErrors(request, actionErrors);
 		}
@@ -139,7 +139,7 @@ CrudAction {
 											.get(PARENT_INTEREST_FORM_FIELD_NAME))));
 					}else{
 						ActionErrors actionErrors = new ActionErrors();
-						ActionMessage msg = new ActionMessage("interest.invalideParent");
+						ActionMessage msg = new ActionMessage("interests.invalideParent");
 						actionErrors.add(MODIFIED_INTEREST_FORM_FIELD_NAME, msg);
 						saveErrors(request, actionErrors);
 						em.close();
@@ -151,12 +151,12 @@ CrudAction {
 				em.getTransaction().commit();
 			} catch (DatabaseException ex) {
 				ActionErrors actionErrors = new ActionErrors();
-				ActionMessage msg = new ActionMessage("interest.alreadyExists");
+				ActionMessage msg = new ActionMessage("interests.alreadyExists");
 				actionErrors.add("modifiedInterestName", msg);
 				saveErrors(request, actionErrors);
 			} catch (RollbackException exc){
 				ActionErrors actionErrors = new ActionErrors();
-				ActionMessage msg = new ActionMessage("interest.alreadyExists");
+				ActionMessage msg = new ActionMessage("interests.alreadyExists");
 				actionErrors.add(MODIFIED_INTEREST_FORM_FIELD_NAME, msg);
 				saveErrors(request, actionErrors);
 			}

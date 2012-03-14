@@ -7,44 +7,60 @@
 
 <c:if test="${not empty requestScope.allInterests}">
 	<fieldset class="fieldsetAdmin">
-      <legend class="legendAdmin"><bean:message key="interests.5" /></legend>
-	
-	  <html:javascript formName="/ModifyInterest"/>
-	  <div id="modify">
-	  <html:form action="/ModifyInterest">
-		<table class="fieldsetTableAdmin"><tr><td>
-		<div class="errorMessage"><html:errors property="modifiedInterestId" /></div>
-		<div>
-		<bean:message key="error.interest.create"/>
-		<html:select property="modifiedInterestId" styleClass="select" onchange="updateParentInterest()">
-			<html:option value="">
-				<bean:message key="interests.1" />
-			</html:option>
-			<c:forEach var="interest" items="${requestScope.allInterests}">
-				<html:option value="${interest.id}">${interest.name}</html:option>
-			</c:forEach>
-		</html:select>
-		<bean:message key="interests.15"/>
-		
-		<html:select property="parentInterestId" styleClass="select">
-			<html:option value="">
-				<bean:message key="interests.8"/>
-			</html:option>
-			<c:forEach var="interest" items="${requestScope.allInterests}">
-				<html:option value="${interest.id}">${interest.name}</html:option>
-			</c:forEach>
-		</html:select><br/>
-		
-		<div class="errorMessage"><html:errors property="modifiedInterestName" /></div>
-		<bean:message key="error.interest.name.modified"/>
-		<html:text property="modifiedInterestName" />
-		<html:hidden property="allInterestsId" value="${ allInterestsId }"/>
-		<html:submit styleClass="button" >
-      		<bean:message key="interest.validate"/>
-      	</html:submit>
-      	</div>
-      	</td></tr></table>
-	</html:form>
-	</div>
+		<legend class="legendAdmin">
+			<bean:message key="interests.title.modify" />
+		</legend>
+
+		<html:javascript formName="/ModifyInterest" />
+		<div id="modify">
+			<html:form action="/ModifyInterest">
+				<table class="fieldsetTableAdmin">
+					<tr>
+						<td><label for="modifiedInterestId"><bean:message
+									key="interests.form.oldName" /></label></td>
+						<td><html:select property="modifiedInterestId"
+								styleClass="select" styleId="modifiedInterestId" onchange="updateParentInterest()">
+								<html:option value="" />
+								<c:forEach var="interest" items="${requestScope.allInterests}">
+									<html:option value="${interest.id}">${interest.name}</html:option>
+								</c:forEach>
+							</html:select>
+							<div class="errorMessage">
+								<html:errors property="modifiedInterestId" />
+							</div></td>
+					</tr>
+
+					<tr>
+						<td><label for="parentInterestId2"><bean:message
+									key="interests.form.parent" /></label></td>
+						<td><html:select property="parentInterestId"
+								styleClass="select" styleId="parentInterestId2">
+								<html:option value="" />
+								<c:forEach var="interest" items="${requestScope.allInterests}">
+									<html:option value="${interest.id}">${interest.name}</html:option>
+								</c:forEach>
+							</html:select></td>
+					</tr>
+
+					<tr>
+						<td><label for="modifiedInterestName"><bean:message
+									key="interests.form.newName" /></label></td>
+						<td><html:text property="modifiedInterestName" styleId="modifiedInterestName"/>
+							<div class="errorMessage">
+								<html:errors property="modifiedInterestName" />
+							</div></td>
+					</tr>
+
+					<tr>
+						<td colspan="2" align="right"><html:hidden
+								property="allInterestsId" value="${ allInterestsId }" /> <html:submit
+								styleClass="button">
+								<bean:message key="interests.button.modify" />
+							</html:submit></td>
+						<td></td>
+					</tr>
+				</table>
+			</html:form>
+		</div>
 	</fieldset>
 </c:if>

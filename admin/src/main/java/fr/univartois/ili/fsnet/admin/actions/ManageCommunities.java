@@ -40,8 +40,8 @@ public class ManageCommunities extends MappingDispatchAction implements
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
-	private static final String MODIFIED_COMMUNITY_FORM_FIELD_NAME = "modifiedCommunityName";
-
+	private static final String COMMUNITY_OLD_NAME_FORM_FIELD_NAME = "oldCommunityName";
+	private static final String COMMUNITY_NEW_NAME_FORM_FIELD_NAME = "newCommunityName";
 
 	/*
 	 * (non-Javadoc)
@@ -161,8 +161,8 @@ public class ManageCommunities extends MappingDispatchAction implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		String newCommunityName = (String) dynaForm
-				.get(MODIFIED_COMMUNITY_FORM_FIELD_NAME);
-		String communityName = (String) dynaForm.get("modifierCommunityName");
+				.get(COMMUNITY_OLD_NAME_FORM_FIELD_NAME);
+		String communityName = (String) dynaForm.get(COMMUNITY_NEW_NAME_FORM_FIELD_NAME);
 		CommunityFacade facade = new CommunityFacade(em);
 		boolean doesNotExist = false;
 		Community community = facade.getCommunityByName(communityName);
@@ -184,21 +184,21 @@ public class ManageCommunities extends MappingDispatchAction implements
 					ActionErrors actionErrors = new ActionErrors();
 					ActionMessage msg = new ActionMessage(
 							"communities.alreadyExists");
-					actionErrors.add(MODIFIED_COMMUNITY_FORM_FIELD_NAME, msg);
+					actionErrors.add(COMMUNITY_OLD_NAME_FORM_FIELD_NAME, msg);
 					saveErrors(request, actionErrors);
 				}
 			} else {
 				ActionErrors actionErrors = new ActionErrors();
 				ActionMessage msg = new ActionMessage(
 						"communities.alreadyExists");
-				actionErrors.add(MODIFIED_COMMUNITY_FORM_FIELD_NAME, msg);
+				actionErrors.add(COMMUNITY_OLD_NAME_FORM_FIELD_NAME, msg);
 				saveErrors(request, actionErrors);
 			}
 			em.close();
 		}
 
-		dynaForm.set("modifierCommunityName", "");
-		dynaForm.set(MODIFIED_COMMUNITY_FORM_FIELD_NAME, "");
+		dynaForm.set(COMMUNITY_NEW_NAME_FORM_FIELD_NAME, "");
+		dynaForm.set(COMMUNITY_OLD_NAME_FORM_FIELD_NAME, "");
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");

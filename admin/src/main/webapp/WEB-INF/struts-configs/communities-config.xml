@@ -16,8 +16,8 @@
 		</form-bean>
 		<form-bean name="ModifyCommunity"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="modifierCommunityName" type="java.lang.String" />
-			<form-property name="modifiedCommunityName" type="java.lang.String" />
+			<form-property name="oldCommunityName" type="java.lang.String" />
+			<form-property name="newCommunityName" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
 	<global-forwards>

@@ -5,33 +5,33 @@
 	<formset>
 		<form name="/SendTestMail">
 			<field property="Recipient" depends="required,email">
-				<arg key="configure.12" name="required" />
-				<arg key="configure.13" name="email" />
+				<arg key="configure.error.mail" name="required" />
+				<arg key="configure.error.mail2" name="email" />
 			</field>
 		</form>
 		<form name="/SaveMailConfiguration">
 			<field property="MailFrom" depends="required,email">
-				<arg key="configure.20" name="required" />
+				<arg key="configure.form.mailAdmin" name="required" />
 			</field>
 			<field property="SMTPPort" depends="required,integer">
-				<arg0 key="configure.19" />
+				<arg0 key="configure.form.portSmtp" />
 			</field>
 			<field property="SMTPUsername" depends="validwhen">
-				<arg0 key="configure.18" />
+				<arg0 key="configure.form.mailLogin" />
 				<var>
 					<var-name>test</var-name>
 					<var-value>((enableAuthentication == null) or (*this* != null))</var-value>
 				</var>
 			</field>
 			<field property="SMTPPassword" depends="validwhen">
-				<arg0 key="configure.17" />
+				<arg0 key="configure.form.mailPassword" />
 				<var>
 					<var-name>test</var-name>
 					<var-value>((enableAuthentication == null) or (*this* != null))</var-value>
 				</var>
 			</field>
 			<field property="PicturesDirectory" depends="required">
-				<msg name="required" key="configure.21" />
+				<msg name="required" key="configure.error.imgFolder" />
 			</field>
 		</form>
 		<form name="/SaveFacebookId">

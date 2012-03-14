@@ -1,4 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
@@ -7,52 +8,36 @@
 <!-- <script type="text/javascript" src="js/jquery.js"></script>-->
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
+
 <bean:define id="searchCommunitie">
-	<bean:message key="communitie.search" />
+	<bean:message key="communities.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="communities.search" />
+		<bean:message key="communities.title.search" />
 	</legend>
-	<html:form action="SearchCommunity">
-		<div>
-			<table class="inLineTable  fieldsetTableAdmin">
-				<tr>
-					<td>
-					    <html:text property="searchText" styleId="searchTexte" /> 
-					    <ili:placeHolder id="searchTexte" value="${searchCommunitie}" />
-					    <html:submit styleClass="button">
-							<bean:message key="communities.searchButton" />
-						</html:submit></td>
-				</tr>
-			</table>
-		</div>
-	</html:form>
+
+	<table class="fieldsetTableAdmin">
+		<html:form action="SearchCommunity">
+			<tr>
+				<td><html:text property="searchText" styleId="searchTexte" />
+					<ili:placeHolder id="searchTexte" value="${searchCommunitie}" /> <html:submit
+						styleClass="button">
+						<bean:message key="communities.button.search" />
+					</html:submit></td>
+			</tr>
+		</html:form>
+	</table>
 </fieldset>
-<br />
+
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="communities.listCommunities" />
+		<bean:message key="communities.title.listCommunities" />
 	</legend>
 
 	<c:choose>
 		<c:when test="${not empty requestScope.communitiesList}">
-			<script type="text/javascript">
-			$(document).ready(
-					function pagination() {
-						var nomTable = "communitiesTable";
-						var idColonneATrier = 0;
-						var sensDeTri = "asc";
-						var aoColumns = [ null,{
-							"bSortable" : false
-						}, null, null,{
-							"bSortable" : false
-						}];
-						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
-					});
-		</script>
 			<table id="communitiesTable"
 				class="tablesorter inLineTable fieldsetTableAdmin">
 				<thead>
@@ -79,7 +64,7 @@
 	                </html:link></td>
 							<td class="tableButton"><a class="button"
 								onclick="confirmDelete('DeleteCommunity.do?communityId='+${community.id})">
-									<bean:message key="communities.delete" />
+									<bean:message key="communities.button.delete" />
 							</a></td>
 						</tr>
 					</c:forEach>
@@ -95,6 +80,7 @@
 		</c:otherwise>
 	</c:choose>
 </fieldset>
+
 <c:if test="${!empty success}">
 	<script type="text/javascript">
 		jQuery(function () { popup(); });
@@ -112,3 +98,20 @@
 		</div>
 	</div>
 </c:if>
+
+<script type="text/javascript">
+	$(document).ready(
+		function pagination() {
+			var nomTable = "communitiesTable";
+			var idColonneATrier = 0;
+			var sensDeTri = "asc";
+			var aoColumns = [ null,{
+				"bSortable" : false
+			}, null, null,{
+				"bSortable" : false
+			}];
+			miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+					aoColumns, false);
+		});
+</script>
+

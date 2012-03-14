@@ -1,32 +1,33 @@
-<%--
- Author : SAID Mohamed
- Author : BOURAGBA Mohamed
- --%>
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <!-- <script type="text/javascript" src="js/jquery.js"></script>-->
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
-<%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+
 <bean:define id="searchGroup">
-	<bean:message key="group.search" />
+	<bean:message key="groups.placeholder.search" />
 </bean:define>
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="groups.search" />
+		<bean:message key="groups.title.search" />
 	</legend>
+
 	<html:form action="SearchGroup">
 		<div id="SearchGroup">
 			<table class="fieldsetTableAdmin">
 				<tr>
-					<td><html:text property="searchText" styleId="searchTexte" /> 
-					<ili:placeHolder id="searchTexte" value="${searchGroup}" />
-					<html:submit styleClass="button">
-							<bean:message key="groups.searchButton" />
+					<td><html:text property="searchText" styleId="searchTexte" />
+						<ili:placeHolder id="searchTexte" value="${searchGroup}" /> <html:submit
+							styleClass="button">
+							<bean:message key="groups.button.search" />
 						</html:submit></td>
 				</tr>
 			</table>
@@ -36,25 +37,11 @@
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="groups.listGroups" />
+		<bean:message key="groups.title.listGroups" />
 	</legend>
 
 	<c:choose>
-		<c:when
-			test="${not empty requestScope.groupsList}">
-			<script type="text/javascript">
-				$(document).ready(
-						function pagination() {
-							var nomTable = "groupTable";
-							var idColonneATrier = 0;
-							var sensDeTri = "asc";
-							var aoColumns = [ null, {
-								"bSortable" : false
-							} ];
-							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
-						});
-			</script>
+		<c:when test="${not empty requestScope.groupsList}">
 			<table id="groupTable"
 				class="inLineTable fieldsetTableAdmin tablesorter">
 				<thead>
@@ -64,8 +51,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="group"
-						items="${requestScope.groupsList}">
+					<c:forEach var="group" items="${requestScope.groupsList}">
 						<tr class="content">
 							<td><html:link action="/DisplayGroup">${group.name} 
                 		<html:param name="idGroup" value="${group.id}" />
@@ -96,6 +82,7 @@
 		</c:otherwise>
 	</c:choose>
 </fieldset>
+
 <c:if test="${!empty success}">
 	<script type="text/javascript">
 		jQuery(function() {
@@ -115,3 +102,18 @@
 		</div>
 	</div>
 </c:if>
+
+<script type="text/javascript">
+	$(document).ready(
+			function pagination() {
+				var nomTable = "groupTable";
+				var idColonneATrier = 0;
+				var sensDeTri = "asc";
+				var aoColumns = [ null, {
+					"bSortable" : false
+				} ];
+				miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
+						aoColumns, false);
+			});
+</script>
+

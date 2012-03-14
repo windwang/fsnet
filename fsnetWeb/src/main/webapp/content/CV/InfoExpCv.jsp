@@ -14,7 +14,7 @@
 				</legend>
 			</div>
 			<div id="experiences">
-				<ul class="listeExperience fieldsetTableAdmin">
+				<ul class="listeExperience fieldsetTable">
 				</ul>
 			</div>
 
@@ -100,7 +100,7 @@
 				</legend>
 			</div>
 			<div id="diplome">
-				<ul class="listeDiplome fieldsetTableAdmin">
+				<ul class="listeDiplome fieldsetTable">
 				</ul>
 			</div>
 
@@ -184,7 +184,7 @@
 				</legend>
 			</div>
 			<div id="formation">
-				<ul class="listeFormation fieldsetTableAdmin">
+				<ul class="listeFormation fieldsetTable">
 				</ul>
 			</div>
 
@@ -253,7 +253,7 @@
 			</div>
 
 			<div id="loisir">
-				<ul class="listeLoisir fieldsetTableAdmin">
+				<ul class="listeLoisir fieldsetTable">
 				</ul>
 			</div>
 
@@ -290,7 +290,7 @@
 			</div>
 
 			<div id="Langue">
-				<ul class="listeLangues fieldsetTableAdmin">
+				<ul class="listeLangues fieldsetTable">
 				</ul>
 			</div>
 
