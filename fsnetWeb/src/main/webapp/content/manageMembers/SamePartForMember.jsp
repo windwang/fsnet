@@ -1,11 +1,12 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <tr>
 	<td colspan="2"><label for="message"> <bean:message
-				key="members.message" /> :
+				key="members.message" />
 	</label></td>
 </tr>
 
@@ -29,7 +30,7 @@
 </tr>
 
 <tr>
-	<td colspan="2"><html:submit styleClass="button">
+	<td colspan="2" style="tableButton"><html:submit styleClass="button">
 			<bean:message key="members.validate" />
 		</html:submit></td>
 </tr>

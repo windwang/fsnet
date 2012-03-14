@@ -14,7 +14,7 @@
 	</legend>
 
 	<table id="UpdateEvent"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="iinLineTable fieldsetTableAppli">
 		<html:form action="/UpdateEvent">
 			<tr>
 				<td><label for="eventName"> <bean:message
@@ -122,7 +122,7 @@
 			</tr>
 			
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="events.button.update" />
 					</html:submit></td>
 			</tr>

@@ -15,7 +15,7 @@
 		<bean:message key="announce.title.modify" />
 	</legend>
 	<table id="ModifyAnnounce"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/ModifyAnnounce">
 			<html:hidden property="idAnnounce" />
 			
@@ -49,7 +49,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="announce.button.modify" />
 					</html:submit></td>
 			</tr>

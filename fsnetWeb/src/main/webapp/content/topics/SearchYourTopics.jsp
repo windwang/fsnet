@@ -14,7 +14,7 @@
 	<legend class="legendHome">
 		<bean:message key="hubs.title.search" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 
 		<tr>
 			<td><html:form action="/SearchYourTopics" method="get">
@@ -39,7 +39,7 @@
 		${hubResult.title} -
 		<bean:message key="topics.title.myTopics" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<logic:empty name="topicsLastMessage">
 			<bean:message key="topics.noTopics" />
 		</logic:empty>

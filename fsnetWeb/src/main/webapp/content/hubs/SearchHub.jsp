@@ -13,7 +13,7 @@
 	</legend>
 
 	<table id="SearchHub"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/SearchHub" method="GET">
 			<tr>
 				<td><html:hidden property="communityId"

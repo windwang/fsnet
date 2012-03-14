@@ -17,7 +17,7 @@
 	</legend>
 
 	<div class="interactionDisplay">
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr class="authorDate">
 				<td><bean:message key="announce.createdBy" /> <ili:getSocialEntityInfos
 						socialEntity="${announce.creator}" />, <bean:message

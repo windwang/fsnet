@@ -13,7 +13,7 @@
 		<bean:message key="showProfile.title"
 			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td>
 				<table class="watchedProfile">
@@ -108,7 +108,7 @@
 		<bean:message key="showInterest.title"
 			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td><logic:empty name="watchedProfile" property="interests">
 					<bean:message key="Profile.noInterests" />.
@@ -143,7 +143,7 @@
 	<c:choose>
 		<c:when test="${empty requestScope.interactions}">
 
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="Profile.noInteractions" />.</td>
 				</tr>
@@ -168,7 +168,7 @@
 			</script>
 
 			<table id="tableinteractions"
-				class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+				class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th></th>
@@ -239,7 +239,7 @@
 	<legend class="legendHome">
 		<bean:message key="showProfile.contacts.title" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td><logic:empty name="watchedProfile" property="contacts">
 					<c:choose>
@@ -267,7 +267,7 @@
 	<legend class="legendHome">
 		<bean:message key="showProfile.groups.tree" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td>
 				<ul>

@@ -17,7 +17,7 @@
 	</legend>
 
 	<div class="interactionDisplay">
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr class="authorDate">
 				<td><bean:message key="events.createdBy" /> <ili:getSocialEntityInfos
 						socialEntity="${event.creator}" /> , <bean:message
@@ -83,7 +83,7 @@
 			<bean:message key="events.title.participate" />
 		</legend>
 
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><logic:iterate id="subscriber" collection="${subscribers}">
 						<span class="tagSE"> <ili:getMiniature

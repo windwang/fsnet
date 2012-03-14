@@ -14,7 +14,7 @@
 		<legend class="legendHome">
 			<bean:message key="contact.title.allEmpty" />
 		</legend>
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><bean:message key="contact.title.empty" /></td>
 			</tr>
@@ -43,7 +43,7 @@
 		</script>
 
 		<table id="tableAsked"
-			class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+			class="tablesorter inLineTable fieldsetTableAppli">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.member" /></th>
@@ -101,7 +101,7 @@
 		</script>
 
 		<table id="tableContacts"
-			class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+			class="tablesorter inLineTable fieldsetTableAppli">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.member" /></th>
@@ -154,7 +154,7 @@
 			<bean:message key="contact.title.do" />
 		</legend>
 		<table id="tableRequested"
-			class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+			class="tablesorter inLineTable fieldsetTableAppli">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.member" /></th>

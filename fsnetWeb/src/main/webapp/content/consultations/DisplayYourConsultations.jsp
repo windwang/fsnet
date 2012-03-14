@@ -28,7 +28,7 @@
 	});
   </script>
 			<table id="yourConsults"
-				class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+				class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th width="5%"></th>
@@ -65,7 +65,7 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="consultations.noResult" />.</td>
 				</tr>

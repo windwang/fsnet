@@ -58,7 +58,7 @@
 	<action-mappings>
 		<action path="/CreateCv1" type="fr.univartois.ili.fsnet.actions.ManageCV"
 			input="/CreateCv1.do" scope="request" name="CVForm" validate="true"
-			parameter="Cree">
+			parameter="cree">
 			<forward name="success" path="InfoProfileCv" />
 		</action>
 		<action path="/CreateCv2" type="fr.univartois.ili.fsnet.actions.ManageCV"

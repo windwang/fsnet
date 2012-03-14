@@ -17,7 +17,7 @@
 	<legend class="legendHome">
 		<bean:message key="privatemessages.sendM" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreatePrivateMessage">
 
 			<tr>

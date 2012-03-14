@@ -12,7 +12,7 @@
 			<bean:message key="hubs.title.modify" />
 		</legend>
 
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<html:form action="/ModifyYourHub" method="POST">
 				<html:hidden property="communityId" value="${param.communityId}" />
 				<tr>
@@ -40,7 +40,7 @@
 				</tr>
 
 				<tr>
-					<td colspan="2" align="right"><html:submit styleClass="button">
+					<td colspan="2" class="tableButton"><html:submit styleClass="button">
 							<bean:message key="hubs.button.modify" />
 						</html:submit></td>
 				</tr>

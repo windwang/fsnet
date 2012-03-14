@@ -13,7 +13,7 @@
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.outBoxMessages}">
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="privatemessages.nomessages" />
 					</td>
@@ -61,7 +61,7 @@
 
 			<html:form action="/DeleteMultiSentMessages">
 				<table id="tableoutbox"
-					class="tablesorter inLineTableDashBoardFieldset">
+					class="tablesorter inLineTable fieldsetTableAppli">
 					<thead>
 						<tr>
 							<th class="thMessage"><input type="checkbox" name="selected"

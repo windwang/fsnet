@@ -8,7 +8,7 @@
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib uri="../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
-	<bean:message key="loggedUsers.title" />
+	<bean:message key="leftMenu.title.loggedUsers" />
 </h2>
 
 <div id="loggedUsers">

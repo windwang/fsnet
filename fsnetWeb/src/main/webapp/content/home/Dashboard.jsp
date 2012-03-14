@@ -13,7 +13,7 @@
 		</html:link>
 	</legend>
 	<table id="dashboardMessages"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<logic:empty name="messages">
 			<tr>
 				<td><bean:message key="dashBoard.messages.empty" />.</td>
@@ -70,7 +70,7 @@
 		</html:link>
 	</legend>
 	<table id="lastVisits"
-		class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
+		class="inLineTable fieldsetTableAppli homeFrame">
 		<logic:empty name="visitors">
 			<tr>
 				<td><bean:message key="dashBoard.visites.empty" />.</td>
@@ -100,7 +100,7 @@
 				<bean:message key="dashBoard.contacts.ask" />
 			</legend>
 			<table id="contactsAsked"
-				class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
+				class="inLineTable fieldsetTableAppli homeFrame">
 				<c:forEach var="contact" items="${contactsAsked}">
 					<tr class="notReed">
 						<td class="miniatureContainer"><ili:getMiniature
@@ -125,7 +125,7 @@
 				<bean:message key="dashBoard.contacts.proposals" />
 			</legend>
 			<table id="contactProposals"
-				class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
+				class="inLineTable fieldsetTableAppli homeFrame">
 				<logic:empty name="contacts">
 					<tr>
 						<td><bean:message key="dashBoard.contacts.empty" />.</td>
@@ -158,7 +158,7 @@
 		</html:link>
 	</legend>
 	<table id="interestProposals"
-		class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
+		class="inLineTable fieldsetTableAppli homeFrame">
 		<logic:empty name="interests">
 			<tr>
 				<td><bean:message key="dashBoard.interests.empty" />.</td>
@@ -193,7 +193,7 @@
 		</html:link>
 	</legend>
 	<table id="lastInteractions"
-		class="inLineTableDashBoardFieldset homeFrame fieldsetTable">
+		class="inLineTable fieldsetTableAppli homeFrame">
 		<logic:empty name="lastInteractions">
 			<tr>
 				<td><bean:message key="dashBoard.interaction.empty" />.</td>

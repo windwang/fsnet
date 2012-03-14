@@ -129,24 +129,6 @@
 }
 
 
-.inLineTable td,th {
-    text-align: left;
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 5px;
-    padding-bottom:5px;
-    /*border: 20px solid transparent;
-    border-spacing: 20px;*/
-}
-
-.inLineTable .tableButton {
-    text-align: right;
-}
-
-.tableButton{
-    text-align: right;
-}
-
 #menu {
     float:left;
 }
@@ -374,45 +356,9 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 	background-color : white;
 }
 
-.fieldsetCV {
-    width: 80%;
-    border: 1px solid #FFF;
-    border-radius: 5px ;
-    box-shadow: 3px 3px 12px #000;
-    margin: 34px 10px 10px 10px;
-    padding: 1px;
-	background-color : white;
-}
-
-.fieldsetAdmin {
-    float: left;
-    border: 1px solid #FFF;
-    border-radius: 5px ;
-    box-shadow: 3px 3px 12px #000;
-    margin: 26px 10px 10px 10px;
-    padding: 8px;
-    background-color : white;
-    width: 100%;
-}
-
-.legendAdmin {
-    text-align: left;
-    background-color: white;
-    background: -webkit-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
-    background: -moz-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
-    border-radius: 5px;
-    box-shadow: 1px 2px 9px #000;
-    padding-right: 1em;
-    padding-left: 1em;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    position: absolute;
-    margin: -22px 0px 0px 30px;
-}
-
 .fieldsetTableAdmin{
 	width: 100%;
-    margin-top: 27px;
+    margin-top: 15px;
     background-color : #E8F5FD;
 }
 
@@ -428,14 +374,24 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 }
 
 .inLineTable {
-    width: 100%;
-    border-spacing : 0px 3px;
-    /*margin-bottom: 10px;*/
-    padding: 5px;
-    border-radius: 15px;
-    border: 1px solid gray;
-    
-    box-shadow: 1px 2px 9px #000;
+	width: 100%;
+}
+
+.inLineTable tr{
+    background-color: #E8F5FD;
+    border: 5px solid #F7FCFF;
+}
+
+.inLineTable td,th {
+	text-align: left;
+	padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+.inLineTable .tableButton {
+	text-align: right;
 }
 
 .inLinefieldset {
@@ -452,27 +408,15 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     border: 1px solid gray;
 }
 
-
-
-.inLineTable tr{
-    background-color: #E8F5FD;
-    border: 5px solid #F7FCFF;
-}
-
-
 #dashboardMessages {
 	float: left;
-    width: 100%;
 }
 
-#dashboardMessages table {
-    width: 100%;
-}
 #dashboardMessages td {
     vertical-align: middle;
 }
 
-.inLineTableDashBoard .messagePhoto {
+.inLineTable .messagePhoto {
     width: 30px;
     padding: 2px 5px 0 5px;
 }
@@ -511,12 +455,12 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
     padding-top: 5px;
     padding-bottom: 5px;
     position: absolute;
-    margin: -12px 0px 0px 30px;
+    margin: -22px 0px 0px 30px;
 }
 
-.fieldsetTable{
-    margin-top: 27px;
-    padding-top: 2px;
+.fieldsetTableAppli{
+    margin-top: 15px;
+    background-color: #E8F5FD;
 }
 
 .space{
@@ -527,54 +471,10 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 	color : #AF1515;
 }
 
-.fieldsetTableAdmin li {
-  border-bottom: dotted 1px;
-}
-
-.inLineTableDashBoardFieldset {
-    border-spacing : 0px 3px;
-    padding: 5px;
-    background: white;
-    border-image: initial;
-    width: 100%;
-}
-
-.inLineTableDashBoardFieldset tr{
-    background-color: #E8F5FD;
-    border: 5px solid #F7FCFF;
-}
-
 .homeFrame caption {
     text-align: left;
     font-size: 120%;
     line-height: 30px;
-}
-
-.inLineTableDashBoard {
-    border-spacing : 0px 3px;
-    /*margin-bottom: 15px;*/
-    padding: 5px;
-    background: white;
-    border-image: initial;
-}
-
-.inLineTablePersonalInformation {
-    width: 85%;
-    border-spacing : 0px 3px;
-    /*margin-bottom: 10px;*/
-    padding: 5px;
-    background: white;
-    border-image: initial;
-}
-
-.inLineTableDashBoard tr{
-    background-color: #E8F5FD;
-    border: 5px solid #F7FCFF;
-}
-
-.inLineTablePersonalInformation tr{
-    background-color: #E8F5FD;
-    border: 5px solid #F7FCFF;
 }
 
 tr.notReed {
@@ -714,25 +614,12 @@ tr.notReed {
     margin-right: 10px;
 }
 
-.interactionDisplay table {
-	width:100%;
-}
-
 .interactionDisplay img {
     max-width: 100%;
 }
 
 #logo2 {
     text-align: center;
-}
-
-.largeInteractionInfo{
-    width: 100%;
-    float: left;
-    text-align: left;
-    background-color: #ecf8ff;
-    border: 2px solid #bcd3e0;
-    padding: 3px;
 }
 
 #mapCanvas {

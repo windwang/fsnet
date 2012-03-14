@@ -11,7 +11,7 @@
 		<legend class="legendHome">
 			<bean:message key="interests.title.create" />
 		</legend>
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><c:choose>
 						<c:when
@@ -44,5 +44,6 @@
 					<c:import url="/content/pagination/Pagination.jsp" /></td>
 			</tr>
 		</table>
+	</fieldset>
 </logic:present>
-</fieldset>
+

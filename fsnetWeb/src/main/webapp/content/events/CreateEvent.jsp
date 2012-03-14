@@ -13,7 +13,7 @@
 		<bean:message key="events.title.create" />
 	</legend>
 	<table id="CreateEvent"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateEvent">
 			<tr>
 				<td><label for="eventName"> <bean:message
@@ -28,7 +28,8 @@
 					</logic:messagesPresent></td>
 			</tr>
 			<tr>
-				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
+				<td></td>
+				<td><c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
 			
 			<tr>
@@ -122,7 +123,7 @@
 			</tr>
 			
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="events.button.create" />
 					</html:submit></td>
 			</tr>

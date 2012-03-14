@@ -15,7 +15,7 @@
 		<bean:message key="communities.title.searchYourCommunities" />
 	</legend>
 	<table id="SearchCommunity"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="SearchYourCommunities" method="GET">
 			<tr>
 				<td><html:text property="searchYourText" styleId="searchTexte" />

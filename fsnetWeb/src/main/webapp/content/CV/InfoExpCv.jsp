@@ -19,7 +19,7 @@
 			</div>
 
 			<div class="corp_experience">
-				<table class="inLineTableDashBoardFieldset fieldsetTable">
+				<table class="inLineTable fieldsetTableAppli">
 
 					<tr>
 						<td><label for="cvExpJob">*<bean:message
@@ -79,7 +79,7 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" align="right"><a><span class="annuleExp"><bean:message
+						<td colspan="2" class="tableButton"><a><span class="annuleExp"><bean:message
 										key="cv.button.cancel" /></span></a> | <a><span class="SaveExp"><bean:message
 										key="cv.button.save" /></span></a></td>
 					</tr>
@@ -105,7 +105,7 @@
 			</div>
 
 			<div class="corp_diplome">
-				<table class="inLineTableDashBoardFieldset fieldsetTable">
+				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvDegreeName">*<bean:message
 									key="cv.form.degree.level" /></label></td>
@@ -165,7 +165,7 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" align="right"><a><span class="annuleDip"><bean:message
+						<td colspan="2" class="tableButton"><a><span class="annuleDip"><bean:message
 										key="cv.button.cancel" /></span></a> | <a><span class="SaveDip"><bean:message
 										key="cv.button.save" /> </span></a></td>
 					</tr>
@@ -189,7 +189,7 @@
 			</div>
 
 			<div class="corp_formation">
-				<table class="inLineTableDashBoardFieldset fieldsetTable">
+				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvTrainingName">*<bean:message
 									key="cv.form.training.name" /></label></td>
@@ -233,7 +233,7 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" align="right"><a><span class="annuleForm"><bean:message
+						<td colspan="2" class="tableButton"><a><span class="annuleForm"><bean:message
 										key="cv.button.cancel" /></span></a> | <a><span class="SaveForm"><bean:message
 										key="cv.button.save" /> </span></a></td>
 					</tr>
@@ -258,7 +258,7 @@
 			</div>
 
 			<div class="corp_loisir">
-				<table class="inLineTableDashBoardFieldset fieldsetTable">
+				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvHobbyName">*<bean:message
 									key="cv.form.hobby.name" /></label></td>
@@ -269,7 +269,7 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" align="right"><a><span
+						<td colspan="2" class="tableButton"><a><span
 								class="annuleLoisir"><bean:message key="cv.button.cancel" /></span></a>
 							| <a><span class="SaveLoisir"><bean:message
 										key="cv.button.save" /> </span></a></td>
@@ -295,7 +295,7 @@
 			</div>
 
 			<div class="corp_langue">
-				<table class="inLineTableDashBoardFieldset fieldsetTable">
+				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvLangName">*<bean:message
 									key="cv.form.lang.name" /></label></td>
@@ -324,7 +324,7 @@
 						</select></td>
 					</tr>
 					<tr>
-						<td colspan="2" align="right"><a><span
+						<td colspan="2" class="tableButton"><a><span
 								class="annuleLangue"><bean:message key="cv.button.cancel" /></span></a>
 							| <a><span class="SaveLangue"><bean:message
 										key="cv.button.save" /></span></a></td>

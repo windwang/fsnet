@@ -13,7 +13,7 @@
 		<bean:message key="communities.title.search" />
 	</legend>
 	<table id="SearchCommunity"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="SearchCommunity" method="GET">
 			<tr>
 				<td><html:text property="searchText" styleId="searchTexte" />
@@ -52,7 +52,7 @@
 						});
 			</script>
 			<table id="seachCommTables"
-				class="tablesorter inLineTableDashBoardFieldset">
+				class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th width="10%"></th>
@@ -109,7 +109,7 @@
 
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="communities.noResult" /></td>
 				</tr>

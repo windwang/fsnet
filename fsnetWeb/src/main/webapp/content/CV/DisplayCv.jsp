@@ -12,7 +12,7 @@
 	</legend>
 
 	<table id="eventsTable"
-		class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+		class="tablesorter inLineTable fieldsetTableAppli">
 		<thead>
 			<tr>
 				<th></th>

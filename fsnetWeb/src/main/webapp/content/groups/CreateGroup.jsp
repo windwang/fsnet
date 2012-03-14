@@ -5,14 +5,14 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<fieldset class="fieldsetAdmin">
-	<legend class="legendAdmin">
+<fieldset class="fieldsetAppli">
+	<legend class="legendHome">
 		<bean:message key="groups.create" />
 	</legend>
 
 	<html:form action="/CreateGroup" onsubmit="Valider()">
 		<table id="CreateGroup"
-			class="inLineTableDashBoardFieldset fieldsetTable">
+			class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><label for="name"> <bean:message key="groups.name" />
 				</label></td>
@@ -162,7 +162,7 @@
 			</tr>
 			
 			<tr>
-				<td colspan="4" align="right"><html:submit styleClass="button"
+				<td colspan="4" class="tableButton"><html:submit styleClass="button"
 						onclick="CreateGroup();">
 						<bean:message key="groups.validate" />
 					</html:submit></td>

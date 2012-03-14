@@ -8,15 +8,13 @@
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
-
-
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
 		<bean:message key="topics.title.create" />
 	</legend>
 
 	<table id="CreateTopic"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateTopic">
 
 			<html:hidden property="hubId" value="${param.hubId}" />
@@ -35,7 +33,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
+				<td></td>
+				<td><c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
 
 			<tr>
@@ -51,7 +50,7 @@
 					</div></td>
 			</tr>
 			<tr>
-				<td colspan="2" align="right"><html:submit
+				<td colspan="2" class="tableButton"><html:submit
 						styleClass="button alignRight">
 						<bean:message key="topics.button.create" />
 					</html:submit></td>

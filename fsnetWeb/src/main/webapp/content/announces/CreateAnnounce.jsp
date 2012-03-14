@@ -15,7 +15,7 @@
 	</legend>
 
 	<table id="CreateAnnounce"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateAnnounce">
 			<tr>
 				<td><label for="announceTitle"><bean:message
@@ -48,7 +48,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="announce.button.create" />
 					</html:submit></td>
 			</tr>

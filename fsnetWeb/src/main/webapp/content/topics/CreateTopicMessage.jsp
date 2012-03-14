@@ -14,7 +14,7 @@
 		<bean:message key="topics.title.createMessage" />
 	</legend>
 
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateTopicMessage">
 			<tr>
 				<td><html:hidden property="topicId" value="${topicId}" /> <bean:message
