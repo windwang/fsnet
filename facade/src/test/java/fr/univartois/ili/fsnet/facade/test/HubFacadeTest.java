@@ -3,8 +3,6 @@ package fr.univartois.ili.fsnet.facade.test;
 import static org.junit.Assert.assertEquals;
 
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;

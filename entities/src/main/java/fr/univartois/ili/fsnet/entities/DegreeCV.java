@@ -8,7 +8,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -117,6 +116,10 @@ public class DegreeCV implements Serializable {
 	public void setAssociationDateDegreeCV(
 			List<AssociationDateDegreeCV> myAssociationDateDegreeCV) {
 		this.myCVs = myAssociationDateDegreeCV;
+	}
+
+	public EstablishmentCV getEts() {
+		return ets;
 	}
 
 }

@@ -173,8 +173,10 @@ public class SocialGroup extends SocialElement implements Serializable {
 		for (SocialElement socialElement : this.socialElements) {
 			socialElement.setGroup(null);
 		}
-		for (SocialElement socialElement : socialElements)
+		for (SocialElement socialElement : socialElements){
 			socialElement.setGroup(this);
+		}
+		
 		this.socialElements = socialElements;
 	}
 

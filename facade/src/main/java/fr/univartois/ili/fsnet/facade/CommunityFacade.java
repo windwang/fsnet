@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.Community;
-import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**

@@ -89,7 +89,7 @@ public class ManageCV extends MappingDispatchAction {
 	
 	private static final String CV_HOBBY_NAME_FIELD_FORM_NAME = "cvHobbyName";
 	
-	public static SimpleDateFormat formatter = new SimpleDateFormat(
+	private static SimpleDateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 
 	/**
@@ -120,7 +120,7 @@ public class ManageCV extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward Cree(ActionMapping mapping, ActionForm form,
+	public ActionForward cree(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return mapping.findForward(SUCCESS_ACTION_NAME);

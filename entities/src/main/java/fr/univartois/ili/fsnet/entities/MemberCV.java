@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.entities;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -69,8 +68,8 @@ public class MemberCV implements Serializable {
 	 * @param firstName
 	 *            the firstName to set
 	 */
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+	public void setFirstName(String theFirstName) {
+		this.firstName = theFirstName;
 	}
 
 	/**

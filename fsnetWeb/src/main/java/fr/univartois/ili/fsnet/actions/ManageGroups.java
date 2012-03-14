@@ -389,8 +389,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	private Set<Right> getAcceptedRigth(String[] groupsAccepted) {
 		Set<Right> rights = new HashSet<Right>();
 
-		for (String string : groupsAccepted)
+		for (String string : groupsAccepted){
 			rights.add(Right.valueOf(string));
+		}
 
 		return rights;
 	}

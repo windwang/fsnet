@@ -28,6 +28,8 @@ public class ImageManager {
 	private static final String MINIATURE_SUFFIX = ".miniature";
 	private static final String PICTURE_FORMAT = ".png";
 	
+	private ImageManager(){}
+	
 	public static void createPicturesForUser(int userId,
 			InputStream incommingPictureInputStream, PictureType pictureType)
 			throws FileNotFoundException, IOException, IllegalStateException {

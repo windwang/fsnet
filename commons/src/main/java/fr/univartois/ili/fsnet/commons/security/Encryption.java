@@ -9,7 +9,7 @@ import java.util.Random;
  * @author FSNet
  *
  */
-public class Encryption {
+public final class Encryption {
 
     private static final Random RANDOM = new Random(new Date().getTime());
 

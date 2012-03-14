@@ -2,8 +2,8 @@ package fr.univartois.ili.fsnet.entities;
 
 public class ProfileVisitePK {
 
-	public int visitor;
-	public int visited;
+	private int visitor;
+	private int visited;
 	
 	/**
 	 * Default constructor

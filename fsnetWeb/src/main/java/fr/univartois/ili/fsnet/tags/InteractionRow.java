@@ -9,8 +9,6 @@ import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
 import javax.servlet.jsp.tagext.TagSupport;
 
-import fr.univartois.ili.fsnet.entities.Interaction;
-
 public class InteractionRow extends TagSupport {
 
 	/**

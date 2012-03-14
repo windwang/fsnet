@@ -21,7 +21,6 @@ import org.apache.struts.actions.MappingDispatchAction;
 import org.apache.struts.util.MessageResources;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
-import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.SocialEntity;

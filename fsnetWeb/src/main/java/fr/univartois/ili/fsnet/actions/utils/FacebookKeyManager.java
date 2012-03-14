@@ -6,6 +6,7 @@ import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 
 public class FacebookKeyManager {
 
+	private FacebookKeyManager(){}
 	
 	public static String getKeyFacebook(){
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();

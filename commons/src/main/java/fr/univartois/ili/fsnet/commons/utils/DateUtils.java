@@ -13,7 +13,7 @@ import java.util.regex.Pattern;
  * @author Mehdi Benzagahr
  * 
  */
-public class DateUtils {
+public final class DateUtils {
 	
 	/** Value of DATE in ics Calendar RFC (eg : 20120331T143055) **/
 	private static final String ICS_DATE_PATTERN = "([0-9]{4})([0-9]{2})([0-9]{2})(T([0-9]{2})([0-9]{2})([0-9]{2})?(Z?))?";
