@@ -26,9 +26,9 @@
 			<tr>
 				<td><label for="socialEntityId"><bean:message
 							key="communities.form.creator" /></label></td>
-				<td><html:select property="socialEntityId" styleClass="select">
-						<html:option value="">
-						</html:option>
+				<td><html:select property="socialEntityId" styleClass="select"
+						styleId="socialEntityId">
+						<html:option value="" />
 						<c:forEach var="socialEntity" items="${allMembers}">
 							<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
 						</c:forEach>

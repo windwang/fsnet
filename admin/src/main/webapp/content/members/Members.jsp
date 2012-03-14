@@ -17,20 +17,30 @@
 }
 </style>
 
-<input type="radio" name="chooseSimpleOrMultiple" checked="checked"
-	id="simpleMember" value="simpleChoose"
-	onchange="changeSimpleOrMultiple()" />
-<label for="simpleMember"> <bean:message
-		key="members.simpleMember" />
-</label>
-<br />
-<input type="radio" name="chooseSimpleOrMultiple" id="multipleMember"
-	value="multipleChoose" onchange="changeSimpleOrMultiple()" />
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message key="members.title.choice" />
+	</legend>
 
-<label for="multipleMember"> <bean:message
-		key="members.multipleMember" />
-</label>
-<br />
+	<table id="chooseCreateMembers" class="fieldsetTableAdmin">
+
+		<tr>
+			<td><input type="radio" name="chooseSimpleOrMultiple"
+				checked="checked" id="simpleMember" value="simpleChoose"
+				onchange="changeSimpleOrMultiple()" /> <label for="simpleMember">
+					<bean:message key="members.simpleMember" />
+			</label></td>
+		</tr>
+
+		<tr>
+			<td><input type="radio" name="chooseSimpleOrMultiple"
+				id="multipleMember" value="multipleChoose"
+				onchange="changeSimpleOrMultiple()" /> <label for="multipleMember">
+					<bean:message key="members.multipleMember" />
+			</label></td>
+		</tr>
+	</table>
+</fieldset>
 
 <!--<input type="radio" name="chooseSimpleOrMultiple" id="multipleMemberFile" value="multipleFileChoose" onchange="changeSimpleOrMultiple()"/>-->
 <!--<label for="multipleMemberFile"> -->
@@ -40,9 +50,11 @@
 <div id="divChooseSimpleMember">
 	<%@ include file="CreateMember.jsp"%>
 </div>
+
 <div id="divChooseMultipleMember">
 	<%@ include file="CreateMultipleMember.jsp"%>
 </div>
+
 <div id="divChooseMultipleFileMember">
 	<%@ include file="CreateMultipleMemberWithFile.jsp"%>
 </div>

@@ -23,7 +23,7 @@
 </ul>
 
 <c:choose>
-	<c:when test="${sessionScope.isMasterGroup }">
+	<c:when test="${sessionScope.isMasterGroup || sessionScope.isGroupResponsible}">
 		<h2>
 			<bean:message key="profile.LeftMenuManage" />
 		</h2>

@@ -16,9 +16,8 @@
 					<td><label for="oldCommunityName"><bean:message
 								key="communities.form.oldName" /></label></td>
 					<td><html:select property="oldCommunityName"
-							styleClass="select">
-							<html:option value="">
-							</html:option>
+							styleClass="select" styleId="oldCommunityName">
+							<html:option value="" />
 							<c:forEach var="community"
 								items="${requestScope.communitiesList}">
 								<html:option value="${community.title}">${community.title}</html:option>
@@ -30,8 +29,10 @@
 				</tr>
 
 				<tr>
-					<td><label for="newCommunityName"><bean:message key="communities.form.newName" /></label></td>
-					<td><html:text property="newCommunityName" />
+					<td><label for="newCommunityName"><bean:message
+								key="communities.form.newName" /></label></td>
+					<td><html:text property="newCommunityName"
+							styleId="newCommunityName"/>
 						<div class="errorMessage">
 							<html:errors property="newCommunityName" />
 						</div></td>

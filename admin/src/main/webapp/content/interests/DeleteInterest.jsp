@@ -18,8 +18,7 @@
 				<tr>
 					<td><html:select property="deletedInterestId"
 							styleClass="select">
-							<html:option value="">
-							</html:option>
+							<html:option value="" />
 							<c:forEach var="interest" items="${requestScope.allInterests}">
 								<html:option value="${interest.id}">${interest.name}</html:option>
 							</c:forEach>
