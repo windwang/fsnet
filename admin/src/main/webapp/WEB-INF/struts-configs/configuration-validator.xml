@@ -9,6 +9,7 @@
 				<arg key="configure.error.mail2" name="email" />
 			</field>
 		</form>
+
 		<form name="/SaveMailConfiguration">
 			<field property="MailFrom" depends="required,email">
 				<arg key="configure.form.mailAdmin" name="required" />
@@ -34,8 +35,9 @@
 				<msg name="required" key="configure.error.imgFolder" />
 			</field>
 		</form>
+
 		<form name="/SaveFacebookId">
-			<field property="KeyFacebook" depends="mask,maxlength,minlength">
+			<field property="KeyFacebook" depends="required,mask,maxlength,minlength">
 				<var>
 					<var-name>mask</var-name>
 					<var-value>^[0-9]+$</var-value>
@@ -47,12 +49,12 @@
 				<var>
 					<var-name>minlength</var-name>
 					<var-value>15</var-value>
-				</var>				
-                <msg name="mask"
-                 	key="error.configuration.formatFacebookId"/>
-			    <arg0 key="error.configuration.facebookId"/>  
-			    <arg1 name="maxlength" key="${var:maxlength}" resource="false" />
-				<arg1 name="minlength" key="${var:minlength}" resource="false" /> 
+				</var>
+				<msg name="mask" key="error.configuration.formatFacebookId" />
+				<arg0 key="error.configuration.facebookId" />
+				<arg1 name="maxlength" key="${var:maxlength}" resource="false" />
+				<arg1 name="minlength" key="${var:minlength}" resource="false" />
+				<arg2 key="configure.form.testMail" name="required" />
 			</field>
 		</form>
 	</formset>

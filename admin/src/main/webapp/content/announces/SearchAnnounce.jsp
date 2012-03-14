@@ -13,21 +13,20 @@
 	<legend class="legendAdmin">
 		<bean:message key="announce.title.searchAnnounce" />
 	</legend>
-	
+
 	<html:form action="/Announces" method="get">
-			<table class="inLineTable fieldsetTableAdmin">
-				<tr>
-					<td><html:text property="textSearchAnnounce"
-							styleId="textSearchAnnounce" /> <ili:placeHolder
-							id="textSearchAnnounce" value="${searchAnnounce}" /> <html:submit
-							styleClass="button">
-							<bean:message key="announce.button.search" />
-						</html:submit> <html:messages id="message" /></td>
-				</tr>
-			</table>
-			
-			<div class="errorMessage">
-				<html:errors />
-			</div>
+		<table class="inLineTable fieldsetTableAdmin">
+			<tr>
+				<td><html:text property="textSearchAnnounce"
+						styleId="textSearchAnnounce" /> <ili:placeHolder
+						id="textSearchAnnounce" value="${searchAnnounce}" /> <html:submit
+						styleClass="button">
+						<bean:message key="announce.button.search" />
+					</html:submit> <html:messages id="message" />
+					<div class="errorMessage">
+						<html:errors />
+					</div></td>
+			</tr>
+		</table>
 	</html:form>
 </fieldset>

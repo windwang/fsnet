@@ -11,7 +11,7 @@
 	<c:when test="${not empty requestScope.interest}">
 		<h2>
 			${requestScope.interest.name}
-			<c:choose>
+			<!--<c:choose>
 				<c:when test="${requestScope.own}">
 					<html:link action="/DeleteInterestFromInterestInformations">
 						<html:param name="removedInterestId"
@@ -26,7 +26,7 @@
 							value="${requestScope.interest.id}" />
 					</html:link>
 				</c:otherwise>
-			</c:choose>
+			</c:choose>-->
 		</h2>
 
 		<fieldset class="fieldsetAdmin">

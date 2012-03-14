@@ -38,16 +38,16 @@
 		        	<var-name>maxlength</var-name>
 		        	<var-value>30</var-value>
 		        </var>
-				<arg0 key="error.interest.create" />
+				<arg0 key="interests.form.name" />
 				<arg1 name="maxlength" key="${var:maxlength}" resource="false"/>
             </field>
             <field property="parentInterestId" depends="integer">
-                <arg key="error.interest.parentId" />
+                <arg key="interests.form.parent" />
             </field>
         </form>
         <form name="/DeleteInterest">
             <field property="deletedInterestId" depends="required,integer">
-                <arg key="error.interest.create" />
+                <arg key="interests.form.name" />
             </field>
         </form>
         <form name="/InterestInformations">

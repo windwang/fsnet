@@ -16,6 +16,8 @@
 		<html:form action="/DeleteInterest">
 			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
+					<td><label for="createdInterestName"><bean:message
+								key="interests.form.name" /></label></td>
 					<td><html:select property="deletedInterestId"
 							styleClass="select">
 							<html:option value="" />
@@ -29,7 +31,7 @@
 				</tr>
 
 				<tr>
-					<td class="tableButton"><html:submit styleClass="button">
+					<td colspan="2" class="tableButton"><html:submit styleClass="button">
 							<bean:message key="interests.button.delete" />
 						</html:submit></td>
 				</tr>
