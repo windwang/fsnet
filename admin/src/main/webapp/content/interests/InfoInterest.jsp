@@ -39,15 +39,11 @@
 					<td><c:choose>
 							<c:when test="${not empty requestScope.interest.parentInterest}">
 								<div class="cloud">
-									<div>
-										<span class="tag"> <html:link
-												action="/InterestInformations">
-												<html:param name="infoInterestId"
-													value="${interest.parentInterest.id}" />
-											${interest.parentInterest.name}
-							</html:link>
-										</span>
-									</div>
+									<span class="tag"><html:link
+											action="/InterestInformations">
+											<html:param name="infoInterestId"
+												value="${interest.parentInterest.id}" />
+											${interest.parentInterest.name}</html:link> </span>
 								</div>
 								<div class="clear"></div>
 							</c:when>
@@ -104,10 +100,12 @@
 								<div class="cloud">
 									<c:forEach var="socialEntities"
 										items="${requestScope.interest.entities}">
-										<span class="tagSE"> <ili:getMiniature
-												socialEntity="${socialEntities}" /> <ili:getSocialEntityInfos
-												socialEntity="${socialEntities}" />
-										</span>
+										<div>
+											<span class="tagSE"> <ili:getMiniature
+													socialEntity="${socialEntities}" /> <ili:getSocialEntityInfos
+													socialEntity="${socialEntities}" />
+											</span>
+										</div>
 									</c:forEach>
 								</div>
 							</c:when>
@@ -131,11 +129,10 @@
 								<div class="cloud">
 									<c:forEach var="community" items="${requestScope.Community}">
 										<div>
-											<span class="tagInteraction"> <html:link
+											<span class="tagInteraction"> <!--<html:link
 													action="/DisplayCommunity">
-													<html:param name="communityId" value="${community.id}" />
-											${community.title}								
-							</html:link>
+													<html:param name="communityId" value="${community.id}" />${community.title}</html:link>-->
+												${community.title}
 											</span>
 										</div>
 									</c:forEach>
@@ -161,11 +158,10 @@
 								<div class="cloud">
 									<c:forEach var="hub" items="${requestScope.Hub}">
 										<div>
-											<span class="tagInteraction"> <html:link
+											<span class="tagInteraction"> <!--<html:link
 													action="/DisplayHub">
-													<html:param name="hubId" value="${hub.id}" />
-											${hub.title}								
-							</html:link>
+													<html:param name="hubId" value="${hub.id}" /></html:link>-->
+												${hub.title}
 											</span>
 										</div>
 									</c:forEach>
@@ -191,11 +187,10 @@
 								<div class="cloud">
 									<c:forEach var="topic" items="${requestScope.Topic}">
 										<div>
-											<span class="tagInteraction"> <html:link
+											<span class="tagInteraction"> <!--<html:link
 													action="/Topic">
-													<html:param name="topicId" value="${topic.id}" />
-											${topic.title}								
-							</html:link>
+													<html:param name="topicId" value="${topic.id}" />${topic.title}</html:link>-->
+												${topic.title}
 											</span>
 										</div>
 									</c:forEach>
@@ -221,11 +216,9 @@
 								<div class="cloud">
 									<c:forEach var="meeting" items="${requestScope.Meeting}">
 										<div>
-											<span class="tagInteraction"> <html:link
+											<span class="tagInteraction"><html:link
 													action="/DisplayEvent">
-													<html:param name="eventId" value="${meeting.id}" />
-											${meeting.title}								
-							</html:link>
+													<html:param name="eventId" value="${meeting.id}" />${meeting.title}</html:link>
 											</span>
 										</div>
 									</c:forEach>
@@ -251,11 +244,9 @@
 								<div class="cloud">
 									<c:forEach var="announce" items="${requestScope.Announcement}">
 										<div>
-											<span class="tagInteraction"> <html:link
+											<span class="tagInteraction"><html:link
 													action="/DisplayAnnounce">
-													<html:param name="idAnnounce" value="${announce.id}" />
-											${announce.title}								
-							</html:link>
+													<html:param name="idAnnounce" value="${announce.id}" />${announce.title}</html:link>
 											</span>
 										</div>
 									</c:forEach>
