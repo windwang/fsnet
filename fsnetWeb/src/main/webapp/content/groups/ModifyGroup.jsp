@@ -39,10 +39,22 @@
 						<html:errors property="description" />
 					</div></td>
 			</tr>
-
+			<tr>
+				<td><label for="color"> <bean:message
+							key="groups.color" />
+				</label></td>
+				<td colspan="3">
+					#<html:text 
+						property="color"
+						value="${color}"
+						styleId="colorpickerField1"
+						/> 
+					
+				</td>
+			</tr>
 			<tr>
 				<td><label for="socialEntityId"> <bean:message
-							key="groups.owner" /> :
+							key="groups.owner" />
 				</label></td>
 				<td colspan="3"><html:select property="socialEntityId"
 						styleClass="select" value="${ masterGroup.id }">

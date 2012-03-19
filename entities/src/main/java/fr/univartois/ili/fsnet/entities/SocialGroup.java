@@ -38,6 +38,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 	@OneToMany(mappedBy = "group", cascade = CascadeType.ALL)
 	private List<SocialElement> socialElements;
 
+	private String color;
 	/**
 	 * the master of the group
 	 */
@@ -94,7 +95,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 		this.name = name;
 		this.description = description;
 		this.socialElements = new ArrayList<SocialElement>();
-
+		this.setColor("C9E6F8");
 	}
 
 	/**
@@ -299,5 +300,13 @@ public class SocialGroup extends SocialElement implements Serializable {
 			return false;
 		}
 		return true;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
 	}
 }
