@@ -19,7 +19,7 @@
 		</c:when>
 		<c:otherwise>
 			<html:form action="/DeleteMultiMessages2">
-				<table class="topicTable inLineTableDashBoardFieldset fieldsetTable">
+				<table class="topicTable inLineTable fieldsetTableAppli">
 					<c:forEach items="${requestScope.conversationMessages.resultList}"
 						var="message">
 						<tr class="topicHeader"="2">

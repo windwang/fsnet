@@ -14,7 +14,7 @@
 
   <c:choose>
 	<c:when test="${empty requestScope.inBoxMessages}">
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><bean:message key="privatemessages.nomessages" /></td>
 			</tr>
@@ -58,7 +58,7 @@
 					});
 		</script>
 		   <html:form action="/DeleteMultiMessages">
-			<table id="tableinbox" class="tablesorter inLineTableDashBoardFieldset">
+			<table id="tableinbox" class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th class="thMessage"><input type="checkbox" name="selected" class="checkThemAll1" /></td><td><bean:message key="tableheader.from" /> </th>

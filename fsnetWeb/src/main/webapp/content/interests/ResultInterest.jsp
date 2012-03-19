@@ -7,7 +7,7 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
 <logic:present name="interestSearchPaginator" scope="request">
-	<table class="inLineTableDashBoardFieldset">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td><c:choose>
 					<c:when

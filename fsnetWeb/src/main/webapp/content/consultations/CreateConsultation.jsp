@@ -10,7 +10,7 @@
 		<bean:message key="consultations.title.create" />
 	</legend>
 
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<html:form action="CreateConsultation" method="POST">
 			<tr>
 				<td>
@@ -291,8 +291,8 @@
 			</tr>
 
 			<tr>
-				<td align="right"><html:submit styleClass="button"
-						styleId="buttonConsultation" onclick="Valider()">
+				<td class="tableButton"><html:submit styleClass="button"
+						styleId="buttonConsultation">
 						<bean:message key="consultations.button.create" />
 					</html:submit></td>
 			</tr>

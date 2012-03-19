@@ -11,7 +11,7 @@
 		<bean:message key="interests.title.my" />
 	</legend>
 	<logic:present name="myInterestPaginator" scope="request">
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><c:choose>
 						<c:when

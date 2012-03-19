@@ -16,7 +16,7 @@
 
 
 	<c:if test="${empty requestScope.lastVisitors}">
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><bean:message key="visits.voidlist" />.</td>
 			</tr>
@@ -43,7 +43,7 @@
 		</script>
 
 		<table id="tablelastvisitors"
-			class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+			class="tablesorter inLineTable fieldsetTableAppli">
 			<thead>
 				<tr>
 					<th><bean:message key="privatemessages.from" /></th>
@@ -78,7 +78,7 @@
 
 
 	<c:if test="${empty requestScope.beforeLastVisitors}">
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><bean:message key="visits.voidlist" />.</td>
 			</tr>
@@ -104,7 +104,7 @@
 		</script>
 
 		<table id="tablelastvisitorsBeforeLastConnection"
-			class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+			class="tablesorter inLineTable fieldsetTableAppli">
 			<thead>
 				<tr>
 					<th><bean:message key="privatemessages.from" /></th>

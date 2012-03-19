@@ -17,7 +17,7 @@
 	</legend>
 
 	<table id="SearchYourHubs"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/SearchYourHubs" method="GET">
 			<tr>
 				<td><html:hidden property="communityId"
@@ -39,7 +39,7 @@
 		<bean:message key="hubs.title.myHubs" />
 	</legend>
 	<c:set var="hub" value="${hubResults}" />
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<logic:empty name="hub">
 			<tr>
 				<td><bean:message key="hubs.hubNotFound" />

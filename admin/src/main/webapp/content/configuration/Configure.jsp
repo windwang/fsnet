@@ -228,7 +228,7 @@
 	</table>
 </fieldset>
 
-<fieldset class="fieldsetAdmin">
+<!--<fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
 		<bean:message key="configure.title.updateDBDateType" />
 	</legend>
@@ -245,9 +245,9 @@
 				</html:form></td>
 		</tr>
 	</table>
-</fieldset>
+</fieldset>-->
 
-<fieldset class="fieldsetAdmin">
+<!--<fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
 		<bean:message key="configure.title.addDBRecallDateColumn" />
 	</legend>
@@ -264,7 +264,7 @@
 				</html:form></td>
 		</tr>
 	</table>
-</fieldset>
+</fieldset>-->
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">

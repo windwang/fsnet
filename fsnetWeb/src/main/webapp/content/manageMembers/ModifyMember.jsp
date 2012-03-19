@@ -10,13 +10,13 @@
 	
 </script>
 
-<fieldset class="fieldsetAdmin">
-	<legend class="legendAdmin">
+<fieldset class="fieldsetAppli">
+	<legend class="legendHome">
 		<bean:message key="members.modify" />
 	</legend>
 
 	<html:form action="/ModifyMember">
-		<table id="ModifyMember" class="fieldsetTableAdmin">
+		<table id="ModifyMember" class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><label for="name"> <bean:message key="members.name" />
 				</label> <html:hidden property="id" /></td>
@@ -152,11 +152,11 @@
 	</html:form>
 </fieldset>
 
-<fieldset class="fieldsetAdmin">
-	<legend class="legendAdmin">
+<fieldset class="fieldsetAppli">
+	<legend class="legendHome">
 		<bean:message key="members.herInterests" />
 	</legend>
-	<table class="fieldsetTableAdmin">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td><c:choose>
 					<c:when

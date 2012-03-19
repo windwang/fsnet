@@ -305,7 +305,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 			em.merge(meeting);
 			em.getTransaction().commit();
-			em.close();
 		} catch (NumberFormatException e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			return mapping.findForward(FAILED_ACTION_NAME);

@@ -1,22 +1,22 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
-
 <script type="text/javascript" src="js/definePassword.js"></script>
 
-<fieldset class="fieldsetAdmin">
-	<legend class="legendAdmin">
+<fieldset class="fieldsetAppli">
+	<legend class="legendHome">
 		<bean:message key="members.create" />
 	</legend>
 	<table id="CreateMember"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateMember">
 
 			<tr>
@@ -105,7 +105,6 @@
 			</tr>
 
 			<%@ include file="SamePartForMember.jsp" %>
-
 		</html:form>
 	</table>
 </fieldset>

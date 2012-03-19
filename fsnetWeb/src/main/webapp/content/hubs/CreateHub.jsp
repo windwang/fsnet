@@ -9,7 +9,7 @@
 		<bean:message key="hubs.title.create" />
 	</legend>
 	<table id="CreateHub"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateHub">
 			<html:hidden property="communityId" value="${param.communityId}" />
 			<tr>
@@ -27,7 +27,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="hubs.button.create" />
 					</html:submit></td>
 			</tr>

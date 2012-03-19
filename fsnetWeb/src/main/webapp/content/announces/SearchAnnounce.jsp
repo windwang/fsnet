@@ -13,7 +13,7 @@
 		<bean:message key="announce.title.search" />
 	</legend>
 	<table id="SearchAnnounce"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/Announces" method="GET">
 			<tr>
 				<td><html:text property="textSearchAnnounce"

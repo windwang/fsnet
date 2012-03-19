@@ -21,7 +21,7 @@
 	<c:choose>
 		<c:when test="${empty requestScope.listHubPaginator.resultList}">
 
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="hubs.hubNotFound" /></td>
 				</tr>
@@ -48,7 +48,7 @@
 								aoColumns, false);
 					});
 		</script>
-			<table id="tablehub" class="tablesorter inLineTableDashBoardFieldset">
+			<table id="tablehub" class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th></th>

@@ -17,7 +17,7 @@
 	</legend>
 
 	<div class="interactionDisplay">
-		<table class="fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr class="authorDate">
 				<td><bean:message key="announce.createdBy" /> <ili:getSocialEntityInfos
 						socialEntity="${announce.creator}" />, <bean:message
@@ -50,6 +50,7 @@
 			</tr>
 		</table>
 	</div>
+
 	<c:set var="theInteraction" value="${announce}" scope="request" />
 	<jsp:include page="/content/interactions/InteractionInfo.jsp" />
 </fieldset>

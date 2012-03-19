@@ -16,7 +16,7 @@
 	</legend>
 	<html:javascript formName="/SearchInterest" />
 
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td><html:form action="/SearchInterest" method="get">
 					<div id="SearchInterest">

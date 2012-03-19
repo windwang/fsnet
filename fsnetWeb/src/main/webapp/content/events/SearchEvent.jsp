@@ -14,7 +14,7 @@
 	</legend>
 
 	<table id="SearchEvent"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/Events" method="get">
 			<tr>
 				<td><html:text property="searchString" styleId="searchTexte" />

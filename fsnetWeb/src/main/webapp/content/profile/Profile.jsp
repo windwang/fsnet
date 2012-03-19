@@ -45,12 +45,11 @@
 		<legend class="legendHome">
 			<bean:message key="updateProfile.title" />
 		</legend>
-		<table id="ModifyProfile"
-			class="inLineTableDashBoardFieldset fieldsetTable">
+		<table id="ModifyProfile" class="inLineTable fieldsetTableAppli">
 			<html:form action="/ModifyProfile">
 				<tr>
 					<td><label for="name"> <bean:message
-								key="updateProfile.name" /> :
+								key="updateProfile.name" />
 					</label></td>
 					<td><html:text errorStyleClass="error" property="name"
 							styleId="name" /></td>
@@ -63,7 +62,7 @@
 
 				<tr>
 					<td><label for="firstName"> <bean:message
-								key="updateProfile.firstname" /> :
+								key="updateProfile.firstname" />
 					</label></td>
 					<td><html:text errorStyleClass="error" property="firstName"
 							styleId="firstName" /></td>
@@ -76,7 +75,7 @@
 
 				<tr>
 					<td><label for="adress"> <bean:message
-								key="updateProfile.adress" /> :
+								key="updateProfile.adress" />
 					</label></td>
 					<td><html:text errorStyleClass="error" property="adress"
 							styleId="adress" /></td>
@@ -89,7 +88,7 @@
 
 				<tr>
 					<td><label for="city"> <bean:message
-								key="updateProfile.city" /> :
+								key="updateProfile.city" />
 					</label></td>
 					<td><html:text errorStyleClass="error" property="city"
 							styleId="city" /></td>
@@ -102,7 +101,7 @@
 
 				<tr>
 					<td><label for="dateOfBirth"> <bean:message
-								key="updateProfile.dateOfBirth" /> :
+								key="updateProfile.dateOfBirth" />
 					</label></td>
 					<td><html:text errorStyleClass="error" styleId="dateOfBirth"
 							property="dateOfBirth" /></td>
@@ -115,7 +114,7 @@
 
 				<tr>
 					<td><label for="sexe"> <bean:message
-								key="updateProfile.sexe" /> :
+								key="updateProfile.sexe" />
 					</label></td>
 					<td><html:select property="sexe" styleId="sexe">
 							<html:option value="" />
@@ -136,7 +135,7 @@
 
 				<tr>
 					<td><label for="job"> <bean:message
-								key="updateProfile.job" /> :
+								key="updateProfile.job" />
 					</label></td>
 					<td><html:text errorStyleClass="error" property="job"
 							styleId="job" /></td>
@@ -149,7 +148,7 @@
 
 				<tr>
 					<td><label for="mail"> <bean:message
-								key="updateProfile.email" /> :
+								key="updateProfile.email" />
 					</label></td>
 					<td><html:text errorStyleClass="error" property="mail"
 							styleId="mail" /></td>
@@ -162,7 +161,7 @@
 
 				<tr>
 					<td><label for="phone"> <bean:message
-								key="updateProfile.phone" /> :
+								key="updateProfile.phone" />
 					</label></td>
 					<td><html:text errorStyleClass="error" property="phone"
 							styleId="phone" /></td>
@@ -174,7 +173,8 @@
 				</logic:messagesPresent>
 
 				<tr>
-					<td colspan="2" align="right"><html:submit styleClass="button">
+					<td colspan="2" class="tableButton"><html:submit
+							styleClass="button">
 							<bean:message key="updateProfile.validate" />
 						</html:submit></td>
 				</tr>
@@ -216,7 +216,7 @@
 			<html:errors property="passwordChange" />
 		</logic:messagesPresent>
 
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<c:forTokens var="typePwd"
 				items="oldPassword:newPassword:confirmNewPassword" delims=":">
 				<tr>
@@ -233,7 +233,8 @@
 				</logic:messagesPresent>
 			</c:forTokens>
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="updateProfile.validate" />
 					</html:submit></td>
 			</tr>
@@ -256,30 +257,30 @@
 			</div>
 
 			<div>
-				<table class="inLineTableDashBoardFieldset">
+				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label> <bean:message
-									key="updateProfile.photoInternet" /> :
+									key="updateProfile.photoInternet" />
 						</label></td>
 						<td><html:text property="photoUrl"></html:text></td>
 					</tr>
-					
+
 					<tr>
 						<td><label> <bean:message
-									key="updateProfile.photoLocal" /> :
+									key="updateProfile.photoLocal" />
 						</label></td>
 						<td><html:file property="photo" size="45"></html:file></td>
 					</tr>
-					
+
 					<tr>
-						<td colspan="2" align="right"><html:submit
+						<td colspan="2" class="tableButton"><html:submit
 								styleClass="button">
 								<bean:message key="updateProfile.validate" />
 							</html:submit></td>
 					</tr>
 				</table>
 			</div>
-			
+
 			<logic:messagesPresent property="photo">
 				<div class="errorMessage">
 					<html:errors property="photo" />

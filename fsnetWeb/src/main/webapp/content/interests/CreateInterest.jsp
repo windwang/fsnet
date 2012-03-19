@@ -13,7 +13,7 @@
 	<div class="space"></div>
 	<html:javascript formName="/CreateInterest" />
 	<html:form action="/CreateInterest">
-		<table id="CreateInterest" class="inLineTableDashBoardFieldset">
+		<table id="CreateInterest" class="inLineTable fieldsetTableAppli">
 			<tr>
 				<bean:message key="interests.message.create" />
 			</tr>
@@ -43,7 +43,7 @@
 			</tr>
 			
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="interests.button.create" />
 					</html:submit></td>
 			</tr>

@@ -15,7 +15,7 @@
 <c:if test="${consultation ne null }">
 	<fieldset class="fieldsetAppli">
 		<legend class="legendHome">${consultation.title }</legend>
-		<table class="inLineTableDashBoardFieldset fieldsetTable">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td>
 					<ul>
@@ -236,7 +236,7 @@
 			<legend class="legendHome">
 				<bean:message key="consultations.histogramme" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td>
 

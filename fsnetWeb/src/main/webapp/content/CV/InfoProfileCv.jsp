@@ -14,7 +14,7 @@
 				</legend>
 			</div>
 			<div class="corp">
-				<table class="inLineTableDashBoardFieldset fieldsetTable">
+				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvTitle"><bean:message
 									key="cv.form.title" /></label></td>
@@ -39,7 +39,7 @@
 				</legend>
 			</div>
 			<div class="corp_contact">
-				<table class="inLineTableDashBoardFieldset fieldsetTable">
+				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvFirstname"><bean:message
 									key="cv.form.profile.firstname" /></label></td>
@@ -200,7 +200,7 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" align="right"><html:submit
+						<td colspan="2" class="tableButton"><html:submit
 								styleClass="button">
 								<bean:message key="cv.button.next" />
 							</html:submit></td>

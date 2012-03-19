@@ -10,7 +10,7 @@
 		</legend>
 
 		<table id="ModifyCommunity"
-			class="inLineTableDashBoardFieldset fieldsetTable">
+			class="inLineTable fieldsetTableAppli">
 			<html:form action="/ModifyCommunity">
 				<tr>
 					<td><bean:message key="communities.form.oldName" /></td>
@@ -36,7 +36,7 @@
 				</tr>
 
 				<tr>
-					<td colspan="2" align="right"><html:submit styleClass="button">
+					<td colspan="2" class="tableButton"><html:submit styleClass="button">
 							<bean:message key="communities.button.modify" />
 						</html:submit></td>
 				</tr>

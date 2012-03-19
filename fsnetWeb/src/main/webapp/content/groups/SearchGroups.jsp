@@ -28,7 +28,7 @@
 						});
 			</script>
 			<table id="searchGroupsTable"
-				class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+				class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th><bean:message key="tableheader.group" /></th>
@@ -76,7 +76,7 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="group.noResult" />.</td>
 				</tr>

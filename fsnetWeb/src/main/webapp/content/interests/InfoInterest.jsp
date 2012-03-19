@@ -33,7 +33,7 @@
 			<legend class="legendHome">
 				<bean:message key="interests.title.parent" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.interest.parentInterest}">
@@ -62,7 +62,7 @@
 			<legend class="legendHome">
 				<bean:message key="interests.title.son" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><c:choose>
 							<c:when
@@ -94,7 +94,7 @@
 			<legend class="legendHome">
 				<bean:message key="interests.title.associate" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.interest.entities}">
@@ -121,7 +121,7 @@
 			<legend class="legendHome">
 				<bean:message key="pageTitle.15" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Community}">
@@ -151,7 +151,7 @@
 			<legend class="legendHome">
 				<bean:message key="pageTitle.4" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Hub}">
@@ -181,7 +181,7 @@
 			<legend class="legendHome">
 				<bean:message key="pageTitle.6" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Topic}">
@@ -211,7 +211,7 @@
 			<legend class="legendHome">
 				<bean:message key="pageTitle.1" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Meeting}">
@@ -241,7 +241,7 @@
 			<legend class="legendHome">
 				<bean:message key="pageTitle.8" />
 			</legend>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Announcement}">

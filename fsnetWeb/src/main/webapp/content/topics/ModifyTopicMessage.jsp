@@ -14,7 +14,7 @@
 	</legend>
 
 	<table id="CreateTopic"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<html:form action="/ModifyTopicMessage">
 			<html:hidden property="topicId" value="${topicId}" />
 			<html:hidden property="messageId" value="${message.id}" />
@@ -33,7 +33,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" align="right"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="topics.button.updateMessage" />
 					</html:submit></td>
 			</tr>

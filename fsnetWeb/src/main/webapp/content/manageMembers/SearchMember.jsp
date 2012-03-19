@@ -6,12 +6,12 @@
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/osx.js"></script>
 
-<fieldset class="fieldsetAdmin">
-	<legend class="legendAdmin">
+<fieldset class="fieldsetAppli">
+	<legend class="legendHome">
 		<bean:message key="members.search" />
 	</legend>
 	<html:form action="SearchMemberAdmin">
-		<table class="fieldsetTableAdmin">
+		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td>
 					<div id="SearchMember">
@@ -26,8 +26,8 @@
 	</html:form>
 </fieldset>
 
-<fieldset class="fieldsetAdmin">
-	<legend class="legendAdmin">
+<fieldset class="fieldsetAppli">
+	<legend class="legendHome">
 		<bean:message key="members.listMembers" />
 	</legend>
 
@@ -49,7 +49,7 @@
 						});
 			</script>
 			<table id="searchmemberstable"
-				class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+				class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th><bean:message key="tableheader.firstname" /></th>
@@ -95,7 +95,7 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="members.noResult" /></td>
 				</tr>

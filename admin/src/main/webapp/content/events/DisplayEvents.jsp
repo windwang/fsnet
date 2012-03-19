@@ -62,7 +62,7 @@
 		                    ${event.title}
 		                    <html:param name="eventId" value="${event.id}" />
 								</html:link></td>
-							<td class="left"><bean:write name="event"
+							<td><bean:write name="event"
 									property="startDate" format="dd/MM/yyyy" /></td>
 							<td></td>
 							<td><html:link action="/DisplayMember">

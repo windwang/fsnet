@@ -10,7 +10,7 @@
 	<legend class="legendHome">
 		<bean:message key="consultations.title.search" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td><html:form action="SearchConsultation" method="get">
 					<div id="SearchConsultation">
@@ -50,7 +50,7 @@
 	});
 </script>
 			<table id="searchConsults"
-				class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+				class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th width="5%"></th>
@@ -99,7 +99,7 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="consultations.noResult" />.</td>
 				</tr>

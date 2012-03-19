@@ -17,7 +17,7 @@
 	<legend class="legendHome">
 		<bean:message key="research.title" />
 	</legend>
-	<table class="inLineTableDashBoardFieldset fieldsetTable">
+	<table class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td><html:form action="Research" method="post">
 					<div id="Research">
@@ -54,7 +54,7 @@
 					<c:when
 						test="${ empty membersContactsResult && empty membersRequestedResult 
 						&& empty membersAskedResult && empty membersResult}">
-						<table class="inLineTableDashBoardFieldset fieldsetTable">
+						<table class="inLineTable fieldsetTableAppli">
 							<tr>
 								<td><bean:message key="research.member.emptyList" /></td>
 							</tr>
@@ -81,7 +81,7 @@
 						</script>
 
 						<table id="researchMembers"
-							class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+							class="tablesorter inLineTable fieldsetTableAppli">
 							<thead>
 								<tr>
 									<th></th>
@@ -175,7 +175,7 @@
 
 				<c:choose>
 					<c:when test="${empty consultationsResult}">
-						<table class="inLineTableDashBoardFieldset fieldsetTable">
+						<table class="inLineTable fieldsetTableAppli">
 							<tr>
 								<td><bean:message key="research.consultation.emptyList" /></td>
 							</tr>
@@ -201,7 +201,7 @@
 	});
 </script>
 						<table id="searchConsults"
-							class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+							class="tablesorter inLineTable fieldsetTableAppli">
 							<thead>
 								<tr>
 									<th width="5%"></th>
@@ -261,7 +261,7 @@
 
 				<c:choose>
 					<c:when test="${empty annoncesResult}">
-						<table class="inLineTableDashBoardFieldset fieldsetTable">
+						<table class="inLineTable fieldsetTableAppli">
 							<tr>
 								<td><bean:message key="research.announce.emptyList" /></td>
 							</tr>
@@ -288,7 +288,7 @@
 					});
 		</script>
 						<table id="annonceTable"
-							class="tablesorter inLineTableDashBoardFieldset fieldsetTable">
+							class="tablesorter inLineTable fieldsetTableAppli">
 							<thead>
 								<tr>
 									<th></th>
@@ -335,7 +335,7 @@
 				</legend>
 				<c:choose>
 					<c:when test="${empty eventsResult}">
-						<table class="inLineTableDashBoardFieldset fieldsetTable">
+						<table class="inLineTable fieldsetTableAppli">
 							<tr>
 								<td><bean:message key="research.event.emptyList" /></td>
 							</tr>
@@ -363,7 +363,7 @@
 					});
 		</script>
 						<table id="eventsTable"
-							class="tablesorter inLineTableDashBoardFieldset">
+							class="tablesorter inLineTable fieldsetTableAppli">
 							<thead>
 								<tr>
 									<th></th>
@@ -436,7 +436,7 @@
 					});
 		</script>
 						<table id="seachCommTables"
-							class="tablesorter inLineTableDashBoardFieldset">
+							class="tablesorter inLineTable fieldsetTableAppli">
 							<thead>
 								<tr>
 									<th width="10%"></th>
@@ -494,7 +494,7 @@
 
 					</c:when>
 					<c:otherwise>
-						<table class="inLineTableDashBoardFieldset fieldsetTable">
+						<table class="inLineTable fieldsetTableAppli">
 							<tr>
 								<td><bean:message key="research.community.emptyList" /></td>
 							</tr>

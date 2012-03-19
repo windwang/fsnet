@@ -15,7 +15,7 @@
 	<c:choose>
 
 		<c:when test="${empty requestScope.eventsList}">
-			<table class="inLineTableDashBoardFieldset fieldsetTable">
+			<table class="inLineTable fieldsetTableAppli">
 				<tr>
 					<td><bean:message key="events.search.empty" /></td>
 				</tr>
@@ -43,7 +43,7 @@
 						});
 			</script>
 			<table id="eventsTable"
-				class="tablesorter inLineTableDashBoardFieldset">
+				class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
 						<th></th>
