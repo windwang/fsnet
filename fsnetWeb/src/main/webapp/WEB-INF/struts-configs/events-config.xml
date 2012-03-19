@@ -147,6 +147,7 @@
 			scope="request" validate="false" parameter="deleteMulti">
 			<forward name="success" path="/Events.do" />
 			<forward name="failed" path="/Events.do" />
+		</action>
 
 		<action path="/ExportEventById" type="fr.univartois.ili.fsnet.actions.ManageEvents"
 			name="ExportEventForm" scope="request"
@@ -154,6 +155,7 @@
 			<forward name="success" path="/Events.do" />
 			<forward name="unauthorized" path="/Events.do" />
 		</action>
+		
 		<action path="/ExportAllEvents" type="fr.univartois.ili.fsnet.actions.ManageEvents"
 			name="ExportEventForm" scope="request"
 			validate="false" parameter="exportAllEvent">
