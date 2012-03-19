@@ -45,7 +45,7 @@ public class AnnouncementFacade {
 		return announce;
 	}
 
-	public final Announcement getAnnouncement(int idAnnounce){
+	public final Announcement getAnnouncement(int idAnnounce) {
 		return em.find(Announcement.class, idAnnounce);
 	}
 
@@ -67,14 +67,13 @@ public class AnnouncementFacade {
 		if (announce == null) {
 			throw new IllegalArgumentException();
 		}
-		
+
 		announce.setTitle(annName);
 		announce.setContent(annDescription);
 		announce.setEndDate(endDate);
 		em.merge(announce);
 		return announce;
 	}
-
 
 	/**
 	 * Search the Announcement with the param textSearchAnnounce
@@ -88,33 +87,54 @@ public class AnnouncementFacade {
 		}
 		List<Announcement> listAnnounces;
 		listAnnounces = em
-		.createQuery(
-				"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
-				+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ORDER BY a.endDate DESC",
-				Announcement.class).setParameter("textSearchAnnounce",
+				.createQuery(
+						"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
+								+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ORDER BY a.endDate DESC",
+						Announcement.class)
+				.setParameter("textSearchAnnounce",
 						"%" + textSearchAnnounce + "%").getResultList();
 		return listAnnounces;
 
 	}
-	
 
 	/**
 	 * Get the new announcements from the last user's connection
+	 * 
 	 * @param user
 	 * @return a list of Announcement
 	 */
-	public final List<Announcement> getLastAnnouncementForTheLastUserConnexion(SocialEntity user) {
-		if (user== null) {
+	public final List<Announcement> getLastAnnouncementForTheLastUserConnexion(
+			SocialEntity user) {
+		if (user == null) {
 			throw new IllegalArgumentException();
 		}
 		List<Announcement> listAnnounces;
 		listAnnounces = em
-		.createQuery(
-				"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
-				+ "(a.creationDate >= :lastConnection) ORDER BY a.endDate DESC",
-				Announcement.class).setParameter("lastConnection",
-						user.getLastConnection()).getResultList();
-		
+				.createQuery(
+						"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
+								+ "(a.creationDate >= :lastConnection) ORDER BY a.endDate DESC",
+						Announcement.class)
+				.setParameter("lastConnection", user.getLastConnection())
+				.getResultList();
+
+		return listAnnounces;
+	}
+
+	/**
+	 * 
+	 * @param user
+	 * @return a list of Announcement
+	 */
+	public final List<Announcement> getUserAnnouncements(SocialEntity user) {
+		if (user == null) {
+			throw new IllegalArgumentException();
+		}
+		List<Announcement> listAnnounces;
+		listAnnounces = em
+				.createQuery(
+						"SELECT a FROM Announcement a WHERE TYPE(a) IN(Announcement) AND a.creator = :member ORDER BY a.endDate DESC",
+						Announcement.class).setParameter("member", user)
+				.getResultList();
 		return listAnnounces;
 	}
 }

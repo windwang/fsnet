@@ -5,6 +5,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
+<%@ include file="DisplayYourEvents.jsp" %>
 <%@ include file="SearchEvent.jsp" %>
 
 <c:if test="${!empty requestScope.eventsList}">
@@ -60,7 +61,7 @@
 								"bSortable" : false
 							} ];
 							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
+									sensDeTri, aoColumns, false, 10);
 						});
 			</script>
 			<table id="eventsTable"

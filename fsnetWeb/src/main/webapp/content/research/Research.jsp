@@ -76,7 +76,7 @@
 										}, ];
 										miseEnPageTable(nomTable,
 												idColonneATrier, sensDeTri,
-												aoColumns, false);
+												aoColumns, false, 10);
 									});
 						</script>
 
@@ -197,7 +197,7 @@
 		}, null, null, {
 			"bSortable" : false
 		}];
-		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
+		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false, 10);
 	});
 </script>
 						<table id="searchConsults"
@@ -283,7 +283,7 @@
 							"sType" : "date-euro"
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
+								aoColumns, false, 10);
 
 					});
 		</script>
@@ -359,7 +359,7 @@
 							"bSortable" : false
 						}, null, null ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
+								aoColumns, false, 10);
 					});
 		</script>
 						<table id="eventsTable"
@@ -432,7 +432,7 @@
 							"bSortable" : false
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
+								aoColumns, false, 10);
 					});
 		</script>
 						<table id="seachCommTables"

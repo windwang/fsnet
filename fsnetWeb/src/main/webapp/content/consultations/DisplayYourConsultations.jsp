@@ -24,7 +24,7 @@
 		} , {
 			"bSortable" : false
 		}];
-		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
+		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false, 5);
 	});
   </script>
 			<table id="yourConsults"

@@ -18,6 +18,7 @@
 </html:link>
 
 <div class="group">
+	<h3>${sessionScope.userFirstName} ${sessionScope.userName}</h3>
 	<c:choose>
 		<c:when test="${sessionScope.hisGroup != null}">
 			<bean:message key="avatar.groups" />
@@ -45,6 +46,5 @@
 			</c:if>
 		</c:otherwise>
 	</c:choose>
-	<h3>${sessionScope.userFirstName} ${sessionScope.userName}</h3>
 </div>
 

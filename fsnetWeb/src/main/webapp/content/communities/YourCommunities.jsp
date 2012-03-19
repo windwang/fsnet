@@ -25,7 +25,7 @@
 								"bSortable" : false
 							} ];
 							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
+									sensDeTri, aoColumns, false, 5);
 						});
 			</script>
 			<table id="myCommTables"
