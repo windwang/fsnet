@@ -15,80 +15,81 @@
 		<c:when test="${empty requestScope.outBoxMessages}">
 			<table class="inLineTable fieldsetTableAppli">
 				<tr>
-					<td><bean:message key="privatemessages.nomessages" />
-					</td>
+					<td><bean:message key="privatemessages.nomessages" /></td>
 				</tr>
 			</table>
 		</c:when>
 		<c:otherwise>
 			<div class="space"></div>
 			<script type="text/javascript">
-			$(document).ready(function(){
-				
-				function pagination() {
-					var nomTable = "tableoutbox";
-					var idColonneATrier = 4;
-					var sensDeTri = "desc";
-					var aoColumns = [ {
-						"bSortable" : false
-					}, null, null, null, {
-						"sType" : "date-euro"
-					} ];
-					miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-							aoColumns, true);
-				}
-				
-				pagination();
-				
-				function allSelect(){	
-					$('input[name=selectedMessages]').attr('checked', true);
-				}
-				
-				function allNoSelect(){	
-					$('input[name=selectedMessages]').attr('checked', false);
-				}
-				
-				$(".checkThemAll").click(function() {
-					if(this.checked){
-						allSelect();
-					}else{
-						allNoSelect();
-					}
-				});
-			});
-					
-		</script>
+				$(document).ready(
+						function() {
+
+							function pagination() {
+								var nomTable = "tableoutbox";
+								var idColonneATrier = 4;
+								var sensDeTri = "desc";
+								var aoColumns = [ {
+									"bSortable" : false
+								}, null, null, null, {
+									"sType" : "date-euro"
+								} ];
+								miseEnPageTable(nomTable, idColonneATrier,
+										sensDeTri, aoColumns, true);
+							}
+
+							pagination();
+
+							function allSelect() {
+								$('input[name=selectedMessages]').attr(
+										'checked', true);
+							}
+
+							function allNoSelect() {
+								$('input[name=selectedMessages]').attr(
+										'checked', false);
+							}
+
+							$(".checkThemAll").click(function() {
+								if (this.checked) {
+									allSelect();
+								} else {
+									allNoSelect();
+								}
+							});
+						});
+			</script>
 
 			<html:form action="/DeleteMultiSentMessages">
 				<table id="tableoutbox"
 					class="tablesorter inLineTable fieldsetTableAppli">
 					<thead>
 						<tr>
-							<th class="thCheckbox"><input type="checkbox" name="selected"
-								class="checkThemAll" /> <bean:message key="tableheader.to" />
-							</th>
-							<th><bean:message key="members.firstName" />
-							</th>
-							<th><bean:message key="members.name" />
-							</th>
-							<th><bean:message key="tableheader.subject" />
-							</th>
-							<th><bean:message key="tableheader.date" />
-							</th>
+							<th class="thCheckbox"><input type="checkbox"
+								name="selected" class="checkThemAll" /> <bean:message
+									key="tableheader.to" /></th>
+							<th><bean:message key="members.firstName" /></th>
+							<th><bean:message key="members.name" /></th>
+							<th><bean:message key="tableheader.subject" /></th>
+							<th><bean:message key="tableheader.date" /></th>
 						</tr>
 					</thead>
+					<tfoot>
+						<tr>
+							<td colspan="5"><html:submit styleClass="button">
+									<bean:message key="privatemessages.delete" />
+								</html:submit></td>
+						</tr>
+					</tfoot>
 					<tbody>
 						<c:forEach items="${requestScope.outBoxMessages}" var="message">
 							<tr>
 								<td><html:multibox property="selectedMessages"
-										value="${message.id}" />
-								</td>
+										value="${message.id}" /></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosFirstname
-										socialEntity="${message.to}" />
-								</td>
+										socialEntity="${message.to}" /></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosName
-										socialEntity="${message.to}" />
-								</td>
+										socialEntity="${message.to}" /></td>
 								<td style="width: 40%"><html:link
 										action="/DisplaySentMessage">
 										<html:param name="messageId" value="${message.id}" />
@@ -96,19 +97,15 @@
 										<span style="color: gray"> <ili:substring
 												beginIndex="0" endIndex="20">
 												<ili:noxml>${message.body}</ili:noxml>
-											</ili:substring> </span>
-									</html:link>
-								</td>
+											</ili:substring>
+										</span>
+									</html:link></td>
 								<td><bean:write name="message" property="creationDate"
-										formatKey="date.format" />
-								</td>
+										formatKey="date.format" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<html:submit styleClass="button">
-					<bean:message key="privatemessages.delete" />
-				</html:submit>
 			</html:form>
 		</c:otherwise>
 	</c:choose>
