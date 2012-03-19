@@ -15,7 +15,7 @@
 
 
 	<table id="exportEvents"
-		class="inLineTableDashBoardFieldset fieldsetTable">
+		class="inLineTable fieldsetTableAppli">
 		<tr>
 			<td><html:link action="/ExportAllEvents">
 					<img src="images/download.png" alt="<bean:message key="events.export" />" title="<bean:message key="events.export" />" /><bean:message key="events.exportAll" />
