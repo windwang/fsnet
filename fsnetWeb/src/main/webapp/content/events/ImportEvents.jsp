@@ -11,11 +11,26 @@
 <script type="text/javascript" src="js/jquery.qtip.js"></script>
 
 <div id=formImportEvent>
-<html:form styleId="formImportEventsFromFile" action="/importEventsFromFile" enctype="multipart/form-data">
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome"><bean:message key="events.form.importIcsFile" /></legend>
-			<label for="icsFile"><bean:message key="events.form.browseIcsFile" /></label><input size="58%" type="file" name="icsFile" id="icsFile" />
-			<input type="submit" value="<bean:message key="events.button.import" />"/>
-		</fieldset>
-</html:form>
+
+	<fieldset class="fieldsetAppli">
+		<legend class="legendHome">
+			<bean:message key="events.form.importIcsFile" />
+		</legend>
+
+		<html:form styleId="formImportEventsFromFile"
+			action="/importEventsFromFile" enctype="multipart/form-data">
+			<table class="inLineTable fieldsetTableAppli">
+				<tr>
+					<td><label for="icsFile"><bean:message
+								key="events.form.browseIcsFile" /></label></td>
+					<td><input size="40%" type="file" name="icsFile" id="icsFile" /></td>
+				</tr>
+				<tr>	
+					<td colspan="2" class="tableButton"><input class="button" type="submit"
+						value="<bean:message key="events.button.import" />" /></td>
+				</tr>
+			</table>
+		</html:form>
+	</fieldset>
+
 </div>

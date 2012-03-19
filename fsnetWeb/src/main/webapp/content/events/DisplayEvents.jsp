@@ -8,6 +8,25 @@
 <%@ include file="DisplayYourEvents.jsp" %>
 <%@ include file="SearchEvent.jsp" %>
 
+<c:if test="${!empty requestScope.eventsList}">
+<fieldset class="fieldsetAppli">
+	<legend class="legendHome">
+		<bean:message key="events.leftMenu.exportEvents" />
+	</legend>
+
+
+	<table id="exportEvents"
+		class="inLineTable fieldsetTableAppli">
+		<tr>
+			<td><html:link action="/ExportAllEvents">
+					<img src="images/download.png" alt="<bean:message key="events.export" />" title="<bean:message key="events.export" />" /><bean:message key="events.exportAll" />
+				</html:link>
+			</td>
+		</tr>
+	</table>
+</fieldset>
+</c:if>
+
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
 		<bean:message key="events.title.list" />
@@ -38,7 +57,9 @@
 								"sType" : "date"
 							}, {
 								"bSortable" : false
-							}, null, null ];
+							}, null, null, {
+								"bSortable" : false
+							} ];
 							miseEnPageTable(nomTable, idColonneATrier,
 									sensDeTri, aoColumns, false);
 						});
@@ -54,6 +75,7 @@
 						<th><bean:message key="tableheader.by" /></th>
 						<th><bean:message key="tableheader.firstname" /></th>
 						<th><bean:message key="tableheader.name" /></th>
+						<th><bean:message key="tableheader.actions" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -81,6 +103,22 @@
 									socialEntity="${event.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${event.creator}" /></td>
+																<td>
+								<html:link action="/ExportEventById">
+									<html:param name="eventId" value="${event.id}" />
+									<img src="images/download.png" alt="<bean:message key="events.export" />" title="<bean:message key="events.export" />" />
+								</html:link>
+								<c:if test="${userId eq event.creator.id}">
+								<html:link action="/DisplayUpdateEvent">
+									<html:param name="eventId" value="${event.id}" />
+									<img src="images/edit.png" alt="<bean:message key="events.button.update" />" title="<bean:message key="events.button.update" />" />
+								</html:link>
+								<html:link action="/DeleteEvent">
+									<html:param name="eventId" value="${event.id}" />
+									<img onclick="return confirm('<bean:message key="message.confirmation.delete" />');" src="images/del.png" alt="<bean:message key="events.button.delete" />" title="<bean:message key="events.button.delete" />" />
+								</html:link>
+								</c:if>
+							</td>
 						</ili:interactionRow>
 					</c:forEach>
 				</tbody>
