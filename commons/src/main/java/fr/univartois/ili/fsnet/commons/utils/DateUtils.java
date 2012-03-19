@@ -180,4 +180,16 @@ public final class DateUtils {
 		return cal.getTime();
 	}
 	
+	/**
+	 * Method that convert a string date in us format to a Date object (used by ical4j)
+	 * @param date Date in US format : 12/31/2011 23:59
+	 * @return
+	 */
+	public static Date toIcal4jFormat(Date date) {
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(date);
+		
+		return cal.getTime();
+	}
 }

@@ -177,7 +177,8 @@ public class Authenticate extends HttpServlet {
 			req.getSession().setAttribute("isGroupResponsible",
 					socialGroupFacade.isGroupResponsible(user));
 			req.getSession().setAttribute("currentUserId", user.getId());
-
+			req.getSession().setAttribute("color", user.getGroup().getColor());
+			
 		} else {
 			// the user is not authenticated
 			RequestDispatcher dispatcher = req
