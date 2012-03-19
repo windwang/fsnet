@@ -87,14 +87,19 @@ public class ManageConsultations extends MappingDispatchAction {
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
 		addRightToRequest(request);
-		// TODO chercher le moyen de valider ce qui suit avec struts...
-		for (String cs : consultationChoices) {
-			if ("".equals(cs)) {
-				request.setAttribute("errorChoice", true);
-				return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
+		
+		if(consultationChoices.length != 0 ){
+			// TODO chercher le moyen de valider ce qui suit avec struts...
+			for (String cs : consultationChoices) {
+				if ("".equals(cs)) {
+					request.setAttribute("errorChoice", true);
+					return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
+				}
 			}
+		}else{
+			return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
 		}
-
+		
 		if (!"".equals(limitChoicesPerVoter)
 				&& Integer.valueOf(minChoicesVoter) > Integer
 						.valueOf(maxChoicesVoter)) {

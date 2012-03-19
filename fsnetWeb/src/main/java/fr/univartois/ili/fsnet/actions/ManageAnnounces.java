@@ -27,11 +27,13 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
+import fr.univartois.ili.fsnet.facade.PrivateMessageFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
@@ -234,8 +236,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		String textSearchAnnounce = (String) seaarchForm
 				.get("textSearchAnnounce");
 		em.getTransaction().begin();
-		AnnouncementFacade announcementFacade = new AnnouncementFacade(
-				em);
+		AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
 
 		List<Announcement> listAnnounces = announcementFacade
 				.searchAnnouncement(textSearchAnnounce);
@@ -249,10 +250,10 @@ public class ManageAnnounces extends MappingDispatchAction implements
 
 		addRightToRequest(request);
 
-		SocialEntity member = UserUtils.getAuthenticatedUser(request,
-				em);
-		InteractionFacade interactionFacade = new InteractionFacade(
-				em);
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		List<Announcement> myAnnouncesList = announcementFacade
+				.getUserAnnouncements(member);
+		InteractionFacade interactionFacade = new InteractionFacade(em);
 		List<Integer> unreadInteractionsId = interactionFacade
 				.getUnreadInteractionsIdForSocialEntity(member);
 		refreshNumNewAnnonces(request, em);
@@ -260,6 +261,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		em.close();
 
 		request.setAttribute("annoucesList", listAnnounces);
+		request.setAttribute("myAnnouncesList", myAnnouncesList);
 
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 
@@ -396,4 +398,50 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
+
+		try {
+			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+
+			String[] selectedAnnounces = (String[]) dynaForm
+					.get("selectedAnnounces");
+			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+					request, em);
+			AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
+			InteractionFacade interactionFacade = new InteractionFacade(em);
+
+			for (int i = 0; i < selectedAnnounces.length; i++) {
+				em.getTransaction().begin();
+				Announcement announce = announcementFacade
+						.getAnnouncement(Integer.valueOf(selectedAnnounces[i]));
+				interactionFacade
+						.deleteInteraction(authenticatedUser, announce);
+
+				addRightToRequest(request);
+
+				if (announce != null) {
+					interactionFacade.deleteInteraction(authenticatedUser,
+							announce);
+				}
+				em.getTransaction().commit();
+				em.close();
+			}
+
+		} finally {	}
+
+		return mapping.findForward(SUCCES_ACTION_NAME);
+	}
 }

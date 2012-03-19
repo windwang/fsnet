@@ -10939,16 +10939,17 @@ jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
 };
 
 function miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns,
-		affichemoinsdix) {
+		affichemoinsdix, nbEltPage) {
 	var nbCellules = document.getElementById(nomTable).rows.length;
-	if ((affichemoinsdix == true) || (nbCellules > 11)) {
+	if ((affichemoinsdix == true) || (nbCellules > (nbEltPage+1))) {
 		$("#" + nomTable).dataTable({
 			"aaSorting" : [ [ idColonneATrier, sensDeTri ] ],
 			"aoColumns" : aoColumns,
 			"bInfo" : true,
 			"bPaginate" : true,
 			"sDom" : '<"top"ip><"clear">rt<"bottom"p>',
-			"sPaginationType" : "scrolling"
+			"sPaginationType" : "scrolling",
+			 "iDisplayLength": nbEltPage 
 		});
 		return;
 	} else {
@@ -10958,7 +10959,8 @@ function miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns,
 			"bInfo" : false,
 			"bPaginate" : false,
 			"sDom" : '<"top"><"clear">rt<"bottom"><"clear">',
-			"sPaginationType" : "scrolling"
+			"sPaginationType" : "scrolling",
+			 "iDisplayLength": nbEltPage 
 		});
 		return;
 	}

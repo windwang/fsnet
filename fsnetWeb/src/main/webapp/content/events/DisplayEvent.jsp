@@ -54,7 +54,12 @@
 							<html:param name="eventId" value="${event.id}" />
 							<bean:message key="events.button.update" />
 						</html:link>
-					</c:if> <c:if test="${userId eq event.creator.id}">
+					</c:if> 
+					<html:link action="/ExportEventById" styleClass="button">
+						<html:param name="eventId" value="${event.id}" />
+						<bean:message key="events.export" />
+					</html:link>
+					<c:if test="${userId eq event.creator.id}">
 						<html:form action="/DeleteEvent" method="post"
 							styleId="eventid${event.id}" styleClass="deleteEventForm">
 							<html:hidden property="eventId" value="${event.id}" />
