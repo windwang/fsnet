@@ -746,9 +746,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		    	}
 			} catch (ParserException e) {
 				e.printStackTrace();
+				return mapping.findForward(FAILED_ACTION_NAME);
 			}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ACTION_NAME);
 		
 	}
 	
@@ -917,13 +918,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         DateTime endDate = new DateTime(new Date());
         if(event.getStartDate() != null) {
         	startDate = new DateTime(DateUtils.toIcal4jFormat(event.getStartDate()));
-        } else {
-        	
         }
+        
         if(event.getEndDate() != null) {
             endDate = new DateTime(DateUtils.toIcal4jFormat(event.getEndDate()));
-        } else {
-        	
         }
         
         UidGenerator ug;
