@@ -22,9 +22,13 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.actions.utils.ConsultationChoiceComparator;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
+import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
+import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
@@ -176,7 +180,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		em.close();
 
 		request.setAttribute("id", consultation.getId());
-
+		
+		sendMailForNewConsultation(consultation, member);
+		
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
@@ -678,6 +684,85 @@ public class ManageConsultations extends MappingDispatchAction {
 		Right rightAddConsultation = Right.ADD_CONSULTATION;
 		request.setAttribute("rightAddConsultation", rightAddConsultation);
 		request.setAttribute("socialEntity", socialEntity);
+	}
+	
+	/**
+	 * Send email for inform of a new consultation to every member of the same group that
+	 * the owner of the consultation
+	 * 
+	 * @param consultation
+	 * @param socialEntity
+	 */
+	private void sendMailForNewConsultation(Consultation consultation,
+			SocialEntity creator){
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialGroupFacade  socialGroup = new SocialGroupFacade(em);
+		for(SocialEntity se : socialGroup.getMembersFromGroup
+				(consultation.getCreator().getGroup())){
+			sendInformationMail(consultation,se);
+		}
+	}
+	
+	/**
+	 * Send information email
+	 * 
+	 * @param consultation
+	 * @param socialEntity
+	 */
+	private void sendInformationMail(Consultation consultation,
+			SocialEntity socialEntity) {
+		FSNetConfiguration conf = FSNetConfiguration.getInstance();
+		String fsnetAddress = conf.getFSNetConfiguration().getProperty(
+				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
+		String message;
+
+
+		message = createPersonalizedMessage(consultation, socialEntity, fsnetAddress);
+
+		FSNetMailer mailer = FSNetMailer.getInstance();
+		Mail mail = mailer.createMail();
+
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		mail.setSubject(bundle.getMessage("consultations.mail.subject") + " : " +
+				consultation.getTitle());
+		
+		mail.addRecipient(socialEntity.getEmail());
+		mail.setContent(message);
+		mailer.sendMail(mail);
+	}
+
+	/**
+	 * Creates an personalized message to inform of an ending consultation
+	 * 
+	 * @param consultation
+	 * @param socialEntity
+	 * @param String
+	 */
+	private String createPersonalizedMessage(Consultation consultation, SocialEntity entity,
+			String fsnetAddress) {
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		StringBuilder sb = new StringBuilder();
+		
+		sb.append(bundle.getMessage("consultations.mail.new") +" ");
+		sb.append("\"" + consultation.getTitle() + "\" ");
+		sb.append(bundle.getMessage("consultations.mail.deadline") + " ");
+		sb.append(consultation.getMaxDate() + ".");
+		sb.append("<\br>");
+		sb.append("<\br>");
+		sb.append(bundle.getMessage("consultations.title.choix") + ":");
+		sb.append("<ol>");
+		
+		for(ConsultationChoice choice : consultation.getChoices()){
+			sb.append("<li>" + choice.getIntituled() + "</li>");
+		}
+		
+		sb.append("</ol>");
+		sb.append(bundle.getMessage("consultations.mail.fsnet") + " ");
+		sb.append(fsnetAddress + ".");
+		
+		return sb.toString();
 	}
 
 }

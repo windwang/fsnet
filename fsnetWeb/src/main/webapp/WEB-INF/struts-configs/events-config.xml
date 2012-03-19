@@ -140,6 +140,7 @@
 			validate="false" parameter="importEventsFromFile">
 			<forward name="success" path="/Events.do" />
 			<forward name="unauthorized" path="/Events.do" />
+			<forward name="failed" path="/DisplayImportEvents.do" />
 		</action>
 
 		<action path="/DeleteMultiEvents" name="SearchDisplayEventsForm"

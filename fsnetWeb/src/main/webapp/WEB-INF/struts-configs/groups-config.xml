@@ -17,6 +17,7 @@
 			<form-property name="memberListRight" type="java.lang.String[]" />
 			<form-property name="rigthListLeft" type="java.lang.String[]" />
 			<form-property name="rigthListRight" type="java.lang.String[]" />
+			<form-property name="color" type="java.lang.String" />
 
 		</form-bean>
 		<form-bean name="ModifyGroupForm"
@@ -30,6 +31,7 @@
 			<form-property name="memberListRight" type="java.lang.String[]" />
 			<form-property name="rigthListLeft" type="java.lang.String[]" />
 			<form-property name="rigthListRight" type="java.lang.String[]" />
+			<form-property name="color" type="java.lang.String" />
 
 		</form-bean>
 		<form-bean name="ChangeLogoForm" type="org.apache.struts.validator.DynaValidatorActionForm">
