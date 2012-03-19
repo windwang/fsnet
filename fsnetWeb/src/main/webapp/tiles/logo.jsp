@@ -45,6 +45,6 @@
 			</c:if>
 		</c:otherwise>
 	</c:choose>
+	<h3>${sessionScope.userFirstName} ${sessionScope.userName}</h3>
 </div>
 
-<h3>${sessionScope.userFirstName} ${sessionScope.userName}</h3>
