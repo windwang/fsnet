@@ -28,7 +28,7 @@
 									"sType" : "date-euro"
 								} ];
 								miseEnPageTable(nomTable, idColonneATrier,
-										sensDeTri, aoColumns, false);
+										sensDeTri, aoColumns, false, 5);
 							}
 							pagination();
 
@@ -86,7 +86,7 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<html:submit styleClass="button">
+				<html:submit styleClass="tableButton2 button">
 					<bean:message key="privatemessages.delete" />
 				</html:submit>
 			</html:form>

@@ -436,14 +436,11 @@ public class ManageAnnounces extends MappingDispatchAction implements
 					interactionFacade.deleteInteraction(authenticatedUser,
 							announce);
 				}
-
 				em.getTransaction().commit();
 				em.close();
 			}
 
-		} finally {
-			em.close();
-		}
+		} finally {	}
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}

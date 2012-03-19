@@ -36,7 +36,7 @@
 							"sType" : "date-euro"
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, true);
+								aoColumns, true, 10);
 					}
 						pagination();
 						

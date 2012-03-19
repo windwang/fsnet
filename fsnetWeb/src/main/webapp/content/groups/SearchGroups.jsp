@@ -24,7 +24,7 @@
 								"bSortable" : false
 							} ];
 							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
+									sensDeTri, aoColumns, false, 10);
 						});
 			</script>
 			<table id="searchGroupsTable"
