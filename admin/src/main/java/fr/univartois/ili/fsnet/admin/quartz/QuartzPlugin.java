@@ -64,7 +64,7 @@ public class QuartzPlugin implements PlugIn {
 
 			// define the job and tie it to InformEndingConsultationJob class
 			JobDetail informEndingConsultationsJob = newJob(InformEndingConsultationsJob.class)
-					.withIdentity("PreventEndingConsultationJob", "group 1")
+					.withIdentity("InformEndingConsultationJob", "group 1")
 					.build();
 
 			// Trigger the job daily at 00h30
