@@ -722,11 +722,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 				FormFile icsFile = (FormFile) dynaForm.get("icsFile");
 				
-		        if(icsFile != null) {
+		        if(icsFile != null && !icsFile.getFileName().equals("")) {
 		        	String filePath = request.getSession().getServletContext().getRealPath("/");
 		            
 		            if (!icsFile.getFileName().endsWith(".ics")) {
-		            	return mapping.findForward("input");
+						ActionErrors errors = new ActionErrors();
+						errors.add("icsFile", new ActionMessage(
+								("events.import.onlyIcsFileExtension")));
+						saveErrors(request, errors);
+			    		return mapping.findForward(FAILED_ACTION_NAME);
 		            };
 		            
 		            FileOutputStream outputStream = null;
@@ -748,10 +752,18 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				
 				parseCalendarAndSaveToDB(calendar,request);
 		        } else {
-		    		return mapping.findForward("input");
+					ActionErrors errors = new ActionErrors();
+					errors.add("icsFile", new ActionMessage(
+							("events.import.icsFileRequired")));
+					saveErrors(request, errors);
+		    		return mapping.findForward(FAILED_ACTION_NAME);
 		    	}
 			} catch (ParserException e) {
 				e.printStackTrace();
+				ActionErrors errors = new ActionErrors();
+				errors.add("icsFile", new ActionMessage(
+						("events.import.parseError")));
+				saveErrors(request, errors);
 				return mapping.findForward(FAILED_ACTION_NAME);
 			}
 
