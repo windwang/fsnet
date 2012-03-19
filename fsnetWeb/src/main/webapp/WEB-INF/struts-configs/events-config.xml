@@ -49,6 +49,12 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="icsFile" type="org.apache.struts.upload.FormFile" />
 		</form-bean>
+		
+        <form-bean name="SearchDisplayEventsForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="eventsId" type="java.lang.String" />
+            <form-property name="selectedEvents" type="java.lang.String[]" />
+        </form-bean>
 	</form-beans>
 
 	<action-mappings>
@@ -130,6 +136,14 @@
 			validate="false" parameter="importEventsFromFile">
 			<forward name="success" path="/Events.do" />
 			<forward name="unauthorized" path="/Events.do" />
+		</action>
+		
+
+		<action path="/DeleteMultiEvents" name="SearchDisplayEventsForm"
+			type="fr.univartois.ili.fsnet.actions.ManageEvents" 
+			scope="request" validate="false" parameter="deleteMulti">
+			<forward name="success" path="/Events.do" />
+			<forward name="failed" path="/Events.do" />
 		</action>
 	</action-mappings>
 </struts-config>

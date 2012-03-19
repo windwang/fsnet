@@ -64,7 +64,7 @@
 					class="tablesorter inLineTable fieldsetTableAppli">
 					<thead>
 						<tr>
-							<th class="thMessage"><input type="checkbox" name="selected"
+							<th class="thCheckbox"><input type="checkbox" name="selected"
 								class="checkThemAll" /> <bean:message key="tableheader.to" />
 							</th>
 							<th><bean:message key="members.firstName" />

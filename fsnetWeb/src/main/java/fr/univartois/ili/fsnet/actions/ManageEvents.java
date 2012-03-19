@@ -38,11 +38,13 @@ import org.apache.struts.upload.FormFile;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
@@ -481,6 +483,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		}
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+
+		List<Meeting> resultsMyEvents = meetingFacade.getUserMeeting(member);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		List<Integer> unreadInteractionsId = interactionFacade
 				.getUnreadInteractionsIdForSocialEntity(member);
@@ -490,6 +494,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		em.close();
 
 		request.setAttribute("eventsList", results);
+		request.setAttribute("myEventsList", resultsMyEvents);
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
@@ -793,4 +798,53 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         }
     }
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
+		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+				request, em);
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+	try {
+			
+			String[] selectedEvents = (String[]) dynaForm
+					.get("selectedEvents");
+			
+			MeetingFacade eventFacade = new MeetingFacade(em);
+
+			InteractionFacade interactionFacade = new InteractionFacade(em);
+			addRightToRequest(request);
+
+			for (int i = 0; i < selectedEvents.length; i++) {
+				em.getTransaction().begin();
+				Meeting meeting = eventFacade
+						.getMeeting(Integer.parseInt(selectedEvents[i]));
+				Set<SocialEntity> followingEntitys = meeting.getFollowingEntitys();
+				for (SocialEntity se : followingEntitys) {
+					se.getFavoriteInteractions().remove(meeting);
+				}
+				InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
+						em);
+				interactionRoleFacade.unsubscribeAll(meeting);
+				interactionFacade.deleteInteraction(authenticatedUser, meeting);
+
+				em.getTransaction().commit();
+			}
+
+		} finally {
+			em.close();
+		}
+
+		return mapping.findForward(SUCCES_ACTION_NAME);
+	}
 }

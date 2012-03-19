@@ -61,7 +61,8 @@
 			<table id="tableinbox" class="tablesorter inLineTable fieldsetTableAppli">
 				<thead>
 					<tr>
-						<th class="thMessage"><input type="checkbox" name="selected" class="checkThemAll1" /></td><td><bean:message key="tableheader.from" /> </th>
+						<th class="thCheckbox"><input type="checkbox" name="selected" class="checkThemAll1" /></th>
+						<th><bean:message key="tableheader.from" /> </th>
 						<th><bean:message key="members.firstName" /></th>
 						<th><bean:message key="members.name" /></th>
 						<th><bean:message key="tableheader.subject" /></th>

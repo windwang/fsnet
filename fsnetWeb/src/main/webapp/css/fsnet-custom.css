@@ -681,8 +681,9 @@ thead, thead th {
 
 input[type=submit] {cursor:pointer;}
 
-.thMessage{
-	padding-left: 0;
+.thCheckbox{  
+	padding: 0 0 0 5px;
+	width:15px;
 }
 
 form#formImportEventsFromFile fieldset {
@@ -692,3 +693,6 @@ form#formImportEventsFromFile fieldset {
 form#formImportEventsFromFile fieldset legend{
 	margin:-40px 0 0 30px;
 }
+
+
+    margin-left: 5px;
