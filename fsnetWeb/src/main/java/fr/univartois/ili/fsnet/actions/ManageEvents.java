@@ -216,6 +216,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		ActionRedirect redirect = new ActionRedirect(
 				mapping.findForward(SUCCES_ACTION_NAME));
 		redirect.addParameter(EVENT_ID_ATTRIBUTE_NAME, event.getId());
+		
 		return redirect;
 	}
 

@@ -1,11 +1,14 @@
 package fr.univartois.ili.fsnet.facade;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -140,4 +143,30 @@ public class MeetingFacade {
 		listMeeting = filter.filterInteraction(se, listMeeting);
 		return listMeeting;
 	}
+	
+	/**
+	 * Get meetings having recall which occur now
+	 * @return List<Meeting> the list containing meetings having recall which occur now
+	 */
+	
+	public final List<Meeting> getMeetingsHavingRecallWhichOccurNow(){
+		List<Meeting> listMeeting = null;
+		
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+				calendar.get(Calendar.DATE), calendar.get(Calendar.HOUR_OF_DAY),
+				calendar.get(Calendar.MINUTE), 0);
+		Date now = calendar.getTime();
+		
+		String nowFormatted = "";
+		nowFormatted = DateUtils.renderDBDateWithSecond(now);
+		listMeeting = em
+				.createQuery(
+						"SELECT m FROM Meeting m where m.recallDate = \"" +
+								nowFormatted + "\"",
+						Meeting.class).getResultList();
+		
+		return listMeeting;
+	}
+	
 }
