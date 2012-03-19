@@ -80,12 +80,20 @@
 								<bean:message key="consultations.error.choice" />
 							</div>
 						</c:if>
+						<div id="errorChoice">
+							<div class="errorMessage">
+								<bean:message key="consultations.error.choice" />
+							</div>
+						</div>
+
 						<c:if test="${errorMaxVotersPerChoice}">
 							<div class="errorMessage">
 								<bean:message key="consultations.error.maxVotersPerChoice" />
 							</div>
 						</c:if>
 
+						<html:hidden property="consultationChoice"
+							styleId="consultationChoice" />
 						<table id="choicesTab">
 							<c:forEach begin="1" end="3" var="i">
 								<tr>
@@ -93,9 +101,11 @@
 											class="i18nChoice"><bean:message
 													key="consultations.form.choice" /></span> ${i} : </label></td>
 
-									<td><html:text property="consultationChoice"
+									<!--<td><html:text property="consultationChoice"
 											styleClass="consultationChoice"
-											styleId="consultationChoice${i}" value="" /></td>
+											styleId="consultationChoice${i}" value="" /></td>-->
+									<td><input type="text" id="consultationChoice${i}"
+										class="consultationChoice" value="" /></td>
 								</tr>
 							</c:forEach>
 						</table>
@@ -246,7 +256,8 @@
 
 			<tr>
 				<td class="tableButton"><html:submit styleClass="button"
-						styleId="buttonConsultation">
+						styleId="buttonConsultation"
+						onclick="return validateConsultation()">
 						<bean:message key="consultations.button.create" />
 					</html:submit></td>
 			</tr>
@@ -300,6 +311,8 @@
 		$("#limitChoicesPerVoter").click(function(e) {
 			displayLimitChoicesPerVoter();
 		});
+		
+		$("#errorChoice").css("display", "none");
 
 		displayChoicesOption(true);
 
