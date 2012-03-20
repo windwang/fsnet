@@ -85,7 +85,10 @@ public class InformComingEventsJob implements Job {
 		
 		for(Meeting m : meetingFacade.getMeetingsHavingRecallWhichOccurNow())
 			meetingsWithTheirSubscribers.put(m,interactionRoleFacade.getSubscribers(m));
-		
+				
+		if(meetingsWithTheirSubscribers.isEmpty())
+			return null;
+			
 		return meetingsWithTheirSubscribers;
 	}
 
