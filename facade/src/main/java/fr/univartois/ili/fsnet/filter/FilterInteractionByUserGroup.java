@@ -45,6 +45,10 @@ public class FilterInteractionByUserGroup {
 
 	public final <T extends Interaction> T filterAnInteraction(SocialEntity se,
 			T interaction) {
+		
+		if (interaction.getCreator().equals(se)) {
+			return interaction;
+		}
 		/* load group user */
 		SocialGroup socialGroupUser = se.getGroup();
 

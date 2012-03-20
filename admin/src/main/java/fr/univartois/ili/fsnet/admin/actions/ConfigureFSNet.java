@@ -44,7 +44,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 	private static final String DEFAULT_SMTP_PORT = "25";
 	private static final int MAX_PICTURE_SIZE = 500000;
-	
+
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String INTERNATIONALIZATION_RESSOURCE = "FSneti18n";
 
@@ -166,7 +166,8 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			saveProperty(em, FSNetConfiguration.PICTURES_DIRECTORY_KEY, dirName);
 		} else {
 			ActionErrors errors = new ActionErrors();
-			errors.add("PicturesDirectory", new ActionMessage("configure.error.imgFolder2"));
+			errors.add("PicturesDirectory", new ActionMessage(
+					"configure.error.imgFolder2"));
 			saveErrors(request, errors);
 		}
 
@@ -176,8 +177,8 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"configure.mail.update.success"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+				request.getLocale(), "configure.mail.update.success"));
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
@@ -207,8 +208,8 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"configure.facebook.update.success"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+				request.getLocale(), "configure.facebook.update.success"));
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
@@ -268,21 +269,21 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"configure.testMail.sent"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+				request.getLocale(), "configure.testMail.sent"));
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
 	/**
-     * @param mapping
-     * @param form
-     * @param request
-     * @param response
-     * @return
-     * @throws IOException
-     * @throws ServletException
-     */
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
 	public ActionForward updateDB(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -305,12 +306,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					tmp.append(line);
 				}
 			}
-			try{
-			br.close();
-			}catch(Exception e){
+			try {
+				br.close();
+			} catch (Exception e) {
 				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
-			
+
 		}
 		if (!f.exists() || !tmp.toString().contains("DB modified")) {
 			EntityManager entityManager = PersistenceProvider
@@ -341,8 +342,8 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"configure.db.update.success"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+				request.getLocale(), "configure.db.update.success"));
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
@@ -371,12 +372,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"configure.db.update.success"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+				request.getLocale(), "configure.db.update.success"));
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
-	
+
 	public ActionForward dropCVTables(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
@@ -385,50 +386,66 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
 
-			Query query = em.createNativeQuery("DROP TABLE IF EXISTS CURRICULUM");
+			Query query = em
+					.createNativeQuery("DROP TABLE IF EXISTS CURRICULUM");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE CURRICULUM");
-			
-			
-			query = em.createNativeQuery("DROP TABLE IF EXISTS CURRICULUM_HOBBIESCV");
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE CURRICULUM");
+
+			query = em
+					.createNativeQuery("DROP TABLE IF EXISTS CURRICULUM_HOBBIESCV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE CURRICULUM_HOBBIESCV");
-			
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE CURRICULUM_HOBBIESCV");
+
 			query = em.createNativeQuery("DROP TABLE IF EXISTS DEGREECV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE DEGREECV");
-			
-			query = em.createNativeQuery("DROP TABLE IF EXISTS ESTABLISHMENTCV");
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE DEGREECV");
+
+			query = em
+					.createNativeQuery("DROP TABLE IF EXISTS ESTABLISHMENTCV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE ESTABLISHMENTCV");
-			
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE ESTABLISHMENTCV");
+
 			query = em.createNativeQuery("DROP TABLE IF EXISTS FORMATIONCV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE FORMATIONCV");
-			
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE FORMATIONCV");
+
 			query = em.createNativeQuery("DROP TABLE IF EXISTS HOBBIESCV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE HOBBIESCV");
-			
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE HOBBIESCV");
+
 			query = em.createNativeQuery("DROP TABLE IF EXISTS MEMBERCV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE MEMBERCV");
-			
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE MEMBERCV");
+
 			query = em.createNativeQuery("DROP TABLE IF EXISTS TRAININGCV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE TRAININGCV");
-			
-			query = em.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATEDEGREECV");
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE TRAININGCV");
+
+			query = em
+					.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATEDEGREECV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE ASSOCIATIONDATEDEGREECV");
-			
-			query = em.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATEFORMATIONCV");
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE ASSOCIATIONDATEDEGREECV");
+
+			query = em
+					.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATEFORMATIONCV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE ASSOCIATIONDATEFORMATIONCV");
-			
-			query = em.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATETRAININGCV");
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE ASSOCIATIONDATEFORMATIONCV");
+
+			query = em
+					.createNativeQuery("DROP TABLE IF EXISTS ASSOCIATIONDATETRAININGCV");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "DROP TABLE ASSOCIATIONDATETRAININGCV");
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"DROP TABLE ASSOCIATIONDATETRAININGCV");
 
 			em.getTransaction().commit();
 			em.close();
@@ -438,23 +455,25 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"configure.db.dropcvtables.success"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+				request.getLocale(), "configure.db.dropcvtables.success"));
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
-	
-	public ActionForward addRecalTimeColumnInMeeting(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+
+	public ActionForward addRecalTimeColumnInMeeting(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
 
-			Query query = em.createNativeQuery("ALTER TABLE MEETING ADD COLUMN RECALLDATE DATETIME");
+			Query query = em
+					.createNativeQuery("ALTER TABLE MEETING ADD COLUMN RECALLDATE DATETIME");
 			query.executeUpdate();
-			Logger.getAnonymousLogger().log(Level.SEVERE, "", "COLUMN RECALLDATE ADDED IN MEETING TABLE");
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"COLUMN RECALLDATE ADDED IN MEETING TABLE");
 
 			em.getTransaction().commit();
 			em.close();
@@ -464,10 +483,61 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"configure.db.addRecalTimeColumn.success"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+				request.getLocale(), "configure.db.addRecalTimeColumn.success"));
 
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
+	public ActionForward createInteractionGroupTable(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+
+			Query query = em
+					.createNativeQuery("CREATE TABLE IF NOT EXISTS INTERACTIONGROUPS ("
+							+ "ID int(11) NOT NULL AUTO_INCREMENT,"
+							+ "GROUP_ID int(11) NOT NULL,"
+							+ "INTERACTION_ID int(11) NOT NULL,"
+							+ "PRIMARY KEY (ID,GROUP_ID,INTERACTION_ID),"
+							+ "KEY FK_INTERACTIONGROUPS_GROUP_ID (GROUP_ID),"
+							+ "KEY FK_INTERACTIONGROUPS_INTERACTION_ID (INTERACTION_ID)"
+							+ ") ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18;");
+			query. executeUpdate();
+
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		}
+
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+	}
+
+	public ActionForward createInteractionGroupDataWithOldRecord(
+			ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			em.getTransaction().begin();
+
+			Query query = em
+					.createNativeQuery("SELECT sg.ID AS GROUP_ID, i.ID AS INTERACTION_ID"
+							+ "FROM ((SOCIALGROUP AS sg JOIN SOCIALENTITY AS se ON sg.MASTERGROUP_ID = se.ID) "
+							+ "JOIN INTERACTION AS i ON se.ID = i.CREATOR_ID)"
+							+ "WHERE i.DTYPE = \"Consultation\";");
+			query.executeUpdate();			
+			
+			em.getTransaction().commit();
+			em.close();
+		} catch (Exception e) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		}
+
+		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+	}
 }

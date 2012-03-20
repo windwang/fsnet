@@ -144,7 +144,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -173,7 +174,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -202,7 +204,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -284,6 +287,45 @@
 		</tr>
 	</table>
 </fieldset>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message key="configure.title.AddInteractionGroupTable" />
+	</legend>
+
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr>
+			<td><html:form enctype="multipart/form-data"
+					action="/AddInteractionGroupTable">
+					<div>
+						<html:submit styleClass="button">
+							<bean:message key="configure.button.submit" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message key="configure.title.createInteractionGroupDataWithOldRecord" />
+	</legend>
+
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr>
+			<td><html:form enctype="multipart/form-data"
+					action="/CreateInteractionGroupDataWithOldRecord">
+					<div>
+						<html:submit styleClass="button">
+							<bean:message key="configure.button.submit" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
+</fieldset>
+
 
 <script type="text/javascript">
 	function updateAuthenticationFields() {
