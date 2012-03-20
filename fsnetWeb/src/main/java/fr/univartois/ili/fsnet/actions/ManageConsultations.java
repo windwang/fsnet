@@ -102,6 +102,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(
 					mapping.findForwardConfig(FAILED_ACTION_NAME));
 		}
+
 		for (int i = 0; i < maxVoters.length; i++) {
 			if ("".equals(maxVoters[i])) {
 				maxVoters[i] = "-1"; // Unlimited
@@ -221,6 +222,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(
 					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
 		}
+		
 		if (consultation.isLimitChoicesPerParticipant()) {
 			int answersNumber = 0;
 			if (TypeConsultation.YES_NO_IFNECESSARY.equals(consultation
@@ -246,6 +248,7 @@ public class ManageConsultations extends MappingDispatchAction {
 						response);
 			}
 		}
+		
 		em.getTransaction().begin();
 		if (isAllowedToVote(consultation, member)) {
 			ConsultationVote vote = new ConsultationVote(member, voteComment,
@@ -267,6 +270,7 @@ public class ManageConsultations extends MappingDispatchAction {
 					}
 				}
 			}
+			
 			if (consultation.getType() != Consultation.TypeConsultation.PREFERENCE_ORDER
 					&& consultation.isLimitParticipantsPerChoice()) {
 				for (ConsultationChoice choice : consultation.getChoices()) {
@@ -279,18 +283,22 @@ public class ManageConsultations extends MappingDispatchAction {
 							}
 						}
 					}
+					
 					if (nbVotes > choice.getMaxVoters()) {
 						return displayAConsultation(mapping, dynaForm, request,
 								response);
 					}
 				}
 			}
+			
 			if (voteOk) {
 				consultationFacade.voteForConsultation(consultation, vote);
 				em.getTransaction().commit();
 			}
 		}
+		
 		em.close();
+		
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 

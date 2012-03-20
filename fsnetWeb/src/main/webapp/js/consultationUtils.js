@@ -75,6 +75,7 @@ function updateMaxVoters() {
 
 function validateConsultation() {
 	$("#consultationChoice").val("");
+	$("#maxVoters").val("");
 
 	for (j = 1; j < i; j++) {
 		
@@ -86,7 +87,7 @@ function validateConsultation() {
 			return false;
 		}
 
-		if ($("#consultationChoice") == "") {
+		if ($("#consultationChoice").val() == "") {
 			$("#consultationChoice").val(val);
 		} else {
 			$("#consultationChoice").val(
@@ -96,11 +97,11 @@ function validateConsultation() {
 		//
 		val2 = $("#maxVoters" + j).val();
 		if (val2 != undefined) {
-			if ($("#maxVoters") == "") {
-				$("#maxVoters").val(val);
+			if ($("#maxVoters").val() == "") {
+				$("#maxVoters").val(val2);
 			} else {
 				$("#maxVoters").val(
-						$("#maxVoters").val() + ";" + val);
+						$("#maxVoters").val() + ";" + val2);
 			}
 			
 		}
