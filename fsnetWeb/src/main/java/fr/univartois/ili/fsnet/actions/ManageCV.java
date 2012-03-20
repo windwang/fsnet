@@ -307,6 +307,7 @@ public class ManageCV extends MappingDispatchAction {
 				languages.put(cvNameLang, cvLevelLang);
 				lang++;
 			}
+			SocialEntity mem = UserUtils.getAuthenticatedUser(request, em); 
 			member.setLanguages(languages);
 			em.getTransaction().begin();
 			em.persist(member);
@@ -459,7 +460,7 @@ public class ManageCV extends MappingDispatchAction {
 				curriculum.setHobs(curriculum.getHobs());
 				l++;
 			}
-
+			curriculum.setUserId(mem.getId());
 			em.persist(curriculum);
 
 			em.getTransaction().commit();
@@ -515,15 +516,17 @@ public class ManageCV extends MappingDispatchAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
-
+		SocialEntity mem = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
 
 		CvFacade cvfacade = new CvFacade(em);
-		List<Curriculum> result = cvfacade.listAllCv();
+		List<Curriculum> results = cvfacade.listAllCv(mem.getId());
+		
+		 
 
 		em.close();
 
-		request.setAttribute("CVsList", result);
+		request.setAttribute("CVsList", results);
 
 		return mapping.findForward(SUCCESS_ACTION_NAME);
 	}
