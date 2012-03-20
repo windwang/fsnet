@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,6 +24,7 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.ValidationException;
 
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
@@ -722,11 +724,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 				FormFile icsFile = (FormFile) dynaForm.get("icsFile");
 				
-		        if(icsFile != null) {
+		        if(icsFile != null && !icsFile.getFileName().equals("")) {
 		        	String filePath = request.getSession().getServletContext().getRealPath("/");
 		            
 		            if (!icsFile.getFileName().endsWith(".ics")) {
-		            	return mapping.findForward("input");
+						ActionErrors errors = new ActionErrors();
+						errors.add("icsFile", new ActionMessage(
+								("events.import.onlyIcsFileExtension")));
+						saveErrors(request, errors);
+			    		return mapping.findForward(FAILED_ACTION_NAME);
 		            };
 		            
 		            FileOutputStream outputStream = null;
@@ -748,10 +754,18 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				
 				parseCalendarAndSaveToDB(calendar,request);
 		        } else {
-		    		return mapping.findForward("input");
+					ActionErrors errors = new ActionErrors();
+					errors.add("icsFile", new ActionMessage(
+							("events.import.icsFileRequired")));
+					saveErrors(request, errors);
+		    		return mapping.findForward(FAILED_ACTION_NAME);
 		    	}
 			} catch (ParserException e) {
 				e.printStackTrace();
+				ActionErrors errors = new ActionErrors();
+				errors.add("icsFile", new ActionMessage(
+						("events.import.parseError")));
+				saveErrors(request, errors);
 				return mapping.findForward(FAILED_ACTION_NAME);
 			}
 
@@ -774,19 +788,18 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward exportEventById(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-	    OutputStream icsOutputStream;
-	    InputStream icsInputStream;
-
-        try
-        {
-        	String filePath = request.getSession().getServletContext().getRealPath("/");
-  
-        	net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
-	        calendar.getProperties().add(new ProdId("-//Calendar//Event 1.0//EN"));
-	        calendar.getProperties().add(Version.VERSION_2_0);
-	        calendar.getProperties().add(CalScale.GREGORIAN);
 	        
 	        try  {
+	    	    OutputStream icsOutputStream;
+	    	    InputStream icsInputStream;
+	    	    
+	        	String filePath = request.getSession().getServletContext().getRealPath("/");
+	        	  
+	        	net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
+		        calendar.getProperties().add(new ProdId("-//Calendar//Event 1.0//EN"));
+		        calendar.getProperties().add(Version.VERSION_2_0);
+		        calendar.getProperties().add(CalScale.GREGORIAN);
+		        
 	    		EntityManager em = PersistenceProvider.createEntityManager();
 
 	    		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -822,13 +835,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		        icsInputStream.close();
 		        out.close();
 		        em.close();
-		        } catch (Exception e) {
-		        	e.printStackTrace();
+		        } catch (NumberFormatException nfe) {
+		        	nfe.printStackTrace();
+		        } catch(FileNotFoundException fnfe) {
+		        	fnfe.printStackTrace();
+		        } catch(IOException io) {
+		        	io.printStackTrace();
+		        } catch(net.fortuna.ical4j.model.ValidationException ve) {
+		        	ve.printStackTrace();
 		        }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
 		
 		return mapping.findForward("success");
 	}
@@ -847,19 +862,18 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward exportAllEvent(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-	    OutputStream icsOutputStream;
-	    InputStream icsInputStream;
-
-        try
-        {
-        	String filePath = request.getSession().getServletContext().getRealPath("/");
-  
-        	net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
-	        calendar.getProperties().add(new ProdId("-//Calendar//Event 1.0//EN"));
-	        calendar.getProperties().add(Version.VERSION_2_0);
-	        calendar.getProperties().add(CalScale.GREGORIAN);
 	        
 	        try  {
+	    	    OutputStream icsOutputStream;
+	    	    InputStream icsInputStream;
+
+            	String filePath = request.getSession().getServletContext().getRealPath("/");
+      
+            	net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
+    	        calendar.getProperties().add(new ProdId("-//Calendar//Event 1.0//EN"));
+    	        calendar.getProperties().add(Version.VERSION_2_0);
+	    	    calendar.getProperties().add(CalScale.GREGORIAN);
+	    	        
 	    		EntityManager em = PersistenceProvider.createEntityManager();
 
 	    		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -897,14 +911,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		        icsInputStream.close();
 		        out.close();
 		        em.close();
-		        } catch (Exception e) {
-		        	e.printStackTrace();
-		        }
-            
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-		
+		        } catch (IOException io) {
+		        	io.printStackTrace();
+		        } catch (net.fortuna.ical4j.model.ValidationException ve) {
+					ve.printStackTrace();
+				}
+
 		return mapping.findForward("success");
 	}
 	
