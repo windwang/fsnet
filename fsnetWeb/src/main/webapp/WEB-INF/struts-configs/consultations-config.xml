@@ -8,7 +8,7 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="consultationTitle" type="java.lang.String" />
 			<form-property name="consultationDescription" type="java.lang.String" />
-			<form-property name="consultationChoice" type="java.lang.String[]" />
+			<form-property name="consultationChoice" type="java.lang.String" />
 			<form-property name="consultationType" type="java.lang.String"
 				initial="YES_NO" />
 			<form-property name="consultationIfNecessaryWeight"

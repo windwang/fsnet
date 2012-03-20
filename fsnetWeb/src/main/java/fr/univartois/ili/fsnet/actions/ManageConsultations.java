@@ -74,8 +74,8 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationTitle = (String) dynaForm.get("consultationTitle");
 		String consultationDescription = (String) dynaForm
 				.get("consultationDescription");
-		String[] consultationChoices = dynaForm
-				.getStrings("consultationChoice");
+		String[] consultationChoices = dynaForm.getString("consultationChoice")
+				.split(";");
 		String[] maxVoters = dynaForm.getStrings("maxVoters");
 		String consultationType = dynaForm.getString("consultationType");
 		String consultationIfNecessaryWeight = dynaForm
@@ -91,24 +91,13 @@ public class ManageConsultations extends MappingDispatchAction {
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
 		addRightToRequest(request);
-		
-		if(consultationChoices.length != 0 ){
-			// TODO chercher le moyen de valider ce qui suit avec struts...
-			for (String cs : consultationChoices) {
-				if ("".equals(cs)) {
-					request.setAttribute("errorChoice", true);
-					return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
-				}
-			}
-		}else{
-			return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
-		}
-		
+
 		if (!"".equals(limitChoicesPerVoter)
 				&& Integer.valueOf(minChoicesVoter) > Integer
 						.valueOf(maxChoicesVoter)) {
 			request.setAttribute("errorChoicesVoter", true);
-			return new ActionRedirect(mapping.findForwardConfig(FAILED_ACTION_NAME));
+			return new ActionRedirect(
+					mapping.findForwardConfig(FAILED_ACTION_NAME));
 		}
 		for (int i = 0; i < maxVoters.length; i++) {
 			if ("".equals(maxVoters[i])) {
@@ -116,7 +105,8 @@ public class ManageConsultations extends MappingDispatchAction {
 			} else if (!IntegerValidator.getInstance().isValid(maxVoters[i])
 					|| Integer.valueOf(maxVoters[i]) < 1) {
 				request.setAttribute("errorMaxVotersPerChoice", true);
-				return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
+				return new ActionRedirect(
+						mapping.findForward(FAILED_ACTION_NAME));
 			}
 		}
 		// END TODO
@@ -280,7 +270,7 @@ public class ManageConsultations extends MappingDispatchAction {
 					int nbVotes = 0;
 					for (ConsultationVote cv : consultation
 							.getConsultationVotes()) {
-						for (ConsultationChoiceVote ccv : cv.getChoices()){
+						for (ConsultationChoiceVote ccv : cv.getChoices()) {
 							if (ccv.getChoice().equals(choice)) {
 								nbVotes++;
 							}
