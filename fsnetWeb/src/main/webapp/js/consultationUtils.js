@@ -35,7 +35,7 @@ function displayChoices(displayValue, displayOption) {
 		if (displayOption) {
 			res += ' <label for="maxVoters'
 					+ j
-					+ '"><bean:message key="consultations.form.choicesOption" /> </label><input type="text" name="maxVoters" value="'
+					+ '"><bean:message key="consultations.form.choicesOption" /> </label><input type="text" value="'
 					+ val2 + '" id="maxVoters' + j
 					+ '" class="consultationMaxVotersPerChoice" />';
 		}
@@ -77,8 +77,10 @@ function validateConsultation() {
 	$("#consultationChoice").val("");
 
 	for (j = 1; j < i; j++) {
+		
+		// 
 		val = $("#consultationChoice" + j).val();
-
+		
 		if (val == "") {
 			$("#errorChoice").css("display", "block");
 			return false;
@@ -90,6 +92,19 @@ function validateConsultation() {
 			$("#consultationChoice").val(
 					$("#consultationChoice").val() + ";" + val);
 		}
+		
+		//
+		val2 = $("#maxVoters" + j).val();
+		if (val2 != undefined) {
+			if ($("#maxVoters") == "") {
+				$("#maxVoters").val(val);
+			} else {
+				$("#maxVoters").val(
+						$("#maxVoters").val() + ";" + val);
+			}
+			
+		}
+		
 	}
 	
 	return true;
