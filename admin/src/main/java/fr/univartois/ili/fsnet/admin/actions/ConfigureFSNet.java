@@ -44,8 +44,19 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 	private static final String DEFAULT_SMTP_PORT = "25";
 	private static final int MAX_PICTURE_SIZE = 500000;
+	
+	private static final String CONFIGURATION_ENABLETLS_FORM = "enableTLS";
+	private static final String CONFIGURATION_ENABLESSL_FORM = "enableSSL";
+	private static final String CONFIGURATION_ENABLEAUTHENTIFICATION_FORM = "enableAuthentication";
+	private static final String CONFIGURATION_SMTPUSERNAME_FORM = "SMTPUsername";
+	private static final String CONFIGURATION_SMTPPASSWORD_FORM = "SMTPPassword";
+	private static final String CONFIGURATION_SMTPPORT_FORM = "SMTPPort";
+	private static final String CONFIGURATION_SMTPHOST_FORM = "SMTPHost";
+	private static final String CONFIGURATION_FSNETWEBURL_FORM = "FSNetWebURL";
+	private static final String CONFIGURATION_PICTURESDIRECTORY_FORM = "PicturesDirectory";
+	private static final String CONFIGURATION_KEYFACEBOOK_FORM = "KeyFacebook";
 
-	private static final String SUCCES_ATTRIBUTE_NAME = "success";
+	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String INTERNATIONALIZATION_RESSOURCE = "FSneti18n";
 
 	/**
@@ -63,49 +74,48 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		Properties properties = conf.getFSNetConfiguration();
 		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
+		
 		try {
 			dynaform.set("MailFrom",
 					properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
 			if (conf.isTLSEnabled()) {
-				dynaform.set("enableTLS", "on");
+				dynaform.set(CONFIGURATION_ENABLETLS_FORM, "on");
 			} else {
-				dynaform.set("enableTLS", "");
+				dynaform.set(CONFIGURATION_ENABLETLS_FORM, "");
 			}
 			if (conf.isSSLEnabled()) {
-				dynaform.set("enableSSL", "on");
+				dynaform.set(CONFIGURATION_ENABLESSL_FORM, "on");
 			} else {
-				dynaform.set("enableSSL", "");
+				dynaform.set(CONFIGURATION_ENABLESSL_FORM, "");
 			}
 			if (conf.isAuthenticationEnabled()) {
-				dynaform.set("enableAuthentication", "on");
-				dynaform.set("SMTPUsername", properties
+				dynaform.set(CONFIGURATION_ENABLEAUTHENTIFICATION_FORM, "on");
+				dynaform.set(CONFIGURATION_SMTPUSERNAME_FORM, properties
 						.getProperty(FSNetConfiguration.SMTP_USER_KEY));
-				dynaform.set("SMTPPassword", properties
+				dynaform.set(CONFIGURATION_SMTPPASSWORD_FORM, properties
 						.getProperty(FSNetConfiguration.SMTP_PASSWORD_KEY));
 			} else {
-				dynaform.set("enableAuthentication", "");
-				dynaform.set("SMTPUsername", "");
-				dynaform.set("SMTPPassword", "");
+				dynaform.set(CONFIGURATION_ENABLEAUTHENTIFICATION_FORM, "");
+				dynaform.set(CONFIGURATION_SMTPUSERNAME_FORM, "");
+				dynaform.set(CONFIGURATION_SMTPPASSWORD_FORM, "");
 			}
-			dynaform.set("SMTPPort",
+			dynaform.set(CONFIGURATION_SMTPPORT_FORM,
 					properties.getProperty(FSNetConfiguration.SMTP_PORT_KEY));
-			dynaform.set("SMTPHost",
+			dynaform.set(CONFIGURATION_SMTPHOST_FORM,
 					properties.getProperty(FSNetConfiguration.SMTP_HOST_KEY));
-			dynaform.set("FSNetWebURL", properties
-					.getProperty(FSNetConfiguration.FSNET_WEB_ADDRESS_KEY));
-			dynaform.set("FSNetWebURL", properties
+			dynaform.set(CONFIGURATION_FSNETWEBURL_FORM, properties
 					.getProperty(FSNetConfiguration.FSNET_WEB_ADDRESS_KEY));
 
-			dynaform.set("PicturesDirectory", properties
+			dynaform.set(CONFIGURATION_PICTURESDIRECTORY_FORM, properties
 					.getProperty(FSNetConfiguration.PICTURES_DIRECTORY_KEY));
-			dynaform.set("KeyFacebook",
+			dynaform.set(CONFIGURATION_KEYFACEBOOK_FORM,
 					properties.getProperty(FSNetConfiguration.KEY_FACEBOOK));
 
 		} catch (Exception ex) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", ex);
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/**
@@ -120,67 +130,75 @@ public class ConfigureFSNet extends MappingDispatchAction {
 	public ActionForward saveMailConfiguration(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		if ("".equals(dynaform.get("enableTLS"))) {
+		
+		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
+		if ("".equals(dynaform.get(CONFIGURATION_ENABLETLS_FORM))) {
 			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY,
 					Boolean.FALSE.toString());
 		} else {
 			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY,
 					Boolean.TRUE.toString());
 		}
-		if ("".equals(dynaform.get("enableSSL"))) {
+		
+		if ("".equals(dynaform.get(CONFIGURATION_ENABLESSL_FORM))) {
 			saveProperty(em, FSNetConfiguration.SSL_KEY,
 					Boolean.FALSE.toString());
 		} else {
 			saveProperty(em, FSNetConfiguration.SSL_KEY,
 					Boolean.TRUE.toString());
 		}
-		if ("".equals(dynaform.get("enableAuthentication"))) {
+		
+		if ("".equals(dynaform.get(CONFIGURATION_ENABLEAUTHENTIFICATION_FORM))) {
 			saveProperty(em, FSNetConfiguration.ENABLE_AUTHENTICATION_KEY,
 					Boolean.FALSE.toString());
 		} else {
 			saveProperty(em, FSNetConfiguration.ENABLE_AUTHENTICATION_KEY,
 					Boolean.TRUE.toString());
 			saveProperty(em, FSNetConfiguration.SMTP_USER_KEY,
-					(String) dynaform.get("SMTPUsername"));
+					(String) dynaform.get(CONFIGURATION_SMTPUSERNAME_FORM));
 			saveProperty(em, FSNetConfiguration.SMTP_PASSWORD_KEY,
-					(String) dynaform.get("SMTPPassword"));
+					(String) dynaform.get(CONFIGURATION_SMTPPASSWORD_FORM));
 		}
+		
 		saveProperty(em, FSNetConfiguration.MAIL_FROM_KEY,
 				(String) dynaform.get("MailFrom"));
 		saveProperty(em, FSNetConfiguration.SMTP_HOST_KEY,
-				(String) dynaform.get("SMTPHost"));
-		String smtpPort = (String) dynaform.get("SMTPPort");
+				(String) dynaform.get(CONFIGURATION_SMTPHOST_FORM));
+		String smtpPort = (String) dynaform.get(CONFIGURATION_SMTPPORT_FORM);
+		
 		try {
 			Integer.parseInt(smtpPort);
 		} catch (NumberFormatException e) {
 			smtpPort = DEFAULT_SMTP_PORT;
 		}
+		
 		saveProperty(em, FSNetConfiguration.SMTP_PORT_KEY, smtpPort);
 		saveProperty(em, FSNetConfiguration.FSNET_WEB_ADDRESS_KEY,
-				(String) dynaform.get("FSNetWebURL"));
-		String dirName = (String) dynaform.get("PicturesDirectory");
+				(String) dynaform.get(CONFIGURATION_FSNETWEBURL_FORM));
+		String dirName = (String) dynaform.get(CONFIGURATION_PICTURESDIRECTORY_FORM);
+		
 		if (isValidDirectory(dirName)) {
 			saveProperty(em, FSNetConfiguration.PICTURES_DIRECTORY_KEY, dirName);
 		} else {
 			ActionErrors errors = new ActionErrors();
-			errors.add("PicturesDirectory", new ActionMessage(
+			errors.add(CONFIGURATION_PICTURESDIRECTORY_FORM, new ActionMessage(
 					"configure.error.imgFolder2"));
 			saveErrors(request, errors);
 		}
 
 		em.getTransaction().commit();
 		em.close();
+		
 		FSNetConfiguration.getInstance().refreshConfiguration();
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 				request.getLocale(), "configure.mail.update.success"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/**
@@ -195,12 +213,13 @@ public class ConfigureFSNet extends MappingDispatchAction {
 	public ActionForward saveFacebookId(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
+		
+		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
 
 		saveProperty(em, FSNetConfiguration.KEY_FACEBOOK,
-				(String) dynaform.get("KeyFacebook"));
+				(String) dynaform.get(CONFIGURATION_KEYFACEBOOK_FORM));
 
 		em.getTransaction().commit();
 		em.close();
@@ -208,10 +227,10 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 				request.getLocale(), "configure.facebook.update.success"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/**
@@ -269,10 +288,10 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 				request.getLocale(), "configure.testMail.sent"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/**
@@ -287,7 +306,6 @@ public class ConfigureFSNet extends MappingDispatchAction {
 	public ActionForward updateDB(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
 		String fileUri = FSNetConfiguration.getInstance()
 				.getFSNetConfiguration()
 				.getProperty(FSNetConfiguration.PICTURES_DIRECTORY_KEY)
@@ -295,6 +313,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		String line;
 		File f = new File(fileUri);
 		StringBuffer tmp = new StringBuffer();
+		
 		if (f.exists()) {
 
 			InputStream ips = new FileInputStream(fileUri);
@@ -306,6 +325,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					tmp.append(line);
 				}
 			}
+
 			try {
 				br.close();
 			} catch (Exception e) {
@@ -313,6 +333,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			}
 
 		}
+		
 		if (!f.exists() || !tmp.toString().contains("DB modified")) {
 			EntityManager entityManager = PersistenceProvider
 					.createEntityManager();
@@ -321,6 +342,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					.getResultList();
 
 			HashMap<String, String> mails = new HashMap<String, String>();
+			
 			for (SocialEntity s : entities) {
 				mails.put(s.getEmail(), s.getEmail().toLowerCase());
 			}
@@ -342,18 +364,18 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 				request.getLocale(), "configure.db.update.success"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	public ActionForward updateDateType(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
+		EntityManager em = PersistenceProvider.createEntityManager();
+		
 		try {
-			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
 
 			Query query = em
@@ -365,25 +387,27 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			query.executeUpdate();
 
 			em.getTransaction().commit();
-			em.close();
+			
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		} finally {
+			em.close();
 		}
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 				request.getLocale(), "configure.db.update.success"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	public ActionForward dropCVTables(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
+		EntityManager em = PersistenceProvider.createEntityManager();
+		
 		try {
-			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
 
 			Query query = em
@@ -448,25 +472,27 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					"DROP TABLE ASSOCIATIONDATETRAININGCV");
 
 			em.getTransaction().commit();
-			em.close();
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		} finally {
+			em.close();
 		}
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 				request.getLocale(), "configure.db.dropcvtables.success"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	public ActionForward addRecalTimeColumnInMeeting(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
+		EntityManager em = PersistenceProvider.createEntityManager();
+
 		try {
-			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
 
 			Query query = em
@@ -476,17 +502,52 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					"COLUMN RECALLDATE ADDED IN MEETING TABLE");
 
 			em.getTransaction().commit();
-			em.close();
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		} finally {
+			em.close();
 		}
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 				request.getLocale(), "configure.db.addRecalTimeColumn.success"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
+	}
+
+	public ActionForward addColorColumnInSocialGroup(ActionMapping mapping,
+			ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		
+		try {
+			em.getTransaction().begin();
+
+			Query query = em
+					.createNativeQuery("ALTER TABLE SOCIALGROUP ADD COLUMN COLOR VARCHAR(6) DEFAULT 'c9e6f8'");
+			query.executeUpdate();
+			
+//			Query query2 = em.createQuery("UPDATE SOCIALGROUP SET COLOR = :defaultColor");
+//			query.setParameter("defaultColor", "c9e6f8");
+//			query2.executeUpdate();
+			
+			Logger.getAnonymousLogger().log(Level.SEVERE, "",
+					"COLUMN COLOR ADDED IN SOCIALGROUP TABLE");
+
+			em.getTransaction().commit();
+		} catch (Exception e) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		} finally {
+			em.close();
+		}
+
+		MessageResources bundle = MessageResources
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
+				request.getLocale(), "configure.db.addRecalTimeColumn.success"));
+
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	public ActionForward createInteractionGroupTable(ActionMapping mapping,
@@ -514,7 +575,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	public ActionForward createInteractionGroupDataWithOldRecord(
@@ -538,6 +599,6 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 }

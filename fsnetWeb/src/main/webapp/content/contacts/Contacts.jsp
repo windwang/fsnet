@@ -38,7 +38,7 @@
 							"bSortable" : false
 						} ];
 						miseEnPageTable("tableAsked", idColonneATrier,
-								sensDeTri, aoColumns, false);
+								sensDeTri, aoColumns, false,5);
 					});
 		</script>
 
@@ -96,7 +96,7 @@
 							"bSortable" : false
 						} ];
 						miseEnPageTable("tableContacts", idColonneATrier,
-								sensDeTri, aoColumns, false);
+								sensDeTri, aoColumns, false, 5);
 					});
 		</script>
 
@@ -146,7 +146,7 @@
 						"bSortable" : false
 					} ];
 					miseEnPageTable("tableRequested", idColonneATrier,
-							sensDeTri, aoColumns, false);
+							sensDeTri, aoColumns, false, 5);
 				});
 	</script>
 	<fieldset class="fieldsetAppli">

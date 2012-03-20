@@ -17,6 +17,8 @@
 			<form-property name="enableSSL" type="java.lang.String" />
 			<form-property name="FSNetWebURL" type="java.lang.String" />
 			<form-property name="PicturesDirectory" type="java.lang.String" />
+			<!-- /EditConfiguration -->
+			<form-property name="KeyFacebook" type="java.lang.String" />
 		</form-bean>
 		<form-bean name="UpdateDBForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm" />
@@ -31,6 +33,7 @@
 			<form-property name="KeyFacebook" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
+	
 	<action-mappings>
 		<action path="/SendTestMail"
 			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet" input="/EditConfiguration.do"
@@ -81,6 +84,7 @@
 			<forward name="success" path="/EditConfiguration.do"></forward>
 		</action>
 		
+<<<<<<< HEAD
 		<action path="/AddInteractionGroupTable" name="UpdateDBForm"
 			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
 			parameter="createInteractionGroupTable" validate="false" scope="request">
@@ -93,5 +97,12 @@
 			<forward name="success" path="/EditConfiguration.do"></forward>
 		</action>
 		
+=======
+		<action path="/AddColorColumnInSocialGroup" name="UpdateDBForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+			parameter="addColorColumnInSocialGroup" validate="false" scope="request">
+			<forward name="success" path="/EditConfiguration.do"></forward>
+		</action>
+>>>>>>> d9f947df7046bc3a7e6dc6c3250e27755662eb75
 	</action-mappings>
 </struts-config>

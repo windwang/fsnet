@@ -20,14 +20,14 @@
 <c:choose>
 	<c:when test="${localeCode eq 'fr'}">
 		<script type="text/javascript">
-			jQuery(document).ready(function($) {
+			$(document).ready(function() {
 				$('#calendar').fullCalendar($.fullCalendarLocale.fr);
 			});
 		</script>
 	</c:when>
 	<c:otherwise>
 		<script type="text/javascript">
-			jQuery(document).ready(function($) {
+			$(document).ready(function() {
 				$('#calendar').fullCalendar($.fullCalendarLocale.en);
 			});
 		</script>

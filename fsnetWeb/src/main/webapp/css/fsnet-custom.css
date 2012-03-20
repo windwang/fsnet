@@ -1,44 +1,48 @@
-#ui-datepicker-div {font-size: 80%;}
+#ui-datepicker-div {
+	font-size: 80%;
+}
+
 .interestDashboardContainer {
-	height: 26px;	
+	height: 26px;
 }
+
 .paginator {
-    font-size: 110%;
-    margin-top: 10px;
-    text-align: center;
+	font-size: 110%;
+	margin-top: 10px;
+	text-align: center;
 }
 
 .homeGap {
-    clear : both;
-    margin: 10px;
+	clear: both;
+	margin: 10px;
 }
 
-.placeButton{
-	clear : both;
+.placeButton {
+	clear: both;
 }
 
 .homeGap {
-    clear : both;
-    margin: 10px;
+	clear: both;
+	margin: 10px;
 }
-
 
 #lastInteractions {
-    width: 100%;
-    /* padding-top: 15px; */
-    float: left;
+	width: 100%;
+	/* padding-top: 15px; */
+	float: left;
 }
 
 .paginator a {
-    color: #505050;
+	color: #505050;
 }
+
 .paginator span {
-    color: #A0A0A0;
+	color: #A0A0A0;
 }
 
 #userPicture {
-    margin: 15px 0 2px 50px;
-    float: left;
+	margin: 15px 0 2px 50px;
+	float: left;
 }
 
 #loggedUsers {
@@ -46,340 +50,414 @@
 }
 
 #contactsAsked {
-    float: left;
-    width: 100%;
+	float: left;
+	width: 100%;
 }
 
 #lastVisits {
-    float: left;
-    width: 100%;
+	float: left;
+	width: 100%;
 }
 
 .miniature:hover {
-    border: 2px solid #808080;
-    margin:1px;
+	border: 2px solid #808080;
+	margin: 1px;
 }
 
 .miniature {
-    border: 1px solid #AAAAAA;
-    float: left;
-    height: 40px;
-    line-height: 40px;
-    margin: 2px;
-    padding: 2px;
-    text-align: center;
-    width: 40px;
+	border: 1px solid #AAAAAA;
+	float: left;
+	height: 40px;
+	line-height: 40px;
+	margin: 2px;
+	padding: 2px;
+	text-align: center;
+	width: 40px;
 }
 
 .miniature img {
-    max-height: 40px;
-    max-width: 40px;
-    vertical-align: middle;
+	max-height: 40px;
+	max-width: 40px;
+	vertical-align: middle;
 }
 
 .profileLink {
-    font-size: 0.8em;
-    float: right;
+	font-size: 0.8em;
+	float: right;
 }
 
 .link {
-    text-decoration:underline;
+	text-decoration: underline;
 }
 
 .miniatureContainer {
-    width: 40px;
+	width: 40px;
 }
 
 #eventDescription_container .mceLayout {
-    border: 1px solid #505050;
+	border: 1px solid #505050;
 }
 
 #announceContent_container .mceLayout {
-    border: 1px solid #505050;
+	border: 1px solid #505050;
 }
 
 #messageDescription_container .mceLayout {
-    border: 1px solid #505050;
+	border: 1px solid #505050;
 }
 
 .errorMessage {
-    font-size: 120%;
-    text-align: center;
-    width: 80%;
-    color: red;
+	font-size: 120%;
+	text-align: center;
+	width: 80%;
+	color: red;
 }
 
 #left li {
-    margin-top: 10px;
-    font-size: 120%;
+	margin-top: 10px;
+	font-size: 120%;
 }
 
 #body-content {
-    float: left;
-    width: 75%;
-    margin-bottom: 50px;
+	float: left;
+	width: 75%;
+	margin-bottom: 50px;
 }
-
-
 
 #body-content h3 {
-    text-align: left;
-    font-size: 130%;
-    line-height: 30px;
+	text-align: left;
+	font-size: 130%;
+	line-height: 30px;
 }
 
-
 #menu {
-    float:left;
+	float: left;
 }
 
 #logout {
-    float: right;
-    margin: 14px 8px 8px 8px;
-    background-color: #606060;
+	float: right;
+	margin: 14px 8px 8px 8px;
+	background-color: #606060;
 }
 
 #left ul {
-    margin-bottom: 20px;
+	margin-bottom: 20px;
 }
 
 .button {
-    border: 1px solid gray;
-    background-color: #505050;
-    color: #DDDDDD;
-    padding: 2px 6px 2px 6px;
-    font-weight: normal;
-    font-style: normal;
-    cursor:pointer;
-}
-
-.deleteEventForm{
-	display: inline;
-}
-
-.cursorPointer{
+	border: 1px solid gray;
+	background-color: #505050;
+	color: #DDDDDD;
+	padding: 2px 6px 2px 6px;
+	font-weight: normal;
+	font-style: normal;
 	cursor: pointer;
 }
 
-.select{
-    color: #505050; 
-    padding: 2px 6px 2px 6px;
+.deleteEventForm {
+	display: inline;
+}
+
+.cursorPointer {
+	cursor: pointer;
+}
+
+.select {
+	color: #505050;
+	padding: 2px 6px 2px 6px;
 }
 
 label {
-    font-size: 110%;
+	font-size: 110%;
 }
 
 .button:hover {
-    color: #DDDDDD;
+	color: #DDDDDD;
 }
 
-input[type=text], input[type=email], input[type=password], textarea {
-    border: 1px solid #808080;
-} 
-#CreateEvent {width: 80%;}
-#CreateEvent label {width:100px; display:block;	float:left;}
-#CreateEvent #eventName {width: 100%;}
-#CreateEvent #eventDescription { width: 100%;}
-#CreateEvent #eventDate {width: 25%; color: black; margin-right: 8px;}
-#CreateEvent input[type=submit] {float: right;}
+input[type=text],input[type=email],input[type=password],textarea {
+	border: 1px solid #808080;
+}
 
-#UpdateEvent input[type=submit] {float: right;}
+#CreateEvent {
+	width: 80%;
+}
 
-#CreateAnnounce {width: 80%;}
-#CreateAnnounce label {width:100px; display:block;	float:left;}
-#CreateAnnounce #announceTitle {width: 100%;}
-#CreateAnnounce #announceContent { width: 100%;}
-#CreateAnnounce #announceExpiryDate {width: 25%; color: black; margin-right: 8px;}
-#CreateAnnounce input[type=submit] {float: right;}
+#CreateEvent label {
+	width: 100px;
+	display: block;
+	float: left;
+}
 
-#EventList {width: 100%;}
-#EventList .header td {width: 20%;}
-#EventList .header th {color: #505050; font-size: 120%;background: url(../images/bg-message.png) repeat-x;}
-#EventList .content .left {background-color: #e9f5fd; width: 20%;}
-#EventList .content .right {padding: 15px;}
-#EventList .gap td {border-top: 1px solid #BBB;}
-#EventList .gap {height: 15px;}
+#CreateEvent #eventName {
+	width: 100%;
+}
 
-#DisplayEvent, #DisplayAnnounce {width: 100%}
+#CreateEvent #eventDescription {
+	width: 100%;
+}
 
+#CreateEvent #eventDate {
+	width: 25%;
+	color: black;
+	margin-right: 8px;
+}
 
-#MemberList {width: 100%;}
-#MemberList td {width: 30%;}
+#CreateEvent input[type=submit] {
+	float: right;
+}
 
+#UpdateEvent input[type=submit] {
+	float: right;
+}
+
+#CreateAnnounce {
+	width: 80%;
+}
+
+#CreateAnnounce label {
+	width: 100px;
+	display: block;
+	float: left;
+}
+
+#CreateAnnounce #announceTitle {
+	width: 100%;
+}
+
+#CreateAnnounce #announceContent {
+	width: 100%;
+}
+
+#CreateAnnounce #announceExpiryDate {
+	width: 25%;
+	color: black;
+	margin-right: 8px;
+}
+
+#CreateAnnounce input[type=submit] {
+	float: right;
+}
+
+#EventList {
+	width: 100%;
+}
+
+#EventList .header td {
+	width: 20%;
+}
+
+#EventList .header th {
+	color: #505050;
+	font-size: 120%;
+	background: url(../images/bg-message.png) repeat-x;
+}
+
+#EventList .content .left {
+	background-color: #e9f5fd;
+	width: 20%;
+}
+
+#EventList .content .right {
+	padding: 15px;
+}
+
+#EventList .gap td {
+	border-top: 1px solid #BBB;
+}
+
+#EventList .gap {
+	height: 15px;
+}
+
+#DisplayEvent,#DisplayAnnounce {
+	width: 100%
+}
+
+#MemberList {
+	width: 100%;
+}
+
+#MemberList td {
+	width: 30%;
+}
 
 #login {
-    background: #505050 url(../images/footer.gif) no-repeat;
-    width: 90%;
-    height: 170px;
-    float:left;
-    margin-left: 5%;
-    border: 3px solid gray;
-    border-radius: 15px;
+	background: #505050 url(../images/footer.gif) no-repeat;
+	width: 90%;
+	height: 170px;
+	float: left;
+	margin-left: 5%;
+	border: 3px solid gray;
+	border-radius: 15px;
 }
 
 #login label {
-    color: white;
-    font-weight: bold;
+	color: white;
+	font-weight: bold;
 }
 
-#login input[type="email"], #login input[type="password"] {
-    height: 20px;
-    width: 100%;
-    border-color: #DDDDDD;
-    background-color: #CCCCCC;
+#login input[type="email"],#login input[type="password"] {
+	height: 20px;
+	width: 100%;
+	border-color: #DDDDDD;
+	background-color: #CCCCCC;
 }
 
 #loginWrapper table {
-    margin-top: 20px;
-    margin-left: 260px;
-    height: 100px;
-    width: 320px;
+	margin-top: 20px;
+	margin-left: 260px;
+	height: 100px;
+	width: 320px;
 }
+
 #loginWrapper tr {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 #login-title {
-    margin-top: 40px;
-    margin-bottom: 20px;
-    text-align:center;
-    font-weight: bold;
-    font-size: 200%;
+	margin-top: 40px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 200%;
 }
 
 #login h3 {
-    text-align: center;
-    font-size: 150%;
-    color: #610B0B;
+	text-align: center;
+	font-size: 150%;
+	color: #610B0B;
 }
 
 #login a {
-    color: white;
-    text-decoration: underline;
+	color: white;
+	text-decoration: underline;
 }
 
 #login input[type=submit] {
-    border: 1px solid #DDDDDD;
-    background-color: #CCCCCC;
-    height: 25px;
-    padding: 0 15px;
-    float: right;
+	border: 1px solid #DDDDDD;
+	background-color: #CCCCCC;
+	height: 25px;
+	padding: 0 15px;
+	float: right;
 }
 
 #resetPasswordWrapper a {
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 #resetPasswordWrapper {
-    width: 370px;
-    margin: 40px auto;
+	width: 370px;
+	margin: 40px auto;
 }
+
 #resetPasswordWrapper input[type="text"] {
-    width: 200px;
+	width: 200px;
 }
 
 .label {
-	float: right;	
+	float: right;
 }
 
-input[type="text"][class="error"], input[type="email"][class="error"], textarea[class="error"] {
-    border: 1px solid #AF1515;
+input[type="text"][class="error"],input[type="email"][class="error"],textarea[class="error"]
+	{
+	border: 1px solid #AF1515;
 }
 
 .alignRight {
-    text-align: right;
+	text-align: right;
 }
 
 .alignCenter {
-    text-align: center;
+	text-align: center;
 }
 
 .authorDate {
-    font-style: italic;
-    color : #656565;
-    background-color: #C7E5F8;
+	font-style: italic;
+	color: #656565;
+	background-color: #C7E5F8;
 }
 
-.mceTextArea{
-    width: 100%;
-    height: 300px;
+.mceTextArea {
+	width: 100%;
+	height: 300px;
 }
 
 .topicTable {
-    background-color: #E8F5FD;
-    border: 1px solid #8bcef8;
-    width: 100%;
-    margin-bottom: 5px;
+	background-color: #E8F5FD;
+	border: 1px solid #8bcef8;
+	width: 100%;
+	margin-bottom: 5px;
 }
+
 .topicHeader {
-    background-color: #C7E5F8;
-    height: 30px;
-    border-collapse: collapse;
+	background-color: #C7E5F8;
+	height: 30px;
+	border-collapse: collapse;
 }
 
 .topicOwner {
-    width: 20%;
-    text-align: center;
-    vertical-align: top;
+	width: 20%;
+	text-align: center;
+	vertical-align: top;
 }
 
-.topicMessage{
-    background-color: #E8F5FD;
-    border-left: 1px solid #8bcef8;
-    vertical-align: text-top;
-    padding: 5px
+.topicMessage {
+	background-color: #E8F5FD;
+	border-left: 1px solid #8bcef8;
+	vertical-align: text-top;
+	padding: 5px
 }
 
-.topicButton{
-    float: right;
-    margin-bottom: 10px;
+.topicButton {
+	float: right;
+	margin-bottom: 10px;
 }
 
-.lastMessageOwner{
-    width: 100%;
-    color: #990000;
-    background-color: #E8F5FD;
-    border: 1px solid #8bcef8;
-    border-bottom: none;
-    vertical-align: text-top;
-    margin-top: 20px;
+.lastMessageOwner {
+	width: 100%;
+	color: #990000;
+	background-color: #E8F5FD;
+	border: 1px solid #8bcef8;
+	border-bottom: none;
+	vertical-align: text-top;
+	margin-top: 20px;
 }
 
 .fieldsetAppli {
-    width: 100%;
-    border: 1px solid #FFF;
-    border-radius: 5px ;
-    box-shadow: 3px 3px 12px #000;
-    margin: 34px 10px 10px 10px;
-    padding: 1px;
-	background-color : white;
+	width: 100%;
+	border: 1px solid #FFF;
+	border-radius: 5px;
+	box-shadow: 3px 3px 12px #000;
+	margin: 34px 10px 10px 10px;
+	padding: 1px;
+	background-color: white;
 }
 
-.fieldsetTableAdmin{
+.fieldsetTableAdmin {
 	width: 100%;
-    margin-top: 15px;
-    background-color : #E8F5FD;
+	margin-top: 15px;
+	background-color: #E8F5FD;
 }
 
 .fieldsetProfil {
 	float: left;
-    width: 80%;
-    border: 1px solid #FFF;
-    border-radius: 5px ;
-    box-shadow: 3px 3px 12px #000;
-    margin: 28px 10px 10px 10px;
-    padding: 1px;
-	background-color : white;
+	width: 80%;
+	border: 1px solid #FFF;
+	border-radius: 5px;
+	box-shadow: 3px 3px 12px #000;
+	margin: 28px 10px 10px 10px;
+	padding: 1px;
+	background-color: white;
 }
 
 .inLineTable {
 	width: 100%;
 }
 
-.inLineTable tr{
-    background-color: #E8F5FD;
-    border: 5px solid #F7FCFF;
+.inLineTable tr {
+	background-color: #E8F5FD;
+	border: 5px solid #F7FCFF;
 }
 
 .inLineTable td,th {
@@ -394,18 +472,22 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 	text-align: right;
 }
 
+.tableButton2 {
+	float: right
+}
+
 .inLinefieldset {
-    width: 90%;
-    border-spacing : 0px 3px;
-    margin-top:15px;
-    margin-bottom: 15px;
-    margin-left: auto;
+	width: 90%;
+	border-spacing: 0px 3px;
+	margin-top: 15px;
+	margin-bottom: 15px;
+	margin-left: auto;
 	margin-right: auto;
-	padding-top:5px;
-	padding-bottom:5px;
-	padding-left:10px;
-    border-radius: 15px;
-    border: 1px solid gray;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	padding-left: 10px;
+	border-radius: 15px;
+	border: 1px solid gray;
 }
 
 #dashboardMessages {
@@ -413,233 +495,232 @@ input[type="text"][class="error"], input[type="email"][class="error"], textarea[
 }
 
 #dashboardMessages td {
-    vertical-align: middle;
+	vertical-align: middle;
 }
 
 .inLineTable .messagePhoto {
-    width: 30px;
-    padding: 2px 5px 0 5px;
+	width: 30px;
+	padding: 2px 5px 0 5px;
 }
 
 .fieldsetHome {
-    float: left;
-    width: 47%;
-    border: 1px solid #FFF;
-    border-radius: 5px ;
-    box-shadow: 3px 3px 12px #000;
-    margin: 28px 0px 10px 10px;
-    padding: 1px;
-	background-color : white;
+	float: left;
+	width: 47%;
+	border: 1px solid #FFF;
+	border-radius: 5px;
+	box-shadow: 3px 3px 12px #000;
+	margin: 28px 0px 10px 10px;
+	padding: 1px;
+	background-color: white;
 }
 
 .fieldsetHome2 {
-    float: right;
-    width: 47%;
-    border: 1px solid #FFF;
-    border-radius: 5px ;
-    box-shadow: 3px 3px 12px #000;
-    margin: 28px 0px 10px 10px;
-    padding: 1px;
-	background-color : white;
+	float: right;
+	width: 47%;
+	border: 1px solid #FFF;
+	border-radius: 5px;
+	box-shadow: 3px 3px 12px #000;
+	margin: 28px 0px 10px 10px;
+	padding: 1px;
+	background-color: white;
 }
 
 .legendHome {
-    text-align: left;
-    background-color: white;
-    background: -webkit-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
-    background: -moz-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll 0 0 transparent;
-    border-radius: 5px;
-    box-shadow: 1px 2px 9px #000;
-    padding-right: 1em;
-    padding-left: 1em;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    position: absolute;
-    margin: -22px 0px 0px 30px;
+	text-align: left;
+	background-color: white;
+	background: -webkit-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat
+		scroll 0 0 transparent;
+	background: -moz-linear-gradient(90deg, #FFFFFF, #FFFFFF) repeat scroll
+		0 0 transparent;
+	border-radius: 5px;
+	box-shadow: 1px 2px 9px #000;
+	padding-right: 1em;
+	padding-left: 1em;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	position: absolute;
+	margin: -22px 0px 0px 30px;
 }
 
-.fieldsetTableAppli{
-    margin-top: 15px;
-    background-color: #E8F5FD;
+.fieldsetTableAppli {
+	margin-top: 15px;
+	background-color: #E8F5FD;
 }
 
-.space{
-    margin-top: 27px;
+.space {
+	margin-top: 27px;
 }
 
-.errorCV{
-	color : #AF1515;
+.errorCV {
+	color: #AF1515;
 }
 
 .homeFrame caption {
-    text-align: left;
-    font-size: 120%;
-    line-height: 30px;
+	text-align: left;
+	font-size: 120%;
+	line-height: 30px;
 }
 
 tr.notReed {
-    background-color: #cfecff;
-    font-weight: bold;
+	background-color: #cfecff;
+	font-weight: bold;
 }
 
-#contactProposals {
-    /*float: left;*/
-    width: 100%;
+#contactProposals { /*float: left;*/
+	width: 100%;
 }
 
 #contactProposals table {
-    width: 100%;
+	width: 100%;
 }
+
 #contactProposals td {
-    vertical-align: middle;
+	vertical-align: middle;
 }
 
 #interestProposals {
-    float: right;
-    width: 100%;
+	float: right;
+	width: 100%;
 }
 
 #InboxTitle {
-    text-align: center;
+	text-align: center;
 }
 
 /* TODO Find a way to place more menu items- should be 1010px */
 .wrap {
-    width: 1100px; 
+	width: 1100px;
 }
 
-.ajaxSearch{
-    display: none;
-    width: 44%;
-    position: absolute;
-    z-index: 3;
-    background-color: white;
-    border : 1px solid gray;
+.ajaxSearch {
+	display: none;
+	width: 44%;
+	position: absolute;
+	z-index: 3;
+	background-color: white;
+	border: 1px solid gray;
 }
 
-.ajaxSearch .selected{
-    background-color: #E8F5FD;
+.ajaxSearch .selected {
+	background-color: #E8F5FD;
 }
 
 /* Tags */
-
 .tag {
 	float: left;
 	vertical-align: middle;
 	border: #c1ffbb 2px dashed;
 	background-color: #e9ffe7;
-    margin: 0 5px 10px 0;
-    padding: 5px;
+	margin: 0 5px 10px 0;
+	padding: 5px;
 }
 
 .tag a {
-    color: green;
-    text-decoration: underline;
+	color: green;
+	text-decoration: underline;
 }
-.tag img{
-    vertical-align: middle;
+
+.tag img {
+	vertical-align: middle;
 }
 
 .tagSE {
-    padding : 2px;
-    float : left;
-    vertical-align: middle;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border: #FBDFE6 2px dashed;
-    background-color: #FEF2F5;
-
+	padding: 2px;
+	float: left;
+	vertical-align: middle;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border: #FBDFE6 2px dashed;
+	background-color: #FEF2F5;
 }
 
 .tagSE a {
-    color: black;
+	color: black;
 }
-.tagSE img{
-    vertical-align: middle;
+
+.tagSE img {
+	vertical-align: middle;
 }
 
 .tagInteraction {
-    padding : 2px;
-    float : left;
-    vertical-align: middle;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border: #F0CBD5 2px dashed;
-    background-color: #E9DDE0;
-
+	padding: 2px;
+	float: left;
+	vertical-align: middle;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border: #F0CBD5 2px dashed;
+	background-color: #E9DDE0;
 }
 
 .tagInteraction a {
-    color: black;
+	color: black;
 }
-.tagInteraction img{
-    vertical-align: middle;
+
+.tagInteraction img {
+	vertical-align: middle;
 }
 
 .otag {
-    padding : 2px;
-    float : left;
-    vertical-align: middle;
-    margin-right: 5px;
-    margin-bottom: 5px;
-    border: #7fcaff 2px dashed;
-    background-color: #c6e8ff;
+	padding: 2px;
+	float: left;
+	vertical-align: middle;
+	margin-right: 5px;
+	margin-bottom: 5px;
+	border: #7fcaff 2px dashed;
+	background-color: #c6e8ff;
 }
-
 
 .otag a {
-    color: #4793c9;
-    text-decoration: underline;
+	color: #4793c9;
+	text-decoration: underline;
 }
 
-.otag img{
-    margin-left: 2px;
+.otag img {
+	margin-left: 2px;
 }
 
 /* interaction display */
-.interactionInfo{
-    width: 27%;
-    text-align: left;
-    float: right;
-    background-color: #ecf8ff;
-    border: 2px solid #bcd3e0;
-    padding: 3px;
+.interactionInfo {
+	width: 27%;
+	text-align: left;
+	float: right;
+	background-color: #ecf8ff;
+	border: 2px solid #bcd3e0;
+	padding: 3px;
 }
 
 .interactionDisplay {
-    float: left;
-    width: 68%;
-    background-color: #ecf8ff;
-    padding: 3px;
-    margin-right: 10px;
+	float: left;
+	width: 68%;
+	background-color: #ecf8ff;
+	padding: 3px;
+	margin-right: 10px;
 }
 
 .interactionDisplay img {
-    max-width: 100%;
+	max-width: 100%;
 }
 
 #logo2 {
-    text-align: center;
+	text-align: center;
 }
 
 #mapCanvas {
 	height: 250px;
-	width:  100%;
+	width: 100%;
 }
 
 #geolocalisation {
 	width: 212px;
-    text-align: left;
-    float: right;
-    padding: 3px;
-    visibility: hidden;
+	text-align: left;
+	float: right;
+	padding: 3px;
+	visibility: hidden;
 }
 
-#errorGeo{
-	visibility: hidden;	
-}	
-
-
+#errorGeo {
+	visibility: hidden;
+}
 
 #menuLogin {
 	padding: 0 0 8px;
@@ -660,7 +741,6 @@ tr.notReed {
 	padding: 10px;
 }
 
-
 .quotation {
 	float: left;
 	margin-left: 30px;
@@ -670,25 +750,41 @@ tr.notReed {
 	float: left;
 }
 
-thead, thead th {
-	background-color : #DCF0FE;	
+thead,thead th {
+	background-color: #DCF0FE;
 }
 
-.plusMoins{margin-left:10px;}
+.plusMoins {
+	margin-left: 10px;
+}
 
-.plus{background: url("../images/addConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
-.moins{background: url("../images/removeConsultation.png") no-repeat left top;width:25px;height:25px;border: none;}
+.plus {
+	background: url("../images/addConsultation.png") no-repeat left top;
+	width: 25px;
+	height: 25px;
+	border: none;
+}
 
-input[type=submit] {cursor:pointer;}
+.moins {
+	background: url("../images/removeConsultation.png") no-repeat left top;
+	width: 25px;
+	height: 25px;
+	border: none;
+}
 
-.thMessage{
-	padding-left: 0;
+input[type=submit] {
+	cursor: pointer;
+}
+
+.thCheckbox {
+	padding: 0 0 0 5px;
+	width: 15px;
 }
 
 form#formImportEventsFromFile fieldset {
-	padding:30px 5px;
+	padding: 30px 5px;
 }
 
-form#formImportEventsFromFile fieldset legend{
-	margin:-40px 0 0 30px;
+form#formImportEventsFromFile fieldset legend {
+	margin: -40px 0 0 30px;
 }

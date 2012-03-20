@@ -2,8 +2,12 @@ package fr.univartois.ili.fsnet.actions;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.SocketException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,14 +20,29 @@ import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.ValidationException;
 
 import net.fortuna.ical4j.data.CalendarBuilder;
+import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
 import net.fortuna.ical4j.model.Component;
+import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.Property;
+import net.fortuna.ical4j.model.component.VEvent;
+import net.fortuna.ical4j.model.property.CalScale;
+import net.fortuna.ical4j.model.property.Description;
+import net.fortuna.ical4j.model.property.DtEnd;
+import net.fortuna.ical4j.model.property.DtStart;
+import net.fortuna.ical4j.model.property.Location;
+import net.fortuna.ical4j.model.property.ProdId;
+import net.fortuna.ical4j.model.property.Summary;
+import net.fortuna.ical4j.model.property.Uid;
+import net.fortuna.ical4j.model.property.Version;
+import net.fortuna.ical4j.util.UidGenerator;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
@@ -38,11 +57,13 @@ import org.apache.struts.upload.FormFile;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InteractionRoleFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
@@ -216,6 +237,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		ActionRedirect redirect = new ActionRedirect(
 				mapping.findForward(SUCCES_ACTION_NAME));
 		redirect.addParameter(EVENT_ID_ATTRIBUTE_NAME, event.getId());
+		
 		return redirect;
 	}
 
@@ -481,6 +503,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		}
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+
+		List<Meeting> resultsMyEvents = meetingFacade.getUserMeeting(member);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		List<Integer> unreadInteractionsId = interactionFacade
 				.getUnreadInteractionsIdForSocialEntity(member);
@@ -490,6 +514,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		em.close();
 
 		request.setAttribute("eventsList", results);
+		request.setAttribute("myEventsList", resultsMyEvents);
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
@@ -699,11 +724,15 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 				FormFile icsFile = (FormFile) dynaForm.get("icsFile");
 				
-		        if(icsFile != null) {
+		        if(icsFile != null && !icsFile.getFileName().equals("")) {
 		        	String filePath = request.getSession().getServletContext().getRealPath("/");
 		            
 		            if (!icsFile.getFileName().endsWith(".ics")) {
-		            	return mapping.findForward("input");
+						ActionErrors errors = new ActionErrors();
+						errors.add("icsFile", new ActionMessage(
+								("events.import.onlyIcsFileExtension")));
+						saveErrors(request, errors);
+			    		return mapping.findForward(FAILED_ACTION_NAME);
 		            };
 		            
 		            FileOutputStream outputStream = null;
@@ -725,16 +754,211 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				
 				parseCalendarAndSaveToDB(calendar,request);
 		        } else {
-		    		return mapping.findForward("input");
+					ActionErrors errors = new ActionErrors();
+					errors.add("icsFile", new ActionMessage(
+							("events.import.icsFileRequired")));
+					saveErrors(request, errors);
+		    		return mapping.findForward(FAILED_ACTION_NAME);
 		    	}
 			} catch (ParserException e) {
 				e.printStackTrace();
+				ActionErrors errors = new ActionErrors();
+				errors.add("icsFile", new ActionMessage(
+						("events.import.parseError")));
+				saveErrors(request, errors);
+				return mapping.findForward(FAILED_ACTION_NAME);
 			}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ACTION_NAME);
 		
 	}
 	
+
+	/**
+	 * Method that export an event/meeting into an ics file
+	 * The event is mapped with the RFC for ical event (ical4j is used to create the ics file)
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward exportEventById(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+	        
+	        try  {
+	    	    OutputStream icsOutputStream;
+	    	    InputStream icsInputStream;
+	    	    
+	        	String filePath = request.getSession().getServletContext().getRealPath("/");
+	        	  
+	        	net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
+		        calendar.getProperties().add(new ProdId("-//Calendar//Event 1.0//EN"));
+		        calendar.getProperties().add(Version.VERSION_2_0);
+		        calendar.getProperties().add(CalScale.GREGORIAN);
+		        
+	    		EntityManager em = PersistenceProvider.createEntityManager();
+
+	    		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+	    		String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
+	    		MeetingFacade meetingFacade = new MeetingFacade(em);
+	    			
+	    		em.getTransaction().begin();
+	    		Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
+
+		        VEvent myevent = convertEventToIcalEvent(event);
+		        
+		        calendar.getComponents().add(myevent);
+		        File icsToCreate = new File(filePath,"calendar_event.ics");
+		        
+		        icsOutputStream = new FileOutputStream(icsToCreate);
+			    CalendarOutputter outputter = new CalendarOutputter();
+			    outputter.setValidating(false);
+			    outputter.output(calendar, icsOutputStream);
+			    icsInputStream = new FileInputStream(icsToCreate);
+			    
+			    response.setContentType("application/octet-stream");
+			    response.setHeader("Content-Disposition", "attachment;filename=calendar_event_id_"+eventId+".ics");
+			    response.setHeader("Pragma", "no-cache");
+			    response.setHeader("Cache-control", "no-cache");
+			    
+		        ServletOutputStream out = response.getOutputStream();
+		        
+		        int i;
+		        while ((i=icsInputStream.read())!=-1)
+		        {
+		           out.write(i);
+		        }
+		        icsInputStream.close();
+		        out.close();
+		        em.close();
+		        } catch (NumberFormatException nfe) {
+		        	nfe.printStackTrace();
+		        } catch(FileNotFoundException fnfe) {
+		        	fnfe.printStackTrace();
+		        } catch(IOException io) {
+		        	io.printStackTrace();
+		        } catch(net.fortuna.ical4j.model.ValidationException ve) {
+		        	ve.printStackTrace();
+		        }
+		
+		return mapping.findForward("success");
+	}
+	
+	/**
+	 * Method that export an event/meeting into an ics file
+	 * The event is mapped with the RFC for ical event (ical4j is used to create the ics file)
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward exportAllEvent(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+	        
+	        try  {
+	    	    OutputStream icsOutputStream;
+	    	    InputStream icsInputStream;
+
+            	String filePath = request.getSession().getServletContext().getRealPath("/");
+      
+            	net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
+    	        calendar.getProperties().add(new ProdId("-//Calendar//Event 1.0//EN"));
+    	        calendar.getProperties().add(Version.VERSION_2_0);
+	    	    calendar.getProperties().add(CalScale.GREGORIAN);
+	    	        
+	    		EntityManager em = PersistenceProvider.createEntityManager();
+
+	    		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+
+	    		em.getTransaction().begin();
+
+	    		MeetingFacade meetingFacade = new MeetingFacade(em);
+	    		List<Meeting> results = meetingFacade.getAllUserMeeting(user);
+
+	    		for(Meeting m : results) {
+	    			VEvent myevent = convertEventToIcalEvent(m);
+	    			calendar.getComponents().add(myevent);
+	    		}
+		        
+		        File icsToCreate = new File(filePath,"calendar_all_event.ics");
+		        
+		        icsOutputStream = new FileOutputStream(icsToCreate);
+			    CalendarOutputter outputter = new CalendarOutputter();
+			    outputter.setValidating(false);
+			    outputter.output(calendar, icsOutputStream);
+			    icsInputStream = new FileInputStream(icsToCreate);
+			    
+			    response.setContentType("application/octet-stream");
+			    response.setHeader("Content-Disposition", "attachment;filename=calendar_all_event.ics");
+			    response.setHeader("Pragma", "no-cache");
+			    response.setHeader("Cache-control", "no-cache");
+			    
+		        ServletOutputStream out = response.getOutputStream();
+		        
+		        int i;
+		        while ((i=icsInputStream.read())!=-1)
+		        {
+		           out.write(i);
+		        }
+		        icsInputStream.close();
+		        out.close();
+		        em.close();
+		        } catch (IOException io) {
+		        	io.printStackTrace();
+		        } catch (net.fortuna.ical4j.model.ValidationException ve) {
+					ve.printStackTrace();
+				}
+
+		return mapping.findForward("success");
+	}
+	
+	/**
+	 * Method that map an event into an ical4j event
+	 * @param event the event/meeting to be mapped
+	 * @return VEvent the ical4j event mapped
+	 */
+	public VEvent convertEventToIcalEvent(Meeting event) {
+		VEvent icalEvent = new VEvent();
+        Summary summary = new Summary(event.getTitle());
+        Location location = new Location(event.getAddress().getAddress()+""+event.getAddress().getCity());
+        
+        Description description = new Description(event.getContent());
+        
+        DateTime startDate = new DateTime(new Date());
+        DateTime endDate = new DateTime(new Date());
+        if(event.getStartDate() != null) {
+        	startDate = new DateTime(DateUtils.toIcal4jFormat(event.getStartDate()));
+        }
+        
+        if(event.getEndDate() != null) {
+            endDate = new DateTime(DateUtils.toIcal4jFormat(event.getEndDate()));
+        }
+        
+        UidGenerator ug;
+		try {
+			ug = new UidGenerator("uidGen");
+		    Uid uid = ug.generateUid();
+		    icalEvent.getProperties().add(uid);
+		} catch (SocketException e) {
+			e.printStackTrace();
+		}
+
+        icalEvent.getProperties().add(summary);
+        icalEvent.getProperties().add(location);
+        icalEvent.getProperties().add(description);
+        icalEvent.getProperties().add(new DtStart(startDate));
+        icalEvent.getProperties().add(new DtEnd(endDate));
+        
+		return icalEvent;
+	}
 	
 	/**
 	 * Method that parse an ical4j calendar to retrieve events and save them to the database
@@ -793,4 +1017,53 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
         }
     }
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
+		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+				request, em);
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+	try {
+			
+			String[] selectedEvents = (String[]) dynaForm
+					.get("selectedEvents");
+			
+			MeetingFacade eventFacade = new MeetingFacade(em);
+
+			InteractionFacade interactionFacade = new InteractionFacade(em);
+			addRightToRequest(request);
+
+			for (int i = 0; i < selectedEvents.length; i++) {
+				em.getTransaction().begin();
+				Meeting meeting = eventFacade
+						.getMeeting(Integer.parseInt(selectedEvents[i]));
+				Set<SocialEntity> followingEntitys = meeting.getFollowingEntitys();
+				for (SocialEntity se : followingEntitys) {
+					se.getFavoriteInteractions().remove(meeting);
+				}
+				InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
+						em);
+				interactionRoleFacade.unsubscribeAll(meeting);
+				interactionFacade.deleteInteraction(authenticatedUser, meeting);
+
+				em.getTransaction().commit();
+			}
+
+		} finally {
+			em.close();
+		}
+
+		return mapping.findForward(SUCCES_ACTION_NAME);
+	}
 }

@@ -180,9 +180,9 @@ public class Authenticate extends HttpServlet {
 			req.getSession().setAttribute("isGroupResponsible",
 					socialGroupFacade.isGroupResponsible(user));
 			req.getSession().setAttribute("currentUserId", user.getId());
+
 			// add under groups to select them to add rights 
 			// to participate at consultation
-			
 			if(socialGroupFacade.isSuperAdmin(user) || socialGroupFacade.isGroupResponsible(user)){
 				List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
 				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
@@ -191,6 +191,8 @@ public class Authenticate extends HttpServlet {
 				listOfChildGroup.add(user.getGroup());
 				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
 			}
+			req.getSession().setAttribute("color", user.getGroup().getColor());
+
 		} else {
 			// the user is not authenticated
 			RequestDispatcher dispatcher = req

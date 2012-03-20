@@ -1,11 +1,15 @@
 package fr.univartois.ili.fsnet.facade;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
+import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.ConsultationChoice;
 import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
@@ -17,6 +21,10 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 public class ConsultationFacade {
 	private final EntityManager em;
+	
+	private static final int CONSULTATION_MAXDATE_HOUR = 23 ;
+	private static final int CONSULTATION_MAXDATE_MINUTE = 59 ;
+	private static final int CONSULTATION_MAXDATE_SECOND = 59 ;
 
 	public ConsultationFacade(EntityManager em) {
 		this.em = em;
@@ -145,6 +153,30 @@ public class ConsultationFacade {
 						ConsultationChoiceVote.class);
 		query.setParameter("idChoice", id);
 		return query.getResultList();
+	}
+	/**
+	 * Get consultation wiwh occur today
+	 * @return List<Consultation> the list containing consultations which occur today
+	 */
+	
+	public final List<Consultation> getConsultationsWhichOccurToday(){
+		List<Consultation> listConsultation;
+		
+		Calendar calendar = GregorianCalendar.getInstance();
+		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
+				calendar.get(Calendar.DATE), CONSULTATION_MAXDATE_HOUR,
+				CONSULTATION_MAXDATE_MINUTE, CONSULTATION_MAXDATE_SECOND);
+		Date today = calendar.getTime();
+		
+		String todayFormatted = "";
+		todayFormatted = DateUtils.renderDBDateWithSecond(today);
+		listConsultation = em
+				.createQuery(
+						"SELECT c FROM Consultation c where c.maxDate = \""+
+								todayFormatted+"\"",
+						Consultation.class).getResultList();
+		
+		return listConsultation;
 	}
 
 }
