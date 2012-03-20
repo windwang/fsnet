@@ -522,8 +522,6 @@ public class ManageCV extends MappingDispatchAction {
 		CvFacade cvfacade = new CvFacade(em);
 		List<Curriculum> results = cvfacade.listAllCv(mem.getId());
 		
-		 
-
 		em.close();
 
 		request.setAttribute("CVsList", results);

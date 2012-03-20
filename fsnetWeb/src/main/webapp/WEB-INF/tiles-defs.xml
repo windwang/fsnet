@@ -461,18 +461,24 @@
 
 	<!-- CV -->
 	<definition name="InfoExpCv" extends=".defaultLayout">
-		<put name="title" value="profile.leftMenu.createCV" />
+		<put name="title" value="pageTitle.resume" />
+		<put name="currentMenu" value="CV" />
+		<put name="left" value="/content/CV/leftMenu.jsp" />
 		<put name="body-content" value="/content/CV/InfoExpCv.jsp" />
 	</definition>
 
 
 	<definition name="InfoProfileCv" extends=".defaultLayout">
-		<put name="title" value="profile.leftMenu.createCV" />
+		<put name="title" value="pageTitle.resume" />
+		<put name="currentMenu" value="CV" />
+		<put name="left" value="/content/CV/leftMenu.jsp" />
 		<put name="body-content" value="/content/CV/InfoProfileCv.jsp" />
 	</definition>
 
 	<definition name="DisplayCv" extends=".defaultLayout">
-		<put name="title" value="profile.leftMenu.title" />
+		<put name="title" value="pageTitle.resume" />
+		<put name="currentMenu" value="CV" />
+		<put name="left" value="/content/CV/leftMenu.jsp" />
 		<put name="body-content" value="/content/CV/DisplayCv.jsp" />
 	</definition>
 
