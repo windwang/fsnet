@@ -33,8 +33,11 @@ import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
 import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.InteractionGroups;
 import fr.univartois.ili.fsnet.entities.Property;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 
 /**
  * @author FSNet
@@ -44,7 +47,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 	private static final String DEFAULT_SMTP_PORT = "25";
 	private static final int MAX_PICTURE_SIZE = 500000;
-	
+
 	private static final String CONFIGURATION_ENABLETLS_FORM = "enableTLS";
 	private static final String CONFIGURATION_ENABLESSL_FORM = "enableSSL";
 	private static final String CONFIGURATION_ENABLEAUTHENTIFICATION_FORM = "enableAuthentication";
@@ -74,7 +77,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		FSNetConfiguration conf = FSNetConfiguration.getInstance();
 		Properties properties = conf.getFSNetConfiguration();
 		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
-		
+
 		try {
 			dynaform.set("MailFrom",
 					properties.getProperty(FSNetConfiguration.MAIL_FROM_KEY));
@@ -132,7 +135,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		
+
 		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
 		if ("".equals(dynaform.get(CONFIGURATION_ENABLETLS_FORM))) {
 			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY,
@@ -141,7 +144,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			saveProperty(em, FSNetConfiguration.ENABLE_TLS_KEY,
 					Boolean.TRUE.toString());
 		}
-		
+
 		if ("".equals(dynaform.get(CONFIGURATION_ENABLESSL_FORM))) {
 			saveProperty(em, FSNetConfiguration.SSL_KEY,
 					Boolean.FALSE.toString());
@@ -149,7 +152,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			saveProperty(em, FSNetConfiguration.SSL_KEY,
 					Boolean.TRUE.toString());
 		}
-		
+
 		if ("".equals(dynaform.get(CONFIGURATION_ENABLEAUTHENTIFICATION_FORM))) {
 			saveProperty(em, FSNetConfiguration.ENABLE_AUTHENTICATION_KEY,
 					Boolean.FALSE.toString());
@@ -161,24 +164,25 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			saveProperty(em, FSNetConfiguration.SMTP_PASSWORD_KEY,
 					(String) dynaform.get(CONFIGURATION_SMTPPASSWORD_FORM));
 		}
-		
+
 		saveProperty(em, FSNetConfiguration.MAIL_FROM_KEY,
 				(String) dynaform.get("MailFrom"));
 		saveProperty(em, FSNetConfiguration.SMTP_HOST_KEY,
 				(String) dynaform.get(CONFIGURATION_SMTPHOST_FORM));
 		String smtpPort = (String) dynaform.get(CONFIGURATION_SMTPPORT_FORM);
-		
+
 		try {
 			Integer.parseInt(smtpPort);
 		} catch (NumberFormatException e) {
 			smtpPort = DEFAULT_SMTP_PORT;
 		}
-		
+
 		saveProperty(em, FSNetConfiguration.SMTP_PORT_KEY, smtpPort);
 		saveProperty(em, FSNetConfiguration.FSNET_WEB_ADDRESS_KEY,
 				(String) dynaform.get(CONFIGURATION_FSNETWEBURL_FORM));
-		String dirName = (String) dynaform.get(CONFIGURATION_PICTURESDIRECTORY_FORM);
-		
+		String dirName = (String) dynaform
+				.get(CONFIGURATION_PICTURESDIRECTORY_FORM);
+
 		if (isValidDirectory(dirName)) {
 			saveProperty(em, FSNetConfiguration.PICTURES_DIRECTORY_KEY, dirName);
 		} else {
@@ -190,7 +194,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		em.getTransaction().commit();
 		em.close();
-		
+
 		FSNetConfiguration.getInstance().refreshConfiguration();
 
 		MessageResources bundle = MessageResources
@@ -215,7 +219,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		
+
 		DynaActionForm dynaform = (DynaActionForm) form; // NOSONAR
 
 		saveProperty(em, FSNetConfiguration.KEY_FACEBOOK,
@@ -313,7 +317,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		String line;
 		File f = new File(fileUri);
 		StringBuffer tmp = new StringBuffer();
-		
+
 		if (f.exists()) {
 
 			InputStream ips = new FileInputStream(fileUri);
@@ -333,7 +337,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			}
 
 		}
-		
+
 		if (!f.exists() || !tmp.toString().contains("DB modified")) {
 			EntityManager entityManager = PersistenceProvider
 					.createEntityManager();
@@ -342,7 +346,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					.getResultList();
 
 			HashMap<String, String> mails = new HashMap<String, String>();
-			
+
 			for (SocialEntity s : entities) {
 				mails.put(s.getEmail(), s.getEmail().toLowerCase());
 			}
@@ -374,7 +378,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		
+
 		try {
 			em.getTransaction().begin();
 
@@ -387,7 +391,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			query.executeUpdate();
 
 			em.getTransaction().commit();
-			
+
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		} finally {
@@ -406,7 +410,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		
+
 		try {
 			em.getTransaction().begin();
 
@@ -520,18 +524,19 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		
+
 		try {
 			em.getTransaction().begin();
 
 			Query query = em
 					.createNativeQuery("ALTER TABLE SOCIALGROUP ADD COLUMN COLOR VARCHAR(6) DEFAULT 'c9e6f8'");
 			query.executeUpdate();
-			
-//			Query query2 = em.createQuery("UPDATE SOCIALGROUP SET COLOR = :defaultColor");
-//			query.setParameter("defaultColor", "c9e6f8");
-//			query2.executeUpdate();
-			
+
+			// Query query2 =
+			// em.createQuery("UPDATE SOCIALGROUP SET COLOR = :defaultColor");
+			// query.setParameter("defaultColor", "c9e6f8");
+			// query2.executeUpdate();
+
 			Logger.getAnonymousLogger().log(Level.SEVERE, "",
 					"COLUMN COLOR ADDED IN SOCIALGROUP TABLE");
 
@@ -567,7 +572,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 							+ "KEY FK_INTERACTIONGROUPS_GROUP_ID (GROUP_ID),"
 							+ "KEY FK_INTERACTIONGROUPS_INTERACTION_ID (INTERACTION_ID)"
 							+ ") ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18;");
-			query. executeUpdate();
+			query.executeUpdate();
 
 			em.getTransaction().commit();
 			em.close();
@@ -587,13 +592,31 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			em.getTransaction().begin();
 
 			Query query = em
-					.createNativeQuery("SELECT sg.ID AS GROUP_ID, i.ID AS INTERACTION_ID"
-							+ "FROM ((SOCIALGROUP AS sg JOIN SOCIALENTITY AS se ON sg.MASTERGROUP_ID = se.ID) "
-							+ "JOIN INTERACTION AS i ON se.ID = i.CREATOR_ID)"
-							+ "WHERE i.DTYPE = \"Consultation\";");
+					.createNativeQuery("SELECT DISTINCT sg FROM SOCIALGROUP AS sg");
 			query.executeUpdate();			
-			
+			List<SocialGroup> listOfGroup = query.getResultList();
 			em.getTransaction().commit();
+			
+			for (SocialGroup socialGroup : listOfGroup) {
+				query = em
+						.createNativeQuery("SELECT DISTINCT se FROM SOCIALENTITY AS se WHERE se.id = :groupid");
+				query.setParameter("groupid", socialGroup.getMasterGroup().getId());
+				List<SocialEntity> entity = query.getResultList();
+				em.getTransaction().commit();
+				
+				query = em
+						.createNativeQuery("SELECT DISTINCT i FROM INTERACTION AS i WHERE i.CREATOR_ID = :interactionid");
+				query.setParameter("interactionid", entity.get(0).getId());
+				List<Interaction> interact = query.getResultList();
+				em.getTransaction().commit();
+				
+				for (Interaction interaction2 : interact) {
+					InteractionGroups test = new InteractionGroups(interaction2, socialGroup);
+				}
+				
+				
+			}
+			
 			em.close();
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
