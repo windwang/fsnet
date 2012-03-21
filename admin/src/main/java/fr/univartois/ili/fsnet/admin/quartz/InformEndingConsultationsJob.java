@@ -88,6 +88,9 @@ public class InformEndingConsultationsJob implements Job{
 			if(!listSocialEntity.isEmpty())
 				consultationsWithTheirSubscribersHavingNotVoted.put(c,listSocialEntity);
 		}
+		if(consultationsWithTheirSubscribersHavingNotVoted.isEmpty())
+			return null;
+		
 		return consultationsWithTheirSubscribersHavingNotVoted;
 	}
 

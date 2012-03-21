@@ -4,8 +4,9 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
-	<bean:message key="profile.LeftMenu" />
+	<bean:message key="profile.leftMenu.my" />
 </h2>
+
 <ul>
 	<li><html:link action="Profile.do">
 			<bean:message key="showProfile.edit" />

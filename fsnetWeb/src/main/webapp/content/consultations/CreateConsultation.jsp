@@ -75,11 +75,6 @@
 								class="plus" /><br />
 						</div>
 
-						<c:if test="${errorChoice}">
-							<div class="errorMessage">
-								<bean:message key="consultations.error.choice" />
-							</div>
-						</c:if>
 						<div id="errorChoice">
 							<div class="errorMessage">
 								<bean:message key="consultations.error.choice" />
@@ -94,6 +89,8 @@
 
 						<html:hidden property="consultationChoice"
 							styleId="consultationChoice" />
+						<html:hidden property="maxVoters"
+							styleId="maxVoters" />
 						<table id="choicesTab">
 							<c:forEach begin="1" end="3" var="i">
 								<tr>
@@ -359,6 +356,7 @@
 		});
 
 		$("#errorChoice").css("display", "none");
+		$("#errorMaxVotersPerChoice").css("display", "none");
 
 		displayChoicesOption(true);
 

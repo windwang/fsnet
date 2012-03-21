@@ -53,6 +53,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	private static final String DEADLINE_TIME = ":23:59:59";
 
 	private static final String NO_ANSWER = "no";
+	private static final String REGEX_CONSULTATION_CHOICE = ";";
 
 	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String FAILED_ACTION_NAME = "failed";
@@ -76,8 +77,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationDescription = (String) dynaForm
 				.get("consultationDescription");
 		String[] consultationChoices = dynaForm.getString("consultationChoice")
-				.split(";");
-		String[] maxVoters = dynaForm.getStrings("maxVoters");
+				.split(REGEX_CONSULTATION_CHOICE);
+		String[] maxVoters = dynaForm.getString("maxVoters").split(
+				REGEX_CONSULTATION_CHOICE);
 		String consultationType = dynaForm.getString("consultationType");
 		String consultationIfNecessaryWeight = dynaForm
 				.getString("consultationIfNecessaryWeight");
@@ -102,6 +104,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(
 					mapping.findForwardConfig(FAILED_ACTION_NAME));
 		}
+
 		for (int i = 0; i < maxVoters.length; i++) {
 			if ("".equals(maxVoters[i])) {
 				maxVoters[i] = "-1"; // Unlimited
@@ -191,9 +194,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		em.close();
 
 		request.setAttribute("id", consultation.getId());
-		
+
 		sendMailForNewConsultation(consultation, member);
-		
+
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
@@ -229,6 +232,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(
 					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
 		}
+		
 		if (consultation.isLimitChoicesPerParticipant()) {
 			int answersNumber = 0;
 			if (TypeConsultation.YES_NO_IFNECESSARY.equals(consultation
@@ -254,6 +258,7 @@ public class ManageConsultations extends MappingDispatchAction {
 						response);
 			}
 		}
+		
 		em.getTransaction().begin();
 		if (isAllowedToVote(consultation, member)) {
 			ConsultationVote vote = new ConsultationVote(member, voteComment,
@@ -275,6 +280,7 @@ public class ManageConsultations extends MappingDispatchAction {
 					}
 				}
 			}
+			
 			if (consultation.getType() != Consultation.TypeConsultation.PREFERENCE_ORDER
 					&& consultation.isLimitParticipantsPerChoice()) {
 				for (ConsultationChoice choice : consultation.getChoices()) {
@@ -287,18 +293,22 @@ public class ManageConsultations extends MappingDispatchAction {
 							}
 						}
 					}
+					
 					if (nbVotes > choice.getMaxVoters()) {
 						return displayAConsultation(mapping, dynaForm, request,
 								response);
 					}
 				}
 			}
+			
 			if (voteOk) {
 				consultationFacade.voteForConsultation(consultation, vote);
 				em.getTransaction().commit();
 			}
 		}
+		
 		em.close();
+		
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
@@ -700,24 +710,24 @@ public class ManageConsultations extends MappingDispatchAction {
 		request.setAttribute("rightAddConsultation", rightAddConsultation);
 		request.setAttribute("socialEntity", socialEntity);
 	}
-	
+
 	/**
-	 * Send email for inform of a new consultation to every member of the same group that
-	 * the owner of the consultation
+	 * Send email for inform of a new consultation to every member of the same
+	 * group that the owner of the consultation
 	 * 
 	 * @param consultation
 	 * @param socialEntity
 	 */
 	private void sendMailForNewConsultation(Consultation consultation,
-			SocialEntity creator){
+			SocialEntity creator) {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialGroupFacade  socialGroup = new SocialGroupFacade(em);
-		for(SocialEntity se : socialGroup.getMembersFromGroup
-				(consultation.getCreator().getGroup())){
-			sendInformationMail(consultation,se);
+		SocialGroupFacade socialGroup = new SocialGroupFacade(em);
+		for (SocialEntity se : socialGroup.getMembersFromGroup(consultation
+				.getCreator().getGroup())) {
+			sendInformationMail(consultation, se);
 		}
 	}
-	
+
 	/**
 	 * Send information email
 	 * 
@@ -731,17 +741,17 @@ public class ManageConsultations extends MappingDispatchAction {
 				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
 		String message;
 
-
-		message = createPersonalizedMessage(consultation, socialEntity, fsnetAddress);
+		message = createPersonalizedMessage(consultation, socialEntity,
+				fsnetAddress);
 
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		mail.setSubject(bundle.getMessage("consultations.mail.subject") + " : " +
-				consultation.getTitle());
-		
+		mail.setSubject(bundle.getMessage("consultations.mail.subject") + " : "
+				+ consultation.getTitle());
+
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
 		mailer.sendMail(mail);
@@ -754,13 +764,13 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param socialEntity
 	 * @param String
 	 */
-	private String createPersonalizedMessage(Consultation consultation, SocialEntity entity,
-			String fsnetAddress) {
+	private String createPersonalizedMessage(Consultation consultation,
+			SocialEntity entity, String fsnetAddress) {
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder sb = new StringBuilder();
-		
-		sb.append(bundle.getMessage("consultations.mail.new") +" ");
+
+		sb.append(bundle.getMessage("consultations.mail.new") + " ");
 		sb.append("\"" + consultation.getTitle() + "\" ");
 		sb.append(bundle.getMessage("consultations.mail.deadline") + " ");
 		sb.append(consultation.getMaxDate() + ".");
@@ -768,15 +778,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		sb.append("<\br>");
 		sb.append(bundle.getMessage("consultations.title.choix") + ":");
 		sb.append("<ol>");
-		
-		for(ConsultationChoice choice : consultation.getChoices()){
+
+		for (ConsultationChoice choice : consultation.getChoices()) {
 			sb.append("<li>" + choice.getIntituled() + "</li>");
 		}
-		
+
 		sb.append("</ol>");
 		sb.append(bundle.getMessage("consultations.mail.fsnet") + " ");
 		sb.append(fsnetAddress + ".");
-		
+
 		return sb.toString();
 	}
 
