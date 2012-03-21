@@ -23,13 +23,13 @@
 				<tr>
 					<td></td>
 					<td>${cv.titleCv }</td>
-					<td><html:form action="/Generate">
+					<td><html:form action="/GenerateCv">
 							<input type="hidden" name="idCv" value="${cv.id }" />
 							<html:submit styleClass="button">
 								<bean:message key="cv.button.generate" />
 							</html:submit>
 						</html:form>
-						<html:form action="/DeleteCV">
+						<html:form action="/DeleteCv">
 							<input type="hidden" name="idCv" value="${cv.id }" />
 							<html:submit styleClass="button">
 								<bean:message key="cv.button.delete" />
