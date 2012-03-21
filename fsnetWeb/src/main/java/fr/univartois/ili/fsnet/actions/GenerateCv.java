@@ -72,10 +72,16 @@ public class GenerateCv extends MappingDispatchAction {
 
 		Paragraph prefaceNom = new Paragraph(curriculum.getMember()
 				.getFirstName() + " " + curriculum.getMember().getSurname());
+		
+		Paragraph prefaceSex = new Paragraph(curriculum.getMember().getSex());
 
 		Paragraph prefaceAdresse = new Paragraph(curriculum.getMember()
 				.getAdress() + "", particularFont);
-
+        
+		Paragraph prefacePays = new Paragraph(curriculum.getMember().getTown(), particularFont);
+		
+		Paragraph prefacecodePostale = new Paragraph(Integer.toString(curriculum.getMember().getPostCode()), particularFont);
+		
 		Paragraph prefaceEmail = new Paragraph(
 				curriculum.getMember().getMail(), particularFont);
 
@@ -85,13 +91,18 @@ public class GenerateCv extends MappingDispatchAction {
 		Paragraph prefaceBirthday = new Paragraph(dateToString(curriculum
 				.getMember().getBirthDate()), particularFont);
 
-		Paragraph prefaceSituation = new Paragraph(curriculum.getMember()
-				.getNumberPhone(), particularFont);
+		Paragraph prefaceSituation = new Paragraph(curriculum.getMember().getSituationFamilly(), particularFont);
+		
+	
+		
 
 		document.add(prefaceNom);
+		document.add(prefaceSex);
 		document.add(prefaceSituation);
 		document.add(prefaceBirthday);
 		document.add(prefaceAdresse);
+		document.add(prefacecodePostale);
+		document.add(prefacePays);
 		document.add(prefaceEmail);
 		document.add(prefaceTelephone);
 
@@ -167,7 +178,7 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-
+		if(curriculum.getTrains().size()!=0){
 		document.add(styleSection("Expériences Professionnelles"));
 		for (int i = 0; i < curriculum.getTrains().size(); i++) {
 
@@ -182,7 +193,10 @@ public class GenerateCv extends MappingDispatchAction {
 					+ dateToString(curriculum.getTrains().get(i).getEndDate()));
 
 		}
+		
+		
 		document.add(overview);
+		}
 
 	}
 
