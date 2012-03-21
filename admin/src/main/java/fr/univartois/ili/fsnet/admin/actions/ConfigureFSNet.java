@@ -592,20 +592,20 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			em.getTransaction().begin();
 
 			Query query = em
-					.createNativeQuery("SELECT DISTINCT sg FROM SOCIALGROUP AS sg");
+					.createNativeQuery("SELECT DISTINCT sg FROM SOCIALGROUP AS sg;");
 			query.executeUpdate();			
 			List<SocialGroup> listOfGroup = query.getResultList();
 			em.getTransaction().commit();
 			
 			for (SocialGroup socialGroup : listOfGroup) {
 				query = em
-						.createNativeQuery("SELECT DISTINCT se FROM SOCIALENTITY AS se WHERE se.id = :groupid");
+						.createNativeQuery("SELECT DISTINCT se FROM SOCIALENTITY AS se WHERE se.id = :groupid;");
 				query.setParameter("groupid", socialGroup.getMasterGroup().getId());
 				List<SocialEntity> entity = query.getResultList();
 				em.getTransaction().commit();
 				
 				query = em
-						.createNativeQuery("SELECT DISTINCT i FROM INTERACTION AS i WHERE i.CREATOR_ID = :interactionid");
+						.createNativeQuery("SELECT DISTINCT i FROM INTERACTION AS i WHERE i.CREATOR_ID = :interactionid;");
 				query.setParameter("interactionid", entity.get(0).getId());
 				List<Interaction> interact = query.getResultList();
 				em.getTransaction().commit();

@@ -290,21 +290,13 @@
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-<<<<<<< HEAD
-		<bean:message key="configure.title.AddInteractionGroupTable" />
-=======
 		<bean:message key="configure.title.addColorColumnInSocialGroup" />
->>>>>>> d9f947df7046bc3a7e6dc6c3250e27755662eb75
 	</legend>
 
 	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data"
-<<<<<<< HEAD
-					action="/AddInteractionGroupTable">
-=======
 					action="/AddColorColumnInSocialGroup">
->>>>>>> d9f947df7046bc3a7e6dc6c3250e27755662eb75
 					<div>
 						<html:submit styleClass="button">
 							<bean:message key="configure.button.submit" />
@@ -315,10 +307,30 @@
 	</table>
 </fieldset>
 
-<<<<<<< HEAD
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="configure.title.createInteractionGroupDataWithOldRecord" />
+		<bean:message key="configure.title.AddInteractionGroupTable" />
+
+	</legend>
+
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr>
+			<td><html:form enctype="multipart/form-data"
+					action="/AddInteractionGroupTable">
+					<div>
+						<html:submit styleClass="button">
+							<bean:message key="configure.button.submit" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message
+			key="configure.title.createInteractionGroupDataWithOldRecord" />
 	</legend>
 
 	<table class="inLineTable fieldsetTableAdmin">
@@ -336,8 +348,6 @@
 </fieldset>
 
 
-=======
->>>>>>> d9f947df7046bc3a7e6dc6c3250e27755662eb75
 <script type="text/javascript">
 	function updateAuthenticationFields() {
 		var usernameField = document.getElementById('SMTPUsername');
