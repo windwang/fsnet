@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,9 +18,18 @@
 				</ul>
 			</div>
 
+			<div class="addExpTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addExp"><bean:message
+										key="cv.button.addExperience" /></span></a></td>
+
+					</tr>
+				</table>
+			</div>
+
 			<div class="corp_experience">
 				<table class="inLineTable fieldsetTableAppli">
-
 					<tr>
 						<td><label for="cvExpJob">*<bean:message
 									key="cv.form.exp.job" /></label></td>
@@ -78,16 +88,13 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><a><span class="annuleExp"><bean:message
-										key="cv.button.cancel" /></span></a> | <a><span class="SaveExp"><bean:message
+						<td colspan="2" class="tableButton"><a><span
+								class="annuleExp"><bean:message key="cv.button.cancel" /></span></a>
+							| <a><span class="SaveExp"><bean:message
 										key="cv.button.save" /></span></a></td>
 					</tr>
 				</table>
-
 			</div>
-
-			<a><span class="addExp"><bean:message
-						key="cv.button.addExperience" /></span></a>
 		</fieldset>
 	</div>
 
@@ -101,6 +108,16 @@
 			<div id="diplome">
 				<ul class="listeDiplome fieldsetTable">
 				</ul>
+			</div>
+
+			<div class="addDiplTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addDip"><bean:message
+										key="cv.button.addDegree" /></span></a></td>
+
+					</tr>
+				</table>
 			</div>
 
 			<div class="corp_diplome">
@@ -164,14 +181,13 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><a><span class="annuleDip"><bean:message
-										key="cv.button.cancel" /></span></a> | <a><span class="SaveDip"><bean:message
+						<td colspan="2" class="tableButton"><a><span
+								class="annuleDip"><bean:message key="cv.button.cancel" /></span></a>
+							| <a><span class="SaveDip"><bean:message
 										key="cv.button.save" /> </span></a></td>
 					</tr>
 				</table>
 			</div>
-			<a><span class="addDip"><bean:message
-						key="cv.button.addDegree" /></span></a>
 		</fieldset>
 	</div>
 
@@ -185,6 +201,16 @@
 			<div id="formation">
 				<ul class="listeFormation fieldsetTable">
 				</ul>
+			</div>
+
+			<div class="addFormTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addForm"><bean:message
+										key="cv.button.addFormation" /></span></a></td>
+
+					</tr>
+				</table>
 			</div>
 
 			<div class="corp_formation">
@@ -232,14 +258,13 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><a><span class="annuleForm"><bean:message
-										key="cv.button.cancel" /></span></a> | <a><span class="SaveForm"><bean:message
+						<td colspan="2" class="tableButton"><a><span
+								class="annuleForm"><bean:message key="cv.button.cancel" /></span></a>
+							| <a><span class="SaveForm"><bean:message
 										key="cv.button.save" /> </span></a></td>
 					</tr>
 				</table>
 			</div>
-			<a><span class="addForm"><bean:message
-						key="cv.button.addFormation" /></span></a>
 		</fieldset>
 	</div>
 
@@ -254,6 +279,16 @@
 			<div id="loisir">
 				<ul class="listeLoisir fieldsetTable">
 				</ul>
+			</div>
+
+			<div class="addLoisirTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addLoisir"><bean:message
+										key="cv.button.addHobby" /> </span> </a></td>
+
+					</tr>
+				</table>
 			</div>
 
 			<div class="corp_loisir">
@@ -275,8 +310,6 @@
 					</tr>
 				</table>
 			</div>
-			<a><span class="addLoisir"><bean:message
-						key="cv.button.addHobby" /> </span> </a>
 		</fieldset>
 	</div>
 
@@ -291,6 +324,16 @@
 			<div id="Langue">
 				<ul class="listeLangues fieldsetTable">
 				</ul>
+			</div>
+
+			<div class="addLangueTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addLangue"><bean:message
+										key="cv.button.addLanguage" /></span></a></td>
+
+					</tr>
+				</table>
 			</div>
 
 			<div class="corp_langue">
@@ -330,8 +373,6 @@
 					</tr>
 				</table>
 			</div>
-			<a><span class="addLangue"><bean:message
-						key="cv.button.addLanguage" /></span></a>
 		</fieldset>
 	</div>
 
@@ -346,18 +387,19 @@
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
-
 			dateFormat : 'dd/mm/yy',
-			showOn : 'button',
+			showOn : 'both',
 			buttonImage : 'images/calendar.gif',
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
-		$("#cvExpBeginDate").datepicker($.datepicker.regional['fr']);
-		$("#cvExpEndDate").datepicker($.datepicker.regional['fr']);
-		$("#cvDegreeBeginDate").datepicker($.datepicker.regional['fr']);
-		$("#cvDegreeEndDate").datepicker($.datepicker.regional['fr']);
-		$("#cvTrainingObtainingDate").datepicker($.datepicker.regional['fr']);
+		
+		$("#cvExpBeginDate").datepicker();
+		$("#cvExpEndDate").datepicker();
+		$("#cvDegreeBeginDate").datepicker();
+		$("#cvDegreeEndDate").datepicker();
+		$("#cvTrainingObtainingDate").datepicker();
 	});
 </script>
