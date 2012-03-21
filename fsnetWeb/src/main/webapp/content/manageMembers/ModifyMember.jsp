@@ -194,21 +194,22 @@
 <c:set var="paginatorTile" value="interestsMember" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
 
-<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
-			yearRange : '-100:+1',
+			yearRange : '-100:+100',
+			minDate : '-100y',
 			changeYear : true,
-			maxDate : 0,
+			maxDate : '+0',
 			dateFormat : 'dd/mm/yy',
-			showOn : 'button',
+			showOn : 'both',
 			buttonImage : 'images/calendar.gif',
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
-		$("#birthDay").datepicker($.datepicker.regional['fr']);
+		$("#birthDay").datepicker();
 	});
 </script>

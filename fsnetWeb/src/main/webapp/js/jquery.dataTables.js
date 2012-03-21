@@ -10939,9 +10939,12 @@ jQuery.fn.dataTableExt.oSort['date-euro-desc'] = function(a, b) {
 };
 
 function miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns,
-		affichemoinsdix, nbEltPage) {
-	var nbCellules = document.getElementById(nomTable).rows.length;
-	if ((affichemoinsdix == true) || (nbCellules > (nbEltPage+1))) {
+		affichemoinsdix, nbEltPage, btnSupp) {
+	var nbCellules = document.getElementById(nomTable).rows.length - 1;
+	if (btnSupp == true){
+		nbCellules = nbCellules-1;
+	}
+	if ((affichemoinsdix == true) || (nbCellules > nbEltPage )) {
 		$("#" + nomTable).dataTable({
 			"aaSorting" : [ [ idColonneATrier, sensDeTri ] ],
 			"aoColumns" : aoColumns,

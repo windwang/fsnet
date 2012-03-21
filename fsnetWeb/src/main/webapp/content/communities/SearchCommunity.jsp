@@ -44,9 +44,7 @@
 								"bSortable" : false
 							}, null, {
 								"bSortable" : false
-							}, null, null, {
-								"bSortable" : false
-							} ];
+							}, null, null];
 							miseEnPageTable(nomTable, idColonneATrier,
 									sensDeTri, aoColumns, false, 10);
 						});
@@ -60,7 +58,6 @@
 						<th><bean:message key="tableheader.by" /></th>
 						<th width="20%"><bean:message key="members.firstName" /></th>
 						<th width="20%"><bean:message key="members.name" /></th>
-						<th></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -90,18 +87,6 @@
 									socialEntity="${community.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${community.creator}" /></td>
-							<td class="tableButton"
-								onclick="confirmDelete2('deleteid${community.id}', '<bean:message key="message.confirmation.delete" />');"><c:if
-									test="${sessionScope.userId eq community.creator.id}">
-									<html:form action="DeleteCommunity.do"
-										styleId="deleteid${community.id}" method="post"
-										styleClass="cursorPointer">
-										<html:hidden property="communityId" value="${community.id}" />
-										<span class="button"> <bean:message
-												key="communities.button.delete" />
-										</span>
-									</html:form>
-								</c:if></td>
 						</tr>
 					</c:forEach>
 				</tbody>

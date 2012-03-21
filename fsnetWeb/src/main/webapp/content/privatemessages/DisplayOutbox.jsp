@@ -27,9 +27,11 @@
 
 							function pagination() {
 								var nomTable = "tableoutbox";
-								var idColonneATrier = 4;
+								var idColonneATrier = 5;
 								var sensDeTri = "desc";
 								var aoColumns = [ {
+									"bSortable" : false
+								}, {
 									"bSortable" : false
 								}, null, null, null, {
 									"sType" : "date-euro"
@@ -66,19 +68,27 @@
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
-								name="selected" class="checkThemAll" /> <bean:message
-									key="tableheader.to" /></th>
+								name="selected" class="checkThemAll" /></th>
+							<th><bean:message key="tableheader.to" />
 							<th><bean:message key="members.firstName" /></th>
 							<th><bean:message key="members.name" /></th>
 							<th><bean:message key="tableheader.subject" /></th>
 							<th><bean:message key="tableheader.date" /></th>
 						</tr>
 					</thead>
+					<tfoot>
+						<tr>
+							<td colspan="6"><html:submit styleClass="button">
+									<bean:message key="privatemessages.delete" />
+								</html:submit></td>
+						</tr>
+					</tfoot>
 					<tbody>
 						<c:forEach items="${requestScope.outBoxMessages}" var="message">
 							<tr>
 								<td><html:multibox property="selectedMessages"
 										value="${message.id}" /></td>
+								<td></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosFirstname
 										socialEntity="${message.to}" /></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosName
@@ -99,9 +109,6 @@
 						</c:forEach>
 					</tbody>
 				</table>
-				<html:submit styleClass="button">
-					<bean:message key="privatemessages.delete" />
-				</html:submit>
 			</html:form>
 		</c:otherwise>
 	</c:choose>
