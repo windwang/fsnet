@@ -37,7 +37,7 @@
 									"sType" : "date-euro"
 								} ];
 								miseEnPageTable(nomTable, idColonneATrier,
-										sensDeTri, aoColumns, true, 10);
+										sensDeTri, aoColumns, true, 10, true);
 							}
 							pagination();
 
@@ -76,12 +76,13 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="5"><html:submit
+							<td colspan="6"><html:submit
 									styleClass="button">
 									<bean:message key="privatemessages.delete" />
 								</html:submit></td>
 						</tr>
 					</tfoot>
+					
 					<tbody>
 						<c:forEach items="${requestScope.inBoxMessages}" var="message">
 							<c:if test="${not message.reed}">
@@ -102,15 +103,6 @@
 											<span>${fn:substring(message.subject, 0,20)} : </span>
 											<span style="color: gray"> <ili:substring
 													beginIndex="0" endIndex="20">
-
-													<tfoot>
-														<tr>
-															<td colspan="5" class="tableButton"><html:submit
-																	styleClass="button">
-																	<bean:message key="privatemessages.delete" />
-																</html:submit></td>
-														</tr>
-													</tfoot>
 													<ili:noxml>${message.body}</ili:noxml>
 												</ili:substring>
 											</span>

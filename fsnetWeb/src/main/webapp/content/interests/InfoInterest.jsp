@@ -119,7 +119,7 @@
 		<div class="clear"></div>
 		<fieldset class="fieldsetAppli">
 			<legend class="legendHome">
-				<bean:message key="pageTitle.15" />
+				<bean:message key="interests.title.communities" />
 			</legend>
 			<table class="inLineTable fieldsetTableAppli">
 				<tr>
@@ -149,7 +149,7 @@
 
 		<fieldset class="fieldsetAppli">
 			<legend class="legendHome">
-				<bean:message key="pageTitle.4" />
+				<bean:message key="interests.title.hubs" />
 			</legend>
 			<table class="inLineTable fieldsetTableAppli">
 				<tr>
@@ -179,7 +179,7 @@
 
 		<fieldset class="fieldsetAppli">
 			<legend class="legendHome">
-				<bean:message key="pageTitle.6" />
+				<bean:message key="interests.title.topics" />
 			</legend>
 			<table class="inLineTable fieldsetTableAppli">
 				<tr>
@@ -209,7 +209,7 @@
 
 		<fieldset class="fieldsetAppli">
 			<legend class="legendHome">
-				<bean:message key="pageTitle.1" />
+				<bean:message key="interests.title.events" />
 			</legend>
 			<table class="inLineTable fieldsetTableAppli">
 				<tr>
@@ -239,7 +239,7 @@
 		<div class="clear"></div>
 		<fieldset class="fieldsetAppli">
 			<legend class="legendHome">
-				<bean:message key="pageTitle.8" />
+				<bean:message key="interests.title.announces" />
 			</legend>
 			<table class="inLineTable fieldsetTableAppli">
 				<tr>

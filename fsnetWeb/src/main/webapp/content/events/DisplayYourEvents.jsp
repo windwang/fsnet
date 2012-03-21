@@ -28,7 +28,7 @@
 									"sType" : "date-euro"
 								} ];
 								miseEnPageTable(nomTable, idColonneATrier,
-										sensDeTri, aoColumns, false, 5);
+										sensDeTri, aoColumns, false, 5, true);
 							}
 							pagination();
 

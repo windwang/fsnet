@@ -285,6 +285,25 @@
 	</table>
 </fieldset>
 
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message key="configure.title.addColorColumnInSocialGroup" />
+	</legend>
+
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr>
+			<td><html:form enctype="multipart/form-data"
+					action="/AddColorColumnInSocialGroup">
+					<div>
+						<html:submit styleClass="button">
+							<bean:message key="configure.button.submit" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
+</fieldset>
+
 <script type="text/javascript">
 	function updateAuthenticationFields() {
 		var usernameField = document.getElementById('SMTPUsername');

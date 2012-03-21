@@ -150,7 +150,7 @@ public class ManageCV extends MappingDispatchAction {
 		String cvPays = (String) dynaForm.get(CV_COUNTRY_FIELD_FORM_NAME);
 		String cvContact = (String) dynaForm.get(CV_MAIL_FIELD_FORM_NAME);
 		String birthDay = (String) dynaForm.get(CV_BIRTHDAY_FIELD_FORM_NAME);
-
+		mysession.setAttribute("action", true);
 		mysession.setAttribute(CV_TITLE_FIELD_FORM_NAME, cvTitle);
 		mysession.setAttribute(CV_FIRSTNAME_FIELD_FORM_NAME, cvNom);
 		mysession.setAttribute(CV_SURNAME_FIELD_FORM_NAME, cvPrenom);
@@ -264,6 +264,7 @@ public class ManageCV extends MappingDispatchAction {
 	public ActionForward displayExp(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ParseException {
+		request.getSession().removeAttribute("action");
 		try {
 			int nbExp = Integer.parseInt(request.getParameter("nbexp"));
 			int nbfrom = Integer.parseInt(request.getParameter("nbform"));
@@ -307,6 +308,7 @@ public class ManageCV extends MappingDispatchAction {
 				languages.put(cvNameLang, cvLevelLang);
 				lang++;
 			}
+			SocialEntity mem = UserUtils.getAuthenticatedUser(request, em); 
 			member.setLanguages(languages);
 			em.getTransaction().begin();
 			em.persist(member);
@@ -459,7 +461,7 @@ public class ManageCV extends MappingDispatchAction {
 				curriculum.setHobs(curriculum.getHobs());
 				l++;
 			}
-
+			curriculum.setUserId(mem.getId());
 			em.persist(curriculum);
 
 			em.getTransaction().commit();
@@ -515,15 +517,15 @@ public class ManageCV extends MappingDispatchAction {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
-
+		SocialEntity mem = UserUtils.getAuthenticatedUser(request, em);
 		em.getTransaction().begin();
 
 		CvFacade cvfacade = new CvFacade(em);
-		List<Curriculum> result = cvfacade.listAllCv();
-
+		List<Curriculum> results = cvfacade.listAllCv(mem.getId());
+		
 		em.close();
 
-		request.setAttribute("CVsList", result);
+		request.setAttribute("CVsList", results);
 
 		return mapping.findForward(SUCCESS_ACTION_NAME);
 	}

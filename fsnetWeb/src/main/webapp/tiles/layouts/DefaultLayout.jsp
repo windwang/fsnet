@@ -31,14 +31,14 @@
 </title>
 <link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css"
 	rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
 <script type="text/javascript" src="js/functions.js"></script>
 <script type="text/javascript"
 	src="http://maps.google.com/maps/api/js?sensor=false"></script>
-<script type="text/javascript"
-	src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+<!-- <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script> -->
 <script type="text/javascript" src="js/geolocalisation.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal-1.4.2.js"></script>
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+
 <script type="text/javascript" src="js/talkUtils.js"></script>
 <script type="text/javascript" src="js/chat.js"></script>
 <script class="jsbin" type="text/javascript"
@@ -50,7 +50,7 @@
 
 <link rel="stylesheet" media="screen" type="text/css"
 	href="css/colorpicker.css" />
-<script type="text/javascript" src="js/jquery.js"></script>
+<!-- <script type="text/javascript" src="js/jquery.js"></script> -->
 <script type="text/javascript" src="js/colorpicker.js"></script>
 <script type="text/javascript" src="js/eye.js"></script>
 
