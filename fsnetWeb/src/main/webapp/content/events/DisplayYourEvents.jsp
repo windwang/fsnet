@@ -28,7 +28,7 @@
 									"sType" : "date-euro"
 								} ];
 								miseEnPageTable(nomTable, idColonneATrier,
-										sensDeTri, aoColumns, false, 5);
+										sensDeTri, aoColumns, false, 5, true);
 							}
 							pagination();
 
@@ -57,13 +57,21 @@
 					class="tablesorter inLineTable fieldsetTableAppli">
 					<thead>
 						<tr>
-							<th class="thCheckbox"><input type="checkbox" name="selected"
-								class="checkThemAll1" /></th>
+							<th class="thCheckbox"><input type="checkbox"
+								name="selected" class="checkThemAll1" /></th>
 							<th><bean:message key="tableheader.eventname" /></th>
 							<th><bean:message key="tableheader.willoccur" /></th>
 							<th><bean:message key="tableheader.expirdate" /></th>
 						</tr>
 					</thead>
+					<tfoot>
+						<tr>
+							<td colspan="4"><html:submit
+									styleClass="button">
+									<bean:message key="privatemessages.delete" />
+								</html:submit></td>
+						</tr>
+					</tfoot>
 					<tbody>
 						<c:forEach var="event" items="${requestScope.myEventsList}">
 							<tr>
@@ -84,11 +92,9 @@
 										property="endDate" format="dd/MM/yyyy HH:mm" /></td>
 							</tr>
 						</c:forEach>
+
 					</tbody>
 				</table>
-				<html:submit styleClass="tableButton2 button">
-					<bean:message key="privatemessages.delete" />
-				</html:submit>
 			</html:form>
 		</c:when>
 		<c:otherwise>

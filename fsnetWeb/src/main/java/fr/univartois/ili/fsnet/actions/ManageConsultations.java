@@ -261,7 +261,7 @@ public class ManageConsultations extends MappingDispatchAction {
 						response);
 			}
 		}
-		
+
 		em.getTransaction().begin();
 		if (isAllowedToVote(consultation, member)) {
 			ConsultationVote vote = new ConsultationVote(member, voteComment,
@@ -283,7 +283,7 @@ public class ManageConsultations extends MappingDispatchAction {
 					}
 				}
 			}
-			
+
 			if (consultation.getType() != Consultation.TypeConsultation.PREFERENCE_ORDER
 					&& consultation.isLimitParticipantsPerChoice()) {
 				for (ConsultationChoice choice : consultation.getChoices()) {
@@ -296,22 +296,22 @@ public class ManageConsultations extends MappingDispatchAction {
 							}
 						}
 					}
-					
+
 					if (nbVotes > choice.getMaxVoters()) {
 						return displayAConsultation(mapping, dynaForm, request,
 								response);
 					}
 				}
 			}
-			
+
 			if (voteOk) {
 				consultationFacade.voteForConsultation(consultation, vote);
 				em.getTransaction().commit();
 			}
 		}
-		
+
 		em.close();
-		
+
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
@@ -793,4 +793,44 @@ public class ManageConsultations extends MappingDispatchAction {
 		return sb.toString();
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+
+		try {
+			String[] selectedConsultations = (String[]) dynaForm
+					.get("selectedConsultations");
+			ConsultationFacade consultationFacade = new ConsultationFacade(em);
+			addRightToRequest(request);
+			
+			for (int i = 0; i < selectedConsultations.length; i++) {
+				em.getTransaction().begin();
+				Consultation consultation = consultationFacade
+						.getConsultation(Integer.valueOf(Integer
+								.valueOf(selectedConsultations[i])));
+				if (member.equals(consultation.getCreator())) {
+						consultationFacade.deleteConsultation(consultation, member);
+				}	
+				em.getTransaction().commit();
+			}
+
+		} finally {
+			em.close();
+		}
+
+		return mapping.findForward(SUCCES_ACTION_NAME);
+	}
 }

@@ -11,8 +11,7 @@
 	</legend>
 
 	<html:form action="/CreateGroup" onsubmit="Valider()">
-		<table id="CreateGroup"
-			class="inLineTable fieldsetTableAppli">
+		<table id="CreateGroup" class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><label for="name"> <bean:message key="groups.name" />
 				</label></td>
@@ -42,10 +41,11 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="groups.parent" />
+				<td><label for="parentId"> <bean:message
+							key="groups.parent" />
 				</label></td>
 				<td colspan="3"><html:select property="parentId"
-						styleClass="select">
+						styleClass="select" styleId="parentId">
 
 						<html:option value="" disabled="true">
 							<bean:message key="groups.listGroup" />
@@ -60,10 +60,12 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="groups.owner" />
+				<td><label for="socialEntityId"> <bean:message
+							key="groups.owner" />
 				</label></td>
 				<td colspan="3"><html:select property="socialEntityId"
-						styleClass="select" value="${ masterGroup.id }">
+						styleClass="select" value="${ masterGroup.id }"
+						styleId="socialEntityId">
 						<html:option value="" disabled="true">
 							<bean:message key="groups.listMember" />
 						</html:option>
@@ -160,10 +162,10 @@
 						<bean:message key="groups.removeGroups" />
 					</html:button></td>
 			</tr>
-			
+
 			<tr>
-				<td colspan="4" class="tableButton"><html:submit styleClass="button"
-						onclick="CreateGroup();">
+				<td colspan="4" class="tableButton"><html:submit
+						styleClass="button" onclick="CreateGroup();">
 						<bean:message key="groups.validate" />
 					</html:submit></td>
 			</tr>

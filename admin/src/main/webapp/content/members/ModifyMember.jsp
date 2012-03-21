@@ -172,11 +172,11 @@
 	$(function() {
 		$.datepicker.setDefaults($.extend({
 			yearRange : '-100:+100',
-			minDate : "-100Y+1D",
-			maxDate : 0,
+			minDate : '-100y',
+			maxDate : '+0',
 			changeYear : true,
 			dateFormat : 'dd/mm/yy',
-			showOn : 'button',
+			showOn : 'both',
 			buttonImage : 'images/calendar.gif',
 			buttonImageOnly : true,
 			showMonthAfterYear : false

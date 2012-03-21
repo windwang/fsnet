@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
@@ -17,14 +18,23 @@
 				</ul>
 			</div>
 
+			<div class="addExpTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addExp"><bean:message
+										key="cv.button.addExperience" /></span></a></td>
+
+					</tr>
+				</table>
+			</div>
+
 			<div class="corp_experience">
 				<table class="inLineTable fieldsetTableAppli">
-
 					<tr>
 						<td><label for="cvExpJob">*<bean:message
 									key="cv.form.exp.job" /></label></td>
 						<td><html:text property="cvExpJob" styleId="cvExpJob"
-								errorStyleClass="error" /> <span class="CvPosteError errorCV"><bean:message
+								errorStyleClass="error" /> <span class="CvExpJobError errorCV"><bean:message
 									key="error.CvPoste" /></span></td>
 					</tr>
 
@@ -33,7 +43,7 @@
 									key="cv.form.exp.firm" /></label></td>
 						<td><html:text property="cvExpFirmName"
 								styleId="cvExpFirmName" errorStyleClass="error" /> <span
-							class="NomEntrepriseError errorCV"><bean:message
+							class="CvExpFirmNameError errorCV"><bean:message
 									key="error.NomEntreprise" /></span></td>
 					</tr>
 
@@ -41,7 +51,7 @@
 						<td><label for="cvExpDomain">*<bean:message
 									key="cv.form.exp.domain" /></label></td>
 						<td><html:text property="cvExpDomain" styleId="cvExpDomain"
-								errorStyleClass="error" /> <span class="CvSecteurError errorCV"><bean:message
+								errorStyleClass="error" /> <span class="CvExpDomainError errorCV"><bean:message
 									key="error.CvSecteur" /></span></td>
 					</tr>
 
@@ -64,7 +74,7 @@
 									key="cv.form.dateBegin" />*</label></td>
 						<td><html:text property="cvExpBeginDate"
 								styleId="cvExpBeginDate" errorStyleClass="error" /><span
-							class="expBeginDateError errorCV"><bean:message
+							class="CvExpBeginDateError errorCV"><bean:message
 									key="error.expBeginDate" /></span></td>
 					</tr>
 
@@ -73,21 +83,18 @@
 									key="cv.form.dateEnd" /></label></td>
 						<td><html:text property="cvExpEndDate" styleId="cvExpEndDate"
 								errorStyleClass="error" /> <span
-							class="expEndDateError errorCV"><bean:message
+							class="CvExpEndDateError errorCV"><bean:message
 									key="error.expEndDate" /></span></td>
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><a><span class="annuleExp"><bean:message
-										key="cv.button.cancel" /></span></a> | <a><span class="SaveExp"><bean:message
+						<td colspan="2" class="tableButton"><a><span
+								class="annuleExp"><bean:message key="cv.button.cancel" /></span></a>
+							| <a><span class="SaveExp"><bean:message
 										key="cv.button.save" /></span></a></td>
 					</tr>
 				</table>
-
 			</div>
-
-			<a><span class="addExp"><bean:message
-						key="cv.button.addExperience" /></span></a>
 		</fieldset>
 	</div>
 
@@ -103,13 +110,23 @@
 				</ul>
 			</div>
 
+			<div class="addDiplTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addDip"><bean:message
+										key="cv.button.addDegree" /></span></a></td>
+
+					</tr>
+				</table>
+			</div>
+
 			<div class="corp_diplome">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvDegreeName">*<bean:message
 									key="cv.form.degree.level" /></label></td>
 						<td><html:text property="cvDegreeName" styleId="cvDegreeName"
-								errorStyleClass="error" /> <span class="CvEtudeError errorCV"><bean:message
+								errorStyleClass="error" /> <span class="CvDegreeNameError errorCV"><bean:message
 									key="error.CvEtude" /></span></td>
 					</tr>
 
@@ -118,7 +135,7 @@
 									key="cv.form.degree.domain" /></label></td>
 						<td><html:text property="cvDegreeDomain"
 								styleId="cvDegreeDomain" errorStyleClass="error" /> <span
-							class="CvEtudeDomError errorCV"><bean:message
+							class="CvDegreeDomainError errorCV"><bean:message
 									key="error.CvEtudeDom" /></span></td>
 					</tr>
 
@@ -127,7 +144,7 @@
 									key="cv.form.school" /></label></td>
 						<td><html:text property="cvDegreeSchool"
 								styleId="cvDegreeSchool" errorStyleClass="error" /> <span
-							class="CvEtablissmentError errorCV"><bean:message
+							class="CvDegreeSchoolError errorCV"><bean:message
 									key="error.CvEtablissment" /></span></td>
 					</tr>
 					<tr>
@@ -150,7 +167,7 @@
 						</label></td>
 						<td><html:text property="cvDegreeBeginDate"
 								styleId="cvDegreeBeginDate" errorStyleClass="error" /> <span
-							class="etudBeginDateError errorCV"><bean:message
+							class="CvDegreeBeginDateError errorCV"><bean:message
 									key="error.etudBeginDate" /></span></td>
 					</tr>
 
@@ -159,19 +176,18 @@
 									key="cv.form.dateEnd" /></label></td>
 						<td><html:text property="cvDegreeEndDate"
 								styleId="cvDegreeEndDate" errorStyleClass="error" /> <span
-							class="etudEndDateError errorCV"><bean:message
+							class="CvDegreeEndDateError errorCV"><bean:message
 									key="error.etudEndDate" /></span></td>
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><a><span class="annuleDip"><bean:message
-										key="cv.button.cancel" /></span></a> | <a><span class="SaveDip"><bean:message
+						<td colspan="2" class="tableButton"><a><span
+								class="annuleDip"><bean:message key="cv.button.cancel" /></span></a>
+							| <a><span class="SaveDip"><bean:message
 										key="cv.button.save" /> </span></a></td>
 					</tr>
 				</table>
 			</div>
-			<a><span class="addDip"><bean:message
-						key="cv.button.addDegree" /></span></a>
 		</fieldset>
 	</div>
 
@@ -187,6 +203,16 @@
 				</ul>
 			</div>
 
+			<div class="addFormTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addForm"><bean:message
+										key="cv.button.addFormation" /></span></a></td>
+
+					</tr>
+				</table>
+			</div>
+
 			<div class="corp_formation">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
@@ -194,7 +220,7 @@
 									key="cv.form.training.name" /></label></td>
 						<td><html:text property="cvTrainingName"
 								styleId="cvTrainingName" errorStyleClass="error" /> <span
-							class="CvFormationError errorCV"><bean:message
+							class="CvTrainingNameError errorCV"><bean:message
 									key="error.CvFormation" /></span></td>
 					</tr>
 
@@ -203,7 +229,7 @@
 									key="cv.form.school" /></label></td>
 						<td><html:text property="cvTrainingInstitution"
 								styleId="cvTrainingInstitution" errorStyleClass="error" /> <span
-							class="CvEtablissmentformError errorCV"><bean:message
+							class="CvTrainingInstitutionError errorCV"><bean:message
 									key="error.CvEtablissmentform" /></span></td>
 					</tr>
 
@@ -227,19 +253,18 @@
 						</label></td>
 						<td><html:text property="cvTrainingObtainingDate"
 								styleId="cvTrainingObtainingDate" errorStyleClass="error" /> <span
-							class="DateObtentionError errorCV"><bean:message
+							class="CvTrainingObtainingDateError errorCV"><bean:message
 									key="error.DateObtention" /></span></td>
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><a><span class="annuleForm"><bean:message
-										key="cv.button.cancel" /></span></a> | <a><span class="SaveForm"><bean:message
+						<td colspan="2" class="tableButton"><a><span
+								class="annuleForm"><bean:message key="cv.button.cancel" /></span></a>
+							| <a><span class="SaveForm"><bean:message
 										key="cv.button.save" /> </span></a></td>
 					</tr>
 				</table>
 			</div>
-			<a><span class="addForm"><bean:message
-						key="cv.button.addFormation" /></span></a>
 		</fieldset>
 	</div>
 
@@ -256,6 +281,16 @@
 				</ul>
 			</div>
 
+			<div class="addLoisirTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addLoisir"><bean:message
+										key="cv.button.addHobby" /> </span> </a></td>
+
+					</tr>
+				</table>
+			</div>
+
 			<div class="corp_loisir">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
@@ -263,7 +298,7 @@
 									key="cv.form.hobby.name" /></label></td>
 						<td><html:text property="cvHobbyName" styleId="cvHobbyName"
 								errorStyleClass="error" /> <span
-							class="CvNomLoisirError errorCV"><bean:message
+							class="CvHobbyNameError errorCV"><bean:message
 									key="error.CvNomLoisir" /></span></td>
 					</tr>
 
@@ -275,8 +310,6 @@
 					</tr>
 				</table>
 			</div>
-			<a><span class="addLoisir"><bean:message
-						key="cv.button.addHobby" /> </span> </a>
 		</fieldset>
 	</div>
 
@@ -293,13 +326,23 @@
 				</ul>
 			</div>
 
+			<div class="addLangueTable">
+				<table class="inLineTable fieldsetTableAppli">
+					<tr>
+						<td colspan="2"><a><span class="addLangue"><bean:message
+										key="cv.button.addLanguage" /></span></a></td>
+
+					</tr>
+				</table>
+			</div>
+
 			<div class="corp_langue">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvLangName">*<bean:message
 									key="cv.form.lang.name" /></label></td>
 						<td><input type="text" name="cvLangName" id="cvLangName" />
-							<span class="CVLangueError errorCV"><bean:message
+							<span class="CvLangNameError errorCV"><bean:message
 									key="error.CVLangue" /></span></td>
 					</tr>
 
@@ -330,8 +373,6 @@
 					</tr>
 				</table>
 			</div>
-			<a><span class="addLangue"><bean:message
-						key="cv.button.addLanguage" /></span></a>
 		</fieldset>
 	</div>
 
@@ -346,18 +387,19 @@
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
-
 			dateFormat : 'dd/mm/yy',
-			showOn : 'button',
+			showOn : 'both',
 			buttonImage : 'images/calendar.gif',
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
-		$("#cvExpBeginDate").datepicker($.datepicker.regional['fr']);
-		$("#cvExpEndDate").datepicker($.datepicker.regional['fr']);
-		$("#cvDegreeBeginDate").datepicker($.datepicker.regional['fr']);
-		$("#cvDegreeEndDate").datepicker($.datepicker.regional['fr']);
-		$("#cvTrainingObtainingDate").datepicker($.datepicker.regional['fr']);
+		
+		$("#cvExpBeginDate").datepicker();
+		$("#cvExpEndDate").datepicker();
+		$("#cvDegreeBeginDate").datepicker();
+		$("#cvDegreeEndDate").datepicker();
+		$("#cvTrainingObtainingDate").datepicker();
 	});
 </script>

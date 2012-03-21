@@ -43,6 +43,11 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="searchText" type="java.lang.String"></form-property>
 		</form-bean>
+        <form-bean name="DeleteConsultationsForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="consultationId" type="java.lang.String" />
+            <form-property name="selectedConsultations" type="java.lang.String[]" />
+        </form-bean>
 	</form-beans>
 
 	<action-mappings>
@@ -111,5 +116,10 @@
 			scope="request" parameter="autocompleteOther">
 			<forward name="success" path="AutocompleteOtherChoice" />
 		</action>
+        <action path="/DeleteMultiConsultations" type="fr.univartois.ili.fsnet.actions.ManageConsultations"
+                name="DeleteConsultationsForm" validate="false" scope="request"
+                parameter="deleteMulti">
+            <forward name="success" path="/SearchConsultation.do" />
+        </action>
 	</action-mappings>
 </struts-config>

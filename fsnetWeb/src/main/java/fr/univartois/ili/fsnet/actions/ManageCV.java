@@ -150,7 +150,7 @@ public class ManageCV extends MappingDispatchAction {
 		String cvPays = (String) dynaForm.get(CV_COUNTRY_FIELD_FORM_NAME);
 		String cvContact = (String) dynaForm.get(CV_MAIL_FIELD_FORM_NAME);
 		String birthDay = (String) dynaForm.get(CV_BIRTHDAY_FIELD_FORM_NAME);
-
+		mysession.setAttribute("action", true);
 		mysession.setAttribute(CV_TITLE_FIELD_FORM_NAME, cvTitle);
 		mysession.setAttribute(CV_FIRSTNAME_FIELD_FORM_NAME, cvNom);
 		mysession.setAttribute(CV_SURNAME_FIELD_FORM_NAME, cvPrenom);
@@ -264,6 +264,7 @@ public class ManageCV extends MappingDispatchAction {
 	public ActionForward displayExp(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws ParseException {
+		request.getSession().removeAttribute("action");
 		try {
 			int nbExp = Integer.parseInt(request.getParameter("nbexp"));
 			int nbfrom = Integer.parseInt(request.getParameter("nbform"));
