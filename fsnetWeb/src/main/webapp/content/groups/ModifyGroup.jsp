@@ -12,8 +12,7 @@
 
 	<html:form action="/ModifyGroup" onsubmit="Valider()">
 
-		<table id="ModifyGroup"
-			class="inLineTable fieldsetTableAppli">
+		<table id="ModifyGroup" class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><label for="name"> <bean:message key="groups.name" />
 				</label></td>
@@ -40,16 +39,12 @@
 					</div></td>
 			</tr>
 			<tr>
-				<td><label for="color"> <bean:message
+				<td><label for=colorpickerField1> <bean:message
 							key="groups.color" />
 				</label></td>
-				<td colspan="3">
-					#<html:text 
-						property="color"
-						value="${color}"
-						styleId="colorpickerField1"
-						/> 
-					
+				<td colspan="3">#<html:text property="color" value="${color}"
+						styleId="colorpickerField1" />
+
 				</td>
 			</tr>
 			<tr>
@@ -57,7 +52,8 @@
 							key="groups.owner" />
 				</label></td>
 				<td colspan="3"><html:select property="socialEntityId"
-						styleClass="select" value="${ masterGroup.id }">
+						styleClass="select" value="${ masterGroup.id }"
+						styleId="socialEntityId">
 						<html:option value="" disabled="true">
 							<bean:message key="groups.listMember" />
 						</html:option>
@@ -157,8 +153,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="4" class="tableButton"><html:submit styleClass="button"
-						onclick="ModifyGroup();">
+				<td colspan="4" class="tableButton"><html:submit
+						styleClass="button" onclick="ModifyGroup();">
 						<bean:message key="groups.validate" />
 					</html:submit></td>
 			</tr>
@@ -172,8 +168,7 @@
 	</legend>
 
 	<html:form enctype="multipart/form-data" action="/ChangeLogo">
-		<table id="changeLogo"
-			class="inLineTable fieldsetTableAppli">
+		<table id="changeLogo" class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><html:file property="Logo"></html:file>
 					<div class="errorMessage">
