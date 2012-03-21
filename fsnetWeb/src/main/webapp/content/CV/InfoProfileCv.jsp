@@ -37,14 +37,19 @@
 				<legend class="legendHome">
 					<bean:message key="cv.title.info" />
 				</legend>
+    
 			</div>
 			<div class="corp_contact">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
 						<td><label for="cvFirstname"><bean:message
 									key="cv.form.profile.firstname" /></label></td>
-						<td><html:text property="cvFirstname" styleId="cvFirstname"
-								errorStyleClass="error" value="${sessionScope.user.name}" /> <logic:messagesPresent
+						<td><c:choose><c:when test="${sessionScope.action}"><html:text property="cvFirstname" styleId="cvFirstname"
+								errorStyleClass="error"  /></c:when>
+   
+    <c:otherwise><html:text property="cvFirstname" styleId="cvFirstname"
+								errorStyleClass="error"  value="${sessionScope.user.name}"/></c:otherwise>
+</c:choose><logic:messagesPresent
 								property="cvFirstname">
 								<div class="errorMessage">
 									<html:errors property="cvFirstname" />
@@ -55,8 +60,10 @@
 					<tr>
 						<td><label for="cvSurname"><bean:message
 									key="cv.form.profile.surname" /></label></td>
-						<td><html:text property="cvSurname" styleId="cvSurname"
-								errorStyleClass="error" value="${sessionScope.user.firstName}" />
+						<td><c:choose><c:when test="${sessionScope.action}"><html:text property="cvSurname" styleId="cvFirstname"
+								errorStyleClass="error"  /></c:when>
+						 <c:otherwise><html:text property="cvSurname" styleId="cvSurname"
+								errorStyleClass="error" value="${sessionScope.user.firstName}" /></c:otherwise></c:choose>
 							<logic:messagesPresent property="cvSurname">
 								<div class="errorMessage">
 									<html:errors property="cvSurname" />
@@ -103,9 +110,11 @@
 					<tr>
 						<td><label for="cvAddress"><bean:message
 									key="cv.form.profile.address" /></label></td>
-						<td><html:text property="cvAddress" styleId="cvAddress"
+						<td><c:choose><c:when test="${sessionScope.action}"><html:text property="cvAddress" styleId="cvFirstname"
+								errorStyleClass="error"  /></c:when>
+								 <c:otherwise><html:text property="cvAddress" styleId="cvAddress"
 								errorStyleClass="error"
-								value="${sessionScope.user.address.address}" /> <logic:messagesPresent
+								value="${sessionScope.user.address.address}" /> </c:otherwise></c:choose><logic:messagesPresent
 								property="cvAddress">
 								<div class="errorMessage">
 									<html:errors property="cvAddress" />
@@ -116,9 +125,11 @@
 					<tr>
 						<td><label for="cvCity"><bean:message
 									key="cv.form.profile.city" /></label></td>
-						<td><html:text property="cvCity" styleId="cvCity"
+						<td><c:choose><c:when test="${sessionScope.action}"><html:text property="cvCity" styleId="cvFirstname"
+								errorStyleClass="error"  /></c:when>
+						 <c:otherwise><html:text property="cvCity" styleId="cvCity"
 								errorStyleClass="error"
-								value="${sessionScope.user.address.city}" /> <logic:messagesPresent
+								value="${sessionScope.user.address.city}" /></c:otherwise></c:choose> <logic:messagesPresent
 								property="cvCity">
 								<div class="errorMessage">
 									<html:errors property="cvCity" />
@@ -154,8 +165,10 @@
 						<td><label for="cvPhone"> <bean:message
 									key="cv.form.profile.phone" />
 						</label></td>
-						<td><html:text property="cvPhone" styleId="cvPhone"
-								errorStyleClass="error" value="${sessionScope.user.phone}" /> <logic:messagesPresent
+						<td><c:choose><c:when test="${sessionScope.action}"><html:text property="cvPhone" styleId="cvFirstname"
+								errorStyleClass="error"  /></c:when>
+								 <c:otherwise><html:text property="cvPhone" styleId="cvPhone"
+								errorStyleClass="error" value="${sessionScope.user.phone}" /> </c:otherwise></c:choose><logic:messagesPresent
 								property="cvPhone">
 								<div class="errorMessage">
 									<html:errors property="cvPhone" />
@@ -190,8 +203,10 @@
 						<td><label for="cvMail"> <bean:message
 									key="cv.form.profile.mail" />
 						</label></td>
-						<td><html:text property="cvMail" styleId="cvMail"
-								errorStyleClass="error" value="${sessionScope.user.email}" /> <logic:messagesPresent
+						<td><c:choose><c:when test="${sessionScope.action}"><html:text property="cvMail" styleId="cvFirstname"
+								errorStyleClass="error"  /></c:when>
+								 <c:otherwise><html:text property="cvMail" styleId="cvMail"
+								errorStyleClass="error" value="${sessionScope.user.email}" /></c:otherwise></c:choose> <logic:messagesPresent
 								property="cvMail">
 								<div class="errorMessage">
 									<html:errors property="cvMail" />
