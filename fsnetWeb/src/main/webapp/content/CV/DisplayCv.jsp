@@ -30,6 +30,12 @@
 							<html:submit styleClass="button">
 								<bean:message key="cv.button.generate" />
 							</html:submit>
+						</html:form>
+						<html:form action="/DeleteCV">
+							<input type="hidden" name="idCv" value="${cv.id }" />
+							<html:submit styleClass="button">
+								<bean:message key="cv.button.delete" />
+							</html:submit>
 						</html:form></td>
 				</tr>
 			</c:forEach>

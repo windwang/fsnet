@@ -52,6 +52,9 @@
 		<form-bean name="GenerateForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 		</form-bean>
+		<form-bean name="DeleteCVForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+		</form-bean>
 
 	</form-beans>
 
@@ -82,6 +85,11 @@
 		<action path="/Generate" name="GenerateForm"
 			type="fr.univartois.ili.fsnet.actions.GenerateCv" scope="request"
 			validate="true" parameter="download">
+		</action>
+		
+		<action path="/DeleteCV" name="DeleteCVForm"
+			type="fr.univartois.ili.fsnet.actions.DeleteCv" scope="request"
+			validate="true" parameter="deleteCv">
 		</action>
 
 	</action-mappings>
