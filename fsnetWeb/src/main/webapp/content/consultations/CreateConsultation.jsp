@@ -262,9 +262,6 @@
 	</table>
 </fieldset>
 
-
-<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$.datepicker.setDefaults($.extend({

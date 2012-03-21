@@ -184,24 +184,22 @@
 	</fieldset>
 </ili:interactionFilter>
 
-<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
     $(function() {
-        $.datepicker.setDefaults($.extend(
-        {
-        	yearRange : '-100:+100',
-        	minDate:"-100Y+1D",
-        	maxDate:0,
-            changeYear: true,
-            dateFormat: 'dd/mm/yy',
-            showOn: 'button',
-            buttonImage: 'images/calendar.gif',
-            buttonImageOnly: true,
-            showMonthAfterYear: false
-        }));
-        $("#dateOfBirth").datepicker($.datepicker.regional['fr']);
+        $.datepicker.setDefaults($.datepicker.regional['fr']);
+		$.datepicker.setDefaults($.extend({
+			yearRange : '-100:+100',
+			minDate : '-100Y+1D',
+			changeYear : true,
+			dateFormat : 'dd/mm/yy',
+			maxDate : '+0D',
+			showOn : 'both',
+			buttonImage : 'images/calendar.gif',
+			buttonImageOnly : true,
+			showMonthAfterYear : false
+		}));
+        
+        $("#dateOfBirth").datepicker();
     });
 </script>
 

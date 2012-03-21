@@ -7,11 +7,6 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<link rel=stylesheet type="text/css" href="css/osx.css" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
-<script type="text/javascript" src="js/osx.js"></script>
-
 <bean:define id="searchInterest">
 	<bean:message key="interests.placeholder.search" />
 </bean:define>

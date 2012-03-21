@@ -9,14 +9,23 @@
 <head>
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8"></meta>
-<link rel="shortcut icon" href="images/Favicon.ico" type="image/vnd.microsoft.icon" />
+	
+<title><tiles:getAsString name="title" /></title>
+
+<link rel="shortcut icon" href="images/Favicon.ico"
+	type="image/vnd.microsoft.icon" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/fsnet-custom.css" />
-<title><tiles:getAsString name="title" /></title>
-<link type="text/css" href="css/cupertino/jquery-ui-1.7.2.custom.css"
+<link type="text/css" href="css/cupertino/jquery-ui-1.8.18.custom.css"
 	rel="stylesheet" />
+<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
+<link rel=stylesheet type="text/css" href="css/osx.css" />
+<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="js/osx.js"></script>
 </head>
 <body>
 	<div class="wrap background">
