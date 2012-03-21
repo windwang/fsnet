@@ -13,14 +13,14 @@
 		<bean:message key="topics.title.modifyMessage" />
 	</legend>
 
-	<table id="CreateTopic"
-		class="inLineTable fieldsetTableAppli">
+	<table id="CreateTopic" class="inLineTable fieldsetTableAppli">
 		<html:form action="/ModifyTopicMessage">
 			<html:hidden property="topicId" value="${topicId}" />
 			<html:hidden property="messageId" value="${message.id}" />
 
 			<tr>
-				<td><bean:message key="topics.form.description" /></td>
+				<td><label for="messageDescription"><bean:message
+							key="topics.form.description" /></label></td>
 				<td><html:textarea cols="60" rows="8"
 						property="messageDescription" styleId="messageDescription"
 						styleClass="mceTextArea" style="width: 100%;"
@@ -33,12 +33,11 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="topics.button.updateMessage" />
 					</html:submit></td>
 			</tr>
-
-
 		</html:form>
 	</table>
 </fieldset>

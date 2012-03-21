@@ -54,8 +54,7 @@
 									<html:text property="cvFirstname" styleId="cvFirstname"
 										errorStyleClass="error" value="${sessionScope.user.name}" />
 								</c:otherwise>
-							</c:choose>
-							<logic:messagesPresent property="cvFirstname">
+							</c:choose> <logic:messagesPresent property="cvFirstname">
 								<div class="errorMessage">
 									<html:errors property="cvFirstname" />
 								</div>
@@ -84,7 +83,7 @@
 					<tr>
 						<td><label for="cvSexe"><bean:message
 									key="cv.form.profile.sex" /></label></td>
-						<td><select name="cvSexe">
+						<td><select name="cvSexe" id="cvSexe">
 								<c:choose>
 									<c:when test="${sessionScope.user.sex == 'male'}">
 										<option value=""></option>
@@ -130,8 +129,7 @@
 										errorStyleClass="error"
 										value="${sessionScope.user.address.address}" />
 								</c:otherwise>
-							</c:choose>
-							<logic:messagesPresent property="cvAddress">
+							</c:choose> <logic:messagesPresent property="cvAddress">
 								<div class="errorMessage">
 									<html:errors property="cvAddress" />
 								</div>
@@ -195,8 +193,7 @@
 									<html:text property="cvPhone" styleId="cvPhone"
 										errorStyleClass="error" value="${sessionScope.user.phone}" />
 								</c:otherwise>
-							</c:choose>
-							<logic:messagesPresent property="cvPhone">
+							</c:choose> <logic:messagesPresent property="cvPhone">
 								<div class="errorMessage">
 									<html:errors property="cvPhone" />
 								</div>
@@ -220,11 +217,12 @@
 						<td><label for="cvSituation"> <bean:message
 									key="cv.form.profile.situation" />
 						</label></td>
-						<td><bean:message key="cv.form.profile.sex.single" /><input
-							type="radio" name="situation"
-							value="<bean:message key="cv.form.profile.sex.single" />" /> <bean:message
-								key="cv.form.profile.sex.married" /><input type="radio"
-							name="situation"
+						<td><label for="single"><bean:message
+									key="cv.form.profile.sex.single" /></label><input type="radio"
+							name="situation" id="single"
+							value="<bean:message key="cv.form.profile.sex.single" />" /> <label
+							for="married"><bean:message key="cv.form.profile.sex.married" /></label><input
+							type="radio" name="situation" id="married"
 							value=" <bean:message key="cv.form.profile.sex.married" />" /></td>
 					</tr>
 

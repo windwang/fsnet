@@ -57,6 +57,7 @@
 	</table>
 </fieldset>
 
+<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript">
 	$(function() {
 

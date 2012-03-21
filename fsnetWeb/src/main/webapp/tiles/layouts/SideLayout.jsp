@@ -26,7 +26,8 @@
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <link type="text/css" rel="stylesheet" media="all"
 	href="css/jquery-ui-timepicker-addon.css" />
-<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
+<!-- DO NOT GET THIS LIBRARY HERE !!! -->
+<!--<script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>-->
 
 </head>
 

@@ -257,17 +257,17 @@
 			<div>
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
-						<td><label> <bean:message
+						<td><label for="photoUrl"> <bean:message
 									key="updateProfile.photoInternet" />
 						</label></td>
-						<td><html:text property="photoUrl"></html:text></td>
+						<td><html:text property="photoUrl" styleId="photoUrl"></html:text></td>
 					</tr>
 
 					<tr>
-						<td><label> <bean:message
+						<td><label for="photo"> <bean:message
 									key="updateProfile.photoLocal" />
 						</label></td>
-						<td><html:file property="photo" size="45"></html:file></td>
+						<td><html:file property="photo" styleId="photo" size="45"></html:file></td>
 					</tr>
 
 					<tr>
