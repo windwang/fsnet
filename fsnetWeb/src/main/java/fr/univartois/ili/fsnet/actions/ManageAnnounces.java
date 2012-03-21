@@ -412,24 +412,24 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
+		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
+				request, em);
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-
 			String[] selectedAnnounces = (String[]) dynaForm
 					.get("selectedAnnounces");
-			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
-					request, em);
+			
 			AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
 			InteractionFacade interactionFacade = new InteractionFacade(em);
-
+	
+			addRightToRequest(request);
+			
 			for (int i = 0; i < selectedAnnounces.length; i++) {
 				em.getTransaction().begin();
 				Announcement announce = announcementFacade
 						.getAnnouncement(Integer.valueOf(selectedAnnounces[i]));
-				interactionFacade
-						.deleteInteraction(authenticatedUser, announce);
-
+			
 				addRightToRequest(request);
 
 				if (announce != null) {
@@ -437,10 +437,11 @@ public class ManageAnnounces extends MappingDispatchAction implements
 							announce);
 				}
 				em.getTransaction().commit();
-				em.close();
 			}
 
-		} finally {	}
+		} finally {
+			em.close();
+		}
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
