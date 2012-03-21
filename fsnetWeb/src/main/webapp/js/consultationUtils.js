@@ -29,13 +29,13 @@ function displayChoices(displayValue, displayOption) {
 				+ $(".i18nChoice").html()
 				+ '</span> '
 				+ j
-				+ ' : </label></td><td><input type="text" name="consultationChoice" class="consultationChoice" value="'
+				+ ' : </label></td><td><input type="text" class="consultationChoice" value="'
 				+ (displayValue ? val : "") + '" id="consultationChoice' + j
 				+ '" />';
 		if (displayOption) {
 			res += ' <label for="maxVoters'
 					+ j
-					+ '"><bean:message key="consultations.form.choicesOption" /> </label><input type="text" name="maxVoters" value="'
+					+ '"><bean:message key="consultations.form.choicesOption" /> </label><input type="text" value="'
 					+ val2 + '" id="maxVoters' + j
 					+ '" class="consultationMaxVotersPerChoice" />';
 		}
@@ -71,4 +71,42 @@ function updateMaxVoters() {
 	for (j = 1; j < i; j++) {
 		$("#maxVoters" + j).val($("#nbVotersPerChoice").val());
 	}
+}
+
+function validateConsultation() {
+	$("#consultationChoice").val("");
+	$("#maxVoters").val("");
+
+	for (j = 1; j < i; j++) {
+		
+		// 
+		val = $("#consultationChoice" + j).val();
+		
+		if (val == "") {
+			$("#errorChoice").css("display", "block");
+			return false;
+		}
+
+		if ($("#consultationChoice").val() == "") {
+			$("#consultationChoice").val(val);
+		} else {
+			$("#consultationChoice").val(
+					$("#consultationChoice").val() + ";" + val);
+		}
+		
+		//
+		val2 = $("#maxVoters" + j).val();
+		if (val2 != undefined) {
+			if ($("#maxVoters").val() == "") {
+				$("#maxVoters").val(val2);
+			} else {
+				$("#maxVoters").val(
+						$("#maxVoters").val() + ";" + val2);
+			}
+			
+		}
+		
+	}
+	
+	return true;
 }

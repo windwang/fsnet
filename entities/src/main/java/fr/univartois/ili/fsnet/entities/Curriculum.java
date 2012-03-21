@@ -30,9 +30,12 @@ public class Curriculum implements Serializable {
 	@Id
 	private long id;
 	private String titleCv;
-
+    
+	private int userId;
+	
 	@OneToOne
 	private MemberCV member;
+	
 
 	@OneToMany (mappedBy = "idCurriculum")
 	private List<AssociationDateFormationCV> myFormations = new ArrayList<AssociationDateFormationCV>();
@@ -155,5 +158,25 @@ public class Curriculum implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getUserId() {
+		return userId;
+	}
+	/**
+	 * 
+	 * @param userId
+	 */
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	
+	
+	
+	
 
 }

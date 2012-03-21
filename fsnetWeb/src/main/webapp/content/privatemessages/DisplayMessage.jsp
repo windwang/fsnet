@@ -94,7 +94,7 @@
 				<table class="topicTable inLineTable fieldsetTableAppli">
 					<c:forEach items="${requestScope.conversationMessages.resultList}"
 						var="message">
-						<tr class="topicHeader"="2">
+						<tr class="topicHeader">
 							<td><html:multibox property="selectedMessages"
 									value="${message.id}" /></td>
 							<td><bean:message key="privatemessages.from" /> : |<ili:getSocialEntityInfos
@@ -123,9 +123,6 @@
 						key="privatemessages.Quickresponse" />
 				</a>
 			</ili:interactionFilter>
-
-
-
 
 			<html:form action="/CreatePrivateMessage">
 				<html:hidden property="messageTo" value="${theMessage.from.email}" />

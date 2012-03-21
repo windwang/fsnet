@@ -1,8 +1,5 @@
 package fr.univartois.ili.fsnet.facade;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -12,10 +9,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.commons.security.Encryption;
-import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Interest;
-import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
 /**
@@ -293,41 +288,6 @@ public class SocialEntityFacade {
 		TypedQuery<SocialEntity> query = em.createQuery(
 				"SELECT se FROM SocialEntity se WHERE se.group IS null", SocialEntity.class);
 		return query.getResultList();
-	}
-	
-	/**
-	 * Get social entity having event tomorow
-	 * @return HasMap key: Meeting value: set of social entity
-	 */
-	
-	public final HashMap<Meeting,Set<SocialEntity>> getSocialEntityHavingEvent(){
-		List<Meeting> listMeeting;
-		HashMap<Meeting,Set<SocialEntity>> listSocialEntity = null; 
-		
-		Calendar calendar = GregorianCalendar.getInstance();
-		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
-				calendar.get(Calendar.DATE), calendar.get(Calendar.HOUR_OF_DAY),
-				calendar.get(Calendar.MINUTE), 0);
-		Date today = calendar.getTime();
-		
-		String todayFormatted = "";
-		todayFormatted = DateUtils.renderDBDateWithSecond(today);
-		listMeeting = em
-				.createQuery(
-						"SELECT m FROM Meeting m where m.recallDate = \""+
-								todayFormatted+"\"",
-						Meeting.class).getResultList();
-		
-		InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(em);
-		
-		for(Meeting m : listMeeting){
-			if(listSocialEntity==null){
-				listSocialEntity = new HashMap<Meeting,Set<SocialEntity>>();
-			}
-			listSocialEntity.put(m,interactionRoleFacade.getSubscribers(m));
-		}
-		
-		return listSocialEntity;
 	}
 	
 }

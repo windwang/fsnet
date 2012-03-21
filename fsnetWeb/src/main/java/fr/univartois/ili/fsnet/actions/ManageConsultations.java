@@ -22,9 +22,13 @@ import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.actions.utils.ConsultationChoiceComparator;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
+import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
+import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
@@ -49,6 +53,8 @@ public class ManageConsultations extends MappingDispatchAction {
 
 	private static final String NO_ANSWER = "no";
 
+	private static final String REGEX_CONSULTATION_CHOICE = ";";
+
 	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String FAILED_ACTION_NAME = "failed";
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
@@ -70,9 +76,10 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationTitle = (String) dynaForm.get("consultationTitle");
 		String consultationDescription = (String) dynaForm
 				.get("consultationDescription");
-		String[] consultationChoices = dynaForm
-				.getStrings("consultationChoice");
-		String[] maxVoters = dynaForm.getStrings("maxVoters");
+		String[] consultationChoices = dynaForm.getString("consultationChoice")
+				.split(REGEX_CONSULTATION_CHOICE);
+		String[] maxVoters = dynaForm.getString("maxVoters").split(
+				REGEX_CONSULTATION_CHOICE);
 		String consultationType = dynaForm.getString("consultationType");
 		String consultationIfNecessaryWeight = dynaForm
 				.getString("consultationIfNecessaryWeight");
@@ -87,32 +94,23 @@ public class ManageConsultations extends MappingDispatchAction {
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
 		addRightToRequest(request);
-		
-		if(consultationChoices.length != 0 ){
-			// TODO chercher le moyen de valider ce qui suit avec struts...
-			for (String cs : consultationChoices) {
-				if ("".equals(cs)) {
-					request.setAttribute("errorChoice", true);
-					return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
-				}
-			}
-		}else{
-			return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
-		}
-		
+
 		if (!"".equals(limitChoicesPerVoter)
 				&& Integer.valueOf(minChoicesVoter) > Integer
 						.valueOf(maxChoicesVoter)) {
 			request.setAttribute("errorChoicesVoter", true);
-			return new ActionRedirect(mapping.findForwardConfig(FAILED_ACTION_NAME));
+			return new ActionRedirect(
+					mapping.findForwardConfig(FAILED_ACTION_NAME));
 		}
+
 		for (int i = 0; i < maxVoters.length; i++) {
 			if ("".equals(maxVoters[i])) {
 				maxVoters[i] = "-1"; // Unlimited
 			} else if (!IntegerValidator.getInstance().isValid(maxVoters[i])
 					|| Integer.valueOf(maxVoters[i]) < 1) {
 				request.setAttribute("errorMaxVotersPerChoice", true);
-				return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
+				return new ActionRedirect(
+						mapping.findForward(FAILED_ACTION_NAME));
 			}
 		}
 		// END TODO
@@ -186,7 +184,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		em.close();
 
 		request.setAttribute("id", consultation.getId());
-		
+
+		sendMailForNewConsultation(consultation, member);
+
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
@@ -222,6 +222,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(
 					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
 		}
+		
 		if (consultation.isLimitChoicesPerParticipant()) {
 			int answersNumber = 0;
 			if (TypeConsultation.YES_NO_IFNECESSARY.equals(consultation
@@ -247,6 +248,7 @@ public class ManageConsultations extends MappingDispatchAction {
 						response);
 			}
 		}
+		
 		em.getTransaction().begin();
 		if (isAllowedToVote(consultation, member)) {
 			ConsultationVote vote = new ConsultationVote(member, voteComment,
@@ -268,30 +270,35 @@ public class ManageConsultations extends MappingDispatchAction {
 					}
 				}
 			}
+			
 			if (consultation.getType() != Consultation.TypeConsultation.PREFERENCE_ORDER
 					&& consultation.isLimitParticipantsPerChoice()) {
 				for (ConsultationChoice choice : consultation.getChoices()) {
 					int nbVotes = 0;
 					for (ConsultationVote cv : consultation
 							.getConsultationVotes()) {
-						for (ConsultationChoiceVote ccv : cv.getChoices()){
+						for (ConsultationChoiceVote ccv : cv.getChoices()) {
 							if (ccv.getChoice().equals(choice)) {
 								nbVotes++;
 							}
 						}
 					}
+					
 					if (nbVotes > choice.getMaxVoters()) {
 						return displayAConsultation(mapping, dynaForm, request,
 								response);
 					}
 				}
 			}
+			
 			if (voteOk) {
 				consultationFacade.voteForConsultation(consultation, vote);
 				em.getTransaction().commit();
 			}
 		}
+		
 		em.close();
+		
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
@@ -688,6 +695,85 @@ public class ManageConsultations extends MappingDispatchAction {
 		Right rightAddConsultation = Right.ADD_CONSULTATION;
 		request.setAttribute("rightAddConsultation", rightAddConsultation);
 		request.setAttribute("socialEntity", socialEntity);
+	}
+
+	/**
+	 * Send email for inform of a new consultation to every member of the same
+	 * group that the owner of the consultation
+	 * 
+	 * @param consultation
+	 * @param socialEntity
+	 */
+	private void sendMailForNewConsultation(Consultation consultation,
+			SocialEntity creator) {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialGroupFacade socialGroup = new SocialGroupFacade(em);
+		for (SocialEntity se : socialGroup.getMembersFromGroup(consultation
+				.getCreator().getGroup())) {
+			sendInformationMail(consultation, se);
+		}
+	}
+
+	/**
+	 * Send information email
+	 * 
+	 * @param consultation
+	 * @param socialEntity
+	 */
+	private void sendInformationMail(Consultation consultation,
+			SocialEntity socialEntity) {
+		FSNetConfiguration conf = FSNetConfiguration.getInstance();
+		String fsnetAddress = conf.getFSNetConfiguration().getProperty(
+				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
+		String message;
+
+		message = createPersonalizedMessage(consultation, socialEntity,
+				fsnetAddress);
+
+		FSNetMailer mailer = FSNetMailer.getInstance();
+		Mail mail = mailer.createMail();
+
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		mail.setSubject(bundle.getMessage("consultations.mail.subject") + " : "
+				+ consultation.getTitle());
+
+		mail.addRecipient(socialEntity.getEmail());
+		mail.setContent(message);
+		mailer.sendMail(mail);
+	}
+
+	/**
+	 * Creates an personalized message to inform of an ending consultation
+	 * 
+	 * @param consultation
+	 * @param socialEntity
+	 * @param String
+	 */
+	private String createPersonalizedMessage(Consultation consultation,
+			SocialEntity entity, String fsnetAddress) {
+		MessageResources bundle = MessageResources
+				.getMessageResources("FSneti18n");
+		StringBuilder sb = new StringBuilder();
+
+		sb.append(bundle.getMessage("consultations.mail.new") + " ");
+		sb.append("\"" + consultation.getTitle() + "\" ");
+		sb.append(bundle.getMessage("consultations.mail.deadline") + " ");
+		sb.append(consultation.getMaxDate() + ".");
+		sb.append("<\br>");
+		sb.append("<\br>");
+		sb.append(bundle.getMessage("consultations.title.choix") + ":");
+		sb.append("<ol>");
+
+		for (ConsultationChoice choice : consultation.getChoices()) {
+			sb.append("<li>" + choice.getIntituled() + "</li>");
+		}
+
+		sb.append("</ol>");
+		sb.append(bundle.getMessage("consultations.mail.fsnet") + " ");
+		sb.append(fsnetAddress + ".");
+
+		return sb.toString();
 	}
 
 }
