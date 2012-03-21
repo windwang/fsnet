@@ -360,6 +360,8 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 				PrivateMessage privateMessage = pmf
 						.getPrivateMessage(messageId);
+				
+				
 
 				List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 						pmf.getConversation(privateMessage.getFrom(),
@@ -376,11 +378,22 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 						refreshNumNewMessages(request, em);
 						em.getTransaction().commit();
 					}
-
+					
+					
 					Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(
 							userMessages, request, "conversationMessages");
-
+					
+					List<PrivateMessage> listPrivateMessage =new ArrayList<PrivateMessage>();
+					listPrivateMessage.add(privateMessage);
+					Paginator<PrivateMessage> paginator1 = new Paginator<PrivateMessage>(
+							listPrivateMessage	, request, "conversationMessages1");
+					
+					for(PrivateMessage pag : paginator1.getResultList()){
+						System.out.println("toto"+pag.getBody());
+					}
+					
 					request.setAttribute("conversationMessages", paginator);
+					request.setAttribute("conversationMessages1", paginator1);
 					request.setAttribute("theMessage", privateMessage);
 					
 					return mapping.findForward(SUCCES_ACTION_NAME);
