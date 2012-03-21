@@ -587,36 +587,51 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
-		try {
-			EntityManager em = PersistenceProvider.createEntityManager();
-			em.getTransaction().begin();
+		Query query = null;
+		EntityManager em = PersistenceProvider.createEntityManager();
+		em.getTransaction().begin();
+		try {			
 
-			Query query = em
-					.createNativeQuery("SELECT DISTINCT sg FROM SOCIALGROUP AS sg;");
-			query.executeUpdate();			
-			List<SocialGroup> listOfGroup = query.getResultList();
-			em.getTransaction().commit();
-			
-			for (SocialGroup socialGroup : listOfGroup) {
-				query = em
-						.createNativeQuery("SELECT DISTINCT se FROM SOCIALENTITY AS se WHERE se.id = :groupid;");
-				query.setParameter("groupid", socialGroup.getMasterGroup().getId());
-				List<SocialEntity> entity = query.getResultList();
-				em.getTransaction().commit();
-				
-				query = em
-						.createNativeQuery("SELECT DISTINCT i FROM INTERACTION AS i WHERE i.CREATOR_ID = :interactionid;");
-				query.setParameter("interactionid", entity.get(0).getId());
-				List<Interaction> interact = query.getResultList();
-				em.getTransaction().commit();
-				
-				for (Interaction interaction2 : interact) {
-					InteractionGroups test = new InteractionGroups(interaction2, socialGroup);
+			List<SocialGroup> listOfGroup = em.createQuery(
+					"SELECT sg FROM SocialGroup sg",
+					SocialGroup.class).getResultList();
+//			em.getTransaction().commit();
+
+			if (listOfGroup.size() != 0) {
+				System.out
+						.println("Plusieurs elements dans la liste des groupes !! ");
+				for (SocialGroup socialGroup : listOfGroup) {
+					query = em
+							.createQuery(
+									"SELECT se FROM SocialEntity se WHERE se.id = :groupid",
+									SocialEntity.class);
+					SocialEntity entity = (SocialEntity) query.setParameter(
+							"groupid", socialGroup.getMasterGroup().getId())
+							.getSingleResult();
+					// List<SocialEntity> entity = query.getResultList();
+//					em.getTransaction().commit();
+
+					System.out.println("Un seul element pour l'entity !! ");
+
+					query = em
+							.createQuery("SELECT i FROM Interaction i WHERE i.creator = :creator", Interaction.class);
+					query.setParameter("creator", entity);
+					List<Interaction> interact = query.getResultList();
+//					em.getTransaction().commit();
+
+					if (interact.size() != 1) {
+						System.out
+								.println("plusieurs interactions pour l'entity  !! ");
+						for (Interaction interaction2 : interact) {
+							InteractionGroups test = new InteractionGroups(
+									interaction2, socialGroup);
+							em.persist(test);							
+							System.out.println("element interactionGroup : " + test.getGroup().getId() + " **- " + test.getInteraction().getId());
+						}
+					}
 				}
-				
-				
 			}
-			
+			em.getTransaction().commit();
 			em.close();
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);

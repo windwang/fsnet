@@ -119,7 +119,7 @@
 						</legend>
 						<c:if test="${errorRights}">
 							<p class="errorMessage">
-								<bean:message key="consultation.errorRights" />
+								<bean:message key="consultation.droits.errorRights" />
 							</p>
 						</c:if>
 						<table>
@@ -140,7 +140,7 @@
 									</html:select>
 								</td>
 								<td><html:button property=""
-										onclick="Deplacer(this.form.groupsListLeft,this.form.groupsListRight)">
+										onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)">
 										<bean:message key="groups.addMembers" />
 									</html:button></td>
 								<td ROWSPAN="2">
@@ -158,7 +158,7 @@
 							</tr>
 							<tr>
 								<td><html:button property=""
-										onclick="Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
+										onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
 										<bean:message key="groups.removeMembers" />
 									</html:button></td>
 							</tr>
@@ -356,7 +356,6 @@
 		});
 
 		$("#errorChoice").css("display", "none");
-		$("#errorMaxVotersPerChoice").css("display", "none");
 
 		displayChoicesOption(true);
 
@@ -364,30 +363,4 @@
 
 	});
 
-	function Deplacer(l1, l2) {
-
-		if (l1.options.selectedIndex >= 0)
-			for ( var i = l1.options.length - 1; i >= 0; i--) {
-				if (l1.options[i].selected) {
-					o = new Option(l1.options[i].text, l1.options[i].value);
-					l2.options[l2.options.length] = o;
-					l1.options[i] = null;
-				}
-			}
-		else {
-			alert("Aucun élément sélectionné");
-		}
-	}
-
-	function Valider() {
-
-		var groupListRight = document.getElementsByName('groupsListRight')
-				.item(0);
-
-		for ( var i = 0; i < groupListRight.options.length; i++) {
-			groupListRight.options[i].selected = "true";
-		}
-
-		return true;
-	}
 </script>

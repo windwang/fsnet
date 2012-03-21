@@ -116,9 +116,11 @@ public class ManageConsultations extends MappingDispatchAction {
 			}
 		}
 		if (groupsRightsAccept.length == 0) {
+			System.out.println("Error tableau vide !!!!!!");
 			request.setAttribute("errorRights", true);
 			return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
 		}
+		
 		// END TODO
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -212,6 +214,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	public ActionForward vote(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
 		DynaActionForm dynaForm = (DynaActionForm) form;
 		String voteComment = (String) dynaForm.get("voteComment");
 		String voteOther = (String) dynaForm.get("voteOther");
@@ -225,13 +228,13 @@ public class ManageConsultations extends MappingDispatchAction {
 		Consultation consultation = consultationFacade
 				.getConsultation(idConsultation);
 
-		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		if (!fascade.isSuperAdmin(member)
-				&& !fascade.getAllGroupsChildSelfInclude(member.getGroup())
-						.contains(consultation.getCreator().getGroup())) {
-			return new ActionRedirect(
-					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
-		}
+//		SocialGroupFacade fascade = new SocialGroupFacade(em);
+//		if (!fascade.isSuperAdmin(member)
+//				&& !fascade.getAllGroupsChildSelfInclude(member.getGroup())
+//						.contains(consultation.getCreator().getGroup())) {
+//			return new ActionRedirect(
+//					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
+//		}
 		
 		if (consultation.isLimitChoicesPerParticipant()) {
 			int answersNumber = 0;
