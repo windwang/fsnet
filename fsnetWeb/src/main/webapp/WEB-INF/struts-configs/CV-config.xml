@@ -49,7 +49,10 @@
 			<form-property name="cvHobbyName" type="java.lang.String" />
 		</form-bean>
 
-		<form-bean name="GenerateForm"
+		<form-bean name="GenerateCvForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+		</form-bean>
+		<form-bean name="DeleteCvForm"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 		</form-bean>
 
@@ -79,9 +82,14 @@
 			<forward name="success" path="DisplayCv" />
 		</action>
 
-		<action path="/Generate" name="GenerateForm"
+		<action path="/GenerateCv" name="GenerateCvForm"
 			type="fr.univartois.ili.fsnet.actions.GenerateCv" scope="request"
 			validate="true" parameter="download">
+		</action>
+		
+		<action path="/DeleteCv" name="DeleteCvForm" type="fr.univartois.ili.fsnet.actions.DeleteCv"
+			validate="true" parameter="deleteCv">
+			<forward name="success" path="/DisplayCV.do" />
 		</action>
 
 	</action-mappings>

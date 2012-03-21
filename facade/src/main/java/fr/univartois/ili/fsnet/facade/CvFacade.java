@@ -48,5 +48,6 @@ public class CvFacade {
    public final Curriculum getCurriculum(long curriculumId) {
        return em.find(Curriculum.class, curriculumId);
    }
-
+   
+   
 }
