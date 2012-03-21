@@ -20,7 +20,7 @@
 
 	<!-- Home -->
 	<definition name="Home" extends=".defaultLayout">
-		<put name="title" value="pageTitle.0" />
+		<put name="title" value="pageTitle.welcome" />
 		<put name="currentMenu" value="Home" />
 		<put name="body-content" value="/content/home/Dashboard.jsp" />
 	</definition>
@@ -28,7 +28,7 @@
 
 	<!-- Interests -->
 	<definition name="Interests" extends=".defaultLayout">
-		<put name="title" value="pageTitle.13" />
+		<put name="title" value="pageTitle.interests" />
 		<put name="currentMenu" value="Interests" />
 		<put name="body-content" value="/content/interests/Interests.jsp" />
 	</definition>
@@ -53,81 +53,81 @@
 		<put name="body-content" value="/content/interests/ModifyInterest.jsp" />
 	</definition>
 	<definition name="InfoInterest" extends=".defaultLayout">
-		<put name="title" value="pageTitle.13" />
+		<put name="title" value="pageTitle.interests" />
 		<put name="currentMenu" value="Interests" />
 		<put name="body-content" value="/content/interests/InfoInterest.jsp" />
 	</definition>
 
 	<!-- Groups -->
 	<definition name="SearchGroups" extends=".defaultLayout">
-		<put name="title" value="pageTitle.12" />
+		<put name="title" value="pageTitle.members" />
 		<put name="currentMenu" value="Groups" />
 		<put name="body-content" value="/content/groups/SearchGroup.jsp" />
 	</definition>
 	<definition name="Groups" extends=".defaultLayout">
-		<put name="title" value="pageTitle.17" />
+		<put name="title" value="pageTitle.groups" />
 		<put name="currentMenu" value="Groups" />
 		<put name="body-content" value="/content/groups/Groups.jsp" />
 	</definition>
 	<definition name="GroupList" extends=".defaultLayout">
-		<put name="title" value="pageTitle.18" />
+		<put name="title" value="pageTitle.groups" />
 		<put name="currentMenu" value="Groups" />
 		<put name="body-content" value="/content/groups/SearchGroup.jsp" />
 	</definition>
 
 
 	<definition name="CreateGroup" extends=".defaultLayout">
-		<put name="title" value="pageTitle.17" />
+		<put name="title" value="pageTitle.groups" />
 		<put name="currentMenu" value="Groups" />
 		<put name="body-content" value="/content/groups/CreateGroup.jsp" />
 	</definition>
 
 	<definition name="DisplayForModifyGroup" extends=".defaultLayout">
-		<put name="title" value="pageTitle.17" />
+		<put name="title" value="pageTitle.groups" />
 		<put name="currentMenu" value="GroupList" />
 		<put name="body-content" value="/content/groups/ModifyGroup.jsp" />
 	</definition>
 
 	<definition name="ModifyGroup" extends=".defaultLayout">
-		<put name="title" value="pageTitle.17" />
+		<put name="title" value="pageTitle.groups" />
 		<put name="currentMenu" value="GroupList" />
 		<put name="body-content" value="/content/members/ModifyGroup.jsp" />
 	</definition>
 
 	<!-- Members -->
 	<definition name="SearchMembers" extends=".defaultLayout">
-		<put name="title" value="pageTitle.12" />
+		<put name="title" value="pageTitle.members" />
 		<put name="currentMenu" value="Members" />
 		<put name="body-content" value="/content/members/SearchMember.jsp" />
 	</definition>
 	<definition name="Members" extends=".defaultLayout">
-		<put name="title" value="pageTitle.12" />
+		<put name="title" value="pageTitle.members" />
 		<put name="currentMenu" value="Members" />
 		<put name="body-content" value="/content/members/Members.jsp" />
 	</definition>
 
 	<!-- MemberList -->
 	<definition name="MemberList" extends=".defaultLayout">
-		<put name="title" value="pageTitle.16" />
+		<put name="title" value="pageTitle.members" />
 		<put name="currentMenu" value="MemberList" />
 		<put name="body-content" value="/content/members/SearchMember.jsp" />
 	</definition>
 
 	<definition name="DisplayForModifyMember" extends=".defaultLayout">
-		<put name="title" value="pageTitle.12" />
+		<put name="title" value="pageTitle.members" />
 		<put name="currentMenu" value="MemberList" />
 		<put name="body-content" value="/content/members/ModifyMember.jsp" />
 	</definition>
 
 	<definition name="ModifyMember" extends=".defaultLayout">
-		<put name="title" value="pageTitle.12" />
+		<put name="title" value="pageTitle.members" />
 		<put name="currentMenu" value="MemberList" />
 		<put name="body-content" value="/content/members/ModifyMember.jsp" />
 	</definition>
 
 	<!-- Communities -->
 	<definition name="Communities" extends=".defaultLayout">
-		<put name="title" value="pageTitle.15" />
+		<put name="title" value="pageTitle.communities" />
 		<put name="currentMenu" value="Communities" />
 		<put name="body-content" value="/content/communities/Communities.jsp" />
 	</definition>
@@ -135,31 +135,31 @@
 
 	<!-- Configuration -->
 	<definition name="Configure" extends=".defaultLayout">
-		<put name="title" value="pageTitle.14" />
+		<put name="title" value="pageTitle.configuration" />
 		<put name="currentMenu" value="Configuration" />
 		<put name="body-content" value="/content/configuration/Configure.jsp" />
 	</definition>
 	
 	<!-- Announces -->
     <definition name="Announces" extends=".defaultLayout">
-        <put name="title" value="pageTitle.8"/>
+        <put name="title" value="pageTitle.announces"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/Announces.jsp" />
     </definition>
     <definition name="DisplayAnnounce" extends=".defaultLayout">
-        <put name="title" value="pageTitle.11"/>
+        <put name="title" value="pageTitle.announces"/>
         <put name="currentMenu" value="Announces"/>
         <put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
     </definition>
 	
 	<!-- Events -->
     <definition name="Events" extends=".defaultLayout">
-        <put name="title" value="pageTitle.1"/>
+        <put name="title" value="pageTitle.events"/>
         <put name="body-content" value="/content/events/DisplayEvents.jsp" />
         <put name="currentMenu" value="Events"/>
     </definition>
     <definition name="DisplayEvent" extends=".defaultLayout">
-        <put name="title" value="pageTitle.1"/>
+        <put name="title" value="pageTitle.events"/>
         <put name="currentMenu" value="Events"/>
         <put name="body-content" value="/content/events/DisplayEvent.jsp" />
     </definition>
