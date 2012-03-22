@@ -186,7 +186,6 @@
 
 <script type="text/javascript">
     $(function() {
-        $.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			yearRange : '-100:+100',
 			minDate : '-100Y+1D',
@@ -198,6 +197,7 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
+        $.datepicker.setDefaults($.datepicker.regional['fr']);
         
         $("#dateOfBirth").datepicker();
     });

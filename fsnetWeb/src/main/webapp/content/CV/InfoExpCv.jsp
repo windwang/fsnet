@@ -8,15 +8,11 @@
 <html:form action="/CreateCv3">
 	<div class="en_cv">
 		<fieldset class="fieldsetAppli">
-			<div class="entete">
-				<legend class="legendHome">
-					<bean:message key="cv.title.experiences" />
-				</legend>
-			</div>
-			<div id="experiences">
-				<ul class="listeExperience fieldsetTable">
-				</ul>
-			</div>
+			<legend class="legendHome">
+				<bean:message key="cv.title.experiences" />
+			</legend>
+
+			<table id="experiences" class="listeExperience inLineTable fieldsetTableAppli"></table>
 
 			<div class="addExpTable">
 				<table class="inLineTable fieldsetTableAppli">
@@ -51,7 +47,8 @@
 						<td><label for="cvExpDomain">*<bean:message
 									key="cv.form.exp.domain" /></label></td>
 						<td><html:text property="cvExpDomain" styleId="cvExpDomain"
-								errorStyleClass="error" /> <span class="CvExpDomainError errorCV"><bean:message
+								errorStyleClass="error" /> <span
+							class="CvExpDomainError errorCV"><bean:message
 									key="error.CvSecteur" /></span></td>
 					</tr>
 
@@ -105,11 +102,9 @@
 					<bean:message key="cv.title.degree" />
 				</legend>
 			</div>
-			<div id="diplome">
-				<ul class="listeDiplome fieldsetTable">
-				</ul>
-			</div>
 
+			<table id="diplome" class="listeDiplome inLineTable fieldsetTableAppli"></table>
+			
 			<div class="addDiplTable">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
@@ -125,8 +120,25 @@
 					<tr>
 						<td><label for="cvDegreeName">*<bean:message
 									key="cv.form.degree.level" /></label></td>
-						<td><html:text property="cvDegreeName" styleId="cvDegreeName"
-								errorStyleClass="error" /> <span class="CvDegreeNameError errorCV"><bean:message
+						<!--<td><html:text property="cvDegreeName" styleId="cvDegreeName"
+								errorStyleClass="error" /><span class="CvDegreeNameError errorCV"><bean:message
+									key="error.CvEtude" /></span></td>-->
+						<td><select name="cvDegreeName" id="cvDegreeName">
+								<option value="" />
+								<option value="+0">+0</option>
+								<option value="+1">+1</option>
+								<option value="+2">+2</option>
+								<option value="+3">+3</option>
+								<option value="+4">+4</option>
+								<option value="+5">+5</option>
+								<option value="+6">+6</option>
+								<option value="+7">+7</option>
+								<option value="+8">+8</option>
+								<option value="+9">+9</option>
+								<option value="+10">+10</option>
+								<option value="+11">+11</option>
+								<option value="+12">+12</option>
+						</select><span class="CvDegreeNameError errorCV"> <bean:message
 									key="error.CvEtude" /></span></td>
 					</tr>
 
@@ -198,11 +210,9 @@
 					<bean:message key="cv.title.formation" />
 				</legend>
 			</div>
-			<div id="formation">
-				<ul class="listeFormation fieldsetTable">
-				</ul>
-			</div>
 
+			<table id="formation" class="listeFormation inLineTable fieldsetTableAppli"></table>
+			
 			<div class="addFormTable">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
@@ -276,10 +286,7 @@
 				</legend>
 			</div>
 
-			<div id="loisir">
-				<ul class="listeLoisir fieldsetTable">
-				</ul>
-			</div>
+			<table id="loisir" class="listeLoisir inLineTable fieldsetTableAppli"></table>
 
 			<div class="addLoisirTable">
 				<table class="inLineTable fieldsetTableAppli">
@@ -321,10 +328,7 @@
 				</legend>
 			</div>
 
-			<div id="Langue">
-				<ul class="listeLangues fieldsetTable">
-				</ul>
-			</div>
+			<table id="langue" class="listeLangues inLineTable fieldsetTableAppli"></table>
 
 			<div class="addLangueTable">
 				<table class="inLineTable fieldsetTableAppli">
@@ -384,7 +388,6 @@
 <script type="text/javascript" src="js/cv.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			dateFormat : 'dd/mm/yy',
 			showOn : 'both',
@@ -392,7 +395,8 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
-		
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
+
 		$("#cvExpBeginDate").datepicker();
 		$("#cvExpEndDate").datepicker();
 		$("#cvDegreeBeginDate").datepicker();

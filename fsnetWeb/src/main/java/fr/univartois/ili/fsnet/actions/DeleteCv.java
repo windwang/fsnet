@@ -16,6 +16,12 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.facade.CvFacade;
 
+
+/**
+ * @author Aich ayoub
+ * 
+ */
+
 public class DeleteCv extends MappingDispatchAction {
 	private EntityManager em = PersistenceProvider.createEntityManager();
 	
