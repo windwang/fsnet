@@ -225,9 +225,7 @@ public class ManageCV extends MappingDispatchAction {
 			errors.add(CV_CP_FIELD_FORM_NAME, new ActionMessage("error.cp"));
 			saveErrors(request, errors);
 			erreur = 1;
-		}
-		
-		if (!"".equals(cvCp)) {
+		} else {
 			try {
 				Integer.parseInt(cvCp);
 			} catch (Exception e) {
@@ -266,11 +264,11 @@ public class ManageCV extends MappingDispatchAction {
 			throws ParseException {
 		request.getSession().removeAttribute("action");
 		try {
-			int nbExp = Integer.parseInt(request.getParameter("nbexp"));
-			int nbfrom = Integer.parseInt(request.getParameter("nbform"));
-			int nblangue = Integer.parseInt(request.getParameter("nblangue"));
-			int nbloisir = Integer.parseInt(request.getParameter("nbloisir"));
-			int nbdip = Integer.parseInt(request.getParameter("nbdip"));
+			int nbExp = Integer.parseInt(request.getParameter("nbExp"));
+			int nbForm = Integer.parseInt(request.getParameter("nbForm"));
+			int nbLang = Integer.parseInt(request.getParameter("nbLang"));
+			int nbHobby = Integer.parseInt(request.getParameter("nbHobbie"));
+			int nbDegree = Integer.parseInt(request.getParameter("nbDegree"));
 
 			Curriculum curriculum = new Curriculum();
 
@@ -302,7 +300,7 @@ public class ManageCV extends MappingDispatchAction {
 			// Insert langs
 			int lang = 0;
 			HashMap<String, String> languages = new HashMap<String, String>();
-			while (lang < nblangue) {
+			while (lang < nbLang) {
 				String cvNameLang = request.getParameter(CV_LANG_NAME_FIELD_FORM_NAME + lang);
 				String cvLevelLang = request.getParameter(CV_LANG_LEVEL_FIELD_FORM_NAME + lang);
 				languages.put(cvNameLang, cvLevelLang);
@@ -366,7 +364,7 @@ public class ManageCV extends MappingDispatchAction {
 
 			// Insert trainings
 			int f = 0;
-			while (f < nbfrom) {
+			while (f < nbForm) {
 
 				AssociationDateFormationCV dateFormation = new AssociationDateFormationCV();
 				FormationCV formation = new FormationCV();
@@ -380,7 +378,7 @@ public class ManageCV extends MappingDispatchAction {
 							.getParameter(CV_TRAINING_OBTAINING_DATE_FIELD_FORM_NAME + f));
 					dateFormation.setObtainedDate(dateObtention);
 				} catch (Exception e) {
-
+					
 				}
 				String cvFormVille = request.getParameter(CV_TRAINING_CITY_FIELD_FORM_NAME + f);
 
@@ -407,7 +405,7 @@ public class ManageCV extends MappingDispatchAction {
 
 			// Insert degrees
 			int d = 0;
-			while (d < nbdip) {
+			while (d < nbDegree) {
 				DegreeCV degree = new DegreeCV();
 				AssociationDateDegreeCV dateDegreeCV = new AssociationDateDegreeCV();
 				EstablishmentCV etabCv = new EstablishmentCV();
@@ -426,7 +424,7 @@ public class ManageCV extends MappingDispatchAction {
 					dateDegreeCV.setStartDate(etudBeginDate);
 					dateDegreeCV.setEndDate(etudEndDate);
 				} catch (Exception e) {
-
+					System.out.println("------");
 				}
 				degree.setStudiesLevel(cvEtude);
 				degree.setDomain(cvEtudeDom);
@@ -452,7 +450,7 @@ public class ManageCV extends MappingDispatchAction {
 
 			// Insert hobbies
 			int l = 0;
-			while (l < nbloisir) {
+			while (l < nbHobby) {
 				HobbiesCV loisir = new HobbiesCV();
 				String cvNomLoisir = request.getParameter(CV_HOBBY_NAME_FIELD_FORM_NAME + l);
 				loisir.setName(cvNomLoisir);

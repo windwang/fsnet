@@ -30,7 +30,6 @@ public class DeleteCv extends MappingDispatchAction {
 			throws IOException, ServletException {
 		
 		long id = Integer.parseInt(request.getParameter("idCv"));
-		System.out.println("---------> IdCv = " + id);
 		CvFacade cvFacade = new CvFacade(em);
 		Curriculum curriculum = cvFacade.getCurriculum(id);
 		em.getTransaction().begin();
