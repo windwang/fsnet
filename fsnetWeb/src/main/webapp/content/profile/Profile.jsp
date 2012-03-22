@@ -184,24 +184,22 @@
 	</fieldset>
 </ili:interactionFilter>
 
-<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
     $(function() {
-        $.datepicker.setDefaults($.extend(
-        {
-        	yearRange : '-100:+100',
-        	minDate:"-100Y+1D",
-        	maxDate:0,
-            changeYear: true,
-            dateFormat: 'dd/mm/yy',
-            showOn: 'button',
-            buttonImage: 'images/calendar.gif',
-            buttonImageOnly: true,
-            showMonthAfterYear: false
-        }));
-        $("#dateOfBirth").datepicker($.datepicker.regional['fr']);
+		$.datepicker.setDefaults($.extend({
+			yearRange : '-100:+100',
+			minDate : '-100Y+1D',
+			changeYear : true,
+			dateFormat : 'dd/mm/yy',
+			maxDate : '+0D',
+			showOn : 'both',
+			buttonImage : 'images/calendar.gif',
+			buttonImageOnly : true,
+			showMonthAfterYear : false
+		}));
+        $.datepicker.setDefaults($.datepicker.regional['fr']);
+        
+        $("#dateOfBirth").datepicker();
     });
 </script>
 
@@ -259,17 +257,17 @@
 			<div>
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
-						<td><label> <bean:message
+						<td><label for="photoUrl"> <bean:message
 									key="updateProfile.photoInternet" />
 						</label></td>
-						<td><html:text property="photoUrl"></html:text></td>
+						<td><html:text property="photoUrl" styleId="photoUrl"></html:text></td>
 					</tr>
 
 					<tr>
-						<td><label> <bean:message
+						<td><label for="photo"> <bean:message
 									key="updateProfile.photoLocal" />
 						</label></td>
-						<td><html:file property="photo" size="45"></html:file></td>
+						<td><html:file property="photo" styleId="photo" size="45"></html:file></td>
 					</tr>
 
 					<tr>

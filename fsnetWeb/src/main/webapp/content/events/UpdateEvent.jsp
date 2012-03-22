@@ -130,14 +130,9 @@
 	</table>
 </fieldset>
 
-<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
-
 <script type="text/javascript">
 	$(function() {
-
-		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			dateFormat : 'dd/mm/yy',
 			showOn : 'both',
@@ -145,6 +140,8 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
+		
 		$.timepicker.regional['fr'] = {
 			timeOnlyTitle : 'Temps',
 			timeText : 'Temps',
@@ -161,7 +158,6 @@
 
 		$('#eventBeginDate').datetimepicker();
 		$('#eventEndDate').datetimepicker();
-
 	});
 </script>
 

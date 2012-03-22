@@ -21,7 +21,7 @@
 		<html:form action="/CreatePrivateMessage">
 
 			<tr>
-				<td><label for="messageTo"> <bean:message
+				<td><label for="memberSearch"> <bean:message
 							key="privatemessages.recipient" />
 				</label></td>
 				<td><c:choose>
@@ -40,7 +40,6 @@
 						</div>
 					</logic:messagesPresent>
 					<div id="searchDiv" class="ajaxSearch"></div></td>
-
 			</tr>
 
 			<tr>
@@ -48,7 +47,7 @@
 							key="privatemessages.subject" />
 				</label></td>
 				<td><html:text property="messageSubject"
-						errorStyleClass="error" style="width: 100%" /> <logic:messagesPresent
+						errorStyleClass="error" styleId="messageSubject" style="width: 100%" /> <logic:messagesPresent
 						property="messageSubject">
 						<div class="errorMessage">
 							<html:errors property="messageSubject" />
@@ -68,7 +67,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
-			
+
 			<tr>
 				<td colspan="2" class="alignRight"><html:submit
 						styleClass="button"

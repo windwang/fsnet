@@ -6,18 +6,16 @@ import java.util.List;
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.Interaction;
-import fr.univartois.ili.fsnet.entities.SocialElement;
+import fr.univartois.ili.fsnet.entities.InteractionGroups;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
-import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
-
 
 /*
  * author : J FLAMEN
  * Filter Interaction by belong user group
  */
 public class FilterInteractionByUserGroup {
-	
+
 	private final EntityManager em;
 
 	/**
@@ -28,42 +26,42 @@ public class FilterInteractionByUserGroup {
 	public FilterInteractionByUserGroup(EntityManager em) {
 		this.em = em;
 	}
-	
-	
-	
-	public final <T extends  Interaction> List<T>  filterInteraction(SocialEntity se, List<T> listInteraction) {
+
+	public final <T extends Interaction> List<T> filterInteraction(
+			SocialEntity se, List<T> listInteraction) {
+
+		List<T> listFilterInteraction = new ArrayList<T>();
+
+		/* list of user */
+		for (T interaction : listInteraction) {
+			T interact = filterAnInteraction(se, interaction);
+			if (interact != null) {
+				listFilterInteraction.add(interact);
+			}
+		}
+
+		return listFilterInteraction;
+	}
+
+	public final <T extends Interaction> T filterAnInteraction(SocialEntity se,
+			T interaction) {
+		
+		if (interaction.getCreator().equals(se)) {
+			return interaction;
+		}
 		/* load group user */
 		SocialGroup socialGroupUser = se.getGroup();
+
 		/* list of user */
-		List<SocialEntity> listSocialEntity = new ArrayList<SocialEntity>();
-		if(socialGroupUser != null) {
-			/* load group of group */
-			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-			List<SocialGroup> listSocialGroup = socialGroupFacade.getAllChildGroups(socialGroupUser);
-			/* add socialGroup of user */
-			listSocialGroup.add(socialGroupUser);
-			for (SocialGroup socialGroup : listSocialGroup) {
-				List<SocialElement> socialElements = socialGroup.getSocialElements();
-				for (SocialElement socialElement : socialElements) {
-					if (socialElement instanceof SocialEntity) {
-						listSocialEntity.add((SocialEntity) socialElement);
-					}
+		if (socialGroupUser != null) {
+			for (InteractionGroups ig : interaction.getInteractionGroups()) {
+				if (socialGroupUser.getId() == ig.getGroup().getId()) {
+					return interaction;
 				}
 			}
 		}
-		/* user is not attached on group, alone */
-		listSocialEntity.add(se);
-		List<T> listFilterInteraction = new ArrayList<T>();
-		/* filter interaction */
-		for (T interaction : listInteraction) {
-			SocialEntity socialEntity = interaction.getCreator();
-			if(listSocialEntity.contains(socialEntity)){
-				listFilterInteraction.add(interaction);
-			}
-		}
-		return listFilterInteraction;
-		
+
+		return null;
 	}
-	
 
 }

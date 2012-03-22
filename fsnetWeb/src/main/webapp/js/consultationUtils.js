@@ -73,15 +73,27 @@ function updateMaxVoters() {
 	}
 }
 
+function valideGroupToConsulation() {
+
+	var groupListRight = document.getElementsByName("groupsListRight").item(0);
+	
+	for ( var i = 0; i < groupListRight.options.length; i++) {
+		groupListRight.options[i].selected = "true";
+	}
+}
+
 function validateConsultation() {
+
+	valideGroupToConsulation();
+	
 	$("#consultationChoice").val("");
 	$("#maxVoters").val("");
 
 	for (j = 1; j < i; j++) {
-		
+
 		// 
 		val = $("#consultationChoice" + j).val();
-		
+
 		if (val == "") {
 			$("#errorChoice").css("display", "block");
 			return false;
@@ -93,20 +105,34 @@ function validateConsultation() {
 			$("#consultationChoice").val(
 					$("#consultationChoice").val() + ";" + val);
 		}
-		
+
 		//
 		val2 = $("#maxVoters" + j).val();
 		if (val2 != undefined) {
 			if ($("#maxVoters").val() == "") {
 				$("#maxVoters").val(val2);
 			} else {
-				$("#maxVoters").val(
-						$("#maxVoters").val() + ";" + val2);
+				$("#maxVoters").val($("#maxVoters").val() + ";" + val2);
 			}
-			
 		}
-		
 	}
 	
+	$("#errorChoice").css("display", "none");
+	
 	return true;
+}
+
+function Deplacer(l1, l2) {
+
+	if (l1.options.selectedIndex >= 0)
+		for ( var i = l1.options.length - 1; i >= 0; i--) {
+			if (l1.options[i].selected) {
+				o = new Option(l1.options[i].text, l1.options[i].value);
+				l2.options[l2.options.length] = o;
+				l1.options[i] = null;
+			}
+		}
+	else {
+		alert("Aucun élément sélectionné");
+	}
 }

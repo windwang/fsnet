@@ -31,7 +31,6 @@
 		        <arg0 key="consultations.form.deadline"/>
 		        <var><var-name>datePattern</var-name><var-value>dd/MM/yyyy</var-value></var>
 		    </field>
-			
 		</form>
 	</formset>
 </form-validation>
