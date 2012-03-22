@@ -470,15 +470,15 @@ $(function() {
 
 	$("#envoi").click(
 			function() {
-				var nbExp = '<input type="hidden" name="nbexp" value="' + i
+				var nbExp = '<input type="hidden" name="nbExp" value="' + i
 						+ '" />';
-				var nbForm = '<input type="hidden" name="nbform" value="' + f
+				var nbForm = '<input type="hidden" name="nbForm" value="' + f
 						+ '" />';
-				var nbLang = '<input type="hidden" name="nblangue" value="' + k
+				var nbLang = '<input type="hidden" name="nbLang" value="' + k
 						+ '" />';
-				var nbHobby = '<input type="hidden" name="nbloisir" value="'
+				var nbHobby = '<input type="hidden" name="nbHobbie" value="'
 						+ z + '" />';
-				var nbDegree = '<input type="hidden" name="nbdip" value="' + j
+				var nbDegree = '<input type="hidden" name="nbDegree" value="' + j
 						+ '" />';
 				$('.listeExperience').append(nbExp);
 				$('.listeFormation').append(nbForm);
