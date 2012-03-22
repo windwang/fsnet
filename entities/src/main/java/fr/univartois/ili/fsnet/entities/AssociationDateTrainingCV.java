@@ -1,11 +1,8 @@
 package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
-
-
 import java.sql.Date;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
