@@ -3,8 +3,10 @@ package fr.univartois.ili.fsnet.facade;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import fr.univartois.ili.fsnet.entities.Curriculum;
+import fr.univartois.ili.fsnet.entities.Meeting;
 
 
 /**
@@ -26,12 +28,15 @@ public class CvFacade {
 	 * List all the resumes
 	 * @return List<Curriculum> the list containing all the resumes
 	 */
-	public final List<Curriculum> listAllCv() {
+	public final List<Curriculum> listAllCv(int id) {
 		List<Curriculum> results;
-		results = em
+		final TypedQuery<Curriculum> query;
+		query = em
 		.createQuery(
-				"SELECT e FROM Curriculum e",
-				Curriculum.class).getResultList();
+				"SELECT e FROM Curriculum e WHERE e.userId= :idC",
+				Curriculum.class); 
+		query.setParameter("idC",id);
+		results=query.getResultList();
 		return results;
 	}
 	
@@ -43,5 +48,6 @@ public class CvFacade {
    public final Curriculum getCurriculum(long curriculumId) {
        return em.find(Curriculum.class, curriculumId);
    }
-
+   
+   
 }

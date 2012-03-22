@@ -58,7 +58,7 @@
 
 		<fieldset class="fieldsetAdmin">
 			<legend class="legendAdmin">
-				<bean:message key="interests.title.chidren" />
+				<bean:message key="interests.title.children" />
 			</legend>
 
 			<table class="inLineTable fieldsetTableAdmin">
@@ -120,7 +120,7 @@
 		<div class="clear"></div>
 		<fieldset class="fieldsetAdmin">
 			<legend class="legendAdmin">
-				<bean:message key="pageTitle.15" />
+				<bean:message key="interests.title.communities" />
 			</legend>
 			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
@@ -149,7 +149,7 @@
 		<div class="clear"></div>
 		<fieldset class="fieldsetAdmin">
 			<legend class="legendAdmin">
-				<bean:message key="pageTitle.4" />
+				<bean:message key="interests.title.hubs" />
 			</legend>
 			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
@@ -178,7 +178,7 @@
 		<div class="clear"></div>
 		<fieldset class="fieldsetAdmin">
 			<legend class="legendAdmin">
-				<bean:message key="pageTitle.6" />
+				<bean:message key="interests.title.topics" />
 			</legend>
 			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
@@ -207,7 +207,7 @@
 
 		<fieldset class="fieldsetAdmin">
 			<legend class="legendAdmin">
-				<bean:message key="pageTitle.1" />
+				<bean:message key="interests.title.events" />
 			</legend>
 			<table class="inLineTable fieldsetTableAdmin">
 				<tr>
@@ -235,7 +235,7 @@
 
 		<fieldset class="fieldsetAdmin">
 			<legend class="legendAdmin">
-				<bean:message key="pageTitle.8" />
+				<bean:message key="interests.title.announces" />
 			</legend>
 			<table class="inLineTable fieldsetTableAdmin">
 				<tr>

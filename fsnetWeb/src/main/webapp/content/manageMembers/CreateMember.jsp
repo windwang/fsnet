@@ -6,7 +6,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link rel=stylesheet type="text/css" href="css/osx.css" />
-<script type="text/javascript" src="js/jquery.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 <script type="text/javascript" src="js/definePassword.js"></script>
@@ -52,10 +51,10 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="members.group" />
+				<td><label for="parentId"> <bean:message key="members.group" />
 				</label></td>
 				<td colspan="3"><html:select property="parentId"
-						styleClass="select">
+						styleClass="select" styleId="parentId">
 
 						<html:option value="" disabled="true">
 							<bean:message key="groups.listGroup" />
@@ -70,17 +69,17 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message
+				<td><label for="typePassword1"> <bean:message
 							key="members.generatePassword" />
 				</label></td>
-				<td><html:radio property="typePassword" styleId="typePassword"
+				<td><html:radio property="typePassword" styleId="typePassword1"
 						value="generatePassword" onclick="definePasword()" /></td>
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="members.definePassword" />
+				<td><label for="typePassword2"> <bean:message key="members.definePassword" />
 				</label></td>
-				<td><html:radio property="typePassword" styleId="typePassword"
+				<td><html:radio property="typePassword" styleId="typePassword2"
 						value="definePassword" onclick="definePasword()" /></td>
 			</tr>
 			<tr>

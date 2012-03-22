@@ -17,6 +17,12 @@
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 			<form-property name="textSearchAnnounce" type="java.lang.String" />
 		</form-bean>
+		
+        <form-bean name="SearchDisplayAnnounceForm"
+                   type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="announcesId" type="java.lang.String" />
+            <form-property name="selectedAnnounces" type="java.lang.String[]" />
+        </form-bean>
 	</form-beans>
 
 	<global-forwards>
@@ -68,6 +74,12 @@
 			<forward name="success" path="/Announces.do"></forward>
 			<forward name="failed" path="/Announces.do" />
 		</action>
+		
+        <action path="/DeleteMultiAnnounces" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+                name="SearchDisplayAnnounceForm" validate="false" scope="request"
+                parameter="deleteMulti">
+            <forward name="success" path="/Announces.do" />
+        </action>
 	</action-mappings>
 
 </struts-config>

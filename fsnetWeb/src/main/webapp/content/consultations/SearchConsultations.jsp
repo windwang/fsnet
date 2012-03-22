@@ -46,7 +46,7 @@
 		}, null, null, {
 			"bSortable" : false
 		}];
-		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false);
+		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false, 10);
 	});
 </script>
 			<table id="searchConsults"

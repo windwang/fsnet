@@ -5,10 +5,6 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<link rel=stylesheet type="text/css" href="css/osx.css" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
-<script type="text/javascript" src="js/osx.js"></script>
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
@@ -144,7 +140,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -173,7 +170,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -202,7 +200,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="configure.button.submit" />
 					</html:submit></td>
 			</tr>
@@ -284,6 +283,66 @@
 		</tr>
 	</table>
 </fieldset>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message key="configure.title.addColorColumnInSocialGroup" />
+	</legend>
+
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr>
+			<td><html:form enctype="multipart/form-data"
+					action="/AddColorColumnInSocialGroup">
+					<div>
+						<html:submit styleClass="button">
+							<bean:message key="configure.button.submit" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message key="configure.title.AddInteractionGroupTable" />
+
+	</legend>
+
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr>
+			<td><html:form enctype="multipart/form-data"
+					action="/AddInteractionGroupTable">
+					<div>
+						<html:submit styleClass="button">
+							<bean:message key="configure.button.submit" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message
+			key="configure.title.createInteractionGroupDataWithOldRecord" />
+	</legend>
+
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr>
+			<td><html:form enctype="multipart/form-data"
+					action="/CreateInteractionGroupDataWithOldRecord">
+					<div>
+						<html:submit styleClass="button">
+							<bean:message key="configure.button.submit" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
+</fieldset>
+
 
 <script type="text/javascript">
 	function updateAuthenticationFields() {

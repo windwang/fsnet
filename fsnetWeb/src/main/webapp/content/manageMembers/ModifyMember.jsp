@@ -50,12 +50,14 @@
 			</tr>
 
 			<tr>
-				<td><label> <bean:message key="groups.parent" />
+				<td><label for="parentId"> <bean:message
+							key="groups.parent" />
 				</label></td>
 				<c:choose>
 					<c:when test="${ master == false }">
 						<td colspan="3"><html:select property="parentId"
-								styleClass="select" value="${ sessionScope.group.id }">
+								styleClass="select" value="${ sessionScope.group.id }"
+								styleId="parentId">
 								<html:option value="" disabled="true">
 									<bean:message key="groups.listGroup" />
 								</html:option>
@@ -109,7 +111,7 @@
 			<tr>
 				<td><label for="sexe"> <bean:message key="members.sexe" />
 				</label></td>
-				<td><html:select property="sexe">
+				<td><html:select property="sexe" styleId="sexe">
 						<html:option value="" />
 						<html:option value="male">
 							<bean:message key="members.sexe.Male" />
@@ -137,14 +139,15 @@
 				<td><label for="phone"> <bean:message
 							key="members.phone" />
 				</label></td>
-				<td><html:text errorStyleClass="error" property="phone" />
+				<td><html:text errorStyleClass="error" property="phone"
+						styleId="phone" />
 					<div class="errorMessage">
 						<html:errors property="phone" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td colspan="2"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="button">
 						<bean:message key="members.modifyUpdate" />
 					</html:submit></td>
 			</tr>
@@ -191,21 +194,20 @@
 <c:set var="paginatorTile" value="interestsMember" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
 
-<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
-			yearRange : '-100:+1',
+			yearRange : '-100:+100',
+			minDate : '-100y',
 			changeYear : true,
-			maxDate : 0,
+			maxDate : '+0',
 			dateFormat : 'dd/mm/yy',
-			showOn : 'button',
+			showOn : 'both',
 			buttonImage : 'images/calendar.gif',
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
-		$("#birthDay").datepicker($.datepicker.regional['fr']);
+		$("#birthDay").datepicker();
 	});
 </script>

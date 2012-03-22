@@ -14,6 +14,7 @@
 		<legend class="legendHome">
 			<bean:message key="contact.title.allEmpty" />
 		</legend>
+
 		<table class="inLineTable fieldsetTableAppli">
 			<tr>
 				<td><bean:message key="contact.title.empty" /></td>
@@ -23,24 +24,25 @@
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorAsked}">
+	<script type="text/javascript">
+		$(document).ready(
+				function pagination() {
+					var idColonneATrier = 2;
+					var sensDeTri = "asc";
+					var aoColumns = [ {
+						"bSortable" : false
+					}, null, null, {
+						"bSortable" : false
+					} ];
+					miseEnPageTable("tableAsked", idColonneATrier, sensDeTri,
+							aoColumns, false, 5);
+				});
+	</script>
+
 	<fieldset class="fieldsetAppli">
 		<legend class="legendHome">
 			<bean:message key="contact.title.received" />
 		</legend>
-		<script type="text/javascript">
-			$(document).ready(
-					function pagination() {
-						var idColonneATrier = 2;
-						var sensDeTri = "asc";
-						var aoColumns = [ {
-							"bSortable" : false
-						}, null, null, {
-							"bSortable" : false
-						} ];
-						miseEnPageTable("tableAsked", idColonneATrier,
-								sensDeTri, aoColumns, false);
-					});
-		</script>
 
 		<table id="tableAsked"
 			class="tablesorter inLineTable fieldsetTableAppli">
@@ -52,6 +54,7 @@
 					<th></th>
 				</tr>
 			</thead>
+
 			<tbody>
 				<c:forEach var="contact" items="${requestScope.paginatorAsked}">
 					<tr>
@@ -79,26 +82,27 @@
 </c:if>
 
 <c:if test="${not empty requestScope.paginatorContacts}">
+	<script type="text/javascript">
+		$(document).ready(
+				function pagination() {
+					var idColonneATrier = 2;
+					var sensDeTri = "asc";
+					var aoColumns = [ {
+						"bSortable" : false
+					}, null, null, {
+						"bSortable" : false
+					} ];
+					miseEnPageTable("tableContacts", idColonneATrier,
+							sensDeTri, aoColumns, false, 5);
+				});
+	</script>
+
 	<fieldset class="fieldsetAppli">
 		<legend class="legendHome">
 			<bean:message key="contact.title.list" />
 			: ${fn:length(requestScope.paginatorContacts)}
 			<bean:message key="contact.nbrContacts" />
 		</legend>
-		<script type="text/javascript">
-			$(document).ready(
-					function pagination() {
-						var idColonneATrier = 2;
-						var sensDeTri = "asc";
-						var aoColumns = [ {
-							"bSortable" : false
-						}, null, null, {
-							"bSortable" : false
-						} ];
-						miseEnPageTable("tableContacts", idColonneATrier,
-								sensDeTri, aoColumns, false);
-					});
-		</script>
 
 		<table id="tableContacts"
 			class="tablesorter inLineTable fieldsetTableAppli">
@@ -110,6 +114,7 @@
 					<th></th>
 				</tr>
 			</thead>
+
 			<tbody>
 				<c:forEach var="contact" items="${requestScope.paginatorContacts}">
 					<tr>
@@ -146,13 +151,15 @@
 						"bSortable" : false
 					} ];
 					miseEnPageTable("tableRequested", idColonneATrier,
-							sensDeTri, aoColumns, false);
+							sensDeTri, aoColumns, false, 5);
 				});
 	</script>
+
 	<fieldset class="fieldsetAppli">
 		<legend class="legendHome">
 			<bean:message key="contact.title.do" />
 		</legend>
+
 		<table id="tableRequested"
 			class="tablesorter inLineTable fieldsetTableAppli">
 			<thead>
@@ -163,6 +170,7 @@
 					<th></th>
 				</tr>
 			</thead>
+			
 			<tbody>
 				<c:forEach var="contact" items="${requestScope.paginatorRequested}">
 					<tr>

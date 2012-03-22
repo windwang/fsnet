@@ -31,7 +31,7 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
  *         /actions/ManageAnnounces.java (Mehdi Benzaghar)
  */
 public class ManageAnnounces extends MappingDispatchAction implements
-		CrudAction {
+		CrudAction{
 
 	/*
 	 * (non-Javadoc)

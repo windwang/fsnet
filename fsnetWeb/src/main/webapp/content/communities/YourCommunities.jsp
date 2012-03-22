@@ -15,65 +15,81 @@
 			<div class="space"></div>
 			<script type="text/javascript">
 				$(document).ready(
-						function pagination() {
-							var nomTable = "myCommTables";
-							var idColonneATrier = 1;
-							var sensDeTri = "asc";
-							var aoColumns = [ {
-								"bSortable" : false
-							}, null, {
-								"bSortable" : false
-							} ];
-							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
+						function() {
+							function pagination() {
+								var nomTable = "myCommTables";
+								var idColonneATrier = 1;
+								var sensDeTri = "asc";
+								var aoColumns = [ {
+									"bSortable" : false
+								}, null ];
+								miseEnPageTable(nomTable, idColonneATrier,
+										sensDeTri, aoColumns, false, 5, true);
+							}
+							pagination();
+
+							function allSelect() {
+								$('input[name=selectedCommunities]').attr(
+										'checked', true);
+							}
+
+							function allNoSelect() {
+								$('input[name=selectedCommunities]').attr(
+										'checked', false);
+							}
+
+							$(".checkThemAll1").click(function() {
+								if (this.checked) {
+									allSelect();
+								} else {
+									allNoSelect();
+								}
+							});
 						});
 			</script>
-			<table id="myCommTables"
-				class="tablesorter inLineTable fieldsetTableAppli ">
-				<thead>
-					<tr>
-						<th width="10%"></th>
-						<th width="30%"><bean:message key="tableheader.communityname" /></th>
-						<th></th>
-					</tr>
-				</thead>
-				<tbody>
-					<c:forEach var="community" items="${requestScope.myCommunities}">
-						<tr class="content">
-							<td><c:import url="/FavoriteFragment.do">
-									<c:param name="interactionId" value="${community.id}" />
-								</c:import></td>
-							<td><html:link action="/DisplayCommunity"
-									title='${empty community.interests ? "" : community.interests}'>
-									<html:param name="communityId" value="${community.id}" />
+			<html:form action="/DeleteMultiCommunities">
+				<table id="myCommTables"
+					class="tablesorter inLineTable fieldsetTableAppli ">
+					<thead>
+						<tr>
+							<th class="thCheckbox"><input type="checkbox"
+								name="selected" class="checkThemAll1" /></th>
+							<th><bean:message key="tableheader.communityname" /></th>
+						</tr>
+					</thead>
+					<tfoot>
+						<tr>
+							<td colspan="2"><html:submit styleClass="button">
+									<bean:message key="privatemessages.delete" />
+								</html:submit></td>
+						</tr>
+					</tfoot>
+					<tbody>
+						<c:forEach var="community" items="${requestScope.myCommunities}">
+							<tr class="content">
+								<td><html:multibox property="selectedCommunities"
+										value="${community.id}" /></td>
+								<td><html:link action="/DisplayCommunity"
+										title='${empty community.interests ? "" : community.interests}'>
+										<html:param name="communityId" value="${community.id}" />
                             ${community.title}
                         </html:link> <c:choose>
-									<c:when test="${fn:length(community.hubs) eq 0}">
+										<c:when test="${fn:length(community.hubs) eq 0}">
                          		(<bean:message key="communities.hubs.notAny" /> hub)
                          	</c:when>
-									<c:when test="${fn:length(community.hubs) eq 1}">
+										<c:when test="${fn:length(community.hubs) eq 1}">
                          		(1 hub)
                          	</c:when>
-									<c:when test="${fn:length(community.hubs) gt 1}">
+										<c:when test="${fn:length(community.hubs) gt 1}">
                          		(${fn:length(community.hubs)} hubs)
                          	</c:when>
-								</c:choose></td>
-							<td class="tableButton"
-								onclick="confirmDelete2('deleteid${community.id}', '<bean:message key="message.confirmation.delete" />');"><c:if
-									test="${sessionScope.userId eq community.creator.id}">
-									<html:form action="DeleteCommunity.do"
-										styleId="deleteid${community.id}" method="post"
-										styleClass="cursorPointer">
-										<html:hidden property="communityId" value="${community.id}" />
-										<span class="button"> <bean:message
-												key="communities.button.delete" />
-										</span>
-									</html:form>
-								</c:if></td>
-						</tr>
-					</c:forEach>
-				</tbody>
-			</table>
+									</c:choose></td>
+								<!-- onclick="confirmDelete2('deleteid${community.id}', '<bean:message key="message.confirmation.delete" />');">  -->
+							</tr>
+						</c:forEach>
+					</tbody>
+				</table>
+			</html:form>
 		</c:when>
 		<c:otherwise>
 			<table class="inLineTable fieldsetTableAppli">

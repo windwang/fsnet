@@ -45,7 +45,7 @@
 							"bSortable" : false
 						}];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
+								aoColumns, false, 10);
 					});
 		</script>
 			<table id="tablehub" class="tablesorter inLineTable fieldsetTableAppli">

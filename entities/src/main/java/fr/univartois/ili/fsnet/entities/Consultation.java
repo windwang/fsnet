@@ -88,6 +88,7 @@ public class Consultation extends Interaction {
 	private int currentVoters;
 
 	public Consultation() {
+		
 	}
 
 	/**
@@ -98,7 +99,7 @@ public class Consultation extends Interaction {
 	 * @param description
 	 */
 	public Consultation(SocialEntity creator, String title, String description,
-			TypeConsultation type) {
+			TypeConsultation type, List<SocialGroup> listOfGroupAccepted) {
 		super(creator, title);
 		this.description = description;
 		this.type = type;
@@ -192,6 +193,10 @@ public class Consultation extends Interaction {
 	public void addChoice(ConsultationChoice consultationChoice) {
 		this.choices.add(consultationChoice);
 	}
+	
+//	public void addConsultationRightGroup(InteractionGroups iG) {
+//		this.addInteractionGroup(iG);
+//	}
 
 	public List<ConsultationVote> getConsultationVotes() {
 		return consultationVotes;

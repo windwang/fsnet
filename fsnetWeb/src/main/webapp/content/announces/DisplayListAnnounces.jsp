@@ -33,7 +33,7 @@
 								"sType" : "date-euro"
 							} ];
 							miseEnPageTable(nomTable, idColonneATrier,
-									sensDeTri, aoColumns, false);
+									sensDeTri, aoColumns, false, 10);
 
 						});
 			</script>

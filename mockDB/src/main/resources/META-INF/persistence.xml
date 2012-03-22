@@ -1,14 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<persistence version="1.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd ">
-    <persistence-unit name="fsnetjpa">
-    	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
-    	<non-jta-data-source>java:/comp/env/ds/fsnetDS</non-jta-data-source>
-    	
-	   	<class>fr.univartois.ili.fsnet.entities.ActivityReport</class>
+<persistence version="1.0"
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_1_0.xsd ">
+	<persistence-unit name="fsnetjpa">
+		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+		<non-jta-data-source>java:/comp/env/ds/fsnetDS</non-jta-data-source>
+
+		<class>fr.univartois.ili.fsnet.entities.ActivityReport</class>
 		<class>fr.univartois.ili.fsnet.entities.Announcement</class>
 		<class>fr.univartois.ili.fsnet.entities.Community</class>
 		<class>fr.univartois.ili.fsnet.entities.Hub</class>
 		<class>fr.univartois.ili.fsnet.entities.Interaction</class>
+		<class>fr.univartois.ili.fsnet.entities.InteractionGroups</class>
 		<class>fr.univartois.ili.fsnet.entities.InteractionRole</class>
 		<class>fr.univartois.ili.fsnet.entities.Interest</class>
 		<class>fr.univartois.ili.fsnet.entities.Meeting</class>
@@ -24,10 +27,10 @@
 		<class>fr.univartois.ili.fsnet.entities.ConsultationChoice</class>
 		<class>fr.univartois.ili.fsnet.entities.ConsultationChoiceVote</class>
 		<class>fr.univartois.ili.fsnet.entities.ConsultationVote</class>
-	    <class>fr.univartois.ili.fsnet.entities.SocialElement</class>
-	   	<class>fr.univartois.ili.fsnet.entities.SocialGroup</class>
-	   	
-	   	<class>fr.univartois.ili.fsnet.entities.AssociationDateDegreeCV</class>
+		<class>fr.univartois.ili.fsnet.entities.SocialElement</class>
+		<class>fr.univartois.ili.fsnet.entities.SocialGroup</class>
+
+		<class>fr.univartois.ili.fsnet.entities.AssociationDateDegreeCV</class>
 		<class>fr.univartois.ili.fsnet.entities.AssociationDateFormationCV</class>
 		<class>fr.univartois.ili.fsnet.entities.AssociationDateTrainingCV</class>
 		<class>fr.univartois.ili.fsnet.entities.DegreeCV</class>
@@ -37,13 +40,14 @@
 		<class>fr.univartois.ili.fsnet.entities.HobbiesCV</class>
 		<class>fr.univartois.ili.fsnet.entities.TrainingCV</class>
 		<class>fr.univartois.ili.fsnet.entities.Curriculum</class>
-	   	
-        <exclude-unlisted-classes>false</exclude-unlisted-classes>
-        <properties>
-            <!-- <property name="eclipselink.ddl-generation" value="create-tables"/> -->
-            <property name="eclipselink.ddl-generation.output-mode" value="database"/>
-            <property name="eclipselink.weaving" value="static"/>
-            <property name="eclipselink.logging.level" value="WARNING"/>
-        </properties>
-    </persistence-unit>
+
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>
+			<!-- <property name="eclipselink.ddl-generation" value="create-tables"/> -->
+			<property name="eclipselink.ddl-generation.output-mode"
+				value="database" />
+			<property name="eclipselink.weaving" value="static" />
+			<property name="eclipselink.logging.level" value="WARNING" />
+		</properties>
+	</persistence-unit>
 </persistence>

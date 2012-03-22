@@ -7,20 +7,18 @@
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="pageTitle.0" />
+		<bean:message key="pageTitle.welcome" />
 	</legend>
 
 	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
-			<td><div>
-					<bean:message key="welcome.welcome" />
-				</div>
-				<div>
-					<bean:message key="welcome.message1" />
-				</div>
-				<div>
-					<bean:message key="welcome.message2" />
-				</div></td>
+			<td><bean:message key="welcome.welcome" /></td>
+		</tr>
+		<tr>
+			<td><bean:message key="welcome.message1" /></td>
+		</tr>
+		<tr>
+			<td><bean:message key="welcome.message2" /></td>
 		</tr>
 	</table>
 </fieldset>

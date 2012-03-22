@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
@@ -25,10 +23,16 @@
 				<tr>
 					<td></td>
 					<td>${cv.titleCv }</td>
-					<td><html:form action="/Generate">
+					<td><html:form action="/GenerateCv">
 							<input type="hidden" name="idCv" value="${cv.id }" />
 							<html:submit styleClass="button">
 								<bean:message key="cv.button.generate" />
+							</html:submit>
+						</html:form>
+						<html:form action="/DeleteCv">
+							<input type="hidden" name="idCv" value="${cv.id }" />
+							<html:submit styleClass="button">
+								<bean:message key="cv.button.delete" />
 							</html:submit>
 						</html:form></td>
 				</tr>

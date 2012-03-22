@@ -38,7 +38,7 @@
 							"sType" : "date-euro"
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
+								aoColumns, false, 5);
 					});
 		</script>
 
@@ -99,7 +99,7 @@
 							"sType" : "date-euro"
 						} ];
 						miseEnPageTable(nomTable, idColonneATrier, sensDeTri,
-								aoColumns, false);
+								aoColumns, false, 5);
 					});
 		</script>
 

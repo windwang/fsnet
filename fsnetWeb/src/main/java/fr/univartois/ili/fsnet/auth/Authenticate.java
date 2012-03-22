@@ -1,7 +1,9 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
@@ -23,6 +25,7 @@ import fr.univartois.ili.fsnet.commons.security.Encryption;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.core.LoggedUsersContainer;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
@@ -110,7 +113,7 @@ public class Authenticate extends HttpServlet {
 		}
 
 		EntityManager em = PersistenceProvider.createEntityManager();
-		;
+
 		SocialEntity es = null;
 		if (memberMail != null && memberPass != null) {
 			memberMail=memberMail.toLowerCase();
@@ -177,6 +180,18 @@ public class Authenticate extends HttpServlet {
 			req.getSession().setAttribute("isGroupResponsible",
 					socialGroupFacade.isGroupResponsible(user));
 			req.getSession().setAttribute("currentUserId", user.getId());
+
+			// add under groups to select them to add rights 
+			// to participate at consultation
+			if(socialGroupFacade.isSuperAdmin(user) || socialGroupFacade.isGroupResponsible(user)){
+				List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
+				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
+			}else{
+				List<SocialGroup> listOfChildGroup = ((List<SocialGroup>) new ArrayList<SocialGroup>());
+				listOfChildGroup.add(user.getGroup());
+				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
+			}
+			req.getSession().setAttribute("color", user.getGroup().getColor());
 
 		} else {
 			// the user is not authenticated
