@@ -45,7 +45,6 @@ public abstract class Interaction implements Serializable {
 	/**
 	 * The identifier.
 	 */
-
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -90,12 +89,15 @@ public abstract class Interaction implements Serializable {
 	@Transient
 	private int numFollowers = 0;
 
+	@OneToMany(mappedBy = "interaction", cascade = CascadeType.ALL)
+	private List<InteractionGroups> interactionGroups;	
+
 	/**
 	 * Constructor of the class Interaction.
 	 */
 	public Interaction() {
 	}
-
+		
 	// TODO voir rapport d'activite
 	// TODO !!! private
 	public Interaction(SocialEntity creator, String title) {
@@ -112,8 +114,17 @@ public abstract class Interaction implements Serializable {
 		this.followingEntitys = new HashSet<SocialEntity>();
 		this.readers = new ArrayList<SocialEntity>();
 		// this.report = rapport;
+		this.interactionGroups = new ArrayList<InteractionGroups>();
+	}
+	
+	public List<InteractionGroups> getInteractionGroups() {
+		return interactionGroups;
 	}
 
+	public void setInteractionGroups(List<InteractionGroups> interactionGroups) {
+		this.interactionGroups = interactionGroups;
+	}
+	
 	/**
 	 * 
 	 * @return the identifier.
