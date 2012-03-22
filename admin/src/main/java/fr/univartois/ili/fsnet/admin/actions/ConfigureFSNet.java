@@ -532,11 +532,6 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					.createNativeQuery("ALTER TABLE SOCIALGROUP ADD COLUMN COLOR VARCHAR(6) DEFAULT 'c9e6f8'");
 			query.executeUpdate();
 
-			// Query query2 =
-			// em.createQuery("UPDATE SOCIALGROUP SET COLOR = :defaultColor");
-			// query.setParameter("defaultColor", "c9e6f8");
-			// query2.executeUpdate();
-
 			Logger.getAnonymousLogger().log(Level.SEVERE, "",
 					"COLUMN COLOR ADDED IN SOCIALGROUP TABLE");
 
@@ -559,6 +554,9 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
+		MessageResources bundle = MessageResources
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+		
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
@@ -576,9 +574,14 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 			em.getTransaction().commit();
 			em.close();
+			Logger.getAnonymousLogger().log(Level.WARNING, bundle.getMessage(
+					request.getLocale(), "configure.db.addInteractionGRoupTable.success"));
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
+				
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
+				request.getLocale(), "configure.db.addInteractionGRoupTable.success"));
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
@@ -587,6 +590,8 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
+		MessageResources bundle = MessageResources
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
 		Query query = null;
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
@@ -595,11 +600,8 @@ public class ConfigureFSNet extends MappingDispatchAction {
 			List<SocialGroup> listOfGroup = em.createQuery(
 					"SELECT sg FROM SocialGroup sg",
 					SocialGroup.class).getResultList();
-//			em.getTransaction().commit();
 
 			if (listOfGroup.size() != 0) {
-				System.out
-						.println("Plusieurs elements dans la liste des groupes !! ");
 				for (SocialGroup socialGroup : listOfGroup) {
 					query = em
 							.createQuery(
@@ -608,34 +610,31 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					SocialEntity entity = (SocialEntity) query.setParameter(
 							"groupid", socialGroup.getMasterGroup().getId())
 							.getSingleResult();
-					// List<SocialEntity> entity = query.getResultList();
-//					em.getTransaction().commit();
-
-					System.out.println("Un seul element pour l'entity !! ");
 
 					query = em
 							.createQuery("SELECT i FROM Interaction i WHERE i.creator = :creator", Interaction.class);
 					query.setParameter("creator", entity);
 					List<Interaction> interact = query.getResultList();
-//					em.getTransaction().commit();
 
-					if (interact.size() != 1) {
-						System.out
-								.println("plusieurs interactions pour l'entity  !! ");
+					if (interact.size() > 0) {
 						for (Interaction interaction2 : interact) {
 							InteractionGroups test = new InteractionGroups(
 									interaction2, socialGroup);
 							em.persist(test);							
-							System.out.println("element interactionGroup : " + test.getGroup().getId() + " **- " + test.getInteraction().getId());
 						}
 					}
 				}
-			}
+			}			
 			em.getTransaction().commit();
 			em.close();
+			Logger.getAnonymousLogger().log(Level.WARNING, bundle.getMessage(
+					request.getLocale(), "configure.db.insertionOfOldConsultation.success"));
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
+		
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
+				request.getLocale(), "configure.db.insertionOfOldConsultation.success"));
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
