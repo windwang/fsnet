@@ -5,11 +5,6 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<link rel=stylesheet type="text/css" href="css/osx.css" />
-<script type="text/javascript" src="js/jquery.js"></script>
-<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
-<script type="text/javascript" src="js/osx.js"></script>
-
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
 		<bean:message key="members.create" />

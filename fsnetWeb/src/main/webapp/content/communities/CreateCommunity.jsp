@@ -9,15 +9,15 @@
 		<bean:message key="communities.title.create" />
 	</legend>
 
-	<table id="CreateCommunity"
-		class="inLineTable fieldsetTableAppli">
+	<table id="CreateCommunity" class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateCommunity">
 			<tr>
 				<td><label for="communityName"> <bean:message
 							key="communities.form.name" />
 				</label></td>
-				<td><html:text property="communityName" styleId="name"
-						errorStyleClass="error" /> <logic:messagesPresent property="communityName">
+				<td><html:text property="communityName" styleId="communityName"
+						errorStyleClass="error" /> <logic:messagesPresent
+						property="communityName">
 						<div class="errorMessage">
 							<html:errors property="communityName" />
 						</div>
@@ -29,7 +29,8 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button">
 						<bean:message key="communities.button.validate" />
 					</html:submit></td>
 			</tr>

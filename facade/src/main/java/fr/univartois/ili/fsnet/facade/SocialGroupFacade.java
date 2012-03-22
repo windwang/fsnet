@@ -237,7 +237,6 @@ public class SocialGroupFacade {
 		}
 
 		return groups;
-
 	}
 
 	public final void switchState(int socialGroupId) {

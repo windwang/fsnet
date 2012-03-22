@@ -9,7 +9,6 @@
 	rel="stylesheet" />
 <link type="text/css" href="css/fullcalendar.css" rel="stylesheet" />
 
-<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery.qtip.js"></script>
 <script type="text/javascript" src="js/fullcalendar.min.js"></script>
 <script type="text/javascript" src="js/fullcalendar.config.js"></script>
