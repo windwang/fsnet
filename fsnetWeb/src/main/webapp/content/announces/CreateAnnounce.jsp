@@ -89,13 +89,10 @@
 							</td>
 						</tr>
 						<tr>
-							<td></td>
 							<td><html:button property=""
 									onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
 									<bean:message key="groups.removeMembers" />
 								</html:button></td>
-
-							<td></td>
 						</tr>
 					</table></td>
 			</tr>
