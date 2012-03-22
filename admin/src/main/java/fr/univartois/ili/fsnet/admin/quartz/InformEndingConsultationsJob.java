@@ -133,10 +133,10 @@ public class InformEndingConsultationsJob implements Job{
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder sb = new StringBuilder();
-		
+
 		sb.append(bundle.getMessage("consultations.mail.deadline"));
-		sb.append("<\br>");
-		sb.append("<\br>");
+		sb.append("<br\\>");
+		sb.append("<br\\>");
 		sb.append(bundle.getMessage("consultations.mail.choices") + ":");
 		sb.append("<ol>");
 		
@@ -145,8 +145,8 @@ public class InformEndingConsultationsJob implements Job{
 		}
 		
 		sb.append("</ol>");
-		sb.append("<\br>");
-		sb.append("<\br>");
+		sb.append("<br\\>");
+		sb.append("<br\\>");
 		
 		sb.append(bundle.getMessage("consultations.mail.fsnet") + " ");
 		sb.append(fsnetAddress + ".");

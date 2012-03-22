@@ -747,10 +747,14 @@ public class ManageConsultations extends MappingDispatchAction {
 		
 		sb.append(bundle.getMessage("consultations.mail.new") +" ");
 		sb.append("\"" + consultation.getTitle() + "\" ");
-		sb.append(bundle.getMessage("consultations.mail.deadline") + " ");
-		sb.append(consultation.getMaxDate() + ".");
-		sb.append("<\br>");
-		sb.append("<\br>");
+		
+		if(consultation.getMaxDate() != null){
+			sb.append(bundle.getMessage("consultations.mail.deadline") + " ");
+			sb.append(consultation.getMaxDate() + ".");
+		}
+		
+		sb.append("<br/>");
+		sb.append("<br/>");
 		sb.append(bundle.getMessage("consultations.title.choix") + ":");
 		sb.append("<ol>");
 		
