@@ -8,11 +8,10 @@
 <html:form action="/CreateCv3">
 	<div class="en_cv">
 		<fieldset class="fieldsetAppli">
-			<div class="entete">
-				<legend class="legendHome">
-					<bean:message key="cv.title.experiences" />
-				</legend>
-			</div>
+			<legend class="legendHome">
+				<bean:message key="cv.title.experiences" />
+			</legend>
+
 			<div id="experiences">
 				<ul class="listeExperience fieldsetTable">
 				</ul>
@@ -51,7 +50,8 @@
 						<td><label for="cvExpDomain">*<bean:message
 									key="cv.form.exp.domain" /></label></td>
 						<td><html:text property="cvExpDomain" styleId="cvExpDomain"
-								errorStyleClass="error" /> <span class="CvExpDomainError errorCV"><bean:message
+								errorStyleClass="error" /> <span
+							class="CvExpDomainError errorCV"><bean:message
 									key="error.CvSecteur" /></span></td>
 					</tr>
 
@@ -105,6 +105,7 @@
 					<bean:message key="cv.title.degree" />
 				</legend>
 			</div>
+
 			<div id="diplome">
 				<ul class="listeDiplome fieldsetTable">
 				</ul>
@@ -125,8 +126,25 @@
 					<tr>
 						<td><label for="cvDegreeName">*<bean:message
 									key="cv.form.degree.level" /></label></td>
-						<td><html:text property="cvDegreeName" styleId="cvDegreeName"
-								errorStyleClass="error" /> <span class="CvDegreeNameError errorCV"><bean:message
+						<!--<td><html:text property="cvDegreeName" styleId="cvDegreeName"
+								errorStyleClass="error" /><span class="CvDegreeNameError errorCV"><bean:message
+									key="error.CvEtude" /></span></td>-->
+						<td><select name="cvDegreeName" id="cvDegreeName">
+								<option value="" />
+								<option value="+0">+0</option>
+								<option value="+1">+1</option>
+								<option value="+2">+2</option>
+								<option value="+3">+3</option>
+								<option value="+4">+4</option>
+								<option value="+5">+5</option>
+								<option value="+6">+6</option>
+								<option value="+7">+7</option>
+								<option value="+8">+8</option>
+								<option value="+9">+9</option>
+								<option value="+10">+10</option>
+								<option value="+11">+11</option>
+								<option value="+12">+12</option>
+						</select><span class="CvDegreeNameError errorCV"> <bean:message
 									key="error.CvEtude" /></span></td>
 					</tr>
 
@@ -198,6 +216,7 @@
 					<bean:message key="cv.title.formation" />
 				</legend>
 			</div>
+
 			<div id="formation">
 				<ul class="listeFormation fieldsetTable">
 				</ul>
@@ -384,7 +403,6 @@
 <script type="text/javascript" src="js/cv.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			dateFormat : 'dd/mm/yy',
 			showOn : 'both',
@@ -392,7 +410,8 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
-		
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
+
 		$("#cvExpBeginDate").datepicker();
 		$("#cvExpEndDate").datepicker();
 		$("#cvDegreeBeginDate").datepicker();

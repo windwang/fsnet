@@ -310,7 +310,6 @@
 
 <script type="text/javascript">
 	$(function() {
-		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			minDate : "+0D",
 			dateFormat : 'dd/mm/yy',
@@ -319,6 +318,7 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 
 		$("#deadline").datepicker();
 

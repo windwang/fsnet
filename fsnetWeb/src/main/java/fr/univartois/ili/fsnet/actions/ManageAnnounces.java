@@ -208,8 +208,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			}
 
 			em.getTransaction().commit();
-			em.close();
-
+			
 			ActionMessages message = new ActionErrors();
 			message.add("message", new ActionMessage(
 					"announce.message.delete.success"));

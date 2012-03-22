@@ -88,7 +88,7 @@
 							<tr>
 								<td><html:multibox property="selectedMessages"
 										value="${message.id}" /></td>
-								<td></td>
+								<td><ili:getMiniature socialEntity="${message.to}" /></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosFirstname
 										socialEntity="${message.to}" /></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosName
