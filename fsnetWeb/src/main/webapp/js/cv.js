@@ -1,80 +1,62 @@
 $(function() {
 
-	$(".corp_experience").css("display", "none");
-	$(".corp_diplome").css("display", "none");
-	$(".corp_loisir").css("display", "none");
-	$(".corp_langue").css("display", "none");
-	$(".corp_formation").css("display", "none");
-
-	$(".CvNomLoisirError").css("display", "none");
-
-	$(".CVLangueError").css("display", "none");
-	$(".CvEtablissmentError").css("display", "none");
-	$(".etudBeginDateError").css("display", "none");
-	$(".etudEndDateError").css("display", "none");
-	$(".CvEtudeDomError").css("display", "none");
-	$(".CvEtudeError").css("display", "none");
-
-	$(".CvEtablissmentformError").css("display", "none");
-	$(".CvFormationError").css("display", "none");
-	$(".DateObtentionError").css("display", "none");
-
-	$(".CvPosteError").css("display", "none");
-	$(".NomEntrepriseError").css("display", "none");
-	$(".CvLieuError").css("display", "none");
-	$(".expBeginDateError").css("display", "none");
-	$(".expEndDateError").css("display", "none");
-	$(".CvSecteurError").css("display", "none");
+	// init
+	displayExpNone();
+	displayDegreeNone();
+	displayTrainingNone();
+	displayHobbieNone();
+	displayLangNone();
 	
 	var i = 0;
 	var j = 0;
 	var k = 0;
 	var z = 0;
 	var f = 0;
+	
 	var tabExp = new Array();
 
-	$(".addExp").css("display", "inline");
-	$(".addForm").css("display", "inline");
+	// experiences
 	$(".addExp").click(function() {
 		$(".corp_experience").css("display", "inline");
-		$(".addExp").css("display", "none");
-		$(".CvPosteError").css("display", "none");
-		$(".NomEntrepriseError").css("display", "none");
-		$(".CvLieuError").css("display", "none");
-		$(".expBeginDateError").css("display", "none");
-		$(".expEndDateError").css("display", "none");
-		$(".CvSecteurError").css("display", "none");
+		displayDegreeNone();
+		displayTrainingNone();
+		displayHobbieNone();
+		displayLangNone();
+
+		displayErrorExpNone();
+
+		$(".addDiplTable").css("display", "inline");
+		$(".addFormTable").css("display", "inline");
+		$(".addLoisirTable").css("display", "inline");
+		$(".addLangueTable").css("display", "inline");
+		$(".addExpTable").css("display", "none");
 	});
 	
 	$(".SaveExp")
 			.click(
 					function() {
-						$(".CvPosteError").css("display", "none");
-						$(".NomEntrepriseError").css("display", "none");
-						$(".CvLieuError").css("display", "none");
-						$(".expBeginDateError").css("display", "none");
-						$(".expEndDateError").css("display", "none");
-						$(".CvSecteurError").css("display", "none");
+						displayErrorExpNone();
+						
 						var erreur = 0;
 						if ($("#cvExpJob").val() == '') {
-							$(".CvPosteError").css("display", "inline");
+							$(".CvExpJobError").css("display", "inline");
 							erreur = 1;
 						}
 						if ($("#cvExpFirmName").val() == '') {
-							$(".NomEntrepriseError").css("display", "inline");
+							$(".CvExpFirmNameError").css("display", "inline");
 							erreur = 1;
 						}
 
 						if ($("#cvExpDomain").val() == '') {
-							$(".CvSecteurError").css("display", "inline");
+							$(".CvExpDomainError").css("display", "inline");
 							erreur = 1;
 						}
 						if ($("#cvExpBeginDate").val() == '') {
-							$(".expBeginDateError").css("display", "inline");
+							$(".CvExpBeginDateError").css("display", "inline");
 							erreur = 1;
 						}
 						if ($("#cvExpEndDate").val() == '') {
-							$(".expEndDateError").css("display", "inline");
+							$(".CvExpEndDateError").css("display", "inline");
 							erreur = 1;
 						}
 
@@ -123,16 +105,12 @@ $(function() {
 									+ i
 									+ '" value="'
 									+ $("#cvExpEndDate").val() + '" /></div>';
-							$(".corp_experience").css("display", "none");
-							var $annuler = $('<span id="supprimer' + i
-									+ '"><a onclick="changeExp(' + i
-									+ ')">supprimer</a></span>');
-							$(".addExp").css("display", "inline");
+							
 							$('.listeExperience').append(
 									'<li class="liste" id="experience_' + i
 											+ '">' + recapExp + '</li>');
 							$('#experience_' + i).append(inputRecap);
-							// $('#experience_'+i).append($annuler);
+							
 							$("#cvExpJob").val('');
 							$("#cvExpFirmName").val('');
 							$("#CvSecteur").val('');
@@ -140,12 +118,10 @@ $(function() {
 							$("#cvExpCity").val('');
 							$("#cvExpBeginDate").val('');
 							$("#cvExpEndDate").val('');
-							$(".CvPosteError").css("display", "none");
-							$(".NomEntrepriseError").css("display", "none");
-							$(".CvLieuError").css("display", "none");
-							$(".expBeginDateError").css("display", "none");
-							$(".expEndDateError").css("display", "none");
 
+							displayExpNone();
+							$(".addExpTable").css("display", "inline");
+							
 							i++;
 						}
 
@@ -153,47 +129,50 @@ $(function() {
 	
 	$(".annuleExp").click(function() {
 		$(".corp_experience").css("display", "none");
-		$(".addExp").css("display", "inline");
+		$(".addExpTable").css("display", "inline");
 	});
 
 	$(".addDip").click(function() {
+		displayExpNone();
+		displayTrainingNone();
+		displayHobbieNone();
+		displayLangNone();
 		$(".corp_diplome").css("display", "inline");
-		$(".addDip").css("display", "none");
-		$(".CvEtablissmentError").css("display", "none");
-		$(".etudBeginDateError").css("display", "none");
-		$(".etudEndDateError").css("display", "none");
-		$(".CvEtudeDomError").css("display", "none");
-		$(".CvEtudeError").css("display", "none");
+
+		displayErrorDegreeNone();
+
+		$(".addFormTable").css("display", "inline");
+		$(".addLoisirTable").css("display", "inline");
+		$(".addLangueTable").css("display", "inline");
+		$(".addExpTable").css("display", "inline");
+		$(".addDiplTable").css("display", "none");
 	});
 	
 	$(".SaveDip")
 			.click(
 					function() {
-						$(".CvEtablissmentError").css("display", "none");
-						$(".etudBeginDateError").css("display", "none");
-						$(".etudEndDateError").css("display", "none");
-						$(".CvEtudeDomError").css("display", "none");
-						$(".CvEtudeError").css("display", "none");
+						displayErrorDegreeNone();
+						
 						var erreur = 0;
 						if ($("#cvDegreeName").val() == '') {
-							$(".CvEtudeError").css("display", "inline");
+							$(".CvDegreeNameError").css("display", "inline");
 							erreur = 1;
 						}
 						if ($("#cvDegreeDomain").val() == '') {
-							$(".CvEtudeDomError").css("display", "inline");
+							$(".CvDegreeDomainError").css("display", "inline");
 							erreur = 1;
 						}
 						if ($("#cvDegreeBeginDate").val() == '') {
-							$(".etudBeginDateError").css("display", "inline");
+							$(".CvDegreeBeginDateError").css("display", "inline");
 							erreur = 1;
 						}
 
 						if ($("#cvDegreeEndDate").val() == '') {
-							$(".etudEndDateError").css("display", "inline");
+							$(".CvDegreeEndDateError").css("display", "inline");
 							erreur = 1;
 						}
 						if ($("#cvDegreeSchool").val() == '') {
-							$(".CvEtablissmentError").css("display", "inline");
+							$(".CvDegreeSchoolError").css("display", "inline");
 							erreur = 1;
 						}
 
@@ -208,6 +187,7 @@ $(function() {
 									+ $("#cvDegreeBeginDate").val()
 									+ "</p><p> date fin "
 									+ $("#cvDegreeEndDate").val() + "</p>";
+							
 							var inputRecap = '<div id="DipInput" style="display:none;"><input type="hidden" name="cvDegreeName'
 									+ j
 									+ '" value="'
@@ -243,16 +223,12 @@ $(function() {
 									+ '" value="'
 									+ $("#cvDegreeEndDate").val()
 									+ '" /></div>';
-							var $annuler = $('<span id="supprimerDip' + j
-									+ '"><a onclick="changeDip(' + j
-									+ ')">supprimer</a></span>');
-							$(".corp_diplome").css("display", "none");
-							$(".addDip").css("display", "inline");
+							
 							$('.listeDiplome').append(
 									'<li class="liste" id="diplome_' + j + '">'
 											+ recapExp + '</li>');
 							$('#diplome_' + j).append(inputRecap);
-							// $('#formation_'+j).append($annuler);
+
 							$("#cvDegreeName").val('');
 							$("#cvDegreeDomain").val('');
 							$("#cvDegreeSchool").val('');
@@ -260,49 +236,52 @@ $(function() {
 							$("#cvDegreeCountry").val('');
 							$("#cvDegreeBeginDate").val('');
 							$("#cvDegreeEndDate").val('');
-							$(".CvEtablissmentError").css("display", "none");
-							$(".etudBeginDateError").css("display", "none");
-							$(".etudEndDateError").css("display", "none");
-							$(".CvEtudeDomError").css("display", "none");
-							$(".CvEtudeError").css("display", "none");
-							j++;
+							
+							displayDegreeNone();
+							$(".addDiplTable").css("display", "inline");
 						}
 					});
 	
 	$(".annuleDip").click(function() {
 		$(".corp_diplome").css("display", "none");
-		$(".addDip").css("display", "inline");
+		$(".addDiplTable").css("display", "inline");
 	});
 	
 	// formation
 	$(".addForm").click(function() {
+		displayExpNone();
+		displayDegreeNone();
+		displayHobbieNone();
+		displayLangNone();
 		$(".corp_formation").css("display", "inline");
-		$(".addForm").css("display", "none");
-		$(".CvEtablissmentformError").css("display", "none");
-		$(".CvFormationError").css("display", "none");
-		$(".DateObtentionError").css("display", "none");
+		
+		displayErrorTrainingNone();
+
+		$(".addLoisirTable").css("display", "inline");
+		$(".addLangueTable").css("display", "inline");
+		$(".addExpTable").css("display", "inline");
+		$(".addDiplTable").css("display", "inline");
+		$(".addFormTable").css("display", "none");
 	});
 	
 	$(".SaveForm")
 			.click(
 					function() {
-						$(".CvEtablissmentformError").css("display", "none");
-						$(".DateObtentionError").css("display", "none");
-						$(".CvFormationError").css("display", "none");
+						displayErrorTrainingNone();
 
 						var erreur = 0;
 
 						if ($("#cvTrainingInstitution").val() == '') {
-							$(".CvEtablissmentformError").css("display",
+							$(".CvTrainingInstitutionError").css("display",
 									"inline");
 							erreur = 1;
 						}
 						if ($("#cvTrainingObtainingDate").val() == '') {
-							$(".DateObtentionError").css("display", "inline");
+							$(".CvTrainingObtainingDateError").css("display", "inline");
 							erreur = 1;
 						}
 						if ($("#cvTrainingName").val() == '') {
-							$(".CvFormationError").css("display", "inline");
+							$(".CvTrainingNameError").css("display", "inline");
 							erreur = 1;
 						}
 
@@ -339,10 +318,7 @@ $(function() {
 									+ f
 									+ '" value="'
 									+ $("#cvTrainingObtainingDate").val()
-									+ '" />'
-
-							$(".corp_formation").css("display", "none");
-							$(".addForm").css("display", "inline");
+									+ '" /></div>';
 
 							$('.listeFormation').append(
 									'<li class="liste" id="formation_' + f
@@ -350,42 +326,48 @@ $(function() {
 							$('#formation_' + f).append(inputRecap);
 
 							$("#cvTrainingName").val('');
-
 							$("#cvTrainingInstitution").val('');
 							$("#cvTrainingCountry").val('');
 							$("#cvTrainingCity").val('');
 							$("#cvTrainingObtainingDate").val('');
 
-							$(".CvEtablissmentformError")
-									.css("display", "none");
-							$(".DateObtentionError").css("display", "none");
-
-							$(".CvFormationError").css("display", "none");
+							$(".addFormTable").css("display", "inline");
+							displayTrainingNone();
 
 							f++;
 						}
 					});
 	$(".annuleForm").click(function() {
 		$(".corp_formation").css("display", "none");
-		$(".addForm").css("display", "inline");
+		$(".addFormTable").css("display", "inline");
 	});
 
+	// loisirs
 	$(".addLoisir").click(function() {
-
 		$(".corp_loisir").css("display", "inline");
-		$(".CvNomLoisirError").css("display", "none");
-		$(".addLoisir").css("display", "none");
+		displayExpNone();
+		displayDegreeNone();
+		displayTrainingNone();
+		displayLangNone();
 
+		displayErrorHobbyNone();
+		
+		$(".addLangueTable").css("display", "inline");
+		$(".addExpTable").css("display", "inline");
+		$(".addDiplTable").css("display", "inline");
+		$(".addFormTable").css("display", "inline");
+		$(".addLoisirTable").css("display", "none");
 	});
+	
 	$(".SaveLoisir")
 			.click(
 					function() {
-						$(".CvNomLoisirError").css("display", "none");
+						displayErrorHobbyNone();
 
 						var erreur = 0;
 						if ($("#cvHobbyName").val() == '') {
 
-							$(".CvNomLoisirError").css("display", "inline");
+							$(".CvHobbyNameError").css("display", "inline");
 							erreur = 1;
 
 						}
@@ -393,28 +375,22 @@ $(function() {
 						if (erreur == 0) {
 							var recapExp = "<strong>" + $("#cvHobbyName").val()
 									+ "</strong><br/>";
+							
 							var inputRecap = '<div id="loisirInput" style="display:none;"><input type="hidden" name="cvHobbyName'
 									+ k
 									+ '" value="'
 									+ $("#cvHobbyName").val()
-									+ '" /></div>'
+									+ '" /></div>';
 
-							var $annuler = $('<span id="supprimerLoisir' + k
-									+ '"><a onclick="changeLoisir(' + k
-									+ ')">supprimer</a></span>');
-							$(".CvNomLoisirError").fadeOut();
-							$(".corp_loisir").css("display", "none");
-							$(".addLoisir").css("display", "inline");
-							$("#loisirInput").css("display", "none");
 							$('.listeLoisir').append(
 									'<li class="liste" id="loisir_' + k + '">'
 											+ recapExp + '</li>');
 							$('#loisir_' + k).append(inputRecap);
-							// $('#loisir_'+k).append($annuler);
-							$("#loisirInput").css("display", "none");
+							
 							$("#CvNomLoisir").val('');
 
-							$(".CvNomLoisirError").css("display", "none");
+							$(".addLoisirTable").css("display", "inline");
+							displayHobbieNone();
 
 							k++;
 						}
@@ -422,23 +398,35 @@ $(function() {
 					});
 	$(".annuleLoisir").click(function() {
 		$(".corp_loisir").css("display", "none");
-		$(".addLoisir").css("display", "inline");
+		$(".addLoisirTable").css("display", "inline");
 	});
 
+	// langues
 	$(".addLangue").click(function() {
+		displayExpNone();
+		displayDegreeNone();
+		displayTrainingNone();
+		displayHobbieNone();
 		$(".corp_langue").css("display", "inline");
-		$(".addLangue").css("display", "none");
-		$(".CVLangueError").css("display", "none");
 
+		displayErrorLangNone();
+		
+		$(".addExpTable").css("display", "inline");
+		$(".addDiplTable").css("display", "inline");
+		$(".addFormTable").css("display", "inline");
+		$(".addLoisirTable").css("display", "inline");
+		$(".addLangueTable").css("display", "none");
 	});
 
 	$(".SaveLangue")
 			.click(
 					function() {
-						$(".CVLangueError").css("display", "none");
+						displayErrorLangNone();
+						$(".CvLangNameError").css("display", "none");
+						
 						var erreur = 0;
 						if ($("#cvLangName").val() == '') {
-							$(".CVLangueError").css("display", "inline");
+							$(".CvLangNameError").css("display", "inline");
 							erreur = 1;
 						}
 						if (erreur == 0) {
@@ -447,6 +435,7 @@ $(function() {
 									+ "</strong></td><td>"
 									+ $("#cvLangLevel").val()
 									+ "</td></tr></table>";
+							
 							var inputRecap = '<div id="LangueInput" style="display:none;"><input type="hidden" name="cvLangName'
 									+ z
 									+ '" value="'
@@ -457,21 +446,16 @@ $(function() {
 									+ '" value="'
 									+ $("#cvLangLevel").val()
 									+ '" /></div>';
-							var $annuler = $('<span id="supprimerLang' + z
-									+ '"><a onclick="changeLang(' + z
-									+ ')">supprimer</a></span>');
-							$(".corp_langue").css("display", "none");
-							$(".addLangue").css("display", "inline");
-
+							
 							$('.listeLangues').append(
 									'<li class="liste" id="Langues_' + z + '">'
 											+ recapExp + '</li>');
 							$('#Langues_' + z).append(inputRecap);
-							// $('#Langues_'+z).append($annuler);
-							$("#LangueInput").css("display", "none");
+							
 							$("#cvLangName").val('');
 
-							$(".CVLangueError").css("display", "none");
+							displayLangNone();
+							$(".addLangueTable").css("display", "inline");
 
 							z++;
 						}
@@ -480,9 +464,10 @@ $(function() {
 
 	$(".annuleLangue").click(function() {
 		$(".corp_langue").css("display", "none");
-		$(".addLangue").css("display", "inline");
+		$(".addLangueTable").css("display", "inline");
 	});
 
+	
 	$(".Edit").click(function() {
 
 		$(".corp_experience").css("display", "inline");
@@ -490,6 +475,7 @@ $(function() {
 
 	});
 
+	
 	$("#envoi").click(
 			function() {
 				var nbExp = '<input type="hidden" name="nbexp" value="' + i
@@ -511,3 +497,68 @@ $(function() {
 			});
 
 });
+
+function displayExpNone() {
+	$(".corp_experience").css("display", "none");
+	$(".CvExpJobError").css("display", "none");
+	$(".cvExpFirmNameError").css("display", "none");
+	$(".CvExpBeginDateError").css("display", "none");
+	$(".CvExpEndDateError").css("display", "none");
+	$(".CvExpDomainError").css("display", "none");
+}
+
+function displayDegreeNone() {
+	$(".corp_diplome").css("display", "none");
+	$(".CvDegreeSchoolError").css("display", "none");
+	$(".CvDegreeBeginDateError").css("display", "none");
+	$(".CvDegreeEndDateError").css("display", "none");
+	$(".CvDegreeDomainError").css("display", "none");
+	$(".CvDegreeNameError").css("display", "none");
+}
+
+function displayTrainingNone() {
+	$(".corp_formation").css("display", "none");
+	$(".CvTrainingInstitutionError").css("display", "none");
+	$(".CvTrainingNameError").css("display", "none");
+	$(".CvTrainingObtainingDateError").css("display", "none");
+}
+
+function displayHobbieNone() {
+	$(".corp_loisir").css("display", "none");
+	$(".CvHobbyNameError").css("display", "none");
+}
+
+function displayLangNone() {
+	$(".corp_langue").css("display", "none");
+	$(".CvLangNameError").css("display", "none");
+}
+
+function displayErrorExpNone() {
+	$(".CvExpJobError").css("display", "none");
+	$(".CvExpFirmNameError").css("display", "none");
+	$(".CvExpBeginDateError").css("display", "none");
+	$(".CvExpEndDateError").css("display", "none");
+	$(".CvExpDomainError").css("display", "none");
+}
+
+function displayErrorDegreeNone() {
+	$(".CvDegreeSchoolError").css("display", "none");
+	$(".CvDegreeBeginDateError").css("display", "none");
+	$(".CvDegreeEndDateError").css("display", "none");
+	$(".CvDegreeDomainError").css("display", "none");
+	$(".CvDegreeNameError").css("display", "none");
+}
+
+function displayErrorTrainingNone() {
+	$(".CvTrainingInstitutionError").css("display", "none");
+	$(".CvTrainingNameError").css("display", "none");
+	$(".CvTrainingObtainingDateError").css("display", "none");
+}
+
+function displayErrorHobbyNone() {
+	$(".CvHobbyNameError").css("display", "none");
+}
+
+function displayErrorLangNone() {
+	$(".CvLangNameError").css("display", "none");
+}

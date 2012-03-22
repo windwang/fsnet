@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,20 +31,23 @@ public class Curriculum implements Serializable {
 	@Id
 	private long id;
 	private String titleCv;
-
-	@OneToOne
+    
+	private int userId;
+	
+	@OneToOne(cascade=CascadeType.REMOVE)
 	private MemberCV member;
+	
 
-	@OneToMany (mappedBy = "idCurriculum")
+	@OneToMany (mappedBy = "idCurriculum",cascade=CascadeType.REMOVE)
 	private List<AssociationDateFormationCV> myFormations = new ArrayList<AssociationDateFormationCV>();
 
-	@ManyToMany
+	@ManyToMany(cascade=CascadeType.REMOVE)
 	private List<HobbiesCV> hobs = new ArrayList<HobbiesCV>();
 
-	@OneToMany (mappedBy="curriculum")
+	@OneToMany (mappedBy="curriculum",cascade=CascadeType.REMOVE)
 	private List<AssociationDateTrainingCV> trains = new ArrayList<AssociationDateTrainingCV>();
 
-	@OneToMany(mappedBy = "curriculum")
+	@OneToMany(mappedBy = "curriculum",cascade=CascadeType.REMOVE)
 	private List<AssociationDateDegreeCV> degs = new ArrayList<AssociationDateDegreeCV>();
 
 	public Curriculum() {
@@ -155,5 +159,25 @@ public class Curriculum implements Serializable {
 	public void setId(long id) {
 		this.id = id;
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getUserId() {
+		return userId;
+	}
+	/**
+	 * 
+	 * @param userId
+	 */
+	public void setUserId(int userId) {
+		this.userId = userId;
+	}
+	
+	
+	
+	
+	
 
 }

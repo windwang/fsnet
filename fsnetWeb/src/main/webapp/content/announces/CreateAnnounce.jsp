@@ -4,6 +4,7 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
@@ -56,15 +57,9 @@
 	</table>
 </fieldset>
 
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
-
 <script type="text/javascript">
 	$(function() {
-
-		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			minDate : 0,
 			dateFormat : 'dd/mm/yy',
@@ -73,6 +68,8 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
+		
 		$.timepicker.regional['fr'] = {
 			timeOnlyTitle : 'Temps',
 			timeText : 'Temps',

@@ -75,11 +75,6 @@
 								class="plus" /><br />
 						</div>
 
-						<c:if test="${errorChoice}">
-							<div class="errorMessage">
-								<bean:message key="consultations.error.choice" />
-							</div>
-						</c:if>
 						<div id="errorChoice">
 							<div class="errorMessage">
 								<bean:message key="consultations.error.choice" />
@@ -94,6 +89,8 @@
 
 						<html:hidden property="consultationChoice"
 							styleId="consultationChoice" />
+						<html:hidden property="maxVoters"
+							styleId="maxVoters" />
 						<table id="choicesTab">
 							<c:forEach begin="1" end="3" var="i">
 								<tr>
@@ -120,6 +117,52 @@
 						<legend>
 							<bean:message key="consultations.title.droit" />
 						</legend>
+						<c:if test="${errorRights}">
+							<p class="errorMessage">
+								<bean:message key="consultation.droits.errorRights" />
+							</p>
+						</c:if>
+						<table>
+							<tr>
+								<td ROWSPAN="2">
+									<div>
+										<bean:message key="consultation.droits.groupsNoRights" />
+									</div> <html:select property="groupsListLeft" styleClass="select"
+										size="5" multiple="multiple">
+
+										<c:forEach var="socialGroup" items="${allUnderGroupsNoRights}">
+
+											<c:if test="${socialGroup.isEnabled}">
+												<html:option value="${socialGroup.name}">${socialGroup.name}</html:option>
+											</c:if>
+
+										</c:forEach>
+									</html:select>
+								</td>
+								<td><html:button property=""
+										onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)">
+										<bean:message key="groups.addMembers" />
+									</html:button></td>
+								<td ROWSPAN="2">
+									<div>
+										<bean:message key="consultation.droits.groupsRights" />
+									</div> <html:select property="groupsListRight" styleClass="select"
+										size="5" multiple="multiple">
+
+										<c:forEach var="socialGroup" items="${allUnderGroupsRights}">
+											<html:option value="${socialGroup.name}">${socialGroup.name}</html:option>
+										</c:forEach>
+
+									</html:select>
+								</td>
+							</tr>
+							<tr>
+								<td><html:button property=""
+										onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
+										<bean:message key="groups.removeMembers" />
+									</html:button></td>
+							</tr>
+						</table>
 					</fieldset>
 				</td>
 			</tr>
@@ -265,22 +308,19 @@
 	</table>
 </fieldset>
 
-
-<script type="text/javascript" src="js/jquery-1.3.2.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$.datepicker.setDefaults($.extend({
-			minDate : 0,
+			minDate : "+0D",
 			dateFormat : 'dd/mm/yy',
-			showOn : 'button',
+			showOn : 'both',
 			buttonImage : 'images/calendar.gif',
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 
-		$("#deadline").datepicker($.datepicker.regional['fr']);
+		$("#deadline").datepicker();
 
 		if ($("#YES_NO_IFNECESSARY").attr('checked')) {
 			$("#consultationIfNecessaryWeight").attr("disabled", false);
@@ -311,7 +351,7 @@
 		$("#limitChoicesPerVoter").click(function(e) {
 			displayLimitChoicesPerVoter();
 		});
-		
+
 		$("#errorChoice").css("display", "none");
 
 		displayChoicesOption(true);
@@ -319,4 +359,5 @@
 		displayLimitChoicesPerVoter();
 
 	});
+
 </script>

@@ -472,10 +472,6 @@ input[type="text"][class="error"],input[type="email"][class="error"],textarea[cl
 	text-align: right;
 }
 
-.tableButton2 {
-	float: right
-}
-
 .inLinefieldset {
 	width: 90%;
 	border-spacing: 0px 3px;
@@ -787,4 +783,8 @@ form#formImportEventsFromFile fieldset {
 
 form#formImportEventsFromFile fieldset legend {
 	margin: -40px 0 0 30px;
+}
+
+tfoot td {
+	background-color: white;
 }

@@ -7,7 +7,7 @@
 
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
-		<bean:message key="pageTitle.0" />
+		<bean:message key="pageTitle.welcome" />
 	</legend>
 
 	<table class="inLineTable fieldsetTableAdmin">

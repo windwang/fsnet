@@ -9,6 +9,7 @@
 		<class>fr.univartois.ili.fsnet.entities.Community</class>
 		<class>fr.univartois.ili.fsnet.entities.Hub</class>
 		<class>fr.univartois.ili.fsnet.entities.Interaction</class>
+		<class>fr.univartois.ili.fsnet.entities.InteractionGroups</class>
 		<class>fr.univartois.ili.fsnet.entities.InteractionRole</class>
 		<class>fr.univartois.ili.fsnet.entities.Interest</class>
 		<class>fr.univartois.ili.fsnet.entities.Meeting</class>

@@ -38,6 +38,7 @@ import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.ConsultationFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
@@ -52,6 +53,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	private static final String DEADLINE_TIME = ":23:59:59";
 
 	private static final String NO_ANSWER = "no";
+	private static final String REGEX_CONSULTATION_CHOICE = ";";
 
 	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String FAILED_ACTION_NAME = "failed";
@@ -75,8 +77,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		String consultationDescription = (String) dynaForm
 				.get("consultationDescription");
 		String[] consultationChoices = dynaForm.getString("consultationChoice")
-				.split(";");
-		String[] maxVoters = dynaForm.getStrings("maxVoters");
+				.split(REGEX_CONSULTATION_CHOICE);
+		String[] maxVoters = dynaForm.getString("maxVoters").split(
+				REGEX_CONSULTATION_CHOICE);
 		String consultationType = dynaForm.getString("consultationType");
 		String consultationIfNecessaryWeight = dynaForm
 				.getString("consultationIfNecessaryWeight");
@@ -90,6 +93,8 @@ public class ManageConsultations extends MappingDispatchAction {
 		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
 		String deadline = dynaForm.getString("deadline");
 		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
+		String[] groupsRightsAccept = (String[]) dynaForm.get("groupsListRight");
+
 		addRightToRequest(request);
 
 		if (!"".equals(limitChoicesPerVoter)
@@ -99,6 +104,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			return new ActionRedirect(
 					mapping.findForwardConfig(FAILED_ACTION_NAME));
 		}
+
 		for (int i = 0; i < maxVoters.length; i++) {
 			if ("".equals(maxVoters[i])) {
 				maxVoters[i] = "-1"; // Unlimited
@@ -109,8 +115,13 @@ public class ManageConsultations extends MappingDispatchAction {
 						mapping.findForward(FAILED_ACTION_NAME));
 			}
 		}
+		if (groupsRightsAccept.length == 0) {
+			System.out.println("Error tableau vide !!!!!!");
+			request.setAttribute("errorRights", true);
+			return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
+		}
+		
 		// END TODO
-
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
@@ -120,10 +131,15 @@ public class ManageConsultations extends MappingDispatchAction {
 		}
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
+		List<SocialGroup> listOfGroupAccepted = new ArrayList<SocialGroup>();
+		for (String name : groupsRightsAccept) {
+			listOfGroupAccepted.add(fascade.findByName(name));
+		}
 		Consultation consultation = consultationFacade.createConsultation(
 				member, consultationTitle, consultationDescription,
 				consultationChoices,
-				Consultation.TypeConsultation.valueOf(consultationType));
+				Consultation.TypeConsultation.valueOf(consultationType),
+				listOfGroupAccepted);
 
 		if (!"".equals(nbVotersPerChoiceBox)) {
 			consultation.setLimitParticipantPerChoice(true);
@@ -180,9 +196,9 @@ public class ManageConsultations extends MappingDispatchAction {
 		em.close();
 
 		request.setAttribute("id", consultation.getId());
-		
+
 		sendMailForNewConsultation(consultation, member);
-		
+
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
@@ -198,6 +214,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	public ActionForward vote(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
+		
 		DynaActionForm dynaForm = (DynaActionForm) form;
 		String voteComment = (String) dynaForm.get("voteComment");
 		String voteOther = (String) dynaForm.get("voteOther");
@@ -211,13 +228,14 @@ public class ManageConsultations extends MappingDispatchAction {
 		Consultation consultation = consultationFacade
 				.getConsultation(idConsultation);
 
-		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		if (!fascade.isSuperAdmin(member)
-				&& !fascade.getAllGroupsChildSelfInclude(member.getGroup())
-						.contains(consultation.getCreator().getGroup())) {
-			return new ActionRedirect(
-					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
-		}
+//		SocialGroupFacade fascade = new SocialGroupFacade(em);
+//		if (!fascade.isSuperAdmin(member)
+//				&& !fascade.getAllGroupsChildSelfInclude(member.getGroup())
+//						.contains(consultation.getCreator().getGroup())) {
+//			return new ActionRedirect(
+//					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
+//		}
+		
 		if (consultation.isLimitChoicesPerParticipant()) {
 			int answersNumber = 0;
 			if (TypeConsultation.YES_NO_IFNECESSARY.equals(consultation
@@ -243,6 +261,7 @@ public class ManageConsultations extends MappingDispatchAction {
 						response);
 			}
 		}
+
 		em.getTransaction().begin();
 		if (isAllowedToVote(consultation, member)) {
 			ConsultationVote vote = new ConsultationVote(member, voteComment,
@@ -264,6 +283,7 @@ public class ManageConsultations extends MappingDispatchAction {
 					}
 				}
 			}
+
 			if (consultation.getType() != Consultation.TypeConsultation.PREFERENCE_ORDER
 					&& consultation.isLimitParticipantsPerChoice()) {
 				for (ConsultationChoice choice : consultation.getChoices()) {
@@ -276,18 +296,22 @@ public class ManageConsultations extends MappingDispatchAction {
 							}
 						}
 					}
+
 					if (nbVotes > choice.getMaxVoters()) {
 						return displayAConsultation(mapping, dynaForm, request,
 								response);
 					}
 				}
 			}
+
 			if (voteOk) {
 				consultationFacade.voteForConsultation(consultation, vote);
 				em.getTransaction().commit();
 			}
 		}
+
 		em.close();
+
 		return displayAConsultation(mapping, dynaForm, request, response);
 	}
 
@@ -485,15 +509,19 @@ public class ManageConsultations extends MappingDispatchAction {
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade
 					.getConsultation(Integer.valueOf(idConsultation));
-			Collections.sort(consultation.getChoices(),
-					new ConsultationChoiceComparator());
-			SocialGroupFacade fascade = new SocialGroupFacade(em);
-			if (!fascade.isSuperAdmin(member)
-					&& !fascade.getAllGroupsChildSelfInclude(member.getGroup())
-							.contains(consultation.getCreator().getGroup())) {
+			if((consultation==null)){
 				return new ActionRedirect(
 						mapping.findForward(UNAUTHORIZED_ACTION_NAME));
 			}
+			Collections.sort(consultation.getChoices(),
+					new ConsultationChoiceComparator());
+			
+			FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(em);
+			if((filterGroup.filterAnInteraction(member, consultation) == null)){
+				return new ActionRedirect(
+						mapping.findForward(UNAUTHORIZED_ACTION_NAME));
+			}
+			
 			em.getTransaction().begin();
 			member.addInteractionRead(consultation);
 			refreshNumNewConsultations(request, em);
@@ -685,24 +713,24 @@ public class ManageConsultations extends MappingDispatchAction {
 		request.setAttribute("rightAddConsultation", rightAddConsultation);
 		request.setAttribute("socialEntity", socialEntity);
 	}
-	
+
 	/**
-	 * Send email for inform of a new consultation to every member of the same group that
-	 * the owner of the consultation
+	 * Send email for inform of a new consultation to every member of the same
+	 * group that the owner of the consultation
 	 * 
 	 * @param consultation
 	 * @param socialEntity
 	 */
 	private void sendMailForNewConsultation(Consultation consultation,
-			SocialEntity creator){
+			SocialEntity creator) {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialGroupFacade  socialGroup = new SocialGroupFacade(em);
-		for(SocialEntity se : socialGroup.getMembersFromGroup
-				(consultation.getCreator().getGroup())){
-			sendInformationMail(consultation,se);
+		SocialGroupFacade socialGroup = new SocialGroupFacade(em);
+		for (SocialEntity se : socialGroup.getMembersFromGroup(consultation
+				.getCreator().getGroup())) {
+			sendInformationMail(consultation, se);
 		}
 	}
-	
+
 	/**
 	 * Send information email
 	 * 
@@ -716,17 +744,17 @@ public class ManageConsultations extends MappingDispatchAction {
 				FSNetConfiguration.FSNET_WEB_ADDRESS_KEY);
 		String message;
 
-
-		message = createPersonalizedMessage(consultation, socialEntity, fsnetAddress);
+		message = createPersonalizedMessage(consultation, socialEntity,
+				fsnetAddress);
 
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
-		mail.setSubject(bundle.getMessage("consultations.mail.subject") + " : " +
-				consultation.getTitle());
-		
+		mail.setSubject(bundle.getMessage("consultations.mail.subject") + " : "
+				+ consultation.getTitle());
+
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
 		mailer.sendMail(mail);
@@ -739,13 +767,13 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param socialEntity
 	 * @param String
 	 */
-	private String createPersonalizedMessage(Consultation consultation, SocialEntity entity,
-			String fsnetAddress) {
+	private String createPersonalizedMessage(Consultation consultation,
+			SocialEntity entity, String fsnetAddress) {
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder sb = new StringBuilder();
-		
-		sb.append(bundle.getMessage("consultations.mail.new") +" ");
+
+		sb.append(bundle.getMessage("consultations.mail.new") + " ");
 		sb.append("\"" + consultation.getTitle() + "\" ");
 		
 		if(consultation.getMaxDate() != null){
@@ -757,16 +785,56 @@ public class ManageConsultations extends MappingDispatchAction {
 		sb.append("<br/>");
 		sb.append(bundle.getMessage("consultations.title.choix") + ":");
 		sb.append("<ol>");
-		
-		for(ConsultationChoice choice : consultation.getChoices()){
+
+		for (ConsultationChoice choice : consultation.getChoices()) {
 			sb.append("<li>" + choice.getIntituled() + "</li>");
 		}
-		
+
 		sb.append("</ol>");
 		sb.append(bundle.getMessage("consultations.mail.fsnet") + " ");
 		sb.append(fsnetAddress + ".");
-		
+
 		return sb.toString();
 	}
 
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+		addRightToRequest(request);
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
+
+		try {
+			String[] selectedConsultations = (String[]) dynaForm
+					.get("selectedConsultations");
+			ConsultationFacade consultationFacade = new ConsultationFacade(em);
+			addRightToRequest(request);
+			
+			for (int i = 0; i < selectedConsultations.length; i++) {
+				em.getTransaction().begin();
+				Consultation consultation = consultationFacade
+						.getConsultation(Integer.valueOf(Integer
+								.valueOf(selectedConsultations[i])));
+				if (member.equals(consultation.getCreator())) {
+						consultationFacade.deleteConsultation(consultation, member);
+				}	
+				em.getTransaction().commit();
+			}
+
+		} finally {
+			em.close();
+		}
+
+		return mapping.findForward(SUCCES_ACTION_NAME);
+	}
 }

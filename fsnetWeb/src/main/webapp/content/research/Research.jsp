@@ -422,7 +422,7 @@
 					$(document).ready(
 					function pagination() {
 						var nomTable = "seachCommTables";
-						searchCommunauties	var idColonneATrier = 1;
+						var idColonneATrier = 1;
 						var sensDeTri = "asc";
 						var aoColumns = [ {
 							"bSortable" : false

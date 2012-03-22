@@ -33,6 +33,12 @@
 			<form-property name="oldCommunityName" type="java.lang.String" />
 			<form-property name="newCommunityName" type="java.lang.String" />
 		</form-bean>
+		<form-bean name="DeleteCommunitiesForm"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+            <form-property name="communityId" type="java.lang.String" />
+			<form-property name="selectedCommunities" type="java.lang.String[]" />
+		</form-bean>
+
 	</form-beans>
 	<global-forwards>
 
@@ -102,6 +108,12 @@
 		<action path="/YourCommunities"
 			type="fr.univartois.ili.fsnet.actions.ManageCommunities" parameter="searchYourCommunities">
 			<forward name="success" path="Communities" />
+		</action>
+
+		<action path="/DeleteMultiCommunities"
+			type="fr.univartois.ili.fsnet.actions.ManageCommunities" name="DeleteCommunitiesForm"
+			validate="false" scope="request" parameter="deleteMulti">
+			<forward name="success" path="/Communities.do" />
 		</action>
 	</action-mappings>
 </struts-config>
