@@ -196,18 +196,19 @@
 
 <script type="text/javascript">
 	$(function() {
-		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			yearRange : '-100:+100',
 			minDate : '-100y',
 			changeYear : true,
-			maxDate : '+0',
+			maxDate : '+0D',
 			dateFormat : 'dd/mm/yy',
 			showOn : 'both',
 			buttonImage : 'images/calendar.gif',
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
+		
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$("#birthDay").datepicker();
 	});
 </script>

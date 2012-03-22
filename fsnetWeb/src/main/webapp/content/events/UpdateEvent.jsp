@@ -133,8 +133,6 @@
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>
 <script type="text/javascript">
 	$(function() {
-
-		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			dateFormat : 'dd/mm/yy',
 			showOn : 'both',
@@ -142,8 +140,8 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		
-		$.timepicker.setDefaults($.timepicker.regional['fr']);
 		$.timepicker.regional['fr'] = {
 			timeOnlyTitle : 'Temps',
 			timeText : 'Temps',
@@ -156,6 +154,7 @@
 			ampm : false,
 			timeFormat : 'hh:mm',
 		};
+		$.timepicker.setDefaults($.timepicker.regional['fr']);
 
 		$('#eventBeginDate').datetimepicker();
 		$('#eventEndDate').datetimepicker();

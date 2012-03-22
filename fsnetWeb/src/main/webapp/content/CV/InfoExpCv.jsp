@@ -384,7 +384,6 @@
 <script type="text/javascript" src="js/cv.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
 			dateFormat : 'dd/mm/yy',
 			showOn : 'both',
@@ -392,6 +391,7 @@
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		
 		$("#cvExpBeginDate").datepicker();
 		$("#cvExpEndDate").datepicker();
