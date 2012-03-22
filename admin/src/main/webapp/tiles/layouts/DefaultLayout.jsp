@@ -30,6 +30,7 @@
 <script type="text/javascript" src="js/updateInterestParent.js"></script>
 <script class="jsbin" type="text/javascript"
 	src="js/jquery.dataTables.js"></script>
+<script type="text/javascript" src="js/functions.js"></script>
 
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/skeleton.css" />
@@ -69,16 +70,5 @@
 			<tiles:insert attribute="footer" />
 		</div>
 	</div>
-
-
-
-
-	<script type="text/javascript">
-		function confirmDelete(action) {
-			if (confirm("<bean:message key='confirmation.delete' />")) {
-				window.location = action;
-			}
-		}
-	</script>
 </body>
 </html:html>
