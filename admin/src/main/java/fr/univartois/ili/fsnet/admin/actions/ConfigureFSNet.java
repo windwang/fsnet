@@ -611,9 +611,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 			if (consults.size() != 0) {
 
-				for (Consultation consult : consults) {					
-					if (consult.getCreator() != null) {
-						System.out.println(consult.getCreator().getGroup().getId()
+				for (Consultation consult : consults) {
+					if ((consult != null)
+							&& (consult.getCreator() != null)
+							&& (consult.getCreator().getGroup() != null)) {
+						System.out.println(consult.getCreator().getGroup()
+								.getId()
 								+ "test !!");
 						InteractionGroups test = new InteractionGroups(consult,
 								consult.getCreator().getGroup());
