@@ -597,7 +597,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		Query query = null;
+
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 		try {
@@ -606,12 +606,19 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					"SELECT c FROM Consultation c", Consultation.class)
 					.getResultList();
 
+			System.out
+					.println(" test : +++++++ " + consults.size() + "test !!");
+
 			if (consults.size() != 0) {
 
-				for (Consultation consult : consults) {
-					InteractionGroups test = new InteractionGroups(consult,
-							consult.getCreator().getGroup());
-					em.persist(test);
+				for (Consultation consult : consults) {					
+					if (consult.getCreator() != null) {
+						System.out.println(consult.getCreator().getGroup().getId()
+								+ "test !!");
+						InteractionGroups test = new InteractionGroups(consult,
+								consult.getCreator().getGroup());
+						em.persist(test);
+					}
 				}
 			}
 
