@@ -116,7 +116,6 @@ public class ManageConsultations extends MappingDispatchAction {
 			}
 		}
 		if (groupsRightsAccept.length == 0) {
-			System.out.println("Error tableau vide !!!!!!");
 			request.setAttribute("errorRights", true);
 			return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
 		}

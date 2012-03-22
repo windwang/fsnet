@@ -33,6 +33,7 @@ import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
 import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.InteractionGroups;
@@ -591,7 +592,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
-	public ActionForward createInteractionGroupDataWithOldRecord(
+	public ActionForward createInteractionGroupDataWithOldRecordOfConsultation(
 			ActionMapping mapping, ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
@@ -606,15 +607,11 @@ public class ConfigureFSNet extends MappingDispatchAction {
 					"SELECT c FROM Consultation c", Consultation.class)
 					.getResultList();
 
-			System.out
-					.println(" test : +++++++ " + consults.size() + "test !!");
-
 			if (consults.size() != 0) {
 
 				for (Consultation consult : consults) {
-					if ((consult != null)
-							&& (consult.getCreator() != null)
-							&& (consult.getCreator().getGroup() != null)) {						
+					if ((consult != null) && (consult.getCreator() != null)
+							&& (consult.getCreator().getGroup() != null)) {
 						InteractionGroups test = new InteractionGroups(consult,
 								consult.getCreator().getGroup());
 						em.persist(test);
@@ -635,6 +632,50 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 				request.getLocale(),
 				"configure.db.insertionOfOldConsultation.success"));
+
+		return mapping.findForward(SUCCES_ACTION_NAME);
+	}
+
+	public ActionForward createInteractionGroupDataWithOldRecordOfAnnounce(
+			ActionMapping mapping, ActionForm form, HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+
+		MessageResources bundle = MessageResources
+				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
+
+		EntityManager em = PersistenceProvider.createEntityManager();
+		em.getTransaction().begin();
+		try {
+
+			List<Announcement> announcements = em.createQuery(
+					"SELECT a FROM Announcement a", Announcement.class)
+					.getResultList();
+
+			if (announcements.size() != 0) {
+
+				for (Announcement announce : announcements) {
+					if ((announce != null) && (announce.getCreator() != null)
+							&& (announce.getCreator().getGroup() != null)) {
+						InteractionGroups test = new InteractionGroups(
+								announce, announce.getCreator().getGroup());
+						em.persist(test);
+					}
+				}
+			}
+
+			em.getTransaction().commit();
+			em.close();
+			Logger.getAnonymousLogger().log(
+					Level.WARNING,
+					bundle.getMessage(request.getLocale(),
+							"configure.db.insertionOfOldAnnounce.success"));
+		} catch (Exception e) {
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+		}
+
+		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
+				request.getLocale(),
+				"configure.db.insertionOfOldAnnounce.success"));
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}

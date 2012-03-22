@@ -46,9 +46,7 @@ public class ConsultationFacade {
 			igList.add(new InteractionGroups(consultation, group));
 			consultation.setInteractionGroups(igList);
 		}
-		System.err.println("taille list interaction gorups : "
-				+ consultation.getInteractionGroups().size());
-
+		
 		em.persist(consultation);
 		return consultation;
 	}
