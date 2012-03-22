@@ -35,7 +35,7 @@ import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.facade.CvFacade;
 
 /**
- * @author aich ayoub
+ * @author Aich ayoub
  * 
  */
 public class GenerateCv extends MappingDispatchAction {
