@@ -193,10 +193,6 @@ public class Consultation extends Interaction {
 	public void addChoice(ConsultationChoice consultationChoice) {
 		this.choices.add(consultationChoice);
 	}
-	
-//	public void addConsultationRightGroup(InteractionGroups iG) {
-//		this.addInteractionGroup(iG);
-//	}
 
 	public List<ConsultationVote> getConsultationVotes() {
 		return consultationVotes;

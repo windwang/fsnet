@@ -7,7 +7,7 @@
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
-
+<script type="text/javascript" src="js/consultationUtils.js"></script>
 
 <html:javascript formName="/CreateAnnounce" />
 <fieldset class="fieldsetAppli">
@@ -15,8 +15,7 @@
 		<bean:message key="announce.title.create" />
 	</legend>
 
-	<table id="CreateAnnounce"
-		class="inLineTable fieldsetTableAppli">
+	<table id="CreateAnnounce" class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateAnnounce">
 			<tr>
 				<td><label for="announceTitle"><bean:message
@@ -49,7 +48,60 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td><label for="groupsListLeft"><bean:message
+							key="announces.title.droit" /></label></td>
+				<td><table class="inLineTable fieldsetTableAppli">
+						<c:if test="${errorAnnounceRights}">
+							<p class="errorMessage">
+								<bean:message key="announces.droits.errorRights" />
+							</p>
+						</c:if>
+						<tr>
+							<td rowspan="2">
+								<div>
+									<bean:message key="announces.droits.groupsNoRights" />
+								</div> <html:select property="groupsListLeft" styleClass="select"
+									size="5" multiple="multiple">
+
+									<c:forEach var="socialGroup" items="${allUnderGroupsNoRights}">
+
+										<c:if test="${socialGroup.isEnabled}">
+											<html:option value="${socialGroup.name}">${socialGroup.name}</html:option>
+										</c:if>
+
+									</c:forEach>
+								</html:select>
+							</td>
+							<td><html:button property=""
+									onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)">
+									<bean:message key="groups.addMembers" />
+								</html:button></td>
+							<td rowspan="2">
+								<div>
+									<bean:message key="consultation.droits.groupsRights" />
+								</div> <html:select property="groupsListRight" styleClass="select"
+									size="5" multiple="multiple">
+
+									<c:forEach var="socialGroup" items="${allUnderGroupsRights}">
+										<html:option value="${socialGroup.name}">${socialGroup.name}</html:option>
+									</c:forEach>
+								</html:select>
+							</td>
+						</tr>
+						<tr>
+							<td></td>
+							<td><html:button property=""
+									onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
+									<bean:message key="groups.removeMembers" />
+								</html:button></td>
+
+							<td></td>
+						</tr>
+					</table></td>
+			</tr>
+			<tr>
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button" onclick="return valideGroupToAnnounce()">
 						<bean:message key="announce.button.create" />
 					</html:submit></td>
 			</tr>

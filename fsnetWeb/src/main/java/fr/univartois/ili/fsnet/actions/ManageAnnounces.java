@@ -18,6 +18,7 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionMessages;
+import org.apache.struts.action.ActionRedirect;
 import org.apache.struts.action.DynaActionForm;
 import org.apache.struts.actions.MappingDispatchAction;
 
@@ -25,11 +26,14 @@ import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.InteractionGroups;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
@@ -81,6 +85,14 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			String interestsIds[] = (String[]) formAnnounce
 					.get("selectedInterests");
 
+			String[] groupsRightsAccept = (String[]) formAnnounce
+					.get("groupsListRight");
+
+			if (groupsRightsAccept.length == 0) {
+				request.setAttribute("errorAnnounceRights", true);
+				return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
+			}
+			
 			Announcement createdAnnounce;
 			addRightToRequest(request);
 
@@ -89,8 +101,18 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				AnnouncementFacade announcementFacade = new AnnouncementFacade(
 						entityManager);
 				entityManager.getTransaction().begin();
+				
+				List<SocialGroup> listOfGroupAccepted = new ArrayList<SocialGroup>();
+				List<InteractionGroups> igList = new ArrayList<InteractionGroups>();
 				createdAnnounce = announcementFacade.createAnnouncement(user,
 						title, content, expiryDate, false);
+				
+				for (String name : groupsRightsAccept) {
+					listOfGroupAccepted.add(fascade.findByName(name));
+					igList.add(new InteractionGroups(createdAnnounce, fascade.findByName(name)));					
+				}								
+				createdAnnounce.setInteractionGroups(igList);				
+				
 				InterestFacade fac = new InterestFacade(entityManager);
 				List<Interest> interests = new ArrayList<Interest>();
 				int currentId;
@@ -101,6 +123,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				InteractionFacade ifacade = new InteractionFacade(entityManager);
 				ifacade.addInterests(createdAnnounce, interests);
 				entityManager.getTransaction().commit();
+				
 			} else {
 				ActionMessages errors = new ActionErrors();
 				errors.add(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME,
@@ -419,17 +442,17 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		try {
 			String[] selectedAnnounces = (String[]) dynaForm
 					.get("selectedAnnounces");
-			
+
 			AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
 			InteractionFacade interactionFacade = new InteractionFacade(em);
-	
+
 			addRightToRequest(request);
-			
+
 			for (int i = 0; i < selectedAnnounces.length; i++) {
 				em.getTransaction().begin();
 				Announcement announce = announcementFacade
 						.getAnnouncement(Integer.valueOf(selectedAnnounces[i]));
-			
+
 				addRightToRequest(request);
 
 				if (announce != null) {
