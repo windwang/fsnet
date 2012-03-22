@@ -37,6 +37,7 @@ import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.InteractionGroups;
 import fr.univartois.ili.fsnet.entities.Property;
+import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
 
@@ -557,7 +558,7 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE);
-		
+
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			em.getTransaction().begin();
@@ -575,14 +576,17 @@ public class ConfigureFSNet extends MappingDispatchAction {
 
 			em.getTransaction().commit();
 			em.close();
-			Logger.getAnonymousLogger().log(Level.WARNING, bundle.getMessage(
-					request.getLocale(), "configure.db.addInteractionGRoupTable.success"));
+			Logger.getAnonymousLogger().log(
+					Level.WARNING,
+					bundle.getMessage(request.getLocale(),
+							"configure.db.addInteractionGRoupTable.success"));
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
-				
+
 		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
-				request.getLocale(), "configure.db.addInteractionGRoupTable.success"));
+				request.getLocale(),
+				"configure.db.addInteractionGRoupTable.success"));
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
@@ -596,47 +600,34 @@ public class ConfigureFSNet extends MappingDispatchAction {
 		Query query = null;
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
-		try {			
+		try {
 
-			List<SocialGroup> listOfGroup = em.createQuery(
-					"SELECT sg FROM SocialGroup sg",
-					SocialGroup.class).getResultList();
+			List<Consultation> consults = em.createQuery(
+					"SELECT c FROM Consultation c", Consultation.class)
+					.getResultList();
 
-			if (listOfGroup.size() != 0) {
-				for (SocialGroup socialGroup : listOfGroup) {
-					query = em
-							.createQuery(
-									"SELECT se FROM SocialEntity se WHERE se.id = :groupid",
-									SocialEntity.class);
-					SocialEntity entity = (SocialEntity) query.setParameter(
-							"groupid", socialGroup.getMasterGroup().getId())
-							.getSingleResult();
+			if (consults.size() != 0) {
 
-					query = em
-							.createQuery("SELECT i FROM Interaction i WHERE i.creator = :creator", Consultation.class);
-					query.setParameter("creator", entity);
-					List<Interaction> interact = query.getResultList();
-
-					if (interact.size() > 0) {
-						for (Interaction interaction2 : interact) {
-						
-							InteractionGroups test = new InteractionGroups(
-									interaction2, socialGroup);
-							em.persist(test);							
-						}
-					}
+				for (Consultation consult : consults) {
+					InteractionGroups test = new InteractionGroups(consult,
+							consult.getCreator().getGroup());
+					em.persist(test);
 				}
-			}			
+			}
+
 			em.getTransaction().commit();
 			em.close();
-			Logger.getAnonymousLogger().log(Level.WARNING, bundle.getMessage(
-					request.getLocale(), "configure.db.insertionOfOldConsultation.success"));
+			Logger.getAnonymousLogger().log(
+					Level.WARNING,
+					bundle.getMessage(request.getLocale(),
+							"configure.db.insertionOfOldConsultation.success"));
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
-		
+
 		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
-				request.getLocale(), "configure.db.insertionOfOldConsultation.success"));
+				request.getLocale(),
+				"configure.db.insertionOfOldConsultation.success"));
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}

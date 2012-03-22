@@ -43,7 +43,6 @@ public class ConsultationFacade {
 
 		List<InteractionGroups> igList = new ArrayList<InteractionGroups>();
 		for (SocialGroup group : groupsRigthsAccepted) {
-			System.out.println(consultation.getId() + group.getId());
 			igList.add(new InteractionGroups(consultation, group));
 			consultation.setInteractionGroups(igList);
 		}
