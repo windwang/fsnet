@@ -151,11 +151,11 @@ public class InformComingEventsJob implements Job {
 		sb.append(DateUtils.renderDateForFullCalendar(meeting.getStartDate()));
 		sb.append(bundle.getMessage("events.at") + " ");
 		sb.append(DateUtils.renderDateForFullCalendar(meeting.getEndDate()) + ".");
-		sb.append("<\br>");
+		sb.append("<br\\>");
 		sb.append(bundle.getMessage("events.mail.content") + " ");
 		sb.append("\"" + meeting.getContent() + "\"");
-		sb.append("<\br>");
-		sb.append("<\br>");
+		sb.append("<br\\>");
+		sb.append("<br\\>");
 		sb.append(bundle.getMessage("events.mail.fsnet") + " ");
 		sb.append(fsnetAddress + ".");
 		
