@@ -46,10 +46,7 @@
 				</label></td>
 				<td colspan="3"><html:select property="parentId"
 						styleClass="select" styleId="parentId">
-
-						<html:option value="" disabled="true">
-							<bean:message key="groups.listGroup" />
-						</html:option>
+						<html:option value="" disabled="true"/>
 						<c:forEach var="socialGroup" items="${allGroups}">
 							<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
 						</c:forEach>
@@ -66,9 +63,7 @@
 				<td colspan="3"><html:select property="socialEntityId"
 						styleClass="select" value="${ masterGroup.id }"
 						styleId="socialEntityId">
-						<html:option value="" disabled="true">
-							<bean:message key="groups.listMember" />
-						</html:option>
+						<html:option value="" disabled="true"/>
 						<c:forEach var="socialEntity" items="${allMembers}">
 							<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
 						</c:forEach>

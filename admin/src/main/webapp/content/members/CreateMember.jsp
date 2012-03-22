@@ -50,9 +50,7 @@
 				</label></td>
 				<td colspan="3"><html:select property="parentId"
 						styleClass="select" styleId="parentId">
-						<html:option value="">
-							<bean:message key="members.listGroups" />
-						</html:option>
+						<html:option value=""/>
 						<c:forEach var="socialGroup" items="${sessionScope.allGroups2}">
 							<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
 						</c:forEach>

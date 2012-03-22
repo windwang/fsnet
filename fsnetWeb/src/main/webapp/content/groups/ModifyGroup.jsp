@@ -54,9 +54,7 @@
 				<td colspan="3"><html:select property="socialEntityId"
 						styleClass="select" value="${ masterGroup.id }"
 						styleId="socialEntityId">
-						<html:option value="" disabled="true">
-							<bean:message key="groups.listMember" />
-						</html:option>
+						<html:option value="" disabled="true"/>
 						<c:forEach var="socialEntity" items="${allMembers}">
 							<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
 						</c:forEach>

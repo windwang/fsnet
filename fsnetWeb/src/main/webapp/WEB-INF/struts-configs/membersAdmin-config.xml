@@ -29,9 +29,7 @@
 			<form-property name="name" type="java.lang.String" />
 			<form-property name="firstName" type="java.lang.String" />
 			<form-property name="email" type="java.lang.String" />
-			<!-- ici -->
 			<form-property name="parentId" type="java.lang.String" />
-			
 			<!-- "initial" enable check  value of the radio button -->
 			<form-property name="typePassword" type="java.lang.String" initial="generatePassword" />
 			

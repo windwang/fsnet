@@ -35,9 +35,7 @@
 		<td colspan="3"><html:select property="parentId"
 				styleClass="select" styleId="parentId" value="${ parentGroup.id }"
 				onchange="showGroup(this.value,document.getElementById('id').value)">
-				<html:option value="">
-					<bean:message key="groups.listParent" />
-				</html:option>
+				<html:option value="" />
 				<c:forEach var="socialGroup" items="${allGroups}">
 					<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
 				</c:forEach>
@@ -50,9 +48,7 @@
 		<td colspan="3"><html:select property="socialEntityId"
 				styleClass="select" styleId="socialEntityId"
 				value="${ masterGroup.id }">
-				<html:option value="" disabled="true">
-					<bean:message key="groups.listMember" />
-				</html:option>
+				<html:option value="" disabled="true" />
 				<c:forEach var="socialEntity" items="${allMembers}">
 					<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
 				</c:forEach>

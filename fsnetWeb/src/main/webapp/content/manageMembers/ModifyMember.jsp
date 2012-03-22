@@ -58,9 +58,7 @@
 						<td colspan="3"><html:select property="parentId"
 								styleClass="select" value="${ sessionScope.group.id }"
 								styleId="parentId">
-								<html:option value="" disabled="true">
-									<bean:message key="groups.listGroup" />
-								</html:option>
+								<html:option value="" disabled="true"/>
 								<c:forEach var="socialGroup" items="${sessionScope.allGroups}">
 									<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
 								</c:forEach>
