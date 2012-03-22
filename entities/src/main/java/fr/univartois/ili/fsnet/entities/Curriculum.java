@@ -44,10 +44,10 @@ public class Curriculum implements Serializable {
 	@ManyToMany(cascade=CascadeType.REMOVE)
 	private List<HobbiesCV> hobs = new ArrayList<HobbiesCV>();
 
-	@OneToMany (mappedBy="curriculum")
+	@OneToMany (mappedBy="curriculum",cascade=CascadeType.REMOVE)
 	private List<AssociationDateTrainingCV> trains = new ArrayList<AssociationDateTrainingCV>();
 
-	@OneToMany(mappedBy = "curriculum")
+	@OneToMany(mappedBy = "curriculum",cascade=CascadeType.REMOVE)
 	private List<AssociationDateDegreeCV> degs = new ArrayList<AssociationDateDegreeCV>();
 
 	public Curriculum() {

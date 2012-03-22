@@ -35,8 +35,8 @@ import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.facade.CvFacade;
 
 /**
- * @author fsnet
- *
+ * @author aich ayoub
+ * 
  */
 public class GenerateCv extends MappingDispatchAction {
 	private static SimpleDateFormat formatter = new SimpleDateFormat(
@@ -72,16 +72,19 @@ public class GenerateCv extends MappingDispatchAction {
 
 		Paragraph prefaceNom = new Paragraph(curriculum.getMember()
 				.getFirstName() + " " + curriculum.getMember().getSurname());
-		
+
 		Paragraph prefaceSex = new Paragraph(curriculum.getMember().getSex());
 
 		Paragraph prefaceAdresse = new Paragraph(curriculum.getMember()
 				.getAdress() + "", particularFont);
-        
-		Paragraph prefacePays = new Paragraph(curriculum.getMember().getTown(), particularFont);
-		
-		Paragraph prefacecodePostale = new Paragraph(Integer.toString(curriculum.getMember().getPostCode()), particularFont);
-		
+
+		Paragraph prefacePays = new Paragraph(curriculum.getMember().getTown(),
+				particularFont);
+
+		Paragraph prefacecodePostale = new Paragraph(
+				Integer.toString(curriculum.getMember().getPostCode()),
+				particularFont);
+
 		Paragraph prefaceEmail = new Paragraph(
 				curriculum.getMember().getMail(), particularFont);
 
@@ -91,10 +94,8 @@ public class GenerateCv extends MappingDispatchAction {
 		Paragraph prefaceBirthday = new Paragraph(dateToString(curriculum
 				.getMember().getBirthDate()), particularFont);
 
-		Paragraph prefaceSituation = new Paragraph(curriculum.getMember().getSituationFamilly(), particularFont);
-		
-	
-		
+		Paragraph prefaceSituation = new Paragraph(curriculum.getMember()
+				.getSituationFamilly(), particularFont);
 
 		document.add(prefaceNom);
 		document.add(prefaceSex);
@@ -178,24 +179,25 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		if(curriculum.getTrains().size()!=0){
-		document.add(styleSection("Expériences Professionnelles"));
-		for (int i = 0; i < curriculum.getTrains().size(); i++) {
+		if (curriculum.getTrains().size() != 0) {
+			document.add(styleSection("Expériences Professionnelles"));
+			for (int i = 0; i < curriculum.getTrains().size(); i++) {
 
-			overview.add(curriculum.getTrains().get(i).getIdTraining()
-					.getName()
-					+ " à "
-					+ curriculum.getTrains().get(i).getIdTraining().getMyEst()
-							.getName()
-					+ " du "
-					+ dateToString(curriculum.getTrains().get(i).getStartDate())
-					+ " au "
-					+ dateToString(curriculum.getTrains().get(i).getEndDate()));
+				overview.add(curriculum.getTrains().get(i).getIdTraining()
+						.getName()
+						+ " à "
+						+ curriculum.getTrains().get(i).getIdTraining()
+								.getMyEst().getName()
+						+ " du "
+						+ dateToString(curriculum.getTrains().get(i)
+								.getStartDate())
+						+ " au "
+						+ dateToString(curriculum.getTrains().get(i)
+								.getEndDate()));
 
-		}
-		
-		
-		document.add(overview);
+			}
+
+			document.add(overview);
 		}
 
 	}
@@ -211,18 +213,19 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		document.add(styleSection("Diplômes"));
+		if (curriculum.getDegs().size() != 0) {
+			document.add(styleSection("Diplômes"));
 
-		for (int i = 0; i < curriculum.getDegs().size(); i++) {
-			overview.add(curriculum.getDegs().get(i).getDegree()
-					.getStudiesLevel()
-					+ " du "
-					+ curriculum.getDegs().get(i).getStartDate()
-					+ " au " + curriculum.getDegs().get(i).getEndDate());
+			for (int i = 0; i < curriculum.getDegs().size(); i++) {
+				overview.add(curriculum.getDegs().get(i).getDegree()
+						.getStudiesLevel()
+						+ " du "
+						+ curriculum.getDegs().get(i).getStartDate()
+						+ " au " + curriculum.getDegs().get(i).getEndDate());
 
+			}
+			document.add(overview);
 		}
-		document.add(overview);
-
 	}
 
 	// add the tirth section
@@ -236,21 +239,23 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		document.add(styleSection("Formation"));
 
-		for (int i = 0; i < curriculum.getMyFormations().size(); i++) {
+		if (curriculum.getMyFormations().size() != 0) {
+			document.add(styleSection("Formation"));
 
-			overview.add(curriculum.getMyFormations().get(i).getIdFormation()
-					.getName()
-					+ " obtenu à "
-					+ curriculum.getMyFormations().get(i).getObtainedDate()
-					+ " à "
-					+ curriculum.getMyFormations().get(i).getIdFormation()
-							.getEts().getName());
+			for (int i = 0; i < curriculum.getMyFormations().size(); i++) {
 
+				overview.add(curriculum.getMyFormations().get(i)
+						.getIdFormation().getName()
+						+ " obtenu à "
+						+ curriculum.getMyFormations().get(i).getObtainedDate()
+						+ " à "
+						+ curriculum.getMyFormations().get(i).getIdFormation()
+								.getEts().getName());
+
+			}
+			document.add(overview);
 		}
-		document.add(overview);
-
 	}
 
 	// add the fourth section
@@ -263,21 +268,25 @@ public class GenerateCv extends MappingDispatchAction {
 	public static void addfifthSection(Document document, Curriculum curriculum)
 			throws DocumentException {
 		List overview = new List(false, 10);
-		document.add(styleSection("Langues"));
 
-		@SuppressWarnings("rawtypes")
-		Iterator iterator = curriculum.getMember().getLanguages().entrySet()
-				.iterator();
-		while (iterator.hasNext()) {
+		if (curriculum.getMember().getLanguages().size() != 0) {
+			document.add(styleSection("Langues"));
+
 			@SuppressWarnings("rawtypes")
-			Map.Entry entry = (Map.Entry) iterator.next();
-			String key = (String) entry.getKey();
-			String value = (String) entry.getValue();
-			overview.add(key + "     niveau: " + value);
+			Iterator iterator = curriculum.getMember().getLanguages()
+					.entrySet().iterator();
+			while (iterator.hasNext()) {
+				@SuppressWarnings("rawtypes")
+				Map.Entry entry = (Map.Entry) iterator.next();
+				String key = (String) entry.getKey();
+				String value = (String) entry.getValue();
+				overview.add(key + "     niveau: " + value);
 
+			}
+
+			document.add(overview);
 		}
 
-		document.add(overview);
 	}
 
 	// add the fifth section
@@ -290,12 +299,14 @@ public class GenerateCv extends MappingDispatchAction {
 	public static void addfourthSection(Document document, Curriculum curriculum)
 			throws DocumentException {
 		List overview = new List(false, 10);
-		document.add(styleSection("Loisirs"));
-		for (int i = 0; i < curriculum.getHobs().size(); i++) {
-			overview.add(curriculum.getHobs().get(i).getName());
+		if (curriculum.getHobs().size() != 0) {
+			document.add(styleSection("Loisirs"));
+			for (int i = 0; i < curriculum.getHobs().size(); i++) {
+				overview.add(curriculum.getHobs().get(i).getName());
 
+			}
+			document.add(overview);
 		}
-		document.add(overview);
 	}
 
 	// Style of Section
