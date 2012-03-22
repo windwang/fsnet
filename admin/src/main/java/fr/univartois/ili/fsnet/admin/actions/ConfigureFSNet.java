@@ -33,6 +33,7 @@ import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
 import fr.univartois.ili.fsnet.commons.mail.FSNetMailer;
 import fr.univartois.ili.fsnet.commons.mail.Mail;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
+import fr.univartois.ili.fsnet.entities.Consultation;
 import fr.univartois.ili.fsnet.entities.Interaction;
 import fr.univartois.ili.fsnet.entities.InteractionGroups;
 import fr.univartois.ili.fsnet.entities.Property;
@@ -612,12 +613,13 @@ public class ConfigureFSNet extends MappingDispatchAction {
 							.getSingleResult();
 
 					query = em
-							.createQuery("SELECT i FROM Interaction i WHERE i.creator = :creator", Interaction.class);
+							.createQuery("SELECT i FROM Interaction i WHERE i.creator = :creator", Consultation.class);
 					query.setParameter("creator", entity);
 					List<Interaction> interact = query.getResultList();
 
 					if (interact.size() > 0) {
 						for (Interaction interaction2 : interact) {
+						
 							InteractionGroups test = new InteractionGroups(
 									interaction2, socialGroup);
 							em.persist(test);							
