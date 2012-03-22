@@ -308,21 +308,19 @@
 	</table>
 </fieldset>
 
-
-<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		$.datepicker.setDefaults($.datepicker.regional['fr']);
 		$.datepicker.setDefaults($.extend({
-			minDate : 0,
+			minDate : "+0D",
 			dateFormat : 'dd/mm/yy',
-			showOn : 'button',
+			showOn : 'both',
 			buttonImage : 'images/calendar.gif',
 			buttonImageOnly : true,
 			showMonthAfterYear : false
 		}));
 
-		$("#deadline").datepicker($.datepicker.regional['fr']);
+		$("#deadline").datepicker();
 
 		if ($("#YES_NO_IFNECESSARY").attr('checked')) {
 			$("#consultationIfNecessaryWeight").attr("disabled", false);

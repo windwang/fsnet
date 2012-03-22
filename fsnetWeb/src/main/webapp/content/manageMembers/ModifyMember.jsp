@@ -194,8 +194,6 @@
 <c:set var="paginatorTile" value="interestsMember" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
 
-<script type="text/javascript" src="js/jquery-ui-1.7.2.custom.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$.datepicker.setDefaults($.datepicker.regional['fr']);

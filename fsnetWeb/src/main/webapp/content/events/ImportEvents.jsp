@@ -8,7 +8,6 @@
 
 <link type="text/css" href="css/jquery.qtip.css" rel="stylesheet" />
 
-<script type="text/javascript" src="js/jquery-ui-1.8.17.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery.qtip.js"></script>
 
 <div id=formImportEvent>
