@@ -5,12 +5,10 @@
 <html>
 <head>
 <meta charset="utf-8"/>
-<meta content="initial-scale=1, minimum-scale=1, width=device-width"
-
-	name="viewport"/>
+<meta content="initial-scale=1, minimum-scale=1, width=device-width"	name="viewport"/>
 
 <title><bean:message key="error-404.title" /></title>
-<LINK REL=StyleSheet HREF="css/error-404.css" TYPE="text/css" MEDIA=screen/>
+<link rel="StyleSheet" href="css/error-404.css" type="text/css" media="screen"/>
 
 </head>
 <body>

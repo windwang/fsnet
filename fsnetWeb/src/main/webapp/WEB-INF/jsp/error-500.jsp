@@ -4,11 +4,11 @@
 <%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean" %>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="utf-8"/>
 <meta content="initial-scale=1, minimum-scale=1, width=device-width"
-	name="viewport">
+	name="viewport"/>
 <title><bean:message key="error-500.title"/></title>
-<LINK REL=StyleSheet HREF="css/error-500.css" TYPE="text/css" MEDIA=screen>
+<LINK REL="StyleSheet" HREF="css/error-500.css" TYPE="text/css" MEDIA="screen"/>
 </head>
 <body>
 
