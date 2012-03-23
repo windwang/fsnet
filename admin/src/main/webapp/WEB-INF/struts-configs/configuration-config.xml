@@ -33,7 +33,7 @@
 			<form-property name="KeyFacebook" type="java.lang.String" />
 		</form-bean>
 	</form-beans>
-	
+
 	<action-mappings>
 		<action path="/SendTestMail"
 			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet" input="/EditConfiguration.do"
@@ -89,13 +89,22 @@
 			parameter="createInteractionGroupTable" validate="false" scope="request">
 			<forward name="success" path="/EditConfiguration.do"></forward>
 		</action>
-		
-		<action path="/CreateInteractionGroupDataWithOldRecord" name="UpdateDBForm"
+
+
+		<action path="/CreateInteractionGroupDataWithOldRecordOfConsultation" name="UpdateDBForm"
 			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
-			parameter="createInteractionGroupDataWithOldRecord" validate="false" scope="request">
+			parameter="createInteractionGroupDataWithOldRecordOfConsultation" validate="false"
+			scope="request">
 			<forward name="success" path="/EditConfiguration.do"></forward>
 		</action>
 
+		<action path="/CreateInteractionGroupDataWithOldRecordOfAnnounce" name="UpdateDBForm"
+			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
+			parameter="createInteractionGroupDataWithOldRecordOfAnnounce" validate="false"
+			scope="request">
+			<forward name="success" path="/EditConfiguration.do"></forward>
+		</action>
+		
 		<action path="/AddColorColumnInSocialGroup" name="UpdateDBForm"
 			type="fr.univartois.ili.fsnet.admin.actions.ConfigureFSNet"
 			parameter="addColorColumnInSocialGroup" validate="false" scope="request">

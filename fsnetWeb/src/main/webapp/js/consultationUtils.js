@@ -82,6 +82,11 @@ function valideGroupToConsulation() {
 	}
 }
 
+function valideGroupToAnnounce(){
+	valideGroupToConsulation();
+	return true;
+}
+
 function validateConsultation() {
 
 	valideGroupToConsulation();

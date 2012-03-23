@@ -12,10 +12,7 @@
 				<bean:message key="cv.title.experiences" />
 			</legend>
 
-			<div id="experiences">
-				<ul class="listeExperience fieldsetTable">
-				</ul>
-			</div>
+			<table id="experiences" class="listeExperience inLineTable fieldsetTableAppli"></table>
 
 			<div class="addExpTable">
 				<table class="inLineTable fieldsetTableAppli">
@@ -106,11 +103,8 @@
 				</legend>
 			</div>
 
-			<div id="diplome">
-				<ul class="listeDiplome fieldsetTable">
-				</ul>
-			</div>
-
+			<table id="diplome" class="listeDiplome inLineTable fieldsetTableAppli"></table>
+			
 			<div class="addDiplTable">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
@@ -217,11 +211,8 @@
 				</legend>
 			</div>
 
-			<div id="formation">
-				<ul class="listeFormation fieldsetTable">
-				</ul>
-			</div>
-
+			<table id="formation" class="listeFormation inLineTable fieldsetTableAppli"></table>
+			
 			<div class="addFormTable">
 				<table class="inLineTable fieldsetTableAppli">
 					<tr>
@@ -295,10 +286,7 @@
 				</legend>
 			</div>
 
-			<div id="loisir">
-				<ul class="listeLoisir fieldsetTable">
-				</ul>
-			</div>
+			<table id="loisir" class="listeLoisir inLineTable fieldsetTableAppli"></table>
 
 			<div class="addLoisirTable">
 				<table class="inLineTable fieldsetTableAppli">
@@ -340,10 +328,7 @@
 				</legend>
 			</div>
 
-			<div id="Langue">
-				<ul class="listeLangues fieldsetTable">
-				</ul>
-			</div>
+			<table id="langue" class="listeLangues inLineTable fieldsetTableAppli"></table>
 
 			<div class="addLangueTable">
 				<table class="inLineTable fieldsetTableAppli">

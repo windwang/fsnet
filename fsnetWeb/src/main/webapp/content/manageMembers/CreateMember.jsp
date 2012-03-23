@@ -14,8 +14,7 @@
 	<legend class="legendHome">
 		<bean:message key="members.create" />
 	</legend>
-	<table id="CreateMember"
-		class="inLineTable fieldsetTableAppli">
+	<table id="CreateMember" class="inLineTable fieldsetTableAppli">
 		<html:form action="/CreateMember">
 
 			<tr>
@@ -51,14 +50,12 @@
 			</tr>
 
 			<tr>
-				<td><label for="parentId"> <bean:message key="members.group" />
+				<td><label for="parentId"> <bean:message
+							key="members.group" />
 				</label></td>
 				<td colspan="3"><html:select property="parentId"
 						styleClass="select" styleId="parentId">
-
-						<html:option value="" disabled="true">
-							<bean:message key="groups.listGroup" />
-						</html:option>
+						<html:option value="" disabled="true" />
 						<c:forEach var="socialGroup" items="${sessionScope.allGroups}">
 							<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
 						</c:forEach>
@@ -77,7 +74,8 @@
 			</tr>
 
 			<tr>
-				<td><label for="typePassword2"> <bean:message key="members.definePassword" />
+				<td><label for="typePassword2"> <bean:message
+							key="members.definePassword" />
 				</label></td>
 				<td><html:radio property="typePassword" styleId="typePassword2"
 						value="definePassword" onclick="definePasword()" /></td>
@@ -103,7 +101,7 @@
 					</div></td>
 			</tr>
 
-			<%@ include file="SamePartForMember.jsp" %>
+			<%@ include file="SamePartForMember.jsp"%>
 		</html:form>
 	</table>
 </fieldset>

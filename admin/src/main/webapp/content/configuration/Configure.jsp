@@ -326,13 +326,33 @@
 <fieldset class="fieldsetAdmin">
 	<legend class="legendAdmin">
 		<bean:message
-			key="configure.title.createInteractionGroupDataWithOldRecord" />
+			key="configure.title.createInteractionGroupDataWithOldRecordOfConsultation" />
 	</legend>
 
 	<table class="inLineTable fieldsetTableAdmin">
 		<tr>
 			<td><html:form enctype="multipart/form-data"
-					action="/CreateInteractionGroupDataWithOldRecord">
+					action="/CreateInteractionGroupDataWithOldRecordOfConsultation">
+					<div>
+						<html:submit styleClass="button">
+							<bean:message key="configure.button.submit" />
+						</html:submit>
+					</div>
+				</html:form></td>
+		</tr>
+	</table>
+</fieldset>
+
+<fieldset class="fieldsetAdmin">
+	<legend class="legendAdmin">
+		<bean:message
+			key="configure.title.createInteractionGroupDataWithOldRecordOfAnnounce" />
+	</legend>
+
+	<table class="inLineTable fieldsetTableAdmin">
+		<tr>
+			<td><html:form enctype="multipart/form-data"
+					action="/CreateInteractionGroupDataWithOldRecordOfAnnounce">
 					<div>
 						<html:submit styleClass="button">
 							<bean:message key="configure.button.submit" />

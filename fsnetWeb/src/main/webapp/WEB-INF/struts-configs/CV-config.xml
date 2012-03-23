@@ -71,9 +71,9 @@
 			<forward name="unauthorized" path="InfoProfileCv" />
 		</action>
 		<action path="/CreateCv3" type="fr.univartois.ili.fsnet.actions.ManageCV"
-			input="/DisplayProfile.do" scope="request" name="CVForm" validate="true"
+			input="/DisplayCV.do" scope="request" name="CVForm" validate="true"
 			parameter="displayExp">
-			<forward name="success" path="/DisplayProfile.do" />
+			<forward name="success" path="/DisplayCV.do" />
 
 		</action>
 
@@ -87,9 +87,9 @@
 			validate="true" parameter="download">
 		</action>
 		
-		<action path="/DeleteCv" name="DeleteCvForm" type="fr.univartois.ili.fsnet.actions.DeleteCv"
-			validate="true" parameter="deleteCv">
-			<forward name="success" path="/DisplayCV.do" />
+		<action path="/DeleteCv" name="DeleteCvForm" type="fr.univartois.ili.fsnet.actions.ManageCV"
+			validate="true" parameter="delete" input="/DisplayCV.do">
+			<forward name="failed" path="/DisplayCV.do" />
 		</action>
 
 	</action-mappings>

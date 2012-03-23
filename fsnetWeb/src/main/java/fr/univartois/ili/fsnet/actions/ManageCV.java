@@ -48,7 +48,7 @@ public class ManageCV extends MappingDispatchAction {
 
 	private static final String SUCCESS_ACTION_NAME = "success";
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
-	
+
 	private static final String CV_TITLE_FIELD_FORM_NAME = "cvTitle";
 	private static final String CV_FIRSTNAME_FIELD_FORM_NAME = "cvFirstname";
 	private static final String CV_SURNAME_FIELD_FORM_NAME = "cvSurname";
@@ -61,10 +61,10 @@ public class ManageCV extends MappingDispatchAction {
 	private static final String CV_BIRTHDAY_FIELD_FORM_NAME = "cvBirthDay";
 	private static final String CV_SITUATION_FIELD_FORM_NAME = "cvSituation";
 	private static final String CV_SEX_FIELD_FORM_NAME = "cvSexe";
-	
+
 	private static final String CV_LANG_NAME_FIELD_FORM_NAME = "cvLangName";
 	private static final String CV_LANG_LEVEL_FIELD_FORM_NAME = "cvLangLevel";
-	
+
 	private static final String CV_EXP_FIRM_NAME_FIELD_FORM_NAME = "cvExpFirmName";
 	private static final String CV_EXP_JOB_FIELD_FORM_NAME = "cvExpJob";
 	private static final String CV_EXP_BEGIN_DATE_NAME_FIELD_FORM_NAME = "cvExpBeginDate";
@@ -72,13 +72,13 @@ public class ManageCV extends MappingDispatchAction {
 	private static final String CV_EXP_COUNTRY_FIELD_FORM_NAME = "cvExpCountry";
 	private static final String CV_EXP_CITY_FIELD_FORM_NAME = "cvExpCity";
 	private static final String CV_EXP_DOMAIN_FIELD_FORM_NAME = "cvExpDomain";
-	
+
 	private static final String CV_TRAINING_NAME_FIELD_FORM_NAME = "cvTrainingName";
 	private static final String CV_TRAINING_INSTITUTION_NAME_FIELD_FORM_NAME = "cvTrainingInstitution";
 	private static final String CV_TRAINING_COUNTRY_FIELD_FORM_NAME = "cvTrainingCountry";
 	private static final String CV_TRAINING_OBTAINING_DATE_FIELD_FORM_NAME = "cvTrainingObtainingDate";
 	private static final String CV_TRAINING_CITY_FIELD_FORM_NAME = "cvTrainingCity";
-	
+
 	private static final String CV_DEGREE_NAME_FIELD_FORM_NAME = "cvDegreeName";
 	private static final String CV_DEGREE_DOMAIN_FIELD_FORM_NAME = "cvDegreeDomain";
 	private static final String CV_DEGREE_SCHOOL_FIELD_FORM_NAME = "cvDegreeSchool";
@@ -86,9 +86,9 @@ public class ManageCV extends MappingDispatchAction {
 	private static final String CV_DEGREE_CITY_FIELD_FORM_NAME = "cvDegreeCity";
 	private static final String CV_DEGREE_BEGIN_DATE_FIELD_FORM_NAME = "cvDegreeBeginDate";
 	private static final String CV_DEGREE_END_DATE_FIELD_FORM_NAME = "cvDegreeEndDate";
-	
+
 	private static final String CV_HOBBY_NAME_FIELD_FORM_NAME = "cvHobbyName";
-	
+
 	private static SimpleDateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 
@@ -161,82 +161,91 @@ public class ManageCV extends MappingDispatchAction {
 		mysession.setAttribute(CV_COUNTRY_FIELD_FORM_NAME, cvPays);
 		mysession.setAttribute(CV_MAIL_FIELD_FORM_NAME, cvContact);
 		mysession.setAttribute(CV_BIRTHDAY_FIELD_FORM_NAME, birthDay);
-		mysession
-				.setAttribute(CV_SITUATION_FIELD_FORM_NAME, request.getParameter("situation"));
-		mysession.setAttribute(CV_SEX_FIELD_FORM_NAME, request.getParameter("sexe"));
+		mysession.setAttribute(CV_SITUATION_FIELD_FORM_NAME,
+				request.getParameter("situation"));
+		mysession.setAttribute(CV_SEX_FIELD_FORM_NAME,
+				request.getParameter("sexe"));
 
 		ActionErrors errors = new ActionErrors();
 		int erreur = 0;
 
 		if ("".equals(cvTitle)) {
-			errors.add(CV_TITLE_FIELD_FORM_NAME, new ActionMessage("error.titre"));
+			errors.add(CV_TITLE_FIELD_FORM_NAME, new ActionMessage(
+					"error.titre"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
 
 		if ("".equals(cvPortable)) {
-			errors.add(CV_PHONE_FIELD_FORM_NAME, new ActionMessage("error.portable"));
+			errors.add(CV_PHONE_FIELD_FORM_NAME, new ActionMessage(
+					"error.portable"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
-		
+
 		if ("".equals(cvNom)) {
-			errors.add(CV_FIRSTNAME_FIELD_FORM_NAME, new ActionMessage("error.nom"));
+			errors.add(CV_FIRSTNAME_FIELD_FORM_NAME, new ActionMessage(
+					"error.nom"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
-		
+
 		if ("".equals(cvPrenom)) {
-			errors.add(CV_SURNAME_FIELD_FORM_NAME, new ActionMessage("error.prenom"));
+			errors.add(CV_SURNAME_FIELD_FORM_NAME, new ActionMessage(
+					"error.prenom"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
-		
+
 		if ("".equals(cvAdresse)) {
-			errors.add(CV_ADDRESS_FIELD_FORM_NAME, new ActionMessage("error.adresse"));
+			errors.add(CV_ADDRESS_FIELD_FORM_NAME, new ActionMessage(
+					"error.adresse"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
-		
+
 		if ("".equals(cvVille)) {
-			errors.add(CV_CITY_FIELD_FORM_NAME, new ActionMessage("error.ville"));
+			errors.add(CV_CITY_FIELD_FORM_NAME,
+					new ActionMessage("error.ville"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
 		if ("".equals(birthDay)) {
-			errors.add(CV_BIRTHDAY_FIELD_FORM_NAME, new ActionMessage("error.birthDay"));
+			errors.add(CV_BIRTHDAY_FIELD_FORM_NAME, new ActionMessage(
+					"error.birthDay"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
 
 		if ("".equals(cvPays)) {
-			errors.add(CV_COUNTRY_FIELD_FORM_NAME, new ActionMessage("error.pays"));
+			errors.add(CV_COUNTRY_FIELD_FORM_NAME, new ActionMessage(
+					"error.pays"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
-		
+
 		if ("".equals(cvContact)) {
-			errors.add(CV_MAIL_FIELD_FORM_NAME, new ActionMessage("error.contact"));
+			errors.add(CV_MAIL_FIELD_FORM_NAME, new ActionMessage(
+					"error.contact"));
 			saveErrors(request, errors);
 			erreur = 1;
 		}
-		
+
 		if ("".equals(cvCp)) {
 			errors.add(CV_CP_FIELD_FORM_NAME, new ActionMessage("error.cp"));
 			saveErrors(request, errors);
 			erreur = 1;
-		}
-		
-		if (!"".equals(cvCp)) {
+		} else {
 			try {
 				Integer.parseInt(cvCp);
 			} catch (Exception e) {
-				errors.add(CV_CP_FIELD_FORM_NAME, new ActionMessage("error.cpInt"));
+				errors.add(CV_CP_FIELD_FORM_NAME, new ActionMessage(
+						"error.cpInt"));
 				saveErrors(request, errors);
 				erreur = 1;
 			}
 		}
-		
+
 		try {
 			toDBDateFormat(birthDay);
 		} catch (Exception e) {
@@ -266,11 +275,11 @@ public class ManageCV extends MappingDispatchAction {
 			throws ParseException {
 		request.getSession().removeAttribute("action");
 		try {
-			int nbExp = Integer.parseInt(request.getParameter("nbexp"));
-			int nbfrom = Integer.parseInt(request.getParameter("nbform"));
-			int nblangue = Integer.parseInt(request.getParameter("nblangue"));
-			int nbloisir = Integer.parseInt(request.getParameter("nbloisir"));
-			int nbdip = Integer.parseInt(request.getParameter("nbdip"));
+			int nbExp = Integer.parseInt(request.getParameter("nbExp"));
+			int nbForm = Integer.parseInt(request.getParameter("nbForm"));
+			int nbLang = Integer.parseInt(request.getParameter("nbLang"));
+			int nbHobby = Integer.parseInt(request.getParameter("nbHobbie"));
+			int nbDegree = Integer.parseInt(request.getParameter("nbDegree"));
 
 			Curriculum curriculum = new Curriculum();
 
@@ -286,34 +295,44 @@ public class ManageCV extends MappingDispatchAction {
 			} catch (Exception e) {
 
 			}
-			
-			member.setFirstName((String) mysession.getAttribute(CV_FIRSTNAME_FIELD_FORM_NAME));
-			member.setSurname((String) mysession.getAttribute(CV_SURNAME_FIELD_FORM_NAME));
-			member.setNumberPhone((String) mysession.getAttribute(CV_PHONE_FIELD_FORM_NAME));
-			member.setMail((String) mysession.getAttribute(CV_MAIL_FIELD_FORM_NAME));
-			member.setTown((String) mysession.getAttribute(CV_COUNTRY_FIELD_FORM_NAME));
-			member.setAdress((String) mysession.getAttribute(CV_ADDRESS_FIELD_FORM_NAME));
+
+			member.setFirstName((String) mysession
+					.getAttribute(CV_FIRSTNAME_FIELD_FORM_NAME));
+			member.setSurname((String) mysession
+					.getAttribute(CV_SURNAME_FIELD_FORM_NAME));
+			member.setNumberPhone((String) mysession
+					.getAttribute(CV_PHONE_FIELD_FORM_NAME));
+			member.setMail((String) mysession
+					.getAttribute(CV_MAIL_FIELD_FORM_NAME));
+			member.setTown((String) mysession
+					.getAttribute(CV_COUNTRY_FIELD_FORM_NAME));
+			member.setAdress((String) mysession
+					.getAttribute(CV_ADDRESS_FIELD_FORM_NAME));
 			member.setPostCode(Integer.parseInt((String) mysession
 					.getAttribute(CV_CP_FIELD_FORM_NAME)));
 			member.setSituationFamilly((String) mysession
 					.getAttribute(CV_SITUATION_FIELD_FORM_NAME));
-			member.setSex((String) mysession.getAttribute(CV_SEX_FIELD_FORM_NAME));
-			
+			member.setSex((String) mysession
+					.getAttribute(CV_SEX_FIELD_FORM_NAME));
+
 			// Insert langs
 			int lang = 0;
 			HashMap<String, String> languages = new HashMap<String, String>();
-			while (lang < nblangue) {
-				String cvNameLang = request.getParameter(CV_LANG_NAME_FIELD_FORM_NAME + lang);
-				String cvLevelLang = request.getParameter(CV_LANG_LEVEL_FIELD_FORM_NAME + lang);
+			while (lang < nbLang) {
+				String cvNameLang = request
+						.getParameter(CV_LANG_NAME_FIELD_FORM_NAME + lang);
+				String cvLevelLang = request
+						.getParameter(CV_LANG_LEVEL_FIELD_FORM_NAME + lang);
 				languages.put(cvNameLang, cvLevelLang);
 				lang++;
 			}
-			SocialEntity mem = UserUtils.getAuthenticatedUser(request, em); 
+			SocialEntity mem = UserUtils.getAuthenticatedUser(request, em);
 			member.setLanguages(languages);
 			em.getTransaction().begin();
 			em.persist(member);
 			curriculum.setMember(member);
-			curriculum.setTitleCv((String) mysession.getAttribute(CV_TITLE_FIELD_FORM_NAME));
+			curriculum.setTitleCv((String) mysession
+					.getAttribute(CV_TITLE_FIELD_FORM_NAME));
 
 			// Insert professional experiences
 			int i = 0;
@@ -326,19 +345,23 @@ public class ManageCV extends MappingDispatchAction {
 				String nomEntreprise = request
 						.getParameter(CV_EXP_FIRM_NAME_FIELD_FORM_NAME + i);
 
-				String cvPoste = request.getParameter(CV_EXP_JOB_FIELD_FORM_NAME + i);
+				String cvPoste = request
+						.getParameter(CV_EXP_JOB_FIELD_FORM_NAME + i);
 				try {
 					Date expBeginDate = toDBDateFormat(request
-							.getParameter(CV_EXP_BEGIN_DATE_NAME_FIELD_FORM_NAME + i));
+							.getParameter(CV_EXP_BEGIN_DATE_NAME_FIELD_FORM_NAME
+									+ i));
 					Date expEndDate = toDBDateFormat(request
-							.getParameter(CV_EXP_END_DATE_NAME_FIELD_FORM_NAME + i));
+							.getParameter(CV_EXP_END_DATE_NAME_FIELD_FORM_NAME
+									+ i));
 
 					dateTaining.setStartDate(expBeginDate);
 					dateTaining.setEndDate(expEndDate);
 				} catch (Exception e) {
 
 				}
-				String cvSecteur = request.getParameter(CV_EXP_DOMAIN_FIELD_FORM_NAME + i);
+				String cvSecteur = request
+						.getParameter(CV_EXP_DOMAIN_FIELD_FORM_NAME + i);
 				etab.setName(nomEntreprise);
 				etab.setLand(CV_EXP_COUNTRY_FIELD_FORM_NAME + i);
 				etab.setTown(CV_EXP_CITY_FIELD_FORM_NAME + i);
@@ -366,23 +389,28 @@ public class ManageCV extends MappingDispatchAction {
 
 			// Insert trainings
 			int f = 0;
-			while (f < nbfrom) {
+			while (f < nbForm) {
 
 				AssociationDateFormationCV dateFormation = new AssociationDateFormationCV();
 				FormationCV formation = new FormationCV();
 				EstablishmentCV etab = new EstablishmentCV();
-				String cvFormation = request.getParameter(CV_TRAINING_NAME_FIELD_FORM_NAME + f);
+				String cvFormation = request
+						.getParameter(CV_TRAINING_NAME_FIELD_FORM_NAME + f);
 				String cvEtablissmentform = request
-						.getParameter(CV_TRAINING_INSTITUTION_NAME_FIELD_FORM_NAME + f);
-				String cvFormPays = request.getParameter(CV_TRAINING_COUNTRY_FIELD_FORM_NAME + f);
+						.getParameter(CV_TRAINING_INSTITUTION_NAME_FIELD_FORM_NAME
+								+ f);
+				String cvFormPays = request
+						.getParameter(CV_TRAINING_COUNTRY_FIELD_FORM_NAME + f);
 				try {
 					Date dateObtention = toDBDateFormat(request
-							.getParameter(CV_TRAINING_OBTAINING_DATE_FIELD_FORM_NAME + f));
+							.getParameter(CV_TRAINING_OBTAINING_DATE_FIELD_FORM_NAME
+									+ f));
 					dateFormation.setObtainedDate(dateObtention);
 				} catch (Exception e) {
 
 				}
-				String cvFormVille = request.getParameter(CV_TRAINING_CITY_FIELD_FORM_NAME + f);
+				String cvFormVille = request
+						.getParameter(CV_TRAINING_CITY_FIELD_FORM_NAME + f);
 
 				etab.setName(cvEtablissmentform);
 				etab.setTown(cvFormVille);
@@ -407,26 +435,32 @@ public class ManageCV extends MappingDispatchAction {
 
 			// Insert degrees
 			int d = 0;
-			while (d < nbdip) {
+			while (d < nbDegree) {
 				DegreeCV degree = new DegreeCV();
 				AssociationDateDegreeCV dateDegreeCV = new AssociationDateDegreeCV();
 				EstablishmentCV etabCv = new EstablishmentCV();
-				String cvEtude = request.getParameter(CV_DEGREE_NAME_FIELD_FORM_NAME + d);
-				String cvEtudeDom = request.getParameter(CV_DEGREE_DOMAIN_FIELD_FORM_NAME + d);
-				String cvEtablissment = request.getParameter(CV_DEGREE_SCHOOL_FIELD_FORM_NAME
-						+ d);
-				String cvEtudePays = request.getParameter(CV_DEGREE_COUNTRY_FIELD_FORM_NAME + d);
-				String cvEtudeVille = request.getParameter(CV_DEGREE_CITY_FIELD_FORM_NAME + d);
+				String cvEtude = request
+						.getParameter(CV_DEGREE_NAME_FIELD_FORM_NAME + d);
+				String cvEtudeDom = request
+						.getParameter(CV_DEGREE_DOMAIN_FIELD_FORM_NAME + d);
+				String cvEtablissment = request
+						.getParameter(CV_DEGREE_SCHOOL_FIELD_FORM_NAME + d);
+				String cvEtudePays = request
+						.getParameter(CV_DEGREE_COUNTRY_FIELD_FORM_NAME + d);
+				String cvEtudeVille = request
+						.getParameter(CV_DEGREE_CITY_FIELD_FORM_NAME + d);
 				try {
 					Date etudBeginDate = toDBDateFormat(request
-							.getParameter(CV_DEGREE_BEGIN_DATE_FIELD_FORM_NAME + d));
+							.getParameter(CV_DEGREE_BEGIN_DATE_FIELD_FORM_NAME
+									+ d));
 					Date etudEndDate = toDBDateFormat(request
-							.getParameter(CV_DEGREE_END_DATE_FIELD_FORM_NAME + d));
+							.getParameter(CV_DEGREE_END_DATE_FIELD_FORM_NAME
+									+ d));
 
 					dateDegreeCV.setStartDate(etudBeginDate);
 					dateDegreeCV.setEndDate(etudEndDate);
 				} catch (Exception e) {
-
+					System.out.println("------");
 				}
 				degree.setStudiesLevel(cvEtude);
 				degree.setDomain(cvEtudeDom);
@@ -452,9 +486,10 @@ public class ManageCV extends MappingDispatchAction {
 
 			// Insert hobbies
 			int l = 0;
-			while (l < nbloisir) {
+			while (l < nbHobby) {
 				HobbiesCV loisir = new HobbiesCV();
-				String cvNomLoisir = request.getParameter(CV_HOBBY_NAME_FIELD_FORM_NAME + l);
+				String cvNomLoisir = request
+						.getParameter(CV_HOBBY_NAME_FIELD_FORM_NAME + l);
 				loisir.setName(cvNomLoisir);
 				em.persist(loisir);
 				curriculum.getHobs().add(loisir);
@@ -522,11 +557,41 @@ public class ManageCV extends MappingDispatchAction {
 
 		CvFacade cvfacade = new CvFacade(em);
 		List<Curriculum> results = cvfacade.listAllCv(mem.getId());
-		
+
 		em.close();
 
 		request.setAttribute("CVsList", results);
 
 		return mapping.findForward(SUCCESS_ACTION_NAME);
+	}
+
+	/**
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public ActionForward delete(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		EntityManager em = PersistenceProvider.createEntityManager();
+
+		try {
+			long id = Integer.parseInt(request.getParameter("idCv"));
+			CvFacade cvFacade = new CvFacade(em);
+			Curriculum curriculum = cvFacade.getCurriculum(id);
+			em.getTransaction().begin();
+			em.remove(curriculum);
+			em.getTransaction().commit();
+		} catch (NumberFormatException e) {
+			return mapping.getInputForward();
+		} finally {
+			em.close();
+		}
+
+		return mapping.getInputForward();
 	}
 }
