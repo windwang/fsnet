@@ -79,84 +79,11 @@
 <!-- Custom color style by group-->
 <style type="text/css">
 body {
-	background: -webkit-gradient(linear, left top, left bottom, from(#${ color
-}
-),
-to
-(white))
- 
-no-repeat
-;
-
-	
-background
-:
- 
--webkit-linear-gradient
-(top
-,
-#${
-color
-}
-,
-white
-)
- 
-no-repeat
-;
-
-	
-background
-:
- 
--moz-linear-gradient
-(top
-,
-#${
-color
-}
-,
-white
-)
- 
-no-repeat
-;
-
-	
-background
-:
- 
--o-linear-gradient
-(top
-,
-#${
-color
-}
-,
-white
-)
- 
-no-repeat
-;
-
-	
-background
-:
- 
-linear-gradient
-(top
-,
-#${
-color
-}
-,
-white
-)
- 
-no-repeat
-;
-	
-
+	background: -webkit-gradient(linear, left top, left bottom, from(#${color}),to(white)) no-repeat;
+	background: -webkit-linear-gradient(top,#${color},white) no-repeat;
+	background: -moz-linear-gradient(top,#${color},white) no-repeat;
+	background: -o-linear-gradient(top,#${color},white) no-repeat;
+	background: linear-gradient(top,#${color},white) no-repeat;	
 }
 </style>
 
