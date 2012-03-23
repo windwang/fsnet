@@ -29,7 +29,8 @@ import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
+import fr.univartois.ili.fsnet.actions.utils.TableHeader;
+import fr.univartois.ili.fsnet.actions.utils.HeaderFooter;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.facade.CvFacade;
@@ -179,7 +180,7 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		if (curriculum.getTrains().size() != 0) {
+		if(curriculum.getTrains().size()!=0){
 			document.add(styleSection("Expériences Professionnelles"));
 			for (int i = 0; i < curriculum.getTrains().size(); i++) {
 
@@ -213,7 +214,7 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		if (curriculum.getDegs().size() != 0) {
+		if(curriculum.getDegs().size()!=0){
 			document.add(styleSection("Diplômes"));
 
 			for (int i = 0; i < curriculum.getDegs().size(); i++) {
@@ -240,7 +241,7 @@ public class GenerateCv extends MappingDispatchAction {
 
 		List overview = new List(false, 10);
 
-		if (curriculum.getMyFormations().size() != 0) {
+		if(curriculum.getMyFormations().size()!=0){
 			document.add(styleSection("Formation"));
 
 			for (int i = 0; i < curriculum.getMyFormations().size(); i++) {
@@ -269,7 +270,7 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 		List overview = new List(false, 10);
 
-		if (curriculum.getMember().getLanguages().size() != 0) {
+		if(curriculum.getMember().getLanguages().size()!=0){
 			document.add(styleSection("Langues"));
 
 			@SuppressWarnings("rawtypes")
@@ -299,7 +300,7 @@ public class GenerateCv extends MappingDispatchAction {
 	public static void addfourthSection(Document document, Curriculum curriculum)
 			throws DocumentException {
 		List overview = new List(false, 10);
-		if (curriculum.getHobs().size() != 0) {
+		if(curriculum.getHobs().size()!=0){
 			document.add(styleSection("Loisirs"));
 			for (int i = 0; i < curriculum.getHobs().size(); i++) {
 				overview.add(curriculum.getHobs().get(i).getName());
@@ -357,7 +358,11 @@ public class GenerateCv extends MappingDispatchAction {
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
 			PdfWriter.getInstance(document, baos);
-
+//			HeaderFooter event=new HeaderFooter();
+//			PdfWriter.getInstance(document, baos).setPageEvent(event);
+//			
+//			TableHeader event1 = new TableHeader();
+//			PdfWriter.getInstance(document, baos).setPageEvent(event1); 
 			document.open();
 
 			addParticulars(document, curriculum);
