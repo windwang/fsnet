@@ -13,14 +13,12 @@
 		class="tablesorter inLineTable fieldsetTableAppli">
 		<thead>
 			<tr>
-				<th></th>
-				<th><bean:message key="tableheader.cvname" /></th>
+				<th colspan="3"><bean:message key="tableheader.cvname" /></th>
 			</tr>
 		</thead>
 		<tbody>
 			<c:forEach var="cv" items="${requestScope.CVsList}">
 				<tr>
-					<td></td>
 					<td>${cv.titleCv }</td>
 					<td><html:form action="/GenerateCv">
 							<input type="hidden" name="idCv" value="${cv.id }" />
