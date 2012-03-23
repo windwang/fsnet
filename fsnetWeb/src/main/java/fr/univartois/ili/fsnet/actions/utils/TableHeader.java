@@ -45,15 +45,15 @@ public class TableHeader extends PdfPageEventHelper {
      */
     public void onEndPage(PdfWriter writer, Document document) {
         PdfPTable table = new PdfPTable(1);
-        Font sectionFont = new Font(Font.FontFamily.HELVETICA, 14,
+        Font sectionFont = new Font(Font.FontFamily.HELVETICA, 18,
     			Font.BOLD, BaseColor.WHITE);
         try {
-            //table.setWidths(new int[]{24, 24, 2});
+            
             table.setTotalWidth(595);
             table.setLockedWidth(true);
             table.getDefaultCell().setFixedHeight(40);
             table.getDefaultCell().setBorder(Rectangle.BOTTOM);
-            //table.addCell(header);
+           
             table.getDefaultCell().setHorizontalAlignment(Element.ALIGN_RIGHT);
             PdfPCell cell = new PdfPCell (new Paragraph ("Fiche de Compétences",sectionFont));
             cell.setBackgroundColor(BaseColor.LIGHT_GRAY);
@@ -65,7 +65,7 @@ public class TableHeader extends PdfPageEventHelper {
             PdfPCell cell1 = new PdfPCell(Image.getInstance(total));
             cell1.setBorder(Rectangle.BOTTOM);
             cell1.setBackgroundColor(BaseColor.ORANGE);
-            //table.addCell(cell);
+            
             table.writeSelectedRows(0, -1, 0, 845, writer.getDirectContent());
         }
         catch(DocumentException de) {

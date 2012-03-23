@@ -26,6 +26,7 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.List;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
@@ -43,8 +44,11 @@ public class GenerateCv extends MappingDispatchAction {
 	private static SimpleDateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 
-	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
-			Font.BOLD, BaseColor.DARK_GRAY);
+	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 26,
+			Font.BOLD, BaseColor.BLUE);
+	
+	private static Font NameFont = new Font(Font.FontFamily.TIMES_ROMAN,
+			16, Font.BOLDITALIC, BaseColor.BLACK);
 
 	private static Font particularFont = new Font(Font.FontFamily.TIMES_ROMAN,
 			12, Font.NORMAL, BaseColor.BLACK);
@@ -72,9 +76,9 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException, MalformedURLException, IOException {
 
 		Paragraph prefaceNom = new Paragraph(curriculum.getMember()
-				.getFirstName() + " " + curriculum.getMember().getSurname());
+				.getFirstName() + " " + curriculum.getMember().getSurname(),NameFont);
 
-		Paragraph prefaceSex = new Paragraph(curriculum.getMember().getSex());
+		Paragraph prefaceSex = new Paragraph(curriculum.getMember().getSex(),particularFont);
 
 		Paragraph prefaceAdresse = new Paragraph(curriculum.getMember()
 				.getAdress() + "", particularFont);
@@ -218,9 +222,10 @@ public class GenerateCv extends MappingDispatchAction {
 			document.add(styleSection("Diplômes"));
 
 			for (int i = 0; i < curriculum.getDegs().size(); i++) {
-				overview.add(curriculum.getDegs().get(i).getDegree()
-						.getStudiesLevel()
-						+ " du "
+				overview.add("Niveau d'études: "+curriculum.getDegs().get(i).getDegree()
+						.getStudiesLevel()+", Etablissement: "+
+						curriculum.getDegs().get(i).getDegree().getEts().getName()
+						+ " Dilplôme obtenu du "
 						+ curriculum.getDegs().get(i).getStartDate()
 						+ " au " + curriculum.getDegs().get(i).getEndDate());
 
@@ -346,7 +351,7 @@ public class GenerateCv extends MappingDispatchAction {
 		long id = Integer.parseInt(request.getParameter("idCv"));
 		CvFacade cvFacade = new CvFacade(em);
 		Curriculum curriculum = cvFacade.getCurriculum(id);
-
+		PdfWriter writer;
 		try {
 
 			String text = request.getParameter("text");
@@ -357,12 +362,13 @@ public class GenerateCv extends MappingDispatchAction {
 			Document document = new Document();
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			PdfWriter.getInstance(document, baos);
-//			HeaderFooter event=new HeaderFooter();
-//			PdfWriter.getInstance(document, baos).setPageEvent(event);
-//			
-//			TableHeader event1 = new TableHeader();
-//			PdfWriter.getInstance(document, baos).setPageEvent(event1); 
+			writer=PdfWriter.getInstance(document, baos);
+			writer.setBoxSize("art", new Rectangle(36, 54, 559, 810));
+			HeaderFooter eventFooter=new HeaderFooter();
+			writer.setPageEvent(eventFooter);
+			
+			TableHeader eventHeader = new TableHeader();
+			writer.setPageEvent(eventHeader); 
 			document.open();
 
 			addParticulars(document, curriculum);
