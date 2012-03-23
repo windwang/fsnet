@@ -26,10 +26,12 @@ import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
 import com.itextpdf.text.List;
 import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
-
+import fr.univartois.ili.fsnet.actions.utils.TableHeader;
+import fr.univartois.ili.fsnet.actions.utils.HeaderFooter;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.facade.CvFacade;
@@ -42,8 +44,11 @@ public class GenerateCv extends MappingDispatchAction {
 	private static SimpleDateFormat formatter = new SimpleDateFormat(
 			"dd/MM/yyyy");
 
-	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 18,
-			Font.BOLD, BaseColor.DARK_GRAY);
+	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 26,
+			Font.BOLD, BaseColor.BLUE);
+	
+	private static Font NameFont = new Font(Font.FontFamily.TIMES_ROMAN,
+			16, Font.BOLDITALIC, BaseColor.BLACK);
 
 	private static Font particularFont = new Font(Font.FontFamily.TIMES_ROMAN,
 			12, Font.NORMAL, BaseColor.BLACK);
@@ -71,9 +76,9 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException, MalformedURLException, IOException {
 
 		Paragraph prefaceNom = new Paragraph(curriculum.getMember()
-				.getFirstName() + " " + curriculum.getMember().getSurname());
+				.getFirstName() + " " + curriculum.getMember().getSurname(),NameFont);
 
-		Paragraph prefaceSex = new Paragraph(curriculum.getMember().getSex());
+		Paragraph prefaceSex = new Paragraph(curriculum.getMember().getSex(),particularFont);
 
 		Paragraph prefaceAdresse = new Paragraph(curriculum.getMember()
 				.getAdress() + "", particularFont);
@@ -179,7 +184,7 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		if (curriculum.getTrains().size() != 0) {
+		if(curriculum.getTrains().size()!=0){
 			document.add(styleSection("Expériences Professionnelles"));
 			for (int i = 0; i < curriculum.getTrains().size(); i++) {
 
@@ -213,13 +218,14 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		if (curriculum.getDegs().size() != 0) {
+		if(curriculum.getDegs().size()!=0){
 			document.add(styleSection("Diplômes"));
 
 			for (int i = 0; i < curriculum.getDegs().size(); i++) {
-				overview.add(curriculum.getDegs().get(i).getDegree()
-						.getStudiesLevel()
-						+ " du "
+				overview.add("Niveau d'études: "+curriculum.getDegs().get(i).getDegree()
+						.getStudiesLevel()+", Etablissement: "+
+						curriculum.getDegs().get(i).getDegree().getEts().getName()
+						+ " Dilplôme obtenu du "
 						+ curriculum.getDegs().get(i).getStartDate()
 						+ " au " + curriculum.getDegs().get(i).getEndDate());
 
@@ -240,7 +246,7 @@ public class GenerateCv extends MappingDispatchAction {
 
 		List overview = new List(false, 10);
 
-		if (curriculum.getMyFormations().size() != 0) {
+		if(curriculum.getMyFormations().size()!=0){
 			document.add(styleSection("Formation"));
 
 			for (int i = 0; i < curriculum.getMyFormations().size(); i++) {
@@ -269,7 +275,7 @@ public class GenerateCv extends MappingDispatchAction {
 			throws DocumentException {
 		List overview = new List(false, 10);
 
-		if (curriculum.getMember().getLanguages().size() != 0) {
+		if(curriculum.getMember().getLanguages().size()!=0){
 			document.add(styleSection("Langues"));
 
 			@SuppressWarnings("rawtypes")
@@ -299,7 +305,7 @@ public class GenerateCv extends MappingDispatchAction {
 	public static void addfourthSection(Document document, Curriculum curriculum)
 			throws DocumentException {
 		List overview = new List(false, 10);
-		if (curriculum.getHobs().size() != 0) {
+		if(curriculum.getHobs().size()!=0){
 			document.add(styleSection("Loisirs"));
 			for (int i = 0; i < curriculum.getHobs().size(); i++) {
 				overview.add(curriculum.getHobs().get(i).getName());
@@ -345,7 +351,7 @@ public class GenerateCv extends MappingDispatchAction {
 		long id = Integer.parseInt(request.getParameter("idCv"));
 		CvFacade cvFacade = new CvFacade(em);
 		Curriculum curriculum = cvFacade.getCurriculum(id);
-
+		PdfWriter writer;
 		try {
 
 			String text = request.getParameter("text");
@@ -356,8 +362,13 @@ public class GenerateCv extends MappingDispatchAction {
 			Document document = new Document();
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			PdfWriter.getInstance(document, baos);
-
+			writer=PdfWriter.getInstance(document, baos);
+			writer.setBoxSize("art", new Rectangle(36, 54, 559, 810));
+			HeaderFooter eventFooter=new HeaderFooter();
+			writer.setPageEvent(eventFooter);
+			
+			TableHeader eventHeader = new TableHeader();
+			writer.setPageEvent(eventHeader); 
 			document.open();
 
 			addParticulars(document, curriculum);
