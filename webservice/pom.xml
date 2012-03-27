@@ -3,7 +3,7 @@
 	<parent>
 		<artifactId>fsnet</artifactId>
 		<groupId>fr.univartois.ili.fsnet</groupId>
-		<version>0.8.0</version>
+		<version>0.8.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>webservice</artifactId>
 	<packaging>war</packaging>
@@ -40,17 +40,17 @@
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>facade</artifactId>
-			<version>0.8.0</version>
+			<version>0.8.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>mobile-services</artifactId>
-			<version>0.8.0</version>
+			<version>0.8.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>
 			<artifactId>entities</artifactId>
-			<version>0.8.0</version>
+			<version>0.8.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.sun.xml.ws</groupId>
