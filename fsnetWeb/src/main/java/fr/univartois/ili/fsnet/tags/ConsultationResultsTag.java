@@ -164,7 +164,7 @@ public class ConsultationResultsTag extends TagSupport {
 		}
 		else {
 			nb.add(0.0);
-			this.choices.add(ResourceBundle.getBundle("FSneti18n", pageContext.getRequest().getLocale()).getString("consultation.other"));
+			this.choices.add(ResourceBundle.getBundle("FSneti18n", pageContext.getRequest().getLocale()).getString("consultations.other"));
 			while (votes.hasNext()){
 				vote = votes.next();
 				if (!"".equals(vote.getOther())){
