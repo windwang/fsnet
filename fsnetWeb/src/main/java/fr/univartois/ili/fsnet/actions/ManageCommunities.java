@@ -22,12 +22,10 @@ import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
-import fr.univartois.ili.fsnet.entities.Announcement;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Interest;
 import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.facade.AnnouncementFacade;
 import fr.univartois.ili.fsnet.facade.CommunityFacade;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
 import fr.univartois.ili.fsnet.facade.InterestFacade;
@@ -107,7 +105,6 @@ public class ManageCommunities extends MappingDispatchAction implements
 				ActionErrors actionErrors = new ActionErrors();
 				ActionMessage msg = new ActionMessage(
 						"communities.alreadyExists");
-				// actionErrors.add("createdCommunityName", msg);
 				actionErrors.add(COMMUNITY_NAME_FORM_FIELD_NAME, msg);
 				saveErrors(request, actionErrors);
 			}
@@ -338,9 +335,9 @@ public class ManageCommunities extends MappingDispatchAction implements
 	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
+		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
-			EntityManager em = PersistenceProvider.createEntityManager();
+			
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			addRightToRequest(request);
 			String[] selectedCommunities = (String[]) dynaForm
@@ -365,8 +362,8 @@ public class ManageCommunities extends MappingDispatchAction implements
 			}
 			em.flush();
 			em.getTransaction().commit();
-			em.close();
 		} finally {
+			em.close();
 		}
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
