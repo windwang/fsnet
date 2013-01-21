@@ -796,10 +796,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward exportEventById(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-
+		OutputStream icsOutputStream = null;
+		InputStream icsInputStream = null;
 		try {
-			OutputStream icsOutputStream;
-			InputStream icsInputStream;
 
 			String filePath = request.getSession().getServletContext()
 					.getRealPath("/");
@@ -853,6 +852,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			io.printStackTrace();
 		} catch (net.fortuna.ical4j.model.ValidationException ve) {
 			ve.printStackTrace();
+		} finally {
+			if (icsInputStream != null){
+				icsInputStream.close();
+			}
+			if (icsOutputStream != null){
+				icsOutputStream.close();
+			}
 		}
 
 		return mapping.findForward("success");
@@ -873,10 +879,10 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward exportAllEvent(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
+		OutputStream icsOutputStream = null;
+		InputStream icsInputStream = null;
 		try {
-			OutputStream icsOutputStream;
-			InputStream icsInputStream;
+			
 
 			String filePath = request.getSession().getServletContext()
 					.getRealPath("/");
@@ -928,6 +934,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			io.printStackTrace();
 		} catch (net.fortuna.ical4j.model.ValidationException ve) {
 			ve.printStackTrace();
+		} finally {
+			if (icsInputStream != null){
+				icsInputStream.close();
+			}
+			if (icsOutputStream != null){
+				icsOutputStream.close();
+			}
 		}
 
 		return mapping.findForward("success");
