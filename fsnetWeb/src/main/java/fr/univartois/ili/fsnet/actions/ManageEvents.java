@@ -793,38 +793,34 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward exportEventById(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		OutputStream icsOutputStream = null;
-		InputStream icsInputStream = null;
-		try {
+		
+		String filePath = request.getSession().getServletContext()
+				.getRealPath("/");
+		File icsToCreate = new File(filePath, "calendar_event.ics");
 
-			String filePath = request.getSession().getServletContext()
-					.getRealPath("/");
-
+		try (
+				OutputStream icsOutputStream =  new FileOutputStream(icsToCreate);
+				InputStream icsInputStream = new FileInputStream(icsToCreate)		
+			) {
 			net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
 			calendar.getProperties().add(
 					new ProdId("-//Calendar//Event 1.0//EN"));
 			calendar.getProperties().add(Version.VERSION_2_0);
 			calendar.getProperties().add(CalScale.GREGORIAN);
-
 			EntityManager em = PersistenceProvider.createEntityManager();
-
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
 			MeetingFacade meetingFacade = new MeetingFacade(em);
-
 			em.getTransaction().begin();
 			Meeting event = meetingFacade.getMeeting(Integer.parseInt(eventId));
 
 			VEvent myevent = convertEventToIcalEvent(event);
 
 			calendar.getComponents().add(myevent);
-			File icsToCreate = new File(filePath, "calendar_event.ics");
 
-			icsOutputStream = new FileOutputStream(icsToCreate);
 			CalendarOutputter outputter = new CalendarOutputter();
 			outputter.setValidating(false);
 			outputter.output(calendar, icsOutputStream);
-			icsInputStream = new FileInputStream(icsToCreate);
 
 			response.setContentType("application/octet-stream");
 			response.setHeader("Content-Disposition",
@@ -838,7 +834,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			while ((i = icsInputStream.read()) != -1) {
 				out.write(i);
 			}
-			icsInputStream.close();
 			out.close();
 			em.close();
 		} catch (NumberFormatException nfe) {
@@ -849,13 +844,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			io.printStackTrace();
 		} catch (net.fortuna.ical4j.model.ValidationException ve) {
 			ve.printStackTrace();
-		} finally {
-			if (icsInputStream != null){
-				icsInputStream.close();
-			}
-			if (icsOutputStream != null){
-				icsOutputStream.close();
-			}
 		}
 
 		return mapping.findForward("success");
@@ -876,14 +864,14 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	public ActionForward exportAllEvent(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		OutputStream icsOutputStream = null;
-		InputStream icsInputStream = null;
-		try {
+		String filePath = request.getSession().getServletContext()
+				.getRealPath("/");
+		File icsToCreate = new File(filePath, "calendar_all_event.ics");
+		try(
+				OutputStream icsOutputStream = new FileOutputStream(icsToCreate);
+				InputStream icsInputStream = new FileInputStream(icsToCreate)
+			) {
 			
-
-			String filePath = request.getSession().getServletContext()
-					.getRealPath("/");
-
 			net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
 			calendar.getProperties().add(
 					new ProdId("-//Calendar//Event 1.0//EN"));
@@ -904,13 +892,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				calendar.getComponents().add(myevent);
 			}
 
-			File icsToCreate = new File(filePath, "calendar_all_event.ics");
+			
 
-			icsOutputStream = new FileOutputStream(icsToCreate);
 			CalendarOutputter outputter = new CalendarOutputter();
 			outputter.setValidating(false);
 			outputter.output(calendar, icsOutputStream);
-			icsInputStream = new FileInputStream(icsToCreate);
 
 			response.setContentType("application/octet-stream");
 			response.setHeader("Content-Disposition",
@@ -924,20 +910,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			while ((i = icsInputStream.read()) != -1) {
 				out.write(i);
 			}
-			icsInputStream.close();
 			out.close();
 			em.close();
 		} catch (IOException io) {
 			io.printStackTrace();
 		} catch (net.fortuna.ical4j.model.ValidationException ve) {
 			ve.printStackTrace();
-		} finally {
-			if (icsInputStream != null){
-				icsInputStream.close();
-			}
-			if (icsOutputStream != null){
-				icsOutputStream.close();
-			}
 		}
 
 		return mapping.findForward("success");
