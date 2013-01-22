@@ -41,9 +41,6 @@ import fr.univartois.ili.fsnet.facade.CvFacade;
  * 
  */
 public class GenerateCv extends MappingDispatchAction {
-	private static SimpleDateFormat formatter = new SimpleDateFormat(
-			"dd/MM/yyyy");
-
 	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 26,
 			Font.BOLD, BaseColor.BLUE);
 	
@@ -59,7 +56,7 @@ public class GenerateCv extends MappingDispatchAction {
 	private EntityManager em = PersistenceProvider.createEntityManager();
 
 	public static String dateToString(Date date) {
-		return formatter.format(date);
+		return new SimpleDateFormat("dd/MM/yyyy").format(date);
 
 	}
 
