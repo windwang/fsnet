@@ -699,7 +699,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 		/** Check for right to import events **/
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ACTION_NAME);
 
 	}
 
@@ -846,7 +846,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			ve.printStackTrace();
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/**
@@ -918,7 +918,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			ve.printStackTrace();
 		}
 
-		return mapping.findForward("success");
+		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
 	/**
