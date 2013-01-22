@@ -10,6 +10,7 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -354,12 +355,12 @@ public class ConfigureFSNet extends MappingDispatchAction {
 				mails.put(s.getEmail(), s.getEmail().toLowerCase());
 			}
 
-			for (String s : mails.keySet()) {
+			for (Map.Entry<String, String> entry : mails.entrySet()) {
 				entityManager.getTransaction().begin();
 				Query query = entityManager
 						.createQuery("UPDATE SocialEntity s SET s.email = :newmail WHERE s.email= :oldmail");
-				query.setParameter("newmail", mails.get(s));
-				query.setParameter("oldmail", s);
+				query.setParameter("newmail", entry.getValue());
+				query.setParameter("oldmail", entry.getKey());
 				query.executeUpdate();
 				entityManager.getTransaction().commit();
 			}
