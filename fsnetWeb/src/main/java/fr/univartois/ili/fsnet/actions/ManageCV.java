@@ -89,9 +89,6 @@ public class ManageCV extends MappingDispatchAction {
 
 	private static final String CV_HOBBY_NAME_FIELD_FORM_NAME = "cvHobbyName";
 
-	private static SimpleDateFormat formatter = new SimpleDateFormat(
-			"dd/MM/yyyy");
-
 	/**
 	 * @param sDate
 	 * @return
@@ -99,7 +96,7 @@ public class ManageCV extends MappingDispatchAction {
 	 */
 	public static java.util.Date stringToDate(String sDate)
 			throws ParseException {
-		return formatter.parse(sDate);
+		return new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
 	}
 
 	/**

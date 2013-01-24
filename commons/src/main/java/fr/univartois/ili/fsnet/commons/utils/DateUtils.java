@@ -66,12 +66,6 @@ public final class DateUtils {
 		return today.compareTo(date);
 	}
 
-	private static final DateFormat FORMATTER = new SimpleDateFormat(
-			"dd/MM/yyyy");
-	private static final DateFormat FORMATTER_WITH_HOURS = new SimpleDateFormat(
-			"dd/MM/yyyy HH:mm");
-	
-	
 
 	/**
 	 * Return a string representation of the date icalendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -80,7 +74,7 @@ public final class DateUtils {
 		Date today = calendar.getTime();n parameter
 	 */
 	public static String renderDate(Date date) {
-		return FORMATTER.format(date);
+		return new SimpleDateFormat("dd/MM/yyyy").format(date);
 	}
 
 	/**
@@ -88,7 +82,7 @@ public final class DateUtils {
 	 * 
 	 */
 	public static String renderDateWithHours(Date date) {
-		return FORMATTER_WITH_HOURS.format(date);
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date);
 	}
 	
 

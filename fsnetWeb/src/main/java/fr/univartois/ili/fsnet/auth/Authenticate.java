@@ -8,6 +8,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,13 +30,15 @@ import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
+
+
+
 /**
  * This class represents a servlet that is used in order to authenticate members
- * 
- * @author Mathieu Boniface < mat.boniface {At} gmail.com >
+ *
  */
+@WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
-
 	/**
 	 * 
 	 */
@@ -88,6 +91,7 @@ public class Authenticate extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
+		
 		boolean authenticated = false;
 		String memberMail = req.getParameter("memberMail");
 		String memberPass = req.getParameter("memberPass");

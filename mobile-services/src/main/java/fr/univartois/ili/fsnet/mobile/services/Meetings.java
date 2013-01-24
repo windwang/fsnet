@@ -26,6 +26,7 @@ import fr.univartois.ili.fsnet.mobile.services.model.RestMeetingList;
 public class Meetings {
 
 	private EntityManager em;
+	private static final long DELAY_MULTIPLIER =60000L;
 
 	public Meetings() {
 		em = PersistenceProvider.createEntityManager();
@@ -48,7 +49,7 @@ public class Meetings {
 		Logger.getAnonymousLogger().info(login);
 		
 		Date d = new Date();
-		Date e = new Date(d.getTime()- delay*60000);
+		Date e = new Date(d.getTime()- delay*DELAY_MULTIPLIER);
 		List<RestMeeting> meetings = new ArrayList<RestMeeting>();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		if (sef.isMember(login, password)) {
@@ -80,7 +81,7 @@ public class Meetings {
 			@QueryParam("pwd") String password, //
 			@QueryParam("delay") Integer delay) {		
 		Date d = new Date();
-		Date e = new Date(d.getTime()- delay*60000);
+		Date e = new Date(d.getTime()- delay*DELAY_MULTIPLIER);
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		if (sef.isMember(login, password)) {
 			TypedQuery<Meeting> meetingQuery = em
