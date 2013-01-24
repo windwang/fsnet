@@ -393,9 +393,6 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 							listPrivateMessage, request,
 							"conversationMessages1");
 
-					for (PrivateMessage pag : paginator1.getResultList()) {
-						System.out.println("toto" + pag.getBody());
-					}
 
 					request.setAttribute("conversationMessages", paginator);
 					request.setAttribute("conversationMessages1", paginator1);
