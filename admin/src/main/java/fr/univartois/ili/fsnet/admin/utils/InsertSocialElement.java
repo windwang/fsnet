@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -13,6 +14,8 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 /**
  * Servlet implementation class InsertSocialElement
  */
+
+@WebServlet(displayName="InsertSocialElement", urlPatterns = {"/InsertSocialElement"})
 public class InsertSocialElement extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
