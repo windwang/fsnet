@@ -113,12 +113,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			String encryptedPassword = null;
 			if (inputPassword == null || "".equals(inputPassword)) {
 				definedPassword = Encryption.generateRandomPassword();
-				LOGGER.info("#### Generated Password : " + definedPassword);
+				//LOGGER.info("#### Generated Password : " + definedPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 			} else {
 				definedPassword = inputPassword;
-				LOGGER.info("#### Defined Password : " + inputPassword);
+				//LOGGER.info("#### Defined Password : " + inputPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(inputPassword);
 			}
@@ -221,7 +221,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						socialEntitieInput[2].toLowerCase());
 
 				String definedPassword = Encryption.generateRandomPassword();
-				LOGGER.info("#### Defined Password : " + definedPassword);
+				//LOGGER.info("#### Defined Password : " + definedPassword);
 				String encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 				socialEntity.setPassword(encryptedPassword);
@@ -326,7 +326,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 					socialEntitieInput[2].toLowerCase());
 
 			String definedPassword = Encryption.generateRandomPassword();
-			LOGGER.info("#### Defined Password : " + definedPassword);
+			//LOGGER.info("#### Defined Password : " + definedPassword);
 			String encryptedPassword = Encryption
 					.getEncodedPassword(definedPassword);
 			socialEntity.setPassword(encryptedPassword);
