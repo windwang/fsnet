@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.admin.quartz;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -56,10 +57,9 @@ public class InformEndingConsultationsJob implements Job{
 		HashMap<Consultation, Set<SocialEntity>> EndingConsultations =
 				searchEndingConsultations();
 		if (EndingConsultations != null) {
-			for(Consultation consultation : EndingConsultations.keySet()) {
-				for (SocialEntity socialEntity : (Set<SocialEntity>) EndingConsultations
-						.get(consultation)) {
-					sendInformationMail(consultation, socialEntity);
+			for(Map.Entry<Consultation, Set<SocialEntity>> entry : EndingConsultations.entrySet()) {
+				for (SocialEntity socialEntity : entry.getValue()) {
+					sendInformationMail(entry.getKey(), socialEntity);
 				}
 			}
 		}

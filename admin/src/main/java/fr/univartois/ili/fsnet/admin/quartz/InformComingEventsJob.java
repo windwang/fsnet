@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.admin.quartz;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.Set;
@@ -59,11 +60,10 @@ public class InformComingEventsJob implements Job {
 	private void sendMailForComingEvents() {
 		HashMap<Meeting, Set<SocialEntity>> comingEvents = searchComingEvents();
 		if (comingEvents != null) {
-			for(Meeting meeting : comingEvents.keySet()) {
-				for (SocialEntity socialEntity : (Set<SocialEntity>) comingEvents
-						.get(meeting)) {
-					sendInformationMail(meeting, socialEntity,
-						comingEvents.get(meeting));
+			for(Map.Entry<Meeting, Set<SocialEntity>> entry : comingEvents.entrySet()) {
+				for (SocialEntity socialEntity : entry.getValue()) {
+					sendInformationMail(entry.getKey(), socialEntity,
+						comingEvents.get(entry.getKey()));
 				}
 			}
 		}
