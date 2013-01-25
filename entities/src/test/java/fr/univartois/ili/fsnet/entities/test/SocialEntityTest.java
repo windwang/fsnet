@@ -32,6 +32,7 @@ public class SocialEntityTest {
 
 	@After
 	public void tearDown() {
+		em.close();
 	}
 
 	@Test

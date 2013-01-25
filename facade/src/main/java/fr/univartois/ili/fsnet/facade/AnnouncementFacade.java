@@ -91,7 +91,7 @@ public class AnnouncementFacade {
 		List<Announcement> listAnnounces;
 		listAnnounces = em
 				.createQuery(
-						"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
+						"SELECT a FROM Announcement a WHERE  TYPE(a) = Announcement AND "
 								+ "(a.title LIKE :textSearchAnnounce OR a.content LIKE :textSearchAnnounce) ORDER BY a.endDate DESC",
 						Announcement.class)
 				.setParameter("textSearchAnnounce",
@@ -114,7 +114,7 @@ public class AnnouncementFacade {
 		List<Announcement> listAnnounces;
 		listAnnounces = em
 				.createQuery(
-						"SELECT a FROM Announcement a WHERE  TYPE(a) IN(Announcement) AND "
+						"SELECT a FROM Announcement a WHERE  TYPE(a) = Announcement AND "
 								+ "(a.creationDate >= :lastConnection) ORDER BY a.endDate DESC",
 						Announcement.class)
 				.setParameter("lastConnection", user.getLastConnection())
@@ -135,7 +135,7 @@ public class AnnouncementFacade {
 		List<Announcement> listAnnounces;
 		listAnnounces = em
 				.createQuery(
-						"SELECT a FROM Announcement a WHERE TYPE(a) IN(Announcement) AND a.creator = :member ORDER BY a.endDate DESC",
+						"SELECT a FROM Announcement a WHERE TYPE(a) = Announcement AND a.creator = :member ORDER BY a.endDate DESC",
 						Announcement.class).setParameter("member", user)
 				.getResultList();
 		return listAnnounces;
