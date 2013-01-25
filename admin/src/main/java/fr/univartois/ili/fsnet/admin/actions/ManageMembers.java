@@ -454,20 +454,19 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
-		StringBuilder message = new StringBuilder();
-		personalizedMessage = personalizedMessage.replace(
+		String tmpPersonalizedMessage = personalizedMessage;
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
 				"\"" + bundle.getMessage(locale, "members.name") + "\"", name);
-		personalizedMessage = personalizedMessage.replace(
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
 				"\"" + bundle.getMessage(locale, "members.firstName") + "\"",
 				firstName);
-		personalizedMessage = personalizedMessage.replace(
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
 				"\"" + bundle.getMessage(locale, "members.password") + "\"",
 				password);
-		personalizedMessage = personalizedMessage.replace("\"Email\"", email);
-		personalizedMessage = personalizedMessage.replace("\"url\"",
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"Email\"", email);
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"url\"",
 				addressFsnet);
-		message.append(personalizedMessage);
-		return message.toString();
+		return tmpPersonalizedMessage;
 	}
 
 	/*
