@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -365,7 +364,7 @@ public class ManageInterests extends MappingDispatchAction implements
 				.get("infoInterestId"));
 
 		Interest interest = facade.getInterest(interestId);
-		HashMap<String, List<Interaction>> resultMap = facade
+		Map<String, List<Interaction>> resultMap = facade
 				.getInteractions(interestId);
 		em.close();
 

@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.facade;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -182,9 +183,9 @@ public class InterestFacade {
      *
      * @author Alexandre Lohez <alexandre.lohez at gmail.com>
      */
-    public final HashMap<String, List<Interaction>> getInteractions(
+    public final Map<String, List<Interaction>> getInteractions(
             int interestId) {
-        HashMap<String, List<Interaction>> resultMap = new HashMap<String, List<Interaction>>();
+        Map<String, List<Interaction>> resultMap = new HashMap<String, List<Interaction>>();
         List<Interaction> result = em.createQuery(
                 "SELECT interaction "
                 + "FROM Interaction interaction, IN(interaction.interests) interest "
@@ -228,10 +229,10 @@ public class InterestFacade {
      */
     public final List<Interest> getNonAssociatedInterests(SocialEntity entity) {
         TypedQuery<Interest> query = em.createQuery(
-//                "SELECT DISTINCT interest "
-//                + "FROM Interest interest, SocialEntity entity "
-//                + "WHERE entity = :entity AND entity NOT MEMBER OF interest.entities "
-//                + "ORDER BY interest.name", Interest.class);
+/*                "SELECT DISTINCT interest "
+                + "FROM Interest interest, SocialEntity entity "
+                + "WHERE entity = :entity AND entity NOT MEMBER OF interest.entities "
+                + "ORDER BY interest.name", Interest.class);*/
         		
         		"SELECT DISTINCT interest "
                 + "FROM Interest interest "
