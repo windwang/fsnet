@@ -54,10 +54,10 @@ public class InformEndingConsultationsJob implements Job{
 	 * @return
 	 */
 	private void sendMailForEndingConsultations() {
-		HashMap<Consultation, Set<SocialEntity>> EndingConsultations =
+		Map<Consultation, Set<SocialEntity>> endingConsultations =
 				searchEndingConsultations();
-		if (EndingConsultations != null) {
-			for(Map.Entry<Consultation, Set<SocialEntity>> entry : EndingConsultations.entrySet()) {
+		if (endingConsultations != null) {
+			for(Map.Entry<Consultation, Set<SocialEntity>> entry : endingConsultations.entrySet()) {
 				for (SocialEntity socialEntity : entry.getValue()) {
 					sendInformationMail(entry.getKey(), socialEntity);
 				}
@@ -70,7 +70,7 @@ public class InformEndingConsultationsJob implements Job{
 	 * 
 	 * @return
 	 */
-	private HashMap<Consultation, Set<SocialEntity>> searchEndingConsultations() {
+	private Map<Consultation, Set<SocialEntity>> searchEndingConsultations() {
 		HashMap<Consultation, Set<SocialEntity>> consultationsWithTheirSubscribersHavingNotVoted =
 				new HashMap<Consultation, Set<SocialEntity>>();
 		
@@ -82,14 +82,18 @@ public class InformEndingConsultationsJob implements Job{
 		
 		for(Consultation c : consultationFacade.getConsultationsWhichOccurToday()){
 			Set<SocialEntity> listSocialEntity = new HashSet<SocialEntity>();
-			for(SocialEntity se : socialGroup.getMembersFromGroup(c.getCreator().getGroup()))
-				if(!c.isVoted(se))
+			for(SocialEntity se : socialGroup.getMembersFromGroup(c.getCreator().getGroup())){
+				if(!c.isVoted(se)){
 					listSocialEntity.add(se);
-			if(!listSocialEntity.isEmpty())
+				}
+			}
+			if(!listSocialEntity.isEmpty()){
 				consultationsWithTheirSubscribersHavingNotVoted.put(c,listSocialEntity);
+			}
 		}
-		if(consultationsWithTheirSubscribersHavingNotVoted.isEmpty())
+		if(consultationsWithTheirSubscribersHavingNotVoted.isEmpty()){
 			return null;
+		}
 		
 		return consultationsWithTheirSubscribersHavingNotVoted;
 	}
@@ -133,10 +137,10 @@ public class InformEndingConsultationsJob implements Job{
 		MessageResources bundle = MessageResources
 				.getMessageResources("FSneti18n");
 		StringBuilder sb = new StringBuilder();
+		String br = "<br\\>\n<br\\>";
 
 		sb.append(bundle.getMessage("consultations.mail.deadline"));
-		sb.append("<br\\>");
-		sb.append("<br\\>");
+		sb.append(br);
 		sb.append(bundle.getMessage("consultations.mail.choices") + ":");
 		sb.append("<ol>");
 		
@@ -145,8 +149,7 @@ public class InformEndingConsultationsJob implements Job{
 		}
 		
 		sb.append("</ol>");
-		sb.append("<br\\>");
-		sb.append("<br\\>");
+		sb.append(br);
 		
 		sb.append(bundle.getMessage("consultations.mail.fsnet") + " ");
 		sb.append(fsnetAddress + ".");

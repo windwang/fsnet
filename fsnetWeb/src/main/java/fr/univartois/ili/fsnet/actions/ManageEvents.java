@@ -766,7 +766,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				return mapping.findForward(FAILED_ACTION_NAME);
 			}
 		} catch (ParserException e) {
-			e.printStackTrace();
 			ActionErrors errors = new ActionErrors();
 			errors.add("icsFile", new ActionMessage(
 					("events.import.parseError")));
@@ -837,13 +836,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			out.close();
 			em.close();
 		} catch (NumberFormatException nfe) {
-			nfe.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", nfe);
 		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", fnfe);
 		} catch (IOException io) {
-			io.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", io);
 		} catch (net.fortuna.ical4j.model.ValidationException ve) {
-			ve.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", ve);
 		}
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
@@ -913,9 +912,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			out.close();
 			em.close();
 		} catch (IOException io) {
-			io.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", io);
 		} catch (net.fortuna.ical4j.model.ValidationException ve) {
-			ve.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", ve);
 		}
 
 		return mapping.findForward(SUCCES_ACTION_NAME);
@@ -953,7 +952,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			Uid uid = ug.generateUid();
 			icalEvent.getProperties().add(uid);
 		} catch (SocketException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
 		icalEvent.getProperties().add(summary);
@@ -1039,7 +1038,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			em.close();
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 	}
 

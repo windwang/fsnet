@@ -32,7 +32,7 @@ public class ImageManager {
 	
 	public static void createPicturesForUser(int userId,
 			InputStream incommingPictureInputStream, PictureType pictureType)
-			throws FileNotFoundException, IOException, IllegalStateException {
+			throws IOException, IllegalStateException {
 		BufferedImage incommingPicture = ImageIO
 				.read(incommingPictureInputStream);
 		if (incommingPicture == null) {
@@ -138,7 +138,7 @@ public class ImageManager {
 	private static final int MINIATURE_MAX_WIDTH_OR_HEIGHT = 40;
 
 	private static BufferedImage getProperResizedImage(
-			BufferedImage incommingImage, int maxWidthOrHeight) throws FileNotFoundException, IOException {
+			BufferedImage incommingImage, int maxWidthOrHeight) throws IOException {
 		AffineTransform tx = new AffineTransform();
 		double scaleValue;
 		if (incommingImage.getWidth() > incommingImage.getHeight()) {
@@ -273,7 +273,7 @@ public class ImageManager {
 	}
 	public static void createLogo(Integer groupId,
 			InputStream incommingPictureInputStream, PictureType pictureType)
-			throws FileNotFoundException, IOException, IllegalStateException {
+			throws IOException, IllegalStateException {
 		
 		BufferedImage incommingPicture = ImageIO
 				.read(incommingPictureInputStream);
