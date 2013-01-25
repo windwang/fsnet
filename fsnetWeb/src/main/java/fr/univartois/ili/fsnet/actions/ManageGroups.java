@@ -236,8 +236,9 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 					request.getLocale(), "groups.success.on.modify"));
 			
-			if(user.getGroup().getId() == socialGroupId)
+			if(user.getGroup().getId() == socialGroupId){
 				request.getSession().setAttribute("color", color);
+			}
 			
 			return mapping.findForward(SUCCES_ACTION_NAME);
 		} catch (RollbackException e) {
