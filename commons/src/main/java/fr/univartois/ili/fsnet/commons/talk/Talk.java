@@ -83,10 +83,11 @@ public class Talk implements ITalk,Serializable {
 			}
 			
 			try {
-				if (map == null){
-					map = new HashMap<String, String>();
+				Map<String, String> finalMap = map;
+				if (finalMap == null){
+					finalMap = new HashMap<String, String>();
 				}
-				accountManager.createAccount(userName, password, map);
+				accountManager.createAccount(userName, password, finalMap);
 
 				connection.disconnect();
 				// Thread.sleep(6000);
