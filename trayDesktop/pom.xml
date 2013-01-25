@@ -6,8 +6,9 @@
 		<version>0.8.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>trayDesktop</artifactId>
-	<packaging>jar</packaging>
 	<name>trayDesktop</name>
+	<packaging>jar</packaging>
+	
 	<description>This module is a portable desktop client that notify fsnet users when they receive new notifications/messages</description>
 
 	<build>
