@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.webservice;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.jws.WebMethod;
@@ -19,9 +18,7 @@ import fr.univartois.ili.fsnet.entities.Meeting;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.InteractionFacade;
-import fr.univartois.ili.fsnet.facade.MeetingFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
-import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
 /**
  * This webservice is used by fsnet heavy clients to get informations on new
@@ -33,17 +30,12 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 public class Info {
 
     private EntityManager em;
-    private Date dt;
-    
-    private SocialEntityFacade socialEntityFacade;
-    
     private static final String LOGIN_PARAMETER_NAME = "login";
     private static final String PASSWORD_PARAMETER_NAME = "password";
 
 
     public Info() {
         em = PersistenceProvider.createEntityManager();
-        this.dt = new Date();
     }
 
     // TODO check login and password for each method
@@ -138,7 +130,10 @@ public class Info {
             ql1 = em.createQuery("SELECT s.asked FROM SocialEntity s  where s.id=:member ");
             ql1.setParameter("member", se.getId());
         }
-        return ql1.getResultList().size();
+        if (ql1 != null && ql1.getResultList()!=null){
+        	return ql1.getResultList().size();
+        }
+        return 0;
     }
 
     /**

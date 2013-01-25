@@ -6,6 +6,8 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
@@ -89,9 +91,6 @@ public class ManageCV extends MappingDispatchAction {
 
 	private static final String CV_HOBBY_NAME_FIELD_FORM_NAME = "cvHobbyName";
 
-	private static SimpleDateFormat formatter = new SimpleDateFormat(
-			"dd/MM/yyyy");
-
 	/**
 	 * @param sDate
 	 * @return
@@ -99,7 +98,7 @@ public class ManageCV extends MappingDispatchAction {
 	 */
 	public static java.util.Date stringToDate(String sDate)
 			throws ParseException {
-		return formatter.parse(sDate);
+		return new SimpleDateFormat("dd/MM/yyyy").parse(sDate);
 	}
 
 	/**
@@ -460,7 +459,7 @@ public class ManageCV extends MappingDispatchAction {
 					dateDegreeCV.setStartDate(etudBeginDate);
 					dateDegreeCV.setEndDate(etudEndDate);
 				} catch (Exception e) {
-					System.out.println("------");
+					Logger.getAnonymousLogger().log(Level.WARNING,"", e);
 				}
 				degree.setStudiesLevel(cvEtude);
 				degree.setDomain(cvEtudeDom);

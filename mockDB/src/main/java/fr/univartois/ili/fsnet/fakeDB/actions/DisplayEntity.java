@@ -14,6 +14,7 @@ import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.Type.PersistenceType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +24,7 @@ import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 /**
  * Servlet implementation class DisplayEntity
  */
+@WebServlet(displayName="DisplayEntity", urlPatterns = {"/DisplayEntity"})
 public class DisplayEntity extends HttpServlet {
 
 	/**

@@ -1,5 +1,6 @@
 package fr.univartois.ili.fsnet.core;
 
+import javax.servlet.annotation.WebListener;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
 
@@ -12,6 +13,7 @@ import fr.univartois.ili.fsnet.auth.Logout;
  * 
  * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
+@WebListener
 public class LogoutListener implements HttpSessionListener {
 
 	/**

@@ -26,7 +26,7 @@ import fr.univartois.ili.fsnet.mobile.services.model.RestAnnouncementList;
 public class Announcements {
 
 	private EntityManager em;
-	private static final int DELAY_MULTIPLIER =60000;
+	private static final long DELAY_MULTIPLIER =60000L;
 	
 	public Announcements() {
 		em = PersistenceProvider.createEntityManager();

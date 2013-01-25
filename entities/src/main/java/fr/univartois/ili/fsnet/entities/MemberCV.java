@@ -2,7 +2,7 @@ package fr.univartois.ili.fsnet.entities;
 
 import java.io.Serializable;
 import java.sql.Date;
-import java.util.HashMap;
+import java.util.Map;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,7 +36,7 @@ public class MemberCV implements Serializable {
 	private Date birthDate;
 	private String sex;
 	private String situationFamilly;
-	private HashMap<String,String> languages;
+	private Map<String,String> languages;
 
 	public MemberCV() {
 
@@ -211,7 +211,7 @@ public class MemberCV implements Serializable {
 	/**
 	 * @return the languages
 	 */
-	public HashMap<String,String> getLanguages() {
+	public Map<String,String> getLanguages() {
 		return languages;
 	}
 
@@ -219,7 +219,7 @@ public class MemberCV implements Serializable {
 	 * @param languages
 	 *            the languages to set
 	 */
-	public void setLanguages(HashMap<String,String> languages) {
+	public void setLanguages(Map<String,String> languages) {
 		this.languages = languages;
 	}
 

@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
@@ -58,15 +57,16 @@ public class ManageInterests extends MappingDispatchAction implements
 	public Interest creation(DynaActionForm dynaForm, InterestFacade facade,
 			String interestName, Interest interest, EntityManager em,
 			HttpServletRequest request) {
+		Interest res = null;
 		if (dynaForm.get("parentInterestId") != null
 				&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-			interest = facade.createInterest(interestName,
+			res = facade.createInterest(interestName,
 					Integer.valueOf((String) dynaForm.get("parentInterestId")));
 		} else {
-			interest = facade.createInterest(interestName);
+			res = facade.createInterest(interestName);
 		}
 
-		return interest;
+		return res;
 
 	}
 
@@ -365,7 +365,7 @@ public class ManageInterests extends MappingDispatchAction implements
 				.get("infoInterestId"));
 
 		Interest interest = facade.getInterest(interestId);
-		HashMap<String, List<Interaction>> resultMap = facade
+		Map<String, List<Interaction>> resultMap = facade
 				.getInteractions(interestId);
 		em.close();
 

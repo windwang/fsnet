@@ -230,13 +230,13 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					request, em);
 			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 			em.getTransaction().begin();
-			
+
 			for (int i = 0; i < selectedMessages.length; i++) {
 				PrivateMessage m = pmf.getPrivateMessage(Integer
 						.valueOf(selectedMessages[i]));
 				pmf.deletePrivateMessage(authenticatedUser, m);
 			}
-			
+
 			em.flush();
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
@@ -274,13 +274,13 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		 * 
 		 * request.setAttribute("inBoxMessagesPaginator", paginator);
 		 */
-		
+
 		request.setAttribute("inBoxMessages", userMessages);
 
 		refreshNumNewMessages(request, userMessages);
 		refreshNumNewMessages(request, em);
 		em.close();
-		
+
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 
@@ -300,7 +300,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 		addRightToRequest(request);
-		
+
 		if (form == null) {
 			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
 					authenticatedUser.getSentPrivateMessages());
@@ -311,8 +311,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		} else {
 			servlet.log("ManagePrivateMessage.display must be not ask");
 		}
-		
-		
+
 		em.close();
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
@@ -349,7 +348,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
-		
+
 		try {
 			if (form != null) {
 				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -360,17 +359,23 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 				PrivateMessage privateMessage = pmf
 						.getPrivateMessage(messageId);
-				
-				
-
-				List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
-						pmf.getConversation(privateMessage.getFrom(),
+				if(privateMessage==null){
+					throw new NullPointerException("privateMessage is null");
+				}
+				Collection<PrivateMessage> tmpUserMessages = pmf
+						.getConversation(privateMessage.getFrom(),
 								privateMessage.getSubject(),
-								privateMessage.getTo()));
+								privateMessage.getTo());
+				List<PrivateMessage> userMessages;
+				if (tmpUserMessages == null) {
+					userMessages = new ArrayList<>();
+				} else {
+					userMessages = new ArrayList<>(tmpUserMessages);
+				}
+
 				Collections.reverse(userMessages);
 
-				if (privateMessage != null
-						&& (authenticatedUser.equals(privateMessage.getFrom()) || authenticatedUser
+				if ((authenticatedUser.equals(privateMessage.getFrom()) || authenticatedUser
 								.equals(privateMessage.getTo()))) {
 					if (authenticatedUser.equals(privateMessage.getTo())) {
 						em.getTransaction().begin();
@@ -378,24 +383,21 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 						refreshNumNewMessages(request, em);
 						em.getTransaction().commit();
 					}
-					
-					
+
 					Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(
 							userMessages, request, "conversationMessages");
-					
-					List<PrivateMessage> listPrivateMessage =new ArrayList<PrivateMessage>();
+
+					List<PrivateMessage> listPrivateMessage = new ArrayList<PrivateMessage>();
 					listPrivateMessage.add(privateMessage);
 					Paginator<PrivateMessage> paginator1 = new Paginator<PrivateMessage>(
-							listPrivateMessage	, request, "conversationMessages1");
-					
-					for(PrivateMessage pag : paginator1.getResultList()){
-						System.out.println("toto"+pag.getBody());
-					}
-					
+							listPrivateMessage, request,
+							"conversationMessages1");
+
+
 					request.setAttribute("conversationMessages", paginator);
 					request.setAttribute("conversationMessages1", paginator1);
 					request.setAttribute("theMessage", privateMessage);
-					
+
 					return mapping.findForward(SUCCES_ACTION_NAME);
 				} else {
 					throw new UnauthorizedOperationException(
@@ -403,11 +405,11 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				}
 			}
 		} catch (NumberFormatException e) {
-			
+
 		} finally {
 			em.close();
 		}
-		
+
 		// NEVER HAPPEND
 		return null;
 	}
