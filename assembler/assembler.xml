@@ -8,6 +8,18 @@
 		<format>zip</format>
 	</formats>
 	<includeBaseDirectory>false</includeBaseDirectory>
+	<files>
+		<file>
+			<source>../fsnetAndroid/bin/fsnetAndroid.apk</source>
+			<outputDirectory>/apk/</outputDirectory>
+			<filtered>false</filtered>
+		</file>
+		<!-- <file>
+			<source>../trayDesktop/target/trayDesktop-0.8.1-SNAPSHOT.jar</source>
+			<outputDirectory>/tray/</outputDirectory>
+			<filtered>false</filtered>
+		</file>  -->
+	</files>
 	<dependencySets>
 		<dependencySet>
 			<includes>
@@ -24,7 +36,6 @@
 			</includes>
 			<outputFileNameMapping>${artifact.artifactId}.${artifact.extension}</outputFileNameMapping>
 			<outputDirectory>tray/</outputDirectory>
-			<unpack>false</unpack>
 		</dependencySet>
 		<dependencySet>
 			<includes>
@@ -34,5 +45,13 @@
 			<outputDirectory>lib/</outputDirectory>
 			<unpack>false</unpack>
 		</dependencySet>
+		<!-- <dependencySet> -->
+		<!-- <includes> -->
+		<!-- <include>FsnetAndroid:FsnetAndroid</include> -->
+		<!-- </includes> -->
+		<!-- <outputFileNameMapping>bin/fsnetAndroid.apk</outputFileNameMapping> -->
+		<!-- <outputDirectory>apk/</outputDirectory> -->
+		<!-- <unpack>false</unpack> -->
+		<!-- </dependencySet> -->
 	</dependencySets>
 </assembly>

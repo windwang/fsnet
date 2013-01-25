@@ -35,6 +35,7 @@ public class SocialGroupTest {
 
 	@After
 	public void tearDown() {
+		em.close();
 	}
 
 	@Test
