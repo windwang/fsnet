@@ -57,16 +57,14 @@ public class ManageInterests extends MappingDispatchAction implements
 	public Interest creation(DynaActionForm dynaForm, InterestFacade facade,
 			String interestName, Interest interest, EntityManager em,
 			HttpServletRequest request) {
-		Interest res = null;
+		
 		if (dynaForm.get("parentInterestId") != null
 				&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
-			res = facade.createInterest(interestName,
+			return facade.createInterest(interestName,
 					Integer.valueOf((String) dynaForm.get("parentInterestId")));
 		} else {
-			res = facade.createInterest(interestName);
+			return facade.createInterest(interestName);
 		}
-
-		return res;
 
 	}
 

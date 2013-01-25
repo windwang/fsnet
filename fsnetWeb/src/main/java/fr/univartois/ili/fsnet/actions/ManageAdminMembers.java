@@ -452,7 +452,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
-		String tmpPersonalizedMessage = personalizedMessage;
+		String tmpPersonalizedMessage = new String(personalizedMessage);
 		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
 				"\"" + bundle.getMessage(locale, "members.name") + "\"", name);
 		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
