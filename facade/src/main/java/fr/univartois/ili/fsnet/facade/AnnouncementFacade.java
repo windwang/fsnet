@@ -1,15 +1,12 @@
 package fr.univartois.ili.fsnet.facade;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 
 import fr.univartois.ili.fsnet.entities.Announcement;
-import fr.univartois.ili.fsnet.entities.InteractionGroups;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
-import fr.univartois.ili.fsnet.entities.SocialGroup;
 
 /**
  * @author mickael watrelot - micgamers@gmail.com

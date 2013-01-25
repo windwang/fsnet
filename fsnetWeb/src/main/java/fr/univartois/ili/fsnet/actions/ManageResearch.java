@@ -1,9 +1,9 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import javax.persistence.EntityManager;
@@ -230,7 +230,7 @@ public class ManageResearch extends MappingDispatchAction {
 			SocialGroupFacade sgf = new SocialGroupFacade(em);
 			List<SocialEntity> membersVisibleByCurrentMember = sgf
 					.getPersonsWithWhoMemberCanInteract(member);
-			HashMap<SearchResult, Set<SocialEntity>> results = sef
+			Map<SearchResult, Set<SocialEntity>> results = sef
 					.searchSocialEntity(searchText, member);
 			resultContacts = results.get(SearchResult.Contacts);
 			resultContacts.retainAll(membersVisibleByCurrentMember);

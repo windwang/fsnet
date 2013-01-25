@@ -58,7 +58,7 @@ public class InformComingEventsJob implements Job {
 	 * @return
 	 */
 	private void sendMailForComingEvents() {
-		HashMap<Meeting, Set<SocialEntity>> comingEvents = searchComingEvents();
+		Map<Meeting, Set<SocialEntity>> comingEvents = searchComingEvents();
 		if (comingEvents != null) {
 			for(Map.Entry<Meeting, Set<SocialEntity>> entry : comingEvents.entrySet()) {
 				for (SocialEntity socialEntity : entry.getValue()) {
@@ -74,8 +74,8 @@ public class InformComingEventsJob implements Job {
 	 * 
 	 * @return all coming meetings with their subscribers
 	 */
-	private HashMap<Meeting, Set<SocialEntity>> searchComingEvents() {
-		HashMap<Meeting, Set<SocialEntity>> meetingsWithTheirSubscribers = new
+	private Map<Meeting, Set<SocialEntity>> searchComingEvents() {
+		Map<Meeting, Set<SocialEntity>> meetingsWithTheirSubscribers = new
 				HashMap<Meeting, Set<SocialEntity>>();
 		
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -83,12 +83,12 @@ public class InformComingEventsJob implements Job {
 		em.getTransaction().begin();
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		
-		for(Meeting m : meetingFacade.getMeetingsHavingRecallWhichOccurNow())
+		for(Meeting m : meetingFacade.getMeetingsHavingRecallWhichOccurNow()){
 			meetingsWithTheirSubscribers.put(m,interactionRoleFacade.getSubscribers(m));
-				
-		if(meetingsWithTheirSubscribers.isEmpty())
+		}		
+		if(meetingsWithTheirSubscribers.isEmpty()){
 			return null;
-			
+		}
 		return meetingsWithTheirSubscribers;
 	}
 

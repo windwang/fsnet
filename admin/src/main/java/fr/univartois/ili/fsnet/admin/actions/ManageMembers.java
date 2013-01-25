@@ -113,12 +113,12 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 			String encryptedPassword = null;
 			if (inputPassword == null || "".equals(inputPassword)) {
 				definedPassword = Encryption.generateRandomPassword();
-				LOGGER.info("#### Generated Password : " + definedPassword);
+				//LOGGER.info("#### Generated Password : " + definedPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 			} else {
 				definedPassword = inputPassword;
-				LOGGER.info("#### Defined Password : " + inputPassword);
+				//LOGGER.info("#### Defined Password : " + inputPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(inputPassword);
 			}
@@ -221,7 +221,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 						socialEntitieInput[2].toLowerCase());
 
 				String definedPassword = Encryption.generateRandomPassword();
-				LOGGER.info("#### Defined Password : " + definedPassword);
+				//LOGGER.info("#### Defined Password : " + definedPassword);
 				String encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 				socialEntity.setPassword(encryptedPassword);
@@ -326,7 +326,7 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 					socialEntitieInput[2].toLowerCase());
 
 			String definedPassword = Encryption.generateRandomPassword();
-			LOGGER.info("#### Defined Password : " + definedPassword);
+			//LOGGER.info("#### Defined Password : " + definedPassword);
 			String encryptedPassword = Encryption
 					.getEncodedPassword(definedPassword);
 			socialEntity.setPassword(encryptedPassword);
@@ -454,20 +454,19 @@ public class ManageMembers extends MappingDispatchAction implements CrudAction {
 
 		MessageResources bundle = MessageResources
 				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
-		StringBuilder message = new StringBuilder();
-		personalizedMessage = personalizedMessage.replace(
+		String tmpPersonalizedMessage = personalizedMessage;
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
 				"\"" + bundle.getMessage(locale, "members.name") + "\"", name);
-		personalizedMessage = personalizedMessage.replace(
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
 				"\"" + bundle.getMessage(locale, "members.firstName") + "\"",
 				firstName);
-		personalizedMessage = personalizedMessage.replace(
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
 				"\"" + bundle.getMessage(locale, "members.password") + "\"",
 				password);
-		personalizedMessage = personalizedMessage.replace("\"Email\"", email);
-		personalizedMessage = personalizedMessage.replace("\"url\"",
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"Email\"", email);
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"url\"",
 				addressFsnet);
-		message.append(personalizedMessage);
-		return message.toString();
+		return tmpPersonalizedMessage;
 	}
 
 	/*

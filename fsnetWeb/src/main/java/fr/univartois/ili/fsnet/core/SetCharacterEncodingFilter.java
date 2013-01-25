@@ -25,6 +25,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
+import javax.servlet.annotation.WebInitParam;
 
 
 /**
@@ -56,6 +58,7 @@ import javax.servlet.ServletResponse;
  * @version $Revision: 500674 $ $Date: 2007-01-28 00:15:00 +0100 (Sun, 28 Jan 2007) $
  */
 
+@WebFilter (value="*.do",initParams={@WebInitParam(name="encoding", value="UTF-8"),@WebInitParam(name="ignore", value="false")})
 public class SetCharacterEncodingFilter implements Filter {
 
 

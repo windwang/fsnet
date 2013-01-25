@@ -1,7 +1,8 @@
 package fr.univartois.ili.fsnet.core;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletContextEvent;
+import javax.servlet.ServletContextListener;
+import javax.servlet.annotation.WebListener;
 
 /**
  * This servlet is instantiated by the container at the load of the application.
@@ -10,20 +11,23 @@ import javax.servlet.http.HttpServlet;
  * 
  * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
-public class InitializerServlet extends HttpServlet {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+@WebListener
+public class InitializerServlet implements ServletContextListener {
+
+	@Override
+	public void contextDestroyed(ServletContextEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
 
 	/**
 	 * Put the LoggedUsersContainer singleton in application scope as an
 	 * attribute
 	 */
 	@Override
-	public void init() throws ServletException {
-		getServletContext().setAttribute("loggedUsers",
+	public void contextInitialized(ServletContextEvent s) {
+		s.getServletContext().setAttribute("loggedUsers",
 				LoggedUsersContainer.getInstance());
 	}
 

@@ -400,7 +400,7 @@ public class GenerateCv extends MappingDispatchAction {
 
 			return mapping.findForward("success");
 		} catch (DocumentException e) {
-			throw new IOException(e.getMessage());
+			throw new IOException(e.getMessage(),e);
 		}
 	}
 

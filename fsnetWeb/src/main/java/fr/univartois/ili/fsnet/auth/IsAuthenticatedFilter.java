@@ -10,6 +10,7 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -19,6 +20,8 @@ import javax.servlet.http.HttpSession;
  * 
  * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
+
+@WebFilter ("*.do")
 public class IsAuthenticatedFilter implements Filter {
 
 	private ServletContext servletContext;
@@ -29,6 +32,7 @@ public class IsAuthenticatedFilter implements Filter {
 	public void doFilter(final ServletRequest req,
 			final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
+		
 		HttpSession session;
 
 		RequestDispatcher dispatch;

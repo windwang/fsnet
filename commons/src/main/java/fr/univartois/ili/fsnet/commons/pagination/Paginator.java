@@ -268,7 +268,7 @@ public class Paginator<T> {
 			result = Integer.parseInt((String) request
 					.getParameter(attributeName));
 		} catch (NumberFormatException e) {
-			throw new IllegalArgumentException();
+			throw new IllegalArgumentException(e);
 		}
 		return result;
 	}

@@ -2,6 +2,7 @@ package fr.univartois.ili.fsnet.commons.talk;
 
 import java.util.Collection;
 import java.util.HashMap;
+import java.util.Map;
 
 import org.jivesoftware.smack.RosterListener;
 import org.jivesoftware.smack.packet.Presence;
@@ -13,7 +14,7 @@ import org.jivesoftware.smack.packet.Presence;
  */
 public class RosterListenerImpl implements RosterListener {
 
-	private HashMap<String, String> userStatus = new HashMap<String, String>();
+	private Map<String, String> userStatus = new HashMap<String, String>();
 	private boolean dirty = true;
 
 	/**
@@ -32,9 +33,9 @@ public class RosterListenerImpl implements RosterListener {
 	@Override
 	public void entriesAdded(Collection<String> addresses) {
 		dirty = true;
-//		for (String string : addresses) {
-//			System.out.println(string);
-//		}
+/*		for (String string : addresses) {
+			System.out.println(string);
+		}*/
 	}
 
 	/*
@@ -47,9 +48,9 @@ public class RosterListenerImpl implements RosterListener {
 	@Override
 	public void entriesUpdated(Collection<String> addresses) {
 		dirty = true;
-//		for (String string : addresses) {
-//			System.out.println(string);
-//		}
+/*		for (String string : addresses) {
+			System.out.println(string);
+		}*/
 	}
 
 	/*
@@ -62,9 +63,9 @@ public class RosterListenerImpl implements RosterListener {
 	@Override
 	public void entriesDeleted(Collection<String> addresses) {
 		dirty = true;
-//		for (String string : addresses) {
-//			System.out.println(string);
-//		}
+/*		for (String string : addresses) {
+			System.out.println(string);
+		}*/
 	}
 
 	/*
@@ -102,11 +103,11 @@ public class RosterListenerImpl implements RosterListener {
 		this.dirty = dirty;
 	}
 
-	public HashMap<String, String> getUserStatus() {
+	public Map<String, String> getUserStatus() {
 		return userStatus;
 	}
 
-	public void setUserStatus(HashMap<String, String> userStatus) {
+	public void setUserStatus(Map<String, String> userStatus) {
 		this.userStatus = userStatus;
 	}
 

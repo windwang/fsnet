@@ -6,6 +6,7 @@ import java.util.Date;
 import javax.persistence.EntityManager;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,8 +20,9 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  * 
  * This Servlet is called when a authenticated user wants to log out
  * 
- * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
+
+@WebServlet("/Logout")
 public class Logout extends HttpServlet {
 
 	/**
