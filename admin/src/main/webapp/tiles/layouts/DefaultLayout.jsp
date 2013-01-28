@@ -27,11 +27,12 @@
 
 <link type="text/css" href="css/cupertino/jquery-ui-1.8.18.custom.css"
 	rel="stylesheet" />
-<script type="text/javascript" src="js/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="js/jquery-ui-1.8.18.custom.min.js"></script>
+<script type="text/javascript" src="js/jquery-1.9.0.js"></script>
+<script type="text/javascript" src="js/jquery-migrate-1.0.0.js"></script>
+<script type="text/javascript" src="js/jquery-ui-1.10.0.custom.min.js"></script>
 <script type="text/javascript" src="js/jquery-ui-i18n.min.js"></script>
 <link rel=stylesheet type="text/css" href="css/osx.css" />
-<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="js/jquery.simplemodal.1.4.4.min.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 <script type="text/javascript"
 	src="http://maps.google.com/maps/api/js?sensor=false"></script>

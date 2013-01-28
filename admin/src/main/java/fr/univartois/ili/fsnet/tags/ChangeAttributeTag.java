@@ -1,6 +1,8 @@
 package fr.univartois.ili.fsnet.tags;
 
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.servlet.jsp.JspException;
 import javax.servlet.jsp.JspWriter;
@@ -47,7 +49,7 @@ public class ChangeAttributeTag  extends SimpleTagSupport {
 			out.print("document.getElementById('" + id + "')." + property + "='" + value + "';");
 			out.println("</script>");
 		} catch (IOException e) {
-			e.printStackTrace();
+			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 	}
 }

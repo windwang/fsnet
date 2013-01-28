@@ -2,7 +2,6 @@ package fr.univartois.ili.fsnet.mobile.services;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
@@ -42,7 +41,7 @@ public class Messages {
 	public GenericEntity<RestMessagesList> getNewMessages( //
 			@QueryParam("login") String login, //
 			@QueryParam("pwd") String password) {
-		//Logger.getAnonymousLogger().info(login);
+		
 		List<RestPrivateMessage> messages = new ArrayList<RestPrivateMessage>();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		if (sef.isMember(login, password)) {

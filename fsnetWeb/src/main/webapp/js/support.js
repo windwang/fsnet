@@ -2,13 +2,23 @@ jQuery(function ($) {
 	
 	var support = {
 			message: null,
+			
 		init: function () {
 			$('a#support').click(function (e) {
 				e.preventDefault();
 	
 				// load the contact form using ajax
 				$.get("content/support/support.jsp", function(data){
-					// create a modal dialog with the data
+									
+					//alert(data.length);
+					//jQuery v1.9.0 examines the string to see if it looks like HTML (i.e., it starts with <tag ... >)
+					var index = data.indexOf('<');
+					data=data.substr(index,data.length);
+					// Mozilla Firefox fix
+					if(jQuery.browser.mozilla)
+						data = "<div>" + data + "</div>";
+					
+					// create a modal dialog with the data	
 					$(data).modal({
 						position: ["25%","35%"],
 						overlayId: 'support-overlay',
@@ -55,7 +65,6 @@ jQuery(function ($) {
 			
 		}
 	};
-	
 		support.init();		
 });
 

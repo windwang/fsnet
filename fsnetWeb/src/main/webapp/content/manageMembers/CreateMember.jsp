@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link rel=stylesheet type="text/css" href="css/osx.css" />
-<script type="text/javascript" src="js/jquery.simplemodal.js"></script>
+<script type="text/javascript" src="js/jquery.simplemodal.1.4.4.min.js"></script>
 <script type="text/javascript" src="js/osx.js"></script>
 <script type="text/javascript" src="js/definePassword.js"></script>
 

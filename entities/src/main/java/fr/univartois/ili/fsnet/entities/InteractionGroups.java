@@ -25,14 +25,12 @@ public class InteractionGroups implements Serializable {
 	/**
 	 * The group to which the interaction relates
 	 */
-	@Id
     @ManyToOne
 	private SocialGroup group;
 	
 	/**
 	 * The interaction to which the groups relates
 	 */
-	@Id
     @ManyToOne
 	private Interaction interaction;
 	

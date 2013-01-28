@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.facade;
 
 import java.util.HashMap;
+import java.util.Map;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class SocialEntityFacade {
 	private final EntityManager em;
 
 	private static final String SEARCH_TEXT_PARAMETER_NAME = "searchText";
-	
+
 	/**
 	 *
 	 * @param em
@@ -79,14 +80,14 @@ public class SocialEntityFacade {
 		return null;
 	}
 
-	
+
 	/**
 	 * search Social Entitys having Name Or FirstName Or Email like inputText
 	 * @param searchText the search text
 	 * @param socialEntity the Social Entity who search for others Social Entity
 	 * @return a map of Set of search results (Contacts, Requested, Asked and Others)
 	 */
-	public final HashMap<SearchResult, Set<SocialEntity>> searchSocialEntity(String inputText, SocialEntity socialEntity) {
+	public final Map<SearchResult, Set<SocialEntity>> searchSocialEntity(String inputText, SocialEntity socialEntity) {
 		if (inputText == null || socialEntity == null) {
 			throw new IllegalArgumentException();
 		}
@@ -100,40 +101,40 @@ public class SocialEntityFacade {
 		Set<SocialEntity> resultRequested = new HashSet<SocialEntity>();
 		Set<SocialEntity> resultAsked = new HashSet<SocialEntity>();
 
-		HashMap<SearchResult, Set<SocialEntity>> results = new HashMap<SearchResult, Set<SocialEntity>>();
+		Map<SearchResult, Set<SocialEntity>> results = new HashMap<SearchResult, Set<SocialEntity>>();
 
 		for(String searchText : inputText.split(" ")){
 
 			query = em.createQuery(
 					"SELECT es FROM SocialEntity es WHERE (es.name LIKE :searchText"
-					+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText) AND es.id <> :id AND es.isEnabled = true", SocialEntity.class);
+							+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText) AND es.id <> :id AND es.isEnabled = true", SocialEntity.class);
 			query.setParameter(SEARCH_TEXT_PARAMETER_NAME, "%" + searchText + "%");
 			query.setParameter("id", socialEntity.getId());
 			resultOthers.addAll(query.getResultList());
 
 			queryContacts = em.createQuery(
 					"SELECT e FROM SocialEntity e JOIN e.contacts c WHERE c.id = :id AND (e.name LIKE :searchText"
-					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
+							+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
 			queryContacts.setParameter(SEARCH_TEXT_PARAMETER_NAME, "%" + searchText + "%");
 			queryContacts.setParameter("id", socialEntity.getId());
 			resultContacts.addAll(queryContacts.getResultList());
 
 			queryRequested = em.createQuery(
 					"SELECT e FROM SocialEntity e JOIN e.asked r WHERE r.id = :id AND (e.name LIKE :searchText"
-					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
+							+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
 			queryRequested.setParameter(SEARCH_TEXT_PARAMETER_NAME, "%" + searchText + "%");
 			queryRequested.setParameter("id", socialEntity.getId());
 			resultRequested.addAll(queryRequested.getResultList());
 
 			queryAsked = em.createQuery(
 					"SELECT e FROM SocialEntity e JOIN e.requested r WHERE r.id = :id AND (e.name LIKE :searchText"
-					+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
+							+ " OR e.firstName LIKE :searchText OR e.email LIKE :searchText) AND e.isEnabled = true", SocialEntity.class);
 			queryAsked.setParameter(SEARCH_TEXT_PARAMETER_NAME, "%" + searchText + "%");
 			queryAsked.setParameter("id", socialEntity.getId());
 			resultAsked.addAll(queryAsked.getResultList());
 
 		}
-		
+
 		resultOthers.removeAll(resultContacts);
 		resultOthers.removeAll(resultAsked);
 		resultOthers.removeAll(resultRequested);
@@ -157,18 +158,18 @@ public class SocialEntityFacade {
 		}
 		TypedQuery<SocialEntity> query = null;
 		Set<SocialEntity> results = new HashSet<SocialEntity>();
-		
+
 		for(String searchText : inputText.split(" ")){
 			query = em.createQuery(
 					"SELECT es FROM SocialEntity es WHERE es.name LIKE :searchText"
-					+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText", SocialEntity.class);
+							+ " OR es.firstName LIKE :searchText OR es.email LIKE :searchText", SocialEntity.class);
 			query.setParameter(SEARCH_TEXT_PARAMETER_NAME, "%" + searchText + "%");
 			results.addAll(query.getResultList());
 		}
 
 		return results;
 	}
-	
+
 	/**
 	 * Get all social Entity
 	 * @return the Set of all Social Entities
@@ -177,7 +178,7 @@ public class SocialEntityFacade {
 		TypedQuery<SocialEntity> query = em.createQuery("SELECT es FROM SocialEntity es", SocialEntity.class);
 		return query.getResultList();
 	}
-	
+
 	/**
 	 * Get the user corresponding to the email
 	 * @param email
@@ -188,26 +189,26 @@ public class SocialEntityFacade {
 		query.setParameter("mail", email);
 		return query.getSingleResult();
 	}
-    
-//    /**
-//     * Return the social Entities
-//     * @param socialEntity the Social Entity who is on line
-//     * @return the list of Social Entities 
-//     */
-//    public final List<SocialEntity> getSocialEntities(SocialEntity socialEntity) {
-//        if (socialEntity == null) {
-//            throw new IllegalArgumentException();
-//        }
-//        TypedQuery<SocialEntity> query = null;
-//        List<SocialEntity> results = null;
-//
-//        query = em.createQuery(
-//                "SELECT es FROM SocialEntity es WHERE es.id <> :id", SocialEntity.class);
-//        query.setParameter("id", socialEntity.getId() );
-//        results = query.getResultList();
-//
-//        return results;
-//    }
+
+//	/**
+//	 * Return the social Entities
+//	 * @param socialEntity the Social Entity who is on line
+//	 * @return the list of Social Entities 
+//	 */
+	/*    public final List<SocialEntity> getSocialEntities(SocialEntity socialEntity) {
+        if (socialEntity == null) {
+            throw new IllegalArgumentException();
+        }
+        TypedQuery<SocialEntity> query = null;
+        List<SocialEntity> results = null;
+
+        query = em.createQuery(
+                "SELECT es FROM SocialEntity es WHERE es.id <> :id", SocialEntity.class);
+        query.setParameter("id", socialEntity.getId() );
+        results = query.getResultList();
+
+        return results;
+    }*/
 
 	/**
 	 * add interest in SocialEntity interests
@@ -276,18 +277,18 @@ public class SocialEntityFacade {
 		}
 		return false;
 	}
-	
+
 	public final void switchState(int socialEntityId) {
 		SocialEntity se = getSocialEntity(socialEntityId);
 		se.setIsEnabled(!se.getIsEnabled());
 		em.merge(se);
 		em.flush();
 	}
-	
+
 	public final List<SocialEntity> getAllOrphanMembers() {
 		TypedQuery<SocialEntity> query = em.createQuery(
 				"SELECT se FROM SocialEntity se WHERE se.group IS null", SocialEntity.class);
 		return query.getResultList();
 	}
-	
+
 }
