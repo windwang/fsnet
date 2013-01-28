@@ -106,11 +106,11 @@
 						<td class="miniatureContainer"><ili:getMiniature
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
-						<td class="tableButton"><html:link action="/AcceptContact"
+						<td class="tableButton"><html:link action="/AcceptContactHome"
 								styleClass="button">
 								<html:param name="entityAccepted" value="${contact.id}" />
 								<bean:message key="contact.button.accept" />
-							</html:link> <html:link action="/RefuseContact" styleClass="button">
+							</html:link> <html:link action="/RefuseContactHome" styleClass="button">
 								<html:param name="entityRefused" value="${contact.id}" />
 								<bean:message key="contact.button.refuse" />
 							</html:link></td>
@@ -137,7 +137,7 @@
 							<td class="messagePhoto"><ili:getMiniature
 									socialEntity="${contact}" /></td>
 							<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
-							<td class="tableButton"><html:link action="/ContactDemand">
+							<td class="tableButton"><html:link action="/ContactDemandHome">
 									<img src="images/add.png"
 										alt="<bean:message key='dashBoard.contact.button.add.alt'/>"
 										title="<bean:message key='dashBoard.contact.button.add'/> ${contact.firstName} ${contact.name}" />
