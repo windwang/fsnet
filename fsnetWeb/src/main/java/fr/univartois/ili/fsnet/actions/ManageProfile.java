@@ -124,7 +124,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			SocialEntity se = sef.findByEmail(dynaForm
 					.getString(MAIL_FORM_FIELD_NAME));
 			em.getTransaction().commit();
-			em.close();
+			//em.close();
 
 			if (se != null) {
 				res.add(MAIL_FORM_FIELD_NAME, new ActionMessage(
