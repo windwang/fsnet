@@ -123,10 +123,12 @@
 				
 				<div style="display: none" class="span4 offset1" id="resetPasswordWrapper">
 					<form action="ResetPassword" method="post" class="form-signin">
+					
+						<h3 class="form-signin-heading"> <bean:message key="login.password.forget" /> </h3>
 
 						<input name="memberMail2" type="email" id="memberMail2" placeholder="${logMessage}" />
 						
-						<button class="btn btn-large" type="submit"><bean:message key="login.submit" /></button> 
+						<button class="btn" type="submit"><bean:message key="login.submit" /></button> 
 
 						<a onclick="showLoginForm();"> 
 							<bean:message key="login.authentification" />
