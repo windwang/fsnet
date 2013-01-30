@@ -19,7 +19,7 @@ var language_fr = {
 		"sLast" : "Dernier"
 	},
 	"sEmptyTable" : "Pas de données disponibles pour la table",
-	"sInfo" : "Affichage des élements _START_ à _END_ sur _TOTAL_ éléments",
+	"sInfo" : "Affichage des éléments _START_ à _END_ sur _TOTAL_ éléments",
 	"sInfoEmpty" : "Affichage de l'élement 0 à 0 sur 0 éléments",
 	"sInfoFiltered" : "(filtré de _MAX_ éléments au total)",
 	"sInfoPostFix" : "",

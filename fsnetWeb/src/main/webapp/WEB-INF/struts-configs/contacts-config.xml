@@ -45,15 +45,30 @@
 			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="askContact">
 			<forward name="success" path="/Contacts.do" redirect="true" />
 		</action>
+		
+		<action path="/ContactDemandHome" name="DemandContactForm"
+			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="askContact">
+			<forward name="success" path="/Home.do" redirect="true" />
+		</action>
 
 		<action path="/AcceptContact" name="AcceptContactForm"
 			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="accept">
 			<forward name="success" path="/Contacts.do" redirect="true" />
 		</action>
+		
+		<action path="/AcceptContactHome" name="AcceptContactForm"
+			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="accept">
+			<forward name="success" path="/Home.do" redirect="true" />
+		</action>
 
 		<action path="/RefuseContact" name="RefuseContactForm"
 			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="refuse">
 			<forward name="success" path="/Contacts.do" redirect="true" />
+		</action>
+		
+		<action path="/RefuseContactHome" name="RefuseContactForm"
+			type="fr.univartois.ili.fsnet.actions.ManageContacts" parameter="refuse">
+			<forward name="success" path="/Home.do" redirect="true" />
 		</action>
 
 		<action path="/DeleteContact" name="DeleteContactForm"

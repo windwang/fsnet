@@ -214,7 +214,7 @@ public class InterestFacade {
      */
     public final List<Interest> getOtherInterests(SocialEntity socialEntity) {
         return em.createQuery(
-                "SELECT interest "
+                "SELECT DISTINCT interest "
                 + "FROM SocialEntity soc, IN(soc.contacts) contact, "
                 + "IN(contact.interests) interest "
                 + "WHERE soc = :socialEntity AND interest NOT MEMBER OF soc.interests",Interest.class).setParameter("socialEntity", socialEntity).getResultList();
