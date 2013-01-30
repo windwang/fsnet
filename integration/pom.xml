@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<artifactId>fsnet</artifactId>
+		<version>0.8.1-SNAPSHOT</version>
+		<groupId>fr.univartois.ili.fsnet</groupId>
+	</parent>
+	<artifactId>integration</artifactId>
+	<packaging>war</packaging>
+	<name>FSNet integration module</name>
+	<description>This module is used as integration tests runner</description>
+
+	<properties>
+		<derby.version>10.8.2.2</derby.version>
+		<jetty.version>8.1.8.v20121106</jetty.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+			<version>1.7.2</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.derby</groupId>
+			<artifactId>derby</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.jwebunit</groupId>
+			<artifactId>jwebunit-htmlunit-plugin</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>net.sourceforge.jwebunit</groupId>
+			<artifactId>jwebunit-core</artifactId>
+			<version>3.1</version>
+		</dependency>
+		<dependency>
+			<groupId>com.jolbox</groupId>
+			<artifactId>bonecp</artifactId>
+			<version>0.8.0-rc1</version>
+		</dependency>
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+			<version>1.0.9</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<finalName>${project.artifactId}</finalName>
+		<!-- Enable filtering process on xml files (for jetty configs files) -->
+		<resources>
+			<resource>
+				<directory>src/main/webapp</directory>
+				<filtering>true</filtering>
+				<includes>
+					<include>**/*.xml</include>
+				</includes>
+			</resource>
+			<resource>
+				<directory>src/main/webapp</directory>
+				<filtering>false</filtering>
+				<excludes>
+					<exclude>**/*.xml</exclude>
+				</excludes>
+			</resource>
+		</resources>
+
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<groupId>org.mortbay.jetty</groupId>
+				<artifactId>jetty-maven-plugin</artifactId>
+				<version>${jetty.version}</version>
+				<configuration>
+					<!-- Files configs -->
+					<jettyXml>${project.build.outputDirectory}/WEB-INF/jetty.xml</jettyXml>
+					<scanIntervalSeconds>10</scanIntervalSeconds>
+					<stopKey>foo</stopKey>
+					<stopPort>9999</stopPort>
+				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.apache.derby</groupId>
+						<artifactId>derby</artifactId>
+						<version>${derby.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<id>start-jetty</id>
+						<phase>pre-integration-test</phase>
+						<goals>
+							<goal>run</goal>
+						</goals>
+						<configuration>
+							<scanIntervalSeconds>0</scanIntervalSeconds>
+							<daemon>true</daemon>
+						</configuration>
+					</execution>
+					<execution>
+						<id>stop-jetty</id>
+						<phase>post-integration-test</phase>
+						<goals>
+							<goal>stop</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- configure the Surefire plugin to run integration tests instead of 
+				the running in the normal test phase of the lifecycle -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>surefire-test</id>
+						<phase>test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>true</skip>
+							<excludes>
+								<exclude>**/integration/**</exclude>
+							</excludes>
+						</configuration>
+					</execution>
+					<execution>
+						<phase>integration-test</phase>
+						<goals>
+							<goal>test</goal>
+						</goals>
+						<configuration>
+							<skip>false</skip>
+							<includes>
+								<include>**/integration/**</include>
+							</includes>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+			<!-- Additionale tool -->
+			<plugin>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<source>1.7</source>
+					<target>1.7</target>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>
