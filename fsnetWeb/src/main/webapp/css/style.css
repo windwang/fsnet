@@ -31,7 +31,7 @@ address {
 body {
 	font: .8em "Trebuchet MS", Verdana, Helvetica, sans-serif;
 	color: #666;
-	background: #F7FCFF url(../images/bg.gif) repeat-x;
+	background: #F7FCFF url(../images/bg.png) repeat-x;
 }
 
 a {
@@ -454,4 +454,33 @@ select {
 	text-indent: 5px;
 	font-style: italic;
 	font-weight: bold
+}
+
+#loginWrapper {
+	/*background-color: #D8D8D8 ;*/
+	background-color: #eaf6fd ;
+	-moz-box-shadow: 0px 0px 5px 0px #656565;
+	-webkit-box-shadow: 0px 0px 5px 0px #656565;
+	-o-box-shadow: 0px 0px 5px 0px #656565;
+	box-shadow: 0px 0px 5px 0px #656565;
+	filter:progid:DXImageTransform.Microsoft.Shadow(color=#656565, Direction=NaN, Strength=5);
+	-moz-border-radius: 15px;
+	-webkit-border-radius: 15px;
+	border-radius: 15px;
+	padding: 25px 30px 15px 30px;
+	margin-top : 40px ;
+}
+
+#login-title {
+	margin-top: 40px;
+	margin-bottom: 20px;
+	text-align: center;
+	font-weight: bold;
+	font-size: 300%;
+	padding : 40px ;
+}
+
+#img-logo {
+	margin-left : 20% ;
+	margin-bottom : 60px ;
 }

@@ -17,157 +17,149 @@
 <meta http-equiv="content-type"
 	content="application/xhtml+xml; charset=UTF-8" />
 <title>FSNet - Login</title>
-<link rel="shortcut icon" href="images/Favicon.ico" type="image/vnd.microsoft.icon" />
+<link rel="shortcut icon" href="images/Favicon.ico"
+	type="image/vnd.microsoft.icon" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/fsnet-custom.css" />
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/style.css" />
+<link href="bootstrap/css/bootstrap.min.css" rel="stylesheet"
+	media="screen">
 <script type="text/javascript">
 	
 </script>
 </head>
 <body>
-	<div class="wrap background">
-		<ul id="menuLogin">
-			<li><a href="http://code.google.com/p/fsnet/"> <img
-					width="30px" height="30px" src="images/google.png"
-					title="Accédez à notre forge" alt="Google Forge" />
-			</a></li>
-			<li><a href="http://www.univ-artois.fr/"> <img width="30px"
-					height="30px" src="images/univartois.png"
-					title="Site de l'université d'artois" alt="université d'artois" />
-			</a></li>
-			<li><a
-				href="http://fsnet.googlecode.com/files/FsnetAndroid-0.7.2.3.apk">
-					<img src="images/android.png" alt="application androïd"
-					title="Téléchargez l'application androïd" />
-			</a></li>
-			<li><a
-				href="http://www.facebook.com/profile.php?id=100003374258658"> <img
-					width="30px" height="30px" src="images/facebook.png"
-					title="Rejoignez-nous sur Facebook" alt="Facebook" />
-			</a></li>
-		</ul>
+	<script src="http://code.jquery.com/jquery-latest.js"></script>
+	<script src="bootstrap/js/bootstrap.min.js"></script>
 
-		<div class="clear"></div>
+	<div class="navbar navbar-inverse">
+		<div class="navbar-inner">
+			<div class="container">
 
-		<div id="logo">
-			<table>
-				<tr>
-					<td><img src="images/FSNET.png" alt="Logo" /></td>
-					<td id="affiche"><p class="quotation">
-							"
-							<bean:message key="welcome.message1" />
-						</p>
-						<p class="quotation">
-							<bean:message key="welcome.message2" />
-							"
-						</p></td>
-				</tr>
-			</table>
-		</div>
+				<ul class="nav">
+					<li><a href="http://code.google.com/p/fsnet/"> <img
+							src="images/google.png"
+							title="Accédez à notre forge" alt="Google Forge" height="32px"
+							width="32px">
+					</a></li>
+					<li><a href="http://www.univ-artois.fr/"> <img
+							src="images/univartois.png"
+							title="Site de l'université d'artois" alt="université d'artois"
+							height="32px" width="32px">
+					</a></li>
+					<li><a
+						href="http://fsnet.googlecode.com/files/FsnetAndroid-0.7.2.3.apk">
+							<img src="images/android.png"
+							alt="application androïd"
+							title="Téléchargez l'application androïd">
+					</a></li>
+					<li><a
+						href="http://www.facebook.com/profile.php?id=100003374258658">
+							<img src="images/facebook.png"
+							title="Rejoignez-nous sur Facebook" alt="Facebook" height="32px"
+							width="32px">
+					</a></li>
+				</ul>
 
-		<div class="clear"></div>
 
-		<h2 id="login-title">
-			<bean:message key="welcome.message" />
-		</h2>
-		<div id="login">
-			<div id="loginWrapper">
-				<form action="Authenticate" method="post">
-					<table>
-						<tr>
-							<td>
-								<div class="label">
-									<label for="memberMail"> <bean:message key="login.mail" />
-									</label>
-								</div>
-							</td>
-							<td><input type="text" name="memberMail"
-								value="${param['memberMail'] }" id="memberMail" class="error" />
-								<ili:changeAttribute id="memberMail" property="type"
-									value="email" /> <ili:placeHolder id="memberMail"
-									value="${logMessage}" /></td>
-						</tr>
-						<tr>
-							<td>
-								<div class="label">
-									<label for="memberPass"> <bean:message
-											key="login.password" />
-									</label>
-								</div>
-							</td>
-							<td><input type="password" id="memberPass" name="memberPass" />
-								<ili:changeAttribute id="memberPass" property="type"
-									value="password" /> <ili:placeHolder id="memberPass"
-									value="${passwordMessage}" /></td>
-						</tr>
-						<tr>
-							<td><label for="remember"> <bean:message
-										key="login.checkbox.connectAuto" />
-							</label></td>
-							<td><input type="checkbox" id="remember" name="remember" />
-							</td>
-						</tr>
-						<tr>
-							<td colspan="2"><a onclick="showResetPasswordForm();"> <bean:message
-										key="login.password.forget" />
-							</a> <html:submit>
-									<bean:message key="login.submit" />
-								</html:submit></td>
-						</tr>
-					</table>
-				</form>
 			</div>
-			<div style="display: none" id="resetPasswordWrapper">
-				<form action="ResetPassword" method="post">
-					<table>
-						<tr>
-							<td><label for="memberMail">Email :</label></td>
-							<td><input name="memberMail2" type="text" id="memberMail2" />
-								<ili:placeHolder id="memberMail2" value="${logMessage}" /> <ili:changeAttribute
-									id="memberMail2" property="type" value="email" /></td>
-							<td><html:submit>
-									<bean:message key="login.submit" />
-								</html:submit></td>
-						</tr>
-						<tr>
-							<td colspan="3"><a onclick="showLoginForm();"> <bean:message
-										key="login.authentification" />
-							</a></td>
-						</tr>
-					</table>
-				</form>
-			</div>
-			<script type="text/javascript">
-				function showResetPasswordForm() {
-					var resetPasswordWrapper = document
-							.getElementById('resetPasswordWrapper');
-					var loginWrapper = document.getElementById('loginWrapper');
-					loginWrapper.style.display = 'none';
-					resetPasswordWrapper.style.display = 'block';
-				}
-				function showLoginForm() {
-					var resetPasswordWrapper = document
-							.getElementById('resetPasswordWrapper');
-					var loginWrapper = document.getElementById('loginWrapper');
-					loginWrapper.style.display = 'block';
-					resetPasswordWrapper.style.display = 'none';
-				}
-			</script>
-			<c:if test="${! empty loginMessage}">
-				<h3>
-					<bean:message key="${loginMessage}" />
-				</h3>
-			</c:if>
 		</div>
-
-		<div class="clear"></div>
 	</div>
+	
+	<!-- DEBUT CONTAINER BOOTSTRAP -->
+	<div class="container-fluid">
 
-	<div id="login-footer">
-		<div class="col last"></div>
+		<div class="row" >			
+			
+				<h2 id="login-title">
+					<bean:message key="welcome.message" />
+				</h2>
+			
+				<div class="span8 offset1">
+					<div id="img-logo">
+						<img src="images/FSNET.png" alt="Logo">	
+					</div>
+				
+					<table>
+						<tbody><tr>
+							<td id="affiche"><p class="quotation">
+									"
+									<bean:message key="welcome.message1" />
+								</p>
+								<p class="quotation">
+									<bean:message key="welcome.message2" />
+									"
+								</p></td>
+						</tr>
+					</tbody></table>
+				</div>
 
-	</div>
+				<div class="span4 offset1" id="loginWrapper">
+						
+						
+						<form class="form-signin" action="Authenticate" method="post">
+							<h2 class="form-signin-heading"> <bean:message key="login.connection" /> </h2>
+							
+							<input type="email" class="input-block-level"
+								name="memberMail" id="memberMail" value="${param['memberMail'] }" placeholder="${logMessage}">
+								
+							<input type="password" class="input-block-level" 
+								id="memberPass" name="memberPass" placeholder="${passwordMessage}">
+							
+							<label for="remember" class="checkbox">
+							  <input type="checkbox" id="remember" name="remember"> 
+							  	<bean:message key="login.checkbox.connectAuto" />
+							</label>
+							<button class="btn btn-large" type="submit"><bean:message key="login.submit" /></button> 
+							
+							<a onclick="showResetPasswordForm();"> 
+								<bean:message key="login.password.forget" />
+							</a>
+					  </form>				
+					  	
+					
+				</div>	
+				
+				<div style="display: none" class="span4 offset1" id="resetPasswordWrapper">
+					<form action="ResetPassword" method="post" class="form-signin">
+
+						<input name="memberMail2" type="email" id="memberMail2" placeholder="${logMessage}" />
+						
+						<button class="btn btn-large" type="submit"><bean:message key="login.submit" /></button> 
+
+						<a onclick="showLoginForm();"> 
+							<bean:message key="login.authentification" />
+						</a>
+					</form>
+				</div>
+				<script type="text/javascript">
+					function showResetPasswordForm() {
+						var resetPasswordWrapper = document
+								.getElementById('resetPasswordWrapper');
+						var loginWrapper = document.getElementById('loginWrapper');
+						loginWrapper.style.display = 'none';
+						resetPasswordWrapper.style.display = 'block';
+					}
+					function showLoginForm() {
+						var resetPasswordWrapper = document
+								.getElementById('resetPasswordWrapper');
+						var loginWrapper = document.getElementById('loginWrapper');
+						loginWrapper.style.display = 'block';
+						resetPasswordWrapper.style.display = 'none';
+					}
+				</script>
+				<c:if test="${! empty loginMessage}">
+					<h3>
+						<bean:message key="${loginMessage}" />
+					</h3>
+				</c:if>	
+			
+		</div> <!-- ROW-FLUID -->
+
+	</div> <!-- CONTAINER -->
+	
+	<!-- FIN NEW BOOTSTRAP -->
+
 </body>
 </html>
