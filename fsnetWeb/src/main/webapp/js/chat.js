@@ -19,6 +19,7 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 var windowFocus = true;
 var username;
+var id;
 var chatHeartbeatCount = 0;
 var minChatHeartbeat = 1000;
 var maxChatHeartbeat = 33000;
@@ -187,7 +188,7 @@ function createChatBox(chatboxtitle, minimizeChatBox) {
 			.addClass("chatbox")
 			.html(
 					'<div class="chatboxhead"><div class="chatboxtitle">'
-							+ chatboxtitle
+							+ chatboxtitle.split('_')[0]
 							+ '</div><div class="chatboxoptions"><a href="javascript:void(0)" onclick="javascript:toggleChatBoxGrowth(\''
 							+ chatboxtitle
 							+ '\')">-</a> <a href="javascript:void(0)" onclick="javascript:closeChatBox(\''
@@ -557,17 +558,15 @@ function startChatSession() {
 				cache : false,
 				dataType : "json",
 				success : function(data) {
-
-					username = data.username;
-
+					alert(data.username);
+					username = data.username ;					
+					
 					$
 							.each(
 									data.items,
 									function(i, item) {
 										if (item) { // fix strange ie bug
-
 											chatboxtitle = item.f;
-
 											if ($("#chatbox_" + chatboxtitle).length <= 0) {
 												createChatBox(chatboxtitle, 1);
 											}
