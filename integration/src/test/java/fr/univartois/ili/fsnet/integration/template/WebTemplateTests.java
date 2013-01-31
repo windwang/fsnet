@@ -14,7 +14,7 @@ import org.junit.Test;
 public class WebTemplateTests {
 
 	private static final int TWO_MINUTES_TIMEOUT = 120000;
-	public static final String HTTP_LOCALHOST_8080_WEB_TEST = "http://localhost:8080/";
+	public static final String HTTP_LOCALHOST_8080_WEB_TEST = "http://localhost:8888/";
 	public static final String ADMIN_CONTEXT = HTTP_LOCALHOST_8080_WEB_TEST
 			+ "admin/";
 	public static final String WEB_CONTEXT = HTTP_LOCALHOST_8080_WEB_TEST
