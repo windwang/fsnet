@@ -9,7 +9,7 @@
 	<legend class="legendHome">
 		<bean:message key="group.listGroups" />
 	</legend>
-
+	
 	<c:choose>
 		<c:when test="${! empty requestScope.groupsList}">
 			<script type="text/javascript">
@@ -40,37 +40,52 @@
 				</thead>
 				<tbody>
 					<c:forEach var="group" items="${requestScope.groupsList}">
-						<tr>
-							<td><html:link action="/DisplayGroup">${group.name} 
-                			<html:param name="idGroup" value="${group.id}" />
-								</html:link> <!--${group.name}--></td>
-							<td></td>
-							<td><ili:getSocialEntityInfosFirstname
-									socialEntity="${group.masterGroup}" /></td>
-							<td><ili:getSocialEntityInfosName
-									socialEntity="${group.masterGroup}" /></td>
-
-							<c:choose>
-								<c:when test="${ group.group.isEnabled == false }">
-									<td class="tableButton"><bean:message
-											key="members.groupDisable" /></td>
-								</c:when>
-								<c:otherwise>
-									<td class="tableButton"><html:link
-											action="/SwitchStateGroup" styleClass="button">
-											<html:param name="groupSelected" value="${group.id}" />
-											<c:choose>
-												<c:when test="${group.isEnabled}">
-													<bean:message key="members.searchDisable" />
-												</c:when>
-												<c:otherwise>
-													<bean:message key="members.searchEnable" />
-												</c:otherwise>
-											</c:choose>
-										</html:link></td>
-								</c:otherwise>
-							</c:choose>
-						</tr>
+						<c:choose>
+							<c:when test="${group.masterGroup.id == currentUserId}">
+								<tr>
+									<td><html:link action="/DisplayGroup">${group.name} 
+		                			<html:param name="idGroup" value="${group.id}" />
+										</html:link> <!--${group.name}--></td>
+									<td></td>
+									<td><ili:getSocialEntityInfosFirstname
+											socialEntity="${group.masterGroup}" /></td>
+									<td><ili:getSocialEntityInfosName
+											socialEntity="${group.masterGroup}" /></td>
+		
+									<c:choose>
+										<c:when test="${ group.group.isEnabled == false }">
+											<td class="tableButton"><bean:message
+													key="members.groupDisable" /></td>
+										</c:when>
+										<c:otherwise>
+											<td class="tableButton"><html:link
+													action="/SwitchStateGroup" styleClass="button">
+													<html:param name="groupSelected" value="${group.id}" />
+													<c:choose>
+														<c:when test="${group.isEnabled}">
+															<bean:message key="members.searchDisable" />
+														</c:when>
+														<c:otherwise>
+															<bean:message key="members.searchEnable" />
+														</c:otherwise>
+													</c:choose>
+												</html:link></td>
+										</c:otherwise>
+									</c:choose>
+								</tr>
+							</c:when>
+							<c:otherwise>
+								<tr>
+									<td>${group.name}</td>
+									<td></td>
+									<td><ili:getSocialEntityInfosFirstname
+											socialEntity="${group.masterGroup}" /></td>
+									<td><ili:getSocialEntityInfosName
+											socialEntity="${group.masterGroup}" /></td>
+									<td></td>
+								</tr>
+							</c:otherwise>
+						</c:choose>
 					</c:forEach>
 				</tbody>
 			</table>
