@@ -13,6 +13,7 @@ import org.junit.Test;
 
 public class WebTemplateTests {
 
+	private static final int TWO_MINUTES_TIMEOUT = 120000;
 	public static final String HTTP_LOCALHOST_8080_WEB_TEST = "http://localhost:8080/";
 	public static final String ADMIN_CONTEXT = HTTP_LOCALHOST_8080_WEB_TEST
 			+ "admin/";
@@ -26,49 +27,45 @@ public class WebTemplateTests {
 	public void prepare() {
 		tester = new WebTester();
 		tester.getTestContext().clearAuthorizations();
-		//tester.setScriptingEnabled(false);
 		tester.setTestingEngineKey(TestingEngineRegistry.TESTING_ENGINE_HTMLUNIT);
-		tester.setIgnoreFailingStatusCodes(true);
+		tester.getTestingEngine().setThrowExceptionOnScriptError(true);
+		// FIXME : Problem with bootstrap or JWebUnit (bootstrap.js block the
+		// execution while webtester has downloaded it). Set to false when
+		// problem solve !
+		tester.setScriptingEnabled(false);
 		tester.getTestContext().addRequestHeader("Accept-Language", "fr");
-		tester.getTestContext().setLocale(Locale.FRENCH);// Work with french
-															// version !
+		tester.getTestContext().addRequestHeader("Connection", "close");
+		tester.getTestContext().setAuthorization("admin", "admin"); // Useful to directly access to admin section
+		tester.getTestContext().setLocale(Locale.FRENCH);// Work with french version !
+		tester.setTimeout(TWO_MINUTES_TIMEOUT);
 	}
 
-	// @Ignore
-	// public void testAdminWebappStarted() {
-	// // set the identifier of admin
-	// tester.getTestContext().setAuthorization("admin", "admin");
-	// System.out
-	// .println("444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444");
-	// tester.setBaseUrl(ADMIN_CONTEXT);
-	// tester.beginAt("");
-	// System.out
-	// .println("555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
-	// }
+	@Test
+	public void testAdminWebappStarted() {
+		// VERY IMPORTANT TO DO !
+		tester.setBaseUrl(ADMIN_CONTEXT);
+		tester.beginAt("/");
+		// Begining of tests
+		tester.assertElementPresentByXPath("//h2[@id='slogan']");
+		tester.assertTextPresent("ADMINISTRATION");
+
+	}
 
 	@Test
 	public void testFsnetWebWebappStarted() {
+		// VERY IMPORTANT TO DO !
 		tester.setBaseUrl(WEB_CONTEXT);
-		System.out
-				.println("444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444444");
-		tester.beginAt("");
-		System.out
-				.println("555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555555");
-		System.out.println(tester.getTestContext().getBaseUrl().toString());
-		System.out.println(tester);
-		System.out.println(tester.getResponseHeaders());
+		tester.beginAt("/");
+		// Begining of tests
 		String content = tester.getPageSource();
 		assertNotNull(content);
-		// tester.assertElementPresentByXPath("//h2[@id='login-title']");
-		// System.out
-		// .println("333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333333");
-		// tester.assertElementPresentByXPath("//form[@class='form-signin' and action='Authenticate' and method='post']");
-		// System.out
-		// .println("############################################################################################################################################################################");
+		tester.assertElementPresentByXPath("//h2[@id='login-title']");
+		tester.assertElementPresentByXPath("//form[@class='form-signin' and @action='Authenticate' and @method='post']");
 	}
 
 	@Ignore
 	public void testWebserviceWebappStarted() {
+		// WebService isn't in the supported webapp !
 		tester.beginAt(WEBSERVICE_CONTEXT);
 	}
 }

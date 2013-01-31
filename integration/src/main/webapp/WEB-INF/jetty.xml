@@ -80,8 +80,7 @@
 		<Arg>
 			<New class="org.eclipse.jetty.security.HashLoginService">
 				<Set name="name">FSNetAdminRealm</Set>
-				<Set name="config">${project.build.outputDirectory}/WEB-INF/user.properties
-				</Set>
+				<Set name="config">${project.build.outputDirectory}/WEB-INF/user.properties</Set>
 				<Set name="refreshInterval">0</Set>
 				<Call name="start"></Call>
 			</New>
@@ -140,7 +139,7 @@
 		<Arg>ds/fsnetDS</Arg>
 		<Arg>
 			<New class="org.apache.derby.jdbc.EmbeddedDataSource">
-				<Set name="DatabaseName">fsnetDB</Set>
+				<Set name="DatabaseName">memory:fsnetDB</Set>
 				<Set name="createDatabase">create</Set>
 				<Set name="dataSourceName">ds/fsnetDS</Set>
 			</New>
