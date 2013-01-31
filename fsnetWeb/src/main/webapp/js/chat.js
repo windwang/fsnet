@@ -19,7 +19,6 @@ OTHER DEALINGS IN THE SOFTWARE.
 
 var windowFocus = true;
 var username;
-var id;
 var chatHeartbeatCount = 0;
 var minChatHeartbeat = 1000;
 var maxChatHeartbeat = 33000;
@@ -558,7 +557,6 @@ function startChatSession() {
 				cache : false,
 				dataType : "json",
 				success : function(data) {
-					alert(data.username);
 					username = data.username ;					
 					
 					$
