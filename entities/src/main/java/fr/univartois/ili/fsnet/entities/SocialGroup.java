@@ -30,6 +30,7 @@ import javax.persistence.OneToMany;
 public class SocialGroup extends SocialElement implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	
 
 	@ElementCollection(targetClass = Right.class)
 	@Enumerated(EnumType.STRING)
@@ -171,6 +172,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	public void setSocialElements(List<SocialElement> socialElements) {
+
 		for (SocialElement socialElement : this.socialElements) {
 			socialElement.setGroup(null);
 		}
@@ -181,6 +183,18 @@ public class SocialGroup extends SocialElement implements Serializable {
 		this.socialElements = socialElements;
 	}
 
+	
+	public void setSocialElements(List<SocialElement> socialElements, SocialGroup sg) {
+
+		for (SocialElement socialElement : this.socialElements) {
+			socialElement.setGroup(sg);
+		}
+		for (SocialElement socialElement : socialElements){
+			socialElement.setGroup(this);
+		}
+		
+		this.socialElements = socialElements;
+	}
 	public void addSocialElement(SocialElement socialElement) {
 		if (!this.socialElements.contains(socialElement)) {
 			socialElement.setGroup(this);
