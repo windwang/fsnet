@@ -31,7 +31,8 @@ var newMessages = new Array();
 var newMessagesWin = new Array();
 var chatBoxes = new Array();
 
-$(document).ready(function() {
+/*$(document).ready(function() {
+	debugger;
 	originalTitle = document.title;
 	startChatSession();
 
@@ -41,10 +42,11 @@ $(document).ready(function() {
 		windowFocus = true;
 		document.title = originalTitle;
 	});
-});
+});*/
 var tim = 0;
 $(document).ready(function() {
 	tim = setInterval("testReceive()", 2000);
+	loadChatBoxes();
 });
 
 function testReceive() {
@@ -173,6 +175,7 @@ function chatWith(chatuser, mailUser) {
 }
 
 function createChatBox(chatboxtitle, minimizeChatBox) {
+	debugger;
 	if ($("#chatbox_" + chatboxtitle).length > 0) {
 		if ($("#chatbox_" + chatboxtitle).css('display') == 'none') {
 			$("#chatbox_" + chatboxtitle).css('display', 'block');
@@ -420,7 +423,7 @@ function toggleChatBoxGrowth(chatboxtitle) {
 			}
 		}
 
-		newCookie = newCookie.slice(0, -1)
+		newCookie = newCookie.slice(0, -1);
 
 		$.cookie('chatbox_minimized', newCookie);
 		$('#chatbox_' + chatboxtitle + ' .chatboxcontent').css('display',
@@ -444,6 +447,42 @@ function toggleChatBoxGrowth(chatboxtitle) {
 		$('#chatbox_' + chatboxtitle + ' .chatboxinput').css('display', 'none');
 	}
 
+}
+
+/* Permet de charger les fenêtres de chat lors du chargement de la page */
+function loadChatBoxes(){
+	$
+	.ajax({
+		type : 'POST',
+		url : '/fsnetWeb/TalkMembersGetTalks.do',
+		
+		success : function(data, textStatus, jqXHR) {
+			var e = $.parseJSON(jqXHR
+					.getResponseHeader("X-JSON"));
+			$(e.sessionTalks)
+					.each(
+							function(i) {
+								var name = e.sessionTalks[i].split('@')[0];
+								createChatBox(name, false);
+								$.ajax({
+									type : 'POST',
+									url : '/fsnetWeb/TalkMembersGetTalk.do',
+									data : {
+										friend : name
+									},
+									success : function(data,textStatus, jqXHR) {
+										var e = $.parseJSON(jqXHR.getResponseHeader("X-JSON"));
+										
+										$("#chatbox_"+name+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+e.conversation+'</span></div>');
+									}
+								})
+							});
+
+		},
+		error : function(e) {
+			// alert('Error: ' + e);
+		}
+	});
 }
 
 function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
@@ -559,8 +598,7 @@ function startChatSession() {
 				success : function(data) {
 					username = data.username ;					
 					
-					$
-							.each(
+					$.each(
 									data.items,
 									function(i, item) {
 										if (item) { // fix strange ie bug
