@@ -62,7 +62,9 @@ public class ResetPassword extends HttpServlet {
 				em.merge(se);
 				em.getTransaction().commit();
 				req.setAttribute("loginMessage", "login.password.reset");
-			}
+			}		
+		}
+		else {
 			req.setAttribute("loginMessage", "login.password.reset.error");
 		}
 		em.close();
