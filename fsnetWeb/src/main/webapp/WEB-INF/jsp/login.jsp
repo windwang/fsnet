@@ -10,6 +10,9 @@
 <bean:define id="passwordMessage">
 	<bean:message key="login.placeholder.password" />
 </bean:define>
+<bean:define id="loginSubmit">
+	<bean:message key="login.submit" />
+</bean:define>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -111,13 +114,18 @@
 							  <input type="checkbox" id="remember" name="remember"> 
 							  	<bean:message key="login.checkbox.connectAuto" />
 							</label>
-							<button class="btn btn-large" type="submit"><bean:message key="login.submit" /></button> 
+							<input class="btn btn-large" type="submit" value="${loginSubmit}">
 							
 							<a onclick="showResetPasswordForm();"> 
 								<bean:message key="login.password.forget" />
 							</a>
 					  </form>				
-					  	
+					  
+					  <c:if test="${! empty loginMessage && loginMessage eq 'login.error'}">
+						<h5 id="incorrectIdPwd">
+							<bean:message key="${loginMessage}" />
+						</h5>
+					</c:if>		
 					
 				</div>	
 				
@@ -128,12 +136,18 @@
 
 						<input name="memberMail2" type="email" id="memberMail2" placeholder="${logMessage}" />
 						
-						<button class="btn" type="submit"><bean:message key="login.submit" /></button> 
+						<input class="btn" type="submit" value="${loginSubmit}">
 
 						<a onclick="showLoginForm();"> 
 							<bean:message key="login.authentification" />
 						</a>
 					</form>
+					
+					<c:if test="${! empty loginMessage && loginMessage eq 'login.password.reset.error'}">
+						<h5 id="incorrectIdPwd">
+							<bean:message key="${loginMessage}" />
+						</h5>
+					</c:if>	
 				</div>
 				<script type="text/javascript">
 					function showResetPasswordForm() {
@@ -151,17 +165,18 @@
 						resetPasswordWrapper.style.display = 'none';
 					}
 				</script>
-				<c:if test="${! empty loginMessage}">
-					<h3>
-						<bean:message key="${loginMessage}" />
-					</h3>
-				</c:if>	
+				
+				
 			
 		</div> <!-- ROW-FLUID -->
 
 	</div> <!-- CONTAINER -->
 	
 	<!-- FIN NEW BOOTSTRAP -->
+	
+	<c:if test="${loginMessage eq 'login.password.reset.error' || loginMessage eq 'login.password.reset' }">
+		<script>showResetPasswordForm();</script>				
+	</c:if>
 
 </body>
 </html>
