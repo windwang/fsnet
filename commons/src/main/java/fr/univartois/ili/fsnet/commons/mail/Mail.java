@@ -44,7 +44,7 @@ public class Mail {
 	 */
 	public void setContent(Object obj) {
 		try {
-			message.setContent(obj, "text/html");
+			message.setContent(obj,"text/html; charset=UTF-8");
 		} catch (MessagingException e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
