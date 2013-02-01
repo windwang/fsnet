@@ -1,4 +1,4 @@
-package fr.univartois.ili.fsnet.actions;
+                                 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -311,7 +311,7 @@ public class ManageAnnounces extends MappingDispatchAction implements
 							"SELECT es FROM SocialEntity es,IN(es.interactions) e WHERE e = :announce")
 					.setParameter("announce", announce).getSingleResult();
 			addRightToRequest(request);
-
+			
 			SocialEntity member = UserUtils.getAuthenticatedUser(request,
 					entityManager);
 			member.addInteractionRead(announce);

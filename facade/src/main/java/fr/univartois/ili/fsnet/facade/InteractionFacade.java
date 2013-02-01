@@ -22,7 +22,7 @@ public class InteractionFacade {
 	private final EntityManager em;
 
 	private FilterInteractionByUserGroup filterGroup;
-	
+
 	private static final int MAX_RESULTS =10;
 
 	public InteractionFacade(EntityManager em) {
@@ -130,9 +130,10 @@ public class InteractionFacade {
 		TypedQuery<Interaction> query = em
 				.createQuery(
 						"SELECT inter FROM Interaction inter, SocialEntity se, IN(se.contacts) c "
-								+ "WHERE inter.creator= c AND se = :user ORDER BY inter.lastModified DESC",
-						Interaction.class);
+								+ "WHERE inter.creator= c AND se = :user AND inter.creator.group =:group ORDER BY inter.lastModified DESC",
+								Interaction.class);
 		query.setParameter("user", user);
+		query.setParameter("group", user.getGroup());
 		query.setMaxResults(MAX_RESULTS);
 
 		List<Interaction> result = query.getResultList();
@@ -141,28 +142,28 @@ public class InteractionFacade {
 		String path = null;
 		String id = null;
 		for (Interaction interaction : result) {
-			String clazz = interaction.getSimpleClassName();
-			if ("Announcement".equals(clazz)) {
-				path = "/DisplayAnnounce";
-				id = "idAnnounce";
-			} else if ("Meeting".equals(clazz)) {
-				path = "/DisplayEvent";
-				id = "eventId";
-			} else if ("Topic".equals(clazz)) {
-				path = "/Topic";
-				id = "topicId";
-			} else if ("Hub".equals(clazz)) {
-				path = "/DisplayHub";
-				id = "hubId";
-			} else if ("Community".equals(clazz)) {
-				path = "/DisplayCommunity";
-				id = "communityId";
-			} else if ("Consultation".equals(clazz)) {
-				path = "/DisplayAConsultation";
-				id = "id";
+				String clazz = interaction.getSimpleClassName();
+				if ("Announcement".equals(clazz)) {
+					path = "/DisplayAnnounce";
+					id = "idAnnounce";
+				} else if ("Meeting".equals(clazz)) {
+					path = "/DisplayEvent";
+					id = "eventId";
+				} else if ("Topic".equals(clazz)) {
+					path = "/Topic";
+					id = "topicId";
+				} else if ("Hub".equals(clazz)) {
+					path = "/DisplayHub";
+					id = "hubId";
+				} else if ("Community".equals(clazz)) {
+					path = "/DisplayCommunity";
+					id = "communityId";
+				} else if ("Consultation".equals(clazz)) {
+					path = "/DisplayAConsultation";
+					id = "id";
+				}
+				triples.add(new Triple(interaction, path, id));
 			}
-			triples.add(new Triple(interaction, path, id));
-		}
 
 		return triples;
 	}
@@ -171,7 +172,7 @@ public class InteractionFacade {
 		private Interaction inter;
 		private String path;
 		private String id;
-		
+
 		public Triple(Interaction inter, String path, String id) {
 			this.inter = inter;
 			this.path = path;
@@ -197,17 +198,20 @@ public class InteractionFacade {
 	 *         get one user's interactions
 	 * @param user
 	 *            person you wish to recover interaction
+	 *            @param connectedUserId
+	 *            The actual connected user
 	 * @return
 	 */
-	public final List<Interaction> getIntetactionsByUser(SocialEntity user) {
+	public final List<Interaction> getIntetactionsByUser(SocialEntity user,int connectedUserId) {
 		return em
 				.createQuery(
-						"SELECT interaction " + "FROM Interaction interaction "
-								+ "WHERE interaction.creator.id = :userId "
+						"SELECT interaction " + "FROM Interaction interaction, SocialEntity user "
+								+ "WHERE interaction.creator.id = :userId "+" AND user.id=:connectedUser "
+								+ "AND interaction.creator.group.id = user.group.id "
 								+ "ORDER BY interaction.lastModified DESC",
-						Interaction.class)
-				.setParameter("userId", Integer.valueOf(user.getId()))
-				.getResultList();
+								Interaction.class)
+								.setParameter("userId", Integer.valueOf(user.getId())).setParameter("connectedUser",connectedUserId )
+								.getResultList();
 	}
 
 	public Interaction getInteraction(int id) {
@@ -226,8 +230,8 @@ public class InteractionFacade {
 						"SELECT i FROM Interaction i, SocialEntity se WHERE "
 								+ "se.id = :userId AND i NOT MEMBER OF se.interactionsRead "
 								+ " ORDER BY i.creationDate DESC",
-						Interaction.class).setParameter("userId", se.getId())
-				.getResultList();
+								Interaction.class).setParameter("userId", se.getId())
+								.getResultList();
 
 		return list;
 	}
@@ -254,7 +258,7 @@ public class InteractionFacade {
 			for (InteractionGroups interactionG : interGroup) {
 				if ((interactionG.getGroup().getId() == se.getGroup().getId())
 						&& (interactionG.getInteraction().getId() == interaction
-								.getId())) {
+						.getId())) {
 					list.add(interaction.getId());
 				}
 

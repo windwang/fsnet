@@ -35,6 +35,7 @@ import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
 import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
+import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -368,7 +369,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		InteractionFacade intFac = new InteractionFacade(em);
 
 		request.setAttribute("interactions",
-				intFac.getIntetactionsByUser(profile));
+				intFac.getIntetactionsByUser(profile,(int)request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER)));
 		em.getTransaction().commit();
 
 		request.setAttribute("currentUser", user);
