@@ -225,8 +225,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	public void setName(String name) {
-		String n = name.contains("\"") ? name.replaceAll("\"", "&#34;") : name;
-		this.name = n;
+		this.name = name.contains("\"") ? name.replaceAll("\"", "&#34;") : name;
 	}
 
 	@Override
