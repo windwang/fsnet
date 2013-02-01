@@ -93,7 +93,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 		this.isEnabled = true;
 
 		this.masterGroup = masterGroup;
-		this.name = name;
+		this.name = name.contains("\"") ? name.replaceAll("\"", "&#34;") : name;
 		this.description = description;
 		this.socialElements = new ArrayList<SocialElement>();
 		this.setColor("C9E6F8");
@@ -107,12 +107,12 @@ public class SocialGroup extends SocialElement implements Serializable {
 	 * @return true if it has this {@link Right}
 	 */
 	public boolean isAuthorized(Right right) {
-		if (rights.contains(right)){
+		if (rights.contains(right)) {
 			return true;
 		}
 
 		SocialGroup father = getGroup();
-		if (father != null){
+		if (father != null) {
 			return father.isAuthorized(right);
 		}
 
@@ -176,10 +176,10 @@ public class SocialGroup extends SocialElement implements Serializable {
 		for (SocialElement socialElement : this.socialElements) {
 			socialElement.setGroup(null);
 		}
-		for (SocialElement socialElement : socialElements){
+		for (SocialElement socialElement : socialElements) {
 			socialElement.setGroup(this);
 		}
-		
+
 		this.socialElements = socialElements;
 	}
 
@@ -227,7 +227,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 
 	public void setMasterGroup(SocialEntity masterGroup) {
 		SocialGroup oldSocialGroup = masterGroup.getGroup();
-		if (!this.equals(oldSocialGroup) && oldSocialGroup != null){
+		if (!this.equals(oldSocialGroup) && oldSocialGroup != null) {
 			oldSocialGroup.removeSocialElement(masterGroup);
 		}
 		this.addSocialElement(masterGroup);
@@ -235,11 +235,11 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	public String getName() {
-		return name;
+		return name.contains("\"") ? name.replaceAll("\"", "&#34;") : name;
 	}
 
 	public void setName(String name) {
-		this.name = name;
+		this.name = name.contains("\"") ? name.replaceAll("\"", "&#34;") : name;
 	}
 
 	@Override
@@ -261,56 +261,56 @@ public class SocialGroup extends SocialElement implements Serializable {
 
 	@Override
 	public boolean equals(Object obj) {
-		if (this == obj){
+		if (this == obj) {
 			return true;
 		}
-		if (obj == null){
+		if (obj == null) {
 			return false;
 		}
-		if (getClass() != obj.getClass()){
+		if (getClass() != obj.getClass()) {
 			return false;
 		}
 		SocialGroup other = (SocialGroup) obj;
 		if (description == null) {
-			if (other.description != null){
+			if (other.description != null) {
 				return false;
 			}
-		} else if (!description.equals(other.description)){
+		} else if (!description.equals(other.description)) {
 			return false;
 		}
 		if (isEnabled == null) {
-			if (other.isEnabled != null){
+			if (other.isEnabled != null) {
 				return false;
 			}
-		} else if (!isEnabled.equals(other.isEnabled)){
+		} else if (!isEnabled.equals(other.isEnabled)) {
 			return false;
 		}
 		if (masterGroup == null) {
-			if (other.masterGroup != null){
+			if (other.masterGroup != null) {
 				return false;
 			}
-		} else if (!masterGroup.equals(other.masterGroup)){
+		} else if (!masterGroup.equals(other.masterGroup)) {
 			return false;
 		}
 		if (name == null) {
-			if (other.name != null){
+			if (other.name != null) {
 				return false;
 			}
-		} else if (!name.equals(other.name)){
+		} else if (!name.equals(other.name)) {
 			return false;
 		}
 		if (rights == null) {
-			if (other.rights != null){
+			if (other.rights != null) {
 				return false;
 			}
-		} else if (!rights.equals(other.rights)){
+		} else if (!rights.equals(other.rights)) {
 			return false;
 		}
 		if (socialElements == null) {
-			if (other.socialElements != null){
+			if (other.socialElements != null) {
 				return false;
 			}
-		} else if (!socialElements.equals(other.socialElements)){
+		} else if (!socialElements.equals(other.socialElements)) {
 			return false;
 		}
 		return true;
