@@ -95,7 +95,7 @@
 	</c:if>
 	<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
 		<a class="button"
-			onclick="javascript:chatWith('${watchedProfile.name}','habib2@master11.com')">
+			onclick="javascript:chatWith('${watchedProfile.name}_${watchedProfile.id}','habib2@master11.com')">
 			<bean:message key="showProfile.chat" />
 		</a>
 	</c:if>

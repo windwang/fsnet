@@ -60,10 +60,20 @@ public class TopicFacadeTest {
 		
 		em.getTransaction().commit();
 		
+		
 		Topic compare = em.find(Topic.class, topic.getId());
 		assertEquals(topic.getCreator(), compare.getCreator());
 		assertEquals(topic.getHub(), compare.getHub());
 		assertEquals(topic.getTitle(), compare.getTitle());
+		
+		em.getTransaction().begin();
+		em.remove(creatorCommunity);
+		em.remove(community);
+		em.remove(creatorHub);
+		em.remove(hub);
+		em.remove(creatorTopic);
+		em.remove(topic);
+		em.getTransaction().commit();
 	}
 
 	@Test
@@ -111,6 +121,16 @@ public class TopicFacadeTest {
 		assertEquals(topic.getCreator(), tmRes.getCreator());
 		assertEquals(topic.getHub(), tmRes.getHub());
 		assertEquals(topic.getTitle(), tmRes.getTitle());
+		
+		em.getTransaction().begin();
+		em.remove(creatorCommunity);
+		em.remove(community);
+		em.remove(creatorHub);
+		em.remove(hub);
+		em.remove(creatorTopic);
+		em.remove(topic);
+		em.remove(hubbis);
+		em.getTransaction().commit();
 	}
 	
 	@Test

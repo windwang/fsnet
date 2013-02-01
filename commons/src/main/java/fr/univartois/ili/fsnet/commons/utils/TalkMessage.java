@@ -148,7 +148,7 @@ public class TalkMessage implements ChatManagerListener, MessageListener {
 		}
 		String[] name = chat.getParticipant().split("@");
 		dd.append("</br><p style=\"color: blue;margin:-7px -7px -7px -7px;\">"
-				+ name[0] + " :" + message.getBody() + "</p>");
+				+ name[0].split("_")[0] + " :" + message.getBody() + "</p>");
 		getConversation().put(particiant[0], dd);
 		getNewConversation().put(particiant[0], true);
 
