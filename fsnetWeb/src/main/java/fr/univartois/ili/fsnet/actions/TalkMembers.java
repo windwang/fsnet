@@ -274,8 +274,6 @@ public class TalkMembers extends MappingDispatchAction {
 			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 		}
 		
-		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
-
 		StringBuilder conv = talkMessage.getConversation().get(friend+"@"+xmppServerDomain);		
 		
 		
