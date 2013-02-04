@@ -77,6 +77,9 @@
 	});
 </script>
 
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/bootstrapStyle.css" />
+
 <!-- Custom color style by group-->
 <style type="text/css">
 body {
