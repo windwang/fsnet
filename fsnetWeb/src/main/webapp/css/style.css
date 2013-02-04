@@ -484,3 +484,8 @@ select {
 	margin-left : 20% ;
 	margin-bottom : 60px ;
 }
+
+#incorrectIdPwd {
+	color : red ;
+	text-align : center ;
+}

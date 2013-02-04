@@ -30,6 +30,7 @@ public class SocialEntityFacade {
 	private final EntityManager em;
 
 	private static final String SEARCH_TEXT_PARAMETER_NAME = "searchText";
+	private static final String DEFAULT_GROUP_NAME = "Default group";
 
 	/**
 	 *
@@ -286,8 +287,10 @@ public class SocialEntityFacade {
 	}
 
 	public final List<SocialEntity> getAllOrphanMembers() {
+		
 		TypedQuery<SocialEntity> query = em.createQuery(
-				"SELECT se FROM SocialEntity se WHERE se.group IS null", SocialEntity.class);
+				"SELECT se FROM SocialEntity se WHERE se.group.name LIKE :groupname", SocialEntity.class);
+		query.setParameter("groupname",DEFAULT_GROUP_NAME );
 		return query.getResultList();
 	}
 

@@ -108,6 +108,8 @@ public class SocialGroupFacade {
 	public final SocialGroup findByName(String name) {
 		if (name == null) {
 			throw new IllegalArgumentException();
+		} else if (name.contains("\"")) {
+			name.replaceAll("\"", "&#34;");
 		}
 		TypedQuery<SocialGroup> query = em.createQuery(
 				"SELECT sg FROM SocialGroup sg WHERE sg.name = :name",
@@ -331,17 +333,17 @@ public class SocialGroupFacade {
 		}
 		List<SocialEntity> listSocialEntity = new ArrayList<SocialEntity>();
 
-			List<SocialGroup> listSocialGroup = getAllChildGroups(socialGroupUser);
+		List<SocialGroup> listSocialGroup = getAllChildGroups(socialGroupUser);
 
-			for (SocialGroup socialGroup : listSocialGroup) {
-				List<SocialElement> socialElements = socialGroup
-						.getSocialElements();
-				for (SocialElement socialElement : socialElements) {
-					if (socialElement instanceof SocialEntity) {
-						listSocialEntity.add((SocialEntity) socialElement);
-					}
+		for (SocialGroup socialGroup : listSocialGroup) {
+			List<SocialElement> socialElements = socialGroup
+					.getSocialElements();
+			for (SocialElement socialElement : socialElements) {
+				if (socialElement instanceof SocialEntity) {
+					listSocialEntity.add((SocialEntity) socialElement);
 				}
 			}
+		}
 
 		return listSocialEntity;
 	}

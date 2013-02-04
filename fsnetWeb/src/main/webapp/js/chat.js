@@ -1,21 +1,4 @@
-/*
 
-Copyright (c) 2009 Anant Garg (anantgarg.com | inscripts.com)
-
-This script may be used for non-commercial purposes only. For any
-commercial purposes, please contact the author at 
-anant.garg@inscripts.com
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
-OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
-HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
-WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
-FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
-OTHER DEALINGS IN THE SOFTWARE.
-
- */
 
 var windowFocus = true;
 var username;
@@ -31,50 +14,32 @@ var newMessages = new Array();
 var newMessagesWin = new Array();
 var chatBoxes = new Array();
 
-$(document).ready(function() {
-	originalTitle = document.title;
-	startChatSession();
-
-	$([ window, document ]).blur(function() {
-		windowFocus = false;
-	}).focus(function() {
-		windowFocus = true;
-		document.title = originalTitle;
-	});
-});
 var tim = 0;
+/* Fonction qui est appelée lorsque la page est chargée */
 $(document).ready(function() {
+	/* On vérifie toute les 2 secondes si un nouveau message est arrivé */
 	tim = setInterval("testReceive()", 2000);
+	/* On réouvre les fenetres de chat actives lorsqu'on arrive sur une page */
+	loadChatBoxes();
 });
 
+/* Permet de recevoir un message */
 function testReceive() {
 	console.log("ma requete rceive");
-	var jqxhr = $
-			.post(
-					"/fsnetWeb/TalkMembersReceive.do",
-					function(data, textStatus, jqXHR) {
-						// alert("success");
-						var e = $.parseJSON(jqXHR.getResponseHeader("X-JSON"));
-						var lastConversation = [];
-						if(e==null){
-							clearInterval(tim);
-							$.post("/fsnetWeb/Home.do", function(data,
-									textStatus, jqXHR) {});
-						}
-						$(e.lastConversation)
-								.each(
-										function(i) {
-
-											var name = e.lastConversation[i].name;
+	$.ajax({
+			type : 'POST',
+			url : "/fsnetWeb/TalkMembersReceive.do",
+			dataType : "json",
+			success : function(data, textStatus, jqXHR) {
+						$(data.lastConversation)
+								.each(function(i) {
+											var name = data.lastConversation[i].name;
 											var str = (name).split("@");
-											var msg = e.lastConversation[i].msg;
-											var mailXmpp = e.lastConversation[i].mailXmpp;
+											var msg = data.lastConversation[i].msg;
+											var mailXmpp = data.lastConversation[i].mailXmpp;
 											var h = ":";
 											chatWith(name,
 													'kevin1@master11.com');
-											// $("#chatbox_"+name+"
-											// .chatboxcontent").remove();
-											// $("#chatboxinfo")
 											$("#" + name).remove();
 											$(
 													"#chatbox_"
@@ -95,60 +60,13 @@ function testReceive() {
 																	+ name
 																	+ " .chatboxcontent")[0].scrollHeight);
 
-										});
+										})
+			}
+	});
 
-					}).error(function() {
-				clearInterval(tim);
-			});
-
-	// $
-	// .ajax({
-	// cache: false,
-	// type : "POST",
-	// url : '/fsnetWeb/TalkMembersReceive.do',
-	// success : function(data, textStatus, jqXHR) {
-	// var e = $.parseJSON(jqXHR.getResponseHeader("X-JSON"));
-	// var lastConversation = [];
-	// $(e.lastConversation)
-	// .each(
-	// function(i) {
-	//
-	// var name = e.lastConversation[i].name;
-	// var str = (name).split("@");
-	// var msg = e.lastConversation[i].msg;
-	// var mailXmpp = e.lastConversation[i].mailXmpp;
-	// var h = ":";
-	// chatWith(name, 'kevin1@master11.com');
-	// // $("#chatbox_"+name+"
-	// // .chatboxcontent").remove();
-	// // $("#chatboxinfo")
-	// $("#" + name).remove();
-	// $(
-	// "#chatbox_" + name
-	// + " .chatboxcontent")
-	// .append(
-	// '<div class="chatboxmessage"><span class="chatboxinfo" id='
-	// + name
-	// + '>'
-	// + msg
-	// + '</span></div>');
-	// $(
-	// "#chatbox_" + name
-	// + " .chatboxcontent")
-	// .scrollTop(
-	// $("#chatbox_"
-	// + name
-	// + " .chatboxcontent")[0].scrollHeight);
-	//
-	// });
-	//
-	// },
-	// error : function(e) {
-	//
-	// }
-	//
-	// });
 }
+
+/* Permet de placer les fenetres de chat (cette fonction doit être appelée lorsqu'on ferme une fenetre de chat par exemple pour pouvoir replacer les fenetres et combler le trou laissé par la fenetre que l'on vient de fermer)*/
 function restructureChatBoxes() {
 	align = 0;
 	for (x in chatBoxes) {
@@ -172,6 +90,7 @@ function chatWith(chatuser, mailUser) {
 	$("#chatbox_" + user + " .chatboxtextarea").focus();
 }
 
+/* Permet de créer une fenetre de chat*/
 function createChatBox(chatboxtitle, minimizeChatBox) {
 	if ($("#chatbox_" + chatboxtitle).length > 0) {
 		if ($("#chatbox_" + chatboxtitle).css('display') == 'none') {
@@ -265,140 +184,22 @@ function createChatBox(chatboxtitle, minimizeChatBox) {
 
 	$("#chatbox_" + chatboxtitle).show();
 }
-
-function chatHeartbeat() {
-
-	var itemsfound = 0;
-
-	if (windowFocus == false) {
-
-		var blinkNumber = 0;
-		var titleChanged = 0;
-		for (x in newMessagesWin) {
-			if (newMessagesWin[x] == true) {
-				++blinkNumber;
-				if (blinkNumber >= blinkOrder) {
-					document.title = x + ' says...';
-					titleChanged = 1;
-					break;
-				}
-			}
-		}
-
-		if (titleChanged == 0) {
-			document.title = originalTitle;
-			blinkOrder = 0;
-		} else {
-			++blinkOrder;
-		}
-
-	} else {
-		for (x in newMessagesWin) {
-			newMessagesWin[x] = false;
-		}
-	}
-
-	for (x in newMessages) {
-		if (newMessages[x] == true) {
-			if (chatboxFocus[x] == false) {
-				// FIXME: add toggle all or none policy, otherwise it looks
-				// funny
-				$('#chatbox_' + x + ' .chatboxhead')
-						.toggleClass('chatboxblink');
-			}
-		}
-	}
-
-	$
-			.ajax({
-				url : "chat.php?action=chatheartbeat",
-				cache : false,
-				dataType : "json",
-				success : function(data) {
-
-					$
-							.each(
-									data.items,
-									function(i, item) {
-										if (item) { // fix strange ie bug
-
-											chatboxtitle = item.f;
-
-											if ($("#chatbox_" + chatboxtitle).length <= 0) {
-												createChatBox(chatboxtitle);
-											}
-											if ($("#chatbox_" + chatboxtitle)
-													.css('display') == 'none') {
-												$("#chatbox_" + chatboxtitle)
-														.css('display', 'block');
-												restructureChatBoxes();
-											}
-
-											if (item.s == 1) {
-												item.f = username;
-											}
-
-											if (item.s == 2) {
-												$(
-														"#chatbox_"
-																+ chatboxtitle
-																+ " .chatboxcontent")
-														.append(
-																'<div class="chatboxmessage"><span class="chatboxinfo">'
-																		+ item.m
-																		+ '</span></div>');
-											} else {
-												newMessages[chatboxtitle] = true;
-												newMessagesWin[chatboxtitle] = true;
-												$(
-														"#chatbox_"
-																+ chatboxtitle
-																+ " .chatboxcontent")
-														.append(
-																'<div class="chatboxmessage"><span class="chatboxmessagefrom">'
-																		+ item.f
-																		+ ':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'
-																		+ item.m
-																		+ '</span></div>');
-											}
-
-											$(
-													"#chatbox_"
-															+ chatboxtitle
-															+ " .chatboxcontent")
-													.scrollTop(
-															$("#chatbox_"
-																	+ chatboxtitle
-																	+ " .chatboxcontent")[0].scrollHeight);
-											itemsfound += 1;
-										}
-									});
-
-					chatHeartbeatCount++;
-
-					if (itemsfound > 0) {
-						chatHeartbeatTime = minChatHeartbeat;
-						chatHeartbeatCount = 1;
-					} else if (chatHeartbeatCount >= 10) {
-						chatHeartbeatTime *= 2;
-						chatHeartbeatCount = 1;
-						if (chatHeartbeatTime > maxChatHeartbeat) {
-							chatHeartbeatTime = maxChatHeartbeat;
-						}
-					}
-
-					setTimeout('chatHeartbeat();', chatHeartbeatTime);
-				}
-			});
-}
-
+/* Permet de fermer une fenetre de chat*/
 function closeChatBox(chatboxtitle) {
 	$('#chatbox_' + chatboxtitle).css('display', 'none');
 	restructureChatBoxes();
+	$.ajax({
+		type : 'POST',
+		url : '/fsnetWeb/TalkMembersCloseTalk.do',
+		data : {
+			friend : chatboxtitle
+		},
+		success : function(data, textStatus, jqXHR) {
 
-	$.post("chat.php?action=closechat", {
-		chatbox : chatboxtitle
-	}, function(data) {
+		},
+		error : function(e) {
+			// alert('Error: ' + e);
+		}
 	});
 
 }
@@ -420,7 +221,7 @@ function toggleChatBoxGrowth(chatboxtitle) {
 			}
 		}
 
-		newCookie = newCookie.slice(0, -1)
+		newCookie = newCookie.slice(0, -1);
 
 		$.cookie('chatbox_minimized', newCookie);
 		$('#chatbox_' + chatboxtitle + ' .chatboxcontent').css('display',
@@ -446,10 +247,50 @@ function toggleChatBoxGrowth(chatboxtitle) {
 
 }
 
+/* Permet de charger les fenêtres de chat ouvertes lors du chargement de la page */
+function loadChatBoxes(){
+	$
+	.ajax({
+		type : 'POST',
+		url : '/fsnetWeb/TalkMembersGetTalks.do',
+		dataType : "json",
+		
+		success : function(data, textStatus, jqXHR) {
+			
+			$(data.sessionTalks)
+					.each(
+							function(i) {
+								var name = data.sessionTalks[i].split('@')[0];
+								createChatBox(name, false);
+								$.ajax({
+									type : 'POST',
+									url : '/fsnetWeb/TalkMembersGetTalk.do',
+									data : {
+										friend : name
+									},
+									dataType : "json",
+									success : function(data,textStatus, jqXHR) {
+										debugger;
+										$("#chatbox_"+data.friend+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+data.conversation+'</span></div>');
+										$("#chatbox_"+ data.friend + " .chatboxcontent").scrollTop(
+														$("#chatbox_"+ data.friend + " .chatboxcontent")[0].scrollHeight);
+									},
+									error : function(data, textStatus, jqXHR) {
+										alert("ça marche pas !! :'(");
+									}
+								})
+							});
+
+		},
+		error : function(e) {
+			// alert('Error: ' + e);
+		}
+	});
+}
+
+/* Permet d'envoyer un message */
 function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
-	// alert("send message1 "+$(chatboxtextarea).val());
 	if (event.keyCode == 13 && event.shiftKey == 0) {
-		// alert("send message2 "+$(chatboxtextarea).val());
 		message = $(chatboxtextarea).val();
 		message = message.replace(/^\s+|\s+$/g, "");
 
@@ -458,47 +299,26 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 		$(chatboxtextarea).css('height', '44px');
 
 		if (message != '') {
-			// alert("send message3 "+$(chatboxtextarea).val());
-			// $.post("chat.php?action=sendchat", {to: chatboxtitle, message:
-			// message} , function(data){
-			// message =
-			// message.replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/\"/g,"&quot;");
-			// $("#chatbox_"+chatboxtitle+" .chatboxcontent").append('<div
-			// class="chatboxmessage"><span
-			// class="chatboxmessagefrom">'+username+':&nbsp;&nbsp;</span><span
-			// class="chatboxmessagecontent">'+message+'</span></div>');
-			// $("#chatbox_"+chatboxtitle+"
-			// .chatboxcontent").scrollTop($("#chatbox_"+chatboxtitle+"
-			// .chatboxcontent")[0].scrollHeight);
-			// });
 
-			$
-					.ajax({
+			$.ajax({
 						type : 'POST',
 						url : '/fsnetWeb/TalkMembersSend.do',
 						data : {
 							msg : message,
 							toFriend : chatboxtitle
 						},
+						dataType : "json",
 						success : function(data, textStatus, jqXHR) {
-							var e = $.parseJSON(jqXHR
-									.getResponseHeader("X-JSON"));
-							var lastConversation = [];
-							$(e.lastConversation)
+							$(data.lastConversation)
 									.each(
 											function(i) {
 
-												var name = e.lastConversation[i].name;
+												var name = data.lastConversation[i].name;
 												var str = (name).split("@");
-												var msg = e.lastConversation[i].msg;
-												var mailXmpp = e.lastConversation[i].mailXmpp;
+												var msg = data.lastConversation[i].msg;
+												var mailXmpp = data.lastConversation[i].mailXmpp;
 												var h = ":";
-												chatWith(chatboxtitle,
-														'kevin1@master11.com');
-												// $("#chatbox_"+name+"
-												// .chatboxcontent").remove();
-												// $("#chatboxinfo")
-												$("#" + name).remove();
+												
 												$(
 														"#chatbox_"
 																+ chatboxtitle
@@ -550,73 +370,6 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 
 }
 
-function startChatSession() {
-	$
-			.ajax({
-				url : "chat.php?action=startchatsession",
-				cache : false,
-				dataType : "json",
-				success : function(data) {
-					username = data.username ;					
-					
-					$
-							.each(
-									data.items,
-									function(i, item) {
-										if (item) { // fix strange ie bug
-											chatboxtitle = item.f;
-											if ($("#chatbox_" + chatboxtitle).length <= 0) {
-												createChatBox(chatboxtitle, 1);
-											}
-
-											if (item.s == 1) {
-												item.f = username;
-											}
-
-											if (item.s == 2) {
-												$(
-														"#chatbox_"
-																+ chatboxtitle
-																+ " .chatboxcontent")
-														.append(
-																'<div class="chatboxmessage"><span class="chatboxinfo">'
-																		+ item.m
-																		+ '</span></div>');
-											} else {
-												$(
-														"#chatbox_"
-																+ chatboxtitle
-																+ " .chatboxcontent")
-														.append(
-																'<div class="chatboxmessage"><span class="chatboxmessagefrom">'
-																		+ item.f
-																		+ ':&nbsp;&nbsp;</span><span class="chatboxmessagecontent">'
-																		+ item.m
-																		+ '</span></div>');
-											}
-										}
-									});
-
-					for (i = 0; i < chatBoxes.length; i++) {
-						chatboxtitle = chatBoxes[i];
-						$("#chatbox_" + chatboxtitle + " .chatboxcontent")
-								.scrollTop(
-										$("#chatbox_" + chatboxtitle
-												+ " .chatboxcontent")[0].scrollHeight);
-						setTimeout(
-								'$("#chatbox_"+chatboxtitle+" .chatboxcontent").scrollTop($("#chatbox_"+chatboxtitle+" .chatboxcontent")[0].scrollHeight);',
-								100); // yet
-						// another
-						// strange
-						// ie
-						// bug
-					}
-
-					setTimeout('chatHeartbeat();', chatHeartbeatTime);
-
-				}
-			});
-}
 
 /**
  * Cookie plugin

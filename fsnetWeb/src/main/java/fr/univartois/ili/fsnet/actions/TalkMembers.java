@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -157,7 +158,6 @@ public class TalkMembers extends MappingDispatchAction {
 		for (Entry<String, Boolean> entry : newConversation.entrySet()) {
 			String key = entry.getKey();
 			if (entry.getValue()) {
-
 				String msg = talkMessage.getConversation().get(key).toString();
 				String[] tt = key.split("@");
 				TalkJsonMsg talkjson = new TalkJsonMsg(msg, tt[0], key);
@@ -173,13 +173,117 @@ public class TalkMembers extends MappingDispatchAction {
 
 		JSONObject obj = new JSONObject();
 		obj.put("lastConversation", jsonArray);
-
-		response.setHeader("X-JSON", obj.toJSONString());
 		response.setHeader("cache-control", "no-cache");
-		response.setContentType("text/html");
+		response.setContentType("application/json");
+		
+		obj.writeJSONString(response.getWriter());
 
 		// return mapping.findForward("success");
 
+	}
+	
+	/**
+	 * Get session talks
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public void getTalks(ActionMapping mapping, ActionForm form,HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+
+		if (talk == null) {
+			talk = this.initTalkMembers(request);
+		}
+		
+		TalkMessage talkMessage = (TalkMessage) request.getSession()
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+		if (talkMessage == null) {
+
+			talkMessage = new TalkMessage(talk);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		}
+		
+		Map<String,Chat> sessionTalks=talkMessage.getSessionTalks();
+		Set<String> listSessions=sessionTalks.keySet();
+		
+		JSONArray jsonArray = JSONArray.fromObject(listSessions.toArray());
+
+		JSONObject obj = new JSONObject();
+		obj.put("sessionTalks", jsonArray);
+		response.setHeader("cache-control", "no-cache");
+		response.setContentType("application/json");
+		
+		obj.writeJSONString(response.getWriter());
+	}
+	
+	/**
+	 * Close a session talk
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public void closeTalk(ActionMapping mapping, ActionForm form,HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+
+		if (talk == null) {
+			talk = this.initTalkMembers(request);
+		}
+		
+		TalkMessage talkMessage = (TalkMessage) request.getSession()
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+		if (talkMessage == null) {
+
+			talkMessage = new TalkMessage(talk);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		}
+		
+		String friend=request.getParameter("friend");
+		
+		Map<String,Chat> sessionTalks=talkMessage.getSessionTalks();
+		
+		sessionTalks.remove(friend+"@"+xmppServerDomain);
+		
+		response.setHeader("cache-control", "no-cache");
+		response.setContentType("text/html");
+	}
+	
+	/**
+	 * Get session talk
+	 * 
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public void getTalk(ActionMapping mapping, ActionForm form,HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+		String friend = request.getParameter("friend");
+		if (talk == null) {
+			talk = this.initTalkMembers(request);
+		}
+		
+		TalkMessage talkMessage = (TalkMessage) request.getSession()
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+		if (talkMessage == null) {
+
+			talkMessage = new TalkMessage(talk);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		}
+		
+		StringBuilder conv = talkMessage.getConversation().get(friend+"@"+xmppServerDomain);		
+		
+		
+		JSONObject obj = new JSONObject();
+		obj.put("conversation", conv.toString());
+		obj.put("friend", friend);
+		response.setHeader("cache-control", "no-cache");
+		response.setContentType("application/json");
+		
+		obj.writeJSONString(response.getWriter());
 	}
 
 	/**
@@ -198,15 +302,12 @@ public class TalkMembers extends MappingDispatchAction {
 		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
-
 			talk = this.initTalkMembers(request);
-
 		}
 
 		String friend = request.getParameter("toFriend");
 		friend = friend + "@" + xmppServerDomain;
 		String msg = request.getParameter("msg");
-		
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
@@ -214,8 +315,7 @@ public class TalkMembers extends MappingDispatchAction {
 			talkMessage = new TalkMessage(talk);
 			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 		}
-		talkMessage = (TalkMessage) request.getSession().getAttribute(
-				TALKMESSAGE_ATTRIBUTE_NAME);
+
 		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
 
 		Chat chat = sessionTalks.get(friend);
@@ -234,20 +334,20 @@ public class TalkMembers extends MappingDispatchAction {
 
 		}
 		StringBuilder dd = null;
+		String formattedMsg = "</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
+				+ msg + "</p></br>"; 
 		try {
 			talk.sendMessage(msg, friend, chat);
 			dd = talkMessage.getConversation().get(friend);
 			if (dd == null) {
 
 				dd = new StringBuilder();
-				dd.append("</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
-						+ msg + "</p></br>");
+				dd.append(formattedMsg);
 				talkMessage.getConversation().put(friend, dd);
 				request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 			} else {
 
-				dd.append("</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
-						+ msg + "</p></br>");
+				dd.append(formattedMsg);
 				talkMessage.getConversation().put(friend, dd);
 				request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 			}
@@ -259,15 +359,16 @@ public class TalkMembers extends MappingDispatchAction {
 
 		List<TalkJsonMsg> lastConversation = new ArrayList<TalkJsonMsg>();
 		String[] tt = friend.split("@");
-		TalkJsonMsg talkjson = new TalkJsonMsg(dd.toString(), tt[0], friend);
+		TalkJsonMsg talkjson = new TalkJsonMsg(formattedMsg, tt[0], friend);
 		lastConversation.add(talkjson);
 		JSONArray jsonArray = JSONArray.fromObject(lastConversation);
 
 		JSONObject obj = new JSONObject();
 		obj.put("lastConversation", jsonArray);
 		response.setHeader("cache-control", "no-cache");
-		response.setHeader("X-JSON", obj.toJSONString());
-		response.setContentType("text/html");
+		response.setContentType("application/json");
+		
+		obj.writeJSONString(response.getWriter());
 
 	}
 

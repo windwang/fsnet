@@ -32,6 +32,18 @@
 			validate="false" parameter="send">
 <!-- 			<forward name="success" path="/TalkMembersReceive" /> -->
 		</action>
+		<action path="/TalkMembersGetTalks" name="TalkGetTalks"
+			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
+			validate="false" parameter="getTalks">
+		</action>
+		<action path="/TalkMembersGetTalk" name="TalkGetTalk"
+			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
+			validate="false" parameter="getTalk">
+		</action>
+		<action path="/TalkMembersCloseTalk" name="TalkCloseTalk"
+			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
+			validate="false" parameter="closeTalk">
+		</action>
 
 	</action-mappings>
 </struts-config>

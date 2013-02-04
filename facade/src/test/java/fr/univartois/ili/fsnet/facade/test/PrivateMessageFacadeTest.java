@@ -59,7 +59,7 @@ public class PrivateMessageFacadeTest {
         PrivateMessageFacade instance = new PrivateMessageFacade(em);
         PrivateMessage result = instance.sendPrivateMessage(body, from, subject, to);
         em.getTransaction().commit();
-        PrivateMessage pmfound = em.find(PrivateMessage.class, 1);
+        PrivateMessage pmfound = em.find(PrivateMessage.class, result.getId());
 
         assertSame(from.getSentPrivateMessages().get(0), to.getReceivedPrivateMessages().get(0));
         assertSame(result, pmfound);
