@@ -138,7 +138,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
-
+		String fromPage = request.getParameter("fromPage");
 		try {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			int messageId = Integer.parseInt(dynaForm.getString("messageId"));
@@ -152,7 +152,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				throw new UnauthorizedOperationException("");
 			}
 			em.getTransaction().begin();
-			pmf.deletePrivateMessage(authenticatedUser, privateMessage);
+			pmf.deletePrivateMessage(authenticatedUser, privateMessage,fromPage);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
 			servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS", e);
@@ -177,7 +177,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
-
+		String fromPage = request.getParameter("fromPage");
 		try {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
@@ -191,7 +191,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			for (int i = 0; i < selectedMessages.length; i++) {
 				PrivateMessage m = pmf.getPrivateMessage(Integer
 						.valueOf(selectedMessages[i]));
-				pmf.deletePrivateMessage(authenticatedUser, m);
+				pmf.deletePrivateMessage(authenticatedUser, m, fromPage);
 			}
 
 			em.flush();
@@ -220,7 +220,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
-
+		String fromPage = request.getParameter("fromPage");
 		try {
 			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
@@ -234,7 +234,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			for (int i = 0; i < selectedMessages.length; i++) {
 				PrivateMessage m = pmf.getPrivateMessage(Integer
 						.valueOf(selectedMessages[i]));
-				pmf.deletePrivateMessage(authenticatedUser, m);
+				pmf.deletePrivateMessage(authenticatedUser, m, fromPage);
 			}
 
 			em.flush();

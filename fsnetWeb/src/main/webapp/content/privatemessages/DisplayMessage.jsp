@@ -15,7 +15,7 @@
 	
 	<c:choose>
 		<c:when test="${empty requestScope.conversationMessages.resultList}">
-			<html:form action="/DeleteMultiMessages2">
+			<html:form action="/DeleteMultiMessages2?fromPage=in">
 				<table class="topicTable inLineTable fieldsetTableAppli">
 					<c:forEach items="${requestScope.conversationMessages1.resultList}"
 						var="message">
@@ -90,7 +90,7 @@
 		</c:when>
 		<c:otherwise>
 	
-			<html:form action="/DeleteMultiMessages2">
+			<html:form action="/DeleteMultiMessages2?fromPage=in">
 				<table class="topicTable inLineTable fieldsetTableAppli">
 					<c:forEach items="${requestScope.conversationMessages.resultList}"
 						var="message">

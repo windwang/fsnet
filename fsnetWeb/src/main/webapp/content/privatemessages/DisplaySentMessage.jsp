@@ -31,7 +31,7 @@
 		</table>
 
 		<!-- TODO factorise this code with createMessage.jsp -->
-		<html:link action="/DeletePrivateMessage" styleClass="button"
+		<html:link action="/DeletePrivateMessage?fromPage=out" styleClass="button"
 			style="float: right">
 			<html:param name="messageId" value="${theMessage.id}" />
 			<bean:message key="privatemessages.delete" />

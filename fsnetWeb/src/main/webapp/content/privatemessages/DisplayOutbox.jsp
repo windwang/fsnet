@@ -62,7 +62,7 @@
 						});
 			</script>
 
-			<html:form action="/DeleteMultiSentMessages">
+			<html:form action="/DeleteMultiSentMessages?fromPage=out">
 				<table id="tableoutbox"
 					class="tablesorter inLineTable fieldsetTableAppli">
 					<thead>

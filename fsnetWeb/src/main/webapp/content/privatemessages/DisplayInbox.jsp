@@ -60,7 +60,7 @@
 							});
 						});
 			</script>
-			<html:form action="/DeleteMultiMessages">
+			<html:form action="/DeleteMultiMessages?fromPage=in">
 				<table id="tableinbox"
 					class="tablesorter inLineTable fieldsetTableAppli">
 					<thead>
