@@ -10,9 +10,10 @@ import org.junit.runners.Suite;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ AnnouncementTest.class, CommunityTest.class,
-		HubTest.class, InterestTest.class, MeetingTest.class,
-		ProfileVisitTest.class, SocialEntityTest.class, TopicTest.class,
-		SocialGroupTest.class, InteractionTest.class })
+@Suite.SuiteClasses({ AddressTest.class, AnnouncementTest.class,
+		CommunityTest.class, ConsultationChoiceTest.class, HubTest.class,
+		InteractionTest.class, InterestTest.class, MeetingTest.class, ProfileVisitTest.class,
+		SocialEntityTest.class, SocialGroupTest.class, TopicTest.class
+		 })
 public class AllTests {
 }
