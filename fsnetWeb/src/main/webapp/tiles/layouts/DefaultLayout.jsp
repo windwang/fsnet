@@ -7,7 +7,7 @@
 <c:set var="pageTitle">
 	<tiles:getAsString name="title" />
 </c:set>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html:html xhtml="true" lang="true">
 <head>
 
@@ -77,17 +77,140 @@
 	});
 </script>
 
+<link rel="stylesheet" media="screen" type="text/css"
+	href="./bootstrap/css/bootstrap.min.css" />
+<link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/bootstrapStyle.css" />
+	
 
 <!-- Custom color style by group-->
 <style type="text/css">
 body {
-	background: -webkit-gradient(linear, left top, left bottom, from(#${color}),to(white)) no-repeat;
-	background: -webkit-linear-gradient(top,#${color},white) no-repeat;
-	background: -moz-linear-gradient(top,#${color},white) no-repeat;
-	background: -o-linear-gradient(top,#${color},white) no-repeat;
-	background: linear-gradient(top,#${color},white) no-repeat;	
+	background: -webkit-gradient(linear, left top, left bottom, from(#${   color
+}
+),
+to
+
+
+(
+white
+))
+
+ 
+
+no-repeat
+
+
+;
+background
+
+
+:
+
+ 
+
+-webkit-linear-gradient
+
+
+(
+top
+,
+#${
+color
+
+
+}
+,
+white
+
+
+)
+no-repeat
+
+
+;
+background
+
+
+:
+
+ 
+
+-moz-linear-gradient
+
+
+(
+top
+,
+#${
+color
+
+
+}
+,
+white
+
+
+)
+no-repeat
+
+
+;
+background
+
+
+:
+
+ 
+
+-o-linear-gradient
+
+
+(
+top
+,
+#${
+color
+
+
+}
+,
+white
+
+
+)
+no-repeat
+
+
+;
+background
+
+
+:
+
+ 
+
+linear-gradient
+
+
+(
+top
+,
+#${
+color
+
+
+}
+,
+white
+
+
+)
+no-repeat
+
+
+;
 }
 </style>
 
@@ -95,40 +218,31 @@ body {
 
 </head>
 <body>
-	<div id="wrapHeader">
-		<div id="header">
-			<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
-			<tiles:insert attribute="menu" />
-		</div>
-	</div>
-	<div id="wrapBody">
-		<div id="placeHeader"></div>
-		<div id="leftMenu">
-			<div id="logo">
-				<tiles:insert attribute="logo" />
-			</div>
-			<div id="left">
-				<h2>
-					<a> <bean:message key="${pageTitle}" />
-					</a>
-				</h2>
-				<tiles:insert attribute="left" />
-				<tiles:insert attribute="loggedUsers" />
-			</div>
-		</div>
 
-		<div id="body-content">
-			<tiles:insert attribute="body-content" />
+	<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
+	<tiles:insert attribute="menu" />
+	<div class="clear"></div>
+	<div id="wrapBody">
+		<div class="row-fluid">
+			<div class="span2 fixed">
+				
+					<tiles:insert attribute="logo" />
+					<div id="left" class="cadreDivMenuTop">
+						<h2>
+							<bean:message key="${pageTitle}" />
+						</h2>
+						<tiles:insert attribute="left" />
+						<tiles:insert attribute="loggedUsers" />
+					</div>
+				
+			</div>
+			<div class="span8 offset2">
+					<tiles:insert attribute="body-content" />
+			</div>
 		</div>
 		<div style="clear: both"></div>
-
-		<div id="placeFooterStyle"></div>
 	</div>
-	<div id="wrapFooterStyle">
-		<div id="footerStyle">
-			<tiles:insert attribute="footer" />
-		</div>
-	</div>
+	<tiles:insert attribute="footer" />
 
 </body>
 </html:html>

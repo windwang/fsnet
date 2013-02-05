@@ -1,5 +1,4 @@
 .fieldsetCadre {
-	top:60px;/*a virer*/
 	position:relative;
 	padding-top:10px;
 	border:1px solid black;
@@ -9,6 +8,18 @@
 	border-bottom-right-radius: 10px;
 	padding-top:15px;
 	box-shadow: 4px 4px 3px #888888;
+	margin-bottom:10px;
+}
+
+.fixed {
+	position:fixed;
+}
+
+.footer{
+	background-color:black;
+	line-height:22px;
+	width:100%;
+	text-align:center;
 }
 
 /*.fieldsetCadre > legend {
@@ -39,7 +50,7 @@
 	padding: 0px;
 }*/
 
-.fieldsetCadre > legend {
+.fieldsetCadre legend {
 	width:100%;
 	border : 1px solid black;
 	position:absolute;
@@ -50,7 +61,11 @@
 	border-top-right-radius: 10px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #595959
 		), color-stop(1, #101010) );
+	background: -moz-linear-gradient(center top, #595959 5%, #101010 100%);
+	background: -o-linear-gradient(bottom, #0057af 5%, #007fff 100%);
 		color:white;
+	line-height:18px;
+	font-size:15px;
 }
 
 .fieldsetCadre > legend > a{
@@ -74,5 +89,63 @@
 
 
 .tableStyle {
+	border-collapse:separate;
+	border-spacing:2px;
+}
 
+.cadreDivMenuTop {
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border:1px solid black;
+}
+
+.cadreDivMenuTop>*{
+	position:relative;
+	top:-1px;
+	left:-1px;
+	text-align:center;
+}
+
+
+.cadreDivMenuTop>h3:first-child,h2:first-child{
+	width:100%;
+	border : 1px solid black;
+	text-align:center;
+	border-top-left-radius: 10px;
+	border-top-right-radius: 10px;
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #595959
+		), color-stop(1, #101010) );
+	background: -moz-linear-gradient(center top, #595959 5%, #101010 100%);
+	background: -o-linear-gradient(bottom, #0057af 5%, #007fff 100%);
+		color:white;
+	line-height:18px;
+	font-size:15px;
+	margin:0;
+}
+
+
+.cadreDivMenuTop>h3,h2{
+	width:100%;
+	background-color:#525252;
+	border-right:1px solid black;
+	border-left:1px solid black;
+	color:white;
+	line-height:18px;
+	font-size:15px;
+	margin:0;
+}
+
+#logo_menu {
+	height:23px;
+	padding:0;
+}
+
+.noMargin{
+	margin:0;
+}
+
+.littleTopPadding {
+	padding-top:5px;
 }

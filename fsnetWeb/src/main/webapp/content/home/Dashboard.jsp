@@ -6,14 +6,14 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetHome">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<html:link action="/Inbox">
 			<bean:message key="dashBoard.messages.last" />
 		</html:link>
 	</legend>
 	<table id="dashboardMessages"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<logic:empty name="messages">
 			<tr>
 				<td><bean:message key="dashBoard.messages.empty" />.</td>
@@ -63,14 +63,14 @@
 	</table>
 </fieldset>
 
-<fieldset class="fieldsetHome2">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<html:link action="/Visits">
 			<bean:message key="visite.last.title" />
 		</html:link>
 	</legend>
 	<table id="lastVisits"
-		class="inLineTable fieldsetTableAppli homeFrame">
+		class="inLineTable tableStyle">
 		<logic:empty name="visitors">
 			<tr>
 				<td><bean:message key="dashBoard.visites.empty" />.</td>
