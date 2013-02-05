@@ -8,8 +8,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<c:import url="/FavoriteFragment.do">
 			<c:param name="interactionId" value="${event.id}" />
 		</c:import>
@@ -17,7 +17,7 @@
 	</legend>
 
 	<div class="interactionDisplay">
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable">
 			<tr class="authorDate">
 				<td><bean:message key="events.createdBy" /> <ili:getSocialEntityInfos
 						socialEntity="${event.creator}" /> , <bean:message
@@ -38,24 +38,24 @@
 				<td class="alignRight"><ili:interactionFilter
 						user="${ socialEntity }" right="${ rightRegisterEvent }">
 						<c:if test="${not subscriber}">
-							<html:link action="/SubscribeEvent" styleClass="button">
+							<html:link action="/SubscribeEvent" styleClass="button btn btn-inverse">
 								<html:param name="eventId" value="${event.id}" />
 								<bean:message key="events.button.subscribe" />
 							</html:link>
 						</c:if>
 						<c:if test="${subscriber}">
-							<html:link action="/UnsubscribeEvent" styleClass="button">
+							<html:link action="/UnsubscribeEvent" styleClass="button btn btn-inverse">
 								<html:param name="eventId" value="${event.id}" />
 								<bean:message key="events.button.unsubscribe" />
 							</html:link>
 						</c:if>
 					</ili:interactionFilter> <c:if test="${userId eq event.creator.id}">
-						<html:link action="/DisplayUpdateEvent" styleClass="button">
+						<html:link action="/DisplayUpdateEvent" styleClass="button btn btn-inverse">
 							<html:param name="eventId" value="${event.id}" />
 							<bean:message key="events.button.update" />
 						</html:link>
 					</c:if> 
-					<html:link action="/ExportEventById" styleClass="button">
+					<html:link action="/ExportEventById" styleClass="button btn btn-inverse">
 						<html:param name="eventId" value="${event.id}" />
 						<bean:message key="events.export" />
 					</html:link>
@@ -63,7 +63,7 @@
 						<html:form action="/DeleteEvent" method="post"
 							styleId="eventid${event.id}" styleClass="deleteEventForm">
 							<html:hidden property="eventId" value="${event.id}" />
-							<span class="button"
+							<span class="button btn btn-inverse"
 								onclick="confirmDelete2('eventid${event.id}', '<bean:message key="message.confirmation.delete" />');">
 								<bean:message key="events.button.delete" />
 							</span>
@@ -88,7 +88,7 @@
 			<bean:message key="events.title.participate" />
 		</legend>
 
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable ">
 			<tr>
 				<td><logic:iterate id="subscriber" collection="${subscribers}">
 						<span class="tagSE"> <ili:getMiniature
