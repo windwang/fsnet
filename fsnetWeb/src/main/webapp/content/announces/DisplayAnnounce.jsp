@@ -8,8 +8,8 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<c:import url="/FavoriteFragment.do">
 			<c:param name="interactionId" value="${announce.id}" />
 		</c:import>
@@ -17,7 +17,7 @@
 	</legend>
 
 	<div class="interactionDisplay">
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<tr class="authorDate">
 				<td><bean:message key="announce.createdBy" /> <ili:getSocialEntityInfos
 						socialEntity="${announce.creator}" />, <bean:message
@@ -39,11 +39,11 @@
 				<td class="alignRight"><logic:present name="owner">
 						<bean:define id="idAnnounce" name="announce" property="id" />
 						<html:link action="/DisplayForModifyAnnounce" paramId="idAnnounce"
-							paramName="idAnnounce" styleClass="button">
+							paramName="idAnnounce" styleClass="button btn btn-inverse">
 							<bean:message key="announce.button.update" />
 						</html:link>
 						<html:link action="/DeleteAnnounce" paramId="idAnnounce"
-							paramName="idAnnounce" styleClass="button">
+							paramName="idAnnounce" styleClass="button btn btn-inverse">
 							<bean:message key="announce.button.delete" />
 						</html:link>
 					</logic:present></td>

@@ -5,8 +5,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="announce.title.list" />
 	</legend>
 
@@ -38,7 +38,7 @@
 						});
 			</script>
 			<table id="eventsTable"
-				class="tablesorter inLineTable fieldsetTableAppli">
+				class="tablesorter inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th></th>

@@ -8,18 +8,18 @@
 	<bean:message key="announce.placeHolder.search" />
 </bean:define>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="announce.title.search" />
 	</legend>
 	<table id="SearchAnnounce"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<html:form action="/Announces" method="GET">
 			<tr>
 				<td><html:text property="textSearchAnnounce"
 						styleId="textSearchAnnounce" /> <ili:placeHolder
 						id="textSearchAnnounce" value="${searchMessage}" /> <html:submit
-						styleClass="button">
+						styleClass="button btn btn-inverse">
 						<bean:message key="announce.button.search" />
 					</html:submit></td>
 			</tr>
