@@ -15,8 +15,7 @@
 	</legend>
 
 
-	<table id="exportEvents"
-		class="inLineTable tableStyle ">
+	<table id="exportEvents" class="inLineTable tableStyle ">
 		<tr>
 			<td><html:link action="/ExportAllEvents">
 					<img src="images/download.png" alt="<bean:message key="events.export" />" title="<bean:message key="events.export" />" /><bean:message key="events.exportAll" />
@@ -35,7 +34,7 @@
 	<c:choose>
 
 		<c:when test="${empty requestScope.eventsList}">
-			<table class="inLineTable tableStyle ">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="events.search.empty" /></td>
 				</tr>
