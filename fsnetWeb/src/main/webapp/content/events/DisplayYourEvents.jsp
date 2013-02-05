@@ -97,7 +97,8 @@
 			</html:form>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable  tableStyle">
+			<
+ class="inLineTable  tableStyle">
 				<tr>
 					<td><bean:message key="research.event.emptyList" />.</td>
 				</tr>
