@@ -8,15 +8,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
-<fieldset class="fieldsetProfil">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend >
 		<bean:message key="showProfile.title"
 			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<tr>
 			<td>
-				<table class="watchedProfile">
+				<table class="inLineTable tableStyle">
 					<c:if
 						test="${watchedProfile.email != null && not empty watchedProfile.email }">
 						<tr>
@@ -71,30 +71,33 @@
 				</table>
 			</td>
 		</tr>
+		<tr>
+			<td>
+			<img src="avatar/${watchedProfile.id}.png" style="float: right;"
+				alt="Avatar" />
+			</td>
+		</tr>
 	</table>
 </fieldset>
 
 
-<img src="avatar/${watchedProfile.id}.png" style="float: right;"
-	alt="Avatar" />
-
 <div class="placeButton">
 	<c:if
 		test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
-		<html:link action="/ContactDemand" styleClass="button">
+		<html:link action="/ContactDemand" styleClass="btn btn-inverse">
 			<bean:message key="showProfile.ask" />
 			<html:param name="entitySelected" value="${watchedProfile.id}" />
 		</html:link>
 	</c:if>
 
 	<c:if test="${watchedProfile.id != currentUser.id}">
-		<html:link action="/DisplayCreatePrivateMessage" styleClass="button">
+		<html:link action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
 			<bean:message key="showProfile.send" />
 			<html:param name="receiver" value="${watchedProfile.email}" />
 		</html:link>
 	</c:if>
 	<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
-		<a class="button"
+		<a class="btn btn-inverse"
 			onclick="javascript:chatWith('${watchedProfile.name}_${watchedProfile.id}','habib2@master11.com')">
 			<bean:message key="showProfile.chat" />
 		</a>
@@ -103,12 +106,12 @@
 
 <div class="clear"></div>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="showInterest.title"
 			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<tr>
 			<td><logic:empty name="watchedProfile" property="interests">
 					<bean:message key="Profile.noInterests" />.
@@ -135,15 +138,15 @@
 	</table>
 </fieldset>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="profile.showInteraction.title"
 			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.interactions}">
 
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="Profile.noInteractions" />.</td>
 				</tr>
@@ -168,7 +171,7 @@
 			</script>
 
 			<table id="tableinteractions"
-				class="tablesorter inLineTable fieldsetTableAppli">
+				class="inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th></th>
@@ -235,11 +238,11 @@
 </fieldset>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="showProfile.contacts.title" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<tr>
 			<td><logic:empty name="watchedProfile" property="contacts">
 					<c:choose>
@@ -263,11 +266,11 @@
 	</table>
 </fieldset>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="showProfile.groups.tree" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<tr>
 			<td>
 				<ul>
