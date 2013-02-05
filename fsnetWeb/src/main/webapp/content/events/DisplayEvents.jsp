@@ -9,14 +9,14 @@
 <%@ include file="SearchEvent.jsp" %>
 
 <c:if test="${!empty requestScope.eventsList}">
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="events.leftMenu.exportEvents" />
 	</legend>
 
 
 	<table id="exportEvents"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable ">
 		<tr>
 			<td><html:link action="/ExportAllEvents">
 					<img src="images/download.png" alt="<bean:message key="events.export" />" title="<bean:message key="events.export" />" /><bean:message key="events.exportAll" />
@@ -27,15 +27,15 @@
 </fieldset>
 </c:if>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="events.title.list" />
 	</legend>
 
 	<c:choose>
 
 		<c:when test="${empty requestScope.eventsList}">
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable ">
 				<tr>
 					<td><bean:message key="events.search.empty" /></td>
 				</tr>
@@ -65,7 +65,7 @@
 						});
 			</script>
 			<table id="eventsTable"
-				class="tablesorter inLineTable fieldsetTableAppli">
+				class="tablesorter inLineTable ">
 				<thead>
 					<tr>
 						<th></th>

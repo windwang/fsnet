@@ -8,13 +8,12 @@
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="events.title.create" />
 	</legend>
 
-	<table id="UpdateEvent"
-		class="iinLineTable fieldsetTableAppli">
+	<table id="UpdateEvent" class="iinLineTable  tableStyle">
 		<html:form action="/UpdateEvent">
 			<tr>
 				<td><label for="eventName"> <bean:message
@@ -120,9 +119,10 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
-			
+
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button btn btn-inverse">
 						<bean:message key="events.button.update" />
 					</html:submit></td>
 			</tr>
@@ -141,7 +141,7 @@
 			showMonthAfterYear : false
 		}));
 		$.datepicker.setDefaults($.datepicker.regional['fr']);
-		
+
 		$.timepicker.regional['fr'] = {
 			timeOnlyTitle : 'Temps',
 			timeText : 'Temps',

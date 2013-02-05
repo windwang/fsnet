@@ -5,8 +5,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="events.leftMenu.title" />
 	</legend>
 
@@ -54,7 +54,7 @@
 
 			<html:form action="/DeleteMultiEvents">
 				<table id="yourEvents"
-					class="tablesorter inLineTable fieldsetTableAppli">
+					class="tablesorter inLineTable  tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
@@ -66,8 +66,7 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="4"><html:submit
-									styleClass="button">
+							<td colspan="4"><html:submit styleClass="button btn btn-inverse">
 									<bean:message key="privatemessages.delete" />
 								</html:submit></td>
 						</tr>
@@ -98,7 +97,7 @@
 			</html:form>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable  tableStyle">
 				<tr>
 					<td><bean:message key="research.event.emptyList" />.</td>
 				</tr>
