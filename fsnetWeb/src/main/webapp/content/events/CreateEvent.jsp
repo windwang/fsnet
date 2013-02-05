@@ -13,7 +13,7 @@
 		<bean:message key="events.title.create" />
 	</legend>
 	<table id="CreateEvent"
-		class="inLineTable">
+		class="inLineTable tableStyle">
 		<html:form action="/CreateEvent">
 			<tr>
 				<td><label for="eventName"> <bean:message
