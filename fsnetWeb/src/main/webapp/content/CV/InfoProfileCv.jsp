@@ -14,7 +14,7 @@
 				</legend>
 			</div>
 			<div class="corp">
-				<table class="inLineTable fieldsetTableAppli tableStyle">
+				<table class="inLineTable  tableStyle">
 					<tr>
 						<td><label for="cvTitle"><bean:message
 									key="cv.form.title" /></label></td>
@@ -40,7 +40,7 @@
 
 			</div>
 			<div class="corp_contact">
-				<table class="inLineTable fieldsetTableAppli tableStyle">
+				<table class="inLineTable  tableStyle">
 					<tr>
 						<td><label for="cvFirstname"><bean:message
 									key="cv.form.profile.firstname" /></label></td>
