@@ -95,22 +95,22 @@
 <div class="clear homeGap"></div>
 <c:choose>
 	<c:when test="${sessionScope.numNewContactsRequests gt 0}">
-		<fieldset class="fieldsetHome">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend>
 				<bean:message key="dashBoard.contacts.ask" />
 			</legend>
 			<table id="contactsAsked"
-				class="inLineTable fieldsetTableAppli homeFrame">
+				class="inLineTable homeFrame tableStyle">
 				<c:forEach var="contact" items="${contactsAsked}">
 					<tr class="notReed">
 						<td class="miniatureContainer"><ili:getMiniature
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
 						<td class="tableButton"><html:link action="/AcceptContactHome"
-								styleClass="button">
+								styleClass="btn btn-inverse">
 								<html:param name="entityAccepted" value="${contact.id}" />
 								<bean:message key="contact.button.accept" />
-							</html:link> <html:link action="/RefuseContactHome" styleClass="button">
+							</html:link> <html:link action="/RefuseContactHome" styleClass="btn btn-inverse">
 								<html:param name="entityRefused" value="${contact.id}" />
 								<bean:message key="contact.button.refuse" />
 							</html:link></td>
@@ -120,12 +120,12 @@
 		</fieldset>
 	</c:when>
 	<c:otherwise>
-		<fieldset class="fieldsetHome">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend>
 				<bean:message key="dashBoard.contacts.proposals" />
 			</legend>
 			<table id="contactProposals"
-				class="inLineTable fieldsetTableAppli homeFrame">
+				class="inLineTable homeFrame tableStyle">
 				<logic:empty name="contacts">
 					<tr>
 						<td><bean:message key="dashBoard.contacts.empty" />.</td>
@@ -151,14 +151,14 @@
 	</c:otherwise>
 </c:choose>
 
-<fieldset class="fieldsetHome2">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<html:link action="/InterestInformations">
 			<bean:message key="dashBoard.interests.proposals" />
 		</html:link>
 	</legend>
 	<table id="interestProposals"
-		class="inLineTable fieldsetTableAppli homeFrame">
+		class="inLineTable homeFrame tableStyle">
 		<logic:empty name="interests">
 			<tr>
 				<td><bean:message key="dashBoard.interests.empty" />.</td>
@@ -186,14 +186,14 @@
 
 <div class="clear homeGap"></div>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<html:link action="/Consultations">
 			<bean:message key="lastInteractions.title" />
 		</html:link>
 	</legend>
 	<table id="lastInteractions"
-		class="inLineTable fieldsetTableAppli homeFrame">
+		class="inLineTable homeFrame tableStyle">
 		<logic:empty name="lastInteractions">
 			<tr>
 				<td><bean:message key="dashBoard.interaction.empty" />.</td>
