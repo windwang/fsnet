@@ -6,14 +6,14 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetAppli">
+<fieldset class="fieldsetCadre">
 
-	<legend class="legendHome">
+	<legend>
 		<bean:message key="privatemessages.Messagessent" />
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.outBoxMessages}">
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="privatemessages.nomessages" /></td>
 				</tr>
@@ -64,7 +64,7 @@
 
 			<html:form action="/DeleteMultiSentMessages?fromPage=out">
 				<table id="tableoutbox"
-					class="tablesorter inLineTable fieldsetTableAppli">
+					class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
@@ -78,7 +78,7 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="6"><html:submit styleClass="button">
+							<td colspan="6"><html:submit styleClass="btn btn-inverse">
 									<bean:message key="privatemessages.delete" />
 								</html:submit></td>
 						</tr>

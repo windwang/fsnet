@@ -10,13 +10,13 @@
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">${theMessage.subject}</legend>
+<fieldset class="fieldsetCadre">
+	<legend>${theMessage.subject}</legend>
 	
 	<c:choose>
 		<c:when test="${empty requestScope.conversationMessages.resultList}">
 			<html:form action="/DeleteMultiMessages2?fromPage=in">
-				<table class="topicTable inLineTable fieldsetTableAppli">
+				<table class="topicTable inLineTable tableStyle">
 					<c:forEach items="${requestScope.conversationMessages1.resultList}"
 						var="message">
 						<tr class="topicHeader"="2">
@@ -34,7 +34,7 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<html:submit styleClass="button">
+				<html:submit styleClass="btn btn-inverse">
 					<bean:message key="privatemessages.delete" />
 				</html:submit>
 			</html:form>
@@ -54,7 +54,7 @@
 
 			<html:form action="/CreatePrivateMessage">
 				<html:hidden property="messageTo" value="${theMessage.from.email}" />
-				<table id="quickResponse"
+				<table id="quickResponse tableStyle"
 					style="width: 100%; display: none; margin-top: 10px;">
 					<tr>
 						<td><label for="messageTo"> <bean:message
@@ -80,7 +80,7 @@
 
 					<tr>
 						<td colspan="2" class="alignRight"><html:submit
-								styleClass="button"
+								styleClass="btn btn-inverse"
 								onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();">
 								<bean:message key="privatemessages.send" />
 							</html:submit></td>
@@ -91,7 +91,7 @@
 		<c:otherwise>
 	
 			<html:form action="/DeleteMultiMessages2?fromPage=in">
-				<table class="topicTable inLineTable fieldsetTableAppli">
+				<table class="topicTable inLineTable">
 					<c:forEach items="${requestScope.conversationMessages.resultList}"
 						var="message">
 						<tr class="topicHeader">
@@ -109,14 +109,14 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<html:submit styleClass="button">
+				<html:submit styleClass="btn btn-inverse">
 					<bean:message key="privatemessages.delete" />
 				</html:submit>
 			</html:form>
 
 			<ili:interactionFilter user="${ socialEntity }"
 				right="${ rightAnswerMessage }">
-				<a class="button"
+				<a class="btn btn-inverse"
 					onclick="document.getElementById('quickResponse').style.display='table'">
 					<img src="images/quickResponse.png" style="vertical-align: bottom"
 					alt="Quick response" /> <bean:message
@@ -152,7 +152,7 @@
 
 					<tr>
 						<td colspan="2" class="alignRight"><html:submit
-								styleClass="button"
+								styleClass="btn btn-inverse"
 								onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();">
 								<bean:message key="privatemessages.send" />
 							</html:submit></td>

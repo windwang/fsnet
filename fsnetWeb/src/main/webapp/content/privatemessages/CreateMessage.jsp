@@ -13,11 +13,11 @@
 
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="privatemessages.sendM" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<html:form action="/CreatePrivateMessage">
 
 			<tr>
@@ -27,12 +27,12 @@
 				<td><c:choose>
 						<c:when test="${! empty param.receiver}">
 							<html:text property="messageTo" errorStyleClass="error"
-								style="width: 100%" styleId="memberSearch"
+								style="width: 95%" styleId="memberSearch"
 								value="${param.receiver}" />
 						</c:when>
 						<c:otherwise>
 							<html:text property="messageTo" errorStyleClass="error"
-								style="width: 100%" styleId="memberSearch" />
+								style="width: 95%" styleId="memberSearch" />
 						</c:otherwise>
 					</c:choose> <logic:messagesPresent property="messageTo">
 						<div class="errorMessage">
@@ -47,7 +47,7 @@
 							key="privatemessages.subject" />
 				</label></td>
 				<td><html:text property="messageSubject"
-						errorStyleClass="error" styleId="messageSubject" style="width: 100%" /> <logic:messagesPresent
+						errorStyleClass="error" styleId="messageSubject" style="width: 95%" /> <logic:messagesPresent
 						property="messageSubject">
 						<div class="errorMessage">
 							<html:errors property="messageSubject" />
@@ -70,7 +70,7 @@
 
 			<tr>
 				<td colspan="2" class="alignRight"><html:submit
-						styleClass="button"
+						styleClass="btn btn-inverse"
 						onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();">
 						<bean:message key="privatemessages.send" />
 					</html:submit></td>

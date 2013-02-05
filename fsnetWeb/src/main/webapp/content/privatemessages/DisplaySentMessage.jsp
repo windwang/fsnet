@@ -13,11 +13,11 @@
 	</h3>
 </logic:empty>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">${theMessage.subject}</legend>
+<fieldset class="fieldsetCadre">
+	<legend>${theMessage.subject}</legend>
 
 	<logic:notEmpty name="theMessage" scope="request">
-		<table class="topicTable inLineTable fieldsetTableAppli">
+		<table class="topicTable inLineTable">
 			<tr class="topicHeader">
 				<td><bean:message key="privatemessages.to" /> : <ili:getSocialEntityInfos
 						socialEntity="${theMessage.to}" /> ${theMessage.to.email} <span
@@ -31,7 +31,7 @@
 		</table>
 
 		<!-- TODO factorise this code with createMessage.jsp -->
-		<html:link action="/DeletePrivateMessage?fromPage=out" styleClass="button"
+		<html:link action="/DeletePrivateMessage?fromPage=out" styleClass="btn btn-inverse"
 			style="float: right">
 			<html:param name="messageId" value="${theMessage.id}" />
 			<bean:message key="privatemessages.delete" />
