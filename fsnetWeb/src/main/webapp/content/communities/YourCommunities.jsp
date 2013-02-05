@@ -5,8 +5,8 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="communities.title.listYourCommunities" />
 	</legend>
 
@@ -49,7 +49,7 @@
 			</script>
 			<html:form action="/DeleteMultiCommunities">
 				<table id="myCommTables"
-					class="tablesorter inLineTable fieldsetTableAppli ">
+					class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
@@ -59,7 +59,7 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="2"><html:submit styleClass="button">
+							<td colspan="2"><html:submit styleClass="btn btn-inverse">
 									<bean:message key="privatemessages.delete" />
 								</html:submit></td>
 						</tr>
@@ -92,7 +92,7 @@
 			</html:form>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="communities.noResult" /></td>
 				</tr>

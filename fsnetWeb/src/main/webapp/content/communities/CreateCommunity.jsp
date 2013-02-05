@@ -4,12 +4,12 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend >
 		<bean:message key="communities.title.create" />
 	</legend>
 
-	<table id="CreateCommunity" class="inLineTable fieldsetTableAppli">
+	<table id="CreateCommunity" class="inLineTable tableStyle">
 		<html:form action="/CreateCommunity">
 			<tr>
 				<td><label for="communityName"> <bean:message
@@ -30,7 +30,7 @@
 
 			<tr>
 				<td colspan="2" class="tableButton"><html:submit
-						styleClass="button">
+						styleClass="btn btn-inverse">
 						<bean:message key="communities.button.validate" />
 					</html:submit></td>
 			</tr>
