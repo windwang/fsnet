@@ -8,12 +8,12 @@
 
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="topics.title.modifyMessage" />
 	</legend>
 
-	<table id="CreateTopic" class="inLineTable fieldsetTableAppli">
+	<table id="CreateTopic" class="inLineTable tableStyle">
 		<html:form action="/ModifyTopicMessage">
 			<html:hidden property="topicId" value="${topicId}" />
 			<html:hidden property="messageId" value="${message.id}" />
@@ -34,7 +34,7 @@
 
 			<tr>
 				<td colspan="2" class="tableButton"><html:submit
-						styleClass="button">
+						styleClass="btn btn-inverse">
 						<bean:message key="topics.button.updateMessage" />
 					</html:submit></td>
 			</tr>

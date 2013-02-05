@@ -5,8 +5,8 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<c:import url="/FavoriteFragment.do">
 			<c:param name="interactionId" value="${requestScope.topic.id}" />
 		</c:import>
@@ -41,20 +41,20 @@
 
 <c:forEach var="msg"
 	items="${requestScope.topicMessageDisplayPaginator.resultList}">
-	<table class="topicTable">
+	<table class="topicTable tableStyle">
 		<tr class="topicHeader">
 			<td><bean:write name="msg" property="creationDate"
 					format="dd/MM/yyyy HH:mm" /></td>
 			<td style="text-align: right;"><c:if
 					test="${sessionScope.userId eq msg.from.id}">
 
-					<html:link action="/DeleteTopicMessage" styleClass="button">
+					<html:link action="/DeleteTopicMessage" styleClass="btn btn-inverse">
 						<html:param name="topicId" value="${topic.id}" />
 						<html:param name="messageId" value="${msg.id}" />
 						<bean:message key="topics.button.deleteMessage" />
 					</html:link>
 
-					<html:link action="/DisplayModifyTopicMessage" styleClass="button">
+					<html:link action="/DisplayModifyTopicMessage" styleClass="btn btn-inverse">
 						<html:param name="topicId" value="${topic.id}" />
 						<html:param name="messageId" value="${msg.id}" />
 						<bean:message key="topics.button.modifyMessage" />
@@ -79,7 +79,7 @@
 <c:set var="paginatorTile" value="displayTopic" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
 
-<html:link action="/DisplayCreateTopicMessage" styleClass="button">
+<html:link action="/DisplayCreateTopicMessage" styleClass="btn btn-inverse">
 	<html:param name="topicId" value="${topic.id}" />
 	<bean:message key="topics.button.answerMessage" />
 </html:link>

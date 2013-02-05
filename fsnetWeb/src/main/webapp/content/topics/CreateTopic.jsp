@@ -8,13 +8,13 @@
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset  class="fieldsetCadre">
+	<legend>
 		<bean:message key="topics.title.create" />
 	</legend>
 
 	<table id="CreateTopic"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<html:form action="/CreateTopic">
 
 			<html:hidden property="hubId" value="${param.hubId}" />
@@ -51,7 +51,7 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="tableButton"><html:submit
-						styleClass="button alignRight">
+						styleClass="btn btn-inverse alignRight">
 						<bean:message key="topics.button.create" />
 					</html:submit></td>
 			</tr>
