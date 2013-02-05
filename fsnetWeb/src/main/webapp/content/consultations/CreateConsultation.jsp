@@ -5,21 +5,21 @@
 
 <script type="text/javascript" src="js/consultationUtils.js"></script>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="consultations.title.create" />
 	</legend>
 
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<html:form action="CreateConsultation" method="POST">
 			<tr>
 				<td>
-					<fieldset class="inLinefieldset">
+					<fieldset class="fieldsetCadre">
 						<legend>
 							<bean:message key="consultations.title.information" />
 						</legend>
 
-						<table>
+						<table class="tableStyle">
 							<tr>
 								<td><label for="consultationTitle"><bean:message
 											key="consultations.form.title" /></label></td>
@@ -43,12 +43,12 @@
 
 			<tr>
 				<td>
-					<fieldset class="inLinefieldset">
+					<fieldset class="fieldsetCadre">
 						<legend>
 							<bean:message key="consultations.title.choix" />
 						</legend>
 
-						<table>
+						<table class="tableStyle">
 							<tr>
 								<td><label for="radioButtonText"><bean:message
 											key="consultations.form.textAlternative"></bean:message></label> <input
@@ -91,7 +91,7 @@
 							styleId="consultationChoice" />
 						<html:hidden property="maxVoters"
 							styleId="maxVoters" />
-						<table id="choicesTab">
+						<table id="choicesTab" class="tableStyle">
 							<c:forEach begin="1" end="3" var="i">
 								<tr>
 									<td><label for="consultationChoice${i}"><span
@@ -113,7 +113,7 @@
 			<tr>
 				<td>
 
-					<fieldset class="inLinefieldset">
+					<fieldset class="fieldsetCadre">
 						<legend>
 							<bean:message key="consultations.title.droit" />
 						</legend>
@@ -122,7 +122,7 @@
 								<bean:message key="consultation.droits.errorRights" />
 							</p>
 						</c:if>
-						<table>
+						<table class="tableStyle">
 							<tr>
 								<td ROWSPAN="2">
 									<div>
@@ -169,7 +169,7 @@
 
 			<tr>
 				<td>
-					<fieldset class="inLinefieldset">
+					<fieldset class="fieldsetCadre">
 						<legend>
 							<bean:message key="consultations.title.typeConsultation" />
 						</legend>
@@ -178,7 +178,7 @@
 							<html:errors property="consultationIfNecessaryWeight" />
 						</div>
 
-						<table>
+						<table class="tableStyle">
 							<tr>
 								<td><html:radio property="consultationType" value="YES_NO"
 										styleId="YES_NO" /></td>
@@ -219,7 +219,7 @@
 			<tr>
 				<td>
 
-					<fieldset class="inLinefieldset">
+					<fieldset class="fieldsetCadre">
 						<legend>
 							<bean:message key="consultations.title.option" />
 						</legend>
@@ -246,7 +246,7 @@
 							</p>
 						</c:if>
 
-						<table>
+						<table class="tableStyle">
 							<tr>
 								<td><html:checkbox property="limitChoicesPerVoter"
 										styleId="limitChoicesPerVoter" /></td>
@@ -263,7 +263,7 @@
 							</tr>
 						</table>
 
-						<table>
+						<table class="tableStyle">
 							<tr>
 								<td><html:checkbox property="showBeforeAnswer"
 										styleId="showBeforeAnswer" /></td>
@@ -279,7 +279,7 @@
 							</tr>
 						</table>
 
-						<table>
+						<table class="tableStyle">
 							<tr>
 								<td><label for="deadline"><bean:message
 											key="consultations.form.deadline" /> : </label></td>
@@ -298,7 +298,7 @@
 			</tr>
 
 			<tr>
-				<td class="tableButton"><html:submit styleClass="button"
+				<td class="tableButton"><html:submit styleClass="btn btn-inverse"
 						styleId="buttonConsultation"
 						onclick="return validateConsultation()">
 						<bean:message key="consultations.button.create" />

@@ -4,8 +4,8 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="consultations.title.my" />
 	</legend>
 
@@ -50,7 +50,7 @@
 			</script>
 			<html:form action="/DeleteMultiConsultations">
 				<table id="yourConsults"
-					class="tablesorter inLineTable fieldsetTableAppli">
+					class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
@@ -61,7 +61,7 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="3"><html:submit styleClass="button">
+							<td colspan="3"><html:submit styleClass="btn btn-inverse">
 									<bean:message key="privatemessages.delete" />
 								</html:submit></td>
 						</tr>
