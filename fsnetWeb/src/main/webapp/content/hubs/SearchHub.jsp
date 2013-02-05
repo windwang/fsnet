@@ -7,19 +7,19 @@
 	<bean:message key="hubs.placeholder.search" />
 </bean:define>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="hubs.title.search" />
 	</legend>
 
 	<table id="SearchHub"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<html:form action="/SearchHub" method="GET">
 			<tr>
 				<td><html:hidden property="communityId"
 						value="${param.communityId}" /> <html:text property="searchText"
 						styleId="searchTexte" /> <ili:placeHolder id="searchTexte"
-						value="${searchMessage}" /> <html:submit styleClass="button">
+						value="${searchMessage}" /> <html:submit styleClass="btn btn-inverse">
 						<bean:message key="hubs.button.search" />
 					</html:submit></td>
 			</tr>

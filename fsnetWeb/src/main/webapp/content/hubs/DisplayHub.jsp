@@ -10,8 +10,8 @@
 	<bean:message key="topics.placeholder.search" />
 </bean:define>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<c:import url="/FavoriteFragment.do">
 			<c:param name="interactionId" value="${hubResult.id}" />
 		</c:import>
@@ -24,17 +24,17 @@
 </fieldset>
 <div class="clear"></div>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="hubs.title.searchTopic" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<html:form action="/SearchTopic" method="get">
 			<tr>
 				<td><html:text property="topicSujetSearch" styleId="topicSujet" />
 					<ili:placeHolder id="topicSujet" value="${searchMessage}" /></td>
 				<td><html:hidden property="hubId" value="${hubResult.id}" /></td>
-				<td><html:submit styleClass="button">
+				<td><html:submit styleClass="btn btn-inverse">
 						<bean:message key="hubs.button.searchTopic" />
 					</html:submit></td>
 			</tr>
@@ -42,8 +42,8 @@
 	</table>
 </fieldset>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<html:link action="/DisplayCommunity">
 			<html:param name="communityId" value="${hubResult.community.id}" />
         ${hubResult.community.title}
@@ -56,7 +56,7 @@
 		-&gt;
 		<bean:message key="hubs.title.topics" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<logic:empty name="topicsLastMessage">
 			<tr>
 				<td><bean:message key="hubs.noTopics" /></td>
@@ -90,7 +90,7 @@
 						<bean:message key="hubs.noMessage" />
 					</logic:empty></td>
 				<c:if test="${sessionScope.userId eq couple.key.creator.id}">
-					<td class="tableButton"><a class="button"
+					<td class="tableButton"><a class="btn btn-inverse"
 						onclick="confirmDelete('DeleteTopic.do?topicId='+${couple.key.id}+'&hubId='+${hubResult.id}, '<bean:message key="message.confirmation.delete" />');">
 							<bean:message key="hubs.button.deleteTopic" />
 					</a></td>

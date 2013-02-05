@@ -6,7 +6,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<table class="inLineTable fieldsetTableAppli">
+<table class="inLineTable tableStyle">
 	<tr>
 		<td><bean:message key="interactions.owner" /> : <ili:getSocialEntityInfos
 				socialEntity="${theInteraction.creator}" /> <br />
