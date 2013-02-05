@@ -13,9 +13,9 @@
 </c:if>
 
 <c:if test="${consultation ne null }">
-	<fieldset class="fieldsetAppli">
-		<legend class="legendHome">${consultation.title }</legend>
-		<table class="inLineTable fieldsetTableAppli">
+	<fieldset class="fieldsetCadre">
+		<legend>${consultation.title }</legend>
+		<table class="inLineTable tableStyle">
 			<tr>
 				<td>
 					<ul>
@@ -29,7 +29,8 @@
 								name="consultation" property="creationDate" format="dd/MM/yyyy" />
 							<bean:message key="consultations.createdAtHour" /> <bean:write
 								name="consultation" property="creationDate" format="HH:mm" /></li>
-						<li><bean:message key="consultations.typeConsultation" /> : <c:choose>
+						<li><bean:message key="consultations.typeConsultation" /> :
+							<c:choose>
 								<c:when test="${consultation.type eq 'YES_NO'}">
 									<bean:message key="consultations.typeYesNo" />
 								</c:when>
@@ -84,7 +85,7 @@
 							<bean:message key="consultations.error.preferenceOrderDistinct" />
 						</p>
 					</c:if>
-					<table>
+					<table class="tableStyle">
 						<tr>
 							<td></td>
 							<td class="consultationPerticipant"><bean:message
@@ -218,7 +219,7 @@
 									<td><html:text property="voteComment" /></td>
 
 									<html:hidden property="id" value="${consultation.id }" />
-									<td><html:submit styleClass="button">
+									<td><html:submit styleClass="btn btn-inverse">
 											<bean:message key="consultations.button.vote" />
 										</html:submit></td>
 								</tr>
@@ -232,11 +233,11 @@
 
 	<c:if
 		test="${ allowedToShowResults and consultation.type ne 'PREFERENCE_ORDER' }">
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend>
 				<bean:message key="consultations.histogramme" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td>
 
