@@ -12,7 +12,7 @@
 
 	<c:choose>
 		<c:when test="${empty requestScope.annoucesList}">
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="announce.emptyList" /></td>
 				</tr>

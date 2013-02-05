@@ -19,7 +19,7 @@
 				<td><html:text property="textSearchAnnounce"
 						styleId="textSearchAnnounce" /> <ili:placeHolder
 						id="textSearchAnnounce" value="${searchMessage}" /> <html:submit
-						styleClass="button btn btn-inverse">
+						styleClass="btn btn-inverse">
 						<bean:message key="announce.button.search" />
 					</html:submit></td>
 			</tr>

@@ -64,7 +64,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="4"><html:submit
-									styleClass="button btn btn-inverse">
+									styleClass="btn btn-inverse">
 									<bean:message key="privatemessages.delete" />
 								</html:submit></td>
 						</tr>
