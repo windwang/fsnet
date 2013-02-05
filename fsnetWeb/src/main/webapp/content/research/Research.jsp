@@ -13,11 +13,11 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="research.title" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<tr>
 			<td><html:form action="Research" method="post">
 					<div id="Research">
@@ -36,7 +36,7 @@
 						</span> <span class="checkboxSearch"> <html:multibox
 								property="selectedResearch" value="communaute" />  <bean:message key="research.communities" />
 						</span><br />
-						<html:submit styleClass="button" />
+						<html:submit styleClass="btn btn-inverse" />
 					</div>
 				</html:form></td>
 		</tr>
@@ -45,8 +45,8 @@
 
 
 	<c:if test="${searchMembers}">
-			<fieldset class="fieldsetAppli">
-				<legend class="legendHome">
+			<fieldset class="fieldsetCadre">
+				<legend>
 					<bean:message key="members.title.searchResult" />
 				</legend>
 
@@ -54,7 +54,7 @@
 					<c:when
 						test="${ empty membersContactsResult && empty membersRequestedResult 
 						&& empty membersAskedResult && empty membersResult}">
-						<table class="inLineTable fieldsetTableAppli">
+						<table class="inLineTable tableStyle">
 							<tr>
 								<td><bean:message key="research.member.emptyList" /></td>
 							</tr>
@@ -81,7 +81,7 @@
 						</script>
 
 						<table id="researchMembers"
-							class="tablesorter inLineTable fieldsetTableAppli">
+							class="tablesorter inLineTable tableStyle">
 							<thead>
 								<tr>
 									<th></th>
@@ -100,10 +100,10 @@
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
 										<td class="tableButton"><html:link
-												action="/DisplayCreatePrivateMessage" styleClass="button">
+												action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
 												<bean:message key="showProfile.send" />
 												<html:param name="receiver" value="${member.email}" />
-											</html:link> <html:link action="/DeleteContact" styleClass="button">
+											</html:link> <html:link action="/DeleteContact" styleClass="btn btn-inverse">
 												<bean:message key="contact.button.delete" />
 												<html:param name="entityDeleted" value="${member.id}" />
 											</html:link></td>
@@ -118,10 +118,10 @@
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
 										<td class="tableButton"><html:link
-												action="/DisplayCreatePrivateMessage" styleClass="button">
+												action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
 												<bean:message key="showProfile.send" />
 												<html:param name="receiver" value="${member.email}" />
-											</html:link> <html:link action="/CancelAskContact" styleClass="button">
+											</html:link> <html:link action="/CancelAskContact" styleClass="btn btn-inverse">
 												<html:param name="id" value="${member.id}" />
 												<bean:message key="contacts.cancel" />
 											</html:link></td>
@@ -136,10 +136,10 @@
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
 										<td class="tableButton"><html:link
-												action="/AcceptContact" styleClass="button">
+												action="/AcceptContact" styleClass="btn btn-inverse">
 												<bean:message key="members.button.accept" />
 												<html:param name="entityAccepted" value="${member.id}" />
-											</html:link> <html:link action="/RefuseContact" styleClass="button">
+											</html:link> <html:link action="/RefuseContact" styleClass="btn btn-inverse">
 												<bean:message key="members.button.refuse" />
 												<html:param name="entityRefused" value="${member.id}" />
 											</html:link></td>
@@ -154,7 +154,7 @@
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
 										<td class="tableButton"><html:link
-												action="/ContactDemand" styleClass="button">
+												action="/ContactDemand" styleClass="btn btn-inverse">
 												<bean:message key="members.button.add" />
 												<html:param name="entitySelected" value="${member.id}" />
 											</html:link></td>
@@ -168,14 +168,14 @@
 
 
 		<c:if test="${searchConsultations}">
-			<fieldset class="fieldsetAppli">
-				<legend class="legendHome">
+			<fieldset class="fieldsetCadre">
+				<legend>
 					<bean:message key="research.consultations.search" />
 				</legend>
 
 				<c:choose>
 					<c:when test="${empty consultationsResult}">
-						<table class="inLineTable fieldsetTableAppli">
+						<table class="inLineTable tableStyle">
 							<tr>
 								<td><bean:message key="research.consultation.emptyList" /></td>
 							</tr>
@@ -201,7 +201,7 @@
 	});
 </script>
 						<table id="searchConsults"
-							class="tablesorter inLineTable fieldsetTableAppli">
+							class="tablesorter inLineTable tableStyle">
 							<thead>
 								<tr>
 									<th width="5%"></th>
@@ -237,7 +237,7 @@
 												<html:form action="/DeleteAConsultation" method="post"
 													styleId="${consultation.id}" styleClass="cursorPointer">
 													<html:hidden property="id" value="${consultation.id}" />
-													<span class="button"> <bean:message
+													<span class="btn btn-inverse"> <bean:message
 															key="consultations.button.delete" />
 													</span>
 												</html:form>
@@ -254,14 +254,14 @@
 
 
 		<c:if test="${searchAnnonce}">
-			<fieldset class="fieldsetAppli">
-				<legend class="legendHome">
+			<fieldset class="fieldsetCadre">
+				<legend>
 					<bean:message key="research.annonces.search" />
 				</legend>
 
 				<c:choose>
 					<c:when test="${empty annoncesResult}">
-						<table class="inLineTable fieldsetTableAppli">
+						<table class="inLineTable tableStyle">
 							<tr>
 								<td><bean:message key="research.announce.emptyList" /></td>
 							</tr>
@@ -288,7 +288,7 @@
 					});
 		</script>
 						<table id="annonceTable"
-							class="tablesorter inLineTable fieldsetTableAppli">
+							class="tablesorter inLineTable tableStyle">
 							<thead>
 								<tr>
 									<th></th>
@@ -329,13 +329,13 @@
 
 
 		<c:if test="${searchEvents}">
-			<fieldset class="fieldsetAppli">
-				<legend class="legendHome">
+			<fieldset class="fieldsetCadre">
+				<legend>
 					<bean:message key="research.events.search" />
 				</legend>
 				<c:choose>
 					<c:when test="${empty eventsResult}">
-						<table class="inLineTable fieldsetTableAppli">
+						<table class="inLineTable tableStyle">
 							<tr>
 								<td><bean:message key="research.event.emptyList" /></td>
 							</tr>
@@ -363,7 +363,7 @@
 					});
 		</script>
 						<table id="eventsTable"
-							class="tablesorter inLineTable fieldsetTableAppli">
+							class="tablesorter inLineTable tableStyle">
 							<thead>
 								<tr>
 									<th></th>
@@ -411,8 +411,8 @@
 
 
 		<c:if test="${searchCommunauties}">
-			<fieldset class="fieldsetAppli">
-				<legend class="legendHome">
+			<fieldset class="fieldsetCadre">
+				<legend>
 					<bean:message key="research.communities.search" />
 				</legend>
 				<c:choose>
@@ -436,7 +436,7 @@
 					});
 		</script>
 						<table id="seachCommTables"
-							class="tablesorter inLineTable fieldsetTableAppli">
+							class="tablesorter inLineTable tableStyle">
 							<thead>
 								<tr>
 									<th width="10%"></th>
@@ -482,7 +482,7 @@
 													styleId="deleteid${community.id}" method="post"
 													styleClass="cursorPointer">
 													<html:hidden property="communityId" value="${community.id}" />
-													<span class="button"> <bean:message
+													<span class="btn btn-inverse"> <bean:message
 															key="communities.button.delete" />
 													</span>
 												</html:form>
@@ -494,7 +494,7 @@
 
 					</c:when>
 					<c:otherwise>
-						<table class="inLineTable fieldsetTableAppli">
+						<table class="inLineTable tableStyle">
 							<tr>
 								<td><bean:message key="research.community.emptyList" /></td>
 							</tr>
