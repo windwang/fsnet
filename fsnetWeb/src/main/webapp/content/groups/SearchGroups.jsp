@@ -59,7 +59,7 @@
 										</c:when>
 										<c:otherwise>
 											<td class="tableButton"><html:link
-													action="/SwitchStateGroup" styleClass="button">
+													action="/SwitchStateGroup" styleClass="btn btn-inverse">
 													<html:param name="groupSelected" value="${group.id}" />
 													<c:choose>
 														<c:when test="${group.isEnabled}">

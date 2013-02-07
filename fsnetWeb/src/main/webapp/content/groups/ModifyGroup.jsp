@@ -5,14 +5,14 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="groups.Modify" />
 	</legend>
 
 	<html:form action="/ModifyGroup" onsubmit="Valider()">
 
-		<table id="ModifyGroup" class="inLineTable fieldsetTableAppli">
+		<table id="ModifyGroup" class="tableStyle">
 			<tr>
 				<td><label for="name"> <bean:message key="groups.name" />
 				</label></td>
@@ -82,7 +82,7 @@
 					</html:select>
 				</td>
 
-				<td><html:button property=""
+				<td><html:button property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.memberListLeft,this.form.memberListRight)">
 						<bean:message key="groups.addMembers" />
 					</html:button></td>
@@ -100,7 +100,7 @@
 			</tr>
 
 			<tr>
-				<td><html:button property=""
+				<td><html:button property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.memberListRight,this.form.memberListLeft)">
 						<bean:message key="groups.removeMembers" />
 					</html:button></td>
@@ -124,7 +124,7 @@
 					</html:select>
 				</td>
 
-				<td><html:button property=""
+				<td><html:button property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight)">
 						<bean:message key="groups.addGroups" />
 					</html:button></td>
@@ -144,7 +144,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><html:button property=""
+				<td><html:button property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)">
 						<bean:message key="groups.removeGroups" />
 					</html:button></td>
@@ -152,7 +152,7 @@
 
 			<tr>
 				<td colspan="4" class="tableButton"><html:submit
-						styleClass="button" onclick="ModifyGroup();">
+						styleClass="btn btn-inverse" onclick="ModifyGroup();">
 						<bean:message key="groups.validate" />
 					</html:submit></td>
 			</tr>
@@ -160,20 +160,20 @@
 	</html:form>
 </fieldset>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="groups.logo.change" />
 	</legend>
 
 	<html:form enctype="multipart/form-data" action="/ChangeLogo">
-		<table id="changeLogo" class="inLineTable fieldsetTableAppli">
+		<table id="changeLogo" class="tableStyle">
 			<tr>
 				<td><html:file property="Logo"></html:file>
 					<div class="errorMessage">
 						<html:errors property="Logo" />
 					</div></td>
 
-				<td class="tableButton"><html:submit styleClass="button">
+				<td class="tableButton"><html:submit styleClass="btn btn-inverse">
 						<bean:message key="groups.logo.button" />
 					</html:submit></td>
 			</tr>
