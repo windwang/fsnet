@@ -49,7 +49,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button btn btn-inverse">
+				<td colspan="2" class="tableButton"><html:submit styleClass="btn btn-inverse">
 						<bean:message key="announce.button.modify" />
 					</html:submit></td>
 			</tr>

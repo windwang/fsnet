@@ -98,7 +98,7 @@
 			
 			<tr>
 				<td colspan="2" class="tableButton"><html:submit
-						styleClass="button btn btn-inverse"
+						styleClass="btn btn-inverse"
 						onclick="return valideGroupToAnnounce()">
 						<bean:message key="announce.button.create" />
 					</html:submit></td>
