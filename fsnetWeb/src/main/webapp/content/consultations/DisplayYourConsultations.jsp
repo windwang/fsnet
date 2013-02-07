@@ -84,7 +84,7 @@
 			</html:form>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="consultations.noResult" />.</td>
 				</tr>

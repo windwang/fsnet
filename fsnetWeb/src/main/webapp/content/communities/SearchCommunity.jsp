@@ -94,7 +94,7 @@
 
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable tableStable">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="communities.noResult" /></td>
 				</tr>

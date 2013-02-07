@@ -3,7 +3,7 @@
 <script type="text/javascript" src="js/jquery.simplemodal.1.4.4.min.js"></script>
 <script type="text/javascript" src="js/support.js"></script>
 
-<div class="container fixed footer">
+<div class="container navbar-fixed-bottom footer">
             <p>fsnet-<bean:message key="version" bundle="application"/>  -  Copyright &copy; 2008 &minus; FSNet  &minus; Design: Luka Cvrk, <a title="Awsome Web Templates" href="http://www.solucija.com/">Solucija</a>
             <span class="support">
             <a id="support" title="Contact Support" href="/Home.do" >Support</a></span></p>

@@ -88,7 +88,7 @@
 			</html:form>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable tabeleStyle">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="research.announce.emptyList" />.</td>
 				</tr>

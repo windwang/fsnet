@@ -17,7 +17,7 @@
 		<html:form action="/Announces" method="GET">
 			<tr>
 				<td><html:text property="textSearchAnnounce"
-						styleId="textSearchAnnounce" /> <ili:placeHolder
+						styleId="textSearchAnnounce" styleClass="search-query"/> <ili:placeHolder
 						id="textSearchAnnounce" value="${searchMessage}" /> <html:submit
 						styleClass="button btn btn-inverse">
 						<bean:message key="announce.button.search" />

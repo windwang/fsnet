@@ -8,18 +8,7 @@
 	<bean:message key="menu.search" />
 </bean:define>
 
-<div id="search">
-	<html:form action="/Research" method="post">
-		<fieldset>
-			<html:text styleClass="field" styleId="searchText"
-				property="searchText" />
-			<ili:placeHolder id="searchText" value="${searchMessage}" />
-			<html:submit styleClass="searchButton" value=" " />
-			<input style="display: none" type="checkbox" checked
-				name="selectedResearch" value="tous" />
-		</fieldset>
-	</html:form>
-</div>
+
 
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
@@ -93,11 +82,12 @@
 					<li><a href="Logout"><bean:message key="logout" /></a></li>
 					<li class="item-204 divider-vertical divider"></li>
 					<li><html:form action="/Research" method="post"
-							styleClass="form-search noMargin littleTopPadding">
-							<div class="input-append">
-								<html:text styleClass="span1 search-query" styleId="searchText"
+							styleClass="navbar-search pull-left noMargin littleTopPadding searchBar">
+							<div>
+							<i class="icon-search"></i> 
+								<html:text styleClass="span2 search-query searchBarInput" styleId="searchText"
 									property="searchText" />
-								<html:submit styleClass="btn" value="${searchMessage}" />
+								
 								<input style="display: none" type="checkbox" checked
 									name="selectedResearch" value="tous" />
 							</div>

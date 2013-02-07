@@ -17,7 +17,7 @@
 		class="inLineTable  tableStyle">
 		<html:form action="/Events" method="get">
 			<tr>
-				<td><html:text property="searchString" styleId="searchTexte" />
+				<td><html:text property="searchString" styleId="searchTexte" styleClass="search-query"/>
 					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> <html:submit
 						styleClass="button btn btn-inverse">
 						<bean:message key="events.button.search" />
