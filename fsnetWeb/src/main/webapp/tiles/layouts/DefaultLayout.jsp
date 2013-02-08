@@ -28,7 +28,7 @@
 	href="css/fsnet-custom.css" />
 <link type="text/css" href="css/jquery-tablesorter-custom.css"
 	rel="stylesheet" />
-<link type="text/css" rel="stylesheet" media="all" href="css/chat.css" />
+
 <link type="text/css" rel="stylesheet" media="all" href="css/screen.css" />
 
 <link type="text/css" href="css/cupertino/jquery-ui-1.8.18.custom.css"
@@ -79,6 +79,7 @@
 
 <link rel="stylesheet" media="screen" type="text/css"
 	href="./bootstrap/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" media="all" href="css/chat.css" />
 <link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
 <link rel="stylesheet" type="text/css" media="screen"
 	href="css/bootstrapStyle.css" />
