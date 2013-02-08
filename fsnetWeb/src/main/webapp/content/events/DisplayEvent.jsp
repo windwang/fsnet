@@ -83,7 +83,7 @@
 <div class="clear"></div>
 
 <c:if test="${fn:length(subscribers) gt 0}">
-	<fieldset class="fieldsetAppli">
+	<fieldset class="fieldsetCadre">
 		<legend>
 			<bean:message key="events.title.participate" />
 		</legend>

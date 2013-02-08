@@ -4,11 +4,11 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="members.title.search" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<tr>
 			<td><html:form action="SearchMember" method="post">
 					<div id="SearchMember">
@@ -20,15 +20,15 @@
 	</table>
 </fieldset>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="members.title.searchResult" />
 	</legend>
 
 	<c:if
 		test="${empty membersContactsResult && empty membersRequestedResult 
 	&& empty membersAskedResult && empty membersResult}">
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<tr>
 				<td><bean:message key="members.noResult" /></td>
 			</tr>
@@ -40,7 +40,7 @@
 		<h4>
 			<bean:message key="members.listContacts" />
 		</h4>
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<c:forEach var="member" items="${membersContactsResult}">
 				<tr class="content">
 					<td class="miniatureContainer"><ili:getMiniature
@@ -55,7 +55,7 @@
 		<h4>
 			<bean:message key="members.listContactsAsked" />
 		</h4>
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<c:forEach var="member" items="${membersRequestedResult}">
 				<tr class="content">
 					<td class="miniatureContainer"><ili:getMiniature
@@ -70,7 +70,7 @@
 		<h4>
 			<bean:message key="members.listContactsReceived" />
 		</h4>
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<c:forEach var="member" items="${membersAskedResult}">
 				<tr class="content">
 					<td class="miniatureContainer"><ili:getMiniature
@@ -94,7 +94,7 @@
 		<h4>
 			<bean:message key="members.othersMembers" />
 		</h4>
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<c:forEach var="member" items="${membersResult}">
 				<tr class="content">
 					<td class="miniatureContainer"><ili:getMiniature

@@ -29,11 +29,11 @@
 			</c:choose>
 		</h2>
 
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend>
 				<bean:message key="interests.title.parent" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.interest.parentInterest}">
@@ -58,11 +58,11 @@
 			</table>
 		</fieldset>
 
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend >
 				<bean:message key="interests.title.son" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><c:choose>
 							<c:when
@@ -90,11 +90,11 @@
 			</table>
 		</fieldset>
 
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend >
 				<bean:message key="interests.title.associate" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.interest.entities}">
@@ -117,11 +117,11 @@
 		</fieldset>
 
 		<div class="clear"></div>
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend >
 				<bean:message key="interests.title.communities" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Community}">
@@ -147,11 +147,11 @@
 		</fieldset>
 		<div class="clear"></div>
 
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend >
 				<bean:message key="interests.title.hubs" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Hub}">
@@ -177,11 +177,11 @@
 		</fieldset>
 		<div class="clear"></div>
 
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend >
 				<bean:message key="interests.title.topics" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Topic}">
@@ -207,11 +207,11 @@
 		</fieldset>
 		<div class="clear"></div>
 
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend >
 				<bean:message key="interests.title.events" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Meeting}">
@@ -237,11 +237,11 @@
 		</fieldset>
 
 		<div class="clear"></div>
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend >
 				<bean:message key="interests.title.announces" />
 			</legend>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><c:choose>
 							<c:when test="${not empty requestScope.Announcement}">
