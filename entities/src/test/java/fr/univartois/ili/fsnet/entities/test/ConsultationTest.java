@@ -5,6 +5,7 @@ import static org.junit.Assert.assertEquals;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.persistence.EntityManager;
@@ -13,18 +14,21 @@ import javax.persistence.Persistence;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.Consultation;
+import fr.univartois.ili.fsnet.entities.Consultation.TypeConsultation;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.SocialGroup;
 
 /**
  * 
  * @author mickael watrelot - micgamers@gmail.com
  * 
  */
-public class AnnouncementTest {
+public class ConsultationTest {
 
 	private EntityManager em;
 
@@ -39,19 +43,25 @@ public class AnnouncementTest {
 	public void tearDown() {
 	}
 
-    @Test
-    public void testPersist() throws ParseException {
-        final SocialEntity socialEntity = new SocialEntity("test", "test", "machin@test.com");
-        Announcement annonce = new Announcement(socialEntity, "test Announcement", "HEHEHEHEHE", new Date(), false);
-        em.getTransaction().begin();
-        em.persist(socialEntity);
-        em.persist(annonce);
-        em.getTransaction().commit();
-        Announcement annonce2 = em.find(Announcement.class, annonce.getId());
-        assertEquals(annonce.getId(), annonce2.getId());
-        assertEquals(annonce.getEndDate(), annonce2.getEndDate());
-    }
+	@Test
+	public void testPersist() throws ParseException {
+		final SocialEntity socialEntity = new SocialEntity("test", "test",
+				"test@test.com");
+		SocialGroup sc = new SocialGroup();
+		ArrayList<SocialGroup> lsc = new ArrayList<SocialGroup>();
+		lsc.add(sc);
+		Consultation cons = new Consultation(socialEntity, "Consultation test",
+				"for testing consultations", TypeConsultation.YES_NO, lsc);
+		em.getTransaction().begin();
+		em.persist(socialEntity);
+		em.persist(cons);
+		em.getTransaction().commit();
+		Consultation cons2 = em.find(Consultation.class, cons.getId());
+		assertEquals(cons.getId(), cons2.getId());
+		assertEquals(cons.getDescription(), cons2.getDescription());
+	}
 
+	@Ignore
 	@Test
 	public void testPersistTwo() throws ParseException {
 		SocialEntity es = new SocialEntity("name", "prenom",
@@ -74,6 +84,7 @@ public class AnnouncementTest {
 		assertEquals(annonce.getCreator(), annonce2.getCreator());
 	}
 
+	@Ignore
 	@Test
 	public void testGeneratedValueId() throws ParseException {
 		final SocialEntity socialEntity = new SocialEntity("test2", "test2",
@@ -95,6 +106,7 @@ public class AnnouncementTest {
 		assertEquals(annonce.getId() + 1, annonce2.getId());
 	}
 
+	@Ignore
 	@Test(expected = IllegalArgumentException.class)
 	public void testDateIsNotNull() {
 		Announcement annonce = new Announcement(null, null, null, null, true);
@@ -102,37 +114,4 @@ public class AnnouncementTest {
 		em.persist(annonce);
 		em.getTransaction().commit();
 	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testCreateWithNullContent() {
-		final SocialEntity creator = new SocialEntity("test", "test",
-				"test@test.com");
-		final String title = "titreeeeee";
-		boolean bool = true;
-		Date endDate = new Date();
-		new Announcement(creator, title, null, endDate, bool);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testCreateWithNullEndDate() {
-		final SocialEntity creator = new SocialEntity("test", "test",
-				"test@test.com");
-		final String title = "titreeeeee";
-		boolean bool = true;
-		String content = "content";
-
-		new Announcement(creator, title, content, null, bool);
-	}
-
-	@Test
-	public void testSetByMethodsAndGet() {
-		Announcement ann = new Announcement();
-		Date endDate = new Date();
-		String content = "content";
-		ann.setEndDate(endDate);
-		ann.setContent(content);
-		assertEquals(endDate, ann.getEndDate());
-		assertEquals(content, ann.getContent());
-	}
-
 }
