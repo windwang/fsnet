@@ -53,30 +53,5 @@ public class TopicTest {
 		em.getTransaction().commit();
 	}
 
-	@Test
-	public void testSetByMethodsAndGet() {
-
-		SocialEntity es = new SocialEntity("Ragoût", "Mouton",
-				"RagoûtMouton@toiaussitafaim.com");
-		es.setName("Théophile");
-		es.setFirstname("Gautier");
-		final Community community = new Community(es, "macom");
-		Hub hub = new Hub(community, es, "mon hub");
-		Topic top = new Topic(hub, es, "mon topic");
-		TopicMessage firstmessage = new TopicMessage();
-		firstmessage.setBody("kiiiii");
-		firstmessage.setTopic(top);
-
-		assertEquals(top, firstmessage.getTopic());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testCreateWithNullTopic() {
-		SocialEntity es = new SocialEntity("Ragoût", "Mouton",
-				"RagoûtMouton@toiaussitafaim.com");
-		es.setName("Théophile");
-		es.setFirstname("Gautier");
-		new TopicMessage("kiiiii", es, null);
-	}
-
+	
 }
