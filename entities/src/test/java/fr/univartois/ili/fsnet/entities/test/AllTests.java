@@ -10,7 +10,7 @@ import org.junit.runners.Suite;
  */
 
 @RunWith(Suite.class)
-@Suite.SuiteClasses({ MemberCVTest.class,AddressTest.class, AnnouncementTest.class,
+@Suite.SuiteClasses({ AssociationDateFormationCVTest.class,MemberCVTest.class,AddressTest.class, AnnouncementTest.class,
 		CommunityTest.class, ConsultationChoiceTest.class, HubTest.class,
 		InteractionTest.class, InterestTest.class, MeetingTest.class, ProfileVisitTest.class,
 		SocialEntityTest.class,DegreeCvTest.class, SocialGroupTest.class,InteractionRolePKTest.class, TopicTest.class, PrivateMessageTest.class , AssociationDateDegreeCVTest.class
