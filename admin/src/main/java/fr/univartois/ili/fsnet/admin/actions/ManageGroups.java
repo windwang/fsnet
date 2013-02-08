@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
@@ -543,7 +545,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialEntity> allMembers = sgf.getAllChildMembers(socialGroup);
 		allMembers.removeAll(mastersGroup);
 		allMembers.addAll(allOrphanMembers);
-
 		return allMembers;
 	}
 

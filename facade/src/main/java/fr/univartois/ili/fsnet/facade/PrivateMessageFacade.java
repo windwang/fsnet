@@ -55,15 +55,34 @@ public class PrivateMessageFacade {
 		if (entity == null || message == null) {
 			throw new IllegalArgumentException();
 		}
-		if (message.getFrom().equals(entity)) {
+		deletePrivateMessage(entity, message, null);
+
+	}
+
+	/**
+	 * Delete a PrivateMessage 
+	 * 
+	 * @param entity
+	 *            the related entity (author or recipient)
+	 * @param message
+	 *            the message to delete
+	 * @param fromSource
+	 * 			  the from page that called function
+	 */
+	public final void deletePrivateMessage(SocialEntity entity,
+			PrivateMessage message, String fromSource) {
+		if (entity == null || message == null) {
+			throw new IllegalArgumentException();
+		}
+		if (message.getFrom().equals(entity) && (fromSource == null || fromSource.equals("out"))) {
 			entity.getSentPrivateMessages().remove(message);
 		}
-		if (message.getTo().equals(entity)) {
+		if (message.getTo().equals(entity) && (fromSource == null || fromSource.equals("in"))) {
 			entity.getReceivedPrivateMessages().remove(message);
 		}
 
 	}
-
+	
 	/**
 	 * Search a private message in the social entity received messages
 	 * 
