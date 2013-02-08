@@ -178,6 +178,14 @@ public class Interest implements Serializable {
 		this.parentInterest = parentInterest;
 	}
 
+	public void addChildrenInterest(Interest java) {
+		// TODO Auto-generated method stub
+	}
+
+	public void removeChildrenInterest(Interest java) {
+		// TODO Auto-generated method stub
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

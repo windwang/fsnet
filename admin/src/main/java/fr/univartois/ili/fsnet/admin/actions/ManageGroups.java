@@ -541,9 +541,8 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		List<SocialEntity> mastersGroup = query.getResultList();
 		mastersGroup.remove(socialGroup.getMasterGroup());
 		List<SocialEntity> allMembers = sgf.getAllChildMembers(socialGroup);
-		allMembers.removeAll(mastersGroup);
 		allMembers.addAll(allOrphanMembers);
-
+		allMembers.removeAll(mastersGroup);
 		return allMembers;
 	}
 

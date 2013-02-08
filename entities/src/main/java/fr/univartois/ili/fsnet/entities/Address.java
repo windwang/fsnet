@@ -14,7 +14,8 @@ public class Address implements Serializable {
 	private static final long serialVersionUID = 1L;
 	
 	private String address;
-
+    private String city;
+	
     public Address() {
     }
 
@@ -43,7 +44,7 @@ public class Address implements Serializable {
     public void setAddress(String address) {
         this.address = address;
     }
-    private String city;
+
 
     /**
      * Get the value of city

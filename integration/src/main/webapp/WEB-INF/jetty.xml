@@ -4,6 +4,15 @@
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
 
 	<!-- =========================================================== -->
+	<!-- Enable debug -->
+	<!-- =========================================================== -->
+	<Call class="org.eclipse.jetty.util.log.Log" name="getRootLogger">
+		<Call name="setDebugEnabled">
+			<Arg type="boolean">false</Arg>
+		</Call>
+	</Call>
+
+	<!-- =========================================================== -->
 	<!-- Additional task for java:/comp/env -->
 	<!-- =========================================================== -->
 	<Array id="plusConfig" type="java.lang.String">
@@ -80,7 +89,8 @@
 		<Arg>
 			<New class="org.eclipse.jetty.security.HashLoginService">
 				<Set name="name">FSNetAdminRealm</Set>
-				<Set name="config">${project.build.outputDirectory}/WEB-INF/user.properties</Set>
+				<Set name="config">${project.build.outputDirectory}/WEB-INF/user.properties
+				</Set>
 				<Set name="refreshInterval">0</Set>
 				<Call name="start"></Call>
 			</New>
@@ -110,7 +120,8 @@
 					<Set name="contextPath">/fsnetWeb</Set>
 					<Set name="war">${basedir}/../fsnetWeb/target/fsnetWeb.war</Set>
 					<!-- To manage Datasource -->
-					<Set name="overrideDescriptor">${project.build.outputDirectory}/WEB-INF/webdefault.xml</Set>
+					<Set name="overrideDescriptor">${project.build.outputDirectory}/WEB-INF/webdefault.xml
+					</Set>
 					<Set name="ConfigurationClasses">
 						<Ref id="plusConfig" />
 					</Set>

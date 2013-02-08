@@ -1,5 +1,7 @@
 package fr.univartois.ili.fsnet.entities.test;
 
+import static org.junit.Assert.assertEquals;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -50,4 +52,6 @@ public class TopicTest {
 		em.persist(top);
 		em.getTransaction().commit();
 	}
+
+	
 }
