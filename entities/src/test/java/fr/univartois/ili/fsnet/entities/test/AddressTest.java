@@ -57,6 +57,13 @@ public class AddressTest {
     }  
     
     @Test
+    public void testEqualsWithSameObject() {
+    	Address adr = new Address(ADDRESS, CITY);
+    	assertTrue(adr.equals(adr));
+    }  
+    
+    
+    @Test
     public void testEqualsWithDifferentAddressesOrCities() {
     	Address adr1 = new Address(ADDRESS, CITY);
     	Address adr2 = new Address("test", CITY);
@@ -78,18 +85,25 @@ public class AddressTest {
     	adr2.setCity(CITY);
     	Address adr3 = new Address();
     	adr3.setAddress(ADDRESS);
+    	Address adr4 = new Address();
     	
     	// With not set address
     	assertFalse(adr1.equals(adr2));
     	assertFalse(adr2.equals(adr1));
+    	assertFalse(adr2.equals(adr4));
+    	assertFalse(adr4.equals(adr2));
     	
     	// With not set city
     	assertFalse(adr1.equals(adr3));
     	assertFalse(adr3.equals(adr1));
+    	assertFalse(adr3.equals(adr4));
+    	assertFalse(adr4.equals(adr3));
     	
     	// Null null object
     	assertFalse(adr1.equals(null));
     }  
+    
+
     
     @Test
     public void testEqualsWithDifferenteObjet() {

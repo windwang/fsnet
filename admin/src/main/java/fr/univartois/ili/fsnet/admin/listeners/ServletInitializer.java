@@ -6,7 +6,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.persistence.RollbackException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -30,34 +29,23 @@ public class ServletInitializer implements ServletContextListener {
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
 
-		try {
-			EntityManager em = PersistenceProvider.createEntityManager();
-			String groupName = "Default group";
-			String lastName = "admin";
-			String firstName = "admin";
-			String mail = "admin@fsnet.com";
-			SocialEntity ent = new SocialEntity(lastName, firstName, mail);
-			// TODO change this password or let the admin do it on the web
-			// interface ?
-			ent.setPassword(Encryption.getEncodedPassword("admin"));
-			em.getTransaction().begin();
-			em.persist(ent);
-			em.getTransaction().commit();
-			// Admin OK the group is remaining
-			SocialGroup sg = createSocialGroup(ent, groupName);
-			em.getTransaction().begin();
-			em.persist(sg);
-			em.getTransaction().commit();
-			em.close();
-		} catch (RollbackException e) {
-			Logger.getAnonymousLogger().log(Level.WARNING, "", "The statement was aborted because it would have caused a duplicate key value");
-		}
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+		SocialGroupFacade groupFacade = new SocialGroupFacade(em);
+		
+		SocialEntity admin = socialEntityFacade.createSocialEntity("admin", "admin","admin@fsnet.com");
+		admin.setPassword(Encryption.getEncodedPassword("admin"));
+		em.getTransaction().begin();
+		em.merge(admin);
+		em.getTransaction().commit();
+		List<SocialElement> members = new ArrayList<>();
+		members.add(admin);
+		
+		SocialGroup socialG = groupFacade.createSocialGroup(admin, "Default group", "Default group for user without group",members);
+		socialG.setMasterGroup(admin);
+		em.getTransaction().begin();
+		em.merge(socialG);
+		em.getTransaction().commit();
 	}
 
-	private SocialGroup createSocialGroup(SocialEntity ent, String groupName) {
-		SocialGroup res = new SocialGroup(ent, groupName, "Default group for user without group");
-		res.setColor("#000000");
-		res.setMasterGroup(ent);
-		return res;
-	}
 }
