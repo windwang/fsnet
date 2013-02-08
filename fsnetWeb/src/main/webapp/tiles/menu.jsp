@@ -85,7 +85,7 @@
 							styleClass="navbar-search pull-left noMargin littleTopPadding searchBar">
 							<div>
 							<i class="icon-search"></i> 
-								<html:text styleClass="span2 search-query searchBarInput" styleId="searchText"
+								<html:text styleClass="span2" styleId="searchText"
 									property="searchText" />
 								
 								<input style="display: none" type="checkbox" checked

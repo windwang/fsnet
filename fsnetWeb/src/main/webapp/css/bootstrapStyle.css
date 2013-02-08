@@ -12,7 +12,7 @@
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #eef7ff
 		), color-stop(1, #d3e9ff) );
 		background: -moz-linear-gradient(center top, #eef7ff 5%, #d3e9ff 100%);
-	background: -o-linear-gradient(top, #eef7ff, d3e9ff);*/
+	background: -o-linear-gradient(top, #eef7ff, d3e9ff);
 }
 
 .fixed {
@@ -78,6 +78,12 @@
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
 	border:1px solid black;
+	background-color:#E8F5FD;
+}
+
+.cadreDivMenuTop ul{
+	margin-left:8px;
+	margin-right:8px;
 }
 
 .cadreDivMenuTop>*{
@@ -133,8 +139,11 @@
 	padding:5px;
 }
 
-.searchBarInput{
-	padding-left: 28px; line-height: 19px;
+.searchBar input{
+	padding-left: 28px;
+	border-radius:15px;
+	border:1px solid #1c1c1c;
+	background-color:#2f2f2f;
 }
 
 .searchBar i {
