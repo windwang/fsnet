@@ -19,7 +19,6 @@ public class AssociationDateFormationCV implements Serializable {
 	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
-
 	private Date obtainedDate;
 
 

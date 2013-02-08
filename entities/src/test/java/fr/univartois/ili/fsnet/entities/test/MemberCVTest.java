@@ -18,18 +18,12 @@ import fr.univartois.ili.fsnet.entities.MemberCV;
  */
 public class MemberCVTest {
 
-//	private EntityManager em;
-//
-//	@Before
-//	public void setUp() {
-//		EntityManagerFactory fact = Persistence
-//				.createEntityManagerFactory("TestMemberCV");
-//		em = fact.createEntityManager();
-//	}
+
 
 	@Test
 	public void testCreateEmptyMemberCV() {
 		MemberCV m = new MemberCV();
+		assertEquals(m.getId(), 0);
 		assertNull(m.getAdress());
 		assertNull(m.getBirthDate());
 		assertNull(m.getFirstName());
@@ -49,6 +43,7 @@ public class MemberCVTest {
 		Map<String, String> languages = new HashMap<String, String>();
 		languages.put("en", "english");
 		languages.put("fr", "french");
+		m.setId(2);
 		m.setSurname("coucou");
 		m.setFirstName("cou");
 		m.setMail("coucou@coucou.co");
@@ -61,6 +56,7 @@ public class MemberCVTest {
 		m.setSituationFamilly("celibataire");
 		m.setLanguages(languages);
 
+		assertEquals(m.getId(), 2);
 		assertEquals(m.getSurname(), "coucou");
 		assertEquals(m.getFirstName(), "cou");
 		assertEquals(m.getMail(), "coucou@coucou.co");
@@ -74,28 +70,4 @@ public class MemberCVTest {
 		assertEquals(m.getLanguages(), languages);
 	}
 
-//	@Test
-//	public void testPersist() {
-//		MemberCV m = new MemberCV();
-//		Map<String, String> languages = new HashMap<String, String>();
-//		languages.put("en", "english");
-//		languages.put("fr", "french");
-//		m.setSurname("coucou");
-//		m.setFirstName("cou");
-//		m.setMail("coucou@coucou.co");
-//		m.setAdress("25 rue de Paris");
-//		m.setTown("Douai");
-//		m.setBirthDate(new Date(15000000));
-//		m.setNumberPhone("0610101010");
-//		m.setSex("M");
-//		m.setPostCode(59500);
-//		m.setSituationFamilly("celibataire");
-//		m.setLanguages(languages);
-//
-//		em.getTransaction().begin();
-//		em.persist(m);
-//		em.getTransaction().commit();
-//		System.out.println(m.getId());
-//
-//	}
 }

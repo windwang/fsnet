@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNull;
 
 import java.sql.Date;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -14,20 +15,24 @@ import fr.univartois.ili.fsnet.entities.DegreeCV;
 
 public class AssociationDateDegreeCVTest {
 
-	private Date endDate;
-	private Date startDate;
-	private DegreeCV idDegree;
-	private Curriculum idCurriculum;
-	private int id;
-
+	private static long ID ;
+	private static Curriculum CURRICULUM ;
+	private static DegreeCV DEGREE_CV ;
+	private static Date START_DATE ;
+	private static Date END_DATE ;
+	
+	
+	@After
+	public void tearDown() {
+	
+	}
 	@Before
 	public void setUp() {
-		idCurriculum = new Curriculum();
-		idDegree = new DegreeCV();
-		java.util.Date d = new java.util.Date();
-		endDate = new Date(d.getTime());
-		startDate = new Date(d.getTime());
-		id=1;
+		CURRICULUM = new Curriculum();
+		DEGREE_CV = new DegreeCV();
+		END_DATE = new Date(12345);
+		START_DATE = new Date(23456);
+		ID=1234;
 	}
 
 	@Test
@@ -42,16 +47,17 @@ public class AssociationDateDegreeCVTest {
 
 	@Test
 	public void testSetByMethodsAndGet() {
-		AssociationDateDegreeCV add = new AssociationDateDegreeCV();
-		add.setEndDate(endDate);
-		add.setStartDate(startDate);
-		add.setDegree(idDegree);
-		add.setCurriculum(idCurriculum);
-		add.setId(id);
-		assertEquals(endDate, add.getEndDate());
-		assertEquals(startDate, add.getStartDate());
-		assertEquals(idDegree, add.getDegree());
-		assertEquals(idCurriculum, add.getCurriculum());
-		assertEquals(id, add.getId());
+		AssociationDateDegreeCV addCV = new AssociationDateDegreeCV();
+		addCV.setId(ID);
+		addCV.setCurriculum(CURRICULUM);
+		addCV.setDegree(DEGREE_CV);
+		addCV.setStartDate(START_DATE);
+		addCV.setEndDate(END_DATE);
+		assertEquals(ID, addCV.getId());
+		assertEquals(CURRICULUM, addCV.getCurriculum());
+		assertEquals(DEGREE_CV, addCV.getDegree());
+		assertEquals(START_DATE, addCV.getStartDate());
+		assertEquals(END_DATE, addCV.getEndDate());
+
 	}
 }

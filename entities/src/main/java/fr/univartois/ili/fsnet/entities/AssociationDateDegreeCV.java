@@ -20,7 +20,6 @@ public class AssociationDateDegreeCV implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private long id;
-
 	private Date startDate;
 	private Date endDate;
 
@@ -45,7 +44,7 @@ public class AssociationDateDegreeCV implements Serializable {
 	 * @param id
 	 *            the id to set
 	 */
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 
@@ -93,7 +92,7 @@ public class AssociationDateDegreeCV implements Serializable {
 	public void setDegree(DegreeCV idDegree) {
 		this.degree = idDegree;
 	}
-
+	
 	/**
 	 * @return the idCurriculum
 	 */
