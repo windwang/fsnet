@@ -39,7 +39,7 @@ public class AnnouncementTest {
 
     @Test
     public void testPersist() throws ParseException {
-        final SocialEntity socialEntity = new SocialEntity("test", "test", "test@test.com");
+        final SocialEntity socialEntity = new SocialEntity("test", "test", "machin@test.com");
         Announcement annonce = new Announcement(socialEntity, "test Announcement", "HEHEHEHEHE", new Date(), false);
         em.getTransaction().begin();
         em.persist(socialEntity);
