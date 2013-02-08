@@ -15,7 +15,7 @@ import org.junit.runners.Suite;
 
 ProfileVisitePKTest.class, CurriculumTest.class,CommunityTest.class, ConsultationChoiceTest.class, HubTest.class,
 		InteractionTest.class, InterestTest.class, MeetingTest.class, ProfileVisitTest.class,
-		SocialEntityTest.class,DegreeCvTest.class,MessageTest.class, SocialGroupTest.class,InteractionRolePKTest.class, TopicTest.class, PrivateMessageTest.class , AssociationDateDegreeCVTest.class
-		,InteractionGroupsTest.class, SocialElementTest.class})
+		SocialEntityTest.class,DegreeCvTest.class, SocialGroupTest.class,InteractionRolePKTest.class, TopicTest.class, PrivateMessageTest.class , AssociationDateDegreeCVTest.class
+		,InteractionGroupsTest.class, SocialElementTest.class, HobbiesCVTest.class, PropertyTest.class, FormationCvTest.class, EstablishmentCvTest.class, MessageTest.class})
 public class AllTests {
 }
