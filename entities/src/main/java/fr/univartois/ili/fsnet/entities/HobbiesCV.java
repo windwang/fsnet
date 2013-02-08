@@ -98,11 +98,5 @@ public class HobbiesCV implements Serializable {
 		this.note = note;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 }

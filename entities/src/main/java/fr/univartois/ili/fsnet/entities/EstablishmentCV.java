@@ -96,11 +96,6 @@ public class EstablishmentCV implements Serializable {
 		this.land = land;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 
 }
