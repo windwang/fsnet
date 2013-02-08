@@ -249,7 +249,7 @@
 
 		<html:form action="/ChangePhoto" enctype="multipart/form-data">
 			<div class="space"></div>
-
+			<img src="avatar/${userId}.png" style="float: right;" alt="Avatar" /></td>
 			<div>
 				<bean:message key="updateProfile.picturesize" />
 			</div>
@@ -259,7 +259,8 @@
 					<tr>
 						<td><label for="photoUrl"> <bean:message
 									key="updateProfile.photoInternet" />
-						</label></td>
+						</label>
+						
 						<td><html:text property="photoUrl" styleId="photoUrl"></html:text></td>
 					</tr>
 
@@ -271,7 +272,11 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><html:submit
+						<td colspan="2" class="tableButton">
+							<html:link action="/DeletePhoto" styleClass="btn btn-inverse">
+								<bean:message key="updateProfile.deletePhoto" />
+							</html:link>
+							<html:submit
 								styleClass="btn btn-inverse">
 								<bean:message key="updateProfile.validate" />
 							</html:submit></td>
@@ -288,8 +293,6 @@
 	</fieldset>
 </ili:interactionFilter>
 
-<img src="avatar/${userId}.png" style="float: right;" alt="Avatar" />
-<html:link action="/DeletePhoto" style="float:right;">
-	<bean:message key="updateProfile.deletePhoto" />
-</html:link>
+
+
 <div class="clear"></div>
