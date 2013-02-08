@@ -287,10 +287,8 @@ public class SocialEntityFacade {
 	}
 
 	public final List<SocialEntity> getAllOrphanMembers() {
-		
 		TypedQuery<SocialEntity> query = em.createQuery(
-				"SELECT se FROM SocialEntity se WHERE se.group.name LIKE :groupname", SocialEntity.class);
-		query.setParameter("groupname",DEFAULT_GROUP_NAME );
+				"SELECT se FROM SocialEntity se WHERE se.group IS null", SocialEntity.class);
 		return query.getResultList();
 	}
 
