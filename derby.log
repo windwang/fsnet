@@ -1,0 +1,10 @@
+----------------------------------------------------------------
+Fri Feb 08 11:01:34 UTC 2013:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.8.2.2 - (1181258): instance a816c00e-013c-b977-af3f-00000bfbefc0 
+on database directory memory:/homelocal/bfahd/workspace3/fsnet/fsnetDB  with class loader ClassRealm[plugin>org.mortbay.jetty:jetty-maven-plugin:8.1.8.v20121106, parent: sun.misc.Launcher$AppClassLoader@9b1ac] 
+Loaded from file:/homelocal/bfahd/.m2/repository/org/apache/derby/derby/10.8.2.2/derby-10.8.2.2.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.7.0_09-b30
+user.dir=/homelocal/bfahd/workspace3/fsnet
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
