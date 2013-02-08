@@ -86,12 +86,7 @@ public class FormationCV implements Serializable {
 		this.ets = ets;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+	
 
 	/**
 	 * @return the myCVs

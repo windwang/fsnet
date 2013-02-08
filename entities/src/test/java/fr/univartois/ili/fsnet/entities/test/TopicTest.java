@@ -3,7 +3,6 @@ package fr.univartois.ili.fsnet.entities.test;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-import java.awt.List;
 import java.util.ArrayList;
 
 import javax.persistence.EntityManager;
@@ -14,7 +13,6 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -138,4 +136,6 @@ public class TopicTest {
 		em.persist(top);
 		em.getTransaction().commit();
 	}
+
+	
 }
