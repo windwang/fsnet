@@ -17,7 +17,7 @@ import fr.univartois.ili.fsnet.entities.ConsultationChoiceVote;
 
 ProfileVisitePKTest.class, CurriculumTest.class,CommunityTest.class, ConsultationChoiceTest.class, HubTest.class,
 		InteractionTest.class, InterestTest.class, MeetingTest.class, ProfileVisitTest.class,
-		SocialEntityTest.class,DegreeCvTest.class, SocialGroupTest.class,InteractionRolePKTest.class, TopicTest.class, PrivateMessageTest.class , AssociationDateDegreeCVTest.class
+		SocialEntityTest.class,DegreeCvTest.class, AssociationDateTrainingCVTest.class,SocialGroupTest.class,InteractionRolePKTest.class, TopicTest.class, PrivateMessageTest.class , AssociationDateDegreeCVTest.class
 		,InteractionGroupsTest.class, TopicMessageTest.class,SocialElementTest.class, HobbiesCVTest.class, PropertyTest.class, FormationCvTest.class, EstablishmentCvTest.class, MessageTest.class, ConsultationVoteTest.class, TrainingCVTest.class, ConsultationChoiceVote.class})
 public class AllTests {
 }
