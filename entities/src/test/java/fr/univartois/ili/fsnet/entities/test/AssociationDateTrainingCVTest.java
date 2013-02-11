@@ -26,7 +26,7 @@ public class AssociationDateTrainingCVTest {
 	    	Date startDate = new Date(0);
 	    	
 			adtcv.setStartDate(startDate );
-	    	assertEquals(startDate, adtcv.getId());
+	    	assertEquals(startDate, adtcv.getStartDate());
 	    }
 	
 	@Test
@@ -35,7 +35,7 @@ public class AssociationDateTrainingCVTest {
 	    	Date endDate = new Date(0);
 	    	
 			adtcv.setEndDate(endDate);
-	    	assertEquals(endDate, adtcv.getId());
+	    	assertEquals(endDate, adtcv.getEndDate());
 	    }
 	
 	@Test
