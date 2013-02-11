@@ -8,11 +8,11 @@
 <meta content="initial-scale=1, minimum-scale=1, width=device-width"	name="viewport"/>
 
 <title><bean:message key="error-404.title" /></title>
-<link rel="StyleSheet" href="css/error-404.css" type="text/css" media="screen"/>
+<link rel="StyleSheet" href="${pageContext.request.contextPath}/css/error-404.css" type="text/css" media="screen"/>
 
 </head>
 <body>
-	<a href="/fsnetWeb/Home.do"> <img src="images/FSNET.png"
+	<a href="${pageContext.request.contextPath}/Home.do"> <img src="${pageContext.request.contextPath}/images/FSNET.png"
 		height="49px" width="230px" alt="Logo">
 	</a>
 	<bean:message key="error-404.message" />
