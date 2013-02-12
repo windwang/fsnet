@@ -76,19 +76,23 @@
 }
 
 .chatboxinput {
-	padding: 5px;
+	padding: 2px;
 	background-color: #ffffff;
 	border-left:1px solid #cccccc;
 	border-right:1px solid #cccccc;
 	border-bottom:1px solid #cccccc;
 }
 
-.chatboxtextarea {
-	width: 206px;
+.chatboxinput > form {
+	margin:0
+}
+
+.chatbox .chatboxtextarea {
+	/*width: 206px;
 	height:44px;
-	padding:3px 0pt 3px 3px;
+	padding:3px 0pt 3px 3px;*/
 	border: 1px solid #eeeeee;
-	margin: 1px;
+	margin: 0px;
 	overflow:hidden;
 }
 

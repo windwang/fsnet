@@ -79,11 +79,11 @@
 
 <link rel="stylesheet" media="screen" type="text/css"
 	href="./bootstrap/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" media="all" href="css/chat.css" />
+
 <link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" media="screen"
-	href="css/bootstrapStyle.css" />
-	
+<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrapStyle.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="css/chat.css" />
+
 <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 <!-- Custom color style by group-->
 <style type="text/css">
