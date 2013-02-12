@@ -806,3 +806,12 @@ tfoot td {
 	padding: 25px 30px 15px 30px;
 	margin-top : 40px ;
 }
+
+#loginWrapper input:not([type="submit"]) {
+	font-size : 17px ;
+	height : 40px ;
+}
+
+#loginWrapper label,a {
+	font-size : 17px ;
+}
