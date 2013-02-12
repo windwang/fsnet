@@ -9,10 +9,14 @@
 </bean:define>
 
 
-
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
-		<div class="container-fluid">
+		<div class="container">
+			<button type="button" class="btn btn-navbar collapsed"
+				data-toggle="collapse" data-target=".nav-collapse">
+				<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+					class="icon-bar"></span>
+			</button>
 			<div class="nav-collapse collapse">
 				<ul class="nav">
 					<li class="${currentMenu == 'Home' ? 'active' : ''}"><html:link
@@ -84,10 +88,10 @@
 					<li><html:form action="/Research" method="post"
 							styleClass="navbar-search pull-left noMargin littleTopPadding searchBar">
 							<div>
-							<i class="icon-search"></i> 
+								<i class="icon-search"></i>
 								<html:text styleClass="span2" styleId="searchText"
 									property="searchText" />
-								
+
 								<input style="display: none" type="checkbox" checked
 									name="selectedResearch" value="tous" />
 							</div>
