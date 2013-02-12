@@ -295,7 +295,6 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 
 		$(chatboxtextarea).val('');
 		$(chatboxtextarea).focus();
-		$(chatboxtextarea).css('height', '44px');
 
 		if (message != '') {
 
