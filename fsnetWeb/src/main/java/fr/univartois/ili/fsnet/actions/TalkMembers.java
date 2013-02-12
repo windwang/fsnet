@@ -310,6 +310,7 @@ public class TalkMembers extends MappingDispatchAction {
 		String friend = request.getParameter("toFriend");
 		friend = friend + "@" + xmppServerDomain;
 		String msg = request.getParameter("msg");
+		/* Permet d'éviter l'injection de code html ou javascript */
 		String escapedMsg=StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(msg));
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
