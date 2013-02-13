@@ -101,6 +101,12 @@ public class AddressTest {
     	
     	// Null null object
     	assertFalse(adr1.equals(null));
+    	
+    	// Other tests of difference
+    	assertFalse(adr1.equals(adr4)) ;
+    	assertFalse(adr2.equals(adr3)) ;
+    	assertFalse(adr3.equals(adr2)) ;
+    	assertFalse(adr4.equals(adr1)) ;
     }  
     
 
