@@ -59,7 +59,7 @@
 	href="css/colorpicker.css" />
 <script type="text/javascript" src="js/colorpicker.js"></script>
 <script type="text/javascript" src="js/eye.js"></script>
-
+<script type="text/javascript" src="js/leftMenuFixed.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/layout.js?ver=1.0.2"></script>
 
@@ -79,12 +79,12 @@
 
 <link rel="stylesheet" media="screen" type="text/css"
 	href="./bootstrap/css/bootstrap.min.css" />
-<link type="text/css" rel="stylesheet" media="all" href="css/chat.css" />
-<link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" media="screen"
-	href="css/bootstrapStyle.css" />
-	
 
+<link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrapStyle.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="css/chat.css" />
+
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 <!-- Custom color style by group-->
 <style type="text/css">
 body {
@@ -98,13 +98,12 @@ body {
 
 </head>
 <body>
-
 	<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
 	<tiles:insert attribute="menu" />
-	<div class="clear"></div>
-	<div id="wrapBody">
+	
+	<div id="wrapBody" class="container">
 		<div class="row-fluid">
-			<div class="span2 fixed">
+			<div id="menuLateral" class="span2">
 				
 					<tiles:insert attribute="logo" />
 					<div id="left" class="cadreDivMenuTop">
@@ -116,7 +115,7 @@ body {
 					</div>
 				
 			</div>
-			<div class="span8 offset2">
+			<div class="span10">
 					<tiles:insert attribute="body-content" />
 			</div>
 		</div>

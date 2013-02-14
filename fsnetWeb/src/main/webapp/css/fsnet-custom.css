@@ -807,10 +807,12 @@ tfoot td {
 	margin-top : 40px ;
 }
 
-#loginWrapper input:not([type="submit"]) {
+
+#loginWrapper input[type="email"], #loginWrapper input[type="password"] {
 	font-size : 17px ;
 	height : 40px ;
 }
+
 
 #loginWrapper label,a {
 	font-size : 17px ;

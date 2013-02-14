@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
+import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
@@ -153,6 +154,7 @@ public class TalkMembers extends MappingDispatchAction {
 			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
 		}
 
+		
 		Map<String, Boolean> newConversation = talkMessage.getNewConversation();
 		List<TalkJsonMsg> lastConversation = new ArrayList<TalkJsonMsg>();
 		for (Entry<String, Boolean> entry : newConversation.entrySet()) {
@@ -308,6 +310,8 @@ public class TalkMembers extends MappingDispatchAction {
 		String friend = request.getParameter("toFriend");
 		friend = friend + "@" + xmppServerDomain;
 		String msg = request.getParameter("msg");
+		/* Permet d'éviter l'injection de code html ou javascript */
+		String escapedMsg=StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(msg));
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
@@ -335,9 +339,9 @@ public class TalkMembers extends MappingDispatchAction {
 		}
 		StringBuilder dd = null;
 		String formattedMsg = "</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
-				+ msg + "</p></br>"; 
+				+ escapedMsg + "</p></br>"; 
 		try {
-			talk.sendMessage(msg, friend, chat);
+			talk.sendMessage(escapedMsg, friend, chat);
 			dd = talkMessage.getConversation().get(friend);
 			if (dd == null) {
 
