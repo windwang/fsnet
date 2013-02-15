@@ -1,8 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
 <%@ taglib prefix="ili" uri="../ili.tld"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <bean:define id="logMessage">
 	<bean:message key="login.placeholder.mail" />
@@ -76,7 +75,7 @@
 		<div class="row" >			
 			
 				<h2 id="login-title">
-					<bean:message key="welcome.message" />
+					<s:text name="welcome.message" />
 				</h2>
 			
 				<div class="span8 offset1">
@@ -88,10 +87,10 @@
 						<tbody><tr>
 							<td id="affiche"><p class="quotation">
 									"
-									<bean:message key="welcome.message1" />
+									<s:text name="welcome.message1" />
 								</p>
 								<p class="quotation">
-									<bean:message key="welcome.message2" />
+									<s:text name="welcome.message2" />
 									"
 								</p></td>
 						</tr>
@@ -102,22 +101,22 @@
 						
 						
 						<form class="form-signin" action="Authenticate" method="post">
-							<h2 class="form-signin-heading"> <bean:message key="login.connection" /> </h2>
+							<h2 class="form-signin-heading"> <s:text name="login.connection" /> </h2>
 							
 							<input type="email" class="input-block-level"
-								name="memberMail" id="memberMail" value="${param['memberMail'] }" placeholder="${logMessage}">
+								name="memberMail" id="memberMail" value="${param['memberMail'] }" placeholder="${login.placeholder.mail}">
 								
 							<input type="password" class="input-block-level" 
-								id="memberPass" name="memberPass" placeholder="${passwordMessage}">
+								id="memberPass" name="memberPass" placeholder="${login.placeholder.password}">
 							
 							<label for="remember" class="checkbox">
 							  <input type="checkbox" id="remember" name="remember"> 
-							  	<bean:message key="login.checkbox.connectAuto" />
+							  	<s:text name="login.checkbox.connectAuto" />
 							</label>
-							<input class="btn btn-large" type="submit" value="${loginSubmit}">
+							<input class="btn btn-large" type="submit" value="${login.submit}">
 							
 							<a onclick="showResetPasswordForm();"> 
-								<bean:message key="login.password.forget" />
+								<s:text name="login.password.forget" />
 							</a>
 					  </form>				
 					  
@@ -132,14 +131,14 @@
 				<div style="display: none" class="span4 offset1" id="resetPasswordWrapper">
 					<form action="ResetPassword" method="post" class="form-signin">
 					
-						<h3 class="form-signin-heading"> <bean:message key="login.password.forget" /> </h3>
+						<h3 class="form-signin-heading"> <s:text name="login.password.forget" /> </h3>
 
 						<input name="memberMail2" type="email" id="memberMail2" placeholder="${logMessage}" />
 						
 						<input class="btn" type="submit" value="${loginSubmit}">
 
 						<a onclick="showLoginForm();"> 
-							<bean:message key="login.authentification" />
+							<s:text name="login.authentification" />
 						</a>
 					</form>
 					
