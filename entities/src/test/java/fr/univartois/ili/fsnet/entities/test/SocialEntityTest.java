@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,13 +17,35 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
+import fr.univartois.ili.fsnet.entities.Address;
 import fr.univartois.ili.fsnet.entities.Announcement;
+import fr.univartois.ili.fsnet.entities.ConsultationVote;
 import fr.univartois.ili.fsnet.entities.Interaction;
+import fr.univartois.ili.fsnet.entities.InteractionRole;
+import fr.univartois.ili.fsnet.entities.Interest;
+import fr.univartois.ili.fsnet.entities.PrivateMessage;
+import fr.univartois.ili.fsnet.entities.ProfileVisite;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.Topic;
+import fr.univartois.ili.fsnet.entities.TopicMessage;
 
 public class SocialEntityTest {
 
 	private EntityManager em;
+	private SocialEntity e = new SocialEntity();
+	
+	/* Objects instantiated at the beginning to test quicker */
+	private Date d = new Date();
+	private List<Interaction> interactions = new ArrayList<>();
+	private List<InteractionRole> interactionRoles = new ArrayList<>();
+	private List<Interest> interests = new ArrayList<>();
+	private List<TopicMessage> topicMessages = new ArrayList<>();
+	private List<Topic> topics = new ArrayList<>();
+	private List<SocialEntity> socialEntities = new ArrayList<>();
+	private List<PrivateMessage> privateMessages = new ArrayList<>();
+	private List<ProfileVisite> profileVisites = new ArrayList<>();
+	private List<ConsultationVote> votes = new ArrayList<>();
+
 
 	@Before
 	public void setUp() {
@@ -35,6 +59,183 @@ public class SocialEntityTest {
 		em.close();
 	}
 
+
+	@Test
+	public void testSetAndGetAddress() {
+		Address adr = new Address("rue Jean Souvraz", "LENS");
+		e.setAddress(adr);
+		assertEquals(adr, e.getAddress());
+	}
+	
+	@Test
+	public void testSetAndGetInscriptionDate() {
+		e.setInscriptionDate(d);
+		assertEquals(d, e.getInscritpionDate());
+	}
+	
+	@Test
+	public void testSetAndGetBirthDate() {
+		e.setBirthDate(d);
+		assertEquals(d, e.getBirthDate());
+	}
+	
+	@Test
+	public void testSetAndGetLastConnection() {
+		e.setLastConnection(d);
+		assertEquals(d, e.getLastConnection());
+	}
+	
+	@Test
+	public void testSetAndGetSex() {
+		e.setSex("F");
+		assertEquals("F", e.getSex());
+	}
+	
+	@Test
+	public void testSetAndGetPassword() {
+		e.setPassword("azerty");
+		assertEquals("azerty", e.getPassword());
+	}
+	
+	@Test
+	public void testSetAndGetProfession() {
+		e.setProfession("profession");
+		assertEquals("profession", e.getProfession());
+	}
+	
+	@Test
+	public void testSetAndGetPhone() {
+		e.setPhone("0000000000");
+		assertEquals("0000000000", e.getPhone());
+	}
+	
+	@Test
+	public void testSetAndGetInteractions() {
+		e.setInteractions(interactions);
+		assertEquals(interactions, e.getInteractions());
+		
+	}
+	
+	@Test
+	public void testSetAndGetFavoriteInteractions() {
+		e.setFavoriteInteractions(interactions);
+		assertEquals(interactions, e.getFavoriteInteractions());
+	}
+	
+	@Test
+	public void testSetAndGetInterests() {
+		e.setInterests(interests);
+		assertEquals(interests, e.getInterests());
+	}
+	
+	@Test
+	public void testSetAndGetMessages() {
+		e.setMessages(topicMessages);
+		assertEquals(topicMessages, e.getTopicMessages());
+	}
+
+	@Test
+	public void testSetAndGetTopics() {
+		e.setTopics(topics);
+		assertEquals(topics, e.getTopics());
+	}
+	
+	@Test
+	public void testSetAndGetContacts() {
+		e.setContacts(socialEntities);
+		assertEquals(socialEntities, e.getContacts());
+	}
+	
+	@Test
+	public void testSetAndGetRefused() {
+		e.setRefused(socialEntities);
+		assertEquals(socialEntities, e.getRefused());
+	}
+	
+	@Test
+	public void testSetAndGetAsked() {
+		e.setAsked(socialEntities);
+		assertEquals(socialEntities, e.getAsked());
+	}
+	
+	@Test
+	public void testSetAndGetRequested() {
+		e.setRequested(socialEntities);
+		assertEquals(socialEntities, e.getRequested());
+	}
+	
+	@Test
+	public void testSetAndGetReceivedPrivateMessages() {
+		e.setReceivedPrivateMessages(privateMessages);
+		assertEquals(privateMessages, e.getReceivedPrivateMessages());
+	}
+		
+	@Test
+	public void testSetAndGetSentPrivateMessages() {
+		e.setSentPrivateMessages(privateMessages);
+		assertEquals(privateMessages, e.getSentPrivateMessages());
+	}
+	
+	@Test
+	public void testSetAndGetRolesInInteractions() {
+		e.setRolesInInteractions(interactionRoles);
+		assertEquals(interactionRoles, e.getRolesInInteractions());
+	}
+		
+	@Test
+	public void testSetAndGetVisitesOnProfiles() {
+		e.setVisitesOnProfiles(profileVisites);
+		assertEquals(profileVisites, e.getVisitesOnProfile());	
+	}
+	
+	@Test
+	public void testSetAndGetVisitedProfiles() {
+		e.setVisitedProfiles(profileVisites);
+		assertEquals(profileVisites, e.getVisitedProfiles());
+	}
+	
+	@Test
+	public void testSetAndGetVotes() {
+		e.setVotes(votes);
+		assertEquals(votes, e.getVotes());
+	}
+	
+	@Test
+	public void testSetAndGetIsEnabled() {
+		e.setIsEnabled(true);
+		assertTrue(e.getIsEnabled());
+	}
+	
+	@Test
+	public void testSetAndGetInteractionsRead() {
+		e.setInteractionsRead(interactions);
+		assertEquals(interactions, e.getInteractionsRead());
+	}
+
+	@Test
+	public void testHascodeWithNull() {
+		SocialEntity e1 = new SocialEntity();
+		SocialEntity e2 = new SocialEntity();
+		assertEquals(e1.hashCode(), e2.hashCode());
+	}
+	
+	@Test
+	public void testCompareTo() {
+		SocialEntity e1 = new SocialEntity("a","a","");
+		SocialEntity e2 = new SocialEntity("a","b","");
+		SocialEntity e3 = new SocialEntity("b","a","");
+		
+		assertEquals(-1, e1.compareTo(e2));
+		assertEquals(-1, e1.compareTo(e3));
+		assertEquals(-1, e2.compareTo(e3));
+		
+		assertEquals(1, e2.compareTo(e1));
+		assertEquals(1, e3.compareTo(e1));
+		assertEquals(1, e3.compareTo(e2));
+		
+		assertEquals(0, e1.compareTo(e1));
+	}
+	
 	@Test
 	public void testPersist() {
 		final String lastName = "Germain";

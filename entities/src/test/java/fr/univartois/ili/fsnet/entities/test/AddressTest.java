@@ -52,6 +52,14 @@ public class AddressTest {
     public void testEqualsWithSameAddress() {
     	Address adr1 = new Address(ADDRESS, CITY);
     	Address adr2 = new Address(new String(ADDRESS), new String(CITY));
+    	
+    	// Same address & city
+    	assertTrue(adr1.equals(adr2));
+    	assertTrue(adr2.equals(adr1));
+    	
+    	// Same address & null city
+    	adr1.setCity(null);
+    	adr2.setCity(null);
     	assertTrue(adr1.equals(adr2));
     	assertTrue(adr2.equals(adr1));
     }  
