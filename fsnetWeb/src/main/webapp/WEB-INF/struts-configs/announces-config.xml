@@ -1,87 +1,62 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd ">
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-	<form-beans>
-		<form-bean name="AnnounceForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="idAnnounce" type="java.lang.Integer" />
-			<form-property name="announceTitle" type="java.lang.String" />
-			<form-property name="announceContent" type="java.lang.String" />
-			<form-property name="announceExpiryDate" type="java.lang.String" />
-			<form-property name="selectedInterests" type="java.lang.String[]" />
-			<form-property name="groupsListLeft" type="java.lang.String[]" />
-			<form-property name="groupsListRight" type="java.lang.String[]" />
-		</form-bean>
-		<form-bean name="SearchAnnounceForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="textSearchAnnounce" type="java.lang.String" />
-		</form-bean>
+<struts>
 
-		<form-bean name="SearchDisplayAnnounceForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="announcesId" type="java.lang.String" />
-			<form-property name="selectedAnnounces" type="java.lang.String[]" />
-		</form-bean>
-	</form-beans>
-
-	<global-forwards>
-
-	</global-forwards>
-
-	<action-mappings>
+	<package name="announces" extends="struts-default">
 		<!-- Announces -->
-		<action path="/Announces" name="SearchAnnounceForm" scope="request"
-			input="Announces" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
-			parameter="search">
-			<forward name="success" path="Announces" />
+		<action name="/Announces" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="search">
+			<result name="success">Announces</result>
+			<result name="input">Announces</result>
 		</action>
 
-		<action path="/CreateAnnounce" name="AnnounceForm" scope="request"
-			input="/DisplayCreateAnnounce.do" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
-			parameter="create">
-			<forward name="success" path="/Announces.do" />
-			<forward name="failed" path="/DisplayCreateAnnounce.do" />
-			<forward name="unauthorized" path="/Announces.do" />
-		</action>
-		<action path="/DisplayCreateAnnounce" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
-			parameter="displayCreateAnnounce" validate="false">
-			<forward name="success" path="CreateAnnounce" />
-			<forward name="unauthorized" path="/Announces.do" />
+		<action name="/CreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="create">
+			<result name="success">Announces.do</result>
+			<result name="failed">DisplayCreateAnnounce.do</result>
+			<result name="input">DisplayCreateAnnounce.do</result>
+			<result name="unauthorized">Announces.do</result>
 		</action>
 
-		<action path="/ModifyAnnounce" name="AnnounceForm" scope="request"
-			input="ModifyAnnounce" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
-			parameter="modify">
-			<forward name="success" path="/Announces.do" />
-			<forward name="failed" path="ModifyAnnounce" />
-			<forward name="unauthorized" path="/Announces.do" />
-		</action>
-		<action path="/DisplayForModifyAnnounce" name="AnnounceForm"
-			scope="request" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
-			parameter="displayToModify" validate="false">
-			<forward name="success" path="ModifyAnnounce" />
-			<forward name="failed" path="/Announces.do" />
+		<action name="/DisplayCreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="displayCreateAnnounce">
+			<result name="success">CreateAnnounce</result>
+			<result name="unauthorized">Announces.do</result>
 		</action>
 
-		<action path="/DisplayAnnounce" name="AnnounceForm" scope="request"
-			type="fr.univartois.ili.fsnet.actions.ManageAnnounces" parameter="display">
-			<forward name="success" path="DisplayAnnounce"></forward>
-			<forward name="failed" path="/Announces.do" />
-		</action>
-		<action path="/DeleteAnnounce" scope="request"
-			type="fr.univartois.ili.fsnet.actions.ManageAnnounces" parameter="delete">
-			<forward name="success" path="/Announces.do"></forward>
-			<forward name="failed" path="/Announces.do" />
+		<action name="/ModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="modify">
+			<result name="input">ModifyAnnounce</result>
+			<result name="success">Announces.do</result>
+			<result name="failed">ModifyAnnounce</result>
+			<result name="unauthorized">Announces.do</result>
 		</action>
 
-		<action path="/DeleteMultiAnnounces" type="fr.univartois.ili.fsnet.actions.ManageAnnounces"
-			name="SearchDisplayAnnounceForm" validate="false" scope="request"
-			parameter="deleteMulti">
-			<forward name="success" path="/Announces.do" />
+		<action name="/DisplayForModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="displayToModify">
+			<result name="success">ModifyAnnounce</result>
+			<result name="failed">Announces.do</result>
 		</action>
-	</action-mappings>
 
-</struts-config>
+		<action name="/DisplayAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="display">
+			<result name="success">DisplayAnnounce</result>
+			<result name="failed">Announces.do</result>
+		</action>
+
+		<action name="/DeleteAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="delete">
+			<result name="success">Announces.do</result>
+			<result name="failed">Announces.do</result>
+		</action>
+
+		<action name="/DeleteMultiAnnounces" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="deleteMulti">
+			<result name="success">Announces.do</result>
+		</action>
+	</package>
+
+</struts>
