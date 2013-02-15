@@ -120,20 +120,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<skipTests>true</skipTests>
+					<skip>true</skip>
+				</configuration>
 				<executions>
-					<execution>
-						<id>surefire-test</id>
-						<phase>test</phase>
-						<goals>
-							<goal>test</goal>
-						</goals>
-						<configuration>
-							<skip>true</skip>
-							<excludes>
-								<exclude>**/integration/**</exclude>
-							</excludes>
-						</configuration>
-					</execution>
 					<execution>
 						<phase>integration-test</phase>
 						<goals>
@@ -141,6 +132,7 @@
 						</goals>
 						<configuration>
 							<skip>false</skip>
+							<skipTests>false</skipTests>
 							<includes>
 								<include>**/integration/**</include>
 							</includes>

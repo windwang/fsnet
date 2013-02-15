@@ -4,12 +4,12 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="hubs.title.create" />
 	</legend>
 	<table id="CreateHub"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<html:form action="/CreateHub">
 			<html:hidden property="communityId" value="${param.communityId}" />
 			<tr>
@@ -27,7 +27,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="btn btn-inverse">
 						<bean:message key="hubs.button.create" />
 					</html:submit></td>
 			</tr>

@@ -10,36 +10,36 @@
 </bean:define>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="hubs.title.search" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 
 		<tr>
 			<td><html:form action="/SearchYourTopics" method="get">
-				<div id="SearchYourTopics">
-					<html:text property="searchText" styleId="searchTexte" />
-					<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-					<html:hidden property="hubId" value="${hubResult.id}" />
-					<html:submit styleClass="button">
-						<bean:message key="topics.button.search" />
-					</html:submit>
-				</div>
-			</html:form></td>
+					<div id="SearchYourTopics">
+						<html:text property="searchText" styleId="searchTexte"
+							styleClass="search-query" />
+						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
+						<html:hidden property="hubId" value="${hubResult.id}" />
+						<html:submit styleClass="btn btn-inverse">
+							<bean:message key="topics.button.search" />
+						</html:submit>
+					</div>
+				</html:form></td>
 		</tr>
-
 	</table>
 </fieldset>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="hubs.title.hub" />
 		${hubResult.title} -
 		<bean:message key="topics.title.myTopics" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<logic:empty name="topicsLastMessage">
 			<bean:message key="topics.noTopics" />
 		</logic:empty>
@@ -71,7 +71,7 @@
 						<bean:message key="topics.noMessage" />
 					</logic:empty></td>
 				<c:if test="${sessionScope.userId eq couple.key.creator.id}">
-					<td class="tableButton"><a class="button"
+					<td class="tableButton"><a class="btn btn-inverse"
 						onclick="confirmDelete('DeleteYourTopic.do?topicId='+${couple.key.id}+'&hubId='+${hubResult.id}, '<bean:message key="message.confirmation.delete" />');">
 							<bean:message key="topics.button.delete" />
 					</a></td>

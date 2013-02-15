@@ -7,8 +7,8 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<c:if test="${not empty requestScope.Community}">
 			<html:link action="/DisplayCommunity">
 				<html:param name="communityId" value="${requestScope.Community.id}" />
@@ -21,7 +21,7 @@
 	<c:choose>
 		<c:when test="${empty requestScope.listHubPaginator.resultList}">
 
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="hubs.hubNotFound" /></td>
 				</tr>
@@ -48,7 +48,7 @@
 								aoColumns, false, 10);
 					});
 		</script>
-			<table id="tablehub" class="tablesorter inLineTable fieldsetTableAppli">
+			<table id="tablehub" class="tablesorter inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th></th>
@@ -81,7 +81,7 @@
 									socialEntity="${hub.creator}" /></td>
 							<td class="tableButton"><c:if
 									test="${sessionScope.userId eq hub.creator.id}">
-									<a class="button"
+									<a class="btn btn-inverse"
 										onclick="confirmDelete('DeleteHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id}, '<bean:message key="message.confirmation.delete" />');">
 										<bean:message key="hubs.button.delete" />
 									</a>

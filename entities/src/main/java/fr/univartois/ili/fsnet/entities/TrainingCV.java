@@ -98,12 +98,6 @@ public class TrainingCV implements Serializable {
 		this.myEst = myEst;
 	}
 
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
 
 	/**
 	 * @return the myCVs

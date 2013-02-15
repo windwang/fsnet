@@ -6,12 +6,12 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="interests.title.my" />
 	</legend>
 	<logic:present name="myInterestPaginator" scope="request">
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<tr>
 				<td><c:choose>
 						<c:when

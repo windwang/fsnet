@@ -41,11 +41,11 @@
 
 <ili:interactionFilter user="${ socialEntity }"
 	right="${ rightModifyProfil }">
-	<fieldset class="fieldsetAppli">
-		<legend class="legendHome">
+	<fieldset class="fieldsetCadre">
+		<legend>
 			<bean:message key="updateProfile.title" />
 		</legend>
-		<table id="ModifyProfile" class="inLineTable fieldsetTableAppli">
+		<table id="ModifyProfile" class="inLineTable tableStyle">
 			<html:form action="/ModifyProfile">
 				<tr>
 					<td><label for="name"> <bean:message
@@ -174,7 +174,7 @@
 
 				<tr>
 					<td colspan="2" class="tableButton"><html:submit
-							styleClass="button">
+							styleClass="btn btn-inverse">
 							<bean:message key="updateProfile.validate" />
 						</html:submit></td>
 				</tr>
@@ -203,8 +203,8 @@
     });
 </script>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="updateProfile.changePassword.title" />
 	</legend>
 
@@ -214,7 +214,7 @@
 			<html:errors property="passwordChange" />
 		</logic:messagesPresent>
 
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<c:forTokens var="typePwd"
 				items="oldPassword:newPassword:confirmNewPassword" delims=":">
 				<tr>
@@ -232,7 +232,7 @@
 			</c:forTokens>
 			<tr>
 				<td colspan="2" class="tableButton"><html:submit
-						styleClass="button">
+						styleClass="btn btn-inverse">
 						<bean:message key="updateProfile.validate" />
 					</html:submit></td>
 			</tr>
@@ -242,24 +242,25 @@
 
 <ili:interactionFilter user="${ socialEntity }"
 	right="${ rightModifyPicture }">
-	<fieldset class="fieldsetProfil">
-		<legend class="legendHome">
+	<fieldset class="fieldsetCadre">
+		<legend>
 			<bean:message key="updateProfile.changePhoto.title" />
 		</legend>
 
 		<html:form action="/ChangePhoto" enctype="multipart/form-data">
 			<div class="space"></div>
-
+			<img src="avatar/${userId}.png" style="float: right;" alt="Avatar" /></td>
 			<div>
 				<bean:message key="updateProfile.picturesize" />
 			</div>
 
 			<div>
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable tableStyle">
 					<tr>
 						<td><label for="photoUrl"> <bean:message
 									key="updateProfile.photoInternet" />
-						</label></td>
+						</label>
+						
 						<td><html:text property="photoUrl" styleId="photoUrl"></html:text></td>
 					</tr>
 
@@ -271,8 +272,12 @@
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><html:submit
-								styleClass="button">
+						<td colspan="2" class="tableButton">
+							<html:link action="/DeletePhoto" styleClass="btn btn-inverse">
+								<bean:message key="updateProfile.deletePhoto" />
+							</html:link>
+							<html:submit
+								styleClass="btn btn-inverse">
 								<bean:message key="updateProfile.validate" />
 							</html:submit></td>
 					</tr>
@@ -288,8 +293,6 @@
 	</fieldset>
 </ili:interactionFilter>
 
-<img src="avatar/${userId}.png" style="float: right;" alt="Avatar" />
-<html:link action="/DeletePhoto" style="float:right;">
-	<bean:message key="updateProfile.deletePhoto" />
-</html:link>
+
+
 <div class="clear"></div>

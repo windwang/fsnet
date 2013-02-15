@@ -7,14 +7,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 			<bean:message key="groups.titleInformation" />
 		</legend>
 			
 	<c:choose>
 		<c:when test="${ socialGroup != null }">
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 			<tr>
 			<td>
 			<fieldset class="inLinefieldset">

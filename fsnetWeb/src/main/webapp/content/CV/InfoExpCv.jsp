@@ -7,15 +7,15 @@
 
 <html:form action="/CreateCv3">
 	<div class="en_cv">
-		<fieldset class="fieldsetAppli">
-			<legend class="legendHome">
+		<fieldset class="fieldsetCadre">
+			<legend >
 				<bean:message key="cv.title.experiences" />
 			</legend>
 
-			<table id="experiences" class="listeExperience inLineTable fieldsetTableAppli"></table>
+			<table id="experiences" class="listeExperience inLineTable   tableStyle"></table>
 
 			<div class="addExpTable">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td colspan="2"><a><span class="addExp"><bean:message
 										key="cv.button.addExperience" /></span></a></td>
@@ -25,7 +25,7 @@
 			</div>
 
 			<div class="corp_experience">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td><label for="cvExpJob">*<bean:message
 									key="cv.form.exp.job" /></label></td>
@@ -96,17 +96,17 @@
 	</div>
 
 	<div class="en_cv">
-		<fieldset class="fieldsetAppli">
+		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend class="legendHome">
+				<legend>
 					<bean:message key="cv.title.degree" />
 				</legend>
 			</div>
 
-			<table id="diplome" class="listeDiplome inLineTable fieldsetTableAppli"></table>
+			<table id="diplome" class="listeDiplome inLineTable   tableStyle"></table>
 			
 			<div class="addDiplTable">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td colspan="2"><a><span class="addDip"><bean:message
 										key="cv.button.addDegree" /></span></a></td>
@@ -116,7 +116,7 @@
 			</div>
 
 			<div class="corp_diplome">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td><label for="cvDegreeName">*<bean:message
 									key="cv.form.degree.level" /></label></td>
@@ -204,17 +204,17 @@
 	</div>
 
 	<div class="en_cv">
-		<fieldset class="fieldsetAppli">
+		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend class="legendHome">
+				<legend>
 					<bean:message key="cv.title.formation" />
 				</legend>
 			</div>
 
-			<table id="formation" class="listeFormation inLineTable fieldsetTableAppli"></table>
+			<table id="formation" class="listeFormation inLineTable   tableStyle"></table>
 			
 			<div class="addFormTable">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td colspan="2"><a><span class="addForm"><bean:message
 										key="cv.button.addFormation" /></span></a></td>
@@ -224,7 +224,7 @@
 			</div>
 
 			<div class="corp_formation">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td><label for="cvTrainingName">*<bean:message
 									key="cv.form.training.name" /></label></td>
@@ -279,17 +279,17 @@
 	</div>
 
 	<div class="en_cv">
-		<fieldset class="fieldsetAppli">
+		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend class="legendHome">
+				<legend>
 					<bean:message key="cv.title.hobbies" />
 				</legend>
 			</div>
 
-			<table id="loisir" class="listeLoisir inLineTable fieldsetTableAppli"></table>
+			<table id="loisir" class="listeLoisir inLineTable   tableStyle"></table>
 
 			<div class="addLoisirTable">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td colspan="2"><a><span class="addLoisir"><bean:message
 										key="cv.button.addHobby" /> </span> </a></td>
@@ -299,7 +299,7 @@
 			</div>
 
 			<div class="corp_loisir">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td><label for="cvHobbyName">*<bean:message
 									key="cv.form.hobby.name" /></label></td>
@@ -321,17 +321,17 @@
 	</div>
 
 	<div class="en_cv">
-		<fieldset class="fieldsetAppli">
+		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend class="legendHome">
+				<legend>
 					<bean:message key="cv.title.languages" />
 				</legend>
 			</div>
 
-			<table id="langue" class="listeLangues inLineTable fieldsetTableAppli"></table>
+			<table id="langue" class="listeLangues inLineTable   tableStyle"></table>
 
 			<div class="addLangueTable">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td colspan="2"><a><span class="addLangue"><bean:message
 										key="cv.button.addLanguage" /></span></a></td>
@@ -341,7 +341,7 @@
 			</div>
 
 			<div class="corp_langue">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable   tableStyle">
 					<tr>
 						<td><label for="cvLangName">*<bean:message
 									key="cv.form.lang.name" /></label></td>
@@ -380,7 +380,7 @@
 		</fieldset>
 	</div>
 
-	<html:submit styleId="envoi" styleClass="button">
+	<html:submit styleId="envoi" styleClass="btn btn-inverse" >
 		<bean:message key="cv.button.create" />
 	</html:submit>
 </html:form>

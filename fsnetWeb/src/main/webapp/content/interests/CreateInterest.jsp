@@ -5,15 +5,15 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="interests.title.create2" />
 	</legend>
 
 	<div class="space"></div>
 	<html:javascript formName="/CreateInterest" />
 	<html:form action="/CreateInterest">
-		<table id="CreateInterest" class="inLineTable fieldsetTableAppli">
+		<table id="CreateInterest" class="inLineTable tableStyle">
 			<tr>
 				<bean:message key="interests.message.create" />
 			</tr>

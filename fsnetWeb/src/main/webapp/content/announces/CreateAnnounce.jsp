@@ -10,12 +10,12 @@
 <script type="text/javascript" src="js/consultationUtils.js"></script>
 
 <html:javascript formName="/CreateAnnounce" />
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="announce.title.create" />
 	</legend>
 
-	<table id="CreateAnnounce" class="inLineTable fieldsetTableAppli">
+	<table id="CreateAnnounce" class="inLineTable tableStyle">
 		<html:form action="/CreateAnnounce">
 			<tr>
 				<td><label for="announceTitle"><bean:message
@@ -50,7 +50,7 @@
 			<tr>
 				<td><label for="groupsListLeft"><bean:message
 							key="announces.title.droit" /></label></td>
-				<td><table class="inLineTable fieldsetTableAppli">
+				<td><table class="inLineTable tableStyle">
 						<c:if test="${errorAnnounceRights}">
 							<p class="errorMessage">
 								<bean:message key="announces.droits.errorRights" />
@@ -94,11 +94,12 @@
 									<bean:message key="groups.removeMembers" />
 								</html:button></td>
 						</tr>
-					</table></td>
-			</tr>
+					</table>
+			
 			<tr>
 				<td colspan="2" class="tableButton"><html:submit
-						styleClass="button" onclick="return valideGroupToAnnounce()">
+						styleClass="btn btn-inverse"
+						onclick="return valideGroupToAnnounce()">
 						<bean:message key="announce.button.create" />
 					</html:submit></td>
 			</tr>
@@ -118,7 +119,7 @@
 			showMonthAfterYear : false
 		}));
 		$.datepicker.setDefaults($.datepicker.regional['fr']);
-		
+
 		$.timepicker.regional['fr'] = {
 			timeOnlyTitle : 'Temps',
 			timeText : 'Temps',

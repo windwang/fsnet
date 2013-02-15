@@ -30,12 +30,9 @@ import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
-
-
-
 /**
  * This class represents a servlet that is used in order to authenticate members
- *
+ * 
  */
 @WebServlet("/Authenticate")
 public class Authenticate extends HttpServlet {
@@ -89,26 +86,35 @@ public class Authenticate extends HttpServlet {
 	 * This method is called when an user user tries to sign in
 	 */
 	@Override
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		boolean authenticated = false;
+		EntityManager em = PersistenceProvider.createEntityManager();
+
 		String memberMail = req.getParameter("memberMail");
 		String memberPass = req.getParameter("memberPass");
-		
-		
-		if (memberMail == null && memberPass == null) {
-			if (req.getCookies() != null){
 
+		SocialEntity se = null;
+
+		if (memberMail == null && memberPass == null) {
+			// Already logged ?
+			Integer userIdentifier = (Integer) req.getSession(true).getAttribute(AUTHENTICATED_USER);
+			if (userIdentifier != null) {
+				authenticated = true;
+				se = em.find(SocialEntity.class, userIdentifier);
+				addUserLogginInformations(req, se, em, true);
+			}
+			// Remember has been checked ?
+			if (req.getCookies() != null) {
 				for (Cookie c : req.getCookies()) {
 					if (c.getName().equals(LOGIN_COOKIE)) {
 						memberMail = c.getValue();
-						if (memberPass != null){
+						if (memberPass != null) {
 							break;
 						}
 					} else if (c.getName().equals(PSSWD_COOKIE)) {
 						memberPass = c.getValue();
-						if (memberMail != null){
+						if (memberMail != null) {
 							break;
 						}
 					}
@@ -116,35 +122,13 @@ public class Authenticate extends HttpServlet {
 			}
 		}
 
-		EntityManager em = PersistenceProvider.createEntityManager();
-
-		SocialEntity es = null;
-		if (memberMail != null && memberPass != null) {
-			memberMail=memberMail.toLowerCase();
+		if (!authenticated && memberMail != null && memberPass != null) {
+			memberMail = memberMail.toLowerCase();
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-			es = socialEntityFacade.findByEmail(memberMail);
-			if (es != null
-					&& Encryption.testPassword(memberPass, es.getPassword())) {
+			se = socialEntityFacade.findByEmail(memberMail);
+			if (se != null && Encryption.testPassword(memberPass, se.getPassword())) {
 				authenticated = true;
-				req.getSession(true).setAttribute(AUTHENTICATED_USER,
-						es.getId());
-				req.getSession(true).setAttribute("userName", es.getName());
-				req.getSession(true).setAttribute("userFirstName", es.getFirstName());
-
-				SocialEntity user = em.find(SocialEntity.class, es.getId());
-				if(user.getLastConnection() != null){
-					//Last connection in session before a new session
-					req.getSession(true).setAttribute("LastConnection",user.getLastConnection());
-				}else{
-					req.getSession(true).setAttribute("LastConnection",new Date());
-				}
-				user.setLastConnection(new Date());
-				ManagePrivateMessages.refreshNumNewMessages(req, em);
-				ManageContacts.refreshNumNewContacts(req, em);
-				ManageVisits.refreshNumNewVisits(req, em);
-				ManageAnnounces.refreshNumNewAnnonces(req, em);
-				ManageEvents.refreshNumNewEvents(req, em);
-				ManageConsultations.refreshNumNewConsultations(req, em);
+				addUserLogginInformations(req, se, em, false);
 			} else {
 				req.setAttribute("loginMessage", "login.error");
 			}
@@ -153,23 +137,21 @@ public class Authenticate extends HttpServlet {
 		if (authenticated) {
 			// the user is now authenticated
 			String remember = req.getParameter("remember");
-			if (remember != null && remember.equals("on")){
+			if (remember != null && remember.equals("on")) {
 				setCookies(resp, memberMail, memberPass);
 			}
 
 			HttpSession session = req.getSession(true);
-			String lastRequestedURL = (String) session
-					.getAttribute("requestedURL");
+			String lastRequestedURL = (String) session.getAttribute("requestedURL");
 			if (lastRequestedURL != null) {
 				resp.sendRedirect(lastRequestedURL);
 				session.removeAttribute("requestedURL");
 			} else {
 				resp.sendRedirect(WELCOME_AUTHENTICATED_PAGE);
 			}
-			
+
 			SocialEntity user;
-			user = em.find(SocialEntity.class, es.getId());
-			
+			user = em.find(SocialEntity.class, se.getId());
 
 			String userName = user.getFirstName() + " " + user.getName();
 			LoggedUsersContainer.getInstance().addUser(user.getId(), userName);
@@ -177,41 +159,71 @@ public class Authenticate extends HttpServlet {
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 			String groupTree = socialGroupFacade.treeParentName(user);
 			req.getSession().setAttribute("groupTree", groupTree);
-			req.getSession().setAttribute("hisGroup",
-					UserUtils.getHisGroup(req));
-			req.getSession().setAttribute("isMasterGroup",
-					socialGroupFacade.isMasterGroup(user));
-			req.getSession().setAttribute("isGroupResponsible",
-					socialGroupFacade.isGroupResponsible(user));
+			req.getSession().setAttribute("hisGroup", UserUtils.getHisGroup(req));
+			req.getSession().setAttribute("isMasterGroup", socialGroupFacade.isMasterGroup(user));
+			req.getSession().setAttribute("isGroupResponsible", socialGroupFacade.isGroupResponsible(user));
 			req.getSession().setAttribute("currentUserId", user.getId());
 
-			// add under groups to select them to add rights 
+			// add under groups to select them to add rights
 			// to participate at consultation
-			if(socialGroupFacade.isSuperAdmin(user) || socialGroupFacade.isGroupResponsible(user)){
-				List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
-				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
-			}else{
+			if (socialGroupFacade.isSuperAdmin(user) || socialGroupFacade.isGroupResponsible(user)) {
+				List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());
+				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);
+			} else {
 				List<SocialGroup> listOfChildGroup = ((List<SocialGroup>) new ArrayList<SocialGroup>());
 				listOfChildGroup.add(user.getGroup());
-				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
+				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);
 			}
 			req.getSession().setAttribute("color", user.getGroup().getColor());
 
 		} else {
 			// the user is not authenticated
-			RequestDispatcher dispatcher = req
-					.getRequestDispatcher(WELCOME_NON_AUTHENTICATED_PAGE);
+			RequestDispatcher dispatcher = req.getRequestDispatcher(WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatcher.forward(req, resp);
 		}
 		em.close();
 	}
 
 	/**
+	 * Perform task when a user is logged or being logged !
+	 * 
+	 * @param req
+	 *            The http request object
+	 * @param userSocialEntity
+	 *            The authenticated user
+	 * @param em
+	 *            The entity manager
+	 * @param alreadyLogged
+	 *            User already logged or being logged
+	 */
+	private void addUserLogginInformations(HttpServletRequest req, SocialEntity userSocialEntity, EntityManager em, boolean alreadyLogged) {
+		if (!alreadyLogged) {
+			req.getSession(true).setAttribute(AUTHENTICATED_USER, userSocialEntity.getId());
+			req.getSession(true).setAttribute("userName", userSocialEntity.getName());
+			req.getSession(true).setAttribute("userFirstName", userSocialEntity.getFirstName());
+		}
+
+		SocialEntity user = em.find(SocialEntity.class, userSocialEntity.getId());
+		if (user.getLastConnection() != null) {
+			// Last connection in session before a new session
+			req.getSession(true).setAttribute("LastConnection", user.getLastConnection());
+		} else {
+			req.getSession(true).setAttribute("LastConnection", new Date());
+		}
+		user.setLastConnection(new Date());
+		ManagePrivateMessages.refreshNumNewMessages(req, em);
+		ManageContacts.refreshNumNewContacts(req, em);
+		ManageVisits.refreshNumNewVisits(req, em);
+		ManageAnnounces.refreshNumNewAnnonces(req, em);
+		ManageEvents.refreshNumNewEvents(req, em);
+		ManageConsultations.refreshNumNewConsultations(req, em);
+	}
+
+	/**
 	 * Delegated to doGet
 	 */
 	@Override
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		doGet(req, resp);
 	}
 }

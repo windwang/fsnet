@@ -10,19 +10,19 @@
 	<bean:message key="interests.placeholder.search" />
 </bean:define>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="interests.title.search" />
 	</legend>
 	<html:javascript formName="/SearchInterest" />
 
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<tr>
 			<td><html:form action="/SearchInterest" method="get">
 					<div id="SearchInterest">
-						<html:text property="searchInterests" styleId="searchTexte" />
+						<html:text property="searchInterests" styleId="searchTexte" styleClass="search-query"/>
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:submit styleClass="button">
+						<html:submit styleClass="btn btn-inverse">
 							<bean:message key="interests.button.search" />
 						</html:submit>
 					</div>

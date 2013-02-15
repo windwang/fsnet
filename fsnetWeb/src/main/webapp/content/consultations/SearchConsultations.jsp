@@ -6,17 +6,17 @@
 	<bean:message key="consultations.placeholder.search" />
 </bean:define>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="consultations.title.search" />
 	</legend>
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<tr>
 			<td><html:form action="SearchConsultation" method="get">
 					<div id="SearchConsultation">
-						<html:text property="searchText" styleId="searchTexte" />
+						<html:text property="searchText" styleId="searchTexte" styleClass="search-query"/>
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:submit styleClass="button">
+						<html:submit styleClass="btn btn-inverse">
 							<bean:message key="consultations.button.search" />
 						</html:submit>
 					</div>
@@ -25,8 +25,8 @@
 	</table>
 </fieldset>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="consultations.title.listConsultations" />
 	</legend>
 	<c:choose>
@@ -49,8 +49,7 @@
 		miseEnPageTable(nomTable, idColonneATrier, sensDeTri, aoColumns, false, 10);
 	});
 </script>
-			<table id="searchConsults"
-				class="tablesorter inLineTable fieldsetTableAppli">
+			<table id="searchConsults" class="tablesorter inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th width="5%"></th>
@@ -88,7 +87,7 @@
 									<html:form action="/DeleteAConsultation" method="post"
 										styleId="${consultation.id}" styleClass="cursorPointer">
 										<html:hidden property="id" value="${consultation.id}" />
-										<span class="button"> <bean:message
+										<span class="btn btn-inverse"> <bean:message
 												key="consultations.button.delete" />
 										</span>
 									</html:form>
@@ -99,7 +98,7 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="consultations.noResult" />.</td>
 				</tr>

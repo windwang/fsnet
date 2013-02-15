@@ -49,11 +49,11 @@ h1 {
 	margin: 0 0 5px;
 }
 
-h2 {
+/*h2 {
 	font: normal 1.6em Arial;
 	color: #3D3C3B;
 	margin: 0 0 15px;
-}
+}*/
 
 h2#slogan {
 	font-size: 1.3em;
@@ -78,11 +78,6 @@ select {
 .wrap {
 	margin: 0 auto;
 	width: 980px;
-}
-
-.group {
-	float: left;
-	clear: left;
 }
 
 #logout {
@@ -232,9 +227,9 @@ select {
 	text-align: justify;
 }
 
-#left h2 {
+/*#left h2 {
 	color: #52A9BA;
-}
+}*/
 
 #left h2 a {
 	border-bottom: 1px dotted #ACCADE;
@@ -350,6 +345,7 @@ select {
 
 .support {
 	float: right;
+	padding-right:10px;
 }
 
 .consultationMaxVotersPerChoice {

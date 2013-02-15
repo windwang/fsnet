@@ -107,15 +107,14 @@ function createChatBox(chatboxtitle, minimizeChatBox) {
 			.html(
 					'<div class="chatboxhead"><div class="chatboxtitle">'
 							+ chatboxtitle.split('_')[0]
-							+ '</div><div class="chatboxoptions"><a href="javascript:void(0)" onclick="javascript:toggleChatBoxGrowth(\''
+							+ '</div><div class="chatboxoptions"><a class="chat_button" href="javascript:void(0)" onclick="javascript:toggleChatBoxGrowth(\''
 							+ chatboxtitle
-							+ '\')">-</a> <a href="javascript:void(0)" onclick="javascript:closeChatBox(\''
+							+ '\')">-</a> <a class="chat_button" href="javascript:void(0)" onclick="javascript:closeChatBox(\''
 							+ chatboxtitle
-							+ '\')">X</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="chatboxinput"><textarea class="chatboxtextarea" onkeydown="javascript:return checkChatBoxInputKey(event,this,\''
-							+ chatboxtitle + '\');"></textarea></div>')
+							+ '\')">x</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="chatboxinput"><form><input type="text" class="chatboxtextarea" onkeydown="javascript:return checkChatBoxInputKey(event,this,\''
+							+ chatboxtitle + '\');"></input></form></div>')
 			.appendTo($("body"));
 
-	$("#chatbox_" + chatboxtitle).css('bottom', '0px');
 
 	chatBoxeslength = 0;
 
@@ -296,7 +295,6 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 
 		$(chatboxtextarea).val('');
 		$(chatboxtextarea).focus();
-		$(chatboxtextarea).css('height', '44px');
 
 		if (message != '') {
 

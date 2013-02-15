@@ -7,7 +7,7 @@
 <c:set var="pageTitle">
 	<tiles:getAsString name="title" />
 </c:set>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<!DOCTYPE html>
 <html:html xhtml="true" lang="true">
 <head>
 
@@ -28,7 +28,7 @@
 	href="css/fsnet-custom.css" />
 <link type="text/css" href="css/jquery-tablesorter-custom.css"
 	rel="stylesheet" />
-<link type="text/css" rel="stylesheet" media="all" href="css/chat.css" />
+
 <link type="text/css" rel="stylesheet" media="all" href="css/screen.css" />
 
 <link type="text/css" href="css/cupertino/jquery-ui-1.8.18.custom.css"
@@ -59,7 +59,7 @@
 	href="css/colorpicker.css" />
 <script type="text/javascript" src="js/colorpicker.js"></script>
 <script type="text/javascript" src="js/eye.js"></script>
-
+<script type="text/javascript" src="js/leftMenuFixed.js"></script>
 <script type="text/javascript" src="js/utils.js"></script>
 <script type="text/javascript" src="js/layout.js?ver=1.0.2"></script>
 
@@ -77,14 +77,20 @@
 	});
 </script>
 
+<link rel="stylesheet" media="screen" type="text/css"
+	href="./bootstrap/css/bootstrap.min.css" />
+
+<link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrapStyle.css" />
+<link type="text/css" rel="stylesheet" media="screen" href="css/chat.css" />
+
+<script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 <!-- Custom color style by group-->
 <style type="text/css">
 body {
-	background: -webkit-gradient(linear, left top, left bottom, from(#${color}),to(white)) no-repeat;
-	background: -webkit-linear-gradient(top,#${color},white) no-repeat;
-	background: -moz-linear-gradient(top,#${color},white) no-repeat;
-	background: -o-linear-gradient(top,#${color},white) no-repeat;
-	background: linear-gradient(top,#${color},white) no-repeat;	
+	background:-webkit-linear-gradient(top, #${color} 0%, white 100%);
+	background:-o-linear-gradient(top, #${color} 0%, white 100%);
+	background:-moz-linear-gradient(top, #${color} 0%, white 100%);
 }
 </style>
 
@@ -92,40 +98,30 @@ body {
 
 </head>
 <body>
-	<div id="wrapHeader">
-		<div id="header">
-			<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
-			<tiles:insert attribute="menu" />
-		</div>
-	</div>
-	<div id="wrapBody">
-		<div id="placeHeader"></div>
-		<div id="leftMenu">
-			<div id="logo">
-				<tiles:insert attribute="logo" />
+	<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
+	<tiles:insert attribute="menu" />
+	
+	<div id="wrapBody" class="container">
+		<div class="row-fluid">
+			<div id="menuLateral" class="span2">
+				
+					<tiles:insert attribute="logo" />
+					<div id="left" class="cadreDivMenuTop">
+						<h2>
+							<bean:message key="${pageTitle}" />
+						</h2>
+						<tiles:insert attribute="left" />
+						<tiles:insert attribute="loggedUsers" />
+					</div>
+				
 			</div>
-			<div id="left">
-				<h2>
-					<a> <bean:message key="${pageTitle}" />
-					</a>
-				</h2>
-				<tiles:insert attribute="left" />
-				<tiles:insert attribute="loggedUsers" />
+			<div class="span10">
+					<tiles:insert attribute="body-content" />
 			</div>
-		</div>
-
-		<div id="body-content">
-			<tiles:insert attribute="body-content" />
 		</div>
 		<div style="clear: both"></div>
-
-		<div id="placeFooterStyle"></div>
 	</div>
-	<div id="wrapFooterStyle">
-		<div id="footerStyle">
-			<tiles:insert attribute="footer" />
-		</div>
-	</div>
+	<tiles:insert attribute="footer" />
 
 </body>
 </html:html>

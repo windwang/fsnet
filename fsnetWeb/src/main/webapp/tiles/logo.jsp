@@ -13,12 +13,15 @@
 	</c:choose>
 
 </div>
-<html:link action="/DisplayProfile" styleId="userPicture">
+<div class="cadreDivMenuTop">
+<h3>${sessionScope.userFirstName} ${sessionScope.userName}</h3>
+<div>
+<html:link action="/DisplayProfile" >
 	<img src="avatar/${sessionScope.userId}.png" alt="Avatar" />
 </html:link>
-
+</div>
 <div class="group">
-	<h3>${sessionScope.userFirstName} ${sessionScope.userName}</h3>
+	
 	<c:choose>
 		<c:when test="${sessionScope.hisGroup != null}">
 			<bean:message key="avatar.groups" />
@@ -47,4 +50,4 @@
 		</c:otherwise>
 	</c:choose>
 </div>
-
+</div>

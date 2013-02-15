@@ -11,7 +11,7 @@
 	<bean:message key="leftMenu.title.loggedUsers" />
 </h2>
 
-<div id="loggedUsers">
+<div id="loggedUsers" class="littlePadding">
 	<ili:loggedUsers var="user" userId="${sessionScope.currentUserId}"
 		loggedUsers="${applicationScope.loggedUsers}">
 		<html:link action="/DisplayProfile" styleClass="miniature">

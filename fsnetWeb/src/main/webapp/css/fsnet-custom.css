@@ -685,6 +685,8 @@ tr.notReed {
 	background-color: #ecf8ff;
 	border: 2px solid #bcd3e0;
 	padding: 3px;
+	margin-right:10px;
+	margin-top:13px;
 }
 
 .interactionDisplay {
@@ -803,4 +805,15 @@ tfoot td {
 	border-radius: 15px;
 	padding: 25px 30px 15px 30px;
 	margin-top : 40px ;
+}
+
+
+#loginWrapper input[type="email"], #loginWrapper input[type="password"] {
+	font-size : 17px ;
+	height : 40px ;
+}
+
+
+#loginWrapper label,a {
+	font-size : 17px ;
 }

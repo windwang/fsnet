@@ -7,12 +7,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <c:if test="${not empty hubResults}">
-	<fieldset class="fieldsetAppli">
-		<legend class="legendHome">
+	<fieldset class="fieldsetCadre">
+		<legend>
 			<bean:message key="hubs.title.modify" />
 		</legend>
 
-		<table class="inLineTable fieldsetTableAppli">
+		<table class="inLineTable tableStyle">
 			<html:form action="/ModifyYourHub" method="POST">
 				<html:hidden property="communityId" value="${param.communityId}" />
 				<tr>
@@ -44,7 +44,7 @@
 
 				<tr>
 					<td colspan="2" class="tableButton"><html:submit
-							styleClass="button">
+							styleClass="btn btn-inverse">
 							<bean:message key="hubs.button.modify" />
 						</html:submit></td>
 				</tr>

@@ -6,28 +6,26 @@
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/osx.js"></script>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="members.search" />
 	</legend>
-	<html:form action="SearchMemberAdmin">
-		<table class="inLineTable fieldsetTableAppli">
-			<tr>
-				<td>
-					<div id="SearchMember">
-						<html:text property="searchText" />
-						<html:submit styleClass="button">
-							<bean:message key="members.searchButton" />
-						</html:submit>
-					</div>
-				</td>
-			</tr>
-		</table>
-	</html:form>
+	<table class="inLineTable tableStyle">
+		<html:form action="SearchMemberAdmin">
+		<tr>
+			<td>
+				<html:text property="searchText" styleClass="search-query" />
+				<html:submit styleClass="btn btn-inverse">
+					<bean:message key="members.searchButton" />
+				</html:submit>
+			</td>
+		</tr>
+		</html:form>
+	</table>
 </fieldset>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="members.listMembers" />
 	</legend>
 
@@ -49,7 +47,7 @@
 						});
 			</script>
 			<table id="searchmemberstable"
-				class="tablesorter inLineTable fieldsetTableAppli">
+				class="tablesorter inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th><bean:message key="tableheader.firstname" /></th>
@@ -70,7 +68,7 @@
 							<td><ili:getSocialGroupInfos socialGroup="${member.group}" /></td>
 							<td class="tableButton"><c:choose>
 									<c:when test="${member.group.isEnabled}">
-										<html:link action="/SwitchState" styleClass="button">
+										<html:link action="/SwitchState" styleClass="btn btn-inverse">
 											<html:param name="entitySelected" value="${member.id}" />
 											<c:choose>
 												<c:when test="${member.isEnabled}">
@@ -95,7 +93,7 @@
 			</table>
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable fieldsetTableAppli tableStyle">
 				<tr>
 					<td><bean:message key="members.noResult" /></td>
 				</tr>

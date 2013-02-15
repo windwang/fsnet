@@ -8,17 +8,17 @@
 	<bean:message key="communities.placeholder.search" />
 </bean:define>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="communities.title.search" />
 	</legend>
 	<table id="SearchCommunity"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<html:form action="SearchCommunity" method="GET">
 			<tr>
-				<td><html:text property="searchText" styleId="searchTexte" />
+				<td><html:text property="searchText" styleId="searchTexte" styleClass="search-query" />
 					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> <html:submit
-						styleClass="button">
+						styleClass="btn btn-inverse">
 						<bean:message key="communities.button.search" />
 					</html:submit></td>
 			</tr>
@@ -26,8 +26,8 @@
 	</table>
 </fieldset>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="communities.title.listCommunities" />
 	</legend>
 
@@ -50,7 +50,7 @@
 						});
 			</script>
 			<table id="seachCommTables"
-				class="tablesorter inLineTable fieldsetTableAppli">
+				class="tablesorter inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th width="10%"></th>
@@ -94,7 +94,7 @@
 
 		</c:when>
 		<c:otherwise>
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="communities.noResult" /></td>
 				</tr>

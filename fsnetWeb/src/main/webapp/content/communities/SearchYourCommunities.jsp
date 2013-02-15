@@ -10,17 +10,17 @@
 <%@ include file="YourCommunities.jsp" %>
 <%@ include file="ModifyCommunity.jsp" %>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="communities.title.searchYourCommunities" />
 	</legend>
 	<table id="SearchCommunity"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<html:form action="SearchYourCommunities" method="GET">
 			<tr>
-				<td><html:text property="searchYourText" styleId="searchTexte" />
+				<td><html:text property="searchYourText" styleId="searchTexte" styleClass="search-query" />
 					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> <html:submit
-						styleClass="button">
+						styleClass="btn btn-inverse">
 						<bean:message key="communities.button.search" />
 					</html:submit></td>
 			</tr>

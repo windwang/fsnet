@@ -7,14 +7,14 @@
 
 <html:form action="/CreateCv2">
 	<div class="en_cv">
-		<fieldset class="fieldsetAppli">
+		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend class="legendHome">
+				<legend>
 					<bean:message key="cv.title.name" />
 				</legend>
 			</div>
 			<div class="corp">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable  tableStyle">
 					<tr>
 						<td><label for="cvTitle"><bean:message
 									key="cv.form.title" /></label></td>
@@ -32,15 +32,15 @@
 	</div>
 
 	<div class="en_cv">
-		<fieldset class="fieldsetAppli">
+		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend class="legendHome">
+				<legend>
 					<bean:message key="cv.title.info" />
 				</legend>
 
 			</div>
 			<div class="corp_contact">
-				<table class="inLineTable fieldsetTableAppli">
+				<table class="inLineTable  tableStyle">
 					<tr>
 						<td><label for="cvFirstname"><bean:message
 									key="cv.form.profile.firstname" /></label></td>
@@ -248,7 +248,7 @@
 
 					<tr>
 						<td colspan="2" class="tableButton"><html:submit
-								styleClass="button">
+								styleClass="btn btn-inverse">
 								<bean:message key="cv.button.next" />
 							</html:submit></td>
 					</tr>

@@ -11,20 +11,20 @@
 	<bean:message key="hubs.placeholder.search" />
 </bean:define>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="hubs.title.search" />
 	</legend>
 
 	<table id="SearchYourHubs"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<html:form action="/SearchYourHubs" method="GET">
 			<tr>
 				<td><html:hidden property="communityId"
 						value="${param.communityId}" /> <html:text
 						property="searchYourText" styleId="searchTexte" /> <ili:placeHolder
 						id="searchTexte" value="${searchMessage}" /> <html:submit
-						styleClass="button">
+						styleClass="btn btn-inverse">
 						<bean:message key="hubs.button.search" />
 					</html:submit></td>
 			</tr>
@@ -34,12 +34,12 @@
 
 <%@ include file="ModifyHub.jsp"%>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="hubs.title.myHubs" />
 	</legend>
 	<c:set var="hub" value="${hubResults}" />
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<logic:empty name="hub">
 			<tr>
 				<td><bean:message key="hubs.hubNotFound" />
@@ -59,7 +59,7 @@
 						socialEntity="${hub.creator}" /></td>
 				<td class="tableButton"><c:if
 						test="${sessionScope.userId eq hub.creator.id}">
-						<a class="button"
+						<a class="btn btn-inverse"
 							onclick="confirmDelete('DeleteYourHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id}, '<bean:message key="message.confirmation.delete" />');">
 							<bean:message key="hubs.button.delete" />
 						</a>

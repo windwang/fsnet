@@ -10,12 +10,12 @@
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="announce.title.modify" />
 	</legend>
 	<table id="ModifyAnnounce"
-		class="inLineTable fieldsetTableAppli">
+		class="inLineTable tableStyle">
 		<html:form action="/ModifyAnnounce">
 			<html:hidden property="idAnnounce" />
 			
@@ -49,7 +49,7 @@
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
+				<td colspan="2" class="tableButton"><html:submit styleClass="btn btn-inverse">
 						<bean:message key="announce.button.modify" />
 					</html:submit></td>
 			</tr>

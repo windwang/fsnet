@@ -4,12 +4,12 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <c:if test="${not empty requestScope.myCommunities}">
-	<fieldset class="fieldsetAppli">
-		<legend class="legendHome">
+	<fieldset class="fieldsetCadre">
+		<legend>
 			<bean:message key="commmunities.title.modify" />
 		</legend>
 
-		<table id="ModifyCommunity" class="inLineTable fieldsetTableAppli">
+		<table id="ModifyCommunity" class="inLineTable tableStyle">
 			<html:form action="/ModifyCommunity">
 				<tr>
 					<td><label for="oldCommunityName"><bean:message
@@ -39,7 +39,7 @@
 
 				<tr>
 					<td colspan="2" class="tableButton"><html:submit
-							styleClass="button">
+							styleClass="btn btn-inverse">
 							<bean:message key="communities.button.modify" />
 						</html:submit></td>
 				</tr>

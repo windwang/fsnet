@@ -7,14 +7,14 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="privatemessages.inbox" />
 	</legend>
 
 	<c:choose>
 		<c:when test="${empty requestScope.inBoxMessages}">
-			<table class="inLineTable fieldsetTableAppli">
+			<table class="inLineTable tableStyle">
 				<tr>
 					<td><bean:message key="privatemessages.nomessages" /></td>
 				</tr>
@@ -62,7 +62,7 @@
 			</script>
 			<html:form action="/DeleteMultiMessages?fromPage=in">
 				<table id="tableinbox"
-					class="tablesorter inLineTable fieldsetTableAppli">
+					class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
@@ -77,7 +77,7 @@
 					<tfoot>
 						<tr>
 							<td colspan="6"><html:submit
-									styleClass="button">
+									styleClass="btn btn-inverse">
 									<bean:message key="privatemessages.delete" />
 								</html:submit></td>
 						</tr>

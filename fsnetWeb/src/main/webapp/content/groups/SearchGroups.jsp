@@ -5,8 +5,8 @@
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/osx.js"></script>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="group.listGroups" />
 	</legend>
 	
@@ -28,7 +28,7 @@
 						});
 			</script>
 			<table id="searchGroupsTable"
-				class="tablesorter inLineTable fieldsetTableAppli">
+				class="tablesorter inLineTable fieldsetTableAppli tableStyle">
 				<thead>
 					<tr>
 						<th><bean:message key="tableheader.group" /></th>
@@ -59,7 +59,7 @@
 										</c:when>
 										<c:otherwise>
 											<td class="tableButton"><html:link
-													action="/SwitchStateGroup" styleClass="button">
+													action="/SwitchStateGroup" styleClass="btn btn-inverse">
 													<html:param name="groupSelected" value="${group.id}" />
 													<c:choose>
 														<c:when test="${group.isEnabled}">

@@ -9,12 +9,12 @@
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
-<fieldset class="fieldsetAppli">
-	<legend class="legendHome">
+<fieldset class="fieldsetCadre">
+	<legend>
 		<bean:message key="topics.title.createMessage" />
 	</legend>
 
-	<table class="inLineTable fieldsetTableAppli">
+	<table class="inLineTable tableStyle">
 		<html:form action="/CreateTopicMessage">
 			<tr>
 				<td><html:hidden property="topicId" value="${topicId}" /> <label
@@ -30,7 +30,7 @@
 
 			<tr>
 				<td colspan="2" class="alignRight"><html:submit
-						styleClass="button">
+						styleClass="btn btn-inverse">
 						<bean:message key="topics.button.createMessage" />
 					</html:submit></td>
 			</tr>
