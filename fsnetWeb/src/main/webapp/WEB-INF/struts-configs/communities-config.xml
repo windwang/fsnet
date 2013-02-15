@@ -1,119 +1,77 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-	<form-beans>
-		<form-bean name="CreateCommunityForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="communityName" type="java.lang.String" />
-			<form-property name="communityId" type="java.lang.String" />
-			<form-property name="selectedInterests" type="java.lang.String[]" />
-		</form-bean>
-		<form-bean name="SearchCommunityForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="searchText" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="DeleteCommunityForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="communityId" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="DisplayCommunityForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="communityId" type="java.lang.String" />
-			<form-property name="searchText" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="SearchYourCommunitiesForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="searchYourText" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="ModifyCommunityForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="oldCommunityName" type="java.lang.String" />
-			<form-property name="newCommunityName" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="DeleteCommunitiesForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="communityId" type="java.lang.String" />
-			<form-property name="selectedCommunities" type="java.lang.String[]" />
-		</form-bean>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-	</form-beans>
-	<global-forwards>
+<struts>
 
-	</global-forwards>
-	<action-mappings>
-		<action path="/Communities"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" parameter="search"
-			input="/Communities.do">
-			<forward name="success" path="/YourCommunities.do" />
+<include file="struts-default.xml"/>
+
+	<package name="communities" extends="struts-default">
+		<action name="Communities" class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="search">
+			<result name="input">/Communities.do</result>
+			<result name="success">/YourCommunities.do</result>
 		</action>
 
-		<action path="/CreateCommunity"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" name="CreateCommunityForm"
-			input="/DisplayCommunities.do" scope="request" validate="true"
-			parameter="create">
-			<forward name="success" path="/DisplayCommunities.do" />
-			<forward name="unauthorized" path="/Communities.do" />
-			<forward name="failed" path="/DisplayCommunities.do" />
+		<action name="CreateCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="create">
+			<result name="success">/DisplayCommunities.do</result>
+			<result name="unauthorized">/Communities.do</result>
+			<result name="input">/DisplayCommunities.do</result>
+		</action>
+		
+		<action name="ModifyCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="modify">
+			<result name="input">/DisplayCommunities.do</result>
+			<result name="failed">/DisplayCommunities.do</result>
+			<result name="success">/Communities.do</result>
 		</action>
 
-		<action path="/ModifyCommunity" name="ModifyCommunityForm"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" parameter="modify"
-			input="/DisplayCommunities.do">
-			<forward name="failed" path="/DisplayCommunities.do" />
-			<forward name="success" path="/Communities.do" />
+		<action name="SearchCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="search">
+			<result name="input" type="redirect">Communities</result>
+			<result name="success" type="redirect">Communities</result>
 		</action>
 
-		<action path="/SearchCommunity"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" name="SearchCommunityForm"
-			input="Communities" scope="request" validate="false" parameter="search">
-			<forward name="success" path="Communities" />
+		<action name="DeleteCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="delete">
+			<result name="input">UnauthorizedOperationException</result>
+			<result name="failed">/Communities.do</result>
+			<result name="success">/DisplayCommunities.do</result>
 		</action>
 
-		<action path="/DeleteCommunity"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" name="DeleteCommunityForm"
-			input="UnauthorizedOperationException" scope="request" validate="true"
-			parameter="delete">
-			<forward name="success" path="/Communities.do" />
-			<forward name="failed" path="/DisplayCommunities.do" />
+		<action name="DisplayCommunity" class="fr.univartois.ili.fsnet.actions.ManageHub"
+		method="search">
+			<result name="input">UnauthorizedOperationException</result>
+			<result name="success" type="redirect">Hubs</result>
 		</action>
 
-		<action path="/DisplayCommunity" type="fr.univartois.ili.fsnet.actions.ManageHub"
-			name="DisplayCommunityForm" input="UnauthorizedOperationException"
-			scope="request" validate="true" parameter="search">
-			<forward name="success" path="Hubs" />
+		<action name="DisplayCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="searchYourCommunities">
+			<result name="success" type="redirect">DisplayYourCommunities</result>
 		</action>
 
-		<action path="/DisplayCommunities"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" parameter="searchYourCommunities">
-			<forward name="success" path="DisplayYourCommunities" />
+		<action name="SearchYourCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="searchYourCommunities">
+			<result name="input">UnauthorizedOperationException</result>
+			<result name="success" type="redirect">DisplayYourCommunities</result>
 		</action>
 
-		<action path="/SearchYourCommunities"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" name="SearchYourCommunitiesForm"
-			input="UnauthorizedOperationException" scope="request" validate="false"
-			parameter="searchYourCommunities">
-			<forward name="success" path="DisplayYourCommunities" />
+		<action name="DeleteYourCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="delete">
+			<result name="input">UnauthorizedOperationException</result>
+			<result name="success">/SearchYourCommunities.do</result>
 		</action>
 
-		<action path="/DeleteYourCommunity"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" name="DeleteCommunityForm"
-			input="UnauthorizedOperationException" scope="request" validate="true"
-			parameter="delete">
-			<forward name="success" path="/SearchYourCommunities.do" />
+		<action name="YourCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="searchYourCommunities">
+			<result name="success">/SearchYourCommunities.do</result>
 		</action>
 
-		<action path="/YourCommunities"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" parameter="searchYourCommunities">
-			<forward name="success" path="Communities" />
+		<action name="DeleteMultiCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
+		method="deleteMulti">
+			<result name="success">/Communities.do</result>
 		</action>
-
-		<action path="/DeleteMultiCommunities"
-			type="fr.univartois.ili.fsnet.actions.ManageCommunities" name="DeleteCommunitiesForm"
-			validate="false" scope="request" parameter="deleteMulti">
-			<forward name="success" path="/Communities.do" />
-		</action>
-	</action-mappings>
-</struts-config>
+	</package>
+</struts>

@@ -1,49 +1,36 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-    <form-beans>
-        <form-bean name="FavoriteForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="interactionId" type="java.lang.String"/>
-        </form-bean>
-        <form-bean  name="ManageInterestInteractionForm"
-          			type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="interactionId" type="java.lang.String"/>
-            <form-property name="interestId" type="java.lang.String"/>
-        </form-bean>
-    </form-beans>
-    <action-mappings>
-        <action  path="/AddFavorite"
-                 type="fr.univartois.ili.fsnet.actions.ManageFavorites"
-                 parameter="add"
-                 scope="request" validate="false"
-                 name="FavoriteForm"
-                 input="/Home.do">
-        </action>
-        <action  path="/RemoveFavorite"
-                 type="fr.univartois.ili.fsnet.actions.ManageFavorites"
-                 parameter="remove"
-                 scope="request" validate="false"
-                 name="FavoriteForm"
-                 input="/Home.do">
-        </action>
-        <action  path="/FavoriteFragment"
-                 type="fr.univartois.ili.fsnet.actions.ManageFavorites"
-                 parameter="display"
-                 scope="request" validate="false"
-                 name="FavoriteForm">
-            <forward name="success" path="/content/interactions/FavoriteFragment.jsp" />
-        </action>
-        <action  path="/RemoveInterestOfInteraction"
-                 type="fr.univartois.ili.fsnet.actions.ManageInteractions"
-                 parameter="removeInterest"
-                 scope="request" 
-                 validate="false"
-                 name="ManageInterestInteractionForm">
-            <forward name="success" path="/content/interactions/FavoriteFragment.jsp" />
-        </action>
-    </action-mappings>
-</struts-config>
+<struts>
+
+<include file="struts-default.xml"/>
+	
+	<package name="interactions-default" extends="struts-default">
+
+		<action name="AddFavorite" class="fr.univartois.ili.fsnet.actions.ManageFavorites"
+			method="add">
+			<result name="input">/Home.do</result>
+		</action>
+
+		<action name="RemoveFavorite" class="fr.univartois.ili.fsnet.actions.ManageFavorites"
+			method="remove">
+			<result name="input">/Home.do</result>
+		</action>
+
+		<action name="FavoriteFragment" class="fr.univartois.ili.fsnet.actions.ManageFavorites"
+			method="display">
+			<result name="success">/content/interactions/FavoriteFragment.jsp
+			</result>
+		</action>
+
+		<action name="RemoveInterestOfInteraction"
+			class="fr.univartois.ili.fsnet.actions.ManageInteractions" method="removeInterest">
+
+			<result name="success">/content/interactions/FavoriteFragment.jsp
+			</result>
+		</action>
+
+	</package>
+</struts>
