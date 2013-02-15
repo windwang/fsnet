@@ -43,6 +43,18 @@ public class TopicTest {
 
 	}
 	
+	@Test
+	public void testCreateTopic() {
+		Hub hub = new Hub();
+		SocialEntity entity = new SocialEntity();
+		String titre = new String("titre");
+		Topic topic = new Topic(hub, entity, titre);
+		assertEquals(entity, topic.getCreator());
+		assertEquals(hub, topic.getHub());
+		assertEquals(titre, topic.getTitle());
+
+	}
+	
 	@Test(expected = IllegalArgumentException.class)
 	public void testCreateWithNullHub() {
 		SocialEntity entity = new SocialEntity();

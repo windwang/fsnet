@@ -20,6 +20,6 @@ import org.junit.runners.Suite;
 		AssociationDateDegreeCVTest.class, InteractionGroupsTest.class,
 		SocialElementTest.class, HobbiesCVTest.class, PropertyTest.class,
 		FormationCvTest.class, EstablishmentCvTest.class, MessageTest.class,
-		ConsultationVoteTest.class })
+		ConsultationVoteTest.class, TopicTest.class})
 public class AllTests {
 }
