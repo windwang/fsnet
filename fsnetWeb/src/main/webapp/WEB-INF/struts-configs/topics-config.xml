@@ -10,57 +10,54 @@
 	<package name="topics-default" extends="struts-default">
 		<action name="CreateTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="create">
-			<result name="success">DisplayHub.do</result>
+			<result name="success">/DisplayHub.do</result>
 			<result name="input">DisplayCreateTopic.do</result>
 		</action>
 
 		<action name="DisplayCreateTopic" class="org.apache.struts.actions.ForwardAction"
 			method="CreateTopic">
-			<result name="input">UnauthorizedOperationException.do</result>
+			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="DeleteTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="delete">
-			<result name="success">DisplayHub.do</result>
-			<result name="input">UnauthorizedOperationException.do</result>
+			<result name="success">/DisplayHub.do</result>
+			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="DisplayTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="display">
-			<result name="success">Topic.do</result>
-			<result name="input">UnauthorizedOperationException.do</result>
+			<result name="success">/Topic.do</result>
+			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="SearchTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="search">
 			<result name="success">DisplayHub</result>
-			<result name="input">UnauthorizedOperationException.do</result>
+			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="Topic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="display">
-
-
 			<result name="success">Topic</result>
-			<result name="input">UnauthorizedOperationException.do</result>
-
 		</action>
 
 		<action name="ModifyTopicMessage"
 			class="fr.univartois.ili.fsnet.actions.ManageTopicMessages" method="modify">
-			<result name="success">DisplayTopic.do</result>
-			<result name="input">DisplayModifyTopicMessage.do</result>
+			<result name="success">/DisplayTopic.do</result>
+			<result name="input">/DisplayModifyTopicMessage.do</result>
 		</action>
 
 		<action name="CreateTopicMessage"
 			class="fr.univartois.ili.fsnet.actions.ManageTopicMessages" method="create">
-			<result name="success">DisplayTopic.do</result>
-			<result name="input">DisplayCreateTopicMessage.do</result>
+			<result name="success">/DisplayTopic.do</result>
+			<result name="input">/DisplayModifyTopicMessage.do</result>
 		</action>
+
 
 		<action name="DeleteTopicMessage"
 			class="fr.univartois.ili.fsnet.actions.ManageTopicMessages" method="delete">
-			<result name="success">DisplayTopic.do</result>
+			<result name="success">/DisplayTopic.do</result>
 		</action>
 
 		<action name="DisplayCreateTopicMessage"
@@ -83,16 +80,14 @@
 
 		<action name="SearchYourTopics" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="searchYourTopics">
+
 			<result name="success">DisplayYourTopics</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
-
 		<action name="DeleteYourTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="delete">
-
-			<result name="success">SearchYourTopics.do</result>
+			<result name="success">/SearchYourTopics.do</result>
 			<result name="input">UnauthorizedOperationException</result>
-
 		</action>
 	</package>
 </struts>
