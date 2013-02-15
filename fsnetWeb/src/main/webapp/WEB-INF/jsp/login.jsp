@@ -43,24 +43,24 @@
 				<ul class="nav">
 					<li><a href="http://code.google.com/p/fsnet/"> <img
 							src="images/google.png"
-							title="Accédez à notre forge" alt="Google Forge" height="32px"
+							title="Accéder à Google Forge" alt="Accéder à Google Forge" height="32px"
 							width="32px">
 					</a></li>
 					<li><a href="http://www.univ-artois.fr/"> <img
 							src="images/univartois.png"
-							title="Site de l'université d'artois" alt="université d'artois"
+							title="Site de l'Université d'Artois" alt="Site de l'Université d'Artois"
 							height="32px" width="32px">
 					</a></li>
 					<li><a
 						href="http://fsnet.googlecode.com/files/FsnetAndroid-0.7.2.3.apk">
 							<img src="images/android.png"
-							alt="application androïd"
-							title="Téléchargez l'application androïd">
+							alt="Télécharger l'application Android"
+							title="Télécharger l'application Android">
 					</a></li>
 					<li><a
 						href="http://www.facebook.com/profile.php?id=100003374258658">
 							<img src="images/facebook.png"
-							title="Rejoignez-nous sur Facebook" alt="Facebook" height="32px"
+							title="Rejoignez-nous sur Facebook" alt="Rejoignez-nous sur Facebook" height="32px"
 							width="32px">
 					</a></li>
 				</ul>
@@ -81,7 +81,7 @@
 			
 				<div class="span8 offset1">
 					<div id="img-logo">
-						<img src="images/FSNET.png" alt="Logo">	
+						<img src="images/FSNET.png" alt="Logo FSNET">	
 					</div>
 				
 					<table>
