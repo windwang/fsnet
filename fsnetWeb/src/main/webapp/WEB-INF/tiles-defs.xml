@@ -1,270 +1,270 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <!DOCTYPE tiles-definitions PUBLIC
-"-//Apache Software Foundation//DTD Tiles Configuration 1.1//EN"
-"http://jakarta.apache.org/struts/dtds/tiles-config_1_1.dtd">
+"-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
 
 <tiles-definitions>
 
 	<!-- Definition of the default Layout, used for each page on the site. -->
-	<definition name=".defaultLayout" path="/tiles/layouts/DefaultLayout.jsp">
-		<put name="title" type="string" />
-		<put name="currentMenu" type="string" />
-		<put name="menu" value="/tiles/menu.jsp" />
-		<put name="logo" value="/tiles/logo.jsp" />
-		<put name="loggedUsers" value="/tiles/loggedUsers.jsp" />
-		<put name="high" value="/tiles/high.jsp" />
-		<put name="left" value="/tiles/left.jsp" />
-		<put name="body-content" value="" />
-		<put name="footer" value="/tiles/footer.jsp" />
+	<definition name=".defaultLayout" template="/tiles/layouts/DefaultLayout.jsp">
+		<put-attribute name="title" type="string" />
+		<put-attribute name="currentMenu" type="string" />
+		<put-attribute name="menu" value="/tiles/menu.jsp" />
+		<put-attribute name="logo" value="/tiles/logo.jsp" />
+		<put-attribute name="loggedUsers" value="/tiles/loggedUsers.jsp" />
+		<put-attribute name="high" value="/tiles/high.jsp" />
+		<put-attribute name="left" value="/tiles/left.jsp" />
+		<put-attribute name="body-content" value="" />
+		<put-attribute name="footer" value="/tiles/footer.jsp" />
 	</definition>
 
 
 
 	<!-- Home -->
 	<definition name="Home" extends=".defaultLayout">
-		<put name="title" value="pageTitle.welcome" />
-		<put name="currentMenu" value="Home" />
-		<put name="left" value="/content/home/leftMenu.jsp" />
-		<put name="body-content" value="/content/home/Dashboard.jsp" />
+		<put-attribute name="title" value="pageTitle.welcome" />
+		<put-attribute name="currentMenu" value="Home" />
+		<put-attribute name="left" value="/content/home/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/home/Dashboard.jsp" />
 	</definition>
 
 
 
 	<!-- Events -->
 	<definition name="CreateEvent" extends=".defaultLayout">
-		<put name="title" value="pageTitle.events" />
-		<put name="body-content" value="/content/events/CreateEvent.jsp" />
-		<put name="currentMenu" value="Events" />
-		<put name="left" value="/content/events/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.events" />
+		<put-attribute name="body-content" value="/content/events/CreateEvent.jsp" />
+		<put-attribute name="currentMenu" value="Events" />
+		<put-attribute name="left" value="/content/events/leftMenu.jsp" />
 	</definition>
 
 	<definition name="Events" extends=".defaultLayout">
-		<put name="title" value="pageTitle.events" />
-		<put name="body-content" value="/content/events/DisplayEvents.jsp" />
-		<put name="currentMenu" value="Events" />
-		<put name="left" value="/content/events/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.events" />
+		<put-attribute name="body-content" value="/content/events/DisplayEvents.jsp" />
+		<put-attribute name="currentMenu" value="Events" />
+		<put-attribute name="left" value="/content/events/leftMenu.jsp" />
 	</definition>
 
 	<definition name="DisplayEvent" extends=".defaultLayout">
-		<put name="title" value="pageTitle.events" />
-		<put name="currentMenu" value="Events" />
-		<put name="body-content" value="/content/events/DisplayEvent.jsp" />
-		<put name="left" value="/content/events/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.events" />
+		<put-attribute name="currentMenu" value="Events" />
+		<put-attribute name="body-content" value="/content/events/DisplayEvent.jsp" />
+		<put-attribute name="left" value="/content/events/leftMenu.jsp" />
 	</definition>
 
 	<definition name="UpdateEvent" extends=".defaultLayout">
-		<put name="title" value="pageTitle.events" />
-		<put name="body-content" value="/content/events/UpdateEvent.jsp" />
-		<put name="currentMenu" value="Events" />
-		<put name="left" value="/content/events/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.events" />
+		<put-attribute name="body-content" value="/content/events/UpdateEvent.jsp" />
+		<put-attribute name="currentMenu" value="Events" />
+		<put-attribute name="left" value="/content/events/leftMenu.jsp" />
 	</definition>
 
 
 
 	<!-- Calendar -->
 	<definition name="Calendar" extends=".defaultLayout">
-		<put name="title" value="pageTitle.calendar" />
-		<put name="currentMenu" value="Events" />
-		<put name="left" value="/content/events/leftMenu.jsp" />
-		<put name="body-content" value="/content/events/Calendar.jsp" />
+		<put-attribute name="title" value="pageTitle.calendar" />
+		<put-attribute name="currentMenu" value="Events" />
+		<put-attribute name="left" value="/content/events/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/events/Calendar.jsp" />
 	</definition>
 
 	<definition name="ImportEvents" extends=".defaultLayout">
-		<put name="title" value="pageTitle.events" />
-		<put name="currentMenu" value="Events" />
-		<put name="left" value="/content/events/leftMenu.jsp" />
-		<put name="body-content" value="/content/events/ImportEvents.jsp" />
+		<put-attribute name="title" value="pageTitle.events" />
+		<put-attribute name="currentMenu" value="Events" />
+		<put-attribute name="left" value="/content/events/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/events/ImportEvents.jsp" />
 	</definition>
 
 	<!-- Contacts -->
 	<definition name="Contacts" extends=".defaultLayout">
-		<put name="title" value="pageTitle.contacts" />
-		<put name="currentMenu" value="Contacts" />
-		<put name="body-content" value="/content/contacts/Contacts.jsp" />
-		<put name="left" value="" />
+		<put-attribute name="title" value="pageTitle.contacts" />
+		<put-attribute name="currentMenu" value="Contacts" />
+		<put-attribute name="body-content" value="/content/contacts/Contacts.jsp" />
+		<put-attribute name="left" value="" />
 	</definition>
 	<definition name="AskContact" extends=".defaultLayout">
-		<put name="title" value="pageTitle.contacts" />
-		<put name="currentMenu" value="Contacts" />
-		<put name="body-content" value="/content/contacts/AskContact.jsp" />
+		<put-attribute name="title" value="pageTitle.contacts" />
+		<put-attribute name="currentMenu" value="Contacts" />
+		<put-attribute name="body-content" value="/content/contacts/AskContact.jsp" />
 	</definition>
 
 
 
 	<!-- Interests -->
 	<definition name="Interests" extends=".defaultLayout">
-		<put name="title" value="pageTitle.interests" />
-		<put name="currentMenu" value="Interests" />
-		<put name="body-content" value="/content/interests/Interests.jsp" />
+		<put-attribute name="title" value="pageTitle.interests" />
+		<put-attribute name="currentMenu" value="Interests" />
+		<put-attribute name="body-content" value="/content/interests/Interests.jsp" />
 	</definition>
 
 	<definition name="AddInterest" extends=".defaultLayout">
-		<put name="title" value="AddInterest" />
-		<put name="body-content" value="/content/interests/AddInterest.jsp" />
+		<put-attribute name="title" value="AddInterest" />
+		<put-attribute name="body-content" value="/content/interests/AddInterest.jsp" />
 	</definition>
 
 	<definition name="SearchInterest" extends=".defaultLayout">
-		<put name="title" value="SearchInterest" />
-		<put name="body-content" value="/content/interests/SearchInterest.jsp" />
+		<put-attribute name="title" value="SearchInterest" />
+		<put-attribute name="body-content" value="/content/interests/SearchInterest.jsp" />
 	</definition>
 
 	<definition name="CreateInterest" extends=".defaultLayout">
-		<put name="title" value="CreateInterest" />
-		<put name="body-content" value="/content/interests/CreateInterest.jsp" />
+		<put-attribute name="title" value="CreateInterest" />
+		<put-attribute name="body-content" value="/content/interests/CreateInterest.jsp" />
 	</definition>
 
 	<definition name="MyInterests" extends=".defaultLayout">
-		<put name="title" value="MyInterest" />
-		<put name="body-content" value="/content/interests/MyInterests.jsp" />
+		<put-attribute name="title" value="MyInterest" />
+		<put-attribute name="body-content" value="/content/interests/MyInterests.jsp" />
 	</definition>
 
 	<definition name="InfoInterest" extends=".defaultLayout">
-		<put name="title" value="pageTitle.interests" />
-		<put name="body-content" value="/content/interests/InfoInterest.jsp" />
+		<put-attribute name="title" value="pageTitle.interests" />
+		<put-attribute name="body-content" value="/content/interests/InfoInterest.jsp" />
 	</definition>
 
 
 
 	<!-- Hubs -->
 	<definition name="Hubs" extends=".defaultLayout">
-		<put name="title" value="pageTitle.hubs" />
-		<put name="currentMenu" value="Hubs" />
-		<put name="left" value="/content/hubs/leftMenu.jsp" />
-		<put name="body-content" value="/content/hubs/Hubs.jsp" />
+		<put-attribute name="title" value="pageTitle.hubs" />
+		<put-attribute name="currentMenu" value="Hubs" />
+		<put-attribute name="left" value="/content/hubs/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/hubs/Hubs.jsp" />
 	</definition>
 
 	<definition name="CreateHub" extends=".defaultLayout">
-		<put name="title" value="pageTitle.hubs" />
-		<put name="currentMenu" value="Hubs" />
-		<put name="left" value="/content/hubs/leftMenu.jsp" />
-		<put name="body-content" value="/content/hubs/CreateHub.jsp" />
+		<put-attribute name="title" value="pageTitle.hubs" />
+		<put-attribute name="currentMenu" value="Hubs" />
+		<put-attribute name="left" value="/content/hubs/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/hubs/CreateHub.jsp" />
 	</definition>
 
 	<definition name="DisplayHub" extends=".defaultLayout">
-		<put name="title" value="pageTitle.topics" />
-		<put name="currentMenu" value="Hubs" />
-		<put name="left" value="/content/topics/leftMenu.jsp" />
-		<put name="body-content" value="/content/hubs/DisplayHub.jsp" />
+		<put-attribute name="title" value="pageTitle.topics" />
+		<put-attribute name="currentMenu" value="Hubs" />
+		<put-attribute name="left" value="/content/topics/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/hubs/DisplayHub.jsp" />
 	</definition>
 
 	<definition name="DisplayYourHubs" extends=".defaultLayout">
-		<put name="title" value="pageTitle.hubs" />
-		<put name="currentMenu" value="Hubs" />
-		<put name="left" value="/content/hubs/leftMenu.jsp" />
-		<put name="body-content" value="/content/hubs/SearchYourHubs.jsp" />
+		<put-attribute name="title" value="pageTitle.hubs" />
+		<put-attribute name="currentMenu" value="Hubs" />
+		<put-attribute name="left" value="/content/hubs/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/hubs/SearchYourHubs.jsp" />
 	</definition>
 
 
 
 	<!-- Profile -->
 	<definition name="Profile" extends=".defaultLayout">
-		<put name="title" value="pageTitle.profile" />
-		<put name="currentMenu" value="Profile" />
-		<put name="left" value="/content/profile/leftMenu.jsp" />
-		<put name="body-content" value="/content/profile/Profile.jsp" />
+		<put-attribute name="title" value="pageTitle.profile" />
+		<put-attribute name="currentMenu" value="Profile" />
+		<put-attribute name="left" value="/content/profile/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/profile/Profile.jsp" />
 	</definition>
 
 	<definition name="ShowProfile" extends=".defaultLayout">
-		<put name="title" value="pageTitle.profile" />
-		<put name="currentMenu" value="Profile" />
-		<put name="left" value="/content/profile/leftMenu.jsp" />
-		<put name="body-content" value="/content/profile/ShowProfile.jsp" />
+		<put-attribute name="title" value="pageTitle.profile" />
+		<put-attribute name="currentMenu" value="Profile" />
+		<put-attribute name="left" value="/content/profile/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/profile/ShowProfile.jsp" />
 	</definition>
 
 
 
 	<!-- Topic -->
 	<definition name="Topic" extends=".defaultLayout">
-		<put name="title" value="pageTitle.topics" />
-		<put name="currentMenu" value="Hub" />
-		<put name="left" value="/content/topics/leftMenuMessages.jsp" />
-		<put name="body-content" value="/content/topics/DisplayTopic.jsp" />
+		<put-attribute name="title" value="pageTitle.topics" />
+		<put-attribute name="currentMenu" value="Hub" />
+		<put-attribute name="left" value="/content/topics/leftMenuMessages.jsp" />
+		<put-attribute name="body-content" value="/content/topics/DisplayTopic.jsp" />
 	</definition>
 
 	<definition name="CreateTopic" extends=".defaultLayout">
-		<put name="title" value="pageTitle.topics" />
-		<put name="currentMenu" value="Hub" />
-		<put name="left" value="/content/topics/leftMenu.jsp" />
-		<put name="body-content" value="/content/topics/CreateTopic.jsp" />
+		<put-attribute name="title" value="pageTitle.topics" />
+		<put-attribute name="currentMenu" value="Hub" />
+		<put-attribute name="left" value="/content/topics/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/topics/CreateTopic.jsp" />
 	</definition>
 
 	<definition name="CreateTopicMessage" extends=".defaultLayout">
-		<put name="title" value="pageTitle.topics" />
-		<put name="currentMenu" value="Hub" />
-		<put name="left" value="/content/topics/leftMenuMessages.jsp" />
-		<put name="body-content" value="/content/topics/CreateTopicMessage.jsp" />
+		<put-attribute name="title" value="pageTitle.topics" />
+		<put-attribute name="currentMenu" value="Hub" />
+		<put-attribute name="left" value="/content/topics/leftMenuMessages.jsp" />
+		<put-attribute name="body-content" value="/content/topics/CreateTopicMessage.jsp" />
 	</definition>
 
 	<definition name="ModifyTopicMessage" extends=".defaultLayout">
-		<put name="title" value="pageTitle.topics" />
-		<put name="currentMenu" value="Hub" />
-		<put name="left" value="/content/topics/leftMenuMessages.jsp" />
-		<put name="body-content" value="/content/topics/ModifyTopicMessage.jsp" />
+		<put-attribute name="title" value="pageTitle.topics" />
+		<put-attribute name="currentMenu" value="Hub" />
+		<put-attribute name="left" value="/content/topics/leftMenuMessages.jsp" />
+		<put-attribute name="body-content" value="/content/topics/ModifyTopicMessage.jsp" />
 	</definition>
 
 	<definition name="DisplayYourTopics" extends=".defaultLayout">
-		<put name="title" value="pageTitle.topics" />
-		<put name="currentMenu" value="Hub" />
-		<put name="left" value="/content/topics/leftMenu.jsp" />
-		<put name="body-content" value="/content/topics/SearchYourTopics.jsp" />
+		<put-attribute name="title" value="pageTitle.topics" />
+		<put-attribute name="currentMenu" value="Hub" />
+		<put-attribute name="left" value="/content/topics/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/topics/SearchYourTopics.jsp" />
 	</definition>
 
 
 
 	<!-- Announces -->
 	<definition name="Announces" extends=".defaultLayout">
-		<put name="title" value="pageTitle.announces" />
-		<put name="currentMenu" value="Announces" />
-		<put name="body-content" value="/content/announces/Announces.jsp" />
-		<put name="left" value="/content/announces/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.announces" />
+		<put-attribute name="currentMenu" value="Announces" />
+		<put-attribute name="body-content" value="/content/announces/Announces.jsp" />
+		<put-attribute name="left" value="/content/announces/leftMenu.jsp" />
 	</definition>
 
 	<definition name="DisplayCreateAnnounce" extends=".defaultLayout">
-		<put name="title" value="pageTitle.announces" />
-		<put name="currentMenu" value="Announces" />
-		<put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
-		<put name="left" value="/content/announces/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.announces" />
+		<put-attribute name="currentMenu" value="Announces" />
+		<put-attribute name="body-content" value="/content/announces/CreateAnnounce.jsp" />
+		<put-attribute name="left" value="/content/announces/leftMenu.jsp" />
 	</definition>
 
 	<definition name="CreateAnnounce" extends=".defaultLayout">
-		<put name="title" value="pageTitle.announces" />
-		<put name="currentMenu" value="Announces" />
-		<put name="body-content" value="/content/announces/CreateAnnounce.jsp" />
+		<put-attribute name="title" value="pageTitle.announces" />
+		<put-attribute name="currentMenu" value="Announces" />
+		<put-attribute name="body-content" value="/content/announces/CreateAnnounce.jsp" />
 	</definition>
 
 	<definition name="ModifyAnnounce" extends=".defaultLayout">
-		<put name="title" value="pageTitle.announces" />
-		<put name="currentMenu" value="Announces" />
-		<put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
+		<put-attribute name="title" value="pageTitle.announces" />
+		<put-attribute name="currentMenu" value="Announces" />
+		<put-attribute name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
 	</definition>
 
 	<definition name="DisplayForModifyAnnounce" extends=".defaultLayout">
-		<put name="title" value="pageTitle.announces" />
-		<put name="currentMenu" value="Announces" />
-		<put name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
-		<put name="left" value="/content/announces/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.announces" />
+		<put-attribute name="currentMenu" value="Announces" />
+		<put-attribute name="body-content" value="/content/announces/ModifyAnnounce.jsp" />
+		<put-attribute name="left" value="/content/announces/leftMenu.jsp" />
 	</definition>
 
 	<definition name="DisplayAnnounce" extends=".defaultLayout">
-		<put name="title" value="pageTitle.announces" />
-		<put name="currentMenu" value="Announces" />
-		<put name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
-		<put name="left" value="/content/announces/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.announces" />
+		<put-attribute name="currentMenu" value="Announces" />
+		<put-attribute name="body-content" value="/content/announces/DisplayAnnounce.jsp" />
+		<put-attribute name="left" value="/content/announces/leftMenu.jsp" />
 	</definition>
 
 
 
 	<!-- Members -->
 	<definition name="SearchMembers" extends=".defaultLayout">
-		<put name="title" value="pageTitle.members" />
-		<put name="body-content" value="/content/members/SearchMember.jsp" />
+		<put-attribute name="title" value="pageTitle.members" />
+		<put-attribute name="body-content" value="/content/members/SearchMember.jsp" />
 	</definition>
 
 	<!-- Research -->
 	<definition name="Research" extends=".defaultLayout">
-		<put name="title" value="research.title" />
-		<put name="body-content" value="/content/research/Research.jsp" />
+		<put-attribute name="title" value="research.title" />
+		<put-attribute name="body-content" value="/content/research/Research.jsp" />
 	</definition>
 
 
@@ -272,214 +272,214 @@
 
 	<!-- Private Messages -->
 	<definition name="DisplayInbox" extends=".defaultLayout">
-		<put name="title" value="pageTitle.inbox" />
-		<put name="currentMenu" value="Messages" />
-		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
-		<put name="body-content" value="/content/privatemessages/DisplayInbox.jsp" />
+		<put-attribute name="title" value="pageTitle.inbox" />
+		<put-attribute name="currentMenu" value="Messages" />
+		<put-attribute name="left" value="/content/privatemessages/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/privatemessages/DisplayInbox.jsp" />
 	</definition>
 
 	<definition name="DisplayOutbox" extends=".defaultLayout">
-		<put name="title" value="pageTitle.inbox" />
-		<put name="currentMenu" value="Messages" />
-		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
-		<put name="body-content" value="/content/privatemessages/DisplayOutbox.jsp" />
+		<put-attribute name="title" value="pageTitle.inbox" />
+		<put-attribute name="currentMenu" value="Messages" />
+		<put-attribute name="left" value="/content/privatemessages/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/privatemessages/DisplayOutbox.jsp" />
 	</definition>
 
 	<definition name="DisplayPrivateMessage" extends=".defaultLayout">
-		<put name="title" value="pageTitle.inbox" />
-		<put name="currentMenu" value="Messages" />
-		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
-		<put name="body-content" value="/content/privatemessages/DisplayMessage.jsp" />
+		<put-attribute name="title" value="pageTitle.inbox" />
+		<put-attribute name="currentMenu" value="Messages" />
+		<put-attribute name="left" value="/content/privatemessages/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/privatemessages/DisplayMessage.jsp" />
 	</definition>
 
 	<definition name="DisplaySentMessage" extends=".defaultLayout">
-		<put name="title" value="pageTitle.inbox" />
-		<put name="currentMenu" value="Messages" />
-		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
-		<put name="body-content" value="/content/privatemessages/DisplaySentMessage.jsp" />
+		<put-attribute name="title" value="pageTitle.inbox" />
+		<put-attribute name="currentMenu" value="Messages" />
+		<put-attribute name="left" value="/content/privatemessages/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/privatemessages/DisplaySentMessage.jsp" />
 	</definition>
 
 	<definition name="CreatePrivateMessage" extends=".defaultLayout">
-		<put name="title" value="pageTitle.inbox" />
-		<put name="currentMenu" value="Messages" />
-		<put name="left" value="/content/privatemessages/leftMenu.jsp" />
-		<put name="body-content" value="/content/privatemessages/CreateMessage.jsp" />
+		<put-attribute name="title" value="pageTitle.inbox" />
+		<put-attribute name="currentMenu" value="Messages" />
+		<put-attribute name="left" value="/content/privatemessages/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/privatemessages/CreateMessage.jsp" />
 	</definition>
 
 
 
 	<!-- Communities -->
 	<definition name="Communities" extends=".defaultLayout">
-		<put name="title" value="pageTitle.communities" />
-		<put name="currentMenu" value="Communities" />
-		<put name="left" value="/content/communities/leftMenu.jsp" />
-		<put name="body-content" value="/content/communities/Communities.jsp" />
+		<put-attribute name="title" value="pageTitle.communities" />
+		<put-attribute name="currentMenu" value="Communities" />
+		<put-attribute name="left" value="/content/communities/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/communities/Communities.jsp" />
 	</definition>
 
 	<definition name="DisplayCommunities" extends=".defaultLayout">
-		<put name="title" value="pageTitle.communities" />
-		<put name="currentMenu" value="Communities" />
-		<put name="left" value="/content/communities/leftMenu.jsp" />
-		<put name="body-content" value="/content/communities/SearchCommunity.jsp" />
+		<put-attribute name="title" value="pageTitle.communities" />
+		<put-attribute name="currentMenu" value="Communities" />
+		<put-attribute name="left" value="/content/communities/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/communities/SearchCommunity.jsp" />
 	</definition>
 
 	<definition name="DisplayYourCommunities" extends=".defaultLayout">
-		<put name="title" value="pageTitle.communities" />
-		<put name="currentMenu" value="Communities" />
-		<put name="left" value="/content/communities/leftMenu.jsp" />
-		<put name="body-content" value="/content/communities/SearchYourCommunities.jsp" />
+		<put-attribute name="title" value="pageTitle.communities" />
+		<put-attribute name="currentMenu" value="Communities" />
+		<put-attribute name="left" value="/content/communities/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/communities/SearchYourCommunities.jsp" />
 	</definition>
 
 
 
 	<!-- Consultations -->
 	<definition name="CreateConsultation" extends=".defaultLayout">
-		<put name="title" value="pageTitle.consultations" />
-		<put name="currentMenu" value="Consultations" />
-		<put name="body-content" value="/content/consultations/CreateConsultation.jsp" />
-		<put name="left" value="/content/consultations/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.consultations" />
+		<put-attribute name="currentMenu" value="Consultations" />
+		<put-attribute name="body-content" value="/content/consultations/CreateConsultation.jsp" />
+		<put-attribute name="left" value="/content/consultations/leftMenu.jsp" />
 	</definition>
 
 	<definition name="DisplayConsultations" extends=".defaultLayout">
-		<put name="title" value="pageTitle.consultations" />
-		<put name="currentMenu" value="Consultations" />
-		<put name="body-content" value="/content/consultations/Consultations.jsp" />
-		<put name="left" value="/content/consultations/leftMenu.jsp"></put>
+		<put-attribute name="title" value="pageTitle.consultations" />
+		<put-attribute name="currentMenu" value="Consultations" />
+		<put-attribute name="body-content" value="/content/consultations/Consultations.jsp" />
+		<put-attribute name="left" value="/content/consultations/leftMenu.jsp"></put-attribute>
 	</definition>
 
 	<definition name="DisplayAConsultation" extends=".defaultLayout">
-		<put name="title" value="pageTitle.consultations" />
-		<put name="currentMenu" value="Consultations" />
-		<put name="body-content" value="/content/consultations/DisplayAConsultation.jsp" />
-		<put name="left" value="/content/consultations/leftMenu.jsp"></put>
+		<put-attribute name="title" value="pageTitle.consultations" />
+		<put-attribute name="currentMenu" value="Consultations" />
+		<put-attribute name="body-content" value="/content/consultations/DisplayAConsultation.jsp" />
+		<put-attribute name="left" value="/content/consultations/leftMenu.jsp"></put-attribute>
 	</definition>
 
 
 
 	<!-- Groups -->
 	<definition name="SearchGroups" extends=".defaultLayout">
-		<put name="title" value="pageTitle.groups" />
-		<put name="currentMenu" value="Groups" />
-		<put name="body-content" value="/content/groups/SearchGroups.jsp" />
-		<put name="left" value="/content/groups/leftMenu.jsp" />
+		<put-attribute name="title" value="pageTitle.groups" />
+		<put-attribute name="currentMenu" value="Groups" />
+		<put-attribute name="body-content" value="/content/groups/SearchGroups.jsp" />
+		<put-attribute name="left" value="/content/groups/leftMenu.jsp" />
 	</definition>
 
 	<definition name="CreateGroup" extends=".defaultLayout">
-		<put name="title" value="pageTitle.groups" />
-		<put name="currentMenu" value="Groups" />
-		<put name="left" value="/content/groups/leftMenu.jsp" />
-		<put name="body-content" value="/content/groups/CreateGroup.jsp" />
+		<put-attribute name="title" value="pageTitle.groups" />
+		<put-attribute name="currentMenu" value="Groups" />
+		<put-attribute name="left" value="/content/groups/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/groups/CreateGroup.jsp" />
 	</definition>
 
 	<definition name="DisplayForModifyGroup" extends=".defaultLayout">
-		<put name="title" value="pageTitle.groups" />
-		<put name="currentMenu" value="Groups" />
-		<put name="left" value="/content/groups/leftMenu.jsp" />
-		<put name="body-content" value="/content/groups/ModifyGroup.jsp" />
+		<put-attribute name="title" value="pageTitle.groups" />
+		<put-attribute name="currentMenu" value="Groups" />
+		<put-attribute name="left" value="/content/groups/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/groups/ModifyGroup.jsp" />
 	</definition>
 
 	<definition name="ModifyGroup" extends=".defaultLayout">
-		<put name="title" value="pageTitle.groups" />
-		<put name="currentMenu" value="Groups" />
-		<put name="left" value="/content/groups/leftMenu.jsp" />
-		<put name="body-content" value="/content/groups/ModifyGroup.jsp" />
+		<put-attribute name="title" value="pageTitle.groups" />
+		<put-attribute name="currentMenu" value="Groups" />
+		<put-attribute name="left" value="/content/groups/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/groups/ModifyGroup.jsp" />
 	</definition>
 
 	<definition name="DisplayInformationGroup" extends=".defaultLayout">
-		<put name="title" value="pageTitle.groups" />
-		<put name="currentMenu" value="Groups" />
-		<put name="left" value="/content/groups/leftMenu.jsp" />
-		<put name="body-content" value="/content/groups/DisplayInformationGroup.jsp" />
+		<put-attribute name="title" value="pageTitle.groups" />
+		<put-attribute name="currentMenu" value="Groups" />
+		<put-attribute name="left" value="/content/groups/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/groups/DisplayInformationGroup.jsp" />
 	</definition>
 
 
 
 	<!-- Members -->
 	<definition name="DisplayMembers" extends=".defaultLayout">
-		<put name="title" value="pageTitle.members" />
-		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
-		<put name="currentMenu" value="Members" />
-		<put name="body-content" value="/content/manageMembers/SearchMember.jsp" />
+		<put-attribute name="title" value="pageTitle.members" />
+		<put-attribute name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put-attribute name="currentMenu" value="Members" />
+		<put-attribute name="body-content" value="/content/manageMembers/SearchMember.jsp" />
 	</definition>
 
 	<definition name="Members" extends=".defaultLayout">
-		<put name="title" value="pageTitle.members" />
-		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
-		<put name="currentMenu" value="Members" />
-		<put name="body-content" value="/content/manageMembers/Members.jsp" />
+		<put-attribute name="title" value="pageTitle.members" />
+		<put-attribute name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put-attribute name="currentMenu" value="Members" />
+		<put-attribute name="body-content" value="/content/manageMembers/Members.jsp" />
 	</definition>
 
 
 
 	<!-- MemberList -->
 	<definition name="MemberList" extends=".defaultLayout">
-		<put name="title" value="pageTitle.members" />
-		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
-		<put name="body-content" value="/content/manageMembers/SearchMember.jsp" />
+		<put-attribute name="title" value="pageTitle.members" />
+		<put-attribute name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/manageMembers/SearchMember.jsp" />
 	</definition>
 
 	<definition name="DisplayForModifyMember" extends=".defaultLayout">
-		<put name="title" value="pageTitle.members" />
-		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
-		<put name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
+		<put-attribute name="title" value="pageTitle.members" />
+		<put-attribute name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
 	</definition>
 
 	<definition name="ModifyMember" extends=".defaultLayout">
-		<put name="title" value="pageTitle.members" />
-		<put name="left" value="/content/manageMembers/leftMenu.jsp" />
-		<put name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
+		<put-attribute name="title" value="pageTitle.members" />
+		<put-attribute name="left" value="/content/manageMembers/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/manageMembers/ModifyMember.jsp" />
 	</definition>
 
 
 
 	<!-- Visits -->
 	<definition name="Visits" extends=".defaultLayout">
-		<put name="title" value="pageTitle.visits" />
-		<put name="currentMenu" value="Visits" />
-		<put name="body-content" value="/content/visits/Visits.jsp" />
-		<put name="left" value="" />
+		<put-attribute name="title" value="pageTitle.visits" />
+		<put-attribute name="currentMenu" value="Visits" />
+		<put-attribute name="body-content" value="/content/visits/Visits.jsp" />
+		<put-attribute name="left" value="" />
 	</definition>
 
 
 	<!-- Ajax -->
-	<definition name="AjaxAutocompleteRecipients" path="/content/ajax/AutocompleteRecipients.jsp" />
+	<definition name="AjaxAutocompleteRecipients" template="/content/ajax/AutocompleteRecipients.jsp" />
 
 
 
 	<!-- UnauthorizedOperationException -->
 	<definition name="UnauthorizedOperationException" extends=".defaultLayout">
-		<put name="title" value="pageTitle.exception" />
-		<put name="currentMenu" value="UnauthorizedOperationException" />
-		<put name="body-content" value="/content/exception/UnauthorizedOperationException.jsp" />
+		<put-attribute name="title" value="pageTitle.exception" />
+		<put-attribute name="currentMenu" value="UnauthorizedOperationException" />
+		<put-attribute name="body-content" value="/content/exception/UnauthorizedOperationException.jsp" />
 	</definition>
 
-	<definition name="AutocompleteOtherChoice" path="/content/ajax/EmptyRecipient.jsp">
-		<put name="content" value="/content/consultations/autocompleteOtherChoice.jsp" />
+	<definition name="AutocompleteOtherChoice" template="/content/ajax/EmptyRecipient.jsp">
+		<put-attribute name="content" value="/content/consultations/autocompleteOtherChoice.jsp" />
 	</definition>
 
 
 
 	<!-- CV -->
 	<definition name="InfoExpCv" extends=".defaultLayout">
-		<put name="title" value="pageTitle.resume" />
-		<put name="currentMenu" value="CV" />
-		<put name="left" value="/content/CV/leftMenu.jsp" />
-		<put name="body-content" value="/content/CV/InfoExpCv.jsp" />
+		<put-attribute name="title" value="pageTitle.resume" />
+		<put-attribute name="currentMenu" value="CV" />
+		<put-attribute name="left" value="/content/CV/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/CV/InfoExpCv.jsp" />
 	</definition>
 
 
 	<definition name="InfoProfileCv" extends=".defaultLayout">
-		<put name="title" value="pageTitle.resume" />
-		<put name="currentMenu" value="CV" />
-		<put name="left" value="/content/CV/leftMenu.jsp" />
-		<put name="body-content" value="/content/CV/InfoProfileCv.jsp" />
+		<put-attribute name="title" value="pageTitle.resume" />
+		<put-attribute name="currentMenu" value="CV" />
+		<put-attribute name="left" value="/content/CV/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/CV/InfoProfileCv.jsp" />
 	</definition>
 
 	<definition name="DisplayCv" extends=".defaultLayout">
-		<put name="title" value="pageTitle.resume" />
-		<put name="currentMenu" value="CV" />
-		<put name="left" value="/content/CV/leftMenu.jsp" />
-		<put name="body-content" value="/content/CV/DisplayCv.jsp" />
+		<put-attribute name="title" value="pageTitle.resume" />
+		<put-attribute name="currentMenu" value="CV" />
+		<put-attribute name="left" value="/content/CV/leftMenu.jsp" />
+		<put-attribute name="body-content" value="/content/CV/DisplayCv.jsp" />
 	</definition>
 
 </tiles-definitions>
