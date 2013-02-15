@@ -1,73 +1,43 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-	<form-beans>
-		<form-bean name="profileForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="name" type="java.lang.String" />
-			<form-property name="firstName" type="java.lang.String" />
-			<form-property name="adress" type="java.lang.String" />
-			<form-property name="city" type="java.lang.String" />
-			<form-property name="dateOfBirth" type="java.lang.String" />
-			<form-property name="sexe" type="java.lang.String" />
-			<form-property name="job" type="java.lang.String" />
-			<form-property name="mail" type="java.lang.String" />
-			<form-property name="phone" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="ChangePhotoForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="photo" type="org.apache.struts.upload.FormFile" />
-			<form-property name="photoUrl" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="DisplayProfileForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="id" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="ChangePasswordForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="oldPassword" type="java.lang.String" />
-			<form-property name="newPassword" type="java.lang.String" />
-			<form-property name="confirmNewPassword" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="GetPhotoForm" 	type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="memberId" type="java.lang.String" />
-		</form-bean>
-	</form-beans>
-	<global-forwards>
-	</global-forwards>
-	<action-mappings>
-		<action path="/DisplayProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-			parameter="display" name="DisplayProfileForm" scope="request"
-			validate="true">
-			<forward name="success" path="ShowProfile" />
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+<include file="struts-default.xml"/>
+
+	<package name="profile-config" extends="struts-default">
+	
+		<action name="DisplayProfile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="display">
+			<result name="success">ShowProfile</result>
 		</action>
-		<action path="/ModifyProfile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-			name="profileForm" scope="request" validate="true" parameter="modify"
-			input="/Profile.do">
-			<forward name="success" path="/DisplayProfile.do" />
-			<forward name="unauthorized" path="/Profile.do" />
+
+		<action name="ModifyProfile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="modify">
+			<result name="input">/Profile.do</result>
+			<result name="success">/DisplayProfile.do</result>
+			<result name="unauthorized">/Profile.do</result>
 		</action>
-		<action path="/Profile" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-			scope="request" parameter="displayToModify" validate="true" name="profileForm">
-			<forward name="success" path="Profile" />
+
+		<action name="Profile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="displayToModify">
+			<result name="success">Profile</result>
 		</action>
-		<action path="/ChangePassword" type="fr.univartois.ili.fsnet.actions.ChangePassword"
-			name="ChangePasswordForm" scope="request" validate="true" input="/Profile.do">
-			<forward name="success" path="/Profile.do" />
+
+		<action name="ChangePassword" class="fr.univartois.ili.fsnet.actions.ChangePassword">
+			<result name="input">/Profile.do</result>
+			<result name="success">/Profile.do</result>
 		</action>
-		<action path="/ChangePhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-			name="ChangePhotoForm" parameter="changePhoto" input="/Profile.do"
-			scope="request" validate="true">
-			<forward name="unauthorized" path="/Profile.do" />
-			<forward name="success" path="/Profile.do" />
+
+		<action name="ChangePhoto" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="changePhoto">
+			<result name="input">/Profile.do</result>
+			<result name="success">/Profile.do</result>
+			<result name="unauthorized">/Profile.do</result>
 		</action>
-		<action path="/DeletePhoto" type="fr.univartois.ili.fsnet.actions.ManageProfile"
-			name="DeletePhotoForm" parameter="deletePhoto" validate="false">
-			<forward name="success" path="/Profile.do" />
-			<forward name="unauthorized" path="/Profile.do" />
+
+		<action name="DeletePhoto" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="deletePhoto">
+			<result name="success">/Profile.do</result>
+			<result name="unauthorized">/Profile.do</result>
 		</action>
-	</action-mappings>
-</struts-config>
+	</package>
+</struts>
