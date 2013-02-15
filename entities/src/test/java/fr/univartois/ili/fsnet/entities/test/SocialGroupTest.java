@@ -6,6 +6,12 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -16,6 +22,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import fr.univartois.ili.fsnet.entities.Right;
+import fr.univartois.ili.fsnet.entities.SocialElement;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
 
@@ -38,6 +45,180 @@ public class SocialGroupTest {
 		em.close();
 	}
 
+	@Test
+	public void testSetAndGetMethodForDescription() {
+		final String description = "FansDeFsnet";
+		SocialGroup sg = new SocialGroup();
+		sg.setDescription(description);
+		assertEquals(description,sg.getDescription());
+	}
+
+	@Test
+	public void testSetAndGetMethodForIsEnabled() {
+		final boolean isEnabled = true;
+		SocialGroup sg = new SocialGroup();
+		sg.setIsEnabled(isEnabled);
+		assertEquals(isEnabled,sg.getIsEnabled());
+	}
+
+	@Test
+	public void testSetAndGetMethodsForColor() {
+		final String color = "#40A497";
+		SocialGroup sg = new SocialGroup();
+		sg.setColor(color);
+		assertEquals(color,sg.getColor());
+
+	}
+
+	@Test
+	public void testSetAndGetMethodsForRights() {
+		SocialGroup sg = new SocialGroup();
+		Set<Right> rights = new HashSet<Right>();
+		rights.add(Right.ADD_ANNOUNCE);
+		sg.setRights(rights);
+		assertEquals(rights,sg.getRights());
+	}
+
+	@Test
+	public void testAddRights() {
+		SocialGroup sg = new SocialGroup();
+		Set<Right> rights = new HashSet<Right>();
+		rights.add(Right.ADD_ANNOUNCE);
+		rights.add(Right.ADD_CONSULTATION);
+		sg.addRights(rights);
+		assertEquals(rights,sg.getRights());
+	}
+
+	@Test
+	public void testSetandGetMethodsForSocialElementsWithOnlySocialElementAtParameter() {
+		final String lastName = "LeBerre";
+		final String firstName = "Daniel";
+		final String mail = "daniel.leberre@gmail.com";
+		final String description = "pour ceux qui adorent ce projet";
+		
+		SocialEntity grp = new SocialEntity("grp", "grp", "grp@mail.fr");
+		SocialGroup sgrp = new SocialGroup(grp, "fansDeFsNet", description);
+		SocialElement se1 = new SocialEntity(lastName, firstName, mail);
+		SocialElement se2 = new SocialEntity(lastName, firstName, mail);
+		List<SocialElement> socialElements = new ArrayList<>();
+		socialElements.add(se1);
+		sgrp.setSocialElements(socialElements);
+		assertEquals(socialElements, sgrp.getSocialElements());
+		
+		socialElements.add(se2);
+		sgrp.setSocialElements(socialElements);
+		assertEquals(socialElements, sgrp.getSocialElements());
+	}
+
+	@Test
+	public void testSetandGetMethodsForSocialElements() {
+		final String lastName = "LeBerre";
+		final String firstName = "Daniel";
+		final String mail = "daniel.leberre@gmail.com";
+		final String descriptionfsnet = "pour ceux qui adorent le projet fsnet";
+		final String descriptionsadoc = "pour ceux qui adorent le projet sadoc";
+		SocialEntity masterGroup1 = new SocialEntity("toto", "titi",
+				"manknil11@gmail.com");
+		SocialEntity masterGroup2 = new SocialEntity("titi", "toto",
+				"nilmank11@gmail.com");
+		SocialGroup sg1 = new SocialGroup(masterGroup1, "fansDeFsNet",
+				descriptionfsnet);
+		SocialGroup sg2 = new SocialGroup(masterGroup2, "fansDeSadoc",
+				descriptionsadoc);
+		SocialElement se1 = new SocialEntity(lastName, firstName, mail);
+		SocialElement se2 = new SocialEntity(lastName, firstName, mail);
+		List<SocialElement> socialElements = new LinkedList<SocialElement>();
+		socialElements.add(se1);
+		sg1.setSocialElements(socialElements, sg2);
+		assertEquals(socialElements,sg1.getSocialElements());
+		
+		socialElements.add(se2);
+		sg1.setSocialElements(socialElements, sg2);
+		assertEquals(socialElements,sg1.getSocialElements());
+		
+	}
+
+	@Test
+	public void testAddSocialElement() {
+		SocialElement se1 = new SocialEntity("titi", "titi", "titi@mail.fr");
+
+		SocialEntity masterGroup = new SocialEntity("toto", "titi",
+				"master@gmail.com");
+		SocialGroup sg = new SocialGroup(masterGroup, "fansDeFsNet","pour les fans du projet");
+		List<SocialElement> socialElements = new LinkedList<SocialElement>();
+		socialElements.add(se1);
+		sg.addSocialElement(se1);
+		assertEquals(sg.getSocialElements(), socialElements);
+		
+		sg.addSocialElement(se1);
+		assertEquals(sg.getSocialElements(), socialElements);
+	}
+	
+	@Test
+	public void testAddAllSocialElements() {
+		SocialElement se1 = new SocialEntity("titi", "titi", "titi@mail.fr");
+		SocialElement se2 = new SocialEntity("tutu", "tutu", "tutu@mail.fr");
+		SocialEntity masterGroup = new SocialEntity("toto", "titi",
+				"master@gmail.com");
+		SocialGroup sg = new SocialGroup(masterGroup, "fansDeFsNet","pour les fans du projet");
+		List<SocialElement> socialElements = new LinkedList<SocialElement>();
+		socialElements.add(se1);
+		socialElements.add(se2);
+		sg.addAllSocialElements(socialElements);
+		assertEquals(sg.getSocialElements(), socialElements);
+	}
+	
+	@Test
+	public void testRemoveSocialElement() {
+		SocialElement se1 = new SocialEntity("titi", "titi", "titi@mail.fr");
+		SocialElement se2 = new SocialEntity("tutu", "tutu", "tutu@mail.fr");
+		SocialEntity masterGroup = new SocialEntity("toto", "titi","master@gmail.com");
+		SocialGroup sg = new SocialGroup(masterGroup, "fansDeFsNet","pour les fans du projet");
+		
+		List<SocialElement> socialElements = new LinkedList<SocialElement>();
+		sg.addSocialElement(se2);
+		socialElements.add(se1);
+		sg.addAllSocialElements(socialElements);	
+		sg.removeSocialElement(se2);
+		assertEquals(sg.getSocialElements(),socialElements);
+		
+	}
+	
+	@Test
+	public void testRemoveAllSocialElements() {
+		SocialElement se1 = new SocialEntity("titi", "titi", "titi@mail.fr");
+		SocialElement se2 = new SocialEntity("tutu", "tutu", "tutu@mail.fr");
+		SocialElement se3 = new SocialEntity("tata", "tata", "tata@mail.fr");
+		SocialEntity masterGroup = new SocialEntity("toto", "titi","master@gmail.com");
+		SocialGroup sg = new SocialGroup(masterGroup, "fansDeFsNet","pour les fans du projet");
+		
+		List<SocialElement> socialElements1 = new LinkedList<SocialElement>();
+		List<SocialElement> socialElements2 = new LinkedList<SocialElement>();
+		List<SocialElement> socialElements3 = new LinkedList<SocialElement>();
+		
+		socialElements1.add(se1);
+		
+		socialElements2.add(se1);
+		socialElements2.add(se2);
+		
+		socialElements3.add(se2);
+		socialElements3.add(se3);
+		
+		sg.addAllSocialElements(socialElements2);
+		sg.removeAllSocialElements(socialElements3);
+		assertEquals(socialElements1,sg.getSocialElements());
+	}
+	
+	@Test
+	public void testSetAndGetMethodsForName() {
+		final String name="les fans de FsNet";
+		System.out.println(name);
+		SocialGroup sg=new SocialGroup();
+		sg.setName(name);
+		System.out.println(sg.getName());
+		assertEquals(name,sg.getName());
+	}
+	
 	@Test
 	public void testPersist() {
 		final String groupName = "ATOS";
