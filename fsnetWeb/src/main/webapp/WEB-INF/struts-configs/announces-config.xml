@@ -7,55 +7,55 @@
 
 	<package name="announces" extends="struts-default">
 		<!-- Announces -->
-		<action name="/Announces" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+		<action name="Announces" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="search">
 			<result name="success">Announces</result>
 			<result name="input">Announces</result>
 		</action>
 
-		<action name="/CreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+		<action name="CreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="create">
-			<result name="success">Announces.do</result>
-			<result name="failed">DisplayCreateAnnounce.do</result>
-			<result name="input">DisplayCreateAnnounce.do</result>
-			<result name="unauthorized">Announces.do</result>
+			<result name="success">/Announces.do</result>
+			<result name="failed">/DisplayCreateAnnounce.do</result>
+			<result name="input">/DisplayCreateAnnounce.do</result>
+			<result name="unauthorized">/Announces.do</result>
 		</action>
 
-		<action name="/DisplayCreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+		<action name="DisplayCreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="displayCreateAnnounce">
 			<result name="success">CreateAnnounce</result>
-			<result name="unauthorized">Announces.do</result>
+			<result name="unauthorized">/Announces.do</result>
 		</action>
 
-		<action name="/ModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+		<action name="ModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="modify">
 			<result name="input">ModifyAnnounce</result>
-			<result name="success">Announces.do</result>
+			<result name="success">/Announces.do</result>
 			<result name="failed">ModifyAnnounce</result>
-			<result name="unauthorized">Announces.do</result>
+			<result name="unauthorized">/Announces.do</result>
 		</action>
 
-		<action name="/DisplayForModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+		<action name="DisplayForModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="displayToModify">
 			<result name="success">ModifyAnnounce</result>
-			<result name="failed">Announces.do</result>
+			<result name="failed">/Announces.do</result>
 		</action>
 
-		<action name="/DisplayAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+		<action name="DisplayAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="display">
 			<result name="success">DisplayAnnounce</result>
-			<result name="failed">Announces.do</result>
+			<result name="failed">/Announces.do</result>
 		</action>
 
-		<action name="/DeleteAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+		<action name="DeleteAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="delete">
-			<result name="success">Announces.do</result>
-			<result name="failed">Announces.do</result>
+			<result name="success">/Announces.do</result>
+			<result name="failed">/Announces.do</result>
 		</action>
 
-		<action name="/DeleteMultiAnnounces" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+		<action name="DeleteMultiAnnounces" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="deleteMulti">
-			<result name="success">Announces.do</result>
+			<result name="success">/Announces.do</result>
 		</action>
 	</package>
 

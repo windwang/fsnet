@@ -1,147 +1,69 @@
 <?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd ">
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-    <form-beans>
-        <form-bean name="AddInterestForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="addedInterestId" type="java.lang.String" />
-        </form-bean>
-        <form-bean name="RemoveInterestForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="removedInterestId" type="java.lang.String" />
-        </form-bean>
-        <form-bean name="DisplayInterestsForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="pageId" type="java.lang.String" />
-            <form-property name="tileId" type="java.lang.String" />
-        </form-bean>
-        <form-bean name="SearchInterestForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="searchInterests" type="java.lang.String" />
-            <form-property name="pageId" type="java.lang.String" />
-            <form-property name="tileId" type="java.lang.String" />
-        </form-bean>
-        <form-bean name="CreateInterestForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="createdInterestName" type="java.lang.String" />
-            <form-property name="parentInterestId" type="java.lang.String" />
-        </form-bean>
-        <form-bean name="InterestInformationsForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="infoInterestId" type="java.lang.String" />
-        </form-bean>
-    </form-beans>
-    <global-forwards>
+<struts>
 
-    </global-forwards>
-    <action-mappings>
-        <action
-            path="/DisplayInterests"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="DisplayInterestsForm"
-            input="/Interests.do"
-            scope="request"
-            validate="true"
-            parameter="display">
-            <forward name="success" path="Interests" />
-        </action>
+	<package name="interests" extends="struts-default">
+		<action name="/DisplayInterests" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="display">
+			<result name="input">/Interests.do</result>
+			<result name="success">Interests</result>
+		</action>
 
-        <action
-            path="/AddInterest"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="AddInterestForm"
-            input="/Interests.do"
-            scope="request"
-            validate="true"
-            parameter="add">
-            <forward name="success" path="/Interests.do" redirect="true"/>
-        </action>
+		<action name="AddInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="add">
+			<result name="input">/Interests.do</result>
+			<result name="success">/Interests.do</result>
+		</action>
 
-        <action
-            path="/RemoveInterest"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="RemoveInterestForm"
-            input="/Interests.do"
-            scope="request"
-            validate="true"
-            parameter="remove">
-            <forward name="success" path="/Interests.do" redirect="true"/>
-        </action>
+		<action name="RemoveInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="remove">
+			<result name="input">/Interests.do</result>
+			<result name="success">/Interests.do</result>
+		</action>
 
-        <action
-            path="/SearchInterest"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="SearchInterestForm"
-            input="/Interests.do"
-            scope="request"
-            validate="true"
-            parameter="search">
-            <forward name="success" path="/Interests.do" />
-        </action>
+		<action name="SearchInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="search">
+			<result name="input">/Interests.do</result>
+			<result name="success">/Interests.do</result>
+		</action>
 
-        <action
-            path="/CreateInterest"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="CreateInterestForm"
-            input="/Interests.do"
-            scope="request"
-            validate="true"
-            parameter="create">
-            <forward name="success" path="/Interests.do" />
-        </action>
+		<action name="CreateInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="create">
+			<result name="input">/Interests.do</result>
+			<result name="success">/Interests.do</result>
+		</action>
 
-        <action
-            path="/Interests"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            input="/Interests.do"
-            scope="request"
-            parameter="display">
-            <forward name="success" path="Interests" />
-        </action>
+		<action name="Interests" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="display">
+			<result name="input">/Interests.do</result>
+			<result name="success">/Interests.do</result>
+		</action>
 
-        <action
-            path="/InterestInformations"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="InterestInformationsForm"
-            input="/Interests.do"
-            scope="request"
-            validate="true"
-            parameter="informations">
-            <forward name="success" path="InfoInterest" />
-        </action>
-        
-        <action
-            path="/AddInterestFromInterestInformations"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="AddInterestForm"
-            input="/InterestInformations.do"
-            scope="request"
-            validate="true"
-            parameter="add">
-            <forward name="success" path="/InterestInformations.do" redirect="true"/>
-        </action>
-        
-        <action
-            path="/DeleteInterestFromInterestInformations"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            name="RemoveInterestForm"
-            input="/InterestInformations.do"
-            scope="request"
-            validate="true"
-            parameter="remove">
-            <forward name="success" path="/InterestInformations.do" redirect="true"/>
-        </action>
+		<action name="InterestInformations" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="informations">
+			<result name="input">/Interests.do</result>
+			<result name="success">/InfoInterest.do</result>
+		</action>
 
-        <action
-            path="/InterestCheckBoxes"
-            type="fr.univartois.ili.fsnet.actions.ManageInterests"
-            parameter="display">
-            <forward name="success" path="/content/interests/InterestCheckBoxes.jsp" />
-        </action>
+		<action name="AddInterestFromInterestInformations" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="add">
+			<result name="input">/InterestInformations.do</result>
+			<result name="success">/InterestInformations.do</result>
+		</action>
 
+		<action name="DeleteInterestFromInterestInformations" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="remove">
+			<result name="input">/InterestInformations.do</result>
+			<result name="success">/InterestInformations.do</result>
+		</action>
 
-    </action-mappings>
-</struts-config>
+		<action name="InterestCheckBoxes" class="fr.univartois.ili.fsnet.actions.ManageInterests"
+			method="display">
+			<result name="success">/content/interests/InterestCheckBoxes.jsp</result>
+		</action>
+	</package>
+	
+</struts>
