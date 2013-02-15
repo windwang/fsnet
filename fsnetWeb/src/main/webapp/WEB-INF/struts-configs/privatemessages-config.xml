@@ -6,58 +6,58 @@
 <struts>
 
 	<package name="privatemessages" extends="struts-default">
-		<action name="/Inbox"
+		<action name="Inbox"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="inbox">
 			<result name="success">DisplayInbox</result>
 		</action>
 
-		<action name="/Outbox"
+		<action name="Outbox"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="outbox">
 			<result name="success">DisplayOutbox</result>
 		</action>
 
-		<action name="/DisplayMessage"
+		<action name="DisplayMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="display">
 			<result name="input">UnauthorizedOperationException</result>
 			<result name="success">DisplayPrivateMessage</result>
 		</action>
 
-		<action name="/DisplaySentMessage"
+		<action name="DisplaySentMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="display">
 			<result name="input">UnauthorizedOperationException</result>
 			<result name="success">DisplaySentMessage</result>
 		</action>
 
-		<action name="/DisplayCreatePrivateMessage" class="org.apache.struts.actions.ForwardAction"
+		<action name="DisplayCreatePrivateMessage" class="org.apache.struts.actions.ForwardAction"
 			method="CreatePrivateMessage">
 		</action>
 
-		<action name="/CreatePrivateMessage"
+		<action name="CreatePrivateMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="create">
 			<result name="input">CreatePrivateMessage</result>
-			<result name="success">Inbox.do</result>
-			<result name="unauthorized">Inbox.do</result>
+			<result name="success">/Inbox.do</result>
+			<result name="unauthorized">/Inbox.do</result>
 		</action>
 
-		<action name="/DeletePrivateMessage"
+		<action name="DeletePrivateMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">Inbox.do</result>
+			<result name="success">/Inbox.do</result>
 		</action>
 
-		<action name="/DeleteMultiMessages"
+		<action name="DeleteMultiMessages"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti">
-			<result name="success">Inbox.do</result>
+			<result name="success">/Inbox.do</result>
 		</action>
 
-		<action name="/DeleteMultiMessages2"
+		<action name="DeleteMultiMessages2"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti2">
-			<result name="success">Inbox.do</result>
+			<result name="success">/Inbox.do</result>
 		</action>
 
-		<action name="/DeleteMultiSentMessages"
+		<action name="DeleteMultiSentMessages"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti">
-			<result name="success">Outbox.do</result>
+			<result name="success">/Outbox.do</result>
 		</action>
 	</package>
 	
