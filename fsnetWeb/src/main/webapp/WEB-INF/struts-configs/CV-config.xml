@@ -1,97 +1,36 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-	<form-beans>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
+   
+<struts>
 
-		<form-bean name="CVForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="cvTitle" type="java.lang.String" />
+	<include file="struts-default.xml"/>
 
-			<form-property name="cvBirthDay" type="java.lang.String" />
-			<form-property name="cvFirstname" type="java.lang.String" />
-			<form-property name="cvSurname" type="java.lang.String" />
-			<form-property name="cvAddress" type="java.lang.String" />
-			<form-property name="cvCity" type="java.lang.String" />
-			<form-property name="cvCP" type="java.lang.String" />
-			<form-property name="cvCountry" type="java.lang.String" />
-			<form-property name="cvPhone" type="java.lang.String" />
-			<form-property name="cvSituation" type="java.lang.String" />
-			<form-property name="cvSexe" type="java.lang.String" />
-			<form-property name="cvMail" type="java.lang.String" />
-			
-			<form-property name="cvExpJob" type="java.lang.String" />
-			<form-property name="cvExpFirmName" type="java.lang.String" />
-			<form-property name="cvExpEndDate" type="java.lang.String" />
-			<form-property name="cvExpBeginDate" type="java.lang.String" />
-			<form-property name="cvExpDomain" type="java.lang.String" />
-			<form-property name="cvExpCity" type="java.lang.String" />
-			<form-property name="cvExpCountry" type="java.lang.String" />
+    <package name="cv" extends="struts-default">
+        <action name="CreateCv1" class="fr.univartois.ili.fsnet.actions.ManageCV" method="cree">
+        	<result name="input">/CreateCv1.do</result>
+            <result name="success">InfoProfileCv</result>
+        </action>
+        <action name="CreateCv2" class="fr.univartois.ili.fsnet.actions.ManageCV" method="displayProfile">
+        	<result name="input">/CreateCv2.do</result>
+            <result name="success">InfoExpCv</result>
+            <result name="unauthorized">InfoProfileCv</result>
+        </action>
+        <action name="CreateCv3" class="fr.univartois.ili.fsnet.actions.ManageCV" method="displayExp">
+        	<result name="input">/DisplayCV.do</result>
+            <result name="success">/DisplayCV.do</result>
+        </action>
+        <action name="DisplayCV" class="fr.univartois.ili.fsnet.actions.ManageCV" method="displayCv">
+        	<result name="input">/DisplayCV.do</result>
+            <result name="success">DisplayCv</result>
+        </action>
+        <action name="GenerateCv" class="fr.univartois.ili.fsnet.actions.GenerateCv" method="download"/>
+   		<action name="DeleteCv" class="fr.univartois.ili.fsnet.actions.ManageCV" method="displayCv">
+        	<result name="input">/DisplayCV.do</result>
+            <result name="failed">/DisplayCV.do</result>
+        </action>
+    </package>
 
-			<form-property name="cvDegreeName" type="java.lang.String" />
-			<form-property name="cvDegreeDomain" type="java.lang.String" />
-			<form-property name="cvDegreeSchool" type="java.lang.String" />
-			<form-property name="cvDegreeCountry" type="java.lang.String" />
-			<form-property name="cvDegreeCity" type="java.lang.String" />
-			<form-property name="cvDegreeEndDate" type="java.lang.String" />
-			<form-property name="cvDegreeBeginDate" type="java.lang.String" />
-			
-			<form-property name="cvTrainingObtainingDate" type="java.lang.String" />
-			<form-property name="cvTrainingInstitution" type="java.lang.String" />
-			<form-property name="cvTrainingName" type="java.lang.String" />
-			<form-property name="cvTrainingCountry" type="java.lang.String" />
-			<form-property name="cvTrainingCity" type="java.lang.String" />
-			
-			<form-property name="cvLangName" type="java.lang.String" />
-			<form-property name="cvLangLevel" type="java.lang.String" />
-			
-			<form-property name="cvHobbyName" type="java.lang.String" />
-		</form-bean>
-
-		<form-bean name="GenerateCvForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-		</form-bean>
-		<form-bean name="DeleteCvForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-		</form-bean>
-
-	</form-beans>
-
-	<action-mappings>
-		<action path="/CreateCv1" type="fr.univartois.ili.fsnet.actions.ManageCV"
-			input="/CreateCv1.do" scope="request" name="CVForm" validate="true"
-			parameter="cree">
-			<forward name="success" path="InfoProfileCv" />
-		</action>
-		<action path="/CreateCv2" type="fr.univartois.ili.fsnet.actions.ManageCV"
-			input="/CreateCv2.do" scope="request" name="CVForm" validate="true"
-			parameter="displayProfile">
-			<forward name="success" path="InfoExpCv" />
-			<forward name="unauthorized" path="InfoProfileCv" />
-		</action>
-		<action path="/CreateCv3" type="fr.univartois.ili.fsnet.actions.ManageCV"
-			input="/DisplayCV.do" scope="request" name="CVForm" validate="true"
-			parameter="displayExp">
-			<forward name="success" path="/DisplayCV.do" />
-
-		</action>
-
-		<action path="/DisplayCV" type="fr.univartois.ili.fsnet.actions.ManageCV"
-			input="/DisplayCV.do" validate="true" parameter="displayCv">
-			<forward name="success" path="DisplayCv" />
-		</action>
-
-		<action path="/GenerateCv" name="GenerateCvForm"
-			type="fr.univartois.ili.fsnet.actions.GenerateCv" scope="request"
-			validate="true" parameter="download">
-		</action>
-		
-		<action path="/DeleteCv" name="DeleteCvForm" type="fr.univartois.ili.fsnet.actions.ManageCV"
-			validate="true" parameter="delete" input="/DisplayCV.do">
-			<forward name="failed" path="/DisplayCV.do" />
-		</action>
-
-	</action-mappings>
-</struts-config>
+</struts>
 		
