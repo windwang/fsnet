@@ -1,84 +1,64 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd ">
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-    <form-beans>
-        <form-bean name="CreatePrivateMessageForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="messageTo" type="java.lang.String" />
-            <form-property name="messageSubject" type="java.lang.String" />
-            <form-property name="messageBody" type="java.lang.String" />
-        </form-bean>
-        <form-bean name="DisplayPrivateMessageForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="messageId" type="java.lang.String" />
-            <form-property name="selectedMessages" type="java.lang.String[]" />
-        </form-bean>
-        <form-bean name="DisplayPrivateMessageForm2"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="messageId" type="java.lang.String" />
-            <form-property name="selectedMessages" type="java.lang.String[]" />
-        </form-bean>
-    </form-beans>
-    <global-forwards>
+<struts>
 
-    </global-forwards>
-    <action-mappings>
-        <action path="/Inbox" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                parameter="inbox">
-            <forward name="success" path="DisplayInbox" />
-        </action>
+	<package name="privatemessages" extends="struts-default">
+		<action name="/Inbox"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="inbox">
+			<result name="success">DisplayInbox</result>
+		</action>
 
-        <action path="/Outbox" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                parameter="outbox">
-            <forward name="success" path="DisplayOutbox" />
-        </action>
-        <action path="/DisplayMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                name="DisplayPrivateMessageForm" validate="true" scope="request"
-                parameter="display" input="UnauthorizedOperationException">
-            <forward name="success" path="DisplayPrivateMessage" />
-        </action>
-        <action path="/DisplaySentMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                name="DisplayPrivateMessageForm" validate="true" scope="request"
-                parameter="display" input="UnauthorizedOperationException">
-            <forward name="success" path="DisplaySentMessage" />
-        </action>
+		<action name="/Outbox"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="outbox">
+			<result name="success">DisplayOutbox</result>
+		</action>
 
-        <action path="/DisplayCreatePrivateMessage" type="org.apache.struts.actions.ForwardAction"
-                parameter="CreatePrivateMessage" >
-        </action>
+		<action name="/DisplayMessage"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="display">
+			<result name="input">UnauthorizedOperationException</result>
+			<result name="success">DisplayPrivateMessage</result>
+		</action>
 
-        <action path="/CreatePrivateMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                parameter="create" name="CreatePrivateMessageForm" validate="true" input="CreatePrivateMessage" scope="request">
-            <forward name="success" path="/Inbox.do" />
-            <forward name="unauthorized" path="/Inbox.do" />
-        </action>
+		<action name="/DisplaySentMessage"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="display">
+			<result name="input">UnauthorizedOperationException</result>
+			<result name="success">DisplaySentMessage</result>
+		</action>
 
-        <action path="/DeletePrivateMessage" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                name="DisplayPrivateMessageForm" validate="true" scope="request"
-                parameter="delete" input="UnauthorizedOperationException">
-            <forward name="success" path="/Inbox.do" />
-        </action>
-        
-        <action path="/DeleteMultiMessages" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                name="DisplayPrivateMessageForm" validate="false" scope="request"
-                parameter="deleteMulti">
-            <forward name="success" path="/Inbox.do" />
-        </action>
-        
-        <action path="/DeleteMultiMessages2" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                name="DisplayPrivateMessageForm" validate="false" scope="request"
-                parameter="deleteMulti2">
-            <forward name="success" path="/Inbox.do" />
-        </action>
-        
-        <action path="/DeleteMultiSentMessages" type="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-                name="DisplayPrivateMessageForm" validate="false" scope="request"
-                parameter="deleteMulti">
-            <forward name="success" path="/Outbox.do" />
-        </action>
+		<action name="/DisplayCreatePrivateMessage" class="org.apache.struts.actions.ForwardAction"
+			method="CreatePrivateMessage">
+		</action>
 
-    </action-mappings>
-</struts-config>
+		<action name="/CreatePrivateMessage"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="create">
+			<result name="input">CreatePrivateMessage</result>
+			<result name="success">Inbox.do</result>
+			<result name="unauthorized">Inbox.do</result>
+		</action>
+
+		<action name="/DeletePrivateMessage"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="delete">
+			<result name="input">UnauthorizedOperationException</result>
+			<result name="success">Inbox.do</result>
+		</action>
+
+		<action name="/DeleteMultiMessages"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti">
+			<result name="success">Inbox.do</result>
+		</action>
+
+		<action name="/DeleteMultiMessages2"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti2">
+			<result name="success">Inbox.do</result>
+		</action>
+
+		<action name="/DeleteMultiSentMessages"
+			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti">
+			<result name="success">Outbox.do</result>
+		</action>
+	</package>
+	
+</struts>
