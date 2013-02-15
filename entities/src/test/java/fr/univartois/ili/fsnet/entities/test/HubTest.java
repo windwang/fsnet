@@ -1,8 +1,11 @@
 package fr.univartois.ili.fsnet.entities.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -15,6 +18,7 @@ import org.junit.Test;
 import fr.univartois.ili.fsnet.entities.Community;
 import fr.univartois.ili.fsnet.entities.Hub;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
+import fr.univartois.ili.fsnet.entities.Topic;
 
 public class HubTest {
 
@@ -45,4 +49,41 @@ public class HubTest {
         assertEquals(hub.getId(), hub2.getId());
         assertEquals(hub.getCreationDate(), hub2.getCreationDate());
     }
+    
+    @Test
+    public void testSetAndGetTopics(){
+    	Hub hub = new Hub() ;
+    	Topic top = new Topic();
+		List<Topic> topics = new ArrayList<>();
+		topics.add(top);
+		hub.setTopics(topics);	
+		assertEquals(topics, hub.getTopics());
+		assertEquals(topics.size(), hub.getTopics().size());
+    }
+    
+    @Test
+    public void testSetAndGetCommunity(){
+    	Hub hub = new Hub();
+    	Community com = new Community() ;
+    	hub.setCommunity(com);
+    	assertEquals(com, hub.getCommunity());
+    }
+    
+    @Test
+    public void testHubRemove(){
+    	Hub hub = new Hub() ;
+    	
+    	Topic top = new Topic();
+		List<Topic> topics = new ArrayList<>();
+		topics.add(top);
+		hub.setTopics(topics);
+
+    	Community com = new Community() ;
+    	hub.setCommunity(com);
+    	
+		hub.onHubRemove();
+		assertNull(hub.getCommunity());
+		assertEquals(0, topics.size());
+    }
 }
+    

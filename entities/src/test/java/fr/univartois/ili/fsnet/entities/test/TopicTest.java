@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.entities.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import java.util.ArrayList;
@@ -94,12 +95,31 @@ public class TopicTest {
 	 
 	 @Test(expected=IllegalArgumentException.class)
 	 public void testEntityNull(){
-		 Topic top = new Topic(new Hub(),null, TITLE);
+		new Topic(new Hub(),null, TITLE);
 	 }
 	 
 	 @Test(expected=IllegalArgumentException.class)
+	 public void testHubNotNull(){
+		new Topic(new Hub(),null, null);
+	 }	 
+	 
+	 @Test(expected=IllegalArgumentException.class)
 	 public void testTitleNull(){
-		 Topic top = new Topic(new Hub(),new SocialEntity(), null);
+		 new Topic(new Hub(),new SocialEntity(), null);
+	 }
+	 
+	 @Test(expected=IllegalArgumentException.class)
+	 public void testAllNull(){
+		 new Topic(null,null, null);
+	 }
+	 
+	 @Test
+	 public void testNewTopicWithParameters(){
+		 Topic top = new Topic(new Hub(),new SocialEntity(),TITLE);
+		 assertNotNull(top.getCreator());
+		 assertNotNull(top.getTitle());
+		 assertNotNull(top.getHub());
+		 assertNotNull(top);
 	 }
 
 	
