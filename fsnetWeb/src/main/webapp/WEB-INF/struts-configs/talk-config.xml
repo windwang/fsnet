@@ -1,49 +1,25 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-	<form-beans>
-		<form-bean name="TalkActivate"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-		</form-bean>
-		<form-bean name="TalkReceive"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-		</form-bean>
-		<form-bean name="TalkSend"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-		</form-bean>
-	</form-beans>
+<struts>
 
-	<action-mappings>
-		<action path="/TalkMembersActivate" name="TalkActivate"
-			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
-			validate="false" parameter="activate">
-<!-- 			<forward name="success" path="/TalkMembersActivate" /> -->
-		</action>
-		<action path="/TalkMembersReceive" name="TalkReceive"
-			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
-			validate="false" parameter="receive">
-<!-- 			<forward name="success" path="/TalkMembersReceive" /> -->
-		</action>
-		<action path="/TalkMembersSend" name="TalkSend"
-			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
-			validate="false" parameter="send">
-<!-- 			<forward name="success" path="/TalkMembersReceive" /> -->
-		</action>
-		<action path="/TalkMembersGetTalks" name="TalkGetTalks"
-			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
-			validate="false" parameter="getTalks">
-		</action>
-		<action path="/TalkMembersGetTalk" name="TalkGetTalk"
-			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
-			validate="false" parameter="getTalk">
-		</action>
-		<action path="/TalkMembersCloseTalk" name="TalkCloseTalk"
-			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
-			validate="false" parameter="closeTalk">
-		</action>
+	<include file="struts-default.xml" />
 
-	</action-mappings>
-</struts-config>
+	<package name="talk" extends="struts-default">
+		<action name="TalkMembersActivate" class="fr.univartois.ili.fsnet.actions.TalkMembers"
+			method="activate" />
+		<action name="TalkMembersReceive" class="fr.univartois.ili.fsnet.actions.TalkMembers"
+			method="receive" />
+		<action name="TalkMembersSend" class="fr.univartois.ili.fsnet.actions.TalkMembers"
+			method="send" />
+		<action name="TalkMembersGetTalks" class="fr.univartois.ili.fsnet.actions.TalkMembers"
+			method="getTalks" />
+		<action name="TalkMembersGetTalk" class="fr.univartois.ili.fsnet.actions.TalkMembers"
+			method="getTalk" />
+		<action name="TalkMembersCloseTalk" class="fr.univartois.ili.fsnet.actions.TalkMembers"
+			method="closeTalk" />
+	</package>
+</struts>
+
