@@ -1,22 +1,16 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+   "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+   "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-	<form-beans>
-		
-	</form-beans>
-	<global-forwards>
+<struts>
+	<package name="visits" extends="struts-default">		
 
-	</global-forwards>
-	<action-mappings>
+			<action name="Visits" class="fr.univartois.ili.fsnet.actions.ManageVisits">
+				<param name="display">display</param>
+				<result name="success">/Visits</result>
+			</action>
 
-		<action path="/Visits" type="fr.univartois.ili.fsnet.actions.ManageVisits"
-			parameter="display">
-			<forward name="success" path="Visits" />
-		</action>
+		</package>
 
-	</action-mappings>
-
-</struts-config>
+</struts>
