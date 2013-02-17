@@ -1,167 +1,101 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+"http://struts.apache.org/dtds/struts-2.0.dtd ">
+<struts>
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-	<form-beans>
-		<form-bean name="CreateEventForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="eventName" type="java.lang.String" />
-			<form-property name="eventDescription" type="java.lang.String" />
-			<form-property name="eventBeginDate" type="java.lang.String" />
-			<form-property name="eventEndDate" type="java.lang.String" />
-			<form-property name="eventAddress" type="java.lang.String" />
-			<form-property name="eventCity" type="java.lang.String" />
-			<form-property name="selectedInterests" type="java.lang.String[]" />
-			<form-property name="eventId" type="java.lang.String" />
-			<form-property name="eventRecallTime" type="java.lang.String" />
-			<form-property name="eventRecallTypeTime" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="DisplayEventForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="eventId" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="UpdateEventForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="eventId" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="DeleteEventForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="eventId" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="SearchEventForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="searchString" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="SubscribeEventForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="eventId" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="UnsubscribeEventForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="eventId" type="java.lang.String" />
-		</form-bean>
-		<form-bean name="CalendarView"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-		</form-bean>
-		<form-bean name="importEventsForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="icsFile" type="org.apache.struts.upload.FormFile" />
-		</form-bean>
-		
-        <form-bean name="SearchDisplayEventsForm"
-                   type="org.apache.struts.validator.DynaValidatorActionForm">
-            <form-property name="eventsId" type="java.lang.String" />
-            <form-property name="selectedEvents" type="java.lang.String[]" />
-        </form-bean>
-		<form-bean name="ExportEventForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="eventId" type="java.lang.String" />
-		</form-bean>
-	</form-beans>
 
-	<action-mappings>
-		<action path="/CreateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			name="CreateEventForm" input="/DisplayCreateEvent.do" scope="request"
-			validate="true" parameter="create">
-			<forward name="success" path="/Events.do" />
-			<forward name="failed" path="/DisplayCreateEvent.do" />
-			<forward name="unauthorized" path="/Events.do" />
+	<include file="struts-default.xml" />
+	<package name="events-default" extends="struts-default">
+
+
+		<action name="CreateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="create">
+			<result name="success">/Events.do</result>
+			<result name="input">/DisplayCreateEvent.do</result>
+			<result name="error">/Events.do</result>
 		</action>
-		<action path="/DisplayCreateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			parameter="displayCreateEvent" validate="false">
-			<forward name="success" path="CreateEvent" />
-			<forward name="unauthorized" path="/Events.do" />
+		<action name="DisplayCreateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="displayCreateEvent">
+			<result name="success">CreateEvent</result>
+			<result name="error">/Events.do"</result>
 		</action>
 
-		<action path="/UpdateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			parameter="modify" input="UpdateEvent" scope="request"
-			validate="true" name="CreateEventForm">
-			<forward name="success" path="/Events.do" />
-			<forward name="failed" path="UpdateEvent" />
+		<action name="UpdateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="modify">
+			<result name="success">/Events.do</result>
+			<result name="input">UpdateEvent</result>
 		</action>
-		<action path="/DisplayUpdateEvent" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			name="CreateEventForm" validate="false" parameter="displayToModify"
-			scope="request">
-			<forward name="success" path="UpdateEvent" />
-			<forward name="failed" path="/Events.do" />
+		<action name="DisplayUpdateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="displayToModify">
+			<result name="success"> UpdateEvent	</result>
+			<result name="input">/Events.do	</result>
 		</action>
 
-		<action path="/Events" name="SearchEventForm"
-			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
-			scope="request" validate="false" parameter="search">
-			<forward name="success" path="Events" />
+		<action name="Events" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="search">
+			<result name="success">Events</result>
+			<result name="input">Events</result>
 		</action>
 
-		<action path="/DisplayEvent" name="DisplayEventForm"
-			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
-			scope="request" validate="true" parameter="display">
-			<forward name="success" path="DisplayEvent" />
-			<forward name="failed" path="/Events.do" />
+		<action name="DisplayEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="display">
+			<result name="success">DisplayEvent</result>
+			<result name="input">/Events.do</result>
 		</action>
 
-		<action path="/DeleteEvent" name="DeleteEventForm"
-			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
-			scope="request" validate="true" parameter="delete">
-			<forward name="success" path="/Events.do" />
-			<forward name="failed" path="/Events.do" />
+		<action name="DeleteEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="delete">
+			<result name="success">/Events.do</result>
+			<result name="input">/Events.do</result>
 		</action>
 
-		<action path="/SubscribeEvent" name="SubscribeEventForm"
-			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
-			scope="request" validate="true" parameter="subscribe">
-			<forward name="unauthorized" path="/Events.do" />
-			<forward name="success" path="/DisplayEvent.do" />
-			<forward name="failed" path="/Events.do" />
+		<action name="SubscribeEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="subscribe">
+			<result name="error">/Events.do</result>
+			<result name="success">/DisplayEvent.do</result>
+			<result name="input">/Events.do</result>
 		</action>
 
-		<action path="/UnsubscribeEvent" name="UnsubscribeEventForm"
-			type="fr.univartois.ili.fsnet.actions.ManageEvents" input="Events"
-			scope="request" validate="true" parameter="unsubscribe">
-			<forward name="unauthorized" path="/Events.do" />
-			<forward name="success" path="/DisplayEvent.do" />
-			<forward name="failed" path="/Events.do" />
+		<action name="UnsubscribeEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="unsubscribe">
+			<result name="error">/Events.do</result>
+			<result name="success">/DisplayEvent.do</result>
+			<result name="input">/Events.do</result>
 		</action>
 
-		<action path="/Calendar" name="CalendarView"
-			type="fr.univartois.ili.fsnet.actions.Calendar" scope="request"
-			validate="false">
-			<forward name="success" path="Calendar" />
-			<forward name="unauthorized" path="/Events.do" />
+		<action name="Calendar" class="fr.univartois.ili.fsnet.actions.Calendar">
+			<result name="success">Calendar</result>
+			<result name="error">/Events.do</result>
 		</action>
-		<action path="/DisplayImportEvents" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			parameter="displayImportEvents" validate="false">
-			<forward name="success" path="ImportEvents" />
-			<forward name="unauthorized" path="Events" />
+		<action name="DisplayImportEvents" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="displayImportEvents">
+			<result name="success">ImportEvents</result>
+			<result name="error">Events</result>
 		</action>
-		<action path="/importEventsFromFile" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			name="importEventsForm" input="/DisplayImportEvents.do" scope="request"
-			validate="false" parameter="importEventsFromFile">
-			<forward name="success" path="/Events.do" />
-			<forward name="unauthorized" path="/Events.do" />
-			<forward name="failed" path="/DisplayImportEvents.do" />
+		<action name="importEventsFromFile" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="importEventsFromFile">
+			<result name="success">/Events.do</result>
+			<result name="error">/Events.do</result>
+			<result name="input">/DisplayImportEvents.do</result>
 		</action>
 
-		<action path="/DeleteMultiEvents" name="SearchDisplayEventsForm"
-			type="fr.univartois.ili.fsnet.actions.ManageEvents" 
-			scope="request" validate="false" parameter="deleteMulti">
-			<forward name="success" path="/Events.do" />
-			<forward name="failed" path="/Events.do" />
+		<action name="DeleteMultiEvents" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="deleteMulti">
+			<result name="success">/Events.do</result>
+			<result name="input">/Events.do</result>
 		</action>
 
-		<action path="/ExportEventById" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			name="ExportEventForm" scope="request"
-			validate="false" parameter="exportEventById">
-			<forward name="success" path="/Events.do" />
-			<forward name="unauthorized" path="/Events.do" />
+		<action name="ExportEventById" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="exportEventById">
+			<result name="success">/Events.do</result>
+			<result name="error">/Events.do</result>
 		</action>
-		
-		<action path="/ExportAllEvents" type="fr.univartois.ili.fsnet.actions.ManageEvents"
-			name="ExportEventForm" scope="request"
-			validate="false" parameter="exportAllEvent">
-			<forward name="success" path="/Events.do" />
-			<forward name="unauthorized" path="/Events.do" />
+
+		<action name="ExportAllEvents" class="fr.univartois.ili.fsnet.actions.ManageEvents"
+			method="exportAllEvent">
+			<result name="success">/Events.do</result>
+			<result name="error">/Events.do</result>
 		</action>
-	</action-mappings>
-</struts-config>
+	</package>
+</struts>
