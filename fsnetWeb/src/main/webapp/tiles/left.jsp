@@ -1,17 +1,15 @@
-<%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <h2>
-	<bean:message key="dashboard.leftMenu.interations" />
+	<s:text name="dashboard.leftMenu.interations" />
 </h2>
 <ul>
-	<li><html:link action="/DisplayCreateAnnounce">
-			<bean:message key="announce.leftMenu.create" />
-		</html:link></li>
-	<li><html:link action="/DisplayCreateEvent">
-			<bean:message key="events.leftMenu.create" />
-		</html:link></li>
-	<li><html:link action="/Calendar">
-			<bean:message key="events.leftMenu.calendar" />
-		</html:link></li>
+	<li><s:url action="/DisplayCreateAnnounce">
+			<s:text name="announce.leftMenu.create" />
+		</s:url></li>
+	<li><s:url action="/DisplayCreateEvent">
+			<s:text name="events.leftMenu.create" />
+		</s:url></li>
+	<li><s:url action="/Calendar">
+			<s:text name="events.leftMenu.calendar" />
+		</s:url></li>
 </ul>
