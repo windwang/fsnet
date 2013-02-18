@@ -124,4 +124,32 @@ public class ProfileFacadeTest {
 		assertEquals(Encryption.getEncodedPassword(genaratePassword), totoSearch.getPassword());
 	}
 	
+	/**
+	 * Change password with null social entity
+	 */
+	@Test(expected=IllegalArgumentException.class)
+	public void changePasswordTestWithNullSocialEntity(){
+		assertEquals(Encryption.getEncodedPassword(genaratePassword),toto.getPassword());
+		pf.changePassword(null, genaratePassword, "totoPwd");
+	}
+	
+	/**
+	 * Change password with null old password
+	 */
+	@Test(expected=IllegalArgumentException.class)
+	public void changePasswordTestWithNullOldPassword(){
+		pf.changePassword(toto, null, "totoPwd");
+	}
+	
+	/**
+	 * Change password with null new password
+	 */
+	@Test(expected=IllegalArgumentException.class)
+	public void changePasswordTestWithNullNewPassword(){
+		assertEquals(Encryption.getEncodedPassword(genaratePassword),toto.getPassword());
+		pf.changePassword(toto, genaratePassword, null);
+	}
+	
+	
+	
 }
