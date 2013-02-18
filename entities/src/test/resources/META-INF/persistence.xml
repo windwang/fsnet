@@ -29,7 +29,6 @@
 		<class>fr.univartois.ili.fsnet.entities.ConsultationVote</class>
 		<class>fr.univartois.ili.fsnet.entities.SocialElement</class>
 		<class>fr.univartois.ili.fsnet.entities.SocialGroup</class>
-
 		<class>fr.univartois.ili.fsnet.entities.AssociationDateDegreeCV</class>
 		<class>fr.univartois.ili.fsnet.entities.AssociationDateFormationCV</class>
 		<class>fr.univartois.ili.fsnet.entities.AssociationDateTrainingCV</class>

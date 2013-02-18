@@ -214,5 +214,11 @@ public class TopicTest {
 		 assertNotNull(top);
 	 }
 
+	 @Test(expected=IllegalArgumentException.class)
+	 public void testCreateTopicConstructorWithNullField()
+	 {
+		 new Topic(null, null, null);
+	 }
+	 
 	
 }

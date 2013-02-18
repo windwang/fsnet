@@ -30,7 +30,6 @@ import javax.persistence.OneToMany;
 public class SocialGroup extends SocialElement implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
 
 	@ElementCollection(targetClass = Right.class)
 	@Enumerated(EnumType.STRING)
@@ -43,8 +42,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 	/**
 	 * the master of the group
 	 */
-	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE,
-			CascadeType.REFRESH })
+	@ManyToOne(cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
 	private SocialEntity masterGroup;
 
 	/**
@@ -66,7 +64,7 @@ public class SocialGroup extends SocialElement implements Serializable {
 	/**
 	 * The social group state
 	 */
-	private Boolean isEnabled;
+	private boolean isEnabled = true;
 
 	@Override
 	public boolean getIsEnabled() {
@@ -172,9 +170,24 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	public void setSocialElements(List<SocialElement> socialElements) {
+		if (this.socialElements != null) {
+			for (SocialElement socialElement : this.socialElements) {
+				socialElement.setGroup(null);
+			}
+		}
+		if (socialElements != null) {
+			for (SocialElement socialElement : socialElements) {
+				socialElement.setGroup(this);
+			}
+		}
+
+		this.socialElements = socialElements;
+	}
+
+	public void setSocialElements(List<SocialElement> socialElements, SocialGroup sg) {
 
 		for (SocialElement socialElement : this.socialElements) {
-			socialElement.setGroup(null);
+			socialElement.setGroup(sg);
 		}
 		for (SocialElement socialElement : socialElements) {
 			socialElement.setGroup(this);
@@ -183,18 +196,6 @@ public class SocialGroup extends SocialElement implements Serializable {
 		this.socialElements = socialElements;
 	}
 
-	
-	public void setSocialElements(List<SocialElement> socialElements, SocialGroup sg) {
-
-		for (SocialElement socialElement : this.socialElements) {
-			socialElement.setGroup(sg);
-		}
-		for (SocialElement socialElement : socialElements){
-			socialElement.setGroup(this);
-		}
-		
-		this.socialElements = socialElements;
-	}
 	public void addSocialElement(SocialElement socialElement) {
 		if (!this.socialElements.contains(socialElement)) {
 			socialElement.setGroup(this);
@@ -226,6 +227,8 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	public void setMasterGroup(SocialEntity masterGroup) {
+		if (masterGroup == null)
+			throw new IllegalArgumentException("MasterGroup cannot be null");
 		SocialGroup oldSocialGroup = masterGroup.getGroup();
 		if (!this.equals(oldSocialGroup) && oldSocialGroup != null) {
 			oldSocialGroup.removeSocialElement(masterGroup);
@@ -239,23 +242,23 @@ public class SocialGroup extends SocialElement implements Serializable {
 	}
 
 	public void setName(String name) {
-		this.name = name.contains("\"") ? name.replaceAll("\"", "&#34;") : name;
+		if (name == null)
+			this.name = null;
+		else
+			this.name = name.contains("\"") ? name.replaceAll("\"", "&#34;") : name;
 	}
 
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((description == null) ? 0 : description.hashCode());
-		result = prime * result
-				+ ((isEnabled == null) ? 0 : isEnabled.hashCode());
-		result = prime * result
-				+ ((masterGroup == null) ? 0 : masterGroup.hashCode());
+		result = prime * result + ((color == null) ? 0 : color.hashCode());
+		result = prime * result + ((description == null) ? 0 : description.hashCode());
+		result = prime * result + (isEnabled ? 1231 : 1237);
+		result = prime * result + ((masterGroup == null) ? 0 : masterGroup.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((rights == null) ? 0 : rights.hashCode());
-		result = prime * result
-				+ ((socialElements == null) ? 0 : socialElements.hashCode());
+		result = prime * result + ((socialElements == null) ? 0 : socialElements.hashCode());
 		return result;
 	}
 
@@ -278,18 +281,11 @@ public class SocialGroup extends SocialElement implements Serializable {
 		} else if (!description.equals(other.description)) {
 			return false;
 		}
-		if (isEnabled == null) {
-			if (other.isEnabled != null) {
-				return false;
-			}
-		} else if (!isEnabled.equals(other.isEnabled)) {
+
+		if (isEnabled != (other.isEnabled)) {
 			return false;
 		}
-		if (masterGroup == null) {
-			if (other.masterGroup != null) {
-				return false;
-			}
-		} else if (!masterGroup.equals(other.masterGroup)) {
+		if (!masterGroup.equals(other.masterGroup)) {
 			return false;
 		}
 		if (name == null) {

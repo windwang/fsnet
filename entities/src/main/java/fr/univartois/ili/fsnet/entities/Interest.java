@@ -46,7 +46,7 @@ public class Interest implements Serializable {
 	private Set<SocialEntity> entities = new HashSet<SocialEntity>();
 
 	@OneToMany(mappedBy = "parentInterest")
-	private Set<Interest> childrenInterests;
+	private Set<Interest> childrenInterests = new HashSet<>();
 
 	@ManyToOne
 	private Interest parentInterest;
