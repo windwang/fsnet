@@ -60,11 +60,55 @@ public class HubFacadeTest {
 	@Test
 	public void searchHubTest() {
 		em.getTransaction().begin();
-		hf.createHub(com, creator, "javahub1");
-		hf.createHub(com, creator, "c#hub1");
+		createHubs();
 		em.getTransaction().commit();
 		List<Hub> resultSearch = hf.searchHub("java");
 		assertEquals(1, resultSearch.size());
+	}
+	
+	
+	@Test
+	public void testSearchHubByName(){
+		em.getTransaction().begin();
+		createHubs();
+		Hub hub = hf.createHub(com, creator, "groovyhub1");
+		em.getTransaction().commit();
+		Hub result = hf.getHubByName("groovyhub1", com);
+		assertEquals(hub, result);
+	}
+	
+	@Test
+	public void testSearchHub(){
+		em.getTransaction().begin();
+		createHubs();
+		hf.createHub(com, creator, "scalahub1");
+		em.getTransaction().commit();
+		List<Hub> resultSearch = hf.searchHub("scala", com);
+		assertEquals(1, resultSearch.size());
+	}
+	
+	@Test
+	public void testGetHubById(){
+		em.getTransaction().begin();
+		createHubs();
+		Hub hub = hf.createHub(com, creator, "groovyhub1");
+		em.getTransaction().commit();
+		Hub result = hf.getHubById(hub.getId(), com);
+		assertEquals(hub, result);
+	
+	}
+	
+	@Test
+	public void testModifyName(){
+		Hub hub = hf.createHub(com, creator, "groovyhub1");
+		hf.modifyName("scalahub1", hub);
+		assertEquals("scalahub1",hub.getTitle());
+	}
+	
+
+	private void createHubs() {
+		hf.createHub(com, creator, "javahub1");
+		hf.createHub(com, creator, "c#hub1");
 	}
 
 	@Test
@@ -84,6 +128,7 @@ public class HubFacadeTest {
 		assertEquals(0, resultSearch.size());
 	}
 	
+
 	@Test(expected=UnauthorizedOperationException.class)
 	public void deleteHubTest2() {
 		em.getTransaction().begin();
@@ -91,5 +136,55 @@ public class HubFacadeTest {
 		Hub deletedHub = hf.createHub(com, creator, "deletedHub");
 		interactionFacade.deleteInteraction(socialEntity, deletedHub);
 		em.getTransaction().commit();
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testCreateException(){
+		hf.createHub(com, null, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testCreateException2(){
+		hf.createHub(com, creator, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSearchExcpetion(){
+		hf.searchHub(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetHubByNameException(){
+		hf.getHubByName(null,null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetHubByNameException2(){
+		hf.getHubByName("nameHub",null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetHubByIdException(){
+		hf.getHubById(null,null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetHubByIdException2(){
+		hf.getHubById(1,null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSearchHubException(){
+		hf.searchHub(null, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSearchHubException2(){
+		hf.searchHub("pattern", null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyNameNullException(){
+		hf.modifyName(null, null);
 	}
 }
