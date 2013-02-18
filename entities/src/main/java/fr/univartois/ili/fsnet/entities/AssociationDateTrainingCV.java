@@ -94,13 +94,6 @@ public class AssociationDateTrainingCV implements Serializable {
 	}
 
 	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	/**
 	 * @return the idCurriculum
 	 */
 	public Curriculum getCurriculum() {

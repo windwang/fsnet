@@ -11,12 +11,6 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
-/*
- * Author : Yoann VASSEUR
- * 
- * 
- */
-
 @Entity
 public class DegreeCV implements Serializable {
 
@@ -93,13 +87,6 @@ public class DegreeCV implements Serializable {
 	 */
 	public void setEts(EstablishmentCV ets) {
 		this.ets = ets;
-	}
-
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
 	}
 
 	/**
