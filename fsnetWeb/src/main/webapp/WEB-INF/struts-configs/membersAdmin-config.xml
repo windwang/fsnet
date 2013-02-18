@@ -57,7 +57,8 @@
 			<result name="success">Members</result>
 		</action>
 
-		<action name="/MemberList"
+
+		<action name="/MemberList" 
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="search">
 			<result name="success">MemberList</result>
 		</action>
