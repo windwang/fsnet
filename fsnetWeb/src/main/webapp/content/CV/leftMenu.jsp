@@ -1,15 +1,13 @@
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <h2>
-	<bean:message key="cv.leftMenu.my" />
+	<s:text name="cv.leftMenu.my" />
 </h2>
 
 <ul>
-	<li><html:link action="/CreateCv1">
-			<bean:message key="profile.leftMenu.createCV" />
-		</html:link></li>
-	<li><html:link action="/DisplayCV">
-			<bean:message key="profile.leftMenu.myCV" />
-		</html:link></li>
+	<li><s:url action="/CreateCv1">
+			<s:text name="profile.leftMenu.createCV" />
+		</s:url></li>
+	<li><s:url action="/DisplayCV">
+			<s:text name="profile.leftMenu.myCV" />
+		</s:url></li>
 </ul>

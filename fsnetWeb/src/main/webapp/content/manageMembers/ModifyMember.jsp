@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <html:javascript formName="/ModifyMember" />
@@ -12,46 +11,43 @@
 
 <fieldset class="fieldsetCadre">
 	<legend >
-		<bean:message key="members.modify" />
+		<s:text name="members.modify" />
 	</legend>
 
-	<html:form action="/ModifyMember">
+	<s:form action="/ModifyMember">
 		<table id="ModifyMember" class="inLineTable tableStyle">
 			<tr>
-				<td><label for="name"> <bean:message key="members.name" />
-				</label> <html:hidden property="id" /></td>
-				<td><html:text property="name" styleId="name"
+				<td><label for="name"> <s:text name="members.name" />
+				</label> <s:hidden property="id" /></td>
+				<td><s:textfield property="name" styleId="name"
 						errorStyleClass="error" />
 					<div class="errorMessage">
-						<html:errors property="name" />
+						<s:fielderror property="name" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="firstName"> <bean:message
-							key="members.firstName" />
+				<td><label for="firstName"> <s:text name="members.firstName" />
 				</label></td>
-				<td><html:text property="firstName" styleId="firstName"
+				<td><s:textfield property="firstName" styleId="firstName"
 						errorStyleClass="error" />
 					<div class="errorMessage">
-						<html:errors property="firstName" />
+						<s:fielderror property="firstName" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="email"> <bean:message
-							key="members.email" />
+				<td><label for="email"> <s:text name="members.email" />
 				</label></td>
-				<td><html:text property="email" styleId="email"
+				<td><s:textfield property="email" styleId="email"
 						errorStyleClass="error" />
 					<div class="errorMessage">
-						<html:errors property="email" />
+						<s:fielderror property="email" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="parentId"> <bean:message
-							key="groups.parent" />
+				<td><label for="parentId"> <s:text name="groups.parent" />
 				</label></td>
 				<c:choose>
 					<c:when test="${ master == false }">
@@ -64,98 +60,95 @@
 								</c:forEach>
 							</html:select>
 							<div class="errorMessage">
-								<html:errors property="parentId" />
+								<s:fielderror property="parentId" />
 							</div></td>
 					</c:when>
 					<c:otherwise>
-						<td colspan="3"><html:hidden property="parentId"
-								styleClass="select" value="${ sessionScope.group.id }" /> ${
-							sessionScope.group.name } <bean:message key="members.masterGroup" /></td>
+						<td colspan="3"><s:hidden property="parentId"
+								styleClass="select" value="%{ sessionScope.group.id }" /> ${
+							sessionScope.group.name } <s:text name="members.masterGroup" /></td>
 					</c:otherwise>
 				</c:choose>
 			</tr>
 
 			<tr>
-				<td><label for="address"> <bean:message
-							key="members.address" />
+				<td><label for="address"> <s:text name="members.address" />
 				</label></td>
-				<td><html:textarea errorStyleClass="error" property="address"
+				<td><html:textfieldarea errorStyleClass="error" property="address"
 						styleId="address" /></td>
 			</tr>
 
 			<tr>
-				<td><label for="city"> <bean:message key="members.city" />
+				<td><label for="city"> <s:text name="members.city" />
 				</label></td>
-				<td><html:text errorStyleClass="error" property="city"
+				<td><s:textfield errorStyleClass="error" property="city"
 						styleId="city" />
 					<div class="errorMessage">
-						<html:errors property="city" />
+						<s:fielderror property="city" />
 					</div></td>
 			</tr>
 
 			<c:set var="formatBirthDay">
-				<bean:write name="ModifyMemberForm" property="birthDay"
+				<s:property value="ModifyMemberForm" property="birthDay"
 					format="dd/MM/yyyy" />
 			</c:set>
 			<tr>
-				<td><label for="birthDay"> <bean:message
-							key="members.birthDay" />
+				<td><label for="birthDay"> <s:text name="members.birthDay" />
 				</label></td>
-				<td><html:text errorStyleClass="error" styleId="birthDay"
-						property="formatBirthDay" value="${formatBirthDay}">
-					</html:text></td>
+				<td><s:textfield errorStyleClass="error" styleId="birthDay"
+						property="formatBirthDay" value="%{formatBirthDay}">
+					</s:textfield></td>
 			</tr>
 
 			<tr>
-				<td><label for="sexe"> <bean:message key="members.sexe" />
+				<td><label for="sexe"> <s:text name="members.sexe" />
 				</label></td>
 				<td><html:select property="sexe" styleId="sexe">
 						<html:option value="" />
 						<html:option value="male">
-							<bean:message key="members.sexe.Male" />
+							<s:text name="members.sexe.Male" />
 						</html:option>
 						<html:option value="female">
-							<bean:message key="members.sexe.Female" />
+							<s:text name="members.sexe.Female" />
 						</html:option>
 					</html:select>
 					<div class="errorMessage">
-						<html:errors property="sexe" />
+						<s:fielderror property="sexe" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="job"> <bean:message key="members.job" />
+				<td><label for="job"> <s:text name="members.job" />
 				</label></td>
-				<td><html:text errorStyleClass="error" property="job"
+				<td><s:textfield errorStyleClass="error" property="job"
 						styleId="job" />
 					<div class="errorMessage">
-						<html:errors property="job" />
+						<s:fielderror property="job" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="phone"> <bean:message
-							key="members.phone" />
+				<td><label for="phone"> <s:text name="members.phone" />
 				</label></td>
-				<td><html:text errorStyleClass="error" property="phone"
+				<td><s:textfield errorStyleClass="error" property="phone"
 						styleId="phone" />
 					<div class="errorMessage">
-						<html:errors property="phone" />
+						<s:fielderror property="phone" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button">
-						<bean:message key="members.modifyUpdate" />
-					</html:submit></td>
+				<td colspan="2" class="tableButton"><s:submit styleClass="button">
+						<s:text name="members.modifyUpdate" />
+					</s:submit></td>
 			</tr>
 		</table>
-	</html:form>
+	</s:form>
 </fieldset>
 
 <fieldset class="fieldsetCadre">
 	<legend >
-		<bean:message key="members.herInterests" />
+		<s:text name="members.herInterests" />
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -165,22 +158,22 @@
 						<div class="cloud">
 							<c:forEach var="interest"
 								items="${requestScope.interestsMemberPaginator.resultList}">
-								<span class="tag"> <html:link
+								<span class="tag"> <s:url
 										action="DeleteInterestMember">
-										<html:param name="interestSelected" value="${interest.id}" />
-										<html:param name="idMember" value="${id}" />
+										<s:param name="interestSelected" value="%{interest.id}" />
+										<s:param name="idMember" value="%{id}" />
 										<img src="images/mini-delete.png" alt="delete" />
-									</html:link> <html:link action="/InterestInformations">
-										<html:param name="infoInterestId" value="${interest.id}" />
+									</s:url> <s:url action="/InterestInformations">
+										<s:param name="infoInterestId" value="%{interest.id}" />
                             ${interest.name}
-                        </html:link>
+                        </s:url>
 								</span>
 							</c:forEach>
 						</div>
 						<div style="clear: both;"></div>
 					</c:when>
 					<c:otherwise>
-						<bean:message key="interests.none" />
+						<s:text name="interests.none" />
 					</c:otherwise>
 				</c:choose></td>
 		</tr>

@@ -1,24 +1,22 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<html:form action="/CreateCv3">
+<s:form action="/CreateCv3">
 	<div class="en_cv">
 		<fieldset class="fieldsetCadre">
-			<legend >
-				<bean:message key="cv.title.experiences" />
+			<legend>
+				<s:text name="cv.title.experiences" />
 			</legend>
 
-			<table id="experiences" class="listeExperience inLineTable   tableStyle"></table>
+			<table id="experiences"
+				class="listeExperience inLineTable   tableStyle"></table>
 
 			<div class="addExpTable">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td colspan="2"><a><span class="addExp"><bean:message
-										key="cv.button.addExperience" /></span></a></td>
+						<td colspan="2"><a><span class="addExp"><s:text name="cv.button.addExperience" /></span></a></td>
 
 					</tr>
 				</table>
@@ -27,68 +25,55 @@
 			<div class="corp_experience">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td><label for="cvExpJob">*<bean:message
-									key="cv.form.exp.job" /></label></td>
-						<td><html:text property="cvExpJob" styleId="cvExpJob"
-								errorStyleClass="error" /> <span class="CvExpJobError errorCV"><bean:message
-									key="error.CvPoste" /></span></td>
+						<td><label for="cvExpJob">*<s:text name="cv.form.exp.job" /></label></td>
+						<td><s:textfield property="cvExpJob" styleId="cvExpJob"
+								errorStyleClass="error" /> <span class="CvExpJobError errorCV"><s:text name="error.CvPoste" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvExpFirmName">*<bean:message
-									key="cv.form.exp.firm" /></label></td>
-						<td><html:text property="cvExpFirmName"
+						<td><label for="cvExpFirmName">*<s:text name="cv.form.exp.firm" /></label></td>
+						<td><s:textfield property="cvExpFirmName"
 								styleId="cvExpFirmName" errorStyleClass="error" /> <span
-							class="CvExpFirmNameError errorCV"><bean:message
-									key="error.NomEntreprise" /></span></td>
+							class="CvExpFirmNameError errorCV"><s:text name="error.NomEntreprise" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvExpDomain">*<bean:message
-									key="cv.form.exp.domain" /></label></td>
-						<td><html:text property="cvExpDomain" styleId="cvExpDomain"
+						<td><label for="cvExpDomain">*<s:text name="cv.form.exp.domain" /></label></td>
+						<td><s:textfield property="cvExpDomain" styleId="cvExpDomain"
 								errorStyleClass="error" /> <span
-							class="CvExpDomainError errorCV"><bean:message
-									key="error.CvSecteur" /></span></td>
+							class="CvExpDomainError errorCV"><s:text name="error.CvSecteur" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvExpCountry"><bean:message
-									key="cv.form.country" /></label></td>
-						<td><html:text property="cvExpCountry" styleId="cvExpCountry"
+						<td><label for="cvExpCountry"><s:text name="cv.form.country" /></label></td>
+						<td><s:textfield property="cvExpCountry" styleId="cvExpCountry"
 								errorStyleClass="error" /></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvExpCity"><bean:message
-									key="cv.form.city" /></label></td>
-						<td><html:text property="cvExpCity" styleId="cvExpCity"
+						<td><label for="cvExpCity"><s:text name="cv.form.city" /></label></td>
+						<td><s:textfield property="cvExpCity" styleId="cvExpCity"
 								errorStyleClass="error" /></td>
 					</tr>
 
 					<tr>
-						<td><label for=cvExpBeginDate><bean:message
-									key="cv.form.dateBegin" />*</label></td>
-						<td><html:text property="cvExpBeginDate"
+						<td><label for=cvExpBeginDate><s:text name="cv.form.dateBegin" />*</label></td>
+						<td><s:textfield property="cvExpBeginDate"
 								styleId="cvExpBeginDate" errorStyleClass="error" /><span
-							class="CvExpBeginDateError errorCV"><bean:message
-									key="error.expBeginDate" /></span></td>
+							class="CvExpBeginDateError errorCV"><s:text name="error.expBeginDate" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvExpEndDate">*<bean:message
-									key="cv.form.dateEnd" /></label></td>
-						<td><html:text property="cvExpEndDate" styleId="cvExpEndDate"
+						<td><label for="cvExpEndDate">*<s:text name="cv.form.dateEnd" /></label></td>
+						<td><s:textfield property="cvExpEndDate" styleId="cvExpEndDate"
 								errorStyleClass="error" /> <span
-							class="CvExpEndDateError errorCV"><bean:message
-									key="error.expEndDate" /></span></td>
+							class="CvExpEndDateError errorCV"><s:text name="error.expEndDate" /></span></td>
 					</tr>
 
 					<tr>
 						<td colspan="2" class="tableButton"><a><span
-								class="annuleExp"><bean:message key="cv.button.cancel" /></span></a>
-							| <a><span class="SaveExp"><bean:message
-										key="cv.button.save" /></span></a></td>
+								class="annuleExp"><s:text name="cv.button.cancel" /></span></a> | <a><span
+								class="SaveExp"><s:text name="cv.button.save" /></span></a></td>
 					</tr>
 				</table>
 			</div>
@@ -99,17 +84,16 @@
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
 				<legend>
-					<bean:message key="cv.title.degree" />
+					<s:text name="cv.title.degree" />
 				</legend>
 			</div>
 
 			<table id="diplome" class="listeDiplome inLineTable   tableStyle"></table>
-			
+
 			<div class="addDiplTable">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td colspan="2"><a><span class="addDip"><bean:message
-										key="cv.button.addDegree" /></span></a></td>
+						<td colspan="2"><a><span class="addDip"><s:text name="cv.button.addDegree" /></span></a></td>
 
 					</tr>
 				</table>
@@ -118,9 +102,8 @@
 			<div class="corp_diplome">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td><label for="cvDegreeName">*<bean:message
-									key="cv.form.degree.level" /></label></td>
-						<!--<td><html:text property="cvDegreeName" styleId="cvDegreeName"
+						<td><label for="cvDegreeName">*<s:text name="cv.form.degree.level" /></label></td>
+						<!--<td><s:textfield property="cvDegreeName" styleId="cvDegreeName"
 								errorStyleClass="error" /><span class="CvDegreeNameError errorCV"><bean:message
 									key="error.CvEtude" /></span></td>-->
 						<td><select name="cvDegreeName" id="cvDegreeName">
@@ -138,65 +121,53 @@
 								<option value="+10">+10</option>
 								<option value="+11">+11</option>
 								<option value="+12">+12</option>
-						</select><span class="CvDegreeNameError errorCV"> <bean:message
-									key="error.CvEtude" /></span></td>
+						</select><span class="CvDegreeNameError errorCV"> <s:text name="error.CvEtude" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvDegreeDomain">*<bean:message
-									key="cv.form.degree.domain" /></label></td>
-						<td><html:text property="cvDegreeDomain"
+						<td><label for="cvDegreeDomain">*<s:text name="cv.form.degree.domain" /></label></td>
+						<td><s:textfield property="cvDegreeDomain"
 								styleId="cvDegreeDomain" errorStyleClass="error" /> <span
-							class="CvDegreeDomainError errorCV"><bean:message
-									key="error.CvEtudeDom" /></span></td>
+							class="CvDegreeDomainError errorCV"><s:text name="error.CvEtudeDom" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvDegreeSchool">*<bean:message
-									key="cv.form.school" /></label></td>
-						<td><html:text property="cvDegreeSchool"
+						<td><label for="cvDegreeSchool">*<s:text name="cv.form.school" /></label></td>
+						<td><s:textfield property="cvDegreeSchool"
 								styleId="cvDegreeSchool" errorStyleClass="error" /> <span
-							class="CvDegreeSchoolError errorCV"><bean:message
-									key="error.CvEtablissment" /></span></td>
+							class="CvDegreeSchoolError errorCV"><s:text name="error.CvEtablissment" /></span></td>
 					</tr>
 					<tr>
-						<td><label for="cvDegreeCountry"><bean:message
-									key="cv.form.country" /></label></td>
-						<td><html:text property="cvDegreeCountry"
+						<td><label for="cvDegreeCountry"><s:text name="cv.form.country" /></label></td>
+						<td><s:textfield property="cvDegreeCountry"
 								styleId="cvDegreeCountry" errorStyleClass="error" /></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvDegreeCity"><bean:message
-									key="cv.form.city" /></label></td>
-						<td><html:text property="cvDegreeCity" styleId="cvDegreeCity"
+						<td><label for="cvDegreeCity"><s:text name="cv.form.city" /></label></td>
+						<td><s:textfield property="cvDegreeCity" styleId="cvDegreeCity"
 								errorStyleClass="error" /></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvDegreeBeginDate">*<bean:message
-									key="cv.form.dateBegin" />
+						<td><label for="cvDegreeBeginDate">*<s:text name="cv.form.dateBegin" />
 						</label></td>
-						<td><html:text property="cvDegreeBeginDate"
+						<td><s:textfield property="cvDegreeBeginDate"
 								styleId="cvDegreeBeginDate" errorStyleClass="error" /> <span
-							class="CvDegreeBeginDateError errorCV"><bean:message
-									key="error.etudBeginDate" /></span></td>
+							class="CvDegreeBeginDateError errorCV"><s:text name="error.etudBeginDate" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvDegreeEndDate">*<bean:message
-									key="cv.form.dateEnd" /></label></td>
-						<td><html:text property="cvDegreeEndDate"
+						<td><label for="cvDegreeEndDate">*<s:text name="cv.form.dateEnd" /></label></td>
+						<td><s:textfield property="cvDegreeEndDate"
 								styleId="cvDegreeEndDate" errorStyleClass="error" /> <span
-							class="CvDegreeEndDateError errorCV"><bean:message
-									key="error.etudEndDate" /></span></td>
+							class="CvDegreeEndDateError errorCV"><s:text name="error.etudEndDate" /></span></td>
 					</tr>
 
 					<tr>
 						<td colspan="2" class="tableButton"><a><span
-								class="annuleDip"><bean:message key="cv.button.cancel" /></span></a>
-							| <a><span class="SaveDip"><bean:message
-										key="cv.button.save" /> </span></a></td>
+								class="annuleDip"><s:text name="cv.button.cancel" /></span></a> | <a><span
+								class="SaveDip"><s:text name="cv.button.save" /> </span></a></td>
 					</tr>
 				</table>
 			</div>
@@ -207,17 +178,16 @@
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
 				<legend>
-					<bean:message key="cv.title.formation" />
+					<s:text name="cv.title.formation" />
 				</legend>
 			</div>
 
 			<table id="formation" class="listeFormation inLineTable   tableStyle"></table>
-			
+
 			<div class="addFormTable">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td colspan="2"><a><span class="addForm"><bean:message
-										key="cv.button.addFormation" /></span></a></td>
+						<td colspan="2"><a><span class="addForm"><s:text name="cv.button.addFormation" /></span></a></td>
 
 					</tr>
 				</table>
@@ -226,52 +196,49 @@
 			<div class="corp_formation">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td><label for="cvTrainingName">*<bean:message
-									key="cv.form.training.name" /></label></td>
-						<td><html:text property="cvTrainingName"
+						<td><label for="cvTrainingName">*<s:text name="cv.form.training.name" /></label></td>
+						<td><s:textfield property="cvTrainingName"
 								styleId="cvTrainingName" errorStyleClass="error" /> <span
-							class="CvTrainingNameError errorCV"><bean:message
-									key="error.CvFormation" /></span></td>
+							class="CvTrainingNameError errorCV"><s:text name="error.CvFormation" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvTrainingInstitution">*<bean:message
-									key="cv.form.school" /></label></td>
-						<td><html:text property="cvTrainingInstitution"
+						<td><label for="cvTrainingInstitution">*<s:text name="cv.form.school" /></label></td>
+						<td><s:textfield property="cvTrainingInstitution"
 								styleId="cvTrainingInstitution" errorStyleClass="error" /> <span
-							class="CvTrainingInstitutionError errorCV"><bean:message
-									key="error.CvEtablissmentform" /></span></td>
+							class="CvTrainingInstitutionError errorCV"><s:text
+									name="error.CvEtablissmentform" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvTrainingCountry"><bean:message
-									key="cv.form.country" /></label></td>
-						<td><html:text property="cvTrainingCountry"
+						<td><label for="cvTrainingCountry"><s:text
+									name="cv.form.country" /></label></td>
+						<td><s:textfield property="cvTrainingCountry"
 								styleId="cvTrainingCountry" errorStyleClass="error" /></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvTrainingCity"><bean:message
-									key="cv.form.city" /></label></td>
-						<td><html:text property="cvTrainingCity"
+						<td><label for="cvTrainingCity"><s:text
+									name="cv.form.city" /></label></td>
+						<td><s:textfield property="cvTrainingCity"
 								styleId="cvTrainingCity" errorStyleClass="error" /></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvTrainingObtainingDate">*<bean:message
-									key="cv.form.training.dateObtaining" />
+						<td><label for="cvTrainingObtainingDate">*<s:text
+									name="cv.form.training.dateObtaining" />
 						</label></td>
-						<td><html:text property="cvTrainingObtainingDate"
+						<td><s:textfield property="cvTrainingObtainingDate"
 								styleId="cvTrainingObtainingDate" errorStyleClass="error" /> <span
-							class="CvTrainingObtainingDateError errorCV"><bean:message
-									key="error.DateObtention" /></span></td>
+							class="CvTrainingObtainingDateError errorCV"><s:text
+									name="error.DateObtention" /></span></td>
 					</tr>
 
 					<tr>
 						<td colspan="2" class="tableButton"><a><span
-								class="annuleForm"><bean:message key="cv.button.cancel" /></span></a>
-							| <a><span class="SaveForm"><bean:message
-										key="cv.button.save" /> </span></a></td>
+								class="annuleForm"><s:text name="cv.button.cancel" /></span></a> |
+							<a><span class="SaveForm"><s:text
+										name="cv.button.save" /> </span></a></td>
 					</tr>
 				</table>
 			</div>
@@ -282,7 +249,7 @@
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
 				<legend>
-					<bean:message key="cv.title.hobbies" />
+					<s:text name="cv.title.hobbies" />
 				</legend>
 			</div>
 
@@ -291,8 +258,8 @@
 			<div class="addLoisirTable">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td colspan="2"><a><span class="addLoisir"><bean:message
-										key="cv.button.addHobby" /> </span> </a></td>
+						<td colspan="2"><a><span class="addLoisir"><s:text
+										name="cv.button.addHobby" /> </span> </a></td>
 
 					</tr>
 				</table>
@@ -301,19 +268,19 @@
 			<div class="corp_loisir">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td><label for="cvHobbyName">*<bean:message
-									key="cv.form.hobby.name" /></label></td>
-						<td><html:text property="cvHobbyName" styleId="cvHobbyName"
+						<td><label for="cvHobbyName">*<s:text
+									name="cv.form.hobby.name" /></label></td>
+						<td><s:textfield property="cvHobbyName" styleId="cvHobbyName"
 								errorStyleClass="error" /> <span
-							class="CvHobbyNameError errorCV"><bean:message
-									key="error.CvNomLoisir" /></span></td>
+							class="CvHobbyNameError errorCV"><s:text
+									name="error.CvNomLoisir" /></span></td>
 					</tr>
 
 					<tr>
 						<td colspan="2" class="tableButton"><a><span
-								class="annuleLoisir"><bean:message key="cv.button.cancel" /></span></a>
-							| <a><span class="SaveLoisir"><bean:message
-										key="cv.button.save" /> </span></a></td>
+								class="annuleLoisir"><s:text name="cv.button.cancel" /></span></a>
+							| <a><span class="SaveLoisir"><s:text
+										name="cv.button.save" /> </span></a></td>
 					</tr>
 				</table>
 			</div>
@@ -324,7 +291,7 @@
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
 				<legend>
-					<bean:message key="cv.title.languages" />
+					<s:text name="cv.title.languages" />
 				</legend>
 			</div>
 
@@ -333,8 +300,8 @@
 			<div class="addLangueTable">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td colspan="2"><a><span class="addLangue"><bean:message
-										key="cv.button.addLanguage" /></span></a></td>
+						<td colspan="2"><a><span class="addLangue"><s:text
+										name="cv.button.addLanguage" /></span></a></td>
 
 					</tr>
 				</table>
@@ -343,47 +310,47 @@
 			<div class="corp_langue">
 				<table class="inLineTable   tableStyle">
 					<tr>
-						<td><label for="cvLangName">*<bean:message
-									key="cv.form.lang.name" /></label></td>
+						<td><label for="cvLangName">*<s:text
+									name="cv.form.lang.name" /></label></td>
 						<td><input type="text" name="cvLangName" id="cvLangName" />
-							<span class="CvLangNameError errorCV"><bean:message
-									key="error.CVLangue" /></span></td>
+							<span class="CvLangNameError errorCV"><s:text
+									name="error.CVLangue" /></span></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvLangLevel">*<bean:message
-									key="cv.form.lang.level" /></label></td>
+						<td><label for="cvLangLevel">*<s:text
+									name="cv.form.lang.level" /></label></td>
 						<td><select name="cvLangLevel" id="cvLangLevel">
-								<option value="<bean:message key="cv.form.lang.level0" />"
+								<option value="<s:text name="cv.form.lang.level0" />"
 									selected="selected">
-									<bean:message key="cv.form.lang.level0" />
+									<s:text name="cv.form.lang.level0" />
 								</option>
-								<option value="<bean:message key="cv.form.lang.level1"/>">
-									<bean:message key="cv.form.lang.level1" />
+								<option value="<s:text name="cv.form.lang.level1"/>">
+									<s:text name="cv.form.lang.level1" />
 								</option>
-								<option value="<bean:message key="cv.form.lang.level2"/>">
-									<bean:message key="cv.form.lang.level2" />
+								<option value="<s:text name="cv.form.lang.level2"/>">
+									<s:text name="cv.form.lang.level2" />
 								</option>
-								<option value="<bean:message key="cv.form.lang.level3"/>">
-									<bean:message key="cv.form.lang.level3" />
+								<option value="<s:text name="cv.form.lang.level3"/>">
+									<s:text name="cv.form.lang.level3" />
 								</option>
 						</select></td>
 					</tr>
 					<tr>
 						<td colspan="2" class="tableButton"><a><span
-								class="annuleLangue"><bean:message key="cv.button.cancel" /></span></a>
-							| <a><span class="SaveLangue"><bean:message
-										key="cv.button.save" /></span></a></td>
+								class="annuleLangue"><s:text name="cv.button.cancel" /></span></a>
+							| <a><span class="SaveLangue"><s:text
+										name="cv.button.save" /></span></a></td>
 					</tr>
 				</table>
 			</div>
 		</fieldset>
 	</div>
 
-	<html:submit styleId="envoi" styleClass="btn btn-inverse" >
-		<bean:message key="cv.button.create" />
-	</html:submit>
-</html:form>
+	<s:submit styleId="envoi" styleClass="btn btn-inverse">
+		<s:text name="cv.button.create" />
+	</s:submit>
+</s:form>
 
 <script type="text/javascript" src="js/cv.js"></script>
 <script type="text/javascript">
@@ -403,4 +370,6 @@
 		$("#cvDegreeEndDate").datepicker();
 		$("#cvTrainingObtainingDate").datepicker();
 	});
+
+	
 </script>

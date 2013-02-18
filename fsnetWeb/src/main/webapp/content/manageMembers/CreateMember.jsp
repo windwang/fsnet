@@ -1,8 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <link rel=stylesheet type="text/css" href="css/osx.css" />
@@ -12,46 +9,43 @@
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="members.create" />
+		<s:text name="members.create" />
 	</legend>
 	<table id="CreateMember" class="inLineTable fieldsetTableAppli">
-		<html:form action="/CreateMember">
+		<s:form action="/CreateMember">
 
 			<tr>
-				<td><label for="name"> <bean:message key="members.name" />
+				<td><label for="name"> <s:text name="members.name" />
 				</label></td>
-				<td><html:text property="name" styleId="name"
+				<td><s:textfield property="name" styleId="name"
 						errorStyleClass="error" />
 					<div class="errorMessage">
-						<html:errors property="name" />
+						<s:fielderror property="name" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="firstName"> <bean:message
-							key="members.firstName" />
+				<td><label for="firstName"> <s:text name="members.firstName" />
 				</label></td>
-				<td><html:text property="firstName" styleId="firstName"
+				<td><s:textfield property="firstName" styleId="firstName"
 						errorStyleClass="error" />
 					<div class="errorMessage">
-						<html:errors property="firstName" />
+						<s:fielderror property="firstName" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="email"> <bean:message
-							key="members.email" />
+				<td><label for="email"> <s:text name="members.email" />
 				</label></td>
-				<td><html:text property="email" styleId="email"
+				<td><s:textfield property="email" styleId="email"
 						errorStyleClass="error" />
 					<div class="errorMessage">
-						<html:errors property="email" />
+						<s:fielderror property="email" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="parentId"> <bean:message
-							key="members.group" />
+				<td><label for="parentId"> <s:text name="members.group" />
 				</label></td>
 				<td colspan="3"><html:select property="parentId"
 						styleClass="select" styleId="parentId">
@@ -61,48 +55,44 @@
 						</c:forEach>
 					</html:select>
 					<div class="errorMessage">
-						<html:errors property="parentId" />
+						<s:fielderror property="parentId" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td><label for="typePassword1"> <bean:message
-							key="members.generatePassword" />
+				<td><label for="typePassword1"> <s:text name="members.generatePassword" />
 				</label></td>
 				<td><html:radio property="typePassword" styleId="typePassword1"
 						value="generatePassword" onclick="definePasword()" /></td>
 			</tr>
 
 			<tr>
-				<td><label for="typePassword2"> <bean:message
-							key="members.definePassword" />
+				<td><label for="typePassword2"> <s:text name="members.definePassword" />
 				</label></td>
 				<td><html:radio property="typePassword" styleId="typePassword2"
 						value="definePassword" onclick="definePasword()" /></td>
 			</tr>
 			<tr>
-				<td><label for="password"> <bean:message
-							key="members.password" />
+				<td><label for="password"> <s:text name="members.password" />
 				</label></td>
-				<td><html:password property="password" styleId="password"
+				<td><s:password property="password" styleId="password"
 						errorStyleClass="error" />
 					<div class="errorMessage">
-						<html:errors property="password" />
+						<s:fielderror property="password" />
 					</div></td>
 			</tr>
 			<tr>
-				<td><label for="passwordConfirmation"> <bean:message
-							key="members.passwordConfirmation" />
+				<td><label for="passwordConfirmation"> <s:text name="members.passwordConfirmation" />
 				</label></td>
-				<td><html:password property="passwordConfirmation"
+				<td><s:password property="passwordConfirmation"
 						styleId="passwordConfirmation" errorStyleClass="error" />
 					<div class="errorMessage">
-						<html:errors property="passwordConfirmation" />
+						<s:fielderror property="passwordConfirmation" />
 					</div></td>
 			</tr>
 
 			<%@ include file="SamePartForMember.jsp"%>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
 
