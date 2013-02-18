@@ -229,10 +229,6 @@ public class InterestFacade {
      */
     public final List<Interest> getNonAssociatedInterests(SocialEntity entity) {
         TypedQuery<Interest> query = em.createQuery(
-/*                "SELECT DISTINCT interest "
-                + "FROM Interest interest, SocialEntity entity "
-                + "WHERE entity = :entity AND entity NOT MEMBER OF interest.entities "
-                + "ORDER BY interest.name", Interest.class);*/
         		
         		"SELECT DISTINCT interest "
                 + "FROM Interest interest "
