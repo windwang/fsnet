@@ -85,4 +85,45 @@ public class ProfileVisiteFacadeTest {
 		assertEquals(seArray[2],pvs.get(1).getVisitor());
 	}
 	
+	@Test 
+	public void getLastVisitorSinceLastConnectionTest(){
+		int nb = 10;
+		SocialEntity[] seArray= new SocialEntity[nb];
+		for(int i=0;i<seArray.length;i++){
+			em.getTransaction().begin();
+			seArray[i] = sef.createSocialEntity("titi"+i,"tutu"+i,"titi.tutu"+i+"@gmail.com");		
+			em.getTransaction().commit();
+		}		
+		List<ProfileVisite> lastVisitors = pvf
+				.getLastVisitorSinceLastConnection(seArray[0]);
+		assertEquals(lastVisitors.size(),0);
+		for(int i=1;i<seArray.length-1;i++){
+			ProfileVisite pv  = new ProfileVisite(seArray[0],seArray[i]);
+			try {
+				pv.setLastVisite(formatter.parse("0"+i+"/01/2000"));
+			} catch (ParseException e) {
+				fail();
+			}
+			em.getTransaction().begin();
+			em.persist(pv);
+			em.getTransaction().commit();
+		}				
+		lastVisitors = pvf
+				.getLastVisitorSinceLastConnection(seArray[0]);
+		assertEquals(lastVisitors.size(),nb-2);
+		
+		ProfileVisite pv2  = new ProfileVisite(seArray[0],seArray[nb-1]);
+		try {
+			pv2.setLastVisite(formatter.parse("0"+ (nb-1) +"/01/2000"));
+		} catch (ParseException e) {
+			fail();
+		}
+		em.getTransaction().begin();
+		em.persist(pv2);
+		em.getTransaction().commit();
+		lastVisitors = pvf
+				.getLastVisitorSinceLastConnection(seArray[0]);
+		assertEquals(lastVisitors.size(),nb-1);
+	}
+	
 }
