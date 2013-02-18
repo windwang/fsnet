@@ -23,6 +23,7 @@ import org.junit.runners.Suite;
     SocialEntityFacadeTest.class,
     SocialGroupFacadeTest.class,
     TopicMessageFacadeTest.class,
-    TopicFacadeTest.class    
+    TopicFacadeTest.class,
+    CvFacadeTest.class
 })
 public class AllTests {}
