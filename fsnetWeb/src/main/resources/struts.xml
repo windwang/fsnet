@@ -7,6 +7,27 @@
    <constant name="struts.custom.i18n.resources" value="FSneti18n"/>
    <constant name="struts.action.extension" value="do"/>
    <include file="struts-default.xml"/>
+   <include file="struts-configs/ajax-config.xml"/>
+   <include file="struts-configs/annouces-config.xml"/>
+   <include file="struts-configs/communities-config.xml"/>
+   <include file="struts-configs/consultations-config.xml"/>
+   <include file="struts-configs/contacts-config.xml"/>
+   <include file="struts-configs/CV-config.xml"/>
+   <include file="struts-configs/events-config.xml"/>
+   <include file="struts-configs/groups-config.xml"/>
+   <include file="struts-configs/hubs-config.xml"/>
+   <include file="struts-configs/interactions-config.xml"/>
+   <include file="struts-configs/interests-config.xml"/>
+   <include file="struts-configs/membersAdmin-config.xml"/>
+   <include file="struts-configs/members-config.xml"/>
+   <include file="struts-configs/privatemessages-config.xml"/>
+   <include file="struts-configs/profile-config.xml"/>
+   <include file="struts-configs/research-config.xml"/>
+   <include file="struts-configs/support-config.xml"/>
+   <include file="struts-configs/talk-config.xml"/>
+   <include file="struts-configs/topics-config.xml"/>
+   <include file="struts-configs/visits-config.xml"/>
+   
    <package name="main" extends="struts-default">
 	<action name="/Home" class="fr.univartois.ili.fsnet.actions.Home"
 			method="doDashboard">
