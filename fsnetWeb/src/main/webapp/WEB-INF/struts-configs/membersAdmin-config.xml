@@ -47,22 +47,22 @@
 			<result name="input">Members</result>
 		</action>
 
-		<action name="/SwitchState" scope="request"
+		<action name="/SwitchState"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="switchState">
 			<result name="success">/MemberList.do</result>
 		</action>
 
-		<action name="/Members" scope="request"
+		<action name="/Members" 
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="search">
 			<result name="success">Members</result>
 		</action>
 
-		<action name="/MemberList" scope="request"
+		<action name="/MemberList"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="search">
 			<result name="success">MemberList</result>
 		</action>
 
-		<action name="/DeleteInterestMember" scope="request"
+		<action name="/DeleteInterestMember"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="deleteInterestMember">
 			<result name="success">/DisplayMember.do</result>
 		</action>
