@@ -113,7 +113,8 @@
 							  <input type="checkbox" id="remember" name="remember"> 
 							  	<s:text name="login.checkbox.connectAuto" />
 							</label>
-							<input class="btn btn-large" type="submit" value="${login.submit}">
+<%-- 							<s:submit cssClass="btn btn-large" value="Envoyer" cssStyle="float:left;"/> --%>
+							<input class="btn btn-large" type="submit" value="Envoyer">
 							
 							<a onclick="showResetPasswordForm();"> 
 								<s:text name="login.password.forget" />
