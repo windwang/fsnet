@@ -1,116 +1,69 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<!-- SAID Mohamed <simo.said09 at gmail.com> -->
+<?xml version="1.0" encoding="UTF-8" ?>
 
-<!DOCTYPE struts-config PUBLIC
-"-//Apache Software Foundation//DTD Struts Configuration 1.3//EN"
-"http://jakarta.apache.org/struts/dtds/struts-config_1_3.dtd">
-<struts-config>
-	<form-beans>
-		<form-bean name="CreateGroupForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="id" type="java.lang.String" />
-			<form-property name="name" type="java.lang.String" />
-			<form-property name="description" type="java.lang.String" />
-			<form-property name="parentId" type="java.lang.String" />
-			<form-property name="socialEntityId" type="java.lang.String" />
-			<form-property name="memberListLeft" type="java.lang.String[]" />
-			<form-property name="memberListRight" type="java.lang.String[]" />
-			<form-property name="rigthListLeft" type="java.lang.String[]" />
-			<form-property name="rigthListLeftAdvance" type="java.lang.String[]" />
-			<form-property name="rigthListRight" type="java.lang.String[]" />
-			<form-property name="color" type="java.lang.String" />
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
 
-		</form-bean>
-		<form-bean name="ModifyGroupForm"
-			type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="id" type="java.lang.String" />
-			<form-property name="name" type="java.lang.String" />
-			<form-property name="description" type="java.lang.String" />
-			<form-property name="nameParent" type="java.lang.String" />
-			<form-property name="socialEntityId" type="java.lang.String" />
-			<form-property name="memberListLeft" type="java.lang.String[]" />
-			<form-property name="memberListRight" type="java.lang.String[]" />
-			<form-property name="rigthListLeft" type="java.lang.String[]" />
-			<form-property name="rigthListLeftAdvance" type="java.lang.String[]" />
-			<form-property name="rigthListRight" type="java.lang.String[]" />
-			<form-property name="color" type="java.lang.String" />
-
-		</form-bean>
-		<form-bean name="ChangeLogoForm" type="org.apache.struts.validator.DynaValidatorActionForm">
-			<form-property name="Logo" type="org.apache.struts.upload.FormFile"/>
-		</form-bean>
-	</form-beans>
-	<global-forwards>
-
-	</global-forwards>
-	<action-mappings>
-		<action path="/CreateGroup"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" name="CreateGroupForm"
-			parameter="create" validate="true" input="/ErrorGroups.do">
-			<forward name="success" path="/SearchGroup.do" />
-			<forward name="failed" path="CreateGroup" />
+<struts>
+	<package name="groups" extends="struts-default">
+		<action name="/CreateGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+			method="create">
+			<result name="input">/ErrorGroups.do</result>
+			<result name="success" >/SearchGroup.do" </result>
+			<result name="failed">CreateGroup</result>
 		</action>
 
-		<action path="/Groups"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="create">
-			<forward name="success" path="CreateGroup" />
+		<action name="/Groups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+			method="create">
+			<result name="success">CreateGroup</result>
 		</action>
 
-		<action path="/ErrorGroups"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="create">
-			<forward name="success" path="CreateGroup" />
-		</action>
-				
-
-		<action path="/DisplayGroup"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" name="ModifyGroupForm"
-			parameter="display" scope="request">
-			<forward name="success" path="DisplayForModifyGroup" />
+		<action name="/ErrorGroups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+			method="create">
+			<result name="success">CreateGroup</result>
 		</action>
 
-		<action path="/ErrorModifyGroup"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" name="ModifyGroupForm"
-			parameter="display">
-			<forward name="success" path="DisplayForModifyGroup" />
+
+		<action name="/DisplayGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+			 method="display" >
+			<result name="success">DisplayForModifyGroup</result>
 		</action>
 
-		<action path="/ModifyGroup"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" name="ModifyGroupForm"
-			parameter="modify" validate="true" input="/ErrorModifyGroup.do"
-			scope="request">
-			
-			<forward name="toHome" path="/Home.do" />
-			<forward name="success" path="/SearchGroup.do" />
-			<forward name="failed" path="/ErrorModifyGroup.do" />
+		<action name="/ErrorModifyGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+			 method="display">
+			<result name="success">DisplayForModifyGroup</result>
 		</action>
 
-		<action path="/SwitchStateGroup" scope="request"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="switchState">
-			<forward name="success" path="/SearchGroup.do" />
-			<forward name="failed" path="/SearchGroup.do" />
+		<action name="/ModifyGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+			 method="modify">
+			<result name="input">/ErrorGroups.do</result>
+			<result name="toHome">/Home.do</result>
+			<result name="success">/SearchGroup.do</result>
+			<result name="failed">/ErrorModifyGroup.do</result>
 		</action>
 
-		<action path="/SearchGroup" scope="request"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="search">
-			<forward name="success" path="SearchGroups"></forward>
-			<forward name="toHome" path="/Home.do" />
+		<action name="/SwitchStateGroup" 
+			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="switchState">
+			<result name="success">/SearchGroup.do</result>
+			<result name="failed">/SearchGroup.do</result>
 		</action>
-		
-		<action path="/DisplayInformationGroup" scope="request"
-			type="fr.univartois.ili.fsnet.actions.ManageGroups" parameter="displayInformationGroup">
-			<forward name="success" path="DisplayInformationGroup"></forward>
+
+		<action name="/SearchGroup" 
+			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="search">
+			<result name="success">SearchGroups</result>
+			<result name="toHome">/Home.do</result>
 		</action>
-		<action path="/ChangeLogo"
-				name="ChangeLogoForm"
-				type="fr.univartois.ili.fsnet.actions.ManageGroups"
-				parameter="changeLogo"
-				validate="true"
-				scope="request">
-				<forward name="success" path="/DisplayGroup.do" />
-				<forward name="unauthorized" path="/DisplayGroup.do"/>
-	   	</action>
 
-	</action-mappings>
+		<action name="/DisplayInformationGroup" 
+			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="displayInformationGroup">
+			<result name="success">DisplayInformationGroup</result>
+		</action>
+		<action name="/ChangeLogo"
+			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="changeLogo"
+			>
+			<result name="success">/DisplayGroup.do</result>
+			<result name="unauthorized">/DisplayGroup.do</result>
+		</action>
 
-
-</struts-config>
+	</package>
+</struts>
