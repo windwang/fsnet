@@ -60,15 +60,19 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><s:url
-								action="/DisplayCreatePrivateMessage"
-								styleClass="btn btn-inverse">
+						<td class="tableButton">
+						<s:url action="/DisplayCreatePrivateMessage">
+<%-- 						<s:url action="/DisplayCreatePrivateMessage" --%>
+<%-- 								styleClass="btn btn-inverse"> --%>
 								<s:text name="showProfile.send" />
 								<s:param name="receiver" value="%{contact.email}" />
-							</s:url> <s:url action="/AcceptContact" styleClass="btn btn-inverse">
+							</s:url> <s:url action="/AcceptContact" >
+<%-- 							<s:url action="/AcceptContact" styleClass="btn btn-inverse"> --%>
 								<s:param name="entityAccepted" value="%{contact.id}" />
 								<s:text name="contact.button.accept" />
-							</s:url> <s:url action="/RefuseContact" styleClass="btn btn-inverse">
+							</s:url> 
+<%-- 							<s:url action="/RefuseContact" styleClass="btn btn-inverse"> --%>
+							<s:url action="/RefuseContact">
 								<s:param name="entityRefused" value="%{contact.id}" />
 								<s:text name="contact.button.refuse" />
 							</s:url></td>
@@ -121,12 +125,16 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><s:url
-								action="/DisplayCreatePrivateMessage"
-								styleClass="btn btn-inverse">
+						<td class="tableButton">
+<%-- 						<s:url --%>
+<%-- 								action="/DisplayCreatePrivateMessage" --%>
+<%-- 								styleClass="btn btn-inverse"> --%>
+								<s:url
+								action="/DisplayCreatePrivateMessage">
 								<s:text name="showProfile.send" />
 								<s:param name="receiver" value="%{contact.email}" />
-							</s:url> <s:url action="/DeleteContact" styleClass="btn btn-inverse">
+							</s:url> <s:url action="/DeleteContact">
+<%-- 							<s:url action="/DeleteContact" styleClass="btn btn-inverse"> --%>
 								<s:text name="contact.button.delete" />
 								<s:param name="entityDeleted" value="%{contact.id}" />
 							</s:url></td>
@@ -176,12 +184,15 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><s:url
-								action="/DisplayCreatePrivateMessage"
-								styleClass="btn btn-inverse">
+						<td class="tableButton"><s:url 
+								action="/DisplayCreatePrivateMessage">
+<%-- 								<s:url  --%>
+<%-- 								action="/DisplayCreatePrivateMessage" --%>
+<%-- 								styleClass="btn btn-inverse"> --%>
 								<s:text name="showProfile.send" />
 								<s:param name="receiver" value="%{contact.email}" />
-							</s:url> <s:url action="/CancelAskContact" styleClass="btn btn-inverse">
+							</s:url> <s:url action="/CancelAskContact">
+<%-- 							<s:url action="/CancelAskContact" styleClass="btn btn-inverse"> --%>
 								<s:param name="id" value="%{contact.id}" />
 								<s:text name="contacts.cancel" />
 							</s:url></td>

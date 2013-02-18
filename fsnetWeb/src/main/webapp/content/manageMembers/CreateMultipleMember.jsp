@@ -1,35 +1,32 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <fieldset class="fieldsetAppli">
 	<legend class="legendHome">
-		<bean:message key="members.createMultiple" />
+		<s:text name="members.createMultiple" />
 	</legend>
 
-	<html:form action="/CreateMultipleMember">
+	<s:form action="/CreateMultipleMember">
 		<table class="inLineTable fieldsetTableAppli">
 			<tr>
-				<td colspan="2"><bean:message
-						key="members.createMultipleIndications" /></td>
+				<td colspan="2"><s:text name="members.createMultipleIndications"/></td>
 			</tr>
 
 			<tr>
-				<td colspan="2"><bean:message
-						key="members.createMultipleFormat" /></td>
+				<td colspan="2"><s:text name="members.createMultipleFormat"/></td>
 			</tr>
 
 			<tr>
-				<td colspan="2"><html:textarea property="multipleMember"
+				<td colspan="2"><s:textarea property="multipleMember"
 						styleId="multipleMember" errorStyleClass="error" cols="80"
 						rows="6" />
 					<div class="errorMessage">
-						<html:errors property="multipleMember" />
+						<s:fielderror property="multipleMember" />
 					</div></td>
 			</tr>
 			
 			<%@ include file="SamePartForMember.jsp" %>
 		</table>
-	</html:form>
+	</s:form>
 </fieldset>

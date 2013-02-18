@@ -1,19 +1,18 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <fieldset class="fieldsetCadre">
 	<legend >
-		<bean:message key="cv.title.generate" />
+		<s:text name="cv.title.generate" />
 	</legend>
 
 	<table id="eventsTable"
 		class="tablesorter inLineTable tableStyle">
 		<thead>
 			<tr>
-				<th ><bean:message key="tableheader.cvname" /></th>
+				<th ><s:text name="tableheader.cvname" /></th>
 				<th >Générer</th>
 				<th >Supprimer</th>
 			</tr>
@@ -22,18 +21,18 @@
 			<c:forEach var="cv" items="${requestScope.CVsList}">
 				<tr>
 					<td>${cv.titleCv }</td>
-					<td><html:form action="/GenerateCv">
+					<td><s:form action="/GenerateCv">
 							<input type="hidden" name="idCv" value="${cv.id }" />
-							<html:submit styleClass="btn btn-inverse">
-								<bean:message key="cv.button.generate" />
-							</html:submit>
-						</html:form></td>
-					<td><html:form action="/DeleteCv">
+							<s:submit styleClass="btn btn-inverse">
+								<s:text name="cv.button.generate" />
+							</s:submit>
+						</s:form></td>
+					<td><s:form action="/DeleteCv">
 							<input type="hidden" name="idCv" value="${cv.id }" />
-							<html:submit styleClass="btn btn-inverse">
-								<bean:message key="cv.button.delete" />
-							</html:submit>
-						</html:form></td>
+							<s:submit styleClass="btn btn-inverse">
+								<s:text name="cv.button.delete" />
+							</s:submit>
+						</s:form></td>
 				</tr>
 			</c:forEach>
 		</tbody>
