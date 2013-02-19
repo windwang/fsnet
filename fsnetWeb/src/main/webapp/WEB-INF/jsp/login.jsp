@@ -3,15 +3,6 @@
 <%@ taglib prefix="ili" uri="../ili.tld"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<bean:define id="logMessage">
-	<bean:message key="login.placeholder.mail" />
-</bean:define>
-<bean:define id="passwordMessage">
-	<bean:message key="login.placeholder.password" />
-</bean:define>
-<bean:define id="loginSubmit">
-	<bean:message key="login.submit" />
-</bean:define>
 
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
@@ -100,25 +91,23 @@
 				<div class="span4 offset1" id="loginWrapper">
 						
 						
-						<form class="form-signin" action="Authenticate" method="post">
+						<s:form action="Authenticate" method="post">
 							<h2 class="form-signin-heading"> <s:text name="login.connection" /> </h2>
 							
-							<input type="email" class="input-block-level"
-								name="memberMail" id="memberMail" value="${param['memberMail'] }" placeholder="${login.placeholder.mail}">
+							<s:textfield cssClass="input-block-level"
+								name="memberMail" id="memberMail" placeholder="%{getText('login.placeholder.mail')}"/>
 								
-							<input type="password" class="input-block-level" 
-								id="memberPass" name="memberPass" placeholder="${login.placeholder.password}">
+							<s:password cssClass="input-block-level" 
+								id="memberPass" name="memberPass" placeholder="%{getText('login.placeholder.password')}"/>
 							
-							<label for="remember" class="checkbox">
-							  <input type="checkbox" id="remember" name="remember"> 
-							  	<s:text name="login.checkbox.connectAuto" />
-							</label>
-							<input class="btn btn-large" type="submit" value="${login.submit}">
+							
+							  <s:checkbox type="checkbox" id="remember" name="remember" label="%{getText('login.checkbox.connectAuto')}"/> 							  
+							<s:submit cssClass="btn btn-large" align="left" value="%{getText('login.submit')}"/>
 							
 							<a onclick="showResetPasswordForm();"> 
 								<s:text name="login.password.forget" />
 							</a>
-					  </form>				
+					  </s:form>				
 					  
 					  <c:if test="${! empty loginMessage && loginMessage eq 'login.error'}">
 						<h5 id="incorrectIdPwd">

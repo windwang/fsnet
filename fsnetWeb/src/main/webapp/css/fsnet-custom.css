@@ -304,9 +304,15 @@ input[type=text],input[type=email],input[type=password],textarea {
 	background-color: #CCCCCC;
 }
 
+#loginWrapper input#remember {
+	margin:0;
+}
+
+#loginWrapper label.checkboxlabel {
+	display:inline;
+}
+
 #loginWrapper table {
-	margin-top: 20px;
-	margin-left: 260px;
 	height: 100px;
 	width: 320px;
 }

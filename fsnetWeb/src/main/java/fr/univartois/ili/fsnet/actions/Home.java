@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts2.dispatcher.mapper.ActionMapping;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -36,7 +35,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * @author FSNet
  *
  */
-public class Home extends MappingDispatchAction {
+public class Home extends ActionSupport{
 
 	/**
 	 * @param request
@@ -162,8 +161,7 @@ public class Home extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward doDashboard(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String doDashboard(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
@@ -183,7 +181,7 @@ public class Home extends MappingDispatchAction {
 
 		em.close();
 
-		return mapping.findForward("success");
+		return SUCCESS;
 	}
 
 }

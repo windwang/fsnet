@@ -13,14 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts2.components.ActionMessage;
+import org.apache.struts2.dispatcher.mapper.ActionMapping;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
@@ -37,7 +33,7 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class ManagePrivateMessages extends MappingDispatchAction implements
+public class ManagePrivateMessages extends ActionSupport implements
 		CrudAction {
 
 	private static final String SUCCES_ACTION_NAME = "success";
@@ -47,14 +43,12 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * (non-Javadoc)
 	 * 
 	 * @see
-	 * fr.univartois.ili.fsnet.actions.CrudAction#create(org.apache.struts.action
-	 * .ActionMapping, org.apache.struts.action.ActionForm,
+	 * fr.univartois.ili.fsnet.actions.CrudAction#create(
 	 * javax.servlet.http.HttpServletRequest,
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String create(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -63,7 +57,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(authenticatedUser, Right.SEND_MESSAGE)) {
 			em.close();
-			return new ActionRedirect(mapping.findForward("unauthorized"));
+			response.sendRedirect("/Inbox");
 		}
 
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
@@ -104,7 +98,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		em.getTransaction().commit();
 		em.close();
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -117,8 +111,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String modify(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
@@ -133,8 +126,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String delete(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
@@ -160,7 +152,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -172,8 +164,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String deleteMulti(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
@@ -202,7 +193,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -214,8 +205,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteMulti2(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String deleteMulti2(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -245,7 +235,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -257,8 +247,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward inbox(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String inbox(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
@@ -281,7 +270,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		refreshNumNewMessages(request, em);
 		em.close();
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -293,8 +282,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward outbox(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String outbox(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
@@ -313,7 +301,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 		}
 
 		em.close();
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -326,8 +314,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String search(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
@@ -342,8 +329,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String display(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -398,7 +384,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					request.setAttribute("conversationMessages1", paginator1);
 					request.setAttribute("theMessage", privateMessage);
 
-					return mapping.findForward(SUCCES_ACTION_NAME);
+					return SUCCESS;
 				} else {
 					throw new UnauthorizedOperationException(
 							"Must be the owner of message");

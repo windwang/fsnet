@@ -6,11 +6,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.MappingDispatchAction;
-
 /**
  * Interface definying commons methods for a CRUD action
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
@@ -28,8 +23,7 @@ public interface CrudAction {
      * @throws ServletException
      * @see MappingDispatchAction
      */
-    ActionForward create(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
+    String create(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException;
 
     /**
@@ -43,8 +37,7 @@ public interface CrudAction {
      * @throws ServletException
      * @see MappingDispatchAction
      */
-    ActionForward modify(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
+    String modify(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException;
 
     /**
@@ -57,8 +50,7 @@ public interface CrudAction {
      * @throws IOException
      * @throws ServletException
      */
-    ActionForward delete(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
+    String delete(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException;
 
     /**
@@ -71,8 +63,7 @@ public interface CrudAction {
      * @throws IOException
      * @throws ServletException
      */
-    ActionForward search(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
+    String search(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException;
 
     /**
@@ -85,7 +76,6 @@ public interface CrudAction {
      * @throws IOException
      * @throws ServletException
      */
-    ActionForward display(ActionMapping mapping, ActionForm form,
-            HttpServletRequest request, HttpServletResponse response)
+    String display(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException;
 }
