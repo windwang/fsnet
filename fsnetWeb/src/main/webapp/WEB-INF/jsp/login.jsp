@@ -111,7 +111,7 @@
 					  
 					  <c:if test="${! empty loginMessage && loginMessage eq 'login.error'}">
 						<h5 id="incorrectIdPwd">
-							<bean:message key="${loginMessage}" />
+							<s:text name="%{loginMessage}" />
 						</h5>
 					</c:if>		
 					
@@ -133,7 +133,7 @@
 					
 					<c:if test="${! empty loginMessage && loginMessage eq 'login.password.reset.error'}">
 						<h5 id="incorrectIdPwd">
-							<bean:message key="${loginMessage}" />
+							<s:text name="%{loginMessage}" />
 						</h5>
 					</c:if>	
 				</div>

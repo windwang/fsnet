@@ -1,10 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-
-
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
@@ -15,67 +10,51 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="privatemessages.sendM" />
+		<s:text name="privatemessages.sendM" />
 	</legend>
 	<table class="inLineTable tableStyle">
-		<html:form action="/CreatePrivateMessage">
+		<s:form action="/CreatePrivateMessage">
 
 			<tr>
-				<td><label for="memberSearch"> <bean:message
-							key="privatemessages.recipient" />
+				<td><label for="memberSearch"> <s:text name="privatemessages.recipient" />
 				</label></td>
 				<td><c:choose>
 						<c:when test="${! empty param.receiver}">
-							<html:text property="messageTo" errorStyleClass="error"
+							<s:textfield property="messageTo" errorStyleClass="error"
 								style="width: 95%" styleId="memberSearch"
-								value="${param.receiver}" />
+								value="%{param.receiver}" />
 						</c:when>
 						<c:otherwise>
-							<html:text property="messageTo" errorStyleClass="error"
+							<s:textfield property="messageTo" errorStyleClass="error"
 								style="width: 95%" styleId="memberSearch" />
 						</c:otherwise>
-					</c:choose> <logic:messagesPresent property="messageTo">
-						<div class="errorMessage">
-							<html:errors property="messageTo" />
-						</div>
-					</logic:messagesPresent>
+					</c:choose>
 					<div id="searchDiv" class="ajaxSearch"></div></td>
 			</tr>
 
 			<tr>
-				<td><label for="messageSubject"> <bean:message
-							key="privatemessages.subject" />
+				<td><label for="messageSubject"> <s:text name="privatemessages.subject" />
 				</label></td>
-				<td><html:text property="messageSubject"
-						errorStyleClass="error" styleId="messageSubject" style="width: 95%" /> <logic:messagesPresent
-						property="messageSubject">
-						<div class="errorMessage">
-							<html:errors property="messageSubject" />
-						</div>
-					</logic:messagesPresent></td>
+				<td><s:textfield property="messageSubject"
+						errorStyleClass="error" styleId="messageSubject" style="width: 95%" /> </td>
 			</tr>
 
 			<tr>
-				<td><label for="messageBody"> <bean:message
-							key="privatemessages.body" />
+				<td><label for="messageBody"> <s:text name="privatemessages.body" />
 				</label></td>
-				<td><html:textarea property="messageBody" styleId="messageBody"
+				<td><s:textarea property="messageBody" styleId="messageBody"
 						styleClass="mceTextArea" style="width: 100%;">
-					</html:textarea> <logic:messagesPresent property="messageBody">
-						<div class="errorMessage">
-							<html:errors property="messageBody" />
-						</div>
-					</logic:messagesPresent></td>
+					</s:textarea> </td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="alignRight"><html:submit
+				<td colspan="2" class="alignRight"><s:submit
 						styleClass="btn btn-inverse"
 						onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();">
-						<bean:message key="privatemessages.send" />
-					</html:submit></td>
+						<s:text name="privatemessages.send" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
 
