@@ -1,8 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
@@ -12,8 +10,7 @@
 	<legend>
 		<bean:message key="events.title.create" />
 	</legend>
-	<table id="CreateEvent"
-		class="inLineTable tableStyle">
+	<table id="CreateEvent" class="inLineTable tableStyle">
 		<html:form action="/CreateEvent">
 			<tr>
 				<td><label for="eventName"> <bean:message
@@ -31,7 +28,7 @@
 				<td></td>
 				<td><c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="eventDescription"> <bean:message
 							key="events.form.description" />
@@ -45,7 +42,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="eventAddress"> <bean:message
 							key="events.form.address" />
@@ -58,7 +55,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="eventCity"> <bean:message
 							key="events.form.city" />
@@ -71,7 +68,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="eventBeginDate"> <bean:message
 							key="events.form.beginDate" />
@@ -84,7 +81,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="eventEndDate"> <bean:message
 							key="events.form.endDate" />
@@ -97,7 +94,7 @@
 						</div>
 					</logic:messagesPresent></td>
 			</tr>
-			
+
 			<tr>
 				<td><label for="eventRecallTime"> <bean:message
 							key="events.form.recall" />
@@ -121,9 +118,10 @@
 						</div>
 					</logic:messagesPresent>
 			</tr>
-			
+
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="button btn btn-inverse">
+				<td colspan="2" class="tableButton"><html:submit
+						styleClass="button btn btn-inverse">
 						<bean:message key="events.button.create" />
 					</html:submit></td>
 			</tr>
@@ -143,7 +141,7 @@
 			showMonthAfterYear : false
 		}));
 		$.datepicker.setDefaults($.datepicker.regional['fr']);
-		
+
 		$.timepicker.regional['fr'] = {
 			timeOnlyTitle : 'Temps',
 			timeText : 'Temps',

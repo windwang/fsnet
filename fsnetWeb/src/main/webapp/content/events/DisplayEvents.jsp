@@ -1,29 +1,29 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
-<%@ include file="DisplayYourEvents.jsp" %>
-<%@ include file="SearchEvent.jsp" %>
+<%@ include file="DisplayYourEvents.jsp"%>
+<%@ include file="SearchEvent.jsp"%>
 
 <c:if test="${!empty requestScope.eventsList}">
-<fieldset class="fieldsetCadre">
-	<legend>
-		<bean:message key="events.leftMenu.exportEvents" />
-	</legend>
+	<fieldset class="fieldsetCadre">
+		<legend>
+			<bean:message key="events.leftMenu.exportEvents" />
+		</legend>
 
 
-	<table id="exportEvents" class="inLineTable tableStyle ">
-		<tr>
-			<td><html:link action="/ExportAllEvents">
-					<img src="images/download.png" alt="<bean:message key="events.export" />" title="<bean:message key="events.export" />" /><bean:message key="events.exportAll" />
-				</html:link>
-			</td>
-		</tr>
-	</table>
-</fieldset>
+		<table id="exportEvents" class="inLineTable tableStyle ">
+			<tr>
+				<td><html:link action="/ExportAllEvents">
+						<img src="images/download.png"
+							alt="<bean:message key="events.export" />"
+							title="<bean:message key="events.export" />" />
+						<bean:message key="events.exportAll" />
+					</html:link></td>
+			</tr>
+		</table>
+	</fieldset>
 </c:if>
 
 <fieldset class="fieldsetCadre">
@@ -63,8 +63,7 @@
 									sensDeTri, aoColumns, false, 10);
 						});
 			</script>
-			<table id="eventsTable"
-				class="tablesorter inLineTable tableStyle">
+			<table id="eventsTable" class="tablesorter inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th></th>
@@ -102,22 +101,27 @@
 									socialEntity="${event.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${event.creator}" /></td>
-																<td>
-								<html:link action="/ExportEventById">
+							<td><html:link action="/ExportEventById">
 									<html:param name="eventId" value="${event.id}" />
-									<img src="images/download.png" alt="<bean:message key="events.export" />" title="<bean:message key="events.export" />" />
-								</html:link>
-								<c:if test="${userId eq event.creator.id}">
-								<html:link action="/DisplayUpdateEvent">
-									<html:param name="eventId" value="${event.id}" />
-									<img src="images/edit.png" alt="<bean:message key="events.button.update" />" title="<bean:message key="events.button.update" />" />
-								</html:link>
-								<html:link action="/DeleteEvent">
-									<html:param name="eventId" value="${event.id}" />
-									<img onclick="return confirm('<bean:message key="message.confirmation.delete" />');" src="images/del.png" alt="<bean:message key="events.button.delete" />" title="<bean:message key="events.button.delete" />" />
-								</html:link>
-								</c:if>
-							</td>
+									<img src="images/download.png"
+										alt="<bean:message key="events.export" />"
+										title="<bean:message key="events.export" />" />
+								</html:link> <c:if test="${userId eq event.creator.id}">
+									<html:link action="/DisplayUpdateEvent">
+										<html:param name="eventId" value="${event.id}" />
+										<img src="images/edit.png"
+											alt="<bean:message key="events.button.update" />"
+											title="<bean:message key="events.button.update" />" />
+									</html:link>
+									<html:link action="/DeleteEvent">
+										<html:param name="eventId" value="${event.id}" />
+										<img
+											onclick="return confirm('<bean:message key="message.confirmation.delete" />');"
+											src="images/del.png"
+											alt="<bean:message key="events.button.delete" />"
+											title="<bean:message key="events.button.delete" />" />
+									</html:link>
+								</c:if></td>
 						</ili:interactionRow>
 					</c:forEach>
 				</tbody>

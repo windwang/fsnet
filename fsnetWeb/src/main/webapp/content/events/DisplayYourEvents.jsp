@@ -1,7 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
@@ -53,8 +52,7 @@
 			</script>
 
 			<html:form action="/DeleteMultiEvents">
-				<table id="yourEvents"
-					class="tablesorter inLineTable  tableStyle">
+				<table id="yourEvents" class="tablesorter inLineTable  tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
