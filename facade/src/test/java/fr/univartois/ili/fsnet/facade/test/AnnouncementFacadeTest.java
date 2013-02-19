@@ -110,6 +110,42 @@ public class AnnouncementFacadeTest {
 		assertNull(em.find(Announcement.class, ann2.getId()));
 	}
 	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyWithExceptionAnnNull(){
+		af.modifyAnnouncement(1, null, null, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyWithExceptionAnnDescrNull(){
+		af.modifyAnnouncement(1, "test", null, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyWithExceptionEndDateNull(){
+		af.modifyAnnouncement(1, "test", "test", null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyWithExceptionAnnounNull(){
+		af.modifyAnnouncement(-1, "test", "test", new Date());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSearchWithNullText(){
+		af.searchAnnouncement(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetLastAnnounWithNullEntity(){
+		af.getLastAnnouncementForTheLastUserConnexion(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetUserAnnounWithNullEntity(){
+		af.getUserAnnouncements(null);
+	}
+	
+	
 	@Test(expected=UnauthorizedOperationException.class)
 	public void testDelete2() {
 		Date end = new Date();
