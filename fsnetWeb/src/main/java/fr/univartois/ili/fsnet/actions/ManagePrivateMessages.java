@@ -13,9 +13,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.components.ActionMessage;
-import org.apache.struts2.dispatcher.mapper.ActionMapping;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -34,10 +31,13 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class ManagePrivateMessages extends ActionSupport implements
-		CrudAction {
+CrudAction {
 
-	private static final String SUCCES_ACTION_NAME = "success";
-	private static final String FAILED_ACTION_NAME = "failed";
+	private String messageTo;
+	private String messageSubject;
+	private String messageBody;
+	private int messageId;
+	private String[] selectedMessages;
 
 	/*
 	 * (non-Javadoc)
@@ -60,16 +60,13 @@ public class ManagePrivateMessages extends ActionSupport implements
 			response.sendRedirect("/Inbox");
 		}
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-		String to = dynaForm.getString("messageTo");
-		to = to.replaceAll("\\(.*\\)", "");
-		to = to.replaceAll(" ", "");
-		to = to.replaceAll("\t", "");
-		String subject = dynaForm.getString("messageSubject");
-		String body = dynaForm.getString("messageBody");
+		messageTo = messageTo.replaceAll("\\(.*\\)", "");
+		messageTo = messageTo.replaceAll(" ", "");
+		messageTo = messageTo.replaceAll("\t", "");
+
 		em.getTransaction().begin();
 		SocialEntityFacade sef = new SocialEntityFacade(em);
-		StringTokenizer stk = new StringTokenizer(to, ",");
+		StringTokenizer stk = new StringTokenizer(messageTo, ",");
 		List<SocialEntity> receivers = new ArrayList<SocialEntity>();
 		addRightToRequest(request);
 
@@ -78,13 +75,10 @@ public class ManagePrivateMessages extends ActionSupport implements
 			SocialEntity findByEmail = sef.findByEmail(email);
 
 			if (findByEmail == null) {
-				ActionErrors errors = new ActionErrors();
-				errors.add("messageTo", new ActionMessage(
-						"privatemessages.to.error", email));
-				saveErrors(request, errors);
+				addFieldError("messageTo", getText("privatemessages.to.error")+" "+email);
 				em.getTransaction().commit();
 				em.close();
-				return mapping.getInputForward();
+				return INPUT;
 			}
 
 			receivers.add(findByEmail);
@@ -92,7 +86,7 @@ public class ManagePrivateMessages extends ActionSupport implements
 
 		for (SocialEntity se : receivers) {
 			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-			pmf.sendPrivateMessage(body, authenticatedUser, subject, se);
+			pmf.sendPrivateMessage(messageBody, authenticatedUser, messageSubject, se);
 		}
 
 		em.getTransaction().commit();
@@ -132,8 +126,6 @@ public class ManagePrivateMessages extends ActionSupport implements
 		addRightToRequest(request);
 		String fromPage = request.getParameter("fromPage");
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-			int messageId = Integer.parseInt(dynaForm.getString("messageId"));
 			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 					request, em);
 
@@ -147,7 +139,7 @@ public class ManagePrivateMessages extends ActionSupport implements
 			pmf.deletePrivateMessage(authenticatedUser, privateMessage,fromPage);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS", e);
+			//servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS", e);
 		} finally {
 			em.close();
 		}
@@ -170,10 +162,6 @@ public class ManagePrivateMessages extends ActionSupport implements
 		addRightToRequest(request);
 		String fromPage = request.getParameter("fromPage");
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-
-			String[] selectedMessages = (String[]) dynaForm
-					.get("selectedMessages");
 			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 					request, em);
 			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
@@ -212,10 +200,7 @@ public class ManagePrivateMessages extends ActionSupport implements
 		addRightToRequest(request);
 		String fromPage = request.getParameter("fromPage");
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
-			String[] selectedMessages = (String[]) dynaForm
-					.get("selectedMessages");
 			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 					request, em);
 			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
@@ -289,16 +274,12 @@ public class ManagePrivateMessages extends ActionSupport implements
 				request, em);
 		addRightToRequest(request);
 
-		if (form == null) {
-			List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
-					authenticatedUser.getSentPrivateMessages());
-			Collections.reverse(userMessages);
+		List<PrivateMessage> userMessages = new ArrayList<PrivateMessage>(
+				authenticatedUser.getSentPrivateMessages());
+		Collections.reverse(userMessages);
 
-			request.setAttribute("outBoxMessages", userMessages);
+		request.setAttribute("outBoxMessages", userMessages);
 
-		} else {
-			servlet.log("ManagePrivateMessage.display must be not ask");
-		}
 
 		em.close();
 		return SUCCESS;
@@ -336,60 +317,56 @@ public class ManagePrivateMessages extends ActionSupport implements
 		addRightToRequest(request);
 
 		try {
-			if (form != null) {
-				DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
-				int messageId = Integer.parseInt(dynaForm
-						.getString("messageId"));
-				SocialEntity authenticatedUser = UserUtils
-						.getAuthenticatedUser(request, em);
-				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-				PrivateMessage privateMessage = pmf
-						.getPrivateMessage(messageId);
-				if(privateMessage==null){
-					throw new NullPointerException("privateMessage is null");
-				}
-				Collection<PrivateMessage> tmpUserMessages = pmf
-						.getConversation(privateMessage.getFrom(),
-								privateMessage.getSubject(),
-								privateMessage.getTo());
-				List<PrivateMessage> userMessages;
-				if (tmpUserMessages == null) {
-					userMessages = new ArrayList<>();
-				} else {
-					userMessages = new ArrayList<>(tmpUserMessages);
-				}
-
-				Collections.reverse(userMessages);
-
-				if ((authenticatedUser.equals(privateMessage.getFrom()) || authenticatedUser
-								.equals(privateMessage.getTo()))) {
-					if (authenticatedUser.equals(privateMessage.getTo())) {
-						em.getTransaction().begin();
-						privateMessage.setReed(true);
-						refreshNumNewMessages(request, em);
-						em.getTransaction().commit();
-					}
-
-					Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(
-							userMessages, request, "conversationMessages");
-
-					List<PrivateMessage> listPrivateMessage = new ArrayList<PrivateMessage>();
-					listPrivateMessage.add(privateMessage);
-					Paginator<PrivateMessage> paginator1 = new Paginator<PrivateMessage>(
-							listPrivateMessage, request,
-							"conversationMessages1");
-
-
-					request.setAttribute("conversationMessages", paginator);
-					request.setAttribute("conversationMessages1", paginator1);
-					request.setAttribute("theMessage", privateMessage);
-
-					return SUCCESS;
-				} else {
-					throw new UnauthorizedOperationException(
-							"Must be the owner of message");
-				}
+			SocialEntity authenticatedUser = UserUtils
+					.getAuthenticatedUser(request, em);
+			PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+			PrivateMessage privateMessage = pmf
+					.getPrivateMessage(messageId);
+			if(privateMessage==null){
+				throw new NullPointerException("privateMessage is null");
 			}
+			Collection<PrivateMessage> tmpUserMessages = pmf
+					.getConversation(privateMessage.getFrom(),
+							privateMessage.getSubject(),
+							privateMessage.getTo());
+			List<PrivateMessage> userMessages;
+			if (tmpUserMessages == null) {
+				userMessages = new ArrayList<>();
+			} else {
+				userMessages = new ArrayList<>(tmpUserMessages);
+			}
+
+			Collections.reverse(userMessages);
+
+			if ((authenticatedUser.equals(privateMessage.getFrom()) || authenticatedUser
+					.equals(privateMessage.getTo()))) {
+				if (authenticatedUser.equals(privateMessage.getTo())) {
+					em.getTransaction().begin();
+					privateMessage.setReed(true);
+					refreshNumNewMessages(request, em);
+					em.getTransaction().commit();
+				}
+
+				Paginator<PrivateMessage> paginator = new Paginator<PrivateMessage>(
+						userMessages, request, "conversationMessages");
+
+				List<PrivateMessage> listPrivateMessage = new ArrayList<PrivateMessage>();
+				listPrivateMessage.add(privateMessage);
+				Paginator<PrivateMessage> paginator1 = new Paginator<PrivateMessage>(
+						listPrivateMessage, request,
+						"conversationMessages1");
+
+
+				request.setAttribute("conversationMessages", paginator);
+				request.setAttribute("conversationMessages1", paginator1);
+				request.setAttribute("theMessage", privateMessage);
+
+				return SUCCESS;
+			} else {
+				throw new UnauthorizedOperationException(
+						"Must be the owner of message");
+			}
+
 		} catch (NumberFormatException e) {
 
 		} finally {
@@ -453,6 +430,46 @@ public class ManagePrivateMessages extends ActionSupport implements
 		request.setAttribute("rightAnswerMessage", rightAnswerMessage);
 		request.setAttribute("rightSendMessage", rightSendMessage);
 		request.setAttribute("socialEntity", socialEntity);
+	}
+
+	public String getMessageTo() {
+		return messageTo;
+	}
+
+	public void setMessageTo(String messageTo) {
+		this.messageTo = messageTo;
+	}
+
+	public String getMessageSubject() {
+		return messageSubject;
+	}
+
+	public void setMessageSubject(String messageSubject) {
+		this.messageSubject = messageSubject;
+	}
+
+	public String getMessageBody() {
+		return messageBody;
+	}
+
+	public void setMessageBody(String messageBody) {
+		this.messageBody = messageBody;
+	}
+
+	public int getMessageId() {
+		return messageId;
+	}
+
+	public void setMessageId(int messageId) {
+		this.messageId = messageId;
+	}
+
+	public String[] getSelectedMessages() {
+		return selectedMessages;
+	}
+
+	public void setSelectedMessages(String[] selectedMessages) {
+		this.selectedMessages = selectedMessages;
 	}
 
 }
