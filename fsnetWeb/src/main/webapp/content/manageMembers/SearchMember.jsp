@@ -1,32 +1,31 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/osx.js"></script>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="members.search" />
+		<s:text name="members.search" />
 	</legend>
 	<table class="inLineTable tableStyle">
-		<html:form action="SearchMemberAdmin">
+		<s:form action="SearchMemberAdmin">
 		<tr>
 			<td>
-				<html:text property="searchText" styleClass="search-query" />
-				<html:submit styleClass="btn btn-inverse">
-					<bean:message key="members.searchButton" />
-				</html:submit>
+				<s:textfield property="searchText" styleClass="search-query" />
+				<s:submit styleClass="btn btn-inverse">
+					<s:text name="members.searchButton" />
+				</s:submit>
 			</td>
 		</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="members.listMembers" />
+		<s:text name="members.listMembers" />
 	</legend>
 
 	<c:choose>
@@ -50,41 +49,41 @@
 				class="tablesorter inLineTable tableStyle">
 				<thead>
 					<tr>
-						<th><bean:message key="tableheader.firstname" /></th>
-						<th><bean:message key="tableheader.name" /></th>
-						<th><bean:message key="tableheader.group" /></th>
+						<th><s:text name="tableheader.firstname" /></th>
+						<th><s:text name="tableheader.name" /></th>
+						<th><s:text name="tableheader.group" /></th>
 						<th></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="member" items="${requestScope.membersList}">
 						<tr class="content">
-							<td><html:link action="/DisplayMember">${member.firstName}
-                		<html:param name="idMember" value="${member.id}" />
-								</html:link></td>
-							<td><html:link action="/DisplayMember">${member.name}
-                		<html:param name="idMember" value="${member.id}" />
-								</html:link></td>
+							<td><s:url action="/DisplayMember">${member.firstName}
+                		<s:param name="idMember" value="%{member.id}" />
+								</s:url></td>
+							<td><s:url action="/DisplayMember">${member.name}
+                		<s:param name="idMember" value="%{member.id}" />
+								</s:url></td>
 							<td><ili:getSocialGroupInfos socialGroup="${member.group}" /></td>
 							<td class="tableButton"><c:choose>
 									<c:when test="${member.group.isEnabled}">
-										<html:link action="/SwitchState" styleClass="btn btn-inverse">
-											<html:param name="entitySelected" value="${member.id}" />
+										<s:url action="/SwitchState" styleClass="btn btn-inverse">
+											<s:param name="entitySelected" value="%{member.id}" />
 											<c:choose>
 												<c:when test="${member.isEnabled}">
-													<bean:message key="members.searchDisable" />
+													<s:text name="members.searchDisable" />
 												</c:when>
 												<c:otherwise>
-													<bean:message key="members.searchEnable" />
+													<s:text name="members.searchEnable" />
 												</c:otherwise>
 											</c:choose>
-										</html:link>
+										</s:url>
 									</c:when>
 									<c:when test="${ member.group.isEnabled == false }">
-										<bean:message key="members.groupDisable" />
+										<s:text name="members.groupDisable" />
 									</c:when>
 									<c:otherwise>
-										<bean:message key="members.groupNull" />
+										<s:text name="members.groupNull" />
 									</c:otherwise>
 								</c:choose></td>
 						</tr>
@@ -95,7 +94,7 @@
 		<c:otherwise>
 			<table class="inLineTable fieldsetTableAppli tableStyle">
 				<tr>
-					<td><bean:message key="members.noResult" /></td>
+					<td><s:text name="members.noResult" /></td>
 				</tr>
 			</table>
 		</c:otherwise>

@@ -1,7 +1,7 @@
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <h3>
-	<bean:message key="exception" />
+	<s:text name="exception" />
 </h3>
 
-<bean:message key="exception.message" />
+<s:text name="exception.message" />

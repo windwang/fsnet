@@ -98,11 +98,10 @@
 								name="memberMail" id="memberMail" placeholder="%{getText('login.placeholder.mail')}"/>
 								
 							<s:password cssClass="input-block-level" 
-								id="memberPass" name="memberPass" placeholder="%{getText('login.placeholder.password')}"/>
-							
-							
+								id="memberPass" name="memberPass" placeholder="%{getText('login.placeholder.password')}"/>							
 							  <s:checkbox type="checkbox" id="remember" name="remember" label="%{getText('login.checkbox.connectAuto')}"/> 							  
 							<s:submit cssClass="btn btn-large" align="left" value="%{getText('login.submit')}"/>
+
 							
 							<a onclick="showResetPasswordForm();"> 
 								<s:text name="login.password.forget" />

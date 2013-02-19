@@ -1,9 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
@@ -12,12 +10,12 @@
 	test="${empty requestScope.paginatorContacts && empty requestScope.paginatorAsked && empty requestScope.paginatorRequested}">
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="contact.title.allEmpty" />
+			<s:text name="contact.title.allEmpty" />
 		</legend>
 
 		<table class="inLineTable tableStyle">
 			<tr>
-				<td><bean:message key="contact.title.empty" /></td>
+				<td><s:text name="contact.title.empty" /></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -41,16 +39,15 @@
 
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="contact.title.received" />
+			<s:text name="contact.title.received" />
 		</legend>
 
-		<table id="tableAsked"
-			class="tablesorter inLineTable tableStyle">
+		<table id="tableAsked" class="tablesorter inLineTable tableStyle">
 			<thead>
 				<tr>
-					<th><bean:message key="tableheader.member" /></th>
-					<th><bean:message key="members.firstName" /></th>
-					<th><bean:message key="members.name" /></th>
+					<th><s:text name="tableheader.member" /></th>
+					<th><s:text name="members.firstName" /></th>
+					<th><s:text name="members.name" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -63,17 +60,22 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><html:link
-								action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
-								<bean:message key="showProfile.send" />
-								<html:param name="receiver" value="${contact.email}" />
-							</html:link> <html:link action="/AcceptContact" styleClass="btn btn-inverse">
-								<html:param name="entityAccepted" value="${contact.id}" />
-								<bean:message key="contact.button.accept" />
-							</html:link> <html:link action="/RefuseContact" styleClass="btn btn-inverse">
-								<html:param name="entityRefused" value="${contact.id}" />
-								<bean:message key="contact.button.refuse" />
-							</html:link></td>
+						<td class="tableButton">
+						<s:url action="/DisplayCreatePrivateMessage">
+<%-- 						<s:url action="/DisplayCreatePrivateMessage" --%>
+<%-- 								styleClass="btn btn-inverse"> --%>
+								<s:text name="showProfile.send" />
+								<s:param name="receiver" value="%{contact.email}" />
+							</s:url> <s:url action="/AcceptContact" >
+<%-- 							<s:url action="/AcceptContact" styleClass="btn btn-inverse"> --%>
+								<s:param name="entityAccepted" value="%{contact.id}" />
+								<s:text name="contact.button.accept" />
+							</s:url> 
+<%-- 							<s:url action="/RefuseContact" styleClass="btn btn-inverse"> --%>
+							<s:url action="/RefuseContact">
+								<s:param name="entityRefused" value="%{contact.id}" />
+								<s:text name="contact.button.refuse" />
+							</s:url></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -99,18 +101,17 @@
 
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="contact.title.list" />
+			<s:text name="contact.title.list" />
 			: ${fn:length(requestScope.paginatorContacts)}
-			<bean:message key="contact.nbrContacts" />
+			<s:text name="contact.nbrContacts" />
 		</legend>
 
-		<table id="tableContacts"
-			class="tablesorter inLineTable tableStyle">
+		<table id="tableContacts" class="tablesorter inLineTable tableStyle">
 			<thead>
 				<tr>
-					<th><bean:message key="tableheader.member" /></th>
-					<th><bean:message key="members.firstName" /></th>
-					<th><bean:message key="members.name" /></th>
+					<th><s:text name="tableheader.member" /></th>
+					<th><s:text name="members.firstName" /></th>
+					<th><s:text name="members.name" /></th>
 					<th></th>
 				</tr>
 			</thead>
@@ -124,14 +125,19 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><html:link
-								action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
-								<bean:message key="showProfile.send" />
-								<html:param name="receiver" value="${contact.email}" />
-							</html:link> <html:link action="/DeleteContact" styleClass="btn btn-inverse">
-								<bean:message key="contact.button.delete" />
-								<html:param name="entityDeleted" value="${contact.id}" />
-							</html:link></td>
+						<td class="tableButton">
+<%-- 						<s:url --%>
+<%-- 								action="/DisplayCreatePrivateMessage" --%>
+<%-- 								styleClass="btn btn-inverse"> --%>
+								<s:url
+								action="/DisplayCreatePrivateMessage">
+								<s:text name="showProfile.send" />
+								<s:param name="receiver" value="%{contact.email}" />
+							</s:url> <s:url action="/DeleteContact">
+<%-- 							<s:url action="/DeleteContact" styleClass="btn btn-inverse"> --%>
+								<s:text name="contact.button.delete" />
+								<s:param name="entityDeleted" value="%{contact.id}" />
+							</s:url></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -157,20 +163,19 @@
 
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="contact.title.do" />
+			<s:text name="contact.title.do" />
 		</legend>
 
-		<table id="tableRequested"
-			class="tablesorter inLineTable tableStyle">
+		<table id="tableRequested" class="tablesorter inLineTable tableStyle">
 			<thead>
 				<tr>
-					<th><bean:message key="tableheader.member" /></th>
-					<th><bean:message key="members.firstName" /></th>
-					<th><bean:message key="members.name" /></th>
+					<th><s:text name="tableheader.member" /></th>
+					<th><s:text name="members.firstName" /></th>
+					<th><s:text name="members.name" /></th>
 					<th></th>
 				</tr>
 			</thead>
-			
+
 			<tbody>
 				<c:forEach var="contact" items="${requestScope.paginatorRequested}">
 					<tr>
@@ -179,14 +184,18 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><html:link
-								action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
-								<bean:message key="showProfile.send" />
-								<html:param name="receiver" value="${contact.email}" />
-							</html:link> <html:link action="/CancelAskContact" styleClass="btn btn-inverse">
-								<html:param name="id" value="${contact.id}" />
-								<bean:message key="contacts.cancel" />
-							</html:link></td>
+						<td class="tableButton"><s:url 
+								action="/DisplayCreatePrivateMessage">
+<%-- 								<s:url  --%>
+<%-- 								action="/DisplayCreatePrivateMessage" --%>
+<%-- 								styleClass="btn btn-inverse"> --%>
+								<s:text name="showProfile.send" />
+								<s:param name="receiver" value="%{contact.email}" />
+							</s:url> <s:url action="/CancelAskContact">
+<%-- 							<s:url action="/CancelAskContact" styleClass="btn btn-inverse"> --%>
+								<s:param name="id" value="%{contact.id}" />
+								<s:text name="contacts.cancel" />
+							</s:url></td>
 					</tr>
 				</c:forEach>
 			</tbody>
