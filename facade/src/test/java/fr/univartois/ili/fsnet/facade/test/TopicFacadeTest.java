@@ -153,19 +153,19 @@ public class TopicFacadeTest {
 	@Test
 	public void testSearchTitle() {
 		em.getTransaction().begin();
-		SocialEntity creatorCommunity = sef.createSocialEntity("creatorTitle",
-				"communnauteTitle", "creatorCommunityTitle@gmail.com");
+		SocialEntity creatorCommunity = sef.createSocialEntity("creatorTitle2",
+				"communnauteTitle2", "creatorCommunityTitle2@gmail.com");
 		Community community = cf.createCommunity(creatorCommunity,
-				"nameCommunityTitle");
-		SocialEntity creatorHub = sef.createSocialEntity("creatorTitle",
-				"hubTitle", "creatorHubTitle@gmail.com");
-		Hub hub = hf.createHub(community, creatorHub, "nameHubTitle");
-		SocialEntity creatorTopic = sef.createSocialEntity("creatorTitle",
-				"TopicTitle", "creatorTopicTitle@gmail.com");
-		Topic topic = tf.createTopic(hub, creatorTopic, "titleTopicTitle");
-		tf.createTopic(hub, creatorTopic, "titleTopicbisTitle");
+				"nameCommunityTitle2");
+		SocialEntity creatorHub = sef.createSocialEntity("creatorTitle2",
+				"hubTitle2", "creatorHubTitle2@gmail.com");
+		Hub hub = hf.createHub(community, creatorHub, "nameHubTitle2");
+		SocialEntity creatorTopic = sef.createSocialEntity("creatorTitle2",
+				"TopicTitle2", "creatorTopicTitle2@gmail.com");
+		Topic topic = tf.createTopic(hub, creatorTopic, "titleTopicTitle2");
+		tf.createTopic(hub, creatorTopic, "titleTopicbisTitle2");
 		em.getTransaction().commit();
-		String pattern = "titleTopicTitle";
+		String pattern = "titleTopicTitle2";
 		List<Topic> results = tf.searchTopic(pattern);
 		Topic tmRes = results.get(0);
 		assertEquals(topic.getCreator(), tmRes.getCreator());
