@@ -1,9 +1,13 @@
 package fr.univartois.ili.fsnet.facade.test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNull;
+import static org.junit.Assert.assertTrue;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -109,6 +113,100 @@ public class AnnouncementFacadeTest {
 		em.getTransaction().commit();
 		assertNull(em.find(Announcement.class, ann2.getId()));
 	}
+	
+	@Test
+	public void testModifiyAnnoucement(){
+		em.getTransaction().begin();
+		SocialEntity member = sef.createSocialEntity("tutu", "tutu","tutu@gmail.com");
+		Announcement ann = af.createAnnouncement(member, "annonce", "annonce", new Date(), false);
+		em.getTransaction().commit();
+		
+		assertEquals(ann.getTitle(), "annonce");
+		assertEquals(ann.getContent(), "annonce");
+				
+		Date dateModif = new Date() ;
+		
+		em.getTransaction().begin();
+		af.modifyAnnouncement(ann.getId(), "annonceModif", "annonceModif", dateModif);
+		em.getTransaction().commit();
+		
+		assertEquals(ann.getTitle(), "annonceModif");
+		assertEquals(ann.getContent(), "annonceModif");
+		assertEquals(ann.getEndDate(), dateModif);		
+	}
+	
+	@Test
+	public void testGetLastAnnoun(){
+		
+		em.getTransaction().begin();
+		SocialEntity member = sef.createSocialEntity("zozo", "zozo","zozo42@gmail.com");		
+		Announcement ann1 = af.createAnnouncement(member, "annonce", "annonce", new Date(), false);
+		SocialEntity member2 = sef.createSocialEntity("zuzu", "zuzu","zuzu62@gmail.com");
+		member2.setLastConnection(addDaysToDate(new Date(),1));
+		Announcement ann2 = af.createAnnouncement(member2, "annonce", "annonce", new Date(), false);
+		ann2.setCreationDate(addDaysToDate(new Date(),2));
+		em.getTransaction().commit();
+		List<Announcement> annonces = af.getLastAnnouncementForTheLastUserConnexion(member2);
+		assertEquals(1, annonces.size());
+		assertTrue(annonces.contains(ann2));
+		assertFalse(annonces.contains(ann1));
+	}
+
+    public static Date addDaysToDate(Date date, int nbDays){
+        Calendar cal = new GregorianCalendar();
+        cal.setTime(date);
+        cal.add(Calendar.DATE, nbDays);
+        return cal.getTime();
+    }
+	
+	@Test
+	public void testGetUserAnnoun(){
+		em.getTransaction().begin();
+		SocialEntity member = sef.createSocialEntity("zaza", "zaza","zaza12@gmail.com");
+		Announcement ann1 = af.createAnnouncement(member, "annonce", "annonce", new Date(), false);
+		Announcement ann2 = af.createAnnouncement(member, "annonce2", "annonce2", new Date(), false);
+		em.getTransaction().commit();
+		List<Announcement> annonces = af.getUserAnnouncements(member);
+		assertEquals(2, annonces.size());
+		assertTrue(annonces.contains(ann1));
+		assertTrue(annonces.contains(ann2));		
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyWithExceptionAnnNull(){
+		af.modifyAnnouncement(1, null, null, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyWithExceptionAnnDescrNull(){
+		af.modifyAnnouncement(1, "test", null, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyWithExceptionEndDateNull(){
+		af.modifyAnnouncement(1, "test", "test", null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testModifyWithExceptionAnnounNull(){
+		af.modifyAnnouncement(-1, "test", "test", new Date());
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSearchWithNullText(){
+		af.searchAnnouncement(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetLastAnnounWithNullEntity(){
+		af.getLastAnnouncementForTheLastUserConnexion(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetUserAnnounWithNullEntity(){
+		af.getUserAnnouncements(null);
+	}
+	
 	
 	@Test(expected=UnauthorizedOperationException.class)
 	public void testDelete2() {
