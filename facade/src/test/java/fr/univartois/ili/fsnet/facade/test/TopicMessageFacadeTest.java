@@ -302,4 +302,41 @@ public class TopicMessageFacadeTest {
 		tmf.deleteTopicMessage(0);
 		em.getTransaction().commit();
 	}
+	
+	@Test
+	public void testGetLastPageId() {
+		String body = "bodyForTopic";
+		
+		em.getTransaction().begin();
+		
+		SocialEntity from = sef.createSocialEntity("topic36", "message36",
+				"topicmess36@gmail.com");
+		SocialEntity creatorCommunity = sef.createSocialEntity("creator36",
+				"communnaute36", "creatorCommunity36@gmail.com");
+		Community community = cf.createCommunity(creatorCommunity,
+				"nameCommunity36");
+		SocialEntity creatorHub = sef.createSocialEntity("creator36", "hub36",
+				"creatorHub36@gmail.com");
+		Hub hub = hf.createHub(community, creatorHub, "nameHub36");
+		SocialEntity creatorTopic = sef.createSocialEntity("creator36", "Topic36",
+				"creatorTopic36-2@gmail.com");
+		Topic topic = tf.createTopic(hub, creatorTopic, "titleTopic36");
+		TopicMessage message = tmf.createTopicMessage(body, from, topic);
+		
+		em.getTransaction().commit();
+		
+		int numMsg = tmf.getLastPageId(topic.getId(), 2) ;
+		assertEquals(numMsg, 0) ;
+	}
+	
+	@Test
+	public void testGetLastPageIdWithNonExistingId() {
+		
+		em.close() ;
+		
+		int numMsg = tmf.getLastPageId(1, 2) ;
+		assertEquals(0,numMsg) ;
+	}
+	
+
 }

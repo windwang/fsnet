@@ -97,8 +97,9 @@ public class TopicMessageFacade {
     	} catch (Exception e) {
 			numMessages = 1;
 		}
+
     	int numPages = (int) Math.ceil(numMessages
-				/ ((double) paginatorCount)) - 1;
+				/ ((double) paginatorCount)) - 1; 	
     	    	
     	return numPages;
     }

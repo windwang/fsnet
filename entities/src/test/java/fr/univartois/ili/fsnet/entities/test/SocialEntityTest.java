@@ -36,9 +36,12 @@ public class SocialEntityTest {
 
 	private EntityManager em;
 	private SocialEntity e = new SocialEntity();
+	private SocialEntity e2 = new SocialEntity();
+	private SocialEntity e3 = new SocialEntity();
 
 	/* Objects instantiated at the beginning to test quicker */
 	private Date d = new Date();
+	private Address adr = new Address("rue Jean Souvraz", "LENS");
 	private List<Interaction> interactions = new ArrayList<>();
 	private List<InteractionRole> interactionRoles = new ArrayList<>();
 	private List<Interest> interests = new ArrayList<>();
@@ -62,7 +65,6 @@ public class SocialEntityTest {
 
 	@Test
 	public void testSetAndGetAddress() {
-		Address adr = new Address("rue Jean Souvraz", "LENS");
 		e.setAddress(adr);
 		assertEquals(adr, e.getAddress());
 	}
@@ -399,5 +401,225 @@ public class SocialEntityTest {
 		assertFalse(ent1.equals(ent2));
 		ent1.setPhone(null);
 		
+	}
+	
+	public void reinit(SocialEntity se){
+		se.setName("");
+		se.setFirstname("");
+		se.setAddress(adr);
+		se.setInscriptionDate(d);
+		se.setBirthDate(d);
+		se.setLastConnection(d);
+		se.setSex("");
+		se.setPassword("");
+		se.setProfession("");
+		se.setEmail("");
+		se.setPhone("");
+	}
+	
+	@Test
+	public void testEqualsOnName() {
+		reinit(e2);
+		reinit(e3);
+		e2.setName("bla");
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setName(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setName(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnFirstname() {
+		reinit(e2);
+		reinit(e3);
+		e2.setFirstname("rick");
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setFirstname(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setFirstname(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnAddress() {
+		reinit(e2);
+		reinit(e3);
+		Address address = new Address("rue de Trouve Pas", "OUAIS");
+		e2.setAddress(address);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setAddress(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setAddress(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnInscriptionDate() {
+		reinit(e2);
+		reinit(e3);
+		Date inscripDate = new Date();
+		e2.setInscriptionDate(inscripDate);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setInscriptionDate(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setInscriptionDate(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnBirthDate() {
+		reinit(e2);
+		reinit(e3);
+		Date birthDate = new Date();
+		e2.setBirthDate(birthDate);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setBirthDate(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setBirthDate(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnLastConnection() {
+		reinit(e2);
+		reinit(e3);
+		Date lastConnection = new Date();
+		e2.setLastConnection(lastConnection);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setLastConnection(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setLastConnection(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnSex() {
+		reinit(e2);
+		reinit(e3);
+		e2.setSex("M");
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setSex(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setSex(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnPassword() {
+		reinit(e2);
+		reinit(e3);
+		e2.setPassword("tttttt");
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setPassword(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setPassword(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnProfession() {
+		reinit(e2);
+		reinit(e3);
+		e2.setProfession("Programmer");
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setProfession(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setProfession(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnEmail() {
+		reinit(e2);
+		reinit(e3);
+		e2.setEmail("t@t.fr");
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setEmail(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setEmail(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnPhone() {
+		reinit(e2);
+		reinit(e3);
+		e2.setPhone("0102030405");
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e2.setPhone(null);
+		assertFalse(e2.equals(e3));
+		assertFalse(e3.equals(e2));
+		
+		e3.setPhone(null);
+		assertTrue(e2.equals(e3));
+		assertTrue(e3.equals(e2));
+	}
+	
+	@Test
+	public void testEqualsOnNullSocialEntity() {
+		reinit(e2);
+		reinit(e3);
+		e3 = null;
+		assertFalse(e2.equals(e3));
+	}
+	
+	@Test
+	public void testEqualsOnOtherClass() {
+		reinit(e2);
+		reinit(e3);
+		assertFalse(e2.equals(d));
 	}
 }
