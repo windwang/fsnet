@@ -16,12 +16,7 @@
 					<tr>
 						<td><label for="cvTitle"><s:text name="cv.form.title" /></label></td>
 						<td><s:textfield property="cvTitle" styleId="cvTitle"
-								errorStyleClass="error" /> <logic:messagesPresent
-								property="cvTitle"> 
-								<div class="errorMessage">
-									<s:fielderror  property="cvTitle" />
-								</div>
-							</logic:messagesPresent></td>
+								cssStyleClass="error" /></td>
 					</tr>
 				</table>
 			</div>
@@ -39,44 +34,39 @@
 			<div class="corp_contact">
 				<table class="inLineTable  tableStyle">
 					<tr>
-						<td><label for="cvFirstname"><s:text name="cv.form.profile.firstname" /></label></td>
+						<td><label for="cvFirstname"><s:text
+									name="cv.form.profile.firstname" /></label></td>
 						<td><c:choose>
 								<c:when test="${sessionScope.action}">
 									<s:textfield property="cvFirstname" styleId="cvFirstname"
-										errorStyleClass="error" />
+										cssStyleClass="error" />
 								</c:when>
 
 								<c:otherwise>
 									<s:textfield property="cvFirstname" styleId="cvFirstname"
-										errorStyleClass="error" value="${sessionScope.user.name}" />
+										cssStyleClass="error" value="%{sessionScope.user.name}" />
 								</c:otherwise>
-							</c:choose> <logic:messagesPresent property="cvFirstname">
-								<div class="errorMessage">
-									<s:fielderror property="cvFirstname" />
-								</div>
-							</logic:messagesPresent></td>
+							</c:choose> </td>
 					</tr>
 
 					<tr>
-						<td><label for="cvSurname"><s:text name="cv.form.profile.surname" /></label></td>
+						<td><label for="cvSurname"><s:text
+									name="cv.form.profile.surname" /></label></td>
 						<td><c:choose>
 								<c:when test="${sessionScope.action}">
 									<s:textfield property="cvSurname" styleId="cvFirstname"
-										errorStyleClass="error" />
+										cssStyleClass="error" />
 								</c:when>
 								<c:otherwise>
 									<s:textfield property="cvSurname" styleId="cvSurname"
-										errorStyleClass="error" value="%{sessionScope.user.firstName}" />
+										cssStyleClass="error" value="%{sessionScope.user.firstName}" />
 								</c:otherwise>
-							</c:choose> <logic:messagesPresent property="cvSurname">
-								<div class="errorMessage">
-									<s:fielderror property="cvSurname" />
-								</div>
-							</logic:messagesPresent></td>
+							</c:choose> </td>
 					</tr>
 
 					<tr>
-						<td><label for="cvSexe"><s:text name="cv.form.profile.sex" /></label></td>
+						<td><label for="cvSexe"><s:text
+									name="cv.form.profile.sex" /></label></td>
 						<td><select name="cvSexe" id="cvSexe">
 								<c:choose>
 									<c:when test="${sessionScope.user.sex == 'male'}">
@@ -111,100 +101,81 @@
 					</tr>
 
 					<tr>
-						<td><label for="cvAddress"><s:text name="cv.form.profile.address" /></label></td>
+						<td><label for="cvAddress"><s:text
+									name="cv.form.profile.address" /></label></td>
 						<td><c:choose>
 								<c:when test="${sessionScope.action}">
 									<s:textfield property="cvAddress" styleId="cvFirstname"
-										errorStyleClass="error" />
+										cssStyleClass="error" />
 								</c:when>
 								<c:otherwise>
 									<s:textfield property="cvAddress" styleId="cvAddress"
-										errorStyleClass="error"
+										cssStyleClass="error"
 										value="%{sessionScope.user.address.address}" />
 								</c:otherwise>
-							</c:choose> <logic:messagesPresent property="cvAddress">
-								<div class="errorMessage">
-									<s:fielderror property="cvAddress" />
-								</div>
-							</logic:messagesPresent></td>
+							</c:choose> </td>
 					</tr>
 
 					<tr>
-						<td><label for="cvCity"><s:text name="cv.form.profile.city" /></label></td>
+						<td><label for="cvCity"><s:text
+									name="cv.form.profile.city" /></label></td>
 						<td><c:choose>
 								<c:when test="${sessionScope.action}">
 									<s:textfield property="cvCity" styleId="cvFirstname"
-										errorStyleClass="error" />
+										cssStyleClass="error" />
 								</c:when>
 								<c:otherwise>
 									<s:textfield property="cvCity" styleId="cvCity"
-										errorStyleClass="error"
+										cssStyleClass="error"
 										value="%{sessionScope.user.address.city}" />
 								</c:otherwise>
-							</c:choose> <logic:messagesPresent property="cvCity">
-								<div class="errorMessage">
-									<s:fielderror property="cvCity" />
-								</div>
-							</logic:messagesPresent></td>
+							</c:choose> </td>
 					</tr>
 
 					<tr>
-						<td><label for="cvCP"><s:text name="cv.form.profile.cp" /></label></td>
+						<td><label for="cvCP"><s:text
+									name="cv.form.profile.cp" /></label></td>
 						<td><s:textfield property="cvCP" styleId="cvCP"
-								errorStyleClass="error" /> <logic:messagesPresent
-								property="cvCP">
-								<div class="errorMessage">
-									<s:fielderror property="cvCP" />
-								</div>
-							</logic:messagesPresent></td>
+								cssStyleClass="error" /> </td>
 					</tr>
 
 					<tr>
-						<td><label for="cvCountry"> <s:text name="cv.form.profile.country" /></label></td>
+						<td><label for="cvCountry"> <s:text
+									name="cv.form.profile.country" /></label></td>
 						<td><s:textfield property="cvCountry" styleId="cvCountry"
-								errorStyleClass="error" /> <logic:messagesPresent
-								property="cvCountry">
-								<div class="errorMessage">
-									<s:fielderror property="cvCountry" />
-								</div>
-							</logic:messagesPresent></td>
+								cssStyleClass="error" /> </td>
 					</tr>
 
 					<tr>
-						<td><label for="cvPhone"> <s:text name="cv.form.profile.phone" />
+						<td><label for="cvPhone"> <s:text
+									name="cv.form.profile.phone" />
 						</label></td>
 						<td><c:choose>
 								<c:when test="${sessionScope.action}">
 									<s:textfield property="cvPhone" styleId="cvFirstname"
-										errorStyleClass="error" />
+										cssStyleClass="error" />
 								</c:when>
 								<c:otherwise>
 									<s:textfield property="cvPhone" styleId="cvPhone"
-										errorStyleClass="error" value="${sessionScope.user.phone}" />
+										cssStyleClass="error" value="%{sessionScope.user.phone}" />
 								</c:otherwise>
-							</c:choose> <logic:messagesPresent property="cvPhone">
-								<div class="errorMessage">
-									<s:fielderror property="cvPhone" />
-								</div>
-							</logic:messagesPresent></td>
+							</c:choose> </td>
 					</tr>
 
 					<tr>
-						<td><label for="cvBirthDay"> <s:text name="cv.form.profile.birthday" />
+						<td><label for="cvBirthDay"> <s:text
+									name="cv.form.profile.birthday" />
 						</label></td>
-						<td><s:textfield errorStyleClass="error" styleId="cvBirthDay"
-								property="cvBirthDay" disabled="false" /> <logic:messagesPresent
-								property="cvBirthDay">
-								<div class="errorMessage">
-									<s:fielderror property="cvBirthDay" />
-								</div>
-							</logic:messagesPresent></td>
+						<td><s:textfield cssStyleClass="error" styleId="cvBirthDay"
+								property="cvBirthDay" disabled="false" /></td>
 					</tr>
 
 					<tr>
-						<td><label for="cvSituation"> <s:text name="cv.form.profile.situation" />
+						<td><label for="cvSituation"> <s:text
+									name="cv.form.profile.situation" />
 						</label></td>
-						<td><label for="single"><s:text name="cv.form.profile.sex.single" /></label><input type="radio"
+						<td><label for="single"><s:text
+									name="cv.form.profile.sex.single" /></label><input type="radio"
 							name="situation" id="single"
 							value="<s:text name="cv.form.profile.sex.single" />" /> <label
 							for="married"><s:text name="cv.form.profile.sex.married" /></label><input
@@ -213,26 +184,23 @@
 					</tr>
 
 					<tr>
-						<td><label for="cvMail"> <s:text name="cv.form.profile.mail" />
+						<td><label for="cvMail"> <s:text
+									name="cv.form.profile.mail" />
 						</label></td>
 						<td><c:choose>
 								<c:when test="${sessionScope.action}">
 									<s:textfield property="cvMail" styleId="cvFirstname"
-										errorStyleClass="error" />
+										cssStyleClass="error" />
 								</c:when>
 								<c:otherwise>
 									<s:textfield property="cvMail" styleId="cvMail"
-										errorStyleClass="error" value="${sessionScope.user.email}" />
+										cssStyleClass="error" value="%{sessionScope.user.email}" />
 								</c:otherwise>
-							</c:choose> <logic:messagesPresent property="cvMail">
-								<div class="errorMessage">
-									<s:fielderror property="cvMail" />
-								</div>
-							</logic:messagesPresent></td>
+							</c:choose></td>
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton"><s:submit
+						<td colspan="2" class="tableButton"><s:submit type="button"
 								styleClass="btn btn-inverse">
 								<s:text name="cv.button.next" />
 							</s:submit></td>
@@ -262,4 +230,6 @@
 		$("#cvBirthDay").datepicker();
 
 	});
+
+	
 </script>

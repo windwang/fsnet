@@ -19,9 +19,7 @@
 				</label></td>
 				<td><s:textfield property="name" styleId="name"
 						errorStyleClass="error" />
-					<div class="errorMessage">
-						<s:fielderror property="name" />
-					</div></td>
+					</td>
 			</tr>
 
 			<tr>
@@ -29,9 +27,7 @@
 				</label></td>
 				<td><s:textfield property="firstName" styleId="firstName"
 						errorStyleClass="error" />
-					<div class="errorMessage">
-						<s:fielderror property="firstName" />
-					</div></td>
+					</td>
 			</tr>
 
 			<tr>
@@ -39,56 +35,58 @@
 				</label></td>
 				<td><s:textfield property="email" styleId="email"
 						errorStyleClass="error" />
-					<div class="errorMessage">
-						<s:fielderror property="email" />
-					</div></td>
+					</td>
 			</tr>
 
 			<tr>
 				<td><label for="parentId"> <s:text name="members.group" />
 				</label></td>
-				<td colspan="3"><html:select property="parentId"
-						styleClass="select" styleId="parentId">
-						<html:option value="" disabled="true" />
-						<c:forEach var="socialGroup" items="${sessionScope.allGroups}">
-							<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
-						</c:forEach>
-					</html:select>
-					<div class="errorMessage">
-						<s:fielderror property="parentId" />
-					</div></td>
+			<td colspan="3">
+			<s:select property="parentId"
+						styleClass="select" styleId="parentId" list="%{socialGroup}" listkey="%{socialGroup.id}" listValue="%{socialGroup.name}">
+<!-- 						<html:option value="" disabled="true" /> -->
+<%-- 						<c:forEach var="socialGroup" items="${sessionScope.allGroups}"> --%>
+<%-- 							<html:option value="${socialGroup.id}">${socialGroup.name}</html:option> --%>
+<%-- 						</c:forEach> --%>
+					</s:select>
+					</td>
 			</tr>
 
 			<tr>
 				<td><label for="typePassword1"> <s:text name="members.generatePassword" />
 				</label></td>
-				<td><html:radio property="typePassword" styleId="typePassword1"
-						value="generatePassword" onclick="definePasword()" /></td>
+				<td>
+				<s:radio property="typePassword" styleId="typePassword1"
+						value="generatePassword" onclick="definePasword()" list="" />
+						
+<!-- 						<html:radio property="typePassword" styleId="typePassword1"/>  -->
+<!-- 						value="generatePassword" onclick="definePasword()" /> -->
+						</td>
 			</tr>
 
 			<tr>
 				<td><label for="typePassword2"> <s:text name="members.definePassword" />
 				</label></td>
-				<td><html:radio property="typePassword" styleId="typePassword2"
-						value="definePassword" onclick="definePasword()" /></td>
+				<td>
+				<s:radio property="typePassword" styleId="typePassword2"
+						value="definePassword" onclick="definePasword()" list="" />
+<%-- <html:radio property="typePassword" styleId="typePassword2" --%>
+<%-- 						value="definePassword" onclick="definePasword()"  /> --%>
+						</td>
 			</tr>
 			<tr>
 				<td><label for="password"> <s:text name="members.password" />
 				</label></td>
 				<td><s:password property="password" styleId="password"
 						errorStyleClass="error" />
-					<div class="errorMessage">
-						<s:fielderror property="password" />
-					</div></td>
+					</td>
 			</tr>
 			<tr>
 				<td><label for="passwordConfirmation"> <s:text name="members.passwordConfirmation" />
 				</label></td>
 				<td><s:password property="passwordConfirmation"
 						styleId="passwordConfirmation" errorStyleClass="error" />
-					<div class="errorMessage">
-						<s:fielderror property="passwordConfirmation" />
-					</div></td>
+					</td>
 			</tr>
 
 			<%@ include file="SamePartForMember.jsp"%>

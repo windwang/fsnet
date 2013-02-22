@@ -347,7 +347,7 @@
 		</fieldset>
 	</div>
 
-	<s:submit styleId="envoi" styleClass="btn btn-inverse">
+	<s:submit type="button" styleId="envoi" styleClass="btn btn-inverse">
 		<s:text name="cv.button.create" />
 	</s:submit>
 </s:form>

@@ -15,9 +15,9 @@
 			<tr>
 				<td colspan="2"><s:text name="members.createMultipleFileIndications" /></td>
 			</tr>
-			<tr class="errorMessage">
-				<td colspan="2"><s:fielderror property="fileMultipleMember" /></td>
-			</tr>
+<!-- 			<tr class="errorMessage"> -->
+<%-- 				<td colspan="2"><s:fielderror property="fileMultipleMember" /></td> --%>
+<!-- 			</tr> -->
 			<tr>
 				<td colspan="2"><s:file property="fileMultipleMember"
 						size="60" styleId="multipleMember" errorStyleClass="error" /></td>
