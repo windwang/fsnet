@@ -1,55 +1,50 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="interests.title.create2" />
+		<s:text name="interests.title.create2" />
 	</legend>
 
 	<div class="space"></div>
 	<html:javascript formName="/CreateInterest" />
-	<html:form action="/CreateInterest">
+	<s:form action="/CreateInterest">
 		<table id="CreateInterest" class="inLineTable tableStyle">
 			<tr>
-				<bean:message key="interests.message.create" />
+				<s:text name="interests.message.create" />
 			</tr>
 
 			<tr>
-				<td><label for="parentInterestId"><bean:message
-							key="interests.title.parent" /></label></td>
+				<td><label for="parentInterestId"><s:text
+							name="interests.title.parent" /></label></td>
 
-				<td><html:select property="parentInterestId"
-						styleClass="select" styleId="parentInterestId">
-						<html:option value="">
-							<bean:message key="interests.list.no" />
-						</html:option>
+				<td><select>
+						<option value="">
+							<s:text name="interests.list.no" />
+						</option>
 						<c:forEach var="interest" items="${requestScope.allInterests}">
-							<html:option value="${interest.id}">${interest.name}</html:option>
+							<option value="%{interest.id}">${interest.name}</option>
 						</c:forEach>
-					</html:select></td>
+				</select></td>
 
 			</tr>
 
 			<tr>
-				<td><label for="createdInterestName"><bean:message
-							key="interests.form.name" /></label></td>
-				<td><html:text property="createdInterestName"
+				<td><label for="createdInterestName"><s:property
+							value="interests.form.name" /></label></td>
+				<td><s:textfield property="createdInterestName"
 						styleId="createdInterestName" />
-					<div class="errorMessage">
-						<html:errors property="createdInterestName" />
-					</div></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit
+				<td colspan="2" class="tableButton"><s:submit
 						styleClass="button">
-						<bean:message key="interests.button.create" />
-					</html:submit></td>
+						<s:text name="interests.button.create" />
+					</s:submit></td>
 			</tr>
 		</table>
-	</html:form>
+	</s:form>
 </fieldset>
