@@ -59,11 +59,8 @@
 								</c:import></td>
 							<td><s:a action="/DisplayAnnounce.do"
 									paramId="idAnnounce" paramName="idAnnounce">
-<<<<<<< HEAD
 									<s:property default="title" value="announce" />
-=======
-									<bean:write name="announce" property="title" />
->>>>>>> b51606823970ae78ca4476d53fe647d5ace62683
+
 								</s:a></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname

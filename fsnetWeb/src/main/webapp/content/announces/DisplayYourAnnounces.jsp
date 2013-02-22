@@ -70,7 +70,6 @@
 					<tbody>
 						<c:forEach var="announce" items="${requestScope.myAnnouncesList}">
 							<tr>
-<<<<<<< HEAD
 								<s:set id="idAnnounce" name="announce" var="id" />
 								<td><s:checkbox property="selectedAnnounces"
 										value="%{announce.id}" /></td>
@@ -79,16 +78,6 @@
 										<s:property value="announce" default="title" />
 									</s:a></td>
 								<td><s:property value="announce" default="endDate"
-=======
-								<bean:define id="idAnnounce" name="announce" property="id" />
-								<td><html:multibox property="selectedAnnounces"
-										value="${announce.id}" /></td>
-								<td><s:a action="/DisplayAnnounce.do"
-										paramId="idAnnounce" paramName="idAnnounce">
-										<bean:write name="announce" property="title" />
-									</s:a></td>
-								<td><bean:write name="announce" property="endDate"
->>>>>>> b51606823970ae78ca4476d53fe647d5ace62683
 										format="dd/MM/yyyy HH:mm" /></td>
 							</tr>
 						</c:forEach>
