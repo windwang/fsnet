@@ -9,18 +9,18 @@
 <c:if test="${!empty requestScope.eventsList}">
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="events.leftMenu.exportEvents" />
+			<s:text name="events.leftMenu.exportEvents" />
 		</legend>
 
 
 		<table id="exportEvents" class="inLineTable tableStyle ">
 			<tr>
-				<td><html:link action="/ExportAllEvents">
+				<td><s:a href="/ExportAllEvents">
 						<img src="images/download.png"
-							alt="<bean:message key="events.export" />"
-							title="<bean:message key="events.export" />" />
-						<bean:message key="events.exportAll" />
-					</html:link></td>
+							alt="<s:text name="events.export" />"
+							title="<s:text name="events.export" />" />
+						<s:text name="events.exportAll" />
+					</s:a></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -28,7 +28,7 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="events.title.list" />
+		<s:text name="events.title.list" />
 	</legend>
 
 	<c:choose>
@@ -36,7 +36,7 @@
 		<c:when test="${empty requestScope.eventsList}">
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="events.search.empty" /></td>
+					<td><s:text name="events.search.empty" /></td>
 				</tr>
 			</table>
 		</c:when>
@@ -67,13 +67,13 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th><bean:message key="tableheader.eventname" /></th>
-						<th><bean:message key="tableheader.willoccur" /></th>
-						<th><bean:message key="tableheader.expirdate" /></th>
-						<th><bean:message key="tableheader.by" /></th>
-						<th><bean:message key="tableheader.firstname" /></th>
-						<th><bean:message key="tableheader.name" /></th>
-						<th><bean:message key="tableheader.actions" /></th>
+						<th><s:text name="tableheader.eventname" /></th>
+						<th><s:text name="tableheader.willoccur" /></th>
+						<th><s:text name="tableheader.expirdate" /></th>
+						<th><s:text name="tableheader.by" /></th>
+						<th><s:text name="tableheader.firstname" /></th>
+						<th><s:text name="tableheader.name" /></th>
+						<th><s:text name="tableheader.actions" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -84,43 +84,43 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${event.id}" />
 								</c:import></td>
-							<td><html:link action="/DisplayEvent">
+							<td><s:a href="/DisplayEvent">
 		                    ${event.title}
-		                    <html:param name="eventId" value="${event.id}" />
-								</html:link> <span style="color: gray"> : <ili:substring
+		                    <s:param name="eventId" value="%{event.id}" />
+								</s:a> <span style="color: gray"> : <ili:substring
 										beginIndex="0" endIndex="30">
 										<ili:noxml>${event.content}</ili:noxml>
 									</ili:substring>
 							</span></td>
-							<td class="left"><bean:write name="event"
+							<td class="left"><s:property name="event"
 									property="startDate" format="dd/MM/yyyy HH:mm" /></td>
-							<td class="left"><bean:write name="event" property="endDate"
+							<td class="left"><s:property name="event" property="endDate"
 									format="dd/MM/yyyy HH:mm" /></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${event.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${event.creator}" /></td>
-							<td><html:link action="/ExportEventById">
-									<html:param name="eventId" value="${event.id}" />
+							<td><s:a href="/ExportEventById">
+									<s:param name="eventId" value="%{event.id}" />
 									<img src="images/download.png"
-										alt="<bean:message key="events.export" />"
-										title="<bean:message key="events.export" />" />
-								</html:link> <c:if test="${userId eq event.creator.id}">
-									<html:link action="/DisplayUpdateEvent">
-										<html:param name="eventId" value="${event.id}" />
+										alt="<s:text name="events.export" />"
+										title="<s:text name="events.export" />" />
+								</s:a> <c:if test="${userId eq event.creator.id}">
+									<s:a href="/DisplayUpdateEvent">
+										<s:param name="eventId" value="%{event.id}" />
 										<img src="images/edit.png"
-											alt="<bean:message key="events.button.update" />"
-											title="<bean:message key="events.button.update" />" />
-									</html:link>
-									<html:link action="/DeleteEvent">
-										<html:param name="eventId" value="${event.id}" />
+											alt="<s:text name="events.button.update" />"
+											title="<s:text name="events.button.update" />" />
+									</s:a>
+									<s:a href="/DeleteEvent">
+										<s:param name="eventId" value="%{event.id}" />
 										<img
-											onclick="return confirm('<bean:message key="message.confirmation.delete" />');"
+											onclick="return confirm('<s:text name="message.confirmation.delete" />');"
 											src="images/del.png"
-											alt="<bean:message key="events.button.delete" />"
-											title="<bean:message key="events.button.delete" />" />
-									</html:link>
+											alt="<s:text name="events.button.delete" />"
+											title="<s:text name="events.button.delete" />" />
+									</s:a>
 								</c:if></td>
 						</ili:interactionRow>
 					</c:forEach>

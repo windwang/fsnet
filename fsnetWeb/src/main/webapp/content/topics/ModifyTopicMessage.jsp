@@ -15,8 +15,8 @@
 
 	<table id="CreateTopic" class="inLineTable tableStyle">
 		<html:form action="/ModifyTopicMessage">
-			<html:hidden property="topicId" value="${topicId}" />
-			<html:hidden property="messageId" value="${message.id}" />
+			<s:hidden name="topicId" value="${topicId}" />
+			<s:hidden name="messageId" value="${message.id}" />
 
 			<tr>
 				<td><label for="messageDescription"><bean:message

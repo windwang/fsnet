@@ -21,9 +21,7 @@
 				<td colspan="2"><s:textarea property="multipleMember"
 						styleId="multipleMember" errorStyleClass="error" cols="80"
 						rows="6" />
-					<div class="errorMessage">
-						<s:fielderror property="multipleMember" />
-					</div></td>
+					</td>
 			</tr>
 			
 			<%@ include file="SamePartForMember.jsp" %>

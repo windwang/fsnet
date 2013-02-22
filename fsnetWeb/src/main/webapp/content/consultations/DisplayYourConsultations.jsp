@@ -1,12 +1,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="consultations.title.my" />
+		<s:text name="consultations.title.my" />
 	</legend>
 
 	<c:choose>
@@ -48,45 +48,43 @@
 							});
 						});
 			</script>
-			<html:form action="/DeleteMultiConsultations">
-				<table id="yourConsults"
-					class="tablesorter inLineTable tableStyle">
+			<s:form action="/DeleteMultiConsultations">
+				<table id="yourConsults" class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
 								name="selected" class="checkThemAll1" /></th>
-							<th><bean:message key="tableheader.consultationname" /></th>
-							<th><bean:message key="consultations.createdAtDate" /></th>
+							<th><s:text name="tableheader.consultationname" /></th>
+							<th><s:text name="consultations.createdAtDate" /></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="3"><html:submit styleClass="btn btn-inverse">
-									<bean:message key="privatemessages.delete" />
-								</html:submit></td>
+							<td colspan="3"><s:submit styleClass="btn btn-inverse">
+									<s:text name="privatemessages.delete" />
+								</s:submit></td>
 						</tr>
 					</tfoot>
 					<c:forEach var="consultation"
 						items="${requestScope.consultationsList}">
 						<tr>
-							<td><html:multibox property="selectedConsultations"
-									value="${consultation.id}" /></td>
+							<td><s:checkbox property="selectedConsultations"
+									value="%{consultation.id}" /></td>
 
-							<td><html:link
-									action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
+							<td><s:a
+									href="/DisplayAConsultation?id=%{consultation.id }">%{consultation.title }</s:a>
 							</td>
-							<td><bean:write name="consultation" property="creationDate"
-									formatKey="date.format" /></td>
+							<td><s:property value="creationDate" /></td>
 						</tr>
 					</c:forEach>
 					</tbody>
 				</table>
-			</html:form>
+			</s:form>
 		</c:when>
 		<c:otherwise>
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="consultations.noResult" />.</td>
+					<td><s:text name="consultations.noResult" />.</td>
 				</tr>
 			</table>
 		</c:otherwise>

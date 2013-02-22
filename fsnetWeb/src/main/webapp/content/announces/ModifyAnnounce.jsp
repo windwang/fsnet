@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
@@ -12,49 +11,56 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="announce.title.modify" />
+		<s:text name="announce.title.modify" />
 	</legend>
 	<table id="ModifyAnnounce"
 		class="inLineTable tableStyle">
-		<html:form action="/ModifyAnnounce">
-			<html:hidden property="idAnnounce" />
+
+		<s:form action="/ModifyAnnounce">
+			<s:hidden property="idAnnounce" />
+
+
 			
 			<tr>
-				<td><label for="announceTitle"><bean:message
-							key="announce.form.title" /></label></td>
-				<td><html:text property="announceTitle" styleId="announceTitle" />
-					<div class="errorMessage">
-						<html:errors property="announceTitle" />
-					</div></td>
+				<td><label for="announceTitle"><s:text
+							name="announce.form.title" /></label></td>
+				<td><s:textfield property="announceTitle" styleId="announceTitle" />
+<!-- 					<div class="errorMessage"> -->
+<!-- 						<html:errors property="announceTitle" /> -->
+<!-- 					</div> -->
+					</td>
 			</tr>
 
 			<tr>
-				<td><label for="announceContent"><bean:message
-							key="announce.form.content" /> </label></td>
-				<td><html:textarea cols="40" rows="8"
+				<td><label for="announceContent"><s:text
+							name="announce.form.content" /> </label></td>
+				<td><s:textarea cols="40" rows="8"
 						property="announceContent" styleId="announceContent"
 						styleClass="mceTextArea" style="width: 100%;" />
-					<div class="errorMessage">
-						<html:errors property="announceContent" />
-					</div></td>
+<!-- 					<div class="errorMessage"> -->
+<!-- 						<html:errors property="announceContent" /> -->
+<!-- 					</div> -->
+					</td>
 			</tr>
 
 			<tr>
-				<td><label for="announceExpiryDate"><bean:message
-							key="announce.form.date" /></label></td>
-				<td><html:text property="announceExpiryDate"
-						styleId="announceExpiryDate" /><div class="errorMessage">
-						<html:errors property="announceExpiryDate" />
-					</div></td>
+				<td><label for="announceExpiryDate"><s:text
+							name="announce.form.date" /></label></td>
+				<td><s:textfield property="announceExpiryDate"
+ 						styleId="announceExpiryDate" />
+<!--<div class="errorMessage"> -->
+<!-- 						<html:errors property="announceExpiryDate" /> -->
+<!-- 					</div> -->
+			</td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="btn btn-inverse">
-						<bean:message key="announce.button.modify" />
-					</html:submit></td>
+				<td colspan="2" class="tableButton"><s:submit styleClass="btn btn-inverse">
+						<s:text name="announce.button.modify" />
+					</s:submit></td>
 			</tr>
 
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
 

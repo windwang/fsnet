@@ -28,9 +28,15 @@
 			<s:text name="interactions.interest" /> :
             <div class="cloud">
 				<c:forEach var="interest" items="${theInteraction.interests}">
+<<<<<<< HEAD
 					<span class="otag"> 
 						<s:a href="/InterestInformations">
 							<s:param name="infoInterestId" value="%{interest.id}" />
+=======
+					<span class="otag"> <s:a
+							action="/InterestInformations">
+							<html:param name="infoInterestId" value="${interest.id}" />
+>>>>>>> 77a7b5345b0a0758da7f9f32193511a9a8707df0
                             ${interest.name}
                         </s:a>
 					</span>

@@ -27,6 +27,7 @@
 					<s:text name="interactions.interest" /> :
            		 	<div class="cloud">
 						<c:forEach var="interest" items="${theInteraction.interests}">
+<<<<<<< HEAD
 							<span class="otag"> 
 								<s:a href="/InterestInformations">
 									<s:param name="infoInterestId" value="%{interest.id}" />
@@ -36,6 +37,17 @@
 									<s:a href="/RemoveInterestOfInteraction">
 										<s:param name="interactionId" value="%{theInteraction.id}" />
 										<s:param name="interestId" value="%{interest.id}" />
+=======
+							<span class="otag"> <s:a
+									action="/InterestInformations">
+									<html:param name="infoInterestId" value="${interest.id}" />
+                            ${interest.name}
+                        </s:a> <c:if
+									test="${sessionScope.userId eq theInteraction.creator.id}">
+									<s:a action="/RemoveInterestOfInteraction">
+										<html:param name="interactionId" value="${theInteraction.id}" />
+										<html:param name="interestId" value="${interest.id}" />
+>>>>>>> 77a7b5345b0a0758da7f9f32193511a9a8707df0
 										<img src="images/mini-delete.png" alt="delete" />
 									</s:a>
 								</c:if>

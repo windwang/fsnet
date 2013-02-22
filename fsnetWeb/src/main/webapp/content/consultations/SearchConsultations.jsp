@@ -1,33 +1,33 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<bean:define id="searchMessage">
-	<bean:message key="consultations.placeholder.search" />
-</bean:define>
+
+<s:text name="consultations.placeholder.search" var="searchMessage" />
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="consultations.title.search" />
+		<s:text name="consultations.title.search" />
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
-			<td><html:form action="SearchConsultation" method="get">
+			<td><s:form action="SearchConsultation" method="get">
 					<div id="SearchConsultation">
-						<html:text property="searchText" styleId="searchTexte" styleClass="search-query"/>
+						<s:textfield property="searchText" styleId="searchTexte"
+							styleClass="search-query" />
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:submit styleClass="btn btn-inverse">
-							<bean:message key="consultations.button.search" />
-						</html:submit>
+						<s:submit styleClass="btn btn-inverse">
+							<s:text name="consultations.button.search" />
+						</s:submit>
 					</div>
-				</html:form></td>
+				</s:form></td>
 		</tr>
 	</table>
 </fieldset>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="consultations.title.listConsultations" />
+		<s:text name="consultations.title.listConsultations" />
 	</legend>
 	<c:choose>
 		<c:when test="${! empty requestScope.consultationsSearchList}">
@@ -53,13 +53,11 @@
 				<thead>
 					<tr>
 						<th width="5%"></th>
-						<th width="25%"><bean:message
-								key="tableheader.consultationname" /></th>
-						<th width="20%"><bean:message
-								key="consultations.createdAtDate" /></th>
-						<th><bean:message key="tableheader.by" /></th>
-						<th><bean:message key="members.firstName" /></th>
-						<th><bean:message key="members.name" /></th>
+						<th width="25%"><s:text name="tableheader.consultationname" /></th>
+						<th width="20%"><s:text name="consultations.createdAtDate" /></th>
+						<th><s:text name="tableheader.by" /></th>
+						<th><s:text name="members.firstName" /></th>
+						<th><s:text name="members.name" /></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -72,25 +70,23 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${consultation.id}" />
 								</c:import></td>
-							<td><html:link
-									action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
-							<td><bean:write name="consultation" property="creationDate"
-									formatKey="date.format" /></td>
+							<td><s:a href="/DisplayAConsultation?id=%{consultation.id }">${consultation.title }</s:a>
+							<td><s:property value="creationDate" /></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${consultation.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${consultation.creator}" /></td>
 							<td class="tableButton"
-								onclick="confirmDelete2(${consultation.id},	'<bean:message key="message.confirmation.delete" />');"><c:if
+								onclick="confirmDelete2(${consultation.id},	'<s:text name="message.confirmation.delete" />');"><c:if
 									test="${sessionScope.userId eq consultation.creator.id}">
-									<html:form action="/DeleteAConsultation" method="post"
+									<s:form action="/DeleteAConsultation" method="post"
 										styleId="${consultation.id}" styleClass="cursorPointer">
-										<html:hidden property="id" value="${consultation.id}" />
-										<span class="btn btn-inverse"> <bean:message
-												key="consultations.button.delete" />
+										<s:hidden name="id" value="%{consultation.id}" />
+										<span class="btn btn-inverse"> <s:text
+												name="consultations.button.delete" />
 										</span>
-									</html:form>
+									</s:form>
 								</c:if></td>
 						</ili:interactionRow>
 					</c:forEach>
@@ -100,7 +96,7 @@
 		<c:otherwise>
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="consultations.noResult" />.</td>
+					<td><s:text name="consultations.noResult" />.</td>
 				</tr>
 			</table>
 		</c:otherwise>
