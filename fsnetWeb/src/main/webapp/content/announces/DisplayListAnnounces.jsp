@@ -1,20 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="announce.title.list" />
+		<s:text name="announce.title.list" />
 	</legend>
 
 	<c:choose>
 		<c:when test="${empty requestScope.annoucesList}">
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="announce.emptyList" /></td>
+					<td><s:text name="announce.emptyList" /></td>
 				</tr>
 			</table>
 		</c:when>
@@ -42,11 +41,11 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th><bean:message key="tableheader.announcename" /></th>
-						<th><bean:message key="tableheader.by" /></th>
-						<th><bean:message key="members.firstName" /></th>
-						<th><bean:message key="members.name" /></th>
-						<th><bean:message key="tableheader.expirdate" /></th>
+						<th><s:text name="tableheader.announcename" /></th>
+						<th><s:text name="tableheader.by" /></th>
+						<th><s:text name="members.firstName" /></th>
+						<th><s:text name="members.name" /></th>
+						<th><s:text name="tableheader.expirdate" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -54,20 +53,20 @@
 						<ili:interactionRow
 							unreadInteractionsId="${requestScope.unreadInteractionsId}"
 							currentInteractionId="${announce.id}">
-							<bean:define id="idAnnounce" name="announce" property="id" />
+							<s:set id="idAnnounce" name="announce" var="id" />
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${announce.id}" />
 								</c:import></td>
-							<td><html:link action="/DisplayAnnounce.do"
+							<td><s:a action="/DisplayAnnounce.do"
 									paramId="idAnnounce" paramName="idAnnounce">
-									<bean:write name="announce" property="title" />
-								</html:link></td>
+									<s:property default="title" value="announce" />
+								</s:a></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${announce.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${announce.creator}" /></td>
-							<td><bean:write name="announce" property="endDate"
+							<td><s:property value="announce" default="endDate"
 									format="dd/MM/yyyy HH:mm" /></td>
 						</ili:interactionRow>
 					</c:forEach>
