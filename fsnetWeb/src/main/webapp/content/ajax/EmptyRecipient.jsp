@@ -1,3 +1,5 @@
-<%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles"%>  
 
-<tiles:insert attribute="content"/>
+
+<tiles:insertAttribute name="content"/>
