@@ -7,11 +7,11 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="communities.title.listYourCommunities" />
+		<s:text name="communities.title.listYourCommunities" />
 	</legend>
 
 	<c:choose>
-		<c:when test="${not empty requestScope.myCommunities}">
+		<c:when test="%{not empty requestScope.myCommunities}">
 			<div class="space"></div>
 			<script type="text/javascript">
 				$(document).ready(
@@ -47,54 +47,58 @@
 							});
 						});
 			</script>
-			<html:form action="/DeleteMultiCommunities">
+			<s:form action="/DeleteMultiCommunities">
 				<table id="myCommTables"
 					class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
 								name="selected" class="checkThemAll1" /></th>
-							<th><bean:message key="tableheader.communityname" /></th>
+							<th><s:text name="tableheader.communityname" /></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="2"><html:submit styleClass="btn btn-inverse">
-									<bean:message key="privatemessages.delete" />
-								</html:submit></td>
+							<td colspan="2">
+								<s:submit styleClass="btn btn-inverse">
+									<s:text name="privatemessages.delete" />
+								</s:submit>
+							</td>
 						</tr>
 					</tfoot>
 					<tbody>
-						<c:forEach var="community" items="${requestScope.myCommunities}">
+						<c:forEach var="community" items="%{requestScope.myCommunities}">
 							<tr class="content">
-								<td><html:multibox property="selectedCommunities"
-										value="${community.id}" /></td>
-								<td><html:link action="/DisplayCommunity"
-										title='${empty community.interests ? "" : community.interests}'>
-										<html:param name="communityId" value="${community.id}" />
-                            ${community.title}
-                        </html:link> <c:choose>
-										<c:when test="${fn:length(community.hubs) eq 0}">
-                         		(<bean:message key="communities.hubs.notAny" /> hub)
+								<td>
+									<s:checkboxlist list="selectedCommunities" value="%{community.id}" />				
+								</td>
+								<td>
+									<s:a href="/DisplayCommunity"
+										title='%{empty community.interests ? "" : community.interests}'>
+										<s:param name="communityId" value="${community.id}" />
+                           			 %{community.title}
+                        		</s:a> <c:choose>
+										<c:when test="%{fn:length(community.hubs) eq 0}">
+                         		(<s:text name="communities.hubs.notAny" /> hub)
                          	</c:when>
-										<c:when test="${fn:length(community.hubs) eq 1}">
+										<c:when test="%{fn:length(community.hubs) eq 1}">
                          		(1 hub)
                          	</c:when>
-										<c:when test="${fn:length(community.hubs) gt 1}">
-                         		(${fn:length(community.hubs)} hubs)
+										<c:when test="%{fn:length(community.hubs) gt 1}">
+                         		(%{fn:length(community.hubs)} hubs)
                          	</c:when>
 									</c:choose></td>
-								<!-- onclick="confirmDelete2('deleteid${community.id}', '<bean:message key="message.confirmation.delete" />');">  -->
+								<!-- onclick="confirmDelete2('deleteid%{community.id}', '<s:text name="message.confirmation.delete" />');">  -->
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-			</html:form>
+			</s:form>
 		</c:when>
 		<c:otherwise>
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="communities.noResult" /></td>
+					<td><s:text name="communities.noResult" /></td>
 				</tr>
 			</table>
 		</c:otherwise>
