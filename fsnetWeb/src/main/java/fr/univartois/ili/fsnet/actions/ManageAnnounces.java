@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -11,9 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import org.apache.struts2.components.ActionMessage;
-import org.apache.struts2.dispatcher.mapper.ActionMapping;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -41,6 +37,10 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 public class ManageAnnounces extends ActionSupport implements
 		CrudAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
 	private static final String FAILED_ACTION_NAME = "failed";
 
@@ -76,7 +76,7 @@ public class ManageAnnounces extends ActionSupport implements
 		try {
 			if (groupsListRight.length == 0) {
 				request.setAttribute("errorAnnounceRights", true);
-				return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
+				return FAILED_ACTION_NAME;
 			}
 			
 			Announcement createdAnnounce;
@@ -114,11 +114,6 @@ public class ManageAnnounces extends ActionSupport implements
 				addFieldError(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME, "date.error.dateBelowDateToday");
 				return FAILED_ACTION_NAME;
 			}
-		} catch (ParseException e) {
-			/*servlet.log(getClass().getName()
-					+ " methode:create exception when formating date ");*/
-
-			return FAILED_ACTION_NAME;
 		} catch (NumberFormatException e) {
 			return FAILED_ACTION_NAME;
 		} finally {
@@ -319,11 +314,11 @@ public class ManageAnnounces extends ActionSupport implements
 			addRightToRequest(request);
 			em.getTransaction().commit();
 
-			dynaForm.set(ANNOUNCE_ID_ATTRIBUTE_NAME, announce.getId());
+			/*dynaForm.set(ANNOUNCE_ID_ATTRIBUTE_NAME, announce.getId());
 			dynaForm.set(ANNOUNCE_TITLE_FORM_FIELD_NAME, announce.getTitle());
 			dynaForm.set(ANNOUNCE_CONTENT_FORM_FIELD_NAME,announce.getContent());
 			dynaForm.set(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME,
-					DateUtils.renderDateWithHours(announce.getEndDate()));
+					DateUtils.renderDateWithHours(announce.getEndDate()));*/
 		} catch (NumberFormatException e) {
 			return FAILED_ACTION_NAME;
 		} finally {
@@ -425,4 +420,70 @@ public class ManageAnnounces extends ActionSupport implements
 
 		return SUCCESS;
 	}
+
+	public int getIdAnnounce() {
+		return idAnnounce;
+	}
+
+	public void setIdAnnounce(int idAnnounce) {
+		this.idAnnounce = idAnnounce;
+	}
+
+	public String getAnnounceTitle() {
+		return announceTitle;
+	}
+
+	public void setAnnounceTitle(String announceTitle) {
+		this.announceTitle = announceTitle;
+	}
+
+	public String getAnnounceContent() {
+		return announceContent;
+	}
+
+	public void setAnnounceContent(String announceContent) {
+		this.announceContent = announceContent;
+	}
+
+	public Date getAnnounceExpiryDate() {
+		return announceExpiryDate;
+	}
+
+	public void setAnnounceExpiryDate(Date announceExpiryDate) {
+		this.announceExpiryDate = announceExpiryDate;
+	}
+
+	public String getTextSearchAnnounce() {
+		return textSearchAnnounce;
+	}
+
+	public void setTextSearchAnnounce(String textSearchAnnounce) {
+		this.textSearchAnnounce = textSearchAnnounce;
+	}
+
+	public String[] getSelectedAnnounces() {
+		return selectedAnnounces;
+	}
+
+	public void setSelectedAnnounces(String[] selectedAnnounces) {
+		this.selectedAnnounces = selectedAnnounces;
+	}
+
+	public String[] getGroupsListRight() {
+		return groupsListRight;
+	}
+
+	public void setGroupsListRight(String[] groupsListRight) {
+		this.groupsListRight = groupsListRight;
+	}
+
+	public String[] getSelectedInterests() {
+		return selectedInterests;
+	}
+
+	public void setSelectedInterests(String[] selectedInterests) {
+		this.selectedInterests = selectedInterests;
+	}
+	
+	
 }

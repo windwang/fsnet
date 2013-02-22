@@ -26,10 +26,14 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  */
 public class ManageContacts extends ActionSupport implements CrudAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger LOGGER = Logger.getLogger(ManageContacts.class
 			.getName());
 
-	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String UNABLE_TO_PARSE_ID_ERROR = "Unable to parse the contact id as an integer";
 
 	private int entitySelected;
@@ -306,5 +310,47 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 
 		return SUCCESS;
 	}
+
+	public int getEntitySelected() {
+		return entitySelected;
+	}
+
+	public void setEntitySelected(int entitySelected) {
+		this.entitySelected = entitySelected;
+	}
+
+	public int getEntityAccepted() {
+		return entityAccepted;
+	}
+
+	public void setEntityAccepted(int entityAccepted) {
+		this.entityAccepted = entityAccepted;
+	}
+
+	public int getEntityRefused() {
+		return entityRefused;
+	}
+
+	public void setEntityRefused(int entityRefused) {
+		this.entityRefused = entityRefused;
+	}
+
+	public int getEntityDeleted() {
+		return entityDeleted;
+	}
+
+	public void setEntityDeleted(int entityDeleted) {
+		this.entityDeleted = entityDeleted;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 
 }
