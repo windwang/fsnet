@@ -14,14 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-<<<<<<< HEAD
+
 import com.opensymphony.xwork2.ActionSupport;
-=======
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.ActionSupport;
->>>>>>> Start of the migration of actions of FSNet
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
