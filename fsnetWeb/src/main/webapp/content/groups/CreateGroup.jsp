@@ -1,172 +1,136 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
+<%@ page language="java" contentType="text/s; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix ="s" uri="/struts-tags" %>
+
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="groups.create" />
+		<s:text name="groups.create" />
 	</legend>
 
-	<html:form action="/CreateGroup" onsubmit="Valider()">
+	<s:form action="/CreateGroup" onsubmit="Valider()">
 
 		<table id="CreateGroup" class="inLineTable tableStyle">
 			<tr>
-				<td><label for="name"> <bean:message key="groups.name" />
+				<td><label for="name"> <s:text name="groups.name" />
 				</label></td>
-				<td colspan="3"><html:text property="name" styleId="name"
-						errorStyleClass="error" /> <html:hidden property="id"
+				<td colspan="3"><s:textfield property="name" styleId="name"
+						cssErrorClass="error" /> <s:hidden name="id"
 						styleId="id" />
-					<div class="errorMessage">
-						<html:errors property="name" />
-					</div></td>
+					</td>
 			</tr>
 
 			<tr>
-				<td><label for="description"> <bean:message
-							key="groups.description" />
+				<td><label for="description"> <s:text
+							name="groups.description" />
 				</label></td>
 				<td colspan="3"><c:set var="welcomeMain">
-						<bean:message key="groups.description.message" />
-					</c:set> <html:textarea property="description" styleId="description"
-						errorStyleClass="error" cols="36" rows="6">
-					</html:textarea>
-					<div class="errorMessage">
-						<html:errors property="description" />
-					</div></td>
+						<s:text name="groups.description.message" />
+					</c:set> <s:textarea property="description" styleId="description"
+						cssErrorClass="error" cols="36" rows="6">
+					</s:textarea>
+					</td>
 			</tr>
 			<tr class="errorMessage">
-				<td colspan="2"><html:errors property="description" /></td>
+				<td colspan="2"></td>
 			</tr>
 
 			<tr>
-				<td><label for="parentId"> <bean:message
-							key="groups.parent" />
+				<td><label for="parentId"> <s:text
+							name="groups.parent" />
 				</label></td>
-				<td colspan="3"><html:select property="parentId"
-						styleClass="select" styleId="parentId">
-						<html:option value="" disabled="true"/>
-						<c:forEach var="socialGroup" items="${allGroups}">
-							<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
-						</c:forEach>
-					</html:select>
-					<div class="errorMessage">
-						<html:errors property="parentId" />
-					</div></td>
+				<td colspan="3"><s:select property="parentId"
+						styleClass="select" styleId="parentId" list="%{allGroups}" listKey="%{allGroups.id}" listValue="%{allGroups.name}">
+					</s:select>
+					</td>
 			</tr>
 
 			<tr>
-				<td><label for="socialEntityId"> <bean:message
-							key="groups.owner" />
+				<td><label for="socialEntityId"> <s:text
+							name="groups.owner" />
 				</label></td>
-				<td colspan="3"><html:select property="socialEntityId"
-						styleClass="select" value="${ masterGroup.id }"
-						styleId="socialEntityId">
-						<html:option value="" disabled="true"/>
-						<c:forEach var="socialEntity" items="${allMembers}">
-							<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
-						</c:forEach>
-					</html:select>
-					<div class="errorMessage">
-						<html:errors property="socialEntityId" />
-					</div></td>
+				<td colspan="3"><s:select property="socialEntityId"
+						styleClass="select" value="%{ masterGroup.id }"
+						styleId="socialEntityId" list="%{allMembers}" listKey="%{allMembers.id}" listValue="%{allMembers.name} %{allMembers.firstName}">
+					</s:select>
+					</td>
 			</tr>
 
 			<tr>
-				<td rowspan="2"><label> <bean:message
-							key="groups.members" />
+				<td rowspan="2"><label> <s:text
+							name="groups.members" />
 				</label></td>
 
 				<td rowspan="2">
 					<div>
-						<bean:message key="groups.members.refused" />
-					</div> <html:select property="memberListLeft" styleClass="select"
-						size="5" multiple="multiple">
-						<c:forEach var="socialEntity" items="${refusedMembers}">
-							<c:if test="${socialEntity.isEnabled}">
-								<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
-							</c:if>
-						</c:forEach>
-					</html:select>
+						<s:text name="groups.members.refused" />
+					</div> <s:select property="memberListLeft" styleClass="select"
+						size="5" multiple="multiple" list="">
+					</s:select>
 				</td>
 
-				<td><html:button property="" styleClass="btn btn-inverse"
+				<td><s:submit type="button" property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.memberListLeft,this.form.memberListRight)">
-						<bean:message key="groups.addMembers" />
-					</html:button></td>
+						<s:text name="groups.addMembers" />
+					</s:submit></td>
 
 				<td rowspan="2">
 					<div>
-						<bean:message key="groups.members.accepted" />
-					</div> <html:select property="memberListRight" styleClass="select"
-						size="5" multiple="multiple">
-						<c:forEach var="socialEntity" items="${acceptedMembers}">
-							<html:option value="${socialEntity.id}">${socialEntity.name} ${socialEntity.firstName}</html:option>
-						</c:forEach>
-					</html:select>
+						<s:text name="groups.members.accepted" />
+					</div> <s:select property="memberListRight" styleClass="select"
+						size="5" multiple="multiple" list="%{acceptedMembers}" listKey="%{acceptedMembers.id}" listValue="%{acceptedMembers.name} %{acceptedMembers.firstName}">
+					</s:select>
 				</td>
 			</tr>
 			<tr>
-				<td><html:button property="" styleClass="btn btn-inverse"
+				<td><s:submit type="button"property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.memberListRight,this.form.memberListLeft)">
-						<bean:message key="groups.removeMembers" />
-					</html:button></td>
+						<s:text name="groups.removeMembers" />
+					</s:submit></td>
 			</tr>
 
 			<tr>
-				<td rowspan="2"><label> <bean:message
-							key="groups.right" />
+				<td rowspan="2"><label> <s:text
+							name="groups.right" />
 				</label></td>
 
 				<td rowspan="2">
 					<div>
-						<bean:message key="groups.right.notGranted" />
-					</div> <html:select property="rigthListLeft" styleClass="select" size="5"
-						multiple="multiple">
-						<c:forEach var="rigth" items="${refusedRigths}">
-							<html:option value="${rigth}">
-								<bean:message key="groups.rights.${rigth}" />
-							</html:option>
-						</c:forEach>
-					</html:select>
+						<s:text name="groups.right.notGranted" />
+					</div> <s:select property="rigthListLeft" styleClass="select" size="5"
+						multiple="multiple" list="%{refusedRigths}" listKey="%{rigth}" listValue="%{rigth}">
+					</s:select>
 				</td>
 
-				<td><html:button property="" styleClass="btn btn-inverse"
+				<td><s:submit type="button" property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight)">
-						<bean:message key="groups.addGroups" />
-					</html:button></td>
+						<s:text name="groups.addGroups" />
+					</s:submit></td>
 
 				<td rowspan="2">
 					<div>
-						<bean:message key="groups.right.Granted" />
-					</div> <html:select property="rigthListRight" styleClass="select"
-						size="5" multiple="multiple">
-
-						<c:forEach var="rigth" items="${acceptedRigths}">
-							<html:option value="${rigth}">
-								<bean:message key="groups.rights.${rigth}" />
-							</html:option>
-						</c:forEach>
-					</html:select>
+						<s:text name="groups.right.Granted" />
+					</div> <s:select property="rigthListRight" styleClass="select"
+						size="5" multiple="multiple" list="%{acceptedRigths}" listKey="%{rigth}" listValue="%{rigth}">
+					</s:select>
 				</td>
 			</tr>
 			<tr>
-				<td><html:button property="" styleClass="btn btn-inverse"
+				<td><s:submit type="button" property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)">
-						<bean:message key="groups.removeGroups" />
-					</html:button></td>
+						<s:text name="groups.removeGroups" />
+					</s:submit></td>
 			</tr>
 
 			<tr>
-				<td colspan="4" class="tableButton"><html:submit
+				<td colspan="4" class="tableButton"><s:submit
 						styleClass="btn btn-inverse" onclick="CreateGroup();">
-						<bean:message key="groups.validate" />
-					</html:submit></td>
+						<s:text name="groups.validate" />
+					</s:submit></td>
 			</tr>
 		</table>
-	</html:form>
+	</s:form>
 </fieldset>
 
 
