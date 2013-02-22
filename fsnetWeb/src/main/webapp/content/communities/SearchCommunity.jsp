@@ -26,6 +26,7 @@
 				</td>
 			</tr>
 		</s:form>
+
 	</table>
 </fieldset>
 
@@ -86,6 +87,7 @@
                          		(1 hub)
                          	</c:when>
 									<c:when test="%{fn:length(community.hubs) gt 1}">
+
                          		(${fn:length(community.hubs)} hubs)
                          	</c:when>
 								</c:choose></td>
@@ -109,4 +111,3 @@
 		</c:otherwise>
 	</c:choose>
 </fieldset>
-
