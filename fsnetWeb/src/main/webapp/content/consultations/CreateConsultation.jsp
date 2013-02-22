@@ -85,11 +85,11 @@
 							</div>
 						</c:if>
 
-
 						<s:hidden name="consultationChoice"
 							styleId="consultationChoice" />
 						<s:hidden name="maxVoters"
 							styleId="maxVoters" />
+
 						<table id="choicesTab" class="tableStyle">
 							<c:forEach begin="1" end="3" var="i">
 								<tr>

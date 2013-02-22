@@ -7,13 +7,10 @@
 <ul>
 	<ili:interactionFilter user="${socialEntity}"
 		right="${rightAddConsultation}">
-<<<<<<< HEAD
 		<li><s:a href="/DisplayCreateConsultation">
 				<s:text name="consultations.leftMenu.create" />
-=======
-		<li><s:a action="/DisplayCreateConsultation">
-				<bean:message key="consultations.leftMenu.create" />
->>>>>>> migrating events to struts2 architecture (warn : s:property (name => ???    property => ???   format => ???))
+		<li><s:a href="/DisplayCreateConsultation">
+				<s:text name="consultations.leftMenu.create" />
 			</s:a></li>
 	</ili:interactionFilter>
 </ul>
