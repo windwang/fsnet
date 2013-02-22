@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
@@ -20,9 +19,9 @@
 				<td><label for="name"> <s:text name="members.name" />
 				</label> <s:hidden property="id" /></td>
 				<td><s:textfield property="name" styleId="name"
-						errorStyleClass="error" />
+						csstyleClass="error" />
 					<div class="errorMessage">
-						<s:fielderror property="name" />
+						<s:fielderror name="name" />
 					</div></td>
 			</tr>
 
@@ -30,9 +29,9 @@
 				<td><label for="firstName"> <s:text name="members.firstName" />
 				</label></td>
 				<td><s:textfield property="firstName" styleId="firstName"
-						errorStyleClass="error" />
+						csstyleClass="error" />
 					<div class="errorMessage">
-						<s:fielderror property="firstName" />
+						<s:fielderror name="firstName" />
 					</div></td>
 			</tr>
 
@@ -40,10 +39,8 @@
 				<td><label for="email"> <s:text name="members.email" />
 				</label></td>
 				<td><s:textfield property="email" styleId="email"
-						errorStyleClass="error" />
-					<div class="errorMessage">
-						<s:fielderror property="email" />
-					</div></td>
+						csstyleClass="error" />
+					</td>
 			</tr>
 
 			<tr>
@@ -51,17 +48,23 @@
 				</label></td>
 				<c:choose>
 					<c:when test="${ master == false }">
-						<td colspan="3"><html:select property="parentId"
-								styleClass="select" value="${ sessionScope.group.id }"
-								styleId="parentId">
-								<html:option value="" disabled="true"/>
-								<c:forEach var="socialGroup" items="${sessionScope.allGroups}">
-									<html:option value="${socialGroup.id}">${socialGroup.name}</html:option>
-								</c:forEach>
-							</html:select>
-							<div class="errorMessage">
-								<s:fielderror property="parentId" />
-							</div></td>
+						<td colspan="3"><s:select property="parentId"
+								styleClass="select" value="%{sessionScope.group.id }"
+								styleId="parentId" list="%{sessionScope.allGroups}" listKey="%{sessionScope.allGroups.id}" listValue="%{sessionScope.allGroups.name}">
+<!-- 								<html:option value="" disabled="true"/> -->
+<%-- 								<c:forEach var="socialGroup" items="${sessionScope.allGroups}"> --%>
+<%-- 									<html:option value="${socialGroup.id}">${socialGroup.name}</html:option> --%>
+<%-- 								</c:forEach> --%>
+							</s:select>
+<!-- 							<html:select property="parentId" -->
+<%-- 								styleClass="select" value="${ sessionScope.group.id }" --%>
+<!-- 								styleId="parentId"> -->
+<!-- 								<html:option value="" disabled="true"/> -->
+<%-- 								<c:forEach var="socialGroup" items="${sessionScope.allGroups}"> --%>
+<%-- 									<html:option value="${socialGroup.id}">${socialGroup.name}</html:option> --%>
+<%-- 								</c:forEach> --%>
+<!-- 							</html:select> -->
+							</td>
 					</c:when>
 					<c:otherwise>
 						<td colspan="3"><s:hidden property="parentId"
@@ -74,28 +77,28 @@
 			<tr>
 				<td><label for="address"> <s:text name="members.address" />
 				</label></td>
-				<td><html:textfieldarea errorStyleClass="error" property="address"
+				<td><s:textarea csstyleClass="error" property="address"
 						styleId="address" /></td>
 			</tr>
 
 			<tr>
 				<td><label for="city"> <s:text name="members.city" />
 				</label></td>
-				<td><s:textfield errorStyleClass="error" property="city"
+				<td><s:textfield csstyleClass="error" property="city"
 						styleId="city" />
 					<div class="errorMessage">
-						<s:fielderror property="city" />
+						<s:fielderror name="city" />
 					</div></td>
 			</tr>
 
 			<c:set var="formatBirthDay">
-				<s:property value="ModifyMemberForm" property="birthDay"
-					format="dd/MM/yyyy" />
+				<s:property value="birthDay" />
+<!-- 				<bean:write  value="birthDay" format="dd/MM/yyyy" /> -->
 			</c:set>
 			<tr>
 				<td><label for="birthDay"> <s:text name="members.birthDay" />
 				</label></td>
-				<td><s:textfield errorStyleClass="error" styleId="birthDay"
+				<td><s:textfield csstyleClass="error" styleId="birthDay"
 						property="formatBirthDay" value="%{formatBirthDay}">
 					</s:textfield></td>
 			</tr>
@@ -103,42 +106,51 @@
 			<tr>
 				<td><label for="sexe"> <s:text name="members.sexe" />
 				</label></td>
-				<td><html:select property="sexe" styleId="sexe">
-						<html:option value="" />
-						<html:option value="male">
-							<s:text name="members.sexe.Male" />
-						</html:option>
-						<html:option value="female">
-							<s:text name="members.sexe.Female" />
-						</html:option>
-					</html:select>
+				<td><s:select property="sexe" styleId="sexe" list="%{members.sexe}" listKey="%{members.sexe.id}" listValue="%{members.sexe.name}" >
+<!-- 						<html:option value="" /> -->
+<!-- 						<html:option value="male"> -->
+<%-- 							<s:text name="members.sexe.Male" /> --%>
+<!-- 						</html:option> -->
+<!-- 						<html:option value="female"> -->
+<%-- 							<s:text name="members.sexe.Female" /> --%>
+<!-- 						</html:option> -->
+					</s:select>
+<!-- 					<html:select property="sexe" styleId="sexe"> -->
+<!-- 						<html:option value="" /> -->
+<!-- 						<html:option value="male"> -->
+<%-- 							<s:text name="members.sexe.Male" /> --%>
+<!-- 						</html:option> -->
+<!-- 						<html:option value="female"> -->
+<%-- 							<s:text name="members.sexe.Female" /> --%>
+<!-- 						</html:option> -->
+<!-- 					</html:select> -->
 					<div class="errorMessage">
-						<s:fielderror property="sexe" />
+						<s:fielderror name="sexe" />
 					</div></td>
 			</tr>
 
 			<tr>
 				<td><label for="job"> <s:text name="members.job" />
 				</label></td>
-				<td><s:textfield errorStyleClass="error" property="job"
+				<td><s:textfield csstyleClass="error" property="job"
 						styleId="job" />
 					<div class="errorMessage">
-						<s:fielderror property="job" />
+						<s:fielderror name="job" />
 					</div></td>
 			</tr>
 
 			<tr>
 				<td><label for="phone"> <s:text name="members.phone" />
 				</label></td>
-				<td><s:textfield errorStyleClass="error" property="phone"
+				<td><s:textfield csstyleClass="error" property="phone"
 						styleId="phone" />
 					<div class="errorMessage">
-						<s:fielderror property="phone" />
+						<s:fielderror name="phone" />
 					</div></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><s:submit styleClass="button">
+				<td colspan="2" class="tableButton"><s:submit type="button" styleClass="button">
 						<s:text name="members.modifyUpdate" />
 					</s:submit></td>
 			</tr>
