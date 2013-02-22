@@ -30,17 +30,10 @@
 			<tr>
 				<td><s:textfield property="topicSujetSearch" styleId="topicSujet" />
 					<ili:placeHolder id="topicSujet" value="${searchMessage}" /></td>
-<<<<<<< HEAD
 				<td><s:hidden name="hubId" value="%{hubResult.id}" /></td>
 				<td><s:submit styleClass="btn btn-inverse">
 						<s:text name="hubs.button.searchTopic" />
 					</s:submit></td>
-=======
-				<td><s:hidden name="hubId" value="${hubResult.id}" /></td>
-				<td><html:submit styleClass="btn btn-inverse">
-						<bean:message key="hubs.button.searchTopic" />
-					</html:submit></td>
->>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 			</tr>
 		</s:form>
 	</table>
@@ -48,7 +41,6 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-<<<<<<< HEAD
 		<s:a href="/DisplayCommunity">
 			<s:param name="communityId" value="%{hubResult.community.id}" />
         ${hubResult.community.title}
@@ -56,15 +48,6 @@
 		-&gt;
 		<s:a href="/DisplayHub">
 			<s:param name="hubId" value="%{hubResult.id}" />
-=======
-		<s:a action="/DisplayCommunity">
-			<html:param name="communityId" value="${hubResult.community.id}" />
-        ${hubResult.community.title}
-    </s:a>
-		-&gt;
-		<s:a action="/DisplayHub">
-			<html:param name="hubId" value="${hubResult.id}" />
->>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
         ${hubResult.title}
     </s:a>
 		-&gt;
@@ -84,7 +67,6 @@
 				<td><c:import url="/FavoriteFragment.do">
 						<c:param name="interactionId" value="${theTopic.id}" />
 					</c:import></td>
-<<<<<<< HEAD
 				<td><s:a href="/DisplayTopic"
 						title='%{empty theTopic.interests? "" : theTopic.interests}'>
 						<s:param name="topicId" value="%{theTopic.id}" />
@@ -93,16 +75,6 @@
 						name="hubs.createdOn" />
 						<s:property value="creationDate" />
 				<s:text name="hubs.by" /> <ili:getSocialEntityInfos
-=======
-				<td><s:a action="/DisplayTopic"
-						title='${empty theTopic.interests? "" : theTopic.interests}'>
-						<html:param name="topicId" value="${theTopic.id}" />
-                    ${theTopic.title}
-                </s:a> (${fn:length(theTopic.messages)} messages) <br /> <bean:message
-						key="hubs.createdOn" /> <bean:write name="hubResult"
-						property="creationDate" format="dd/MM/yyyy" /> <bean:message
-						key="hubs.by" /> <ili:getSocialEntityInfos
->>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 						socialEntity="${couple.key.creator}" /></td>
 
 				<td style="background-color: #C7E5F8;">

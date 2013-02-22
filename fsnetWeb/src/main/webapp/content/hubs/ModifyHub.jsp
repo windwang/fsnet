@@ -11,13 +11,8 @@
 		</legend>
 
 		<table class="inLineTable tableStyle">
-<<<<<<< HEAD
 			<s:form action="/ModifyYourHub" method="POST">
 				<s:hidden name="communityId" value="%{param.communityId}" />
-=======
-			<html:form action="/ModifyYourHub" method="POST">
-				<s:hidden name="communityId" value="${param.communityId}" />
->>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 				<tr>
 					<td><label for="oldHubName"><s:text name="hubs.form.oldName" /></label></td>
 					<td>
