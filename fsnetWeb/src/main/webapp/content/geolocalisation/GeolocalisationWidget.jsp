@@ -4,24 +4,29 @@
 <%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <div id='geolocalisation'>
 	<div id='mapCanvas'></div>
-	<a name='linktogooglemap' href=''><bean:message
-			key="geolocalisation.linkRoute" /></a> <input id='address' type='hidden'
-		value="${event.address.address} ${event.address.city}"></input> <input
+	<a name='linktogooglemap' href=''>
+	<s:text name="geolocalisation.linkRoute" /></a> 
+	<input id='address' type='hidden'
+		value="%{event.address.address} %{event.address.city}">
+	</input> 
+	<input
 		id='userAddress' type='hidden'
-		value="${member.address.address} ${member.address.city}"></input>
+		value="%{member.address.address} %{member.address.city}">
+	</input>
 	<ul id="choices">
-		<li id="errorGeo"><bean:message key="geolocalisation.error" />
+		<li id="errorGeo"><s:text name="geolocalisation.error" />
 		<li>
 		<li><button id="workRouteGeo" name="workRouteGeo" class="button"
 				onclick="buildRouteFromGeolocalisation()">
-				<bean:message key="geolocalisation.workRouteGeo" />
+				<s:text name="geolocalisation.workRouteGeo" />
 			</button></li>
 		<li><button id="workRouteHome" name="workRouteHome"
 				class="button" onclick="buildRouteFromHome()">
-				<bean:message key="geolocalisation.workRouteHome" />
+				<s:text name="geolocalisation.workRouteHome" />
 			</button></li>
 	</ul>
 </div>
