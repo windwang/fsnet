@@ -121,6 +121,7 @@ public class InterestFacade {
             throw new IllegalArgumentException();
         }
         em.remove(interest);
+        SocialEntityFacade.removeInterest(interest);
         em.flush();
     }
 

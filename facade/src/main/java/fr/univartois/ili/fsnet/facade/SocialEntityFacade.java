@@ -238,6 +238,20 @@ public class SocialEntityFacade {
 		interest.getEntities().remove(socialEntity);
 		socialEntity.getInterests().remove(interest);
 	}
+	
+	/**
+	 * remove Interest from all SocialEntity using it
+	 * @param interest the interest to remove
+	 */
+	public static final void removeInterest(Interest interest) {
+		if (interest == null) {
+			throw new IllegalArgumentException();
+		}
+
+		for (SocialEntity se : interest.getEntities())
+			se.getInterests().remove(interest);
+		interest.getEntities().clear();
+	}
 
 	/**
 	 * add a favorite interaction
