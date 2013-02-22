@@ -43,15 +43,10 @@ import net.fortuna.ical4j.model.property.Uid;
 import net.fortuna.ical4j.model.property.Version;
 import net.fortuna.ical4j.util.UidGenerator;
 
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
-import org.apache.struts.upload.FormFile;
+import org.apache.struts2.components.ActionMessage;
+import org.apache.struts2.dispatcher.mapper.ActionMapping;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
@@ -73,7 +68,7 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class ManageEvents extends MappingDispatchAction implements CrudAction {
+public class ManageEvents extends ActionSupport implements CrudAction {
 
 	private static final int HOUR_IN_MINUTES = 60;
 	private static final int DAY_IN_MINUTES = 1440;
@@ -106,6 +101,8 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 	}
 
+	private String[] selectedInterests;
+
 	/**
 	 * @param eventDate
 	 * @param request
@@ -126,17 +123,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		try {
 			typedEventDate = DateUtils.format(eventDate);
 		} catch (ParseException e) {
-			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(("event.date.error")));
-			saveErrors(request, errors);
+			addFieldError(propertyKey, "event.date.error");
 			return null;
 		}
 
 		if (typedEventDate.before(today)) {
-			ActionErrors errors = new ActionErrors();
-			errors.add(propertyKey, new ActionMessage(
-					("date.error.dateBeforeToday")));
-			saveErrors(request, errors);
+			addFieldError(propertyKey, "date.error.dateBeforeToday");
 			return null;
 		}
 		return typedEventDate;
@@ -152,7 +144,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
@@ -161,10 +153,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(member, Right.ADD_ANNOUNCE)) {
 			em.close();
-			return mapping.findForward(UNAUTHORIZED_ACTION_NAME);
+			return UNAUTHORIZED_ACTION_NAME;
 		}
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventName = (String) dynaForm.get(EVENT_NAME_FORM_FIELD_NAME);
 		String eventDescription = (String) dynaForm
 				.get(EVENT_DESCRIPTION_FORM_FIELD_NAME);
@@ -190,25 +181,18 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		addRightToRequest(request);
 		if (typedEventBeginDate == null || typedEventEndDate == null
 				|| typedEventRecallDate == null) {
-			return mapping.getInputForward();
+			return INPUT;
 		}
 		if (typedEventBeginDate.after(typedEventEndDate)) {
-			ActionErrors errors = new ActionErrors();
-			errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(
-					(ERROR_ON_DATE_MESSAGE)));
-			errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(
-					(ERROR_ON_DATE_MESSAGE)));
-			saveErrors(request, errors);
+			addFieldError(EVENT_BEGIN_DATE_FORM_FIELD_NAME,ERROR_ON_DATE_MESSAGE);
+			addFieldError(EVENT_END_DATE_FORM_FIELD_NAME,ERROR_ON_DATE_MESSAGE);
 
-			return mapping.getInputForward();
+			return INPUT;
 		}
 		if (DateUtils.compareToToday(typedEventRecallDate) > 0) {
-			ActionErrors errors = new ActionErrors();
-			errors.add(EVENT_RECALL_TIME_FORM_FIELD_NAME, new ActionMessage(
-					("date.error.dateBeforeToday")));
-			saveErrors(request, errors);
+			addFieldError(EVENT_RECALL_TIME_FORM_FIELD_NAME, "date.error.dateBeforeToday");
 
-			return mapping.getInputForward();
+			return INPUT;
 		}
 
 		em.getTransaction().begin();
@@ -218,13 +202,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 				eventDescription, typedEventEndDate, false,
 				typedEventBeginDate, adress, city, typedEventRecallDate);
 
-		String interestsIds[] = (String[]) dynaForm.get("selectedInterests");
 		InterestFacade fac = new InterestFacade(em);
 		List<Interest> interests = new ArrayList<Interest>();
 		int currentId;
-		for (currentId = 0; currentId < interestsIds.length; currentId++) {
+		for (currentId = 0; currentId < selectedInterests.length; currentId++) {
 			interests.add(fac.getInterest(Integer
-					.valueOf(interestsIds[currentId])));
+					.valueOf(selectedInterests[currentId])));
 		}
 		InteractionFacade ifacade = new InteractionFacade(em);
 		ifacade.addInterests(event, interests);
@@ -248,7 +231,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -256,7 +239,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		try {
 			em.getTransaction().begin();
 
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
 
 			String eventName = (String) dynaForm
@@ -286,25 +268,20 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 			if (typedEventBeginDate == null || typedEventEndDate == null
 					|| typedEventRecallDate == null) {
-				return mapping.getInputForward();
+				return INPUT;
 			}
 
 			if (typedEventBeginDate.after(typedEventEndDate)) {
-				ActionErrors errors = new ActionErrors();
-				errors.add(EVENT_BEGIN_DATE_FORM_FIELD_NAME, new ActionMessage(
-						(ERROR_ON_DATE_MESSAGE)));
-				errors.add(EVENT_END_DATE_FORM_FIELD_NAME, new ActionMessage(
-						(ERROR_ON_DATE_MESSAGE)));
-				saveErrors(request, errors);
-				return mapping.getInputForward();
+				addFieldError(EVENT_BEGIN_DATE_FORM_FIELD_NAME, ERROR_ON_DATE_MESSAGE);
+				addFieldError(EVENT_END_DATE_FORM_FIELD_NAME, ERROR_ON_DATE_MESSAGE);
+				
+				return INPUT;
 			}
 
 			if (DateUtils.compareToToday(typedEventRecallDate) > 0) {
-				ActionErrors errors = new ActionErrors();
-				errors.add(EVENT_RECALL_TIME_FORM_FIELD_NAME,
-						new ActionMessage(("date.error.dateBeforeToday")));
-				saveErrors(request, errors);
-				return mapping.getInputForward();
+				addFieldError(EVENT_RECALL_TIME_FORM_FIELD_NAME, "date.error.dateBeforeToday");
+				
+				return INPUT;
 			}
 
 			MeetingFacade meetingFacade = new MeetingFacade(em);
@@ -326,12 +303,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -344,10 +321,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -370,12 +346,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 
 			em.getTransaction().commit();
 		} catch (Exception e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -386,7 +362,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward subscribe(ActionMapping mapping, ActionForm form,
+	public String subscribe(
 			HttpServletRequest request, HttpServletResponse response) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -395,10 +371,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(member, Right.REGISTER_EVENT)) {
 			em.close();
-			return mapping.findForward(UNAUTHORIZED_ACTION_NAME);
+			return UNAUTHORIZED_ACTION_NAME;
 		}
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
 
 		try {
@@ -411,7 +386,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			interactionRoleFacade.subscribe(member, meeting);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
@@ -431,7 +406,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward unsubscribe(ActionMapping mapping, ActionForm form,
+	public String unsubscribe(
 			HttpServletRequest request, HttpServletResponse response) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -440,10 +415,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(member, Right.REGISTER_EVENT)) {
 			em.close();
-			return mapping.findForward(UNAUTHORIZED_ACTION_NAME);
+			return UNAUTHORIZED_ACTION_NAME;
 		}
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
 
 		try {
@@ -456,7 +430,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			interactionRoleFacade.unsubscribe(member, meeting);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
@@ -478,10 +452,9 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm searchForm = (DynaActionForm) form; // NOSONAR
 		String searchString = (String) searchForm.get("searchString");
 
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -514,7 +487,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		request.setAttribute("myEventsList", resultsMyEvents);
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -527,13 +500,12 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
 			addRightToRequest(request);
 
@@ -563,11 +535,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			request.setAttribute("subscriber", isSubscriber);
 			request.setAttribute("event", event);
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 
 	}
 
@@ -610,7 +582,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward displayCreateEvent(ActionMapping mapping,
+	public String displayCreateEvent(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -639,7 +611,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward displayToModify(ActionMapping mapping,
+	public String displayToModify(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		// TODO check for right to update an event
@@ -647,7 +619,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
 			MeetingFacade meetingFacade = new MeetingFacade(em);
 
@@ -693,7 +664,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 		return new ActionRedirect(mapping.findForward(SUCCES_ACTION_NAME));
 	}
 
-	public ActionForward displayImportEvents(ActionMapping mapping,
+	public String displayImportEvents(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
@@ -718,12 +689,11 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward importEventsFromFile(ActionMapping mapping,
+	public String importEventsFromFile(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			FormFile icsFile = (FormFile) dynaForm.get("icsFile");
 
 			if (icsFile != null && !icsFile.getFileName().equals("")) {
@@ -789,7 +759,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward exportEventById(ActionMapping mapping,
+	public String exportEventById(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		
@@ -807,7 +777,6 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 			calendar.getProperties().add(Version.VERSION_2_0);
 			calendar.getProperties().add(CalScale.GREGORIAN);
 			EntityManager em = PersistenceProvider.createEntityManager();
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String eventId = (String) dynaForm.get(EVENT_ID_ATTRIBUTE_NAME);
 			MeetingFacade meetingFacade = new MeetingFacade(em);
 			em.getTransaction().begin();
@@ -860,7 +829,7 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward exportAllEvent(ActionMapping mapping, ActionForm form,
+	public String exportAllEvent(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String filePath = request.getSession().getServletContext()
@@ -1051,14 +1020,13 @@ public class ManageEvents extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+	public String deleteMulti(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		
 		try {
 

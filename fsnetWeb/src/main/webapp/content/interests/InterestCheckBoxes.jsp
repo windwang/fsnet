@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <c:forEach var="interest" items="${allInterests}">
-	<span class="otag"> <html:multibox property="selectedInterests"
-			value="${interest.id}" /> <s:a
+	<span class="otag"> <s:checkbox property="selectedInterests"
+			value="%{interest.id}" /> <s:a
 			action="/InterestInformations">
-			<html:param name="infoInterestId" value="${interest.id}" />
+			<s:param name="infoInterestId" value="%{interest.id}" />
             ${interest.name}
         </s:a>
 	</span>

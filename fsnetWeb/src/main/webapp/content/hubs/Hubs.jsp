@@ -7,8 +7,7 @@
 		<c:import url="/FavoriteFragment.do">
 			<c:param name="interactionId" value="${requestScope.Community.id}" />
 		</c:import>
-
-		<bean:write name="Community" property="title" />
+		<s:property value="title" />
 	</legend>
 
 	<c:set var="theInteraction" value="${Community}" scope="request" />

@@ -15,12 +15,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -38,7 +37,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * 
  * @author Alexandre Lohez <alexandre.lohez at gmail.com>
  */
-public class ManageInterests extends MappingDispatchAction implements
+public class ManageInterests extends ActionSupport implements
 		CrudAction {
 
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
@@ -54,7 +53,6 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * @param request
 	 * @return
 	 */
-	public Interest creation(DynaActionForm dynaForm, InterestFacade facade,
 			String interestName, Interest interest, EntityManager em,
 			HttpServletRequest request) {
 		
@@ -86,11 +84,10 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 		String interestName = (String) dynaForm.get("createdInterestName");
 		String interestNameTmp[];
@@ -152,11 +149,10 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward add(ActionMapping mapping, ActionForm form,
+	public String add(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		int interestId = Integer.valueOf((String) dynaForm
 				.get("addedInterestId"));
 		em.getTransaction().begin();
@@ -205,12 +201,11 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward remove(ActionMapping mapping, ActionForm form,
+	public String remove(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		int interestId = Integer.valueOf((String) dynaForm
 				.get("removedInterestId"));
 
@@ -252,7 +247,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return null;
@@ -268,7 +263,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return null;
@@ -284,11 +279,10 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		InterestFacade facade = new InterestFacade(em);
 
 		String interestName = "";
@@ -317,7 +311,7 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -351,12 +345,11 @@ public class ManageInterests extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward informations(ActionMapping mapping, ActionForm form,
+	public String informations(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		int interestId = Integer.valueOf((String) dynaForm

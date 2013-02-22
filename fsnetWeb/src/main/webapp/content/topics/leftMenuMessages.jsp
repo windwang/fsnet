@@ -1,9 +1,10 @@
-<%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <ul>
-	<li><s:a action="/DisplayCreateTopicMessage">
-			<html:param name="topicId" value="${param.topicId}" />
-			<bean:message key="topics.leftMenu.createMessage" />
+
+	<li><s:a href="/DisplayCreateTopicMessage">
+			<s:param name="topicId" value="%{param.topicId}" />
+			<s:text name="topics.leftMenu.createMessage" />
+
 		</s:a></li>
 </ul>

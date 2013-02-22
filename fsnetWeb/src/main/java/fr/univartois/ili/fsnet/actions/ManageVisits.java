@@ -9,10 +9,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts2.dispatcher.mapper.ActionMapping;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -24,7 +23,7 @@ import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
  * @author FSNet
  * 
  */
-public class ManageVisits extends MappingDispatchAction {
+public class ManageVisits extends ActionSupport {
 
 	/**
 	 * @param mapping
@@ -33,8 +32,7 @@ public class ManageVisits extends MappingDispatchAction {
 	 * @param em
 	 * @param authenticatedUser
 	 */
-	public void lastVisitsSinceLastConnection(ActionMapping mapping,
-			HttpServletRequest request, HttpServletResponse response,
+	public void lastVisitsSinceLastConnection(HttpServletRequest request, HttpServletResponse response,
 			EntityManager em, SocialEntity authenticatedUser) {
 		// recovery of visitors
 		ProfileVisiteFacade pvf = new ProfileVisiteFacade(em);
@@ -70,17 +68,17 @@ public class ManageVisits extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		lastVisitsSinceLastConnection(mapping, request, response, em,
+		lastVisitsSinceLastConnection(request, response, em,
 				authenticatedUser);
 		
 		em.close();
 		
-		return mapping.findForward("success");
+		return SUCCESS;
 	}
 
 	/**
@@ -112,4 +110,6 @@ public class ManageVisits extends MappingDispatchAction {
 		// paging list of recent visitors since my last connection
 		session.setAttribute("numNewVisits", numNewVisits);
 	}
+	
+	
 }
