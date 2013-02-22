@@ -1,28 +1,26 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<bean:define id="searchMessage">
-	<bean:message key="announce.placeHolder.search" />
-</bean:define>
+<s:set id="searchMessage">
+	<s:text name="announce.placeHolder.search" />
+</s:set>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="announce.title.search" />
+		<s:text name="announce.title.search" />
 	</legend>
 	<table id="SearchAnnounce"
 		class="inLineTable tableStyle">
-		<html:form action="/Announces" method="GET">
+		<s:form action="/Announces" method="GET">
 			<tr>
-				<td><html:text property="textSearchAnnounce"
+				<td><s:textfield property="textSearchAnnounce"
 						styleId="textSearchAnnounce" styleClass="search-query"/> <ili:placeHolder
-						id="textSearchAnnounce" value="${searchMessage}" /> <html:submit
+						id="textSearchAnnounce" value="${searchMessage}" /> <s:submit
 						styleClass="btn btn-inverse">
-						<bean:message key="announce.button.search" />
-					</html:submit></td>
+						<s:text name="announce.button.search" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
