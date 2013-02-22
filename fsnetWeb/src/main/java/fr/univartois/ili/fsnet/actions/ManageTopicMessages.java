@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
@@ -31,7 +30,7 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * 
  * @author Cerelia Besnainou and Audrey Ruellan
  */
-public class ManageTopicMessages extends MappingDispatchAction implements
+public class ManageTopicMessages extends ActionSupport implements
 		CrudAction {
 
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
@@ -49,14 +48,13 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String messageDescription = (String) dynaForm
 					.get("messageDescription");
 			int topicId = Integer.valueOf(Integer.parseInt(dynaForm
@@ -104,14 +102,13 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String messageDescription = (String) dynaForm
 					.get("messageDescription");
 			int messageId = Integer.valueOf(Integer.parseInt(dynaForm
@@ -154,7 +151,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -192,7 +189,7 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
@@ -208,13 +205,12 @@ public class ManageTopicMessages extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
 			String topicId = (String) dynaForm.get(TOPIC_ID_FORM_FIELD_NAME);
 

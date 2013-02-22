@@ -11,10 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -27,7 +26,7 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
  * @author FSNet
  *
  */
-public class ManageMembers extends MappingDispatchAction {
+public class ManageMembers extends ActionSupport {
 
 
 	
@@ -41,7 +40,7 @@ public class ManageMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -53,7 +52,6 @@ public class ManageMembers extends MappingDispatchAction {
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		String searchText = (String) dynaForm.getString("searchText");
 
 		SocialEntityFacade sef = new SocialEntityFacade(em);

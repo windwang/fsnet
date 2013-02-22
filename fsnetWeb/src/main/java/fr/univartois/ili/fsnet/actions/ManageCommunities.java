@@ -13,11 +13,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -37,7 +36,7 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * 
  * @author Audrey Ruellan and Cerelia Besnainou
  */
-public class ManageCommunities extends MappingDispatchAction implements
+public class ManageCommunities extends ActionSupport implements
 		CrudAction {
 
 	private static final String SUCCES_ACTION_NAME = "success";
@@ -59,7 +58,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -73,7 +72,6 @@ public class ManageCommunities extends MappingDispatchAction implements
 		}
 
 		CommunityFacade communityFacade = new CommunityFacade(em);
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String name = (String) dynaForm.get(COMMUNITY_NAME_FORM_FIELD_NAME);
 
 		boolean doesNotExists = false;
@@ -129,7 +127,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet");
@@ -145,13 +143,12 @@ public class ManageCommunities extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String communityId = (String) dynaForm
 					.get(COMMUNITY_ID_ATTRIBUTE_NAME);
 			addRightToRequest(request);
@@ -187,11 +184,10 @@ public class ManageCommunities extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 		String newCommunityName = (String) dynaForm
 				.get(COMMUNITY_NEW_NAME_FORM_FIELD_NAME);
 		String communityName = (String) dynaForm
@@ -254,7 +250,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -263,7 +259,6 @@ public class ManageCommunities extends MappingDispatchAction implements
 		CommunityFacade communityFacade = new CommunityFacade(em);
 		addRightToRequest(request);
 		if (form != null) {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			searchText = (String) dynaForm.get("searchText");
 		}
 		em.getTransaction().begin();
@@ -291,7 +286,7 @@ public class ManageCommunities extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward searchYourCommunities(ActionMapping mapping,
+	public String searchYourCommunities(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		// TODO use facade
@@ -301,7 +296,6 @@ public class ManageCommunities extends MappingDispatchAction implements
 		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 		addRightToRequest(request);
 		if (form != null) {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			pattern = (String) dynaForm.get("searchYourText");
 
 		}
@@ -332,13 +326,12 @@ public class ManageCommunities extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+	public String deleteMulti(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
 			
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			addRightToRequest(request);
 			String[] selectedCommunities = (String[]) dynaForm
 					.get("selectedCommunities");

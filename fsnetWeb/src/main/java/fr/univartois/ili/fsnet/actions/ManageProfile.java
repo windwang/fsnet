@@ -23,12 +23,11 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 import org.apache.struts.upload.FormFile;
 
 import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
@@ -57,7 +56,7 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * @author Geoffrey Boulay
  * @author SAID Mohamed
  */
-public class ManageProfile extends MappingDispatchAction implements CrudAction {
+public class ManageProfile extends ActionSupport implements CrudAction {
 
 	private static final int MAX_PICTURE_SIZE = 500000;
 	/**
@@ -84,7 +83,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final ActionForward create(ActionMapping mapping, ActionForm form,
+	public final String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
@@ -96,7 +95,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * @param request
 	 * @return
 	 */
-	private ActionErrors verified(DynaActionForm dynaForm, EntityManager em,
 			HttpServletRequest request) {
 		ActionErrors res = new ActionErrors();
 		try {
@@ -145,7 +143,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final ActionForward modify(ActionMapping mapping, ActionForm form,
+	public final String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -157,7 +155,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		Date birthday = null;
 		addRightToRequest(request);
 
@@ -211,7 +208,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final ActionForward delete(ActionMapping mapping, ActionForm form,
+	public final String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
@@ -227,7 +224,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final ActionForward search(ActionMapping mapping, ActionForm form,
+	public final String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
@@ -242,12 +239,11 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public final ActionForward displayToModify(ActionMapping mapping,
+	public final String displayToModify(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addKeyFacebookInRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
-		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
 		addRightToRequest(request);
@@ -301,7 +297,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final ActionForward display(ActionMapping mapping, ActionForm form,
+	public final String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		addKeyFacebookInRequest(request);
@@ -311,7 +307,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
 
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-		DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
 		Boolean alreadyInContact = false;
 
 		int id = -1;
@@ -429,7 +424,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * @throws ServletException
 	 * @throws URISyntaxException
 	 */
-	public final ActionForward changePhoto(ActionMapping mapping,
+	public final String changePhoto(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException,
 			URISyntaxException {
@@ -441,7 +436,6 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
 		}
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("photo");
 		InputStream inputStream = null;
 		HttpClient httpClient = new DefaultHttpClient();
@@ -549,7 +543,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public final ActionForward deletePhoto(ActionMapping mapping,
+	public final String deletePhoto(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		Integer userId = UserUtils.getAuthenticatesUserId(request);

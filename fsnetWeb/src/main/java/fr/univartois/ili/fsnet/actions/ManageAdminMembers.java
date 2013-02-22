@@ -25,11 +25,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -53,7 +52,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * 
  * @author SAID Mohamed
  */
-public class ManageAdminMembers extends MappingDispatchAction implements
+public class ManageAdminMembers extends ActionSupport implements
 		CrudAction {
 
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
@@ -83,10 +82,9 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String name = (String) dynaForm.get(NAME_FORM_FIELD_NAME);
 		dynaForm.set(NAME_FORM_FIELD_NAME, "");
 		String firstName = (String) dynaForm.get(FIRSTNAME_FORM_FIELD_NAME);
@@ -194,10 +192,9 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward createMultipleFile(ActionMapping mapping,
+	public String createMultipleFile(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR;
 		String formInput = readFileLinePerLine((String) dynaForm
 				.get("fileMultipleMember"));
 		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
@@ -298,10 +295,9 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * @throws ServletException
 	 * @author stephane Gronowski
 	 */
-	public ActionForward createMultiple(ActionMapping mapping, ActionForm form,
+	public String createMultiple(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
 		String formInput = (String) dynaForm.get("multipleMember");
 		dynaForm.set("multipleMember", "");
@@ -477,7 +473,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException();
@@ -492,7 +488,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward switchState(ActionMapping mapping, ActionForm form,
+	public String switchState(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		String entitySelected = request.getParameter("entitySelected");
@@ -516,10 +512,9 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(
 				entityManager);
@@ -579,7 +574,6 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * @param dynaForm
 	 * @return
 	 */
-	private ActionErrors verified(DynaActionForm dynaForm) {
 		ActionErrors res = new ActionErrors();
 		try {
 			Date birthday = DateUtils.format(dynaForm
@@ -614,13 +608,12 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
 				entityManager);
-		DynaActionForm formSocialENtity = (DynaActionForm) form;// NOSONAR
 
 		String name = (String) formSocialENtity.get(NAME_FORM_FIELD_NAME);
 		String firstName = (String) formSocialENtity.get(FIRSTNAME_FORM_FIELD_NAME);
@@ -708,7 +701,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -720,7 +713,6 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 		List<SocialEntity> resultOthersList = socialGroupFacade
 				.getAllChildMembers(socialGroupUser);
 		if (form != null) {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String searchText = (String) dynaForm.get("searchText");
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			resultOthers = socialEntityFacade.searchSocialEntity(searchText);
@@ -760,7 +752,7 @@ public class ManageAdminMembers extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteInterestMember(ActionMapping mapping,
+	public String deleteInterestMember(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		Integer interestSelected = Integer.valueOf(request

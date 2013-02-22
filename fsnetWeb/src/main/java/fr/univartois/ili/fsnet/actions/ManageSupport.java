@@ -11,11 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
@@ -28,7 +27,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  * @author FSNet
  * 
  */
-public class ManageSupport extends MappingDispatchAction implements CrudAction {
+public class ManageSupport extends ActionSupport implements CrudAction {
 
 	/*
 	 * (non-Javadoc)
@@ -40,10 +39,9 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		DynaActionForm formSupport = (DynaActionForm) form; // NOSONAR
 		String title = (String) formSupport.get("supportTitle");
 		String content = (String) formSupport.get("supportContent");
 
@@ -92,7 +90,7 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return null;
@@ -108,7 +106,7 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return null;
@@ -124,7 +122,7 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return null;
@@ -140,7 +138,7 @@ public class ManageSupport extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return null;

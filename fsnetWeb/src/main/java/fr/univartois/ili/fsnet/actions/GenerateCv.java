@@ -14,6 +14,13 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+<<<<<<< HEAD
+=======
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.String;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.actions.ActionSupport;
+>>>>>>> Start of the migration of actions of FSNet
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;

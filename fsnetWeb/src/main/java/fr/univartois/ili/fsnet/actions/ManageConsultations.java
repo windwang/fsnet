@@ -17,11 +17,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.routines.IntegerValidator;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 import org.apache.struts.util.MessageResources;
 
 import fr.univartois.ili.fsnet.actions.utils.ConsultationChoiceComparator;
@@ -48,7 +47,7 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * @author FSNet
  * 
  */
-public class ManageConsultations extends MappingDispatchAction {
+public class ManageConsultations extends ActionSupport {
 
 	private static final String DEADLINE_TIME = ":23:59:59";
 
@@ -68,11 +67,10 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		DynaActionForm dynaForm = (DynaActionForm) form;
 		String consultationTitle = (String) dynaForm.get("consultationTitle");
 		String consultationDescription = (String) dynaForm
 				.get("consultationDescription");
@@ -211,11 +209,9 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward vote(ActionMapping mapping, ActionForm form,
+	public String vote(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
-		DynaActionForm dynaForm = (DynaActionForm) form;
 		String voteComment = (String) dynaForm.get("voteComment");
 		String voteOther = (String) dynaForm.get("voteOther");
 		Integer idConsultation = (Integer) dynaForm.get("id");
@@ -388,7 +384,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward deleteVote(ActionMapping mapping, ActionForm form,
+	public String deleteVote(
 			HttpServletRequest request, HttpServletResponse response) {
 		String idConsultation = request.getParameter("consultation");
 		String idVote = request.getParameter("vote");
@@ -424,7 +420,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward searchYourConsultations(ActionMapping mapping,
+	public String searchYourConsultations(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addRightToRequest(request);
@@ -452,7 +448,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward searchConsultation(ActionMapping mapping,
+	public String searchConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addRightToRequest(request);
@@ -460,7 +456,6 @@ public class ManageConsultations extends MappingDispatchAction {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		if (form != null) {
-			DynaActionForm dynaForm = (DynaActionForm) form;
 			searchText = (String) dynaForm.get("searchText");
 		}
 		List<Consultation> searchConsultations = consultationFacade
@@ -494,7 +489,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward displayAConsultation(ActionMapping mapping,
+	public String displayAConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		addRightToRequest(request);
@@ -564,7 +559,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward closeConsultation(ActionMapping mapping,
+	public String closeConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		String idConsultation = request.getParameter("id");
@@ -589,7 +584,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward openConsultation(ActionMapping mapping,
+	public String openConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) {
 		String idConsultation = request.getParameter("id");
@@ -616,7 +611,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteConsultation(ActionMapping mapping,
+	public String deleteConsultation(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addRightToRequest(request);
@@ -646,7 +641,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward autocompleteOther(ActionMapping mapping,
+	public String autocompleteOther(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		String consultationId = request.getParameter("id");
@@ -807,13 +802,12 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+	public String deleteMulti(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
 		try {
 			String[] selectedConsultations = (String[]) dynaForm
