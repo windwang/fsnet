@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
@@ -37,7 +35,7 @@
 	</legend>
 
 	<c:choose>
-		<c:when test="%{! empty requestScope.communitiesSearch}">
+		<c:when test="${! empty requestScope.communitiesSearch}">
 			<div class="space"></div>
 			<script type="text/javascript">
 				$(document).ready(
@@ -66,8 +64,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<c:forEach var="community"
-						items="%{requestScope.communitiesSearch}">
+					<c:forEach var="community" items="${requestScope.communitiesSearch}">
 						<tr class="content">
 							<td>
 								<c:import url="/FavoriteFragment.do">

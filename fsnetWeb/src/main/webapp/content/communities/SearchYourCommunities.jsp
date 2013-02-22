@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
@@ -22,7 +20,7 @@
 			<tr>
 				<td>
 					<s:textfield property="searchYourText" var="searchTexte" styleClass="search-query" />
-					<ili:placeHolder id="searchTexte" value="%{searchMessage}" /> 
+					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> 
 					<s:submit
 						styleClass="btn btn-inverse">
 						<s:text name="communities.button.search" />
@@ -33,7 +31,7 @@
 	</table>
 </fieldset>
 
-<ili:interactionFilter user="%{ socialEntity }"
+<ili:interactionFilter user="${ socialEntity }"
 	right="${ rightCreateCommunity }">
 	<%@ include file="CreateCommunity.jsp" %>
 </ili:interactionFilter>
