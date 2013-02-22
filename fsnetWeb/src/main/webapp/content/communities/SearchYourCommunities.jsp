@@ -19,7 +19,7 @@
 		<s:form action="SearchYourCommunities" method="GET">
 			<tr>
 				<td>
-					<s:textfield property="searchYourText" var="searchTexte" styleClass="search-query" />
+					<s:textfield property="searchYourText" styleId="searchTexte" styleClass="search-query" />
 					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> 
 					<s:submit
 						styleClass="btn btn-inverse">

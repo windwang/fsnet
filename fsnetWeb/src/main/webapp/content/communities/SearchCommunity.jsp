@@ -75,7 +75,7 @@
 								<s:a href="/DisplayCommunity"
 									title='%{empty community.interests ? "" : community.interests}'>
 									<s:param name="communityId" value="%{community.id}" />
-                            %{community.title}
+                            ${community.title}
                         		</s:a> 
                         		<c:choose>
 									<c:when test="%{fn:length(community.hubs) eq 0}">
@@ -85,14 +85,14 @@
                          		(1 hub)
                          	</c:when>
 									<c:when test="%{fn:length(community.hubs) gt 1}">
-                         		(%{fn:length(community.hubs)} hubs)
+                         		(${fn:length(community.hubs)} hubs)
                          	</c:when>
 								</c:choose></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
-									socialEntity="%{community.creator}" /></td>
+									socialEntity="${community.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
-									socialEntity="%{community.creator}" /></td>
+									socialEntity="${community.creator}" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>

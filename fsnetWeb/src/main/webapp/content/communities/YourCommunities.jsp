@@ -73,20 +73,20 @@
 								<td>
 									<s:a href="/DisplayCommunity"
 										title='%{empty community.interests ? "" : community.interests}'>
-										<s:param name="communityId" value="${community.id}" />
-                           			 %{community.title}
+										<s:param name="communityId" value="%{community.id}" />
+                           			 ${community.title}
                         		</s:a> <c:choose>
-										<c:when test="%{fn:length(community.hubs) eq 0}">
+										<c:when test="${fn:length(community.hubs) eq 0}">
                          		(<s:text name="communities.hubs.notAny" /> hub)
                          	</c:when>
-										<c:when test="%{fn:length(community.hubs) eq 1}">
+										<c:when test="${fn:length(community.hubs) eq 1}">
                          		(1 hub)
                          	</c:when>
-										<c:when test="%{fn:length(community.hubs) gt 1}">
-                         		(%{fn:length(community.hubs)} hubs)
+										<c:when test="${fn:length(community.hubs) gt 1}">
+                         		(${fn:length(community.hubs)} hubs)
                          	</c:when>
 									</c:choose></td>
-								<!-- onclick="confirmDelete2('deleteid%{community.id}', '<s:text name="message.confirmation.delete" />');">  -->
+								<!-- onclick="confirmDelete2('deleteid${community.id}', '<s:text name="message.confirmation.delete" />');">  -->
 							</tr>
 						</c:forEach>
 					</tbody>
