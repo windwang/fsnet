@@ -14,10 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.MappingDispatchAction;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -30,6 +26,8 @@ import com.itextpdf.text.Rectangle;
 import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.opensymphony.xwork2.ActionSupport;
+
 import fr.univartois.ili.fsnet.actions.utils.TableHeader;
 import fr.univartois.ili.fsnet.actions.utils.HeaderFooter;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -40,7 +38,7 @@ import fr.univartois.ili.fsnet.facade.CvFacade;
  * @author Aich ayoub
  * 
  */
-public class GenerateCv extends MappingDispatchAction {
+public class GenerateCv extends ActionSupport {
 	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 26,
 			Font.BOLD, BaseColor.BLUE);
 	
@@ -341,8 +339,7 @@ public class GenerateCv extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward download(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String download(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		long id = Integer.parseInt(request.getParameter("idCv"));
@@ -398,7 +395,7 @@ public class GenerateCv extends MappingDispatchAction {
 			os.flush();
 			os.close();
 
-			return mapping.findForward("success");
+			return SUCCESS;
 		} catch (DocumentException e) {
 			throw new IOException(e.getMessage(),e);
 		}
