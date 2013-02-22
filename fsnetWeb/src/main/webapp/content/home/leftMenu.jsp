@@ -1,6 +1,4 @@
-<%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
 	<bean:message key="dashboard.leftMenu.interations" />
