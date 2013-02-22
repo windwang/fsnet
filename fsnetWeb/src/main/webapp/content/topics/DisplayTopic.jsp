@@ -1,8 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetCadre">
@@ -20,45 +19,44 @@
 
 <h3>
 
-	<html:link action="/DisplayCommunity">
-		<html:param name="communityId"
-			value="${requestScope.topic.hub.community.id}" />
+	<s:url action="/DisplayCommunity">
+		<s:param name="communityId"
+			value="%{requestScope.topic.hub.community.id}" />
         ${requestScope.topic.hub.community.title}
-    </html:link>
+    </s:url>
 	-&gt;
-	<html:link action="/DisplayHub">
-		<html:param name="hubId" value="${requestScope.topic.hub.id}" />
+	<s:url action="/DisplayHub">
+		<s:param name="hubId" value="%{requestScope.topic.hub.id}" />
         ${requestScope.topic.hub.title}
-    </html:link>
+    </s:url>
 	-&gt;
-	<html:link action="/DisplayTopic">
-		<html:param name="topicId" value="${requestScope.topic.id}" />
+	<s:url action="/DisplayTopic">
+		<s:param name="topicId" value="%{requestScope.topic.id}" />
         ${requestScope.topic.title}
-    </html:link>
+    </s:url>
 	-&gt;
-	<bean:message key="topics.title.message" />
+	<s:text name="topics.title.message" />
 </h3>
 
 <c:forEach var="msg"
 	items="${requestScope.topicMessageDisplayPaginator.resultList}">
 	<table class="topicTable tableStyle">
 		<tr class="topicHeader">
-			<td><bean:write name="msg" property="creationDate"
-					format="dd/MM/yyyy HH:mm" /></td>
+			<td><s:property value="msg" /></td>
 			<td style="text-align: right;"><c:if
 					test="${sessionScope.userId eq msg.from.id}">
 
-					<html:link action="/DeleteTopicMessage" styleClass="btn btn-inverse">
-						<html:param name="topicId" value="${topic.id}" />
-						<html:param name="messageId" value="${msg.id}" />
-						<bean:message key="topics.button.deleteMessage" />
-					</html:link>
+					<s:a href="/DeleteTopicMessage" styleClass="btn btn-inverse">
+						<s:param name="topicId" value="%{topic.id}" />
+						<s:param name="messageId" value="%{msg.id}" />
+						<s:text name="topics.button.deleteMessage" />
+					</s:a>
 
-					<html:link action="/DisplayModifyTopicMessage" styleClass="btn btn-inverse">
-						<html:param name="topicId" value="${topic.id}" />
-						<html:param name="messageId" value="${msg.id}" />
-						<bean:message key="topics.button.modifyMessage" />
-					</html:link>
+					<s:a href="/DisplayModifyTopicMessage" styleClass="btn btn-inverse">
+						<s:param name="topicId" value="%{topic.id}" />
+						<s:param name="messageId" value="%{msg.id}" />
+						<s:text name="topics.button.modifyMessage" />
+					</s:a>
 
 				</c:if></td>
 		</tr>
@@ -79,10 +77,11 @@
 <c:set var="paginatorTile" value="displayTopic" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
 
-<html:link action="/DisplayCreateTopicMessage" styleClass="btn btn-inverse">
-	<html:param name="topicId" value="${topic.id}" />
-	<bean:message key="topics.button.answerMessage" />
-</html:link>
+<s:a href="/DisplayCreateTopicMessage" styleClass="btn btn-inverse"
+	atata="ouais">
+	<s:param name="topicId" value="%{topic.id}" />
+	<s:text name="topics.button.answerMessage" />
+</s:a>
 
 
 
