@@ -17,7 +17,6 @@
 		class="inLineTable tableStyle">
 		<s:form action="/ModifyAnnounce">
 			<s:hidden property="idAnnounce" />
-			
 			<tr>
 				<td><label for="announceTitle"><s:text
 							name="announce.form.title" /></label></td>

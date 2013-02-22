@@ -60,6 +60,7 @@
 							<td><s:a action="/DisplayAnnounce.do"
 									paramId="idAnnounce" paramName="idAnnounce">
 									<s:property default="title" value="announce" />
+
 								</s:a></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
