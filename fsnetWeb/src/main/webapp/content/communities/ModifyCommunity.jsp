@@ -1,49 +1,41 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <c:if test="${not empty requestScope.myCommunities}">
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="commmunities.title.modify" />
+			<s:text name="commmunities.title.modify" />
 		</legend>
 
 		<table id="ModifyCommunity" class="inLineTable tableStyle">
-			<html:form action="/ModifyCommunity">
+			<s:form action="/ModifyCommunity">
 				<tr>
-					<td><label for="oldCommunityName"><bean:message
-								key="communities.form.oldName" /></label></td>
-					<td><html:select property="oldCommunityName"
-							styleClass="select" styleId="oldCommunityName">
-							<html:option value="">
-							</html:option>
-							<c:forEach var="community" items="${requestScope.myCommunities}">
-								<html:option value="${community.title}">${community.title}</html:option>
-							</c:forEach>
-						</html:select>
-						<div class="errorMessage">
-							<html:errors property="oldCommunityName" />
-						</div></td>
-
+					<td>
+						<label for="oldCommunityName"><s:text name="communities.form.oldName" /></label></td>
+					<td>
+						<s:select property="oldCommunityName" styleClass="select" styleId="oldCommunityName"
+							list="%{community}" listKey="%{community.id}" listValue="%{community.title}">
+						</s:select>
+					</td>
 				</tr>
 				<tr>
-					<td><label for="newCommunityName"><bean:message
-								key="communities.form.newName" /></label></td>
-					<td><html:text property="newCommunityName"
-							styleId="newCommunityName" />
-						<div class="errorMessage">
-							<html:errors property="newCommunityName" />
-						</div></td>
+					<td>
+						<label for="newCommunityName"><s:text name="communities.form.newName" /></label>
+					</td>
+					<td>
+						<s:textfield property="newCommunityName" styleId="newCommunityName" />
+					</td>
 				</tr>
 
 				<tr>
-					<td colspan="2" class="tableButton"><html:submit
-							styleClass="btn btn-inverse">
-							<bean:message key="communities.button.modify" />
-						</html:submit></td>
+					<td colspan="2" class="tableButton">
+						<s:submit styleClass="btn btn-inverse">
+							<s:text name="communities.button.modify" />
+						</s:submit>
+					</td>
 				</tr>
-			</html:form>
+			</s:form>
 		</table>
 	</fieldset>
 </c:if>

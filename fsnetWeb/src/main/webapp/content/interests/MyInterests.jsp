@@ -2,15 +2,15 @@
 	pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="interests.title.my" />
+		<s:text name="interests.title.my" />
 	</legend>
-	<logic:present name="myInterestPaginator" scope="request">
+	
+<s:if test="%{myInterestPaginator != null}">
 		<table class="inLineTable tableStyle">
 			<tr>
 				<td><c:choose>
@@ -20,13 +20,13 @@
 								<c:forEach var="interest"
 									items="${requestScope.myInterestPaginator.resultList}">
 
-									<span class="tag"> <html:link action="/RemoveInterest">
-											<html:param name="removedInterestId" value="${interest.id}" />
+									<span class="tag"> <s:a action="/RemoveInterest">
+											<s:param name="removedInterestId" value="%{interest.id}" />
 											<img src="images/mini-delete.png" alt="delete" />
-										</html:link> <html:link action="/InterestInformations">
-											<html:param name="infoInterestId" value="${interest.id}" />
+										</s:a> <s:a action="/InterestInformations">
+											<s:param name="infoInterestId" value="%{interest.id}" />
                             ${interest.name}
-                        </html:link>
+                        </s:a>
 
 									</span>
 								</c:forEach>
@@ -34,7 +34,7 @@
 							<div style="clear: both;"></div>
 						</c:when>
 						<c:otherwise>
-							<bean:message key="interests.search.empty" />
+							<s:text name="interests.search.empty" />
 						</c:otherwise>
 					</c:choose> <c:set var="paginatorInstance"
 						value="${requestScope.myInterestPaginator}" scope="request" /> <c:set
@@ -43,5 +43,5 @@
 						url="/content/pagination/Pagination.jsp" /></td>
 			</tr>
 		</table>
-	</logic:present>
+	</s:if>
 </fieldset>

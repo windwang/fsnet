@@ -1,21 +1,19 @@
-<%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix ="s" uri="/struts-tags" %>
 <h2>
-	<bean:message key="groups.leftMenu" />
+	<s:text name="groups.leftMenu" />
 </h2>
 <ul>
-	<li><html:link action="/SearchGroup">
-			<bean:message key="group.listGroups" />
-		</html:link></li>
-	<li><html:link action="/Groups.do">
-			<bean:message key="groups.createGroup" />
-		</html:link></li>
-	<li><html:link action="/MemberList">
-			<bean:message key="members.listMembers" />
-		</html:link></li>
-	<li><html:link action="/Members.do">
-			<bean:message key="members.create" />
-		</html:link></li>
+	<li><s:a href="/SearchGroup">
+			<s:text name="group.listGroups" />
+		</s:a></li>
+	<li><s:a href="/Groups.do">
+			<s:text name="groups.createGroup" />
+		</s:a></li>
+	<li><s:a href="/MemberList">
+			<s:text name="members.listMembers" />
+		</s:a></li>
+	<li><s:a href="/Members.do">
+			<s:text name="members.create" />
+		</s:a></li>
 
 </ul>

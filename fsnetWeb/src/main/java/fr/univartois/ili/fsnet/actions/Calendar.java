@@ -14,10 +14,14 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
+<<<<<<< HEAD
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.ActionSupport;
+=======
+import com.opensymphony.xwork2.ActionSupport;
+>>>>>>> branch 'struts' of https://code.google.com/p/fsnet
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
@@ -38,8 +42,8 @@ public class Calendar extends ActionSupport {
 	 * Action that create a list of all events/meetings in json format Used for
 	 * Full Calendar jquery plugin
 	 */
-	public String execute(
-			HttpServletRequest request, HttpServletResponse response)
+
+	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -76,7 +80,7 @@ public class Calendar extends ActionSupport {
 		response.setContentType("text/html");
 		em.close();
 
-		return mapping.findForward("success");
+		return SUCCESS;
 
 	}
 	

@@ -5,12 +5,12 @@
 	<bean:message key="topics.leftMenu.title" />
 </h2>
 <ul>
-	<li><html:link action="/DisplayCreateTopic">
+	<li><s:a action="/DisplayCreateTopic">
 			<html:param name="hubId" value="${param.hubId}" />
 			<bean:message key="topics.leftMenu.create" />
-		</html:link></li>
-	<li><html:link action="/DisplayYourTopics">
+		</s:a></li>
+	<li><s:a action="/DisplayYourTopics">
 			<html:param name="hubId" value="${param.hubId}" />
 			<bean:message key="topics.leftMenu.manage" />
-		</html:link></li>
+		</s:a></li>
 </ul>

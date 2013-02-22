@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <c:if test="${param.searchText == null}">
 	<%@ include file="YourCommunities.jsp" %>

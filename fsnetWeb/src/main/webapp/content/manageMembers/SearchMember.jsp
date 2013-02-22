@@ -14,7 +14,7 @@
 		<tr>
 			<td>
 				<s:textfield property="searchText" styleClass="search-query" />
-				<s:submit styleClass="btn btn-inverse">
+				<s:submit type="button" styleClass="btn btn-inverse">
 					<s:text name="members.searchButton" />
 				</s:submit>
 			</td>
@@ -67,7 +67,7 @@
 							<td><ili:getSocialGroupInfos socialGroup="${member.group}" /></td>
 							<td class="tableButton"><c:choose>
 									<c:when test="${member.group.isEnabled}">
-										<s:url action="/SwitchState" styleClass="btn btn-inverse">
+										<s:a href="/SwitchState" cssClass="btn btn-inverse">
 											<s:param name="entitySelected" value="%{member.id}" />
 											<c:choose>
 												<c:when test="${member.isEnabled}">
@@ -77,7 +77,7 @@
 													<s:text name="members.searchEnable" />
 												</c:otherwise>
 											</c:choose>
-										</s:url>
+										</s:a>
 									</c:when>
 									<c:when test="${ member.group.isEnabled == false }">
 										<s:text name="members.groupDisable" />

@@ -1,14 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="announce.leftMenu.my" />
+		<s:text name="announce.leftMenu.my" />
 	</legend>
 
 	<c:choose>
@@ -50,47 +48,47 @@
 							});
 						});
 			</script>
-			<html:form action="/DeleteMultiAnnounces">
+			<s:form action="/DeleteMultiAnnounces">
 				<table id="yourAnnounces"
 					class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
 								name="selected" class="checkThemAll1" /></th>
-							<th><bean:message key="tableheader.announcename" /></th>
-							<th><bean:message key="tableheader.expirdate" /></th>
+							<th><s:text name="tableheader.announcename" /></th>
+							<th><s:text name="tableheader.expirdate" /></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="4"><html:submit
+							<td colspan="4"><s:submit
 									styleClass="btn btn-inverse">
-									<bean:message key="privatemessages.delete" />
-								</html:submit></td>
+									<s:text name="privatemessages.delete" />
+								</s:submit></td>
 						</tr>
 					</tfoot>
 					<tbody>
 						<c:forEach var="announce" items="${requestScope.myAnnouncesList}">
 							<tr>
-								<bean:define id="idAnnounce" name="announce" property="id" />
-								<td><html:multibox property="selectedAnnounces"
-										value="${announce.id}" /></td>
-								<td><html:link action="/DisplayAnnounce.do"
+								<s:set id="idAnnounce" name="announce" var="id" />
+								<td><s:checkbox property="selectedAnnounces"
+										value="%{announce.id}" /></td>
+								<td><s:a action="/DisplayAnnounce.do"
 										paramId="idAnnounce" paramName="idAnnounce">
-										<bean:write name="announce" property="title" />
-									</html:link></td>
-								<td><bean:write name="announce" property="endDate"
+										<s:property value="announce" default="title" />
+									</s:a></td>
+								<td><s:property value="announce" default="endDate"
 										format="dd/MM/yyyy HH:mm" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-			</html:form>
+			</s:form>
 		</c:when>
 		<c:otherwise>
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="research.announce.emptyList" />.</td>
+					<td><s:text name="research.announce.emptyList" />.</td>
 				</tr>
 			</table>
 		</c:otherwise>

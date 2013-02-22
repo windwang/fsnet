@@ -1,14 +1,14 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <c:if test="${consultation eq null }">
 	<p>
-		<bean:message key="consultations.unavailable" />
+		<s:text name="consultations.unavailable" />
 	</p>
 </c:if>
 
@@ -19,86 +19,84 @@
 			<tr>
 				<td>
 					<ul>
-						<li><bean:message key="consultations.creator" /> : <ili:getSocialEntityInfos
+						<li><s:text name="consultations.creator" /> : <ili:getSocialEntityInfos
 								socialEntity="${consultation.creator }" /></li>
 						<c:if test="${consultation.description ne '' }">
-							<li><bean:message key="consultations.form.description" /> :
+							<li><s:text name="consultations.form.description" /> :
 								${consultation.description }</li>
 						</c:if>
-						<li><bean:message key="consultations.createdAtDate" /> <bean:write
-								name="consultation" property="creationDate" format="dd/MM/yyyy" />
-							<bean:message key="consultations.createdAtHour" /> <bean:write
-								name="consultation" property="creationDate" format="HH:mm" /></li>
-						<li><bean:message key="consultations.typeConsultation" /> :
-							<c:choose>
+						<li><s:text name="consultations.createdAtDate" /> <s:property
+								value="creationDate" /> <s:text
+								name="consultations.createdAtHour" /> <s:property
+								value="creationDate" />
+						<li><s:text name="consultations.typeConsultation" /> : <c:choose>
 								<c:when test="${consultation.type eq 'YES_NO'}">
-									<bean:message key="consultations.typeYesNo" />
+									<s:text name="consultations.typeYesNo" />
 								</c:when>
 								<c:when test="${consultation.type eq 'YES_NO_OTHER'}">
-									<bean:message key="consultations.typeYesNoOther" />
+									<s:text name="consultations.typeYesNoOther" />
 								</c:when>
 								<c:when test="${consultation.type eq 'YES_NO_IFNECESSARY'}">
-									<bean:message key="consultations.typeYesNoIfNecessary" />
+									<s:text name="consultations.typeYesNoIfNecessary" />
 								</c:when>
 								<c:when test="${consultation.type eq 'PREFERENCE_ORDER'}">
-									<bean:message key="consultations.typePreferenceOrder" />
+									<s:text name="consultations.typePreferenceOrder" />
 								</c:when>
 							</c:choose></li>
-						<li><bean:message key="consultations.state" /> : <c:choose>
+						<li><s:text name="consultations.state" /> : <c:choose>
 								<c:when test="${consultation.opened }">
-									<bean:message key="consultations.opened" />
+									<s:text name="consultations.opened" />
 									<c:if test="${member eq consultation.creator }">
-					(<html:link action="/CloseConsultation?id=${consultation.id}">
-											<bean:message key="consultations.button.close" />
-										</html:link>)
+					(<s:a href="/CloseConsultation?id=%{consultation.id}">
+											<s:text name="consultations.button.close" />
+										</s:a>)
 				</c:if>
 								</c:when>
 								<c:when test="${not consultation.opened }">
-									<bean:message key="consultations.closed" />
+									<s:text name="consultations.closed" />
 									<c:if test="${member eq consultation.creator }">
-					(<html:link action="/OpenConsultation?id=${consultation.id}">
-											<bean:message key="consultations.button.open" />
-										</html:link>)
+					(<s:a href="/OpenConsultation?id=%{consultation.id}">
+											<s:text name="consultations.button.open" />
+										</s:a>)
 				</c:if>
 								</c:when>
 							</c:choose></li>
 						<c:if test="${consultation.limitChoicesPerParticipant}">
-							<li><bean:message key="consultations.limitChoicesPerVoter" />
-								- min : ${consultation.limitChoicesPerParticipantMin }, max :
+							<li><s:text name="consultations.limitChoicesPerVoter" /> -
+								min : ${consultation.limitChoicesPerParticipantMin }, max :
 								${consultation.limitChoicesPerParticipantMax}</li>
 						</c:if>
 						<c:if test="${consultation.closingAtMaxVoters}">
-							<li><bean:message key="consultations.closingAtMaxVoters" />
-								: ${consultation.maxVoters}</li>
+							<li><s:text name="consultations.closingAtMaxVoters" /> :
+								${consultation.maxVoters}</li>
 						</c:if>
 						<c:if test="${consultation.closingAtDate}">
-							<li><bean:message key="consultations.deadline" /> : <bean:write
-									name="consultation" property="maxDate" format="dd/MM/yyyy" />
-							</li>
+							<li><s:text name="consultations.deadline" /> : <s:property
+									value="maxDate" /></li>
 						</c:if>
 					</ul> <br /> <c:if test="${errorChoicesPerParticipant}">
 						<p>
-							<bean:message key="consultations.error.choicesPerParticipant" />
+							<s:text name="consultations.error.choicesPerParticipant" />
 						</p>
 					</c:if> <c:if test="${errorPreferenceOrderDistinct}">
 						<p>
-							<bean:message key="consultations.error.preferenceOrderDistinct" />
+							<s:text name="consultations.error.preferenceOrderDistinct" />
 						</p>
 					</c:if>
 					<table class="tableStyle">
 						<tr>
 							<td></td>
-							<td class="consultationPerticipant"><bean:message
-									key="consultations.voter" /></td>
+							<td class="consultationPerticipant"><s:text
+									name="consultations.voter" /></td>
 							<c:forEach var="choice" items="${consultation.choices }">
 								<td class="consultationResultChoice">${choice.intituled }</td>
 							</c:forEach>
 							<c:if test="${consultation.type eq 'YES_NO_OTHER' }">
-								<td class="consultationResultChoice"><bean:message
-										key="consultations.other" /></td>
+								<td class="consultationResultChoice"><s:text
+										name="consultations.other" /></td>
 							</c:if>
-							<td class="consultationComment"><bean:message
-									key="consultations.comment" /></td>
+							<td class="consultationComment"><s:text
+									name="consultations.comment" /></td>
 						</tr>
 
 						<c:forEach var="vote" items="${consultation.consultationVotes }">
@@ -106,11 +104,11 @@
 								<tr>
 									<td><c:if
 											test="${consultation.opened and member.id eq vote.voter.id }">
-											<html:link
-												action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}">
-												<html:img src="images/mini-delete.png"
-													altKey="consultations.button.delete" />
-											</html:link>
+											<s:a
+												href="/DeleteVoteConsultation?consultation=%{consultation.id}&amp;vote=%{vote.id}">
+												<img src="images/mini-delete.png"
+													alt="consultations.button.delete" />
+											</s:a>
 										</c:if></td>
 									<td class="consultationPerticipant"><ili:getSocialEntityInfos
 											socialEntity="${vote.voter }" /></td>
@@ -172,7 +170,7 @@
 							<tr>
 						</c:if>
 						<c:if test="${allowedToVote }">
-							<html:form action="/VoteConsultation" method="post"
+							<s:form action="/VoteConsultation" method="post"
 								styleId="voteForm">
 								<tr class="consultationVote">
 									<td colspan="2"></td>
@@ -180,30 +178,33 @@
 									<c:forEach var="choice" items="${consultation.choices }">
 										<td class="consultationFormChoices"><c:choose>
 												<c:when test="${consultation.type eq 'YES_NO_IFNECESSARY' }">
-													<html:select property="voteChoice"
-														disabled="${disabledList[i]}">
-														<html:option value="no${choice.id}">
-															<bean:message key="consultations.choiceNo" />
-														</html:option>
-														<html:option value="yes${choice.id}">
-															<bean:message key="consultations.choiceYes" />
-														</html:option>
-														<html:option value="ifNecessary${choice.id}">
-															<bean:message key="consultations.choiceIfNecessary" />
-														</html:option>
-													</html:select>
+													<select name="voteChoice" disabled="${disabledList[i]}">
+														<option value="no${choice.id}">
+															<s:text name="consultations.choiceNo" />
+														</option>
+														<option value="yes${choice.id}">
+															<s:text name="consultations.choiceYes" />
+														</option>
+														<option value="ifNecessary${choice.id}">
+															<s:text name="consultations.choiceIfNecessary" />
+														</option>
+													</select>
 												</c:when>
 												<c:when test="${consultation.type eq 'PREFERENCE_ORDER'}">
-													<html:select property="voteChoice">
+
+
+													<select name="voteChoice">
 														<c:forEach var="index" begin="1"
 															end="${fn:length(consultation.choices) }">
-															<html:option value="${choice.id}_${index}">${index }</html:option>
+															<option value="${choice.id}_${index}">${index }</option>
 														</c:forEach>
-													</html:select>
+													</select>
 												</c:when>
 												<c:otherwise>
-													<html:multibox property="voteChoice" value="${choice.id}"
-														disabled="${disabledList[i]}" />
+
+													<s:checkbox property="voteChoice" value="%{choice.id}"
+														disabled="%{disabledList[i]}" />
+															
 
 												</c:otherwise>
 
@@ -211,19 +212,19 @@
 										<c:set var="i" value="${i + 1}" />
 									</c:forEach>
 									<c:if test="${consultation.type eq 'YES_NO_OTHER' }">
-										<td><html:text property="voteOther" styleId="voteOther" />
+										<td><s:textfield property="voteOther" styleId="voteOther" />
 											<div class="consultationAutoCompleteList"
 												id="autoCompleteList"><jsp:include
 													page="autocompleteOtherChoice.jsp" /></div></td>
 									</c:if>
-									<td><html:text property="voteComment" /></td>
+									<td><s:textfield property="voteComment" /></td>
 
-									<html:hidden property="id" value="${consultation.id }" />
-									<td><html:submit styleClass="btn btn-inverse">
-											<bean:message key="consultations.button.vote" />
-										</html:submit></td>
+									<s:hidden name="id" value="%{consultation.id }" />
+									<td><s:submit styleClass="btn btn-inverse">
+											<s:text name="consultations.button.vote" />
+										</s:submit></td>
 								</tr>
-							</html:form>
+							</s:form>
 						</c:if>
 					</table>
 				</td>
@@ -235,7 +236,7 @@
 		test="${ allowedToShowResults and consultation.type ne 'PREFERENCE_ORDER' }">
 		<fieldset class="fieldsetCadre">
 			<legend>
-				<bean:message key="consultations.histogramme" />
+				<s:text name="consultations.histogramme" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -282,4 +283,6 @@
 			});
 		});
 	});
+
+	
 </script>

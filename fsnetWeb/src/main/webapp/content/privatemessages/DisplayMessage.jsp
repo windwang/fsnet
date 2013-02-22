@@ -53,7 +53,7 @@
 
 
 			<html:form action="/CreatePrivateMessage">
-				<html:hidden property="messageTo" value="${theMessage.from.email}" />
+				<s:hidden name="messageTo" value="${theMessage.from.email}" />
 				<table id="quickResponse tableStyle"
 					style="width: 100%; display: none; margin-top: 10px;">
 					<tr>
@@ -125,7 +125,7 @@
 			</ili:interactionFilter>
 
 			<html:form action="/CreatePrivateMessage">
-				<html:hidden property="messageTo" value="${theMessage.from.email}" />
+				<s:hidden name="messageTo" value="${theMessage.from.email}" />
 				<table id="quickResponse"
 					style="width: 100%; display: none; margin-top: 10px;">
 					<tr>

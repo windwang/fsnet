@@ -1,9 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
@@ -11,14 +8,14 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="visits.conts" />
+		<s:text name="visits.conts" />
 	</legend>
 
 
 	<c:if test="${empty requestScope.lastVisitors}">
 		<table class="inLineTable tableStyle">
 			<tr>
-				<td><bean:message key="visits.voidlist" />.</td>
+				<td><s:text name="visits.voidlist" />.</td>
 			</tr>
 		</table>
 	</c:if>
@@ -46,10 +43,10 @@
 			class="tablesorter inLineTable tableStyle">
 			<thead>
 				<tr>
-					<th><bean:message key="privatemessages.from" /></th>
-					<th width="20%"><bean:message key="members.firstName" /></th>
-					<th width="20%"><bean:message key="members.name" /></th>
-					<th width="40%"><bean:message key="privatemessages.date" /></th>
+					<th><s:text name="privatemessages.from" /></th>
+					<th width="20%"><s:text name="members.firstName" /></th>
+					<th width="20%"><s:text name="members.name" /></th>
+					<th width="40%"><s:text name="privatemessages.date" /></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -62,8 +59,10 @@
 								socialEntity="${visitor.visitor}" /></td>
 						<td><ili:getSocialEntityInfosName
 								socialEntity="${visitor.visitor}" /></td>
-						<td><bean:write name="visitor" property="lastVisite"
-								formatKey="date.format" /></td>
+						<td>
+						<s:property value="lastVisite" />
+<!-- 						<bean:write name="visitor" property="lastVisite" formatKey="date.format" /> -->
+								</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -73,14 +72,14 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="visits.old" />
+		<s:text name="visits.old" />
 	</legend>
 
 
 	<c:if test="${empty requestScope.beforeLastVisitors}">
 		<table class="inLineTable tableStyle">
 			<tr>
-				<td><bean:message key="visits.voidlist" />.</td>
+				<td><s:text name="visits.voidlist" />.</td>
 			</tr>
 		</table>
 	</c:if>
@@ -107,10 +106,10 @@
 			class="tablesorter inLineTable tableStyle">
 			<thead>
 				<tr>
-					<th><bean:message key="privatemessages.from" /></th>
-					<th width="20%"><bean:message key="members.firstName" /></th>
-					<th width="20%"><bean:message key="members.name" /></th>
-					<th width="40%"><bean:message key="privatemessages.date" /></th>
+					<th><s:text name="privatemessages.from" /></th>
+					<th width="20%"><s:text name="members.firstName" /></th>
+					<th width="20%"><s:text name="members.name" /></th>
+					<th width="40%"><s:text name="privatemessages.date" /></th>
 				</tr>
 			</thead>
 			<tbody>
@@ -123,8 +122,10 @@
 								socialEntity="${visitor.visitor}" /></td>
 						<td><ili:getSocialEntityInfosName
 								socialEntity="${visitor.visitor}" /></td>
-						<td><bean:write name="visitor" property="lastVisite"
-								formatKey="date.format" /></td>
+						<td>
+						<s:property value="lastVisite" />
+<!-- 								<bean:write name="visitor" property="lastVisite" formatKey="date.format" /> -->
+								</td>
 					</tr>
 				</c:forEach>
 			</tbody>

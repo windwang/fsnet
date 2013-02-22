@@ -1,109 +1,102 @@
 <%@page contentType="text/html;charset=ISO-8859-1" language="java"%>
-
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 <script type="text/javascript" src="js/consultationUtils.js"></script>
 
-<html:javascript formName="/CreateAnnounce" />
+<html:javascript formName="/CreateAnnounce" /><!-- Dragon -->
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="announce.title.create" />
+		<s:text name="announce.title.create" />
 	</legend>
 
 	<table id="CreateAnnounce" class="inLineTable tableStyle">
-		<html:form action="/CreateAnnounce">
+		<s:form action="/CreateAnnounce">
 			<tr>
-				<td><label for="announceTitle"><bean:message
-							key="announce.form.title" /></label></td>
-				<td><html:text property="announceTitle" styleId="announceTitle" />
-					<div class="errorMessage">
-						<html:errors property="announceTitle" />
-					</div> <c:import url="/InterestCheckBoxes.do" /></td>
+				<td><label for="announceTitle"><s:text
+							name="announce.form.title" /></label></td>
+				<td><s:textfield property="announceTitle"
+						styleId="announceTitle" /> <!-- 					<div class="errorMessage"> -->
+					<!-- 						<html:errors property="announceTitle" /> --> <%-- 					</div> <c:import url="/InterestCheckBoxes.do" /></td> --%>
 			</tr>
 
 			<tr>
-				<td><label for="announceContent"><bean:message
-							key="announce.form.content" /> </label></td>
-				<td><html:textarea cols="40" rows="8"
-						property="announceContent" styleId="announceContent"
-						styleClass="mceTextArea" style="width: 100%;" />
-					<div class="errorMessage">
-						<html:errors property="announceContent" />
-					</div></td>
+				<td><label for="announceContent"><s:text
+							name="announce.form.content" /> </label></td>
+				<td><s:textarea cols="40" rows="8" property="announceContent"
+						styleId="announceContent" styleClass="mceTextArea"
+						style="width: 100%;" /> <!-- 					<div class="errorMessage"> -->
+					<!-- 						<html:errors property="announceContent" /> --> <!-- 					</div></td> -->
 			</tr>
 
 			<tr>
-				<td><label for="announceExpiryDate"><bean:message
-							key="announce.form.date" /></label></td>
-				<td><html:text property="announceExpiryDate"
-						styleId="announceExpiryDate" disabled="false" />
-					<div class="errorMessage">
-						<html:errors property="announceExpiryDate" />
-					</div></td>
+				<td><label for="announceExpiryDate"><s:text
+							name="announce.form.date" /></label></td>
+				<td><s:textfield property="announceExpiryDate"
+						styleId="announceExpiryDate" disabled="false" /> <!-- 					<div class="errorMessage"> -->
+					<!-- 						<html:errors property="announceExpiryDate" /> --> <!-- 					</div></td> -->
 			</tr>
 
 			<tr>
-				<td><label for="groupsListLeft"><bean:message
-							key="announces.title.droit" /></label></td>
+				<td><label for="groupsListLeft"><s:text
+							name="announces.title.droit" /></label></td>
 				<td><table class="inLineTable tableStyle">
 						<c:if test="${errorAnnounceRights}">
 							<p class="errorMessage">
-								<bean:message key="announces.droits.errorRights" />
+								<s:text name="announces.droits.errorRights" />
 							</p>
 						</c:if>
 						<tr>
 							<td rowspan="2">
 								<div>
-									<bean:message key="announces.droits.groupsNoRights" />
-								</div> <html:select property="groupsListLeft" styleClass="select"
+
+									<s:text name="announces.droits.groupsNoRights" />
+								</div> <select  class="select"
 									size="5" multiple="multiple">
 
 									<c:forEach var="socialGroup" items="${allUnderGroupsNoRights}">
 
 										<c:if test="${socialGroup.isEnabled}">
-											<html:option value="${socialGroup.name}">${socialGroup.name}</html:option>
+											<option value="${socialGroup.name}">${socialGroup.name}</option>
 										</c:if>
 
 									</c:forEach>
-								</html:select>
+								</select>
 							</td>
-							<td><html:button property=""
+							<td><s:submit
 									onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)">
-									<bean:message key="groups.addMembers" />
-								</html:button></td>
+									<s:text name="groups.addMembers" />
+								</s:submit></td>
 							<td rowspan="2">
 								<div>
-									<bean:message key="consultation.droits.groupsRights" />
-								</div> <html:select property="groupsListRight" styleClass="select"
+									<s:text name="consultation.droits.groupsRights" />
+								</div> <select class="select"
 									size="5" multiple="multiple">
 
 									<c:forEach var="socialGroup" items="${allUnderGroupsRights}">
-										<html:option value="${socialGroup.name}">${socialGroup.name}</html:option>
+										<option value="${socialGroup.name}">${socialGroup.name}</option>
 									</c:forEach>
-								</html:select>
+								</select>
 							</td>
 						</tr>
 						<tr>
-							<td><html:button property=""
+							<td><s:submit
 									onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
-									<bean:message key="groups.removeMembers" />
-								</html:button></td>
+									<s:text name="groups.removeMembers" />
+								</s:submit></td>
 						</tr>
 					</table>
-			
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit
+				<td colspan="2" class="tableButton"><s:submit
 						styleClass="btn btn-inverse"
 						onclick="return valideGroupToAnnounce()">
-						<bean:message key="announce.button.create" />
-					</html:submit></td>
+						<s:text name="announce.button.create" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
 
