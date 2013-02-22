@@ -58,14 +58,9 @@ public class CvFacadeTest {
 		curriculum.setUserId(userId);
 	    em.persist(curriculum);	    
 	    em.getTransaction().commit();
-	    
-	    long idCurriculum = curriculum.getId();
-		Curriculum cv = em.find(Curriculum.class,idCurriculum); 
+	    	
 		
-		
-		TypedQuery<Curriculum> query = em.createQuery("SELECT e FROM Curriculum e WHERE e.userId= :idC",Curriculum.class); 
-		query.setParameter("idC",userId);
-		List<Curriculum> results = query.getResultList();
+		List<Curriculum> results = cf.listAllCv(userId);
 		
 
 		assertEquals(results, cf.listAllCv(userId));

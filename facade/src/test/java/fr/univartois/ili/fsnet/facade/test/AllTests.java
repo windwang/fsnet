@@ -24,6 +24,7 @@ import org.junit.runners.Suite;
     SocialGroupFacadeTest.class,
     TopicMessageFacadeTest.class,
     TopicFacadeTest.class,
-    CvFacadeTest.class
+    CvFacadeTest.class,
+    ILIFSNetFacadeTest.class,
 })
 public class AllTests {}
