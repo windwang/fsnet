@@ -1,8 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
@@ -11,12 +9,10 @@
 	<a name='linktogooglemap' href=''>
 	<s:text name="geolocalisation.linkRoute" /></a> 
 	<input id='address' type='hidden'
-		value="%{event.address.address} %{event.address.city}">
-	</input> 
+		value="%{event.address.address} %{event.address.city}" />
 	<input
 		id='userAddress' type='hidden'
-		value="%{member.address.address} %{member.address.city}">
-	</input>
+		value="%{member.address.address} %{member.address.city}" />
 	<ul id="choices">
 		<li id="errorGeo"><s:text name="geolocalisation.error" />
 		<li>
