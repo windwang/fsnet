@@ -12,10 +12,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -35,7 +34,7 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
-public class ManageResearch extends MappingDispatchAction {
+public class ManageResearch extends ActionSupport {
 	/**
 	 * 
 	 * @param mapping
@@ -46,7 +45,7 @@ public class ManageResearch extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
@@ -57,7 +56,6 @@ public class ManageResearch extends MappingDispatchAction {
 		request.setAttribute("searchConsultations", false);
 		request.setAttribute("searchCommunauties", false);
 
-		DynaActionForm dynaForm = (DynaActionForm) form;
 		String searchText = (String) dynaForm.get("searchText");
 		String[] selectedModes = (String[]) dynaForm.get("selectedResearch");
 		Set<String> modes = new HashSet<String>();

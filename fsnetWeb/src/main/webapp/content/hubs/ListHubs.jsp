@@ -1,29 +1,32 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 
 <fieldset class="fieldsetCadre">
 	<legend>
 		<c:if test="${not empty requestScope.Community}">
-			<html:link action="/DisplayCommunity">
+<<<<<<< HEAD
+			<s:a href="/DisplayCommunity">
+				<s:param name="communityId" value="%{requestScope.Community.id}" />
+=======
+			<s:a action="/DisplayCommunity">
 				<html:param name="communityId" value="${requestScope.Community.id}" />
+>>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
             ${requestScope.Community.title}
-        </html:link>
+        </s:a>
 		</c:if>
 		-&gt;
-		<bean:message key="hubs.title.hubs" />
+		<s:text name="hubs.title.hubs" />
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.listHubPaginator.resultList}">
 
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="hubs.hubNotFound" /></td>
+					<td><s:text name="hubs.hubNotFound" /></td>
 				</tr>
 			</table>
 		</c:when>
@@ -52,11 +55,11 @@
 				<thead>
 					<tr>
 						<th></th>
-						<th><bean:message key="tableheader.hubname" /></th>
-						<th><bean:message key="hubs.createdOn" /></th>
-						<th><bean:message key="tableheader.by" /></th>
-						<th><bean:message key="members.firstName" /></th>
-						<th><bean:message key="members.name" /></th>
+						<th><s:text name="tableheader.hubname" /></th>
+						<th><s:text name="hubs.createdOn" /></th>
+						<th><s:text name="tableheader.by" /></th>
+						<th><s:text name="members.firstName" /></th>
+						<th><s:text name="members.name" /></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -67,13 +70,22 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${hub.id}" />
 								</c:import></td>
-							<td><html:link action="/DisplayHub"
+<<<<<<< HEAD
+							<td><s:a href="/DisplayHub" title='%{empty hub.interests? "" : hub.interests}'>
+									<s:param name="hubId" value="%{hub.id}" />
+                    ${hub.title}
+                </s:a> (${fn:length(hub.topics)} topics)</td>
+							<td>
+							<s:property value="creationDate"/></td>
+=======
+							<td><s:a action="/DisplayHub"
 									title='${empty hub.interests? "" : hub.interests}'>
 									<html:param name="hubId" value="${hub.id}" />
                     ${hub.title}
-                </html:link> (${fn:length(hub.topics)} topics)</td>
+                </s:a> (${fn:length(hub.topics)} topics)</td>
 							<td><bean:write name="hub" property="creationDate"
 									format="dd/MM/yyyy" /></td>
+>>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${hub.creator}" /></td>
@@ -83,7 +95,7 @@
 									test="${sessionScope.userId eq hub.creator.id}">
 									<a class="btn btn-inverse"
 										onclick="confirmDelete('DeleteHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id}, '<bean:message key="message.confirmation.delete" />');">
-										<bean:message key="hubs.button.delete" />
+										<s:text name="hubs.button.delete" />
 									</a>
 								</c:if></td>
 						</tr>

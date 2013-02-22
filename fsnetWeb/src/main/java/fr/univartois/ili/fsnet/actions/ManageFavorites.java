@@ -8,10 +8,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -22,7 +21,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  * @author FSNet
  * 
  */
-public class ManageFavorites extends MappingDispatchAction {
+public class ManageFavorites extends ActionSupport {
 
 	private static final String INTERACTION_ID_FORM_FIELD_NAME = "interactionId";
 	private static final String SUCCESS_ACTION_NAME = "success";
@@ -36,13 +35,12 @@ public class ManageFavorites extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward add(ActionMapping mapping, ActionForm form,
+	public String add(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			int interactionId = Integer.parseInt((String) dynaForm
 					.get(INTERACTION_ID_FORM_FIELD_NAME));
 			em.getTransaction().begin();
@@ -71,13 +69,12 @@ public class ManageFavorites extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward remove(ActionMapping mapping, ActionForm form,
+	public String remove(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			int interactionId = Integer.parseInt((String) dynaForm
 					.get(INTERACTION_ID_FORM_FIELD_NAME));
 			em.getTransaction().begin();
@@ -109,13 +106,12 @@ public class ManageFavorites extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			int interactionId = Integer.parseInt((String) dynaForm
 					.get(INTERACTION_ID_FORM_FIELD_NAME));
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);

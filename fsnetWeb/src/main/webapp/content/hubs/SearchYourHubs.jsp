@@ -1,34 +1,35 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
-<bean:define id="searchMessage">
-	<bean:message key="hubs.placeholder.search" />
-</bean:define>
+<s:set name="searchMessage">
+	<s:text name="hubs.placeholder.searchh" />
+</s:set>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="hubs.title.search" />
+		<s:text name="hubs.title.search" />
 	</legend>
 
 	<table id="SearchYourHubs"
 		class="inLineTable tableStyle">
-		<html:form action="/SearchYourHubs" method="GET">
+		<s:form action="/SearchYourHubs" method="GET">
 			<tr>
-				<td><html:hidden property="communityId"
+				<td><s:hidden name="communityId"
+<<<<<<< HEAD
+						value="%{param.communityId}" /> <s:textfield
+=======
 						value="${param.communityId}" /> <html:text
+>>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 						property="searchYourText" styleId="searchTexte" /> <ili:placeHolder
-						id="searchTexte" value="${searchMessage}" /> <html:submit
+						id="searchTexte" value="${searchMessage}" /> <s:submit
 						styleClass="btn btn-inverse">
-						<bean:message key="hubs.button.search" />
-					</html:submit></td>
+						<s:text name="hubs.button.search" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
 
@@ -36,32 +37,45 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="hubs.title.myHubs" />
+		<s:text name="hubs.title.myHubs" />
 	</legend>
 	<c:set var="hub" value="${hubResults}" />
 	<table class="inLineTable tableStyle">
-		<logic:empty name="hub">
-			<tr>
-				<td><bean:message key="hubs.hubNotFound" />
+	
+		<s:if test="%{hub.size==0}">
+		<tr>
+				<td><s:text name="hubs.hubNotFound" />
 				<td>
 			</tr>
-		</logic:empty>
+		</s:if>
+	
 		<c:forEach var="hub" items="${hubResults}">
 			<tr>
-				<th><html:link action="/DisplayHub"
+<<<<<<< HEAD
+				<th><s:a href="/DisplayHub"
+						title='%{empty hub.interests? "" : hub.interests}'>
+						<s:param name="hubId" value="%{hub.id}" />
+                    ${hub.title}
+                </s:a> (${fn:length(hub.topics)} topics)</th>
+				<td><s:text name="hubs.createdOn" />
+				<s:property value="creationDate"/> 
+				<ili:getSocialEntityInfos
+=======
+				<th><s:a action="/DisplayHub"
 						title='${empty hub.interests? "" : hub.interests}'>
 						<html:param name="hubId" value="${hub.id}" />
                     ${hub.title}
-                </html:link> (${fn:length(hub.topics)} topics)</th>
+                </s:a> (${fn:length(hub.topics)} topics)</th>
 				<td><bean:message key="hubs.createdOn" /> <bean:write
 						name="hub" property="creationDate" format="dd/MM/yyyy" /> <bean:message
 						key="hubs.by" /> <ili:getSocialEntityInfos
+>>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 						socialEntity="${hub.creator}" /></td>
 				<td class="tableButton"><c:if
 						test="${sessionScope.userId eq hub.creator.id}">
 						<a class="btn btn-inverse"
 							onclick="confirmDelete('DeleteYourHub.do?hubId='+${hub.id}+'&communityId='+${hub.community.id}, '<bean:message key="message.confirmation.delete" />');">
-							<bean:message key="hubs.button.delete" />
+							<s:text name="hubs.button.delete" />
 						</a>
 					</c:if></td>
 			</tr>

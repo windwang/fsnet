@@ -17,6 +17,7 @@
 		<tr>
 			<td><s:form action="/SearchYourTopics" method="get">
 					<div id="SearchYourTopics">
+
 						<s:textfield property="searchText" styleId="searchTexte"
 							cssClass="search-query" />
 						<ili:placeHolder id="searchTexte" value="%{searchMessage}" />
@@ -24,6 +25,7 @@
 						<s:submit styleClass="btn btn-inverse">
 							<s:text name="topics.button.search" />
 						</s:submit>
+
 					</div>
 				</s:form></td>
 		</tr>
@@ -49,12 +51,14 @@
 					onmouseover="this.style.cursor='pointer'" /> <img
 					src="images/message.png" alt="Message" />
 				</td>
+
 				<td><s:a href="/DisplayTopic"
 						title='%{empty couple.key.interests? "" : couple.key.interests}'>
 						<s:param name="topicId" value="%{couple.key.id}" />
                     ${couple.key.title}
                 </s:a> <br /> <s:text name="topics.createdOn" /> <s:property
 						value="hubResult" /> <s:text name="topics.by" /> <ili:getSocialEntityInfos
+
 						socialEntity="${couple.key.creator}" /></td>
 
 				<td style="background-color: #C7E5F8;"><s:if

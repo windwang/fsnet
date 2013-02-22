@@ -17,7 +17,7 @@
 		</c:if> <s:textarea property="message" styleId="message"
 			errorStyleClass="error" value="%{welcomeMain}" rows="5" cols="50" />
 		<div class="errorMessage">
-			<s:fielderror property="message" />
+			<s:fielderror name="message" />
 		</div></td>
 </tr>
 
@@ -27,7 +27,7 @@
 </tr>
 
 <tr>
-	<td colspan="2" class="tableButton"><s:submit cssClass="button">
+	<td colspan="2" class="tableButton"><s:submit type="button" cssClass="button">
 			<s:text name="members.validate" />
 		</s:submit></td>
 </tr>

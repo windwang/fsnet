@@ -14,10 +14,12 @@
 	<table class="inLineTable tableStyle">
 		<s:form action="/CreateTopicMessage">
 			<tr>
+
 				<td><s:hidden property="topicId" value="%{topicId}" /> <label
 					for="messageDescription"><s:text
 							name="topics.form.description" /></label></td>
 				<td><s:textarea property="messageDescription"
+
 						styleId="messageDescription" styleClass="mceTextArea"
 						style="width: 100%;">
 					</s:textarea></td>

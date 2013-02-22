@@ -10,9 +10,11 @@
 	</legend>
 
 	<table id="CreateTopic" class="inLineTable tableStyle">
+
 		<s:form action="/ModifyTopicMessage">
 			<s:hidden property="topicId" value="%{topicId}" />
 			<s:hidden property="messageId" value="%{message.id}" />
+
 
 			<tr>
 				<td><label for="messageDescription">

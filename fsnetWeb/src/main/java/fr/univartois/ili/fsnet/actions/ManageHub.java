@@ -14,12 +14,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 import org.eclipse.persistence.exceptions.DatabaseException;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -41,7 +40,7 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
  * 
  * @author Cerelia Besnainou and Audrey Ruellan
  */
-public class ManageHub extends MappingDispatchAction implements CrudAction {
+public class ManageHub extends ActionSupport implements CrudAction {
 
 	private static final String SUCCES_ACTION_NAME = "success";
 
@@ -61,12 +60,11 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String hubName = (String) dynaForm.get(HUB_NAME_FORM_FIELD_NAME);
 		String communityId = (String) dynaForm.get(COMMUNITY_ID_ATTRIBUTE_NAME);
 
@@ -127,12 +125,11 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		boolean doesNotExists = false;
 		EntityManager em = PersistenceProvider.createEntityManager();
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 
 		try {
 			int communityId = Integer.valueOf((String) dynaForm
@@ -195,13 +192,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			int hubId = Integer.parseInt((String) dynaForm
 					.get(HUB_ID_ATTRIBUTE_NAME));
 			int communityId = Integer.valueOf((String) dynaForm
@@ -240,13 +236,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String communityId = (String) dynaForm
 					.get(COMMUNITY_ID_ATTRIBUTE_NAME);
 			String hubName = (String) dynaForm.get("searchText");
@@ -286,13 +281,12 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String hubId = (String) dynaForm.get(HUB_ID_ATTRIBUTE_NAME);
 			Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
 			em.getTransaction().begin();
@@ -331,7 +325,7 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward getAllInterest(ActionMapping mapping, ActionForm form,
+	public String getAllInterest(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -353,14 +347,13 @@ public class ManageHub extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward searchYourHubs(ActionMapping mapping, ActionForm form,
+	public String searchYourHubs(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		// TODO use facade
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String pattern = (String) dynaForm.get("searchYourText");
 			String communityId = (String) dynaForm
 					.get(COMMUNITY_ID_ATTRIBUTE_NAME);

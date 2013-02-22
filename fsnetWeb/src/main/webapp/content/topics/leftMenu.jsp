@@ -11,5 +11,6 @@
 	<li><s:a href="/DisplayYourTopics">
 			<s:param name="hubId" value="%{param.hubId}" />
 			<s:text name="topics.leftMenu.manage" />
+
 		</s:a></li>
 </ul>

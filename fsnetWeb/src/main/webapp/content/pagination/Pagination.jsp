@@ -2,37 +2,36 @@
 	pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <c:set var="previousLinkTitle">
-	<bean:message key="pagination.previous.title" />
+	<s:text name="pagination.previous.title" />
 </c:set>
 <c:set var="nextLinkTitle">
-	<bean:message key="pagination.next.title" />
+	<s:text name="pagination.next.title" />
 </c:set>
 
 <div class="paginator">
 	<c:if test="${paginatorInstance.hasPreviousPage}">
-		<html:link styleClass="paginatorPagePrevious"
-			action="${paginatorAction}" title="${previousLinkTitle}">
-			<html:param name="pageId" value="${paginatorInstance.previousPage}" />
-			<html:param name="tileId" value="${paginatorTile}" />
-			<html:param name="${paginatorInstance.requestInputName}"
-				value="${paginatorInstance.requestInput}" />
-			<bean:message key="pagination.previous" />
-		</html:link>
+		<s:a cssClass="paginatorPagePrevious"
+			href="%{paginatorAction}" title="%{previousLinkTitle}">
+			<s:param name="pageId" value="%{paginatorInstance.previousPage}" />
+			<s:param name="tileId" value="%{paginatorTile}" />
+			<s:param name="%{paginatorInstance.requestInputName}"
+				value="%{paginatorInstance.requestInput}" />
+			<s:text name="pagination.previous" />
+		</s:a>
 	</c:if>
 
 
 	<c:if test="${paginatorInstance.numPages > 1}">
 		<c:forEach var="page" begin="0" end="${paginatorInstance.numPages-1}">
-			<html:link styleClass="paginatorPageId" action="${paginatorAction}"
-				title="page ${page+1}">
-				<html:param name="pageId" value="${page}" />
-				<html:param name="tileId" value="${paginatorTile}" />
-				<html:param name="${paginatorInstance.requestInputName}"
-					value="${paginatorInstance.requestInput}" />
+			<s:a styleClass="paginatorPageId" href="%{paginatorAction}"
+				title="page %{page+1}">
+				<s:param name="pageId" value="%{page}" />
+				<s:param name="tileId" value="%{paginatorTile}" />
+				<s:param name="%{paginatorInstance.requestInputName}"
+					value="%{paginatorInstance.requestInput}" />
 				<c:choose>
 					<c:when test="${page == paginatorInstance.requestedPage}">
 						<u>${page+1}</u>
@@ -41,19 +40,19 @@
                         ${page+1}
                     </c:otherwise>
 				</c:choose>
-			</html:link>
+			</s:a>
 		</c:forEach>
 	</c:if>
 
 	<c:if test="${paginatorInstance.hasNextPage}">
-		<html:link styleClass="paginatorPageNext" action="${paginatorAction}"
-			title="${nextLinkTitle}">
-			<html:param name="pageId" value="${paginatorInstance.nextPage}" />
-			<html:param name="tileId" value="${paginatorTile}" />
-			<html:param name="${paginatorInstance.requestInputName}"
-				value="${paginatorInstance.requestInput}" />
-			<bean:message key="pagination.next" />
-		</html:link>
+		<s:a styleClass="paginatorPageNext" href="%{paginatorAction}"
+			title="%{nextLinkTitle}">
+			<s:param name="pageId" value="%{paginatorInstance.nextPage}" />
+			<s:param name="tileId" value="%{paginatorTile}" />
+			<s:param name="%{paginatorInstance.requestInputName}"
+				value="%{paginatorInstance.requestInput}" />
+			<s:textfield name="pagination.next" />
+		</s:a>
 	</c:if>
 
 

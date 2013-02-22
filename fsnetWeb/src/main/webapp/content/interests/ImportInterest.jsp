@@ -1,11 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <c:if test="${not empty KEY_FACEBOOK}">
 	<h3>
-		<bean:message key="interests.import" />
+		<s:text name="interests.import" />
 	</h3>
 	<div id="fb-root"></div>
 	<script src="http://connect.facebook.net/fr_FR/all.js"></script>
