@@ -2,9 +2,8 @@
 	pageEncoding="UTF-8"%>
 
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <c:choose>
@@ -14,16 +13,16 @@
 			<c:choose>
 				<c:when test="${requestScope.own}">
 					<s:a action="/DeleteInterestFromInterestInformations">
-						<html:param name="removedInterestId"
-							value="${requestScope.interest.id}" />
+						<s:param name="removedInterestId"
+							value="%{requestScope.interest.id}" />
 						<img src="images/mini-delete.png" alt="delete" />
 					</s:a>
 				</c:when>
 				<c:otherwise>
 					<s:a action="/AddInterestFromInterestInformations">
 						<img src="images/add.png" alt="add" />
-						<html:param name="addedInterestId"
-							value="${requestScope.interest.id}" />
+						<s:param name="addedInterestId"
+							value="%{requestScope.interest.id}" />
 					</s:a>
 				</c:otherwise>
 			</c:choose>
@@ -31,7 +30,7 @@
 
 		<fieldset class="fieldsetCadre">
 			<legend>
-				<bean:message key="interests.title.parent" />
+				<s:text name="interests.title.parent" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -41,8 +40,8 @@
 									<div>
 										<span class="tag"> <s:a
 												action="/InterestInformations">
-												<html:param name="infoInterestId"
-													value="${interest.parentInterest.id}" />
+												<s:param name="infoInterestId"
+													value="%{interest.parentInterest.id}" />
 											${interest.parentInterest.name}
 							</s:a>
 										</span>
@@ -51,7 +50,7 @@
 								<div class="clear"></div>
 							</c:when>
 							<c:otherwise>
-								<bean:message key="interests.none" />
+								<s:text name="interests.none" />
 							</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -60,7 +59,7 @@
 
 		<fieldset class="fieldsetCadre">
 			<legend >
-				<bean:message key="interests.title.son" />
+				<s:text name="interests.title.son" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -73,8 +72,8 @@
 										<div>
 											<span class="tag"><s:a
 													action="/InterestInformations">
-													<html:param name="infoInterestId"
-														value="${interestChild.id}" />
+													<s:param name="infoInterestId"
+														value="%{interestChild.id}" />
 								${interestChild.name}								
 							</s:a></span>
 										</div>
@@ -83,7 +82,7 @@
 								<div class="clear"></div>
 							</c:when>
 							<c:otherwise>
-								<bean:message key="interests.none" />
+								<s:text name="interests.none" />
 							</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -92,7 +91,7 @@
 
 		<fieldset class="fieldsetCadre">
 			<legend >
-				<bean:message key="interests.title.associate" />
+				<s:text name="interests.title.associate" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -109,7 +108,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<bean:message key="interests.none" />
+								<s:text name="interests.none" />
 							</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -119,7 +118,7 @@
 		<div class="clear"></div>
 		<fieldset class="fieldsetCadre">
 			<legend >
-				<bean:message key="interests.title.communities" />
+				<s:text name="interests.title.communities" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -130,7 +129,7 @@
 										<div>
 											<span class="tagInteraction"> <s:a
 													action="/DisplayCommunity">
-													<html:param name="communityId" value="${community.id}" />
+													<s:param name="communityId" value="%{community.id}" />
 											${community.title}								
 							</s:a>
 											</span>
@@ -139,7 +138,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<bean:message key="interests.none" />
+								<s:text name="interests.none" />
 							</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -149,7 +148,7 @@
 
 		<fieldset class="fieldsetCadre">
 			<legend >
-				<bean:message key="interests.title.hubs" />
+				<s:text name="interests.title.hubs" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -160,7 +159,7 @@
 										<div>
 											<span class="tagInteraction"> <s:a
 													action="/DisplayHub">
-													<html:param name="hubId" value="${hub.id}" />
+													<s:param name="hubId" value="%{hub.id}" />
 											${hub.title}								
 							</s:a>
 											</span>
@@ -169,7 +168,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<bean:message key="interests.none" />
+								<s:text name="interests.none" />
 							</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -179,7 +178,7 @@
 
 		<fieldset class="fieldsetCadre">
 			<legend >
-				<bean:message key="interests.title.topics" />
+				<s:text name="interests.title.topics" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -190,7 +189,7 @@
 										<div>
 											<span class="tagInteraction"> <s:a
 													action="/Topic">
-													<html:param name="topicId" value="${topic.id}" />
+													<s:param name="topicId" value="%{topic.id}" />
 											${topic.title}								
 							</s:a>
 											</span>
@@ -199,7 +198,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<bean:message key="interests.none" />
+								<s:text name="interests.none" />
 							</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -209,7 +208,7 @@
 
 		<fieldset class="fieldsetCadre">
 			<legend >
-				<bean:message key="interests.title.events" />
+				<s:text name="interests.title.events" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -220,7 +219,7 @@
 										<div>
 											<span class="tagInteraction"> <s:a
 													action="/DisplayEvent">
-													<html:param name="eventId" value="${meeting.id}" />
+													<s:param name="eventId" value="%{meeting.id}" />
 											${meeting.title}								
 							</s:a>
 											</span>
@@ -229,7 +228,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<bean:message key="interests.none" />
+								<s:text name="interests.none" />
 							</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -239,7 +238,7 @@
 		<div class="clear"></div>
 		<fieldset class="fieldsetCadre">
 			<legend >
-				<bean:message key="interests.title.announces" />
+				<s:text name="interests.title.announces" />
 			</legend>
 			<table class="inLineTable tableStyle">
 				<tr>
@@ -250,7 +249,7 @@
 										<div>
 											<span class="tagInteraction"> <s:a
 													action="/DisplayAnnounce">
-													<html:param name="idAnnounce" value="${announce.id}" />
+													<s:param name="idAnnounce" value="%{announce.id}" />
 											${announce.title}								
 							</s:a>
 											</span>
@@ -259,7 +258,7 @@
 								</div>
 							</c:when>
 							<c:otherwise>
-								<bean:message key="interests.none" />
+								<s:text name="interests.none" />
 							</c:otherwise>
 						</c:choose></td>
 				</tr>
@@ -267,6 +266,6 @@
 		</fieldset>
 	</c:when>
 	<c:otherwise>
-		<bean:message key="interests.list.no" />
+		<s:text name="interests.list.no" />
 	</c:otherwise>
 </c:choose>
