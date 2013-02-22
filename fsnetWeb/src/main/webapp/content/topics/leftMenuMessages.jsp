@@ -2,8 +2,8 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <ul>
-	<li><html:link action="/DisplayCreateTopicMessage">
+	<li><s:a action="/DisplayCreateTopicMessage">
 			<html:param name="topicId" value="${param.topicId}" />
 			<bean:message key="topics.leftMenu.createMessage" />
-		</html:link></li>
+		</s:a></li>
 </ul>

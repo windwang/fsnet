@@ -15,8 +15,13 @@
 	</legend>
 	<table id="ModifyAnnounce"
 		class="inLineTable tableStyle">
+<<<<<<< HEAD
 		<s:form action="/ModifyAnnounce">
 			<s:hidden property="idAnnounce" />
+=======
+		<html:form action="/ModifyAnnounce">
+			<s:hidden name="idAnnounce" />
+>>>>>>> b51606823970ae78ca4476d53fe647d5ace62683
 			
 			<tr>
 				<td><label for="announceTitle"><s:text

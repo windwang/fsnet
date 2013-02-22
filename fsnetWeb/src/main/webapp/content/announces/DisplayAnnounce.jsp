@@ -36,6 +36,7 @@
 			</tr>
 
 			<tr>
+<<<<<<< HEAD
 				<td class="alignRight">
 						<s:set id="idAnnounce" name="announce" var="id" />
 						<s:a action="/DisplayForModifyAnnounce" paramId="idAnnounce"
@@ -47,6 +48,19 @@
 							<s:text name="announce.button.delete" />
 						</s:a>
 					</td>
+=======
+				<td class="alignRight"><logic:present name="owner">
+						<bean:define id="idAnnounce" name="announce" property="id" />
+						<s:a action="/DisplayForModifyAnnounce" paramId="idAnnounce"
+							paramName="idAnnounce" styleClass="btn btn-inverse">
+							<bean:message key="announce.button.update" />
+						</s:a>
+						<s:a action="/DeleteAnnounce" paramId="idAnnounce"
+							paramName="idAnnounce" styleClass="btn btn-inverse">
+							<bean:message key="announce.button.delete" />
+						</s:a>
+					</logic:present></td>
+>>>>>>> b51606823970ae78ca4476d53fe647d5ace62683
 			</tr>
 		</table>
 	</div>
