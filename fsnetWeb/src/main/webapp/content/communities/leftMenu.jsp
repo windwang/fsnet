@@ -1,11 +1,13 @@
 <%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <h2>
-	<bean:message key="communities.left.my" />
+	<s:text name="communities.left.my" />
 </h2>
 <ul>
-	<li><html:link action="/DisplayCommunities">
-			<bean:message key="communities.leftMenu.manage" />
-		</html:link></li>
+	<li>
+		<s:a href="/DisplayCommunities">
+			<s:text name="communities.leftMenu.manage" />
+		</s:a>
+	</li>
 </ul>
