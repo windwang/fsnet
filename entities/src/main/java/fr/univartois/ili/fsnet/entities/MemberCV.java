@@ -222,14 +222,4 @@ public class MemberCV implements Serializable {
 	public void setLanguages(Map<String,String> languages) {
 		this.languages = languages;
 	}
-
-	/**
-	 * @return the serialversionuid
-	 */
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
-
-	
-
 }

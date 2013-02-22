@@ -2,13 +2,16 @@ package fr.univartois.ili.fsnet.entities.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 
+import org.eclipse.persistence.sessions.factories.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -23,8 +26,7 @@ public class InterestTest {
 
 	@Before
 	public void setUp() {
-		EntityManagerFactory fact = Persistence
-				.createEntityManagerFactory("TestPU");
+		EntityManagerFactory fact = Persistence.createEntityManagerFactory("TestPU");
 		em = fact.createEntityManager();
 	}
 
@@ -33,11 +35,11 @@ public class InterestTest {
 		em.close();
 	}
 
-	// @Test
 	/**
 	 * Check that we can persist an entity interest
 	 */
-	public void testPersist() {		
+	@Test
+	public void testPersist() {
 		// Create entities
 		Interest inte = new Interest("java");
 		SocialEntity ent1 = new SocialEntity("ent1", "test", "ent1@gmail.com");
@@ -48,7 +50,7 @@ public class InterestTest {
 		Interest child2 = new Interest("java 1.7");
 		inte.getChildrenInterests().add(child1);
 		inte.getChildrenInterests().add(child2);
-		
+
 		// Persist entities
 		em.getTransaction().begin();
 		em.persist(ent1);
@@ -57,7 +59,7 @@ public class InterestTest {
 		em.persist(child2);
 		em.persist(inte);
 		em.getTransaction().commit();
-		
+
 		// Tests
 		Interest inte2 = em.find(Interest.class, inte.getId());
 		assertEquals(inte2.getId(), inte.getId());
@@ -91,7 +93,7 @@ public class InterestTest {
 		new Interest("java", null);
 	}
 
-	@Ignore@Test
+	@Test
 	public void testCreateWithParent() {
 		Interest prog = new Interest("prog");
 		Interest java = new Interest("java", prog);
@@ -156,7 +158,8 @@ public class InterestTest {
 		java.setParentInterest(prog);
 	}
 
-	@Ignore@Test
+	@Ignore
+	@Test
 	public void testAddChild() {
 		Interest prog = new Interest("prog");
 		Interest java = new Interest("java");
@@ -169,6 +172,7 @@ public class InterestTest {
 		assertTrue(prog.getChildrenInterests().contains(java));
 	}
 
+	
 	@Ignore@Test
 	public void testAddParent() {
 		Interest prog = new Interest("prog");
@@ -182,7 +186,7 @@ public class InterestTest {
 		assertTrue(prog.getChildrenInterests().contains(java));
 	}
 
-	@Ignore@Test
+	@Test
 	public void testRemoveChild() {
 		Interest prog = new Interest("prog");
 		Interest java = new Interest("java");
@@ -196,7 +200,7 @@ public class InterestTest {
 		assertFalse(prog.getChildrenInterests().contains(java));
 	}
 
-	@Ignore@Test
+	@Test
 	public void testRemoveParent() {
 		Interest prog = new Interest("prog");
 		Interest java = new Interest("java");
@@ -210,7 +214,8 @@ public class InterestTest {
 		assertFalse(prog.getChildrenInterests().contains(java));
 	}
 
-	@Ignore@Test
+	@Ignore
+	@Test
 	public void testChangeParent() {
 		Interest prog = new Interest("prog");
 		Interest java = new Interest("java");
@@ -268,4 +273,44 @@ public class InterestTest {
 		assertFalse(test1.equals(new String("test")));
 	}
 
+	@Test
+	public void testRemoveParentAndReadd() {
+		Interest prog = new Interest("prog");
+		Interest java = new Interest("java");
+		java.setParentInterest(prog);
+		java.setParentInterest(null);
+
+		// The children forgot is parent
+		assertEquals(null, java.getParentInterest());
+
+		// The parent forgot is child
+		assertFalse(prog.getChildrenInterests().contains(java));
+	}
+
+	@Test
+	public void testCreateWithParentAndPersist() {
+		Interest prog = new Interest("prog2");
+		Interest java = new Interest("java2", prog);
+
+		// The children knows is parent
+		assertEquals(prog, java.getParentInterest());
+		// The parent knows is child
+		assertTrue(prog.getChildrenInterests().contains(java));
+		
+		em.getTransaction().begin();
+		em.persist(prog);
+		em.persist(java);
+		em.getTransaction().commit();
+		em.clear();
+		assertFalse(em.contains(prog));
+		assertTrue(prog.getId()!=0);
+		assertTrue(java.getId()!=0);
+		Interest inte = em.createQuery("Select i from Interest i where i.id=:id",Interest.class).setParameter("id", prog.getId()).getSingleResult();
+		assertNotNull(inte);
+		inte.setName("toto");
+		em.refresh(inte);
+		assertEquals("prog2", inte.getName());
+		assertEquals(1, inte.getChildrenInterests().size());
+		assertTrue(inte.getChildrenInterests().contains(java));
+	}
 }
