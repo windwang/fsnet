@@ -8,17 +8,17 @@
 <ul>
 	<ili:interactionFilter user="${ socialEntity }"
 		right="${ rightAddAnnounce }">
-		<li><html:link action="/DisplayCreateAnnounce">
+		<li><s:a action="/DisplayCreateAnnounce">
 				<bean:message key="announce.leftMenu.create" />
-			</html:link></li>
+			</s:a></li>
 	</ili:interactionFilter>
 	<ili:interactionFilter user="${ socialEntity }"
 		right="${ rightAddEvent }">
-		<li><html:link action="/DisplayCreateEvent">
+		<li><s:a action="/DisplayCreateEvent">
 				<bean:message key="events.leftMenu.create" />
-			</html:link></li>
+			</s:a></li>
 	</ili:interactionFilter>
-	<li><html:link action="/DisplayCommunities">
+	<li><s:a action="/DisplayCommunities">
 			<bean:message key="communities.leftMenu.manage" />
-		</html:link></li>
+		</s:a></li>
 </ul>

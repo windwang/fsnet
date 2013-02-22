@@ -75,10 +75,10 @@
 								<bean:define id="idAnnounce" name="announce" property="id" />
 								<td><html:multibox property="selectedAnnounces"
 										value="${announce.id}" /></td>
-								<td><html:link action="/DisplayAnnounce.do"
+								<td><s:a action="/DisplayAnnounce.do"
 										paramId="idAnnounce" paramName="idAnnounce">
 										<bean:write name="announce" property="title" />
-									</html:link></td>
+									</s:a></td>
 								<td><bean:write name="announce" property="endDate"
 										format="dd/MM/yyyy HH:mm" /></td>
 							</tr>

@@ -93,7 +93,7 @@
 										socialEntity="${message.to}" /></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosName
 										socialEntity="${message.to}" /></td>
-								<td style="width: 40%"><html:link
+								<td style="width: 40%"><s:a
 										action="/DisplaySentMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${fn:substring(message.subject, 0,20)} : </span>
@@ -102,7 +102,7 @@
 												<ili:noxml>${message.body}</ili:noxml>
 											</ili:substring>
 										</span>
-									</html:link></td>
+									</s:a></td>
 								<td><bean:write name="message" property="creationDate"
 										formatKey="date.format" /></td>
 							</tr>

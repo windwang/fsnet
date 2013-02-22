@@ -58,21 +58,21 @@
 				<tbody>
 					<c:forEach var="event" items="${requestScope.eventsList}">
 						<tr>
-							<td><html:link action="/DisplayEvent">
+							<td><s:a action="/DisplayEvent">
 		                    ${event.title}
 		                    <html:param name="eventId" value="${event.id}" />
-								</html:link></td>
+								</s:a></td>
 							<td><bean:write name="event"
 									property="startDate" format="dd/MM/yyyy" /></td>
 							<td></td>
-							<td><html:link action="/DisplayMember">
+							<td><s:a action="/DisplayMember">
 									<html:param name="idMember" value="${event.creator.id}" />
 	                    	${event.creator.firstName} 
-	              </html:link></td>
-							<td><html:link action="/DisplayMember">
+	              </s:a></td>
+							<td><s:a action="/DisplayMember">
 									<html:param name="idMember" value="${event.creator.id}" />
 	                    	 ${event.creator.name}
-	              </html:link></td>
+	              </s:a></td>
 						</tr>
 					</c:forEach>
 				</tbody>
