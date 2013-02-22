@@ -19,7 +19,7 @@
 				<td><label for="name"> <s:text name="members.name" />
 				</label> <s:hidden property="id" /></td>
 				<td><s:textfield property="name" styleId="name"
-						csstyleClass="error" />
+					cssClass="error" />
 					<div class="errorMessage">
 						<s:fielderror name="name" />
 					</div></td>
