@@ -65,7 +65,6 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${hub.id}" />
 								</c:import></td>
-
 							<td><s:a href="/DisplayHub" title='%{empty hub.interests? "" : hub.interests}'>
 									<s:param name="hubId" value="%{hub.id}" />
                     ${hub.title}

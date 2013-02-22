@@ -6,22 +6,25 @@
 	<legend>
 		<s:text name="hubs.title.create" />
 	</legend>
-
 	<table id="CreateHub" class="inLineTable tableStyle">
 		<s:form action="/CreateHub">
 			<s:hidden name="communityId" value="%{param.communityId}" />
 			<tr>
-				<td><label for="hubName"> <s:text name="hubs.form.name" />
-				</label></td>
-				<td><s:text name="hubName" var="hubName" /></td>
+				<td>
+					<label for="hubName">
+						<s:text name="hubs.form.name" />
+					</label>
+				</td>
+				<td><s:text name="hubName" var="hubName" />
+				</td>
 			</tr>
 			<tr>
 				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><s:submit
-						styleClass="btn btn-inverse">
+				<td colspan="2" class="tableButton">
+					<s:submit styleClass="btn btn-inverse">
 						<s:text name="hubs.button.create" />
 					</s:submit></td>
 			</tr>
