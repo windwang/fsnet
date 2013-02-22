@@ -1,13 +1,12 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix ="s" uri="/struts-tags" %>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <link rel=stylesheet type="text/css" href="css/osx.css" />
 <script type="text/javascript" src="js/osx.js"></script>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="group.listGroups" />
+		<s:text name="group.listGroups" />
 	</legend>
 	
 	<c:choose>
@@ -31,10 +30,10 @@
 				class="tablesorter inLineTable fieldsetTableAppli tableStyle">
 				<thead>
 					<tr>
-						<th><bean:message key="tableheader.group" /></th>
-						<th><bean:message key="tableheader.created" /></th>
-						<th><bean:message key="tableheader.name" /></th>
-						<th><bean:message key="tableheader.firstname" /></th>
+						<th><s:text name="tableheader.group" /></th>
+						<th><s:text name="tableheader.created" /></th>
+						<th><s:text name="tableheader.name" /></th>
+						<th><s:text name="tableheader.firstname" /></th>
 						<th></th>
 					</tr>
 				</thead>
@@ -43,9 +42,9 @@
 						<c:choose>
 							<c:when test="${group.masterGroup.id == currentUserId}">
 								<tr>
-									<td><html:link action="/DisplayGroup">${group.name} 
-		                			<html:param name="idGroup" value="${group.id}" />
-										</html:link> <!--${group.name}--></td>
+									<td><s:a href="/DisplayGroup">${group.name} 
+		                			<s:param name="idGroup" value="%{group.id}" />
+										</s:a> <!--${group.name}--></td>
 									<td></td>
 									<td><ili:getSocialEntityInfosFirstname
 											socialEntity="${group.masterGroup}" /></td>
@@ -54,22 +53,21 @@
 		
 									<c:choose>
 										<c:when test="${ group.group.isEnabled == false }">
-											<td class="tableButton"><bean:message
-													key="members.groupDisable" /></td>
+											<td class="tableButton"><s:text name="members.groupDisable" /></td>
 										</c:when>
 										<c:otherwise>
-											<td class="tableButton"><html:link
-													action="/SwitchStateGroup" styleClass="btn btn-inverse">
-													<html:param name="groupSelected" value="${group.id}" />
+											<td class="tableButton"><s:a
+													href="/SwitchStateGroup" styleClass="btn btn-inverse">
+													<s:param name="groupSelected" value="%{group.id}" />
 													<c:choose>
 														<c:when test="${group.isEnabled}">
-															<bean:message key="members.searchDisable" />
+															<s:text name="members.searchDisable" />
 														</c:when>
 														<c:otherwise>
-															<bean:message key="members.searchEnable" />
+															<s:text name="members.searchEnable" />
 														</c:otherwise>
 													</c:choose>
-												</html:link></td>
+												</s:a></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>
@@ -93,7 +91,7 @@
 		<c:otherwise>
 			<table class="inLineTable fieldsetTableAppli">
 				<tr>
-					<td><bean:message key="group.noResult" />.</td>
+					<td><s:text name="group.noResult" />.</td>
 				</tr>
 			</table>
 		</c:otherwise>

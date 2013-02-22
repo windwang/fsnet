@@ -1,15 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix ="s" uri="/struts-tags" %>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-			<bean:message key="groups.titleInformation" />
+			<s:text name="groups.titleInformation" />
 		</legend>
 			
 	<c:choose>
@@ -19,21 +17,21 @@
 			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
-					<bean:message key="groups.title" />
+					<s:text name="groups.title" />
 				</legend>
 
 				<div>
 					<c:forEach var="group" items="${antecedantsOfGroup}">
-						<html:link action="/DisplayInformationGroup">
-							<html:param name="idGroup" value="${ group.id }" />
+						<s:a href="/DisplayInformationGroup">
+							<s:param name="idGroup" value="%{ group.id }" />
 					${group.name}
-				</html:link>
-						<bean:message key="groups.addGroups" />
+				</s:a>
+						<s:text name="groups.addGroups" />
 					</c:forEach>
-					<html:link action="/DisplayInformationGroup">
-						<html:param name="idGroup" value="${ socialGroup.id }" />
+					<s:a href="/DisplayInformationGroup">
+						<s:param name="idGroup" value="%{ socialGroup.id }" />
 				${ socialGroup.name }
-			</html:link>
+			</s:a>
 				</div>
 			</fieldset>
 			</td>
@@ -44,7 +42,7 @@
 			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
-					<bean:message key="groups.description.message" />
+					<s:text name="groups.description.message" />
 				</legend>
 
 				<p>${ socialGroup.description }</p>
@@ -56,14 +54,14 @@
 			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
-					<bean:message key="groups.listGroup" />
+					<s:text name="groups.listGroup" />
 				</legend>
 
 				<c:forEach items="${childsOfGroup}" var="cGroup" varStatus="status">
-					<html:link action="/DisplayInformationGroup">
-						<html:param name="idGroup" value="${ cGroup.id }" />
+					<s:a href="/DisplayInformationGroup">
+						<s:param name="idGroup" value="%{ cGroup.id }" />
 				${ cGroup.name }
-			</html:link>
+			</s:a>
 					<c:if test="${status.count < fn:length(childsOfGroup)}"> | </c:if>
 				</c:forEach>
 			</fieldset>
@@ -74,7 +72,7 @@
 			<td>
 			<fieldset class="inLinefieldset">
 				<legend>
-					<bean:message key="groups.listMember" />
+					<s:text name="groups.listMember" />
 				</legend>
 
 				<c:forEach var="member" items="${allMembers}">
@@ -93,21 +91,21 @@
 				<td>
 				<fieldset class="inLinefieldset">
 					<legend>
-						<bean:message key="groups.rights.title" />
+						<s:text name="groups.rights.title" />
 					</legend>
 					<c:choose>
 						<c:when test="${ fn:length(socialGroup.rights) != 0 }">
 								
 								<c:forEach var="right" items="${ socialGroup.rights }">
 									
-									<p><bean:message key="groups.rights.${ right }" /></p>
+									<p><s:text name="groups.rights.%{ right }" /></p>
 									
 								</c:forEach>
 								
 						</c:when>
 						<c:otherwise>
 							<p>
-								<bean:message key="groups.noRights.title" />
+								<s:text name="groups.noRights.title" />
 							</p>
 						</c:otherwise>
 					</c:choose>
@@ -119,7 +117,7 @@
 		</c:when>
 		<c:otherwise>
 			<p>
-				<bean:message key="groups.noGroup" />
+				<s:text name="groups.noGroup" />
 			</p>
 		</c:otherwise>
 		
