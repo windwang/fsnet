@@ -15,9 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -40,7 +40,7 @@ import fr.univartois.ili.fsnet.facade.CvFacade;
  * @author Aich ayoub
  * 
  */
-public class GenerateCv extends MappingDispatchAction {
+public class GenerateCv extends ActionSupport {
 	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 26,
 			Font.BOLD, BaseColor.BLUE);
 	
@@ -341,7 +341,7 @@ public class GenerateCv extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward download(ActionMapping mapping, ActionForm form,
+	public String download(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 

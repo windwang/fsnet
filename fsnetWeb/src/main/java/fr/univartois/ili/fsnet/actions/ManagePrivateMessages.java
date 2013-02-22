@@ -33,6 +33,10 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 public class ManagePrivateMessages extends ActionSupport implements
 CrudAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private String messageTo;
 	private String messageSubject;
 	private String messageBody;
@@ -405,7 +409,7 @@ CrudAction {
 	}
 
 	/**
-	 * Store the number of non reed private messages in the session
+	 * Store the number of non read private messages in the session
 	 * 
 	 * @param request
 	 * @param em

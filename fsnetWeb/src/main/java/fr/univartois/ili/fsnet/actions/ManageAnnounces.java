@@ -1,4 +1,4 @@
-                                 package fr.univartois.ili.fsnet.actions;
+package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -12,15 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionMessages;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts2.components.ActionMessage;
+import org.apache.struts2.dispatcher.mapper.ActionMapping;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
@@ -43,23 +38,30 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * 
  * @author Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
  */
-public class ManageAnnounces extends MappingDispatchAction implements
+public class ManageAnnounces extends ActionSupport implements
 		CrudAction {
 
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
-	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String FAILED_ACTION_NAME = "failed";
 
 	private static final String ANNOUNCE_ID_ATTRIBUTE_NAME = "idAnnounce";
 	private static final String ANNOUNCE_TITLE_FORM_FIELD_NAME = "announceTitle";
 	private static final String ANNOUNCE_CONTENT_FORM_FIELD_NAME = "announceContent";
 	private static final String ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME = "announceExpiryDate";
+	private int idAnnounce;
+	private String announceTitle;
+	private String announceContent;
+	private Date announceExpiryDate;
+	private String textSearchAnnounce;
+	private String[] selectedAnnounces;
+	private String[] groupsListRight;
+	private String[] selectedInterests;
 
 	/**
 	 * @return to announces view after persisting new announce
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
@@ -68,24 +70,11 @@ public class ManageAnnounces extends MappingDispatchAction implements
 		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
 			entityManager.close();
-			return mapping.findForward(UNAUTHORIZED_ACTION_NAME);
+			return UNAUTHORIZED_ACTION_NAME;
 		}
 
 		try {
-			DynaActionForm formAnnounce = (DynaActionForm) form; // NOSONAR
-			String title = (String) formAnnounce
-					.get(ANNOUNCE_TITLE_FORM_FIELD_NAME);
-			String content = (String) formAnnounce
-					.get(ANNOUNCE_CONTENT_FORM_FIELD_NAME);
-			String stringExpiryDate = (String) formAnnounce
-					.get(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME);
-			String interestsIds[] = (String[]) formAnnounce
-					.get("selectedInterests");
-
-			String[] groupsRightsAccept = (String[]) formAnnounce
-					.get("groupsListRight");
-
-			if (groupsRightsAccept.length == 0) {
+			if (groupsListRight.length == 0) {
 				request.setAttribute("errorAnnounceRights", true);
 				return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
 			}
@@ -93,8 +82,8 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			Announcement createdAnnounce;
 			addRightToRequest(request);
 
-			Date expiryDate = DateUtils.format(stringExpiryDate);
-			if (0 > DateUtils.compareToToday(expiryDate)) {
+			
+			if (0 > DateUtils.compareToToday(announceExpiryDate)) {
 				AnnouncementFacade announcementFacade = new AnnouncementFacade(
 						entityManager);
 				entityManager.getTransaction().begin();
@@ -102,9 +91,9 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				List<SocialGroup> listOfGroupAccepted = new ArrayList<SocialGroup>();
 				List<InteractionGroups> igList = new ArrayList<InteractionGroups>();
 				createdAnnounce = announcementFacade.createAnnouncement(user,
-						title, content, expiryDate, false);
+						announceTitle, announceContent, announceExpiryDate, false);
 				
-				for (String name : groupsRightsAccept) {
+				for (String name : groupsListRight) {
 					listOfGroupAccepted.add(fascade.findByName(name));
 					igList.add(new InteractionGroups(createdAnnounce, fascade.findByName(name)));					
 				}								
@@ -113,56 +102,44 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				InterestFacade fac = new InterestFacade(entityManager);
 				List<Interest> interests = new ArrayList<Interest>();
 				int currentId;
-				for (currentId = 0; currentId < interestsIds.length; currentId++) {
+				for (currentId = 0; currentId < selectedInterests.length; currentId++) {
 					interests.add(fac.getInterest(Integer
-							.valueOf(interestsIds[currentId])));
+							.valueOf(selectedInterests[currentId])));
 				}
 				InteractionFacade ifacade = new InteractionFacade(entityManager);
 				ifacade.addInterests(createdAnnounce, interests);
 				entityManager.getTransaction().commit();
 				
 			} else {
-				ActionMessages errors = new ActionErrors();
-				errors.add(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME,
-						new ActionMessage("date.error.dateBelowDateToday"));
-				saveErrors(request, errors);
-
-				return mapping.findForward(FAILED_ACTION_NAME);
+				addFieldError(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME, "date.error.dateBelowDateToday");
+				return FAILED_ACTION_NAME;
 			}
 		} catch (ParseException e) {
-			servlet.log(getClass().getName()
-					+ " methode:create exception when formating date ");
+			/*servlet.log(getClass().getName()
+					+ " methode:create exception when formating date ");*/
 
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			entityManager.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
 	 * @return to views announce after updating it
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException,
 			UnauthorizedOperationException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm formAnnounce = (DynaActionForm) form;// NOSONAR
-			String title = (String) formAnnounce
-					.get(ANNOUNCE_TITLE_FORM_FIELD_NAME);
-			String content = (String) formAnnounce
-					.get(ANNOUNCE_CONTENT_FORM_FIELD_NAME);
-			String stringExpiryDate = (String) formAnnounce
-					.get(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME);
-			Integer idAnnounce = (Integer) formAnnounce
-					.get(ANNOUNCE_ID_ATTRIBUTE_NAME);
+			
 			AnnouncementFacade announcementFacade = new AnnouncementFacade(
 					entityManager);
 			Announcement announce = announcementFacade
@@ -175,38 +152,32 @@ public class ManageAnnounces extends MappingDispatchAction implements
 				throw new UnauthorizedOperationException("exception.message");
 			}
 
-			Date expiryDate = DateUtils.format(stringExpiryDate);
-			if (0 > DateUtils.compareToToday(expiryDate)) {
+			
+			if (0 > DateUtils.compareToToday(announceExpiryDate)) {
 				entityManager.getTransaction().begin();
-				announcementFacade.modifyAnnouncement(idAnnounce, title,
-						content, expiryDate);
+				announcementFacade.modifyAnnouncement(idAnnounce, announceTitle,
+						announceContent, announceExpiryDate);
 				entityManager.getTransaction().commit();
 
 			} else {
-				ActionMessages errors = new ActionMessages();
-				errors.add(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME,
-						new ActionMessage("date.error.dateBelowDateToday"));
-				saveErrors(request, errors);
-				return mapping.findForward(FAILED_ACTION_NAME);
+				addFieldError(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME, "date.error.dateBelowDateToday");
+				return FAILED_ACTION_NAME;
 			}
 
 			request.setAttribute("announce", announce);
 			request.setAttribute("owner", true);
-		} catch (ParseException e) {
-			servlet.log("class:ManageAnnounces methode:create exception whene formatying date ");
-			return mapping.findForward(FAILED_ACTION_NAME);
 		} finally {
 			entityManager.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
      *
      */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -229,31 +200,28 @@ public class ManageAnnounces extends MappingDispatchAction implements
 
 			em.getTransaction().commit();
 			
-			ActionMessages message = new ActionErrors();
+			/*ActionMessages message = new ActionErrors();
 			message.add("message", new ActionMessage(
 					"announce.message.delete.success"));
-			saveMessages(request, message);
+			saveMessages(request, message);*/
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
 	 * @return list of announce
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
-		DynaActionForm seaarchForm = (DynaActionForm) form;// NOSONAR
-		String textSearchAnnounce = (String) seaarchForm
-				.get("textSearchAnnounce");
 		em.getTransaction().begin();
 		AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
 
@@ -284,14 +252,14 @@ public class ManageAnnounces extends MappingDispatchAction implements
 
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
 	 * @return announce in request
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
@@ -321,28 +289,26 @@ public class ManageAnnounces extends MappingDispatchAction implements
 
 			request.setAttribute("announce", announce);
 			request.setAttribute("SocialEntity", socialEntityOwner);
-			servlet.log(socialEntityOwner.toString()
-					+ socialEntityOwner.getName());
+			/*servlet.log(socialEntityOwner.toString()
+					+ socialEntityOwner.getName());*/
 			if (socialEntity.getId() == socialEntityOwner.getId()) {
 				request.setAttribute("owner", true);
 			}
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
 	 * @return announce in request
 	 */
-	public ActionForward displayToModify(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String displayToModify(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 			em.getTransaction().begin();
 			Integer idAnnounce = Integer.valueOf(request
 					.getParameter(ANNOUNCE_ID_ATTRIBUTE_NAME));
@@ -355,17 +321,16 @@ public class ManageAnnounces extends MappingDispatchAction implements
 
 			dynaForm.set(ANNOUNCE_ID_ATTRIBUTE_NAME, announce.getId());
 			dynaForm.set(ANNOUNCE_TITLE_FORM_FIELD_NAME, announce.getTitle());
-			dynaForm.set(ANNOUNCE_CONTENT_FORM_FIELD_NAME,
-					announce.getContent());
+			dynaForm.set(ANNOUNCE_CONTENT_FORM_FIELD_NAME,announce.getContent());
 			dynaForm.set(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME,
 					DateUtils.renderDateWithHours(announce.getEndDate()));
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	private void addRightToRequest(HttpServletRequest request) {
@@ -403,18 +368,17 @@ public class ManageAnnounces extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward displayCreateAnnounce(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String displayCreateAnnounce(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		em.close();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
-			return mapping.findForward(UNAUTHORIZED_ACTION_NAME);
+			return UNAUTHORIZED_ACTION_NAME;
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -426,18 +390,15 @@ public class ManageAnnounces extends MappingDispatchAction implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+	public String deleteMulti(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
 		try {
-			String[] selectedAnnounces = (String[]) dynaForm
-					.get("selectedAnnounces");
 
 			AnnouncementFacade announcementFacade = new AnnouncementFacade(em);
 			InteractionFacade interactionFacade = new InteractionFacade(em);
@@ -462,6 +423,6 @@ public class ManageAnnounces extends MappingDispatchAction implements
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 }

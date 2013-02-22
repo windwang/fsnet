@@ -15,9 +15,9 @@ import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
@@ -27,7 +27,7 @@ import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
-public class Calendar extends MappingDispatchAction {
+public class Calendar extends ActionSupport {
 
 	/**
 	 * List that contains meeting/events for calendar view
@@ -38,7 +38,7 @@ public class Calendar extends MappingDispatchAction {
 	 * Action that create a list of all events/meetings in json format Used for
 	 * Full Calendar jquery plugin
 	 */
-	public ActionForward execute(ActionMapping mapping, ActionForm form,
+	public String execute(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 

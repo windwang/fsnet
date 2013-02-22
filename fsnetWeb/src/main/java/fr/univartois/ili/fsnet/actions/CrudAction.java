@@ -21,7 +21,7 @@ public interface CrudAction {
      * @return
      * @throws IOException
      * @throws ServletException
-     * @see MappingDispatchAction
+     * @see ActionSupport
      */
     String create(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException;
@@ -35,7 +35,7 @@ public interface CrudAction {
      * @return
      * @throws IOException
      * @throws ServletException
-     * @see MappingDispatchAction
+     * @see ActionSupport
      */
     String modify(HttpServletRequest request, HttpServletResponse response)
             throws IOException, ServletException;

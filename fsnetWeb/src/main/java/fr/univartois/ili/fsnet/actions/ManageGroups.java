@@ -16,12 +16,11 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
 import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 import org.apache.struts.upload.FormFile;
 import org.apache.struts.util.MessageResources;
 
@@ -40,7 +39,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * @author FSNet
  * 
  */
-public class ManageGroups extends MappingDispatchAction implements CrudAction {
+public class ManageGroups extends ActionSupport implements CrudAction {
 
 	private static final String GROUP_NAME_FORM_FIELD_NAME = "name";
 	private static final String GROUP_DESCRIPTION_FORM_FIELD_NAME = "description";
@@ -65,7 +64,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
@@ -80,7 +79,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 
 		if (form != null) {
 
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			String name = (String) dynaForm.get(GROUP_NAME_FORM_FIELD_NAME);
 			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
 			String description = (String) dynaForm
@@ -163,7 +161,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -175,7 +173,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 
-			DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 			Integer socialGroupId = Integer.parseInt(dynaForm.getString("id"));
 			String name = (String) dynaForm.get(GROUP_NAME_FORM_FIELD_NAME);
 			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
@@ -264,7 +261,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return null;
@@ -279,7 +276,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward switchState(ActionMapping mapping, ActionForm form,
+	public String switchState(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -310,14 +307,13 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
 			HttpSession session = request.getSession(true);
-			DynaActionForm dynaForm = (DynaActionForm) form;
 
 			List<SocialEntity> allMembers = null;
 			List<SocialEntity> refusedMembers = null;
@@ -481,7 +477,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -534,7 +530,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward displayInformationGroup(ActionMapping mapping,
+	public String displayInformationGroup(ActionMapping mapping,
 			ActionForm form, HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		try {
@@ -595,7 +591,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward changeLogo(ActionMapping mapping, ActionForm form,
+	public String changeLogo(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -607,7 +603,6 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		}
 
 		int groupId = UserUtils.getHisGroup(request).getId();
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("Logo");
 		
 		if (file.getFileData().length != 0) {
