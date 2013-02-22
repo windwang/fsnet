@@ -110,4 +110,6 @@ public class ManageVisits extends ActionSupport {
 		// paging list of recent visitors since my last connection
 		session.setAttribute("numNewVisits", numNewVisits);
 	}
+	
+	
 }
