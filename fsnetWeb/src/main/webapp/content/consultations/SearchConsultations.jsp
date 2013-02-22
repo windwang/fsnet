@@ -1,26 +1,26 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<bean:define id="searchMessage">
-	<bean:message key="consultations.placeholder.search" />
-</bean:define>
+
+<s:text name="consultations.placeholder.search" var="searchMessage" />
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="consultations.title.search" />
+		<s:text name="consultations.title.search" />
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
-			<td><html:form action="SearchConsultation" method="get">
+			<td><s:form action="SearchConsultation" method="get">
 					<div id="SearchConsultation">
-						<html:text property="searchText" styleId="searchTexte" styleClass="search-query"/>
+						<s:textfield property="searchText" styleId="searchTexte"
+							styleClass="search-query" />
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:submit styleClass="btn btn-inverse">
-							<bean:message key="consultations.button.search" />
-						</html:submit>
+						<s:submit styleClass="btn btn-inverse">
+							<s:text name="consultations.button.search" />
+						</s:submit>
 					</div>
-				</html:form></td>
+				</s:form></td>
 		</tr>
 	</table>
 </fieldset>
