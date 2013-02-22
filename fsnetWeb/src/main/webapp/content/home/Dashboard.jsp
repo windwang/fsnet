@@ -8,9 +8,9 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<html:link action="/Inbox">
+		<s:a action="/Inbox">
 			<bean:message key="dashBoard.messages.last" />
-		</html:link>
+		</s:a>
 	</legend>
 	<table id="dashboardMessages"
 		class="inLineTable tableStyle">
@@ -26,7 +26,7 @@
 					<tr class="notReed">
 						<td class="messagePhoto"><ili:getMiniature
 								socialEntity="${message.from}" /></td>
-						<td style="width: 0%"><html:link action="/DisplayMessage">
+						<td style="width: 0%"><s:a action="/DisplayMessage">
 								<html:param name="messageId" value="${message.id}" />
 								<span> <ili:substring beginIndex="0" endIndex="20">
 										<ili:noxml>${message.subject}</ili:noxml>
@@ -37,14 +37,14 @@
 										<ili:noxml>${message.body}</ili:noxml>
 									</ili:substring>
 								</span>
-							</html:link></td>
+							</s:a></td>
 					</tr>
 				</c:if>
 				<c:if test="${message.reed}">
 					<tr>
 						<td class="messagePhoto"><ili:getMiniature
 								socialEntity="${message.from}" /></td>
-						<td><html:link action="/DisplayMessage">
+						<td><s:a action="/DisplayMessage">
 								<html:param name="messageId" value="${message.id}" />
 								<span> <ili:substring beginIndex="0" endIndex="20">
 										<ili:noxml>${message.subject}</ili:noxml>
@@ -55,7 +55,7 @@
 										<ili:noxml>${message.body}</ili:noxml>
 									</ili:substring>
 								</span>
-							</html:link></td>
+							</s:a></td>
 					</tr>
 				</c:if>
 			</c:forEach>
@@ -65,9 +65,9 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<html:link action="/Visits">
+		<s:a action="/Visits">
 			<bean:message key="visite.last.title" />
-		</html:link>
+		</s:a>
 	</legend>
 	<table id="lastVisits"
 		class="inLineTable tableStyle">
@@ -106,14 +106,14 @@
 						<td class="miniatureContainer"><ili:getMiniature
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
-						<td class="tableButton"><html:link action="/AcceptContactHome"
+						<td class="tableButton"><s:a action="/AcceptContactHome"
 								styleClass="btn btn-inverse">
 								<html:param name="entityAccepted" value="${contact.id}" />
 								<bean:message key="contact.button.accept" />
-							</html:link> <html:link action="/RefuseContactHome" styleClass="btn btn-inverse">
+							</s:a> <s:a action="/RefuseContactHome" styleClass="btn btn-inverse">
 								<html:param name="entityRefused" value="${contact.id}" />
 								<bean:message key="contact.button.refuse" />
-							</html:link></td>
+							</s:a></td>
 					</tr>
 				</c:forEach>
 			</table>
@@ -137,12 +137,12 @@
 							<td class="messagePhoto"><ili:getMiniature
 									socialEntity="${contact}" /></td>
 							<td><ili:getSocialEntityInfos socialEntity="${contact}" /></td>
-							<td class="tableButton"><html:link action="/ContactDemandHome">
+							<td class="tableButton"><s:a action="/ContactDemandHome">
 									<img src="images/add.png"
 										alt="<bean:message key='dashBoard.contact.button.add.alt'/>"
 										title="<bean:message key='dashBoard.contact.button.add'/> ${contact.firstName} ${contact.name}" />
 									<html:param name="entitySelected" value="${contact.id}" />
-								</html:link></td>
+								</s:a></td>
 						</tr>
 					</c:forEach>
 				</logic:notEmpty>
@@ -153,9 +153,9 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<html:link action="/InterestInformations">
+		<s:a action="/InterestInformations">
 			<bean:message key="dashBoard.interests.proposals" />
-		</html:link>
+		</s:a>
 	</legend>
 	<table id="interestProposals"
 		class="inLineTable homeFrame tableStyle">
@@ -167,16 +167,16 @@
 		<logic:notEmpty name="interests">
 			<c:forEach var="interest" items="${interests}">
 				<tr class="interestDashboardContainer">
-					<td><html:link action="/InterestInformations">
+					<td><s:a action="/InterestInformations">
 							<html:param name="infoInterestId" value="${interest.id}" />
                         ${interest.name}
-                    </html:link></td>
-					<td class="tableButton"><html:link action="/AddInterest">
+                    </s:a></td>
+					<td class="tableButton"><s:a action="/AddInterest">
 							<img src="images/add.png"
 								alt="<bean:message key='dashBoard.interest.button.add.alt'/>"
 								title="<bean:message key='dashBoard.interest.button.add'/> ${interest.name}" />
 							<html:param name="addedInterestId" value="${interest.id}" />
-						</html:link></td>
+						</s:a></td>
 				</tr>
 			</c:forEach>
 
@@ -188,9 +188,9 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<html:link action="/Consultations">
+		<s:a action="/Consultations">
 			<bean:message key="lastInteractions.title" />
-		</html:link>
+		</s:a>
 	</legend>
 	<table id="lastInteractions"
 		class="inLineTable homeFrame tableStyle">
@@ -208,10 +208,10 @@
 							socialEntity="${triple.interaction.creator}" /></td>
 					<td><bean:message key="events.by" /> <ili:getSocialEntityInfos
 							socialEntity="${triple.interaction.creator}" /></td>
-					<td><html:link action="${triple.path}">
+					<td><s:a action="${triple.path}">
 							<html:param name="${triple.id}" value="${triple.interaction.id}" />
                         ${triple.interaction.title}
-                    </html:link></td>
+                    </s:a></td>
 					<td class="tableButton"><bean:define id="interkey"
 							name="triple" property="interaction" /> <bean:write
 							name="interkey" property="lastModified" format="dd/MM/yyyy" /></td>

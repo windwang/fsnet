@@ -58,10 +58,10 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${announce.id}" />
 								</c:import></td>
-							<td><html:link action="/DisplayAnnounce.do"
+							<td><s:a action="/DisplayAnnounce.do"
 									paramId="idAnnounce" paramName="idAnnounce">
 									<bean:write name="announce" property="title" />
-								</html:link></td>
+								</s:a></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${announce.creator}" /></td>

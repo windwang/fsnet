@@ -9,14 +9,14 @@
 <ul>
 	<ili:interactionFilter user="${ socialEntity }"
 		right="${ rightSendMessage }">
-		<li><html:link action="/DisplayCreatePrivateMessage">
+		<li><s:a action="/DisplayCreatePrivateMessage">
 				<bean:message key="privatemessages.newmessage" />
-			</html:link></li>
+			</s:a></li>
 	</ili:interactionFilter>
-	<li><html:link action="/Inbox">
+	<li><s:a action="/Inbox">
 			<bean:message key="privatemessages.inbox" />
-		</html:link></li>
-	<li><html:link action="/Outbox">
+		</s:a></li>
+	<li><s:a action="/Outbox">
 			<bean:message key="privatemessages.Messagessent" />
-		</html:link></li>
+		</s:a></li>
 </ul>

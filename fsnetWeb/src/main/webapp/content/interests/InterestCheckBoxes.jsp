@@ -5,10 +5,10 @@
 
 <c:forEach var="interest" items="${allInterests}">
 	<span class="otag"> <html:multibox property="selectedInterests"
-			value="${interest.id}" /> <html:link
+			value="${interest.id}" /> <s:a
 			action="/InterestInformations">
 			<html:param name="infoInterestId" value="${interest.id}" />
             ${interest.name}
-        </html:link>
+        </s:a>
 	</span>
 </c:forEach>

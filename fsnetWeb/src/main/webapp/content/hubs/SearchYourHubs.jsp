@@ -18,7 +18,11 @@
 		<s:form action="/SearchYourHubs" method="GET">
 			<tr>
 				<td><s:hidden name="communityId"
+<<<<<<< HEAD
 						value="%{param.communityId}" /> <s:textfield
+=======
+						value="${param.communityId}" /> <html:text
+>>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 						property="searchYourText" styleId="searchTexte" /> <ili:placeHolder
 						id="searchTexte" value="${searchMessage}" /> <s:submit
 						styleClass="btn btn-inverse">
@@ -47,6 +51,7 @@
 	
 		<c:forEach var="hub" items="${hubResults}">
 			<tr>
+<<<<<<< HEAD
 				<th><s:a href="/DisplayHub"
 						title='%{empty hub.interests? "" : hub.interests}'>
 						<s:param name="hubId" value="%{hub.id}" />
@@ -55,6 +60,16 @@
 				<td><s:text name="hubs.createdOn" />
 				<s:property value="creationDate"/> 
 				<ili:getSocialEntityInfos
+=======
+				<th><s:a action="/DisplayHub"
+						title='${empty hub.interests? "" : hub.interests}'>
+						<html:param name="hubId" value="${hub.id}" />
+                    ${hub.title}
+                </s:a> (${fn:length(hub.topics)} topics)</th>
+				<td><bean:message key="hubs.createdOn" /> <bean:write
+						name="hub" property="creationDate" format="dd/MM/yyyy" /> <bean:message
+						key="hubs.by" /> <ili:getSocialEntityInfos
+>>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 						socialEntity="${hub.creator}" /></td>
 				<td class="tableButton"><c:if
 						test="${sessionScope.userId eq hub.creator.id}">

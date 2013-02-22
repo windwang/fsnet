@@ -16,10 +16,10 @@
 							<c:forEach var="interest"
 								items="${requestScope.interestSearchPaginator.resultList}">
 								<div>
-									<html:link action="/InterestInformations">
+									<s:a action="/InterestInformations">
 										<html:param name="infoInterestId" value="${interest.id}" />
 	                		${interest.name}
-	                	</html:link>
+	                	</s:a>
 								</div>
 							</c:forEach>
 						</div>

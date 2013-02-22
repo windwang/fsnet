@@ -6,9 +6,16 @@
 	<legend>
 		<s:text name="hubs.title.create" />
 	</legend>
+<<<<<<< HEAD
 	<table id="CreateHub" class="inLineTable tableStyle">
 		<s:form action="/CreateHub">
 			<s:hidden name="communityId" value="%{param.communityId}" />
+=======
+	<table id="CreateHub"
+		class="inLineTable tableStyle">
+		<html:form action="/CreateHub">
+			<s:hidden name="communityId" value="${param.communityId}" />
+>>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 			<tr>
 				<td><label for="hubName"> <s:text name="hubs.form.name" />
 				</label></td>
