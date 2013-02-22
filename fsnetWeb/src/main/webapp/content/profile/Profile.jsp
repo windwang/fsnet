@@ -273,9 +273,9 @@
 
 					<tr>
 						<td colspan="2" class="tableButton">
-							<html:link action="/DeletePhoto" styleClass="btn btn-inverse">
+							<s:a action="/DeletePhoto" styleClass="btn btn-inverse">
 								<bean:message key="updateProfile.deletePhoto" />
-							</html:link>
+							</s:a>
 							<html:submit
 								styleClass="btn btn-inverse">
 								<bean:message key="updateProfile.validate" />

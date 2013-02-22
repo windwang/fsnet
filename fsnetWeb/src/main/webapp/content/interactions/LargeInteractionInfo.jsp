@@ -29,17 +29,17 @@
 					<bean:message key="interactions.interest" /> :
             <div class="cloud">
 						<c:forEach var="interest" items="${theInteraction.interests}">
-							<span class="otag"> <html:link
+							<span class="otag"> <s:a
 									action="/InterestInformations">
 									<html:param name="infoInterestId" value="${interest.id}" />
                             ${interest.name}
-                        </html:link> <c:if
+                        </s:a> <c:if
 									test="${sessionScope.userId eq theInteraction.creator.id}">
-									<html:link action="/RemoveInterestOfInteraction">
+									<s:a action="/RemoveInterestOfInteraction">
 										<html:param name="interactionId" value="${theInteraction.id}" />
 										<html:param name="interestId" value="${interest.id}" />
 										<img src="images/mini-delete.png" alt="delete" />
-									</html:link>
+									</s:a>
 								</c:if>
 							</span>
 						</c:forEach>

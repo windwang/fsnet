@@ -87,9 +87,9 @@
 							</div>
 						</c:if>
 
-						<html:hidden property="consultationChoice"
+						<s:hidden name="consultationChoice"
 							styleId="consultationChoice" />
-						<html:hidden property="maxVoters"
+						<s:hidden name="maxVoters"
 							styleId="maxVoters" />
 						<table id="choicesTab" class="tableStyle">
 							<c:forEach begin="1" end="3" var="i">

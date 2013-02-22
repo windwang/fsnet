@@ -90,15 +90,15 @@
 									<td><html:multibox property="selectedMessages"
 											value="${message.id}" /></td>
 									<td><ili:getMiniature socialEntity="${message.from}" /></td>
-									<td style="width: 20%"><html:link action="/DisplayMessage">
+									<td style="width: 20%"><s:a action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
 											<span>${message.from.firstName}</span>
-										</html:link></td>
-									<td style="width: 20%"><html:link action="/DisplayMessage">
+										</s:a></td>
+									<td style="width: 20%"><s:a action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
 											<span>${message.from.name}</span>
-										</html:link></td>
-									<td style="width: 60%"><html:link action="/DisplayMessage">
+										</s:a></td>
+									<td style="width: 60%"><s:a action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
 											<span>${fn:substring(message.subject, 0,20)} : </span>
 											<span style="color: gray"> <ili:substring
@@ -106,22 +106,22 @@
 													<ili:noxml>${message.body}</ili:noxml>
 												</ili:substring>
 											</span>
-										</html:link></td>
+										</s:a></td>
 							</c:if>
 							<c:if test="${message.reed}">
 								<tr>
 									<td><html:multibox property="selectedMessages"
 											value="${message.id}" /></td>
 									<td><ili:getMiniature socialEntity="${message.from}" /></td>
-									<td style="width: 20%"><html:link action="/DisplayMessage">
+									<td style="width: 20%"><s:a action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
 											<span>${message.from.firstName}</span>
-										</html:link></td>
-									<td style="width: 20%"><html:link action="/DisplayMessage">
+										</s:a></td>
+									<td style="width: 20%"><s:a action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
 											<span>${message.from.name}</span>
-										</html:link></td>
-									<td style="width: 60%"><html:link action="/DisplayMessage">
+										</s:a></td>
+									<td style="width: 60%"><s:a action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
 											<span>${fn:substring(message.subject, 0,20)} : </span>
 											<span style="color: gray"> <ili:substring
@@ -129,7 +129,7 @@
 													<ili:noxml>${message.body}</ili:noxml>
 												</ili:substring>
 											</span>
-										</html:link></td>
+										</s:a></td>
 							</c:if>
 							<td><bean:write name="message" property="creationDate"
 									formatKey="date.format" /></td>

@@ -67,11 +67,11 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${community.id}" />
 								</c:import></td>
-							<td><html:link action="/DisplayCommunity"
+							<td><s:a action="/DisplayCommunity"
 									title='${empty community.interests ? "" : community.interests}'>
 									<html:param name="communityId" value="${community.id}" />
                             ${community.title}
-                        </html:link> <c:choose>
+                        </s:a> <c:choose>
 									<c:when test="${fn:length(community.hubs) eq 0}">
                          		(<bean:message key="communities.hubs.notAny" /> hub)
                          	</c:when>

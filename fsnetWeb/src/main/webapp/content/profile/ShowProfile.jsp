@@ -21,9 +21,9 @@
 						test="${watchedProfile.email != null && not empty watchedProfile.email }">
 						<tr>
 							<th><bean:message key="updateProfile.email" /></th>
-							<td><html:link href="mailto:${watchedProfile.email}">
+							<td><s:a href="mailto:${watchedProfile.email}">
                     ${watchedProfile.email}
-                </html:link></td>
+                </s:a></td>
 						</tr>
 					</c:if>
 					<c:if
@@ -84,17 +84,17 @@
 <div class="placeButton">
 	<c:if
 		test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
-		<html:link action="/ContactDemand" styleClass="btn btn-inverse">
+		<s:a action="/ContactDemand" styleClass="btn btn-inverse">
 			<bean:message key="showProfile.ask" />
 			<html:param name="entitySelected" value="${watchedProfile.id}" />
-		</html:link>
+		</s:a>
 	</c:if>
 
 	<c:if test="${watchedProfile.id != currentUser.id}">
-		<html:link action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
+		<s:a action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
 			<bean:message key="showProfile.send" />
 			<html:param name="receiver" value="${watchedProfile.email}" />
-		</html:link>
+		</s:a>
 	</c:if>
 	<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
 		<a class="btn btn-inverse"
@@ -121,11 +121,11 @@
 					<c:forEach var="interest"
 						items="${requestScope.interestPaginator.resultList}">
 
-						<span class="tag"> <html:link
+						<span class="tag"> <s:a
 								action="/InterestInformations">
 								<html:param name="infoInterestId" value="${interest.id}" />
                 ${interest.name}
-            </html:link>
+            </s:a>
 						</span>
 					</c:forEach>
 				</div>
@@ -187,44 +187,44 @@
 								</c:import></td>
 							<td><c:choose>
 									<c:when test="${inter.simpleClassName eq 'Announcement'}">
-										<html:link action="/DisplayAnnounce">
+										<s:a action="/DisplayAnnounce">
 											<html:param name="idAnnounce" value="${inter.id}" />
                                 ${inter.title}
-                            </html:link>
+                            </s:a>
 									</c:when>
 									<c:when test="${inter.simpleClassName eq 'Meeting'}">
-										<html:link action="/DisplayEvent">
+										<s:a action="/DisplayEvent">
 											<html:param name="eventId" value="${inter.id}" />
                                 ${inter.title}
-                            </html:link>
+                            </s:a>
 									</c:when>
 									<c:when test="${inter.simpleClassName eq 'Topic'}">
-										<html:link action="/Topic">
+										<s:a action="/Topic">
 											<html:param name="topicId" value="${inter.id}" />
                                 ${inter.title}
                                  
-                            </html:link>
+                            </s:a>
                             (${fn:length(inter.messages)} messages)
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Hub'}">
-										<html:link action="/DisplayHub">
+										<s:a action="/DisplayHub">
 											<html:param name="hubId" value="${inter.id}" />
                                 ${inter.title}
-                            </html:link>
+                            </s:a>
                             (${fn:length(inter.topics)} topics)
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Community'}">
-										<html:link action="/DisplayCommunity">
+										<s:a action="/DisplayCommunity">
 											<html:param name="communityId" value="${inter.id}" />
                                 ${inter.title}
-                            </html:link>
+                            </s:a>
                             (${fn:length(inter.hubs)} hubs)
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Consultation'}">
-										<html:link action="/DisplayAConsultation">
+										<s:a action="/DisplayAConsultation">
 											<html:param name="id" value="${inter.id}" />
                                 ${inter.title}
-                            </html:link>
+                            </s:a>
 									</c:when>
 								</c:choose></td>
 							<td><bean:write name="inter" property="lastModified"
@@ -276,10 +276,10 @@
 				<ul>
 					<c:choose>
 						<c:when test="${requestScope.treeGroupProfile ne ''}">
-							<li><html:link action="/DisplayInformationGroup">
+							<li><s:a action="/DisplayInformationGroup">
 								<html:param name="idGroup" value="${ socialGroup.id }" />
 								${requestScope.treeGroupProfile}
-								</html:link>
+								</s:a>
 							</li>
 
 						</c:when>

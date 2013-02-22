@@ -5,7 +5,7 @@
 	<bean:message key="communities.left.my" />
 </h2>
 <ul>
-	<li><html:link action="/DisplayCommunities">
+	<li><s:a action="/DisplayCommunities">
 			<bean:message key="communities.leftMenu.manage" />
-		</html:link></li>
+		</s:a></li>
 </ul>

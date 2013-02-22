@@ -72,8 +72,8 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${consultation.id}" />
 								</c:import></td>
-							<td><html:link
-									action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
+							<td><s:a
+									action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</s:a>
 							<td><bean:write name="consultation" property="creationDate"
 									formatKey="date.format" /></td>
 							<td></td>
@@ -86,7 +86,7 @@
 									test="${sessionScope.userId eq consultation.creator.id}">
 									<html:form action="/DeleteAConsultation" method="post"
 										styleId="${consultation.id}" styleClass="cursorPointer">
-										<html:hidden property="id" value="${consultation.id}" />
+										<s:hidden name="id" value="${consultation.id}" />
 										<span class="btn btn-inverse"> <bean:message
 												key="consultations.button.delete" />
 										</span>

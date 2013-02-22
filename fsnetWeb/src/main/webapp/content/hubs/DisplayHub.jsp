@@ -33,7 +33,7 @@
 			<tr>
 				<td><html:text property="topicSujetSearch" styleId="topicSujet" />
 					<ili:placeHolder id="topicSujet" value="${searchMessage}" /></td>
-				<td><html:hidden property="hubId" value="${hubResult.id}" /></td>
+				<td><s:hidden name="hubId" value="${hubResult.id}" /></td>
 				<td><html:submit styleClass="btn btn-inverse">
 						<bean:message key="hubs.button.searchTopic" />
 					</html:submit></td>
@@ -44,15 +44,15 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<html:link action="/DisplayCommunity">
+		<s:a action="/DisplayCommunity">
 			<html:param name="communityId" value="${hubResult.community.id}" />
         ${hubResult.community.title}
-    </html:link>
+    </s:a>
 		-&gt;
-		<html:link action="/DisplayHub">
+		<s:a action="/DisplayHub">
 			<html:param name="hubId" value="${hubResult.id}" />
         ${hubResult.title}
-    </html:link>
+    </s:a>
 		-&gt;
 		<bean:message key="hubs.title.topics" />
 	</legend>
@@ -68,11 +68,11 @@
 				<td><c:import url="/FavoriteFragment.do">
 						<c:param name="interactionId" value="${theTopic.id}" />
 					</c:import></td>
-				<td><html:link action="/DisplayTopic"
+				<td><s:a action="/DisplayTopic"
 						title='${empty theTopic.interests? "" : theTopic.interests}'>
 						<html:param name="topicId" value="${theTopic.id}" />
                     ${theTopic.title}
-                </html:link> (${fn:length(theTopic.messages)} messages) <br /> <bean:message
+                </s:a> (${fn:length(theTopic.messages)} messages) <br /> <bean:message
 						key="hubs.createdOn" /> <bean:write name="hubResult"
 						property="creationDate" format="dd/MM/yyyy" /> <bean:message
 						key="hubs.by" /> <ili:getSocialEntityInfos

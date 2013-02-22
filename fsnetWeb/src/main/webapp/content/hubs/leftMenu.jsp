@@ -5,12 +5,12 @@
 	<bean:message key="hubs.leftMenu.title" />
 </h2>
 <ul>
-	<li><html:link action="/DisplayCommunity">
+	<li><s:a action="/DisplayCommunity">
 			<html:param name="communityId" value="${param.communityId}" />
 			<bean:message key="hubs.leftMenu.manageCommunity" />
-		</html:link></li>
-	<li><html:link action="/DisplayYourHubs">
+		</s:a></li>
+	<li><s:a action="/DisplayYourHubs">
 			<html:param name="communityId" value="${param.communityId}" />
 			<bean:message key="hubs.leftMenu.manage" />
-		</html:link></li>
+		</s:a></li>
 </ul>

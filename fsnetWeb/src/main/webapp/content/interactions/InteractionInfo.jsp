@@ -30,11 +30,11 @@
 			<bean:message key="interactions.interest" /> :
             <div class="cloud">
 				<c:forEach var="interest" items="${theInteraction.interests}">
-					<span class="otag"> <html:link
+					<span class="otag"> <s:a
 							action="/InterestInformations">
 							<html:param name="infoInterestId" value="${interest.id}" />
                             ${interest.name}
-                        </html:link>
+                        </s:a>
 					</span>
 				</c:forEach>
 			</div>

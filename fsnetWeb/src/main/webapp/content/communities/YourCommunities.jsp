@@ -69,11 +69,11 @@
 							<tr class="content">
 								<td><html:multibox property="selectedCommunities"
 										value="${community.id}" /></td>
-								<td><html:link action="/DisplayCommunity"
+								<td><s:a action="/DisplayCommunity"
 										title='${empty community.interests ? "" : community.interests}'>
 										<html:param name="communityId" value="${community.id}" />
                             ${community.title}
-                        </html:link> <c:choose>
+                        </s:a> <c:choose>
 										<c:when test="${fn:length(community.hubs) eq 0}">
                          		(<bean:message key="communities.hubs.notAny" /> hub)
                          	</c:when>

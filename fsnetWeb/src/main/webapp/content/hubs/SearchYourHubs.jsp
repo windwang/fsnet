@@ -20,7 +20,7 @@
 		class="inLineTable tableStyle">
 		<html:form action="/SearchYourHubs" method="GET">
 			<tr>
-				<td><html:hidden property="communityId"
+				<td><s:hidden name="communityId"
 						value="${param.communityId}" /> <html:text
 						property="searchYourText" styleId="searchTexte" /> <ili:placeHolder
 						id="searchTexte" value="${searchMessage}" /> <html:submit
@@ -48,11 +48,11 @@
 		</logic:empty>
 		<c:forEach var="hub" items="${hubResults}">
 			<tr>
-				<th><html:link action="/DisplayHub"
+				<th><s:a action="/DisplayHub"
 						title='${empty hub.interests? "" : hub.interests}'>
 						<html:param name="hubId" value="${hub.id}" />
                     ${hub.title}
-                </html:link> (${fn:length(hub.topics)} topics)</th>
+                </s:a> (${fn:length(hub.topics)} topics)</th>
 				<td><bean:message key="hubs.createdOn" /> <bean:write
 						name="hub" property="creationDate" format="dd/MM/yyyy" /> <bean:message
 						key="hubs.by" /> <ili:getSocialEntityInfos

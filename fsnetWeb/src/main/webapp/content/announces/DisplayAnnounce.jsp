@@ -38,14 +38,14 @@
 			<tr>
 				<td class="alignRight"><logic:present name="owner">
 						<bean:define id="idAnnounce" name="announce" property="id" />
-						<html:link action="/DisplayForModifyAnnounce" paramId="idAnnounce"
+						<s:a action="/DisplayForModifyAnnounce" paramId="idAnnounce"
 							paramName="idAnnounce" styleClass="btn btn-inverse">
 							<bean:message key="announce.button.update" />
-						</html:link>
-						<html:link action="/DeleteAnnounce" paramId="idAnnounce"
+						</s:a>
+						<s:a action="/DeleteAnnounce" paramId="idAnnounce"
 							paramName="idAnnounce" styleClass="btn btn-inverse">
 							<bean:message key="announce.button.delete" />
-						</html:link>
+						</s:a>
 					</logic:present></td>
 			</tr>
 		</table>

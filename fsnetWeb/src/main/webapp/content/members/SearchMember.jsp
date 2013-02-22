@@ -76,14 +76,14 @@
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${member}" /></td>
 					<td><ili:getSocialEntityInfos socialEntity="${member}" /></td>
-					<td class="tableButton"><html:link action="/AcceptContact"
+					<td class="tableButton"><s:a action="/AcceptContact"
 							styleClass="button">
 							<bean:message key="members.button.accept" />
 							<html:param name="entityAccepted" value="${member.id}" />
-						</html:link> <html:link action="/RefuseContact" styleClass="button">
+						</s:a> <s:a action="/RefuseContact" styleClass="button">
 							<bean:message key="members.button.refuse" />
 							<html:param name="entityRefused" value="${member.id}" />
-						</html:link></td>
+						</s:a></td>
 				</tr>
 			</c:forEach>
 		</table>
@@ -100,11 +100,11 @@
 					<td class="miniatureContainer"><ili:getMiniature
 							socialEntity="${member}" /></td>
 					<td><ili:getSocialEntityInfos socialEntity="${member}" /></td>
-					<td class="tableButton"><html:link action="/ContactDemand"
+					<td class="tableButton"><s:a action="/ContactDemand"
 							styleClass="button">
 							<bean:message key="members.button.add" />
 							<html:param name="entitySelected" value="${member.id}" />
-						</html:link></td>
+						</s:a></td>
 				</tr>
 			</c:forEach>
 		</table>

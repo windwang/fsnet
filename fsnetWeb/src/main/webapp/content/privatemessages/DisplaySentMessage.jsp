@@ -31,11 +31,11 @@
 		</table>
 
 		<!-- TODO factorise this code with createMessage.jsp -->
-		<html:link action="/DeletePrivateMessage?fromPage=out" styleClass="btn btn-inverse"
+		<s:a action="/DeletePrivateMessage?fromPage=out" styleClass="btn btn-inverse"
 			style="float: right">
 			<html:param name="messageId" value="${theMessage.id}" />
 			<bean:message key="privatemessages.delete" />
-		</html:link>
+		</s:a>
 
 	</logic:notEmpty>
 </fieldset>

@@ -8,8 +8,8 @@
 <ul>
 	<ili:interactionFilter user="${socialEntity}"
 		right="${rightAddConsultation}">
-		<li><html:link action="/DisplayCreateConsultation">
+		<li><s:a action="/DisplayCreateConsultation">
 				<bean:message key="consultations.leftMenu.create" />
-			</html:link></li>
+			</s:a></li>
 	</ili:interactionFilter>
 </ul>

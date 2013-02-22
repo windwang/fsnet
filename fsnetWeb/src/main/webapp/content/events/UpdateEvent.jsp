@@ -9,123 +9,101 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="events.title.create" />
+		<s:text name="events.title.create" />
 	</legend>
 
 	<table id="UpdateEvent" class="iinLineTable  tableStyle">
-		<html:form action="/UpdateEvent">
+		<s:form action="/UpdateEvent">
 			<tr>
-				<td><label for="eventName"> <bean:message
-							key="events.form.title" />
+				<td><label for="eventName"> <s:text
+							name="events.form.title" />
 				</label></td>
-				<td><html:text property="eventName" styleId="eventName"
-						errorStyleClass="error" /> <html:hidden property="eventId"
-						styleId="id" /> <logic:messagesPresent property="eventName">
-						<div class="errorMessage">
-							<html:errors property="eventName" />
-						</div>
-					</logic:messagesPresent></td>
+				<td><s:textfield property="eventName" styleId="eventName"
+						errorStyleClass="error" /> <s:hidden name="eventId" styleId="id" />
+					<!-- 					<logic:messagesPresent property="eventName"> --> <!-- 						<div class="errorMessage"> -->
+					<!-- 							<html:errors property="eventName" /> --> <!-- 						</div> -->
+					<!-- 					</logic:messagesPresent> --></td>
 			</tr>
 			<tr>
 				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventDescription"> <bean:message
-							key="events.form.description" /> :
+				<td><label for="eventDescription"> <s:text
+							name="events.form.description" /> :
 				</label></td>
-				<td><html:textarea property="eventDescription"
+				<td><s:textarea property="eventDescription"
 						styleId="eventDescription" errorStyleClass="error"
-						styleClass="mceTextArea" style="width: 100%;" /> <logic:messagesPresent
-						property="eventDescription">
-						<div class="errorMessage">
-							<html:errors property="eventDescription" />
-						</div>
-					</logic:messagesPresent></td>
+						styleClass="mceTextArea" style="width: 100%;" /> <!-- 						 <logic:messagesPresent -->
+					<!-- 						property="eventDescription"> --> <!-- 						<div class="errorMessage"> -->
+					<!-- 							<html:errors property="eventDescription" /> --> <!-- 						</div> -->
+					<!-- 					</logic:messagesPresent> --></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventAddress"> <bean:message
-							key="events.form.address" /> :
+				<td><label for="eventAddress"> <s:text
+							name="events.form.address" /> :
 				</label></td>
-				<td><html:text property="eventAddress" styleId="eventAddress"
-						errorStyleClass="error" /> <logic:messagesPresent
-						property="eventAddress">
-						<div class="errorMessage">
-							<html:errors property="eventAddress" />
-						</div>
-					</logic:messagesPresent></td>
+				<td><s:textfield property="eventAddress" styleId="eventAddress"
+						errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
+					<!-- 						property="eventAddress"> --> <!-- 						<div class="errorMessage"> -->
+					<!-- 							<html:errors property="eventAddress" /> --> <!-- 						</div> -->
+					<!-- 					</logic:messagesPresent> --></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventCity"> <bean:message
-							key="events.form.city" /> :
+				<td><label for="eventCity"> <s:text
+							name="events.form.city" /> :
 				</label></td>
-				<td><html:text property="eventCity" styleId="eventCity"
-						errorStyleClass="error" /> <logic:messagesPresent
-						property="eventCity">
-						<div class="errorMessage">
-							<html:errors property="eventCity" />
-						</div>
-					</logic:messagesPresent></td>
+				<td><s:textfield property="eventCity" styleId="eventCity"
+						errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
+					<!-- 						property="eventCity"> --> <!-- 						<div class="errorMessage"> -->
+					<!-- 							<html:errors property="eventCity" /> --> <!-- 						</div> -->
+					<!-- 					</logic:messagesPresent> --></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventBeginDate"> <bean:message
-							key="events.form.beginDate" /> :
+				<td><label for="eventBeginDate"> <s:text
+							name="events.form.beginDate" /> :
 				</label></td>
-				<td><html:text property="eventBeginDate"
-						styleId="eventBeginDate" errorStyleClass="error" /> <logic:messagesPresent
-						property="eventBeginDate">
-						<div class="errorMessage">
-							<html:errors property="eventBeginDate" />
-						</div>
-					</logic:messagesPresent></td>
+				<td><s:textfield property="eventBeginDate"
+						styleId="eventBeginDate" errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
+					<!-- 						property="eventBeginDate"> --> <!-- 						<div class="errorMessage"> -->
+					<!-- 							<html:errors property="eventBeginDate" /> --> <!-- 						</div> -->
+					<!-- 					</logic:messagesPresent> --></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventEndDate"> <bean:message
-							key="events.form.endDate" /> :
+				<td><label for="eventEndDate"> <s:text
+							name="events.form.endDate" /> :
 				</label></td>
-				<td><html:text property="eventEndDate" styleId="eventEndDate"
-						errorStyleClass="error" /> <logic:messagesPresent
-						property="eventEndDate">
-						<div class="errorMessage">
-							<html:errors property="eventEndDate" />
-						</div>
-					</logic:messagesPresent></td>
+				<td><s:textfield property="eventEndDate" styleId="eventEndDate"
+						errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
+					<!-- 						property="eventEndDate"> --> <!-- 						<div class="errorMessage"> -->
+					<!-- 							<html:errors property="eventEndDate" /> --> <!-- 						</div> -->
+					<!-- 					</logic:messagesPresent> --></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventRecallTime"> <bean:message
-							key="events.form.recall" /> :
+				<td><label for="eventRecallTime"> <s:text
+							name="events.form.recall" /> :
 				</label></td>
-				<td><html:text property="eventRecallTime"
-						styleId="eventRecallTime" errorStyleClass="error" /> <html:select
+				<td><s:textfield property="eventRecallTime"
+						styleId="eventRecallTime" errorStyleClass="error" /> <!-- 						events.form.recall.hour_minute_day a creer !!!! -->
+					<s:select list="events.form.recall.hour_minute_day"
 						property="eventRecallTypeTime" styleId="eventRecallTypeTime">
-						<html:option value="minute">
-							<bean:message key="events.form.recall.minute" />
-						</html:option>
-						<html:option value="hour">
-							<bean:message key="events.form.recall.hour" />
-						</html:option>
-						<html:option value="day">
-							<bean:message key="events.form.recall.day" />
-						</html:option>
-					</html:select> <logic:messagesPresent property="eventRecallTime">
-						<div class="errorMessage">
-							<html:errors property="eventRecallTime" />
-						</div>
-					</logic:messagesPresent></td>
+					</s:select> <!-- 					 <logic:messagesPresent property="eventRecallTime"> -->
+					<!-- 						<div class="errorMessage"> --> <!-- 							<html:errors property="eventRecallTime" /> -->
+					<!-- 						</div> --> <!-- 					</logic:messagesPresent> --></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit
+				<td colspan="2" class="tableButton"><s:submit
 						styleClass="button btn btn-inverse">
-						<bean:message key="events.button.update" />
-					</html:submit></td>
+						<s:text name="events.button.update" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
 

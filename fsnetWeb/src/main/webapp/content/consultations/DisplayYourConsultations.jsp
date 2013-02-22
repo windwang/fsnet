@@ -72,8 +72,8 @@
 							<td><html:multibox property="selectedConsultations"
 									value="${consultation.id}" /></td>
 
-							<td><html:link
-									action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
+							<td><s:a
+									action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</s:a>
 							</td>
 							<td><bean:write name="consultation" property="creationDate"
 									formatKey="date.format" /></td>

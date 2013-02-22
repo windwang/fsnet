@@ -48,17 +48,17 @@
 								<c:when test="${consultation.opened }">
 									<bean:message key="consultations.opened" />
 									<c:if test="${member eq consultation.creator }">
-					(<html:link action="/CloseConsultation?id=${consultation.id}">
+					(<s:a action="/CloseConsultation?id=${consultation.id}">
 											<bean:message key="consultations.button.close" />
-										</html:link>)
+										</s:a>)
 				</c:if>
 								</c:when>
 								<c:when test="${not consultation.opened }">
 									<bean:message key="consultations.closed" />
 									<c:if test="${member eq consultation.creator }">
-					(<html:link action="/OpenConsultation?id=${consultation.id}">
+					(<s:a action="/OpenConsultation?id=${consultation.id}">
 											<bean:message key="consultations.button.open" />
-										</html:link>)
+										</s:a>)
 				</c:if>
 								</c:when>
 							</c:choose></li>
@@ -106,11 +106,11 @@
 								<tr>
 									<td><c:if
 											test="${consultation.opened and member.id eq vote.voter.id }">
-											<html:link
+											<s:a
 												action="/DeleteVoteConsultation?consultation=${consultation.id}&amp;vote=${vote.id}">
 												<html:img src="images/mini-delete.png"
 													altKey="consultations.button.delete" />
-											</html:link>
+											</s:a>
 										</c:if></td>
 									<td class="consultationPerticipant"><ili:getSocialEntityInfos
 											socialEntity="${vote.voter }" /></td>
@@ -218,7 +218,7 @@
 									</c:if>
 									<td><html:text property="voteComment" /></td>
 
-									<html:hidden property="id" value="${consultation.id }" />
+									<s:hidden name="id" value="${consultation.id }" />
 									<td><html:submit styleClass="btn btn-inverse">
 											<bean:message key="consultations.button.vote" />
 										</html:submit></td>

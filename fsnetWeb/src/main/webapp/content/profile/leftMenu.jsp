@@ -8,18 +8,18 @@
 </h2>
 
 <ul>
-	<li><html:link action="Profile.do">
+	<li><s:a action="Profile.do">
 			<bean:message key="showProfile.edit" />
-		</html:link></li>
-	<li><html:link action="/Interests">
+		</s:a></li>
+	<li><s:a action="/Interests">
 			<bean:message key="showProfile.edit.interests" />
-		</html:link></li>
-	<li><html:link action="/CreateCv1">
+		</s:a></li>
+	<li><s:a action="/CreateCv1">
 			<bean:message key="profile.leftMenu.createCV" />
-		</html:link></li>
-	<li><html:link action="/DisplayCV">
+		</s:a></li>
+	<li><s:a action="/DisplayCV">
 			<bean:message key="profile.leftMenu.myCV" />
-		</html:link></li>
+		</s:a></li>
 
 </ul>
 
@@ -30,13 +30,13 @@
 		</h2>
 
 		<ul>
-			<li><html:link action="/SearchGroup.do">
+			<li><s:a action="/SearchGroup.do">
 					<bean:message key="profile.LeftMenuManageGroups" />
 					<html:param name="id" value="${requestScope.groupId}" />
-				</html:link></li>
-			<li><html:link action="/MemberList">
+				</s:a></li>
+			<li><s:a action="/MemberList">
 					<bean:message key="profile.LeftMenuManageMembers" />
-				</html:link></li>
+				</s:a></li>
 		</ul>
 	</c:when>
 	<c:otherwise>
@@ -44,9 +44,9 @@
 			<bean:message key="profile.LeftMenuMemberGroup" />
 		</h2>
 		<ul>
-			<li><html:link action="/ListMembersOfGroup">
+			<li><s:a action="/ListMembersOfGroup">
 					<bean:message key="profile.LeftMenuDisplayMembersGroup" />
-				</html:link></li>
+				</s:a></li>
 		</ul>
 
 	</c:otherwise>
