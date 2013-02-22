@@ -6,7 +6,7 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="events.leftMenu.title" />
+		<s:text name="events.leftMenu.title" />
 	</legend>
 
 	<c:choose>
@@ -51,53 +51,53 @@
 						});
 			</script>
 
-			<html:form action="/DeleteMultiEvents">
+			<s:form action="/DeleteMultiEvents">
 				<table id="yourEvents" class="tablesorter inLineTable  tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
 								name="selected" class="checkThemAll1" /></th>
-							<th><bean:message key="tableheader.eventname" /></th>
-							<th><bean:message key="tableheader.willoccur" /></th>
-							<th><bean:message key="tableheader.expirdate" /></th>
+							<th><s:text name="tableheader.eventname" /></th>
+							<th><s:text name="tableheader.willoccur" /></th>
+							<th><s:text name="tableheader.expirdate" /></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="4"><html:submit styleClass="btn btn-inverse">
-									<bean:message key="privatemessages.delete" />
-								</html:submit></td>
+							<td colspan="4"><s:submit styleClass="btn btn-inverse">
+									<s:text name="privatemessages.delete" />
+								</s:submit></td>
 						</tr>
 					</tfoot>
 					<tbody>
 						<c:forEach var="event" items="${requestScope.myEventsList}">
 							<tr>
-								<bean:define id="idEvent" name="event" property="id" />
+								<s:set name="idEvent" name="event" property="id" />
 								<td><html:multibox property="selectedEvents"
 										value="${event.id}" /></td>
-								<td><html:link action="/DisplayEvent">
+								<td><s:a href="/DisplayEvent">
 		                    ${event.title}
-		                    <html:param name="eventId" value="${event.id}" />
-									</html:link> <span style="color: gray"> : <ili:substring
+		                    <s:param name="eventId" value="%{event.id}" />
+									</s:a> <span style="color: gray"> : <ili:substring
 											beginIndex="0" endIndex="30">
 											<ili:noxml>${event.content}</ili:noxml>
 										</ili:substring>
 								</span></td>
-								<td class="left"><bean:write name="event"
+								<td class="left"><s:property name="event"
 										property="startDate" format="dd/MM/yyyy HH:mm" /></td>
-								<td class="left"><bean:write name="event"
+								<td class="left"><s:property name="event"
 										property="endDate" format="dd/MM/yyyy HH:mm" /></td>
 							</tr>
 						</c:forEach>
 
 					</tbody>
 				</table>
-			</html:form>
+			</s:form>
 		</c:when>
 		<c:otherwise>
 			<table class="inLineTable  tableStyle">
 				<tr>
-					<td><bean:message key="research.event.emptyList" />.</td>
+					<td><s:text name="research.event.emptyList" />.</td>
 				</tr>
 			</table>
 		</c:otherwise>

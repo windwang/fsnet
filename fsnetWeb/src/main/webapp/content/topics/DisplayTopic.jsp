@@ -20,21 +20,21 @@
 
 <h3>
 
-	<html:link action="/DisplayCommunity">
+	<s:a action="/DisplayCommunity">
 		<html:param name="communityId"
 			value="${requestScope.topic.hub.community.id}" />
         ${requestScope.topic.hub.community.title}
-    </html:link>
+    </s:a>
 	-&gt;
-	<html:link action="/DisplayHub">
+	<s:a action="/DisplayHub">
 		<html:param name="hubId" value="${requestScope.topic.hub.id}" />
         ${requestScope.topic.hub.title}
-    </html:link>
+    </s:a>
 	-&gt;
-	<html:link action="/DisplayTopic">
+	<s:a action="/DisplayTopic">
 		<html:param name="topicId" value="${requestScope.topic.id}" />
         ${requestScope.topic.title}
-    </html:link>
+    </s:a>
 	-&gt;
 	<bean:message key="topics.title.message" />
 </h3>
@@ -48,17 +48,17 @@
 			<td style="text-align: right;"><c:if
 					test="${sessionScope.userId eq msg.from.id}">
 
-					<html:link action="/DeleteTopicMessage" styleClass="btn btn-inverse">
+					<s:a action="/DeleteTopicMessage" styleClass="btn btn-inverse">
 						<html:param name="topicId" value="${topic.id}" />
 						<html:param name="messageId" value="${msg.id}" />
 						<bean:message key="topics.button.deleteMessage" />
-					</html:link>
+					</s:a>
 
-					<html:link action="/DisplayModifyTopicMessage" styleClass="btn btn-inverse">
+					<s:a action="/DisplayModifyTopicMessage" styleClass="btn btn-inverse">
 						<html:param name="topicId" value="${topic.id}" />
 						<html:param name="messageId" value="${msg.id}" />
 						<bean:message key="topics.button.modifyMessage" />
-					</html:link>
+					</s:a>
 
 				</c:if></td>
 		</tr>
@@ -79,10 +79,10 @@
 <c:set var="paginatorTile" value="displayTopic" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
 
-<html:link action="/DisplayCreateTopicMessage" styleClass="btn btn-inverse">
+<s:a action="/DisplayCreateTopicMessage" styleClass="btn btn-inverse">
 	<html:param name="topicId" value="${topic.id}" />
 	<bean:message key="topics.button.answerMessage" />
-</html:link>
+</s:a>
 
 
 

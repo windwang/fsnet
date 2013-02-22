@@ -18,17 +18,16 @@
 	<div class="interactionDisplay">
 		<table class="inLineTable">
 			<tr class="authorDate">
-				<td><bean:message key="events.createdBy" /> <ili:getSocialEntityInfos
-						socialEntity="${event.creator}" /> , <bean:message
-						key="events.to" /> <bean:write name="event" property="startDate"
-						format="dd/MM/yyyy HH'h'mm" /> <bean:message key="events.from" />
-					<bean:write name="event" property="endDate"
-						format="dd/MM/yyyy HH'h'mm" /> <c:if
+				<td><s:text name="events.createdBy" /> <ili:getSocialEntityInfos
+						socialEntity="${event.creator}" /> , <s:text name="events.to" />
+					<s:property name="event" property="startDate"
+						format="dd/MM/yyyy HH'h'mm" /> <s:text name="events.from" /> <s:property
+						name="event" property="endDate" format="dd/MM/yyyy HH'h'mm" /> <c:if
 						test="${not empty event.address.address or not empty event.address.city}">
-						<bean:message key="events.in" />
+						<s:text name="events.in" />
                 	${event.address.address} ${event.address.city}
-                </c:if> <c:if test="${subscriber}">,&nbsp;&nbsp;"<bean:message
-							key="events.message.subsribe" />"</c:if></td>
+                </c:if> <c:if test="${subscriber}">,&nbsp;&nbsp;"<s:text
+							name="events.message.subsribe" />"</c:if></td>
 			</tr>
 			<tr>
 				<td>${event.content}</td>
@@ -37,36 +36,35 @@
 				<td class="alignRight"><ili:interactionFilter
 						user="${ socialEntity }" right="${ rightRegisterEvent }">
 						<c:if test="${not subscriber}">
-							<html:link action="/SubscribeEvent" styleClass="button btn btn-inverse">
-								<html:param name="eventId" value="${event.id}" />
-								<bean:message key="events.button.subscribe" />
-							</html:link>
+							<s:a href="/SubscribeEvent" styleClass="button btn btn-inverse">
+								<s:param name="eventId" value="%{event.id}" />
+								<s:text name="events.button.subscribe" />
+							</s:a>
 						</c:if>
 						<c:if test="${subscriber}">
-							<html:link action="/UnsubscribeEvent" styleClass="button btn btn-inverse">
-								<html:param name="eventId" value="${event.id}" />
-								<bean:message key="events.button.unsubscribe" />
-							</html:link>
+							<s:a href="/UnsubscribeEvent" styleClass="button btn btn-inverse">
+								<s:param name="eventId" value="%{event.id}" />
+								<s:text name="events.button.unsubscribe" />
+							</s:a>
 						</c:if>
 					</ili:interactionFilter> <c:if test="${userId eq event.creator.id}">
-						<html:link action="/DisplayUpdateEvent" styleClass="button btn btn-inverse">
-							<html:param name="eventId" value="${event.id}" />
-							<bean:message key="events.button.update" />
-						</html:link>
-					</c:if> 
-					<html:link action="/ExportEventById" styleClass="button btn btn-inverse">
-						<html:param name="eventId" value="${event.id}" />
-						<bean:message key="events.export" />
-					</html:link>
-					<c:if test="${userId eq event.creator.id}">
-						<html:form action="/DeleteEvent" method="post"
+						<s:a href="/DisplayUpdateEvent"
+							styleClass="button btn btn-inverse">
+							<s:param name="eventId" value="%{event.id}" />
+							<s:text name="events.button.update" />
+						</s:a>
+					</c:if> <s:a href="/ExportEventById" styleClass="button btn btn-inverse">
+						<s:param name="eventId" value="%{event.id}" />
+						<s:text name="events.export" />
+					</s:a> <c:if test="${userId eq event.creator.id}">
+						<s:form action="/DeleteEvent" method="post"
 							styleId="eventid${event.id}" styleClass="deleteEventForm">
-							<html:hidden property="eventId" value="${event.id}" />
+							<s:hidden name="eventId" value="%{event.id}" />
 							<span class="button btn btn-inverse"
-								onclick="confirmDelete2('eventid${event.id}', '<bean:message key="message.confirmation.delete" />');">
-								<bean:message key="events.button.delete" />
+								onclick="confirmDelete2('eventid${event.id}', '<s:text name="message.confirmation.delete" />');">
+								<s:text name="events.button.delete" />
 							</span>
-						</html:form>
+						</s:form>
 					</c:if></td>
 			</tr>
 		</table>
@@ -84,17 +82,17 @@
 <c:if test="${fn:length(subscribers) gt 0}">
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="events.title.participate" />
+			<s:text name="events.title.participate" />
 		</legend>
 
 		<table class="inLineTable ">
 			<tr>
-				<td><logic:iterate id="subscriber" collection="${subscribers}">
+				<td><s:iterator id="subscriber"	 status="collectionStatus">
 						<span class="tagSE"> <ili:getMiniature
 								socialEntity="${subscriber}" /> <ili:getSocialEntityInfos
 								socialEntity="${subscriber}" />
 						</span>
-					</logic:iterate></td>
+					</s:iterator></td>
 			</tr>
 		</table>
 	</fieldset>

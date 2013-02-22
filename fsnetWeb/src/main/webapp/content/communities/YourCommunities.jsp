@@ -80,6 +80,7 @@
                         		</s:a> <c:choose>
 										<c:when test="%{fn:length(community.hubs) eq 0}">
                          		(<s:text name="communities.hubs.notAny" /> hub)
+
                          	</c:when>
 										<c:when test="%{fn:length(community.hubs) eq 1}">
                          		(1 hub)

@@ -17,7 +17,7 @@
 		class="inLineTable tableStyle">
 		<html:form action="/CreateTopic">
 
-			<html:hidden property="hubId" value="${param.hubId}" />
+			<s:hidden name="hubId" value="${param.hubId}" />
 
 			<tr>
 				<td><label for="topicSubject"><bean:message

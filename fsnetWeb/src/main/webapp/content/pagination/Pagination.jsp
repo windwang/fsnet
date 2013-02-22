@@ -14,20 +14,20 @@
 
 <div class="paginator">
 	<c:if test="${paginatorInstance.hasPreviousPage}">
-		<html:link styleClass="paginatorPagePrevious"
+		<s:a styleClass="paginatorPagePrevious"
 			action="${paginatorAction}" title="${previousLinkTitle}">
 			<html:param name="pageId" value="${paginatorInstance.previousPage}" />
 			<html:param name="tileId" value="${paginatorTile}" />
 			<html:param name="${paginatorInstance.requestInputName}"
 				value="${paginatorInstance.requestInput}" />
 			<bean:message key="pagination.previous" />
-		</html:link>
+		</s:a>
 	</c:if>
 
 
 	<c:if test="${paginatorInstance.numPages > 1}">
 		<c:forEach var="page" begin="0" end="${paginatorInstance.numPages-1}">
-			<html:link styleClass="paginatorPageId" action="${paginatorAction}"
+			<s:a styleClass="paginatorPageId" action="${paginatorAction}"
 				title="page ${page+1}">
 				<html:param name="pageId" value="${page}" />
 				<html:param name="tileId" value="${paginatorTile}" />
@@ -41,19 +41,19 @@
                         ${page+1}
                     </c:otherwise>
 				</c:choose>
-			</html:link>
+			</s:a>
 		</c:forEach>
 	</c:if>
 
 	<c:if test="${paginatorInstance.hasNextPage}">
-		<html:link styleClass="paginatorPageNext" action="${paginatorAction}"
+		<s:a styleClass="paginatorPageNext" action="${paginatorAction}"
 			title="${nextLinkTitle}">
 			<html:param name="pageId" value="${paginatorInstance.nextPage}" />
 			<html:param name="tileId" value="${paginatorTile}" />
 			<html:param name="${paginatorInstance.requestInputName}"
 				value="${paginatorInstance.requestInput}" />
 			<bean:message key="pagination.next" />
-		</html:link>
+		</s:a>
 	</c:if>
 
 

@@ -104,8 +104,7 @@
 								<tr>
 									<td><c:if
 											test="${consultation.opened and member.id eq vote.voter.id }">
-											<s:a
-												href="/DeleteVoteConsultation?consultation=%{consultation.id}&amp;vote=%{vote.id}">
+											<s:a href="/DeleteVoteConsultation?consultation=%{consultation.id}&amp;vote=%{vote.id}">
 												<img src="images/mini-delete.png"
 													alt="consultations.button.delete" />
 											</s:a>
@@ -219,10 +218,17 @@
 									</c:if>
 									<td><s:textfield property="voteComment" /></td>
 
+<<<<<<< HEAD
 									<s:hidden name="id" value="%{consultation.id }" />
 									<td><s:submit styleClass="btn btn-inverse">
 											<s:text name="consultations.button.vote" />
 										</s:submit></td>
+=======
+									<s:hidden name="id" value="${consultation.id }" />
+									<td><html:submit styleClass="btn btn-inverse">
+											<bean:message key="consultations.button.vote" />
+										</html:submit></td>
+>>>>>>> migrating events to struts2 architecture (warn : s:property (name => ???    property => ???   format => ???))
 								</tr>
 							</s:form>
 						</c:if>

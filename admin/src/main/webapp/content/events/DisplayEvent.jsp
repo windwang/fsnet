@@ -13,11 +13,11 @@
 
 	<table class="inLineTable fieldsetTableAdmin">
 		<tr class="authorDate">
-			<td><bean:message key="events.createdBy" /> <html:link
+			<td><bean:message key="events.createdBy" /> <s:a
 					action="/DisplayMember">
 					<html:param name="idMember" value="${event.creator.id}" />
 	                    	${event.creator.firstName} ${event.creator.name}
-	              </html:link>, <bean:message key="events.to" /> <bean:write
+	              </s:a>, <bean:message key="events.to" /> <bean:write
 					name="event" property="startDate" format="dd/MM/yyyy" /> <bean:message
 					key="events.at" /> <bean:write name="event" property="endDate"
 					format="dd/MM/yyyy" /> <c:if
@@ -33,11 +33,11 @@
 		</tr>
 
 		<tr>
-			<td class="tableButton"><html:link action="/DeleteEvent"
+			<td class="tableButton"><s:a action="/DeleteEvent"
 					styleClass="button">
 					<html:param name="eventId" value="${event.id}" />
 					<bean:message key="events.button.delete" />
-				</html:link></td>
+				</s:a></td>
 		</tr>
 	</table>
 </fieldset>

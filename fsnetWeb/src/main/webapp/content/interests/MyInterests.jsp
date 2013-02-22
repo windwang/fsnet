@@ -20,13 +20,13 @@
 								<c:forEach var="interest"
 									items="${requestScope.myInterestPaginator.resultList}">
 
-									<span class="tag"> <html:link action="/RemoveInterest">
+									<span class="tag"> <s:a action="/RemoveInterest">
 											<html:param name="removedInterestId" value="${interest.id}" />
 											<img src="images/mini-delete.png" alt="delete" />
-										</html:link> <html:link action="/InterestInformations">
+										</s:a> <s:a action="/InterestInformations">
 											<html:param name="infoInterestId" value="${interest.id}" />
                             ${interest.name}
-                        </html:link>
+                        </s:a>
 
 									</span>
 								</c:forEach>

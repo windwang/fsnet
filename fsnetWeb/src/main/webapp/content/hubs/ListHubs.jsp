@@ -10,10 +10,10 @@
 <fieldset class="fieldsetCadre">
 	<legend>
 		<c:if test="${not empty requestScope.Community}">
-			<html:link action="/DisplayCommunity">
+			<s:a action="/DisplayCommunity">
 				<html:param name="communityId" value="${requestScope.Community.id}" />
             ${requestScope.Community.title}
-        </html:link>
+        </s:a>
 		</c:if>
 		-&gt;
 		<bean:message key="hubs.title.hubs" />
@@ -67,11 +67,11 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${hub.id}" />
 								</c:import></td>
-							<td><html:link action="/DisplayHub"
+							<td><s:a action="/DisplayHub"
 									title='${empty hub.interests? "" : hub.interests}'>
 									<html:param name="hubId" value="${hub.id}" />
                     ${hub.title}
-                </html:link> (${fn:length(hub.topics)} topics)</td>
+                </s:a> (${fn:length(hub.topics)} topics)</td>
 							<td><bean:write name="hub" property="creationDate"
 									format="dd/MM/yyyy" /></td>
 							<td></td>

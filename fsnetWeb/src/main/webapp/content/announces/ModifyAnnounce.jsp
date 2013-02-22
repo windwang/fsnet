@@ -17,7 +17,7 @@
 	<table id="ModifyAnnounce"
 		class="inLineTable tableStyle">
 		<html:form action="/ModifyAnnounce">
-			<html:hidden property="idAnnounce" />
+			<s:hidden name="idAnnounce" />
 			
 			<tr>
 				<td><label for="announceTitle"><bean:message

@@ -71,8 +71,7 @@
 							<td><s:checkbox property="selectedConsultations"
 									value="%{consultation.id}" /></td>
 
-							<td><s:a
-									href="/DisplayAConsultation?id=%{consultation.id }">%{consultation.title }</s:a>
+							<td><s:a href="/DisplayAConsultation?id=%{consultation.id }">%{consultation.title }</s:a>
 							</td>
 							<td><s:property value="creationDate" /></td>
 						</tr>

@@ -93,13 +93,14 @@
 										socialEntity="${message.to}" /></td>
 								<td><ili:getSocialEntityInfosName
 										socialEntity="${message.to}" /></td>
-								<td class="cutMessage"><html:link
+
+								<td style="width: 40%"><s:a
 										action="/DisplaySentMessage">
 										<html:param name="messageId" value="${message.id}" />
 										<span>${message.subject} : </span>
 										<span style="color: gray"><ili:noxml>${message.body}</ili:noxml>
 										</span>
-									</html:link></td>
+									</s:a></td>
 								<td><bean:write name="message" property="creationDate"
 										formatKey="date.format" /></td>
 							</tr>

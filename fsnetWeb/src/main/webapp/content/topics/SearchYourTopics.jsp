@@ -22,7 +22,7 @@
 						<html:text property="searchText" styleId="searchTexte"
 							styleClass="search-query" />
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<html:hidden property="hubId" value="${hubResult.id}" />
+						<s:hidden name="hubId" value="${hubResult.id}" />
 						<html:submit styleClass="btn btn-inverse">
 							<bean:message key="topics.button.search" />
 						</html:submit>
@@ -51,11 +51,11 @@
 					onmouseover="this.style.cursor='pointer'" /> <img
 					src="images/message.png" alt="Message" />
 				</td>
-				<td><html:link action="/DisplayTopic"
+				<td><s:a action="/DisplayTopic"
 						title='${empty couple.key.interests? "" : couple.key.interests}'>
 						<html:param name="topicId" value="${couple.key.id}" />
                     ${couple.key.title}
-                </html:link> <br /> <bean:message key="topics.createdOn" /> <bean:write
+                </s:a> <br /> <bean:message key="topics.createdOn" /> <bean:write
 						name="hubResult" property="creationDate" format="dd/MM/yyyy" /> <bean:message
 						key="topics.by" /> <ili:getSocialEntityInfos
 						socialEntity="${couple.key.creator}" /></td>

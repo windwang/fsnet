@@ -13,29 +13,30 @@
 
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="events.form.importIcsFile" />
+			<s:text name="events.form.importIcsFile" />
 		</legend>
 
-		<html:form styleId="formImportEventsFromFile"
+		<s:form styleId="formImportEventsFromFile"
 			action="/importEventsFromFile" enctype="multipart/form-data">
 			<table class="inLineTable  tableStyle">
 				<tr>
-					<td><label for="icsFile"><bean:message
-								key="events.form.browseIcsFile" /></label></td>
+					<td><label for="icsFile"><s:text
+								name="events.form.browseIcsFile" /></label></td>
 					<td><input size="40%" type="file" name="icsFile" id="icsFile" />
-						<logic:messagesPresent property="icsFile">
-							<div class="errorMessage">
-								<html:errors property="icsFile" />
-							</div>
-						</logic:messagesPresent></td>
+<!-- 						<logic:messagesPresent property="icsFile"> -->
+<!-- 							<div class="errorMessage"> -->
+<!-- 								<html:errors property="icsFile" /> -->
+<!-- 							</div> -->
+<!-- 						</logic:messagesPresent> -->
+						</td>
 				</tr>
 				<tr>
 					<td colspan="2" class="tableButton"><input
 						class="button btn btn-inverse" type="submit"
-						value="<bean:message key="events.button.import" />" /></td>
+						value="<s:text name="events.button.import" />" /></td>
 				</tr>
 			</table>
-		</html:form>
+		</s:form>
 	</fieldset>
 
 </div>

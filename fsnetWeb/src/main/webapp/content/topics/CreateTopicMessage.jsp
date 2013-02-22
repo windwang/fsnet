@@ -17,7 +17,7 @@
 	<table class="inLineTable tableStyle">
 		<html:form action="/CreateTopicMessage">
 			<tr>
-				<td><html:hidden property="topicId" value="${topicId}" /> <label
+				<td><s:hidden name="topicId" value="${topicId}" /> <label
 					for="messageDescription"><bean:message key="topics.form.description" /></label></td>
 				<td><html:textarea property="messageDescription"
 						styleId="messageDescription" styleClass="mceTextArea"

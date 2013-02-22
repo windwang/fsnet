@@ -3,25 +3,26 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 
-<bean:define id="searchMessage">
-	<bean:message key="events.placeholder.search" />
-</bean:define>
+<s:set name="searchMessage">
+	<s:text name="events.placeholder.search" />
+</s:set>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="events.title.search" />
+		<s:text name="events.title.search" />
 	</legend>
 
 	<table id="SearchEvent"
 		class="inLineTable  tableStyle">
-		<html:form action="/Events" method="get">
+		<s:form action="/Events" method="get">
 			<tr>
-				<td><html:text property="searchString" styleId="searchTexte" styleClass="search-query"/>
-					<ili:placeHolder id="searchTexte" value="${searchMessage}" /> <html:submit
+				<td>
+				<s:textfield property="searchString" var="searchTexte" cssClass="search-query"/>
+					<ili:placeHolder id="searchTexte" value="%{searchMessage}" /> <s:submit
 						styleClass="button btn btn-inverse">
-						<bean:message key="events.button.search" />
-					</html:submit></td>
+						<s:text name="events.button.search" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>

@@ -11,7 +11,7 @@
 	<table id="CreateHub"
 		class="inLineTable tableStyle">
 		<html:form action="/CreateHub">
-			<html:hidden property="communityId" value="${param.communityId}" />
+			<s:hidden name="communityId" value="${param.communityId}" />
 			<tr>
 				<td><label for="hubName"><bean:message
 							key="hubs.form.name" /></label></td>

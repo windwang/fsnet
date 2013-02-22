@@ -97,28 +97,55 @@
 
 					<tbody>
 						<c:forEach items="${requestScope.inBoxMessages}" var="message">
-							<tr class="${message.reed ? '' : 'notReed'}">
-								<td><html:multibox property="selectedMessages"
-										value="${message.id}" /></td>
-								<td><ili:getMiniature socialEntity="${message.from}" /></td>
-								<td><html:link action="/DisplayMessage">
-										<html:param name="messageId" value="${message.id}" />
-										<span>${message.from.firstName}</span>
-									</html:link></td>
-								<td><html:link action="/DisplayMessage">
-										<html:param name="messageId" value="${message.id}" />
-										<span>${message.from.name}</span>
-									</html:link></td>
-								<td class="cutMessage">
-										<html:link action="/DisplayMessage">
+
+							<c:if test="${not message.reed}">
+								<tr class="notReed">
+									<td><html:multibox property="selectedMessages"
+											value="${message.id}" /></td>
+									<td><ili:getMiniature socialEntity="${message.from}" /></td>
+									<td style="width: 20%"><s:a action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
-											<span>${message.subject} : </span>
-											<span style="color: gray"><ili:noxml>${message.body}</ili:noxml></span>
-										</html:link>
-									</td>
-								<td><bean:write name="message" property="creationDate"
-										formatKey="date.format" /></td>
-							</tr>
+											<span>${message.from.firstName}</span>
+										</s:a></td>
+									<td style="width: 20%"><s:a action="/DisplayMessage">
+											<html:param name="messageId" value="${message.id}" />
+											<span>${message.from.name}</span>
+										</s:a></td>
+									<td style="width: 60%"><s:a action="/DisplayMessage">
+											<html:param name="messageId" value="${message.id}" />
+											<span>${fn:substring(message.subject, 0,20)} : </span>
+											<span style="color: gray"> <ili:substring
+													beginIndex="0" endIndex="20">
+													<ili:noxml>${message.body}</ili:noxml>
+												</ili:substring>
+											</span>
+										</s:a></td>
+							</c:if>
+							<c:if test="${message.reed}">
+								<tr>
+									<td><html:multibox property="selectedMessages"
+											value="${message.id}" /></td>
+									<td><ili:getMiniature socialEntity="${message.from}" /></td>
+									<td style="width: 20%"><s:a action="/DisplayMessage">
+											<html:param name="messageId" value="${message.id}" />
+											<span>${message.from.firstName}</span>
+										</s:a></td>
+									<td style="width: 20%"><s:a action="/DisplayMessage">
+											<html:param name="messageId" value="${message.id}" />
+											<span>${message.from.name}</span>
+										</s:a></td>
+									<td style="width: 60%"><s:a action="/DisplayMessage">
+											<html:param name="messageId" value="${message.id}" />
+											<span>${fn:substring(message.subject, 0,20)} : </span>
+											<span style="color: gray"> <ili:substring
+													beginIndex="0" endIndex="20">
+													<ili:noxml>${message.body}</ili:noxml>
+												</ili:substring>
+											</span>
+										</s:a></td>
+							</c:if>
+							<td><bean:write name="message" property="creationDate"
+									formatKey="date.format" /></td>
 						</c:forEach>
 					</tbody>
 				</table>

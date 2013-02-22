@@ -99,14 +99,14 @@
 												socialEntity="${member}" /></td>
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
-										<td class="tableButton"><html:link
+										<td class="tableButton"><s:a
 												action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
 												<bean:message key="showProfile.send" />
 												<html:param name="receiver" value="${member.email}" />
-											</html:link> <html:link action="/DeleteContact" styleClass="btn btn-inverse">
+											</s:a> <s:a action="/DeleteContact" styleClass="btn btn-inverse">
 												<bean:message key="contact.button.delete" />
 												<html:param name="entityDeleted" value="${member.id}" />
-											</html:link></td>
+											</s:a></td>
 									</tr>
 								</c:forEach>
 								<c:forEach var="member" items="${membersRequestedResult}">
@@ -117,14 +117,14 @@
 												socialEntity="${member}" /></td>
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
-										<td class="tableButton"><html:link
+										<td class="tableButton"><s:a
 												action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
 												<bean:message key="showProfile.send" />
 												<html:param name="receiver" value="${member.email}" />
-											</html:link> <html:link action="/CancelAskContact" styleClass="btn btn-inverse">
+											</s:a> <s:a action="/CancelAskContact" styleClass="btn btn-inverse">
 												<html:param name="id" value="${member.id}" />
 												<bean:message key="contacts.cancel" />
-											</html:link></td>
+											</s:a></td>
 									</tr>
 								</c:forEach>
 								<c:forEach var="member" items="${membersAskedResult}">
@@ -135,14 +135,14 @@
 												socialEntity="${member}" /></td>
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
-										<td class="tableButton"><html:link
+										<td class="tableButton"><s:a
 												action="/AcceptContact" styleClass="btn btn-inverse">
 												<bean:message key="members.button.accept" />
 												<html:param name="entityAccepted" value="${member.id}" />
-											</html:link> <html:link action="/RefuseContact" styleClass="btn btn-inverse">
+											</s:a> <s:a action="/RefuseContact" styleClass="btn btn-inverse">
 												<bean:message key="members.button.refuse" />
 												<html:param name="entityRefused" value="${member.id}" />
-											</html:link></td>
+											</s:a></td>
 									</tr>
 								</c:forEach>
 								<c:forEach var="member" items="${membersResult}">
@@ -153,11 +153,11 @@
 												socialEntity="${member}" /></td>
 										<td><ili:getSocialEntityInfosName
 												socialEntity="${member}" /></td>
-										<td class="tableButton"><html:link
+										<td class="tableButton"><s:a
 												action="/ContactDemand" styleClass="btn btn-inverse">
 												<bean:message key="members.button.add" />
 												<html:param name="entitySelected" value="${member.id}" />
-											</html:link></td>
+											</s:a></td>
 									</tr>
 								</c:forEach>
 						</table>
@@ -222,8 +222,8 @@
 										<td><c:import url="/FavoriteFragment.do">
 												<c:param name="interactionId" value="${consultation.id}" />
 											</c:import></td>
-										<td><html:link
-												action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</html:link>
+										<td><s:a
+												action="/DisplayAConsultation?id=${consultation.id }">${consultation.title }</s:a>
 										<td><bean:write name="consultation"
 												property="creationDate" formatKey="date.format" /></td>
 										<td></td>
@@ -236,7 +236,7 @@
 												test="${sessionScope.userId eq consultation.creator.id}">
 												<html:form action="/DeleteAConsultation" method="post"
 													styleId="${consultation.id}" styleClass="cursorPointer">
-													<html:hidden property="id" value="${consultation.id}" />
+													<s:hidden name="id" value="${consultation.id}" />
 													<span class="btn btn-inverse"> <bean:message
 															key="consultations.button.delete" />
 													</span>
@@ -306,10 +306,10 @@
 										<td><c:import url="/FavoriteFragment.do">
 												<c:param name="interactionId" value="${announce.id}" />
 											</c:import></td>
-										<td><html:link action="/DisplayAnnounce.do"
+										<td><s:a action="/DisplayAnnounce.do"
 												paramId="idAnnounce" paramName="idAnnounce">
 												<bean:write name="announce" property="title" />
-											</html:link></td>
+											</s:a></td>
 										<td></td>
 										<td><ili:getSocialEntityInfosFirstname
 												socialEntity="${announce.creator}" /></td>
@@ -381,10 +381,10 @@
 										<td><c:import url="/FavoriteFragment.do">
 												<c:param name="interactionId" value="${event.id}" />
 											</c:import></td>
-										<td><html:link action="/DisplayEvent">
+										<td><s:a action="/DisplayEvent">
 		                    ${event.title}
 		                    <html:param name="eventId" value="${event.id}" />
-											</html:link> <span style="color: gray"> : <ili:substring
+											</s:a> <span style="color: gray"> : <ili:substring
 													beginIndex="0" endIndex="30">
 													<ili:noxml>${event.content}</ili:noxml>
 												</ili:substring>
@@ -455,11 +455,11 @@
 								<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${community.id}" />
 								</c:import></td>
-							<td><html:link action="/DisplayCommunity"
+							<td><s:a action="/DisplayCommunity"
 									title='${empty community.interests ? "" : community.interests}'>
 									<html:param name="communityId" value="${community.id}" />
                             ${community.title}
-                        </html:link> <c:choose>
+                        </s:a> <c:choose>
 									<c:when test="${fn:length(community.hubs) eq 0}">
                          		(<bean:message key="communities.hubs.notAny" /> hub)
                          	</c:when>
@@ -481,7 +481,7 @@
 												<html:form action="DeleteCommunity.do"
 													styleId="deleteid${community.id}" method="post"
 													styleClass="cursorPointer">
-													<html:hidden property="communityId" value="${community.id}" />
+													<s:hidden name="communityId" value="${community.id}" />
 													<span class="btn btn-inverse"> <bean:message
 															key="communities.button.delete" />
 													</span>

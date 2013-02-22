@@ -16,7 +16,7 @@
 		class="inLineTable tableStyle">
 		<html:form action="/SearchHub" method="GET">
 			<tr>
-				<td><html:hidden property="communityId"
+				<td><s:hidden name="communityId"
 						value="${param.communityId}" /> <html:text property="searchText"
 						styleId="searchTexte" /> <ili:placeHolder id="searchTexte"
 						value="${searchMessage}" /> <html:submit styleClass="btn btn-inverse">

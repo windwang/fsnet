@@ -4,13 +4,13 @@
 <%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 
 <c:forEach var="interest" items="${allInterests}">
+
 	<!-- <span class="otag"> -->
-	<span class="label label-success">
-	<html:multibox property="selectedInterests"
-			value="${interest.id}" /> <!--<html:link
-			action="/InterestInformations">
+	<span class="label label-success"><html:multibox property="selectedInterests"
+			value="${interest.id}" /> <s:a action="/InterestInformations">
 			<html:param name="infoInterestId" value="${interest.id}" /> -->
             ${interest.name}
-        <!-- </html:link> -->
+
+        </s:a>
 	</span>
 </c:forEach>

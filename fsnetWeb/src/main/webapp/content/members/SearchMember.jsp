@@ -82,6 +82,7 @@
 						</s:a> <s:a href="/RefuseContact" styleClass="button">
 							<s:text name="members.button.refuse" />
 							<s:param name="entityRefused" value="%{member.id}" />
+
 						</s:a></td>
 				</tr>
 			</c:forEach>

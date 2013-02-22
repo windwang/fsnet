@@ -46,15 +46,15 @@
 				<tbody>
 					<c:forEach var="member" items="${requestScope.membersList}">
 						<tr class="content">
-							<td><html:link action="/DisplayMember">${member.name}
+							<td><s:a action="/DisplayMember">${member.name}
                 		<html:param name="idMember" value="${member.id}" />
-								</html:link></td>
-							<td><html:link action="/DisplayMember">${member.firstName}
+								</s:a></td>
+							<td><s:a action="/DisplayMember">${member.firstName}
                 		<html:param name="idMember" value="${member.id}" />
-								</html:link></td>
+								</s:a></td>
 							<td class="tableButton"><c:choose>
 									<c:when test="${member.group.isEnabled}">
-										<html:link action="/SwitchState" styleClass="button">
+										<s:a action="/SwitchState" styleClass="button">
 											<html:param name="entitySelected" value="${member.id}" />
 											<c:choose>
 												<c:when test="${member.isEnabled}">
@@ -64,7 +64,7 @@
 													<bean:message key="members.searchEnable" />
 												</c:otherwise>
 											</c:choose>
-										</html:link>
+										</s:a>
 									</c:when>
 									<c:when test="${ member.group.isEnabled == false }">
 										<bean:message key="members.groupDisable" />
