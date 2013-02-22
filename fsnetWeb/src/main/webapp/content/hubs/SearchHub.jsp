@@ -1,28 +1,28 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
-<bean:define id="searchMessage">
-	<bean:message key="hubs.placeholder.search" />
-</bean:define>
+<s:set name="searchMessage">
+	<s:text name="hubs.placeholder.search" />
+</s:set>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="hubs.title.search" />
+		<s:text name="hubs.title.search" />
 	</legend>
 
 	<table id="SearchHub"
 		class="inLineTable tableStyle">
-		<html:form action="/SearchHub" method="GET">
+		<s:form action="/SearchHub" method="GET">
 			<tr>
-				<td><html:hidden property="communityId"
-						value="${param.communityId}" /> <html:text property="searchText"
+				<td><s:hidden name="communityId"
+						value="%{param.communityId}" />
+					<s:textfield property="searchText"
 						styleId="searchTexte" /> <ili:placeHolder id="searchTexte"
-						value="${searchMessage}" /> <html:submit styleClass="btn btn-inverse">
-						<bean:message key="hubs.button.search" />
-					</html:submit></td>
+						value="${searchMessage}" /> <s:submit styleClass="btn btn-inverse">
+						<s:text name="hubs.button.search" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>

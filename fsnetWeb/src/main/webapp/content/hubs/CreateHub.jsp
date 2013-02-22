@@ -1,37 +1,30 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="hubs.title.create" />
+		<s:text name="hubs.title.create" />
 	</legend>
-	<table id="CreateHub"
-		class="inLineTable tableStyle">
-		<html:form action="/CreateHub">
-			<html:hidden property="communityId" value="${param.communityId}" />
+	<table id="CreateHub" class="inLineTable tableStyle">
+		<s:form action="/CreateHub">
+			<s:hidden name="communityId" value="%{param.communityId}" />
 			<tr>
-				<td><label for="hubName"><bean:message
-							key="hubs.form.name" /></label></td>
-				<td><html:text property="hubName" styleId="hubName" /> <logic:messagesPresent
-						property="hubName">
-						<div class="errorMessage">
-							<html:errors property="hubName" />
-						</div>
-					</logic:messagesPresent></td>
+				<td><label for="hubName"> <s:text name="hubs.form.name" />
+				</label></td>
+				<td><s:text name="hubName" var="hubName" /></td>
 			</tr>
 			<tr>
 				<td colspan="2"><c:import url="/InterestCheckBoxes.do" /></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit styleClass="btn btn-inverse">
-						<bean:message key="hubs.button.create" />
-					</html:submit></td>
+				<td colspan="2" class="tableButton"><s:submit
+						styleClass="btn btn-inverse">
+						<s:text name="hubs.button.create" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
 <div class="clear"></div>
