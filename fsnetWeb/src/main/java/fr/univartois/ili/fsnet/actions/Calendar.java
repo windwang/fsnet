@@ -14,14 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
-<<<<<<< HEAD
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.ActionSupport;
-=======
 import com.opensymphony.xwork2.ActionSupport;
->>>>>>> branch 'struts' of https://code.google.com/p/fsnet
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.DateUtils;
