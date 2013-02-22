@@ -1,5 +1,3 @@
-<%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 <h2>
 	<s:text name="communities.left.my" />

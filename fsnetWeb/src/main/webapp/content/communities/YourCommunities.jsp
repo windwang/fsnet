@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
@@ -11,7 +9,7 @@
 	</legend>
 
 	<c:choose>
-		<c:when test="%{not empty requestScope.myCommunities}">
+		<c:when test="${not empty requestScope.myCommunities}">
 			<div class="space"></div>
 			<script type="text/javascript">
 				$(document).ready(
@@ -67,7 +65,7 @@
 						</tr>
 					</tfoot>
 					<tbody>
-						<c:forEach var="community" items="%{requestScope.myCommunities}">
+						<c:forEach var="community" items="${requestScope.myCommunities}">
 							<tr class="content">
 								<td>
 									<s:checkboxlist list="selectedCommunities" value="%{community.id}" />				

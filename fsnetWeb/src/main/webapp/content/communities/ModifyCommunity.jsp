@@ -1,9 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
-<c:if test="%{not empty requestScope.myCommunities}">
+<c:if test="${not empty requestScope.myCommunities}">
 	<fieldset class="fieldsetCadre">
 		<legend>
 			<s:text name="commmunities.title.modify" />
