@@ -1,9 +1,6 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
@@ -11,32 +8,32 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="topics.title.createMessage" />
+		<s:text name="topics.title.createMessage" />
 	</legend>
 
 	<table class="inLineTable tableStyle">
-		<html:form action="/CreateTopicMessage">
+		<s:form action="/CreateTopicMessage">
 			<tr>
-				<td><s:hidden name="topicId" value="${topicId}" /> <label
-					for="messageDescription"><bean:message key="topics.form.description" /></label></td>
-				<td><html:textarea property="messageDescription"
+
+				<td><s:hidden property="topicId" value="%{topicId}" /> <label
+					for="messageDescription"><s:text
+							name="topics.form.description" /></label></td>
+				<td><s:textarea property="messageDescription"
+
 						styleId="messageDescription" styleClass="mceTextArea"
 						style="width: 100%;">
-					</html:textarea>
-					<div class="errorMessage">
-						<html:errors property="messageDescription" />
-					</div></td>
+					</s:textarea></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="alignRight"><html:submit
+				<td colspan="2" class="alignRight"><s:submit
 						styleClass="btn btn-inverse">
-						<bean:message key="topics.button.createMessage" />
-					</html:submit></td>
+						<s:text name="topics.button.createMessage" />
+					</s:submit></td>
 			</tr>
 
 			<tr>
-				<td><bean:message key="topics.lastmessages" /></td>
+				<td><s:text name="topics.lastmessages" /></td>
 				<td><c:forEach var="message" items="${lastMessages}">
 						<tr>
 							<td colspan="2">
@@ -48,6 +45,6 @@
 						</tr>
 					</c:forEach></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>

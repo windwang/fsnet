@@ -14,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
@@ -28,11 +27,12 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.opensymphony.xwork2.ActionSupport;
 
-import fr.univartois.ili.fsnet.actions.utils.TableHeader;
 import fr.univartois.ili.fsnet.actions.utils.HeaderFooter;
+import fr.univartois.ili.fsnet.actions.utils.TableHeader;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.facade.CvFacade;
+//code.google.com/p/fsnet
 
 /**
  * @author Aich ayoub
@@ -339,8 +339,8 @@ public class GenerateCv extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String download(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+
+	public String download(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException {
 
 		long id = Integer.parseInt(request.getParameter("idCv"));
 		CvFacade cvFacade = new CvFacade(em);

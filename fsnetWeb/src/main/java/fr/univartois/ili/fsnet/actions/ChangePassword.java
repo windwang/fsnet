@@ -10,10 +10,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.struts.action.Action;
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.DynaActionForm;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.security.Encryption;
@@ -34,7 +33,7 @@ public class ChangePassword extends Action{
 
 	
 	@Override
-	public final ActionForward execute(ActionMapping mapping, ActionForm form,
+	public final String execute(
 			HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException{
         EntityManager em = PersistenceProvider.createEntityManager();
         SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -49,7 +48,6 @@ public class ChangePassword extends Action{
             return mapping.getInputForward();
         }
 		ProfileFacade pf = new ProfileFacade(em);
-        DynaActionForm cpf = (DynaActionForm) form;   			//NOSONAR
         em.getTransaction().begin();
         pf.changePassword(user,cpf.getString(OLD_PASSWORD_ATTRIBUTE_NAME) , cpf.getString("newPassword"));
         em.getTransaction().commit();
