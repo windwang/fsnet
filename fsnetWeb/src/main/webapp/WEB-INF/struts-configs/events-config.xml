@@ -11,13 +11,13 @@
 
 		<action name="CreateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="create">
-			<result name="success">/Events.do</result>
+			<result name="success" type="redirect">/Events.do</result>
 			<result name="input">/DisplayCreateEvent.do</result>
 			<result name="error">/Events.do</result>
 		</action>
 		<action name="DisplayCreateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="displayCreateEvent">
-			<result name="success">CreateEvent</result>
+			<result name="success" type="redirect">CreateEvent</result>
 			<result name="error">/Events.do"</result>
 		</action>
 
@@ -28,7 +28,7 @@
 		</action>
 		<action name="DisplayUpdateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="displayToModify">
-			<result name="success"> UpdateEvent	</result>
+			<result name="success">UpdateEvent</result>
 			<result name="input">/Events.do	</result>
 		</action>
 
@@ -53,14 +53,14 @@
 		<action name="SubscribeEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="subscribe">
 			<result name="error">/Events.do</result>
-			<result name="success">/DisplayEvent.do</result>
+			<result name="success" type="redirect">/DisplayEvent.do</result>
 			<result name="input">/Events.do</result>
 		</action>
 
 		<action name="UnsubscribeEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="unsubscribe">
 			<result name="error">/Events.do</result>
-			<result name="success">/DisplayEvent.do</result>
+			<result name="success" type="redirect">/DisplayEvent.do</result>
 			<result name="input">/Events.do</result>
 		</action>
 

@@ -12,7 +12,7 @@
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations">
 
 			<result name="success">/DisplayAConsultation</result>
-			<result name="input">/CreateConsultation</result>
+			<result name="failed" type="redirect">/CreateConsultation</result>
 			<result name="error">/SearchConsultation.do</result>
 		</action>
 
@@ -32,7 +32,7 @@
 
 		<action name="DisplayAConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="displayAConsultation">
-			<result name="success">/DisplayAConsultation</result>
+			<result name="success" type="redirect">/DisplayAConsultation</result>
 			<result name="error">/SearchConsultation.do"</result>
 		</action>
 
@@ -66,14 +66,14 @@
 
 		<action name="DeleteAConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="deleteConsultation">
-			<result name="success">/SearchConsultation.do</result>
+			<result name="success" type="redirect">/SearchConsultation.do</result>
 			<result name="input">/SearchConsultation.do</result>
 		</action>
 
 
 		<action name="SearchConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="searchConsultation">
-			<result name="success">/DisplayConsultations.do</result>
+			<result name="success" type="redirect">/DisplayConsultations.do</result>
 			<result name="input">/DisplayConsultations.do</result>
 		</action>
 
