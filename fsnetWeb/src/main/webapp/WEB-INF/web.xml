@@ -9,12 +9,6 @@
 		<welcome-file>Authenticate.act</welcome-file>
 	</welcome-file-list>
 
-	<context-param>
-		<param-name>
-			org.apache.tiles.impl.BasicTilesContainer.DEFINITIONS_CONFIG</param-name>
-		<param-value>/WEB-INF/tiles.xml</param-value>
-	</context-param>
-
 	<servlet>
 		<servlet-name>Authenticate</servlet-name>
 		<servlet-class>fr.univartois.ili.fsnet.auth.Authenticate</servlet-class>
@@ -28,6 +22,11 @@
 	<listener>
 		<listener-class>org.apache.struts2.tiles.StrutsTilesListener</listener-class>
 	</listener>
+	
+	<context-param>
+		<param-name>tilesDefinitions</param-name>
+		<param-value>/WEB-INF/tiles-defs.xml</param-value>
+	</context-param>
 
 	<filter>
 		<filter-name>struts2</filter-name>

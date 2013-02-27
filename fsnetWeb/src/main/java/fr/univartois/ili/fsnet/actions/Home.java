@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.mapper.ActionMapping;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -161,9 +162,10 @@ public class Home extends ActionSupport{
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String doDashboard(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String doDashboard()
+			throws Exception{
 		EntityManager em = PersistenceProvider.createEntityManager();
+		HttpServletRequest request = ServletActionContext.getRequest();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 
