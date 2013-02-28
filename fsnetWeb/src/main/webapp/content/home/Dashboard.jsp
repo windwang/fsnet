@@ -81,8 +81,7 @@
 							socialEntity="${pv.visitor}" /></td>
 					<td><ili:getSocialEntityInfos socialEntity="${pv.visitor}" />
 					</td>
-					<td><s:property value="pv" default="lastVisite"
-							formatKey="date.format" /></td>
+					<td><s:property value="pv" default="lastVisite"/></td>
 				</tr>
 			</c:forEach>
 
@@ -208,7 +207,7 @@
                     </s:a></td>
 					<td class="tableButton"><s:set id="interkey" name="triple"
 							var="interaction" /> <s:property value="interkey"
-							default="lastModified" format="dd/MM/yyyy" /></td>
+							default="lastModified" /></td>
 				</tr>
 
 			</c:forEach>
