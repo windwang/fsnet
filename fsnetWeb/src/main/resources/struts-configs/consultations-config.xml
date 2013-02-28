@@ -17,10 +17,9 @@
 		</action>
 
 
-		<action name="DisplayCreateConsultation" class="org.apache.struts.actions.ForwardAction"
-			method="CreateConsultation" />
+		<action name="DisplayCreateConsultation" class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="CreateConsultation" />
 
-		<action class="org.apache.struts.actions.ForwardAction" name="Consultations"
+		<action class="fr.univartois.ili.fsnet.actions.ManageConsultations" name="Consultations"
 			method="SearchConsultation" />
 
 

@@ -122,9 +122,6 @@ white
 100%);
 }
 </style>
-
-
-
 </head>
 <body>
 	<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
@@ -133,12 +130,11 @@ white
 	<div class="clear"></div>
 	<div id="wrapBody">
 		<div class="row-fluid">
-			<div class="span2 fixed">
-				
+			<div class="span2 fixed">		
 					<tiles:insertAttribute name="logo" />
 					<div id="left" class="cadreDivMenuTop">
 						<h2>
-							<s:text name="%{pageTitle}" />
+							<s:property value="%{pageTitle}"/>
 						</h2>
 						<tiles:insertAttribute name="left" />
 						<tiles:insertAttribute name="loggedUsers" />
@@ -152,6 +148,5 @@ white
 		<div style="clear: both"></div>
 	</div>
 	<tiles:insertAttribute name="footer" />
-
 </body>
 </html>

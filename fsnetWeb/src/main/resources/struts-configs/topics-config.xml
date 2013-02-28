@@ -14,7 +14,7 @@
 			<result name="input">DisplayCreateTopic.do</result>
 		</action>
 
-		<action name="DisplayCreateTopic" class="org.apache.struts.actions.ForwardAction"
+		<action name="DisplayCreateTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="CreateTopic">
 			<result name="input">UnauthorizedOperationException</result>
 		</action>

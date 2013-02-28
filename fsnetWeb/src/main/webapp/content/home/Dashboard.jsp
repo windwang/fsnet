@@ -120,8 +120,7 @@
 							socialEntity="${pv.visitor}" /></td>
 					<td><ili:getSocialEntityInfos socialEntity="${pv.visitor}" />
 					</td>
-					<td><s:property value="pv" default="lastVisite"
-							formatKey="date.format" /></td>
+					<td><s:property value="pv" default="lastVisite"/></td>
 				</tr>
 			</c:forEach>
 
@@ -222,3 +221,4 @@
 </div>
 </div>
 </div>
+

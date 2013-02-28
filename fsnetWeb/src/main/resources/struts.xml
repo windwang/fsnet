@@ -32,9 +32,12 @@
    <constant name="struts.action.extension" value="do"/>
    
    <package name="main" extends="struts-default">
+   	<result-types>
+    	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+    </result-types>
 	<action name="Home" class="fr.univartois.ili.fsnet.actions.Home"
 			method="doDashboard">
-			<result name="success" >/Home</result>
+			<result name="success" type="tiles">Home</result>
 	</action>	
    </package>
 
