@@ -10,17 +10,14 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.ActionSupport;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
-import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 /**
  * @author FSNet
@@ -30,6 +27,8 @@ public class ManageMembers extends ActionSupport {
 
 
 	
+	private String searchText;
+
 	/**
 	 * 
 	 * @param mapping
@@ -51,8 +50,6 @@ public class ManageMembers extends ActionSupport {
 		Set<SocialEntity> resultAsked = null;
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-
-		String searchText = (String) dynaForm.getString("searchText");
 
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
@@ -88,6 +85,16 @@ public class ManageMembers extends ActionSupport {
 		request.setAttribute("membersRequestedResult", resultRequested);
 		request.setAttribute("membersAskedResult", resultAsked);
 		
-		return mapping.findForward("success");
+		return SUCCESS;
 	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+	
+	
 }
