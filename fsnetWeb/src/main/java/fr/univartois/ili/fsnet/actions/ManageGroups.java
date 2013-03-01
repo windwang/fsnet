@@ -1,5 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -14,15 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.actions.ActionSupport;
-import org.apache.struts.upload.FormFile;
-import org.apache.struts.util.MessageResources;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
 import fr.univartois.ili.fsnet.actions.utils.PictureType;
@@ -41,19 +35,32 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  */
 public class ManageGroups extends ActionSupport implements CrudAction {
 
-	private static final String GROUP_NAME_FORM_FIELD_NAME = "name";
-	private static final String GROUP_DESCRIPTION_FORM_FIELD_NAME = "description";
-	private static final String GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME = "socialEntityId";
-	private static final String GROUP_PARENT_ID_FORM_FIELD_NAME = "parentId";
-	private static final String GROUP_MEMBER_LIST_FORM_FIELD_NAME = "memberListRight";
-	private static final String GROUP_RIGHT_LIST_FORM_FIELD_NAME = "rigthListRight";
-	private static final String GROUP_ID_GROUP_ATTRIBUTE_NAME = "idGroup";
-	private static final String GROUP_ATTRIBUTE_COLOR = "color";
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
+	private static final String GROUP_NAME_FORM_FIELD_NAME = "name";
+	
+	private static final String GROUP_ID_GROUP_ATTRIBUTE_NAME = "idGroup";
+	
 	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String FAILED_ACTION_NAME = "failed";
 	private static final String TO_HOME_ACTION_NAME = "toHome";
 
+	private String name;
+	private String description;
+	private int socialEntityId;
+	private int parentId;
+	private String[] memberListRight;
+	private String[] rigthListRight;
+	private String[] memberListLeft;
+	private int id;
+	private String color;
+	private File Logo;//The actual file
+	private String LogoContentType; //The content type of the file
+	private String LogoFileName; //The uploaded file name
+	
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -64,8 +71,7 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
+	public String create(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		HttpSession session = request.getSession(true);
@@ -77,38 +83,20 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 
-		if (form != null) {
-
-			String name = (String) dynaForm.get(GROUP_NAME_FORM_FIELD_NAME);
-			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
-			String description = (String) dynaForm
-					.get(GROUP_DESCRIPTION_FORM_FIELD_NAME);
-			dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
-			String parent = (String) dynaForm
-					.get(GROUP_PARENT_ID_FORM_FIELD_NAME);
-			dynaForm.set(GROUP_PARENT_ID_FORM_FIELD_NAME, "");
-			String owner = (String) dynaForm
-					.get(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME);
-			dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
-			String[] membersAccepted = (String[]) dynaForm
-					.get(GROUP_MEMBER_LIST_FORM_FIELD_NAME);
-			String[] rigthsAccepted = (String[]) dynaForm
-					.get(GROUP_RIGHT_LIST_FORM_FIELD_NAME);
-
+		if (socialEntityId >=0 && parentId >=0 && memberListRight != null && rigthListRight != null) {
 			try {
 				SocialEntity masterGroup = socialEntityFacade
-						.getSocialEntity(Integer.valueOf(owner));
-				if (!parent.equals("")) {
-					parentGroup = socialGroupFacade.getSocialGroup(Integer
-							.parseInt(parent));
+						.getSocialEntity(socialEntityId);
+				if (parentId >= 0) {
+					parentGroup = socialGroupFacade.getSocialGroup(parentId);
 				}
 				List<SocialElement> socialElements = createSocialElement(em,
-						membersAccepted, masterGroup, parentGroup);
+						memberListRight, masterGroup, parentGroup);
 
 				SocialGroup socialGroup = socialGroupFacade.createSocialGroup(
 						masterGroup, name, description, socialElements);
 
-				socialGroup.addRights(getAcceptedRigth(rigthsAccepted));
+				socialGroup.addRights(getAcceptedRigth(rigthListRight));
 
 				em.getTransaction().begin();
 				em.persist(socialGroup);
@@ -118,17 +106,14 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 				}
 				em.getTransaction().commit();
 
-				dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
-				dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
-				dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
+				name = "";
+				description= "";
+				socialEntityId = -1;
 			} catch (RollbackException e) {
-				ActionErrors errors = new ActionErrors();
-				errors.add(GROUP_NAME_FORM_FIELD_NAME, new ActionMessage(
-						"groups.name.exists"));
-				saveErrors(request, errors);
-				return mapping.findForward(FAILED_ACTION_NAME);
+				addFieldError(GROUP_NAME_FORM_FIELD_NAME, "groups.name.exists");
+				return FAILED_ACTION_NAME;
 			} catch (NumberFormatException e) {
-				return mapping.findForward(FAILED_ACTION_NAME);
+				return FAILED_ACTION_NAME;
 			} finally {
 				em.close();
 			}
@@ -143,12 +128,8 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			request.setAttribute("allGroups", allGroups);
 		}
 
-		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
-				request.getLocale(), "groups.success.on.create"));
-
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		request.setAttribute(SUCCES_ACTION_NAME, getText("groups.success.on.create"));
+		return SUCCESS;
 	}
 
 	/*
@@ -173,28 +154,14 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 
-			Integer socialGroupId = Integer.parseInt(dynaForm.getString("id"));
-			String name = (String) dynaForm.get(GROUP_NAME_FORM_FIELD_NAME);
-			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
-			String description = (String) dynaForm.get(GROUP_DESCRIPTION_FORM_FIELD_NAME);
-			dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
-			String owner = (String) dynaForm.get(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME);
-			dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
-			String color = (String) dynaForm.get(GROUP_ATTRIBUTE_COLOR);
-			dynaForm.set(GROUP_ATTRIBUTE_COLOR, "");
-			
-			String[] membersAccepted = (String[]) dynaForm.get(GROUP_MEMBER_LIST_FORM_FIELD_NAME);
-			String[] membersRefused = (String[]) dynaForm.get("memberListLeft");
-			String[] rigthsAccepted = (String[]) dynaForm.get(GROUP_RIGHT_LIST_FORM_FIELD_NAME);
+			SocialGroup socialGroup = socialGroupFacade.getSocialGroup(id);
 
-			SocialGroup socialGroup = socialGroupFacade.getSocialGroup(socialGroupId);
-
-			SocialEntity masterGroup = socialEntityFacade.getSocialEntity(Integer.valueOf(owner));
+			SocialEntity masterGroup = socialEntityFacade.getSocialEntity(Integer.valueOf(socialEntityId));
 			SocialEntity oldMasterGroup = socialGroup.getMasterGroup();
 
-			List<SocialElement> acceptedSocialEntity = createObjectSocialEntity(em, membersAccepted);
+			List<SocialElement> acceptedSocialEntity = createObjectSocialEntity(em, memberListRight);
 
-			List<SocialElement> refusedSocialEntity = createObjectSocialEntity(em, membersRefused);
+			List<SocialElement> refusedSocialEntity = createObjectSocialEntity(em, memberListLeft);
 
 			SocialGroup oldSocialGroup22 = masterGroup.getGroup();
 
@@ -208,7 +175,7 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			socialGroup.setName(name);
 			socialGroup.setDescription(description);
 			socialGroup.setMasterGroup(masterGroup);
-			socialGroup.setRights(getAcceptedRigth(rigthsAccepted));
+			socialGroup.setRights(getAcceptedRigth(rigthListRight));
 			socialGroup.removeAllSocialElements(refusedSocialEntity);
 			socialGroup.addAllSocialElements(acceptedSocialEntity);
 			socialGroup.addSocialElement(masterGroup);
@@ -221,31 +188,26 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			request.getSession(true).removeAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 			if (!oldMasterGroup.equals(masterGroup)) {
 				request.getSession().setAttribute("isMasterGroup", false);
-				return mapping.findForward(TO_HOME_ACTION_NAME);
+				return TO_HOME_ACTION_NAME;
 			}
-
-			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
-			dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
-			dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
-
-			MessageResources bundle = MessageResources
-					.getMessageResources("FSneti18n");
-			request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
-					request.getLocale(), "groups.success.on.modify"));
 			
-			if(user.getGroup().getId() == socialGroupId){
+			request.setAttribute(SUCCES_ACTION_NAME, getText("groups.success.on.modify"));
+			
+			if(user.getGroup().getId() == id){
 				request.getSession().setAttribute("color", color);
 			}
 			
-			return mapping.findForward(SUCCES_ACTION_NAME);
+			name = "";
+			description = "";
+			socialEntityId = -1;
+			color="";
+			
+			return SUCCESS;
 		} catch (RollbackException e) {
-			ActionErrors errors = new ActionErrors();
-			errors.add(GROUP_NAME_FORM_FIELD_NAME, new ActionMessage(
-					"groups.name.exists"));
-			saveErrors(request, errors);
-			return mapping.findForward(FAILED_ACTION_NAME);
+			addFieldError(GROUP_NAME_FORM_FIELD_NAME, "groups.name.exists");
+			return FAILED_ACTION_NAME;
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
@@ -276,8 +238,7 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String switchState(
-			HttpServletRequest request, HttpServletResponse response)
+	public String switchState(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -289,12 +250,12 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			socialGroupFacade.switchState(socialGroupId);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -307,8 +268,7 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
+	public String display(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -325,18 +285,16 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 
-			String id = request.getParameter(GROUP_ID_GROUP_ATTRIBUTE_NAME);
+			String idG = request.getParameter(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 
-			if (id == null) {
-				id = (String) session
-						.getAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
+			if (idG== null) {
+				idG= (String) session.getAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 			} else {
 				session.setAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME, id);
 			}
 
-			Integer idGroup;
-			idGroup = Integer.valueOf(id);
-			SocialGroup group = socialGroupFacade.getSocialGroup(idGroup);
+			id=Integer.valueOf(idG);
+			SocialGroup group = socialGroupFacade.getSocialGroup(id);
 			SocialEntity masterGroup = group.getMasterGroup();
 			SocialGroup parentGroup = group.getGroup();
 
@@ -353,11 +311,9 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			}
 
 			refusedRigths.removeAll(acceptedRigths);
-
-			dynaForm.set("id", id);
-			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, group.getName());
-			dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME,
-					group.getDescription());
+			
+			name= group.getName();
+			description=group.getDescription();
 			if (parentGroup != null) {
 				request.setAttribute("nameParent", parentGroup.getName());
 			}
@@ -371,9 +327,9 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			request.setAttribute("refusedRigths", refusedRigths);
 			request.setAttribute("acceptedRigths", acceptedRigths);
 
-			return mapping.findForward(SUCCES_ACTION_NAME);
+			return SUCCESS;
 		} catch (NumberFormatException e) {
-			return mapping.findForward(TO_HOME_ACTION_NAME);
+			return TO_HOME_ACTION_NAME;
 		} finally {
 			em.close();
 		}
@@ -489,9 +445,9 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 					.getAllChildGroups(socialGroup);
 
 			request.setAttribute("groupsList", resultOthersList);
-			return mapping.findForward(SUCCES_ACTION_NAME);
+			return SUCCESS;
 		} catch (NullPointerException e) {
-			return mapping.findForward(TO_HOME_ACTION_NAME);
+			return TO_HOME_ACTION_NAME;
 		}
 	}
 
@@ -530,8 +486,7 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String displayInformationGroup(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String displayInformationGroup(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
@@ -567,7 +522,7 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -575,9 +530,7 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 	 * @param key
 	 */
 	private void sendPictureError(HttpServletRequest request, String key) {
-		ActionErrors errors = new ActionErrors();
-		errors.add("Logo", new ActionMessage(key));
-		saveErrors(request, errors);
+		addFieldError("Logo", getText(key));
 	}
 
 	private static final int MAX_PICTURE_SIZE = 500000;
@@ -591,24 +544,22 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String changeLogo(
-			HttpServletRequest request, HttpServletResponse response)
+	public String changeLogo(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
 				Right.MODIFY_PICTURE)) {
-			return new ActionRedirect(mapping.findForward("unauthorized"));
+			return "unauthorized";
 		}
 
 		int groupId = UserUtils.getHisGroup(request).getId();
-		FormFile file = (FormFile) dynaForm.get("Logo");
 		
-		if (file.getFileData().length != 0) {
+		if (Logo.length()!= 0) {
 			PictureType pictureType = null;
 			for (PictureType pt : PictureType.values()) {
-				if (pt.getMimeType().equals(file.getContentType())) {
+				if (pt.getMimeType().equals(LogoContentType)) {
 					pictureType = pt;
 					break;
 				}
@@ -616,13 +567,13 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			
 			if (pictureType != null) {
 
-				if (file.getFileSize() > MAX_PICTURE_SIZE) {
+				if (Logo.length() > MAX_PICTURE_SIZE) {
 					sendPictureError(request, "groups.logo.maxsize");
-					return mapping.findForward(SUCCES_ACTION_NAME);
+					return SUCCESS;
 				}
 
 				try {
-					ImageManager.createLogo(groupId, file.getInputStream(),
+					ImageManager.createLogo(groupId, new FileInputStream(Logo),
 							pictureType);
 				} catch (FileNotFoundException e) {
 					sendPictureError(request, "groups.logo.fatal");
@@ -636,6 +587,104 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 			}
 		}
 		
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
+	public int getSocialEntityId() {
+		return socialEntityId;
+	}
+
+	public void setSocialEntityId(int socialEntityId) {
+		this.socialEntityId = socialEntityId;
+	}
+
+	public int getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(int parentId) {
+		this.parentId = parentId;
+	}
+
+	public String[] getMemberListRight() {
+		return memberListRight;
+	}
+
+	public void setMemberListRight(String[] memberListRight) {
+		this.memberListRight = memberListRight;
+	}
+
+	public String[] getRigthListRight() {
+		return rigthListRight;
+	}
+
+	public void setRigthListRight(String[] rigthListRight) {
+		this.rigthListRight = rigthListRight;
+	}
+
+	public String[] getMemberListLeft() {
+		return memberListLeft;
+	}
+
+	public void setMemberListLeft(String[] memberListLeft) {
+		this.memberListLeft = memberListLeft;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getColor() {
+		return color;
+	}
+
+	public void setColor(String color) {
+		this.color = color;
+	}
+
+	public File getLogo() {
+		return Logo;
+	}
+
+	public void setLogo(File logo) {
+		Logo = logo;
+	}
+
+	public String getLogoContentType() {
+		return LogoContentType;
+	}
+
+	public void setLogoContentType(String logoContentType) {
+		LogoContentType = logoContentType;
+	}
+
+	public String getLogoFileName() {
+		return LogoFileName;
+	}
+
+	public void setLogoFileName(String logoFileName) {
+		LogoFileName = logoFileName;
+	}
+	
+	
 }

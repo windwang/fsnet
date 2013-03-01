@@ -7,35 +7,35 @@
 <struts>
 
 	<package name="groups" extends="struts-default">
-		<action name="/CreateGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+		<action name="CreateGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			method="create">
 			<result name="input">/ErrorGroups.do</result>
 			<result name="success" >/SearchGroup.do" </result>
 			<result name="failed">CreateGroup</result>
 		</action>
 
-		<action name="/Groups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+		<action name="Groups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			method="create">
 			<result name="success">CreateGroup</result>
 		</action>
 
-		<action name="/ErrorGroups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+		<action name="ErrorGroups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			method="create">
 			<result name="success">CreateGroup</result>
 		</action>
 
 
-		<action name="/DisplayGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+		<action name="DisplayGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			 method="display" >
 			<result name="success">DisplayForModifyGroup</result>
 		</action>
 
-		<action name="/ErrorModifyGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+		<action name="ErrorModifyGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			 method="display">
 			<result name="success">DisplayForModifyGroup</result>
 		</action>
 
-		<action name="/ModifyGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
+		<action name="ModifyGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			 method="modify">
 			<result name="input">/ErrorGroups.do</result>
 			<result name="toHome">/Home.do</result>
@@ -43,27 +43,27 @@
 			<result name="failed">/ErrorModifyGroup.do</result>
 		</action>
 
-		<action name="/SwitchStateGroup" 
+		<action name="SwitchStateGroup" 
 			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="switchState">
 			<result name="success">/SearchGroup.do</result>
 			<result name="failed">/SearchGroup.do</result>
 		</action>
 
-		<action name="/SearchGroup" 
+		<action name="SearchGroup" 
 			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="search">
 			<result name="success">SearchGroups</result>
 			<result name="toHome">/Home.do</result>
 		</action>
 
-		<action name="/DisplayInformationGroup" 
+		<action name="DisplayInformationGroup" 
 			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="displayInformationGroup">
 			<result name="success">DisplayInformationGroup</result>
 		</action>
-		<action name="/ChangeLogo"
+		<action name="ChangeLogo"
 			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="changeLogo"
 			>
 			<result name="success">/DisplayGroup.do</result>
-			<result name="unauthorized">/DisplayGroup.do</result>
+			<result name="unauthorized" type="redirect">/DisplayGroup.do</result>
 		</action>
 
 	</package>
