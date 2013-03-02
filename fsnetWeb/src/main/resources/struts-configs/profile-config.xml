@@ -17,7 +17,7 @@
 		<action name="ModifyProfile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="modify">
 			<result name="input">/Profile.do</result>
 			<result name="success">/DisplayProfile.do</result>
-			<result name="unauthorized">/Profile.do</result>
+			<result name="unauthorized" type="redirect">/Profile.do</result>
 		</action>
 
 		<action name="Profile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="displayToModify">
@@ -32,12 +32,12 @@
 		<action name="ChangePhoto" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="changePhoto">
 			<result name="input">/Profile.do</result>
 			<result name="success">/Profile.do</result>
-			<result name="unauthorized">/Profile.do</result>
+			<result name="unauthorized" type="redirect">/Profile.do</result>
 		</action>
 
 		<action name="DeletePhoto" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="deletePhoto">
 			<result name="success">/Profile.do</result>
-			<result name="unauthorized">/Profile.do</result>
+			<result name="unauthorized" type="redirect">/Profile.do</result>
 		</action>
 	</package>
 </struts>
