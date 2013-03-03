@@ -17,15 +17,12 @@ import java.util.Map;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.components.ActionMessage;
-import org.apache.struts2.dispatcher.mapper.ActionMapping;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -36,7 +33,6 @@ import fr.univartois.ili.fsnet.actions.utils.PictureType;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.auth.Authenticate;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
-import fr.univartois.ili.fsnet.commons.utils.DateUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.core.LoggedUsersContainer;
 import fr.univartois.ili.fsnet.entities.Address;
@@ -58,6 +54,10 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  */
 public class ManageProfile extends ActionSupport implements CrudAction,ServletRequestAware {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final int MAX_PICTURE_SIZE = 500000;
 	/**
 	 * watched profile variable session name
@@ -68,7 +68,6 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 
 	private static final String DATE_OF_BIRTH_FORM_FIELD_NAME = "dateOfBirth";
 	private static final String MAIL_FORM_FIELD_NAME = "mail";
-	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String IS_MASTER_GROUP_ATTRIBUTE_NAME = "isMasterGroup";
 	private static final String IS_GROUP_RESPONSIBLE_ATTRIBUTE_NAME = "isGroupResponsible";
 	private static final String ERROR_UPDATE_ATTRIBUTE_STRING = "updateProfile.error.photo.fatal";
@@ -83,7 +82,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	private String phone;
 	private String job;
 	private Date dateOfBirth;
-	private int id;
+	private int id=-1;
 	private File photo;
 	private String photoContentType;
 	private String photoUrl;
