@@ -1,22 +1,20 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="privatemessages.inbox" />
+		<s:text name="privatemessages.inbox" />
 	</legend>
 
 	<c:choose>
 		<c:when test="${empty requestScope.inBoxMessages}">
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="privatemessages.nomessages" /></td>
+					<td><s:text name="privatemessages.nomessages" /></td>
 				</tr>
 			</table>
 		</c:when>
@@ -60,26 +58,26 @@
 							});
 						});
 			</script>
-			<html:form action="/DeleteMultiMessages?fromPage=in">
+			<s:form action="/DeleteMultiMessages?fromPage=in">
 				<table id="tableinbox"
 					class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
 								name="selected" class="checkThemAll1" /></th>
-							<th><bean:message key="tableheader.from" /></th>
-							<th><bean:message key="members.firstName" /></th>
-							<th><bean:message key="members.name" /></th>
-							<th><bean:message key="tableheader.subject" /></th>
-							<th><bean:message key="tableheader.date" /></th>
+							<th><s:text name="tableheader.from" /></th>
+							<th><s:text name="members.firstName" /></th>
+							<th><s:text name="members.name" /></th>
+							<th><s:text name="tableheader.subject" /></th>
+							<th><s:text name="tableheader.date" /></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="6"><html:submit
+							<td colspan="6"><s:submit
 									styleClass="btn btn-inverse">
-									<bean:message key="privatemessages.delete" />
-								</html:submit></td>
+									<s:text name="privatemessages.delete" />
+								</s:submit></td>
 						</tr>
 					</tfoot>
 					
@@ -91,15 +89,15 @@
 											value="${message.id}" /></td>
 									<td><ili:getMiniature socialEntity="${message.from}" /></td>
 									<td style="width: 20%"><s:a action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
+											<s:param name="messageId" value="%{message.id}" />
 											<span>${message.from.firstName}</span>
 										</s:a></td>
 									<td style="width: 20%"><s:a action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
+											<s:param name="messageId" value="%{message.id}" />
 											<span>${message.from.name}</span>
 										</s:a></td>
 									<td style="width: 60%"><s:a action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
+											<s:param name="messageId" value="%{message.id}" />
 											<span>${fn:substring(message.subject, 0,20)} : </span>
 											<span style="color: gray"> <ili:substring
 													beginIndex="0" endIndex="20">
@@ -114,15 +112,15 @@
 											value="${message.id}" /></td>
 									<td><ili:getMiniature socialEntity="${message.from}" /></td>
 									<td style="width: 20%"><s:a action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
+											<s:param name="messageId" value="%{message.id}" />
 											<span>${message.from.firstName}</span>
 										</s:a></td>
 									<td style="width: 20%"><s:a action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
+											<s:param name="messageId" value="%{message.id}" />
 											<span>${message.from.name}</span>
 										</s:a></td>
 									<td style="width: 60%"><s:a action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
+											<s:param name="messageId" value="%{message.id}" />
 											<span>${fn:substring(message.subject, 0,20)} : </span>
 											<span style="color: gray"> <ili:substring
 													beginIndex="0" endIndex="20">
@@ -138,7 +136,7 @@
 				</table>
 				<br />
 
-			</html:form>
+			</s:form>
 		</c:otherwise>
 	</c:choose>
 </fieldset>
