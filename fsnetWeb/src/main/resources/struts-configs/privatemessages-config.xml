@@ -6,14 +6,17 @@
 <struts>
 
 	<package name="privatemessages" extends="struts-default">
+		<result-types>
+    		<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
 		<action name="Inbox"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="inbox">
-			<result name="success">DisplayInbox</result>
+			<result name="success" type="tiles">DisplayInbox</result>
 		</action>
 
 		<action name="Outbox"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="outbox">
-			<result name="success">DisplayOutbox</result>
+			<result name="success" type="tiles">DisplayOutbox</result>
 		</action>
 
 		<action name="DisplayMessage"

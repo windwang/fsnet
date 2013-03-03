@@ -13,6 +13,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -31,7 +34,7 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
 public class ManagePrivateMessages extends ActionSupport implements
-CrudAction {
+CrudAction,ServletRequestAware,ServletResponseAware {
 
 	/**
 	 * 
@@ -42,6 +45,9 @@ CrudAction {
 	private String messageBody;
 	private int messageId;
 	private String[] selectedMessages;
+	
+	private HttpServletRequest request;
+	private HttpServletResponse response;
 
 	/*
 	 * (non-Javadoc)
@@ -52,8 +58,8 @@ CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create()
+			throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
@@ -109,7 +115,7 @@ CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(HttpServletRequest request, HttpServletResponse response)
+	public String modify()
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
@@ -124,8 +130,8 @@ CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		String fromPage = request.getParameter("fromPage");
@@ -236,8 +242,8 @@ CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String inbox(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String inbox()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
@@ -271,8 +277,8 @@ CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String outbox(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String outbox()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
@@ -299,8 +305,8 @@ CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search()
+			throws Exception {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -314,8 +320,8 @@ CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display()
+			throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
@@ -474,6 +480,16 @@ CrudAction {
 
 	public void setSelectedMessages(String[] selectedMessages) {
 		this.selectedMessages = selectedMessages;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request=request;		
+	}
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response=response;
 	}
 
 }
