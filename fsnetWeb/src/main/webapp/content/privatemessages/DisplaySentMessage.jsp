@@ -1,7 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
@@ -9,7 +7,7 @@
 
 <logic:empty name="theMessage" scope="request">
 	<h3>
-		<bean:message key="privatemessages.impossible" />
+		<s:text name="privatemessages.impossible" />
 	</h3>
 </logic:empty>
 
@@ -19,7 +17,7 @@
 	<logic:notEmpty name="theMessage" scope="request">
 		<table class="topicTable inLineTable">
 			<tr class="topicHeader">
-				<td><bean:message key="privatemessages.to" /> : <ili:getSocialEntityInfos
+				<td><s:text name="privatemessages.to" /> : <ili:getSocialEntityInfos
 						socialEntity="${theMessage.to}" /> ${theMessage.to.email} <span
 					style="float: right"> <bean:write name="theMessage"
 							property="creationDate" formatKey="date.format" />
@@ -33,8 +31,8 @@
 		<!-- TODO factorise this code with createMessage.jsp -->
 		<s:a action="/DeletePrivateMessage?fromPage=out" styleClass="btn btn-inverse"
 			style="float: right">
-			<html:param name="messageId" value="${theMessage.id}" />
-			<bean:message key="privatemessages.delete" />
+			<s:param name="messageId" value="%{theMessage.id}" />
+			<s:text name="privatemessages.delete" />
 		</s:a>
 
 	</logic:notEmpty>
