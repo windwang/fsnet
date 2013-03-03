@@ -7,6 +7,9 @@
 <struts>
 
 	<package name="groups" extends="struts-default">
+		<result-types>
+    		<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
 		<action name="CreateGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			method="create">
 			<result name="input">/ErrorGroups.do</result>
@@ -16,7 +19,7 @@
 
 		<action name="Groups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			method="create">
-			<result name="success">CreateGroup</result>
+			<result name="success" type="tiles">CreateGroup</result>
 		</action>
 
 		<action name="ErrorGroups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
@@ -27,7 +30,7 @@
 
 		<action name="DisplayGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			 method="display" >
-			<result name="success">DisplayForModifyGroup</result>
+			<result name="success" type="tiles">DisplayForModifyGroup</result>
 		</action>
 
 		<action name="ErrorModifyGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
@@ -51,17 +54,16 @@
 
 		<action name="SearchGroup" 
 			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="search">
-			<result name="success">SearchGroups</result>
+			<result name="success" type="tiles">SearchGroups</result>
 			<result name="toHome">/Home.do</result>
 		</action>
 
 		<action name="DisplayInformationGroup" 
 			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="displayInformationGroup">
-			<result name="success">DisplayInformationGroup</result>
+			<result name="success" type="tiles">DisplayInformationGroup</result>
 		</action>
 		<action name="ChangeLogo"
-			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="changeLogo"
-			>
+			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="changeLogo">
 			<result name="success">/DisplayGroup.do</result>
 			<result name="unauthorized" type="redirect">/DisplayGroup.do</result>
 		</action>

@@ -11,10 +11,14 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletRequestAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -33,7 +37,7 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * @author FSNet
  * 
  */
-public class ManageGroups extends ActionSupport implements CrudAction {
+public class ManageGroups extends ActionSupport implements CrudAction,ServletRequestAware {
 
 	/**
 	 * 
@@ -56,10 +60,13 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 	private String[] rigthListRight;
 	private String[] memberListLeft;
 	private int id;
+	private int idGroup;
 	private String color;
 	private File Logo;//The actual file
 	private String LogoContentType; //The content type of the file
 	private String LogoFileName; //The uploaded file name
+	
+	private HttpServletRequest request;
 	
 	/*
 	 * (non-Javadoc)
@@ -486,22 +493,21 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String displayInformationGroup(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String displayInformationGroup() throws Exception{
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
 
-			String idGroup = request
-					.getParameter(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 			SocialGroup socialGroup;
 			
-			if (idGroup == null || idGroup.isEmpty()) {
+			int idGroup=Integer.valueOf(request.getParameter("idGroup"));
+			
+			if (idGroup<0) {
 				socialGroup = null;
 			} else {
-				int id = Integer.valueOf(idGroup);
-				socialGroup = socialGroupFacade.getSocialGroup(id);
+				socialGroup = socialGroupFacade.getSocialGroup(idGroup);
 			}
+			
 			
 			request.setAttribute("socialGroup", socialGroup);
 
@@ -684,6 +690,12 @@ public class ManageGroups extends ActionSupport implements CrudAction {
 
 	public void setLogoFileName(String logoFileName) {
 		LogoFileName = logoFileName;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request=request;
+		
 	}
 	
 	
