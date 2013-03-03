@@ -9,9 +9,11 @@
 <include file="struts-default.xml"/>
 
 	<package name="profile-config" extends="struts-default">
-	
+		<result-types>
+    		<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
 		<action name="DisplayProfile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="display">
-			<result name="success">ShowProfile</result>
+			<result name="success" type="tiles">ShowProfile</result>
 		</action>
 
 		<action name="ModifyProfile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="modify">
