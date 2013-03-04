@@ -1,3 +1,4 @@
+
 <%@ taglib prefix ="s" uri="/struts-tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
@@ -17,6 +18,7 @@
 		</s:a></li>
 	<li><s:a href="/DisplayCV">
 			<s:text name="profile.leftMenu.myCV" />
+
 		</s:a></li>
 
 </ul>
@@ -34,6 +36,7 @@
 				</s:a></li>
 			<li><s:a href="/MemberList">
 					<s:text name="profile.LeftMenuManageMembers" />
+
 				</s:a></li>
 		</ul>
 	</c:when>
@@ -44,7 +47,7 @@
 		<ul>
 			<li><s:a href="/ListMembersOfGroup">
 					<s:text name="profile.LeftMenuDisplayMembersGroup" />
-				</s:a></li>
+			</s:a></li>
 		</ul>
 
 	</c:otherwise>

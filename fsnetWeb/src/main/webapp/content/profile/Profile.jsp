@@ -5,6 +5,7 @@
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
+
 <c:if test="${not empty name_FACEBOOK}">
 	<h3>
 		<s:text name="updateProfile.importData.title" />
@@ -134,6 +135,7 @@
 						</s:submit></td>
 				</tr>
 			</s:form>
+
 		</table>
 
 	</fieldset>

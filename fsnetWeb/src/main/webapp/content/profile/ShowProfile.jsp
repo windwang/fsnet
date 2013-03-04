@@ -9,6 +9,7 @@
 	<legend>
 		<s:text name="showProfile.title"
 			var="%{watchedProfile.firstName} %{watchedProfile.name}" />
+
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -114,7 +115,6 @@
 				<div class="cloud">
 					<c:forEach var="interest"
 						items="${requestScope.interestPaginator.resultList}">
-
 						<span class="tag"> <s:a href="/InterestInformations">
 								<s:param name="infoInterestId" value="%{interest.id}" />
                 ${interest.name}
@@ -253,6 +253,7 @@
 				<div class="clear"></div> <c:set var="paginatorInstance"
 					value="${requestScope.contactsPaginator}" scope="request" /> <c:set
 					var="paginatorhref" value="/DisplayProfile" scope="request" /> <c:set
+
 					var="paginatorTile" value="profileContacts" scope="request" /> <c:import
 					url="/content/pagination/Pagination.jsp" /></td>
 		</tr>
@@ -285,5 +286,3 @@
 		</tr>
 	</table>
 </fieldset>
-
-
