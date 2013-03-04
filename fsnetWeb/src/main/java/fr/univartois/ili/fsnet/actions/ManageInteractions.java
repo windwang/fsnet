@@ -42,6 +42,16 @@ public class ManageInteractions extends ActionSupport {
 
 	private int interactionId;
 	private int interestId;
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+
+	public HttpServletResponse getResponse() {
+		return response;
+	}
+
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
+	}
 
 	public int getInteractionId() {
 		return interactionId;
@@ -59,8 +69,7 @@ public class ManageInteractions extends ActionSupport {
 		this.interestId = interestId;
 	}
 
-	public String removeInterest(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String removeInterest() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
