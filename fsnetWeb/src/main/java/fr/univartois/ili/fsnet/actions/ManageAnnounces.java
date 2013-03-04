@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -35,7 +37,7 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * @author Mehdi Benzaghar <mehdi.benzaghar at gmail.com>
  */
 public class ManageAnnounces extends ActionSupport implements
-		CrudAction {
+		CrudAction,ServletRequestAware {
 
 	/**
 	 * 
@@ -45,8 +47,6 @@ public class ManageAnnounces extends ActionSupport implements
 	private static final String FAILED_ACTION_NAME = "failed";
 
 	private static final String ANNOUNCE_ID_ATTRIBUTE_NAME = "idAnnounce";
-	private static final String ANNOUNCE_TITLE_FORM_FIELD_NAME = "announceTitle";
-	private static final String ANNOUNCE_CONTENT_FORM_FIELD_NAME = "announceContent";
 	private static final String ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME = "announceExpiryDate";
 	private int idAnnounce;
 	private String announceTitle;
@@ -57,13 +57,13 @@ public class ManageAnnounces extends ActionSupport implements
 	private String[] groupsListRight;
 	private String[] selectedInterests;
 
+	private HttpServletRequest request;
 	/**
 	 * @return to announces view after persisting new announce
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create()
+			throws Exception {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				entityManager);
@@ -127,10 +127,8 @@ public class ManageAnnounces extends ActionSupport implements
 	 * @return to views announce after updating it
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException,
-			UnauthorizedOperationException {
+	public String modify()
+			throws Exception {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 
 		try {
@@ -172,9 +170,8 @@ public class ManageAnnounces extends ActionSupport implements
      *
      */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -212,9 +209,8 @@ public class ManageAnnounces extends ActionSupport implements
 	 * @return list of announce
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		em.getTransaction().begin();
@@ -254,9 +250,8 @@ public class ManageAnnounces extends ActionSupport implements
 	 * @return announce in request
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display()
+			throws Exception {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 
 		try {
@@ -299,8 +294,7 @@ public class ManageAnnounces extends ActionSupport implements
 	/**
 	 * @return announce in request
 	 */
-	public String displayToModify(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String displayToModify() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -363,8 +357,7 @@ public class ManageAnnounces extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String displayCreateAnnounce(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String displayCreateAnnounce() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		em.close();
@@ -385,9 +378,8 @@ public class ManageAnnounces extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String deleteMulti(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String deleteMulti()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
@@ -483,6 +475,11 @@ public class ManageAnnounces extends ActionSupport implements
 
 	public void setSelectedInterests(String[] selectedInterests) {
 		this.selectedInterests = selectedInterests;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request=request;
 	}
 	
 	
