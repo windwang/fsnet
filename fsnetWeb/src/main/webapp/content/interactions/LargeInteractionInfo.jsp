@@ -22,7 +22,7 @@
 				<s:text name="interactions.visibility" />
 				<br />
 
-				<!-- <logic:notEmpty name="theInteraction" property="interests"> -->
+<!-- 				<logic:notEmpty name="theInteraction" property="interests"> </logic:notEmpty> -->
 				<s:if test="(theInteraction.interests != null || !theInteraction.interests.equals(''))">
 					<s:text name="interactions.interest" /> :
            		 	<div class="cloud">
