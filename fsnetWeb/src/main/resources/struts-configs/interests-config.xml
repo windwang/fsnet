@@ -15,13 +15,13 @@
 		<action name="AddInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
 			method="add">
 			<result name="input">/Interests.do</result>
-			<result name="success">/Interests.do</result>
+			<result name="success" type="redirect">/Interests.do</result>
 		</action>
 
 		<action name="RemoveInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
 			method="remove">
 			<result name="input">/Interests.do</result>
-			<result name="success">/Interests.do</result>
+			<result name="success" type="redirect">/Interests.do</result>
 		</action>
 
 		<action name="SearchInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
