@@ -11,13 +11,11 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
-import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -60,7 +58,6 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	private String[] rigthListRight;
 	private String[] memberListLeft;
 	private int id;
-	private int idGroup;
 	private String color;
 	private File Logo;//The actual file
 	private String LogoContentType; //The content type of the file
@@ -78,8 +75,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create()
+			throws Exception {
 
 		HttpSession session = request.getSession(true);
 		session.removeAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
@@ -149,9 +146,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request,
 				em);
@@ -230,9 +226,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete()
+			throws Exception {
 		return null;
 	}
 
@@ -275,8 +270,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -440,9 +435,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialGroup socialGroup;
@@ -697,6 +691,9 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 		this.request=request;
 		
 	}
+
+
+
 	
 	
 }

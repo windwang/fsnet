@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
@@ -65,7 +67,7 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class ManageEvents extends ActionSupport implements CrudAction {
+public class ManageEvents extends ActionSupport implements CrudAction,ServletRequestAware {
 
 	/**
 	 * 
@@ -98,6 +100,8 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	private File icsFile;
 	private String icsFileContentType;
 	private String icsFileFileName;
+	
+	private HttpServletRequest request;
 	
 	public static enum EventProperty {
 		UID, DTSTART, DTEND, DESCRIPTION, SUMMARY, LOCATION, UNKNOWN;
@@ -153,8 +157,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
+	public String create()
 			throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -221,8 +224,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
+	public String modify()
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -288,8 +290,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
+	public String delete()
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -404,7 +405,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(HttpServletRequest request, HttpServletResponse response)
+	public String search()
 			throws IOException, ServletException {
 		
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -450,8 +451,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
+	public String display()
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -477,8 +477,6 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 
 			refreshNumNewEvents(request, em);
 			em.getTransaction().commit();
-
-			// TODO find a solution to paginate a Set
 
 			request.setAttribute("subscribers", subscribers);
 			request.setAttribute("subscriber", isSubscriber);
@@ -561,7 +559,6 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 */
 	public String displayToModify(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		// TODO check for right to update an event
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -1071,6 +1068,11 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request=request;
 	}
 	
 	
