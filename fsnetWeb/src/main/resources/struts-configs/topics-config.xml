@@ -10,7 +10,11 @@
 	<package name="topics-default" extends="struts-default">
 		<action name="CreateTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="create" >
-			<result name="success" type="redirect">/DisplayHub.do</result>
+			<result name="success" type="redirect">/DisplayHub.do
+			<param name="messageId">messageId</param>
+			<param name="pageId">pageId</param>
+			</result>
+			
 			<result name="input">DisplayCreateTopic.do</result>
 		</action>
 

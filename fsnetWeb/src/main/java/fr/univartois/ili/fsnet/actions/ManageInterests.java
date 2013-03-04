@@ -13,8 +13,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.components.ActionMessage;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
@@ -35,9 +33,13 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  */
 public class ManageInterests extends ActionSupport implements CrudAction {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
-	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private HttpServletRequest request;
 	private String parentInterestId;
 	private String createdInterestName;
@@ -135,15 +137,14 @@ private String searchInterests;
 		} catch (RollbackException ex) {
 			// ActionErrors actionErrors = new ActionErrors();
 			// ActionMessage msg = new ActionMessage("interests.alreadyExists");
+			//actionErrors.add("createdInterestName", msg);
 			addFieldError(createdInterestName, "interests.alreadyExists");
 			// saveErrors(request, actionErrors);
 		}
 
 		em.close();
-
-		// dynaForm.set("createdInterestName", "");
-
-		return SUCCES_ATTRIBUTE_NAME;
+		createdInterestName="";
+		return SUCCESS;
 	}
 
 	/**
@@ -164,9 +165,11 @@ private String searchInterests;
 		em.getTransaction().commit();
 		em.close();
 
-		// ActionRedirect redirect = new ActionRedirect(
-		// mapping.findForward(SUCCES_ATTRIBUTE_NAME));
-		// redirect.addParameter("infoInterestId", interestId);
+//		 ActionRedirect redirect = new ActionRedirect(
+//		 mapping.findForward(SUCCES_ATTRIBUTE_NAME));
+//		 redirect.addParameter("infoInterestId", addedInterestId);
+		
+	//	return redirect ;
 		return SUCCESS;
 	}
 
@@ -232,8 +235,9 @@ private String searchInterests;
 
 //		 ActionRedirect redirect = new ActionRedirect(
 //		 mapping.findForward(SUCCES_ATTRIBUTE_NAME));
-//		 redirect.addParameter("infoInterestId", interestId);
-		 return SUCCES_ATTRIBUTE_NAME;
+//		 redirect.addParameter("infoInterestId", removedInterestId);
+		//return redirect;
+		 return SUCCESS;
 	}
 
 	/*
@@ -291,7 +295,7 @@ private String searchInterests;
 
 		request.setAttribute("interestSearchPaginator", paginator);
 
-		return SUCCES_ATTRIBUTE_NAME;
+		return SUCCESS;
 	}
 
 	/*
@@ -324,7 +328,7 @@ private String searchInterests;
 		request.setAttribute("myInterestPaginator", paginatorMy);
 		request.setAttribute("addInterestPaginator", paginatorAdd);
 
-		return SUCCES_ATTRIBUTE_NAME;
+		return SUCCESS;
 	}
 
 	/**
@@ -368,7 +372,7 @@ private String searchInterests;
 			}
 		}
 
-		return SUCCES_ATTRIBUTE_NAME;
+		return SUCCESS;
 	}
 
 	public String getCreatedInterestName() {
