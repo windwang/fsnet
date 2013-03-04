@@ -8,13 +8,8 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.actions.ActionSupport;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
@@ -30,13 +25,26 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * 
  * @author Cerelia Besnainou and Audrey Ruellan
  */
-public class ManageTopicMessages extends ActionSupport implements
-		CrudAction {
+public class ManageTopicMessages extends ActionSupport implements CrudAction {
 
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String TOPIC_ID_FORM_FIELD_NAME = "topicId";
 	private static final String MESSAGE_ID_FORM_FIELD_NAME = "messageId";
+
+	private String messageDescription;
+	private int topicId;
+	private int messageId;
+
+	public String getMessageDescription() {
+		return messageDescription;
+	}
+
+	public void setMessageDescription(String messageDescription) {
+		this.messageDescription = messageDescription;
+	}
+
+	private HttpServletRequest request;
 
 	/*
 	 * (non-Javadoc)
@@ -48,17 +56,11 @@ public class ManageTopicMessages extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create() throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			String messageDescription = (String) dynaForm
-					.get("messageDescription");
-			int topicId = Integer.valueOf(Integer.parseInt(dynaForm
-					.getString(TOPIC_ID_FORM_FIELD_NAME)));
 
 			TopicFacade topicFacade = new TopicFacade(em);
 			Topic topic = topicFacade.getTopic(topicId);
@@ -76,20 +78,20 @@ public class ManageTopicMessages extends ActionSupport implements
 
 			em.close();
 
-			ActionRedirect redirect = new ActionRedirect(
-					mapping.findForward(SUCCES_ACTION_NAME));
-			redirect.addParameter(TOPIC_ID_FORM_FIELD_NAME,
-					dynaForm.get(TOPIC_ID_FORM_FIELD_NAME));
-			redirect.addParameter("pageId", pageId);
-
-			return redirect;
+//			ACTIONREDIRECT REDIRECT = NEW ACTIONREDIRECT(
+//					MAPPING.FINDFORWARD(SUCCES_ACTION_NAME));
+//			REDIRECT.ADDPARAMETER(TOPIC_ID_FORM_FIELD_NAME,
+//					DYNAFORM.GET(TOPIC_ID_FORM_FIELD_NAME));
+//			REDIRECT.ADDPARAMETER("PAGEID", PAGEID);
+//
+//			RETURN REDIRECT;
 		} catch (NumberFormatException e) {
 
 		} finally {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/*
@@ -102,17 +104,12 @@ public class ManageTopicMessages extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify() throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-			String messageDescription = (String) dynaForm
-					.get("messageDescription");
-			int messageId = Integer.valueOf(Integer.parseInt(dynaForm
-					.getString(MESSAGE_ID_FORM_FIELD_NAME)));
+
 			TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
 			TopicMessage message = topicMessageFacade
 					.getTopicMessage(messageId);
@@ -123,8 +120,6 @@ public class ManageTopicMessages extends ActionSupport implements
 
 			message.setBody(messageDescription);
 
-			int topicId = Integer.valueOf(Integer.parseInt(dynaForm
-					.getString(TOPIC_ID_FORM_FIELD_NAME)));
 			TopicFacade topicFacade = new TopicFacade(em);
 			Topic topic = topicFacade.getTopic(topicId);
 
@@ -138,7 +133,7 @@ public class ManageTopicMessages extends ActionSupport implements
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/*
@@ -151,9 +146,7 @@ public class ManageTopicMessages extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete() throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -176,7 +169,7 @@ public class ManageTopicMessages extends ActionSupport implements
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/*
@@ -189,9 +182,7 @@ public class ManageTopicMessages extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search() throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -205,14 +196,11 @@ public class ManageTopicMessages extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display() throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
 
-			String topicId = (String) dynaForm.get(TOPIC_ID_FORM_FIELD_NAME);
 
 			request.setAttribute(TOPIC_ID_FORM_FIELD_NAME, topicId);
 			Topic currentTopic = em.find(Topic.class, Integer.valueOf(topicId));
@@ -227,13 +215,12 @@ public class ManageTopicMessages extends ActionSupport implements
 			Collections.reverse(lastMessages);
 			request.setAttribute("lastMessages", lastMessages);
 			if (request.getParameter(MESSAGE_ID_FORM_FIELD_NAME) != null) {
-				String messageId = (String) dynaForm
-						.get(MESSAGE_ID_FORM_FIELD_NAME);
 
 				TopicMessageFacade topicMessageFacade = new TopicMessageFacade(
 						em);
-				TopicMessage message = topicMessageFacade
-						.getTopicMessage(Integer.parseInt(messageId));
+
+				TopicMessage message = topicMessageFacade.getTopicMessage(messageId);
+						
 				request.setAttribute("message", message);
 			}
 		} catch (NumberFormatException e) {
@@ -241,7 +228,7 @@ public class ManageTopicMessages extends ActionSupport implements
 		} finally {
 			em.close();
 		}
-		
-		return mapping.findForward(SUCCES_ACTION_NAME);
+
+		return SUCCES_ACTION_NAME;
 	}
 }
