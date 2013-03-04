@@ -10,11 +10,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.actions.ActionSupport;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
@@ -28,7 +24,9 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  * 
  */
 public class ManageSupport extends ActionSupport implements CrudAction {
-
+	private HttpServletRequest request;
+	private String supportTitle;
+	private String supportContent;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -39,18 +37,26 @@ public class ManageSupport extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		String title = (String) formSupport.get("supportTitle");
-		String content = (String) formSupport.get("supportContent");
+	public String create()
+			throws Exception {
+//		String title = (String) formSupport.get("supportTitle");
+//		String content = (String) formSupport.get("supportContent");
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		postMail(authenticatedUser.getEmail(), title, content);
+//		postMail(authenticatedUser.getEmail(), title, content);
+		postMail(authenticatedUser.getEmail(), supportTitle, supportContent);
+		//return new ActionRedirect(mapping.findForward("success"));
+		return SUCCESS;
+	}
 
-		return new ActionRedirect(mapping.findForward("success"));
+	public String getSupportContent() {
+		return supportContent;
+	}
+
+	public void setSupportContent(String supportContent) {
+		this.supportContent = supportContent;
 	}
 
 	/**
@@ -90,9 +96,8 @@ public class ManageSupport extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify()
+			throws Exception {
 		return null;
 	}
 
@@ -106,9 +111,8 @@ public class ManageSupport extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete()
+			throws Exception {
 		return null;
 	}
 
@@ -122,9 +126,8 @@ public class ManageSupport extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search()
+			throws Exception {
 		return null;
 	}
 
@@ -138,9 +141,8 @@ public class ManageSupport extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display()
+			throws Exception {
 		return null;
 	}
 }

@@ -8,13 +8,8 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.actions.ActionSupport;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
@@ -114,10 +109,7 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 
 		try {
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-//			String messageDescription = (String) dynaForm
-//					.get("messageDescription");
-//			int messageId = Integer.valueOf(Integer.parseInt(dynaForm
-//					.getString(MESSAGE_ID_FORM_FIELD_NAME)));
+
 			TopicMessageFacade topicMessageFacade = new TopicMessageFacade(em);
 			TopicMessage message = topicMessageFacade
 					.getTopicMessage(messageId);
@@ -128,8 +120,6 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 
 			message.setBody(messageDescription);
 
-//			int topicId = Integer.valueOf(Integer.parseInt(dynaForm
-//					.getString(TOPIC_ID_FORM_FIELD_NAME)));
 			TopicFacade topicFacade = new TopicFacade(em);
 			Topic topic = topicFacade.getTopic(topicId);
 
@@ -211,7 +201,6 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 
 		try {
 
-//			String topicId = (String) dynaForm.get(TOPIC_ID_FORM_FIELD_NAME);
 
 			request.setAttribute(TOPIC_ID_FORM_FIELD_NAME, topicId);
 			Topic currentTopic = em.find(Topic.class, Integer.valueOf(topicId));
@@ -226,13 +215,10 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 			Collections.reverse(lastMessages);
 			request.setAttribute("lastMessages", lastMessages);
 			if (request.getParameter(MESSAGE_ID_FORM_FIELD_NAME) != null) {
-//				String messageId = (String) dynaForm
-//						.get(MESSAGE_ID_FORM_FIELD_NAME);
 
 				TopicMessageFacade topicMessageFacade = new TopicMessageFacade(
 						em);
-//				TopicMessage message = topicMessageFacade
-//						.getTopicMessage(Integer.parseInt(messageId));
+
 				TopicMessage message = topicMessageFacade.getTopicMessage(messageId);
 						
 				request.setAttribute("message", message);
