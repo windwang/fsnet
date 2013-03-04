@@ -9,8 +9,8 @@
 
 	<package name="topics-default" extends="struts-default">
 		<action name="CreateTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
-			method="create">
-			<result name="success">/DisplayHub.do</result>
+			method="create" >
+			<result name="success" type="redirect">/DisplayHub.do</result>
 			<result name="input">DisplayCreateTopic.do</result>
 		</action>
 
