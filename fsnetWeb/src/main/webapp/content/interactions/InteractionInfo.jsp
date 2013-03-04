@@ -1,4 +1,5 @@
-<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
@@ -28,15 +29,10 @@
 			<s:text name="interactions.interest" /> :
             <div class="cloud">
 				<c:forEach var="interest" items="${theInteraction.interests}">
-<<<<<<< HEAD
-					<span class="otag"> 
-						<s:a href="/InterestInformations">
-							<s:param name="infoInterestId" value="%{interest.id}" />
-=======
+
 					<span class="otag"> <s:a
 							action="/InterestInformations">
-							<html:param name="infoInterestId" value="${interest.id}" />
->>>>>>> 77a7b5345b0a0758da7f9f32193511a9a8707df0
+							<s:param name="infoInterestId" value="%{interest.id}" />
                             ${interest.name}
                         </s:a>
 					</span>
