@@ -10,7 +10,7 @@
 	<package name="support" extends="struts-default">
 		<action name="ContacterSupport" class="fr.univartois.ili.fsnet.actions.ManageSupport"
 			method="create">
-			<result name="success">/Home.do</result>
+			<result name="success" type="redirect">/Home.do</result>
 			<result name="error">/Home.do</result>
 			<result name="unauthorized">/Home.do</result>
 		</action>
