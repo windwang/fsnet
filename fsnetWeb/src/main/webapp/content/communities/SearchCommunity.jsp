@@ -48,7 +48,7 @@
 								"bSortable" : false
 							}, null, {
 								"bSortable" : false
-							}, null, null];
+							}, null, null ];
 							miseEnPageTable(nomTable, idColonneATrier,
 									sensDeTri, aoColumns, false, 10);
 						});
@@ -81,6 +81,7 @@
                         		<c:choose>
 									<c:when test="%{fn:length(community.hubs) eq 0}">
                          		(<s:text name="communities.hubs.notAny" /> hub)
+
 
                          	</c:when>
 									<c:when test="%{fn:length(community.hubs) eq 1}">
