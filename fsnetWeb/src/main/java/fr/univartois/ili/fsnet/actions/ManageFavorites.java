@@ -7,10 +7,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.ActionSupport;
+import org.apache.struts2.interceptor.ServletRequestAware;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -21,10 +20,25 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
  * @author FSNet
  * 
  */
-public class ManageFavorites extends ActionSupport {
+public class ManageFavorites extends ActionSupport implements
+		ServletRequestAware {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String INTERACTION_ID_FORM_FIELD_NAME = "interactionId";
 	private static final String SUCCESS_ACTION_NAME = "success";
+	private HttpServletRequest request;
+	private int interactionId;
+
+	public int getInteractionId() {
+		return interactionId;
+	}
+
+	public void setInteractionId(int interactionId) {
+		this.interactionId = interactionId;
+	}
 
 	/**
 	 * @param mapping
@@ -35,14 +49,12 @@ public class ManageFavorites extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String add(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String add() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			int interactionId = Integer.parseInt((String) dynaForm
-					.get(INTERACTION_ID_FORM_FIELD_NAME));
+			// int interactionId = Integer.parseInt((String) dynaForm
+			// .get(INTERACTION_ID_FORM_FIELD_NAME));
 			em.getTransaction().begin();
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 			Interaction interaction = em.find(Interaction.class, interactionId);
@@ -69,14 +81,12 @@ public class ManageFavorites extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String remove(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String remove() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			int interactionId = Integer.parseInt((String) dynaForm
-					.get(INTERACTION_ID_FORM_FIELD_NAME));
+			// int interactionId = Integer.parseInt((String) dynaForm
+			// .get(INTERACTION_ID_FORM_FIELD_NAME));
 			em.getTransaction().begin();
 
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -106,14 +116,12 @@ public class ManageFavorites extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			int interactionId = Integer.parseInt((String) dynaForm
-					.get(INTERACTION_ID_FORM_FIELD_NAME));
+			// int interactionId = Integer.parseInt((String) dynaForm
+			// .get(INTERACTION_ID_FORM_FIELD_NAME));
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 			Interaction interaction = em.find(Interaction.class, interactionId);
 			if (user.getFavoriteInteractions().contains(interaction)) {
@@ -124,11 +132,16 @@ public class ManageFavorites extends ActionSupport {
 			request.setAttribute(INTERACTION_ID_FORM_FIELD_NAME,
 					interaction.getId());
 		} catch (NumberFormatException e) {
-			return mapping.findForward(SUCCESS_ACTION_NAME);
+			return SUCCESS;
 		} finally {
 			em.close();
 		}
-		
-		return mapping.findForward(SUCCESS_ACTION_NAME);
+
+		return SUCCESS;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
 	}
 }
