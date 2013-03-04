@@ -8,13 +8,8 @@
 <fieldset class="fieldsetCadre">
 	<legend>
 		<c:if test="${not empty requestScope.Community}">
-<<<<<<< HEAD
 			<s:a href="/DisplayCommunity">
 				<s:param name="communityId" value="%{requestScope.Community.id}" />
-=======
-			<s:a action="/DisplayCommunity">
-				<html:param name="communityId" value="${requestScope.Community.id}" />
->>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
             ${requestScope.Community.title}
         </s:a>
 		</c:if>
@@ -70,22 +65,12 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${hub.id}" />
 								</c:import></td>
-<<<<<<< HEAD
 							<td><s:a href="/DisplayHub" title='%{empty hub.interests? "" : hub.interests}'>
 									<s:param name="hubId" value="%{hub.id}" />
                     ${hub.title}
                 </s:a> (${fn:length(hub.topics)} topics)</td>
 							<td>
 							<s:property value="creationDate"/></td>
-=======
-							<td><s:a action="/DisplayHub"
-									title='${empty hub.interests? "" : hub.interests}'>
-									<html:param name="hubId" value="${hub.id}" />
-                    ${hub.title}
-                </s:a> (${fn:length(hub.topics)} topics)</td>
-							<td><bean:write name="hub" property="creationDate"
-									format="dd/MM/yyyy" /></td>
->>>>>>> 75d3d39903713564d348b5ead824e237db25c0ee
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${hub.creator}" /></td>

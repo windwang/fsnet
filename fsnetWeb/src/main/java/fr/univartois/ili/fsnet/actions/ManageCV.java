@@ -17,11 +17,10 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.String;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.actions.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -46,7 +45,7 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
  * @author fsnet
  * 
  */
-public class ManageCV extends MappingDispatchAction {
+public class ManageCV extends ActionSupport {
 
 	private static final String SUCCESS_ACTION_NAME = "success";
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
@@ -119,7 +118,7 @@ public class ManageCV extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward cree(ActionMapping mapping, ActionForm form,
+	public String cree(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		return mapping.findForward(SUCCESS_ACTION_NAME);
@@ -134,11 +133,10 @@ public class ManageCV extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward displayProfile(ActionMapping mapping, ActionForm form,
+	public String displayProfile(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		HttpSession mysession = request.getSession();
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		String cvTitle = (String) dynaForm.get(CV_TITLE_FIELD_FORM_NAME);
 		String cvNom = (String) dynaForm.get(CV_FIRSTNAME_FIELD_FORM_NAME);
 		String cvPrenom = (String) dynaForm.get(CV_SURNAME_FIELD_FORM_NAME);
@@ -269,7 +267,7 @@ public class ManageCV extends MappingDispatchAction {
 	 * @return
 	 * @throws ParseException
 	 */
-	public ActionForward displayExp(ActionMapping mapping, ActionForm form,
+	public String displayExp(
 			HttpServletRequest request, HttpServletResponse response)
 			throws ParseException {
 		request.getSession().removeAttribute("action");
@@ -545,7 +543,7 @@ public class ManageCV extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward displayCv(ActionMapping mapping, ActionForm form,
+	public String displayCv(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
@@ -573,7 +571,7 @@ public class ManageCV extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();

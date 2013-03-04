@@ -35,6 +35,7 @@ public class Calendar extends ActionSupport {
 	 * Action that create a list of all events/meetings in json format Used for
 	 * Full Calendar jquery plugin
 	 */
+
 	public String execute(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 

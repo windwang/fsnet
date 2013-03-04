@@ -17,11 +17,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.MappingDispatchAction;
 import org.jivesoftware.smack.Chat;
 import org.json.simple.JSONObject;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.talk.ITalk;
@@ -39,7 +38,7 @@ import fr.univartois.ili.fsnet.tools.PropsUtils;
  * @author habib
  * 
  */
-public class TalkMembers extends MappingDispatchAction {
+public class TalkMembers extends ActionSupport {
 
 	private final String xmppServer = PropsUtils.getProperty("xmpp.server"); // "localhost";
 	private final int port = Integer.parseInt(PropsUtils
@@ -89,7 +88,7 @@ public class TalkMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void activate(ActionMapping mapping, ActionForm form,
+	public void activate(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
@@ -133,7 +132,7 @@ public class TalkMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void receive(ActionMapping mapping, ActionForm form,
+	public void receive(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
@@ -190,7 +189,7 @@ public class TalkMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void getTalks(ActionMapping mapping, ActionForm form,HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+	public void getTalks(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
 		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
@@ -226,7 +225,7 @@ public class TalkMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void closeTalk(ActionMapping mapping, ActionForm form,HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+	public void closeTalk(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
 		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
@@ -259,7 +258,7 @@ public class TalkMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void getTalk(ActionMapping mapping, ActionForm form,HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
+	public void getTalk(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
 		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 		String friend = request.getParameter("friend");
 		if (talk == null) {
@@ -296,7 +295,7 @@ public class TalkMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void send(ActionMapping mapping, ActionForm form,
+	public void send(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);

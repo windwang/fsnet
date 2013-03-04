@@ -6,7 +6,7 @@
   
    
   	<include file="struts-default.xml"/>
-   <!-- <include file="struts-configs/ajax-config.xml"/>
+  	<include file="struts-configs/ajax-config.xml"/>
    <include file="struts-configs/annouces-config.xml"/>
    <include file="struts-configs/communities-config.xml"/>
    <include file="struts-configs/consultations-config.xml"/>
@@ -26,15 +26,18 @@
    <include file="struts-configs/talk-config.xml"/>
    <include file="struts-configs/topics-config.xml"/>
    <include file="struts-configs/visits-config.xml"/>
-    --> 
+   
     <constant name="struts.devMode" value="true" />
    <constant name="struts.custom.i18n.resources" value="FSneti18n"/>
    <constant name="struts.action.extension" value="do"/>
    
    <package name="main" extends="struts-default">
-	<action name="/Home" class="fr.univartois.ili.fsnet.actions.Home"
+   	<result-types>
+    	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+    </result-types>
+	<action name="Home" class="fr.univartois.ili.fsnet.actions.Home"
 			method="doDashboard">
-			<result name="success" >/Home</result>
+			<result name="success" type="tiles">Home</result>
 	</action>	
    </package>
 

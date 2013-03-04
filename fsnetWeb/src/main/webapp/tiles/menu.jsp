@@ -11,19 +11,19 @@
 		<div class="container-fluid">
 			<div class="nav-collapse collapse">
 				<ul class="nav">
-					<li class="${currentMenu == 'Home' ? 'active' : ''}"><s:a
-							href="/Home" cssClass="%{currentMenu == 'Home' ? 'active' : ''}">
+					<li class="${currentMenu == 'Home' ? 'active' : ''}"><a
+							href='<s:url action="Home"/>' class="%{currentMenu == 'Home' ? 'active' : ''}">
 							<s:text name="menu.welcome" />
-						</s:a></li>
+						</a></li>
 
-					<li class="${currentMenu == 'Messages' ? 'active' : ''}"><s:a
-							href="/Inbox"
-							cssClass="%{currentMenu == 'Messages' ? 'active' : ''}">
+					<li class="${currentMenu == 'Messages' ? 'active' : ''}"><a
+							href="<s:url action='Inbox'/>"
+							class="%{currentMenu == 'Messages' ? 'active' : ''}">
 							<s:text name="menu.inbox" />
 							<c:if test="${sessionScope.numNonReedPrivateMessages gt 0}">
             	(${sessionScope.numNonReedPrivateMessages})
             </c:if>
-						</s:a></li>
+						</a></li>
 					<li Class="%{currentMenu == 'Contacts' ? 'active' : ''}"><s:a
 							href="/Contacts"
 							cssClass="%{currentMenu == 'Contacts' ? 'active' : ''}">

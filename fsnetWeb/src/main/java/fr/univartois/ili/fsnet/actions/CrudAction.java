@@ -21,10 +21,10 @@ public interface CrudAction {
      * @return
      * @throws IOException
      * @throws ServletException
-     * @see MappingDispatchAction
+     * @see ActionSupport
      */
-    String create(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException;
+    String create()
+            throws Exception;
 
     /**
      * Modify the entity in database
@@ -35,10 +35,10 @@ public interface CrudAction {
      * @return
      * @throws IOException
      * @throws ServletException
-     * @see MappingDispatchAction
+     * @see ActionSupport
      */
-    String modify(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException;
+    String modify()
+            throws Exception;
 
     /**
      * Delete the entity from database
@@ -50,8 +50,8 @@ public interface CrudAction {
      * @throws IOException
      * @throws ServletException
      */
-    String delete(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException;
+    String delete()
+            throws Exception;
 
     /**
      * Search entities in database
@@ -63,8 +63,8 @@ public interface CrudAction {
      * @throws IOException
      * @throws ServletException
      */
-    String search(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException;
+    String search()
+            throws Exception;
 
     /**
      * Display details on one entity
@@ -76,6 +76,6 @@ public interface CrudAction {
      * @throws IOException
      * @throws ServletException
      */
-    String display(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException;
+    String display()
+            throws Exception;
 }

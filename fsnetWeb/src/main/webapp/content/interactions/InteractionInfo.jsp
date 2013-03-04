@@ -32,6 +32,7 @@
 
 					<span class="otag"> <s:a
 							action="/InterestInformations">
+
 							<s:param name="infoInterestId" value="%{interest.id}" />
                             ${interest.name}
                         </s:a>

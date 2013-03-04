@@ -11,11 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -28,14 +24,27 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * 
  * @author Grioche Legrand
  */
-public class ManageContacts extends MappingDispatchAction implements CrudAction {
+public class ManageContacts extends ActionSupport implements CrudAction {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = Logger.getLogger(ManageContacts.class
 			.getName());
 
-	private static final String SUCCES_ATTRIBUTE_NAME = "success";
 	private static final String UNABLE_TO_PARSE_ID_ERROR = "Unable to parse the contact id as an integer";
 
+	private int entitySelected;
+	private int entityAccepted;
+
+	private int entityRefused;
+
+	private int entityDeleted;
+
+	private int id;
+	
 	/**
 	 * Submit a request contact to another social entity
 	 * 
@@ -47,18 +56,15 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward askContact(ActionMapping mapping, ActionForm form,
+	public String askContact(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 			em.getTransaction().begin();
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-			final String idString = (String) dynaForm.get("entitySelected");
-			int entitySelected = 0;
-
-			entitySelected = Integer.parseInt(idString);
+			
+			
 			// TODO changer les listes en set sur les entites sociales pour
 			// eviter
 			// les doublons
@@ -78,7 +84,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -92,21 +98,18 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward accept(ActionMapping mapping, ActionForm form,
+	public String accept(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 			em.getTransaction().begin();
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-			final String idString = (String) dynaForm.get("entityAccepted");
-			int id = Integer.parseInt(idString);
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-			SocialEntity entityAccepted = socialEntityFacade
-					.getSocialEntity(id);
+			SocialEntity entityAccept = socialEntityFacade
+					.getSocialEntity(entityAccepted);
 			ContactFacade contactFacade = new ContactFacade(em);
-			contactFacade.acceptContact(user, entityAccepted);
+			contactFacade.acceptContact(user, entityAccept);
 			refreshNumNewContacts(request, em);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
@@ -117,7 +120,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -131,20 +134,17 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward refuse(ActionMapping mapping, ActionForm form,
+	public String refuse(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 			em.getTransaction().begin();
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-			final String idString = (String) dynaForm.get("entityRefused");
-			int id = Integer.parseInt(idString);
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-			SocialEntity entityRefused = socialEntityFacade.getSocialEntity(id);
+			SocialEntity entityRefus = socialEntityFacade.getSocialEntity(entityRefused);
 			ContactFacade contactFacade = new ContactFacade(em);
-			contactFacade.refuseContact(user, entityRefused);
+			contactFacade.refuseContact(user, entityRefus);
 			refreshNumNewContacts(request, em);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
@@ -155,7 +155,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -168,7 +168,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward create(ActionMapping mapping, ActionForm form,
+	public String create(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
@@ -184,7 +184,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward modify(ActionMapping mapping, ActionForm form,
+	public String modify(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
@@ -200,18 +200,15 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward delete(ActionMapping mapping, ActionForm form,
+	public String delete(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
-			DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
 			em.getTransaction().begin();
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-			final String idString = (String) dynaForm.get("entityDeleted");
-			int id = Integer.parseInt(idString);
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-			SocialEntity removedEntity = socialEntityFacade.getSocialEntity(id);
+			SocialEntity removedEntity = socialEntityFacade.getSocialEntity(entityDeleted);
 			ContactFacade contactFacade = new ContactFacade(em);
 			contactFacade.removeContact(user, removedEntity);
 			em.getTransaction().commit();
@@ -223,7 +220,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -236,7 +233,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
@@ -252,7 +249,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public ActionForward display(ActionMapping mapping, ActionForm form,
+	public String display(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
@@ -269,7 +266,7 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 		request.setAttribute("paginatorAsked", user.getAsked());
 		request.setAttribute("paginatorRequested", user.getRequested());
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -290,14 +287,12 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 	 * @param response
 	 * @return
 	 */
-	public ActionForward cancelAsk(ActionMapping mapping, ActionForm form,
+	public String cancelAsk(
 			HttpServletRequest request, HttpServletResponse response) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
 			SocialEntityFacade sef = new SocialEntityFacade(em);
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-			DynaActionForm dyna = (DynaActionForm) form; // NOSONAR
-			int id = Integer.parseInt(dyna.getString("id"));
 			em.getTransaction().begin();
 			SocialEntity requested = sef.getSocialEntity(id);
 			em.getTransaction().commit();
@@ -313,7 +308,49 @@ public class ManageContacts extends MappingDispatchAction implements CrudAction 
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
+
+	public int getEntitySelected() {
+		return entitySelected;
+	}
+
+	public void setEntitySelected(int entitySelected) {
+		this.entitySelected = entitySelected;
+	}
+
+	public int getEntityAccepted() {
+		return entityAccepted;
+	}
+
+	public void setEntityAccepted(int entityAccepted) {
+		this.entityAccepted = entityAccepted;
+	}
+
+	public int getEntityRefused() {
+		return entityRefused;
+	}
+
+	public void setEntityRefused(int entityRefused) {
+		this.entityRefused = entityRefused;
+	}
+
+	public int getEntityDeleted() {
+		return entityDeleted;
+	}
+
+	public void setEntityDeleted(int entityDeleted) {
+		this.entityDeleted = entityDeleted;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	
 
 }

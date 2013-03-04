@@ -11,7 +11,6 @@
 
 </head>
 <body>
-<s:property />
 	<a href="/fsnetWeb/Home.do"> <img src="images/FSNET.png"
 		height="49px" width="230px" alt="Logo">
 	</a>

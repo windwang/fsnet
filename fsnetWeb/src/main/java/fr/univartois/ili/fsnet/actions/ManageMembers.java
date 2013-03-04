@@ -10,27 +10,25 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
-import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
+import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 
 /**
  * @author FSNet
  *
  */
-public class ManageMembers extends MappingDispatchAction {
+public class ManageMembers extends ActionSupport {
 
 
 	
+	private String searchText;
+
 	/**
 	 * 
 	 * @param mapping
@@ -41,7 +39,7 @@ public class ManageMembers extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward search(ActionMapping mapping, ActionForm form,
+	public String search(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -52,9 +50,6 @@ public class ManageMembers extends MappingDispatchAction {
 		Set<SocialEntity> resultAsked = null;
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-
-		DynaActionForm dynaForm = (DynaActionForm) form;// NOSONAR
-		String searchText = (String) dynaForm.getString("searchText");
 
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
@@ -90,6 +85,16 @@ public class ManageMembers extends MappingDispatchAction {
 		request.setAttribute("membersRequestedResult", resultRequested);
 		request.setAttribute("membersAskedResult", resultAsked);
 		
-		return mapping.findForward("success");
+		return SUCCESS;
 	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+	
+	
 }

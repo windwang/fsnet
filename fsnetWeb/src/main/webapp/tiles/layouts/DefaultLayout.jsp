@@ -1,14 +1,13 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib prefix="html" uri="http://struts.apache.org/tags-html"%>
-<%@taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 
 <c:set var="pageTitle">
 	<tiles:getAsString name="title" />
 </c:set>
 <!DOCTYPE html>
-<html:html xhtml="true" lang="true">
+<html>
 <head>
 
 <meta http-equiv="content-type"
@@ -17,7 +16,7 @@
 <meta http-equiv="cache-control" content="no-cache" />
 <meta http-equiv="expires" content="0" />
 
-<title><bean:message key="${pageTitle}" /></title>
+<title><s:text name="%{pageTitle}" /></title>
 
 <link rel="shortcut icon" href="images/Favicon.ico"
 	type="image/vnd.microsoft.icon" />
@@ -93,36 +92,30 @@ body {
 	background:-moz-linear-gradient(top, #${color} 0%, white 100%);
 }
 </style>
-
-
-
 </head>
 <body>
-
 	<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
-	<tiles:insert attribute="menu" />
+	<tiles:insertAttribute name="menu" />
 	<div class="clear"></div>
 	<div id="wrapBody">
 		<div class="row-fluid">
-			<div class="span2 fixed">
-				
-					<tiles:insert attribute="logo" />
+			<div class="span2 fixed">		
+					<tiles:insertAttribute name="logo" />
 					<div id="left" class="cadreDivMenuTop">
 						<h2>
-							<bean:message key="${pageTitle}" />
+							<s:property value="%{pageTitle}"/>
 						</h2>
-						<tiles:insert attribute="left" />
-						<tiles:insert attribute="loggedUsers" />
+						<tiles:insertAttribute name="left" />
+						<tiles:insertAttribute name="loggedUsers" />
 					</div>
 				
 			</div>
 			<div class="span8 offset2">
-					<tiles:insert attribute="body-content" />
+					<tiles:insertAttribute name="body-content" />
 			</div>
 		</div>
 		<div style="clear: both"></div>
 	</div>
-	<tiles:insert attribute="footer" />
-
+	<tiles:insertAttribute name="footer" />
 </body>
-</html:html>
+</html>

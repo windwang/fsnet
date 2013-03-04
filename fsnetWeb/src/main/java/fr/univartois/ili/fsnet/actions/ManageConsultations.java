@@ -16,13 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.routines.IntegerValidator;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.ActionForward;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.action.DynaActionForm;
-import org.apache.struts.actions.MappingDispatchAction;
-import org.apache.struts.util.MessageResources;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.ConsultationChoiceComparator;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -48,16 +43,50 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * @author FSNet
  * 
  */
-public class ManageConsultations extends MappingDispatchAction {
+public class ManageConsultations extends ActionSupport {
 
 	private static final String DEADLINE_TIME = ":23:59:59";
 
 	private static final String NO_ANSWER = "no";
 	private static final String REGEX_CONSULTATION_CHOICE = ";";
 
-	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String FAILED_ACTION_NAME = "failed";
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
+	
+	private int minChoicesVoter;
+	private int maxChoicesVoter;
+	private String consultationTitle;
+	private String consultationDescription;
+
+	private int idConsultation;
+
+	private String voteOther;
+
+	private String voteComment;
+
+	private String searchText;
+
+	private String[] selectedConsultations;
+	private String[] voteChoice;
+	private String[] groupsListRight;
+	private String consultationChoice;
+	private String maxVoters;
+
+	private String limitChoicesPerVoter;
+
+	private String nbVotersPerChoiceBox;
+
+	private String showBeforeAnswer;
+
+	private String showBeforeClosing;
+
+	private String consultationType;
+
+	private String deadline;
+
+	private String closingAtMaxVoters;
+
+	private String consultationIfNecessaryWeight;
 
 	/**
 	 * @param mapping
@@ -68,56 +97,32 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward create(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
+	public String create(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		String consultationTitle = (String) dynaForm.get("consultationTitle");
-		String consultationDescription = (String) dynaForm
-				.get("consultationDescription");
-		String[] consultationChoices = dynaForm.getString("consultationChoice")
-				.split(REGEX_CONSULTATION_CHOICE);
-		String[] maxVoters = dynaForm.getString("maxVoters").split(
-				REGEX_CONSULTATION_CHOICE);
-		String consultationType = dynaForm.getString("consultationType");
-		String consultationIfNecessaryWeight = dynaForm
-				.getString("consultationIfNecessaryWeight");
-		String nbVotersPerChoiceBox = dynaForm
-				.getString("nbVotersPerChoiceBox");
-		String limitChoicesPerVoter = dynaForm
-				.getString("limitChoicesPerVoter");
-		String minChoicesVoter = dynaForm.getString("minChoicesVoter");
-		String maxChoicesVoter = dynaForm.getString("maxChoicesVoter");
-		String showBeforeClosing = dynaForm.getString("showBeforeClosing");
-		String showBeforeAnswer = dynaForm.getString("showBeforeAnswer");
-		String deadline = dynaForm.getString("deadline");
-		String closingAtMaxVoters = dynaForm.getString("closingAtMaxVoters");
-		String[] groupsRightsAccept = (String[]) dynaForm.get("groupsListRight");
-
+		String[] consultationChoices = consultationChoice.split(REGEX_CONSULTATION_CHOICE);
+		String[] maxVoterz = maxVoters.split(REGEX_CONSULTATION_CHOICE);
+		
 		addRightToRequest(request);
 
 		if (!"".equals(limitChoicesPerVoter)
-				&& Integer.valueOf(minChoicesVoter) > Integer
-						.valueOf(maxChoicesVoter)) {
+				&& minChoicesVoter > maxChoicesVoter) {
 			request.setAttribute("errorChoicesVoter", true);
-			return new ActionRedirect(
-					mapping.findForwardConfig(FAILED_ACTION_NAME));
+			return FAILED_ACTION_NAME;
 		}
 
-		for (int i = 0; i < maxVoters.length; i++) {
-			if ("".equals(maxVoters[i])) {
-				maxVoters[i] = "-1"; // Unlimited
-			} else if (!IntegerValidator.getInstance().isValid(maxVoters[i])
-					|| Integer.valueOf(maxVoters[i]) < 1) {
+		for (int i = 0; i < maxVoterz.length; i++) {
+			if ("".equals(maxVoterz[i])) {
+				maxVoterz[i] = "-1"; // Unlimited
+			} else if (!IntegerValidator.getInstance().isValid(maxVoterz[i])
+					|| Integer.valueOf(maxVoterz[i]) < 1) {
 				request.setAttribute("errorMaxVotersPerChoice", true);
-				return new ActionRedirect(
-						mapping.findForward(FAILED_ACTION_NAME));
+				return FAILED_ACTION_NAME;
 			}
 		}
-		if (groupsRightsAccept.length == 0) {
+		if (groupsListRight.length == 0) {
 			request.setAttribute("errorRights", true);
-			return new ActionRedirect(mapping.findForward(FAILED_ACTION_NAME));
+			return FAILED_ACTION_NAME;
 		}
 		
 		// END TODO
@@ -125,13 +130,12 @@ public class ManageConsultations extends MappingDispatchAction {
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(member, Right.ADD_CONSULTATION)) {
-			return new ActionRedirect(
-					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
+			return UNAUTHORIZED_ACTION_NAME;
 		}
 		em.getTransaction().begin();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
 		List<SocialGroup> listOfGroupAccepted = new ArrayList<SocialGroup>();
-		for (String name : groupsRightsAccept) {
+		for (String name : groupsListRight) {
 			listOfGroupAccepted.add(fascade.findByName(name));
 		}
 		Consultation consultation = consultationFacade.createConsultation(
@@ -142,9 +146,9 @@ public class ManageConsultations extends MappingDispatchAction {
 
 		if (!"".equals(nbVotersPerChoiceBox)) {
 			consultation.setLimitParticipantPerChoice(true);
-			for (int i = 0; i < maxVoters.length; i++) {
+			for (int i = 0; i < maxVoterz.length; i++) {
 				consultation.getChoices().get(i)
-						.setMaxVoters(Integer.valueOf(maxVoters[i]));
+						.setMaxVoters(Integer.valueOf(maxVoterz[i]));
 			}
 		}
 		if (!"".equals(showBeforeAnswer)) {
@@ -198,7 +202,7 @@ public class ManageConsultations extends MappingDispatchAction {
 
 		sendMailForNewConsultation(consultation, member);
 
-		return displayAConsultation(mapping, dynaForm, request, response);
+		return displayAConsultation(request, response);
 	}
 
 	/**
@@ -210,16 +214,10 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward vote(ActionMapping mapping, ActionForm form,
+	public String vote(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		
-		DynaActionForm dynaForm = (DynaActionForm) form;
-		String voteComment = (String) dynaForm.get("voteComment");
-		String voteOther = (String) dynaForm.get("voteOther");
-		Integer idConsultation = (Integer) dynaForm.get("id");
-		List<String> voteChoices = Arrays.asList(dynaForm
-				.getStrings("voteChoice"));
 		addRightToRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -234,6 +232,8 @@ public class ManageConsultations extends MappingDispatchAction {
 //			return new ActionRedirect(
 //					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
 //		}
+		
+		List<String> voteChoices = new ArrayList<>(Arrays.asList(voteChoice));
 		
 		if (consultation.isLimitChoicesPerParticipant()) {
 			int answersNumber = 0;
@@ -256,7 +256,7 @@ public class ManageConsultations extends MappingDispatchAction {
 							.getLimitChoicesPerParticipantMax()) {
 
 				request.setAttribute("errorChoicesPerParticipant", true);
-				return displayAConsultation(mapping, dynaForm, request,
+				return displayAConsultation(request,
 						response);
 			}
 		}
@@ -297,7 +297,7 @@ public class ManageConsultations extends MappingDispatchAction {
 					}
 
 					if (nbVotes > choice.getMaxVoters()) {
-						return displayAConsultation(mapping, dynaForm, request,
+						return displayAConsultation(request,
 								response);
 					}
 				}
@@ -311,7 +311,7 @@ public class ManageConsultations extends MappingDispatchAction {
 
 		em.close();
 
-		return displayAConsultation(mapping, dynaForm, request, response);
+		return displayAConsultation(request, response);
 	}
 
 	/**
@@ -387,7 +387,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward deleteVote(ActionMapping mapping, ActionForm form,
+	public String deleteVote(
 			HttpServletRequest request, HttpServletResponse response) {
 		String idConsultation = request.getParameter("consultation");
 		String idVote = request.getParameter("vote");
@@ -411,7 +411,7 @@ public class ManageConsultations extends MappingDispatchAction {
 				em.close();
 			}
 		}
-		return displayAConsultation(mapping, form, request, response);
+		return displayAConsultation(request, response);
 	}
 
 	/**
@@ -423,8 +423,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward searchYourConsultations(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String searchYourConsultations(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addRightToRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -437,9 +436,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		List<Integer> unreadInteractionsId = interactionFacade
 				.getUnreadInteractionsIdForSocialEntity(member);
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
-		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward(SUCCES_ACTION_NAME));
-		return redirect;
+		return SUCCESS;
 	}
 
 	/**
@@ -451,17 +448,12 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward searchConsultation(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String searchConsultation(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addRightToRequest(request);
-		String searchText = "";
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-		if (form != null) {
-			DynaActionForm dynaForm = (DynaActionForm) form;
-			searchText = (String) dynaForm.get("searchText");
-		}
+		
 		List<Consultation> searchConsultations = consultationFacade
 				.getConsultationsContaining(searchText);
 		if (searchConsultations != null && !searchConsultations.isEmpty()) {
@@ -483,7 +475,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		em.close();
 		request.setAttribute("unreadInteractionsId", unreadInteractionsId);
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -493,8 +485,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward displayAConsultation(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String displayAConsultation(HttpServletRequest request,
 			HttpServletResponse response) {
 		addRightToRequest(request);
 		String idConsultation = request.getParameter("id");
@@ -509,16 +500,14 @@ public class ManageConsultations extends MappingDispatchAction {
 			Consultation consultation = consultationFacade
 					.getConsultation(Integer.valueOf(idConsultation));
 			if((consultation==null)){
-				return new ActionRedirect(
-						mapping.findForward(UNAUTHORIZED_ACTION_NAME));
+				return UNAUTHORIZED_ACTION_NAME;
 			}
 			Collections.sort(consultation.getChoices(),
 					new ConsultationChoiceComparator());
 			
 			FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(em);
 			if((filterGroup.filterAnInteraction(member, consultation) == null)){
-				return new ActionRedirect(
-						mapping.findForward(UNAUTHORIZED_ACTION_NAME));
+				return UNAUTHORIZED_ACTION_NAME;
 			}
 			
 			em.getTransaction().begin();
@@ -550,9 +539,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			em.close();
 		}
 
-		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward(SUCCES_ACTION_NAME));
-		return redirect;
+		return SUCCESS;
 	}
 
 	/**
@@ -562,8 +549,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward closeConsultation(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String closeConsultation(HttpServletRequest request,
 			HttpServletResponse response) {
 		String idConsultation = request.getParameter("id");
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -577,7 +563,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			em.getTransaction().commit();
 			em.close();
 		}
-		return displayAConsultation(mapping, form, request, response);
+		return displayAConsultation(request, response);
 	}
 
 	/**
@@ -587,8 +573,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @param response
 	 * @return
 	 */
-	public ActionForward openConsultation(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String openConsultation(HttpServletRequest request,
 			HttpServletResponse response) {
 		String idConsultation = request.getParameter("id");
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -602,7 +587,7 @@ public class ManageConsultations extends MappingDispatchAction {
 			em.getTransaction().commit();
 			em.close();
 		}
-		return displayAConsultation(mapping, form, request, response);
+		return displayAConsultation(request, response);
 	}
 
 	/**
@@ -614,8 +599,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteConsultation(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String deleteConsultation(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		addRightToRequest(request);
 		String idConsultation = request.getParameter("id");
@@ -630,9 +614,8 @@ public class ManageConsultations extends MappingDispatchAction {
 			em.getTransaction().commit();
 			em.close();
 		}
-		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward(SUCCES_ACTION_NAME));
-		return redirect;
+		return SUCCESS;
+		
 	}
 
 	/**
@@ -644,8 +627,7 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward autocompleteOther(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
+	public String autocompleteOther(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
 		String consultationId = request.getParameter("id");
 		String voteOther = request.getParameter("voteOther");
@@ -655,7 +637,7 @@ public class ManageConsultations extends MappingDispatchAction {
 				"autocompleteChoices",
 				consultationFacade.getOtherChoice(
 						Integer.valueOf(consultationId), voteOther));
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -749,9 +731,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 
-		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
-		mail.setSubject(bundle.getMessage("consultations.mail.subject") + " : "
+		mail.setSubject(getText("consultations.mail.subject") + " : "
 				+ consultation.getTitle());
 
 		mail.addRecipient(socialEntity.getEmail());
@@ -768,21 +748,19 @@ public class ManageConsultations extends MappingDispatchAction {
 	 */
 	private String createPersonalizedMessage(Consultation consultation,
 			SocialEntity entity, String fsnetAddress) {
-		MessageResources bundle = MessageResources
-				.getMessageResources("FSneti18n");
 		StringBuilder sb = new StringBuilder();
 
-		sb.append(bundle.getMessage("consultations.mail.new") + " ");
+		sb.append(getText("consultations.mail.new") + " ");
 		sb.append("\"" + consultation.getTitle() + "\" ");
 		
 		if(consultation.getMaxDate() != null){
-			sb.append(bundle.getMessage("consultations.mail.deadline") + " ");
+			sb.append(getText("consultations.mail.deadline") + " ");
 			sb.append(consultation.getMaxDate() + ".");
 		}
 		
 		sb.append("<br/>");
 		sb.append("<br/>");
-		sb.append(bundle.getMessage("consultations.title.choix") + ":");
+		sb.append(getText("consultations.title.choix") + ":");
 		sb.append("<ol>");
 
 		for (ConsultationChoice choice : consultation.getChoices()) {
@@ -790,7 +768,7 @@ public class ManageConsultations extends MappingDispatchAction {
 		}
 
 		sb.append("</ol>");
-		sb.append(bundle.getMessage("consultations.mail.fsnet") + " ");
+		sb.append(getText("consultations.mail.fsnet") + " ");
 		sb.append(fsnetAddress + ".");
 
 		return sb.toString();
@@ -805,17 +783,14 @@ public class ManageConsultations extends MappingDispatchAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public ActionForward deleteMulti(ActionMapping mapping, ActionForm form,
+	public String deleteMulti(
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 
 		try {
-			String[] selectedConsultations = (String[]) dynaForm
-					.get("selectedConsultations");
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			addRightToRequest(request);
 			
@@ -834,6 +809,177 @@ public class ManageConsultations extends MappingDispatchAction {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCESS;
 	}
+
+	public int getMinChoicesVoter() {
+		return minChoicesVoter;
+	}
+
+	public void setMinChoicesVoter(int minChoicesVoter) {
+		this.minChoicesVoter = minChoicesVoter;
+	}
+
+	public int getMaxChoicesVoter() {
+		return maxChoicesVoter;
+	}
+
+	public void setMaxChoicesVoter(int maxChoicesVoter) {
+		this.maxChoicesVoter = maxChoicesVoter;
+	}
+
+	public String getConsultationTitle() {
+		return consultationTitle;
+	}
+
+	public void setConsultationTitle(String consultationTitle) {
+		this.consultationTitle = consultationTitle;
+	}
+
+	public String getConsultationDescription() {
+		return consultationDescription;
+	}
+
+	public void setConsultationDescription(String consultationDescription) {
+		this.consultationDescription = consultationDescription;
+	}
+
+	public int getIdConsultation() {
+		return idConsultation;
+	}
+
+	public void setIdConsultation(int idConsultation) {
+		this.idConsultation = idConsultation;
+	}
+
+	public String getVoteOther() {
+		return voteOther;
+	}
+
+	public void setVoteOther(String voteOther) {
+		this.voteOther = voteOther;
+	}
+
+	public String getVoteComment() {
+		return voteComment;
+	}
+
+	public void setVoteComment(String voteComment) {
+		this.voteComment = voteComment;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public String[] getSelectedConsultations() {
+		return selectedConsultations;
+	}
+
+	public void setSelectedConsultations(String[] selectedConsultations) {
+		this.selectedConsultations = selectedConsultations;
+	}
+
+	public String[] getVoteChoice() {
+		return voteChoice;
+	}
+
+	public void setVoteChoice(String[] voteChoice) {
+		this.voteChoice = voteChoice;
+	}
+
+	public String[] getGroupsListRight() {
+		return groupsListRight;
+	}
+
+	public void setGroupsListRight(String[] groupsListRight) {
+		this.groupsListRight = groupsListRight;
+	}
+
+	public String getConsultationChoice() {
+		return consultationChoice;
+	}
+
+	public void setConsultationChoice(String consultationChoice) {
+		this.consultationChoice = consultationChoice;
+	}
+
+	public String getMaxVoters() {
+		return maxVoters;
+	}
+
+	public void setMaxVoters(String maxVoters) {
+		this.maxVoters = maxVoters;
+	}
+
+	public String getLimitChoicesPerVoter() {
+		return limitChoicesPerVoter;
+	}
+
+	public void setLimitChoicesPerVoter(String limitChoicesPerVoter) {
+		this.limitChoicesPerVoter = limitChoicesPerVoter;
+	}
+
+	public String getNbVotersPerChoiceBox() {
+		return nbVotersPerChoiceBox;
+	}
+
+	public void setNbVotersPerChoiceBox(String nbVotersPerChoiceBox) {
+		this.nbVotersPerChoiceBox = nbVotersPerChoiceBox;
+	}
+
+	public String getShowBeforeAnswer() {
+		return showBeforeAnswer;
+	}
+
+	public void setShowBeforeAnswer(String showBeforeAnswer) {
+		this.showBeforeAnswer = showBeforeAnswer;
+	}
+
+	public String getShowBeforeClosing() {
+		return showBeforeClosing;
+	}
+
+	public void setShowBeforeClosing(String showBeforeClosing) {
+		this.showBeforeClosing = showBeforeClosing;
+	}
+
+	public String getConsultationType() {
+		return consultationType;
+	}
+
+	public void setConsultationType(String consultationType) {
+		this.consultationType = consultationType;
+	}
+
+	public String getDeadline() {
+		return deadline;
+	}
+
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
+	}
+
+	public String getClosingAtMaxVoters() {
+		return closingAtMaxVoters;
+	}
+
+	public void setClosingAtMaxVoters(String closingAtMaxVoters) {
+		this.closingAtMaxVoters = closingAtMaxVoters;
+	}
+
+	public String getConsultationIfNecessaryWeight() {
+		return consultationIfNecessaryWeight;
+	}
+
+	public void setConsultationIfNecessaryWeight(
+			String consultationIfNecessaryWeight) {
+		this.consultationIfNecessaryWeight = consultationIfNecessaryWeight;
+	}
+	
+	
 }

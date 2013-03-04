@@ -9,15 +9,17 @@
 <include file="struts-default.xml"/>
 
 	<package name="profile-config" extends="struts-default">
-	
+		<result-types>
+    		<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
 		<action name="DisplayProfile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="display">
-			<result name="success">ShowProfile</result>
+			<result name="success" type="tiles">ShowProfile</result>
 		</action>
 
 		<action name="ModifyProfile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="modify">
 			<result name="input">/Profile.do</result>
 			<result name="success">/DisplayProfile.do</result>
-			<result name="unauthorized">/Profile.do</result>
+			<result name="unauthorized" type="redirect">/Profile.do</result>
 		</action>
 
 		<action name="Profile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="displayToModify">
@@ -32,12 +34,12 @@
 		<action name="ChangePhoto" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="changePhoto">
 			<result name="input">/Profile.do</result>
 			<result name="success">/Profile.do</result>
-			<result name="unauthorized">/Profile.do</result>
+			<result name="unauthorized" type="redirect">/Profile.do</result>
 		</action>
 
 		<action name="DeletePhoto" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="deletePhoto">
 			<result name="success">/Profile.do</result>
-			<result name="unauthorized">/Profile.do</result>
+			<result name="unauthorized" type="redirect">/Profile.do</result>
 		</action>
 	</package>
 </struts>

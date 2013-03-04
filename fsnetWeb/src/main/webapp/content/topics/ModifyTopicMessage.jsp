@@ -1,43 +1,37 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-
-<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@ page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
-
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="topics.title.modifyMessage" />
+		<s:text name="topics.title.modifyMessage" />
 	</legend>
 
 	<table id="CreateTopic" class="inLineTable tableStyle">
-		<html:form action="/ModifyTopicMessage">
-			<s:hidden name="topicId" value="${topicId}" />
-			<s:hidden name="messageId" value="${message.id}" />
+
+		<s:form action="/ModifyTopicMessage">
+			<s:hidden property="topicId" value="%{topicId}" />
+			<s:hidden property="messageId" value="%{message.id}" />
+
 
 			<tr>
-				<td><label for="messageDescription"><bean:message
-							key="topics.form.description" /></label></td>
-				<td><html:textarea cols="60" rows="8"
+				<td><label for="messageDescription">
+				<s:text name="topics.form.description" /></label></td>
+				<td><s:textarea cols="60" rows="8"
 						property="messageDescription" styleId="messageDescription"
-						styleClass="mceTextArea" style="width: 100%;"
-						value="${message.body}">
-					</html:textarea> <logic:messagesPresent property="messageDescription">
-						<div class="errorMessage">
-							<html:errors property="messageDescription" />
-						</div>
-					</logic:messagesPresent></td>
+						cssClass="mceTextArea" style="width: 100%;"
+						value="%{message.body}">
+					</s:textarea></td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><html:submit
+				<td colspan="2" class="tableButton"><s:submit
 						styleClass="btn btn-inverse">
-						<bean:message key="topics.button.updateMessage" />
-					</html:submit></td>
+						<s:text name="topics.button.updateMessage" />
+					</s:submit></td>
 			</tr>
-		</html:form>
+		</s:form>
 	</table>
 </fieldset>
