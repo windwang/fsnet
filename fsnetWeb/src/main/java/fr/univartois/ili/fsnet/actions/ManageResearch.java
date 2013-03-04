@@ -11,10 +11,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.ActionSupport;
+import org.apache.struts2.interceptor.ServletRequestAware;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -34,7 +33,13 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade.SearchResult;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
 import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
 
-public class ManageResearch extends ActionSupport {
+public class ManageResearch extends ActionSupport implements
+		ServletRequestAware {
+
+	private HttpServletRequest request;
+	private String searchText;
+	private String[] selectedResearch;
+
 	/**
 	 * 
 	 * @param mapping
@@ -45,9 +50,7 @@ public class ManageResearch extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search() throws Exception {
 
 		request.setAttribute("searchTous", false);
 		request.setAttribute("searchMembers", false);
@@ -56,13 +59,14 @@ public class ManageResearch extends ActionSupport {
 		request.setAttribute("searchConsultations", false);
 		request.setAttribute("searchCommunauties", false);
 
-		String searchText = (String) dynaForm.get("searchText");
-		String[] selectedModes = (String[]) dynaForm.get("selectedResearch");
+//		String searchText = (String) dynaForm.get("searchText");
+//		String[] selectedModes = (String[]) dynaForm.get("selectedResearch");
+
 		Set<String> modes = new HashSet<String>();
-		for (int i = 0; i < selectedModes.length; i++) {
-			modes.add(selectedModes[i]);
+		for (int i = 0; i < selectedResearch.length; i++) {
+			modes.add(selectedResearch[i]);
 		}
-		if (modes.contains("tous") || modes.size()==0) {
+		if (modes.contains("tous") || modes.size() == 0) {
 			request.setAttribute("searchTous", true);
 			modes.add("members");
 			modes.add("consultations");
@@ -77,7 +81,23 @@ public class ManageResearch extends ActionSupport {
 		searchEvents(request, searchText, modes);
 		searchCommunities(request, searchText, modes);
 
-		return mapping.findForward("success");
+		return SUCCESS;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public String[] getSelectedResearch() {
+		return selectedResearch;
+	}
+
+	public void setSelectedResearch(String[] selectedResearch) {
+		this.selectedResearch = selectedResearch;
 	}
 
 	private void searchCommunities(HttpServletRequest request,
@@ -92,7 +112,7 @@ public class ManageResearch extends ActionSupport {
 		Right rightCreateCommunity = Right.CREATE_COMMUNITY;
 		request.setAttribute("rightCreateCommunity", rightCreateCommunity);
 		request.setAttribute("socialEntity", socialEntity);
-		
+
 		em.getTransaction().begin();
 		if (recherche) {
 			result = communityFacade.searchCommunity(searchText);
@@ -105,7 +125,7 @@ public class ManageResearch extends ActionSupport {
 		}
 		em.getTransaction().commit();
 		em.close();
-			
+
 		request.setAttribute("communitiesResult", result);
 	}
 
@@ -258,5 +278,10 @@ public class ManageResearch extends ActionSupport {
 		request.setAttribute("membersContactsResult", resultContacts);
 		request.setAttribute("membersRequestedResult", resultRequested);
 		request.setAttribute("membersAskedResult", resultAsked);
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
 	}
 }
