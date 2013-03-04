@@ -3,8 +3,6 @@ package fr.univartois.ili.fsnet.actions;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Logger;
-
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -27,8 +25,11 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  */
 public class ManageTopicMessages extends ActionSupport implements CrudAction {
 
-	private static final Logger LOGGER = Logger.getAnonymousLogger();
-	private static final String SUCCES_ACTION_NAME = "success";
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+//	private static final Logger LOGGER = Logger.getAnonymousLogger();
 	private static final String TOPIC_ID_FORM_FIELD_NAME = "topicId";
 	private static final String MESSAGE_ID_FORM_FIELD_NAME = "messageId";
 
@@ -78,20 +79,20 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 
 			em.close();
 
-//			ACTIONREDIRECT REDIRECT = NEW ACTIONREDIRECT(
-//					MAPPING.FINDFORWARD(SUCCES_ACTION_NAME));
-//			REDIRECT.ADDPARAMETER(TOPIC_ID_FORM_FIELD_NAME,
-//					DYNAFORM.GET(TOPIC_ID_FORM_FIELD_NAME));
-//			REDIRECT.ADDPARAMETER("PAGEID", PAGEID);
-//
-//			RETURN REDIRECT;
+//			ActionRedirect redirect = new ActionRedirect(
+//					mapping.findForward(SUCCES_ACTION_NAME));
+//			redirect.addParameter(TOPIC_ID_FORM_FIELD_NAME,
+//					dynaForm.get(TOPIC_ID_FORM_FIELD_NAME));
+//			redirect.addParameter("pageId", pageId);
+//			return redirect;
+			
 		} catch (NumberFormatException e) {
 
 		} finally {
 			em.close();
 		}
 
-		return SUCCES_ACTION_NAME;
+		return SUCCESS;
 	}
 
 	/*
@@ -133,7 +134,7 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 			em.close();
 		}
 
-		return SUCCES_ACTION_NAME;
+		return SUCCESS;
 	}
 
 	/*
@@ -169,7 +170,7 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 			em.close();
 		}
 
-		return SUCCES_ACTION_NAME;
+		return SUCCESS;
 	}
 
 	/*
@@ -229,6 +230,6 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 			em.close();
 		}
 
-		return SUCCES_ACTION_NAME;
+		return SUCCESS;
 	}
 }
