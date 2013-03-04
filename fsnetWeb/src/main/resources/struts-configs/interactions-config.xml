@@ -5,8 +5,8 @@
 
 <struts>
 
-<include file="struts-default.xml"/>
-	
+	<include file="struts-default.xml" />
+
 	<package name="interactions-default" extends="struts-default">
 
 		<action name="AddFavorite" class="fr.univartois.ili.fsnet.actions.ManageFavorites"
@@ -28,7 +28,7 @@
 		<action name="RemoveInterestOfInteraction"
 			class="fr.univartois.ili.fsnet.actions.ManageInteractions" method="removeInterest">
 
-			<result name="success">/content/interactions/FavoriteFragment.jsp
+			<result name="success" type="redirect">/content/interactions/FavoriteFragment.jsp
 			</result>
 		</action>
 
