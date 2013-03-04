@@ -14,13 +14,9 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-<<<<<<< HEAD
-=======
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.ActionSupport;
->>>>>>> Start of the migration of actions of FSNet
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;
@@ -40,17 +36,22 @@ import fr.univartois.ili.fsnet.actions.utils.HeaderFooter;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.facade.CvFacade;
-
 /**
  * @author Aich ayoub
  * 
  */
-public class GenerateCv extends ActionSupport {
+public class GenerateCv extends ActionSupport implements ServletRequestAware,
+		ServletResponseAware {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	private static Font titleFont = new Font(Font.FontFamily.TIMES_ROMAN, 26,
 			Font.BOLD, BaseColor.BLUE);
-	
-	private static Font NameFont = new Font(Font.FontFamily.TIMES_ROMAN,
-			16, Font.BOLDITALIC, BaseColor.BLACK);
+
+	private static Font NameFont = new Font(Font.FontFamily.TIMES_ROMAN, 16,
+			Font.BOLDITALIC, BaseColor.BLACK);
 
 	private static Font particularFont = new Font(Font.FontFamily.TIMES_ROMAN,
 			12, Font.NORMAL, BaseColor.BLACK);
@@ -59,6 +60,10 @@ public class GenerateCv extends ActionSupport {
 			Font.BOLD, BaseColor.WHITE);
 
 	private EntityManager em = PersistenceProvider.createEntityManager();
+
+	private HttpServletResponse response;
+
+	private HttpServletRequest request;
 
 	public static String dateToString(Date date) {
 		return new SimpleDateFormat("dd/MM/yyyy").format(date);
@@ -78,9 +83,11 @@ public class GenerateCv extends ActionSupport {
 			throws DocumentException, MalformedURLException, IOException {
 
 		Paragraph prefaceNom = new Paragraph(curriculum.getMember()
-				.getFirstName() + " " + curriculum.getMember().getSurname(),NameFont);
+				.getFirstName() + " " + curriculum.getMember().getSurname(),
+				NameFont);
 
-		Paragraph prefaceSex = new Paragraph(curriculum.getMember().getSex(),particularFont);
+		Paragraph prefaceSex = new Paragraph(curriculum.getMember().getSex(),
+				particularFont);
 
 		Paragraph prefaceAdresse = new Paragraph(curriculum.getMember()
 				.getAdress() + "", particularFont);
@@ -186,7 +193,7 @@ public class GenerateCv extends ActionSupport {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		if(curriculum.getTrains().size()!=0){
+		if (curriculum.getTrains().size() != 0) {
 			document.add(styleSection("Expériences Professionnelles"));
 			for (int i = 0; i < curriculum.getTrains().size(); i++) {
 
@@ -220,16 +227,18 @@ public class GenerateCv extends ActionSupport {
 			throws DocumentException {
 
 		List overview = new List(false, 10);
-		if(curriculum.getDegs().size()!=0){
+		if (curriculum.getDegs().size() != 0) {
 			document.add(styleSection("Diplômes"));
 
 			for (int i = 0; i < curriculum.getDegs().size(); i++) {
-				overview.add("Niveau d'études: "+curriculum.getDegs().get(i).getDegree()
-						.getStudiesLevel()+", Etablissement: "+
-						curriculum.getDegs().get(i).getDegree().getEts().getName()
-						+ " Dilplôme obtenu du "
-						+ curriculum.getDegs().get(i).getStartDate()
-						+ " au " + curriculum.getDegs().get(i).getEndDate());
+				overview.add("Niveau d'études: "
+						+ curriculum.getDegs().get(i).getDegree()
+								.getStudiesLevel()
+						+ ", Etablissement: "
+						+ curriculum.getDegs().get(i).getDegree().getEts()
+								.getName() + " Dilplôme obtenu du "
+						+ curriculum.getDegs().get(i).getStartDate() + " au "
+						+ curriculum.getDegs().get(i).getEndDate());
 
 			}
 			document.add(overview);
@@ -248,7 +257,7 @@ public class GenerateCv extends ActionSupport {
 
 		List overview = new List(false, 10);
 
-		if(curriculum.getMyFormations().size()!=0){
+		if (curriculum.getMyFormations().size() != 0) {
 			document.add(styleSection("Formation"));
 
 			for (int i = 0; i < curriculum.getMyFormations().size(); i++) {
@@ -277,7 +286,7 @@ public class GenerateCv extends ActionSupport {
 			throws DocumentException {
 		List overview = new List(false, 10);
 
-		if(curriculum.getMember().getLanguages().size()!=0){
+		if (curriculum.getMember().getLanguages().size() != 0) {
 			document.add(styleSection("Langues"));
 
 			@SuppressWarnings("rawtypes")
@@ -307,7 +316,7 @@ public class GenerateCv extends ActionSupport {
 	public static void addfourthSection(Document document, Curriculum curriculum)
 			throws DocumentException {
 		List overview = new List(false, 10);
-		if(curriculum.getHobs().size()!=0){
+		if (curriculum.getHobs().size() != 0) {
 			document.add(styleSection("Loisirs"));
 			for (int i = 0; i < curriculum.getHobs().size(); i++) {
 				overview.add(curriculum.getHobs().get(i).getName());
@@ -346,8 +355,8 @@ public class GenerateCv extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String download(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+
+	public String download() throws Exception {
 
 		long id = Integer.parseInt(request.getParameter("idCv"));
 		CvFacade cvFacade = new CvFacade(em);
@@ -363,13 +372,13 @@ public class GenerateCv extends ActionSupport {
 			Document document = new Document();
 
 			ByteArrayOutputStream baos = new ByteArrayOutputStream();
-			writer=PdfWriter.getInstance(document, baos);
+			writer = PdfWriter.getInstance(document, baos);
 			writer.setBoxSize("art", new Rectangle(36, 54, 559, 810));
-			HeaderFooter eventFooter=new HeaderFooter();
+			HeaderFooter eventFooter = new HeaderFooter();
 			writer.setPageEvent(eventFooter);
-			
+
 			TableHeader eventHeader = new TableHeader();
-			writer.setPageEvent(eventHeader); 
+			writer.setPageEvent(eventHeader);
 			document.open();
 
 			addParticulars(document, curriculum);
@@ -404,8 +413,18 @@ public class GenerateCv extends ActionSupport {
 
 			return SUCCESS;
 		} catch (DocumentException e) {
-			throw new IOException(e.getMessage(),e);
+			throw new IOException(e.getMessage(), e);
 		}
+	}
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
 	}
 
 }
