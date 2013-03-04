@@ -78,13 +78,7 @@ public class ManageTopicMessages extends ActionSupport implements CrudAction {
 					Paginator.DEFAULT_NUM_RESULT_PER_PAGE);
 
 			em.close();
-
-//			ActionRedirect redirect = new ActionRedirect(
-//					mapping.findForward(SUCCES_ACTION_NAME));
-//			redirect.addParameter(TOPIC_ID_FORM_FIELD_NAME,
-//					dynaForm.get(TOPIC_ID_FORM_FIELD_NAME));
-//			redirect.addParameter("pageId", pageId);
-//			return redirect;
+			return SUCCESS;
 			
 		} catch (NumberFormatException e) {
 
