@@ -36,29 +36,27 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
  * 
  * @author Cerelia Besnainou and Audrey Ruellan
  */
-public class ManageHub extends ActionSupport implements CrudAction,ServletRequestAware {
+public class ManageHub extends ActionSupport implements CrudAction,
+		ServletRequestAware {
 
 	private static final long serialVersionUID = 1L;
 
 	private static final String SUCCES_ACTION_NAME = "success";
 
 	private HttpServletRequest request;
-	
+
 	private static final String COMMUNITY_ID_ATTRIBUTE_NAME = "communityId";
-	private static final String HUB_ID_ATTRIBUTE_NAME = "hubId";
 	private static final String HUB_NAME_FORM_FIELD_NAME = "hubName";
 	private static final String HUB_NEW_NAME_FORM_FIELD_NAME = "newHubName";
-	private static final String HUB_OLD_ID_FORM_FIELD_NAME = "oldHubId";
 
-	
 	private String hubName;
 	private int communityId;
 	private int hubId;
 	private String oldHubId;
 	private String interestsIds[];
-	private String pattern ;
+	private String pattern;
 	private String newHubName;
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -72,8 +70,7 @@ public class ManageHub extends ActionSupport implements CrudAction,ServletReques
 	public String create() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
-			Community community = em.find(Community.class,
-					communityId);
+			Community community = em.find(Community.class, communityId);
 			HubFacade hubFacade = new HubFacade(em);
 			boolean doesNotExists = false;
 			try {
@@ -106,7 +103,6 @@ public class ManageHub extends ActionSupport implements CrudAction,ServletReques
 		} finally {
 			em.close();
 		}
-		redirect.addParameter(COMMUNITY_ID_ATTRIBUTE_NAME, communityId);
 		return SUCCESS;
 	}
 
@@ -143,11 +139,13 @@ public class ManageHub extends ActionSupport implements CrudAction,ServletReques
 						em.getTransaction().begin();
 						facade.modifyName(hubName, myHub);
 						em.getTransaction().commit();
-					} catch (DatabaseException ex) {						
-						addFieldError(HUB_NEW_NAME_FORM_FIELD_NAME, "hubs.alreadyExists");
+					} catch (DatabaseException ex) {
+						addFieldError(HUB_NEW_NAME_FORM_FIELD_NAME,
+								"hubs.alreadyExists");
 					}
 				} else {
-					addFieldError(HUB_NEW_NAME_FORM_FIELD_NAME, "hubs.alreadyExists");
+					addFieldError(HUB_NEW_NAME_FORM_FIELD_NAME,
+							"hubs.alreadyExists");
 				}
 			}
 		} catch (NumberFormatException e) {
@@ -217,8 +215,7 @@ public class ManageHub extends ActionSupport implements CrudAction,ServletReques
 				hubName = "";
 			}
 
-			Community community = em.find(Community.class,
-				communityId);
+			Community community = em.find(Community.class, communityId);
 			HubFacade hubFacade = new HubFacade(em);
 			em.getTransaction().begin();
 			List<Hub> result = hubFacade.searchHub(hubName, community);
@@ -248,7 +245,7 @@ public class ManageHub extends ActionSupport implements CrudAction,ServletReques
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display()throws Exception {
+	public String display() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -321,8 +318,7 @@ public class ManageHub extends ActionSupport implements CrudAction,ServletReques
 				pattern = "";
 			}
 
-			Community community = em.find(Community.class,
-					communityId);
+			Community community = em.find(Community.class, communityId);
 			SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 
 			em.getTransaction().begin();
@@ -348,8 +344,7 @@ public class ManageHub extends ActionSupport implements CrudAction,ServletReques
 
 	@Override
 	public void setServletRequest(HttpServletRequest arg0) {
-		// TODO Auto-generated method stub
-		
+		this.request = arg0;
 	}
 
 	public String getOldHubId() {
