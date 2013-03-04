@@ -35,7 +35,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 			.getName());
 
 	private static final String UNABLE_TO_PARSE_ID_ERROR = "Unable to parse the contact id as an integer";
-
+	private HttpServletRequest request;
 	private int entitySelected;
 	private int entityAccepted;
 
@@ -168,9 +168,8 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create()
+			throws Exception {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -184,9 +183,8 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify()
+			throws Exception {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -200,9 +198,8 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -233,9 +230,8 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search()
+			throws Exception {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -249,9 +245,8 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display()
+			throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);

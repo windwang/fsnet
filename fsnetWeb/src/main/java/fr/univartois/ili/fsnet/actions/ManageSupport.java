@@ -1,14 +1,13 @@
 package fr.univartois.ili.fsnet.actions;
 
-import java.io.IOException;
+
 import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+
 
 import com.opensymphony.xwork2.ActionSupport;
 
