@@ -18,12 +18,11 @@
 					<c:forEach items="${requestScope.conversationMessages1.resultList}"
 						var="message">
 						<tr class="topicHeader"="2">
-							<td><s:multibox property="selectedMessages"
-									value="${message.id}" /></td>
+							<td><s:checkbox name="selectedMessages"
+									fieldValue="%{message.id}" /></td>
 							<td><s:text name="privatemessages.from" /> : |<ili:getSocialEntityInfos
 									socialEntity="${message.from}" />| <span style="float: right">
-									<bean:write name="message" property="creationDate"
-										format="dd/MM/yyyy HH:mm" />
+									<s:property value="creationDate"/>
 							</span></td>
 						</tr>
 						<tr>
@@ -56,16 +55,12 @@
 					<tr>
 						<td><label for="messageTo"> <s:text	name="privatemessages.to" /> :
 						</label></td>
-						<td><s:text property="messageTo" disabled="true"
-								errorStyleClass="error"
-								value="${theMessage.from.name} ${theMessage.from.firstName}"
-								readonly="true" /></td>
+						<td><s:text name="messageTo" value="%{theMessage.from.name} %{theMessage.from.firstName}"/></td>
 					</tr>
 					<tr>
 						<td><label for="messageSubject"> <s:text name="privatemessages.subject" /> :
 						</label></td>
-						<td><s:text property="messageSubject"
-								errorStyleClass="error" value="RE: ${theMessage.subject}" /></td>
+						<td><s:text name="messageSubject" value="RE: %{theMessage.subject}" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><s:textarea property="messageBody"
@@ -90,12 +85,11 @@
 					<c:forEach items="${requestScope.conversationMessages.resultList}"
 						var="message">
 						<tr class="topicHeader">
-							<td><s:multibox property="selectedMessages"
-									value="${message.id}" /></td>
+							<td><s:checkbox name="selectedMessages"
+									fieldValue="%{message.id}" /></td>
 							<td><s:text name="privatemessages.from" /> : |<ili:getSocialEntityInfos
 									socialEntity="${message.from}" />| <span style="float: right">
-									<bean:write name="message" property="creationDate"
-										format="dd/MM/yyyy HH:mm" />
+									<s:property value="creationDate"/>
 							</span></td>
 						</tr>
 						<tr>
@@ -125,16 +119,13 @@
 					<tr>
 						<td><label for="messageTo"> <s:text	name="privatemessages.to" /> :
 						</label></td>
-						<td><s:text property="messageTo" disabled="true"
-								errorStyleClass="error"
-								value="${theMessage.from.name} ${theMessage.from.firstName}"
-								readonly="true" /></td>
+						<td><s:text name="messageTo" value="%{theMessage.from.name} %{theMessage.from.firstName}"/></td>
 					</tr>
 					<tr>
 						<td><label for="messageSubject"> <s:text name="privatemessages.subject" /> :
 						</label></td>
-						<td><s:text property="messageSubject"
-								errorStyleClass="error" value="RE: ${theMessage.subject}" /></td>
+						<td><s:text name="messageSubject"
+								value="RE: %{theMessage.subject}" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><s:textarea property="messageBody"
