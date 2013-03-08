@@ -17,6 +17,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 import org.jivesoftware.smack.Chat;
 import org.json.simple.JSONObject;
 
@@ -38,18 +40,25 @@ import fr.univartois.ili.fsnet.tools.PropsUtils;
  * @author habib
  * 
  */
-public class TalkMembers extends ActionSupport {
+public class TalkMembers extends ActionSupport implements ServletRequestAware,
+		ServletResponseAware {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final String xmppServer = PropsUtils.getProperty("xmpp.server"); // "localhost";
 	private final int port = Integer.parseInt(PropsUtils
 			.getProperty("xmpp.server.port"));// 5222;
 	private final String xmppServerDomain = PropsUtils
 			.getProperty("xmpp.domain"); // "master11";
 	private final String password = PropsUtils.getProperty("xmpp.password");
+	private HttpServletRequest request;
+	private HttpServletResponse response;
 
-	private static final String TALK_ATTRIBUTE_NAME = "talk"; 
+	private static final String TALK_ATTRIBUTE_NAME = "talk";
 	private static final String TALKMESSAGE_ATTRIBUTE_NAME = "talkMessage";
-	
+
 	/**
 	 * @param request
 	 * @return
@@ -60,7 +69,7 @@ public class TalkMembers extends ActionSupport {
 		try {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-			String name = member.getName().replaceAll(" ", "").toLowerCase() 
+			String name = member.getName().replaceAll(" ", "").toLowerCase()
 					+ "_" + member.getId();
 			String email = member.getEmail();
 			// String pass = member.getPassword();
@@ -88,11 +97,10 @@ public class TalkMembers extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void activate(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public void activate() throws Exception {
 
-		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+		ITalk talk = (ITalk) request.getSession().getAttribute(
+				TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
 
@@ -106,7 +114,8 @@ public class TalkMembers extends ActionSupport {
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+					talkMessage);
 		}
 
 		List<String> valListner = new ArrayList<String>();
@@ -132,11 +141,11 @@ public class TalkMembers extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void receive(
-			HttpServletRequest request, HttpServletResponse response)
+	public void receive(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
-		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+		ITalk talk = (ITalk) request.getSession().getAttribute(
+				TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
 
@@ -149,7 +158,8 @@ public class TalkMembers extends ActionSupport {
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+					talkMessage);
 		}
 
 		Map<String, Boolean> newConversation = talkMessage.getNewConversation();
@@ -166,7 +176,8 @@ public class TalkMembers extends ActionSupport {
 			}
 		}
 		talkMessage.setNewConversation(newConversation);
-		request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+				talkMessage);
 
 		JSONArray jsonArray = JSONArray.fromObject(lastConversation);
 
@@ -174,13 +185,13 @@ public class TalkMembers extends ActionSupport {
 		obj.put("lastConversation", jsonArray);
 		response.setHeader("cache-control", "no-cache");
 		response.setContentType("application/json");
-		
+
 		obj.writeJSONString(response.getWriter());
 
 		// return mapping.findForward("success");
 
 	}
-	
+
 	/**
 	 * Get session talks
 	 * 
@@ -189,34 +200,37 @@ public class TalkMembers extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void getTalks(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
-		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+	public void getTalks(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		ITalk talk = (ITalk) request.getSession().getAttribute(
+				TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
 			talk = this.initTalkMembers(request);
 		}
-		
+
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+					talkMessage);
 		}
-		
-		Map<String,Chat> sessionTalks=talkMessage.getSessionTalks();
-		Set<String> listSessions=sessionTalks.keySet();
-		
+
+		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
+		Set<String> listSessions = sessionTalks.keySet();
+
 		JSONArray jsonArray = JSONArray.fromObject(listSessions.toArray());
 
 		JSONObject obj = new JSONObject();
 		obj.put("sessionTalks", jsonArray);
 		response.setHeader("cache-control", "no-cache");
 		response.setContentType("application/json");
-		
+
 		obj.writeJSONString(response.getWriter());
 	}
-	
+
 	/**
 	 * Close a session talk
 	 * 
@@ -225,31 +239,34 @@ public class TalkMembers extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void closeTalk(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
-		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+	public void closeTalk(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
+		ITalk talk = (ITalk) request.getSession().getAttribute(
+				TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
 			talk = this.initTalkMembers(request);
 		}
-		
+
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+					talkMessage);
 		}
-		
-		String friend=request.getParameter("friend");
-		
-		Map<String,Chat> sessionTalks=talkMessage.getSessionTalks();
-		
-		sessionTalks.remove(friend+"@"+xmppServerDomain);
-		
+
+		String friend = request.getParameter("friend");
+
+		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
+
+		sessionTalks.remove(friend + "@" + xmppServerDomain);
+
 		response.setHeader("cache-control", "no-cache");
 		response.setContentType("text/html");
 	}
-	
+
 	/**
 	 * Get session talk
 	 * 
@@ -258,30 +275,33 @@ public class TalkMembers extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void getTalk(HttpServletRequest request, HttpServletResponse response)throws IOException, ServletException {
-		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+	public void getTalk(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		ITalk talk = (ITalk) request.getSession().getAttribute(
+				TALK_ATTRIBUTE_NAME);
 		String friend = request.getParameter("friend");
 		if (talk == null) {
 			talk = this.initTalkMembers(request);
 		}
-		
+
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+					talkMessage);
 		}
-		
-		StringBuilder conv = talkMessage.getConversation().get(friend+"@"+xmppServerDomain);		
-		
-		
+
+		StringBuilder conv = talkMessage.getConversation().get(
+				friend + "@" + xmppServerDomain);
+
 		JSONObject obj = new JSONObject();
 		obj.put("conversation", conv.toString());
 		obj.put("friend", friend);
 		response.setHeader("cache-control", "no-cache");
 		response.setContentType("application/json");
-		
+
 		obj.writeJSONString(response.getWriter());
 	}
 
@@ -295,10 +315,10 @@ public class TalkMembers extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void send(
-			HttpServletRequest request, HttpServletResponse response)
+	public void send(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+		ITalk talk = (ITalk) request.getSession().getAttribute(
+				TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
 			talk = this.initTalkMembers(request);
@@ -312,7 +332,8 @@ public class TalkMembers extends ActionSupport {
 		if (talkMessage == null) {
 
 			talkMessage = new TalkMessage(talk);
-			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+					talkMessage);
 		}
 
 		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
@@ -334,7 +355,7 @@ public class TalkMembers extends ActionSupport {
 		}
 		StringBuilder dd = null;
 		String formattedMsg = "</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
-				+ msg + "</p></br>"; 
+				+ msg + "</p></br>";
 		try {
 			talk.sendMessage(msg, friend, chat);
 			dd = talkMessage.getConversation().get(friend);
@@ -343,12 +364,14 @@ public class TalkMembers extends ActionSupport {
 				dd = new StringBuilder();
 				dd.append(formattedMsg);
 				talkMessage.getConversation().put(friend, dd);
-				request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+				request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+						talkMessage);
 			} else {
 
 				dd.append(formattedMsg);
 				talkMessage.getConversation().put(friend, dd);
-				request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+				request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME,
+						talkMessage);
 			}
 
 		} catch (TalkException e) {
@@ -366,9 +389,19 @@ public class TalkMembers extends ActionSupport {
 		obj.put("lastConversation", jsonArray);
 		response.setHeader("cache-control", "no-cache");
 		response.setContentType("application/json");
-		
+
 		obj.writeJSONString(response.getWriter());
 
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
 	}
 
 }

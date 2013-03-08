@@ -16,7 +16,9 @@
 
 		<action name="CreateHub" class="fr.univartois.ili.fsnet.actions.ManageHub" method="create">
 			<result name="input">/DisplayYourHubs.do</result>
-			<result name="success">/DisplayYourHubs.do</result>
+			<result name="success" type="redirect">/DisplayYourHubs.do
+			<param name="communityId">${communityId}</param>
+			</result>
 		</action>
 
 		<action name="ModifyYourHub" class="fr.univartois.ili.fsnet.actions.ManageHub" method="modify">

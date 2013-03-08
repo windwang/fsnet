@@ -11,13 +11,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.actions.ActionSupport;
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.eclipse.persistence.exceptions.DatabaseException;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -37,17 +34,25 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * @author Audrey Ruellan and Cerelia Besnainou
  */
 public class ManageCommunities extends ActionSupport implements
-		CrudAction {
+		CrudAction,ServletRequestAware {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final String SUCCES_ACTION_NAME = "success";
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
 	private static final String FAILED_ACTION_NAME = "failed";
 
-	private static final String COMMUNITY_NEW_NAME_FORM_FIELD_NAME = "newCommunityName";
-	private static final String COMMUNITY_OLD_NAME_FORM_FIELD_NAME = "oldCommunityName";
-	private static final String COMMUNITY_NAME_FORM_FIELD_NAME = "communityName";
-	private static final String COMMUNITY_ID_ATTRIBUTE_NAME = "communityId";
-
+	private String newCommunityName;
+	private String oldCommunityName;
+	private String communityName;
+	private Integer communityId;
+	private String searchText ;
+	private String searchYourText;
+	private String[] selectedInterests;
+	private String[] selectedCommunities;
+	private HttpServletRequest request;
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -58,9 +63,9 @@ public class ManageCommunities extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create()
+			throws Exception {
+		/*HttpSession session = request.getSession(true);*/
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 
@@ -68,53 +73,47 @@ public class ManageCommunities extends ActionSupport implements
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(creator, Right.CREATE_COMMUNITY)) {
 			em.close();
-			return mapping.findForward(UNAUTHORIZED_ACTION_NAME);
+			return UNAUTHORIZED_ACTION_NAME;
 		}
 
 		CommunityFacade communityFacade = new CommunityFacade(em);
-		String name = (String) dynaForm.get(COMMUNITY_NAME_FORM_FIELD_NAME);
 
 		boolean doesNotExists = false;
 		try {
-			communityFacade.getCommunityByName(name);
+			communityFacade.getCommunityByName(communityName);
 		} catch (NoResultException e) {
 			doesNotExists = true;
 		}
 
 		try {
 			if (doesNotExists) {
-				String interestsIds[] = (String[]) dynaForm
-						.get("selectedInterests");
+		
 				InterestFacade fac = new InterestFacade(em);
 				List<Interest> interests = new ArrayList<Interest>();
 				int currentId;
-				for (currentId = 0; currentId < interestsIds.length; currentId++) {
+				for (currentId = 0; currentId < selectedInterests.length; currentId++) {
 					interests.add(fac.getInterest(Integer
-							.valueOf(interestsIds[currentId])));
+							.valueOf(selectedInterests[currentId])));
 				}
 
 				em.getTransaction().begin();
 				Community createdCommunity = communityFacade.createCommunity(
-						creator, name);
+						creator,communityName );
 				InteractionFacade ifacade = new InteractionFacade(em);
 				ifacade.addInterests(createdCommunity, interests);
 				em.getTransaction().commit();
 			} else {
-				ActionErrors actionErrors = new ActionErrors();
-				ActionMessage msg = new ActionMessage(
-						"communities.alreadyExists");
-				actionErrors.add(COMMUNITY_NAME_FORM_FIELD_NAME, msg);
-				saveErrors(request, actionErrors);
+				addFieldError("communityName","communities.alreadyExists");
 			}
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
 
-		dynaForm.set(COMMUNITY_NAME_FORM_FIELD_NAME, "");
+		communityName="";
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/*
@@ -127,9 +126,8 @@ public class ManageCommunities extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display()
+			throws Exception {
 		throw new UnsupportedOperationException("Not supported yet");
 	}
 
@@ -143,21 +141,17 @@ public class ManageCommunities extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			String communityId = (String) dynaForm
-					.get(COMMUNITY_ID_ATTRIBUTE_NAME);
 			addRightToRequest(request);
 			CommunityFacade communityFacade = new CommunityFacade(em);
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 			InteractionFacade interactionFacade = new InteractionFacade(em);
 			em.getTransaction().begin();
-			Community community = communityFacade.getCommunity(Integer
-					.parseInt(communityId));
+			Community community = communityFacade.getCommunity(communityId);
 			interactionFacade.deleteInteraction(user, community);
 			community.getCreator().getInteractions().remove(community);
 			if (community.getParentCommunity() != null) {
@@ -166,12 +160,12 @@ public class ManageCommunities extends ActionSupport implements
 			}
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			return mapping.findForward(FAILED_ACTION_NAME);
+			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/*
@@ -184,14 +178,9 @@ public class ManageCommunities extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		String newCommunityName = (String) dynaForm
-				.get(COMMUNITY_NEW_NAME_FORM_FIELD_NAME);
-		String communityName = (String) dynaForm
-				.get(COMMUNITY_OLD_NAME_FORM_FIELD_NAME);
 		CommunityFacade facade = new CommunityFacade(em);
 		boolean doesNotExist = false;
 		Community community = facade.getCommunityByName(communityName);
@@ -209,35 +198,25 @@ public class ManageCommunities extends ActionSupport implements
 					facade.modifyCommunity(newCommunityName, community);
 					em.getTransaction().commit();
 				} catch (DatabaseException ex) {
-					ActionErrors actionErrors = new ActionErrors();
-					ActionMessage msg = new ActionMessage(
-							"communities.alreadyExists");
-					actionErrors.add(COMMUNITY_NEW_NAME_FORM_FIELD_NAME, msg);
-					saveErrors(request, actionErrors);
-
+					addFieldError("newCommunityName","communities.alreadyExists");
 					em.close();
 
-					return mapping.findForward(FAILED_ACTION_NAME);
+					return FAILED_ACTION_NAME;
 				}
 			} else {
-				ActionErrors actionErrors = new ActionErrors();
-				ActionMessage msg = new ActionMessage(
-						"communities.alreadyExists");
-				actionErrors.add(COMMUNITY_NEW_NAME_FORM_FIELD_NAME, msg);
-				saveErrors(request, actionErrors);
-
+				addFieldError("newCommunityName","communities.alreadyExists");
 				em.close();
 
-				return mapping.findForward(FAILED_ACTION_NAME);
+				return FAILED_ACTION_NAME;
 			}
 		}
 
 		em.close();
 
-		dynaForm.set(COMMUNITY_OLD_NAME_FORM_FIELD_NAME, "");
-		dynaForm.set(COMMUNITY_NEW_NAME_FORM_FIELD_NAME, "");
+		setOldCommunityName("");
+		newCommunityName="";
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/*
@@ -250,17 +229,14 @@ public class ManageCommunities extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		List<Community> result = null;
-		String searchText = "";
+	
+		searchText = "";
 		CommunityFacade communityFacade = new CommunityFacade(em);
 		addRightToRequest(request);
-		if (form != null) {
-			searchText = (String) dynaForm.get("searchText");
-		}
 		em.getTransaction().begin();
 		result = communityFacade.searchCommunity(searchText);
 		/* filter list communities */
@@ -274,7 +250,7 @@ public class ManageCommunities extends ActionSupport implements
 		em.close();
 
 		request.setAttribute("communitiesSearch", result);
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/**
@@ -286,19 +262,15 @@ public class ManageCommunities extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String searchYourCommunities(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
-		// TODO use facade
+	public String searchYourCommunities() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		List<Community> result = null;
 		String pattern = "";
 		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 		addRightToRequest(request);
-		if (form != null) {
-			pattern = (String) dynaForm.get("searchYourText");
 
-		}
+			pattern =searchYourText;
+
 		em.getTransaction().begin();
 
 		TypedQuery<Community> query = em
@@ -314,7 +286,7 @@ public class ManageCommunities extends ActionSupport implements
 
 		request.setAttribute("myCommunities", result);
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/**
@@ -333,8 +305,6 @@ public class ManageCommunities extends ActionSupport implements
 		try {
 			
 			addRightToRequest(request);
-			String[] selectedCommunities = (String[]) dynaForm
-					.get("selectedCommunities");
 			SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 					request, em);
 			CommunityFacade communityFacade = new CommunityFacade(em);
@@ -359,7 +329,7 @@ public class ManageCommunities extends ActionSupport implements
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ACTION_NAME);
+		return SUCCES_ACTION_NAME;
 	}
 
 	/**
@@ -371,4 +341,83 @@ public class ManageCommunities extends ActionSupport implements
 		request.setAttribute("rightCreateCommunity", rightCreateCommunity);
 		request.setAttribute("socialEntity", socialEntity);
 	}
+
+	public String getOldCommunityName() {
+		return oldCommunityName;
+	}
+
+	public void setOldCommunityName(String oldCommunityName) {
+		this.oldCommunityName = oldCommunityName;
+	}
+
+	public String getNewCommunityName() {
+		return newCommunityName;
+	}
+
+	public void setNewCommunityName(String newCommunityName) {
+		this.newCommunityName = newCommunityName;
+	}
+
+	public String getCommunityName() {
+		return communityName;
+	}
+
+	public void setCommunityName(String communityName) {
+		this.communityName = communityName;
+	}
+
+	public Integer getCommunityId() {
+		return communityId;
+	}
+
+	public void setCommunityId(Integer communityId) {
+		this.communityId = communityId;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public String getSearchYourText() {
+		return searchYourText;
+	}
+
+	public void setSearchYourText(String searchYourText) {
+		this.searchYourText = searchYourText;
+	}
+
+	public String[] getSelectedInterests() {
+		return selectedInterests;
+	}
+
+	public void setSelectedInterests(String[] selectedInterests) {
+		this.selectedInterests = selectedInterests;
+	}
+
+	public String[] getSelectedCommunities() {
+		return selectedCommunities;
+	}
+
+	public void setSelectedCommunities(String[] selectedCommunities) {
+		this.selectedCommunities = selectedCommunities;
+	}
+
+	public HttpServletRequest getRequest() {
+		return request;
+	}
+
+	public void setRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+	
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request=request;
+		
+	}
+
 }

@@ -10,8 +10,10 @@ import java.net.URISyntaxException;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import javax.persistence.EntityManager;
@@ -87,7 +89,25 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	private String photoContentType;
 	private String photoUrl;
 	
+	private List<String> sexesKey;
+	private List<String> sexesValue;
 	
+	
+	
+	
+	public ManageProfile() {
+		super();
+		sexesKey=new ArrayList<>();
+		sexesKey.add("");
+		sexesKey.add(getText("male"));
+		sexesKey.add(getText("female"));
+		
+		sexesValue=new ArrayList<>();
+		sexesValue.add("");
+		sexesValue.add("updateProfile.sexe.male");
+		sexesValue.add("updateProfile.sexe.female");
+	}
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -552,4 +572,134 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	public void setServletRequest(HttpServletRequest request) {
 		this.request=request;
 	}
+
+	public DateFormat getFormatter() {
+		return formatter;
+	}
+
+	public void setFormatter(DateFormat formatter) {
+		this.formatter = formatter;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFirstName() {
+		return firstName;
+	}
+
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+
+	public String getMail() {
+		return mail;
+	}
+
+	public void setMail(String mail) {
+		this.mail = mail;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public Date getDateOfBirth() {
+		return dateOfBirth;
+	}
+
+	public void setDateOfBirth(Date dateOfBirth) {
+		this.dateOfBirth = dateOfBirth;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public File getPhoto() {
+		return photo;
+	}
+
+	public void setPhoto(File photo) {
+		this.photo = photo;
+	}
+
+	public String getPhotoContentType() {
+		return photoContentType;
+	}
+
+	public void setPhotoContentType(String photoContentType) {
+		this.photoContentType = photoContentType;
+	}
+
+	public String getPhotoUrl() {
+		return photoUrl;
+	}
+
+	public void setPhotoUrl(String photoUrl) {
+		this.photoUrl = photoUrl;
+	}
+
+	public List<String> getSexesKey() {
+		return sexesKey;
+	}
+
+	public void setSexesKey(List<String> sexesKey) {
+		this.sexesKey = sexesKey;
+	}
+
+	public List<String> getSexesValue() {
+		return sexesValue;
+	}
+
+	public void setSexesValue(List<String> sexesValue) {
+		this.sexesValue = sexesValue;
+	}
+	
+	
 }

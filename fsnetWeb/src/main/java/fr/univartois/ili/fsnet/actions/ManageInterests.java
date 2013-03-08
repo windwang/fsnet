@@ -13,13 +13,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.actions.ActionSupport;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.FacebookKeyManager;
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -37,13 +31,22 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * 
  * @author Alexandre Lohez <alexandre.lohez at gmail.com>
  */
-public class ManageInterests extends ActionSupport implements
-		CrudAction {
+public class ManageInterests extends ActionSupport implements CrudAction {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
-	private static final String SUCCES_ATTRIBUTE_NAME = "success";
-
+	private HttpServletRequest request;
+	private String parentInterestId;
+	private String createdInterestName;
+	private int addedInterestId;
+	private int removedInterestId;
+	private int infoInterestId;
+private String searchInterests;
 	/**
 	 * @param dynaForm
 	 * @param facade
@@ -53,17 +56,24 @@ public class ManageInterests extends ActionSupport implements
 	 * @param request
 	 * @return
 	 */
-			String interestName, Interest interest, EntityManager em,
-			HttpServletRequest request) {
-		
-		if (dynaForm.get("parentInterestId") != null
-				&& !((String) dynaForm.get("parentInterestId")).isEmpty()) {
+	public Interest creation(InterestFacade facade, String interestName,
+			Interest interest, EntityManager em, HttpServletRequest request) {
+
+		if (parentInterestId != null && !(parentInterestId).isEmpty()) {
 			return facade.createInterest(interestName,
-					Integer.valueOf((String) dynaForm.get("parentInterestId")));
+					Integer.valueOf(parentInterestId));
 		} else {
 			return facade.createInterest(interestName);
 		}
 
+	}
+
+	public String getParentInterestId() {
+		return parentInterestId;
+	}
+
+	public void setParentInterestId(String parentInterestId) {
+		this.parentInterestId = parentInterestId;
 	}
 
 	/**
@@ -84,38 +94,36 @@ public class ManageInterests extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
-		String interestName = (String) dynaForm.get("createdInterestName");
+		// String interestName = (String) dynaForm.get("createdInterestName");
 		String interestNameTmp[];
 		List<Interest> mesInterets = new LinkedList<Interest>();
 
-		LOGGER.info("new interest: " + interestName);
+		LOGGER.info("new interest: " + createdInterestName);
 
 		try {
 			Interest interest = null;
 			em.getTransaction().begin();
-			if (interestName.contains(";")) {
-				interestNameTmp = interestName.split(";");
+			if (createdInterestName.contains(";")) {
+				interestNameTmp = createdInterestName.split(";");
 				for (String myInterestName : interestNameTmp) {
 					interest = null;
 					myInterestName = myInterestName.trim();
 					if (!myInterestName.isEmpty()) {
-						interest = creation(dynaForm, facade, myInterestName,
-								interest, em, request);
+						interest = creation(facade, myInterestName, interest,
+								em, request);
 						mesInterets.add(interest);
 					}
 				}
 			} else {
-				interest = creation(dynaForm, facade, interestName, interest,
-						em, request);
+				interest = creation(facade, createdInterestName, interest, em,
+						request);
 			}
 			em.getTransaction().commit();
 			em.getTransaction().begin();
-			if (interestName.contains(";")) {
+			if (createdInterestName.contains(";")) {
 				for (Interest unInteret : mesInterets) {
 					addInterestToCurrentUser(request, em, unInteret.getId());
 				}
@@ -127,17 +135,16 @@ public class ManageInterests extends ActionSupport implements
 			em.getTransaction().commit();
 
 		} catch (RollbackException ex) {
-			ActionErrors actionErrors = new ActionErrors();
-			ActionMessage msg = new ActionMessage("interests.alreadyExists");
-			actionErrors.add("createdInterestName", msg);
-			saveErrors(request, actionErrors);
+			// ActionErrors actionErrors = new ActionErrors();
+			// ActionMessage msg = new ActionMessage("interests.alreadyExists");
+			//actionErrors.add("createdInterestName", msg);
+			addFieldError(createdInterestName, "interests.alreadyExists");
+			// saveErrors(request, actionErrors);
 		}
 
 		em.close();
-
-		dynaForm.set("createdInterestName", "");
-
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		createdInterestName="";
+		return SUCCESS;
 	}
 
 	/**
@@ -149,21 +156,21 @@ public class ManageInterests extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String add(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String add() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		int interestId = Integer.valueOf((String) dynaForm
-				.get("addedInterestId"));
+		// int interestId = Integer.valueOf((String) dynaForm
+		// .get("addedInterestId"));
 		em.getTransaction().begin();
-		addInterestToCurrentUser(request, em, interestId);
+		addInterestToCurrentUser(request, em, addedInterestId);
 		em.getTransaction().commit();
 		em.close();
 
-		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward(SUCCES_ATTRIBUTE_NAME));
-		redirect.addParameter("infoInterestId", interestId);
-		return redirect;
+//		 ActionRedirect redirect = new ActionRedirect(
+//		 mapping.findForward(SUCCES_ATTRIBUTE_NAME));
+//		 redirect.addParameter("infoInterestId", addedInterestId);
+		
+	//	return redirect ;
+		return SUCCESS;
 	}
 
 	/**
@@ -201,13 +208,8 @@ public class ManageInterests extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String remove(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String remove() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
-
-		int interestId = Integer.valueOf((String) dynaForm
-				.get("removedInterestId"));
 
 		try {
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -215,9 +217,9 @@ public class ManageInterests extends ActionSupport implements
 			SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 			InterestFacade facadeInterest = new InterestFacade(em);
 
-			Interest interest = facadeInterest.getInterest(interestId);
+			Interest interest = facadeInterest.getInterest(removedInterestId);
 			if (interest != null) {
-				LOGGER.info("remove interest: id=" + interestId + " for user: "
+				LOGGER.info("remove interest: id=" + removedInterestId + " for user: "
 						+ user.getName() + " " + user.getFirstName() + " "
 						+ user.getId());
 
@@ -230,11 +232,12 @@ public class ManageInterests extends ActionSupport implements
 		} finally {
 			em.close();
 		}
-		
-		ActionRedirect redirect = new ActionRedirect(
-				mapping.findForward(SUCCES_ATTRIBUTE_NAME));
-		redirect.addParameter("infoInterestId", interestId);
-		return redirect;
+
+//		 ActionRedirect redirect = new ActionRedirect(
+//		 mapping.findForward(SUCCES_ATTRIBUTE_NAME));
+//		 redirect.addParameter("infoInterestId", removedInterestId);
+		//return redirect;
+		 return SUCCESS;
 	}
 
 	/*
@@ -247,9 +250,7 @@ public class ManageInterests extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify() throws Exception {
 		return null;
 	}
 
@@ -263,9 +264,7 @@ public class ManageInterests extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete() throws Exception {
 		return null;
 	}
 
@@ -279,15 +278,13 @@ public class ManageInterests extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
 
 		String interestName = "";
-		if (dynaForm.get("searchInterests") != null) {
-			interestName = (String) dynaForm.get("searchInterests");
+		if (searchInterests != null) {
+			interestName = searchInterests;
 		}
 
 		List<Interest> results = facade.searchInterest(interestName);
@@ -298,7 +295,7 @@ public class ManageInterests extends ActionSupport implements
 
 		request.setAttribute("interestSearchPaginator", paginator);
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -311,9 +308,7 @@ public class ManageInterests extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InterestFacade facade = new InterestFacade(em);
@@ -333,7 +328,7 @@ public class ManageInterests extends ActionSupport implements
 		request.setAttribute("myInterestPaginator", paginatorMy);
 		request.setAttribute("addInterestPaginator", paginatorAdd);
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -345,19 +340,17 @@ public class ManageInterests extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String informations(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String informations(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-		int interestId = Integer.valueOf((String) dynaForm
-				.get("infoInterestId"));
+		
 
-		Interest interest = facade.getInterest(interestId);
+		Interest interest = facade.getInterest(infoInterestId);
 		Map<String, List<Interaction>> resultMap = facade
-				.getInteractions(interestId);
+				.getInteractions(infoInterestId);
 		em.close();
 
 		if (interest != null) {
@@ -379,6 +372,38 @@ public class ManageInterests extends ActionSupport implements
 			}
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
+	}
+
+	public String getCreatedInterestName() {
+		return createdInterestName;
+	}
+
+	public void setCreatedInterestName(String createdInterestName) {
+		this.createdInterestName = createdInterestName;
+	}
+
+	public int getAddedInterestId() {
+		return addedInterestId;
+	}
+
+	public void setAddedInterestId(int addedInterestId) {
+		this.addedInterestId = addedInterestId;
+	}
+
+	public String getSearchInterests() {
+		return searchInterests;
+	}
+
+	public void setSearchInterests(String searchInterests) {
+		this.searchInterests = searchInterests;
+	}
+
+	public int getInfoInterestId() {
+		return infoInterestId;
+	}
+
+	public void setInfoInterestId(int infoInterestId) {
+		this.infoInterestId = infoInterestId;
 	}
 }
