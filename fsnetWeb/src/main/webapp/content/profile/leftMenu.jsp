@@ -1,24 +1,23 @@
-<%@taglib uri="http://struts.apache.org/tags-tiles" prefix="tiles"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
-	<bean:message key="profile.leftMenu.my" />
+	<s:text name="profile.leftMenu.my" />
 </h2>
 
 <ul>
 	<li><s:a action="Profile.do">
-			<bean:message key="showProfile.edit" />
+			<s:text name="showProfile.edit" />
 		</s:a></li>
 	<li><s:a action="/Interests">
-			<bean:message key="showProfile.edit.interests" />
+			<s:text name="showProfile.edit.interests" />
 		</s:a></li>
 	<li><s:a action="/CreateCv1">
-			<bean:message key="profile.leftMenu.createCV" />
+			<s:text name="profile.leftMenu.createCV" />
 		</s:a></li>
 	<li><s:a action="/DisplayCV">
-			<bean:message key="profile.leftMenu.myCV" />
+			<s:text name="profile.leftMenu.myCV" />
 		</s:a></li>
 
 </ul>
@@ -26,26 +25,26 @@
 <c:choose>
 	<c:when test="${sessionScope.isMasterGroup || sessionScope.isGroupResponsible}">
 		<h2>
-			<bean:message key="profile.LeftMenuManage" />
+			<s:text name="profile.LeftMenuManage" />
 		</h2>
 
 		<ul>
 			<li><s:a action="/SearchGroup.do">
-					<bean:message key="profile.LeftMenuManageGroups" />
-					<html:param name="id" value="${requestScope.groupId}" />
+					<s:text name="profile.LeftMenuManageGroups" />
+					<s:param name="id" value="%{requestScope.groupId}" />
 				</s:a></li>
 			<li><s:a action="/MemberList">
-					<bean:message key="profile.LeftMenuManageMembers" />
+					<s:text name="profile.LeftMenuManageMembers" />
 				</s:a></li>
 		</ul>
 	</c:when>
 	<c:otherwise>
 		<h2>
-			<bean:message key="profile.LeftMenuMemberGroup" />
+			<s:text name="profile.LeftMenuMemberGroup" />
 		</h2>
 		<ul>
 			<li><s:a action="/ListMembersOfGroup">
-					<bean:message key="profile.LeftMenuDisplayMembersGroup" />
+					<s:text name="profile.LeftMenuDisplayMembersGroup" />
 				</s:a></li>
 		</ul>
 

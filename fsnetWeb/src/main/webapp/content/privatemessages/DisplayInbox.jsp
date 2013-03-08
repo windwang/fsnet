@@ -85,8 +85,8 @@
 						<c:forEach items="${requestScope.inBoxMessages}" var="message">
 							<c:if test="${not message.reed}">
 								<tr class="notReed">
-									<td><html:multibox property="selectedMessages"
-											value="${message.id}" /></td>
+									<td>
+											<s:checkbox name="selectedMessages" fieldValue="%{message.id}"/></td>
 									<td><ili:getMiniature socialEntity="${message.from}" /></td>
 									<td style="width: 20%"><s:a action="/DisplayMessage">
 											<s:param name="messageId" value="%{message.id}" />
@@ -108,8 +108,7 @@
 							</c:if>
 							<c:if test="${message.reed}">
 								<tr>
-									<td><html:multibox property="selectedMessages"
-											value="${message.id}" /></td>
+									<td><s:checkbox name="selectedMessages" fieldValue="%{message.id}" /></td>
 									<td><ili:getMiniature socialEntity="${message.from}" /></td>
 									<td style="width: 20%"><s:a action="/DisplayMessage">
 											<s:param name="messageId" value="%{message.id}" />
@@ -129,8 +128,7 @@
 											</span>
 										</s:a></td>
 							</c:if>
-							<td><bean:write name="message" property="creationDate"
-									formatKey="date.format" /></td>
+							<td><s:property value="creationDate"/></td>
 						</c:forEach>
 					</tbody>
 				</table>

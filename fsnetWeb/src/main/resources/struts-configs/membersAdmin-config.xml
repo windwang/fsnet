@@ -9,63 +9,64 @@
 	<include file="struts-default.xml" />
 
 	<package name="membersAdmin-default" extends="struts-default">
-	
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
 		<action name="/DisplayMember"
-			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" 
-		 method="display">
-			<result name="success">DisplayForModifyMember</result>
+			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="display">
+			<result name="success" type="tiles">DisplayForModifyMember</result>
 			<result name="input">Members</result>
 		</action>
 
 		<action name="/ModifyMember"
-			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" 
-			 method="modify">
-			<result name="success">/MemberList.do</result>
+			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="modify">
+			<result name="success" type="tiles" >/MemberList.do</result>
 			<result name="input">ModifyMember</result>
 		</action>
 
 		<action name="/SearchMemberAdmin"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="search">
-			<result name="success">MemberList</result>
+			<result name="success" type="tiles">MemberList</result>
 			<result name="input">Members</result>
 		</action>
 
 		<action name="/CreateMultipleMember"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="createMultiple">
-			<result name="success">/Members.do</result>
+			<result name="success" type="tiles" >/Members.do</result>
 			<result name="input">Members</result>
 		</action>
 		<action name="/CreateMultipleMemberFile"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="createMultipleFile">
-			<result name="success">/Members.do</result>
+			<result name="success" type="tiles" >/Members.do</result>
 			<result name="input">Members</result>
 		</action>
 
 		<action name="/CreateMember"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="create">
-			<result name="success">/Members.do</result>
+			<result name="success" type="tiles" >/Members.do</result>
 			<result name="input">Members</result>
 		</action>
 
 		<action name="/SwitchState"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="switchState">
-			<result name="success">/MemberList.do</result>
+			<result name="success" type="tiles">/MemberList.do</result>
 		</action>
 
-		<action name="/Members" 
+		<action name="/Members"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="search">
-			<result name="success">Members</result>
+			<result name="success" type="tiles">Members</result>
 		</action>
 
 
 		<action name="/MemberList"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="search">
-			<result name="success">MemberList</result>
+			<result name="success" type="tiles">MemberList</result>
 		</action>
 
 		<action name="/DeleteInterestMember"
 			class="fr.univartois.ili.fsnet.actions.ManageAdminMembers" method="deleteInterestMember">
-			<result name="success">/DisplayMember.do</result>
+			<result name="success" type="tiles">/DisplayMember.do</result>
 		</action>
 
 	</package>

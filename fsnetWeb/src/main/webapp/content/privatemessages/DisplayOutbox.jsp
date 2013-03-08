@@ -84,8 +84,8 @@
 					<tbody>
 						<c:forEach items="${requestScope.outBoxMessages}" var="message">
 							<tr>
-								<td><s:multibox property="selectedMessages"
-										value="${message.id}" /></td>
+								<td><s:checkbox name="selectedMessages"
+										fieldValue="%{message.id}" /></td>
 								<td><ili:getMiniature socialEntity="${message.to}" /></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosFirstname
 										socialEntity="${message.to}" /></td>
@@ -101,8 +101,7 @@
 											</ili:substring>
 										</span>
 									</s:a></td>
-								<td><bean:write name="message" property="creationDate"
-										formatKey="date.format" /></td>
+								<td><s:property value="creationDate" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>

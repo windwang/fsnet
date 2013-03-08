@@ -17,12 +17,13 @@
 				<table class="topicTable inLineTable tableStyle">
 					<c:forEach items="${requestScope.conversationMessages1.resultList}"
 						var="message">
+
 						<tr class="topicHeader">
 							<td><s:checkbox name="selectedMessages"
-									value="%{message.id}" /></td>
+									fieldValue="%{message.id}" /></td>
 							<td><s:text name="privatemessages.from" /> : |<ili:getSocialEntityInfos
 									socialEntity="${message.from}" />| <span style="float: right">
-									<s:property value="message" />
+									<s:property value="message.creationDate"/>
 							</span></td>
 						</tr>
 						<tr>
@@ -57,14 +58,17 @@
 						<td><label for="messageTo"> <s:text
 									name="privatemessages.to" /> :
 						</label></td>
-						<td><s:text
+
+						<td><s:text var="messageTo"
 								name="%{theMessage.from.name} %{theMessage.from.firstName}" /></td>
+
 					</tr>
 					<tr>
 						<td><label for="messageSubject"> <s:text
 									name="privatemessages.subject" /> :
 						</label></td>
-						<td><s:text name="RE: %{theMessage.subject}" /></td>
+
+						<td><s:text var="messageSubject" name="RE: %{theMessage.subject}" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><s:textarea property="messageBody"
@@ -90,10 +94,10 @@
 						var="message">
 						<tr class="topicHeader">
 							<td><s:checkbox name="selectedMessages"
-									value="%{message.id}" /></td>
+									fieldValue="%{message.id}" /></td>
 							<td><s:text name="privatemessages.from" /> : |<ili:getSocialEntityInfos
 									socialEntity="${message.from}" />| <span style="float: right">
-									<s:property value="message" />
+									<s:property value="message.creationDate"/>
 							</span></td>
 						</tr>
 						<tr>
@@ -125,14 +129,15 @@
 						<td><label for="messageTo"> <s:text
 									name="privatemessages.to" /> :
 						</label></td>
-						<td><s:text
+						<td><s:text var="messageTo"
 								name="%{theMessage.from.name} %{theMessage.from.firstName}" /></td>
 					</tr>
 					<tr>
 						<td><label for="messageSubject"> <s:text
 									name="privatemessages.subject" /> :
 						</label></td>
-						<td><s:text name="RE: %{theMessage.subject}" /></td>
+						<td><s:text var="messageSubject"
+								name="RE: %{theMessage.subject}" /></td>
 					</tr>
 					<tr>
 						<td colspan="2"><s:textarea property="messageBody"
