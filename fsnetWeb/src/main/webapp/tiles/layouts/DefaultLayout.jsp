@@ -103,7 +103,7 @@ body {
 					<tiles:insertAttribute name="logo" />
 					<div id="left" class="cadreDivMenuTop">
 						<h2>
-							<s:property value="%{pageTitle}"/>
+							<s:property value="%{getText(#attr.pageTitle)}"/>
 						</h2>
 						<tiles:insertAttribute name="left" />
 						<tiles:insertAttribute name="loggedUsers" />
