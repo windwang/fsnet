@@ -23,13 +23,11 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionErrors;
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionMessage;
-import org.apache.struts.actions.ActionSupport;
-import org.apache.struts.util.MessageResources;
+import org.apache.struts2.dispatcher.mapper.ActionMapping;
+import org.apache.struts2.interceptor.ServletRequestAware;
+
+import com.opensymphony.xwork2.Action;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.mail.FSNetConfiguration;
@@ -53,24 +51,184 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * @author SAID Mohamed
  */
 public class ManageAdminMembers extends ActionSupport implements
-		CrudAction {
+		CrudAction,ServletRequestAware {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
-	private static final String NAME_FORM_FIELD_NAME = "name";
-	private static final String FIRSTNAME_FORM_FIELD_NAME = "firstName";
-	private static final String EMAIL_FORM_FIELD_NAME = "email";
-	private static final String PARENT_ID_FORM_FIELD_NAME = "parentId";
-	private static final String MESSAGE_FORM_FIELD_NAME = "message";
-	private static final String FORMAT_BIRTHDAY_FORM_FIELD_NAME = "formatBirthDay";
 	private static final String MEMBERS_USER_EXISTS_ACTION_NAME = "members.user.exists";
 	private static final String MEMBERS_ERROR_ON_CREATE_ACTION_NAME = "members.error.on.create";
 	private static final String ID_MEMBER_REQUEST_PARAMETER_NAME = "idMember";
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
-	private static final String INTERNATIONALIZATION_RESSOURCE_NAME = "FSneti18n";
 	
+	private HttpServletRequest request;
+	private String name;
+	private String firstname;
+	private String email;
+	private String parentId;
+	private String message;
+	private String formatBirthDay;
+	private String password;
+	private String passwordConfirmation;
+	
+	private String adress;
+	private String city;
+	private String phone;
+	private String sexe;
+	private String job;
+	private Date birthDay;
+	private int id;
+	private String fileMultipleMember;
+	private String multipleMember;
+	private String searchText;
+	
+	public String getName() {
+		return name;
+	}
 
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getFirstname() {
+		return firstname;
+	}
+
+	public void setFirstname(String firstname) {
+		this.firstname = firstname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getParentId() {
+		return parentId;
+	}
+
+	public void setParentId(String parentId) {
+		this.parentId = parentId;
+	}
+
+	public String getMessage() {
+		return message;
+	}
+
+	public void setMessage(String message) {
+		this.message = message;
+	}
+
+	public String getFormatBirthDay() {
+		return formatBirthDay;
+	}
+
+	public void setFormatBirthDay(String formatBirthDay) {
+		this.formatBirthDay = formatBirthDay;
+	}
 	
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+	
+	public String getPasswordConfirmation() {
+		return passwordConfirmation;
+	}
+
+	public void setPasswordConfirmation(String passwordConfirmation) {
+		this.passwordConfirmation = passwordConfirmation;
+	}
+
+	public String getAdress() {
+		return adress;
+	}
+
+	public void setAdress(String adress) {
+		this.adress = adress;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
+	public String getPhone() {
+		return phone;
+	}
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+	public String getSexe() {
+		return sexe;
+	}
+
+	public void setSexe(String sexe) {
+		this.sexe = sexe;
+	}
+	
+	public String getJob() {
+		return job;
+	}
+
+	public void setJob(String job) {
+		this.job = job;
+	}
+
+	public Date getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(Date birthDay) {
+		this.birthDay = birthDay;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+	
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
+	}
+
+	public String getFileMultipleMember() {
+		return fileMultipleMember;
+	}
+
+	public void setFileMultipleMember(String fileMultipleMember) {
+		this.fileMultipleMember = fileMultipleMember;
+	}
+
+	public String getMultipleMember() {
+		return multipleMember;
+	}
+
+	public void setMultipleMember(String multipleMember) {
+		this.multipleMember = multipleMember;
+	}
 	
 	/*
 	 * (non-Javadoc)
@@ -82,47 +240,29 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		String name = (String) dynaForm.get(NAME_FORM_FIELD_NAME);
-		dynaForm.set(NAME_FORM_FIELD_NAME, "");
-		String firstName = (String) dynaForm.get(FIRSTNAME_FORM_FIELD_NAME);
-		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, "");
-
-		String mail = (String) dynaForm.get(EMAIL_FORM_FIELD_NAME);
-		mail = mail.toLowerCase();
-		dynaForm.set(EMAIL_FORM_FIELD_NAME, "");
-
-		String parentId = (String) dynaForm.get(PARENT_ID_FORM_FIELD_NAME);
-		dynaForm.set(PARENT_ID_FORM_FIELD_NAME, "");
-
-		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
-		String inputPassword = (String) dynaForm.get("password");
-		dynaForm.set("password", "");
-		dynaForm.set("passwordConfirmation", "");
+	public String create() throws Exception{
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
 		SocialEntity socialEntity = facadeSE.createSocialEntity(name,
-				firstName, mail);
+				firstname, email);
 		SocialGroup socialGroup = socialGroupFacade.getSocialGroup(Integer
 				.parseInt(parentId));
 		try {
 			String definedPassword = null;
 			String encryptedPassword = null;
-			if (inputPassword == null || "".equals(inputPassword)) {
+			if (password == null || "".equals(password)) {
 				definedPassword = Encryption.generateRandomPassword();
 				LOGGER.info("#### Generated Password : " + definedPassword);
 				encryptedPassword = Encryption
 						.getEncodedPassword(definedPassword);
 			} else {
-				definedPassword = inputPassword;
-				LOGGER.info("#### Defined Password : " + inputPassword);
+				definedPassword = password;
+				LOGGER.info("#### Defined Password : " + password);
 				encryptedPassword = Encryption
-						.getEncodedPassword(inputPassword);
+						.getEncodedPassword(password);
 			}
 			socialEntity.setPassword(encryptedPassword);
 			em.getTransaction().begin();
@@ -133,30 +273,25 @@ public class ManageAdminMembers extends ActionSupport implements
 
 			Locale currentLocale = request.getLocale();
 			sendConfirmationMail(socialEntity, definedPassword,
-					personalizedMessage, currentLocale);
+					message, currentLocale);
 		} catch (RollbackException e) {
-			ActionErrors errors = new ActionErrors();
-			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
-			saveErrors(request, errors);
+			addFieldError(email, MEMBERS_USER_EXISTS_ACTION_NAME);
 		} catch (Exception e) {
-			ActionErrors errors = new ActionErrors();
-			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
-			saveErrors(request, errors);
+			addFieldError(email, MEMBERS_ERROR_ON_CREATE_ACTION_NAME);
 		}
 		em.close();
 
-		dynaForm.set(NAME_FORM_FIELD_NAME, "");
-		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, "");
-		dynaForm.set(EMAIL_FORM_FIELD_NAME, "");
-		dynaForm.set(PARENT_ID_FORM_FIELD_NAME, "");
+		name = "";
+		firstname =  "";
+		email = "";
+		parentId = "";
+		password = "";
+		passwordConfirmation = "";
 		cleanSession(request);
 
-		MessageResources bundle = MessageResources
-				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"member.success.on.create"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, getText("member.success.on.create"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -192,12 +327,9 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String createMultipleFile(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
-		String formInput = readFileLinePerLine((String) dynaForm
-				.get("fileMultipleMember"));
-		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
+	public String createMultipleFile() throws Exception {
+		String formInput = readFileLinePerLine(fileMultipleMember);
+		String personalizedMessage = message;
 		if (formInput != null) {
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntityFacade facadeSE = new SocialEntityFacade(em);
@@ -233,17 +365,12 @@ public class ManageAdminMembers extends ActionSupport implements
 			// create methode
 			catch (RollbackException e) {
 				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-				ActionErrors errors = new ActionErrors();
-				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
-				saveErrors(request, errors);
-				return mapping.getInputForward();
+				addFieldError(email, MEMBERS_USER_EXISTS_ACTION_NAME);
+				return INPUT;
 			} catch (Exception e) {
 				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-				ActionErrors errors = new ActionErrors();
-				errors.add(EMAIL_FORM_FIELD_NAME,
-						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
-				saveErrors(request, errors);
-				return mapping.getInputForward();
+				addFieldError(email, MEMBERS_ERROR_ON_CREATE_ACTION_NAME);
+				return INPUT;
 			}
 
 			em.close();
@@ -259,25 +386,16 @@ public class ManageAdminMembers extends ActionSupport implements
 				// the create methode
 				catch (RollbackException e) {
 					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-					ActionErrors errors = new ActionErrors();
-					errors.add(EMAIL_FORM_FIELD_NAME,
-							new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
-					saveErrors(request, errors);
+					addFieldError(email, MEMBERS_USER_EXISTS_ACTION_NAME);
 				} catch (Exception e) {
 					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-					ActionErrors errors = new ActionErrors();
-					errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(
-							MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
-					saveErrors(request, errors);
+					addFieldError(email, MEMBERS_ERROR_ON_CREATE_ACTION_NAME);
 				}
 			}
 		} else {
-			ActionErrors errors = new ActionErrors();
-			errors.add("fileMultipleMember", new ActionMessage(
-					"members.error.file"));
-			saveErrors(request, errors);
+			addFieldError("fileMultipleMember", "members.error.file");
 		}
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -295,13 +413,11 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * @throws ServletException
 	 * @author stephane Gronowski
 	 */
-	public String createMultiple(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String createMultiple() throws Exception{
 
-		String formInput = (String) dynaForm.get("multipleMember");
-		dynaForm.set("multipleMember", "");
-		String personalizedMessage = (String) dynaForm.get(MESSAGE_FORM_FIELD_NAME);
+		String formInput = multipleMember;
+		multipleMember="";
+		String personalizedMessage = message;
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade facadeSE = new SocialEntityFacade(em);
@@ -336,16 +452,12 @@ public class ManageAdminMembers extends ActionSupport implements
 		// create methode
 		catch (RollbackException e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-			ActionErrors errors = new ActionErrors();
-			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
-			saveErrors(request, errors);
-			return mapping.getInputForward();
+			addFieldError(email, MEMBERS_USER_EXISTS_ACTION_NAME);
+			return INPUT;
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-			ActionErrors errors = new ActionErrors();
-			errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
-			saveErrors(request, errors);
-			return mapping.getInputForward();
+			addFieldError(email, MEMBERS_ERROR_ON_CREATE_ACTION_NAME);
+			return INPUT;
 		}
 
 		em.close();
@@ -360,25 +472,17 @@ public class ManageAdminMembers extends ActionSupport implements
 			// the create methode
 			catch (RollbackException e) {
 				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-				ActionErrors errors = new ActionErrors();
-				errors.add(EMAIL_FORM_FIELD_NAME, new ActionMessage(MEMBERS_USER_EXISTS_ACTION_NAME));
-				saveErrors(request, errors);
+				addFieldError(email, MEMBERS_USER_EXISTS_ACTION_NAME);
 			} catch (Exception e) {
 				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
-				ActionErrors errors = new ActionErrors();
-				errors.add(EMAIL_FORM_FIELD_NAME,
-						new ActionMessage(MEMBERS_ERROR_ON_CREATE_ACTION_NAME));
-				saveErrors(request, errors);
+				addFieldError(email, MEMBERS_ERROR_ON_CREATE_ACTION_NAME);
 			}
 
 		}
 
-		MessageResources bundle = MessageResources
-				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"members.success.on.create"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, getText("members.success.on.create"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -412,11 +516,7 @@ public class ManageAdminMembers extends ActionSupport implements
 		FSNetMailer mailer = FSNetMailer.getInstance();
 		Mail mail = mailer.createMail();
 
-		MessageResources bundle = MessageResources
-				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
-
-		mail.setSubject(bundle.getMessage(locale,
-				"members.welcomeMessage.subject"));
+		mail.setSubject(getText("members.welcomeMessage.subject"));
 		mail.addRecipient(socialEntity.getEmail());
 		mail.setContent(message);
 
@@ -446,16 +546,14 @@ public class ManageAdminMembers extends ActionSupport implements
 			String addressFsnet, String password, String email,
 			String personalizedMessage, Locale locale) {
 
-		MessageResources bundle = MessageResources
-				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
 		String tmpPersonalizedMessage = new String(personalizedMessage);
 		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
-				"\"" + bundle.getMessage(locale, "members.name") + "\"", name);
+				"\"" + getText("members.name") + "\"", name);
 		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
-				"\"" + bundle.getMessage(locale, "members.firstName") + "\"",
+				"\"" + getText("members.firstName") + "\"",
 				firstName);
 		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
-				"\"" + bundle.getMessage(locale, "members.password") + "\"",
+				"\"" + getText("members.password") + "\"",
 				password);
 		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"Email\"", email);
 		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"url\"",
@@ -473,9 +571,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete() throws Exception {
 		throw new UnsupportedOperationException();
 	}
 
@@ -488,9 +584,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String switchState(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String switchState() throws Exception {
 		String entitySelected = request.getParameter("entitySelected");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
@@ -499,7 +593,7 @@ public class ManageAdminMembers extends ActionSupport implements
 		socialEntityFacade.switchState(socialEntityId);
 		em.getTransaction().commit();
 		em.close();
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -512,9 +606,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display() throws Exception {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(
 				entityManager);
@@ -533,16 +625,17 @@ public class ManageAdminMembers extends ActionSupport implements
 				city = member.getAddress().getCity();
 			}
 		}
-		dynaForm.set("address", adress);
-		dynaForm.set("city", city);
-		dynaForm.set("phone", member.getPhone());
-		dynaForm.set("sexe", member.getSex());
-		dynaForm.set("job", member.getProfession());
-		dynaForm.set("birthDay", member.getBirthDate());
-		dynaForm.set(NAME_FORM_FIELD_NAME, member.getName());
-		dynaForm.set(EMAIL_FORM_FIELD_NAME, member.getEmail());
-		dynaForm.set(FIRSTNAME_FORM_FIELD_NAME, member.getFirstName());
-		dynaForm.set("id", member.getId());
+		this.adress = adress;
+		this.city = city;
+		phone = member.getPhone();
+		sexe = member.getSex();
+		job = member.getProfession();
+		birthDay = member.getBirthDate();
+		name = member.getName();
+		email =  member.getEmail();
+		firstname =  member.getFirstName();
+		id = member.getId();
+
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
 				entityManager);
 		List<SocialGroup> socialGroups = socialGroupFacade
@@ -567,35 +660,30 @@ public class ManageAdminMembers extends ActionSupport implements
 		request.getSession(true).setAttribute("group", member.getGroup());
 		request.getSession(true).setAttribute("allGroups", socialGroups);
 		entityManager.close();
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
-	}
+		
+		return SUCCESS;
 
 	/**
 	 * @param dynaForm
 	 * @return
 	 */
-		ActionErrors res = new ActionErrors();
-		try {
-			Date birthday = DateUtils.format(dynaForm
-					.getString(FORMAT_BIRTHDAY_FORM_FIELD_NAME));
+		/* Remove ?
+		 * try {
+			Date birthday = DateUtils.format(formatBirthDay);
 			if (birthday.after(new Date())) {
-				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
-						"date.error.invalid"));
+				addFieldError(formatBirthDay, "date.error.invalid");
 			}
 			Calendar cal = Calendar.getInstance();
 			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 100);
 			if (birthday.before(cal.getTime())) {
-				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
-						"date.error.invalid"));
+				addFieldError(formatBirthDay, "date.error.invalid");
 			}
 		} catch (ParseException e1) {
-			if (!dynaForm.getString(FORMAT_BIRTHDAY_FORM_FIELD_NAME).isEmpty()) {
-				res.add(FORMAT_BIRTHDAY_FORM_FIELD_NAME, new ActionMessage(
-						"date.error.invalid"));
+			if (!formatBirthDay.isEmpty()) {
+				addFieldError(formatBirthDay, "date.error.invalid");
 			}
 			// Date Format is empty. Do nothing.
-		}
-		return res;
+		}*/
 	}
 
 	/*
@@ -608,40 +696,30 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify() throws Exception {
 		EntityManager entityManager = PersistenceProvider.createEntityManager();
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
 				entityManager);
 
-		String name = (String) formSocialENtity.get(NAME_FORM_FIELD_NAME);
-		String firstName = (String) formSocialENtity.get(FIRSTNAME_FORM_FIELD_NAME);
-		String email = (String) formSocialENtity.get(EMAIL_FORM_FIELD_NAME);
+		String name = this.name;
+		String firstName = this.firstname;
+		String email = this.email;
 		email = email.toLowerCase();
-		Integer idGroup = Integer.parseInt((String) formSocialENtity
-				.get(PARENT_ID_FORM_FIELD_NAME));
-		String job = (String) formSocialENtity.get("job");
-		String address = (String) formSocialENtity.get("address");
-		String city = (String) formSocialENtity.get("city");
-		String phone = (String) formSocialENtity.get("phone");
-		String sexe = (String) formSocialENtity.get("sexe");
-		Integer idMember = (Integer) formSocialENtity.get("id");
-		ActionErrors errors = verified(formSocialENtity);
-
-		if (!errors.isEmpty()) {
-			saveErrors(request, errors);
-			return mapping.getInputForward();
-		}
+		Integer idGroup = Integer.parseInt(this.parentId);
+		String job = this.job;
+		String address = this.adress;
+		String city = this.city;
+		String phone = this.phone;
+		String sexe = this.sexe;
+		Integer idMember = this.id;
 
 		Date birthDay = null;
 		try {
-			birthDay = DateUtils.format((String) formSocialENtity
-					.get(FORMAT_BIRTHDAY_FORM_FIELD_NAME));
+			birthDay = DateUtils.format(this.formatBirthDay);
 		} catch (ParseException e) {
 			// Date Format is invalid or empty. Do nothing.
 		}
-		formSocialENtity.set("birthDay", birthDay);
+		this.birthDay = birthDay;
 
 		SocialEntityFacade facadeSE = new SocialEntityFacade(entityManager);
 
@@ -670,16 +748,12 @@ public class ManageAdminMembers extends ActionSupport implements
 				member.getInterests(), request, "interestsMember", ID_MEMBER_REQUEST_PARAMETER_NAME);
 		request.setAttribute("interestsMemberPaginator", paginator);
 
-		errors.add(MESSAGE_FORM_FIELD_NAME, new ActionMessage("member.success.update"));
-		saveErrors(request, errors);
+		addFieldError(message, "member.success.update");
 		cleanSession(request);
 
-		MessageResources bundle = MessageResources
-				.getMessageResources(INTERNATIONALIZATION_RESSOURCE_NAME);
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, bundle.getMessage(request.getLocale(),
-				"member.success.on.modify"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME, getText("member.success.on.modify"));
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -701,9 +775,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		em.getTransaction().begin();
 
@@ -713,7 +785,7 @@ public class ManageAdminMembers extends ActionSupport implements
 		List<SocialEntity> resultOthersList = socialGroupFacade
 				.getAllChildMembers(socialGroupUser);
 		if (form != null) {
-			String searchText = (String) dynaForm.get("searchText");
+			String searchText = this.searchText;
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			resultOthers = socialEntityFacade.searchSocialEntity(searchText);
 			em.getTransaction().commit();
@@ -738,7 +810,7 @@ public class ManageAdminMembers extends ActionSupport implements
 			request.getSession(true).setAttribute("allGroups", socialGroups);
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -752,9 +824,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String deleteInterestMember(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String deleteInterestMember() throws Exception {
 		Integer interestSelected = Integer.valueOf(request
 				.getParameter("interestSelected"));
 		Integer idSocialEntity = Integer.valueOf(request
@@ -771,7 +841,11 @@ public class ManageAdminMembers extends ActionSupport implements
 		em.getTransaction().commit();
 		em.close();
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request=request;
+	}
 }
