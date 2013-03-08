@@ -362,6 +362,357 @@ public class SocialGroupFacadeTest {
 		assertTrue("user have this right", sgf.isAuthorized(user, Right.ADD_CONTACT_GROUP));
 	}
 
+	
+	
+	@Test
+	public void testIsAuthorizedWithNull(){
+		assertFalse(sgf.isAuthorized(null, null));
+	}
+	
+	@Test
+	public void testIsAuthorizedWithNull2(){
+		assertFalse(sgf.isAuthorized(new SocialEntity(), null));
+	}
+	
+	@Test
+	public void testGetAllSocialGroups(){
+		String string = "a";
+		String string2 = "a2";
+		SocialEntity se = createSocialEntity(string);
+		SocialEntity se2 = createSocialEntity(string2);
+		
+		List<SocialGroup> listOld = sgf.getAllSocialGroups();
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, string, string,new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(se2, string2, string2,new ArrayList<SocialElement>());
+		em.getTransaction().commit();
 
+		List<SocialGroup> list = sgf.getAllSocialGroups();
+		
+		assertEquals(listOld.size()+2, list.size());
+		assertTrue(list.contains(sg1));
+		assertTrue(list.contains(sg2));
+	}
+	
+	@Test
+	public void testGetSocialElementByFilter(){
+		String s = "b";
+		String s2 = "b2" ; 
+		String s3 = "b3" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		SocialEntity se3 = createSocialEntity(s3);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(se2, s2, s2,new ArrayList<SocialElement>());
+		sg1.addSocialElement(sg2);
+		sg1.addSocialElement(se2);
+		sg1.addSocialElement(se3);
+		em.getTransaction().commit();
+		
+		List<SocialEntity> list = sgf.getAcceptedSocialElementsByFilter(sg1, SocialEntity.class) ;
+		assertEquals(2,list.size());
+		assertTrue(list.contains(se2));
+		assertTrue(list.contains(se3));		
+	}
+	
+	@Test
+	public void testGetAllChildGroups(){
+		String s = "c";
+		String s2 = "c2" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(se2, s2, s2,new ArrayList<SocialElement>());
+		sg1.addSocialElement(sg2);
+		em.getTransaction().commit();
+		
+		List<SocialGroup> list = sgf.getAllChildGroups(sg1);
+		assertTrue(list.contains(sg2));
+	}
+	
+	
+	@Test
+	public void testGetAllChildMembers(){
+		String s = "d";
+		String s2 = "d2" ;
+		String s3 = "d3" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		SocialEntity se3 = createSocialEntity(s3);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		sg1.addSocialElement(se2);
+		sg1.addSocialElement(se3);
+		em.getTransaction().commit();
+		
+		List<SocialEntity> list = sgf.getAllChildMembers(sg1);
+		assertEquals(2, list.size());
+		assertTrue(list.contains(se2));
+		assertTrue(list.contains(se3));
+	}
+	
+	@Test
+	public void testSwitchState(){
+		String s = "e";
+		String s2 = "e2" ;
+		String s3 = "e3" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		SocialEntity se3 = createSocialEntity(s3);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		sg1.addSocialElement(se2);
+		sg1.addSocialElement(se3);
+		em.getTransaction().commit();
+		
+		em.getTransaction().begin();
+		sg1.setIsEnabled(true);
+		sgf.switchState(sg1.getId());
+		em.getTransaction().commit();
+		
+		assertFalse(sg1.getIsEnabled());
+		assertFalse(se2.getIsEnabled());
+		
+		em.getTransaction().begin();
+		sg1.setIsEnabled(false);
+		sgf.switchState(sg1.getId());
+		em.getTransaction().commit();
+		
+		assertTrue(sg1.getIsEnabled());
+		assertTrue(se2.getIsEnabled());		
+	}
+	
+	
+	@Test
+	public void testGetAllGroupsChildSelfInclude(){
+		String s = "f";
+		String s2 = "f2" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(se2, s2, s2,new ArrayList<SocialElement>());
+		sg1.addSocialElement(sg2);
+		em.getTransaction().commit();
+		
+		List<SocialGroup> list = sgf.getAllGroupsChildSelfInclude(sg1);
+		assertTrue(list.contains(sg1));
+		assertTrue(list.contains(sg2));
+	}
+	
+	
+	@Test
+	public void testGetMembersFromGroup(){
+		String s = "g";
+		String s2 = "g2" ; 
+		String s3 = "g3" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		SocialEntity se3 = createSocialEntity(s3);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(se2, s2, s2,new ArrayList<SocialElement>());
+		sg1.addSocialElement(sg2);
+		sg1.addSocialElement(se3);
+		em.getTransaction().commit();
+		
+		List<SocialEntity> list = sgf.getMembersFromGroup(sg1);
+		
+		assertEquals(1,list.size());
+		assertTrue(list.contains(se3));
+		assertFalse(list.contains(sg2));		
+	}
+	
+	
+	@Test
+	public void testGetAllAntecedentSocialGroups(){
+		String s = "h";
+		String s2 = "h2" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(se2, s2, s2,new ArrayList<SocialElement>());
+		sg1.addSocialElement(sg2);
+		em.getTransaction().commit();
+		
+		List<SocialGroup> list = sgf.getAllAntecedentSocialGroups(sg2);
+		
+		assertEquals(1,list.size());
+		assertTrue(list.contains(sg1));
+		
+		list = sgf.getAllAnecedentSocialGroupsSelfInclude(sg2);
+		assertEquals(2,list.size());
+		assertTrue(list.contains(sg1));
+		assertTrue(list.contains(sg2));
+		
+	}
+	
+	@Test
+	public void testGetMastersFromGroupAndChildGroups(){
+		String s = "hh";
+		String s2 = "hh2" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		SocialGroup sg2 = sgf.createSocialGroup(se2, s2, s2,new ArrayList<SocialElement>());
+		sg1.addSocialElement(sg2);
+		em.getTransaction().commit();
+		
+		List<SocialEntity> list = sgf.getMastersFromGroupAndChildGroups(sg1);
+		
+		assertTrue(list.contains(se));
+		assertTrue(list.contains(se2));		
+	}
+	
+
+	@Test
+	public void testGetPersonsWithWhoMemberCanInteract(){
+		String s = "i";
+		String s2 = "i2" ;
+		String s3 = "i3" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		SocialEntity se3 = createSocialEntity(s3);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		sg1.addSocialElement(se2);
+		sg1.addSocialElement(se3);
+		em.getTransaction().commit();
+		
+		List<SocialEntity> list = sgf.getPersonsWithWhoMemberCanInteract(se2);	
+		assertTrue(list.contains(se3));
+	}
+	
+	@Test
+	public void testGetIdOfThePersonsWithWhoMemberCanInteract(){
+		String s = "j";
+		String s2 = "j2" ;
+		String s3 = "j3" ;
+		
+		SocialEntity se = createSocialEntity(s);
+		SocialEntity se2 = createSocialEntity(s2);
+		SocialEntity se3 = createSocialEntity(s3);
+		
+		em.getTransaction().begin();
+		SocialGroup sg1 = sgf.createSocialGroup(se, s, s,new ArrayList<SocialElement>());
+		sg1.addSocialElement(se2);
+		sg1.addSocialElement(se3);
+		em.getTransaction().commit();
+		
+		List<Integer> list = sgf.getIdOfThePersonsWithWhoMemberCanInteract(se2);	
+		assertTrue(list.contains(se3.getId()));
+	}
+	
+	@Test
+	public void testGetMastersFromGroupAndChildGroupsWithNull(){
+		List<SocialEntity> list = sgf.getMastersFromGroupAndChildGroups(null);
+		assertEquals(0,list.size());
+	}
+	
+	@Test
+	public void testGetMembersFromGroupWithNull(){
+		List<SocialEntity> list = sgf.getMembersFromGroup(null);
+		assertEquals(0,list.size());
+	}
+	
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testAddSocialElementWithNull(){
+		sgf.addSocialElement(null, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testAddSocialElementWithNull2(){
+		SocialEntity se = sef.createSocialEntity("nameException", "firstNameException","emailException@mail.com");
+		sgf.addSocialElement(se, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testrRemoveSocialElementWithNull(){
+		sgf.removeSocialElement(null, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testRemoveSocialElementWithNull2(){
+		SocialEntity se = sef.createSocialEntity("nameException2", "firstNameException2","emailException2@mail.com");
+		sgf.removeSocialElement(se, null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testFindByNameWithNull(){
+		sgf.findByName(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testSearchGroupWithNull(){
+		sgf.searchGroup(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetAcceptedSocialElementsByFilterWithNull(){
+		sgf.getAcceptedSocialElementsByFilter(null,SocialElement.class);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testTreeParentNameWithNull(){
+		sgf.treeParentName(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetAllAntecedentSocialGroupsWithNull(){
+		sgf.getAllAntecedentSocialGroups(null);
+	}
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetAllChildGroupsWithNull(){
+		sgf.getAllChildGroups(null);
+	}	
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetAllChildMemberswithNull(){
+		sgf.getAllChildMembers(null);
+	}	
+	
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetAllGroupsChildSelfIncludeWithNull(){
+		sgf.getAllGroupsChildSelfInclude(null);
+	}
+
+	@Test(expected=IllegalArgumentException.class)
+	public void testGetAllAnecedentSocialGroupsSelfIncludeWithNull(){
+		sgf.getAllAnecedentSocialGroupsSelfInclude(null);
+	}
+	
+	private SocialEntity createSocialEntity(String string) {
+		em.getTransaction().begin();
+		SocialEntity se = sef.createSocialEntity("name"+string,
+				"firstName"+string, "Member"+string+"@mail.fr");
+		em.getTransaction().commit();
+		return se ;
+		
+	}
 
 }
