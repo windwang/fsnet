@@ -31,7 +31,7 @@ public class Members extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		if (form != null) {
+		
 			int index = searchText.lastIndexOf(',');
 			String completeUser = (index == -1) ? ("") : (searchText.substring(
 					0, index + 1));
@@ -48,7 +48,7 @@ public class Members extends ActionSupport {
 			listSE.retainAll(membersWithCurrentMemberCanInteract);
 			request.setAttribute("matchesSocialEntity", listSE);
 			request.setAttribute("completeUsers", completeUser);
-		}
+		
 		return SUCCESS;
 	}
 

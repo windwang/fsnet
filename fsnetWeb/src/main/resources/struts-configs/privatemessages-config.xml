@@ -22,45 +22,45 @@
 		<action name="DisplayMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="display">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">DisplayPrivateMessage</result>
+			<result name="success" type="tiles">DisplayPrivateMessage</result>
 		</action>
 
 		<action name="DisplaySentMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="display">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">DisplaySentMessage</result>
+			<result name="success" type="tiles">DisplaySentMessage</result>
 		</action>
 
-		<action name="DisplayCreatePrivateMessage" class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages"
-			method="CreatePrivateMessage">
+		<action name="DisplayCreatePrivateMessage">
+			<result type="tiles">CreatePrivateMessage</result>
 		</action>
 
 		<action name="CreatePrivateMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="create">
-			<result name="input">CreatePrivateMessage</result>
-			<result name="success">/Inbox.do</result>
-			<result name="unauthorized">/Inbox.do</result>
+			<result name="input" type="tiles">CreatePrivateMessage</result>
+			<result name="success" type="redirectAction">Inbox</result>
+			<result name="unauthorized" type="redirectAction">Inbox</result>
 		</action>
 
 		<action name="DeletePrivateMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">/Inbox.do</result>
+			<result name="success" type="redirectAction">Inbox</result>
 		</action>
 
 		<action name="DeleteMultiMessages"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti">
-			<result name="success">/Inbox.do</result>
+			<result name="success" type="redirectAction">Inbox</result>
 		</action>
 
 		<action name="DeleteMultiMessages2"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti2">
-			<result name="success">/Inbox.do</result>
+			<result name="success" type="redirectAction">Inbox</result>
 		</action>
 
 		<action name="DeleteMultiSentMessages"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti">
-			<result name="success">/Outbox.do</result>
+			<result name="success" type="redirectAction">Outbox</result>
 		</action>
 	</package>
 	

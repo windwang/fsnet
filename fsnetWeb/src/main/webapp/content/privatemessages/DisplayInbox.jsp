@@ -2,7 +2,7 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 
 
 <fieldset class="fieldsetCadre">
@@ -58,10 +58,8 @@
 							});
 						});
 			</script>
-	
-			<s:form action="/DeleteMultiMessages?fromPage=in">
-				<table id="tableinbox"
-					class="tablesorter inLineTable tableStyle">
+			<s:form action="DeleteMultiMessages?fromPage=in">
+				<table id="tableinbox" class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
 							<th style="width: 15px" class="thCheckbox"><input type="checkbox"
@@ -75,10 +73,8 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="6"><s:submit
-									styleClass="btn btn-inverse">
-									<s:text name="privatemessages.delete" />
-								</s:submit></td>
+							<td colspan="6"><s:submit cssClass="btn btn-inverse"
+									key="privatemessages.delete" /></td>
 						</tr>
 					</tfoot>
 
@@ -87,19 +83,24 @@
 
 							<c:if test="${not message.reed}">
 								<tr class="notReed">
-									<td>
-											<s:checkbox name="selectedMessages" fieldValue="%{message.id}"/></td>
+									<td><input type="checkbox" name="selectedMessages" value="${message.id}"/></td>
 									<td><ili:getMiniature socialEntity="${message.from}" /></td>
-									<td style="width: 20%"><s:a action="/DisplayMessage">
-											<s:param name="messageId" value="%{message.id}" />
+									<td style="width: 20%"><s:a action="DisplayMessage">
+											<s:param name="messageId">
+												<c:out value="${message.id}" />
+											</s:param>
 											<span>${message.from.firstName}</span>
 										</s:a></td>
-									<td style="width: 20%"><s:a action="/DisplayMessage">
-											<s:param name="messageId" value="%{message.id}" />
+									<td style="width: 20%"><s:a action="DisplayMessage">
+											<s:param name="messageId">
+												<c:out value="${message.id}" />
+											</s:param>
 											<span>${message.from.name}</span>
 										</s:a></td>
-									<td style="width: 60%"><s:a action="/DisplayMessage">
-											<s:param name="messageId" value="%{message.id}" />
+									<td style="width: 60%"><s:a action="DisplayMessage">
+											<s:param name="messageId">
+												<c:out value="${message.id}" />
+											</s:param>
 											<span>${fn:substring(message.subject, 0,20)} : </span>
 											<span style="color: gray"> <ili:substring
 													beginIndex="0" endIndex="20">
@@ -110,18 +111,25 @@
 							</c:if>
 							<c:if test="${message.reed}">
 								<tr>
-									<td><s:checkbox name="selectedMessages" fieldValue="%{message.id}" /></td>
+									<td><input type="checkbox" name="selectedMessages" value="${message.id}"/>
+											</td>
 									<td><ili:getMiniature socialEntity="${message.from}" /></td>
-									<td style="width: 20%"><s:a action="/DisplayMessage">
-											<s:param name="messageId" value="%{message.id}" />
+									<td style="width: 20%"><s:a action="DisplayMessage">
+											<s:param name="messageId">
+												<c:out value="${message.id}" />
+											</s:param>
 											<span>${message.from.firstName}</span>
 										</s:a></td>
-									<td style="width: 20%"><s:a action="/DisplayMessage">
-											<s:param name="messageId" value="%{message.id}" />
+									<td style="width: 20%"><s:a action="DisplayMessage">
+											<s:param name="messageId">
+												<c:out value="${message.id}" />
+											</s:param>
 											<span>${message.from.name}</span>
 										</s:a></td>
-									<td style="width: 60%"><s:a action="/DisplayMessage">
-											<s:param name="messageId" value="%{message.id}" />
+									<td style="width: 60%"><s:a action="DisplayMessage">
+											<s:param name="messageId">
+												<c:out value="${message.id}" />
+											</s:param>
 											<span>${fn:substring(message.subject, 0,20)} : </span>
 											<span style="color: gray"> <ili:substring
 													beginIndex="0" endIndex="20">
@@ -130,7 +138,7 @@
 											</span>
 										</s:a></td>
 							</c:if>
-							<td><s:property value="creationDate"/></td>
+							<td><s:property value="creationDate" /></td>
 						</c:forEach>
 					</tbody>
 				</table>

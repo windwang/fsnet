@@ -28,7 +28,7 @@
 		</table>
 
 		<!-- TODO factorise this code with createMessage.jsp -->
-		<s:a action="/DeletePrivateMessage?fromPage=out" styleClass="btn btn-inverse"
+		<s:a action="/DeletePrivateMessage.do?fromPage=out" cssClass="btn btn-inverse"
 			style="float: right">
 			<s:param name="messageId" value="%{theMessage.id}" />
 			<s:text name="privatemessages.delete" />
