@@ -46,7 +46,7 @@
 	src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="js/geolocalisation.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal.1.4.4.min.js"></script>
-
+<script type="text/javascript" src="js/chatSound.js"></script>
 <script type="text/javascript" src="js/talkUtils.js"></script>
 <script type="text/javascript" src="js/chat.js"></script>
 <script class="jsbin" type="text/javascript"
@@ -80,17 +80,45 @@
 <link rel="stylesheet" media="screen" type="text/css"
 	href="./bootstrap/css/bootstrap.min.css" />
 
-<link href="./bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet" type="text/css">
-<link rel="stylesheet" type="text/css" media="screen" href="css/bootstrapStyle.css" />
-<link type="text/css" rel="stylesheet" media="screen" href="css/chat.css" />
+<link href="./bootstrap/css/bootstrap-responsive.min.css"
+	rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" media="screen"
+	href="css/bootstrapStyle.css" />
+<link type="text/css" rel="stylesheet" media="screen"
+	href="css/chat.css" />
 
 <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
 <!-- Custom color style by group-->
 <style type="text/css">
 body {
-	background:-webkit-linear-gradient(top, #${color} 0%, white 100%);
-	background:-o-linear-gradient(top, #${color} 0%, white 100%);
-	background:-moz-linear-gradient(top, #${color} 0%, white 100%);
+	background: -webkit-linear-gradient(top, #${ color
+}
+0%,
+white
+ 
+100%);
+background
+:-o-linear-gradient
+(top
+,
+#${
+color
+}
+0%,
+white
+ 
+100%);
+background
+:-moz-linear-gradient
+(top
+,
+#${
+color
+}
+0%,
+white
+ 
+100%);
 }
 </style>
 
@@ -100,23 +128,23 @@ body {
 <body>
 	<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
 	<tiles:insert attribute="menu" />
-	
+
 	<div id="wrapBody" class="container">
 		<div class="row-fluid">
 			<div id="menuLateral" class="span2">
-				
-					<tiles:insert attribute="logo" />
-					<div id="left" class="cadreDivMenuTop">
-						<h2>
-							<bean:message key="${pageTitle}" />
-						</h2>
-						<tiles:insert attribute="left" />
-						<tiles:insert attribute="loggedUsers" />
-					</div>
-				
+
+				<tiles:insert attribute="logo" />
+				<div id="left" class="cadreDivMenuTop">
+					<h2>
+						<bean:message key="${pageTitle}" />
+					</h2>
+					<tiles:insert attribute="left" />
+					<tiles:insert attribute="loggedUsers" />
+				</div>
+
 			</div>
 			<div class="span10">
-					<tiles:insert attribute="body-content" />
+				<tiles:insert attribute="body-content" />
 			</div>
 		</div>
 		<div style="clear: both"></div>
