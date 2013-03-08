@@ -5,22 +5,21 @@
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 
-<logic:empty name="theMessage" scope="request">
+<s:if test="theMessage == null || theMessage.equals('')">
 	<h3>
 		<s:text name="privatemessages.impossible" />
 	</h3>
-</logic:empty>
+</s:if>
 
 <fieldset class="fieldsetCadre">
 	<legend>${theMessage.subject}</legend>
 
-	<logic:notEmpty name="theMessage" scope="request">
+	<s:if test="theMessage != null && !theMessage.equals('')" >
 		<table class="topicTable inLineTable">
 			<tr class="topicHeader">
 				<td><s:text name="privatemessages.to" /> : <ili:getSocialEntityInfos
 						socialEntity="${theMessage.to}" /> ${theMessage.to.email} <span
-					style="float: right"> <bean:write name="theMessage"
-							property="creationDate" formatKey="date.format" />
+					style="float: right"> <s:property value="creationDate" />
 				</span></td>
 			</tr>
 			<tr>
@@ -35,5 +34,5 @@
 			<s:text name="privatemessages.delete" />
 		</s:a>
 
-	</logic:notEmpty>
+	</s:if>
 </fieldset>

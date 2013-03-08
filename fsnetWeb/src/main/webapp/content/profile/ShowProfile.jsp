@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
@@ -9,7 +9,6 @@
 	<legend>
 		<s:text name="showProfile.title"
 			var="%{watchedProfile.firstName} %{watchedProfile.name}" />
-
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -111,7 +110,6 @@
 			<td><s:if test="watchedProfile==null">
 					<s:text name="Profile.noInterests" />.
 		</s:if>
-
 				<div class="cloud">
 					<c:forEach var="interest"
 						items="${requestScope.interestPaginator.resultList}">

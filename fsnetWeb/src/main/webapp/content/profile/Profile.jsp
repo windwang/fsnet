@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix ="s" uri="/struts-tags" %>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
@@ -19,8 +19,7 @@
 	<div class="box">
 		<div id="social_networks">
 			<div id="facebook_button_box">
-				<fb:login-button show-faces="true" width="450"
-					perms="email,user_birthday,user_location"></fb:login-button>
+				<fb:login-button show-faces="true" width="450" perms="email,user_birthday,user_location"></fb:login-button>
 			</div>
 		</div>
 		<div id="social_networks_profiles">
@@ -47,6 +46,7 @@
 		<table id="ModifyProfile" class="inLineTable tableStyle">
 			<s:form action="/ModifyProfile">
 				<tr>
+<<<<<<< HEAD
 					<td><label for="name">
 					<s:text name="updateProfile.name" />
 					</label></td>
@@ -127,6 +127,61 @@
 					<td><s:textfield errorStyleClass="error" property="phone"
 							styleId="phone" /></td>
 				</tr>
+=======
+					<td><label for="name"> <s:text name="updateProfile.name" />
+					</label></td>
+				</tr>
+				
+
+				<tr>
+					<td><label for="firstName"> <s:text name="updateProfile.firstname" />
+					</label></td>
+				</tr>
+				
+
+				<tr>
+					<td><label for="adress"> <s:text name="updateProfile.adress" />
+					</label></td>
+				</tr>
+			
+
+				<tr>
+					<td><label for="city"> <s:text name="updateProfile.city" />
+					</label></td>
+				</tr>
+				
+
+				<tr>
+					<td><label for="dateOfBirth"> <s:text name="updateProfile.dateOfBirth" />
+					</label></td>
+				</tr>
+			
+
+				<tr>
+					<td><label for="sexe"> <s:text name="updateProfile.sexe" />
+					</label></td>
+					<td><s:select name="sexe" id="sexe" list="sexes"/></td>
+				</tr>
+				
+
+				<tr>
+					<td><label for="job"> <s:text name="updateProfile.job" />
+					</label></td>
+				</tr>
+				
+
+				<tr>
+					<td><label for="mail"> <s:text name="updateProfile.email" />
+					</label></td>
+				</tr>
+				
+
+				<tr>
+					<td><label for="phone"> <s:text name="updateProfile.phone" />
+					</label></td>
+				</tr>
+				
+>>>>>>> Migrate privatemessages jsp folder and restore profile jsp folder
 
 				<tr>
 					<td colspan="2" class="tableButton"><s:submit
@@ -135,7 +190,6 @@
 						</s:submit></td>
 				</tr>
 			</s:form>
-
 		</table>
 
 	</fieldset>
@@ -166,18 +220,15 @@
 	</legend>
 
 	<s:form action="/ChangePassword">
-
 		<table class="inLineTable tableStyle">
 			<c:forTokens var="typePwd"
 				items="oldPassword:newPassword:confirmNewPassword" delims=":">
 				<tr>
-					<td><label for="${typePwd}"> <s:text
-								name="updateProfile.changePassword.%{typePwd}" />
+					<td><label for="${typePwd}"> <s:text name="updateProfile.changePassword.%{typePwd}" />
 					</label></td>
 					<td><s:password property="${typePwd}" styleId="${typePwd}" />
 					</td>
 				</tr>
-
 			</c:forTokens>
 			<tr>
 				<td colspan="2" class="tableButton"><s:submit
@@ -206,16 +257,15 @@
 			<div>
 				<table class="inLineTable tableStyle">
 					<tr>
-						<td><label for="photoUrl"> 
-						<s:text name="updateProfile.photoInternet" />
+
+						<td><label for="photoUrl"> <s:text name="updateProfile.photoInternet" />
 						</label>
 						
-						<td><s:textfield property="photoUrl" styleId="photoUrl"></s:textfield></td>
+						<td><s:text name="photoUrl" id="photoUrl"></s:text></td>
 					</tr>
 
 					<tr>
-						<td><label for="photo">
-						<s:text name="updateProfile.photoLocal" />
+						<td><label for="photo"> <s:text name="updateProfile.photoLocal" />
 						</label></td>
 						<td><s:file property="photo" styleId="photo" size="45"></s:file></td>
 					</tr>
