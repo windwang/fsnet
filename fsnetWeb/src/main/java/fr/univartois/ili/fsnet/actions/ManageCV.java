@@ -13,9 +13,9 @@ import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.SessionAware;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -43,11 +43,12 @@ import fr.univartois.ili.fsnet.facade.InteractionFacade;
  * @author fsnet
  * 
  */
-public class ManageCV extends ActionSupport implements SessionAware {
+public class ManageCV extends ActionSupport implements SessionAware,
+		ServletRequestAware {
 
 	private static final long serialVersionUID = 3871072232416409836L;
 
-	private Map<String,Object> mysession ;
+	private Map<String, Object> mysession;
 	private String cvTitle;
 	private String cvFirstname;
 	private String cvSurname;
@@ -90,6 +91,8 @@ public class ManageCV extends ActionSupport implements SessionAware {
 
 	private static final String CV_HOBBY_NAME_FIELD_FORM_NAME = "cvHobbyName";
 
+	private HttpServletRequest request;
+
 	/**
 	 * @param sDate
 	 * @return
@@ -118,8 +121,8 @@ public class ManageCV extends ActionSupport implements SessionAware {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String cree(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String cree()
+			throws Exception {
 		return SUCCESS;
 	}
 
@@ -132,9 +135,8 @@ public class ManageCV extends ActionSupport implements SessionAware {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String displayProfile(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
-//		HttpSession mysession = request.getSession();
+	public String displayProfile() throws Exception {
+		// HttpSession mysession = request.getSession();
 
 		mysession.put("action", true);
 		mysession.put("cvTitle", cvTitle);
@@ -147,63 +149,63 @@ public class ManageCV extends ActionSupport implements SessionAware {
 		mysession.put("cvCountry", cvCountry);
 		mysession.put("cvMail", cvMail);
 		mysession.put("cvBirthDay", cvBirthDay);
-		mysession.put("cvSituation",request.getParameter("situation"));
-		mysession.put("cvSexe",request.getParameter("sexe"));
+		mysession.put("cvSituation", request.getParameter("situation"));
+		mysession.put("cvSexe", request.getParameter("sexe"));
 
 		int erreur = 0;
 
 		if ("".equals(cvTitle)) {
-			addFieldError("cvTitle","error.titre");
+			addFieldError("cvTitle", "error.titre");
 			erreur = 1;
 		}
 
 		if ("".equals(cvPhone)) {
-			addFieldError("cvPhone","error.portable");
+			addFieldError("cvPhone", "error.portable");
 			erreur = 1;
 		}
 
 		if ("".equals(cvSurname)) {
-			addFieldError("cvSurname","error.nom");
+			addFieldError("cvSurname", "error.nom");
 			erreur = 1;
 		}
 
 		if ("".equals(cvFirstname)) {
-			addFieldError("cvFirstname","error.prenom");
+			addFieldError("cvFirstname", "error.prenom");
 			erreur = 1;
 		}
 
 		if ("".equals(cvAddress)) {
-			addFieldError("cvAddress","error.adresse");
+			addFieldError("cvAddress", "error.adresse");
 			erreur = 1;
 		}
 
 		if ("".equals(cvCountry)) {
-			addFieldError("cvCountry","error.ville");
+			addFieldError("cvCountry", "error.ville");
 			erreur = 1;
 		}
 		if ("".equals(cvBirthDay)) {
-			addFieldError("cvBirthDay","error.birthDay");
+			addFieldError("cvBirthDay", "error.birthDay");
 			erreur = 1;
 		}
 
 		if ("".equals(cvCountry)) {
-			addFieldError("cvCountry","error.pays");
+			addFieldError("cvCountry", "error.pays");
 			erreur = 1;
 		}
 
 		if ("".equals(cvMail)) {
-			addFieldError("cvMail","error.contact");
+			addFieldError("cvMail", "error.contact");
 			erreur = 1;
 		}
 
 		if ("".equals(cvCP)) {
-			addFieldError("cvCP","error.cp");
+			addFieldError("cvCP", "error.cp");
 			erreur = 1;
 		} else {
 			try {
 				Integer.parseInt(cvCP);
 			} catch (Exception e) {
-				addFieldError("cvCP","error.cpInt");
+				addFieldError("cvCP", "error.cpInt");
 				erreur = 1;
 			}
 		}
@@ -211,7 +213,7 @@ public class ManageCV extends ActionSupport implements SessionAware {
 		try {
 			toDBDateFormat(cvBirthDay);
 		} catch (Exception e) {
-			addFieldError("cvBirthDay","error.birthDayValue");
+			addFieldError("cvBirthDay", "error.birthDayValue");
 			erreur = 1;
 		}
 
@@ -223,15 +225,11 @@ public class ManageCV extends ActionSupport implements SessionAware {
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws ParseException
+	 * 
+	 * @return String
+	 * @throws Exception
 	 */
-	public String displayExp(HttpServletRequest request,
-			HttpServletResponse response) throws ParseException {
+	public String displayExp() throws Exception {
 		request.getSession().removeAttribute("action");
 		try {
 			int nbExp = Integer.parseInt(request.getParameter("nbExp"));
@@ -255,24 +253,17 @@ public class ManageCV extends ActionSupport implements SessionAware {
 
 			}
 
-			member.setFirstName((String) mysession
-					.getAttribute(cvFirstname));
-			member.setSurname((String) mysession
-					.getAttribute(cvSurname));
-			member.setNumberPhone((String) mysession
-					.getAttribute(cvPhone));
-			member.setMail((String) mysession
-					.getAttribute(cvMail));
-			member.setTown((String) mysession
-					.getAttribute(cvCountry));
-			member.setAdress((String) mysession
-					.getAttribute(cvAddress));
+			member.setFirstName((String) mysession.getAttribute(cvFirstname));
+			member.setSurname((String) mysession.getAttribute(cvSurname));
+			member.setNumberPhone((String) mysession.getAttribute(cvPhone));
+			member.setMail((String) mysession.getAttribute(cvMail));
+			member.setTown((String) mysession.getAttribute(cvCountry));
+			member.setAdress((String) mysession.getAttribute(cvAddress));
 			member.setPostCode(Integer.parseInt((String) mysession
 					.getAttribute(cvCP)));
 			member.setSituationFamilly((String) mysession
 					.getAttribute(cvSituation));
-			member.setSex((String) mysession
-					.getAttribute(cvSexe));
+			member.setSex((String) mysession.getAttribute(cvSexe));
 
 			// Insert langs
 			int lang = 0;
@@ -290,8 +281,7 @@ public class ManageCV extends ActionSupport implements SessionAware {
 			em.getTransaction().begin();
 			em.persist(member);
 			curriculum.setMember(member);
-			curriculum.setTitleCv((String) mysession
-					.getAttribute(cvTitle));
+			curriculum.setTitleCv((String) mysession.getAttribute(cvTitle));
 
 			// Insert professional experiences
 			int i = 0;
@@ -497,16 +487,10 @@ public class ManageCV extends ActionSupport implements SessionAware {
 
 	/**
 	 * 
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
 	 * @return
-	 * @throws IOException
-	 * @throws ServletException
+	 * @throws Exception
 	 */
-	public String displayCv(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String displayCv() throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
@@ -524,16 +508,11 @@ public class ManageCV extends ActionSupport implements SessionAware {
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws ServletException
+	 * 
+	 * @return String
+	 * @throws Exception
 	 */
-	public String delete(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String delete() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -554,7 +533,12 @@ public class ManageCV extends ActionSupport implements SessionAware {
 
 	@Override
 	public void setSession(Map<String, Object> mysession) {
-		this.mysession = mysession; 
-		
+		this.mysession = mysession;
+
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
 	}
 }
