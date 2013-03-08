@@ -19,10 +19,6 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.PrivateMessageFacade;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 
-/**
- * 
- * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
- */
 public class PrivateMessageFacadeTest {
 
 	private EntityManager em;
@@ -158,7 +154,7 @@ public class PrivateMessageFacadeTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void searchReceivedPrivateMessageWithEntityIsNotNullAndpatternIsNull() {
+	public void testsearchReceivedPrivateMessageWithEntityIsNotNullAndpatternIsNull() {
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialEntity entity = sef.createSocialEntity("lol", "gogo",
 				"truc@gmail.com");
@@ -168,14 +164,21 @@ public class PrivateMessageFacadeTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void searchReceivedPrivateMessageWithEntityIsNullAndMessageIsNotNull() {
+	public void testsearchReceivedPrivateMessageWithEntityIsNullAndpatternIsNotNull() {
 		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 		pmf.searchReceivedPrivateMessage(null, "pattern");
 		fail("null entity is forbidden");
 	}
-
+	
 	@Test(expected = IllegalArgumentException.class)
-	public void searchSentPrivateMessageWithEntityIsNotNullAndpatternIsNull() {
+	public void testsearchReceivedPrivateMessageWithEntityIsNullAndpatternIsNull() {
+		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+		pmf.searchReceivedPrivateMessage(null, null);
+		fail("null entity and null patern is forbidden");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testsearchSentPrivateMessageWithEntityIsNotNullAndpatternIsNull() {
 		SocialEntityFacade sef = new SocialEntityFacade(em);
 		SocialEntity entity = sef.createSocialEntity("lol", "gogo",
 				"truc@gmail.com");
@@ -185,10 +188,17 @@ public class PrivateMessageFacadeTest {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void searchSentPrivateMessageWithEntityIsNullAndMessageIsNotNull() {
+	public void testsearchSentPrivateMessageWithEntityIsNullAndpatternIsNotNull() {
 		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 		pmf.searchSentPrivateMessage(null, "pattern");
 		fail("null entity is forbidden");
+	}
+	
+	@Test(expected = IllegalArgumentException.class)
+	public void testsearchSentPrivateMessageWithEntityIsNullAndpatternIsNull() {
+		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+		pmf.searchSentPrivateMessage(null, null);
+		fail("null entity and null patern is forbidden");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
