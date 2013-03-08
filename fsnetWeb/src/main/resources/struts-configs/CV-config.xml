@@ -2,35 +2,45 @@
 <!DOCTYPE struts PUBLIC
    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
    "http://struts.apache.org/dtds/struts-2.0.dtd">
-   
+
 <struts>
 
-	<include file="struts-default.xml"/>
+	<include file="struts-default.xml" />
 
-    <package name="cv" extends="struts-default">
-        <action name="CreateCv1" class="fr.univartois.ili.fsnet.actions.ManageCV" method="cree">
-        	<result name="input">/CreateCv1.do</result>
-            <result name="success">InfoProfileCv</result>
-        </action>
-        <action name="CreateCv2" class="fr.univartois.ili.fsnet.actions.ManageCV" method="displayProfile">
-        	<result name="input">/CreateCv2.do</result>
-            <result name="success">InfoExpCv</result>
-            <result name="unauthorized">InfoProfileCv</result>
-        </action>
-        <action name="CreateCv3" class="fr.univartois.ili.fsnet.actions.ManageCV" method="displayExp">
-        	<result name="input">/DisplayCV.do</result>
-            <result name="success">/DisplayCV.do</result>
-        </action>
-        <action name="DisplayCV" class="fr.univartois.ili.fsnet.actions.ManageCV" method="displayCv">
-        	<result name="input">/DisplayCV.do</result>
-            <result name="success">DisplayCv</result>
-        </action>
-        <action name="GenerateCv" class="fr.univartois.ili.fsnet.actions.GenerateCv" method="download"/>
-   		<action name="DeleteCv" class="fr.univartois.ili.fsnet.actions.ManageCV" method="displayCv">
-        	<result name="input">/DisplayCV.do</result>
-            <result name="failed">/DisplayCV.do</result>
-        </action>
-    </package>
+	<package name="cv" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<action name="CreateCv1" class="fr.univartois.ili.fsnet.actions.ManageCV"
+			method="cree">
+			<result name="input" >/CreateCv1.do</result>
+			<result name="success" type="tiles">InfoProfileCv</result>
+		</action>
+		<action name="CreateCv2" class="fr.univartois.ili.fsnet.actions.ManageCV"
+			method="displayProfile">
+			<result name="input" >/CreateCv2.do</result>
+			<result name="success" type="tiles">InfoExpCv</result>
+			<result name="unauthorized">InfoProfileCv</result>
+		</action>
+		<action name="CreateCv3" class="fr.univartois.ili.fsnet.actions.ManageCV"
+			method="displayExp">
+			<result name="input">/DisplayCV.do</result>
+			<result name="success" type="tiles">/DisplayCV.do</result>
+		</action>
+		<action name="DisplayCV" class="fr.univartois.ili.fsnet.actions.ManageCV"
+			method="displayCv">
+			<result name="input">/DisplayCV.do</result>
+			<result name="success" type="tiles">DisplayCv</result>
+		</action>
+		<action name="GenerateCv" class="fr.univartois.ili.fsnet.actions.GenerateCv"
+			method="download" />
+		<action name="DeleteCv" class="fr.univartois.ili.fsnet.actions.ManageCV"
+			method="displayCv">
+			<result name="input" type="tiles">/DisplayCV.do</result>
+			<result name="failed">/DisplayCV.do</result>
+		</action>
+	</package>
 
 </struts>
 		
