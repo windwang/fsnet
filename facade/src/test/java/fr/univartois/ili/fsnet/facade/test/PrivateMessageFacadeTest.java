@@ -4,6 +4,8 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 import static org.junit.Assert.fail;
 
+import java.util.List;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
@@ -99,6 +101,110 @@ public class PrivateMessageFacadeTest {
 
 	}
 
+	@Test
+	public void testdeletePrivateMessageWhenMessageGetFromEqualEntity() {
+		em.getTransaction().begin();
+		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialEntity from = sef.createSocialEntity("mazureFrom", "clara",
+				"mazureFrom@gmail.com");
+		String pattern = "is";
+		String subject = "hey, this is franklin ?";
+		String body = "Test message is privé fanklin";
+		SocialEntity to = sef.createSocialEntity("mazureTo", "teacher2",
+				"mazureTo@gmail.com");
+
+		List<PrivateMessage> resultavant = pmf.getConversation(from, pattern,
+				to);
+
+		PrivateMessage message = pmf
+				.sendPrivateMessage(body, from, subject, to);
+
+		pmf.deletePrivateMessage(from, message, null);/* here */
+
+		em.getTransaction().commit();
+
+		List<PrivateMessage> resultapres = pmf.getConversation(from, pattern,
+				to);
+		assertEquals(resultapres.size(), resultavant.size());
+	}
+
+	@Test
+	public void testdeletePrivateMessageForRemoveMessageWhenfromSourceEqualsOUT() {
+		em.getTransaction().begin();
+		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialEntity from = sef.createSocialEntity("mazureFrom2", "clara",
+				"mazureFrom2@gmail.com");
+		String pattern = "is";
+		String subject = "hey, this is franklin ?";
+		String body = "Test message is privé fanklin";
+		SocialEntity to = sef.createSocialEntity("mazureTo2", "teacher2",
+				"mazureTo2@gmail.com");
+
+		List<PrivateMessage> resultavant = pmf.getConversation(from, pattern,
+				to);
+
+		PrivateMessage message = pmf
+				.sendPrivateMessage(body, from, subject, to);
+
+		pmf.deletePrivateMessage(from, message, "out"); /* here */
+
+		em.getTransaction().commit();
+
+		List<PrivateMessage> resultapres = pmf.getConversation(from, pattern,
+				to);
+		assertEquals(resultapres.size(), resultavant.size());
+	}
+
+	@Test
+	public void testdeletePrivateMessageWhenMessageGetToEqualEntity() {
+		em.getTransaction().begin();
+		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialEntity from = sef.createSocialEntity("mazureFrom3", "clara",
+				"mazureFrom3@gmail.com");
+		String pattern = "is";
+		String subject = "hey, this is franklin ?";
+		String body = "Test message is privé fanklin";
+		SocialEntity to = sef.createSocialEntity("mazureTo3", "teacher2",
+				"mazureTo3@gmail.com");
+		List<PrivateMessage> resultavant = pmf.getConversation(from, pattern,
+				to);
+		PrivateMessage message = pmf
+				.sendPrivateMessage(body, from, subject, to);
+		pmf.deletePrivateMessage(to, message, null);
+		em.getTransaction().commit();
+
+		List<PrivateMessage> resultapres = pmf.getConversation(from, pattern,
+				to);
+		assertEquals(resultapres.size(), resultavant.size());
+	}
+
+	@Test
+	public void testdeletePrivateMessageForRemoveMessageWhenfromSourceEqualsIN() {
+		em.getTransaction().begin();
+		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialEntity from = sef.createSocialEntity("mazureFrom4", "clara",
+				"mazureFrom4@gmail.com");
+		String subject = "hey, this is franklin ?";
+		String pattern = "is";
+		String body = "Test message privé fanklin";
+		SocialEntity to = sef.createSocialEntity("mazureTo4", "teacher2",
+				"mazureTo4@gmail.com");
+		List<PrivateMessage> resultavant = pmf.getConversation(from, pattern,
+				to);
+		PrivateMessage message = pmf
+				.sendPrivateMessage(body, from, subject, to);
+		pmf.deletePrivateMessage(to, message, "in");
+		em.getTransaction().commit();
+
+		List<PrivateMessage> resultapres = pmf.getConversation(from, pattern,
+				to);
+		assertEquals(resultapres.size(), resultavant.size());
+	}
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testDeletePrivateMessageWithEntityIsNotNullAndMessageIsNull() {
 		SocialEntityFacade sef = new SocialEntityFacade(em);
@@ -169,14 +275,35 @@ public class PrivateMessageFacadeTest {
 		pmf.searchReceivedPrivateMessage(null, "pattern");
 		fail("null entity is forbidden");
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testsearchReceivedPrivateMessageWithEntityIsNullAndpatternIsNull() {
+
+	@Test
+	public void testsearchReceivedPrivateMessageWithEntityIsNotNullAndpatternIsNotNull() {
+		em.getTransaction().begin();
 		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-		pmf.searchReceivedPrivateMessage(null, null);
-		fail("null entity and null patern is forbidden");
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialEntity from = sef.createSocialEntity("yopoui1", "yopoui1",
+				"yopouifrom1@gmail.com");
+		SocialEntity to = sef.createSocialEntity("yopnon1", "yopnon1",
+				"yopouito1@gmail.co");
+
+		String pattern = "message";
+
+		String body = "Test message privé ouais";
+
+		String subject = "The subject message test oui";
+
+		List<PrivateMessage> resultavant = pmf.searchReceivedPrivateMessage(to,
+				pattern);
+		PrivateMessageFacade instance = new PrivateMessageFacade(em);
+		instance.sendPrivateMessage(body, from, subject, to);
+		em.getTransaction().commit();
+
+		List<PrivateMessage> resultapres = pmf.searchReceivedPrivateMessage(to,
+				pattern);
+		assertEquals(resultapres.size(), resultavant.size() + 1);
+
 	}
-	
+
 	@Test(expected = IllegalArgumentException.class)
 	public void testsearchSentPrivateMessageWithEntityIsNotNullAndpatternIsNull() {
 		SocialEntityFacade sef = new SocialEntityFacade(em);
@@ -193,12 +320,33 @@ public class PrivateMessageFacadeTest {
 		pmf.searchSentPrivateMessage(null, "pattern");
 		fail("null entity is forbidden");
 	}
-	
-	@Test(expected = IllegalArgumentException.class)
-	public void testsearchSentPrivateMessageWithEntityIsNullAndpatternIsNull() {
+
+	@Test
+	public void testsearchSentPrivateMessageWithEntityIsNotNullAndpatternIsNotNull() {
+		em.getTransaction().begin();
 		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
-		pmf.searchSentPrivateMessage(null, null);
-		fail("null entity and null patern is forbidden");
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialEntity from = sef.createSocialEntity("yopoui", "yopoui",
+				"yopouifrom@gmail.com");
+		SocialEntity to = sef.createSocialEntity("yopnon", "yopnon",
+				"yopouito@gmail.co");
+
+		String pattern = "message";
+		String body = "Test message privé ouais";
+
+		String subject = "The subject message test oui";
+
+		List<PrivateMessage> resultavant = pmf.searchSentPrivateMessage(from,
+				pattern);
+
+		PrivateMessageFacade instance = new PrivateMessageFacade(em);
+		instance.sendPrivateMessage(body, from, subject, to);
+		em.getTransaction().commit();
+
+		List<PrivateMessage> resultapres = pmf.searchSentPrivateMessage(from,
+				pattern);
+		assertEquals(resultapres.size(), resultavant.size() + 1);
+
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -236,5 +384,56 @@ public class PrivateMessageFacadeTest {
 		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 		pmf.getConversation(from, null, to);
 		fail("null subject is forbidden");
+	}
+
+	@Test
+	public void testGetConversationWithSubjectIsnotNullAndOthersIsNotNull() {
+		em.getTransaction().begin();
+		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialEntity from = sef.createSocialEntity("conversationfrom",
+				"conversationfrom", "conversationfrom@gmail.com");
+		SocialEntity to = sef.createSocialEntity("conversationto",
+				"conversationto", "conversationto@gmail.co");
+
+		String pattern = "message";
+
+		String body = "Test message privé ouais";
+
+		String subject = "The subject message test oui";
+
+		List<PrivateMessage> resultavant = pmf.getConversation(from, pattern,
+				to);
+
+		PrivateMessageFacade instance = new PrivateMessageFacade(em);
+		instance.sendPrivateMessage(body, from, subject, to);
+		em.getTransaction().commit();
+
+		List<PrivateMessage> resultapres = pmf.getConversation(from, pattern,
+				to);
+		assertEquals(resultapres.size(), resultavant.size() + 1);
+
+	}
+
+	@Test
+	public void testgetPrivateMessage() {
+		em.getTransaction().begin();
+		PrivateMessageFacade pmf = new PrivateMessageFacade(em);
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialEntity from = sef.createSocialEntity("conversationget",
+				"conversationget", "conversationget@gmail.com");
+		SocialEntity to = sef.createSocialEntity("conversationPrivate",
+				"conversationPrivate", "conversationPrivate@gmail.co");
+
+		String body = "Test message privé ouais";
+
+		String subject = "The subject message test oui";
+
+		PrivateMessageFacade instance = new PrivateMessageFacade(em);
+		PrivateMessage m = instance.sendPrivateMessage(body, from, subject, to);
+		em.getTransaction().commit();
+
+		PrivateMessage compare = pmf.getPrivateMessage(m.getId());
+		assertEquals(compare, m);
 	}
 }
