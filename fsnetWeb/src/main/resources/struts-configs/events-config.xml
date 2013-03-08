@@ -7,6 +7,9 @@
 
 	<include file="struts-default.xml" />
 	<package name="events-default" extends="struts-default">
+	<result-types>
+    		<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+	    </result-types>
 		<action name="Contacts" class="fr.univartois.ili.fsnet.actions.ManageContacts"
 			method="display">
 			<result>Contacts</result>
