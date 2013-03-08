@@ -7,9 +7,10 @@
 
 	<include file="struts-default.xml" />
 	<package name="events-default" extends="struts-default">
-	<result-types>
-    		<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
-	    </result-types>
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
 		<action name="Contacts" class="fr.univartois.ili.fsnet.actions.ManageContacts"
 			method="display">
 			<result>Contacts</result>
@@ -34,7 +35,7 @@
 		</action>
 		<action name="DisplayUpdateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="displayToModify">
-			<result name="success">UpdateEvent</result>
+			<result name="success" type="tiles">UpdateEvent</result>
 			<result name="input">/Events.do	</result>
 		</action>
 
@@ -71,7 +72,7 @@
 		</action>
 
 		<action name="Calendar" class="fr.univartois.ili.fsnet.actions.Calendar">
-			<result name="success">Calendar</result>
+			<result name="success" type="tiles">Calendar</result>
 			<result name="error">/Events.do</result>
 		</action>
 		<action name="DisplayImportEvents" class="fr.univartois.ili.fsnet.actions.ManageEvents"

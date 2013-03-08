@@ -81,14 +81,14 @@
 
 		<action name="AutocompleteOther"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="autocompleteOther">
-			<result name="success">/AutocompleteOtherChoice</result>
+			<result name="success" type="tiles">/AutocompleteOtherChoice</result>
 			<result name="input">/DisplayConsultations.do</result>
 		</action>
 
 
 		<action name="DeleteMultiConsultations"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="deleteMulti">
-			<result name="success">/SearchConsultation.do</result>
+			<result name="success" type="tiles">/SearchConsultation.do</result>
 		</action>
 	</package>
 </struts>

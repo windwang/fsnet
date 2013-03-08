@@ -41,7 +41,7 @@
 		method="delete">
 			<result name="input">UnauthorizedOperationException</result>
 			<result name="failed">/Communities.do</result>
-			<result name="success">/DisplayCommunities.do</result>
+			<result name="success" type="tiles">/DisplayCommunities.do</result>
 		</action>
 
 		<action name="DisplayCommunity" class="fr.univartois.ili.fsnet.actions.ManageHub"
@@ -64,7 +64,7 @@
 		<action name="DeleteYourCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
 		method="delete">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">/SearchYourCommunities.do</result>
+			<result name="success" type="tiles">/SearchYourCommunities.do</result>
 		</action>
 
 		<action name="YourCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
