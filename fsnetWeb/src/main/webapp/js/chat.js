@@ -25,7 +25,6 @@ $(document).ready(function() {
 
 /* Permet de recevoir un message */
 function testReceive() {
-	console.log("ma requete rceive");
 	$.ajax({
 			type : 'POST',
 			url : "/fsnetWeb/TalkMembersReceive.do",
@@ -59,6 +58,7 @@ function testReceive() {
 															$("#chatbox_"
 																	+ name
 																	+ " .chatboxcontent")[0].scrollHeight);
+											$.notification('notification.mp3');
 
 										})
 			}
@@ -269,7 +269,6 @@ function loadChatBoxes(){
 									},
 									dataType : "json",
 									success : function(data,textStatus, jqXHR) {
-										debugger;
 										$("#chatbox_"+data.friend+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+data.conversation+'</span></div>');
 										$("#chatbox_"+ data.friend + " .chatboxcontent").scrollTop(
 														$("#chatbox_"+ data.friend + " .chatboxcontent")[0].scrollHeight);

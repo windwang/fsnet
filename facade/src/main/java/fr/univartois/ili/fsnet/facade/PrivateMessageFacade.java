@@ -8,10 +8,6 @@ import javax.persistence.TypedQuery;
 import fr.univartois.ili.fsnet.entities.PrivateMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 
-/**
- * 
- * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
- */
 public class PrivateMessageFacade {
 
 	private final EntityManager em;
@@ -100,9 +96,10 @@ public class PrivateMessageFacade {
 		TypedQuery<PrivateMessage> query = em
 				.createQuery(
 						"SELECT message FROM PrivateMessage message WHERE message.to = :entity "
-								+ "AND (message.body LIKE :pattern OR message.subject LIKE :pattern",
+								+ "AND (message.body LIKE :pattern OR message.subject LIKE :pattern)",
 						PrivateMessage.class);
 		query.setParameter("pattern", "%" + pattern + "%");
+		query.setParameter("entity", entity);
 		return query.getResultList();
 	}
 
@@ -123,9 +120,10 @@ public class PrivateMessageFacade {
 		TypedQuery<PrivateMessage> query = em
 				.createQuery(
 						"SELECT message FROM PrivateMessage message WHERE message.from = :entity "
-								+ "AND (message.body LIKE :pattern OR message.subject LIKE :pattern",
+								+ "AND (message.body LIKE :pattern OR message.subject LIKE :pattern)",
 						PrivateMessage.class);
 		query.setParameter("pattern", "%" + pattern + "%");
+		query.setParameter("entity", entity);
 		return query.getResultList();
 	}
 
@@ -162,11 +160,11 @@ public class PrivateMessageFacade {
 								+ "OR (message.to = :from "
 								+ "AND message.from = :to ))"
 								+ "AND ((message MEMBER OF message.to.receivedPrivateMessages)"
-								+ "OR (message MEMBER OF message.to.sentPrivateMessages))"
+								+ "OR (message MEMBER OF message.from.sentPrivateMessages))"
 								+ "ORDER BY message.creationDate",
 						PrivateMessage.class);
 
-		query.setParameter("pattern", "%" + subject.replaceAll("RE: ", ""));
+		query.setParameter("pattern", "%" + subject.replaceAll("RE: ", "")+"%");
 		query.setParameter("to", to);
 		query.setParameter("from", from);
 

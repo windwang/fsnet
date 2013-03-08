@@ -6,6 +6,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
+import javax.persistence.RollbackException;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 import javax.servlet.annotation.WebListener;
@@ -28,24 +29,27 @@ public class ServletInitializer implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
+		try {
+			EntityManager em = PersistenceProvider.createEntityManager();
+			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
+			SocialGroupFacade groupFacade = new SocialGroupFacade(em);
 
-		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-		SocialGroupFacade groupFacade = new SocialGroupFacade(em);
-		
-		SocialEntity admin = socialEntityFacade.createSocialEntity("admin", "admin","admin@fsnet.com");
-		admin.setPassword(Encryption.getEncodedPassword("admin"));
-		em.getTransaction().begin();
-		em.merge(admin);
-		em.getTransaction().commit();
-		List<SocialElement> members = new ArrayList<>();
-		members.add(admin);
-		
-		SocialGroup socialG = groupFacade.createSocialGroup(admin, "Default group", "Default group for user without group",members);
-		socialG.setMasterGroup(admin);
-		em.getTransaction().begin();
-		em.merge(socialG);
-		em.getTransaction().commit();
+			SocialEntity admin = socialEntityFacade.createSocialEntity("admin", "admin", "admin@fsnet.com");
+			admin.setPassword(Encryption.getEncodedPassword("admin"));
+			em.getTransaction().begin();
+			em.merge(admin);
+			em.getTransaction().commit();
+			List<SocialElement> members = new ArrayList<>();
+			members.add(admin);
+
+			SocialGroup socialG = groupFacade.createSocialGroup(admin, "Default group", "Default group for user without group", members);
+			socialG.setMasterGroup(admin);
+			em.getTransaction().begin();
+			em.merge(socialG);
+			em.getTransaction().commit();
+		} catch (RollbackException e) {
+			Logger.getAnonymousLogger().log(Level.INFO, "Admin already present in the database");
+		}
 	}
 
 }

@@ -86,6 +86,7 @@ public class InteractionRoleFacade {
 	 * @param i
 	 * @return true if se subscribed to i
 	 */
+	// TODO manque le c de isSubscriber
 	public final boolean isSubsriber(SocialEntity se, Interaction i) {
 		if (se == null || i == null) {
 			throw new IllegalArgumentException();
