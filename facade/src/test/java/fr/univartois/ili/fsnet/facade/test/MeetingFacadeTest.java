@@ -1,7 +1,6 @@
 package fr.univartois.ili.fsnet.facade.test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNull;
+import static org.junit.Assert.*;
 
 import java.util.Date;
 import java.util.List;
@@ -62,8 +61,138 @@ public class MeetingFacadeTest {
         assertEquals(esp.getEndDate(), es.getEndDate());
         assertEquals(esp.getStartDate(), es.getStartDate());
         assertEquals(esp.getAddress(), es.getAddress());
-        // TODO manque getCity
     }
+    
+    @Test
+    public void testCreateAndGet() {
+        SocialEntity member = sef.createSocialEntity("tata", "tata",
+                "tata2@gmail.com");
+        String eventName = "eventName2";
+        String eventDescription = "eventDescription2";
+        Date endDate = new Date();
+        Boolean isPrivate = false;
+        Date startDate = new Date();
+        Date recallDate = new Date();
+        String address = "address";
+        String city = "city";
+
+        em.getTransaction().begin();
+        
+        Meeting es = mf.createMeeting(member, eventName, eventDescription,
+                endDate, isPrivate, startDate, address, city,recallDate);
+        
+        em.getTransaction().commit();
+        
+        Meeting esp = mf.getMeeting(es.getId());
+        assertEquals(esp.getCreator(), es.getCreator());
+        assertEquals(esp.getTitle(), es.getTitle());
+        assertEquals(esp.getContent(), es.getContent());
+        assertEquals(esp.getEndDate(), es.getEndDate());
+        assertEquals(esp.getStartDate(), es.getStartDate());
+        assertEquals(esp.getAddress(), es.getAddress());
+        assertEquals(esp.getRecallDate(), es.getRecallDate());
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithNullMember() {
+    	em.getTransaction().begin();     
+        mf.createMeeting(null, "test", "testDescription",
+                new Date(), false, new Date(), "test Adresse", "test City",null);  
+        em.getTransaction().commit();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithNullTitle() {
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("zaz", "zaz",
+                "zaz@gmail.com");
+    	em.getTransaction().commit();
+    	em.getTransaction().begin();     
+        mf.createMeeting(se, null, "testDescription",
+                new Date(), false, new Date(), "test Adresse", "test City",null);  
+        em.getTransaction().commit();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithNullDescription() {
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("zaz", "zaz",
+                "zaz2@gmail.com");
+    	em.getTransaction().commit();
+    	em.getTransaction().begin();     
+        mf.createMeeting(se, "test", null,
+                new Date(), false, new Date(), "test Adresse", "test City",null);  
+        em.getTransaction().commit();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithNullEndDate() {
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("zaz", "zaz",
+                "zaz3@gmail.com");
+    	em.getTransaction().commit();
+    	em.getTransaction().begin();     
+        mf.createMeeting(se, "test", "testDescription",
+                null, false, new Date(), "test Adresse", "test City",null);  
+        em.getTransaction().commit();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithNullPrivateType() {
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("zaz", "zaz",
+                "zaz4@gmail.com");
+    	em.getTransaction().commit();
+    	em.getTransaction().begin();     
+        mf.createMeeting(se, "test", null,
+                new Date(), null, new Date(), "test Adresse", "test City",null);  
+        em.getTransaction().commit();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithNullStartDate() {
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("zaz", "zaz",
+                "zaz5@gmail.com");
+    	em.getTransaction().commit();
+    	em.getTransaction().begin();     
+        mf.createMeeting(se, "test", "testDescription",
+        		new Date(), false, null, "test Adresse", "test City",null);  
+        em.getTransaction().commit();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithNullAddress() {
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("zaz", "zaz",
+                "zaz6@gmail.com");
+    	em.getTransaction().commit();
+    	em.getTransaction().begin();     
+        mf.createMeeting(se, "test", "testDescription",
+        		new Date(), false, new Date(), null, "test City",null);  
+        em.getTransaction().commit();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithNullCity() {
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("zaz", "zaz",
+                "zaz7@gmail.com");
+    	em.getTransaction().commit();
+    	em.getTransaction().begin();     
+        mf.createMeeting(se, "test", "testDescription",
+        		new Date(), false, new Date(), "test Adresse", null ,null);  
+        em.getTransaction().commit();
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testCreateWithAllNullParameters() {
+    	em.getTransaction().begin();     
+        mf.createMeeting(null, null, null,
+        		null, null, null, null, null ,null);  
+        em.getTransaction().commit();
+    }
+    
 
     @Test
     public void testSearch() {
@@ -92,6 +221,11 @@ public class MeetingFacadeTest {
         Meeting mRes = results.get(0);
         assertEquals(m2.getTitle(), mRes.getTitle());
         assertEquals(m2.getContent(), mRes.getContent());
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testSearchWithNull() {
+        mf.searchMeeting(null);
     }
 
     @Test
@@ -146,4 +280,85 @@ public class MeetingFacadeTest {
         interactionFacade.deleteInteraction(member, m2);
         em.getTransaction().commit();
     }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testGetLastMeetingForTheLastUserConnexionWithNull() {
+    	mf.getLastMeetingForTheLastUserConnexion(null) ;
+    }
+    
+    
+    @Test
+    public void testGetAllMeetings() {
+    	Date start = new Date();
+        Date end = new Date();
+        
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("name", "first", "mail@mail.com");
+    	em.getTransaction().commit();
+    	
+    	em.getTransaction().begin();
+    	Meeting me = mf.createMeeting(se, "reunion", "reunion", end, false,
+                 start, "address", "city",null);
+    	em.getTransaction().commit(); 	
+    	
+    	List<Meeting> lm = mf.listAllMeeting() ;
+    	assertTrue(lm.contains(me)) ;
+    	
+    }
+    
+    @Test
+    public void testGetAllMeetingsByUser() {
+    	Date start = new Date();
+        Date end = new Date();
+        
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("name", "first", "zmail@mail.com");
+    	em.getTransaction().commit();
+    	
+    	em.getTransaction().begin();
+    	Meeting me = mf.createMeeting(se, "reunion", "reunion", end, false,
+                 start, "address", "city",null);
+    	em.getTransaction().commit(); 	
+    	
+    	List<Meeting> lm = mf.getAllUserMeeting(se) ;
+    	assertTrue(lm.contains(me)) ;
+    	
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testGetAllMeetingsByUserWithNullUser() {
+    	mf.getAllUserMeeting(null) ;  	
+    }
+    
+    @Test
+    public void testGetUserMeeting() {
+    	Date start = new Date();
+        Date end = new Date();
+        
+    	em.getTransaction().begin();
+    	SocialEntity se = sef.createSocialEntity("name", "first", "zemail@mail.com");
+    	em.getTransaction().commit();
+    	
+    	em.getTransaction().begin();
+    	Meeting me = mf.createMeeting(se, "reunion", "reunion", end, false,
+                 start, "address", "city",null);
+    	em.getTransaction().commit(); 	
+    	
+    	List<Meeting> lm = mf.getUserMeeting(se) ;
+    	assertTrue(lm.contains(me)) ;
+    	
+    }
+    
+    @Test(expected=IllegalArgumentException.class)
+    public void testGetUserMeetingWithNullUser() {   	
+    	mf.getUserMeeting(null) ;
+    	
+    }
+    
+    @Test
+    public void getMeetingsNow() {
+    	mf.getMeetingsHavingRecallWhichOccurNow() ;
+    }
+    
+    
 }
