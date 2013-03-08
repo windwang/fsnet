@@ -5,10 +5,13 @@
 
 <struts>
 	<package name="visits" extends="struts-default">		
+	<result-types>
+    	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+    </result-types>
 
 			<action name="Visits" class="fr.univartois.ili.fsnet.actions.ManageVisits">
 				<param name="display">display</param>
-				<result name="success">/Visits</result>
+				<result name="success" type="tiles">/Visits</result>
 			</action>
 
 		</package>

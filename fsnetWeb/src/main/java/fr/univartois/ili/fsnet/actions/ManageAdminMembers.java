@@ -90,6 +90,8 @@ public class ManageAdminMembers extends ActionSupport implements
 		return name;
 	}
 
+	
+
 	public void setName(String name) {
 		this.name = name;
 	}

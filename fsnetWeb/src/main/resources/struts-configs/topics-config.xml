@@ -8,9 +8,13 @@
 	<include file="struts-default.xml" />
 
 	<package name="topics-default" extends="struts-default">
+	<result-types>
+    	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+    </result-types>
+	
 		<action name="CreateTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="create" >
-			<result name="success" type="redirect">/DisplayHub.do
+			<result name="success" type="tiles">/DisplayHub.do
 			<param name="messageId">messageId</param>
 			<param name="pageId">pageId</param>
 			</result>
@@ -25,72 +29,72 @@
 
 		<action name="DeleteTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="delete">
-			<result name="success">/DisplayHub.do</result>
+			<result name="success" type="tiles">/DisplayHub.do</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="DisplayTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="display">
-			<result name="success">/Topic.do</result>
+			<result name="success" type="tiles">/Topic.do</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="SearchTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="search">
-			<result name="success">DisplayHub</result>
+			<result name="success" type="tiles">DisplayHub</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="Topic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="display">
-			<result name="success">Topic</result>
+			<result name="success" type="tiles">Topic</result>
 		</action>
 
 		<action name="ModifyTopicMessage"
 			class="fr.univartois.ili.fsnet.actions.ManageTopicMessages" method="modify">
-			<result name="success">/DisplayTopic.do</result>
+			<result name="success" type="tiles">/DisplayTopic.do</result>
 			<result name="input">/DisplayModifyTopicMessage.do</result>
 		</action>
 
 		<action name="CreateTopicMessage"
 			class="fr.univartois.ili.fsnet.actions.ManageTopicMessages" method="create">
-			<result name="success">/DisplayTopic.do</result>
+			<result name="success" type="tiles">/DisplayTopic.do</result>
 			<result name="input">/DisplayModifyTopicMessage.do</result>
 		</action>
 
 
 		<action name="DeleteTopicMessage"
 			class="fr.univartois.ili.fsnet.actions.ManageTopicMessages" method="delete">
-			<result name="success">/DisplayTopic.do</result>
+			<result name="success" type="tiles">/DisplayTopic.do</result>
 		</action>
 
 		<action name="DisplayCreateTopicMessage"
 			class="fr.univartois.ili.fsnet.actions.ManageTopicMessages" method="display">
-			<result name="success">CreateTopicMessage</result>
+			<result name="success" type="tiles">CreateTopicMessage</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="DisplayModifyTopicMessage"
 			class="fr.univartois.ili.fsnet.actions.ManageTopicMessages" method="display">
-			<result name="success">ModifyTopicMessage</result>
+			<result name="success" type="tiles">ModifyTopicMessage</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="DisplayYourTopics" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="searchYourTopics">
-			<result name="success">DisplayYourTopics</result>
+			<result name="success" type="tiles">DisplayYourTopics</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
 
 		<action name="SearchYourTopics" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="searchYourTopics">
 
-			<result name="success">DisplayYourTopics</result>
+			<result name="success" type="tiles">DisplayYourTopics</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
 		<action name="DeleteYourTopic" class="fr.univartois.ili.fsnet.actions.ManageTopic"
 			method="delete">
-			<result name="success">/SearchYourTopics.do</result>
+			<result name="success" type="tiles">/SearchYourTopics.do</result>
 			<result name="input">UnauthorizedOperationException</result>
 		</action>
 	</package>
