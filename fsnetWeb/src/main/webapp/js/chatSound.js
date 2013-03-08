@@ -12,7 +12,7 @@
 							'<audio src="'
 									+ base
 									+ arguments[0]
-									+ '" class="chatNotification" autoplay="autoplay" controls="" hidden="true"/>')
+									+ '" class="chatNotification" autoplay="autoplay" controls="" hidden/>')
 							.appendTo("body");
 				}
 			});
