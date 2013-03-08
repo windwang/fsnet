@@ -11,12 +11,11 @@ import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.actions.ActionSupport;
+import org.apache.struts2.ServletActionContext;
+import org.apache.struts2.interceptor.ServletRequestAware;
+
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.pagination.Paginator;
@@ -37,10 +36,25 @@ import fr.univartois.ili.fsnet.facade.TopicMessageFacade;
  * 
  * @author Zhu Rui <zrhurey at gmail.com>
  */
-public class ManageTopic extends ActionSupport implements CrudAction {
+public class ManageTopic extends ActionSupport implements CrudAction, ServletRequestAware {
 
-	private static final String SUCCES_ATTRIBUTE_NAME = "success";
-	private static final String HUB_ID_FORM_FIELD_NAME = "hubId";
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private HttpServletRequest request;
+	
+	private int hubId;
+	private int topicId;
+	private String topicSubject;
+	private String topicSujetSearch;	
+	private String messageDescription;
+	private String selectedInterests;
+	private String searchText;
+	private String pattern;
+	private int[] interestsIds;
+	
 
 	/*
 	 * (non-Javadoc)
@@ -52,28 +66,20 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			String topicSujet = (String) dynaForm.get("topicSubject");
-			String messageDescription = (String) dynaForm
-					.get("messageDescription");
-			int hubId = Integer.valueOf(Integer.parseInt(dynaForm
-					.getString(HUB_ID_FORM_FIELD_NAME)));
+	
 			HubFacade hubFacade = new HubFacade(em);
 			Hub hub = hubFacade.getHub(hubId);
 			SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request,
 					em);
 			TopicFacade topicFacade = new TopicFacade(em);
 			Topic topic = topicFacade
-					.createTopic(hub, socialEntity, topicSujet);
+					.createTopic(hub, socialEntity, topicSubject);
 
-			String interestsIds[] = (String[]) dynaForm
-					.get("selectedInterests");
 			InterestFacade fac = new InterestFacade(em);
 			List<Interest> interests = new ArrayList<Interest>();
 			int currentId;
@@ -93,7 +99,7 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 		} finally {
 			em.close();
 		}
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -106,9 +112,7 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify() throws Exception {
 		return null;
 	}
 
@@ -122,15 +126,10 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			int hubId = Integer.parseInt((String) dynaForm
-					.get(HUB_ID_FORM_FIELD_NAME));
-			int topicId = Integer.valueOf((String) dynaForm.get("topicId"));
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 			InteractionFacade interactionFacade = new InteractionFacade(em);
 			em.getTransaction().begin();
@@ -148,12 +147,12 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 		} catch (NumberFormatException e) {
 
 		} catch (RollbackException e) {
-			servlet.log("commit error", e);
+			ServletActionContext.getServletContext().log("commit error", e);
 		} finally {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -166,20 +165,15 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String search() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			String topicSujet = (String) dynaForm.get("topicSujetSearch");
-			int hubId = Integer.parseInt((String) dynaForm
-					.get(HUB_ID_FORM_FIELD_NAME));
 			Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
 			HubFacade hubFacade = new HubFacade(em);
 			Hub hub = hubFacade.getHub(hubId);
 			TopicFacade topicFacade = new TopicFacade(em);
-			List<Topic> result = topicFacade.searchTopic(topicSujet, hub);
+			List<Topic> result = topicFacade.searchTopic(topicSubject, hub);
 
 			for (Topic t : result) {
 				List<TopicMessage> messages = t.getMessages();
@@ -200,7 +194,7 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 
 		// TODO modify paginator for accepting HasMap
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/*
@@ -213,9 +207,7 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display() throws Exception {
 		// TODO Use DynaForm to get topicId
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -235,7 +227,7 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 			em.close();
 		}
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
 	}
 
 	/**
@@ -247,14 +239,9 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String searchYourTopics(ActionMapping mapping,
-			ActionForm form, HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String searchYourTopics() throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
-		String pattern = (String) dynaForm.get("searchText");
-		int hubId = Integer.parseInt((String) dynaForm
-				.get(HUB_ID_FORM_FIELD_NAME));
 		Map<Topic, Message> topicsLastMessage = new HashMap<Topic, Message>();
 		SocialEntity creator = UserUtils.getAuthenticatedUser(request, em);
 		Hub hub = em.find(Hub.class, hubId);
@@ -288,6 +275,58 @@ public class ManageTopic extends ActionSupport implements CrudAction {
 		request.setAttribute("hubResult", hub);
 		request.setAttribute("topicsLastMessage", topicsLastMessage);
 
-		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
+		return SUCCESS;
+	}
+
+	public String getTopicSubject() {
+		return topicSubject;
+	}
+
+	public void setTopicSubject(String topicSubject) {
+		this.topicSubject = topicSubject;
+	}
+
+	public int getHubId() {
+		return hubId;
+	}
+
+	public void setHubId(int hubId) {
+		this.hubId = hubId;
+	}
+	
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
+	public String getSelectedInterests() {
+		return selectedInterests;
+	}
+
+	public void setSelectedInterests(String selectedInterests) {
+		this.selectedInterests = selectedInterests;
+	}
+
+	public int getTopicId() {
+		return topicId;
+	}
+
+	public void setTopicId(int topicId) {
+		this.topicId = topicId;
+	}
+
+	public String getTopicSujetSearch() {
+		return topicSujetSearch;
+	}
+
+	public void setTopicSujetSearch(String topicSujetSearch) {
+		this.topicSujetSearch = topicSujetSearch;
+	}
+
+	public String getSearchText() {
+		return searchText;
+	}
+
+	public void setSearchText(String searchText) {
+		this.searchText = searchText;
 	}
 }
