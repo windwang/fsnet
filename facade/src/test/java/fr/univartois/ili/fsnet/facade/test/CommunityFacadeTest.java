@@ -20,10 +20,24 @@ import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
 
 public class CommunityFacadeTest {
+	private static final String STRING_NAME = "name";
+	private static final String STRING_GMAIL = "@gmail.com";
+	private static final String STRING_CREATOR = "creator";
 	private EntityManager em;
 	private SocialEntityFacade sef;
 	private CommunityFacade cf;
 	private InteractionFacade interactionFacade;
+	
+	private Community createEntityAndValidCommunity(String name) {
+		em.getTransaction().begin();
+		SocialEntity creatorCommunity = sef.createSocialEntity(
+				STRING_CREATOR+name, STRING_CREATOR+name,
+		STRING_CREATOR+name+STRING_GMAIL);
+		Community community = cf.createCommunity(creatorCommunity,
+		STRING_NAME+name);		
+		em.getTransaction().commit();
+		return community;
+	}
 
 	@Before
 	public void setUp() {
@@ -37,16 +51,8 @@ public class CommunityFacadeTest {
 
 	@Test
 	public void testCreate() {
-		em.getTransaction().begin();
-		
-		SocialEntity creatorCommunity = sef.createSocialEntity(
-				"creatorcreateCommCreate", "communnautecreateCommCreate",
-		"creatorCommunitycreateCommCreate@gmail.com");
-		Community community = cf.createCommunity(creatorCommunity,
-		"nameCommunitycreateCommCreate");
-		
-		em.getTransaction().commit();
-		
+		Community community = createEntityAndValidCommunity("CreateCommunity");
+				
 		Community compare = em.find(Community.class, community.getId());
 		assertEquals(community.getCreator(), compare.getCreator());
 		assertEquals(community.getTitle(), compare.getTitle());
@@ -55,28 +61,17 @@ public class CommunityFacadeTest {
 	
 	@Test
 	public void testGetCommunity() {
-		em.getTransaction().begin();
-		SocialEntity creatorCommunity = sef.createSocialEntity(
-				"creatorGetCommunity", "creatorGetCommunity",
-		"creatorGetCommunity@gmail.com");
-		Community community = cf.createCommunity(creatorCommunity,
-		"nameGetCommunity");		
-		em.getTransaction().commit();
+		Community community = createEntityAndValidCommunity("GetCommunity");
 		
 		Community compare = cf.getCommunity(community.getId());
 		assertEquals(community,compare);
 	}
+
+
 	
 	@Test
 	public void testGetCommunityByName(){
-		em.getTransaction().begin();
-		SocialEntity creatorCommunity = sef.createSocialEntity(
-				"creatorGetCommunityName", "creatorGetCommunityName",
-		"creatorGetCommunityName@gmail.com");
-		Community community = cf.createCommunity(creatorCommunity,
-		"nameGetCommunityName");		
-		em.getTransaction().commit();
-		
+		Community community = createEntityAndValidCommunity("GetCommunityName");
 		Community compare = cf.getCommunityByName(community.getTitle());
 		assertEquals(community,compare);
 	}
@@ -101,12 +96,7 @@ public class CommunityFacadeTest {
 
 	@Test
 	public void testModifyNameOfCommunity(){
-		em.getTransaction().begin();
-		SocialEntity creatorCommunity = sef.createSocialEntity("creatorModify",
-				"communnauteModify", "creatorCommunityModify@gmail.com");
-		Community community = cf.createCommunity(creatorCommunity,
-		"nameCommunityModify");
-		em.getTransaction().commit();
+		Community community = createEntityAndValidCommunity("CommunityModify");		
 		em.getTransaction().begin();
 		cf.modifyCommunity("newNameCommunityModify", community);
 		em.getTransaction().commit();
@@ -130,7 +120,7 @@ public class CommunityFacadeTest {
 	@Test(expected=UnauthorizedOperationException.class)
 	public void testDelete2() {
 		em.getTransaction().begin();
-		SocialEntity notcreator = sef.createSocialEntity("creator",
+		SocialEntity notcreator = sef.createSocialEntity(STRING_CREATOR,
 				"not", "notcreator@gmail.com");
 		SocialEntity creatorCommunity = sef.createSocialEntity("creatorDelete3",
 				"communnauteDelete3", "creatorCommunityDelete30@gmail.com");
