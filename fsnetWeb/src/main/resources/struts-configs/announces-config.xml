@@ -26,7 +26,7 @@
 
 		<action name="DisplayCreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="displayCreateAnnounce">
-			<result name="success" type="tiles">CreateAnnounce</result>
+			<result name="success">CreateAnnounce</result>
 			<result name="unauthorized">/Announces.do</result>
 		</action>
 
@@ -40,7 +40,7 @@
 
 		<action name="DisplayForModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="displayToModify">
-			<result name="success" type="tiles">ModifyAnnounce</result>
+			<result name="success">ModifyAnnounce</result>
 			<result name="failed">/Announces.do</result>
 		</action>
 
@@ -58,7 +58,7 @@
 
 		<action name="DeleteMultiAnnounces" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="deleteMulti">
-			<result name="success" type="tiles">/Announces.do</result>
+			<result name="success">/Announces.do</result>
 		</action>
 	</package>
 
