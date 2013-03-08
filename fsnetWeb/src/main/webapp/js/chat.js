@@ -58,7 +58,7 @@ function testReceive() {
 															$("#chatbox_"
 																	+ name
 																	+ " .chatboxcontent")[0].scrollHeight);
-											$.notification('notification.mp3');
+											$.notification('notification.wav');
 
 										})
 			}
