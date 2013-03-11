@@ -1,17 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-html" prefix="html"%>
-<%@ taglib prefix="bean" uri="http://struts.apache.org/tags-bean"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 
 <fieldset class="fieldsetCadre">
-	<legend >
-		<bean:message key="showProfile.title"
-			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
+	<legend>
+		<s:text name="showProfile.title"
+			var="%{watchedProfile.firstName} %{watchedProfile.name}" />
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -20,8 +18,8 @@
 					<c:if
 						test="${watchedProfile.email != null && not empty watchedProfile.email }">
 						<tr>
-							<th><bean:message key="updateProfile.email" /></th>
-							<td><s:a href="mailto:${watchedProfile.email}">
+							<th><s:text name="updateProfile.email" /></th>
+							<td><s:a href="mailto:%{watchedProfile.email}">
                     ${watchedProfile.email}
                 </s:a></td>
 						</tr>
@@ -29,42 +27,41 @@
 					<c:if
 						test="${watchedProfile.address.address != null && not empty watchedProfile.address.address }">
 						<tr>
-							<th><bean:message key="updateProfile.adress" /></th>
+							<th><s:text name="updateProfile.adress" /></th>
 							<td>${watchedProfile.address.address}</td>
 						</tr>
 					</c:if>
 					<c:if
 						test="${watchedProfile.address.city != null &&  not empty watchedProfile.address.city}">
 						<tr>
-							<th><bean:message key="updateProfile.city" /></th>
+							<th><s:text name="updateProfile.city" /></th>
 							<td>${watchedProfile.address.city}</td>
 						</tr>
 					</c:if>
 					<c:if test="${birthDay != null && not empty birthDay }">
 						<tr>
-							<th><bean:message key="updateProfile.dateOfBirth" /></th>
+							<th><s:text name="updateProfile.dateOfBirth" /></th>
 							<td>${birthDay}</td>
 						</tr>
 					</c:if>
 					<c:if
 						test="${watchedProfile.profession != null && not empty  watchedProfile.profession}">
 						<tr>
-							<th><bean:message key="updateProfile.job" /></th>
+							<th><s:text name="updateProfile.job" /></th>
 							<td>${watchedProfile.profession}</td>
 						</tr>
 					</c:if>
 					<c:if
 						test="${watchedProfile.sex != null && not empty  watchedProfile.sex}">
 						<tr>
-							<th><bean:message key="updateProfile.sexe" /></th>
-							<td><bean:message
-									key="updateProfile.sexe.${watchedProfile.sex}" /></td>
+							<th><s:text name="updateProfile.sexe" /></th>
+							<td><s:text name="updateProfile.sexe.%{watchedProfile.sex}" /></td>
 						</tr>
 					</c:if>
 					<c:if
 						test="${watchedProfile.phone != null && not empty watchedProfile.phone}">
 						<tr>
-							<th><bean:message key="updateProfile.phone" /></th>
+							<th><s:text name="updateProfile.phone" /></th>
 							<td>${watchedProfile.phone}</td>
 						</tr>
 					</c:if>
@@ -72,10 +69,8 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
-			<img src="avatar/${watchedProfile.id}.png" style="float: right;"
-				alt="Avatar" />
-			</td>
+			<td><img src="avatar/${watchedProfile.id}.png"
+				style="float: right;" alt="Avatar" /></td>
 		</tr>
 	</table>
 </fieldset>
@@ -85,21 +80,22 @@
 	<c:if
 		test="${watchedProfile.id != currentUser.id && !alreadyInContact}">
 		<s:a action="/ContactDemand" styleClass="btn btn-inverse">
-			<bean:message key="showProfile.ask" />
-			<html:param name="entitySelected" value="${watchedProfile.id}" />
+			<s:text name="showProfile.ask" />
+			<s:param name="entitySelected" value="%{watchedProfile.id}" />
 		</s:a>
 	</c:if>
 
 	<c:if test="${watchedProfile.id != currentUser.id}">
-		<s:a action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
-			<bean:message key="showProfile.send" />
-			<html:param name="receiver" value="${watchedProfile.email}" />
+		<s:a action="/DisplayCreatePrivateMessage"
+			styleClass="btn btn-inverse">
+			<s:text name="showProfile.send" />
+			<s:param name="receiver" value="%{watchedProfile.email}" />
 		</s:a>
 	</c:if>
 	<c:if test="${watchedProfile.id != currentUser.id && isLogged}">
 		<a class="btn btn-inverse"
 			onclick="javascript:chatWith('${watchedProfile.name}_${watchedProfile.id}','habib2@master11.com')">
-			<bean:message key="showProfile.chat" />
+			<s:text name="showProfile.chat" />
 		</a>
 	</c:if>
 </div>
@@ -108,22 +104,21 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="showInterest.title"
-			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
+		<s:text name="showInterest.title"
+			var="%{watchedProfile.firstName} %{watchedProfile.name}" />
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
-			<td><logic:empty name="watchedProfile" property="interests">
-					<bean:message key="Profile.noInterests" />.
-</logic:empty>
+			<td><s:if test="watchedProfile == null">
+					<s:text name="Profile.noInterests" />.
+			</s:if>
 
 				<div class="cloud">
 					<c:forEach var="interest"
 						items="${requestScope.interestPaginator.resultList}">
 
-						<span class="tag"> <s:a
-								action="/InterestInformations">
-								<html:param name="infoInterestId" value="${interest.id}" />
+						<span class="tag"> <s:a action="/InterestInformations">
+								<s:param name="infoInterestId" value="%{interest.id}" />
                 ${interest.name}
             </s:a>
 						</span>
@@ -140,15 +135,15 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="profile.showInteraction.title"
-			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
+		<s:text name="profile.showInteraction.title"
+			var="%{watchedProfile.firstName} %{watchedProfile.name}" />
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.interactions}">
 
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><bean:message key="Profile.noInteractions" />.</td>
+					<td><s:text name="Profile.noInteractions" />.</td>
 				</tr>
 			</table>
 		</c:when>
@@ -170,13 +165,12 @@
 						});
 			</script>
 
-			<table id="tableinteractions"
-				class="inLineTable tableStyle">
+			<table id="tableinteractions" class="inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th></th>
-						<th><bean:message key="tableheader.name" /></th>
-						<th><bean:message key="interaction.lastModif" /></th>
+						<th><s:text name="tableheader.name" /></th>
+						<th><s:text name="interaction.lastModif" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -188,19 +182,19 @@
 							<td><c:choose>
 									<c:when test="${inter.simpleClassName eq 'Announcement'}">
 										<s:a action="/DisplayAnnounce">
-											<html:param name="idAnnounce" value="${inter.id}" />
+											<s:param name="idAnnounce" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
 									</c:when>
 									<c:when test="${inter.simpleClassName eq 'Meeting'}">
 										<s:a action="/DisplayEvent">
-											<html:param name="eventId" value="${inter.id}" />
+											<s:param name="eventId" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
 									</c:when>
 									<c:when test="${inter.simpleClassName eq 'Topic'}">
 										<s:a action="/Topic">
-											<html:param name="topicId" value="${inter.id}" />
+											<s:param name="topicId" value="%{inter.id}" />
                                 ${inter.title}
                                  
                             </s:a>
@@ -208,27 +202,26 @@
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Hub'}">
 										<s:a action="/DisplayHub">
-											<html:param name="hubId" value="${inter.id}" />
+											<s:param name="hubId" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
                             (${fn:length(inter.topics)} topics)
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Community'}">
 										<s:a action="/DisplayCommunity">
-											<html:param name="communityId" value="${inter.id}" />
+											<s:param name="communityId" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
                             (${fn:length(inter.hubs)} hubs)
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Consultation'}">
 										<s:a action="/DisplayAConsultation">
-											<html:param name="id" value="${inter.id}" />
+											<s:param name="id" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
 									</c:when>
 								</c:choose></td>
-							<td><bean:write name="inter" property="lastModified"
-									format="dd/MM/yyyy" /></td>
+							<td><s:property value="lastModified" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -240,23 +233,26 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="showProfile.contacts.title" />
+		<s:text name="showProfile.contacts.title" />
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
-			<td><logic:empty name="watchedProfile" property="contacts">
+			<td><s:if test="watchedProfile == null">
 					<c:choose>
 						<c:when test="${edit}">
-							<bean:message key="showProfile.IHaveNoContacts" />
+							<s:text name="showProfile.IHaveNoContacts" />
 						</c:when>
 						<c:otherwise>
-							<bean:message key="showProfile.noContacts" />
+							<s:text name="showProfile.noContacts" />
 						</c:otherwise>
 					</c:choose>
-				</logic:empty> <logic:iterate
-					collection="${requestScope.contactsPaginator.resultList}" id="user">
+				</s:if>
+				<c:forEach var="user"
+					items="%{requestScope.contactsPaginator.resultList}">
 					<ili:getMiniature socialEntity="${user}" />
-				</logic:iterate>
+				</c:forEach>
+
+
 				<div class="clear"></div> <c:set var="paginatorInstance"
 					value="${requestScope.contactsPaginator}" scope="request" /> <c:set
 					var="paginatorAction" value="/DisplayProfile" scope="request" /> <c:set
@@ -268,7 +264,7 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<bean:message key="showProfile.groups.tree" />
+		<s:text name="showProfile.groups.tree" />
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -277,14 +273,13 @@
 					<c:choose>
 						<c:when test="${requestScope.treeGroupProfile ne ''}">
 							<li><s:a action="/DisplayInformationGroup">
-								<html:param name="idGroup" value="${ socialGroup.id }" />
+									<s:param name="idGroup" value="%{ socialGroup.id }" />
 								${requestScope.treeGroupProfile}
-								</s:a>
-							</li>
+								</s:a></li>
 
 						</c:when>
 						<c:otherwise>
-							<li><bean:message key="avatar.member.no.group" /></li>
+							<li><s:text name="avatar.member.no.group" /></li>
 						</c:otherwise>
 					</c:choose>
 				</ul>
