@@ -17,7 +17,6 @@
 				<table class="topicTable inLineTable tableStyle">
 					<c:forEach items="${requestScope.conversationMessages1.resultList}"
 						var="message">
-
 						<tr class="topicHeader">
 							<td><input type="checkbox" name="selectedMessages"
 								value="${message.id}" /></td>
@@ -47,9 +46,11 @@
 
 
 
-
+			<s:debug/>
 			<s:form action="CreatePrivateMessage.do">
-				<s:hidden name="messageTo" value="%{#request.theMessage.from.email}" />
+				
+				<s:hidden name="messageTo" value="%{#attr.theMessage.from.email}" />
+				<s:hidden name="messageSubject" value="RE: %{#attr.theMessage.subject}" />
 				<table id="quickResponse tableStyle"
 					style="width: 100%; display: none; margin-top: 10px;">
 					<tr>
@@ -57,8 +58,8 @@
 									name="privatemessages.to" /> :
 						</label></td>
 
-						<td><s:text var="messageTo"
-								name="%{#request.theMessage.from.name} %{theMessage.from.firstName}" /></td>
+						<td>
+						<c:out value="${theMessage.from.name} ${theMessage.from.firstName}" /></td>
 
 					</tr>
 					<tr>
@@ -66,11 +67,12 @@
 									name="privatemessages.subject" /> :
 						</label></td>
 
-						<td><s:text var="messageSubject"
-								name="RE: %{theMessage.subject}" /></td>
+						<td>
+						<c:out
+								value="RE: ${theMessage.subject}" /></td>
 					</tr>
 					<tr>
-						<td colspan="2"><s:textarea property="messageBody"
+						<td colspan="2"><s:textarea name="messageBody"
 								cssClass="mceTextArea" style="width:100%">
 							</s:textarea></td>
 					</tr>
@@ -115,27 +117,27 @@
 					alt="Quick response" /> <s:text name="privatemessages.Quickresponse" />
 				</a>
 			</ili:interactionFilter>
-
+	 
 			<s:form action="CreatePrivateMessage.do">
-				<s:hidden name="messageTo" value="%{theMessage.from.email}" />
+				<s:hidden name="messageTo" value="%{#attr.theMessage.from.email}" />
+				<s:hidden name="messageSubject" value="RE: %{#attr.theMessage.subject}" />
 				<table id="quickResponse"
 					style="width: 100%; display: none; margin-top: 10px;">
 					<tr>
 						<td><label for="messageTo"> <s:text
 									name="privatemessages.to" /> :
 						</label></td>
-						<td><s:text var="messageTo"
-								name="%{theMessage.from.name} %{theMessage.from.firstName}" /></td>
+						<td><c:out value="${theMessage.from.name} ${theMessage.from.firstName}"/> </td>
 					</tr>
 					<tr>
 						<td><label for="messageSubject"> <s:text
 									name="privatemessages.subject" /> :
 						</label></td>
-						<td><s:text var="messageSubject"
-								name="RE: %{theMessage.subject}" /></td>
+						<td><c:out value="RE: ${theMessage.subject}"/>
+						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><s:textarea property="messageBody"
+						<td colspan="2"><s:textarea name="messageBody"
 								cssClass="mceTextArea" style="width:100%">
 							</s:textarea></td>
 					</tr>
