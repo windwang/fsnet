@@ -46,9 +46,11 @@
 	src="http://maps.google.com/maps/api/js?sensor=false"></script>
 <script type="text/javascript" src="js/geolocalisation.js"></script>
 <script type="text/javascript" src="js/jquery.simplemodal.1.4.4.min.js"></script>
+<!-- Chat -->
 <script type="text/javascript" src="js/chatSound.js"></script>
 <script type="text/javascript" src="js/talkUtils.js"></script>
 <script type="text/javascript" src="js/chat.js"></script>
+
 <script class="jsbin" type="text/javascript"
 	src="js/jquery.dataTables.js"></script>
 

@@ -1,5 +1,4 @@
 
-
 var windowFocus = true;
 var username;
 var chatHeartbeatCount = 0;
@@ -23,50 +22,114 @@ $(document).ready(function() {
 	loadChatBoxes();
 });
 
-/* Permet de recevoir un message */
-function testReceive() {
-	$.ajax({
-			type : 'POST',
-			url : "/fsnetWeb/TalkMembersReceive.do",
-			dataType : "json",
-			success : function(data, textStatus, jqXHR) {
-						$(data.lastConversation)
-								.each(function(i) {
-											var name = data.lastConversation[i].name;
-											var str = (name).split("@");
-											var msg = data.lastConversation[i].msg;
-											var mailXmpp = data.lastConversation[i].mailXmpp;
-											var h = ":";
-											chatWith(name,
-													'kevin1@master11.com');
-											$("#" + name).remove();
-											$(
-													"#chatbox_"
-															+ name
-															+ " .chatboxcontent")
-													.append(
-															'<div class="chatboxmessage"><span class="chatboxinfo" id='
-																	+ name
-																	+ '>'
-																	+ msg
-																	+ '</span></div>');
-											$(
-													"#chatbox_"
-															+ name
-															+ " .chatboxcontent")
-													.scrollTop(
-															$("#chatbox_"
-																	+ name
-																	+ " .chatboxcontent")[0].scrollHeight);
-											$.notification('notification.wav');
-
-										})
-			}
-	});
-
+/*Change the color of the element state is true => element is blue. State is false => element is orange*/
+function applyBackgroundColor(element,state){	
+	if (state) {
+		element.css("background","#fceabb");
+		element.css("background","-moz-linear-gradient(top, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%)");
+		element.css("background","-webkit-gradient(linear, left top, left bottom, color-stop(0%,#fceabb), color-stop(50%,#fccd4d), color-stop(51%,#f8b500), color-stop(100%,#fbdf93))");
+		element.css("background","-webkit-linear-gradient(top, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%)");
+		element.css("background","-o-linear-gradient(top, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%)");
+		element.css("background","-ms-linear-gradient(top, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%)");
+		element.css("background","linear-gradient(to bottom, #fceabb 0%,#fccd4d 50%,#f8b500 51%,#fbdf93 100%)");
+	} else {
+		element.css("background","#1e5799");
+		element.css("background","-moz-linear-gradient(top, #1e5799 0%, #2989d8 50%, #207cca 51%, #7db9e8 100%)"); /* FF3.6+ */
+		element.css("background","-webkit-gradient(linear, left top, left bottom, color-stop(0%,#1e5799), color-stop(50%,#2989d8), color-stop(51%,#207cca), color-stop(100%,#7db9e8))"); /* Chrome,Safari4+ */
+		element.css("background","-webkit-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%)"); /* Chrome10+,Safari5.1+ */
+		element.css("background","-o-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%)"); /* Opera 11.10+ */
+		element.css("background","-ms-linear-gradient(top, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%)"); /* IE10+ */
+		element.css("background","linear-gradient(to bottom, #1e5799 0%,#2989d8 50%,#207cca 51%,#7db9e8 100%)"); /* W3C */
+	}
 }
 
-/* Permet de placer les fenetres de chat (cette fonction doit être appelée lorsqu'on ferme une fenetre de chat par exemple pour pouvoir replacer les fenetres et combler le trou laissé par la fenetre que l'on vient de fermer)*/
+/* Method that alternates color of the title and buttons*/
+function blinkChatFrame(frame, title,buttons) {
+	/* True attribute refering we are in blue color */
+	if (frame.data("colorBlink")) {
+		document.title = document.oldTitle + " (Message)";
+		applyBackgroundColor(title,true);
+		applyBackgroundColor(buttons,true);
+		frame.data("colorBlink",false);
+		
+	} else {
+		document.title = document.oldTitle;
+		applyBackgroundColor(title,false);
+		applyBackgroundColor(buttons,false);
+		frame.data("colorBlink",true);
+	}
+}
+/* Method that cancels blinking of the frame*/
+function stopBlinkChatFrame(frame, title,buttons){
+	document.title = document.oldTitle;
+	applyBackgroundColor(title,false);
+	applyBackgroundColor(buttons,false);
+	frame.data("colorBlink",true);
+	clearInterval(frame[0].colorBlickTimer);
+}
+
+/* Permet de recevoir un message */
+function testReceive() {
+	$
+			.ajax({
+				type : 'POST',
+				url : "/fsnetWeb/TalkMembersReceive.do",
+				dataType : "json",
+				success : function(data, textStatus, jqXHR) {
+					$(data.lastConversation)
+							.each(
+									function(i) {
+										var name = data.lastConversation[i].name;
+										var str = (name).split("@");
+										var msg = data.lastConversation[i].msg;
+										var mailXmpp = data.lastConversation[i].mailXmpp;
+										var h = ":";
+										chatWith(name, 'kevin1@master11.com');
+										$("#" + name).remove();
+										$("#chatbox_" + name
+														+ " .chatboxcontent")
+												.append(
+														'<div class="chatboxmessage"><span class="chatboxinfo" id='
+																+ name
+																+ '>'
+																+ msg
+																+ '</span></div>');
+										$(
+												"#chatbox_" + name
+														+ " .chatboxcontent")
+												.scrollTop(
+														$("#chatbox_"
+																+ name
+																+ " .chatboxcontent")[0].scrollHeight);
+										/* Notify by a sound */
+										$.notification('notification.wav');
+										document.oldTitle=document.title;
+										/* Add a timer to alternate color */
+										$("#chatbox_" + name)[0].colorBlickTimer = setInterval(
+												function() {
+													blinkChatFrame(
+															$("#chatbox_"
+																	+ name),
+															$("#chatbox_"
+																	+ name
+																	+ " .chatboxhead"),
+																	$("#chatbox_"
+																			+ name
+																			+ " .chat_button"))
+												}, 1000);
+										/*cancel on focus*/
+										$("#chatbox_" + name+" .chatboxinput input").bind("focus",function(){stopBlinkChatFrame($("#chatbox_"+ name),
+													$("#chatbox_"+ name+ " .chatboxhead"),$("#chatbox_"+ name+ " .chat_button"))});
+									})
+				}
+			});
+}
+
+/*
+ * Permet de placer les fenetres de chat (cette fonction doit être appelée
+ * lorsqu'on ferme une fenetre de chat par exemple pour pouvoir replacer les
+ * fenetres et combler le trou laissé par la fenetre que l'on vient de fermer)
+ */
 function restructureChatBoxes() {
 	align = 0;
 	for (x in chatBoxes) {
@@ -85,12 +148,12 @@ function restructureChatBoxes() {
 }
 
 function chatWith(chatuser, mailUser) {
-	var user=chatuser.toLowerCase();
+	var user = chatuser.toLowerCase();
 	createChatBox(user);
 	$("#chatbox_" + user + " .chatboxtextarea").focus();
 }
 
-/* Permet de créer une fenetre de chat*/
+/* Permet de créer une fenetre de chat */
 function createChatBox(chatboxtitle, minimizeChatBox) {
 	if ($("#chatbox_" + chatboxtitle).length > 0) {
 		if ($("#chatbox_" + chatboxtitle).css('display') == 'none') {
@@ -114,7 +177,6 @@ function createChatBox(chatboxtitle, minimizeChatBox) {
 							+ '\')">x</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="chatboxinput"><form><input type="text" class="chatboxtextarea" onkeydown="javascript:return checkChatBoxInputKey(event,this,\''
 							+ chatboxtitle + '\');"></input></form></div>')
 			.appendTo($("body"));
-
 
 	chatBoxeslength = 0;
 
@@ -183,7 +245,7 @@ function createChatBox(chatboxtitle, minimizeChatBox) {
 
 	$("#chatbox_" + chatboxtitle).show();
 }
-/* Permet de fermer une fenetre de chat*/
+/* Permet de fermer une fenetre de chat */
 function closeChatBox(chatboxtitle) {
 	$('#chatbox_' + chatboxtitle).css('display', 'none');
 	restructureChatBoxes();
@@ -247,43 +309,60 @@ function toggleChatBoxGrowth(chatboxtitle) {
 }
 
 /* Permet de charger les fenêtres de chat ouvertes lors du chargement de la page */
-function loadChatBoxes(){
+function loadChatBoxes() {
 	$
-	.ajax({
-		type : 'POST',
-		url : '/fsnetWeb/TalkMembersGetTalks.do',
-		dataType : "json",
-		
-		success : function(data, textStatus, jqXHR) {
-			
-			$(data.sessionTalks)
-					.each(
-							function(i) {
-								var name = data.sessionTalks[i].split('@')[0];
-								createChatBox(name, false);
-								$.ajax({
-									type : 'POST',
-									url : '/fsnetWeb/TalkMembersGetTalk.do',
-									data : {
-										friend : name
-									},
-									dataType : "json",
-									success : function(data,textStatus, jqXHR) {
-										$("#chatbox_"+data.friend+" .chatboxcontent").append('<div class="chatboxmessage"><span class="chatboxinfo">'+data.conversation+'</span></div>');
-										$("#chatbox_"+ data.friend + " .chatboxcontent").scrollTop(
-														$("#chatbox_"+ data.friend + " .chatboxcontent")[0].scrollHeight);
-									},
-									error : function(data, textStatus, jqXHR) {
-										alert("ça marche pas !! :'(");
-									}
-								})
-							});
+			.ajax({
+				type : 'POST',
+				url : '/fsnetWeb/TalkMembersGetTalks.do',
+				dataType : "json",
 
-		},
-		error : function(e) {
-			// alert('Error: ' + e);
-		}
-	});
+				success : function(data, textStatus, jqXHR) {
+
+					$(data.sessionTalks)
+							.each(
+									function(i) {
+										var name = data.sessionTalks[i]
+												.split('@')[0];
+										createChatBox(name, false);
+										$
+												.ajax({
+													type : 'POST',
+													url : '/fsnetWeb/TalkMembersGetTalk.do',
+													data : {
+														friend : name
+													},
+													dataType : "json",
+													success : function(data,
+															textStatus, jqXHR) {
+														$(
+																"#chatbox_"
+																		+ data.friend
+																		+ " .chatboxcontent")
+																.append(
+																		'<div class="chatboxmessage"><span class="chatboxinfo">'
+																				+ data.conversation
+																				+ '</span></div>');
+														$(
+																"#chatbox_"
+																		+ data.friend
+																		+ " .chatboxcontent")
+																.scrollTop(
+																		$("#chatbox_"
+																				+ data.friend
+																				+ " .chatboxcontent")[0].scrollHeight);
+													},
+													error : function(data,
+															textStatus, jqXHR) {
+														alert("ça marche pas !! :'(");
+													}
+												})
+									});
+
+				},
+				error : function(e) {
+					// alert('Error: ' + e);
+				}
+			});
 }
 
 /* Permet d'envoyer un message */
@@ -297,7 +376,8 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 
 		if (message != '') {
 
-			$.ajax({
+			$
+					.ajax({
 						type : 'POST',
 						url : '/fsnetWeb/TalkMembersSend.do',
 						data : {
@@ -315,7 +395,7 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 												var msg = data.lastConversation[i].msg;
 												var mailXmpp = data.lastConversation[i].mailXmpp;
 												var h = ":";
-												
+
 												$(
 														"#chatbox_"
 																+ chatboxtitle
@@ -366,7 +446,6 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 	}
 
 }
-
 
 /**
  * Cookie plugin
