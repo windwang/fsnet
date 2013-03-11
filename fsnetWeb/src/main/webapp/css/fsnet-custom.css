@@ -816,3 +816,7 @@ tfoot td {
 #loginWrapper label,a {
 	font-size : 17px ;
 }
+
+.footer p{
+	color : #ffffff ;
+}
