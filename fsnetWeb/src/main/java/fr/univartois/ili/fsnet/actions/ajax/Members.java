@@ -5,9 +5,6 @@ import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.struts2.dispatcher.mapper.ActionMapping;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -31,24 +28,27 @@ public class Members extends ActionSupport {
 
 	@Override
 	public String execute() throws Exception {
-		if (form != null) {
-			int index = searchText.lastIndexOf(',');
-			String completeUser = (index == -1) ? ("") : (searchText.substring(
-					0, index + 1));
-			String searchText = (index == -1) ? (searchText) : (searchText
-					.substring(index + 1));
-			EntityManager em = PersistenceProvider.createEntityManager();
-			SocialEntityFacade sef = new SocialEntityFacade(em);
-			SocialGroupFacade sgf = new SocialGroupFacade(em);
-			Set<SocialEntity> listSE = sef.searchSocialEntity(searchText);
-			SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-			List<SocialEntity> membersWithCurrentMemberCanInteract = sgf
-					.getPersonsWithWhoMemberCanInteract(member);
-			em.close();
-			listSE.retainAll(membersWithCurrentMemberCanInteract);
-			request.setAttribute("matchesSocialEntity", listSE);
-			request.setAttribute("completeUsers", completeUser);
+
+		int index = searchText.lastIndexOf(',');
+		String completeUser = (index == -1) ? ("") : (searchText.substring(0,
+				index + 1));
+
+		if (index != -1) {
+			setSearchText(searchText.substring(index + 1));
 		}
+
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntityFacade sef = new SocialEntityFacade(em);
+		SocialGroupFacade sgf = new SocialGroupFacade(em);
+		Set<SocialEntity> listSE = sef.searchSocialEntity(searchText);
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		List<SocialEntity> membersWithCurrentMemberCanInteract = sgf
+				.getPersonsWithWhoMemberCanInteract(member);
+		em.close();
+		listSE.retainAll(membersWithCurrentMemberCanInteract);
+		request.setAttribute("matchesSocialEntity", listSE);
+		request.setAttribute("completeUsers", completeUser);
+
 		return SUCCESS;
 	}
 

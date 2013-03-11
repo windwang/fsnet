@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,12 +20,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts2.dispatcher.mapper.ActionMapping;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
-import com.opensymphony.xwork2.Action;
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -50,8 +46,8 @@ import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
  * 
  * @author SAID Mohamed
  */
-public class ManageAdminMembers extends ActionSupport implements
-		CrudAction,ServletRequestAware {
+public class ManageAdminMembers extends ActionSupport implements CrudAction,
+		ServletRequestAware {
 
 	/**
 	 * 
@@ -64,7 +60,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	private static final String MEMBERS_ERROR_ON_CREATE_ACTION_NAME = "members.error.on.create";
 	private static final String ID_MEMBER_REQUEST_PARAMETER_NAME = "idMember";
 	private static final String SUCCES_ATTRIBUTE_NAME = "success";
-	
+
 	private HttpServletRequest request;
 	private String name;
 	private String firstname;
@@ -74,7 +70,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	private String formatBirthDay;
 	private String password;
 	private String passwordConfirmation;
-	
+
 	private String adress;
 	private String city;
 	private String phone;
@@ -85,12 +81,10 @@ public class ManageAdminMembers extends ActionSupport implements
 	private String fileMultipleMember;
 	private String multipleMember;
 	private String searchText;
-	
+
 	public String getName() {
 		return name;
 	}
-
-	
 
 	public void setName(String name) {
 		this.name = name;
@@ -135,7 +129,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	public void setFormatBirthDay(String formatBirthDay) {
 		this.formatBirthDay = formatBirthDay;
 	}
-	
+
 	public String getPassword() {
 		return password;
 	}
@@ -143,7 +137,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	public void setPassword(String password) {
 		this.password = password;
 	}
-	
+
 	public String getPasswordConfirmation() {
 		return passwordConfirmation;
 	}
@@ -183,7 +177,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	public void setSexe(String sexe) {
 		this.sexe = sexe;
 	}
-	
+
 	public String getJob() {
 		return job;
 	}
@@ -207,7 +201,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	public void setId(int id) {
 		this.id = id;
 	}
-	
+
 	public String getSearchText() {
 		return searchText;
 	}
@@ -231,7 +225,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	public void setMultipleMember(String multipleMember) {
 		this.multipleMember = multipleMember;
 	}
-	
+
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -242,7 +236,7 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create() throws Exception{
+	public String create() throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -263,8 +257,7 @@ public class ManageAdminMembers extends ActionSupport implements
 			} else {
 				definedPassword = password;
 				LOGGER.info("#### Defined Password : " + password);
-				encryptedPassword = Encryption
-						.getEncodedPassword(password);
+				encryptedPassword = Encryption.getEncodedPassword(password);
 			}
 			socialEntity.setPassword(encryptedPassword);
 			em.getTransaction().begin();
@@ -274,8 +267,8 @@ public class ManageAdminMembers extends ActionSupport implements
 			em.getTransaction().commit();
 
 			Locale currentLocale = request.getLocale();
-			sendConfirmationMail(socialEntity, definedPassword,
-					message, currentLocale);
+			sendConfirmationMail(socialEntity, definedPassword, message,
+					currentLocale);
 		} catch (RollbackException e) {
 			addFieldError(email, MEMBERS_USER_EXISTS_ACTION_NAME);
 		} catch (Exception e) {
@@ -284,14 +277,15 @@ public class ManageAdminMembers extends ActionSupport implements
 		em.close();
 
 		name = "";
-		firstname =  "";
+		firstname = "";
 		email = "";
 		parentId = "";
 		password = "";
 		passwordConfirmation = "";
 		cleanSession(request);
 
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, getText("member.success.on.create"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,
+				getText("member.success.on.create"));
 
 		return SUCCESS;
 	}
@@ -307,7 +301,7 @@ public class ManageAdminMembers extends ActionSupport implements
 			try {
 				String line;
 				while ((line = buff.readLine()) != null) {
-					if (line.matches("^[A-Za-z0-9 -.]{1,30}/[A-Za-z0-9 -.]{1,30}/[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$")){
+					if (line.matches("^[A-Za-z0-9 -.]{1,30}/[A-Za-z0-9 -.]{1,30}/[_a-z0-9-]+(\\.[_a-z0-9-]+)*@[a-z0-9-]+(\\.[a-z0-9-]+)+$")) {
 						allString = allString.concat(line + "\n");
 					}
 				}
@@ -415,10 +409,10 @@ public class ManageAdminMembers extends ActionSupport implements
 	 * @throws ServletException
 	 * @author stephane Gronowski
 	 */
-	public String createMultiple() throws Exception{
+	public String createMultiple() throws Exception {
 
 		String formInput = multipleMember;
-		multipleMember="";
+		multipleMember = "";
 		String personalizedMessage = message;
 
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -482,7 +476,8 @@ public class ManageAdminMembers extends ActionSupport implements
 
 		}
 
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, getText("members.success.on.create"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,
+				getText("members.success.on.create"));
 
 		return SUCCESS;
 	}
@@ -549,15 +544,14 @@ public class ManageAdminMembers extends ActionSupport implements
 			String personalizedMessage, Locale locale) {
 
 		String tmpPersonalizedMessage = new String(personalizedMessage);
-		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
-				"\"" + getText("members.name") + "\"", name);
-		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
-				"\"" + getText("members.firstName") + "\"",
-				firstName);
-		tmpPersonalizedMessage = tmpPersonalizedMessage.replace(
-				"\"" + getText("members.password") + "\"",
-				password);
-		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"Email\"", email);
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\""
+				+ getText("members.name") + "\"", name);
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\""
+				+ getText("members.firstName") + "\"", firstName);
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\""
+				+ getText("members.password") + "\"", password);
+		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"Email\"",
+				email);
 		tmpPersonalizedMessage = tmpPersonalizedMessage.replace("\"url\"",
 				addressFsnet);
 		return tmpPersonalizedMessage;
@@ -613,17 +607,18 @@ public class ManageAdminMembers extends ActionSupport implements
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(
 				entityManager);
 
-		Integer idMember = Integer.valueOf(request.getParameter(ID_MEMBER_REQUEST_PARAMETER_NAME));
+		Integer idMember = Integer.valueOf(request
+				.getParameter(ID_MEMBER_REQUEST_PARAMETER_NAME));
 
 		SocialEntity member = socialEntityFacade.getSocialEntity(idMember);
 
 		String adress = "";
 		String city = "";
 		if (member.getAddress() != null) {
-			if (member.getAddress().getAddress() != null){
+			if (member.getAddress().getAddress() != null) {
 				adress = member.getAddress().getAddress();
 			}
-			if (member.getAddress().getCity() != null){
+			if (member.getAddress().getCity() != null) {
 				city = member.getAddress().getCity();
 			}
 		}
@@ -634,8 +629,8 @@ public class ManageAdminMembers extends ActionSupport implements
 		job = member.getProfession();
 		birthDay = member.getBirthDate();
 		name = member.getName();
-		email =  member.getEmail();
-		firstname =  member.getFirstName();
+		email = member.getEmail();
+		firstname = member.getFirstName();
 		id = member.getId();
 
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(
@@ -644,7 +639,8 @@ public class ManageAdminMembers extends ActionSupport implements
 				.getAllChildGroups(UserUtils.getHisGroup(request));
 
 		Paginator<Interest> paginator = new Paginator<Interest>(
-				member.getInterests(), request, "interestsMember", ID_MEMBER_REQUEST_PARAMETER_NAME);
+				member.getInterests(), request, "interestsMember",
+				ID_MEMBER_REQUEST_PARAMETER_NAME);
 
 		request.setAttribute("interestsMemberPaginator", paginator);
 		request.setAttribute("id", member.getId());
@@ -653,39 +649,32 @@ public class ManageAdminMembers extends ActionSupport implements
 
 		cleanSession(request);
 
-		if (allMastersGroup.contains(member)){
+		if (allMastersGroup.contains(member)) {
 			request.getSession(true).setAttribute("master", true);
-		}else{
+		} else {
 			request.getSession(true).setAttribute("master", false);
 		}
 
 		request.getSession(true).setAttribute("group", member.getGroup());
 		request.getSession(true).setAttribute("allGroups", socialGroups);
 		entityManager.close();
-		
+
 		return SUCCESS;
 
-	/**
-	 * @param dynaForm
-	 * @return
-	 */
-		/* Remove ?
-		 * try {
-			Date birthday = DateUtils.format(formatBirthDay);
-			if (birthday.after(new Date())) {
-				addFieldError(formatBirthDay, "date.error.invalid");
-			}
-			Calendar cal = Calendar.getInstance();
-			cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 100);
-			if (birthday.before(cal.getTime())) {
-				addFieldError(formatBirthDay, "date.error.invalid");
-			}
-		} catch (ParseException e1) {
-			if (!formatBirthDay.isEmpty()) {
-				addFieldError(formatBirthDay, "date.error.invalid");
-			}
-			// Date Format is empty. Do nothing.
-		}*/
+		/**
+		 * @param dynaForm
+		 * @return
+		 */
+		/*
+		 * Remove ? try { Date birthday = DateUtils.format(formatBirthDay); if
+		 * (birthday.after(new Date())) { addFieldError(formatBirthDay,
+		 * "date.error.invalid"); } Calendar cal = Calendar.getInstance();
+		 * cal.set(Calendar.YEAR, cal.get(Calendar.YEAR) - 100); if
+		 * (birthday.before(cal.getTime())) { addFieldError(formatBirthDay,
+		 * "date.error.invalid"); } } catch (ParseException e1) { if
+		 * (!formatBirthDay.isEmpty()) { addFieldError(formatBirthDay,
+		 * "date.error.invalid"); } // Date Format is empty. Do nothing. }
+		 */
 	}
 
 	/*
@@ -747,13 +736,15 @@ public class ManageAdminMembers extends ActionSupport implements
 		request.setAttribute("member", member);
 		request.setAttribute("id", member.getId());
 		Paginator<Interest> paginator = new Paginator<Interest>(
-				member.getInterests(), request, "interestsMember", ID_MEMBER_REQUEST_PARAMETER_NAME);
+				member.getInterests(), request, "interestsMember",
+				ID_MEMBER_REQUEST_PARAMETER_NAME);
 		request.setAttribute("interestsMemberPaginator", paginator);
 
 		addFieldError(message, "member.success.update");
 		cleanSession(request);
 
-		request.setAttribute(SUCCES_ATTRIBUTE_NAME, getText("member.success.on.modify"));
+		request.setAttribute(SUCCES_ATTRIBUTE_NAME,
+				getText("member.success.on.modify"));
 
 		return SUCCESS;
 	}
@@ -786,8 +777,7 @@ public class ManageAdminMembers extends ActionSupport implements
 		SocialGroup socialGroupUser = UserUtils.getHisGroup(request);
 		List<SocialEntity> resultOthersList = socialGroupFacade
 				.getAllChildMembers(socialGroupUser);
-		if (form != null) {
-			String searchText = this.searchText;
+		if (searchText != null && !searchText.equals("")) {
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			resultOthers = socialEntityFacade.searchSocialEntity(searchText);
 			em.getTransaction().commit();
@@ -848,6 +838,6 @@ public class ManageAdminMembers extends ActionSupport implements
 
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
-		this.request=request;
+		this.request = request;
 	}
 }

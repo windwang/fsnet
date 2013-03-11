@@ -13,17 +13,16 @@
 
 	<c:choose>
 		<c:when test="${empty requestScope.conversationMessages.resultList}">
-			<s:form action="/DeleteMultiMessages2?fromPage=in">
+			<s:form action="DeleteMultiMessages2.do?fromPage=in">
 				<table class="topicTable inLineTable tableStyle">
 					<c:forEach items="${requestScope.conversationMessages1.resultList}"
 						var="message">
-
 						<tr class="topicHeader">
-							<td><s:checkbox name="selectedMessages"
-									fieldValue="%{message.id}" /></td>
+							<td><input type="checkbox" name="selectedMessages"
+								value="${message.id}" /></td>
 							<td><s:text name="privatemessages.from" /> : |<ili:getSocialEntityInfos
 									socialEntity="${message.from}" />| <span style="float: right">
-									<s:property value="message.creationDate"/>
+									<s:property value="message.creationDate" />
 							</span></td>
 						</tr>
 						<tr>
@@ -32,9 +31,7 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<s:submit styleClass="btn btn-inverse">
-					<s:text name="privatemessages.delete" />
-				</s:submit>
+				<s:submit cssClass="btn btn-inverse" key="privatemessages.delete" />
 			</s:form>
 
 			<ili:interactionFilter user="${ socialEntity }"
@@ -49,9 +46,11 @@
 
 
 
-
-			<s:form action="/CreatePrivateMessage">
-				<s:hidden name="messageTo" value="%{theMessage.from.email}" />
+			<s:debug/>
+			<s:form action="CreatePrivateMessage.do">
+				
+				<s:hidden name="messageTo" value="%{#attr.theMessage.from.email}" />
+				<s:hidden name="messageSubject" value="RE: %{#attr.theMessage.subject}" />
 				<table id="quickResponse tableStyle"
 					style="width: 100%; display: none; margin-top: 10px;">
 					<tr>
@@ -59,8 +58,8 @@
 									name="privatemessages.to" /> :
 						</label></td>
 
-						<td><s:text var="messageTo"
-								name="%{theMessage.from.name} %{theMessage.from.firstName}" /></td>
+						<td>
+						<c:out value="${theMessage.from.name} ${theMessage.from.firstName}" /></td>
 
 					</tr>
 					<tr>
@@ -68,36 +67,37 @@
 									name="privatemessages.subject" /> :
 						</label></td>
 
-						<td><s:text var="messageSubject" name="RE: %{theMessage.subject}" /></td>
+						<td>
+						<c:out
+								value="RE: ${theMessage.subject}" /></td>
 					</tr>
 					<tr>
-						<td colspan="2"><s:textarea property="messageBody"
-								styleClass="mceTextArea" style="width:100%">
+						<td colspan="2"><s:textarea name="messageBody"
+								cssClass="mceTextArea" style="width:100%">
 							</s:textarea></td>
 					</tr>
 
 					<tr>
 						<td colspan="2" class="alignRight"><s:submit
-								styleClass="btn btn-inverse"
-								onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();">
-								<s:text name="privatemessages.send" />
-							</s:submit></td>
+								cssClass="btn btn-inverse" key="privatemessages.send"
+								onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();"/>
+								
 					</tr>
 				</table>
 			</s:form>
 		</c:when>
 		<c:otherwise>
 
-			<s:form action="/DeleteMultiMessages2?fromPage=in">
+			<s:form action="/DeleteMultiMessages2.do?fromPage=in">
 				<table class="topicTable inLineTable">
 					<c:forEach items="${requestScope.conversationMessages.resultList}"
 						var="message">
 						<tr class="topicHeader">
-							<td><s:checkbox name="selectedMessages"
-									fieldValue="%{message.id}" /></td>
+							<td><input type="checkbox" name="selectedMessages"
+								value="${message.id}" /></td>
 							<td><s:text name="privatemessages.from" /> : |<ili:getSocialEntityInfos
 									socialEntity="${message.from}" />| <span style="float: right">
-									<s:property value="message.creationDate"/>
+									<s:property value="message.creationDate" />
 							</span></td>
 						</tr>
 						<tr>
@@ -106,51 +106,46 @@
 						</tr>
 					</c:forEach>
 				</table>
-				<s:submit styleClass="btn btn-inverse">
-					<s:text name="privatemessages.delete" />
-				</s:submit>
+				<s:submit cssClass="btn btn-inverse" key="privatemessages.delete" />
 			</s:form>
 
-			<ili:interactionFilter user="${ socialEntity }"
-				right="${ rightAnswerMessage }">
+			<ili:interactionFilter user="${socialEntity}"
+				right="${rightAnswerMessage}">
 				<a class="btn btn-inverse"
 					onclick="document.getElementById('quickResponse').style.display='table'">
 					<img src="images/quickResponse.png" style="vertical-align: bottom"
-					alt="Quick response" /> <s:text
-						name="privatemessages.Quickresponse" />
+					alt="Quick response" /> <s:text name="privatemessages.Quickresponse" />
 				</a>
 			</ili:interactionFilter>
-
-			<s:form action="/CreatePrivateMessage">
-				<s:hidden name="messageTo" value="%{theMessage.from.email}" />
+	 
+			<s:form action="CreatePrivateMessage.do">
+				<s:hidden name="messageTo" value="%{#attr.theMessage.from.email}" />
+				<s:hidden name="messageSubject" value="RE: %{#attr.theMessage.subject}" />
 				<table id="quickResponse"
 					style="width: 100%; display: none; margin-top: 10px;">
 					<tr>
 						<td><label for="messageTo"> <s:text
 									name="privatemessages.to" /> :
 						</label></td>
-						<td><s:text var="messageTo"
-								name="%{theMessage.from.name} %{theMessage.from.firstName}" /></td>
+						<td><c:out value="${theMessage.from.name} ${theMessage.from.firstName}"/> </td>
 					</tr>
 					<tr>
 						<td><label for="messageSubject"> <s:text
 									name="privatemessages.subject" /> :
 						</label></td>
-						<td><s:text var="messageSubject"
-								name="RE: %{theMessage.subject}" /></td>
+						<td><c:out value="RE: ${theMessage.subject}"/>
+						</td>
 					</tr>
 					<tr>
-						<td colspan="2"><s:textarea property="messageBody"
-								styleClass="mceTextArea" style="width:100%">
+						<td colspan="2"><s:textarea name="messageBody"
+								cssClass="mceTextArea" style="width:100%">
 							</s:textarea></td>
 					</tr>
 
 					<tr>
 						<td colspan="2" class="alignRight"><s:submit
-								styleClass="btn btn-inverse"
-								onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();">
-								<s:text name="privatemessages.send" />
-							</s:submit></td>
+								cssClass="btn btn-inverse" key="privatemessages.send"
+								onclick="this.disabled=true; this.value='Sending Message'; this.form.submit();"/>
 					</tr>
 				</table>
 			</s:form>
