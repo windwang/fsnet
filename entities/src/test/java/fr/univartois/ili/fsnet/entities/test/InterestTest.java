@@ -5,13 +5,14 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.LockModeType;
 import javax.persistence.Persistence;
 import javax.persistence.RollbackException;
 
-import org.eclipse.persistence.sessions.factories.SessionFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Ignore;
@@ -312,5 +313,40 @@ public class InterestTest {
 		assertEquals("prog2", inte.getName());
 		assertEquals(1, inte.getChildrenInterests().size());
 		assertTrue(inte.getChildrenInterests().contains(java));
+	}
+	
+	@Test
+	public void testSets() {
+		Interest inte = new Interest("video games");
+		inte.setId(9999) ;
+		SocialEntity ent1 = new SocialEntity("entity1", "Entity 1", "entity1@gmail.com");
+		SocialEntity ent2 = new SocialEntity("entity2", "Entity 2", "entity2@gmail.com");
+		Set<SocialEntity> setent = new HashSet<SocialEntity>() ;
+		setent.add(ent1) ;
+		setent.add(ent2) ;
+		inte.setEntities(setent) ;
+		
+		Interest child1 = new Interest("BF3");
+		Interest child2 = new Interest("Tomb Raider");
+		Set<Interest> setint= new HashSet<Interest>() ;
+		setint.add(child1) ;
+		setint.add(child2) ;
+		inte.setChildrenInterests(setint) ;
+
+		// Persist entities
+		em.getTransaction().begin();
+		em.persist(ent1);
+		em.persist(ent2);
+		em.persist(child1);
+		em.persist(child2);
+		em.persist(inte);
+		em.getTransaction().commit();
+		
+		// Tests
+		Interest i = em.find(Interest.class, inte.getId()) ;
+		assertEquals(inte.getId(), i.getId()) ;
+		assertEquals(inte.getEntities(), i.getEntities()) ;
+		assertEquals(inte.getChildrenInterests(), i.getChildrenInterests()) ;
+
 	}
 }

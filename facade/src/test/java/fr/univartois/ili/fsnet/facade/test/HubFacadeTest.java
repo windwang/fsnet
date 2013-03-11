@@ -60,7 +60,7 @@ public class HubFacadeTest {
 	@Test
 	public void searchHubTest() {
 		em.getTransaction().begin();
-		createHubs();
+		createHubs(0);
 		em.getTransaction().commit();
 		List<Hub> resultSearch = hf.searchHub("java");
 		assertEquals(1, resultSearch.size());
@@ -70,7 +70,7 @@ public class HubFacadeTest {
 	@Test
 	public void testSearchHubByName(){
 		em.getTransaction().begin();
-		createHubs();
+		createHubs(2);
 		Hub hub = hf.createHub(com, creator, "groovyhub1");
 		em.getTransaction().commit();
 		Hub result = hf.getHubByName("groovyhub1", com);
@@ -80,7 +80,7 @@ public class HubFacadeTest {
 	@Test
 	public void testSearchHub(){
 		em.getTransaction().begin();
-		createHubs();
+		createHubs(3);
 		hf.createHub(com, creator, "scalahub1");
 		em.getTransaction().commit();
 		List<Hub> resultSearch = hf.searchHub("scala", com);
@@ -90,7 +90,7 @@ public class HubFacadeTest {
 	@Test
 	public void testGetHubById(){
 		em.getTransaction().begin();
-		createHubs();
+		createHubs(4);
 		Hub hub = hf.createHub(com, creator, "groovyhub1");
 		em.getTransaction().commit();
 		Hub result = hf.getHubById(hub.getId(), com);
@@ -100,15 +100,15 @@ public class HubFacadeTest {
 	
 	@Test
 	public void testModifyName(){
-		Hub hub = hf.createHub(com, creator, "groovyhub1");
-		hf.modifyName("scalahub1", hub);
-		assertEquals("scalahub1",hub.getTitle());
+		Hub hub = hf.createHub(com, creator, "groovyhub6");
+		hf.modifyName("groovyhub7", hub);
+		assertEquals("groovyhub7",hub.getTitle());
 	}
 	
 
-	private void createHubs() {
-		hf.createHub(com, creator, "javahub1");
-		hf.createHub(com, creator, "c#hub1");
+	private void createHubs(int num) {
+		hf.createHub(com, creator, "javahub"+num);
+		hf.createHub(com, creator, "c#hub"+num);
 	}
 
 	@Test
