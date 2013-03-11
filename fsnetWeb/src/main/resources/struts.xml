@@ -7,7 +7,7 @@
    
   	<include file="struts-default.xml"/>
   	<include file="struts-configs/ajax-config.xml"/>
-   <include file="struts-configs/annouces-config.xml"/>
+   <include file="struts-configs/announces-config.xml"/>
    <include file="struts-configs/communities-config.xml"/>
    <include file="struts-configs/consultations-config.xml"/>
    <include file="struts-configs/contacts-config.xml"/>
