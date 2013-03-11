@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 import net.sf.json.JSONArray;
 
 import org.apache.commons.lang.StringEscapeUtils;
+import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
@@ -311,7 +312,8 @@ public class TalkMembers extends MappingDispatchAction {
 		friend = friend + "@" + xmppServerDomain;
 		String msg = request.getParameter("msg");
 		/* Permet d'éviter l'injection de code html ou javascript */
-		String escapedMsg=StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(msg));
+		String escapedMsg = StringUtils.replaceEach(msg, new String[]{"&", "\"", "<", ">"}, new String[]{"&amp;", "&quot;", "&lt;", "&gt;"});
+		//String escapedMsg=StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(msg));
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
