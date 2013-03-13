@@ -11,18 +11,21 @@
     	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
     </result-types>
 		<action name="CreateConsultation"
-			class="fr.univartois.ili.fsnet.actions.ManageConsultations">
+			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="create">
 
 			<result name="success" type="tiles">DisplayAConsultation</result>
-			<result name="failed" type="redirect">/CreateConsultation</result>
-			<result name="error">/SearchConsultation.do</result>
+			<result name="failed" type="redirect">CreateConsultation</result>
+			<result name="error" type="redirect">SearchConsultation</result>
 		</action>
 
 
-		<action name="DisplayCreateConsultation" class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="CreateConsultation" />
+		<action name="DisplayCreateConsultation">
+			<result type="tiles">CreateConsultation</result>
+		</action>
 
-		<action class="fr.univartois.ili.fsnet.actions.ManageConsultations" name="Consultations"
-			method="SearchConsultation" />
+		<action class="fr.univartois.ili.fsnet.actions.ManageConsultations" name="Consultations" method="searchConsultation" >
+			<result type="redirectAction">DisplayConsultations</result>
+		</action>
 
 
 		<action name="DisplayConsultations"
@@ -33,7 +36,7 @@
 
 		<action name="DisplayAConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="displayAConsultation">
-			<result name="success" type="redirect">/DisplayAConsultation</result>
+			<result name="success" type="tiles">DisplayAConsultation</result>
 			<result name="error">/SearchConsultation.do"</result>
 		</action>
 

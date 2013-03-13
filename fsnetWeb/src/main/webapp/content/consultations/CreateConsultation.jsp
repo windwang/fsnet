@@ -61,11 +61,11 @@
 						</table>
 
 						<s:checkbox onclick="displayChoicesOption(true)"
-							property="nbVotersPerChoiceBox" styleId="nbVotersPerChoiceBox" />
+							name="nbVotersPerChoiceBox" styleId="nbVotersPerChoiceBox" />
 						<label for="nbVotersPerChoiceBox"><s:text
 								name="consultations.form.limitVotersNumberPerChoice" /></label>
 						<s:textfield styleId="nbVotersPerChoice"
-							onkeyup="updateMaxVoters()" property="nbVotersPerChoice" />
+							onkeyup="updateMaxVoters()" name="nbVotersPerChoice" />
 
 						<div class="plusMoins">
 							<br /> <input type="button" onclick="removeChoice()"
@@ -120,7 +120,7 @@
 								<td ROWSPAN="2">
 									<div>
 										<s:text name="consultation.droits.groupsNoRights" />
-									</div> <s:select list="%{allUnderGroupsNoRights}" listValue="name"
+									</div> <s:select list="%{#attr.allUnderGroupsNoRights}" listValue="name"
 										name="groupsListLeft" />
 								</td>
 								<td><s:submit type="button"
@@ -130,7 +130,7 @@
 								<td ROWSPAN="2">
 									<div>
 										<s:text name="consultation.droits.groupsRights" />
-									</div> <s:select list="%{allUnderGroupsNoRights}" listValue="name"
+									</div> <s:select list="%{#attr.allUnderGroupsNoRights}" listValue="name"
 										name="groupsListRight" />
 								</td>
 							</tr>
@@ -157,7 +157,7 @@
 							<tr>
 								<td>
 								<td><s:radio name="consultationType" list="{YES_NO}"
-										styleId="YES_NO" /></td>
+										cssId="YES_NO" /></td>
 								<td><label for="YES_NO"><s:text
 											name="consultations.form.typeYesNo" /></label></td>
 							</tr>

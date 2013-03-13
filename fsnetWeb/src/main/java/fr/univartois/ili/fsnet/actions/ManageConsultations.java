@@ -97,6 +97,7 @@ public class ManageConsultations extends ActionSupport implements
 	private HttpServletRequest request;
 	private HttpServletResponse response;
 
+
 	/**
 	 * 
 	 * @return String
