@@ -157,7 +157,7 @@
 							<tr>
 								<td>
 								<td><s:radio name="consultationType" list="{YES_NO}"
-										cssId="YES_NO" /></td>
+										cssStyle="YES_NO" /></td>
 								<td><label for="YES_NO"><s:text
 											name="consultations.form.typeYesNo" /></label></td>
 							</tr>
