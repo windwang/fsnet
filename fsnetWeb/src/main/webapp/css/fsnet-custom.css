@@ -46,7 +46,6 @@
 }
 
 #loggedUsers {
-	width: 210px;
 }
 
 #contactsAsked {
@@ -816,4 +815,21 @@ tfoot td {
 
 #loginWrapper label,a {
 	font-size : 17px ;
+}
+
+.footer p{
+	color : #ffffff ;
+}
+
+
+html .navbar .nav, .navbar .nav > li {
+    float:none;
+    display:inline-block;
+    *display:inline; /* ie7 fix */
+    *zoom:1; /* hasLayout ie7 trigger */
+    vertical-align: top;
+}
+
+html .navbar-inner {
+    text-align:center;
 }

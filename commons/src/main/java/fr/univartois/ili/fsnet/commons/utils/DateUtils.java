@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -58,7 +59,6 @@ public final class DateUtils {
 	 *         today
 	 */
 	public static Integer compareToToday(Date date) {
-//		Date today = new Date();
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
 				calendar.get(Calendar.DAY_OF_MONTH), calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE), 0);
@@ -85,16 +85,13 @@ public final class DateUtils {
 		return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date);
 	}
 	
-
-	
-
 	/**
 	 * @param date
 	 * @return
 	 */
 	public static String renderDateForFullCalendar(Date date) {
 		SimpleDateFormat usFormat = new SimpleDateFormat("MM/dd/yyyy HH:mm");
-		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
+		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(date);
 		return usFormat.format(cal.getTime());
 	}
@@ -105,17 +102,16 @@ public final class DateUtils {
 	 */
 	public static String renderDBDate(Date date) {
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
+		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(date);
 		return dbDateFormat.format(cal.getTime());
 	}
 	
 	public static String renderDBDateWithSecond(Date date) {
 		SimpleDateFormat dbDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss",Locale.FRANCE);
-		java.util.Calendar cal = java.util.GregorianCalendar.getInstance();
+		Calendar cal = GregorianCalendar.getInstance();
 		cal.setTime(date);
-		String dbDate = dbDateFormat.format(cal.getTime());
-		return dbDate;
+		return dbDateFormat.format(cal.getTime());
 	}
 	
 	
@@ -160,13 +156,13 @@ public final class DateUtils {
 
 		Matcher matcher = Pattern.compile(ICS_DATE_PATTERN).matcher(date);
 		while(matcher.find()){
-			cal.set(java.util.Calendar.MONTH, Integer.parseInt(matcher.group(2)));
-			cal.set(java.util.Calendar.DAY_OF_MONTH, Integer.parseInt(matcher.group(3)));
-			cal.set(java.util.Calendar.YEAR, Integer.parseInt(matcher.group(1)));
+			cal.set(Calendar.MONTH, Integer.parseInt(matcher.group(2)));
+			cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(matcher.group(3)));
+			cal.set(Calendar.YEAR, Integer.parseInt(matcher.group(1)));
 			if((matcher.group(5)!=null) && (matcher.group(6) != null)) {
-				cal.set(java.util.Calendar.HOUR_OF_DAY, Integer.parseInt(matcher.group(5)));
-				cal.set(java.util.Calendar.MINUTE, Integer.parseInt(matcher.group(6)));	
-				cal.set(java.util.Calendar.SECOND, 0);
+				cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(matcher.group(5)));
+				cal.set(Calendar.MINUTE, Integer.parseInt(matcher.group(6)));	
+				cal.set(Calendar.SECOND, 0);
 			}
 
 		}
