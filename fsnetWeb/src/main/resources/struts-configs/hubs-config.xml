@@ -9,9 +9,12 @@
 <include file="struts-default.xml"/>
 
 	<package name="hubs-config" extends="struts-default">
-	
+	<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
 		<action name="Hubs" class="fr.univartois.ili.fsnet.actions.ManageHub" method="search">
-			<result name="success">Hubs</result>
+			<result name="success" type="tiles">Hubs</result>
 		</action>
 
 		<action name="CreateHub" class="fr.univartois.ili.fsnet.actions.ManageHub" method="create">
@@ -23,36 +26,36 @@
 
 		<action name="ModifyYourHub" class="fr.univartois.ili.fsnet.actions.ManageHub" method="modify">
 			<result name="input">/DisplayYourHubs.do</result>
-			<result name="success">/DisplayYourHubs.do</result>
+			<result name="success" type="tiles">/DisplayYourHubs.do</result>
 		</action>
 
 		<action name="SearchHub" class="fr.univartois.ili.fsnet.actions.ManageHub" method="search">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">Hubs</result>
+			<result name="success" type="tiles">Hubs</result>
 		</action>
 
 		<action name="DeleteHub" class="fr.univartois.ili.fsnet.actions.ManageHub" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">/SearchHub.do</result>
+			<result name="success" type="tiles">/SearchHub.do</result>
 		</action>
 
 		<action name="DisplayHub" class="fr.univartois.ili.fsnet.actions.ManageHub" method="display">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">/SearchHub.do</result>
+			<result name="success" type="tiles">/SearchHub.do</result>
 		</action>
 
 		<action name="DisplayYourHubs" class="fr.univartois.ili.fsnet.actions.ManageHub" method="searchYourHubs">
-			<result name="success">DisplayYourHubs</result>
+			<result name="success" type="tiles">DisplayYourHubs</result>
 		</action>
 
 		<action name="SearchYourHubs" class="fr.univartois.ili.fsnet.actions.ManageHub" method="searchYourHubs">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">DisplayYourHubs</result>
+			<result name="success" type="tiles">DisplayYourHubs</result>
 		</action>
 
 		<action name="DeleteYourHub" class="fr.univartois.ili.fsnet.actions.ManageHub" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success">/SearchYourHubs.do</result>
+			<result name="success" type="tiles">/SearchYourHubs.do</result>
 		</action>
 	</package>
 
