@@ -24,7 +24,7 @@
 		</action>
 		<action name="DisplayCreateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="displayCreateEvent">
-			<result name="success" type="redirect">CreateEvent</result>
+			<result name="success" type="tiles" >CreateEvent</result>
 			<result name="error">/Events.do"</result>
 		</action>
 

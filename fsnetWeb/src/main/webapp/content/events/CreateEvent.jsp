@@ -11,10 +11,10 @@
 		<s:text name="events.title.create" />
 	</legend>
 	<table id="CreateEvent" class="inLineTable tableStyle">
-		<s:form action="/CreateEvent">
+		<s:form action="CreateEvent">
 			<tr>
-				<td><label for="eventName"> <s:textfield
-							key="events.form.title" />
+				<td><label for="eventName"> <s:text
+							name="events.form.title" />
 				</label></td>
 				<td><s:textfield property="eventName" styleId="eventName"
 						errorStyleClass="error" /> <!-- 						 <logic:messagesPresent	property="eventName"> 
@@ -25,12 +25,13 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><c:import url="/InterestCheckBoxes.do" /></td>
+				<td><s:include value="<s:url action='InterestCheckBoxes'/>" />
+				</td>
 			</tr>
 
 			<tr>
-				<td><label for="eventDescription"> <s:textfield
-							key="events.form.description" />
+				<td><label for="eventDescription"> <s:text
+							name="events.form.description" />
 				</label></td>
 				<td><s:textarea property="eventDescription"
 						styleId="eventDescription" errorStyleClass="error"
@@ -41,19 +42,19 @@
 			</tr>
 
 			<tr>
-				<td><label for="eventAddress"> <s:textfield
-							key="events.form.address" />
+				<td><label for="eventAddress"> <s:text
+							name="events.form.address" />
 				</label></td>
 				<td><s:textfield property="eventAddress" styleId="eventAddress"
 						errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
 					<!-- 						property="eventAddress"> --> <!-- 					<div class="errorMessage"> -->
-					<!-- 						<html:errors property="eventAddress" /> --> <!-- 					</div>  -->
-					<!-- 										</logic:messagesPresent> --></td>
+					<!-- 						<html:errors property="evCreateEvent.doentAddress" /> -->
+					<!-- 					</div>  --> <!-- 										</logic:messagesPresent> --></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventCity"> <s:textfield
-							key="events.form.city" />
+				<td><label for="eventCity"> <s:text
+							name="events.form.city" />
 				</label></td>
 				<td><s:textfield property="eventCity" styleId="eventCity"
 						errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
@@ -63,45 +64,38 @@
 			</tr>
 
 			<tr>
-				<td><label for="eventBeginDate"> <s:textfield
-							key="events.form.beginDate" />
+				<td><label for="eventBeginDate"> <s:text
+							name="events.form.beginDate" />
 				</label></td>
-				<td><s:textfield property="eventBeginDate"
-						styleId="eventBeginDate" errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
-					<!-- 						property="eventBeginDate"> --> <!-- <div class="errorMessage">
+				<td><s:textfield name="eventBeginDate" id="eventBeginDate" />
+					<!-- 						<logic:messagesPresent --> <!-- 						property="eventBeginDate"> -->
+					<!-- <div class="errorMessage">
 						<html:errors property="eventBeginDate" />
 					</div>  					</logic:messagesPresent> --></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventEndDate"> <s:textfield
-							key="events.form.endDate" />
+				<td><label for="eventEndDate"> <s:text
+							name="events.form.endDate" />
 				</label></td>
-				<td><s:textfield property="eventEndDate" styleId="eventEndDate"
-						errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
-					<!-- 						property="eventEndDate"> --> <!-- <div class="errorMessage">
-						<html:errors property="eventEndDate" />
-					</div> 				</logic:messagesPresent> --></td>
+				<td><s:textfield name="eventEndDate" id="eventEndDate" /></td>
 			</tr>
 
 			<tr>
-				<td><label for="eventRecallTime"> <s:textfield
-							key="events.form.recall" />
+				<td><label for="eventRecallTime"> <s:text
+							name="events.form.recall" />
 				</label></td>
-				<td><s:textfield property="eventRecallTime"
-						styleId="eventRecallTime" errorStyleClass="error"
-						value="%{recallDefaultValue}" /> <!-- 						events.form.recall.hour_minute_day a creer !!!! -->
-					<s:select list="events.form.recall.hour_minute_day"
-						property="eventRecallTypeTime" styleId="eventRecallTypeTime">
-					</s:select> <!-- 					<logic:messagesPresent property="eventRecallTime"> --> <!--<div class="errorMessage">
-						<html:errors property="eventRecallTime" />
-					</div>  					</logic:messagesPresent> -->
+				<td><s:textfield name="eventRecallTime" id="eventRecallTime"
+						value="%{recallDefaultValue}" /> <s:select
+						name="eventRecallTypeTime"
+						list="#{'minute':getText('events.form.recall.minute'),'hour':getText('events.form.recall.hour'),'day':getText('events.form.recall.day')}" /></td>
+
 			</tr>
 
 			<tr>
 				<td colspan="2" class="tableButton"><s:submit
+						value="%{getText('events.button.create')}"
 						styleClass="button btn btn-inverse">
-						<s:text name="events.button.create" />
 					</s:submit></td>
 			</tr>
 		</s:form>
