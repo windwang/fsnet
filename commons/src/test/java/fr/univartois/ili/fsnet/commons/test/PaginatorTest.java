@@ -38,6 +38,42 @@ public class PaginatorTest {
 
 		em.getTransaction().commit();
 	}
+	
+	/*
+	 * 
+	 */
+	@Test
+	public void testGetNumResultsPerPage(){
+		MockHTTPServletRequest request = new MockHTTPServletRequest();
+		request.addParameter(Paginator.PAGE_ID, "1");
+		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
+				SocialEntity.class);
+		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
+				.getResultList(), request, numRecords, "myId");
+		assertEquals(200, paginator.getNumResultsPerPage());
+	}
+	
+	@Test
+	public void testGetRequestedPage(){
+		MockHTTPServletRequest request = new MockHTTPServletRequest();
+		request.addParameter(Paginator.PAGE_ID, "1");
+		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
+				SocialEntity.class);
+		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
+				.getResultList(), request, numRecords, "myId");
+		assertTrue( paginator.getRequestedPage()>0);
+	}
+	
+	@Test
+	public void testGetNumPages(){
+		MockHTTPServletRequest request = new MockHTTPServletRequest();
+		request.addParameter(Paginator.PAGE_ID, "1");
+		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
+				SocialEntity.class);
+		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
+				.getResultList(), request, numRecords, "myId");
+		assertTrue( paginator.getNumPages()>0);
+	}
 
 	/**
 	 * Simply test the number of results using the
@@ -54,7 +90,25 @@ public class PaginatorTest {
 		assertEquals(Paginator.DEFAULT_NUM_RESULT_PER_PAGE, paginator
 				.getResultList().size());
 	}
+	
+	/**
+	 * test rename RequestInput
+	 */
+	@Test
+	public void testPaginatorRequestInputName() {
+		MockHTTPServletRequest request = new MockHTTPServletRequest();
+		request.addParameter(Paginator.PAGE_ID, "0");
+		TypedQuery<SocialEntity> query = em.createQuery(FIND_ALL,
+				SocialEntity.class);
+		Paginator<SocialEntity> paginator = new Paginator<SocialEntity>(query
+				.getResultList(), request, "myId","requestInputName");
+		assertEquals("requestInputName", paginator.getRequestInputName());
+	}
 
+	
+
+	
+	
 	/**
 	 * Test the number of results when the last page has not the same number of
 	 * results than previous
