@@ -21,43 +21,43 @@
 </div>
 
 <ul id="menu">
-	<li><s:a action="/Home"
+	<li><html:link action="/Home"
 			styleClass="${currentMenu == 'Home' ? 'current' : ''}">
 			<bean:message key="menu.welcome" />
-		</s:a></li>
-	<li><s:a action="/Members"
+		</html:link></li>
+	<li><html:link action="/Members"
 			styleClass="${currentMenu == 'Members' ? 'current' : ''}">
 			<bean:message key="menu.creation" />
-		</s:a></li>
-	<li><s:a action="/MemberList"
+		</html:link></li>
+	<li><html:link action="/MemberList"
 			styleClass="${currentMenu == 'MemberList' ? 'current' : ''}">
 			<bean:message key="menu.members" />
-		</s:a></li>
-	<li><s:a action="/GroupList"
+		</html:link></li>
+	<li><html:link action="/GroupList"
 			styleClass="${currentMenu == 'Groups' ? 'current' : ''}">
 			<bean:message key="menu.groups" />
-		</s:a></li>
-	<li><s:a action="/Announces"
+		</html:link></li>
+	<li><html:link action="/Announces"
 			styleClass="${currentMenu == 'Announces' ? 'current' : ''}">
 			<bean:message key="menu.announces" />
-		</s:a></li>
-	<li><s:a action="/Events"
+		</html:link></li>
+	<li><html:link action="/Events"
 			styleClass="${currentMenu == 'Events' ? 'current' : ''}">
 			<bean:message key="menu.events" />
-		</s:a></li>
-	<li><s:a action="/Communities"
+		</html:link></li>
+	<li><html:link action="/Communities"
 			styleClass="${currentMenu == 'Communities' ? 'current' : ''}">
 			<bean:message key="menu.communities" />
-		</s:a></li>
-	<li><s:a action="/Interests"
+		</html:link></li>
+	<li><html:link action="/Interests"
 			styleClass="${currentMenu == 'Interests' ? 'current' : ''}">
 			<bean:message key="menu.interests" />
-		</s:a></li>
+		</html:link></li>
 
-	<li><s:a action="/EditConfiguration"
+	<li><html:link action="/EditConfiguration"
 			styleClass="${currentMenu == 'Configuration' ? 'current' : ''}">
 			<bean:message key="menu.configuration" />
-		</s:a></li>
+		</html:link></li>
 </ul>
 
 <div class="clear"></div>

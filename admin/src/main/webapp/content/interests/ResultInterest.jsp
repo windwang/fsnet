@@ -15,14 +15,14 @@
 						<c:forEach var="interest"
 							items="${requestScope.interestSearchPaginator.resultList}">
 							<div class="otag">
-								<s:a action="/AddInterest">
+								<html:link action="/AddInterest">
 									<img src="images/add.png" />
 									<html:param name="addedInterestId" value="${interest.id}" />
-								</s:a>
-								<s:a action="/InterestInformations">
+								</html:link>
+								<html:link action="/InterestInformations">
 									<html:param name="infoInterestId" value="${interest.id}" />
                 		${interest.name} 
-					</s:a>
+					</html:link>
 							</div>
 						</c:forEach>
 						<div class="clear"></div>

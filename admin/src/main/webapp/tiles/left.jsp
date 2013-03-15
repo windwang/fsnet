@@ -8,15 +8,15 @@
 <%@taglib uri="http://struts.apache.org/tags-bean" prefix="bean"%>
 
 <ul>
-	<li><s:a action="/Members">
+	<li><html:link action="/Members">
 		<bean:message key="leftMenu.button.createMember" />
-	</s:a></li>
+	</html:link></li>
 
 
 
-	<li><s:a action="/Groups">
+	<li><html:link action="/Groups">
 		<bean:message key="leftMenu.button.createGroup" />
-	</s:a></li>
+	</html:link></li>
 
 
 </ul>

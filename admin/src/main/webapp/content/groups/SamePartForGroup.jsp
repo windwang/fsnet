@@ -10,7 +10,7 @@
 	<tr>
 		<td><label for="name"> <bean:message key="groups.name" /></label></td>
 		<td colspan="3"><html:text property="name" styleId="name"
-				errorStyleClass="error" /> <s:hidden name="id" styleId="id" />
+				errorStyleClass="error" /> <html:hidden property="id" styleId="id" />
 			<div class="errorMessage">
 				<html:errors property="name" />
 			</div></td>
