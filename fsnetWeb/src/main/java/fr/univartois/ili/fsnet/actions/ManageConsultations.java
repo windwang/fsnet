@@ -59,6 +59,9 @@ public class ManageConsultations extends ActionSupport implements
 	private static final String FAILED_ACTION_NAME = "failed";
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
 
+	private List<String> listTypeKey;
+	private List<String> listTypeValue;
+	
 	private int minChoicesVoter;
 	private int maxChoicesVoter;
 	private String consultationTitle;
@@ -96,6 +99,25 @@ public class ManageConsultations extends ActionSupport implements
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
+
+
+	
+	
+	public ManageConsultations() {
+		listTypeKey=new ArrayList<>();
+		listTypeValue=new ArrayList<>();
+		
+		listTypeValue.add("YES_NO");
+		listTypeValue.add("YES_NO_OTHER");
+		listTypeValue.add("YES_NO_IFNECESSARY");
+		listTypeValue.add("PREFERENCE_ORDER");
+		
+		listTypeKey.add("consultations.form.typeYesNo");
+		listTypeKey.add("consultations.form.typeYesNoOther");
+		listTypeKey.add("consultations.form.typeYesNoIfNecessary");
+		listTypeKey.add("consultations.form.typePreferenceOrder");
+		
+	}
 
 	/**
 	 * 
