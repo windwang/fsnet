@@ -14,10 +14,15 @@
 <div id="loggedUsers" class="littlePadding">
 	<ili:loggedUsers var="user" userId="${sessionScope.currentUserId}"
 		loggedUsers="${applicationScope.loggedUsers}">
-		<html:link action="/DisplayProfile" styleClass="miniature">
-			<html:param name="id" value="${user.id}" />
-			<img src="avatar/${user.id}.png"
-				title="${user.name} ${user.firstName}" alt="Avatar"></img>
-		</html:link>
+		<div class="mini-avatar-container">
+			<html:link action="/DisplayProfile" styleClass="miniature connected-user">
+				<html:param name="id" value="${user.id}" />
+				<img src="avatar/${user.id}.png"
+					title="${user.name} ${user.firstName}"
+					alt="Avatar ${user.name} ${user.firstName}"></img>
+			</html:link>
+			<a class="chat-link"
+				onclick="javascript:chatWith('${user.name}_${user.id}','habib2@master11.com')" alt="chat ${user.name} ${user.firstName}">chat</a>
+		</div>
 	</ili:loggedUsers>
 </div>

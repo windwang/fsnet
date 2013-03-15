@@ -58,10 +58,10 @@ public class LoggedUsersTag extends TagSupport {
 
 	@Override
 	public int doStartTag() throws JspException {
+		
 		if (var == null || loggedUsers == null) {
 			return SKIP_BODY;
 		}
-
 		index = 0;
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade sgf = new SocialGroupFacade(em);

@@ -82,4 +82,9 @@ public final class LoggedUsersContainer {
 		return loggedUsers;
 	}
 
+	@Override
+	public String toString() {
+		return "LoggedUsersContainer [loggedUsers=" + loggedUsers + "]";
+	}
+	
 }
