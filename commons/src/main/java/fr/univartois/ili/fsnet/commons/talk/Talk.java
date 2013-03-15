@@ -25,7 +25,7 @@ import fr.univartois.ili.fsnet.commons.utils.TalkException;
  * @author habib
  * 
  */
-public class Talk implements ITalk,Serializable {
+public class Talk implements ITalk, Serializable {
 
 	/**
 	 * 
@@ -52,7 +52,6 @@ public class Talk implements ITalk,Serializable {
 	 */
 	public void setConnection(XMPPConnection connection) {
 		this.connection = connection;
-
 	}
 
 	/**
@@ -70,10 +69,9 @@ public class Talk implements ITalk,Serializable {
 	 * , java.lang.String, java.util.Map)
 	 */
 	@Override
-	public boolean createAccount(String userName, String password,
-			Map<String, String> map) {
+	public boolean createAccount(String userName, String password, Map<String, String> map) {
 		{
-			if (!connection.isConnected()){
+			if (!connection.isConnected()) {
 				try {
 					connection.connect();
 				} catch (XMPPException e3) {
@@ -81,10 +79,10 @@ public class Talk implements ITalk,Serializable {
 					Logger.getAnonymousLogger().log(Level.SEVERE, "", e3);
 				}
 			}
-			
+
 			try {
 				Map<String, String> finalMap = map;
-				if (finalMap == null){
+				if (finalMap == null) {
 					finalMap = new HashMap<String, String>();
 				}
 				accountManager.createAccount(userName, password, finalMap);
@@ -112,8 +110,7 @@ public class Talk implements ITalk,Serializable {
 	@Override
 	public void sendPresence(String status) {
 
-		Presence presence = new Presence(Type.available, status, 10,
-				Mode.available);
+		Presence presence = new Presence(Type.available, status, 10, Mode.available);
 		if (status.equals("offline")) {
 			presence.setType(Type.unavailable);
 			presence.setMode(Mode.away);
@@ -132,8 +129,7 @@ public class Talk implements ITalk,Serializable {
 	@Override
 	public void subscribe(String user) {
 
-		Presence presence = new Presence(Presence.Type.subscribe, "available",
-				10, Mode.available);
+		Presence presence = new Presence(Presence.Type.subscribe, "subscribe", 10, Mode.available);
 		presence.setTo(user);
 		connection.sendPacket(presence);
 
@@ -151,9 +147,10 @@ public class Talk implements ITalk,Serializable {
 	 */
 	@Override
 	public void unSubscribe(String user) {
-
-		Presence presence = new Presence(Presence.Type.unsubscribe,
-				"available", 10, Mode.available);
+		/*
+		 * The Mode referring one of the 5 Mode available in XMPP server. The text message is just a description.
+		 */
+		Presence presence = new Presence(Presence.Type.unsubscribe, "unsubscribe", 10, Mode.available);
 		presence.setTo(user);
 		connection.sendPacket(presence);
 
@@ -171,8 +168,7 @@ public class Talk implements ITalk,Serializable {
 	 * , int, java.lang.String, java.lang.String, java.util.Map)
 	 */
 	@Override
-	public void initConnexion(String xmppServer, int port, String login,
-			String pssword, Map<String, String> map) throws TalkException {
+	public void initConnexion(String xmppServer, int port, String login, String pssword, Map<String, String> map) throws TalkException {
 		// connexion(XMPPServer, port);
 		// login(login, pssword);
 		config = new ConnectionConfiguration(xmppServer, port);
@@ -187,9 +183,8 @@ public class Talk implements ITalk,Serializable {
 			connection.login(login, pssword);
 
 		} catch (XMPPException e) {
-			if ((e.getLocalizedMessage().contains("authentication failed") || e
-					.getLocalizedMessage().contains("SASL authentication"))
-			&& accountManager.supportsAccountCreation()) {
+			if ((e.getLocalizedMessage().contains("authentication failed") || e.getLocalizedMessage().contains("SASL authentication"))
+					&& accountManager.supportsAccountCreation()) {
 				createAccount(login, pssword, map);
 
 			} else {
@@ -199,44 +194,6 @@ public class Talk implements ITalk,Serializable {
 		}
 
 	}
-
-	/**
-	 * @param XMPPServer
-	 * @param port
-	 * @throws TalkException
-	 *
-	 *
-	 * This method is never used
-	 *
-	private void connexion(String XMPPServer, int port) throws TalkException {
-		config = new ConnectionConfiguration(XMPPServer, port);
-
-		connection = new XMPPConnection(config);
-		try {
-			connection.connect();
-			accountManager = connection.getAccountManager();
-		} catch (XMPPException e) {
-			throw new TalkException("Problem Jabber connexion ", e);
-		}
-	}
-	*/
-	/**
-	 * @param login
-	 * @param pssword
-	 * @throws TalkException
-	 *
-	 * This method is never used
-	 *
-	private void login(String login, String pssword) throws TalkException {
-
-		try {
-			connection.login(login, pssword);
-		} catch (XMPPException e) {
-			throw new TalkException("Problem login  with  username", e);
-		}
-
-	}
-	*/
 
 	/*
 	 * (non-Javadoc)
@@ -256,8 +213,7 @@ public class Talk implements ITalk,Serializable {
 	 * java.lang.String, org.jivesoftware.smack.Chat)
 	 */
 	@Override
-	public void sendMessage(String msg, String friendPseudo, Chat chat)
-			throws TalkException {
+	public void sendMessage(String msg, String friendPseudo, Chat chat) throws TalkException {
 		try {
 			chat.sendMessage(msg);
 
@@ -277,13 +233,12 @@ public class Talk implements ITalk,Serializable {
 	public Chat createConversation(String pseudoFriend) throws TalkException {
 		try {
 
-			Chat chat = connection.getChatManager().createChat(pseudoFriend,
-					new MessageListener() {
-						@Override
-						public void processMessage(Chat chat, Message message) {
+			Chat chat = connection.getChatManager().createChat(pseudoFriend, new MessageListener() {
+				@Override
+				public void processMessage(Chat chat, Message message) {
 
-						}
-					});
+				}
+			});
 
 			return chat;
 
