@@ -22,7 +22,7 @@
 			</tr>
 			<tr>
 				<td><label for="name"> <bean:message key="members.name" />
-				</label> <s:hidden name="id" /></td>
+				</label> <html:hidden property="id" /></td>
 				<td><html:text property="name" styleId="name"
 						errorStyleClass="error" /></td>
 			</tr>
@@ -56,7 +56,7 @@
 							</html:select></td>
 					</c:when>
 					<c:otherwise>
-						<td colspan="3"><s:hidden name="parentId"
+						<td colspan="3"><html:hidden property="parentId"
 								value="${sessionScope.group2.id}" /> ${ group2.name } <bean:message
 								key="members.masterGroup" /></td>
 					</c:otherwise>
@@ -135,15 +135,15 @@
 						<div class="cloud">
 							<c:forEach var="interest"
 								items="${requestScope.interestsMemberPaginator.resultList}">
-								<span class="tag"> <s:a
+								<span class="tag"> <html:link
 										action="DeleteInterestMember">
 										<html:param name="interestSelected" value="${interest.id}" />
 										<html:param name="idMember" value="${id}" />
 										<img src="images/mini-delete.png" />
-									</s:a> <s:a action="/InterestInformations">
+									</html:link> <html:link action="/InterestInformations">
 										<html:param name="infoInterestId" value="${interest.id}" />
                             ${interest.name}
-                        </s:a>
+                        </html:link>
 								</span>
 							</c:forEach>
 						</div>

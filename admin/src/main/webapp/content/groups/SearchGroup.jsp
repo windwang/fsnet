@@ -48,10 +48,10 @@
 				<tbody>
 					<c:forEach var="group" items="${requestScope.groupsList}">
 						<tr class="content">
-							<td><s:a action="/DisplayGroup">${group.name} 
+							<td><html:link action="/DisplayGroup">${group.name} 
                 		<html:param name="idGroup" value="${group.id}" />
-								</s:a></td>
-							<td class="tableButton"><s:a
+								</html:link></td>
+							<td class="tableButton"><html:link
 									action="/SwitchStateGroup" styleClass="button">
 									<html:param name="groupSelected" value="${group.id}" />
 									<c:choose>
@@ -62,7 +62,7 @@
 											<bean:message key="members.searchEnable" />
 										</c:otherwise>
 									</c:choose>
-								</s:a></td>
+								</html:link></td>
 						</tr>
 					</c:forEach>
 				</tbody>

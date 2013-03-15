@@ -14,17 +14,17 @@
 
 <div class="paginator">
     <c:if test="${paginatorInstance.hasPreviousPage}">
-        <s:a styleClass="paginatorPagePrevious" action="${paginatorAction}" title="${previousLinkTitle}">
+        <html:link styleClass="paginatorPagePrevious" action="${paginatorAction}" title="${previousLinkTitle}">
             <html:param name="pageId" value="${paginatorInstance.previousPage}"/>
             <html:param name="tileId" value="${paginatorTile}"/>
             <html:param name="${paginatorInstance.requestInputName}" value="${paginatorInstance.requestInput}"/>
             <bean:message key="pagination.previous"/>
-        </s:a>
+        </html:link>
     </c:if>
 
     <c:if test="${paginatorInstance.numPages > 1}">
         <c:forEach var="page" begin="0" end="${paginatorInstance.numPages-1}">
-            <s:a styleClass="paginatorPageId" action="${paginatorAction}" title="page ${page+1}">
+            <html:link styleClass="paginatorPageId" action="${paginatorAction}" title="page ${page+1}">
                 <html:param name="pageId" value="${page}"/>
                 <html:param name="tileId" value="${paginatorTile}"/>
                 <html:param name="${paginatorInstance.requestInputName}" value="${paginatorInstance.requestInput}"/>
@@ -36,16 +36,16 @@
                         ${page+1}
                     </c:otherwise>
                 </c:choose>
-            </s:a>
+            </html:link>
         </c:forEach>
     </c:if>
 
     <c:if test="${paginatorInstance.hasNextPage}">
-        <s:a styleClass="paginatorPageNext" action="${paginatorAction}" title="${nextLinkTitle}">
+        <html:link styleClass="paginatorPageNext" action="${paginatorAction}" title="${nextLinkTitle}">
             <html:param name="pageId" value="${paginatorInstance.nextPage}"/>
             <html:param name="tileId" value="${paginatorTile}"/>
             <html:param name="${paginatorInstance.requestInputName}" value="${paginatorInstance.requestInput}"/>
             <bean:message key="pagination.next"/>
-        </s:a>
+        </html:link>
     </c:if>
 </div>
