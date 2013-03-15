@@ -11,7 +11,7 @@
 
 			<action name="Visits" class="fr.univartois.ili.fsnet.actions.ManageVisits">
 				<param name="display">display</param>
-				<result name="success" type="tiles">/Visits</result>
+				<result name="success" type="tiles">Visits</result>
 			</action>
 
 		</package>
