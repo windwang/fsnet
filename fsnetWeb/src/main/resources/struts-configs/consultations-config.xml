@@ -19,7 +19,7 @@
 		</action>
 
 
-		<action name="DisplayCreateConsultation">
+		<action name="DisplayCreateConsultation" class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="displayCreate">
 			<result type="tiles">CreateConsultation</result>
 		</action>
 

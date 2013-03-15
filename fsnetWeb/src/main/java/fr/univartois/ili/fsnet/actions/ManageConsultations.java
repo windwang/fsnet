@@ -99,9 +99,6 @@ public class ManageConsultations extends ActionSupport implements
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
-
-
-	
 	
 	public ManageConsultations() {
 		listTypeKey=new ArrayList<>();
@@ -119,6 +116,11 @@ public class ManageConsultations extends ActionSupport implements
 		
 	}
 
+	public String displayCreate(){
+		
+		return SUCCESS;
+	}
+	
 	/**
 	 * 
 	 * @return String
@@ -977,4 +979,14 @@ public class ManageConsultations extends ActionSupport implements
 		this.request = request;
 	}
 
+	public List<String> getListTypeKey() {
+		return listTypeKey;
+	}
+
+	public List<String> getListTypeValue() {
+		return listTypeValue;
+	}
+
+	
+	
 }
