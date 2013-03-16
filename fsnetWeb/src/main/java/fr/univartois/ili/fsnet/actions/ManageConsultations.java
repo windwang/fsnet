@@ -125,7 +125,6 @@ public class ManageConsultations extends ActionSupport {
 			return FAILED_ACTION_NAME;
 		}
 		
-		// END TODO
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
