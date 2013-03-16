@@ -150,8 +150,6 @@ public class ManageConsultations extends ActionSupport implements
 			request.setAttribute("errorRights", true);
 			return FAILED_ACTION_NAME;
 		}
-
-		// END TODO
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
