@@ -8,10 +8,13 @@
 
 	<include file="struts-default.xml" />
 	<package name="research-default" extends="struts-default">
-
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
 		<action name="Research" class="fr.univartois.ili.fsnet.actions.ManageResearch"
 			method="search">
-			<result name="success">/Research</result>
+			<result name="success" type="tiles">/Research</result>
 		</action>
 	</package>
 </struts>

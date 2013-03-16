@@ -8,11 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.action.ActionForm;
-import org.apache.struts.action.String;
-import org.apache.struts.action.ActionMapping;
-import org.apache.struts.action.ActionRedirect;
-import org.apache.struts.actions.ActionSupport;
+import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
@@ -28,6 +24,10 @@ import fr.univartois.ili.fsnet.facade.InterestFacade;
  */
 public class ManageInteractions extends ActionSupport {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private static final Logger LOGGER = Logger.getAnonymousLogger();
 
 	/**
@@ -39,16 +39,40 @@ public class ManageInteractions extends ActionSupport {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String removeInterest(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+
+	private int interactionId;
+	private int interestId;
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+
+	public HttpServletResponse getResponse() {
+		return response;
+	}
+
+	public void setResponse(HttpServletResponse response) {
+		this.response = response;
+	}
+
+	public int getInteractionId() {
+		return interactionId;
+	}
+
+	public void setInteractionId(int interactionId) {
+		this.interactionId = interactionId;
+	}
+
+	public int getInterestId() {
+		return interestId;
+	}
+
+	public void setInterestId(int interestId) {
+		this.interestId = interestId;
+	}
+
+	public String removeInterest() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			int interactionId = Integer.parseInt((String) dynaForm
-					.get("interactionId"));
-			int interestId = Integer.parseInt((String) dynaForm
-					.get("interestId"));
 
 			em.getTransaction().begin();
 
@@ -71,6 +95,6 @@ public class ManageInteractions extends ActionSupport {
 			em.close();
 		}
 
-		return new ActionRedirect(request.getHeader("referer"));
+		return request.getHeader("referer");
 	}
 }

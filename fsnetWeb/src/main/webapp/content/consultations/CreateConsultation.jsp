@@ -61,11 +61,11 @@
 						</table>
 
 						<s:checkbox onclick="displayChoicesOption(true)"
-							property="nbVotersPerChoiceBox" styleId="nbVotersPerChoiceBox" />
+							name="nbVotersPerChoiceBox" styleId="nbVotersPerChoiceBox" />
 						<label for="nbVotersPerChoiceBox"><s:text
 								name="consultations.form.limitVotersNumberPerChoice" /></label>
 						<s:textfield styleId="nbVotersPerChoice"
-							onkeyup="updateMaxVoters()" property="nbVotersPerChoice" />
+							onkeyup="updateMaxVoters()" name="nbVotersPerChoice" />
 
 						<div class="plusMoins">
 							<br /> <input type="button" onclick="removeChoice()"
@@ -120,7 +120,7 @@
 								<td ROWSPAN="2">
 									<div>
 										<s:text name="consultation.droits.groupsNoRights" />
-									</div> <s:select list="%{allUnderGroupsNoRights}" listValue="name"
+									</div> <s:select list="%{#attr.allUnderGroupsNoRights}" listValue="name"
 										name="groupsListLeft" />
 								</td>
 								<td><s:submit type="button"
@@ -130,7 +130,7 @@
 								<td ROWSPAN="2">
 									<div>
 										<s:text name="consultation.droits.groupsRights" />
-									</div> <s:select list="%{allUnderGroupsNoRights}" listValue="name"
+									</div> <s:select list="%{#attr.allUnderGroupsNoRights}" listValue="name"
 										name="groupsListRight" />
 								</td>
 							</tr>
@@ -151,27 +151,23 @@
 							<s:text name="consultations.title.typeConsultation" />
 						</legend>
 
-
-
 						<table class="tableStyle">
 							<tr>
 								<td>
-								<td><s:radio name="consultationType" list="{YES_NO}"
-										styleId="YES_NO" /></td>
+								<td>
+									<input type="radio" name="consultationType" id="YES_NO"/></td>
 								<td><label for="YES_NO"><s:text
 											name="consultations.form.typeYesNo" /></label></td>
 							</tr>
 
 							<tr>
-								<td><s:radio name="consultationType" list="{YES_NO_OTHER}"
-										styleId="YES_NO_OTHER" /></td>
+								<td><input type="radio" name="consultationType" id="YES_NO_OTHER"/></td>
 								<td><label for="YES_NO_OTHER"><s:text
 											name="consultations.form.typeYesNoOther" /></label></td>
 							</tr>
 
 							<tr>
-								<td><s:radio name="consultationType"
-										list="{YES_NO_IFNECESSARY}" styleId="YES_NO_IFNECESSARY" /></td>
+								<td><input type="radio" name="consultationType" id="YES_NO_IFNECESSARY"/></td>
 
 								<td><label for="YES_NO_IFNECESSARY"><s:text
 											name="consultations.form.typeYesNoIfNecessary" /></label><label
@@ -182,12 +178,12 @@
 							</tr>
 
 							<tr>
-								<td><s:radio name="consultationType"
-										list="{PREFERENCE_ORDER}" styleId="PREFERENCE_ORDER" /></td>
+								<td><input type="radio" name="consultationType" id="PREFERENCE_ORDER"/></td>
 								<td><label for="PREFERENCE_ORDER"><s:text
 											name="consultations.form.typePreferenceOrder" /></label></td>
 							</tr>
 						</table>
+						
 					</fieldset>
 				</td>
 			</tr>
@@ -209,7 +205,7 @@
 
 						<table class="tableStyle">
 							<tr>
-								<td><s:checkbox property="limitChoicesPerVoter"
+								<td><s:checkbox name="limitChoicesPerVoter"
 										styleId="limitChoicesPerVoter" /></td>
 								<td><label for="limitChoicesPerVoter"><s:text
 											name="consultations.form.limitChoicesPerVoter" /> </label></td>
@@ -217,23 +213,23 @@
 
 							<tr>
 								<td><label for="minChoicesVoter">Min : </label></td>
-								<td><s:textfield property="minChoicesVoter"
+								<td><s:textfield name="minChoicesVoter"
 										styleId="minChoicesVoter" value="1" /> <label
 									for="maxChoicesVoter">Max : </label> <s:textfield
-										property="maxChoicesVoter" styleId="maxChoicesVoter" value="1" /></td>
+										name="maxChoicesVoter" styleId="maxChoicesVoter" value="1" /></td>
 							</tr>
 						</table>
 
 						<table class="tableStyle">
 							<tr>
-								<td><s:checkbox property="showBeforeAnswer"
+								<td><s:checkbox name="showBeforeAnswer"
 										styleId="showBeforeAnswer" /></td>
 								<td><label for="showBeforeAnswer"><s:text
 											name="consultations.form.showBeforeAnswer" /></label></td>
 							</tr>
 
 							<tr>
-								<td><s:checkbox property="showBeforeClosing"
+								<td><s:checkbox name="showBeforeClosing"
 										styleId="showBeforeClosing" /></td>
 								<td><label for="showBeforeClosing"><s:text
 											name="consultations.form.showBeforeClosing" /></label></td>
@@ -244,14 +240,14 @@
 							<tr>
 								<td><label for="deadline"><s:text
 											name="consultations.form.deadline" /> : </label></td>
-								<td><s:textfield property="deadline" styleId="deadline" /></td>
+								<td><s:textfield name="deadline" styleId="deadline" /></td>
 							</tr>
 
 							<tr>
 								<td><label for="closingAtMaxVoters"><s:text
 											name="consultations.form.closingAtMaxVoters" /> : </label></td>
 								<td><s:textfield styleId="closingAtMaxVoters"
-										property="closingAtMaxVoters" /></td>
+										name="closingAtMaxVoters" /></td>
 							</tr>
 						</table>
 					</fieldset>

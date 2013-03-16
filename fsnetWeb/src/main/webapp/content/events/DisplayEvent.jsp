@@ -20,9 +20,8 @@
 			<tr class="authorDate">
 				<td><s:text name="events.createdBy" /> <ili:getSocialEntityInfos
 						socialEntity="${event.creator}" /> , <s:text name="events.to" />
-					<s:property name="event" property="startDate"
-						format="dd/MM/yyyy HH'h'mm" /> <s:text name="events.from" /> <s:property
-						name="event" property="endDate" format="dd/MM/yyyy HH'h'mm" /> <c:if
+					<s:text name="startDate" /> <s:text name="events.from" /> <s:text
+						name="endDate" /> <c:if
 						test="${not empty event.address.address or not empty event.address.city}">
 						<s:text name="events.in" />
                 	${event.address.address} ${event.address.city}
@@ -87,7 +86,7 @@
 
 		<table class="inLineTable ">
 			<tr>
-				<td><s:iterator id="subscriber"	 status="collectionStatus">
+				<td><s:iterator id="subscriber" status="collectionStatus">
 						<span class="tagSE"> <ili:getMiniature
 								socialEntity="${subscriber}" /> <ili:getSocialEntityInfos
 								socialEntity="${subscriber}" />

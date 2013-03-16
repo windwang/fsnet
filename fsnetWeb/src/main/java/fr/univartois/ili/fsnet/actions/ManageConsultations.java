@@ -1,6 +1,5 @@
 package fr.univartois.ili.fsnet.actions;
 
-import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -10,12 +9,13 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.validator.routines.IntegerValidator;
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -43,7 +43,13 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * @author FSNet
  * 
  */
-public class ManageConsultations extends ActionSupport {
+public class ManageConsultations extends ActionSupport implements
+		ServletRequestAware, ServletResponseAware {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private static final String DEADLINE_TIME = ":23:59:59";
 
@@ -52,6 +58,9 @@ public class ManageConsultations extends ActionSupport {
 
 	private static final String FAILED_ACTION_NAME = "failed";
 	private static final String UNAUTHORIZED_ACTION_NAME = "unauthorized";
+
+	private List<String> listTypeKey;
+	private List<String> listTypeValue;
 	
 	private int minChoicesVoter;
 	private int maxChoicesVoter;
@@ -88,21 +97,41 @@ public class ManageConsultations extends ActionSupport {
 
 	private String consultationIfNecessaryWeight;
 
-	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws ServletException
-	 */
-	public String create(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-
-		String[] consultationChoices = consultationChoice.split(REGEX_CONSULTATION_CHOICE);
-		String[] maxVoterz = maxVoters.split(REGEX_CONSULTATION_CHOICE);
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+	
+	public ManageConsultations() {
+		listTypeKey=new ArrayList<>();
+		listTypeValue=new ArrayList<>();
 		
+		listTypeValue.add("YES_NO");
+		listTypeValue.add("YES_NO_OTHER");
+		listTypeValue.add("YES_NO_IFNECESSARY");
+		listTypeValue.add("PREFERENCE_ORDER");
+		
+		listTypeKey.add("consultations.form.typeYesNo");
+		listTypeKey.add("consultations.form.typeYesNoOther");
+		listTypeKey.add("consultations.form.typeYesNoIfNecessary");
+		listTypeKey.add("consultations.form.typePreferenceOrder");
+		
+	}
+
+	public String displayCreate(){
+		
+		return SUCCESS;
+	}
+	
+	/**
+	 * 
+	 * @return String
+	 * @throws Exception
+	 */
+	public String create() throws Exception {
+
+		String[] consultationChoices = consultationChoice
+				.split(REGEX_CONSULTATION_CHOICE);
+		String[] maxVoterz = maxVoters.split(REGEX_CONSULTATION_CHOICE);
+
 		addRightToRequest(request);
 
 		if (!"".equals(limitChoicesPerVoter)
@@ -124,7 +153,7 @@ public class ManageConsultations extends ActionSupport {
 			request.setAttribute("errorRights", true);
 			return FAILED_ACTION_NAME;
 		}
-		
+
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
@@ -205,18 +234,12 @@ public class ManageConsultations extends ActionSupport {
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws ServletException
+	 * 
+	 * @return String
+	 * @throws Exception
 	 */
-	public String vote(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		
+	public String vote() throws Exception {
+
 		addRightToRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -224,16 +247,16 @@ public class ManageConsultations extends ActionSupport {
 		Consultation consultation = consultationFacade
 				.getConsultation(idConsultation);
 
-//		SocialGroupFacade fascade = new SocialGroupFacade(em);
-//		if (!fascade.isSuperAdmin(member)
-//				&& !fascade.getAllGroupsChildSelfInclude(member.getGroup())
-//						.contains(consultation.getCreator().getGroup())) {
-//			return new ActionRedirect(
-//					mapping.findForward(UNAUTHORIZED_ACTION_NAME));
-//		}
-		
+		// SocialGroupFacade fascade = new SocialGroupFacade(em);
+		// if (!fascade.isSuperAdmin(member)
+		// && !fascade.getAllGroupsChildSelfInclude(member.getGroup())
+		// .contains(consultation.getCreator().getGroup())) {
+		// return new ActionRedirect(
+		// mapping.findForward(UNAUTHORIZED_ACTION_NAME));
+		// }
+
 		List<String> voteChoices = new ArrayList<>(Arrays.asList(voteChoice));
-		
+
 		if (consultation.isLimitChoicesPerParticipant()) {
 			int answersNumber = 0;
 			if (TypeConsultation.YES_NO_IFNECESSARY.equals(consultation
@@ -255,8 +278,7 @@ public class ManageConsultations extends ActionSupport {
 							.getLimitChoicesPerParticipantMax()) {
 
 				request.setAttribute("errorChoicesPerParticipant", true);
-				return displayAConsultation(request,
-						response);
+				return displayAConsultation(request, response);
 			}
 		}
 
@@ -296,8 +318,7 @@ public class ManageConsultations extends ActionSupport {
 					}
 
 					if (nbVotes > choice.getMaxVoters()) {
-						return displayAConsultation(request,
-								response);
+						return displayAConsultation(request, response);
 					}
 				}
 			}
@@ -352,7 +373,7 @@ public class ManageConsultations extends ActionSupport {
 	 * @param consultation
 	 * @param vote
 	 * @param choices
-	 * @return
+	 * @return boolean
 	 */
 	private boolean votePreferenceOrder(HttpServletRequest request,
 			Consultation consultation, ConsultationVote vote,
@@ -379,15 +400,12 @@ public class ManageConsultations extends ActionSupport {
 		return true;
 	}
 
+	
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
+	 * 
+	 * @return String
 	 */
-	public String deleteVote(
-			HttpServletRequest request, HttpServletResponse response) {
+	public String deleteVote() {
 		String idConsultation = request.getParameter("consultation");
 		String idVote = request.getParameter("vote");
 		if (idConsultation != null && !"".equals(idConsultation)) {
@@ -414,16 +432,11 @@ public class ManageConsultations extends ActionSupport {
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws ServletException
+	 * 
+	 * @return String
+	 * @throws Exception
 	 */
-	public String searchYourConsultations(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String searchYourConsultations() throws Exception {
 		addRightToRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
@@ -439,20 +452,15 @@ public class ManageConsultations extends ActionSupport {
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws ServletException
+	 * 
+	 * @return String
+	 * @throws Exception
 	 */
-	public String searchConsultation(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String searchConsultation() throws Exception {
 		addRightToRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		ConsultationFacade consultationFacade = new ConsultationFacade(em);
-		
+
 		List<Consultation> searchConsultations = consultationFacade
 				.getConsultationsContaining(searchText);
 		if (searchConsultations != null && !searchConsultations.isEmpty()) {
@@ -498,17 +506,18 @@ public class ManageConsultations extends ActionSupport {
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade
 					.getConsultation(Integer.valueOf(idConsultation));
-			if((consultation==null)){
+			if ((consultation == null)) {
 				return UNAUTHORIZED_ACTION_NAME;
 			}
 			Collections.sort(consultation.getChoices(),
 					new ConsultationChoiceComparator());
-			
-			FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(em);
-			if((filterGroup.filterAnInteraction(member, consultation) == null)){
+
+			FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(
+					em);
+			if ((filterGroup.filterAnInteraction(member, consultation) == null)) {
 				return UNAUTHORIZED_ACTION_NAME;
 			}
-			
+
 			em.getTransaction().begin();
 			member.addInteractionRead(consultation);
 			refreshNumNewConsultations(request, em);
@@ -542,14 +551,10 @@ public class ManageConsultations extends ActionSupport {
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
+	 * 
+	 * @return String
 	 */
-	public String closeConsultation(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String closeConsultation() {
 		String idConsultation = request.getParameter("id");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -572,8 +577,7 @@ public class ManageConsultations extends ActionSupport {
 	 * @param response
 	 * @return
 	 */
-	public String openConsultation(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String openConsultation() {
 		String idConsultation = request.getParameter("id");
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -590,16 +594,11 @@ public class ManageConsultations extends ActionSupport {
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws ServletException
+	 * 
+	 * @return String
+	 * @throws Exception
 	 */
-	public String deleteConsultation(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String deleteConsultation() throws Exception {
 		addRightToRequest(request);
 		String idConsultation = request.getParameter("id");
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -614,20 +613,15 @@ public class ManageConsultations extends ActionSupport {
 			em.close();
 		}
 		return SUCCESS;
-		
+
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws ServletException
+	 * 
+	 * @return String
+	 * @throws Exception
 	 */
-	public String autocompleteOther(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String autocompleteOther() throws Exception {
 		String consultationId = request.getParameter("id");
 		String voteOther = request.getParameter("voteOther");
 		EntityManager em = PersistenceProvider.createEntityManager();
@@ -751,12 +745,12 @@ public class ManageConsultations extends ActionSupport {
 
 		sb.append(getText("consultations.mail.new") + " ");
 		sb.append("\"" + consultation.getTitle() + "\" ");
-		
-		if(consultation.getMaxDate() != null){
+
+		if (consultation.getMaxDate() != null) {
 			sb.append(getText("consultations.mail.deadline") + " ");
 			sb.append(consultation.getMaxDate() + ".");
 		}
-		
+
 		sb.append("<br/>");
 		sb.append("<br/>");
 		sb.append(getText("consultations.title.choix") + ":");
@@ -774,17 +768,11 @@ public class ManageConsultations extends ActionSupport {
 	}
 
 	/**
-	 * @param mapping
-	 * @param form
-	 * @param request
-	 * @param response
-	 * @return
-	 * @throws IOException
-	 * @throws ServletException
+	 * 
+	 * @return String
+	 * @throws Exception
 	 */
-	public String deleteMulti(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String deleteMulti() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -792,15 +780,15 @@ public class ManageConsultations extends ActionSupport {
 		try {
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			addRightToRequest(request);
-			
+
 			for (int i = 0; i < selectedConsultations.length; i++) {
 				em.getTransaction().begin();
 				Consultation consultation = consultationFacade
 						.getConsultation(Integer.valueOf(Integer
 								.valueOf(selectedConsultations[i])));
 				if (member.equals(consultation.getCreator())) {
-						consultationFacade.deleteConsultation(consultation, member);
-				}	
+					consultationFacade.deleteConsultation(consultation, member);
+				}
 				em.getTransaction().commit();
 			}
 
@@ -979,6 +967,25 @@ public class ManageConsultations extends ActionSupport {
 			String consultationIfNecessaryWeight) {
 		this.consultationIfNecessaryWeight = consultationIfNecessaryWeight;
 	}
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
+	public List<String> getListTypeKey() {
+		return listTypeKey;
+	}
+
+	public List<String> getListTypeValue() {
+		return listTypeValue;
+	}
+
 	
 	
 }

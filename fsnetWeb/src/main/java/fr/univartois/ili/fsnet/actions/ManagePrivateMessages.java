@@ -166,8 +166,8 @@ CrudAction,ServletRequestAware,ServletResponseAware {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String deleteMulti(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String deleteMulti()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		String fromPage = request.getParameter("fromPage");
@@ -203,8 +203,8 @@ CrudAction,ServletRequestAware,ServletResponseAware {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String deleteMulti2(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String deleteMulti2()
+			throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);

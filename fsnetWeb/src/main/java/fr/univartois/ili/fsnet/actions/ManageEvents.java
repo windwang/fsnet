@@ -25,6 +25,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+
 import net.fortuna.ical4j.data.CalendarBuilder;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.data.ParserException;
@@ -65,7 +67,8 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * 
  * @author Matthieu Proucelle <matthieu.proucelle at gmail.com>
  */
-public class ManageEvents extends ActionSupport implements CrudAction {
+public class ManageEvents extends ActionSupport implements CrudAction,
+		ServletRequestAware {
 
 	/**
 	 * 
@@ -98,7 +101,9 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	private File icsFile;
 	private String icsFileContentType;
 	private String icsFileFileName;
-	
+
+	private HttpServletRequest request;
+
 	public static enum EventProperty {
 		UID, DTSTART, DTEND, DESCRIPTION, SUMMARY, LOCATION, UNKNOWN;
 		public static EventProperty lookup(String text) {
@@ -111,6 +116,9 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 
 	}
 
+	public ManageEvents() {
+		searchString = "";
+	}
 
 	/**
 	 * @param eventDate
@@ -153,9 +161,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String create() throws IOException, ServletException {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -164,10 +170,13 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 			em.close();
 			return UNAUTHORIZED_ACTION_NAME;
 		}
-		
+
+		System.out.println("on a date : " + eventBeginDate);
+		System.out.println("on a time : " + eventRecallTime);
+		System.out.println("on a type : " + eventRecallTypeTime);
+
 		Date typedEventRecallDate = DateUtils.substractTimeToDate(
-				eventBeginDate, eventRecallTime,
-				eventRecallTypeTime);
+				eventBeginDate, eventRecallTime, eventRecallTypeTime);
 
 		addRightToRequest(request);
 		if (eventBeginDate == null || eventEndDate == null
@@ -175,13 +184,15 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 			return INPUT;
 		}
 		if (eventBeginDate.after(eventEndDate)) {
-			addFieldError(EVENT_BEGIN_DATE_FORM_FIELD_NAME,ERROR_ON_DATE_MESSAGE);
-			addFieldError(EVENT_END_DATE_FORM_FIELD_NAME,ERROR_ON_DATE_MESSAGE);
+			addFieldError(EVENT_BEGIN_DATE_FORM_FIELD_NAME,
+					ERROR_ON_DATE_MESSAGE);
+			addFieldError(EVENT_END_DATE_FORM_FIELD_NAME, ERROR_ON_DATE_MESSAGE);
 
 			return INPUT;
 		}
 		if (DateUtils.compareToToday(typedEventRecallDate) > 0) {
-			addFieldError(EVENT_RECALL_TIME_FORM_FIELD_NAME, "date.error.dateBeforeToday");
+			addFieldError(EVENT_RECALL_TIME_FORM_FIELD_NAME,
+					"date.error.dateBeforeToday");
 
 			return INPUT;
 		}
@@ -190,8 +201,8 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
 		Meeting event = meetingFacade.createMeeting(member, eventName,
-				eventDescription, eventEndDate, false,
-				eventBeginDate, eventAddress, eventCity, typedEventRecallDate);
+				eventDescription, eventEndDate, false, eventBeginDate,
+				eventAddress, eventCity, typedEventRecallDate);
 
 		InterestFacade fac = new InterestFacade(em);
 		List<Interest> interests = new ArrayList<Interest>();
@@ -205,8 +216,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 		em.getTransaction().commit();
 		em.close();
 
-		
-		eventId=event.getId();
+		eventId = event.getId();
 
 		return SUCCESS;
 	}
@@ -221,18 +231,14 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String modify() throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
 			em.getTransaction().begin();
-			
 
 			Date typedEventRecallDate = DateUtils.substractTimeToDate(
-					eventBeginDate, eventRecallTime,
-					eventRecallTypeTime);
+					eventBeginDate, eventRecallTime, eventRecallTypeTime);
 
 			if (eventBeginDate == null || eventEndDate == null
 					|| typedEventRecallDate == null) {
@@ -240,15 +246,18 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 			}
 
 			if (eventBeginDate.after(eventEndDate)) {
-				addFieldError(EVENT_BEGIN_DATE_FORM_FIELD_NAME, ERROR_ON_DATE_MESSAGE);
-				addFieldError(EVENT_END_DATE_FORM_FIELD_NAME, ERROR_ON_DATE_MESSAGE);
-				
+				addFieldError(EVENT_BEGIN_DATE_FORM_FIELD_NAME,
+						ERROR_ON_DATE_MESSAGE);
+				addFieldError(EVENT_END_DATE_FORM_FIELD_NAME,
+						ERROR_ON_DATE_MESSAGE);
+
 				return INPUT;
 			}
 
 			if (DateUtils.compareToToday(typedEventRecallDate) > 0) {
-				addFieldError(EVENT_RECALL_TIME_FORM_FIELD_NAME, "date.error.dateBeforeToday");
-				
+				addFieldError(EVENT_RECALL_TIME_FORM_FIELD_NAME,
+						"date.error.dateBeforeToday");
+
 				return INPUT;
 			}
 
@@ -288,9 +297,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String delete() throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
@@ -327,8 +334,8 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * @param response
 	 * @return
 	 */
-	public String subscribe(
-			HttpServletRequest request, HttpServletResponse response) {
+	public String subscribe(HttpServletRequest request,
+			HttpServletResponse response) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -364,8 +371,8 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * @param response
 	 * @return
 	 */
-	public String unsubscribe(
-			HttpServletRequest request, HttpServletResponse response) {
+	public String unsubscribe(HttpServletRequest request,
+			HttpServletResponse response) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
@@ -390,7 +397,6 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 			em.close();
 		}
 
-		
 		return SUCCESS;
 	}
 
@@ -404,15 +410,15 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
-		
+	public String search() throws IOException, ServletException {
+
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 
 		em.getTransaction().begin();
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
+
 		List<Meeting> results = meetingFacade.searchMeeting(searchString);
 
 		if (results != null && !results.isEmpty()) {
@@ -450,9 +456,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String display() throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -477,8 +481,6 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 
 			refreshNumNewEvents(request, em);
 			em.getTransaction().commit();
-
-			// TODO find a solution to paginate a Set
 
 			request.setAttribute("subscribers", subscribers);
 			request.setAttribute("subscriber", isSubscriber);
@@ -531,8 +533,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String displayCreateEvent(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String displayCreateEvent() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
@@ -559,9 +560,7 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String displayToModify(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
-		// TODO check for right to update an event
+	public String displayToModify() throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -575,18 +574,18 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 			eventDescription = event.getContent();
 			if (event.getAddress() != null) {
 				eventAddress = event.getAddress().getAddress();
-				eventCity= event.getAddress().getCity();
+				eventCity = event.getAddress().getCity();
 			}
 
-			eventBeginDate=event.getStartDate();
-			eventEndDate=event.getEndDate();
-			
+			eventBeginDate = event.getStartDate();
+			eventEndDate = event.getEndDate();
+
 			Long recallTime = DateUtils.differenceBetweenTwoDateInMinutes(
 					event.getStartDate(), event.getRecallDate());
 
 			if (recallTime % DAY_IN_MINUTES == 0) {
 				recallTime /= DAY_IN_MINUTES;
-				eventRecallTypeTime ="day";
+				eventRecallTypeTime = "day";
 			} else {
 				if (recallTime % HOUR_IN_MINUTES == 0) {
 					recallTime /= HOUR_IN_MINUTES;
@@ -594,17 +593,16 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 				}
 			}
 
-			eventRecallTime=Integer.parseInt(recallTime.toString());
+			eventRecallTime = Integer.parseInt(recallTime.toString());
 			return FAILED_ACTION_NAME;
 		} finally {
 			em.close();
 		}
 
-		//return SUCCESS;
+		// return SUCCESS;
 	}
 
-	public String displayImportEvents(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String displayImportEvents() throws Exception {
 
 		/** Check for right to import events **/
 
@@ -631,13 +629,14 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 			HttpServletResponse response) throws IOException, ServletException {
 
 		try {
-			
+
 			if (icsFile != null && !icsFileFileName.equals("")) {
 				String filePath = request.getSession().getServletContext()
 						.getRealPath("/");
 
 				if (!icsFileFileName.endsWith(".ics")) {
-					addFieldError("icsFile", "events.import.onlyIcsFileExtension");
+					addFieldError("icsFile",
+							"events.import.onlyIcsFileExtension");
 					return FAILED_ACTION_NAME;
 				}
 
@@ -648,10 +647,10 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 							icsFileFileName));
 					byte buffer[] = new byte[500];
 					int nbBytes;
-					int offset=0;
-					while((nbBytes=inputStream.read(buffer)) != -1){
-						outputStream.write(buffer,offset,nbBytes);
-						offset+=nbBytes;
+					int offset = 0;
+					while ((nbBytes = inputStream.read(buffer)) != -1) {
+						outputStream.write(buffer, offset, nbBytes);
+						offset += nbBytes;
 					}
 				} finally {
 					if (outputStream != null) {
@@ -697,15 +696,13 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 */
 	public String exportEventById(HttpServletRequest request,
 			HttpServletResponse response) throws IOException, ServletException {
-		
+
 		String filePath = request.getSession().getServletContext()
 				.getRealPath("/");
 		File icsToCreate = new File(filePath, "calendar_event.ics");
 
-		try (
-				OutputStream icsOutputStream =  new FileOutputStream(icsToCreate);
-				InputStream icsInputStream = new FileInputStream(icsToCreate)		
-			) {
+		try (OutputStream icsOutputStream = new FileOutputStream(icsToCreate);
+				InputStream icsInputStream = new FileInputStream(icsToCreate)) {
 			net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
 			calendar.getProperties().add(
 					new ProdId("-//Calendar//Event 1.0//EN"));
@@ -763,17 +760,14 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String exportAllEvent(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String exportAllEvent(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		String filePath = request.getSession().getServletContext()
 				.getRealPath("/");
 		File icsToCreate = new File(filePath, "calendar_all_event.ics");
-		try(
-				OutputStream icsOutputStream = new FileOutputStream(icsToCreate);
-				InputStream icsInputStream = new FileInputStream(icsToCreate)
-			) {
-			
+		try (OutputStream icsOutputStream = new FileOutputStream(icsToCreate);
+				InputStream icsInputStream = new FileInputStream(icsToCreate)) {
+
 			net.fortuna.ical4j.model.Calendar calendar = new net.fortuna.ical4j.model.Calendar();
 			calendar.getProperties().add(
 					new ProdId("-//Calendar//Event 1.0//EN"));
@@ -793,8 +787,6 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 				VEvent myevent = convertEventToIcalEvent(m);
 				calendar.getComponents().add(myevent);
 			}
-
-			
 
 			CalendarOutputter outputter = new CalendarOutputter();
 			outputter.setValidating(false);
@@ -954,19 +946,18 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String deleteMulti(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String deleteMulti(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
-		
+
 		try {
 
 			MeetingFacade eventFacade = new MeetingFacade(em);
 			InteractionFacade interactionFacade = new InteractionFacade(em);
-			
+
 			addRightToRequest(request);
 
 			for (int i = 0; i < selectedEvents.length; i++) {
@@ -1072,6 +1063,10 @@ public class ManageEvents extends ActionSupport implements CrudAction {
 	public void setSearchString(String searchString) {
 		this.searchString = searchString;
 	}
-	
-	
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
 }

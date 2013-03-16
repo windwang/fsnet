@@ -5,10 +5,13 @@
 
 <struts>
 
-<include file="struts-default.xml"/>
-	
-	<package name="interactions-default" extends="struts-default">
+	<include file="struts-default.xml" />
 
+	<package name="interactions-default" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
 		<action name="AddFavorite" class="fr.univartois.ili.fsnet.actions.ManageFavorites"
 			method="add">
 			<result name="input">/Home.do</result>
@@ -21,14 +24,14 @@
 
 		<action name="FavoriteFragment" class="fr.univartois.ili.fsnet.actions.ManageFavorites"
 			method="display">
-			<result name="success">/content/interactions/FavoriteFragment.jsp
+			<result name="success" type="tiles">/content/interactions/FavoriteFragment.jsp
 			</result>
 		</action>
 
 		<action name="RemoveInterestOfInteraction"
 			class="fr.univartois.ili.fsnet.actions.ManageInteractions" method="removeInterest">
 
-			<result name="success">/content/interactions/FavoriteFragment.jsp
+			<result name="success" type="redirect">/content/interactions/FavoriteFragment.jsp
 			</result>
 		</action>
 

@@ -1,18 +1,19 @@
 package fr.univartois.ili.fsnet.actions;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.persistence.EntityManager;
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import org.apache.struts2.interceptor.ServletRequestAware;
+import org.apache.struts2.interceptor.ServletResponseAware;
 
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -24,20 +25,26 @@ import fr.univartois.ili.fsnet.entities.Right;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.facade.MeetingFacade;
 
-public class Calendar extends ActionSupport {
+public class Calendar extends ActionSupport implements ServletRequestAware,
+		ServletResponseAware {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	/**
 	 * List that contains meeting/events for calendar view
 	 */
 	private List<String> events;
-	
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+
 	/**
 	 * Action that create a list of all events/meetings in json format Used for
 	 * Full Calendar jquery plugin
 	 */
 
-	public String execute(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String execute() throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -76,8 +83,7 @@ public class Calendar extends ActionSupport {
 		return SUCCESS;
 
 	}
-	
-	
+
 	/**
 	 * @return
 	 */
@@ -91,5 +97,16 @@ public class Calendar extends ActionSupport {
 	public void setEvents(List<String> events) {
 		this.events = events;
 	}
-   
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
+
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
 }

@@ -7,7 +7,14 @@
 
 	<include file="struts-default.xml" />
 	<package name="events-default" extends="struts-default">
-
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<action name="Contacts" class="fr.univartois.ili.fsnet.actions.ManageContacts"
+			method="display">
+			<result>Contacts</result>
+		</action>
 
 		<action name="CreateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="create">
@@ -17,36 +24,36 @@
 		</action>
 		<action name="DisplayCreateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="displayCreateEvent">
-			<result name="success" type="redirect">CreateEvent</result>
+			<result name="success" type="tiles" >CreateEvent</result>
 			<result name="error">/Events.do"</result>
 		</action>
 
 		<action name="UpdateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="modify">
-			<result name="success">/Events.do</result>
+			<result name="success" type="tiles">/Events.do</result>
 			<result name="input">UpdateEvent</result>
 		</action>
 		<action name="DisplayUpdateEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="displayToModify">
-			<result name="success">UpdateEvent</result>
+			<result name="success" type="tiles">UpdateEvent</result>
 			<result name="input">/Events.do	</result>
 		</action>
 
 		<action name="Events" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="search">
-			<result name="success">Events</result>
+			<result name="success" type="tiles">Events</result>
 			<result name="input">Events</result>
 		</action>
 
 		<action name="DisplayEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="display">
-			<result name="success">DisplayEvent</result>
+			<result name="success" type="tiles">DisplayEvent</result>
 			<result name="input">/Events.do</result>
 		</action>
 
 		<action name="DeleteEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="delete">
-			<result name="success">/Events.do</result>
+			<result name="success" type="tiles">/Events.do</result>
 			<result name="input">/Events.do</result>
 		</action>
 
@@ -65,36 +72,36 @@
 		</action>
 
 		<action name="Calendar" class="fr.univartois.ili.fsnet.actions.Calendar">
-			<result name="success">Calendar</result>
+			<result name="success" type="tiles">Calendar</result>
 			<result name="error">/Events.do</result>
 		</action>
 		<action name="DisplayImportEvents" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="displayImportEvents">
-			<result name="success">ImportEvents</result>
+			<result name="success" type="tiles">ImportEvents</result>
 			<result name="error">Events</result>
 		</action>
 		<action name="importEventsFromFile" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="importEventsFromFile">
-			<result name="success">/Events.do</result>
+			<result name="success" type="tiles">/Events.do</result>
 			<result name="error">/Events.do</result>
 			<result name="input">/DisplayImportEvents.do</result>
 		</action>
 
 		<action name="DeleteMultiEvents" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="deleteMulti">
-			<result name="success">/Events.do</result>
+			<result name="success" type="tiles">/Events.do</result>
 			<result name="input">/Events.do</result>
 		</action>
 
 		<action name="ExportEventById" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="exportEventById">
-			<result name="success">/Events.do</result>
+			<result name="success" type="tiles">/Events.do</result>
 			<result name="error">/Events.do</result>
 		</action>
 
 		<action name="ExportAllEvents" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="exportAllEvent">
-			<result name="success">/Events.do</result>
+			<result name="success" type="tiles">/Events.do</result>
 			<result name="error">/Events.do</result>
 		</action>
 	</package>

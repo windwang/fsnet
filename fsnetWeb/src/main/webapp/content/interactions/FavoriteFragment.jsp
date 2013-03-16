@@ -1,5 +1,5 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib uri="http://struts.apache.org/tags-logic" prefix="logic"%>
+<%@ taglib prefix ="s" uri="/struts-tags" %>
 
 <script type="text/javascript">
 	if (!isFavorite) {

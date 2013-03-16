@@ -6,6 +6,10 @@
 <struts>
 
 	<package name="interests" extends="struts-default">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
 		<action name="/DisplayInterests" class="fr.univartois.ili.fsnet.actions.ManageInterests"
 			method="display">
 			<result name="input">/Interests.do</result>
@@ -15,13 +19,20 @@
 		<action name="AddInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
 			method="add">
 			<result name="input">/Interests.do</result>
-			<result name="success">/Interests.do</result>
+			<result name="success" type="redirect">
+				/Interests.do
+				<param name="infoInterestId">addedInterestId</param>
+			</result>
+
 		</action>
 
 		<action name="RemoveInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
 			method="remove">
 			<result name="input">/Interests.do</result>
-			<result name="success">/Interests.do</result>
+			<result name="success" type="redirect">
+				/Interests.do
+				<param name="infoInterestId">removedInterestId</param>
+			</result>
 		</action>
 
 		<action name="SearchInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
@@ -33,7 +44,7 @@
 		<action name="CreateInterest" class="fr.univartois.ili.fsnet.actions.ManageInterests"
 			method="create">
 			<result name="input">/Interests.do</result>
-			<result name="success">/Interests.do</result>
+			<result name="success" type="tiles">/Interests.do</result>
 		</action>
 
 		<action name="Interests" class="fr.univartois.ili.fsnet.actions.ManageInterests"
@@ -51,13 +62,13 @@
 		<action name="AddInterestFromInterestInformations" class="fr.univartois.ili.fsnet.actions.ManageInterests"
 			method="add">
 			<result name="input">/InterestInformations.do</result>
-			<result name="success">/InterestInformations.do</result>
+			<result name="success" type="tiles">/InterestInformations.do</result>
 		</action>
 
 		<action name="DeleteInterestFromInterestInformations" class="fr.univartois.ili.fsnet.actions.ManageInterests"
 			method="remove">
 			<result name="input">/InterestInformations.do</result>
-			<result name="success">/InterestInformations.do</result>
+			<result name="success" type="tiles">/InterestInformations.do</result>
 		</action>
 
 		<action name="InterestCheckBoxes" class="fr.univartois.ili.fsnet.actions.ManageInterests"
@@ -65,5 +76,5 @@
 			<result name="success">/content/interests/InterestCheckBoxes.jsp</result>
 		</action>
 	</package>
-	
+
 </struts>

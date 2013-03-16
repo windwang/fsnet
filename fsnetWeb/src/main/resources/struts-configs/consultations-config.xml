@@ -7,59 +7,64 @@
 	
 	<include file="struts-default.xml" />
 	<package name="consultations-default" extends="struts-default">
-
+		<result-types>
+    	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
+    </result-types>
 		<action name="CreateConsultation"
-			class="fr.univartois.ili.fsnet.actions.ManageConsultations">
+			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="create">
 
-			<result name="success">/DisplayAConsultation</result>
-			<result name="failed" type="redirect">/CreateConsultation</result>
-			<result name="error">/SearchConsultation.do</result>
+			<result name="success" type="tiles">DisplayAConsultation</result>
+			<result name="failed" type="redirect">CreateConsultation</result>
+			<result name="error" type="redirect">SearchConsultation</result>
 		</action>
 
 
-		<action name="DisplayCreateConsultation" class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="CreateConsultation" />
+		<action name="DisplayCreateConsultation" class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="displayCreate">
+			<result type="tiles">CreateConsultation</result>
+		</action>
 
-		<action class="fr.univartois.ili.fsnet.actions.ManageConsultations" name="Consultations"
-			method="SearchConsultation" />
+		<action class="fr.univartois.ili.fsnet.actions.ManageConsultations" name="Consultations" method="searchConsultation" >
+			<result type="redirectAction">DisplayConsultations</result>
+		</action>
 
 
 		<action name="DisplayConsultations"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="searchYourConsultations">
-			<result name="success">/DisplayConsultations</result>
+			<result name="success" type="tiles">DisplayConsultations</result>
 		</action>
 
 
 		<action name="DisplayAConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="displayAConsultation">
-			<result name="success" type="redirect">/DisplayAConsultation</result>
+			<result name="success" type="tiles">DisplayAConsultation</result>
 			<result name="error">/SearchConsultation.do"</result>
 		</action>
 
 
 		<action name="CloseConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="closeConsultation">
-			<result name="success">/DisplayAConsultation</result>
+			<result name="success" type="tiles">DisplayAConsultation</result>
 		</action>
 
 
 		<action name="OpenConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="openConsultation">
-			<result name="success">/DisplayAConsultation</result>
+			<result name="success" type="tiles">DisplayAConsultation</result>
 		</action>
 
 
 		<action name="VoteConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="vote">
-			<result name="success">/DisplayAConsultation</result>
-			<result name="error">/SearchConsultation.do</result>
-			<result name="input">/DisplayAConsultation</result>
+			<result name="success" type="tiles">DisplayAConsultation</result>
+			<result name="error" >/SearchConsultation.do</result>
+			<result name="input" type="tiles">DisplayAConsultation</result>
 		</action>
 
 
 		<action name="DeleteVoteConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="deleteVote">
-			<result name="success">/DisplayAConsultation</result>
-			<result name="input">/DisplayAConsultation</result>
+			<result name="success" type="tiles">DisplayAConsultation</result>
+			<result name="input" type="tiles">DisplayAConsultation</result>
 		</action>
 
 
@@ -79,14 +84,14 @@
 
 		<action name="AutocompleteOther"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="autocompleteOther">
-			<result name="success">/AutocompleteOtherChoice</result>
+			<result name="success" type="tiles">/AutocompleteOtherChoice</result>
 			<result name="input">/DisplayConsultations.do</result>
 		</action>
 
 
 		<action name="DeleteMultiConsultations"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="deleteMulti">
-			<result name="success">/SearchConsultation.do</result>
+			<result name="success" type="tiles">/SearchConsultation.do</result>
 		</action>
 	</package>
 </struts>

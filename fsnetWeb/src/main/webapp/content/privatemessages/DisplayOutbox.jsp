@@ -60,7 +60,7 @@
 						});
 			</script>
 
-			<s:form action="/DeleteMultiSentMessages?fromPage=out">
+			<s:form action="/DeleteMultiSentMessages.do?fromPage=out">
 				<table id="tableoutbox"
 					class="tablesorter inLineTable tableStyle">
 					<thead>
@@ -76,16 +76,13 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="6"><s:submit styleClass="btn btn-inverse">
-									<s:text name="privatemessages.delete" />
-								</s:submit></td>
+							<td colspan="6"><s:submit cssClass="btn btn-inverse" key="privatemessages.delete"/>
 						</tr>
 					</tfoot>
 					<tbody>
 						<c:forEach items="${requestScope.outBoxMessages}" var="message">
 							<tr>
-								<td><s:multibox property="selectedMessages"
-										value="${message.id}" /></td>
+								<td><input type="checkbox" name="selectedMessages" value="${message.id}"/></td>
 								<td><ili:getMiniature socialEntity="${message.to}" /></td>
 								<td style="width: 15%"><ili:getSocialEntityInfosFirstname
 										socialEntity="${message.to}" /></td>
@@ -101,8 +98,7 @@
 											</ili:substring>
 										</span>
 									</s:a></td>
-								<td><bean:write name="message" property="creationDate"
-										formatKey="date.format" /></td>
+								<td><s:property value="creationDate" /></td>
 							</tr>
 						</c:forEach>
 					</tbody>

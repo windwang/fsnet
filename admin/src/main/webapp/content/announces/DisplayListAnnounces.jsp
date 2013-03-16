@@ -35,19 +35,19 @@
 					<c:forEach var="announce" items="${requestScope.annoucesList}">
 						<tr>
 							<bean:define id="idAnnounce" name="announce" property="id" />
-							<td><s:a action="/DisplayAnnounce.do"
+							<td><html:link action="/DisplayAnnounce.do"
 									paramId="idAnnounce" paramName="idAnnounce">
 									<bean:write name="announce" property="title" />
-								</s:a></td>
+								</html:link></td>
 							<td></td>
-							<td><s:a action="/DisplayMember">
+							<td><html:link action="/DisplayMember">
 									<html:param name="idMember" value="${announce.creator.id}" />
 	                    	${announce.creator.firstName} 
-	                		</s:a></td>
-							<td><s:a action="/DisplayMember">
+	                		</html:link></td>
+							<td><html:link action="/DisplayMember">
 									<html:param name="idMember" value="${announce.creator.id}" />
 	                    	 ${announce.creator.name}
-	                		</s:a></td>
+	                		</html:link></td>
 							<td><bean:write name="announce" property="endDate"
 									format="dd/MM/yyyy" /></td>
 						</tr>
