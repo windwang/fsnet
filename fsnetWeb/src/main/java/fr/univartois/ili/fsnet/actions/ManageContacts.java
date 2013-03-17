@@ -11,6 +11,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.interceptor.ServletRequestAware;
+
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -24,7 +26,8 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * 
  * @author Grioche Legrand
  */
-public class ManageContacts extends ActionSupport implements CrudAction {
+public class ManageContacts extends ActionSupport implements CrudAction,
+		ServletRequestAware {
 
 	/**
 	 * 
@@ -44,7 +47,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	private int entityDeleted;
 
 	private int id;
-	
+
 	/**
 	 * Submit a request contact to another social entity
 	 * 
@@ -56,15 +59,13 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String askContact(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String askContact(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
 			em.getTransaction().begin();
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
-			
-			
+
 			// TODO changer les listes en set sur les entites sociales pour
 			// eviter
 			// les doublons
@@ -77,8 +78,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 
 			em.getTransaction().commit();
 		} catch (NumberFormatException nfe) {
-			LOGGER.log(Level.WARNING,
-					UNABLE_TO_PARSE_ID_ERROR, nfe);
+			LOGGER.log(Level.WARNING, UNABLE_TO_PARSE_ID_ERROR, nfe);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -98,9 +98,8 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String accept(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String accept(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -113,8 +112,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 			refreshNumNewContacts(request, em);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			LOGGER.log(Level.WARNING,
-					UNABLE_TO_PARSE_ID_ERROR, e);
+			LOGGER.log(Level.WARNING, UNABLE_TO_PARSE_ID_ERROR, e);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -134,22 +132,21 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String refuse(
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String refuse(HttpServletRequest request,
+			HttpServletResponse response) throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
 			em.getTransaction().begin();
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-			SocialEntity entityRefus = socialEntityFacade.getSocialEntity(entityRefused);
+			SocialEntity entityRefus = socialEntityFacade
+					.getSocialEntity(entityRefused);
 			ContactFacade contactFacade = new ContactFacade(em);
 			contactFacade.refuseContact(user, entityRefus);
 			refreshNumNewContacts(request, em);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			LOGGER.log(Level.WARNING,
-					UNABLE_TO_PARSE_ID_ERROR, e);
+			LOGGER.log(Level.WARNING, UNABLE_TO_PARSE_ID_ERROR, e);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -168,8 +165,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String create()
-			throws Exception {
+	public String create() throws Exception {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -183,8 +179,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String modify()
-			throws Exception {
+	public String modify() throws Exception {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -198,20 +193,19 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete()
-			throws Exception {
+	public String delete() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
 			em.getTransaction().begin();
 			SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
-			SocialEntity removedEntity = socialEntityFacade.getSocialEntity(entityDeleted);
+			SocialEntity removedEntity = socialEntityFacade
+					.getSocialEntity(entityDeleted);
 			ContactFacade contactFacade = new ContactFacade(em);
 			contactFacade.removeContact(user, removedEntity);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			LOGGER.log(Level.WARNING,
-					UNABLE_TO_PARSE_ID_ERROR, e);
+			LOGGER.log(Level.WARNING, UNABLE_TO_PARSE_ID_ERROR, e);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -230,8 +224,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search()
-			throws Exception {
+	public String search() throws Exception {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -245,8 +238,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display()
-			throws Exception {
+	public String display() throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
@@ -282,8 +274,8 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	 * @param response
 	 * @return
 	 */
-	public String cancelAsk(
-			HttpServletRequest request, HttpServletResponse response) {
+	public String cancelAsk(HttpServletRequest request,
+			HttpServletResponse response) {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		try {
 			SocialEntityFacade sef = new SocialEntityFacade(em);
@@ -296,8 +288,7 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 			cf.cancelRequested(user, requested, em);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
-			LOGGER.log(Level.WARNING,
-					UNABLE_TO_PARSE_ID_ERROR, e);
+			LOGGER.log(Level.WARNING, UNABLE_TO_PARSE_ID_ERROR, e);
 			throw new UnauthorizedOperationException("exception.message");
 		} finally {
 			em.close();
@@ -345,7 +336,11 @@ public class ManageContacts extends ActionSupport implements CrudAction {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
+
+	}
 
 }
