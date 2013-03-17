@@ -26,7 +26,7 @@
             </c:if>
 					</a></li>
 					<li Class="%{currentMenu == 'Contacts' ? 'active' : ''}"><a
-						href="<s:url action='Contacts'/>"
+						href="<s:url action='Contact'/>"
 						class="%{currentMenu == 'Contacts' ? 'active' : ''}"> <s:text
 								name="menu.contacts" /> <c:if
 								test="${sessionScope.numNewContactsRequests gt 0}">
