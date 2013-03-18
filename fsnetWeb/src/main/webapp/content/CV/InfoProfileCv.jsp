@@ -7,9 +7,9 @@
 	<div class="en_cv">
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend>
+<!-- 				<legend> -->
 					<s:text name="cv.title.name" />
-				</legend>
+<!-- 				</legend> -->
 			</div>
 			<div class="corp">
 				<table class="inLineTable  tableStyle">
@@ -26,9 +26,9 @@
 	<div class="en_cv">
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend>
+<!-- 				<legend> -->
 					<s:text name="cv.title.info" />
-				</legend>
+<!-- 				</legend> -->
 
 			</div>
 			<div class="corp_contact">

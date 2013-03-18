@@ -83,9 +83,9 @@
 	<div class="en_cv">
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend>
+<!-- 				<legend> -->
 					<s:text name="cv.title.degree" />
-				</legend>
+<!-- 				</legend> -->
 			</div>
 
 			<table id="diplome" class="listeDiplome inLineTable   tableStyle"></table>
@@ -177,9 +177,9 @@
 	<div class="en_cv">
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend>
+<!-- 				<legend> -->
 					<s:text name="cv.title.formation" />
-				</legend>
+<!-- 				</legend> -->
 			</div>
 
 			<table id="formation" class="listeFormation inLineTable   tableStyle"></table>
@@ -248,9 +248,9 @@
 	<div class="en_cv">
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend>
+<!-- 				<legend> -->
 					<s:text name="cv.title.hobbies" />
-				</legend>
+<!-- 				</legend> -->
 			</div>
 
 			<table id="loisir" class="listeLoisir inLineTable   tableStyle"></table>
@@ -290,9 +290,9 @@
 	<div class="en_cv">
 		<fieldset class="fieldsetCadre">
 			<div class="entete">
-				<legend>
+<!-- 				<legend> -->
 					<s:text name="cv.title.languages" />
-				</legend>
+<!-- 				</legend> -->
 			</div>
 
 			<table id="langue" class="listeLangues inLineTable   tableStyle"></table>
