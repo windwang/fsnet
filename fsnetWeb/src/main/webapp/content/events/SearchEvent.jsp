@@ -14,7 +14,7 @@
 
 	<table id="SearchEvent"
 		class="inLineTable  tableStyle">
-		<s:form action="/Events" method="get">
+		<s:form action="Events" method="get">
 			<tr>
 				<td>
 				<s:textfield property="searchString" var="searchTexte" cssClass="search-query"/>

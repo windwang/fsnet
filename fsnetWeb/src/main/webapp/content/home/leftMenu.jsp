@@ -16,7 +16,7 @@
 				<s:text name="events.leftMenu.create" />
 			</s:a></li>
 	</ili:interactionFilter>
-	<li><s:a action="/DisplayCommunities">
+	<li><s:a action="DisplayCommunities">
 			<s:text name="communities.leftMenu.manage" />
 		</s:a></li>
 </ul>

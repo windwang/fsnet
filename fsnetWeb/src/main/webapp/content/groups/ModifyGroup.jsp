@@ -46,8 +46,7 @@
 							name="groups.owner" />
 				</label></td>
 				<td colspan="3"><s:select property="socialEntityId"
-						styleClass="select" value="%{ masterGroup.id }"
-						styleId="socialEntityId" list="%{allMembers}" listKey="%{allMembers.id}" listValue="%{socialEntity.name} %{socialEntity.firstName}">
+						styleClass="select"	styleId="socialEntityId" list="%{allMembers}" listKey="%{allMembers.id}" listValue="%{socialEntity.name} %{socialEntity.firstName}">
 					</s:select>
 					</td>
 			</tr>
@@ -65,7 +64,7 @@
 					</s:select>
 				</td>
 
-				<td><s:submit type="button"property="" styleClass="btn btn-inverse"
+				<td><s:submit type="button" property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.memberListLeft,this.form.memberListRight)">
 						<s:text name="groups.addMembers" />
 					</s:submit></td>
@@ -113,7 +112,7 @@
 				</td>
 			</tr>
 			<tr>
-				<td><s:submit type="button"property="" styleClass="btn btn-inverse"
+				<td><s:submit type="button" property="" styleClass="btn btn-inverse"
 						onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)">
 						<s:text name="groups.removeGroups" />
 					</s:submit></td>

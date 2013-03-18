@@ -56,7 +56,7 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	private int parentId;
 	private String[] memberListRight;
 	private String[] rigthListRight;
-	private String[] memberListLeft;
+	private List<String> memberListLeft;
 	private int id;
 	private String color;
 	private File Logo;//The actual file
@@ -64,7 +64,42 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	private String LogoFileName; //The uploaded file name
 	
 	private HttpServletRequest request;
+	private List<SocialGroup> allGroups;
+	private List<SocialEntity> allMembers;
+	private List<SocialEntity> acceptedMembers;
+	private Set<Right> refusedRigths;
+	private Set<Right> acceptedRigths;
+	private List<SocialEntity> refusedMembers;
 	
+	
+	public ManageGroups() {
+		super();
+		acceptedMembers = new ArrayList<>();
+		refusedRigths = new HashSet<Right>();
+		acceptedRigths = new HashSet<Right>();
+		memberListLeft= new ArrayList<>();
+		allMembers = new ArrayList<>();
+		refusedMembers = new ArrayList<>();
+	}
+	public Set<Right> getAcceptedRigths() {
+		return acceptedRigths;
+	}
+	public Set<Right> getRefusedRigths() {
+		return refusedRigths;
+	}
+	public List<SocialEntity> getAcceptedMembers() {
+		return acceptedMembers;
+	}
+	public List<SocialGroup> getAllGroups() {
+		return allGroups;
+	}
+	public List<SocialEntity> getAllMembers() {
+		return allMembers;
+	}
+	
+	public List<SocialEntity> getRefusedMembers() {
+		return refusedMembers;
+	}
 	/*
 	 * (non-Javadoc)
 	 * 
@@ -80,8 +115,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 
 		HttpSession session = request.getSession(true);
 		session.removeAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
-		List<SocialEntity> allMembers = null;
-		List<SocialGroup> allGroups = null;
+		
+		
 		SocialGroup parentGroup = null;
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
@@ -164,7 +199,7 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 
 			List<SocialElement> acceptedSocialEntity = createObjectSocialEntity(em, memberListRight);
 
-			List<SocialElement> refusedSocialEntity = createObjectSocialEntity(em, memberListLeft);
+			List<SocialElement> refusedSocialEntity = createObjectSocialEntity(em, (String[])memberListLeft.toArray());
 
 			SocialGroup oldSocialGroup22 = masterGroup.getGroup();
 
@@ -240,8 +275,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String switchState(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String switchState()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -256,7 +291,6 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 		} finally {
 			em.close();
 		}
-
 		return SUCCESS;
 	}
 
@@ -278,12 +312,6 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 			HttpSession session = request.getSession(true);
 
 			List<SocialEntity> allMembers = null;
-			List<SocialEntity> refusedMembers = null;
-
-			List<SocialEntity> acceptedMembers = null;
-			Set<Right> acceptedRigths = null;
-			Set<Right> refusedRigths = new HashSet<Right>();
-
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 
@@ -544,8 +572,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String changeLogo(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String changeLogo()
+			throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		
@@ -638,11 +666,11 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 		this.rigthListRight = rigthListRight;
 	}
 
-	public String[] getMemberListLeft() {
+	public List<String> getMemberListLeft() {
 		return memberListLeft;
 	}
 
-	public void setMemberListLeft(String[] memberListLeft) {
+	public void setMemberListLeft(List<String> memberListLeft) {
 		this.memberListLeft = memberListLeft;
 	}
 
