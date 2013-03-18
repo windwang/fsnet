@@ -58,7 +58,7 @@ public class LoggedUsersTag extends TagSupport {
 
 	@Override
 	public int doStartTag() throws JspException {
-		
+
 		if (var == null || loggedUsers == null) {
 			return SKIP_BODY;
 		}
@@ -66,17 +66,14 @@ public class LoggedUsersTag extends TagSupport {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
 		SocialEntityFacade sef = new SocialEntityFacade(em);
-
 		SocialEntity currentUser = sef.getSocialEntity(userId);
 		if (currentUser != null) {
 			Map<Integer, String> membersConnected = loggedUsers.getUsers();
 			if (membersConnected.size() == 0) {
 				return SKIP_BODY;
 			}
-			List<SocialEntity> userWithWhoCurrentUserCanInteract = sgf
-					.getPersonsWithWhoMemberCanInteract(currentUser);
-			membersConnectedInteractable = retainAllInteractablePersons(
-					membersConnected, userWithWhoCurrentUserCanInteract);
+			List<SocialEntity> userWithWhoCurrentUserCanInteract = sgf.getPersonsWithWhoMemberCanInteract(currentUser);
+			membersConnectedInteractable = retainAllInteractablePersons(membersConnected, userWithWhoCurrentUserCanInteract);
 
 			if (update()) {
 				return EVAL_BODY_INCLUDE;
@@ -100,17 +97,17 @@ public class LoggedUsersTag extends TagSupport {
 	}
 
 	private boolean update() {
+		if (index < membersConnectedInteractable.size() && membersConnectedInteractable.get(index).getId() == userId) {
+			++index;
+		}
 		if (index < membersConnectedInteractable.size()) {
-			pageContext.setAttribute(var,
-					membersConnectedInteractable.get(index++));
+			pageContext.setAttribute(var, membersConnectedInteractable.get(index++));
 			return true;
 		}
 		return false;
 	}
 
-	private List<SocialEntity> retainAllInteractablePersons(
-			Map<Integer, String> connectedPersons,
-			List<SocialEntity> interactablePersons) {
+	private List<SocialEntity> retainAllInteractablePersons(Map<Integer, String> connectedPersons, List<SocialEntity> interactablePersons) {
 		List<SocialEntity> result = new ArrayList<SocialEntity>();
 		for (SocialEntity se : interactablePersons) {
 			if (connectedPersons.containsKey(se.getId())) {
