@@ -14,23 +14,26 @@
 		<form-bean name="TalkSend"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 		</form-bean>
+		<form-bean name="TalkGetTalks"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+		</form-bean>
 	</form-beans>
 
 	<action-mappings>
 		<action path="/TalkMembersActivate" name="TalkActivate"
 			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
 			validate="false" parameter="activate">
-<!-- 			<forward name="success" path="/TalkMembersActivate" /> -->
+			<!-- <forward name="success" path="/TalkMembersActivate" /> -->
 		</action>
 		<action path="/TalkMembersReceive" name="TalkReceive"
 			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
 			validate="false" parameter="receive">
-<!-- 			<forward name="success" path="/TalkMembersReceive" /> -->
+			<!-- <forward name="success" path="/TalkMembersReceive" /> -->
 		</action>
 		<action path="/TalkMembersSend" name="TalkSend"
 			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
 			validate="false" parameter="send">
-<!-- 			<forward name="success" path="/TalkMembersReceive" /> -->
+			<!-- <forward name="success" path="/TalkMembersReceive" /> -->
 		</action>
 		<action path="/TalkMembersGetTalks" name="TalkGetTalks"
 			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
