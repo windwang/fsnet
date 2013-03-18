@@ -6,7 +6,7 @@
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 
-<c:iftest="${empty requestScope.paginatorContacts && empty requestScope.paginatorAsked && empty requestScope.paginatorRequested}">
+<c:if test="${empty requestScope.paginatorContacts && empty requestScope.paginatorAsked && empty requestScope.paginatorRequested}">
 	<fieldset class="fieldsetCadre">
 		<legend>
 			<s:text name="contact.title.allEmpty" />
@@ -62,21 +62,19 @@
 
 						<td class="tableButton"><c:if test="${contact.isEnabled}"><s:url
 								action="/DisplayCreatePrivateMessage"
-								styleClass="btn btn-inverse">
-
-								<s:text name="showProfile.send" />
+								var="urlDisplayCreatePrivateMessage">
 								<s:param name="receiver" value="%{contact.email}" />
-							</s:url> <s:url action="/AcceptContact" >
-<%-- 							<s:url action="/AcceptContact" styleClass="btn btn-inverse"> --%>
+							</s:url> <a href="<s:property value="#urlDisplayCreatePrivateMessage" />"><s:text
+									name="showProfile.send" /></a> <s:url action="/AcceptContact"
+								var="urlAcceptContact">
 								<s:param name="entityAccepted" value="%{contact.id}" />
 
-								<s:text name="contact.button.accept" /></c:if>
-							</s:url> <s:url action="/RefuseContact" styleClass="btn btn-inverse">
-
+							</s:url> <a href="<s:property value="#urlAcceptContact" />"><s:text
+									name="contact.button.accept" /></a></c:if> <s:url action="/RefuseContact"
+								var="urlRefuseContact">
 								<s:param name="entityRefused" value="%{contact.id}" />
-								<s:text name="contact.button.refuse" />
-							</s:url></td>
-
+							</s:url> <a href="<s:property value="#urlRefuseContact" />"><s:text
+									name="contact.button.refuse" /></a></td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -122,22 +120,27 @@
 					<tr>
 						<td class="miniatureContainer"><ili:getMiniature
 								socialEntity="${contact}" /></td>
-
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 
-
-						<td class="tableButton"><c:if test="${contact.isEnabled}"><s:url
+						<td class="tableButton">
+						<c:if test="${contact.isEnabled}">
+						<s:url
 								action="/DisplayCreatePrivateMessage"
-								styleClass="btn btn-inverse">
-								<s:text name="showProfile.send" />
+								var="urlDisplayCreatePrivateMessage">
 								<s:param name="receiver" value="%{contact.email}" />
-							</s:url></c:if> <s:url action="/DeleteContact" styleClass="btn btn-inverse">
+							</s:url>
+							<a href="<s:property value="#urlDisplayCreatePrivateMessage" />"><s:text
+									name="showProfile.send" /></a>
+							</c:if>
 
-								<s:text name="contact.button.delete" />
+							<s:url action="/DeleteContact"
+								var="urlDeleteContact">
 								<s:param name="entityDeleted" value="%{contact.id}" />
-							</s:url></td>
+							</s:url> <a href="<s:property value="#urlDeleteContact" />"><s:text
+									name="contact.button.delete" /></a>
+						</td>
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -185,17 +188,26 @@
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 
-
-						<td class="tableButton"><c:if test="${contact.isEnabled}"><s:url
+						<td class="tableButton">
+						<c:if test="${contact.isEnabled}">
+						
+						<s:url
 								action="/DisplayCreatePrivateMessage"
-								styleClass="btn btn-inverse">
-								<s:text name="showProfile.send" />
+								var="urlDisplayCreatePrivateMessage">
 								<s:param name="receiver" value="%{contact.email}" />
-							</s:url></c:if> <s:url action="/CancelAskContact" styleClass="btn btn-inverse">
-
+							</s:url>
+							<a href="<s:property value="#urlDisplayCreatePrivateMessage" />"><s:text
+									name="showProfile.send" /></a>
+							</c:if>
+							<s:url
+								action="/CancelAskContact"
+								var="urlCancelAskContact">
 								<s:param name="id" value="%{contact.id}" />
-								<s:text name="contacts.cancel" />
-							</s:url></td>
+							</s:url>
+							<a href="<s:property value="#urlCancelAskContact" />"><s:text
+									name="contacts.cancel" /></a>
+							
+							</td>
 					</tr>
 				</c:forEach>
 			</tbody>
