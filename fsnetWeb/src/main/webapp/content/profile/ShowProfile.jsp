@@ -271,8 +271,7 @@
 							<li><s:a href="/DisplayInformationGroup">
 								<s:param name="idGroup" value="%{ socialGroup.id }" />
 								${requestScope.treeGroupProfile}
-								</s:a>
-							</li>
+								</s:a></li>
 
 						</c:when>
 						<c:otherwise>
