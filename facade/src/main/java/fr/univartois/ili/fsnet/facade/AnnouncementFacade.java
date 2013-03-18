@@ -82,7 +82,7 @@ public class AnnouncementFacade {
 	 * @return a list of Announcement
 	 */
 	public final List<Announcement> searchAnnouncement(String textSearchAnnounce) {
-		if (textSearchAnnounce == null) {
+		if (textSearchAnnounce == "") {
 			throw new IllegalArgumentException();
 		}
 		List<Announcement> listAnnounces;

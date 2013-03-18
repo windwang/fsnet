@@ -20,7 +20,7 @@
 				<td><s:text name="announce.createdBy" /> <ili:getSocialEntityInfos
 						socialEntity="${announce.creator}" />, <s:text
 						name="announce.expiryDate" /> <s:property value="announce"
-						default="endDate" format="dd/MM/yyyy HH:mm" /></td><td>
+						default="endDate"/></td><td>
 			</tr>
 			<tr>
 				<td>${announce.content}</td>
@@ -39,12 +39,12 @@
 
 				<td class="alignRight">
 						<s:set id="idAnnounce" name="announce" var="id" />
-						<s:a action="/DisplayForModifyAnnounce" paramId="idAnnounce"
-							paramName="idAnnounce" styleClass="btn btn-inverse">
+						<s:a href="/DisplayForModifyAnnounce" styleClass="btn btn-inverse">
+							<s:param name="idAnnounce" value="idAnnounce"/>
 							<s:text name="announce.button.update" />
 						</s:a>
-						<s:a action="/DeleteAnnounce" paramId="idAnnounce"
-							paramName="idAnnounce" styleClass="btn btn-inverse">
+						<s:a href="/DeleteAnnounce" styleClass="btn btn-inverse">
+							<s:param name="idAnnounce" value="idAnnounce"/>
 							<s:text name="announce.button.delete" />
 						</s:a>
 					</td>

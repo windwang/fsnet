@@ -16,7 +16,7 @@
 	<table id="ModifyAnnounce"
 		class="inLineTable tableStyle">
 
-		<s:form action="/ModifyAnnounce">
+		<s:form action="ModifyAnnounce">
 			<s:hidden property="idAnnounce" />
 
 

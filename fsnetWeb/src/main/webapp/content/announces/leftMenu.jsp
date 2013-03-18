@@ -7,8 +7,8 @@
 <ul>
 	<li><ili:interactionFilter user="${ socialEntity }"
 			right="${ rightAddAnnounce }">
-			<s:a action="/DisplayCreateAnnounce">
+			<a href="<s:url action='/DisplayCreateAnnounce'/> ">
 				<s:text name="announce.leftMenu.create" />
-			</s:a>
+			</a>	
 		</ili:interactionFilter></li>
 </ul>
