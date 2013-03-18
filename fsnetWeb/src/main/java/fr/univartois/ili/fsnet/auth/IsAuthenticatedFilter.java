@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -21,7 +22,7 @@ import javax.servlet.http.HttpSession;
  * @author Mathieu Boniface < mat.boniface {At} gmail.com >
  */
 
-@WebFilter ("*.do")
+@WebFilter("*.do")
 public class IsAuthenticatedFilter implements Filter {
 
 	private ServletContext servletContext;
@@ -32,7 +33,7 @@ public class IsAuthenticatedFilter implements Filter {
 	public void doFilter(final ServletRequest req,
 			final ServletResponse response, final FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		HttpSession session;
 
 		RequestDispatcher dispatch;
@@ -40,19 +41,25 @@ public class IsAuthenticatedFilter implements Filter {
 		session = request.getSession(); // NOSONAR
 		Integer userId = (Integer) session
 				.getAttribute(Authenticate.AUTHENTICATED_USER);
-
-		if (userId == null) {
-			// Reconstruct the requested url and store it in the session
-			StringBuffer requestedURL = ((HttpServletRequest) request)
-					.getRequestURL();
-			if (request.getQueryString() != null) {
-				requestedURL.append('?');
-				requestedURL.append(request.getQueryString());
+		
+		if (userId == null) {			
+			String pathURI = ((HttpServletRequest) request).getRequestURI();			
+			if (pathURI != null && pathURI.matches(".*\\/Talk[^/]+\\.do")) {
+				Logger.getAnonymousLogger().info("Avoid to load TalkMembersReceive");
+				session.setAttribute("requestedURL", null);
+			} else {
+				// Reconstruct the requested url and store it in the session
+				StringBuffer requestedURL = ((HttpServletRequest) request)
+						.getRequestURL();
+				if (request.getQueryString() != null) {
+					requestedURL.append('?');
+					requestedURL.append(request.getQueryString());
+				}
+				session.setAttribute("requestedURL", requestedURL.toString());
 			}
-			session.setAttribute("requestedURL", requestedURL.toString());
 
 			dispatch = servletContext
-					.getRequestDispatcher(Authenticate.WELCOME_NON_AUTHENTICATED_PAGE);
+					.getRequestDispatcher("/Authenticate");
 			dispatch.forward(request, response);
 		} else {
 			chain.doFilter(request, response);
