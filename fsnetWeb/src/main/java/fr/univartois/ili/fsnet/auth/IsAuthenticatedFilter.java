@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.auth;
 
 import java.io.IOException;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import javax.servlet.Filter;
@@ -45,7 +46,6 @@ public class IsAuthenticatedFilter implements Filter {
 		if (userId == null) {			
 			String pathURI = ((HttpServletRequest) request).getRequestURI();			
 			if (pathURI != null && pathURI.matches(".*\\/Talk[^/]+\\.do")) {
-				Logger.getAnonymousLogger().info("Avoid to load TalkMembersReceive");
 				session.setAttribute("requestedURL", null);
 			} else {
 				// Reconstruct the requested url and store it in the session
