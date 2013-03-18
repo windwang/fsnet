@@ -5,18 +5,17 @@
 <h2>
 	<s:text name="profile.leftMenu.my" />
 </h2>
-
 <ul>
 	<li><s:a action="Profile.do">
 			<s:text name="showProfile.edit" />
 		</s:a></li>
-	<li><s:a action="/Interests">
+	<li><s:a action="Interests">
 			<s:text name="showProfile.edit.interests" />
 		</s:a></li>
-	<li><s:a action="/CreateCv1">
+	<li><s:a action="CreateCv1">
 			<s:text name="profile.leftMenu.createCV" />
 		</s:a></li>
-	<li><s:a action="/DisplayCV">
+	<li><s:a action="DisplayCV">
 			<s:text name="profile.leftMenu.myCV" />
 		</s:a></li>
 
@@ -29,11 +28,11 @@
 		</h2>
 
 		<ul>
-			<li><s:a action="/SearchGroup.do">
+			<li><s:a action="SearchGroup.do">
 					<s:text name="profile.LeftMenuManageGroups" />
 					<s:param name="id" value="%{requestScope.groupId}" />
 				</s:a></li>
-			<li><s:a action="/MemberList">
+			<li><s:a action="MemberList">
 					<s:text name="profile.LeftMenuManageMembers" />
 				</s:a></li>
 		</ul>
@@ -43,7 +42,7 @@
 			<s:text name="profile.LeftMenuMemberGroup" />
 		</h2>
 		<ul>
-			<li><s:a action="/ListMembersOfGroup">
+			<li><s:a action="ListMembersOfGroup">
 					<s:text name="profile.LeftMenuDisplayMembersGroup" />
 				</s:a></li>
 		</ul>
