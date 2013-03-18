@@ -42,9 +42,13 @@
 						<c:choose>
 							<c:when test="${group.masterGroup.id == currentUserId}">
 								<tr>
-									<td><s:a href="/DisplayGroup">${group.name} 
-		                			<s:param name="idGroup" value="%{group.id}" />
-										</s:a> <!--${group.name}--></td>
+									<s:url action="DisplayGroup" var="displayGroup">
+										<s:param name="idGroup"> ${group.id}</s:param>
+									</s:url>
+									<td>
+									<a href="<s:property  value="#displayGroup"/>">
+									${group.name}</a>
+									</td>
 									<td></td>
 									<td><ili:getSocialEntityInfosFirstname
 											socialEntity="${group.masterGroup}" /></td>
@@ -56,9 +60,12 @@
 											<td class="tableButton"><s:text name="members.groupDisable" /></td>
 										</c:when>
 										<c:otherwise>
-											<td class="tableButton"><s:a
-													href="/SwitchStateGroup" styleClass="btn btn-inverse">
-													<s:param name="groupSelected" value="%{group.id}" />
+											<td class="tableButton">
+											<s:url action="SwitchStateGroup" var="SwitchStateGroup">
+												<s:param name="groupSelected"> ${group.id}</s:param>
+											</s:url>
+											
+											<a href="<s:property  value="#SwitchStateGroup"/>" class="btn btn-inverse">
 													<c:choose>
 														<c:when test="${group.isEnabled}">
 															<s:text name="members.searchDisable" />
@@ -67,7 +74,7 @@
 															<s:text name="members.searchEnable" />
 														</c:otherwise>
 													</c:choose>
-												</s:a></td>
+												</a></td>
 										</c:otherwise>
 									</c:choose>
 								</tr>

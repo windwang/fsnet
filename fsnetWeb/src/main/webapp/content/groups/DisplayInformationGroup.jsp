@@ -22,16 +22,21 @@
 
 				<div>
 					<c:forEach var="group" items="${antecedantsOfGroup}">
-						<s:a href="/DisplayInformationGroup">
-							<s:param name="idGroup" value="%{ group.id }" />
-					${group.name}
-				</s:a>
+						
+						<s:url action="DisplayInformationGroup" var="displayInfoGroup1">
+						<s:param name="idGroup"> ${group.id}</s:param>
+					</s:url>
+					<a href="<s:property  value="#displayInfoGroup"/>">
+									${group.name}</a>
+
 						<s:text name="groups.addGroups" />
 					</c:forEach>
-					<s:a href="/DisplayInformationGroup">
-						<s:param name="idGroup" value="%{ socialGroup.id }" />
-				${ socialGroup.name }
-			</s:a>
+					
+					<s:url action="DisplayInformationGroup" var="displayInfoGroup">
+										<s:param name="idGroup"> ${socialGroup.id}</s:param>
+					</s:url>
+					<a href="<s:property  value="#displayInfoGroup"/>">
+									${socialGroup.name}</a>
 				</div>
 			</fieldset>
 			</td>
@@ -58,10 +63,12 @@
 				</legend>
 
 				<c:forEach items="${childsOfGroup}" var="cGroup" varStatus="status">
-					<s:a href="/DisplayInformationGroup">
-						<s:param name="idGroup" value="%{ cGroup.id }" />
-				${ cGroup.name }
-			</s:a>
+					
+					<s:url action="DisplayInformationGroup" var="displayInfoGroup2">
+										<s:param name="idGroup"> ${cGroup.id}</s:param>
+					</s:url>
+					<a href="<s:property  value="#displayInfoGroup2"/>">
+									${cGroup.name}</a>
 					<c:if test="${status.count < fn:length(childsOfGroup)}"> | </c:if>
 				</c:forEach>
 			</fieldset>
