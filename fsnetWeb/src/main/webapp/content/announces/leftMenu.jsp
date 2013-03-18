@@ -6,10 +6,9 @@
 </h2>
 
 <ul>
-	<li><a href="<s:url action='/DisplayCreateAnnounce'/> "> <s:text
-				name="announce.leftMenu.create" />
-	</a> <ili:interactionFilter user="${ socialEntity }"
+	<li><ili:interactionFilter user="${ socialEntity }"
 			right="${ rightAddAnnounce }">
-
-		</ili:interactionFilter></li>
+		</ili:interactionFilter> 
+		<a href="<s:url action='DisplayCreateAnnounce'/> "> <s:text
+				name="announce.leftMenu.create" /></a></li>
 </ul>
