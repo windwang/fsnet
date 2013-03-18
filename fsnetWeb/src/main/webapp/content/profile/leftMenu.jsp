@@ -4,7 +4,6 @@
 <h2>
 	<s:text name="profile.leftMenu.my" />
 </h2>
-
 <ul>
 	<li><s:a href="Profile.do">
 			<s:text name="showProfile.edit" />
