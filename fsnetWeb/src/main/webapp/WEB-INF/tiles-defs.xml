@@ -231,6 +231,7 @@
 		<put-attribute name="title" value="pageTitle.announces" />
 		<put-attribute name="currentMenu" value="Announces" />
 		<put-attribute name="body-content" value="/content/announces/CreateAnnounce.jsp" />
+		<put-attribute name="left" value="/content/announces/leftMenu.jsp" />
 	</definition>
 
 	<definition name="ModifyAnnounce" extends=".defaultLayout">
