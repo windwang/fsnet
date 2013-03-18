@@ -367,6 +367,7 @@ function loadChatBoxes() {
 
 /* Permet d'envoyer un message */
 function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
+	
 	if (event.keyCode == 13 && event.shiftKey == 0) {
 		message = $(chatboxtextarea).val();
 		message = message.replace(/^\s+|\s+$/g, "");
@@ -429,6 +430,20 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 		chatHeartbeatCount = 1;
 
 		return false;
+	}else {
+		message = $(chatboxtextarea).val();
+		if (message != ''){
+//			alert("COMPOSING"+$(chatboxtextarea).val());
+			$.ajax({
+				type : 'POST',
+				url : '/fsnetWeb/TalkMemberComposing.do',
+				data : {
+					toFriend : chatboxtitle
+				},
+				dataType : "json",
+//				success : function(data, textStatus, jqXHR) {
+			});
+		}
 	}
 
 	// alert("send message4 "+$(chatboxtextarea).val());

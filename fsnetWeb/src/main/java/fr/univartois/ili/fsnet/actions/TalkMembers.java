@@ -377,5 +377,24 @@ public class TalkMembers extends MappingDispatchAction {
 		obj.writeJSONString(response.getWriter());
 
 	}
+	
+	/**
+	 * composing message
+	 * 
+	 * @param mapping
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @throws IOException
+	 * @throws ServletException
+	 */
+	public void composing(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+		String friend = request.getParameter("toFriend");
+		System.out.println("################################");
+		System.out.println("COMPOSING to");
+		System.out.println(friend);
+	}
 
 }
