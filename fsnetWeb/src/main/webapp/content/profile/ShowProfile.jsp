@@ -7,9 +7,10 @@
 
 
 <fieldset class="fieldsetCadre">
-	<legend >
-		<s:text name="showProfile.title"
-			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
+	<legend>
+		<s:text name="showProfile.title">
+			<s:param>${watchedProfile.firstName} ${watchedProfile.name}</s:param>
+		</s:text>
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -69,10 +70,8 @@
 			</td>
 		</tr>
 		<tr>
-			<td>
-			<img src="avatar/${watchedProfile.id}.png" style="float: right;"
-				alt="Avatar" />
-			</td>
+			<td><img src="avatar/${watchedProfile.id}.png"
+				style="float: right;" alt="Avatar" /></td>
 		</tr>
 	</table>
 </fieldset>
@@ -88,7 +87,8 @@
 	</c:if>
 
 	<c:if test="${watchedProfile.id != currentUser.id}">
-		<s:a action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
+		<s:a action="/DisplayCreatePrivateMessage"
+			styleClass="btn btn-inverse">
 			<s:text name="showProfile.send" />
 			<s:param name="receiver" value="%{watchedProfile.email}" />
 		</s:a>
@@ -105,8 +105,9 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<s:text name="showInterest.title"
-			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
+		<s:text name="showInterest.title">
+			<s:param>${watchedProfile.firstName} ${watchedProfile.name}</s:param>
+		</s:text>
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -118,8 +119,7 @@
 					<c:forEach var="interest"
 						items="${requestScope.interestPaginator.resultList}">
 
-						<span class="tag"> <s:a
-								action="/InterestInformations">
+						<span class="tag"> <s:a action="/InterestInformations">
 								<s:param name="infoInterestId" value="%{interest.id}" />
                 ${interest.name}
             </s:a>
@@ -137,8 +137,9 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<s:text name="profile.showInteraction.title"
-			arg0="${watchedProfile.firstName} ${watchedProfile.name}" />
+		<s:text name="profile.showInteraction.title">
+			<s:param>${watchedProfile.firstName} ${watchedProfile.name}</s:param>
+		</s:text>
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.interactions}">
@@ -167,8 +168,7 @@
 						});
 			</script>
 
-			<table id="tableinteractions"
-				class="inLineTable tableStyle">
+			<table id="tableinteractions" class="inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th></th>
@@ -224,7 +224,7 @@
                             </s:a>
 									</c:when>
 								</c:choose></td>
-							<td><s:property value="lastModified" format="dd/MM/yyyy" /></td>
+							<td><s:date name="lastModified" format="dd/MM/yyyy" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -273,10 +273,9 @@
 					<c:choose>
 						<c:when test="${requestScope.treeGroupProfile ne ''}">
 							<li><s:a action="/DisplayInformationGroup">
-								<s:param name="idGroup" value="%{socialGroup.id}" />
+									<s:param name="idGroup" value="%{socialGroup.id}" />
 								${requestScope.treeGroupProfile}
-								</s:a>
-							</li>
+								</s:a></li>
 
 						</c:when>
 						<c:otherwise>
