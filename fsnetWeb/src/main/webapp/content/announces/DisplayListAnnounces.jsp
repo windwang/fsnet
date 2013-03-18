@@ -57,18 +57,16 @@
 							<td><c:import url="/FavoriteFragment.do">
 									<c:param name="interactionId" value="${announce.id}" />
 								</c:import></td>
-							<td><s:a action="/DisplayAnnounce.do"
-									paramId="idAnnounce" paramName="idAnnounce">
+							<td><s:a href="/DisplayAnnounce.do">
+									<s:param name="idAnnounce" value="idAnnounce"/>
 									<s:property default="title" value="announce" />
-
 								</s:a></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${announce.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${announce.creator}" /></td>
-							<td><s:property value="announce" default="endDate"
-									format="dd/MM/yyyy HH:mm" /></td>
+							<td><s:property value="announce" default="endDate"/></td>
 						</ili:interactionRow>
 					</c:forEach>
 				</tbody>

@@ -2,25 +2,25 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-
 <script type="text/javascript" src="js/tiny_mce/tiny_mce.js"></script>
 <script type="text/javascript" src="js/mceTextArea.js"></script>
 <script type="text/javascript" src="js/consultationUtils.js"></script>
 
-<html:javascript formName="/CreateAnnounce" /><!-- Dragon -->
+<!--  <html:javascript formName="/CreateAnnounce" /> --> <!-- Dragon -->
 <fieldset class="fieldsetCadre">
 	<legend>
 		<s:text name="announce.title.create" />
 	</legend>
 
 	<table id="CreateAnnounce" class="inLineTable tableStyle">
-		<s:form action="/CreateAnnounce">
+		<s:form action="CreateAnnounce">
 			<tr>
 				<td><label for="announceTitle"><s:text
 							name="announce.form.title" /></label></td>
 				<td><s:textfield property="announceTitle"
-						styleId="announceTitle" /> <!-- 					<div class="errorMessage"> -->
-					<!-- 						<html:errors property="announceTitle" /> --> <%-- 					</div> <c:import url="/InterestCheckBoxes.do" /></td> --%>
+						styleId="announceTitle"/>	
+				 <%-- <c:import url="/InterestCheckBoxes.do" /> --%>
+				</td> 
 			</tr>
 
 			<tr>
@@ -28,16 +28,15 @@
 							name="announce.form.content" /> </label></td>
 				<td><s:textarea cols="40" rows="8" property="announceContent"
 						styleId="announceContent" styleClass="mceTextArea"
-						style="width: 100%;" /> <!-- 					<div class="errorMessage"> -->
-					<!-- 						<html:errors property="announceContent" /> --> <!-- 					</div></td> -->
+						style="width: 100%;" /> </td>
 			</tr>
 
 			<tr>
 				<td><label for="announceExpiryDate"><s:text
 							name="announce.form.date" /></label></td>
-				<td><s:textfield property="announceExpiryDate"
-						styleId="announceExpiryDate" disabled="false" /> <!-- 					<div class="errorMessage"> -->
-					<!-- 						<html:errors property="announceExpiryDate" /> --> <!-- 					</div></td> -->
+							
+				<td><s:textfield name="announceExpiryDate"
+						id="announceExpiryDate" disabled="false" /></td>
 			</tr>
 
 			<tr>
@@ -54,36 +53,24 @@
 								<div>
 
 									<s:text name="announces.droits.groupsNoRights" />
-								</div> <select  class="select"
-									size="5" multiple="multiple">
-
-									<c:forEach var="socialGroup" items="${allUnderGroupsNoRights}">
-
-										<c:if test="${socialGroup.isEnabled}">
-											<option value="${socialGroup.name}">${socialGroup.name}</option>
-										</c:if>
-
-									</c:forEach>
-								</select>
+								</div> 	
+								<s:select styleClass="select" list="%{#attr.allUnderGroupsNoRights}" listValue="name"
+										name="groupsListLeft" />
 							</td>
-							<td><s:submit
+							<td><s:submit type="button"
 									onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)">
 									<s:text name="groups.addMembers" />
 								</s:submit></td>
 							<td rowspan="2">
 								<div>
 									<s:text name="consultation.droits.groupsRights" />
-								</div> <select class="select"
-									size="5" multiple="multiple">
-
-									<c:forEach var="socialGroup" items="${allUnderGroupsRights}">
-										<option value="${socialGroup.name}">${socialGroup.name}</option>
-									</c:forEach>
-								</select>
+								</div> 
+								<s:select styleClass="select" list="%{#attr.allUnderGroupsNoRights}" listValue="name"
+										name="groupsListRight" />
 							</td>
 						</tr>
 						<tr>
-							<td><s:submit
+							<td><s:submit type="button"
 									onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
 									<s:text name="groups.removeMembers" />
 								</s:submit></td>
@@ -92,7 +79,7 @@
 			<tr>
 				<td colspan="2" class="tableButton"><s:submit
 						styleClass="btn btn-inverse"
-						onclick="return valideGroupToAnnounce()">
+						>
 						<s:text name="announce.button.create" />
 					</s:submit></td>
 			</tr>

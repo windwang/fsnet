@@ -48,7 +48,7 @@
 							});
 						});
 			</script>
-			<s:form action="/DeleteMultiAnnounces">
+			<s:form action="DeleteMultiAnnounces">
 				<table id="yourAnnounces"
 					class="tablesorter inLineTable tableStyle">
 					<thead>
@@ -73,12 +73,11 @@
 								<s:set id="idAnnounce" name="announce" var="id" />
 								<td><s:checkbox property="selectedAnnounces"
 										value="%{announce.id}" /></td>
-								<td><s:a action="/DisplayAnnounce.do"
+								<td><s:a href="/DisplayAnnounce.do"
 										paramId="idAnnounce" paramName="idAnnounce">
 										<s:property value="announce" default="title" />
 									</s:a></td>
-								<td><s:property value="announce" default="endDate"
-										format="dd/MM/yyyy HH:mm" /></td>
+								<td><s:property value="announce" default="endDate"/></td>
 							</tr>
 						</c:forEach>
 					</tbody>

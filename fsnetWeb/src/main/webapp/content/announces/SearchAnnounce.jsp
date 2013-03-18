@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="s" uri="/struts-tags"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<s:set id="searchMessage">
+
+<s:set id="searchMessage" >
 	<s:text name="announce.placeHolder.search" />
 </s:set>
 
@@ -12,7 +13,7 @@
 	</legend>
 	<table id="SearchAnnounce"
 		class="inLineTable tableStyle">
-		<s:form action="/Announces" method="GET">
+		<s:form action="Announces" method="GET">
 			<tr>
 				<td><s:textfield property="textSearchAnnounce"
 						styleId="textSearchAnnounce" styleClass="search-query"/> <ili:placeHolder
