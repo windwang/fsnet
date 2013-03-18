@@ -92,10 +92,8 @@
 										<ili:noxml>${event.content}</ili:noxml>
 									</ili:substring>
 							</span></td>
-							<td class="left"><s:property name="event"
-									property="startDate" format="dd/MM/yyyy HH:mm" /></td>
-							<td class="left"><s:property name="event" property="endDate"
-									format="dd/MM/yyyy HH:mm" /></td>
+							<td class="left"><s:text name="startDate" /></td>
+							<td class="left"><s:text name="endDate" /></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${event.creator}" /></td>

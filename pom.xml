@@ -362,6 +362,7 @@
 				<artifactId>struts2-tiles-plugin</artifactId>
 				<version>${struts.version}</version>
 			</dependency>
+			
 			<dependency>
 				<groupId>org.apache.struts</groupId>
 				<artifactId>struts-core</artifactId>

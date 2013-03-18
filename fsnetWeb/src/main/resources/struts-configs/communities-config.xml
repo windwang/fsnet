@@ -14,7 +14,7 @@
     </result-types>
 		<action name="Communities" class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="search">
 			<result name="input">/Communities.do</result>
-			<result name="success" type="tiles">/YourCommunities.do</result>
+			<result name="success" type="tiles">Communities</result>
 		</action>
 
 		<action name="CreateCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"

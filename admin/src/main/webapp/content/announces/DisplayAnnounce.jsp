@@ -14,11 +14,11 @@
 
 	<table class="inLineTable fieldsetTableAdmin">
 		<tr class="authorDate">
-			<td><bean:message key="announce.createdBy" /> <s:a
+			<td><bean:message key="announce.createdBy" /> <html:link
 					action="/DisplayMember">
 					<html:param name="idMember" value="${announce.creator.id}" />
 	                    	${announce.creator.firstName} ${announce.creator.name}
-	              </s:a>, <bean:message key="announce.expiryDate" /> <bean:write
+	              </html:link>, <bean:message key="announce.expiryDate" /> <bean:write
 					name="announce" property="endDate" format="dd/MM/yyyy" /></td>
 		</tr>
 
@@ -34,10 +34,10 @@
 		<tr>
 			<td class="tableButton"><logic:present name="owner">
 					<bean:define id="idAnnounce" name="announce" property="id" />
-					<s:a action="/DeleteAnnounce" paramId="idAnnounce"
+					<html:link action="/DeleteAnnounce" paramId="idAnnounce"
 						paramName="idAnnounce" styleClass="button">
 						<bean:message key="announce.button.delete" />
-					</s:a>
+					</html:link>
 				</logic:present></td>
 		</tr>
 	</table>

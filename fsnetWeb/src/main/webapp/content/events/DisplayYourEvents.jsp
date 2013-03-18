@@ -72,8 +72,8 @@
 					<tbody>
 						<c:forEach var="event" items="${requestScope.myEventsList}">
 							<tr>
-								<s:set name="idEvent" name="event" property="id" />
-								<td><html:multibox property="selectedEvents"
+								
+								<td><input type="checkbox" name="selectedEvents"
 										value="${event.id}" /></td>
 								<td><s:a href="/DisplayEvent">
 		                    ${event.title}
@@ -83,10 +83,8 @@
 											<ili:noxml>${event.content}</ili:noxml>
 										</ili:substring>
 								</span></td>
-								<td class="left"><s:property name="event"
-										property="startDate" format="dd/MM/yyyy HH:mm" /></td>
-								<td class="left"><s:property name="event"
-										property="endDate" format="dd/MM/yyyy HH:mm" /></td>
+								<td class="left"><s:text name="startDate"/></td>
+								<td class="left"><s:text name="endDate"/></td>
 							</tr>
 						</c:forEach>
 

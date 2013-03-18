@@ -13,18 +13,18 @@
 			${requestScope.interest.name}
 			<!--<c:choose>
 				<c:when test="${requestScope.own}">
-					<s:a action="/DeleteInterestFromInterestInformations">
+					<html:link action="/DeleteInterestFromInterestInformations">
 						<html:param name="removedInterestId"
 							value="${requestScope.interest.id}" />
 						<img src="images/mini-delete.png" alt="delete" />
-					</s:a>
+					</html:link>
 				</c:when>
 				<c:otherwise>
-					<s:a action="/AddInterestFromInterestInformations">
+					<html:link action="/AddInterestFromInterestInformations">
 						<img src="images/add.png" alt="add" />
 						<html:param name="addedInterestId"
 							value="${requestScope.interest.id}" />
-					</s:a>
+					</html:link>
 				</c:otherwise>
 			</c:choose>-->
 		</h2>
@@ -39,11 +39,11 @@
 					<td><c:choose>
 							<c:when test="${not empty requestScope.interest.parentInterest}">
 								<div class="cloud">
-									<span class="tag"><s:a
+									<span class="tag"><html:link
 											action="/InterestInformations">
 											<html:param name="infoInterestId"
 												value="${interest.parentInterest.id}" />
-											${interest.parentInterest.name}</s:a> </span>
+											${interest.parentInterest.name}</html:link> </span>
 								</div>
 								<div class="clear"></div>
 							</c:when>
@@ -70,12 +70,12 @@
 									<c:forEach var="interestChild"
 										items="${requestScope.interest.childrenInterests}">
 										<div>
-											<span class="tag"><s:a
+											<span class="tag"><html:link
 													action="/InterestInformations">
 													<html:param name="infoInterestId"
 														value="${interestChild.id}" />
 								${interestChild.name}								
-							</s:a></span>
+							</html:link></span>
 										</div>
 									</c:forEach>
 								</div>
@@ -129,9 +129,9 @@
 								<div class="cloud">
 									<c:forEach var="community" items="${requestScope.Community}">
 										<div>
-											<span class="tagInteraction"> <!--<s:a
+											<span class="tagInteraction"> <!--<html:link
 													action="/DisplayCommunity">
-													<html:param name="communityId" value="${community.id}" />${community.title}</s:a>-->
+													<html:param name="communityId" value="${community.id}" />${community.title}</html:link>-->
 												${community.title}
 											</span>
 										</div>
@@ -158,9 +158,9 @@
 								<div class="cloud">
 									<c:forEach var="hub" items="${requestScope.Hub}">
 										<div>
-											<span class="tagInteraction"> <!--<s:a
+											<span class="tagInteraction"> <!--<html:link
 													action="/DisplayHub">
-													<html:param name="hubId" value="${hub.id}" /></s:a>-->
+													<html:param name="hubId" value="${hub.id}" /></html:link>-->
 												${hub.title}
 											</span>
 										</div>
@@ -187,9 +187,9 @@
 								<div class="cloud">
 									<c:forEach var="topic" items="${requestScope.Topic}">
 										<div>
-											<span class="tagInteraction"> <!--<s:a
+											<span class="tagInteraction"> <!--<html:link
 													action="/Topic">
-													<html:param name="topicId" value="${topic.id}" />${topic.title}</s:a>-->
+													<html:param name="topicId" value="${topic.id}" />${topic.title}</html:link>-->
 												${topic.title}
 											</span>
 										</div>
@@ -216,9 +216,9 @@
 								<div class="cloud">
 									<c:forEach var="meeting" items="${requestScope.Meeting}">
 										<div>
-											<span class="tagInteraction"><s:a
+											<span class="tagInteraction"><html:link
 													action="/DisplayEvent">
-													<html:param name="eventId" value="${meeting.id}" />${meeting.title}</s:a>
+													<html:param name="eventId" value="${meeting.id}" />${meeting.title}</html:link>
 											</span>
 										</div>
 									</c:forEach>
@@ -244,9 +244,9 @@
 								<div class="cloud">
 									<c:forEach var="announce" items="${requestScope.Announcement}">
 										<div>
-											<span class="tagInteraction"><s:a
+											<span class="tagInteraction"><html:link
 													action="/DisplayAnnounce">
-													<html:param name="idAnnounce" value="${announce.id}" />${announce.title}</s:a>
+													<html:param name="idAnnounce" value="${announce.id}" />${announce.title}</html:link>
 											</span>
 										</div>
 									</c:forEach>

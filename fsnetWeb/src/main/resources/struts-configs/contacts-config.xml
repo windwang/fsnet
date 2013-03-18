@@ -7,9 +7,13 @@
 	<include file="struts-default.xml" />
 
 	<package name="contacts-default" extends="struts-default">
-		<action name="Contacts" class="fr.univartois.ili.fsnet.actions.ManageContacts"
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<action name="Contact" class="fr.univartois.ili.fsnet.actions.ManageContacts"
 			method="display">
-			<result>Contacts</result>
+			<result name="success" type="tiles">Contacts</result>
 		</action>
 		<action name="AskContact" class="fr.univartois.ili.fsnet.actions.ManageContacts"
 			method="ask">

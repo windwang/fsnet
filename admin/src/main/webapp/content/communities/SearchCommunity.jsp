@@ -50,14 +50,14 @@
 						<tr class="content">
 							<td>${community.title}</td>
 							<td></td>
-							<td><s:a action="/DisplayMember">
+							<td><html:link action="/DisplayMember">
 									<html:param name="idMember" value="${community.creator.id}" />
 	                    ${community.creator.firstName}
-	                </s:a></td>
-							<td><s:a action="/DisplayMember">
+	                </html:link></td>
+							<td><html:link action="/DisplayMember">
 									<html:param name="idMember" value="${community.creator.id}" />
 	                    ${community.creator.name}
-	                </s:a></td>
+	                </html:link></td>
 							<td class="tableButton"><a class="button"
 								onclick="confirmDelete('DeleteCommunity.do?communityId='+${community.id})">
 									<bean:message key="communities.button.delete" />
