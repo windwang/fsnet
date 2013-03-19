@@ -36,9 +36,9 @@
 	</div>
 </c:if>
 
-
-<ili:interactionFilter user="${ socialEntity }"
-	right="${ rightModifyProfil }">
+${rightModifyProfil}
+<ili:interactionFilter user="${socialEntity}"
+	right="${rightModifyProfil}">
 	<fieldset class="fieldsetCadre">
 		<legend>
 			<s:text name="updateProfile.title" />
@@ -46,7 +46,6 @@
 		<table id="ModifyProfile" class="inLineTable tableStyle">
 			<s:form action="/ModifyProfile">
 				<tr>
-<<<<<<< HEAD
 					<td><label for="name">
 					<s:text name="updateProfile.name" />
 					</label></td>
@@ -127,62 +126,6 @@
 					<td><s:textfield errorStyleClass="error" property="phone"
 							styleId="phone" /></td>
 				</tr>
-=======
-					<td><label for="name"> <s:text name="updateProfile.name" />
-					</label></td>
-				</tr>
-				
-
-				<tr>
-					<td><label for="firstName"> <s:text name="updateProfile.firstname" />
-					</label></td>
-				</tr>
-				
-
-				<tr>
-					<td><label for="adress"> <s:text name="updateProfile.adress" />
-					</label></td>
-				</tr>
-			
-
-				<tr>
-					<td><label for="city"> <s:text name="updateProfile.city" />
-					</label></td>
-				</tr>
-				
-
-				<tr>
-					<td><label for="dateOfBirth"> <s:text name="updateProfile.dateOfBirth" />
-					</label></td>
-				</tr>
-			
-
-				<tr>
-					<td><label for="sexe"> <s:text name="updateProfile.sexe" />
-					</label></td>
-					<td><s:select name="sexe" id="sexe" list="sexes"/></td>
-				</tr>
-				
-
-				<tr>
-					<td><label for="job"> <s:text name="updateProfile.job" />
-					</label></td>
-				</tr>
-				
-
-				<tr>
-					<td><label for="mail"> <s:text name="updateProfile.email" />
-					</label></td>
-				</tr>
-				
-
-				<tr>
-					<td><label for="phone"> <s:text name="updateProfile.phone" />
-					</label></td>
-				</tr>
-				
->>>>>>> Migrate privatemessages jsp folder and restore profile jsp folder
-
 				<tr>
 					<td colspan="2" class="tableButton"><s:submit
 							styleClass="btn btn-inverse">
@@ -219,29 +162,29 @@
 		<s:text name="updateProfile.changePassword.title" />
 	</legend>
 
-	<s:form action="/ChangePassword">
+	<s:form action="ChangePassword" theme="simple" >
 		<table class="inLineTable tableStyle">
 			<c:forTokens var="typePwd"
 				items="oldPassword:newPassword:confirmNewPassword" delims=":">
 				<tr>
-					<td><label for="${typePwd}"> <s:text name="updateProfile.changePassword.%{typePwd}" />
+					<td><label for="${typePwd}"> ${typePwd}
 					</label></td>
-					<td><s:password property="${typePwd}" styleId="${typePwd}" />
+					<s:set var="nameTextfield">updateProfile.changePassword.${typePwd}</s:set>
+					<td><s:password name="%{nameTextfield}" property="${typePwd}" styleId="${typePwd}" />
 					</td>
 				</tr>
 			</c:forTokens>
 			<tr>
-				<td colspan="2" class="tableButton"><s:submit
-						styleClass="btn btn-inverse">
-						<s:text name="updateProfile.validate" />
-					</s:submit></td>
+				<td colspan="2" class="tableButton"><s:submit  key="updateProfile.validate"
+						cssClass="btn btn-inverse" />
+		</td>
 			</tr>
 		</table>
 	</s:form>
 </fieldset>
 
-<ili:interactionFilter user="${ socialEntity }"
-	right="${ rightModifyPicture }">
+<ili:interactionFilter user="${socialEntity}"
+	right="${rightModifyPicture}">
 	<fieldset class="fieldsetCadre">
 		<legend>
 			<s:text name="updateProfile.changePhoto.title" />

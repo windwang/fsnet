@@ -23,12 +23,12 @@
 		</action>
 
 		<action name="Profile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="displayToModify">
-			<result name="success">Profile</result>
+			<result name="success" type="tiles">Profile</result>
 		</action>
 
 		<action name="ChangePassword" class="fr.univartois.ili.fsnet.actions.ChangePassword">
 			<result name="input">/Profile.do</result>
-			<result name="success">/Profile.do</result>
+			<result name="success" type="tiles">/Profile.do</result>
 		</action>
 
 		<action name="ChangePhoto" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="changePhoto">
