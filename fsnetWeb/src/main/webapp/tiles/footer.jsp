@@ -4,7 +4,7 @@
 <script type="text/javascript" src="js/support.js"></script>
 
 <div class="container navbar-fixed-bottom footer">
-            <p>fsnet-<bean:message key="version" bundle="application"/>  -  Copyright &copy; 2008 &minus; FSNet 
+            <p>fsnet-<bean:message key="version" bundle="application"/>  -  Copyright &copy; 2008&minus;2013 &minus; FSNet 
             <span class="support">
             <a id="support" title="Contact Support" href="/Home.do" >Support</a></span></p>
 </div>

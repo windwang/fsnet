@@ -400,10 +400,8 @@ input[type=text],input[type=email],input[type=password],textarea {
 	width: 200px;
 }
 */
-.label {
-	float: right;
-}
 
+.label a:
 input[type="text"][class="error"],input[type="email"][class="error"],textarea[class="error"]
 	{
 	border: 1px solid #AF1515;
