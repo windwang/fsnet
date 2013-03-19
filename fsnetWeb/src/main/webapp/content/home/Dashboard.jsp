@@ -15,7 +15,7 @@
 						<bean:message key="dashBoard.messages.last" />
 					</html:link>
 				</legend>
-				<table id="dashboardMessages" class="inLineTable tableStyle">
+				<table id="dashboardMessages" class="inLineTable tableStyle cutMessage">
 					<logic:empty name="messages">
 						<tr>
 							<td><bean:message key="dashBoard.messages.empty" />.</td>
@@ -24,42 +24,18 @@
 					<logic:notEmpty name="messages">
 						<c:forEach items="${requestScope.messages}" var="message"
 							begin="0" end="2">
-							<c:if test="${not message.reed}">
-								<tr class="notReed">
+								<tr class="${message.reed ? '' : 'notReed'}">
 									<td class="messagePhoto"><ili:getMiniature
 											socialEntity="${message.from}" /></td>
-									<td style="width: 0%"><html:link action="/DisplayMessage">
+									<td class="cutMessage"><html:link action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
-											<span> <ili:substring beginIndex="0" endIndex="20">
-													<ili:noxml>${message.subject}</ili:noxml>
-												</ili:substring> :
+											<span><ili:noxml>${message.subject}</ili:noxml> :
 											</span>
-											<span style="color: gray"> <ili:substring
-													beginIndex="0" endIndex="20">
-													<ili:noxml>${message.body}</ili:noxml>
-												</ili:substring>
+											<span style="color: gray"> 
+											<ili:noxml>${message.body}</ili:noxml>
 											</span>
 										</html:link></td>
 								</tr>
-							</c:if>
-							<c:if test="${message.reed}">
-								<tr>
-									<td class="messagePhoto"><ili:getMiniature
-											socialEntity="${message.from}" /></td>
-									<td><html:link action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
-											<span> <ili:substring beginIndex="0" endIndex="20">
-													<ili:noxml>${message.subject}</ili:noxml>
-												</ili:substring> :
-											</span>
-											<span style="color: gray"> <ili:substring
-													beginIndex="0" endIndex="20">
-													<ili:noxml>${message.body}</ili:noxml>
-												</ili:substring>
-											</span>
-										</html:link></td>
-								</tr>
-							</c:if>
 						</c:forEach>
 					</logic:notEmpty>
 				</table>
