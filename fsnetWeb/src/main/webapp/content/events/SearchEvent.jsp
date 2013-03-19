@@ -12,16 +12,14 @@
 		<s:text name="events.title.search" />
 	</legend>
 
-	<table id="SearchEvent"
-		class="inLineTable  tableStyle">
+	<table id="SearchEvent" class="inLineTable  tableStyle">
 		<s:form action="Events" method="get">
 			<tr>
-				<td>
-				<s:textfield property="searchString" var="searchTexte" cssClass="search-query"/>
-					<ili:placeHolder id="searchTexte" value="%{searchMessage}" /> <s:submit
-						styleClass="button btn btn-inverse">
-						<s:text name="events.button.search" />
-					</s:submit></td>
+				<td><s:textfield property="searchString" var="searchTexte"
+						cssClass="search-query" /> <ili:placeHolder id="searchTexte"
+						value="%{searchMessage}" /> <s:submit
+						value="%{getText('events.button.search')}"
+						styleClass="button btn btn-inverse" /></td>
 			</tr>
 		</s:form>
 	</table>

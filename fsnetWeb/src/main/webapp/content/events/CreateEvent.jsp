@@ -10,57 +10,49 @@
 	<legend>
 		<s:text name="events.title.create" />
 	</legend>
-	<table id="CreateEvent" class="inLineTable tableStyle">
-		<s:form action="CreateEvent">
+	<s:form action="CreateEvent" theme="css_xhtml">
+		<table id="CreateEvent" class="inLineTable tableStyle">
+
+
+			<tr>
+				<td><label for="eventDescription"> <s:text
+							name="events.form.description" />
+				</label></td>
+				<td><s:textarea property="eventDescription"  name="eventDescription" id="eventDescription"
+						styleId="eventDescription" errorStyleClass="error"
+						styleClass="mceTextArea" style="width: 100%;" /></td>
+			</tr>
+
 			<tr>
 				<td><label for="eventName"> <s:text
 							name="events.form.title" />
 				</label></td>
-				<td><s:textfield property="eventName" styleId="eventName"
-						errorStyleClass="error" /> <!-- 						 <logic:messagesPresent	property="eventName"> 
-					<div class="errorMessage">
-						<html:errors property="eventName" />
-					</div>
- 					 </logic:messagesPresent> --></td>
+				<td><s:textfield property="eventName" styleId="eventName" name="eventName" id="eventName"
+						errorStyleClass="error" /></td>
+
 			</tr>
+
 			<tr>
 				<td></td>
 				<td><s:include value="<s:url action='InterestCheckBoxes'/>" />
 				</td>
 			</tr>
 
-			<tr>
-				<td><label for="eventDescription"> <s:text
-							name="events.form.description" />
-				</label></td>
-				<td><s:textarea property="eventDescription"
-						styleId="eventDescription" errorStyleClass="error"
-						styleClass="mceTextArea" style="width: 100%;" /> <!-- 						<logic:messagesPresent -->
-					<!-- 						property="eventDescription"> --> <!--<div class="errorMessage">
-						<html:errors property="eventDescription" />
-					</div>  					</logic:messagesPresent> --></td>
-			</tr>
 
 			<tr>
 				<td><label for="eventAddress"> <s:text
 							name="events.form.address" />
 				</label></td>
-				<td><s:textfield property="eventAddress" styleId="eventAddress"
-						errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
-					<!-- 						property="eventAddress"> --> <!-- 					<div class="errorMessage"> -->
-					<!-- 						<html:errors property="evCreateEvent.doentAddress" /> -->
-					<!-- 					</div>  --> <!-- 										</logic:messagesPresent> --></td>
+				<td><s:textfield name="eventAddress" id="eventAddress" property="eventAddress" styleId="eventAddress"
+						errorStyleClass="error" /></td>
 			</tr>
 
 			<tr>
 				<td><label for="eventCity"> <s:text
 							name="events.form.city" />
 				</label></td>
-				<td><s:textfield property="eventCity" styleId="eventCity"
-						errorStyleClass="error" /> <!-- 						<logic:messagesPresent -->
-					<!-- 						property="eventCity"> --> <!-- 					<div class="errorMessage"> -->
-					<!-- 						<html:errors property="eventCity" /> --> <!-- 					</div>  -->
-					<!-- 										</logic:messagesPresent> --></td>
+				<td><s:textfield name="eventCity" id="eventCity" property="eventCity" styleId="eventCity"
+						errorStyleClass="error" /></td>
 			</tr>
 
 			<tr>
@@ -68,10 +60,7 @@
 							name="events.form.beginDate" />
 				</label></td>
 				<td><s:textfield name="eventBeginDate" id="eventBeginDate" />
-					<!-- 						<logic:messagesPresent --> <!-- 						property="eventBeginDate"> -->
-					<!-- <div class="errorMessage">
-						<html:errors property="eventBeginDate" />
-					</div>  					</logic:messagesPresent> --></td>
+				</td>
 			</tr>
 
 			<tr>
@@ -89,7 +78,6 @@
 						value="%{recallDefaultValue}" /> <s:select
 						name="eventRecallTypeTime"
 						list="#{'minute':getText('events.form.recall.minute'),'hour':getText('events.form.recall.hour'),'day':getText('events.form.recall.day')}" /></td>
-
 			</tr>
 
 			<tr>
@@ -98,8 +86,9 @@
 						styleClass="button btn btn-inverse">
 					</s:submit></td>
 			</tr>
-		</s:form>
-	</table>
+		</table>
+
+	</s:form>
 </fieldset>
 
 <script type="text/javascript" src="js/jquery-ui-timepicker-addon.js"></script>

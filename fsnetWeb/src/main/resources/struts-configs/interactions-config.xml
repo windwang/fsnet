@@ -24,7 +24,7 @@
 
 		<action name="FavoriteFragment" class="fr.univartois.ili.fsnet.actions.ManageFavorites"
 			method="display">
-			<result name="success" type="tiles">/content/interactions/FavoriteFragment.jsp
+			<result name="success" >/content/interactions/FavoriteFragment.jsp
 			</result>
 		</action>
 

@@ -51,7 +51,7 @@
 						});
 			</script>
 
-			<s:form action="/DeleteMultiEvents">
+			<s:form action="DeleteMultiEvents">
 				<table id="yourEvents" class="tablesorter inLineTable  tableStyle">
 					<thead>
 						<tr>
@@ -64,9 +64,9 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="4"><s:submit styleClass="btn btn-inverse">
-									<s:text name="privatemessages.delete" />
-								</s:submit></td>
+							<td colspan="4"><s:submit
+									value="%{getText('privatemessages.delete')}"
+									styleClass="btn btn-inverse" /></td>
 						</tr>
 					</tfoot>
 					<tbody>
@@ -83,8 +83,10 @@
 											<ili:noxml>${event.content}</ili:noxml>
 										</ili:substring>
 								</span></td>
-								<td class="left"><s:text name="startDate"/></td>
-								<td class="left"><s:text name="endDate"/></td>
+								<td class="left"><s:date name="%{#attr.event.startDate}"
+									format="dd/MM/yyyy" /></td>
+								<td class="left"><s:date name="%{#attr.event.endDate}"
+									format="dd/MM/yyyy" /></td>
 							</tr>
 						</c:forEach>
 
