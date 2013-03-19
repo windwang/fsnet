@@ -540,7 +540,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 
 		if (!fascade.isAuthorized(user, Right.ADD_EVENT)) {
 			em.close();
-			return UNAUTHORIZED_ACTION_NAME;
+			return SUCCESS;
 		}
 
 		em.close();
