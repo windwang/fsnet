@@ -538,7 +538,7 @@ input[type="text"][class="error"],input[type="email"][class="error"],textarea[cl
 }
 
 .inLineTable .messagePhoto {
-	width: 30px;
+	width: 45px;
 	padding: 2px 5px 0 5px;
 }
 
