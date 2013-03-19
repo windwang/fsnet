@@ -13,8 +13,8 @@
 		<action name="CreateGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			method="create">
 			<result name="input">/ErrorGroups.do</result>
-			<result name="success" >/SearchGroup.do" </result>
-			<result name="failed">CreateGroup</result>
+			<result name="success" type="redirectAction">SearchGroup</result>
+			<result name="failed" >/CreateGroup.do</result>
 		</action>
 
 		<action name="Groups" class="fr.univartois.ili.fsnet.actions.ManageGroups"

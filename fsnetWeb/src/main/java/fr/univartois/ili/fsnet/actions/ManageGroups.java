@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -62,7 +63,9 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	private File Logo;//The actual file
 	private String LogoContentType; //The content type of the file
 	private String LogoFileName; //The uploaded file name
-	
+	private SocialEntity masterGroup;
+
+
 	private HttpServletRequest request;
 	private List<SocialGroup> allGroups;
 	private List<SocialEntity> allMembers;
@@ -83,6 +86,9 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	}
 	public Set<Right> getAcceptedRigths() {
 		return acceptedRigths;
+	}
+	public SocialEntity getMasterGroup() {
+		return masterGroup;
 	}
 	public Set<Right> getRefusedRigths() {
 		return refusedRigths;
@@ -115,16 +121,13 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 
 		HttpSession session = request.getSession(true);
 		session.removeAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
-		
-		
 		SocialGroup parentGroup = null;
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
-
 		if (socialEntityId >=0 && parentId >=0 && memberListRight != null && rigthListRight != null) {
 			try {
-				SocialEntity masterGroup = socialEntityFacade
+				masterGroup = socialEntityFacade
 						.getSocialEntity(socialEntityId);
 				if (parentId >= 0) {
 					parentGroup = socialGroupFacade.getSocialGroup(parentId);
@@ -157,14 +160,16 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 				em.close();
 			}
 		} else {
-			allMembers = getRefusedSocialMember(socialGroupFacade,
-					socialEntityFacade.getAllSocialEntity(), null);
-			request.setAttribute("allMembers", allMembers);
-			request.setAttribute("refusedMembers", allMembers);
-			request.setAttribute("refusedRigths", Right.values());
+//			allMembers = getRefusedSocialMember(socialGroupFacade,socialEntityFacade.getAllSocialEntity(),
+//					null);
+			allMembers = socialEntityFacade.getAllSocialEntity();
+			//request.setAttribute("allMembers", allMembers);
+			refusedMembers=allMembers;
+			//request.setAttribute("refusedRigths", Right.values());
+			refusedRigths = new HashSet<Right>(Arrays.asList(Right.values()));
 			allGroups = socialGroupFacade.getAllChildGroups(UserUtils
 					.getHisGroup(request));
-			request.setAttribute("allGroups", allGroups);
+			//request.setAttribute("allGroups", allGroups);
 		}
 
 		request.setAttribute(SUCCES_ACTION_NAME, getText("groups.success.on.create"));
@@ -311,7 +316,6 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 		try {
 			HttpSession session = request.getSession(true);
 
-			List<SocialEntity> allMembers = null;
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 
@@ -325,7 +329,7 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 
 			id=Integer.valueOf(idG);
 			SocialGroup group = socialGroupFacade.getSocialGroup(id);
-			SocialEntity masterGroup = group.getMasterGroup();
+			masterGroup = group.getMasterGroup();
 			SocialGroup parentGroup = group.getGroup();
 
 			allMembers = socialEntityFacade.getAllSocialEntity();
@@ -333,8 +337,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 			acceptedMembers = socialGroupFacade
 					.getAcceptedSocialElementsByFilter(group,
 							SocialEntity.class);
-			refusedMembers = getRefusedSocialMember(socialGroupFacade,
-					allMembers, group);
+			refusedMembers = getRefusedSocialMember(socialGroupFacade,allMembers,
+					group);
 			acceptedRigths = group.getRights();
 			for (Right right : Right.values()) {
 				refusedRigths.add(right);
@@ -347,15 +351,16 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 			if (parentGroup != null) {
 				request.setAttribute("nameParent", parentGroup.getName());
 			}
-			request.setAttribute("masterGroup", masterGroup);
+			// request.setAttribute("masterGroup", masterGroup);
 
-			request.setAttribute("acceptedMembers", acceptedMembers);
-			request.setAttribute("allMembers", getSimpleMember(em, group));
+			// request.setAttribute("acceptedMembers", acceptedMembers);
+			allMembers = getSimpleMember(em, group);
 
-			request.setAttribute("refusedMembers", refusedMembers);
+			
+			// request.setAttribute("refusedMembers", refusedMembers);
 
-			request.setAttribute("refusedRigths", refusedRigths);
-			request.setAttribute("acceptedRigths", acceptedRigths);
+			// request.setAttribute("refusedRigths", refusedRigths);
+			// request.setAttribute("acceptedRigths", acceptedRigths);
 
 			return SUCCESS;
 		} catch (NumberFormatException e) {
@@ -429,22 +434,22 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 
 	/**
 	 * @param sgf
+	 * @param entities 
 	 * @param allMembers
 	 * @param socialGroup
 	 * @return
 	 */
-	private List<SocialEntity> getRefusedSocialMember(SocialGroupFacade sgf,
-			List<SocialEntity> allMembers, SocialGroup socialGroup) {
+	private List<SocialEntity> getRefusedSocialMember(SocialGroupFacade sgf, List<SocialEntity> entities, SocialGroup socialGroup) {
 		if (sgf == null) {
 			throw new IllegalArgumentException();
 		}
 		List<SocialEntity> resulEntities = new ArrayList<SocialEntity>();
-		List<SocialEntity> members = allMembers;
+		List<SocialEntity> members = entities;
 		if (socialGroup != null) {
 			members.removeAll(sgf.getAcceptedSocialElementsByFilter(
 					socialGroup, SocialEntity.class));
 		}
-		for (SocialEntity se : allMembers) {
+		for (SocialEntity se : entities) {
 			if (se.getGroup() == null) {
 				resulEntities.add(se);
 			}
