@@ -46,7 +46,7 @@
 }
 
 #loggedUsers {
-	
+	min-height: 40px;
 }
 
 #contactsAsked {
