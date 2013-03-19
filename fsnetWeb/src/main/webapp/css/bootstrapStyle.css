@@ -186,3 +186,6 @@ td.cutMessage, .inLineTable td.cutMessage {
 .label a:hover {
 	color: white;
 }
+.label a {
+	color: white;
+}
