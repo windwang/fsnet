@@ -35,9 +35,9 @@
 	</div>
 </c:if>
 
-
-<ili:interactionFilter user="${ socialEntity }"
-	right="${ rightModifyProfil }">
+${rightModifyProfil}
+<ili:interactionFilter user="${socialEntity}"
+	right="${rightModifyProfil}">
 	<fieldset class="fieldsetCadre">
 		<legend>
 			<s:text name="updateProfile.title" />
@@ -135,7 +135,7 @@
 		<s:text name="updateProfile.changePassword.title" />
 	</legend>
 
-	<s:form action="/ChangePassword">
+	<s:form action="ChangePassword" theme="simple" >
 
 		
 
@@ -143,25 +143,25 @@
 			<c:forTokens var="typePwd"
 				items="oldPassword:newPassword:confirmNewPassword" delims=":">
 				<tr>
-					<td><label for="${typePwd}"> <s:text name="updateProfile.changePassword.%{typePwd}" />
+					<td><label for="${typePwd}"> ${typePwd}
 					</label></td>
-					<td><s:password property="${typePwd}" styleId="${typePwd}" />
+					<s:set var="nameTextfield">updateProfile.changePassword.${typePwd}</s:set>
+					<td><s:password name="%{nameTextfield}" property="${typePwd}" styleId="${typePwd}" />
 					</td>
 				</tr>
 			
 			</c:forTokens>
 			<tr>
-				<td colspan="2" class="tableButton"><s:submit
-						styleClass="btn btn-inverse">
-						<s:text name="updateProfile.validate" />
-					</s:submit></td>
+				<td colspan="2" class="tableButton"><s:submit  key="updateProfile.validate"
+						cssClass="btn btn-inverse" />
+		</td>
 			</tr>
 		</table>
 	</s:form>
 </fieldset>
 
-<ili:interactionFilter user="${ socialEntity }"
-	right="${ rightModifyPicture }">
+<ili:interactionFilter user="${socialEntity}"
+	right="${rightModifyPicture}">
 	<fieldset class="fieldsetCadre">
 		<legend>
 			<s:text name="updateProfile.changePhoto.title" />

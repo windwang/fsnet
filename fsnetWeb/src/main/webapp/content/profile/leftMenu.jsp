@@ -6,7 +6,7 @@
 	<s:text name="profile.leftMenu.my" />
 </h2>
 <ul>
-	<li><s:a action="Profile.do">
+	<li><s:a action="Profile">
 			<s:text name="showProfile.edit" />
 		</s:a></li>
 	<li><s:a action="Interests">
