@@ -8,17 +8,14 @@
 	<include file="struts-default.xml" />
 	<package name="consultations-default" extends="struts-default">
 		<result-types>
-			<result-type name="tiles"
-				class="org.apache.struts2.views.tiles.TilesResult" />
+			<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult" />
 		</result-types>
 		<action name="CreateConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="create">
-
 			<result name="success" type="tiles">DisplayAConsultation</result>
-			<result name="failed" type="redirect">CreateConsultation</result>
+			<result name="failed" type="tiles">CreateConsultation</result>
 			<result name="error" type="redirect">SearchConsultation</result>
 		</action>
-
 
 		<action name="DisplayCreateConsultation"
 			class="fr.univartois.ili.fsnet.actions.ManageConsultations" method="displayCreate">

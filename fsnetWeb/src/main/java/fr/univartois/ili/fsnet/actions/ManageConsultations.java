@@ -126,7 +126,13 @@ public class ManageConsultations extends ActionSupport implements
 	 * @throws Exception
 	 */
 	public String create() throws Exception {
-		String[] consultationChoices = consultationChoice.split(REGEX_CONSULTATION_CHOICE);
+		
+		if(consultationChoice == null){
+			return FAILED_ACTION_NAME;
+		}
+		
+		String[] consultationChoices = consultationChoice
+				.split(REGEX_CONSULTATION_CHOICE);
 		String[] maxVoterz = maxVoters.split(REGEX_CONSULTATION_CHOICE);
 
 		addRightToRequest(request);

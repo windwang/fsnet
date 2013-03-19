@@ -35,4 +35,32 @@ public class WebTemplateTests {
 		tester.getTestContext().setLocale(Locale.FRENCH);// Work with french version !
 		tester.setTimeout(TWO_MINUTES_TIMEOUT);
 	}
+	@Test
+	public void testAdminWebappStarted() {
+		// VERY IMPORTANT TO DO !
+		tester.setBaseUrl(ADMIN_CONTEXT);
+		tester.beginAt("/");
+		// Begining of tests
+		tester.assertElementPresentByXPath("//h2[@id='slogan']");
+		tester.assertTextPresent("ADMINISTRATION");
+
+	}
+
+	@Ignore
+	public void testFsnetWebWebappStarted() {
+		// VERY IMPORTANT TO DO !
+		tester.setBaseUrl(WEB_CONTEXT);
+		tester.beginAt("/");
+		// Begining of tests
+		String content = tester.getPageSource();
+		assertNotNull(content);
+		tester.assertElementPresentByXPath("//h2[@id='login-title']");
+		tester.assertElementPresentByXPath("//form[@class='form-signin' and @action='Authenticate' and @method='post']");
+	}
+
+	@Ignore
+	public void testWebserviceWebappStarted() {
+		// WebService isn't in the supported webapp !
+		tester.beginAt(WEBSERVICE_CONTEXT);
+	}
 }
