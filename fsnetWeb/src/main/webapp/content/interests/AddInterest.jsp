@@ -19,9 +19,10 @@
 							<html:javascript formName="/AddInterest" />
 							<c:forEach var="interest"
 								items="${requestScope.addInterestPaginator.resultList}">
-								<div class="otag">
+								<!-- <div class="otag"> !-->
+								<div class="label label-success">
 									<html:link action="/AddInterest">
-										<img src="images/add.png" alt="add" />
+										<i class="icon-plus icon-white"></i>
 										<html:param name="addedInterestId" value="${interest.id}" />
 									</html:link>
 									<html:link action="/InterestInformations">
