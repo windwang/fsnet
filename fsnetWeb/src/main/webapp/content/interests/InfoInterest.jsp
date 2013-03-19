@@ -21,7 +21,7 @@
 				</c:when>
 				<c:otherwise>
 					<html:link action="/AddInterestFromInterestInformations">
-						<img src="images/add.png" alt="add" />
+						<i class="icon-plus icon-white"></i>
 						<html:param name="addedInterestId"
 							value="${requestScope.interest.id}" />
 					</html:link>
