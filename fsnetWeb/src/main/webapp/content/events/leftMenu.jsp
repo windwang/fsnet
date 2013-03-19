@@ -6,17 +6,16 @@
 <ul>
 	<li><ili:interactionFilter user="${ socialEntity }"
 			right="${ rightAddEvent }">
-			<a href="<s:url action='DisplayCreateEvent'/>">
-				<s:text name="events.leftMenu.create" />
-			</a>
-		</ili:interactionFilter></li>
+		</ili:interactionFilter> <a href="<s:url action='DisplayCreateEvent'/>"> <s:text
+				name="events.leftMenu.create" />
+	</a></li>
 
-	<li><a href="<s:url action='Calendar'/> ">
-			<s:text name="events.leftMenu.calendar" />
-		</a></li>
+	<li><a href="<s:url action='Calendar'/> "> <s:text
+				name="events.leftMenu.calendar" />
+	</a></li>
 
-	<li><a href="<s:url action='DisplayImportEvents'/>">
-			<s:text name="events.leftMenu.importEvents" />
-		</a></li>
+	<li><a href="<s:url action='DisplayImportEvents'/>"> <s:text
+				name="events.leftMenu.importEvents" />
+	</a></li>
 
 </ul>

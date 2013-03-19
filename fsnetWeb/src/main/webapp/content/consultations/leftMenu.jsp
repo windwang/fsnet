@@ -5,10 +5,15 @@
 	<s:text name="consultations.leftMenu.my" />
 </h2>
 <ul>
+	<li>
 	<ili:interactionFilter user="${socialEntity}"
 		right="${rightAddConsultation}">
 		<li><a href="<s:url action='CreateConsultation'/>">
 				<s:text name="consultations.leftMenu.create" />
 			</a></li>
+
 	</ili:interactionFilter>
+	<a href="<s:url action='DisplayCreateConsultation'/>"> <s:text
+				name="consultations.leftMenu.create" />
+	</a></li>
 </ul>

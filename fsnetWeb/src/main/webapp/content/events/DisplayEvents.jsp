@@ -81,9 +81,16 @@
 						<ili:interactionRow
 							unreadInteractionsId="${requestScope.unreadInteractionsId}"
 							currentInteractionId="${event.id}">
-							<td><c:import url="/FavoriteFragment.do">
-									<c:param name="interactionId" value="${event.id}" />
-								</c:import></td>
+							<td>
+							
+							<s:url action='FavoriteFragment' var="frag">
+								<s:param name="interactionId" value="%{#attr.event.id}" />
+							</s:url>
+							<s:include value="<s:property value='#frag'/>" />
+									
+																
+								
+							</td>
 							<td><s:a href="/DisplayEvent">
 		                    ${event.title}
 		                    <s:param name="eventId" value="%{event.id}" />
@@ -92,8 +99,10 @@
 										<ili:noxml>${event.content}</ili:noxml>
 									</ili:substring>
 							</span></td>
-							<td class="left"><s:text name="startDate" /></td>
-							<td class="left"><s:text name="endDate" /></td>
+							<td class="left"><s:date name="%{#attr.event.startDate}"
+									format="dd/MM/yyyy" /></td>
+							<td class="left"><s:date name="%{#attr.event.endDate}"
+									format="dd/MM/yyyy" /></td>
 							<td></td>
 							<td><ili:getSocialEntityInfosFirstname
 									socialEntity="${event.creator}" /></td>

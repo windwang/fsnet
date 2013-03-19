@@ -9,8 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.struts2.dispatcher.mapper.ActionMapping;
-
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -24,6 +22,11 @@ import fr.univartois.ili.fsnet.facade.ProfileVisiteFacade;
  * 
  */
 public class ManageVisits extends ActionSupport {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -2048363284550003091L;
 
 	/**
 	 * @param mapping

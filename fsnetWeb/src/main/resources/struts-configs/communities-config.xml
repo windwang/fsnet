@@ -6,74 +6,76 @@
 
 <struts>
 
-<include file="struts-default.xml"/>
+	<include file="struts-default.xml" />
 
 	<package name="communities" extends="struts-default">
-	<result-types>
-    	<result-type name="tiles" class="org.apache.struts2.views.tiles.TilesResult"/>
-    </result-types>
-		<action name="Communities" class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="search">
+		<result-types>
+			<result-type name="tiles"
+				class="org.apache.struts2.views.tiles.TilesResult" />
+		</result-types>
+		<action name="Communities"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="search">
 			<result name="input">/Communities.do</result>
 			<result name="success" type="tiles">Communities</result>
 		</action>
 
-		<action name="CreateCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="create">
+		<action name="CreateCommunity"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="create">
 			<result name="success" type="tiles">/DisplayCommunities.do</result>
 			<result name="unauthorized">/Communities.do</result>
 			<result name="input">/DisplayCommunities.do</result>
 		</action>
-		
-		<action name="ModifyCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="modify">
+
+		<action name="ModifyCommunity"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="modify">
 			<result name="input">/DisplayCommunities.do</result>
 			<result name="failed">/DisplayCommunities.do</result>
 			<result name="success" type="tiles">/Communities.do</result>
 		</action>
 
-		<action name="SearchCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="search">
+		<action name="SearchCommunity"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="search">
 			<result name="input" type="redirect">Communities</result>
 			<result name="success" type="redirect">Communities</result>
 		</action>
 
-		<action name="DeleteCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="delete">
+		<action name="DeleteCommunity"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
 			<result name="failed">/Communities.do</result>
 			<result name="success" type="tiles">/DisplayCommunities.do</result>
 		</action>
 
 		<action name="DisplayCommunity" class="fr.univartois.ili.fsnet.actions.ManageHub"
-		method="search">
+			method="search">
 			<result name="input">UnauthorizedOperationException</result>
 			<result name="success" type="redirect">Hubs</result>
 		</action>
 
-		<action name="DisplayCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="searchYourCommunities">
-			<result name="success" type="redirect">DisplayYourCommunities</result>
+		<action name="DisplayCommunities"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="searchYourCommunities">
+			<result name="success" type="tiles">DisplayYourCommunities</result>
 		</action>
 
-		<action name="SearchYourCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="searchYourCommunities">
+		<action name="SearchYourCommunities"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="searchYourCommunities">
 			<result name="input">UnauthorizedOperationException</result>
 			<result name="success" type="redirect">DisplayYourCommunities</result>
 		</action>
 
-		<action name="DeleteYourCommunity" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="delete">
+		<action name="DeleteYourCommunity"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
 			<result name="success" type="tiles">/SearchYourCommunities.do</result>
 		</action>
 
-		<action name="YourCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="searchYourCommunities">
+		<action name="YourCommunities"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="searchYourCommunities">
 			<result name="success" type="tiles">/SearchYourCommunities.do</result>
 		</action>
 
-		<action name="DeleteMultiCommunities" class="fr.univartois.ili.fsnet.actions.ManageCommunities"
-		method="deleteMulti">
+		<action name="DeleteMultiCommunities"
+			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="deleteMulti">
 			<result name="success" type="tiles">/Communities.do</result>
 		</action>
 	</package>

@@ -93,7 +93,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	private Date eventBeginDate;
 	private Date eventEndDate;
 	private int eventId;
-	private String[] selectedInterests;
+	private List<String> selectedInterests;
 	private String[] selectedEvents;
 	private String searchString;
 	private int eventRecallTime;
@@ -118,6 +118,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 
 	public ManageEvents() {
 		searchString = "";
+		selectedInterests = new ArrayList<>();
 	}
 
 	/**
@@ -171,10 +172,6 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 			return UNAUTHORIZED_ACTION_NAME;
 		}
 
-		System.out.println("on a date : " + eventBeginDate);
-		System.out.println("on a time : " + eventRecallTime);
-		System.out.println("on a type : " + eventRecallTypeTime);
-
 		Date typedEventRecallDate = DateUtils.substractTimeToDate(
 				eventBeginDate, eventRecallTime, eventRecallTypeTime);
 
@@ -200,6 +197,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 		em.getTransaction().begin();
 
 		MeetingFacade meetingFacade = new MeetingFacade(em);
+
 		Meeting event = meetingFacade.createMeeting(member, eventName,
 				eventDescription, eventEndDate, false, eventBeginDate,
 				eventAddress, eventCity, typedEventRecallDate);
@@ -207,9 +205,9 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 		InterestFacade fac = new InterestFacade(em);
 		List<Interest> interests = new ArrayList<Interest>();
 		int currentId;
-		for (currentId = 0; currentId < selectedInterests.length; currentId++) {
-			interests.add(fac.getInterest(Integer
-					.valueOf(selectedInterests[currentId])));
+		for (currentId = 0; currentId < selectedInterests.size(); currentId++) {
+			interests.add(fac.getInterest(Integer.valueOf(selectedInterests
+					.get(currentId))));
 		}
 		InteractionFacade ifacade = new InteractionFacade(em);
 		ifacade.addInterests(event, interests);
@@ -297,7 +295,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String delete() throws IOException, ServletException {
+	public String delete() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
@@ -542,7 +540,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 
 		if (!fascade.isAuthorized(user, Right.ADD_EVENT)) {
 			em.close();
-			return UNAUTHORIZED_ACTION_NAME;
+			return SUCCESS;
 		}
 
 		em.close();
@@ -946,8 +944,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String deleteMulti(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String deleteMulti() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		addRightToRequest(request);
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
@@ -1040,11 +1037,11 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 		this.eventId = eventId;
 	}
 
-	public String[] getSelectedInterests() {
+	public List<String> getSelectedInterests() {
 		return selectedInterests;
 	}
 
-	public void setSelectedInterests(String[] selectedInterests) {
+	public void setSelectedInterests(List<String> selectedInterests) {
 		this.selectedInterests = selectedInterests;
 	}
 
@@ -1067,6 +1064,46 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
+	}
+
+	public int getEventRecallTime() {
+		return eventRecallTime;
+	}
+
+	public void setEventRecallTime(int eventRecallTime) {
+		this.eventRecallTime = eventRecallTime;
+	}
+
+	public String getEventRecallTypeTime() {
+		return eventRecallTypeTime;
+	}
+
+	public void setEventRecallTypeTime(String eventRecallTypeTime) {
+		this.eventRecallTypeTime = eventRecallTypeTime;
+	}
+
+	public String getIcsFileContentType() {
+		return icsFileContentType;
+	}
+
+	public void setIcsFileContentType(String icsFileContentType) {
+		this.icsFileContentType = icsFileContentType;
+	}
+
+	public File getIcsFile() {
+		return icsFile;
+	}
+
+	public void setIcsFile(File icsFile) {
+		this.icsFile = icsFile;
+	}
+
+	public String getIcsFileFileName() {
+		return icsFileFileName;
+	}
+
+	public void setIcsFileFileName(String icsFileFileName) {
+		this.icsFileFileName = icsFileFileName;
 	}
 
 }

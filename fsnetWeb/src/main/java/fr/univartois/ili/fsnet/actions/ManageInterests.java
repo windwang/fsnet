@@ -97,7 +97,7 @@ private String searchInterests;
 	public String create() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		InterestFacade facade = new InterestFacade(em);
-		// String interestName = (String) dynaForm.get("createdInterestName");
+		
 		String interestNameTmp[];
 		List<Interest> mesInterets = new LinkedList<Interest>();
 
@@ -135,11 +135,9 @@ private String searchInterests;
 			em.getTransaction().commit();
 
 		} catch (RollbackException ex) {
-			// ActionErrors actionErrors = new ActionErrors();
-			// ActionMessage msg = new ActionMessage("interests.alreadyExists");
-			//actionErrors.add("createdInterestName", msg);
+			
 			addFieldError(createdInterestName, "interests.alreadyExists");
-			// saveErrors(request, actionErrors);
+			
 		}
 
 		em.close();
@@ -158,18 +156,12 @@ private String searchInterests;
 	 */
 	public String add() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		// int interestId = Integer.valueOf((String) dynaForm
-		// .get("addedInterestId"));
+		
 		em.getTransaction().begin();
 		addInterestToCurrentUser(request, em, addedInterestId);
 		em.getTransaction().commit();
 		em.close();
 
-//		 ActionRedirect redirect = new ActionRedirect(
-//		 mapping.findForward(SUCCES_ATTRIBUTE_NAME));
-//		 redirect.addParameter("infoInterestId", addedInterestId);
-		
-	//	return redirect ;
 		return SUCCESS;
 	}
 
@@ -233,10 +225,7 @@ private String searchInterests;
 			em.close();
 		}
 
-//		 ActionRedirect redirect = new ActionRedirect(
-//		 mapping.findForward(SUCCES_ATTRIBUTE_NAME));
-//		 redirect.addParameter("infoInterestId", removedInterestId);
-		//return redirect;
+		
 		 return SUCCESS;
 	}
 

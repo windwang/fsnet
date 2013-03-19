@@ -13,8 +13,8 @@
 		<action name="CreateGroup" class="fr.univartois.ili.fsnet.actions.ManageGroups"
 			method="create">
 			<result name="input">/ErrorGroups.do</result>
-			<result name="success" >/SearchGroup.do" </result>
-			<result name="failed">CreateGroup</result>
+			<result name="success" type="redirectAction">SearchGroup</result>
+			<result name="failed" >/CreateGroup.do</result>
 		</action>
 
 		<action name="Groups" class="fr.univartois.ili.fsnet.actions.ManageGroups"
@@ -48,14 +48,14 @@
 
 		<action name="SwitchStateGroup" 
 			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="switchState">
-			<result name="success">/SearchGroup.do</result>
-			<result name="failed">/SearchGroup.do</result>
+			<result name="success" type="redirectAction">SearchGroup</result>
+			<result name="failed" type="redirectAction">SearchGroup</result>
 		</action>
 
 		<action name="SearchGroup" 
 			class="fr.univartois.ili.fsnet.actions.ManageGroups" method="search">
 			<result name="success" type="tiles">SearchGroups</result>
-			<result name="toHome">/Home.do</result>
+			<result name="toHome">Home</result>
 		</action>
 
 		<action name="DisplayInformationGroup" 
