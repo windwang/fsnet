@@ -9,7 +9,7 @@
 <logic:present name="addInterestPaginator" scope="request">
 	<fieldset class="fieldsetCadre">
 		<legend>
-			<bean:message key="interests.title.create" />
+			<bean:message key="interests.title.add" />
 		</legend>
 		<table class="inLineTable tableStyle">
 			<tr>
