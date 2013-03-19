@@ -44,8 +44,7 @@
 			<bean:message key="contact.title.received" />
 		</legend>
 
-		<table id="tableAsked"
-			class="tablesorter inLineTable tableStyle">
+		<table id="tableAsked" class="tablesorter inLineTable tableStyle">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.member" /></th>
@@ -63,14 +62,17 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><html:link
-								action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
-								<bean:message key="showProfile.send" />
-								<html:param name="receiver" value="${contact.email}" />
-							</html:link> <html:link action="/AcceptContact" styleClass="btn btn-inverse">
-								<html:param name="entityAccepted" value="${contact.id}" />
-								<bean:message key="contact.button.accept" />
-							</html:link> <html:link action="/RefuseContact" styleClass="btn btn-inverse">
+						<td class="tableButton"><c:if test="${contact.isEnabled}">
+								<html:link action="/DisplayCreatePrivateMessage"
+									styleClass="btn btn-inverse">
+									<bean:message key="showProfile.send" />
+									<html:param name="receiver" value="${contact.email}" />
+								</html:link>
+								<html:link action="/AcceptContact" styleClass="btn btn-inverse">
+									<html:param name="entityAccepted" value="${contact.id}" />
+									<bean:message key="contact.button.accept" />
+								</html:link>
+							</c:if> <html:link action="/RefuseContact" styleClass="btn btn-inverse">
 								<html:param name="entityRefused" value="${contact.id}" />
 								<bean:message key="contact.button.refuse" />
 							</html:link></td>
@@ -104,8 +106,7 @@
 			<bean:message key="contact.nbrContacts" />
 		</legend>
 
-		<table id="tableContacts"
-			class="tablesorter inLineTable tableStyle">
+		<table id="tableContacts" class="tablesorter inLineTable tableStyle">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.member" /></th>
@@ -124,11 +125,13 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><html:link
-								action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
-								<bean:message key="showProfile.send" />
-								<html:param name="receiver" value="${contact.email}" />
-							</html:link> <html:link action="/DeleteContact" styleClass="btn btn-inverse">
+						<td class="tableButton"><c:if test="${contact.isEnabled}">
+								<html:link action="/DisplayCreatePrivateMessage"
+									styleClass="btn btn-inverse">
+									<bean:message key="showProfile.send" />
+									<html:param name="receiver" value="${contact.email}" />
+								</html:link>
+							</c:if> <html:link action="/DeleteContact" styleClass="btn btn-inverse">
 								<bean:message key="contact.button.delete" />
 								<html:param name="entityDeleted" value="${contact.id}" />
 							</html:link></td>
@@ -160,8 +163,7 @@
 			<bean:message key="contact.title.do" />
 		</legend>
 
-		<table id="tableRequested"
-			class="tablesorter inLineTable tableStyle">
+		<table id="tableRequested" class="tablesorter inLineTable tableStyle">
 			<thead>
 				<tr>
 					<th><bean:message key="tableheader.member" /></th>
@@ -170,7 +172,7 @@
 					<th></th>
 				</tr>
 			</thead>
-			
+
 			<tbody>
 				<c:forEach var="contact" items="${requestScope.paginatorRequested}">
 					<tr>
@@ -179,11 +181,14 @@
 						<td><ili:getSocialEntityInfosFirstname
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
-						<td class="tableButton"><html:link
-								action="/DisplayCreatePrivateMessage" styleClass="btn btn-inverse">
-								<bean:message key="showProfile.send" />
-								<html:param name="receiver" value="${contact.email}" />
-							</html:link> <html:link action="/CancelAskContact" styleClass="btn btn-inverse">
+						<td class="tableButton"><c:if test="${contact.isEnabled}">
+								<html:link action="/DisplayCreatePrivateMessage"
+									styleClass="btn btn-inverse">
+									<bean:message key="showProfile.send" />
+									<html:param name="receiver" value="${contact.email}" />
+								</html:link>
+							</c:if> <html:link action="/CancelAskContact"
+								styleClass="btn btn-inverse">
 								<html:param name="id" value="${contact.id}" />
 								<bean:message key="contacts.cancel" />
 							</html:link></td>

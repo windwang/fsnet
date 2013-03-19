@@ -355,7 +355,8 @@ public class SocialGroupFacade {
 			List<SocialElement> socialElements = socialGroup
 					.getSocialElements();
 			for (SocialElement socialElement : socialElements) {
-				if (socialElement instanceof SocialEntity) {
+				if (socialElement instanceof SocialEntity
+						&& socialElement.getIsEnabled()) {
 					members.add((SocialEntity) socialElement);
 				}
 			}
