@@ -51,7 +51,7 @@ public class WebTemplateTests {
 
 	}
 
-	@Test
+	@Ignore
 	public void testFsnetWebWebappStarted() {
 		// VERY IMPORTANT TO DO !
 		tester.setBaseUrl(WEB_CONTEXT);

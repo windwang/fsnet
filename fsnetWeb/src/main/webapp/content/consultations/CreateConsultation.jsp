@@ -23,7 +23,7 @@
 							<tr>
 								<td><label for="consultationTitle"><s:text
 											name="consultations.form.title" /></label></td>
-								<td><s:textfield property="consultationTitle"
+								<td><s:textfield name="consultationTitle"
 										styleId="consultationTitle" /></td>
 							</tr>
 
@@ -85,8 +85,8 @@
 							</div>
 						</c:if>
 
-						<s:hidden name="consultationChoice" styleId="consultationChoice" />
-						<s:hidden property="maxVoters" styleId="maxVoters" />
+						<s:hidden name="consultationChoice"  />
+						<s:hidden property="maxVoters" />
 						<table id="choicesTab" class="tableStyle">
 							<c:forEach begin="1" end="3" var="i">
 								<tr>
@@ -121,7 +121,7 @@
 									<div>
 										<s:text name="consultation.droits.groupsNoRights" />
 									</div> <s:select list="%{#attr.allUnderGroupsNoRights}" listValue="name"
-										name="groupsListLeft" />
+										name="groupsListLeft" multiple="true"/>
 								</td>
 								<td><s:submit type="button"
 										onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)">
@@ -130,13 +130,14 @@
 								<td ROWSPAN="2">
 									<div>
 										<s:text name="consultation.droits.groupsRights" />
-									</div> <s:select list="%{#attr.allUnderGroupsNoRights}" listValue="name"
-										name="groupsListRight" />
+									</div> <s:select list="%{#attr.allUnderGroupsRights}" listValue="name"
+										name="groupsListRight" multiple="true"/>
 								</td>
 							</tr>
 							<tr>
 								<td><s:submit type="button"
-										onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)"></s:submit>
+										onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
+										<s:text name="groups.removeMembers"/></s:submit>
 								</td>
 							</tr>
 						</table>

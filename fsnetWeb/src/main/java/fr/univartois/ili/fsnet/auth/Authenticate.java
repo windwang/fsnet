@@ -191,7 +191,7 @@ public class Authenticate extends HttpServlet {
 				List<SocialGroup> listOfChildGroup = socialGroupFacade.getAllChildGroups(user.getGroup());			
 				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
 			}else{
-				List<SocialGroup> listOfChildGroup = ((List<SocialGroup>) new ArrayList<SocialGroup>());
+				List<SocialGroup> listOfChildGroup = new ArrayList<SocialGroup>();
 				listOfChildGroup.add(user.getGroup());
 				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
 			}
@@ -199,8 +199,7 @@ public class Authenticate extends HttpServlet {
 
 		} else {
 			// the user is not authenticated
-			RequestDispatcher dispatcher = req
-					.getRequestDispatcher(WELCOME_NON_AUTHENTICATED_PAGE);
+			RequestDispatcher dispatcher = req.getRequestDispatcher(WELCOME_NON_AUTHENTICATED_PAGE);
 			dispatcher.forward(req, resp);
 		}
 		em.close();
