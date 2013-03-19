@@ -110,35 +110,38 @@
 			</tr>
 			<tr>
 				<td><html:button property="" styleClass="btn btn-inverse"
-						onclick="DeplacerDroit(this.form.memberListRight,this.form.memberListLeft)">
-						<bean:message key="groups.removeMembers" />
-					</html:button></td>
+ 						onclick="DeplacerDroit(this.form.memberListRight,this.form.memberListLeft)">
+ 						<bean:message key="groups.removeMembers" /> 
+ 					</html:button></td>
 			</tr>
 
 			<tr>
 				<td rowspan="2"><label> <bean:message
 							key="groups.right" />
-				</label></td>
+				</label>
+				</td>
 
 				<td rowspan="2">
 					<div>
-						<bean:message key="groups.right.notGranted" />
+						<bean:message key="groups.right.base" />
 					</div> <html:select property="rigthListLeft" styleClass="select" size="5"
 						multiple="multiple">
-						<c:forEach var="rigth" items="${refusedRigths}">
+						
+						<c:forEach var="rigth" items="${baseRigths}">
 							<html:option value="${rigth}">
 								<bean:message key="groups.rights.${rigth}" />
 							</html:option>
 						</c:forEach>
 					</html:select>
 				</td>
-
-				<td><html:button property="" styleClass="btn btn-inverse"
-						onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight)">
-						<bean:message key="groups.addGroups" />
-					</html:button></td>
-
 				<td rowspan="2">
+					<html:button property="" styleClass="btn btn-inverse"
+							onclick="moveRigths(this.form.rigthListLeft, this.form.rigthListLeftAdvance, this.form.rigthListRight, true)">
+							<bean:message key="groups.addGroups" />
+					</html:button>
+				</td>
+
+				<td rowspan="4">
 					<div>
 						<bean:message key="groups.right.Granted" />
 					</div> <html:select property="rigthListRight" styleClass="select"
@@ -152,13 +155,34 @@
 					</html:select>
 				</td>
 			</tr>
+			<tr/>
 			<tr>
-				<td><html:button property="" styleClass="btn btn-inverse"
-						onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)">
+				<td rowspan="2"><label> <bean:message
+							key="groups.right" />
+				</label>
+				</td>
+
+				<td rowspan="2">
+					<div>
+						<bean:message key="groups.right.advance" />
+					</div> <html:select property="rigthListLeftAdvance" styleClass="select" size="5"
+						multiple="multiple">
+						<c:forEach var="rigth" items="${advanceRigths}">
+							<html:option value="${rigth}">
+								<bean:message key="groups.rights.${rigth}" />
+							</html:option>
+						</c:forEach>
+					</html:select>
+				</td>
+
+				<td rowspan="2">
+					<html:button property="" styleClass="btn btn-inverse"
+						onclick="moveRigths(this.form.rigthListLeft, this.form.rigthListLeftAdvance, this.form.rigthListRight, false)">
 						<bean:message key="groups.removeGroups" />
 					</html:button></td>
+				
 			</tr>
-
+<tr/>
 			<tr>
 				<td colspan="4" class="tableButton"><html:submit
 						styleClass="btn btn-inverse" onclick="CreateGroup();">

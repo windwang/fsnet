@@ -85,6 +85,56 @@ function DeplacerDroit(l1, l2) {
 	}
 }
 
+/*
+ * Move the rights input from base,advance to grated if toAdd is true 
+ * the opposite way if false
+ * */
+function moveRigths(base, advance, granted, toAdd) {
+	if(toAdd){
+		if (base.options.selectedIndex >= 0 || advance.options.selectedIndex >= 0){
+			for ( var i = base.options.length - 1; i >= 0; i--) {
+				if (base.options[i].selected) {
+					var o = new Option(base.options[i].text, base.options[i].value);
+					o.setAttribute("class", "base");
+					
+					granted.options[granted.options.length] = o;
+					base.options[i] = null;
+				}
+			}
+			for ( var i = advance.options.length - 1; i >= 0; i--) {
+				if (advance.options[i].selected) {
+					var o = new Option(advance.options[i].text, advance.options[i].value);					
+					o.className = "advance";
+					
+					granted.options[granted.options.length] = o;
+					advance.options[i] = null;
+				}
+			}
+		}
+		else {
+			alert("Aucun membre sélectionnée");
+		}	
+	}else{
+	
+		if (granted.options.selectedIndex >= 0){
+			for ( var i = granted.options.length - 1; i >= 0; i--) {
+				if (granted.options[i].selected) {
+					var o = new Option(granted.options[i].text, granted.options[i].value);
+					if(granted.options[i].className == 'base'){
+						base.options[base.options.length] = o;
+					}
+					else{
+						advance.options[advance.options.length] = o;
+					}
+					granted.options[i] = null;
+				}
+			}
+		}else{
+			alert("Aucun membre sélectionnée");
+		}
+	}
+}
+
 function ModifyGroup() {
 	var memberListRight= document.getElementsByName('memberListRight')
 			.item(0);

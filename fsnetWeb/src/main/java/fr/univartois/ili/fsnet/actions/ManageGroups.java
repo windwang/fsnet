@@ -139,7 +139,21 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					socialEntityFacade.getAllSocialEntity(), null);
 			request.setAttribute("allMembers", allMembers);
 			request.setAttribute("refusedMembers", allMembers);
-			request.setAttribute("refusedRigths", Right.values());
+
+			Right[] advanceRights = {Right.ADD_CONTACT_GROUP,Right.REM_CONTACT_GROUP,Right.MODIFY_PROFIL};
+			Right[] baseRights = new Right[Right.values().length - advanceRights.length];
+			
+			int cptBase = 0;
+			for (Right right : Right.values()) {
+				if ( right!=Right.ADD_CONTACT_GROUP
+						&& right!=Right.REM_CONTACT_GROUP
+						&& right!=Right.MODIFY_PROFIL) {
+					baseRights[cptBase++] = right;
+				} 
+			}
+
+			request.setAttribute("baseRigths", baseRights);
+			request.setAttribute("advanceRigths", advanceRights);
 			allGroups = socialGroupFacade.getAllChildGroups(UserUtils
 					.getHisGroup(request));
 			request.setAttribute("allGroups", allGroups);
@@ -167,10 +181,8 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		SocialEntity user = UserUtils.getAuthenticatedUser(request,
-				em);
-		
-		
+		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
+
 		try {
 			SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
@@ -179,25 +191,33 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			Integer socialGroupId = Integer.parseInt(dynaForm.getString("id"));
 			String name = (String) dynaForm.get(GROUP_NAME_FORM_FIELD_NAME);
 			dynaForm.set(GROUP_NAME_FORM_FIELD_NAME, "");
-			String description = (String) dynaForm.get(GROUP_DESCRIPTION_FORM_FIELD_NAME);
+			String description = (String) dynaForm
+					.get(GROUP_DESCRIPTION_FORM_FIELD_NAME);
 			dynaForm.set(GROUP_DESCRIPTION_FORM_FIELD_NAME, "");
-			String owner = (String) dynaForm.get(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME);
+			String owner = (String) dynaForm
+					.get(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME);
 			dynaForm.set(GROUP_SOCIAL_ENTITY_ID_FORM_FIELD_NAME, "");
 			String color = (String) dynaForm.get(GROUP_ATTRIBUTE_COLOR);
 			dynaForm.set(GROUP_ATTRIBUTE_COLOR, "");
-			
-			String[] membersAccepted = (String[]) dynaForm.get(GROUP_MEMBER_LIST_FORM_FIELD_NAME);
+
+			String[] membersAccepted = (String[]) dynaForm
+					.get(GROUP_MEMBER_LIST_FORM_FIELD_NAME);
 			String[] membersRefused = (String[]) dynaForm.get("memberListLeft");
-			String[] rigthsAccepted = (String[]) dynaForm.get(GROUP_RIGHT_LIST_FORM_FIELD_NAME);
+			String[] rigthsAccepted = (String[]) dynaForm
+					.get(GROUP_RIGHT_LIST_FORM_FIELD_NAME);
 
-			SocialGroup socialGroup = socialGroupFacade.getSocialGroup(socialGroupId);
+			SocialGroup socialGroup = socialGroupFacade
+					.getSocialGroup(socialGroupId);
 
-			SocialEntity masterGroup = socialEntityFacade.getSocialEntity(Integer.valueOf(owner));
+			SocialEntity masterGroup = socialEntityFacade
+					.getSocialEntity(Integer.valueOf(owner));
 			SocialEntity oldMasterGroup = socialGroup.getMasterGroup();
 
-			List<SocialElement> acceptedSocialEntity = createObjectSocialEntity(em, membersAccepted);
+			List<SocialElement> acceptedSocialEntity = createObjectSocialEntity(
+					em, membersAccepted);
 
-			List<SocialElement> refusedSocialEntity = createObjectSocialEntity(em, membersRefused);
+			List<SocialElement> refusedSocialEntity = createObjectSocialEntity(
+					em, membersRefused);
 
 			SocialGroup oldSocialGroup22 = masterGroup.getGroup();
 
@@ -216,12 +236,13 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			socialGroup.addAllSocialElements(acceptedSocialEntity);
 			socialGroup.addSocialElement(masterGroup);
 			socialGroup.setColor(color);
-			
+
 			em.getTransaction().begin();
 			em.merge(socialGroup);
 			em.getTransaction().commit();
 
-			request.getSession(true).removeAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
+			request.getSession(true).removeAttribute(
+					GROUP_ID_GROUP_ATTRIBUTE_NAME);
 			if (!oldMasterGroup.equals(masterGroup)) {
 				request.getSession().setAttribute("isMasterGroup", false);
 				return mapping.findForward(TO_HOME_ACTION_NAME);
@@ -235,11 +256,11 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					.getMessageResources("FSneti18n");
 			request.setAttribute(SUCCES_ACTION_NAME, bundle.getMessage(
 					request.getLocale(), "groups.success.on.modify"));
-			
-			if(user.getGroup().getId() == socialGroupId){
+
+			if (user.getGroup().getId() == socialGroupId) {
 				request.getSession().setAttribute("color", color);
 			}
-			
+
 			return mapping.findForward(SUCCES_ACTION_NAME);
 		} catch (RollbackException e) {
 			ActionErrors errors = new ActionErrors();
@@ -391,7 +412,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 	private Set<Right> getAcceptedRigth(String[] groupsAccepted) {
 		Set<Right> rights = new HashSet<Right>();
 
-		for (String string : groupsAccepted){
+		for (String string : groupsAccepted) {
 			rights.add(Right.valueOf(string));
 		}
 
@@ -544,14 +565,14 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					.getParameter(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 			SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 			SocialGroup socialGroup;
-			
+
 			if (idGroup == null || idGroup.isEmpty()) {
 				socialGroup = null;
 			} else {
 				int id = Integer.valueOf(idGroup);
 				socialGroup = socialGroupFacade.getSocialGroup(id);
 			}
-			
+
 			request.setAttribute("socialGroup", socialGroup);
 
 			List<SocialEntity> allMembers = socialGroupFacade
@@ -600,7 +621,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 			throws IOException, ServletException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		
+
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
 				Right.MODIFY_PICTURE)) {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -609,7 +630,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 		int groupId = UserUtils.getHisGroup(request).getId();
 		DynaActionForm dynaForm = (DynaActionForm) form; // NOSONAR
 		FormFile file = (FormFile) dynaForm.get("Logo");
-		
+
 		if (file.getFileData().length != 0) {
 			PictureType pictureType = null;
 			for (PictureType pt : PictureType.values()) {
@@ -618,7 +639,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 					break;
 				}
 			}
-			
+
 			if (pictureType != null) {
 
 				if (file.getFileSize() > MAX_PICTURE_SIZE) {
@@ -640,7 +661,7 @@ public class ManageGroups extends MappingDispatchAction implements CrudAction {
 				sendPictureError(request, "groups.logo.type");
 			}
 		}
-		
+
 		return mapping.findForward(SUCCES_ACTION_NAME);
 	}
 }

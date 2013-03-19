@@ -82,7 +82,7 @@ public final class DateUtils {
 	 * 
 	 */
 	public static String renderDateWithHours(Date date) {
-		return new SimpleDateFormat("dd/MM/yyyy HH:mm").format(date);
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm",Locale.FRANCE).format(date);
 	}
 	
 	/**

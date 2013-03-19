@@ -93,7 +93,7 @@ public class DateUtilsTest {
 	 */
 	@Test
 	public void testRenderDateWithHours() throws ParseException {
-		Date date = DateFormat.getDateInstance(DateFormat.SHORT).parse(DATE_TEST2);
+		Date date = DateFormat.getDateInstance(DateFormat.SHORT,Locale.FRANCE).parse(DATE_TEST2);
 		assertEquals(DATE_TEST2 + " 00:00", DateUtils.renderDateWithHours(date));
 	}
 

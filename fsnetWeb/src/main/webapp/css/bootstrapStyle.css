@@ -1,56 +1,60 @@
 .fieldsetCadre {
-	position:relative;
-	border:1px solid black;
+	position: relative;
+	border: 1px solid black;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
+<<<<<<< HEAD
+	padding: 5px;
+	padding-top: 15px;
+	padding-left: 5px;
+=======
 	padding:5px;
 	padding-top:25px;
 	padding-left:5px;
+>>>>>>> ba0373996e445e3a50b44aa422525ca80bcb9fab
 	box-shadow: 4px 4px 3px #888888;
-	margin-bottom:10px;
+	margin-bottom: 10px;
 	/*background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #eef7ff
 		), color-stop(1, #d3e9ff) );
 		background: -moz-linear-gradient(center top, #eef7ff 5%, #d3e9ff 100%);*/
 	background: -o-linear-gradient(top, #eef7ff, d3e9ff);
-	margin-top:5px;
-	background-color:#E8F5FD;
+	margin-top: 5px;
+	background-color: #E8F5FD;
 }
-
 
 .fixed {
-	position:fixed;
+	position: fixed;
 }
 
-
-.footer{
-	background-color:black;
-	line-height:22px;
-	width:100%;
-	text-align:center;
+.footer {
+	background-color: black;
+	line-height: 22px;
+	width: 100%;
+	text-align: center;
 }
 
 .fieldsetCadre legend {
-	width:100%;
-	border : 1px solid black;
-	position:absolute;
-	text-align:center;
-	right:-1px;
-	top:-1px;
+	width: 100%;
+	border: 1px solid black;
+	position: absolute;
+	text-align: center;
+	right: -1px;
+	top: -1px;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #595959
 		), color-stop(1, #101010) );
 	background: -moz-linear-gradient(center top, #595959 5%, #101010 100%);
 	background: -o-linear-gradient(bottom, #0057af 5%, #007fff 100%);
-		color:white;
-	line-height:18px;
-	font-size:15px;
+	color: white;
+	line-height: 18px;
+	font-size: 15px;
 }
 
-.fieldsetCadre > legend > a{
-	color:white;
+.fieldsetCadre>legend>a {
+	color: white;
 }
 
 .tableStyle td {
@@ -61,7 +65,7 @@
 	background: -moz-linear-gradient(center top, #ffffff 5%, #d3e9ff 100%);
 	background: -o-linear-gradient(top, #ffffff, d3e9ff);*/
 	/*background-color: #ffffff;*/
-	background-color:transparent;
+	background-color: transparent;
 	border-width: 0px 1px 1px 0px;
 	text-align: center;
 	font-family: Arial;
@@ -69,11 +73,9 @@
 	color: #000000;
 }
 
-
 .tableStyle {
-	border-collapse:separate;
-	border-spacing:2px;
-	
+	border-collapse: separate;
+	border-spacing: 2px;
 }
 
 .cadreDivMenuTop {
@@ -81,81 +83,92 @@
 	border-top-right-radius: 10px;
 	border-bottom-left-radius: 10px;
 	border-bottom-right-radius: 10px;
-	border:1px solid black;
-	background-color:#E8F5FD;
+	border: 1px solid black;
+	background-color: #E8F5FD;
 }
 
-.cadreDivMenuTop ul{
-	margin-left:8px;
-	margin-right:8px;
+.cadreDivMenuTop ul {
+	margin-left: 8px;
+	margin-right: 8px;
 }
 
-.cadreDivMenuTop>*{
-	position:relative;
-	top:-1px;
-	left:-1px;
-	text-align:center;
+.cadreDivMenuTop>* {
+	position: relative;
+	top: -1px;
+	left: -1px;
+	text-align: center;
 }
 
-
-.cadreDivMenuTop>h3:first-child,h2:first-child{
-	width:100%;
-	border : 1px solid black;
-	text-align:center;
+.cadreDivMenuTop>h3:first-child,h2:first-child {
+	width: 100%;
+	border: 1px solid black;
+	text-align: center;
 	border-top-left-radius: 10px;
 	border-top-right-radius: 10px;
 	background: -webkit-gradient(linear, left top, left bottom, color-stop(0.05, #595959
 		), color-stop(1, #101010) );
 	background: -moz-linear-gradient(center top, #595959 5%, #101010 100%);
 	background: -o-linear-gradient(bottom, #0057af 5%, #007fff 100%);
-		color:white;
-	line-height:18px;
-	font-size:15px;
-	margin:0;
+	color: white;
+	line-height: 18px;
+	font-size: 15px;
+	margin: 0;
 }
 
-
-.cadreDivMenuTop>h3,h2{
-	width:100%;
-	background-color:#525252;
-	border-right:1px solid black;
-	border-left:1px solid black;
-	color:white;
-	line-height:18px;
-	font-size:15px;
-	margin:0;
+.cadreDivMenuTop>h3,h2 {
+	width: 100%;
+	background-color: #525252;
+	border-right: 1px solid black;
+	border-left: 1px solid black;
+	color: white;
+	line-height: 18px;
+	font-size: 15px;
+	margin: 0;
 }
 
 #logo_menu {
-	height:23px;
-	padding:0;
+	height: 23px;
+	padding: 0;
 }
 
-.noMargin{
-	margin:0;
+.noMargin {
+	margin: 0;
 }
 
 .littleTopPadding {
-	padding-top:5px;
+	padding-top: 5px;
 }
 
 .littlePadding {
-	padding:5px;
+	padding: 5px;
 }
 
-.searchBar input{
+.searchBar input {
 	padding-left: 28px;
-	border-radius:15px;
-	border:1px solid #1c1c1c;
-	background-color:#2f2f2f;
+	border-radius: 15px;
+	border: 1px solid #1c1c1c;
+	background-color: #2f2f2f;
 }
 
 .searchBar i {
-	position: absolute; left: 10px; top: 7px;
+	position: absolute;
+	left: 10px;
+	top: 7px;
 }
 
-.searchBar > div {
-	position:relative;
+.searchBar>div {
+	position: relative;
+}
+
+table.cutMessage {
+	table-layout: fixed;
+}
+
+td.cutMessage, .inLineTable td.cutMessage {
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	text-align: left;
 }
 
 .label {
