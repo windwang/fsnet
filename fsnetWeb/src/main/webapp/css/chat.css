@@ -70,9 +70,21 @@
 	padding:7px;
 	border-left:1px solid #cccccc;
 	border-right:1px solid #cccccc;
-	border-bottom:1px solid #eeeeee;
 	background-color: #ffffff;
 	line-height: 1.3em;
+}
+
+.chatboxcomposing {
+/* 	height : 40px ; */
+	overflow-y:auto;
+	overflow-x:auto;
+	padding:7px;
+	border-left:1px solid #cccccc;
+	border-right:1px solid #cccccc;
+	border-bottom:1px solid #eeeeee;
+	background-color: #ffffff;
+	line-height: 0.8em;
+	color : #9E9E9E ;
 }
 
 .chatboxinput {
@@ -134,3 +146,5 @@
 .chatboxtitle {
 	float: left;
 }
+
+
