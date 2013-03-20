@@ -468,5 +468,41 @@ public class TalkMembers extends MappingDispatchAction {
 		obj.writeJSONString(response.getWriter());
 		
 	}
+	
+	public void notComposing(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException, XMPPException {
+		String friend = request.getParameter("toFriend");
+		
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+		TalkMessage talkMessage = (TalkMessage) request.getSession()
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+		
+		if (talkMessage == null) {
+
+			talkMessage = new TalkMessage(talk);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		}
+		
+		friend = friend + "@" + xmppServerDomain;
+		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
+		Chat chat = sessionTalks.get(friend);
+		
+		if (chat == null) {
+
+			try {
+				chat = talk.createConversation(friend);
+				sessionTalks.put(friend, chat);
+				talkMessage.setSessionTalks(sessionTalks);
+
+			} catch (TalkException e) {
+
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+			}
+
+		}
+		
+		ChatStateManager.getInstance(talk.getConnection()).setCurrentState(ChatState.paused, chat);
+	}
 
 }
