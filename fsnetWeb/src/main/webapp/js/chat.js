@@ -168,9 +168,7 @@ function testComposing() {
 }
 
 function contains(array,obj){
-	console.log("toto"+obj);
 	for (var i = 0 ; i<array.length;i++){
-		console.log(array[i]);
 		if (array[i] === obj ){
 			return true ;
 		}

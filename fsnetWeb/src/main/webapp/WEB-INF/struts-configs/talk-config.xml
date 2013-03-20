@@ -64,7 +64,7 @@
 			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
 			validate="false" parameter="isComposing">
 		</action>
-		<action path="/TalkMembersNotComposing" name="TalkNotComposing"
+		<action path="/TalkMemberNotComposing" name="TalkNotComposing"
 			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
 			validate="false" parameter="notComposing">
 		</action>

@@ -472,6 +472,7 @@ public class TalkMembers extends MappingDispatchAction {
 	public void notComposing(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, XMPPException {
+		
 		String friend = request.getParameter("toFriend");
 		
 		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
