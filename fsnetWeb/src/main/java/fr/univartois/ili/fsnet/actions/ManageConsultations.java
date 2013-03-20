@@ -208,14 +208,14 @@ public class ManageConsultations extends ActionSupport implements
 			consultation.setMaxVoters(Integer.valueOf(closingAtMaxVoters));
 		}
 
-		if (!"".equals(consultationIfNecessaryWeight)) {
+		if (consultationIfNecessaryWeight != null && !"".equals(consultationIfNecessaryWeight)) {
 			consultation.setIfNecessaryWeight(Double
 					.valueOf(consultationIfNecessaryWeight));
 		} else {
 			consultation.setIfNecessaryWeight(0.5);
 		}
 
-		if (!"".equals(limitChoicesPerVoter)) {
+		if (!"".equals(limitChoicesPerVoter) && limitChoicesPerVoter.equals("true")) {
 			consultation.setLimitChoicesPerParticipant(true);
 			if (!"".equals(maxChoicesVoter)) {
 				consultation.setLimitChoicesPerParticipantMax(Integer

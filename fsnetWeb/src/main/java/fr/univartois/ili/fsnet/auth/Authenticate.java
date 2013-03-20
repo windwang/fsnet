@@ -195,6 +195,7 @@ public class Authenticate extends HttpServlet {
 				listOfChildGroup.add(user.getGroup());
 				req.getSession().setAttribute("allUnderGroupsNoRights", listOfChildGroup);	
 			}
+			req.getSession().setAttribute("allUnderGroupsRights",new ArrayList<SocialGroup>());
 			req.getSession().setAttribute("color", user.getGroup().getColor());
 
 		} else {

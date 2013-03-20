@@ -16,9 +16,7 @@
 						<s:textfield property="searchText" styleId="searchTexte"
 							styleClass="search-query" />
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
-						<s:submit styleClass="btn btn-inverse">
-							<s:text name="consultations.button.search" />
-						</s:submit>
+						<s:submit cssClass="btn btn-inverse" key="consultations.button.search"/>
 					</div>
 				</s:form></td>
 		</tr>
