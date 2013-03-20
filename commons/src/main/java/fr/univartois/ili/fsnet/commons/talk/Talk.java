@@ -16,6 +16,7 @@ import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smack.packet.Presence;
 import org.jivesoftware.smack.packet.Presence.Mode;
 import org.jivesoftware.smack.packet.Presence.Type;
+import org.jivesoftware.smackx.ChatStateManager;
 
 import fr.univartois.ili.fsnet.commons.utils.TalkException;
 
@@ -36,6 +37,7 @@ public class Talk implements ITalk, Serializable {
 
 	private ConnectionConfiguration config = null;
 	private AccountManager accountManager = null;
+	
 
 	/*
 	 * (non-Javadoc)
@@ -192,6 +194,7 @@ public class Talk implements ITalk, Serializable {
 
 			}
 		}
+		ChatStateManager.getInstance(connection);
 
 	}
 
@@ -216,7 +219,6 @@ public class Talk implements ITalk, Serializable {
 	public void sendMessage(String msg, String friendPseudo, Chat chat) throws TalkException {
 		try {
 			chat.sendMessage(msg);
-
 		} catch (Exception e) {
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
@@ -232,7 +234,6 @@ public class Talk implements ITalk, Serializable {
 	@Override
 	public Chat createConversation(String pseudoFriend) throws TalkException {
 		try {
-
 			Chat chat = connection.getChatManager().createChat(pseudoFriend, new MessageListener() {
 				@Override
 				public void processMessage(Chat chat, Message message) {

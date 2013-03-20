@@ -7,8 +7,10 @@ import java.util.logging.Logger;
 
 import org.jivesoftware.smack.Chat;
 import org.jivesoftware.smack.ChatManagerListener;
-import org.jivesoftware.smack.MessageListener;
 import org.jivesoftware.smack.packet.Message;
+import org.jivesoftware.smackx.ChatState;
+import org.jivesoftware.smackx.ChatStateListener;
+import org.jivesoftware.smackx.ChatStateManager;
 
 import fr.univartois.ili.fsnet.commons.talk.ITalk;
 
@@ -18,13 +20,14 @@ import fr.univartois.ili.fsnet.commons.talk.ITalk;
  * @author habib
  * 
  */
-public class TalkMessage implements ChatManagerListener, MessageListener {
+public class TalkMessage implements ChatManagerListener, ChatStateListener {
 
 	private Map<String, StringBuilder> conversation;
 	private Map<String, Chat> sessionTalks;
 	private String ownerSession;
 	private ITalk talk;
 	private Map<String, Boolean> newConversation;
+	private Map<String, Boolean> isComposing;
 
 	/**
 	 * @param talk
@@ -138,34 +141,36 @@ public class TalkMessage implements ChatManagerListener, MessageListener {
 		// + " -Received message: "
 		// + (message != null ? message.getBody() : "NULL"));
 
-		String[] particiant = chat.getParticipant().split("/");
+		if (message.getBody() != null) {
 
-		StringBuilder dd = getConversation().get(particiant[0]);
-		if (dd == null) {
+			String[] particiant = chat.getParticipant().split("/");
 
-			dd = new StringBuilder();
+			StringBuilder dd = getConversation().get(particiant[0]);
+			if (dd == null) {
 
-		}
-		String[] name = chat.getParticipant().split("@");
-		dd.append("</br><p style=\"color: blue;margin:-7px -7px -7px -7px;\">"
-				+ name[0].split("_")[0] + " :" + message.getBody() + "</p>");
-		getConversation().put(particiant[0], dd);
-		getNewConversation().put(particiant[0], true);
+				dd = new StringBuilder();
 
-		// this.setConversation(conversation);
-
-		// verifier si la session existe
-		Chat currentChat = getSessionTalks().get(particiant[0]);
-		if (currentChat == null) {
-			try {
-				Chat chatt = talk.createConversation(particiant[0]);
-				getSessionTalks().put(particiant[0], chatt);
-			} catch (TalkException e) {
-				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 			}
+			String[] name = chat.getParticipant().split("@");
+			dd.append("</br><p style=\"color: blue;margin:-7px -7px -7px -7px;\">"
+					+ name[0].split("_")[0] + " :" + message.getBody() + "</p>");
+			getConversation().put(particiant[0], dd);
+			getNewConversation().put(particiant[0], true);
 
+			// this.setConversation(conversation);
+
+			// verifier si la session existe
+			Chat currentChat = getSessionTalks().get(particiant[0]);
+			if (currentChat == null) {
+				try {
+					Chat chatt = talk.createConversation(particiant[0]);
+					getSessionTalks().put(particiant[0], chatt);
+				} catch (TalkException e) {
+					Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+				}
+
+			}
 		}
-
 	}
 
 	/*
@@ -179,6 +184,33 @@ public class TalkMessage implements ChatManagerListener, MessageListener {
 	public void chatCreated(Chat chat, boolean arg1) {
 		chat.addMessageListener(this);
 
+	}
+
+	public Map<String, Boolean> getIsComposing() {
+		if (isComposing == null) {
+			isComposing = new HashMap<String, Boolean>();
+		}
+		return isComposing;
+	}
+
+	public Boolean getComposing(String friend) {
+		if (isComposing == null) {
+			isComposing = new HashMap<String, Boolean>();
+		}
+		return isComposing.get(friend);
+	}
+
+	@Override
+	public void stateChanged(Chat arg0, ChatState arg1) {
+		if (ChatState.composing == arg1) {
+			System.out.println("################################");
+			System.out.println("ajout dans la map");
+			isComposing.put(arg0.getParticipant(), true);
+		} else {
+			isComposing.put(arg0.getParticipant(), false);
+			System.out.println("################################");
+			System.out.println("naaaaaaaaaaaaaaaaan");
+		}
 	}
 
 }
