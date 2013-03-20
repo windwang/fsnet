@@ -171,8 +171,6 @@ public class Talk implements ITalk, Serializable {
 	 */
 	@Override
 	public void initConnexion(String xmppServer, int port, String login, String pssword, Map<String, String> map) throws TalkException {
-		// connexion(XMPPServer, port);
-		// login(login, pssword);
 		config = new ConnectionConfiguration(xmppServer, port);
 
 		connection = new XMPPConnection(config);
@@ -194,6 +192,8 @@ public class Talk implements ITalk, Serializable {
 
 			}
 		}
+		
+		/* It is only at that moment where the Listener is correctly initialized */
 		ChatStateManager.getInstance(connection);
 
 	}

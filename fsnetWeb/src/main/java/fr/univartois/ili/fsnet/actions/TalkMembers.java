@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,7 +56,6 @@ public class TalkMembers extends MappingDispatchAction {
 
 	private static final String TALK_ATTRIBUTE_NAME = "talk"; 
 	private static final String TALKMESSAGE_ATTRIBUTE_NAME = "talkMessage";
-	private static final String TALKCOMPOSING_ATTRIBUTE_NAME = "talkComposing";
 	
 	/**
 	 * @param request
@@ -73,7 +70,6 @@ public class TalkMembers extends MappingDispatchAction {
 			String name = member.getName().replaceAll(" ", "").toLowerCase() 
 					+ "_" + member.getId();
 			String email = member.getEmail();
-			// String pass = member.getPassword();
 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("email", email);
@@ -187,8 +183,6 @@ public class TalkMembers extends MappingDispatchAction {
 		response.setContentType("application/json");
 		
 		obj.writeJSONString(response.getWriter());
-
-		// return mapping.findForward("success");
 
 	}
 	
@@ -321,7 +315,6 @@ public class TalkMembers extends MappingDispatchAction {
 		String msg = request.getParameter("msg");
 		/* Permet d'éviter l'injection de code html ou javascript */
 		String escapedMsg = StringUtils.replaceEach(msg, new String[]{"&", "\"", "<", ">"}, new String[]{"&amp;", "&quot;", "&lt;", "&gt;"});
-		//String escapedMsg=StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(msg));
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
@@ -369,7 +362,6 @@ public class TalkMembers extends MappingDispatchAction {
 			}
 
 		} catch (TalkException e) {
-			// TODO Auto-generated catch block
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
@@ -378,7 +370,7 @@ public class TalkMembers extends MappingDispatchAction {
 		String name_user_connected = member.getName().replaceAll(" ", "").toLowerCase() 
 				+ "_" + member.getId();
 		
-		/* Changement de l'état lorsque l'on envoit un message car l'utilisateur a fini d'écrire */
+		/* Changement de l'état lorsque l'on envoie un message car l'utilisateur a fini d'écrire */
 		
 		ChatStateManager.getInstance(talk.getConnection()).setCurrentState(ChatState.paused, chat);
 		
@@ -412,9 +404,6 @@ public class TalkMembers extends MappingDispatchAction {
 			HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException, XMPPException {
 		String friend = request.getParameter("toFriend");
-		System.out.println("################################");
-		System.out.println("COMPOSING to");
-		System.out.println(friend);
 		
 		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
@@ -443,8 +432,7 @@ public class TalkMembers extends MappingDispatchAction {
 			}
 
 		}
-				
-		//talkMessage.stateChanged(chat, ChatState.composing);
+		
 		ChatStateManager.getInstance(talk.getConnection()).setCurrentState(ChatState.composing, chat);
 	}
 	
@@ -470,8 +458,7 @@ public class TalkMembers extends MappingDispatchAction {
 			TalkJsonComposing  tjc = new TalkJsonComposing(e.getKey(), e.getValue());
 			ljsc.add(tjc);
 		}
-		System.out.println("################################");
-		System.out.println("costruit tableau json");
+
 		JSONObject obj = new JSONObject();
 		obj.put("isComposing",JSONArray.fromObject(ljsc));
 		

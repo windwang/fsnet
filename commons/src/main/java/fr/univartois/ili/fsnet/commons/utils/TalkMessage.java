@@ -10,7 +10,6 @@ import org.jivesoftware.smack.ChatManagerListener;
 import org.jivesoftware.smack.packet.Message;
 import org.jivesoftware.smackx.ChatState;
 import org.jivesoftware.smackx.ChatStateListener;
-import org.jivesoftware.smackx.ChatStateManager;
 
 import fr.univartois.ili.fsnet.commons.talk.ITalk;
 
@@ -61,7 +60,6 @@ public class TalkMessage implements ChatManagerListener, ChatStateListener {
 		if (sessionTalks == null) {
 			sessionTalks = new HashMap<String, Chat>();
 		}
-		// return conversation;
 		return sessionTalks;
 	}
 
@@ -121,26 +119,7 @@ public class TalkMessage implements ChatManagerListener, ChatStateListener {
 	@Override
 	public void processMessage(Chat chat, Message message) {
 
-		// for (Entry<String, StringBuilder> entry :
-		// getConversation().entrySet()) {
-		// String key = entry.getKey();
-		// System.out.println("friend :" + key);
-		// System.out.println("msg :" + entry.getValue().toString());
-		//
-		// }
-		//
-		// System.out.println("afficher session");
-		// for (Entry<String, Chat> entry : getSessionTalks().entrySet()) {
-		// String key = entry.getKey();
-		// System.out.println("friend :" + key);
-		// System.out.println("chat :" + entry.getValue());
-		//
-		// }
-		//
-		// System.out.println("sender: " + chat.getParticipant()
-		// + " -Received message: "
-		// + (message != null ? message.getBody() : "NULL"));
-
+		/* The state change sends a null message to the listener, it has to be filtered */
 		if (message.getBody() != null) {
 
 			String[] particiant = chat.getParticipant().split("/");
@@ -156,8 +135,6 @@ public class TalkMessage implements ChatManagerListener, ChatStateListener {
 					+ name[0].split("_")[0] + " :" + message.getBody() + "</p>");
 			getConversation().put(particiant[0], dd);
 			getNewConversation().put(particiant[0], true);
-
-			// this.setConversation(conversation);
 
 			// verifier si la session existe
 			Chat currentChat = getSessionTalks().get(particiant[0]);
@@ -200,16 +177,13 @@ public class TalkMessage implements ChatManagerListener, ChatStateListener {
 		return isComposing.get(friend);
 	}
 
+	/* Permit to change the state of the composer */
 	@Override
 	public void stateChanged(Chat arg0, ChatState arg1) {
 		if (ChatState.composing == arg1) {
-			System.out.println("################################");
-			System.out.println("ajout dans la map");
 			isComposing.put(arg0.getParticipant(), true);
 		} else {
 			isComposing.put(arg0.getParticipant(), false);
-			System.out.println("################################");
-			System.out.println("naaaaaaaaaaaaaaaaan");
 		}
 	}
 
