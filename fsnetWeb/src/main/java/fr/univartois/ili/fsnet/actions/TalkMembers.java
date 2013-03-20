@@ -4,8 +4,10 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +24,7 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
+import org.apache.struts.util.MessageResources;
 import org.jivesoftware.smack.Chat;
 import org.json.simple.JSONObject;
 
@@ -340,7 +343,9 @@ public class TalkMembers extends MappingDispatchAction {
 
 		}
 		StringBuilder dd = null;
-		String formattedMsg = "</br><p style=\"margin:-7px -7px -7px -7px;\">me :"
+		
+		MessageResources bundle = MessageResources.getMessageResources("FSneti18n");
+		String formattedMsg = "</br><p style=\"margin:-7px -7px -7px -7px;\">"+bundle.getMessage(request.getLocale(),"chat.me")+" :"
 				+ escapedMsg + "</p></br>"; 
 		try {
 			talk.sendMessage(escapedMsg, friend, chat);
