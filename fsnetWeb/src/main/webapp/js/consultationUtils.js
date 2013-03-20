@@ -128,7 +128,7 @@ function validateConsultation() {
 }
 
 function Deplacer(l1, l2) {
-
+	debugger;
 	if (l1.options.selectedIndex >= 0)
 		for ( var i = l1.options.length - 1; i >= 0; i--) {
 			if (l1.options[i].selected) {
