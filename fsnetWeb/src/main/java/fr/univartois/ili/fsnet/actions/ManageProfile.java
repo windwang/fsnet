@@ -125,7 +125,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			SocialEntity se = sef.findByEmail(dynaForm
 					.getString(MAIL_FORM_FIELD_NAME));
 			em.getTransaction().commit();
-			//em.close();
+			// em.close();
 
 			if (se != null) {
 				res.add(MAIL_FORM_FIELD_NAME, new ActionMessage(
@@ -326,7 +326,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
 		SocialEntity profile = sef.getSocialEntity(id);
 
-		if (profile == null) {
+		if (profile == null || !profile.getIsEnabled()) {
 			em.close();
 			throw new UnauthorizedOperationException(
 					"The profile id is not defined");
@@ -368,8 +368,10 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		em.getTransaction().begin();
 		InteractionFacade intFac = new InteractionFacade(em);
 
-		request.setAttribute("interactions",
-				intFac.getIntetactionsByUser(profile,(int)request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER)));
+		request.setAttribute("interactions", intFac.getIntetactionsByUser(
+				profile,
+				(int) request.getSession().getAttribute(
+						Authenticate.AUTHENTICATED_USER)));
 		em.getTransaction().commit();
 
 		request.setAttribute("currentUser", user);
@@ -405,7 +407,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		}
 
 		em.close();
-		
+
 		return mapping.findForward(SUCCES_ATTRIBUTE_NAME);
 	}
 
@@ -435,7 +437,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 			URISyntaxException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		
+
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
 				Right.MODIFY_PICTURE)) {
 			return new ActionRedirect(mapping.findForward("unauthorized"));
@@ -450,7 +452,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		String stringUrl = (String) dynaForm.get("photoUrl");
 		dynaForm.set("photoUrl", "");
 		String urlType = null;
-		
+
 		if (stringUrl != null && !stringUrl.isEmpty()) {
 			try {
 				uri = new URI(stringUrl);
@@ -469,7 +471,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 
 		int userId = UserUtils.getAuthenticatesUserId(request);
 		addRightToRequest(request);
-		
+
 		if (file.getFileData().length != 0) {
 			PictureType pictureType = null;
 			for (PictureType pt : PictureType.values()) {
@@ -478,7 +480,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 					break;
 				}
 			}
-			
+
 			if (pictureType != null) {
 
 				if (file.getFileSize() > MAX_PICTURE_SIZE) {
@@ -509,7 +511,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 					break;
 				}
 			}
-			
+
 			if (pictureType != null) {
 
 				if (inputStream.available() > MAX_PICTURE_SIZE) {
@@ -555,7 +557,7 @@ public class ManageProfile extends MappingDispatchAction implements CrudAction {
 		Integer userId = UserUtils.getAuthenticatesUserId(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		
+
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
 				Right.MODIFY_PICTURE)) {
 			return new ActionRedirect(mapping.findForward("unauthorized"));

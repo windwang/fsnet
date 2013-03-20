@@ -83,7 +83,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 			String email = stk.nextToken();
 			SocialEntity findByEmail = sef.findByEmail(email);
 
-			if (findByEmail == null) {
+			if (findByEmail == null || !findByEmail.getIsEnabled()) {
 				ActionErrors errors = new ActionErrors();
 				errors.add("messageTo", new ActionMessage(
 						"privatemessages.to.error", email));
@@ -152,7 +152,8 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				throw new UnauthorizedOperationException("");
 			}
 			em.getTransaction().begin();
-			pmf.deletePrivateMessage(authenticatedUser, privateMessage,fromPage);
+			pmf.deletePrivateMessage(authenticatedUser, privateMessage,
+					fromPage);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
 			servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS", e);
@@ -359,7 +360,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				PrivateMessageFacade pmf = new PrivateMessageFacade(em);
 				PrivateMessage privateMessage = pmf
 						.getPrivateMessage(messageId);
-				if(privateMessage==null){
+				if (privateMessage == null) {
 					throw new NullPointerException("privateMessage is null");
 				}
 				Collection<PrivateMessage> tmpUserMessages = pmf
@@ -376,7 +377,7 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 				Collections.reverse(userMessages);
 
 				if ((authenticatedUser.equals(privateMessage.getFrom()) || authenticatedUser
-								.equals(privateMessage.getTo()))) {
+						.equals(privateMessage.getTo()))) {
 					if (authenticatedUser.equals(privateMessage.getTo())) {
 						em.getTransaction().begin();
 						privateMessage.setReed(true);
@@ -392,7 +393,6 @@ public class ManagePrivateMessages extends MappingDispatchAction implements
 					Paginator<PrivateMessage> paginator1 = new Paginator<PrivateMessage>(
 							listPrivateMessage, request,
 							"conversationMessages1");
-
 
 					request.setAttribute("conversationMessages", paginator);
 					request.setAttribute("conversationMessages1", paginator1);
