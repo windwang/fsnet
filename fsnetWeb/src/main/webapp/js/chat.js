@@ -153,13 +153,29 @@ function testComposing() {
 							function(i) {
 								var name = data.isComposing[i].name;
 								var bool = data.isComposing[i].isComposing;
+								var str = (name).split("@");
 								
 								if ( (bool==true)) {
-									console.log("Composing !") ;
+									if (contains(chatBoxes,str[0])){
+										addIsComposing(str[0]);
+									}
+								}else {
+									removeIsComposing(str[0]);
 								}
 							});
 			}
 		});
+}
+
+function contains(array,obj){
+	console.log("toto"+obj);
+	for (var i = 0 ; i<array.length;i++){
+		console.log(array[i]);
+		if (array[i] === obj ){
+			return true ;
+		}
+	}
+	return false;
 }
 
 /*
@@ -417,6 +433,16 @@ function checkComposing(event, chatboxtextarea, chatboxtitle) {
 			$.ajax({
 				type : 'POST',
 				url : '/fsnetWeb/TalkMemberComposing.do',
+				data : {
+					toFriend : chatboxtitle
+				},
+				dataType : "json",
+	//			success : function(data, textStatus, jqXHR) {
+			});
+		}else {
+			$.ajax({
+				type : 'POST',
+				url : '/fsnetWeb/TalkMemberNotComposing.do',
 				data : {
 					toFriend : chatboxtitle
 				},
