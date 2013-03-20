@@ -25,10 +25,13 @@ var localizedStrings={
 	};
 
 var tim = 0;
+var tim2 = 0 ;
 /* Fonction qui est appelée lorsque la page est chargée */
 $(document).ready(function() {
 	/* On vérifie toute les 2 secondes si un nouveau message est arrivé */
 	tim = setInterval("testReceive()", 2000);
+	/* On vérifie toute les 2 secondes si l'interlocuteur est en train de composer */
+	tim2 = setInterval("testComposing()", 2000);
 	/* On réouvre les fenetres de chat actives lorsqu'on arrive sur une page */
 	loadChatBoxes();
 });
@@ -134,6 +137,29 @@ function testReceive() {
 									})
 				}
 			});
+}
+
+
+/* Permet de savoir si l'interlocuteur est en train d'écrire */
+function testComposing() {
+	$
+	.ajax({
+		type : 'POST',
+		url : "/fsnetWeb/TalkMembersIsComposing.do",
+		dataType : "json",
+		success : function(data, textStatus, jqXHR) {
+			$(data.isComposing)
+					.each(
+							function(i) {
+								var name = data.isComposing[i].name;
+								var bool = data.isComposing[i].isComposing;
+								
+								if ( (bool==true)) {
+									console.log("Composing !") ;
+								}
+							});
+			}
+		});
 }
 
 /*

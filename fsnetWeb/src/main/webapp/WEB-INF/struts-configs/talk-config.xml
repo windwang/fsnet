@@ -17,6 +17,12 @@
 		<form-bean name="TalkGetTalks"
 			type="org.apache.struts.validator.DynaValidatorActionForm">
 		</form-bean>
+		<form-bean name="TalkIsComposing"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+		</form-bean>
+		<form-bean name="TalkComposing"
+			type="org.apache.struts.validator.DynaValidatorActionForm">
+		</form-bean>
 	</form-beans>
 
 	<action-mappings>
@@ -50,6 +56,10 @@
 		<action path="/TalkMemberComposing" name="TalkComposing"
 			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
 			validate="false" parameter="composing">
+		</action>
+		<action path="/TalkMembersIsComposing" name="TalkIsComposing"
+			type="fr.univartois.ili.fsnet.actions.TalkMembers" scope="request"
+			validate="false" parameter="isComposing">
 		</action>
 
 	</action-mappings>

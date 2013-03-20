@@ -4,10 +4,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.ResourceBundle;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,13 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.actions.MappingDispatchAction;
 import org.apache.struts.util.MessageResources;
 import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.XMPPException;
+import org.jivesoftware.smackx.ChatState;
+import org.jivesoftware.smackx.ChatStateManager;
 import org.json.simple.JSONObject;
 
 import fr.univartois.ili.fsnet.actions.utils.UserUtils;
@@ -33,6 +33,7 @@ import fr.univartois.ili.fsnet.commons.talk.ITalk;
 import fr.univartois.ili.fsnet.commons.talk.Talk;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.commons.utils.TalkException;
+import fr.univartois.ili.fsnet.commons.utils.TalkJsonComposing;
 import fr.univartois.ili.fsnet.commons.utils.TalkJsonMsg;
 import fr.univartois.ili.fsnet.commons.utils.TalkMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
@@ -69,7 +70,6 @@ public class TalkMembers extends MappingDispatchAction {
 			String name = member.getName().replaceAll(" ", "").toLowerCase() 
 					+ "_" + member.getId();
 			String email = member.getEmail();
-			// String pass = member.getPassword();
 
 			Map<String, String> map = new HashMap<String, String>();
 			map.put("email", email);
@@ -183,8 +183,6 @@ public class TalkMembers extends MappingDispatchAction {
 		response.setContentType("application/json");
 		
 		obj.writeJSONString(response.getWriter());
-
-		// return mapping.findForward("success");
 
 	}
 	
@@ -301,10 +299,11 @@ public class TalkMembers extends MappingDispatchAction {
 	 * @param response
 	 * @throws IOException
 	 * @throws ServletException
+	 * @throws XMPPException 
 	 */
 	public void send(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+			throws IOException, ServletException, XMPPException {
 		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
 
 		if (talk == null) {
@@ -316,7 +315,6 @@ public class TalkMembers extends MappingDispatchAction {
 		String msg = request.getParameter("msg");
 		/* Permet d'éviter l'injection de code html ou javascript */
 		String escapedMsg = StringUtils.replaceEach(msg, new String[]{"&", "\"", "<", ">"}, new String[]{"&amp;", "&quot;", "&lt;", "&gt;"});
-		//String escapedMsg=StringEscapeUtils.escapeJavaScript(StringEscapeUtils.escapeHtml(msg));
 		TalkMessage talkMessage = (TalkMessage) request.getSession()
 				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
 		if (talkMessage == null) {
@@ -364,10 +362,18 @@ public class TalkMembers extends MappingDispatchAction {
 			}
 
 		} catch (TalkException e) {
-			// TODO Auto-generated catch block
 			Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
 		}
 
+		EntityManager em = PersistenceProvider.createEntityManager();
+		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
+		String name_user_connected = member.getName().replaceAll(" ", "").toLowerCase() 
+				+ "_" + member.getId();
+		
+		/* Changement de l'état lorsque l'on envoie un message car l'utilisateur a fini d'écrire */
+		
+		ChatStateManager.getInstance(talk.getConnection()).setCurrentState(ChatState.paused, chat);
+		
 		List<TalkJsonMsg> lastConversation = new ArrayList<TalkJsonMsg>();
 		String[] tt = friend.split("@");
 		TalkJsonMsg talkjson = new TalkJsonMsg(formattedMsg, tt[0], friend);
@@ -392,14 +398,75 @@ public class TalkMembers extends MappingDispatchAction {
 	 * @param response
 	 * @throws IOException
 	 * @throws ServletException
+	 * @throws XMPPException 
 	 */
 	public void composing(ActionMapping mapping, ActionForm form,
 			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+			throws IOException, ServletException, XMPPException {
 		String friend = request.getParameter("toFriend");
-		System.out.println("################################");
-		System.out.println("COMPOSING to");
-		System.out.println(friend);
+		
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+		TalkMessage talkMessage = (TalkMessage) request.getSession()
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+		
+		if (talkMessage == null) {
+
+			talkMessage = new TalkMessage(talk);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		}
+		
+		friend = friend + "@" + xmppServerDomain;
+		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
+		Chat chat = sessionTalks.get(friend);
+		
+		if (chat == null) {
+
+			try {
+				chat = talk.createConversation(friend);
+				sessionTalks.put(friend, chat);
+				talkMessage.setSessionTalks(sessionTalks);
+
+			} catch (TalkException e) {
+
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+			}
+
+		}
+		
+		ChatStateManager.getInstance(talk.getConnection()).setCurrentState(ChatState.composing, chat);
+	}
+	
+	public void isComposing(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
+			
+		String friend = request.getParameter("toFriend");
+		friend = friend + "@" + xmppServerDomain;
+		
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);	
+		
+		TalkMessage talkMessage = (TalkMessage) request.getSession()
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+		
+		if (talkMessage == null) {
+
+			talkMessage = new TalkMessage(talk);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		}
+		List<TalkJsonComposing> ljsc = new ArrayList<>();
+		for(Map.Entry<String, Boolean> e:talkMessage.getIsComposing().entrySet()){
+			TalkJsonComposing  tjc = new TalkJsonComposing(e.getKey(), e.getValue());
+			ljsc.add(tjc);
+		}
+
+		JSONObject obj = new JSONObject();
+		obj.put("isComposing",JSONArray.fromObject(ljsc));
+		
+		response.setHeader("cache-control", "no-cache");
+		response.setContentType("application/json");
+		
+		obj.writeJSONString(response.getWriter());
+		
 	}
 
 }
