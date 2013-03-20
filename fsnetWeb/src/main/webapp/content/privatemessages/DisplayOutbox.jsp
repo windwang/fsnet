@@ -64,7 +64,7 @@
 
 			<html:form action="/DeleteMultiSentMessages?fromPage=out">
 				<table id="tableoutbox"
-					class="tablesorter inLineTable tableStyle">
+					class="tablesorter inLineTable tableStyle cutMessage">
 					<thead>
 						<tr>
 							<th class="thCheckbox"><input type="checkbox"
@@ -89,18 +89,15 @@
 								<td><html:multibox property="selectedMessages"
 										value="${message.id}" /></td>
 								<td><ili:getMiniature socialEntity="${message.to}" /></td>
-								<td style="width: 15%"><ili:getSocialEntityInfosFirstname
+								<td><ili:getSocialEntityInfosFirstname
 										socialEntity="${message.to}" /></td>
-								<td style="width: 15%"><ili:getSocialEntityInfosName
+								<td><ili:getSocialEntityInfosName
 										socialEntity="${message.to}" /></td>
-								<td style="width: 40%"><html:link
+								<td class="cutMessage"><html:link
 										action="/DisplaySentMessage">
 										<html:param name="messageId" value="${message.id}" />
-										<span>${fn:substring(message.subject, 0,20)} : </span>
-										<span style="color: gray"> <ili:substring
-												beginIndex="0" endIndex="20">
-												<ili:noxml>${message.body}</ili:noxml>
-											</ili:substring>
+										<span>${message.subject} : </span>
+										<span style="color: gray"><ili:noxml>${message.body}</ili:noxml>
 										</span>
 									</html:link></td>
 								<td><bean:write name="message" property="creationDate"

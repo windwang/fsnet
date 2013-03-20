@@ -60,84 +60,68 @@
 							});
 						});
 			</script>
+			
+			
+<style>
+	table.cutMessage {
+		table-layout: fixed;
+	}
+
+	.inLineTable .cutMessage {
+		text-overflow:ellipsis; 
+		overflow: hidden; 
+		white-space:nowrap; 
+		text-align:left;
+	}
+</style>
 			<html:form action="/DeleteMultiMessages?fromPage=in">
-				<table id="tableinbox"
-					class="tablesorter inLineTable tableStyle">
+				<table id="tableinbox" class="tablesorter inLineTable tableStyle cutMessage" >
 					<thead>
 						<tr>
-							<th class="thCheckbox"><input type="checkbox"
+							<th style="width: 15px" class="thCheckbox"><input type="checkbox"
 								name="selected" class="checkThemAll1" /></th>
-							<th><bean:message key="tableheader.from" /></th>
+							<th style="width: 50px"><bean:message key="tableheader.from" /></th>
 							<th><bean:message key="members.firstName" /></th>
 							<th><bean:message key="members.name" /></th>
-							<th><bean:message key="tableheader.subject" /></th>
-							<th><bean:message key="tableheader.date" /></th>
+							<th style="width: 50%"><bean:message key="tableheader.subject" /></th>
+							<th style="width: 10%"><bean:message key="tableheader.date" /></th>
 						</tr>
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="6"><html:submit
-									styleClass="btn btn-inverse">
+							<td colspan="6"><html:submit styleClass="btn btn-inverse">
 									<bean:message key="privatemessages.delete" />
 								</html:submit></td>
 						</tr>
 					</tfoot>
-					
+
 					<tbody>
 						<c:forEach items="${requestScope.inBoxMessages}" var="message">
-							<c:if test="${not message.reed}">
-								<tr class="notReed">
-									<td><html:multibox property="selectedMessages"
-											value="${message.id}" /></td>
-									<td><ili:getMiniature socialEntity="${message.from}" /></td>
-									<td style="width: 20%"><html:link action="/DisplayMessage">
+							<tr class="${message.reed ? '' : 'notReed'}">
+								<td><html:multibox property="selectedMessages"
+										value="${message.id}" /></td>
+								<td><ili:getMiniature socialEntity="${message.from}" /></td>
+								<td><html:link action="/DisplayMessage">
+										<html:param name="messageId" value="${message.id}" />
+										<span>${message.from.firstName}</span>
+									</html:link></td>
+								<td><html:link action="/DisplayMessage">
+										<html:param name="messageId" value="${message.id}" />
+										<span>${message.from.name}</span>
+									</html:link></td>
+								<td class="cutMessage">
+										<html:link action="/DisplayMessage">
 											<html:param name="messageId" value="${message.id}" />
-											<span>${message.from.firstName}</span>
-										</html:link></td>
-									<td style="width: 20%"><html:link action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
-											<span>${message.from.name}</span>
-										</html:link></td>
-									<td style="width: 60%"><html:link action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
-											<span>${fn:substring(message.subject, 0,20)} : </span>
-											<span style="color: gray"> <ili:substring
-													beginIndex="0" endIndex="20">
-													<ili:noxml>${message.body}</ili:noxml>
-												</ili:substring>
-											</span>
-										</html:link></td>
-							</c:if>
-							<c:if test="${message.reed}">
-								<tr>
-									<td><html:multibox property="selectedMessages"
-											value="${message.id}" /></td>
-									<td><ili:getMiniature socialEntity="${message.from}" /></td>
-									<td style="width: 20%"><html:link action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
-											<span>${message.from.firstName}</span>
-										</html:link></td>
-									<td style="width: 20%"><html:link action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
-											<span>${message.from.name}</span>
-										</html:link></td>
-									<td style="width: 60%"><html:link action="/DisplayMessage">
-											<html:param name="messageId" value="${message.id}" />
-											<span>${fn:substring(message.subject, 0,20)} : </span>
-											<span style="color: gray"> <ili:substring
-													beginIndex="0" endIndex="20">
-													<ili:noxml>${message.body}</ili:noxml>
-												</ili:substring>
-											</span>
-										</html:link></td>
-							</c:if>
-							<td><bean:write name="message" property="creationDate"
-									formatKey="date.format" /></td>
+											<span>${message.subject} : </span>
+											<span style="color: gray"><ili:noxml>${message.body}</ili:noxml></span>
+										</html:link>
+									</td>
+								<td><bean:write name="message" property="creationDate"
+										formatKey="date.format" /></td>
+							</tr>
 						</c:forEach>
 					</tbody>
 				</table>
-				<br />
-
 			</html:form>
 		</c:otherwise>
 	</c:choose>

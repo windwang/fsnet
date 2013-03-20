@@ -46,7 +46,7 @@
 }
 
 #loggedUsers {
-	
+	min-height: 40px;
 }
 
 #contactsAsked {
@@ -400,10 +400,8 @@ input[type=text],input[type=email],input[type=password],textarea {
 	width: 200px;
 }
 */
-.label {
-	float: right;
-}
 
+.label a:
 input[type="text"][class="error"],input[type="email"][class="error"],textarea[class="error"]
 	{
 	border: 1px solid #AF1515;
@@ -540,7 +538,7 @@ input[type="text"][class="error"],input[type="email"][class="error"],textarea[cl
 }
 
 .inLineTable .messagePhoto {
-	width: 30px;
+	width: 45px;
 	padding: 2px 5px 0 5px;
 }
 
