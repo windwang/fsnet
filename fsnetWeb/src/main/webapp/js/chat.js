@@ -13,6 +13,17 @@ var newMessages = new Array();
 var newMessagesWin = new Array();
 var chatBoxes = new Array();
 
+var localizedStrings={
+	    moi:{
+	        'en':'me',
+	        'fr':'moi'
+	    },
+	    compo:{
+	    	'en':'is writing...',
+	        'fr':'est en train d\'écrire...'	    	
+	    }
+	};
+
 var tim = 0;
 var tim2 = 0 ;
 /* Fonction qui est appelée lorsque la page est chargée */
@@ -142,13 +153,29 @@ function testComposing() {
 							function(i) {
 								var name = data.isComposing[i].name;
 								var bool = data.isComposing[i].isComposing;
+								var str = (name).split("@");
 								
 								if ( (bool==true)) {
-									console.log("Composing !") ;
+									if (contains(chatBoxes,str[0])){
+										addIsComposing(str[0]);
+									}
+								}else {
+									removeIsComposing(str[0]);
 								}
 							});
 			}
 		});
+}
+
+function contains(array,obj){
+	console.log("toto"+obj);
+	for (var i = 0 ; i<array.length;i++){
+		console.log(array[i]);
+		if (array[i] === obj ){
+			return true ;
+		}
+	}
+	return false;
 }
 
 /*
@@ -200,7 +227,8 @@ function createChatBox(chatboxtitle, minimizeChatBox) {
 							+ chatboxtitle
 							+ '\')">-</a> <a class="chat_button" href="javascript:void(0)" onclick="javascript:closeChatBox(\''
 							+ chatboxtitle
-							+ '\')">x</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="chatboxinput"><form><input type="text" class="chatboxtextarea" onkeydown="javascript:return checkChatBoxInputKey(event,this,\''
+							+ '\')">x</a></div><br clear="all"/></div><div class="chatboxcontent"></div><div class="chatboxcomposing"><p>&nbsp</p></div><div class="chatboxinput"><form><input type="text" class="chatboxtextarea" onkeyup="javascript:return checkComposing(event,this,\''
+							+ chatboxtitle + '\');" onkeydown="javascript:return checkChatBoxInputKey(event,this,\''
 							+ chatboxtitle + '\');"></input></form></div>')
 			.appendTo($("body"));
 
@@ -313,6 +341,8 @@ function toggleChatBoxGrowth(chatboxtitle) {
 		$.cookie('chatbox_minimized', newCookie);
 		$('#chatbox_' + chatboxtitle + ' .chatboxcontent').css('display',
 				'block');
+		$('#chatbox_' + chatboxtitle + ' .chatboxcomposing').css('display',
+		'block');
 		$('#chatbox_' + chatboxtitle + ' .chatboxinput')
 				.css('display', 'block');
 		$("#chatbox_" + chatboxtitle + " .chatboxcontent")
@@ -329,6 +359,8 @@ function toggleChatBoxGrowth(chatboxtitle) {
 		$.cookie('chatbox_minimized', newCookie);
 		$('#chatbox_' + chatboxtitle + ' .chatboxcontent').css('display',
 				'none');
+		$('#chatbox_' + chatboxtitle + ' .chatboxcomposing').css('display',
+		'none');
 		$('#chatbox_' + chatboxtitle + ' .chatboxinput').css('display', 'none');
 	}
 
@@ -391,9 +423,51 @@ function loadChatBoxes() {
 			});
 }
 
+
+
+function checkComposing(event, chatboxtextarea, chatboxtitle) {
+	if (event.keyCode != 13){
+		message = $(chatboxtextarea).val();
+		if (message != ''){
+			
+			$.ajax({
+				type : 'POST',
+				url : '/fsnetWeb/TalkMemberComposing.do',
+				data : {
+					toFriend : chatboxtitle
+				},
+				dataType : "json",
+	//			success : function(data, textStatus, jqXHR) {
+			});
+		}else {
+			$.ajax({
+				type : 'POST',
+				url : '/fsnetWeb/TalkMemberNotComposing.do',
+				data : {
+					toFriend : chatboxtitle
+				},
+				dataType : "json",
+	//			success : function(data, textStatus, jqXHR) {
+			});
+		}
+	}
+	return false ;
+}
+
+
+function addIsComposing(friend){
+	var locale = navigator.language;
+	var friendIsComposing = friend.split('_')[0]+' '+localizedStrings['compo'][locale] ;
+	$("#chatbox_" + friend + " .chatboxcomposing").html('<p>'+friendIsComposing+'</p>');
+}
+
+function removeIsComposing(friend){
+	$("#chatbox_" + friend + " .chatboxcomposing").html('<p>&nbsp</p>');
+}
+
+
 /* Permet d'envoyer un message */
 function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
-	
 	if (event.keyCode == 13 && event.shiftKey == 0) {
 		message = $(chatboxtextarea).val();
 		message = message.replace(/^\s+|\s+$/g, "");
@@ -457,19 +531,7 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 
 		return false;
 	}else {
-		message = $(chatboxtextarea).val();
-		if (message != ''){
-//			alert("COMPOSING"+$(chatboxtextarea).val());
-			$.ajax({
-				type : 'POST',
-				url : '/fsnetWeb/TalkMemberComposing.do',
-				data : {
-					toFriend : chatboxtitle
-				},
-				dataType : "json",
-//				success : function(data, textStatus, jqXHR) {
-			});
-		}
+		
 	}
 
 	// alert("send message4 "+$(chatboxtextarea).val());
@@ -487,6 +549,7 @@ function checkChatBoxInputKey(event, chatboxtextarea, chatboxtitle) {
 	}
 
 }
+
 
 /**
  * Cookie plugin
