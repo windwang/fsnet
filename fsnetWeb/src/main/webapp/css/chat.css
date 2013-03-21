@@ -116,6 +116,7 @@
 
 .chatboxmessage {
 	margin-left:1em;
+  word-wrap: break-word;
 }
 
 .chatboxinfo {
