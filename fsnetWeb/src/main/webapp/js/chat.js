@@ -455,6 +455,11 @@ function checkComposing(event, chatboxtextarea, chatboxtitle) {
 
 function addIsComposing(friend){
 	var locale = navigator.language;
+	if (locale.indexOf("fr") === 0){
+		locale = "fr" ;
+	}else {
+		locale = "en" ;
+	}
 	var friendIsComposing = friend.split('_')[0]+' '+localizedStrings['compo'][locale] ;
 	$("#chatbox_" + friend + " .chatboxcomposing").html('<p>'+friendIsComposing+'</p>');
 }
