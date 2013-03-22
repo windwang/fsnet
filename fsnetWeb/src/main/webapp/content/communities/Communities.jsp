@@ -2,6 +2,7 @@
 <%@taglib prefix="s" uri="/struts-tags"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+
 <c:if test="${param.searchText == null}">
 	<%@ include file="YourCommunities.jsp"%>
 </c:if>

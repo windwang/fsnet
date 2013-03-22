@@ -1,7 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
-
+<td><s:include value="<s:url action='InterestCheckBoxes'/>" />
+				</td>
 <c:if test="${not empty requestScope.myCommunities}">
 	<fieldset class="fieldsetCadre">
 		<legend>
