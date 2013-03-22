@@ -19,6 +19,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 
+import com.itextpdf.text.log.SysoLogger;
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
@@ -57,13 +58,14 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	private int parentId;
 	private String[] memberListRight;
 	private String[] rigthListRight;
-	private List<String> memberListLeft;
+	private String[] memberListLeft;
+	private String[] rigthListLeft;
 	private int id;
 	private String color;
 	private File Logo;//The actual file
 	private String LogoContentType; //The content type of the file
 	private String LogoFileName; //The uploaded file name
-	private SocialEntity masterGroup;
+//	private SocialEntity masterGroup;
 
 
 	private HttpServletRequest request;
@@ -77,18 +79,15 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	
 	public ManageGroups() {
 		super();
+		allGroups = new ArrayList<>();
 		acceptedMembers = new ArrayList<>();
 		refusedRigths = new HashSet<Right>();
 		acceptedRigths = new HashSet<Right>();
-		memberListLeft= new ArrayList<>();
 		allMembers = new ArrayList<>();
 		refusedMembers = new ArrayList<>();
 	}
 	public Set<Right> getAcceptedRigths() {
 		return acceptedRigths;
-	}
-	public SocialEntity getMasterGroup() {
-		return masterGroup;
 	}
 	public Set<Right> getRefusedRigths() {
 		return refusedRigths;
@@ -122,22 +121,31 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 		HttpSession session = request.getSession(true);
 		session.removeAttribute(GROUP_ID_GROUP_ATTRIBUTE_NAME);
 		SocialGroup parentGroup = null;
+	
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntityFacade socialEntityFacade = new SocialEntityFacade(em);
 		SocialGroupFacade socialGroupFacade = new SocialGroupFacade(em);
 		if (socialEntityId >=0 && parentId >=0 && memberListRight != null && rigthListRight != null) {
 			try {
-				masterGroup = socialEntityFacade
+				
+				SocialEntity masterGroup = socialEntityFacade
 						.getSocialEntity(socialEntityId);
 				if (parentId >= 0) {
 					parentGroup = socialGroupFacade.getSocialGroup(parentId);
 				}
 				List<SocialElement> socialElements = createSocialElement(em,
 						memberListRight, masterGroup, parentGroup);
-
+				
+				System.out.println("*** debug ***");
+				System.out.println(memberListRight.toString());
+				System.out.println(name.toString());
+				System.out.println(description.toString());
+				System.out.println(socialElements.toString());
+				System.out.println("******");
 				SocialGroup socialGroup = socialGroupFacade.createSocialGroup(
 						masterGroup, name, description, socialElements);
 
+				
 				socialGroup.addRights(getAcceptedRigth(rigthListRight));
 
 				em.getTransaction().begin();
@@ -204,7 +212,7 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 
 			List<SocialElement> acceptedSocialEntity = createObjectSocialEntity(em, memberListRight);
 
-			List<SocialElement> refusedSocialEntity = createObjectSocialEntity(em, (String[])memberListLeft.toArray());
+			List<SocialElement> refusedSocialEntity = createObjectSocialEntity(em,memberListLeft);
 
 			SocialGroup oldSocialGroup22 = masterGroup.getGroup();
 
@@ -329,7 +337,7 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 
 			id=Integer.valueOf(idG);
 			SocialGroup group = socialGroupFacade.getSocialGroup(id);
-			masterGroup = group.getMasterGroup();
+			SocialEntity masterGroup = group.getMasterGroup();
 			SocialGroup parentGroup = group.getGroup();
 
 			allMembers = socialEntityFacade.getAllSocialEntity();
@@ -671,11 +679,11 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 		this.rigthListRight = rigthListRight;
 	}
 
-	public List<String> getMemberListLeft() {
+	public String[] getMemberListLeft() {
 		return memberListLeft;
 	}
 
-	public void setMemberListLeft(List<String> memberListLeft) {
+	public void setMemberListLeft(String[] memberListLeft) {
 		this.memberListLeft = memberListLeft;
 	}
 
@@ -723,6 +731,12 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	public void setServletRequest(HttpServletRequest request) {
 		this.request=request;
 		
+	}
+	public String[] getRigthListLeft() {
+		return rigthListLeft;
+	}
+	public void setRigthListLeft(String[] rigthListLeft) {
+		this.rigthListLeft = rigthListLeft;
 	}
 
 

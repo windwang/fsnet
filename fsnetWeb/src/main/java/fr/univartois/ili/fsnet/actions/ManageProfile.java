@@ -54,7 +54,8 @@ import fr.univartois.ili.fsnet.facade.security.UnauthorizedOperationException;
  * @author Geoffrey Boulay
  * @author SAID Mohamed
  */
-public class ManageProfile extends ActionSupport implements CrudAction,ServletRequestAware {
+public class ManageProfile extends ActionSupport implements CrudAction,
+		ServletRequestAware {
 
 	/**
 	 * 
@@ -84,25 +85,22 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	private String phone;
 	private String job;
 	private Date dateOfBirth;
-	private int id=-1;
+	private int id = -1;
 	private File photo;
 	private String photoContentType;
 	private String photoUrl;
-	
+
 	private List<String> sexesKey;
 	private List<String> sexesValue;
-	
-	
-	
-	
+
 	public ManageProfile() {
 		super();
-		sexesKey=new ArrayList<>();
+		sexesKey = new ArrayList<>();
 		sexesKey.add("");
 		sexesKey.add(getText("male"));
 		sexesKey.add(getText("female"));
-		
-		sexesValue=new ArrayList<>();
+
+		sexesValue = new ArrayList<>();
 		sexesValue.add("");
 		sexesValue.add("updateProfile.sexe.male");
 		sexesValue.add("updateProfile.sexe.female");
@@ -118,8 +116,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final String create()
-			throws Exception {
+	public final String create() throws Exception {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -129,7 +126,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	 * @return
 	 */
 	private int verified(EntityManager em) throws ParseException {
-		int nbErreurs=0;
+		int nbErreurs = 0;
 		Date actualDate = new Date();
 		if (dateOfBirth.after(actualDate)) {
 			addFieldError(DATE_OF_BIRTH_FORM_FIELD_NAME, "date.error.invalid");
@@ -149,10 +146,11 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 			em.getTransaction().begin();
 			SocialEntity se = sef.findByEmail(mail);
 			em.getTransaction().commit();
-			//em.close();
+			// em.close();
 
 			if (se != null) {
-				addFieldError(MAIL_FORM_FIELD_NAME, "error.updateProfile.email.alwaysExist");
+				addFieldError(MAIL_FORM_FIELD_NAME,
+						"error.updateProfile.email.alwaysExist");
 				nbErreurs++;
 			}
 		}
@@ -169,8 +167,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final String modify()
-			throws Exception {
+	public final String modify() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 
@@ -182,23 +179,18 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 
 		addRightToRequest(request);
 
-		
-
 		int actionsErrors = verified(em);
 
-		if (actionsErrors>0) {
+		if (actionsErrors > 0) {
 			em.close();
 			return INPUT;
 		}
 
 		ProfileFacade pf = new ProfileFacade(em);
 		em.getTransaction().begin();
-		pf.editProfile(
-				UserUtils.getAuthenticatedUser(request, em),
-				name,
-				firstName,
-				new Address(adress, city), dateOfBirth, sexe, job, mail.toLowerCase(),
-				phone);
+		pf.editProfile(UserUtils.getAuthenticatedUser(request, em), name,
+				firstName, new Address(adress, city), dateOfBirth, sexe, job,
+				mail.toLowerCase(), phone);
 		em.getTransaction().commit();
 		em.close();
 
@@ -223,8 +215,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final String delete()
-			throws IOException, ServletException {
+	public final String delete() throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -238,8 +229,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final String search()
-			throws IOException, ServletException {
+	public final String search() throws IOException, ServletException {
 		throw new UnsupportedOperationException("Not supported yet.");
 	}
 
@@ -259,22 +249,22 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 		SocialGroupFacade sgf = new SocialGroupFacade(em);
 		addRightToRequest(request);
 		request.setAttribute("currentUser", user);
-		name=user.getName();
-		firstName=user.getFirstName();
+		name = user.getName();
+		firstName = user.getFirstName();
 
 		if (user.getAddress() != null) {
-			adress=user.getAddress().getAddress();
-			city=user.getAddress().getCity();
+			adress = user.getAddress().getAddress();
+			city = user.getAddress().getCity();
 		}
 
 		if (user.getBirthDate() != null) {
-			dateOfBirth=user.getBirthDate();
+			dateOfBirth = user.getBirthDate();
 		}
 
-		sexe=user.getSex();
-		job=user.getProfession();
-		mail=user.getEmail();
-		phone=user.getPhone();
+		sexe = user.getSex();
+		job = user.getProfession();
+		mail = user.getEmail();
+		phone = user.getPhone();
 
 		if (sgf.isMasterGroup(user)) {
 			request.getSession(true).setAttribute(
@@ -307,8 +297,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public final String display()
-			throws Exception {
+	public final String display() throws Exception {
 		addKeyFacebookInRequest(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 
@@ -320,9 +309,8 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 
 		addRightToRequest(request);
 
-		if(id<0)
+		if (id < 0)
 			id = user.getId();
-		
 
 		SocialEntity profile = sef.getSocialEntity(id);
 
@@ -368,8 +356,10 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 		em.getTransaction().begin();
 		InteractionFacade intFac = new InteractionFacade(em);
 
-		request.setAttribute("interactions",
-				intFac.getIntetactionsByUser(profile,(int)request.getSession().getAttribute(Authenticate.AUTHENTICATED_USER)));
+		request.setAttribute("interactions", intFac.getIntetactionsByUser(
+				profile,
+				(int) request.getSession().getAttribute(
+						Authenticate.AUTHENTICATED_USER)));
 		em.getTransaction().commit();
 
 		request.setAttribute("currentUser", user);
@@ -394,7 +384,8 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 		SocialGroup socialGroup = profile.getGroup();
 		request.setAttribute("socialGroup", socialGroup);
 
-		LoggedUsersContainer loggedCon = (LoggedUsersContainer) ServletActionContext.getServletContext().getAttribute("loggedUsers");
+		LoggedUsersContainer loggedCon = (LoggedUsersContainer) ServletActionContext
+				.getServletContext().getAttribute("loggedUsers");
 		Map<Integer, String> loggeddd = loggedCon.getUsers();
 
 		if (loggeddd.containsKey(id)) {
@@ -404,7 +395,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 		}
 
 		em.close();
-		
+
 		return SUCCESS;
 	}
 
@@ -430,7 +421,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 			URISyntaxException {
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		
+
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
 				Right.MODIFY_PICTURE)) {
 			return "unauthorized";
@@ -440,10 +431,9 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 		HttpClient httpClient = new DefaultHttpClient();
 		HttpGet httpGet = new HttpGet();
 		URI uri = null;
-		
-		
+
 		String urlType = null;
-		
+
 		if (photoUrl != null && !photoUrl.isEmpty()) {
 			try {
 				uri = new URI(photoUrl);
@@ -459,11 +449,11 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 			uri = null;
 		}
 
-		photoUrl="";
-		
+		photoUrl = "";
+
 		int userId = UserUtils.getAuthenticatesUserId(request);
 		addRightToRequest(request);
-		
+
 		if (photo.length() != 0) {
 			PictureType pictureType = null;
 			for (PictureType pt : PictureType.values()) {
@@ -472,7 +462,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 					break;
 				}
 			}
-			
+
 			if (pictureType != null) {
 
 				if (photo.length() > MAX_PICTURE_SIZE) {
@@ -502,7 +492,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 					break;
 				}
 			}
-			
+
 			if (pictureType != null) {
 
 				if (inputStream.available() > MAX_PICTURE_SIZE) {
@@ -545,7 +535,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 		Integer userId = UserUtils.getAuthenticatesUserId(request);
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
-		
+
 		if (!fascade.isAuthorized(UserUtils.getAuthenticatedUser(request, em),
 				Right.MODIFY_PICTURE)) {
 			return "unauthorized";
@@ -570,7 +560,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
-		this.request=request;
+		this.request = request;
 	}
 
 	public DateFormat getFormatter() {
@@ -700,6 +690,5 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 	public void setSexesValue(List<String> sexesValue) {
 		this.sexesValue = sexesValue;
 	}
-	
-	
+
 }
