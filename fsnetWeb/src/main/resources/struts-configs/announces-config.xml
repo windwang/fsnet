@@ -19,15 +19,9 @@
 		<action name="CreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="create">
 			<result name="success" type="tiles">/Announces.do</result>
-<<<<<<< HEAD
 			<result name="failed" type="tiles">DisplayCreateAnnounce</result>
 			<result name="input" type="tiles">DisplayCreateAnnounce</result>
 			<result name="unauthorized">/Announces.do</result>
-=======
-			<result name="error">/DisplayCreateAnnounce.do</result>
-			<result name="input" type="tiles">/DisplayCreateAnnounce.do</result>
-<!-- 			<result name="unauthorized">/Announces.do</result> -->
->>>>>>> da023312e328cb52bf4e9f328cbf0d37790e95a8
 		</action>
 
 		<action name="DisplayCreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
