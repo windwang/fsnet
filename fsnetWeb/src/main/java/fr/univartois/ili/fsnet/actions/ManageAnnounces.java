@@ -70,7 +70,7 @@ public class ManageAnnounces extends ActionSupport implements
 		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
 			entityManager.close();
-			return UNAUTHORIZED_ACTION_NAME;
+			return SUCCESS;
 		}
 
 		try {
@@ -363,7 +363,7 @@ public class ManageAnnounces extends ActionSupport implements
 		em.close();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
-			return UNAUTHORIZED_ACTION_NAME;
+			return SUCCESS;
 		}
 
 		return SUCCESS;

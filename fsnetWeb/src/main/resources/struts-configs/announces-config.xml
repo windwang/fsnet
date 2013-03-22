@@ -19,15 +19,15 @@
 		<action name="CreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="create">
 			<result name="success" type="tiles">/Announces.do</result>
-			<result name="failed" type="tiles">DisplayCreateAnnounce</result>
-			<result name="input" type="tiles">DisplayCreateAnnounce</result>
-			<result name="unauthorized">/Announces.do</result>
+<!-- 			<result name="failed" type="tiles">DisplayCreateAnnounce</result> -->
+			<result name="input" >DisplayCreateAnnounce</result>
+<!-- 			<result name="unauthorized">/Announces.do</result> -->
 		</action>
 
 		<action name="DisplayCreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="displayCreateAnnounce">
 			<result name="success" type="tiles">CreateAnnounce</result>
-			<result name="unauthorized">/Announces.do</result>
+<!-- 			<result name="unauthorized">/Announces.do</result> -->
 		</action>
 
 		<action name="ModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
@@ -36,11 +36,7 @@
 			<result name="failed">ModifyAnnounce</result>
 		</action>
 
-		<action name="DisplayCreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
-			method="displayCreateAnnounce">
-			<result name="success" type="tiles">CreateAnnounce</result>
-			<result name="unauthorized">/Announces.do</result>
-		</action>
+	
 
 		<action name="DisplayForModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="displayToModify">

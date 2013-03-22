@@ -18,7 +18,7 @@
 			<tr>
 				<td><s:textfield property="searchText" id="searchTexte"
 						cssClass="search-query" /> <ili:placeHolder id="searchTexte"
-						value="%{searchMessage}" /> <s:submit styleClass="btn btn-inverse">
+						value="${searchMessage}" /> <s:submit styleClass="btn btn-inverse">
 						<s:text name="communities.button.search" />
 					</s:submit>
 				</td>
