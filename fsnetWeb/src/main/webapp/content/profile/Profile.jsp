@@ -18,7 +18,8 @@
 	<div class="box">
 		<div id="social_networks">
 			<div id="facebook_button_box">
-				<fb:login-button show-faces="true" width="450" perms="email,user_birthday,user_location"></fb:login-button>
+				<fb:login-button show-faces="true" width="450"
+					perms="email,user_birthday,user_location"></fb:login-button>
 			</div>
 		</div>
 		<div id="social_networks_profiles">
@@ -35,7 +36,6 @@
 	</div>
 </c:if>
 
-${rightModifyProfil}
 <ili:interactionFilter user="${socialEntity}"
 	right="${rightModifyProfil}">
 	<fieldset class="fieldsetCadre">
@@ -43,67 +43,81 @@ ${rightModifyProfil}
 			<s:text name="updateProfile.title" />
 		</legend>
 		<table id="ModifyProfile" class="inLineTable tableStyle">
-			<s:form action="/ModifyProfile">
+			<s:form action="ModifyProfile" theme="simple">
 				<tr>
-					<td><label for="name"> <s:text name="updateProfile.name" />
+					<td><label for="name"> <s:text
+								name="updateProfile.name" />
 					</label></td>
+					<td><s:textfield name="name" /></td>
 				</tr>
-				
+
 
 				<tr>
-					<td><label for="firstName"> <s:text name="updateProfile.firstname" />
+					<td><label for="firstName"> <s:text
+								name="updateProfile.firstname" />
 					</label></td>
+					<td><s:textfield name="firstName" /></td>
 				</tr>
-				
+
 
 				<tr>
-					<td><label for="adress"> <s:text name="updateProfile.adress" />
+					<td><label for="adress"> <s:text
+								name="updateProfile.adress" />
 					</label></td>
+					<td><s:textfield name="adress" /></td>
 				</tr>
-			
+
 
 				<tr>
-					<td><label for="city"> <s:text name="updateProfile.city" />
+					<td><label for="city"> <s:text
+								name="updateProfile.city" />
 					</label></td>
+					<td><s:textfield name="city" /></td>
 				</tr>
-				
+
 
 				<tr>
-					<td><label for="dateOfBirth"> <s:text name="updateProfile.dateOfBirth" />
+					<td><label for="dateOfBirth"> <s:text
+								name="updateProfile.dateOfBirth" />
 					</label></td>
+					<td><s:textfield id="dateOfBirth" name="dateOfBirth" /></td>
 				</tr>
-			
+
 
 				<tr>
-					<td><label for="sexe"> <s:text name="updateProfile.sexe" />
+					<td><label for="sexe"> <s:text
+								name="updateProfile.sexe" />
 					</label></td>
-					<td><s:select name="sexe" id="sexe" list="sexes"/></td>
+					<td><s:select key="sexe" name="sexe" id="sexe" list="sexesKey" /></td>
 				</tr>
-				
+
 
 				<tr>
 					<td><label for="job"> <s:text name="updateProfile.job" />
 					</label></td>
+					<td><s:textfield name="job" /></td>
 				</tr>
-				
+
 
 				<tr>
-					<td><label for="mail"> <s:text name="updateProfile.email" />
+					<td><label for="mail"> <s:text
+								name="updateProfile.email" />
 					</label></td>
+					<td><s:textfield name="mail" /></td>
 				</tr>
-				
+
 
 				<tr>
-					<td><label for="phone"> <s:text name="updateProfile.phone" />
+					<td><label for="phone"> <s:text
+								name="updateProfile.phone" />
 					</label></td>
+					<td><s:textfield name="phone" /></td>
 				</tr>
-				
+
 
 				<tr>
 					<td colspan="2" class="tableButton"><s:submit
-							styleClass="btn btn-inverse">
-							<s:text name="updateProfile.validate" />
-						</s:submit></td>
+							cssClass="btn btn-inverse" key="updateProfile.validate" /></td>
 				</tr>
 			</s:form>
 		</table>
@@ -135,26 +149,30 @@ ${rightModifyProfil}
 		<s:text name="updateProfile.changePassword.title" />
 	</legend>
 
-	<s:form action="ChangePassword" theme="simple" >
+	<s:form action="ChangePassword" theme="simple">
 
-		
+
 
 		<table class="inLineTable tableStyle">
-			<c:forTokens var="typePwd"
-				items="oldPassword:newPassword:confirmNewPassword" delims=":">
 				<tr>
-					<td><label for="${typePwd}"> ${typePwd}
-					</label></td>
-					<s:set var="nameTextfield">updateProfile.changePassword.${typePwd}</s:set>
-					<td><s:password name="%{nameTextfield}" property="${typePwd}" styleId="${typePwd}" />
-					</td>
+					<td><label for="oldPassword"><s:text name="updateProfile.changePassword.oldPassword" /></label></td>
+					<td><s:password name="oldPassword" styleId="oldPassword" /></td>
 				</tr>
-			
-			</c:forTokens>
+				
+				<tr>
+					<td><label for="newPassword"> <s:text name="updateProfile.changePassword.newPassword"/> </label></td>
+	
+					<td><s:password name="newPassword" styleId="newPassword" /></td>
+				</tr>
+				
+				<tr>
+					<td><label for="confirmNewPassword"> <s:text name="updateProfile.changePassword.confirmNewPassword"/> </label></td>
+					<td><s:password name="confirmNewPassword" styleId="confirmNewPassword" /></td>
+				</tr>
+
 			<tr>
-				<td colspan="2" class="tableButton"><s:submit  key="updateProfile.validate"
-						cssClass="btn btn-inverse" />
-		</td>
+				<td colspan="2" class="tableButton"><s:submit
+						key="updateProfile.validate" cssClass="btn btn-inverse" /></td>
 			</tr>
 		</table>
 	</s:form>
@@ -167,7 +185,8 @@ ${rightModifyProfil}
 			<s:text name="updateProfile.changePhoto.title" />
 		</legend>
 
-		<s:form action="/ChangePhoto" enctype="multipart/form-data">
+		<s:form action="ChangePhoto" enctype="multipart/form-data"
+			theme="simple">
 			<div class="space"></div>
 			<img src="avatar/${userId}.png" style="float: right;" alt="Avatar" />
 			<div>
@@ -177,32 +196,30 @@ ${rightModifyProfil}
 			<div>
 				<table class="inLineTable tableStyle">
 					<tr>
-						<td><label for="photoUrl"> <s:text name="updateProfile.photoInternet" />
+						<td><label for="photoUrl"> <s:text
+									name="updateProfile.photoInternet" />
 						</label>
-						
-						<td><s:text name="photoUrl" id="photoUrl"></s:text></td>
+						<td><s:textfield name="photoUrl" id="photoUrl" /></td>
 					</tr>
 
 					<tr>
-						<td><label for="photo"> <s:text name="updateProfile.photoLocal" />
+						<td><label for="photo"> <s:text
+									name="updateProfile.photoLocal" />
 						</label></td>
-						<td><s:file property="photo" styleId="photo" size="45"></s:file></td>
+						<td><s:file property="photo" styleId="photo" size="45" /></td>
 					</tr>
 
 					<tr>
-						<td colspan="2" class="tableButton">
-							<s:a action="/DeletePhoto" styleClass="btn btn-inverse">
+						<td colspan="2" class="tableButton"><s:a action="DeletePhoto"
+								cssClass="btn btn-inverse">
 								<s:text name="updateProfile.deletePhoto" />
-							</s:a>
-							<s:submit
-								styleClass="btn btn-inverse">
-								<s:text name="updateProfile.validate" />
-							</s:submit></td>
+							</s:a> <s:submit cssClass="btn btn-inverse"
+								key="updateProfile.validate" /></td>
 					</tr>
 				</table>
 			</div>
 
-			
+
 		</s:form>
 	</fieldset>
 </ili:interactionFilter>
