@@ -1,6 +1,7 @@
 package fr.univartois.ili.fsnet.actions;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +10,6 @@ import java.util.Set;
 import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 
@@ -38,7 +38,11 @@ public class ManageResearch extends ActionSupport implements
 
 	private HttpServletRequest request;
 	private String searchText;
-	private String[] selectedResearch;
+	private List<String> selectedResearch;
+	
+	public ManageResearch() {
+		selectedResearch = new ArrayList<String>();
+	}
 
 	/**
 	 * 
@@ -63,8 +67,9 @@ public class ManageResearch extends ActionSupport implements
 //		String[] selectedModes = (String[]) dynaForm.get("selectedResearch");
 
 		Set<String> modes = new HashSet<String>();
-		for (int i = 0; i < selectedResearch.length; i++) {
-			modes.add(selectedResearch[i]);
+		
+		for (int i = 0; i < selectedResearch.size(); i++) {
+			modes.add(selectedResearch.get(i));
 		}
 		if (modes.contains("tous") || modes.size() == 0) {
 			request.setAttribute("searchTous", true);
@@ -92,11 +97,11 @@ public class ManageResearch extends ActionSupport implements
 		this.searchText = searchText;
 	}
 
-	public String[] getSelectedResearch() {
+	public List<String> getSelectedResearch() {
 		return selectedResearch;
 	}
 
-	public void setSelectedResearch(String[] selectedResearch) {
+	public void setSelectedResearch(List<String> selectedResearch) {
 		this.selectedResearch = selectedResearch;
 	}
 

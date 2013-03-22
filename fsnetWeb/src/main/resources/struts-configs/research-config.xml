@@ -14,7 +14,7 @@
 		</result-types>
 		<action name="Research" class="fr.univartois.ili.fsnet.actions.ManageResearch"
 			method="search">
-			<result name="success" type="tiles">/Research</result>
+			<result name="success" type="tiles">Research</result>
 		</action>
 	</package>
 </struts>
