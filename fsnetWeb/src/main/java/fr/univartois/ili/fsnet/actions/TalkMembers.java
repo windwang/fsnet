@@ -17,9 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
+<<<<<<< HEAD
 import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
 import org.apache.struts.actions.ActionSupport;
+=======
+>>>>>>> branch 'struts' of https://code.google.com/p/fsnet
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.jivesoftware.smack.Chat;
@@ -418,6 +421,16 @@ public class TalkMembers extends ActionSupport implements ServletRequestAware,
 		System.out.println("################################");
 		System.out.println("COMPOSING to");
 		System.out.println(friend);
+	}
+
+	@Override
+	public void setServletRequest(HttpServletRequest request) {
+		this.request = request;
+	}
+
+	@Override
+	public void setServletResponse(HttpServletResponse response) {
+		this.response = response;
 	}
 
 	@Override

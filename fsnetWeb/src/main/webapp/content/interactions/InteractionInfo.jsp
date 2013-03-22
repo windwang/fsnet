@@ -28,8 +28,6 @@
 			<s:text name="interactions.interest" /> :
             <div class="cloud">
 				<c:forEach var="interest" items="${theInteraction.interests}">
-
-
 					<span class="otag"> <s:a
 							action="/InterestInformations">
 							<s:param name="infoInterestId" value="%{interest.id}" />

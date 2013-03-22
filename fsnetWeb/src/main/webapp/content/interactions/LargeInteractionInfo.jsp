@@ -36,8 +36,7 @@
 									<s:a href="/RemoveInterestOfInteraction">
 										<s:param name="interactionId" value="%{theInteraction.id}" />
 										<s:param name="interestId" value="%{interest.id}" />
-
-					<img src="images/mini-delete.png" alt="delete" />
+										<img src="images/mini-delete.png" alt="delete" />
 									</s:a>
 								</c:if>
 							</span>

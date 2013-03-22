@@ -33,6 +33,7 @@ import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.TableHeader;
 import fr.univartois.ili.fsnet.actions.utils.HeaderFooter;
+import fr.univartois.ili.fsnet.actions.utils.TableHeader;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;
 import fr.univartois.ili.fsnet.entities.Curriculum;
 import fr.univartois.ili.fsnet.facade.CvFacade;

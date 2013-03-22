@@ -16,6 +16,7 @@
 			<s:param name="id" value="%{user.id}" />
 		</s:url>
 		<a href="<s:property value='#display'/>" class="miniature">
+
 			<img src="avatar/${user.id}.png"
 				title="${user.name} ${user.firstName}" alt="Avatar"></img>
 		</a>

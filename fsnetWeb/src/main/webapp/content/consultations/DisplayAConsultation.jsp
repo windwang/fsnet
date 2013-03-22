@@ -204,8 +204,6 @@
 
 													<s:checkbox property="voteChoice" value="%{choice.id}"
 														disabled="%{disabledList[i]}" />
-
-
 												</c:otherwise>
 
 											</c:choose></td>
@@ -218,8 +216,6 @@
 													page="autocompleteOtherChoice.jsp" /></div></td>
 									</c:if>
 									<td><s:textfield property="voteComment" /></td>
-
-
 									<s:hidden name="id" value="%{consultation.id }" />
 									<td><s:submit styleClass="btn btn-inverse">
 											<s:text name="consultations.button.vote" />

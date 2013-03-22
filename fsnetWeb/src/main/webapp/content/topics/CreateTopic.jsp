@@ -13,6 +13,7 @@
 	<table id="CreateTopic" class="inLineTable tableStyle">
 		<s:form action="/CreateTopic">
 			<s:hidden name="hubId" value="%{param.hubId}" />
+
 			<tr>
 				<td><label for="topicSubject"><s:text
 							name="topics.form.subject" /> </label></td>

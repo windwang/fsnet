@@ -6,7 +6,8 @@
 	<legend>
 		<s:text name="hubs.title.create" />
 	</legend>
-	<table id="CreateHub" class="inLineTable tableStyle">
+	<table id="CreateHub"
+		class="inLineTable tableStyle">
 		<s:form action="/CreateHub">
 			<s:hidden name="communityId" value="%{param.communityId}" />
 			<tr>

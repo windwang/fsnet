@@ -18,11 +18,11 @@
 					<c:forEach items="${requestScope.conversationMessages1.resultList}"
 						var="message">
 						<tr class="topicHeader">
-							<td><s:checkbox name="selectedMessages"
-									value="%{message.id}" /></td>
+							<td><input type="checkbox" name="selectedMessages"
+								value="${message.id}" /></td>
 							<td><s:text name="privatemessages.from" /> : |<ili:getSocialEntityInfos
 									socialEntity="${message.from}" />| <span style="float: right">
-									<s:property value="message" />
+									<s:property value="message.creationDate" />
 							</span></td>
 						</tr>
 						<tr>

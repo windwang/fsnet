@@ -156,6 +156,7 @@ public class ManageConsultations extends ActionSupport implements
 			request.setAttribute("errorRights", true);
 			return FAILED_ACTION_NAME;
 		}
+
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
@@ -249,7 +250,6 @@ public class ManageConsultations extends ActionSupport implements
 		Consultation consultation = consultationFacade
 				.getConsultation(idConsultation);
 
-		
 		List<String> voteChoices = new ArrayList<>(Arrays.asList(voteChoice));
 
 		if (consultation.isLimitChoicesPerParticipant()) {
@@ -501,7 +501,6 @@ public class ManageConsultations extends ActionSupport implements
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade
 					.getConsultation(Integer.valueOf(idConsultation));
-			if((consultation==null)){
 				return UNAUTHORIZED_ACTION_NAME;
 			}
 			Collections.sort(consultation.getChoices(),

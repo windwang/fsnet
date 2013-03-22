@@ -7,8 +7,9 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<s:text name="showProfile.title"
-			var="%{watchedProfile.firstName} %{watchedProfile.name}" />
+		<s:text name="showProfile.title">
+			<s:param>${watchedProfile.firstName} ${watchedProfile.name}</s:param>
+		</s:text>
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -102,8 +103,9 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<s:text name="showInterest.title"
-			var="%{watchedProfile.firstName} %{watchedProfile.name}" />
+		<s:text name="showInterest.title">
+			<s:param>${watchedProfile.firstName} ${watchedProfile.name}</s:param>
+		</s:text>
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
@@ -161,12 +163,12 @@
 						});
 			</script>
 
-			<table id="tableinterhrefs" class="inLineTable tableStyle">
+			<table id="tableinteractions" class="inLineTable tableStyle">
 				<thead>
 					<tr>
 						<th></th>
 						<th><s:text name="tableheader.name" /></th>
-						<th><s:text name="interhref.lastModif" /></th>
+						<th><s:text name="interaction.lastModif" /></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -177,19 +179,19 @@
 								</c:import></td>
 							<td><c:choose>
 									<c:when test="${inter.simpleClassName eq 'Announcement'}">
-										<s:a href="/DisplayAnnounce">
+										<s:a action="/DisplayAnnounce">
 											<s:param name="idAnnounce" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
 									</c:when>
 									<c:when test="${inter.simpleClassName eq 'Meeting'}">
-										<s:a href="/DisplayEvent">
+										<s:a action="/DisplayEvent">
 											<s:param name="eventId" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
 									</c:when>
 									<c:when test="${inter.simpleClassName eq 'Topic'}">
-										<s:a href="/Topic">
+										<s:a action="/Topic">
 											<s:param name="topicId" value="%{inter.id}" />
                                 ${inter.title}
                                  
@@ -197,29 +199,27 @@
                             (${fn:length(inter.messages)} messages)
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Hub'}">
-										<s:a href="/DisplayHub">
+										<s:a action="/DisplayHub">
 											<s:param name="hubId" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
                             (${fn:length(inter.topics)} topics)
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Community'}">
-										<s:a href="/DisplayCommunity">
+										<s:a action="/DisplayCommunity">
 											<s:param name="communityId" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
                             (${fn:length(inter.hubs)} hubs)
                         </c:when>
 									<c:when test="${inter.simpleClassName eq 'Consultation'}">
-										<s:a href="/DisplayAConsultation">
+										<s:a action="/DisplayAConsultation">
 											<s:param name="id" value="%{inter.id}" />
                                 ${inter.title}
                             </s:a>
 									</c:when>
 								</c:choose></td>
-							<td>
-							<!--<s:property name="inter" value="lastModified"
-									format="dd/MM/yyyy" />--></td>
+							<td><s:date name="lastModified" format="dd/MM/yyyy" /></td>
 						</tr>
 					</c:forEach>
 				</tbody>
@@ -268,8 +268,8 @@
 				<ul>
 					<c:choose>
 						<c:when test="${requestScope.treeGroupProfile ne ''}">
-							<li><s:a href="/DisplayInformationGroup">
-								<s:param name="idGroup" value="%{ socialGroup.id }" />
+							<li><s:a action="/DisplayInformationGroup">
+									<s:param name="idGroup" value="%{socialGroup.id}" />
 								${requestScope.treeGroupProfile}
 								</s:a></li>
 

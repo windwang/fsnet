@@ -88,7 +88,6 @@
 										socialEntity="${message.to}" /></td>
 								<td><ili:getSocialEntityInfosName
 										socialEntity="${message.to}" /></td>
-
 								<td style="width: 40%"><s:a
 										action="/DisplaySentMessage">
 										<s:param name="messageId" value="%{message.id}" />

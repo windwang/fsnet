@@ -9,11 +9,8 @@
 		<s:text name="consultations.title.create"></s:text>
 	</legend>
 
-
-
 	<form action="<s:url action='CreateConsultation'/>" method="POST"
 		enctype="multipart/form-data">
-
 		<fieldset class="fieldsetCadre">
 			<legend>
 				<s:text name="consultations.title.information" />
@@ -33,20 +30,16 @@
 				</tr>
 			</table>
 		</fieldset>
-
-
 		<fieldset class="fieldsetCadre">
 			<legend>
 				<s:text name="consultations.title.choix" />
 			</legend>
-
 			<table class="tableStyle">
 				<tr>
 					<td><label for="radioButtonText"><s:text
 								name="consultations.form.textAlternative"></s:text></label> <input
 						type="radio" class="alternativeRadio" name="alternativeRadio"
 						id="radioButtonText" checked="checked" /></td>
-
 					<td><label for="radioButtonDate"><s:text
 								name="consultations.form.dateAlternative"></s:text></label><input
 						type="radio" class="alternativeRadio" name="alternativeRadio"
@@ -64,20 +57,6 @@
 			<div class="plusMoins">
 				<br /> <input type="button" onclick="removeChoice()" class="moins" /><input
 					type="button" onclick="addChoice()" class="plus" /><br />
-			</div>
-
-			<div id="errorChoice">
-				<div class="errorMessage">
-					<s:text name="consultations.error.choice" />
-				</div>
-			</div>
-
-			<c:if test="${errorMaxVotersPerChoice}">
-				<div class="errorMessage">
-					<s:text name="consultations.error.maxVotersPerChoice" />
-				</div>
-			</c:if>
-
 			<s:hidden name="consultationChoice" />
 			<s:hidden name="maxVoters" />
 			<table id="choicesTab" class="tableStyle">
@@ -86,15 +65,12 @@
 						<td><label for="consultationChoice${i}"><span
 								class="i18nChoice"><s:text
 										name="consultations.form.choice" /></span> ${i} : </label></td>
-
 						<td><input type="text" id="consultationChoice${i}"
 							class="consultationChoice" value="" /></td>
 					</tr>
 				</c:forEach>
 			</table>
 		</fieldset>
-
-
 		<fieldset class="fieldsetCadre">
 			<legend>
 				<s:text name="consultations.title.droit" />
@@ -128,31 +104,25 @@
 				<tr>
 			</table>
 		</fieldset>
-
-
 		<fieldset class="fieldsetCadre">
 			<legend>
 				<s:text name="consultations.title.typeConsultation" />
 			</legend>
-
 			<table class="tableStyle">
 				<tr>
 					<td><input type="radio" value="YES_NO" name="consultationType" id="YES_NO" /></td>
 					<td><label for="YES_NO"><s:text
 								name="consultations.form.typeYesNo" /></label></td>
 				</tr>
-
 				<tr>
 					<td><input type="radio" name="consultationType" value="YES_NO_OTHER"
 						id="YES_NO_OTHER" /></td>
 					<td><label for="YES_NO_OTHER"><s:text
 								name="consultations.form.typeYesNoOther" /></label></td>
 				</tr>
-
 				<tr>
 					<td><input type="radio" name="consultationType"
 						id="YES_NO_IFNECESSARY" value="YES_NO_IFNECESSARY" /></td>
-
 					<td><label for="YES_NO_IFNECESSARY"><s:text
 								name="consultations.form.typeYesNoIfNecessary" /></label><label
 						for="consultationIfNecessaryWeight"> <s:text
@@ -170,58 +140,48 @@
 			</table>
 
 		</fieldset>
-
 		<fieldset class="fieldsetCadre">
 			<legend>
 				<s:text name="consultations.title.option" />
 			</legend>
-
-
 			<c:if test="${errorChoicesVoter}">
 				<p>
 					<s:text name="consultations.error.choicesVoter" />
 				</p>
 			</c:if>
-
 			<table class="tableStyle">
 				<tr>
 					<td><s:checkbox name="limitChoicesPerVoter"
 							id="limitChoicesPerVoter" label="%{getText('consultations.form.limitChoicesPerVoter')}"/></td>
 				</tr>
-
 				<tr>
 					<td><s:textfield name="minChoicesVoter"
 							id="minChoicesVoter" value="1" label="Min" /> <s:textfield
 							name="maxChoicesVoter" styleId="maxChoicesVoter" value="1" label="Max" /></td>
 				</tr>
 			</table>
-
 			<table class="tableStyle">
 				<tr>
 					<td><s:checkbox name="showBeforeAnswer" label="%{getText('consultations.form.showBeforeAnswer')}"
 							id="showBeforeAnswer" /></td>
 					
 				</tr>
-
 				<tr>
 					<td><s:checkbox name="showBeforeClosing" label="%{getText('consultations.form.showBeforeClosing')}"
 							id="showBeforeClosing" /></td>
 					
 				</tr>
 			</table>
-
 			<table class="tableStyle">
 				<tr>
 					<td><s:textfield name="deadline" id="deadline" label="%{getText('consultations.form.deadline')}" /></td>
 				</tr>
-
 				<tr>
 					<td><s:textfield id="closingAtMaxVoters" label="%{getText('consultations.form.closingAtMaxVoters')}"
 							name="closingAtMaxVoters" /></td>
 				</tr>
 			</table>
 		</fieldset>
-
 		<s:submit cssClass="btn btn-inverse" id="buttonConsultation"
 			onclick="return validateConsultation()" key="consultations.button.create"/>
 	</form>

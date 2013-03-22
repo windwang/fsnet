@@ -88,7 +88,6 @@
 							cssClass="navbar-search pull-left noMargin littleTopPadding searchBar">
 							<div>
 								<i class="icon-search"></i>
-
 								<s:textfield cssClass="span2" var="searchText" name="searchText" />
 
 								<input style="display: none" type="checkbox" checked

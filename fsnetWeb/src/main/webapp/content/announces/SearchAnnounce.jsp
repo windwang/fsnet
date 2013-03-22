@@ -15,12 +15,11 @@
 		class="inLineTable tableStyle">
 		<s:form action="Announces" method="GET">
 			<tr>
-				<td><s:textfield property="textSearchAnnounce"
-						styleId="textSearchAnnounce" styleClass="search-query"/> <ili:placeHolder
-						id="textSearchAnnounce" value="${searchMessage}" /> <s:submit
-						styleClass="btn btn-inverse">
-						<s:text name="announce.button.search" />
-					</s:submit></td>
+				<td><s:textfield name="textSearchAnnounce"
+						id="textSearchAnnounce" cssClass="search-query"/> <ili:placeHolder
+						id="textSearchAnnounce" value="${searchMessage}" /> 
+						<s:submit cssClass="btn btn-inverse" key="announce.button.search"/>
+				</td>
 			</tr>
 		</s:form>
 	</table>

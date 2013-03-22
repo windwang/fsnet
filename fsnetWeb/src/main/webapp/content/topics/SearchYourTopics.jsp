@@ -49,6 +49,7 @@
 					onmouseover="this.style.cursor='pointer'" /> <img
 					src="images/message.png" alt="Message" />
 				</td>
+
 				<td><s:a href="/DisplayTopic"
 						title='%{empty couple.key.interests? "" : couple.key.interests}'>
 						<s:param name="topicId" value="%{couple.key.id}" />

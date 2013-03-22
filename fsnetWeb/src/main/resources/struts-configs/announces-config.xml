@@ -20,7 +20,6 @@
 			method="create">
 			<result name="success" type="tiles">/Announces.do</result>
 			<result name="failed">/DisplayCreateAnnounce.do</result>
-			<result name="input">/DisplayCreateAnnounce.do</result>
 			<result name="unauthorized">/Announces.do</result>
 		</action>
 
@@ -32,9 +31,13 @@
 
 		<action name="ModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="modify">
-			<result name="input">ModifyAnnounce</result>
 			<result name="success" type="tiles">/Announces.do</result>
 			<result name="failed">ModifyAnnounce</result>
+		</action>
+
+		<action name="DisplayCreateAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
+			method="displayCreateAnnounce">
+			<result name="success" type="tiles">CreateAnnounce</result>
 			<result name="unauthorized">/Announces.do</result>
 		</action>
 

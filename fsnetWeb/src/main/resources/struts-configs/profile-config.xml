@@ -17,9 +17,9 @@
 		</action>
 
 		<action name="ModifyProfile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="modify">
-			<result name="input">/Profile.do</result>
-			<result name="success">/DisplayProfile.do</result>
-			<result name="unauthorized" type="redirect">/Profile.do</result>
+			<result name="input">Profile</result>
+			<result name="success" type="redirect">Profile.do</result>
+			<result name="unauthorized" type="redirect">Profile</result>
 		</action>
 
 		<action name="Profile" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="displayToModify">
@@ -27,8 +27,8 @@
 		</action>
 
 		<action name="ChangePassword" class="fr.univartois.ili.fsnet.actions.ChangePassword">
-			<result name="input">/Profile.do</result>
-			<result name="success" type="tiles">/Profile.do</result>
+			<result name="input">Profile</result>
+			<result name="success" type="redirect">Profile.do</result>
 		</action>
 
 		<action name="ChangePhoto" class="fr.univartois.ili.fsnet.actions.ManageProfile" method="changePhoto">

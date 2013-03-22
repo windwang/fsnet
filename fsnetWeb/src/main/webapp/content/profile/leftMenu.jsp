@@ -1,4 +1,8 @@
 <%@ taglib prefix="s" uri="/struts-tags"%>
+<<<<<<< HEAD
+=======
+
+>>>>>>> branch 'struts' of https://code.google.com/p/fsnet
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 <h2>
@@ -27,11 +31,19 @@
 		</h2>
 
 		<ul>
+<<<<<<< HEAD
 			<li><s:a href="/SearchGroup.do">
 					<s:text name="profile.LeftMenuManageGroups" />
 					<s:param name="id" value="%{requestScope.groupId}" />
 				</s:a></li>
 			<li><s:a href="/MemberList">
+=======
+			<li><s:a action="SearchGroup.do">
+					<s:text name="profile.LeftMenuManageGroups" />
+					<s:param name="id" value="%{requestScope.groupId}" />
+				</s:a></li>
+			<li><s:a action="MemberList">
+>>>>>>> branch 'struts' of https://code.google.com/p/fsnet
 					<s:text name="profile.LeftMenuManageMembers" />
 				</s:a></li>
 		</ul>
@@ -41,9 +53,15 @@
 			<s:text name="profile.LeftMenuMemberGroup" />
 		</h2>
 		<ul>
+<<<<<<< HEAD
 			<li><s:a href="/ListMembersOfGroup">
 					<s:text name="profile.LeftMenuDisplayMembersGroup" />
 			</s:a></li>
+=======
+			<li><s:a action="ListMembersOfGroup">
+					<s:text name="profile.LeftMenuDisplayMembersGroup" />
+				</s:a></li>
+>>>>>>> branch 'struts' of https://code.google.com/p/fsnet
 		</ul>
 
 	</c:otherwise>

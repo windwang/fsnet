@@ -34,6 +34,7 @@
 		<s:param name="topicId" value="%{requestScope.topic.id}" />
         ${requestScope.topic.title}
     </s:url>
+
 	-&gt;
 	<s:text name="topics.title.message" />
 </h3>
@@ -56,6 +57,7 @@
 						<s:param name="topicId" value="%{topic.id}" />
 						<s:param name="messageId" value="%{msg.id}" />
 						<s:text name="topics.button.modifyMessage" />
+
 					</s:a>
 
 				</c:if></td>
@@ -77,10 +79,10 @@
 <c:set var="paginatorTile" value="displayTopic" scope="request" />
 <c:import url="/content/pagination/Pagination.jsp" />
 
-<s:a href="/DisplayCreateTopicMessage" styleClass="btn btn-inverse"
-	atata="ouais">
+<s:a href="/DisplayCreateTopicMessage" styleClass="btn btn-inverse">
 	<s:param name="topicId" value="%{topic.id}" />
 	<s:text name="topics.button.answerMessage" />
+
 </s:a>
 
 

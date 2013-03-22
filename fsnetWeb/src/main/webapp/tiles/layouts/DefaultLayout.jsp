@@ -125,7 +125,6 @@ white
 </head>
 <body>
 	<tiles:useAttribute name="currentMenu" scope="request" ignore="true" />
-
 	<tiles:insertAttribute name="menu" />
 	<div class="clear"></div>
 	<div id="wrapBody">

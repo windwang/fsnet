@@ -15,15 +15,13 @@
 	</legend>
 	<table id="ModifyAnnounce"
 		class="inLineTable tableStyle">
-		<s:form action="/ModifyAnnounce">
+		<s:form action="ModifyAnnounce">
 			<s:hidden property="idAnnounce" />
+
 			<tr>
 				<td><label for="announceTitle"><s:text
 							name="announce.form.title" /></label></td>
 				<td><s:textfield property="announceTitle" styleId="announceTitle" />
-<!-- 					<div class="errorMessage"> -->
-<!-- 						<html:errors property="announceTitle" /> -->
-<!-- 					</div> -->
 					</td>
 			</tr>
 
@@ -32,10 +30,7 @@
 							name="announce.form.content" /> </label></td>
 				<td><s:textarea cols="40" rows="8"
 						property="announceContent" styleId="announceContent"
-						styleClass="mceTextArea" style="width: 100%;" />
-<!-- 					<div class="errorMessage"> -->
-<!-- 						<html:errors property="announceContent" /> -->
-<!-- 					</div> -->
+						cssClass="mceTextArea" style="width: 100%;" />
 					</td>
 			</tr>
 
@@ -44,16 +39,13 @@
 							name="announce.form.date" /></label></td>
 				<td><s:textfield property="announceExpiryDate"
  						styleId="announceExpiryDate" />
-<!--<div class="errorMessage"> -->
-<!-- 						<html:errors property="announceExpiryDate" /> -->
-<!-- 					</div> -->
 			</td>
 			</tr>
 
 			<tr>
-				<td colspan="2" class="tableButton"><s:submit styleClass="btn btn-inverse">
-						<s:text name="announce.button.modify" />
-					</s:submit></td>
+				<td colspan="2" class="tableButton">
+					<s:submit cssClass="btn btn-inverse" key="announce.button.modify"/> 
+				</td>
 			</tr>
 
 		</s:form>

@@ -60,6 +60,7 @@
 								socialEntity="${contact}" /></td>
 						<td><ili:getSocialEntityInfosName socialEntity="${contact}" /></td>
 
+
 						<td class="tableButton"><c:if test="${contact.isEnabled}"><s:url
 								action="/DisplayCreatePrivateMessage"
 								var="urlDisplayCreatePrivateMessage">
@@ -68,13 +69,13 @@
 									name="showProfile.send" /></a> <s:url action="/AcceptContact"
 								var="urlAcceptContact">
 								<s:param name="entityAccepted" value="%{contact.id}" />
-
 							</s:url> <a href="<s:property value="#urlAcceptContact" />"><s:text
-									name="contact.button.accept" /></a></c:if> <s:url action="/RefuseContact"
+									name="contact.button.accept" /></a> </c:if><s:url action="/RefuseContact"
 								var="urlRefuseContact">
 								<s:param name="entityRefused" value="%{contact.id}" />
 							</s:url> <a href="<s:property value="#urlRefuseContact" />"><s:text
 									name="contact.button.refuse" /></a></td>
+
 					</tr>
 				</c:forEach>
 			</tbody>
@@ -133,7 +134,7 @@
 							</s:url>
 							<a href="<s:property value="#urlDisplayCreatePrivateMessage" />"><s:text
 									name="showProfile.send" /></a>
-							</c:if>
+									</c:if>
 
 							<s:url action="/DeleteContact"
 								var="urlDeleteContact">
@@ -190,7 +191,6 @@
 
 						<td class="tableButton">
 						<c:if test="${contact.isEnabled}">
-						
 						<s:url
 								action="/DisplayCreatePrivateMessage"
 								var="urlDisplayCreatePrivateMessage">
@@ -198,7 +198,8 @@
 							</s:url>
 							<a href="<s:property value="#urlDisplayCreatePrivateMessage" />"><s:text
 									name="showProfile.send" /></a>
-							</c:if>
+						</c:if>
+
 							<s:url
 								action="/CancelAskContact"
 								var="urlCancelAskContact">

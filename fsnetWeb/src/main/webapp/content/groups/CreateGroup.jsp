@@ -15,7 +15,7 @@
 			<tr>
 				<td><label for="name"> <s:text name="groups.name" />
 				</label></td>
-				<td colspan="3"><s:textfield property="name" styleId="name"
+				<td colspan="3"><s:textfield name="name" styleId="name"
 						cssErrorClass="error" /> <s:hidden name="id" styleId="id" /></td>
 			</tr>
 
@@ -25,7 +25,7 @@
 				</label></td>
 				<td colspan="3"><c:set var="welcomeMain">
 						<s:text name="groups.description.message" />
-					</c:set> <s:textarea property="description" styleId="description"
+					</c:set> <s:textarea name="description" styleId="description"
 						cssErrorClass="error" cols="36" rows="6">
 					</s:textarea></td>
 			</tr>
@@ -89,37 +89,26 @@
 					<div>
 						<s:text name="groups.right.notGranted" />
 					</div>
-					<s:select name="rigthListLeft" cssClass="select" size="5"
+					<s:select name="rigthListLeft" id="rigthListLeft" cssClass="select" size="5"
 						multiple="true" list="%{refusedRigths}" />
 				</td>
 
-				<td><s:submit type="button" property=""
-						styleClass="btn btn-inverse"
-						onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight)">
-						<s:text name="groups.addGroups" />
-					</s:submit></td>
-				<td rowspan="2">
-					<html:button property="" styleClass="btn btn-inverse"
-							onclick="moveRigths(this.form.rigthListLeft, this.form.rigthListLeftAdvance, this.form.rigthListRight, true)">
-							<bean:message key="groups.addGroups" />
-					</html:button>
-				</td>
+				<td><input type="button"  value="<s:text name="groups.addGroups" />"
+						class="btn btn-inverse"
+						onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight);"/>
 
-				<td rowspan="4">
+				<td rowspan="2">
 					<div>
 						<s:text name="groups.right.Granted" />
-					</div> <s:select name="rigthListRight" cssClass="select" size="5"
+					</div> <s:select name="rigthListRight" id="rigthListRight" cssClass="select" size="5"
 						multiple="true" list="%{acceptedRigths}"/>
-
 				</td>
 			</tr>
 			<tr/>
 			<tr>
-				<td><s:submit type="button" property=""
-						styleClass="btn btn-inverse"
-						onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)">
-						<s:text name="groups.removeGroups" />
-					</s:submit></td>
+				<td><input type="button" class="btn btn-inverse" value="<s:text name="groups.removeGroups" />"
+						onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)"/>
+						
 			</tr>
 <tr/>
 			<tr>

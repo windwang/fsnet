@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib prefix="s" uri="/struts-tags" %>
 
+
 <s:set name="searchMessage">
 	<s:text name="communities.placeholder.search" />
 </s:set>
@@ -12,21 +13,17 @@
 	<legend>
 		<s:text name="communities.title.search" />
 	</legend>
-	<table id="SearchCommunity"
-		class="inLineTable tableStyle">
+	<table id="SearchCommunity" class="inLineTable tableStyle">
 		<s:form action="SearchCommunity" method="GET">
 			<tr>
-				<td>
-					<s:textfield property="searchText" var="searchTexte" styleClass="search-query" />
-					<ili:placeHolder id="searchTexte" value="%{searchMessage}" /> 
-					<s:submit
-						styleClass="btn btn-inverse">
+				<td><s:textfield property="searchText" id="searchTexte"
+						cssClass="search-query" /> <ili:placeHolder id="searchTexte"
+						value="%{searchMessage}" /> <s:submit styleClass="btn btn-inverse">
 						<s:text name="communities.button.search" />
 					</s:submit>
 				</td>
 			</tr>
 		</s:form>
-
 	</table>
 </fieldset>
 
@@ -77,12 +74,9 @@
 									title='%{empty community.interests ? "" : community.interests}'>
 									<s:param name="communityId" value="%{community.id}" />
                             ${community.title}
-                        		</s:a> 
-                        		<c:choose>
-									<c:when test="%{fn:length(community.hubs) eq 0}">
+                        </s:a> <c:choose>
+									<c:when test="${fn:length(community.hubs) eq 0}">
                          		(<s:text name="communities.hubs.notAny" /> hub)
-
-
                          	</c:when>
 									<c:when test="%{fn:length(community.hubs) eq 1}">
                          		(1 hub)
