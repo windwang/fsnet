@@ -8,12 +8,7 @@
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
 
 <fieldset class="fieldsetCadre">
-	<legend>
-		<c:import url="/FavoriteFragment.do">
-			<c:param name="interactionId" value="${event.id}" />
-		</c:import>
-		${event.title}
-	</legend>
+	<legend> ${event.title} </legend>
 
 	<div class="interactionDisplay">
 		<table class="inLineTable">
@@ -35,29 +30,37 @@
 				<td class="alignRight"><ili:interactionFilter
 						user="${ socialEntity }" right="${ rightRegisterEvent }">
 						<c:if test="${not subscriber}">
-							<s:a href="/SubscribeEvent" styleClass="button btn btn-inverse">
-								<s:param name="eventId" value="%{event.id}" />
-								<s:text name="events.button.subscribe" />
-							</s:a>
+							<s:url action="SubscribeEvent" var="varSubscribeEvent">
+								<s:param name="eventId" value="%{#attr.event.id}" />
+							</s:url>
+							<a href="<s:property value="#varSubscribeEvent"/>"><s:text
+									name="events.button.subscribe" /></a>
 						</c:if>
 						<c:if test="${subscriber}">
-							<s:a href="/UnsubscribeEvent" styleClass="button btn btn-inverse">
-								<s:param name="eventId" value="%{event.id}" />
-								<s:text name="events.button.unsubscribe" />
-							</s:a>
+							<s:url action="UnsubscribeEvent" var="varUnsubscribeEvent">
+								<s:param name="eventId" value="%{#attr.event.id}" />
+							</s:url>
+							<a href="<s:property value="#varUnsubscribeEvent"/>"><s:text
+									name="events.button.unsubscribe" /></a>
 						</c:if>
 					</ili:interactionFilter> <c:if test="${userId eq event.creator.id}">
-						<s:a href="/DisplayUpdateEvent"
-							styleClass="button btn btn-inverse">
-							<s:param name="eventId" value="%{event.id}" />
-							<s:text name="events.button.update" />
-						</s:a>
-					</c:if> <s:a href="/ExportEventById" styleClass="button btn btn-inverse">
-						<s:param name="eventId" value="%{event.id}" />
-						<s:text name="events.export" />
-					</s:a> <c:if test="${userId eq event.creator.id}">
-						<s:form action="/DeleteEvent" method="post"
+
+						<s:url action="DisplayUpdateEvent" var="varDisplayUpdateEvent">
+							<s:param name="eventId" value="%{#attr.event.id}" />
+						</s:url>
+						<a href="<s:property value="#varDisplayUpdateEvent"/>"><s:text
+								name="events.button.update" /></a>
+
+
+					</c:if> <s:url action="ExportEventById" var="varExportEventById">
+						<s:param name="eventId" value="%{#attr.event.id}" />
+					</s:url> <a href="<s:property value="#varExportEventById"/>"><s:text
+							name="events.export" /></a> <c:if
+						test="${userId eq event.creator.id}">
+
+						<s:form action="DeleteEvent" method="post"
 							styleId="eventid${event.id}" styleClass="deleteEventForm">
+
 							<s:hidden name="eventId" value="%{event.id}" />
 							<span class="button btn btn-inverse"
 								onclick="confirmDelete2('eventid${event.id}', '<s:text name="message.confirmation.delete" />');">

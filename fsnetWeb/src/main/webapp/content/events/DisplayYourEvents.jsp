@@ -66,7 +66,7 @@
 						<tr>
 							<td colspan="4"><s:submit
 									value="%{getText('privatemessages.delete')}"
-									styleClass="btn btn-inverse" /></td>
+									cssClass="btn btn-inverse" /></td>
 						</tr>
 					</tfoot>
 					<tbody>
@@ -75,10 +75,14 @@
 								
 								<td><input type="checkbox" name="selectedEvents"
 										value="${event.id}" /></td>
-								<td><s:a href="/DisplayEvent">
-		                    ${event.title}
-		                    <s:param name="eventId" value="%{event.id}" />
-									</s:a> <span style="color: gray"> : <ili:substring
+								<td>
+								
+								<s:url action="DisplayEvent" var="varDisplayEvent">
+									<s:param name="eventId" value="%{#attr.event.id}" />
+								</s:url>
+								
+							 <a href="<s:property value="#varDisplayEvent"/>">${event.title}</a>
+							 <span style="color: gray"> : <ili:substring
 											beginIndex="0" endIndex="30">
 											<ili:noxml>${event.content}</ili:noxml>
 										</ili:substring>

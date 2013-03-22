@@ -15,12 +15,11 @@
 
 		<table id="exportEvents" class="inLineTable tableStyle ">
 			<tr>
-				<td><s:a href="/ExportAllEvents">
-						<img src="images/download.png"
-							alt="<s:text name="events.export" />"
-							title="<s:text name="events.export" />" />
-						<s:text name="events.exportAll" />
-					</s:a></td>
+				<td><a href='<s:url action="ExportAllEvents" /> '> <img
+						src="images/download.png" alt="<s:text name="events.export" />"
+						title="<s:text name="events.export" />" /> <s:text
+							name="events.exportAll" />
+				</a></td>
 			</tr>
 		</table>
 	</fieldset>
@@ -81,20 +80,11 @@
 						<ili:interactionRow
 							unreadInteractionsId="${requestScope.unreadInteractionsId}"
 							currentInteractionId="${event.id}">
-							<td>
-							
-							<s:url action='FavoriteFragment' var="frag">
-								<s:param name="interactionId" value="%{#attr.event.id}" />
-							</s:url>
-							<s:include value="<s:property value='#frag'/>" />
-									
-																
-								
-							</td>
-							<td><s:a href="/DisplayEvent">
-		                    ${event.title}
-		                    <s:param name="eventId" value="%{event.id}" />
-								</s:a> <span style="color: gray"> : <ili:substring
+							<td></td>
+							<td><s:url action="DisplayEvent" var="varDisplayEvent">
+									<s:param name="eventId" value="%{#attr.event.id}" />
+								</s:url> <a href="<s:property value="#varDisplayEvent"/>">${event.title}</a>
+								<span style="color: gray"> : <ili:substring
 										beginIndex="0" endIndex="30">
 										<ili:noxml>${event.content}</ili:noxml>
 									</ili:substring>
@@ -108,26 +98,37 @@
 									socialEntity="${event.creator}" /></td>
 							<td><ili:getSocialEntityInfosName
 									socialEntity="${event.creator}" /></td>
-							<td><s:a href="/ExportEventById">
-									<s:param name="eventId" value="%{event.id}" />
-									<img src="images/download.png"
-										alt="<s:text name="events.export" />"
-										title="<s:text name="events.export" />" />
-								</s:a> <c:if test="${userId eq event.creator.id}">
-									<s:a href="/DisplayUpdateEvent">
-										<s:param name="eventId" value="%{event.id}" />
-										<img src="images/edit.png"
-											alt="<s:text name="events.button.update" />"
-											title="<s:text name="events.button.update" />" />
-									</s:a>
-									<s:a href="/DeleteEvent">
-										<s:param name="eventId" value="%{event.id}" />
-										<img
-											onclick="return confirm('<s:text name="message.confirmation.delete" />');"
-											src="images/del.png"
-											alt="<s:text name="events.button.delete" />"
-											title="<s:text name="events.button.delete" />" />
-									</s:a>
+							<td>
+							
+								<s:url action="ExportEventById" var="varExportEventById">
+									<s:param name="eventId" value="%{#attr.event.id}" />
+								</s:url> 
+								
+								<a href='<s:property value="varExportEventById"/>'> <img
+									src="images/download.png" alt="<s:text name="events.export" />"
+									title="<s:text name="events.export" />" />
+							</a> <c:if test="${userId eq event.creator.id}">
+
+
+									<s:url action="DisplayUpdateEvent" var="varDisplayUpdateEvent">
+										<s:param name="eventId" value="%{#attr.event.id}" />
+									</s:url>
+									<a href='<s:property value="varDisplayUpdateEvent"/> '> <img
+										src="images/edit.png"
+										alt="<s:text name="events.button.update" />"
+										title="<s:text name="events.button.update" />" />
+									</a>
+
+									<s:url action="DeleteEvent" var="varDeleteEvent">
+										<s:param name="eventId" value="%{#attr.event.id}" />
+									</s:url>
+									<a href="<s:property value="varDeleteEvent"/>"> <img
+										onclick="return confirm('<s:text name="message.confirmation.delete" />');"
+										src="images/del.png"
+										alt="<s:text name="events.button.delete" />"
+										title="<s:text name="events.button.delete" />" />
+									</a>
+
 								</c:if></td>
 						</ili:interactionRow>
 					</c:forEach>

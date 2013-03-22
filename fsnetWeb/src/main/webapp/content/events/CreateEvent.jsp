@@ -20,7 +20,7 @@
 				</label></td>
 				<td><s:textarea property="eventDescription"  name="eventDescription" id="eventDescription"
 						styleId="eventDescription" errorStyleClass="error"
-						styleClass="mceTextArea" style="width: 100%;" /></td>
+						cssClass="mceTextArea" style="width: 100%;" /></td>
 			</tr>
 
 			<tr>
@@ -34,8 +34,7 @@
 
 			<tr>
 				<td></td>
-				<td><s:include value="<s:url action='InterestCheckBoxes'/>" />
-				</td>
+				<td></td>
 			</tr>
 
 
@@ -83,7 +82,7 @@
 			<tr>
 				<td colspan="2" class="tableButton"><s:submit
 						value="%{getText('events.button.create')}"
-						styleClass="button btn btn-inverse">
+						cssClass="button btn btn-inverse">
 					</s:submit></td>
 			</tr>
 		</table>
