@@ -112,7 +112,7 @@ public class ManageAnnounces extends ActionSupport implements
 				
 			} else {
 				addFieldError(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME, "date.error.dateBelowDateToday");
-				return ERROR;
+				return INPUT;
 			}
 		} catch (NumberFormatException e) {
 			return ERROR;
@@ -154,7 +154,7 @@ public class ManageAnnounces extends ActionSupport implements
 
 			} else {
 				addFieldError(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME, "date.error.dateBelowDateToday");
-				return ERROR;
+				return INPUT;
 			}
 
 			request.setAttribute("announce", announce);

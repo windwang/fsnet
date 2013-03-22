@@ -33,7 +33,8 @@
 		<action name="ModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="modify">
 			<result name="success" type="tiles">Announces</result>
-			<result name="error" type="tiles">ModifyAnnounce</result>
+			<result name="error">ModifyAnnounce</result>
+			<result name="input">ModifyAnnounce</result>
 		</action>
 
 	
