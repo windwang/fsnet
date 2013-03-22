@@ -4,7 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<s:debug/>
 <fieldset class="fieldsetCadre">
 	<legend>
 		<s:text name="groups.titleInformation" />
@@ -26,7 +25,7 @@
 									<s:url action="DisplayInformationGroup" var="displayInfoGroup1">
 										<s:param name="idGroup"> ${group.id}</s:param>
 									</s:url>
-									<a href="<s:property  value="#displayInfoGroup"/>">
+									<a href="<s:property  value="#displayInfoGroup1"/>">
 										${group.name}</a>
 
 									<s:text name="groups.addGroups" />
