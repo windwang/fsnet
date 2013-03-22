@@ -11,10 +11,10 @@
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
-			<td><s:form action="SearchConsultation" method="get">
+			<td><s:form action="SearchConsultation" method="get" theme="simple">
 					<div id="SearchConsultation">
-						<s:textfield property="searchText" styleId="searchTexte"
-							styleClass="search-query" />
+						<s:textfield property="searchText" id="searchText"
+							cssClass="search-query" />
 						<ili:placeHolder id="searchTexte" value="${searchMessage}" />
 						<s:submit cssClass="btn btn-inverse" key="consultations.button.search"/>
 					</div>

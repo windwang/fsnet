@@ -233,7 +233,7 @@ ServletRequestAware, ServletResponseAware {
 
 		sendMailForNewConsultation(consultation, member);
 
-		return displayAConsultation(request, response);
+		return displayAConsultation();
 	}
 
 	/**
@@ -273,7 +273,7 @@ ServletRequestAware, ServletResponseAware {
 					.getLimitChoicesPerParticipantMax()) {
 
 				request.setAttribute("errorChoicesPerParticipant", true);
-				return displayAConsultation(request, response);
+				return displayAConsultation();
 			}
 		}
 
@@ -313,7 +313,7 @@ ServletRequestAware, ServletResponseAware {
 					}
 
 					if (nbVotes > choice.getMaxVoters()) {
-						return displayAConsultation(request, response);
+						return displayAConsultation();
 					}
 				}
 			}
@@ -326,7 +326,7 @@ ServletRequestAware, ServletResponseAware {
 
 		em.close();
 
-		return displayAConsultation(request, response);
+		return displayAConsultation();
 	}
 
 	/**
@@ -423,7 +423,7 @@ ServletRequestAware, ServletResponseAware {
 				em.close();
 			}
 		}
-		return displayAConsultation(request, response);
+		return displayAConsultation();
 	}
 
 	/**
@@ -487,8 +487,7 @@ ServletRequestAware, ServletResponseAware {
 	 * @param response
 	 * @return
 	 */
-	public String displayAConsultation(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String displayAConsultation() {
 		addRightToRequest(request);
 		String idConsultation = request.getParameter("id");
 		if (idConsultation == null || "".equals(idConsultation)) {
@@ -560,7 +559,7 @@ ServletRequestAware, ServletResponseAware {
 			em.getTransaction().commit();
 			em.close();
 		}
-		return displayAConsultation(request, response);
+		return displayAConsultation();
 	}
 
 	/**
@@ -583,7 +582,7 @@ ServletRequestAware, ServletResponseAware {
 			em.getTransaction().commit();
 			em.close();
 		}
-		return displayAConsultation(request, response);
+		return displayAConsultation();
 	}
 
 	/**

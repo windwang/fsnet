@@ -48,7 +48,7 @@
 							});
 						});
 			</script>
-			<s:form action="/DeleteMultiConsultations">
+			<s:form action="/DeleteMultiConsultations" theme="simple">
 				<table id="yourConsults" class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>
@@ -60,21 +60,22 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="3"><s:submit styleClass="btn btn-inverse">
-									<s:text name="privatemessages.delete" />
-								</s:submit></td>
+							<td colspan="3"><s:submit cssClass="btn btn-inverse" key="privatemessages.delete"/></td>
 						</tr>
 					</tfoot>
 					<c:forEach var="consultation"
 						items="${requestScope.consultationsList}">
 						<tr>
-							<td><s:checkbox property="selectedConsultations"
-									value="%{consultation.id}" /></td>
+							<td><s:checkbox name="selectedConsultations"
+									fieldValue="%{consultation.id}" /></td>
+							<td><s:url var="consul" action="DisplayAConsultation">
+								<s:param name="id" value="%{#attr.consultation.id}"/>
+							</s:url>
 
-							<td><s:a href="/DisplayAConsultation?id=%{consultation.id }">%{consultation.title }</s:a>
+							<a href="<s:property value='#consul'/>">${consultation.title}</a>
 							</td>
-							<td><s:property value="creationDate" /></td>
-						</tr>
+							<td><s:property value="%{#attr.consultation.creationDate}" /></td>
+						
 					</c:forEach>
 					</tbody>
 				</table>

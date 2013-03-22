@@ -91,7 +91,7 @@
 				<div class="span4 offset1" id="loginWrapper">
 						
 						
-						<s:form action="Authenticate" method="post">
+						<s:form action="Authenticate" method="post" theme="simple">
 							<h2 class="form-signin-heading"> <s:text name="login.connection" /> </h2>
 							
 							<s:textfield cssClass="input-block-level"
@@ -100,6 +100,8 @@
 							<s:password cssClass="input-block-level" 
 								id="memberPass" name="memberPass" placeholder="%{getText('login.placeholder.password')}"/>							
 							  <s:checkbox type="checkbox" id="remember" name="remember" label="%{getText('login.checkbox.connectAuto')}"/> 							  
+							
+							
 							<s:submit cssClass="btn btn-large" align="left" value="%{getText('login.submit')}"/>
 
 							
