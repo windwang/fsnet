@@ -90,7 +90,7 @@
                     </s:a></td>
 					<td class="tableButton"><s:set id="interkey" name="triple"
 							var="interaction" /> <s:property value="interkey"
-							default="lastModified" format="dd/MM/yyyy" /></td>
+							default="lastModified" /></td>
 				</tr>
 
 			</c:forEach>
