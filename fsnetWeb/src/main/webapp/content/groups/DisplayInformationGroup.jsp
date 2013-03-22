@@ -4,7 +4,6 @@
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ taglib uri="../../WEB-INF/ili.tld" prefix="ili"%>
-<s:debug/>
 <fieldset class="fieldsetCadre">
 	<legend>
 		<s:text name="groups.titleInformation" />
