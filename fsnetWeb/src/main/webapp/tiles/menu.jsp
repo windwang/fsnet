@@ -83,7 +83,7 @@
 					<li class="item-204 divider-vertical divider"></li>
 					<li><a href="Logout"><s:text name="logout" /></a></li>
 					<li class="item-204 divider-vertical divider"></li>
-					<li><s:form action="/Research" method="post"
+					<li><s:form action="Research" method="post"
 							cssClass="navbar-search pull-left noMargin littleTopPadding searchBar">
 							<div>
 								<i class="icon-search"></i>
