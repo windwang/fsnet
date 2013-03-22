@@ -5,7 +5,6 @@
 <s:set name="searchMessage">
 	<s:text name="menu.search" />
 </s:set>
-
 <div class="navbar navbar-inverse navbar-fixed-top">
 	<div class="navbar-inner">
 		<div class="container-fluid">
@@ -55,26 +54,26 @@
             </c:if>
 					</a></li>
 					<li Class="%{currentMenu == 'Announces' ? 'active' : ''}"><a
-							href="<s:url action='Announces' />"
-							class="%{currentMenu == 'Announces' ? 'active' : ''}">
-							<s:text name="menu.announces" />
-							<c:if test="${sessionScope.numNonReedAnnounces gt 0}">
+						href="<s:url action='Announces' />"
+						class="%{currentMenu == 'Announces' ? 'active' : ''}"> <s:text
+								name="menu.announces" /> <c:if
+								test="${sessionScope.numNonReedAnnounces gt 0}">
             	(${sessionScope.numNonReedAnnounces})
             </c:if>
-						</a></li>
+					</a></li>
 					<li Class="%{currentMenu == 'Events' ? 'active' : ''}"><a
-							href="<s:url action='Events' />"
-							class="%{currentMenu == 'Events' ? 'active' : ''}">
-							<s:text name="menu.events" />
-							<c:if test="${sessionScope.numNonReedEvents gt 0}">
+						href="<s:url action='Events' />"
+						class="%{currentMenu == 'Events' ? 'active' : ''}"> <s:text
+								name="menu.events" /> <c:if
+								test="${sessionScope.numNonReedEvents gt 0}">
             	(${sessionScope.numNonReedEvents })
             </c:if>
-						</a></li>
+					</a></li>
 					<li Class="%{currentMenu == 'Communities' ? 'active' : ''}"><a
-							href="<s:url action='Communities' />"
-							class="%{currentMenu == 'Communities' ? 'active' : ''}">
-							<s:text name="menu.communities" />
-						</a></li>
+						href="<s:url action='Communities' />"
+						class="%{currentMenu == 'Communities' ? 'active' : ''}"> <s:text
+								name="menu.communities" />
+					</a></li>
 					<li class="item-204 divider-vertical divider"></li>
 					<li><a href="Logout"><s:text name="logout" /></a></li>
 					<li class="item-204 divider-vertical divider"></li>

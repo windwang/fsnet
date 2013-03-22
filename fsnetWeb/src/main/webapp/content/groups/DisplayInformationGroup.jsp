@@ -25,7 +25,7 @@
 									<s:url action="DisplayInformationGroup" var="displayInfoGroup1">
 										<s:param name="idGroup"> ${group.id}</s:param>
 									</s:url>
-									<a href="<s:property  value="#displayInfoGroup"/>">
+									<a href="<s:property  value="#displayInfoGroup1"/>">
 										${group.name}</a>
 
 									<s:text name="groups.addGroups" />

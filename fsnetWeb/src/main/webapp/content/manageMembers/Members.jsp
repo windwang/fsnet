@@ -27,11 +27,6 @@
 	</table>
 </fieldset>
 
-<!--<input type="radio" name="chooseSimpleOrMultiple" id="multipleMemberFile" value="multipleFileChoose" onchange="changeSimpleOrMultiple()"/>-->
-<!--<label for="multipleMemberFile"> -->
-<!--	<s:text name="members.multipleWithFile" />  -->
-<!--</label>-->
-
 <div id="divChooseSimpleMember">
 	<jsp:include page="/content/manageMembers/CreateMember.jsp" />
 </div>

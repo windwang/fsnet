@@ -20,7 +20,6 @@
 		</a>
 	</div>
 	<div class="group">
-
 		<c:choose>
 			<c:when test="${sessionScope.hisGroup != null}">
 				<s:url action='DisplayInformationGroup' var="disInfos">
