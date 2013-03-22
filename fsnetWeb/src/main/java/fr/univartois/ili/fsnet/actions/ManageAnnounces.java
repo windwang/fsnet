@@ -363,7 +363,7 @@ public class ManageAnnounces extends ActionSupport implements
 		em.close();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
-			return UNAUTHORIZED_ACTION_NAME;
+			return SUCCESS;
 		}
 
 		return SUCCESS;
