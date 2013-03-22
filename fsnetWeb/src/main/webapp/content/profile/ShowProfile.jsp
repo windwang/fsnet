@@ -133,15 +133,16 @@
 
 <fieldset class="fieldsetCadre">
 	<legend>
-		<s:text name="profile.showInterhref.title"
-			var="%{watchedProfile.firstName} %{watchedProfile.name}" />
+		<s:text name="profile.showInteraction.title">
+			<s:param>${watchedProfile.firstName} ${watchedProfile.name}</s:param>
+		</s:text>
 	</legend>
 	<c:choose>
 		<c:when test="${empty requestScope.interhrefs}">
 
 			<table class="inLineTable tableStyle">
 				<tr>
-					<td><s:text name="Profile.noInterhrefs" />.</td>
+					<td><s:text name="Profile.noInteractions" />.</td>
 				</tr>
 			</table>
 		</c:when>
@@ -235,7 +236,7 @@
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
-			<td><s:if test="watchedProfile==null" property="contacts">
+			<td><s:if test="%{watchedProfile==null}">
 					<c:choose>
 						<c:when test="${edit}">
 							<s:text name="showProfile.IHaveNoContacts" />
@@ -244,14 +245,13 @@
 							<s:text name="showProfile.noContacts" />
 						</c:otherwise>
 					</c:choose>
-				</s:if>
-				 <s:iterator value="%{requestScope.contactsPaginator.resultList}" id="user">
+				</s:if> <s:iterator value="%{requestScope.contactsPaginator.resultList}"
+					id="user">
 					<ili:getMiniature socialEntity="${user}" />
 				</s:iterator>
 				<div class="clear"></div> <c:set var="paginatorInstance"
 					value="${requestScope.contactsPaginator}" scope="request" /> <c:set
 					var="paginatorhref" value="/DisplayProfile" scope="request" /> <c:set
-
 					var="paginatorTile" value="profileContacts" scope="request" /> <c:import
 					url="/content/pagination/Pagination.jsp" /></td>
 		</tr>
@@ -261,6 +261,7 @@
 <fieldset class="fieldsetCadre">
 	<legend>
 		<s:text name="showProfile.groups.tree" />
+
 	</legend>
 	<table class="inLineTable tableStyle">
 		<tr>
