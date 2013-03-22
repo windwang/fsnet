@@ -8,10 +8,11 @@
 <ul>
 	<ili:interactionFilter user="${ socialEntity }"
 		right="${ rightSendMessage }">
-		<li><s:a action="/DisplayCreatePrivateMessage">
+		
+	</ili:interactionFilter>
+	<li><s:a action="/DisplayCreatePrivateMessage">
 				<s:text name="privatemessages.newmessage" />
 			</s:a></li>
-	</ili:interactionFilter>
 	<li><s:a action="/Inbox">
 			<s:text name="privatemessages.inbox" />
 		</s:a></li>

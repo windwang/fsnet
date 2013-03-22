@@ -58,7 +58,7 @@
 							});
 						});
 			</script>
-			<s:form action="DeleteMultiMessages?fromPage=in">
+			<s:form action="DeleteMultiMessages?fromPage=in" validate="true">
 				<table id="tableinbox" class="tablesorter inLineTable tableStyle">
 					<thead>
 						<tr>

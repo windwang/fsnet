@@ -11,7 +11,7 @@
 		<s:text name="privatemessages.sendM" />
 	</legend>
 	<table class="inLineTable tableStyle">
-		<s:form action="CreatePrivateMessage">
+		<s:form action="CreatePrivateMessage" validate="true">
 			<c:choose>
 				<c:when test="${! empty param.receiver}">
 					<s:textfield id="messageTo" name="messageTo" style="width: 95%" label="%{getText('privatemessages.recipient')}"

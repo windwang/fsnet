@@ -70,13 +70,13 @@ public class ManageAnnounces extends ActionSupport implements
 		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
 			entityManager.close();
-			return UNAUTHORIZED_ACTION_NAME;
+			return SUCCESS;
 		}
 
 		try {
 			if (groupsListRight.length == 0) {
 				request.setAttribute("errorAnnounceRights", true);
-				return FAILED_ACTION_NAME;
+				return ERROR;
 			}
 			
 			Announcement createdAnnounce;
@@ -112,10 +112,10 @@ public class ManageAnnounces extends ActionSupport implements
 				
 			} else {
 				addFieldError(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME, "date.error.dateBelowDateToday");
-				return FAILED_ACTION_NAME;
+				return INPUT;
 			}
 		} catch (NumberFormatException e) {
-			return FAILED_ACTION_NAME;
+			return ERROR;
 		} finally {
 			entityManager.close();
 		}
@@ -154,7 +154,7 @@ public class ManageAnnounces extends ActionSupport implements
 
 			} else {
 				addFieldError(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME, "date.error.dateBelowDateToday");
-				return FAILED_ACTION_NAME;
+				return INPUT;
 			}
 
 			request.setAttribute("announce", announce);
@@ -197,7 +197,7 @@ public class ManageAnnounces extends ActionSupport implements
 					"announce.message.delete.success"));
 			saveMessages(request, message);*/
 		} catch (NumberFormatException e) {
-			return FAILED_ACTION_NAME;
+			return ERROR;
 		} finally {
 			em.close();
 		}
@@ -285,7 +285,7 @@ public class ManageAnnounces extends ActionSupport implements
 				request.setAttribute("owner", true);
 			}
 		} catch (NumberFormatException e) {
-			return FAILED_ACTION_NAME;
+			return ERROR;
 		}
 
 		return SUCCESS;
@@ -314,7 +314,7 @@ public class ManageAnnounces extends ActionSupport implements
 			dynaForm.set(ANNOUNCE_EXPIRY_DATE_FORM_FIELD_NAME,
 					DateUtils.renderDateWithHours(announce.getEndDate()));*/
 		} catch (NumberFormatException e) {
-			return FAILED_ACTION_NAME;
+			return ERROR;
 		} finally {
 			em.close();
 		}
@@ -363,7 +363,7 @@ public class ManageAnnounces extends ActionSupport implements
 		em.close();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
-			return UNAUTHORIZED_ACTION_NAME;
+			return ERROR;
 		}
 
 		return SUCCESS;
