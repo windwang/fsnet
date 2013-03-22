@@ -36,6 +36,7 @@
 			<result name="failed">ModifyAnnounce</result>
 		</action>
 
+	
 
 		<action name="DisplayForModifyAnnounce" class="fr.univartois.ili.fsnet.actions.ManageAnnounces"
 			method="displayToModify">

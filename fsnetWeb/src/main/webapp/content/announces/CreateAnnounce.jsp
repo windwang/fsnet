@@ -32,11 +32,6 @@
 			</tr>
 
 			<tr>
-				<td><label for="announceContent"><s:text
-							name="announce.form.content" /> </label></td>
-				<td><s:textarea cols="40" rows="8" property="announceContent"
-						styleId="announceContent" styleClass="mceTextArea"
-						style="width: 100%;" /> </td>
 				<td><label for="announceExpiryDate"><s:text
 							name="announce.form.date" /></label></td>
 							

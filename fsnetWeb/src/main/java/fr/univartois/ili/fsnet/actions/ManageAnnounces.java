@@ -70,7 +70,7 @@ public class ManageAnnounces extends ActionSupport implements
 		SocialGroupFacade fascade = new SocialGroupFacade(entityManager);
 		if (!fascade.isAuthorized(user, Right.ADD_ANNOUNCE)) {
 			entityManager.close();
-			return UNAUTHORIZED_ACTION_NAME;
+			return SUCCESS;
 		}
 
 		try {
