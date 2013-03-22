@@ -17,17 +17,12 @@
 		</legend>
 
 		<s:form styleId="formImportEventsFromFile"
-			action="/importEventsFromFile" enctype="multipart/form-data">
+			action="importEventsFromFile" enctype="multipart/form-data">
 			<table class="inLineTable  tableStyle">
 				<tr>
 					<td><label for="icsFile"><s:text
 								name="events.form.browseIcsFile" /></label></td>
 					<td><input size="40%" type="file" name="icsFile" id="icsFile" />
-<!-- 						<logic:messagesPresent property="icsFile"> -->
-<!-- 							<div class="errorMessage"> -->
-<!-- 								<html:errors property="icsFile" /> -->
-<!-- 							</div> -->
-<!-- 						</logic:messagesPresent> -->
 						</td>
 				</tr>
 				<tr>

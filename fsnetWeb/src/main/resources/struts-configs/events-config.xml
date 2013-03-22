@@ -56,14 +56,21 @@
 		<action name="SubscribeEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="subscribe">
 			<result name="error" type="tiles">Events</result>
-			<result name="success" type="redirect">/DisplayEvent.do</result>
+			<result name="success" type="redirectAction">
+				<param name="actionName">DisplayEvent</param>
+				<param name="eventId">${eventId}</param>
+			</result>
 			<result name="input" type="tiles">Events</result>
 		</action>
 
 		<action name="UnsubscribeEvent" class="fr.univartois.ili.fsnet.actions.ManageEvents"
 			method="unsubscribe">
 			<result name="error" type="tiles">Events</result>
-			<result name="success" type="redirect">/DisplayEvent.do</result>
+
+			<result name="success" type="redirectAction">
+				<param name="actionName">DisplayEvent</param>
+				<param name="eventId">${eventId}</param>
+			</result>
 			<result name="input" type="tiles">Events</result>
 		</action>
 
@@ -80,7 +87,7 @@
 			method="importEventsFromFile">
 			<result name="success" type="tiles">Events</result>
 			<result name="error" type="tiles">Events</result>
-			<result name="input" type="redirect">/DisplayImportEvents.do</result>
+			<result name="input" type="redirectAction">DisplayImportEvents</result>
 		</action>
 
 		<action name="DeleteMultiEvents" class="fr.univartois.ili.fsnet.actions.ManageEvents"

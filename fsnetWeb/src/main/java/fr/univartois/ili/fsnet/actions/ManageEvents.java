@@ -466,6 +466,10 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 			MeetingFacade meetingFacade = new MeetingFacade(em);
 
 			Meeting event = meetingFacade.getMeeting(eventId);
+			
+			System.out.println(eventId);
+			System.out.println(event);
+			
 			member.addInteractionRead(event);
 
 			InteractionRoleFacade interactionRoleFacade = new InteractionRoleFacade(
@@ -558,6 +562,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 */
 	public String displayToModify() throws Exception {
 
+		
 		
 		EntityManager em = PersistenceProvider.createEntityManager();
 
