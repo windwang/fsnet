@@ -60,6 +60,7 @@
 										name="groupsListLeft" multiple="true"
 										label="%{getText('consultation.droits.groupsNoRights')}" />
 							</td>
+							<td>
 								<input type="button" value="<s:text name="groups.addMembers"/>" 
 								class="btn btn-inverse" 
 								onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)"/>
@@ -69,13 +70,7 @@
 										name="groupsListRight" multiple="true"
 										label="%{getText('consultation.droits.groupsRights')}" />
 							</td>
-						</tr>
-						<tr>
 							<td>
-								<!-- <s:submit type="button" cssClass="btn btn-inverse"
-									onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft); return false;">
-									<s:text name="groups.removeMembers" />
-								</s:submit> -->
 								<input type="button" value="<s:text name="groups.removeMembers"/>" 
 								class="btn btn-inverse" 
 								onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)"/>
