@@ -27,7 +27,7 @@
 		</action>
 
 		<action name="ChangePassword" class="fr.univartois.ili.fsnet.actions.ChangePassword">
-			<result name="input">Profile</result>
+			<result name="input" type="redirect">Profile.do</result>
 			<result name="success" type="redirect">Profile.do</result>
 		</action>
 

@@ -40,25 +40,26 @@ public class ChangePassword extends ActionSupport implements
 		EntityManager em = PersistenceProvider.createEntityManager();
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 
-		String old = request.getParameter(OLD_PASSWORD_ATTRIBUTE_NAME);
-		if (old != null) {
-			old = Encryption.getEncodedPassword(old);
+//		String old = request.getParameter(OLD_PASSWORD_ATTRIBUTE_NAME);
+		if (oldPassword != null) {
+			oldPassword = Encryption.getEncodedPassword(oldPassword);
 		}
-		if ((old == null) || (!user.getPassword().equals(old))) {
+		if ((oldPassword == null) || (!user.getPassword().equals(oldPassword))) {
 			addFieldError(OLD_PASSWORD_ATTRIBUTE_NAME,
 					"error.changePassword.oldPassword");
 			return INPUT;
 		}
 		ProfileFacade pf = new ProfileFacade(em);
 		em.getTransaction().begin();
-		pf.changePassword(user, oldPassword, "newPassword");
+		pf.changePassword(user, oldPassword, newPassword);
 		em.getTransaction().commit();
 		em.close();
+		
 		addFieldError("passwordChange", "updateProfile.passwd.change");
-
-		oldPassword = "";
-		newPassword = "";
-		confirmNewPassword = "";
+//
+//		oldPassword = "";
+//		newPassword = "";
+//		confirmNewPassword = "";
 		return SUCCESS;
 	}
 
