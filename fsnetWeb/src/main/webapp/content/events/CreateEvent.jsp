@@ -10,7 +10,7 @@
 	<legend>
 		<s:text name="events.title.create" />
 	</legend>
-	<s:form action="CreateEvent" theme="css_xhtml">
+	<s:form action="CreateEvent" theme="css_xhtml" validate="true">
 		<table id="CreateEvent" class="inLineTable tableStyle">
 
 
