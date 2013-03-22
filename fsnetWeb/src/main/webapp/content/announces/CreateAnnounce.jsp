@@ -14,6 +14,15 @@
 
 	<table id="CreateAnnounce" class="inLineTable tableStyle">
 		<s:form action="CreateAnnounce">
+
+			<tr>
+				<td><label for="announceContent"><s:text
+							name="announce.form.content" /> </label></td>
+				<td><s:textarea cols="40" rows="8" property="announceContent"
+						styleId="announceContent" cssClass="mceTextArea"
+						style="width: 100%;" /> </td>
+			</tr>
+			
 			<tr>
 				<td><label for="announceTitle"><s:text
 							name="announce.form.title" /></label></td>
@@ -21,14 +30,6 @@
 						styleId="announceTitle"/>	
 				 <%-- <c:import url="/InterestCheckBoxes.do" /> --%>
 				</td> 
-			</tr>
-
-			<tr>
-				<td><label for="announceContent"><s:text
-							name="announce.form.content" /> </label></td>
-				<td><s:textarea cols="40" rows="8" property="announceContent"
-						styleId="announceContent" styleClass="mceTextArea"
-						style="width: 100%;" /> </td>
 			</tr>
 
 			<tr>
@@ -50,38 +51,42 @@
 						</c:if>
 						<tr>
 							<td rowspan="2">
-								<div>
-
-									<s:text name="announces.droits.groupsNoRights" />
-								</div> 	
-								<s:select styleClass="select" list="%{#attr.allUnderGroupsNoRights}" listValue="name"
-										name="groupsListLeft" />
+								<s:select cssClass="select" list="%{#attr.allUnderGroupsNoRights}" listKey="name" listValue="name"
+										name="groupsListLeft" multiple="true"
+										label="%{getText('consultation.droits.groupsNoRights')}" />
 							</td>
-							<td><s:submit type="button"
+							<td>
+								<!--<s:submit type="button" cssClass="btn btn-inverse"
 									onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)">
 									<s:text name="groups.addMembers" />
-								</s:submit></td>
+								</s:submit> -->
+								<input type="button" value="<s:text name="groups.addMembers"/>" 
+								class="btn btn-inverse" 
+								onclick="return Deplacer(this.form.groupsListLeft,this.form.groupsListRight)"/>
+							</td>
+								
 							<td rowspan="2">
-								<div>
-									<s:text name="consultation.droits.groupsRights" />
-								</div> 
-								<s:select styleClass="select" list="%{#attr.allUnderGroupsNoRights}" listValue="name"
-										name="groupsListRight" />
+								<s:select cssClass="select" list="%{#attr.allUnderGroupsRights}" listKey="name" listValue="name"
+										name="groupsListRight" multiple="true"
+										label="%{getText('consultation.droits.groupsRights')}" />
 							</td>
 						</tr>
 						<tr>
-							<td><s:submit type="button"
-									onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)">
+							<td>
+								<!-- <s:submit type="button" cssClass="btn btn-inverse"
+									onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft); return false;">
 									<s:text name="groups.removeMembers" />
-								</s:submit></td>
+								</s:submit> -->
+								<input type="button" value="<s:text name="groups.removeMembers"/>" 
+								class="btn btn-inverse" 
+								onclick="return Deplacer(this.form.groupsListRight,this.form.groupsListLeft)"/>
+							</td>
 						</tr>
 					</table>
 			<tr>
-				<td colspan="2" class="tableButton"><s:submit
-						styleClass="btn btn-inverse"
-						>
-						<s:text name="announce.button.create" />
-					</s:submit></td>
+				<td colspan="2" class="tableButton">
+					<s:submit key="announce.button.create" cssClass="btn btn-inverse"/>
+				</td>
 			</tr>
 		</s:form>
 	</table>

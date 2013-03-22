@@ -61,10 +61,9 @@
 					</thead>
 					<tfoot>
 						<tr>
-							<td colspan="4"><s:submit
-									styleClass="btn btn-inverse">
-									<s:text name="privatemessages.delete" />
-								</s:submit></td>
+							<td colspan="4">
+								<s:submit cssClass="btn btn-inverse" key="privatemessages.delete"/>
+							</td>
 						</tr>
 					</tfoot>
 					<tbody>
@@ -73,8 +72,8 @@
 								<s:set id="idAnnounce" name="announce" var="id" />
 								<td><s:checkbox property="selectedAnnounces"
 										value="%{announce.id}" /></td>
-								<td><s:a href="/DisplayAnnounce.do"
-										paramId="idAnnounce" paramName="idAnnounce">
+								<td><s:a href="/DisplayAnnounce.do">
+										<s:param name="idAnnounce" value="idAnnounce"/>
 										<s:property value="announce" default="title" />
 									</s:a></td>
 								<td><s:property value="announce" default="endDate"/></td>

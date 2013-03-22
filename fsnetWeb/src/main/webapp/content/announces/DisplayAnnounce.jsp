@@ -28,22 +28,18 @@
 
 			<tr>
 				<td colspan="2">
-<!-- 				<html:messages id="message" /> -->
 				<s:text name="message" var="message" />
-<!-- 					<div class="errorMessage"> -->
-<!-- 						<html:errors /> -->
-<!-- 					</div></td> -->
+				</td>
 			</tr>
 
 			<tr>
-
 				<td class="alignRight">
 						<s:set id="idAnnounce" name="announce" var="id" />
-						<s:a href="/DisplayForModifyAnnounce" styleClass="btn btn-inverse">
+						<s:a href="/DisplayForModifyAnnounce" cssClass="btn btn-inverse">
 							<s:param name="idAnnounce" value="idAnnounce"/>
 							<s:text name="announce.button.update" />
 						</s:a>
-						<s:a href="/DeleteAnnounce" styleClass="btn btn-inverse">
+						<s:a href="/DeleteAnnounce" cssClass="btn btn-inverse">
 							<s:param name="idAnnounce" value="idAnnounce"/>
 							<s:text name="announce.button.delete" />
 						</s:a>
