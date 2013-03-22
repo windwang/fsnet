@@ -11,10 +11,15 @@
 <div id="loggedUsers" class="littlePadding">
 	<ili:loggedUsers var="user" userId="${sessionScope.currentUserId}"
 		loggedUsers="${applicationScope.loggedUsers}">
-		<s:a href="/DisplayProfile" cssClass="miniature">
+
+
+		<s:url action="DisplayProfile" var="urlDisplayProfile">
 			<s:param name="id" value="%{user.id}" />
+		</s:url>
+		<a href="<s:property value="#urlDisplayProfile" />" class="miniature" >
 			<img src="avatar/${user.id}.png"
 				title="${user.name} ${user.firstName}" alt="Avatar"></img>
-		</s:a>
+		</a>
+		
 	</ili:loggedUsers>
 </div>
