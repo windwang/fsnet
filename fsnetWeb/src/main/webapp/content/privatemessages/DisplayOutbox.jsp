@@ -60,7 +60,7 @@
 						});
 			</script>
 
-			<s:form action="/DeleteMultiSentMessages.do?fromPage=out">
+			<s:form action="/DeleteMultiSentMessages.do?fromPage=out" validate="true">
 				<table id="tableoutbox"
 					class="tablesorter inLineTable tableStyle cutMessage">
 					<thead>

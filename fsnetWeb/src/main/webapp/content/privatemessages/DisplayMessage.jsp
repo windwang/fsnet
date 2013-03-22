@@ -13,7 +13,7 @@
 
 	<c:choose>
 		<c:when test="${empty requestScope.conversationMessages.resultList}">
-			<s:form action="DeleteMultiMessages2.do?fromPage=in">
+			<s:form action="DeleteMultiMessages2.do?fromPage=in" validate="true">
 				<table class="topicTable inLineTable tableStyle">
 					<c:forEach items="${requestScope.conversationMessages1.resultList}"
 						var="message">

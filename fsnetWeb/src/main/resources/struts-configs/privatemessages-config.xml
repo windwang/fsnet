@@ -38,24 +38,24 @@
 		<action name="CreatePrivateMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="create">
 			<result name="input" type="tiles">CreatePrivateMessage</result>
-			<result name="success" type="redirectAction">Inbox</result>
-			<result name="unauthorized" type="redirectAction">Inbox</result>
+			<result name="success" type="redirect">Inbox</result>
+			<result name="unauthorized" type="redirect">Inbox</result>
 		</action>
 
 		<action name="DeletePrivateMessage"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success" type="redirectAction">Inbox</result>
+			<result name="success" type="redirect">Inbox</result>
 		</action>
 
 		<action name="DeleteMultiMessages"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti">
-			<result name="success" type="redirectAction">Inbox</result>
+			<result name="success" type="redirect">Inbox</result>
 		</action>
 
 		<action name="DeleteMultiMessages2"
 			class="fr.univartois.ili.fsnet.actions.ManagePrivateMessages" method="deleteMulti2">
-			<result name="success" type="redirectAction">Inbox</result>
+			<result name="success" type="redirect">Inbox</result>
 		</action>
 
 		<action name="DeleteMultiSentMessages"
