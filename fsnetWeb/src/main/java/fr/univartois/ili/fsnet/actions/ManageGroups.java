@@ -138,12 +138,6 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 				}
 				List<SocialElement> socialElements = createSocialElement(em,
 						memberListRight, masterGroup, parentGroup);
-				System.out.println("*** debug ***");
-				System.out.println(memberListRight.toString());
-				System.out.println(name.toString());
-				System.out.println(description.toString());
-				System.out.println(socialElements.toString());
-				System.out.println("******");
 				SocialGroup socialGroup = socialGroupFacade.createSocialGroup(
 						masterGroup, name, description, socialElements);
 

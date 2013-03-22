@@ -1,15 +1,15 @@
-<%@ page language="java" contentType="text/s; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib prefix="s" uri="/struts-tags"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8" %>
+<%@ taglib prefix="s" uri="/struts-tags" %>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <fieldset class="fieldsetCadre">
 	<legend>
-		<s:text name="groups.create" />
+		<s:text name="groups.create"/>
 	</legend>
 
 	<s:form action="CreateGroup" onsubmit="Valider()">
-
+	
 		<table id="CreateGroup" class="inLineTable tableStyle">
 			<tr>
 				<td><label for="name"> <s:text name="groups.name" />
@@ -36,8 +36,9 @@
 				<td><label for="parentId"> <s:text name="groups.parent" />
 				</label></td>
 				<td colspan="3">
-					<!--   listValue="%{allGroups.name}"-->
-					 <s:select name="parentId" cssClass="select" styleId="parentId" list="%{allGroups}" listValue="%{name}" listKey="%{id}"/>
+					<!--   listValue="%{allGroups.name}"--> <s:select name="parentId"
+						cssClass="select" styleId="parentId" list="%{allGroups}"
+						listValue="%{name}" listKey="%{id}" />
 				</td>
 			</tr>
 
@@ -46,11 +47,10 @@
 							name="groups.owner" />
 				</label></td>
 				<td colspan="3">
-<!-- 					listKey="%{allMembers.id}" -->
-<!-- 						listValue="%{allMembers.name} %{allMembers.firstName}" -->
-				<s:select name="socialEntityId"
-						cssClass="select" styleId="socialEntityId" list="%{allMembers}" listValue="%{name +' '+ firstName}" listKey="%{id}"/>
-						</td>
+					<s:select name="socialEntityId" cssClass="select"
+						styleId="socialEntityId" list="%{allMembers}"
+						listValue="%{name +' '+ firstName}" listKey="%{id}" />
+				</td>
 			</tr>
 
 			<tr>
@@ -60,24 +60,27 @@
 				<td rowspan="2">
 					<div>
 						<s:text name="groups.members.refused" />
-					</div>
-					 <s:select name="memberListLeft" cssClass="select" size="5"
-						multiple="true" list="%{refusedMembers}" listValue="%{name +' '+ firstName}" listKey="%{id}"/>
+					</div> <s:select name="memberListLeft" cssClass="select" size="5"
+						multiple="true" list="%{refusedMembers}"
+						listValue="%{name +' '+ firstName}" listKey="%{id}" />
 				</td>
 
-				<td><input type="button" class="btn btn-inverse" value="<s:text name="groups.addMembers" />"
-						onclick="DeplacerDroit(this.form.memberListLeft,this.form.memberListRight)"/></td>
+				<td><input type="button" class="btn btn-inverse"
+					value="<s:text name="groups.addMembers" />"
+					onclick="DeplacerDroit(this.form.memberListLeft,this.form.memberListRight)" /></td>
 
 				<td rowspan="2">
 					<div>
 						<s:text name="groups.members.accepted" />
 					</div> <s:select name="memberListRight" cssClass="select" size="5"
-						multiple="true" list="%{acceptedMembers}" listValue="%{name +' '+ firstName}" listKey="%{id}" />
+						multiple="true" list="%{acceptedMembers}"
+						listValue="%{name +' '+ firstName}" listKey="%{id}" />
 				</td>
 			</tr>
 			<tr>
-				<td><input type="button" class="btn btn-inverse" value="<s:text name="groups.removeMembers" />"
-						onclick="DeplacerDroit(this.form.memberListRight,this.form.memberListLeft);"/></td>
+				<td><input type="button" class="btn btn-inverse"
+					value="<s:text name="groups.removeMembers" />"
+					onclick="DeplacerDroit(this.form.memberListRight,this.form.memberListLeft);" /></td>
 			</tr>
 
 			<tr>
@@ -87,32 +90,31 @@
 				<td rowspan="2">
 					<div>
 						<s:text name="groups.right.notGranted" />
-					</div>
-					<s:select name="rigthListLeft" id="rigthListLeft" cssClass="select" size="5"
-						multiple="true" list="%{refusedRigths}" />
+					</div> <s:select name="rigthListLeft" id="rigthListLeft"
+						cssClass="select" size="5" multiple="true" list="%{refusedRigths}" />
 				</td>
 
-				<td><input type="button"  value="<s:text name="groups.addGroups" />"
-						class="btn btn-inverse"
-						onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight);"/>
-
+				<td><input type="button"
+					value="<s:text name="groups.addGroups" />" class="btn btn-inverse"
+					onclick="DeplacerDroit(this.form.rigthListLeft,this.form.rigthListRight);" />
 				<td rowspan="2">
 					<div>
 						<s:text name="groups.right.Granted" />
-					</div> <s:select name="rigthListRight" id="rigthListRight" cssClass="select" size="5"
-						multiple="true" list="%{acceptedRigths}"/>
+					</div> <s:select name="rigthListRight" id="rigthListRight"
+						cssClass="select" size="5" multiple="true"
+						list="%{acceptedRigths}" />
 				</td>
 			</tr>
-			<tr/>
+			<tr />
 			<tr>
-				<td><input type="button" class="btn btn-inverse" value="<s:text name="groups.removeGroups" />"
-						onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)"/>
-						
+				<td><input type="button" class="btn btn-inverse"
+					value="<s:text name="groups.removeGroups" />"
+					onclick="DeplacerDroit(this.form.rigthListRight,this.form.rigthListLeft)" />
 			</tr>
-<tr/>
+			<tr />
 			<tr>
-				<td colspan="4" class="tableButton">
-				<s:submit type="button" cssClass="btn btn-inverse" onclick="CreateGroup();">
+				<td colspan="4" class="tableButton"><s:submit type="button"
+						cssClass="btn btn-inverse" onclick="CreateGroup();">
 						<s:text name="groups.validate" />
 					</s:submit></td>
 			</tr>
