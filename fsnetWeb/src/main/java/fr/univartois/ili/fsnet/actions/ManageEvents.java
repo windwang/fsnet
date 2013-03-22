@@ -25,6 +25,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
 
 import net.fortuna.ical4j.data.CalendarBuilder;
@@ -127,8 +128,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * @param propertyKey
 	 * @return
 	 */
-	private Date validateDate(String eventDate, HttpServletRequest request,
-			String propertyKey) {
+	private Date validateDate(String eventDate, String propertyKey) {
 
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH),
@@ -175,7 +175,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 		Date typedEventRecallDate = DateUtils.substractTimeToDate(
 				eventBeginDate, eventRecallTime, eventRecallTypeTime);
 
-		addRightToRequest(request);
+		addRightToRequest();
 		if (eventBeginDate == null || eventEndDate == null
 				|| typedEventRecallDate == null) {
 			return INPUT;
@@ -300,7 +300,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 		SocialEntity user = UserUtils.getAuthenticatedUser(request, em);
 		InteractionFacade interactionFacade = new InteractionFacade(em);
 		MeetingFacade meetingFacade = new MeetingFacade(em);
-		addRightToRequest(request);
+		addRightToRequest();
 
 		try {
 			em.getTransaction().begin();
@@ -332,12 +332,11 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * @param response
 	 * @return
 	 */
-	public String subscribe(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String subscribe() {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		addRightToRequest(request);
+		addRightToRequest();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(member, Right.REGISTER_EVENT)) {
 			em.close();
@@ -369,12 +368,11 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * @param response
 	 * @return
 	 */
-	public String unsubscribe(HttpServletRequest request,
-			HttpServletResponse response) {
+	public String unsubscribe() {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
-		addRightToRequest(request);
+		addRightToRequest();
 		SocialGroupFacade fascade = new SocialGroupFacade(em);
 		if (!fascade.isAuthorized(member, Right.REGISTER_EVENT)) {
 			em.close();
@@ -408,10 +406,10 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String search() throws IOException, ServletException {
+	public String search() throws Exception {
 
 		EntityManager em = PersistenceProvider.createEntityManager();
-		addRightToRequest(request);
+		addRightToRequest();
 
 		em.getTransaction().begin();
 
@@ -454,11 +452,11 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * javax.servlet.http.HttpServletResponse)
 	 */
 	@Override
-	public String display() throws IOException, ServletException {
+	public String display() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
-			addRightToRequest(request);
+			addRightToRequest();
 
 			em.getTransaction().begin();
 
@@ -495,7 +493,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	/**
 	 * @param request
 	 */
-	private void addRightToRequest(HttpServletRequest request) {
+	private void addRightToRequest() {
 		SocialEntity socialEntity = UserUtils.getAuthenticatedUser(request);
 		Right rightAddEvent = Right.ADD_EVENT;
 		Right rightRegisterEvent = Right.REGISTER_EVENT;
@@ -560,6 +558,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 */
 	public String displayToModify() throws Exception {
 
+		
 		EntityManager em = PersistenceProvider.createEntityManager();
 
 		try {
@@ -592,12 +591,11 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 			}
 
 			eventRecallTime = Integer.parseInt(recallTime.toString());
-			return FAILED_ACTION_NAME;
+
+			return INPUT;
 		} finally {
 			em.close();
 		}
-
-		// return SUCCESS;
 	}
 
 	public String displayImportEvents() throws Exception {
@@ -623,8 +621,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String importEventsFromFile(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String importEventsFromFile() throws Exception {
 
 		try {
 
@@ -692,8 +689,8 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String exportEventById(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String exportEventById() throws IOException, ServletException {
+		HttpServletResponse response = ServletActionContext.getResponse();
 
 		String filePath = request.getSession().getServletContext()
 				.getRealPath("/");
@@ -709,8 +706,12 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 			EntityManager em = PersistenceProvider.createEntityManager();
 			MeetingFacade meetingFacade = new MeetingFacade(em);
 			em.getTransaction().begin();
+			
+			System.out.println(eventId);
+			
 			Meeting event = meetingFacade.getMeeting(eventId);
 
+			
 			VEvent myevent = convertEventToIcalEvent(event);
 
 			calendar.getComponents().add(myevent);
@@ -758,10 +759,11 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public String exportAllEvent(HttpServletRequest request,
-			HttpServletResponse response) throws IOException, ServletException {
+	public String exportAllEvent() throws IOException, ServletException {
 		String filePath = request.getSession().getServletContext()
 				.getRealPath("/");
+		HttpServletResponse response = ServletActionContext.getResponse();
+
 		File icsToCreate = new File(filePath, "calendar_all_event.ics");
 		try (OutputStream icsOutputStream = new FileOutputStream(icsToCreate);
 				InputStream icsInputStream = new FileInputStream(icsToCreate)) {
@@ -946,7 +948,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 	 */
 	public String deleteMulti() throws Exception {
 		EntityManager em = PersistenceProvider.createEntityManager();
-		addRightToRequest(request);
+		addRightToRequest();
 		SocialEntity authenticatedUser = UserUtils.getAuthenticatedUser(
 				request, em);
 
@@ -955,7 +957,7 @@ public class ManageEvents extends ActionSupport implements CrudAction,
 			MeetingFacade eventFacade = new MeetingFacade(em);
 			InteractionFacade interactionFacade = new InteractionFacade(em);
 
-			addRightToRequest(request);
+			addRightToRequest();
 
 			for (int i = 0; i < selectedEvents.length; i++) {
 				em.getTransaction().begin();
