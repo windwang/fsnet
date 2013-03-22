@@ -7,7 +7,7 @@
 		<s:text name="groups.Modify" />
 	</legend>
 
-	<s:form action="/ModifyGroup" onsubmit="Valider()">
+	<s:form action="/ModifyGroup" onsubmit="Valider()" theme="simple">
 
 		<table id="ModifyGroup" class="tableStyle">
 			<tr>
