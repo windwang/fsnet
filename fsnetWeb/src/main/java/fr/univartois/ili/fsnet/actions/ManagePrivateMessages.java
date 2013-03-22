@@ -146,7 +146,8 @@ CrudAction,ServletRequestAware,ServletResponseAware {
 				throw new UnauthorizedOperationException("");
 			}
 			em.getTransaction().begin();
-			pmf.deletePrivateMessage(authenticatedUser, privateMessage,fromPage);
+			pmf.deletePrivateMessage(authenticatedUser, privateMessage,
+					fromPage);
 			em.getTransaction().commit();
 		} catch (NumberFormatException e) {
 			//servlet.log("GRAVE ERROR : MUST BE VALIDATE BY STRUTS", e);
@@ -334,6 +335,7 @@ CrudAction,ServletRequestAware,ServletResponseAware {
 					.getPrivateMessage(messageId);
 			if(privateMessage==null){
 				throw new NullPointerException("privateMessage is null");
+
 			}
 			Collection<PrivateMessage> tmpUserMessages = pmf
 					.getConversation(privateMessage.getFrom(),

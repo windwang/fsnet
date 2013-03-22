@@ -311,7 +311,7 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 
 		SocialEntity profile = sef.getSocialEntity(id);
 
-		if (profile == null) {
+		if (profile == null || !profile.getIsEnabled()) {
 			em.close();
 			throw new UnauthorizedOperationException(
 					"The profile id is not defined");
