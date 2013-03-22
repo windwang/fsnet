@@ -15,22 +15,22 @@
 		</result-types>
 		<action name="Communities"
 			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="search">
-			<result name="input">/Communities.do</result>
+			<result name="input" type="tiles">Communities</result>
 			<result name="success" type="tiles">Communities</result>
 		</action>
 
 		<action name="CreateCommunity"
 			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="create">
-			<result name="success" type="tiles">/DisplayCommunities.do</result>
-			<result name="unauthorized">/Communities.do</result>
-			<result name="input">/DisplayCommunities.do</result>
+			<result name="success" type="tiles">DisplayCommunities</result>
+			<result name="unauthorized">Communities</result>
+			<result name="input">DisplayCommunities</result>
 		</action>
 
 		<action name="ModifyCommunity"
 			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="modify">
-			<result name="input">/DisplayCommunities.do</result>
-			<result name="failed">/DisplayCommunities.do</result>
-			<result name="success" type="tiles">/Communities.do</result>
+			<result name="input">DisplayCommunities</result>
+			<result name="failed">DisplayCommunities</result>
+			<result name="success" type="tiles">Communities</result>
 		</action>
 
 		<action name="SearchCommunity"
@@ -42,8 +42,8 @@
 		<action name="DeleteCommunity"
 			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="failed">/Communities.do</result>
-			<result name="success" type="tiles">/DisplayCommunities.do</result>
+			<result name="failed">Communities</result>
+			<result name="success" type="tiles">DisplayCommunities</result>
 		</action>
 
 		<action name="DisplayCommunity" class="fr.univartois.ili.fsnet.actions.ManageHub"
@@ -66,17 +66,17 @@
 		<action name="DeleteYourCommunity"
 			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="delete">
 			<result name="input">UnauthorizedOperationException</result>
-			<result name="success" type="tiles">/SearchYourCommunities.do</result>
+			<result name="success" type="tiles">SearchYourCommunities</result>
 		</action>
 
 		<action name="YourCommunities"
 			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="searchYourCommunities">
-			<result name="success" type="tiles">/SearchYourCommunities.do</result>
+			<result name="success" type="tiles">SearchYourCommunities</result>
 		</action>
 
 		<action name="DeleteMultiCommunities"
 			class="fr.univartois.ili.fsnet.actions.ManageCommunities" method="deleteMulti">
-			<result name="success" type="tiles">/Communities.do</result>
+			<result name="success" type="tiles">Communities</result>
 		</action>
 	</package>
 </struts>

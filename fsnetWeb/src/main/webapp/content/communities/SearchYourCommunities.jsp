@@ -6,7 +6,6 @@
 <s:set name="searchMessage">
 	<s:text name="communities.placeholder.search" />
 </s:set>
-
 <%@ include file="YourCommunities.jsp" %>
 <%@ include file="ModifyCommunity.jsp" %>
 
