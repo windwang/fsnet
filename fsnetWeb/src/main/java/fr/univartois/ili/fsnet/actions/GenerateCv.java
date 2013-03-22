@@ -14,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.struts.actions.ActionSupport;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 
@@ -31,7 +30,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.opensymphony.xwork2.ActionSupport;
 
-import fr.univartois.ili.fsnet.actions.utils.TableHeader;
 import fr.univartois.ili.fsnet.actions.utils.HeaderFooter;
 import fr.univartois.ili.fsnet.actions.utils.TableHeader;
 import fr.univartois.ili.fsnet.commons.utils.PersistenceProvider;

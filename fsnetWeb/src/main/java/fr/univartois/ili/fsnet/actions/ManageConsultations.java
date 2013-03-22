@@ -44,7 +44,7 @@ import fr.univartois.ili.fsnet.filter.FilterInteractionByUserGroup;
  * 
  */
 public class ManageConsultations extends ActionSupport implements
-		ServletRequestAware, ServletResponseAware {
+ServletRequestAware, ServletResponseAware {
 
 	/**
 	 * 
@@ -60,7 +60,7 @@ public class ManageConsultations extends ActionSupport implements
 
 	private List<String> listTypeKey;
 	private List<String> listTypeValue;
-	
+
 	private int minChoicesVoter;
 	private int maxChoicesVoter;
 	private String consultationTitle;
@@ -98,39 +98,39 @@ public class ManageConsultations extends ActionSupport implements
 
 	private HttpServletRequest request;
 	private HttpServletResponse response;
-	
+
 	public ManageConsultations() {
 		listTypeKey=new ArrayList<>();
 		listTypeValue=new ArrayList<>();
-		
+
 		listTypeValue.add("YES_NO");
 		listTypeValue.add("YES_NO_OTHER");
 		listTypeValue.add("YES_NO_IFNECESSARY");
 		listTypeValue.add("PREFERENCE_ORDER");
-		
+
 		listTypeKey.add("consultations.form.typeYesNo");
 		listTypeKey.add("consultations.form.typeYesNoOther");
 		listTypeKey.add("consultations.form.typeYesNoIfNecessary");
 		listTypeKey.add("consultations.form.typePreferenceOrder");
-		
+
 	}
 
 	public String displayCreate(){
-		
+
 		return SUCCESS;
 	}
-	
+
 	/**
 	 * 
 	 * @return String
 	 * @throws Exception
 	 */
 	public String create() throws Exception {
-		
+
 		if(consultationChoice == null){
 			return FAILED_ACTION_NAME;
 		}
-		
+
 		String[] consultationChoices = consultationChoice
 				.split(REGEX_CONSULTATION_CHOICE);
 		String[] maxVoterz = maxVoters.split(REGEX_CONSULTATION_CHOICE);
@@ -179,7 +179,7 @@ public class ManageConsultations extends ActionSupport implements
 			consultation.setLimitParticipantPerChoice(true);
 			for (int i = 0; i < maxVoterz.length; i++) {
 				consultation.getChoices().get(i)
-						.setMaxVoters(Integer.valueOf(maxVoterz[i]));
+				.setMaxVoters(Integer.valueOf(maxVoterz[i]));
 			}
 		}
 		if (!"".equals(showBeforeAnswer)) {
@@ -270,7 +270,7 @@ public class ManageConsultations extends ActionSupport implements
 			}
 			if (answersNumber < consultation.getLimitChoicesPerParticipantMin()
 					|| answersNumber > consultation
-							.getLimitChoicesPerParticipantMax()) {
+					.getLimitChoicesPerParticipantMax()) {
 
 				request.setAttribute("errorChoicesPerParticipant", true);
 				return displayAConsultation(request, response);
@@ -395,7 +395,7 @@ public class ManageConsultations extends ActionSupport implements
 		return true;
 	}
 
-	
+
 	/**
 	 * 
 	 * @return String
@@ -494,17 +494,17 @@ public class ManageConsultations extends ActionSupport implements
 		if (idConsultation == null || "".equals(idConsultation)) {
 			idConsultation = String.valueOf(request.getAttribute("id"));
 		}
-		if (idConsultation != null) {
+		if(idConsultation!=null){
 			EntityManager em = PersistenceProvider.createEntityManager();
 			SocialEntity member = UserUtils.getAuthenticatedUser(request, em);
 			request.setAttribute("member", member);
 			ConsultationFacade consultationFacade = new ConsultationFacade(em);
 			Consultation consultation = consultationFacade
 					.getConsultation(Integer.valueOf(idConsultation));
+			if(consultation == null)
 				return UNAUTHORIZED_ACTION_NAME;
-			}
-			Collections.sort(consultation.getChoices(),
-					new ConsultationChoiceComparator());
+
+			Collections.sort(consultation.getChoices(),new ConsultationChoiceComparator());
 
 			FilterInteractionByUserGroup filterGroup = new FilterInteractionByUserGroup(
 					em);
@@ -540,7 +540,6 @@ public class ManageConsultations extends ActionSupport implements
 			}
 			em.close();
 		}
-
 		return SUCCESS;
 	}
 
@@ -651,7 +650,7 @@ public class ManageConsultations extends ActionSupport implements
 				&& (consultation.isShowBeforeClosing()
 						|| !consultation.isOpened()
 						|| consultation.isMaximumVoterReached() || consultation
-							.isDeadlineReached()) && member.getIsEnabled();
+						.isDeadlineReached()) && member.getIsEnabled();
 	}
 
 	/**
@@ -980,6 +979,6 @@ public class ManageConsultations extends ActionSupport implements
 		return listTypeValue;
 	}
 
-	
-	
+
+
 }

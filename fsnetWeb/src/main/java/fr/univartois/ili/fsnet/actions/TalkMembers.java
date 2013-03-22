@@ -17,15 +17,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import net.sf.json.JSONArray;
 
-<<<<<<< HEAD
-import org.apache.commons.lang.StringEscapeUtils;
 import org.apache.commons.lang.StringUtils;
-import org.apache.struts.actions.ActionSupport;
-=======
->>>>>>> branch 'struts' of https://code.google.com/p/fsnet
+import org.apache.struts2.dispatcher.mapper.ActionMapping;
 import org.apache.struts2.interceptor.ServletRequestAware;
 import org.apache.struts2.interceptor.ServletResponseAware;
 import org.jivesoftware.smack.Chat;
+import org.jivesoftware.smack.XMPPException;
 import org.json.simple.JSONObject;
 
 import com.opensymphony.xwork2.ActionSupport;
@@ -39,6 +36,7 @@ import fr.univartois.ili.fsnet.commons.utils.TalkJsonMsg;
 import fr.univartois.ili.fsnet.commons.utils.TalkMessage;
 import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.tools.PropsUtils;
+//code.google.com/p/fsnet
 
 /**
  * manage chat action.
@@ -404,6 +402,38 @@ public class TalkMembers extends ActionSupport implements ServletRequestAware,
 
 	}
 	
+	public String isComposing()
+            throws IOException, ServletException {
+            
+    String friend = request.getParameter("toFriend");
+    friend = friend + "@" + xmppServerDomain;
+    
+    ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);    
+    
+    TalkMessage talkMessage = (TalkMessage) request.getSession()
+                    .getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+    
+    if (talkMessage == null) {
+
+            talkMessage = new TalkMessage(talk);
+            request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+    }
+    List<TalkJsonComposing> ljsc = new ArrayList<>();
+    for(Map.Entry<String, Boolean> e:talkMessage.getIsComposing().entrySet()){
+            TalkJsonComposing  tjc = new TalkJsonComposing(e.getKey(), e.getValue());
+            ljsc.add(tjc);
+    }
+
+    JSONObject obj = new JSONObject();
+    obj.put("isComposing",JSONArray.fromObject(ljsc));
+    
+    response.setHeader("cache-control", "no-cache");
+    response.setContentType("application/json");
+    
+    obj.writeJSONString(response.getWriter());
+    
+}
+	
 	/**
 	 * composing message
 	 * 
@@ -414,15 +444,77 @@ public class TalkMembers extends ActionSupport implements ServletRequestAware,
 	 * @throws IOException
 	 * @throws ServletException
 	 */
-	public void composing(ActionMapping mapping, ActionForm form,
-			HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+	public String composing()
+			throws Exception {
+String friend = request.getParameter("toFriend");
+		
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+		TalkMessage talkMessage = (TalkMessage) request.getSession()
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+		
+		if (talkMessage == null) {
+
+			talkMessage = new TalkMessage(talk);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		}
+		
+		friend = friend + "@" + xmppServerDomain;
+		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
+		Chat chat = sessionTalks.get(friend);
+		
+		if (chat == null) {
+
+			try {
+				chat = talk.createConversation(friend);
+				sessionTalks.put(friend, chat);
+				talkMessage.setSessionTalks(sessionTalks);
+
+			} catch (TalkException e) {
+
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+			}
+
+		}
+		
+		ChatStateManager.getInstance(talk.getConnection()).setCurrentState(ChatState.composing, chat);
+	}
+
+	public String notComposing()
+			throws Exception {
+		
 		String friend = request.getParameter("toFriend");
-		System.out.println("################################");
-		System.out.println("COMPOSING to");
-		System.out.println(friend);
-	}
+		
+		ITalk talk = (ITalk) request.getSession().getAttribute(TALK_ATTRIBUTE_NAME);
+		TalkMessage talkMessage = (TalkMessage) request.getSession()
+				.getAttribute(TALKMESSAGE_ATTRIBUTE_NAME);
+		
+		if (talkMessage == null) {
 
+			talkMessage = new TalkMessage(talk);
+			request.getSession().setAttribute(TALKMESSAGE_ATTRIBUTE_NAME, talkMessage);
+		}
+		
+		friend = friend + "@" + xmppServerDomain;
+		Map<String, Chat> sessionTalks = talkMessage.getSessionTalks();
+		Chat chat = sessionTalks.get(friend);
+		
+		if (chat == null) {
+
+			try {
+				chat = talk.createConversation(friend);
+				sessionTalks.put(friend, chat);
+				talkMessage.setSessionTalks(sessionTalks);
+
+			} catch (TalkException e) {
+
+				Logger.getAnonymousLogger().log(Level.SEVERE, "", e);
+			}
+
+		}
+		
+		ChatStateManager.getInstance(talk.getConnection()).setCurrentState(ChatState.paused, chat);
+	}
+	
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
@@ -432,15 +524,4 @@ public class TalkMembers extends ActionSupport implements ServletRequestAware,
 	public void setServletResponse(HttpServletResponse response) {
 		this.response = response;
 	}
-
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request = request;
-	}
-
-	@Override
-	public void setServletResponse(HttpServletResponse response) {
-		this.response = response;
-	}
-
 }

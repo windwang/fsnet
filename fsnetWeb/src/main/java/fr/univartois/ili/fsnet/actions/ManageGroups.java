@@ -14,15 +14,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.struts2.interceptor.ServletRequestAware;
 
-<<<<<<< HEAD
-=======
-import com.itextpdf.text.log.SysoLogger;
->>>>>>> branch 'struts' of https://code.google.com/p/fsnet
 import com.opensymphony.xwork2.ActionSupport;
 
 import fr.univartois.ili.fsnet.actions.utils.ImageManager;
@@ -35,6 +30,7 @@ import fr.univartois.ili.fsnet.entities.SocialEntity;
 import fr.univartois.ili.fsnet.entities.SocialGroup;
 import fr.univartois.ili.fsnet.facade.SocialEntityFacade;
 import fr.univartois.ili.fsnet.facade.SocialGroupFacade;
+//code.google.com/p/fsnet
 
 /**
  * @author FSNet
@@ -77,6 +73,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	private Set<Right> refusedRigths;
 	private Set<Right> acceptedRigths;
 	private List<SocialEntity> refusedMembers;
+
+	private String[] rigthListLeft;
 	
 	
 	public ManageGroups() {
@@ -134,7 +132,6 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 		if (socialEntityId >=0 && parentId >=0 && memberListRight != null && rigthListRight != null) {
 			try {
 				masterGroup = socialEntityFacade
-				SocialEntity masterGroup = socialEntityFacade
 						.getSocialEntity(socialEntityId);
 				if (parentId >= 0) {
 					parentGroup = socialGroupFacade.getSocialGroup(parentId);
@@ -751,13 +748,8 @@ public class ManageGroups extends ActionSupport implements CrudAction,ServletReq
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request=request;
-		
-
-	@Override
-	public void setServletRequest(HttpServletRequest request) {
-		this.request=request;
-		
 	}
+	
 	public String[] getRigthListLeft() {
 		return rigthListLeft;
 	}

@@ -104,22 +104,6 @@ public class ManageProfile extends ActionSupport implements CrudAction,ServletRe
 		sexesValue.add("updateProfile.sexe.male");
 		sexesValue.add("updateProfile.sexe.female");
 	}
-
-	private HttpServletRequest request;
-	private String name;
-	private String firstName;
-	private String adress;
-	private String city;
-	private String sexe;
-	private String mail;
-	private String phone;
-	private String job;
-	private Date dateOfBirth;
-	private int id=-1;
-	private File photo;
-	private String photoContentType;
-	private String photoUrl;
-	
 	
 	/*
 	 * (non-Javadoc)
